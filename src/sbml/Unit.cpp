@@ -1104,8 +1104,8 @@ Unit::areIdentical(Unit * unit1, Unit * unit2)
  * Predicate returning @c true if 
  * Unit objects are equivalent (matching kind and exponent).
  *
- * @param unit1 the first Unit object to compare
- * @param unit2 the second Unit object to compare
+ * @param unit1 the first Unit object to compare.
+ * @param unit2 the second Unit object to compare.
  *
  * @return @c true if the kind and exponent attributes of unit1 are identical
  * to the kind and exponent attributes of unit2, @c false otherwise.
@@ -1187,8 +1187,8 @@ Unit::removeScale(Unit * unit)
  * merge to become
  * <unit kind="metre" exponent="3"/>
  *
- * @param unit1 the first Unit object 
- * @param unit2 the second Unit object to merge with the first
+ * @param unit1 the first Unit object.
+ * @param unit2 the second Unit object to merge with the first.
  */
 void
 Unit::merge(Unit * unit1, Unit * unit2)
@@ -1241,7 +1241,7 @@ Unit::merge(Unit * unit1, Unit * unit2)
  * Returns a UnitDefinition object which contains the argument unit
  * converted to the appropriate SI unit.
  *
- * @param unit the Unit object to convert to SI
+ * @param unit the Unit object to convert to SI.
  *
  * @return a UnitDefinition object containing the SI unit.
  */
@@ -1800,7 +1800,7 @@ Unit::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Unit::readAttributes (const XMLAttributes& attributes,
@@ -1831,7 +1831,7 @@ Unit::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Unit::readL1Attributes (const XMLAttributes& attributes)
@@ -1885,7 +1885,7 @@ Unit::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Unit::readL2Attributes (const XMLAttributes& attributes)
@@ -1947,7 +1947,7 @@ Unit::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Unit::readL3Attributes (const XMLAttributes& attributes)
@@ -2023,7 +2023,7 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -2041,7 +2041,7 @@ Unit::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void

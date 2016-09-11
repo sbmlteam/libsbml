@@ -232,7 +232,7 @@ public:
    * <li> 1:  @p item1 >  @p item2
    * </ul>
    * 
-   * @param item1 a pointer to the item being sought
+   * @param item1 a pointer to the item being sought.
    *
    * @param comparator a pointer to a ListItemComparator function used to
    * find the item of interest in this list.
@@ -261,7 +261,7 @@ public:
    * @return a new List containing (pointers to) all items in this List for
    * which <code>predicate(item)</code> returned nonzero (true).  The
    * returned list may be empty if none of the items satisfy the @p
-   * predicate
+   * predicate.
    */
   List* findIf (ListItemPredicate  predicate) const;
 
@@ -433,7 +433,7 @@ ListNode_create (void *item);
  * longer or ii) the list has no items (List_size(lst) == 0).  If neither
  * are true, try List_freeItems() instead.
  *
- * @param lst The List_t structure
+ * @param lst the List_t structure.
  *
  * @if conly
  * @memberof List_t
@@ -449,7 +449,7 @@ List_free (List_t *lst);
  *
  * Frees the given ListNode_t.
  *
- * @param node The ListNode_t structure
+ * @param node the ListNode_t structure.
  *
  * @memberof ListNode_t
  */
@@ -461,8 +461,8 @@ ListNode_free (ListNode_t *node);
 /**
  * Adds item to the end of this List_t.
  *
- * @param lst The List_t structure
- * @param item The item to add to the end of the list
+ * @param lst the List_t structure.
+ * @param item the item to add to the end of the list.
  *
  * @if conly
  * @memberof List_t
@@ -484,8 +484,8 @@ List_add (List_t *lst, void *item);
  * where a return value of non-zero represents true and zero represents
  * false.
  *
- * @param lst The List_t structure
- * @param predicate The predicate to test the elements of the list against.
+ * @param lst the List_t structure.
+ * @param predicate the predicate to test the elements of the list against.
  *
  * @if conly
  * @memberof List_t
@@ -509,9 +509,9 @@ List_countIf (const List_t *lst, ListItemPredicate predicate);
  *    0    item1 == item 2
  *    1    item1 >  item2
  *
- * @param lst The List_t structure
- * @param item1 The item to look for.
- * @param comparator The pointer to the function used to find the item.
+ * @param lst the List_t structure.
+ * @param item1 the item to look for.
+ * @param comparator the pointer to the function used to find the item.
  *
  * @if conly
  * @memberof List_t
@@ -533,8 +533,8 @@ List_find ( const List_t       *lst,
  * The caller owns the returned list (but not its constituent items) and is
  * responsible for freeing it with List_free().
  *
- * @param lst The List_t structure
- * @param predicate The predicate to test the elements of the list against.
+ * @param lst the List_t structure.
+ * @param predicate the predicate to test the elements of the list against.
  *
  * @if conly
  * @memberof List_t
@@ -548,8 +548,8 @@ List_findIf (const List_t *lst, ListItemPredicate predicate);
 /**
  * Returns the nth item in this List_t.  If n > List_size(lst) returns NULL.
  *
- * @param lst The List_t structure
- * @param n The index of the item to find.
+ * @param lst the List_t structure.
+ * @param n the index of the item to find.
  *
  * @if conly
  * @memberof List_t
@@ -563,8 +563,8 @@ List_get (const List_t *lst, unsigned int n);
 /**
  * Adds item to the beginning of this List_t.
  *
- * @param lst The List_t structure
- * @param item The item to add to the list.
+ * @param lst the List_t structure.
+ * @param item the item to add to the list.
  *
  * @if conly
  * @memberof List_t
@@ -579,8 +579,8 @@ List_prepend (List_t *lst, void *item);
  * Removes the nth item from this List_t and returns a pointer to it.  If n >
  * List_size(lst) returns NULL.
  *
- * @param lst The List_t structure
- * @param n The index of the item to remove.
+ * @param lst the List_t structure.
+ * @param n the index of the item to remove.
  *
  * @if conly
  * @memberof List_t
@@ -594,7 +594,7 @@ List_remove (List_t *lst, unsigned int n);
 /**
  * @return the number of elements in this List_t.
  *
- * @param lst The List_t structure
+ * @param lst the List_t structure.
  *
  * @if conly
  * @memberof List_t

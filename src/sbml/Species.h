@@ -211,6 +211,15 @@
  * product, or as the target of any AssignmentRule, RateRule or
  * EventAssignment object in the model.
  *
+ * Finally, it is worth clarifying that while the constant and 
+ * boundaryCondition attributes restrict whether and how the species 
+ * amount changes, the same is not true of a species' concentration. In 
+ * SBML, the concentration of a species is a quantity that depends on the 
+ * size of the compartment in which it is located. A compartment's size 
+ * may change, and therefore, so can the concentration of a species even 
+ * if the amount of the species remains unchanged. A species' concentration 
+ * may therefore vary even if the Species object's constant attribute is 
+ * set to @c true in a model.
  *
  * @section species-l2-convfactor The conversionFactor attribute in SBML Level&nbsp;3
  * 
@@ -415,10 +424,10 @@ public:
    * Creates a new Species using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Species
+   * @param level an unsigned int, the SBML Level to assign to this Species.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * Species
+   * Species.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -466,7 +475,7 @@ public:
   /**
    * Assignment operator for Species.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   Species& operator=(const Species& rhs);
@@ -511,17 +520,28 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this Species object.
-   * 
-   * @return the id of this Species object.
+   * Returns the value of the "id" attribute of this Species.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Species.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
 
   /**
    * Returns the value of the "name" attribute of this Species object.
-   * 
-   * @return the name of this Species object.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -664,8 +684,7 @@ public:
    * Predicate returning @c true if this
    * Species object's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Species is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -674,8 +693,7 @@ public:
    * Predicate returning @c true if this
    * Species object's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Species is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -827,31 +845,17 @@ public:
 
 
   /**
-   * Sets the value of the "id" attribute of this Species object.
+   * Sets the value of the "id" attribute of this Species.
    *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this Species
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& sid);
+  virtual int setId(const std::string& sid);
 
 
   /**
-   * Sets the value of the "name" attribute of this Species object.
+   * Sets the value of the "name" attribute of this Species.
    *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the Species
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -1002,7 +1006,7 @@ public:
   /**
    * Sets the "constant" attribute of this Species object.
    *
-   * @param value a boolean value for the "constant" attribute
+   * @param value a boolean value for the "constant" attribute.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1019,7 +1023,7 @@ public:
    *
    * The string in @p sid is copied.
    *
-   * @param sid the new conversionFactor for the Species
+   * @param sid the new conversionFactor for the Species.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1036,9 +1040,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Species object.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -1298,7 +1300,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -1351,7 +1353,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -1365,7 +1367,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -1379,8 +1381,8 @@ protected:
   bool isExplicitlySetHasOnlySubsUnits() const 
                             { return mExplicitlySetHasOnlySubsUnits; } ;
 
-  std::string  mId;
-  std::string  mName;
+  //std::string  mId;
+  //std::string  mName;
   std::string  mSpeciesType;
   std::string  mCompartment;
 
@@ -1442,9 +1444,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -1567,7 +1569,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -1581,7 +1583,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -1636,10 +1638,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Species_t
+ * Species_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Species_t
+ * Species_t.
  *
  * @return a pointer to the newly created Species_t structure.
  *
@@ -1663,7 +1665,7 @@ Species_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this Species_t
+ * to assign to this Species_t.
  *
  * @return a pointer to the newly created Species_t structure.
  *
@@ -1697,7 +1699,7 @@ Species_free (Species_t *s);
 /**
  * Creates a deep copy of the given Species_t structure
  * 
- * @param s the Species_t structure to be copied
+ * @param s the Species_t structure to be copied.
  * 
  * @return a (deep) copy of the given Species_t structure.
  *
@@ -1730,7 +1732,7 @@ Species_initDefaults (Species_t *s);
  * Returns a list of XMLNamespaces_t associated with this Species_t
  * structure.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -1745,7 +1747,7 @@ Species_getNamespaces(Species_t *s);
 /**
  * Takes a Species_t structure and returns its identifier.
  *
- * @param s the Species_t structure whose identifier is sought
+ * @param s the Species_t structure whose identifier is sought.
  * 
  * @return the identifier of the Species_t structure @p s, as a pointer
  * to a string.
@@ -1776,7 +1778,7 @@ Species_getName (const Species_t *s);
  * Get the species type of this Species_t structure, as indicated by the
  * Species_t structure's "speciesType" attribute value.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the value of the "speciesType" attribute of the
  * Species_t structure @p s as a string.
@@ -1791,7 +1793,7 @@ Species_getSpeciesType (const Species_t *s);
 /**
  * Get the compartment in which this species is located.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the value of the "compartment" attribute of the given Species_t
  * structure, as a string.
@@ -1806,7 +1808,7 @@ Species_getCompartment (const Species_t *s);
 /**
  * Get the value of the "initialAmount" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the "initialAmount" attribute of the given Species_t structure,
  * as a float-point number.
@@ -1821,7 +1823,7 @@ Species_getInitialAmount (const Species_t *s);
 /**
  * Get the value of the "initialConcentration" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the "initialConcentration" of the given Species_t structure, as
  * a float-point number.
@@ -1836,7 +1838,7 @@ Species_getInitialConcentration (const Species_t *s);
 /**
  * Get the value of the "substanceUnit" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the "substanceUnits" attribute of the given Species_t structure,
  * as a string.
@@ -1851,7 +1853,7 @@ Species_getSubstanceUnits (const Species_t *s);
 /**
  * Get the value of the "spatialSizeUnits" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the spatialSizeUnits of the given Species_t.
  * 
@@ -1873,7 +1875,7 @@ Species_getSpatialSizeUnits (const Species_t *s);
 /**
  * (SBML Level 1 only) Get the value of the "units" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the units of the given Species_t structure.
  *
@@ -1887,7 +1889,7 @@ Species_getUnits (const Species_t *s);
 /**
  * Get the value of the "hasOnlySubstanceUnits" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return nonzero (true) if the given Species_t structure's
  * "hasOnlySubstanceUnits" attribute value is nonzero, zero (0) otherwise.
@@ -1902,7 +1904,7 @@ Species_getHasOnlySubstanceUnits (const Species_t *s);
 /**
  * Get the value of the "boundaryCondition" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return nonzero (true) if the given Species_t structure's
  * "boundaryCondition" attribute value is nonzero, zero (0) otherwise.
@@ -1917,7 +1919,7 @@ Species_getBoundaryCondition (const Species_t *s);
 /**
  * Get the value of the "charge" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the charge of the given Species_t structure.
  *
@@ -1942,7 +1944,7 @@ Species_getCharge (const Species_t *s);
 /**
  * Get the value of the "constant" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return nonzero (true) if the given Species_t structure's "constant"
  * attribute value is nonzero, @c false otherwise.
@@ -1957,7 +1959,7 @@ Species_getConstant (const Species_t *s);
 /**
  * Get the value of the "conversionFactor" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @return the "conversionFactor" attribute of the given Species_t structure,
  * as a string.
@@ -1973,10 +1975,10 @@ Species_getConversionFactor (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "id" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "id" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "id" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -1989,10 +1991,10 @@ Species_isSetId (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "name" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "name" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "name" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2005,10 +2007,10 @@ Species_isSetName (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "speciesType" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "speciesType" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "speciesType" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2021,10 +2023,10 @@ Species_isSetSpeciesType (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "compartment" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "compartment" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "compartment" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2037,10 +2039,10 @@ Species_isSetCompartment (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "initialAmount" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "initialAmount" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "initialAmount" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @note In SBML Level 1, Species_t' "initialAmount" is required and
  * therefore <em>should always be set</em>.  (However, in Level 1, the
@@ -2059,10 +2061,10 @@ Species_isSetInitialAmount (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "compartment" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "compartment" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "compartment" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2075,10 +2077,10 @@ Species_isSetInitialConcentration (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "substanceUnits" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "substanceUnits" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "substanceUnits" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2091,10 +2093,10 @@ Species_isSetSubstanceUnits (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "spatialSizeUnits" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "spatialSizeUnits" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "spatialSizeUnits" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  * 
  * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the 
  * Species_t included an attribute called "spatialSizeUnits", which allowed
@@ -2116,10 +2118,10 @@ Species_isSetSpatialSizeUnits (const Species_t *s);
  * whether the attribute "units" of the given Species_t structure is
  * set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "units" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "units" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2132,10 +2134,10 @@ Species_isSetUnits (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "charge" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "charge" attribute of the given
- * Species_t structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "charge" attribute of the given
+ * Species_t structure is set, @c false (0) otherwise.
  *
  * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t in SBML is deprecated and its use strongly discouraged.  Its
@@ -2159,10 +2161,10 @@ Species_isSetCharge (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "conversionFactor" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "conversionFactor" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "conversionFactor" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2175,10 +2177,10 @@ Species_isSetConversionFactor (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "constant" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "constant" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "constant" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2191,10 +2193,10 @@ Species_isSetConstant (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "boundaryCondition" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "boundaryCondition" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "boundaryCondition" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2207,10 +2209,10 @@ Species_isSetBoundaryCondition (const Species_t *s);
  * Predicate returning true or false depending on whether the attribute
  * "hasOnlySubstanceUnits" of the given Species_t structure is set.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @return true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
- * structure is set, false (0) otherwise.
+ * @return @c true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
+ * structure is set, @c false (0) otherwise.
  *
  * @memberof Species_t
  */
@@ -2225,7 +2227,7 @@ Species_isSetHasOnlySubstanceUnits (const Species_t *s);
  * This function copies the string given in @p sid.  If the string is
  * @c NULL, this function performs unsetId() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifier string to which the "id" attribute should be
  * set.
@@ -2250,7 +2252,7 @@ Species_setId (Species_t *s, const char *sid);
  * This function copies the string given in @p name.  If the string is
  * @c NULL, this function performs unsetName() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param name the name string to which the "name" attribute should be set.
  *
@@ -2274,7 +2276,7 @@ Species_setName (Species_t *s, const char *name);
  * This function copies the string given in @p sid.  If the string
  * is NULL, this function performs unsetSpeciesType() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifer to which the "speciesType" attribute
  * should be set.
@@ -2300,7 +2302,7 @@ Species_setSpeciesType (Species_t *s, const char *sid);
  * This function copies the string given in @p compartment.  If the string
  * is NULL, this function performs unsetCompartment() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifer to which the "compartment" attribute
  * should be set.
@@ -2326,11 +2328,11 @@ Species_setCompartment (Species_t *s, const char *sid);
  * As a side-effect, calling this function also unsets the
  * "initialConcentration" attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  *
- * @param value the numerical value for the "initialAmount" attribute
+ * @param value the numerical value for the "initialAmount" attribute.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Species_t
@@ -2347,10 +2349,10 @@ Species_setInitialAmount (Species_t *s, double value);
  * As a side-effect, calling this function also unsets the "initialAmount"
  * attribute.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  *
  * @param value the numerical value for the "initialConcentration"
- * attribute
+ * attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2369,7 +2371,7 @@ Species_setInitialConcentration (Species_t *s, double value);
  * This function copies the string given in @p sid.  If the string
  * is NULL, this function performs unsetSubstanceUnits() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifer to which the "substanceUnits"
  * attribute should be set.
@@ -2394,7 +2396,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
  * This function copies the string given in @p sid.  If the string is NULL,
  * this function performs unsetSpatialSizeUnits() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifer to which the "spatialSizeUnits"
  * attribute should be set.
@@ -2429,7 +2431,7 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid);
  * This function copies the string given in @p sid.  If the string is NULL,
  * this function performs unsetUnits() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sname the identifer to which the "units" attribute
  * should be set.
@@ -2452,7 +2454,7 @@ Species_setUnits (Species_t *s, const char *sname);
  * Sets the "hasOnlySubstanceUnits" attribute of the given Species_t
  * structure.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param value nonzero to indicate true, zero to indicate false.
  *
@@ -2471,11 +2473,11 @@ Species_setHasOnlySubstanceUnits (Species_t *s, int value);
  * Sets the "boundaryCondition" attribute of the given Species_t
  * structure.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param value nonzero to indicate true, zero to indicate false.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Species_t
@@ -2489,9 +2491,9 @@ Species_setBoundaryCondition (Species_t *s, int value);
  * Sets the "charge" attribute of the given Species_t
  * structure.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
- * @param value the value of charge to assign to the "charge" attribute
+ * @param value the value of charge to assign to the "charge" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2519,7 +2521,7 @@ Species_setCharge (Species_t *s, int value);
  * Sets the "constant" attribute of the given Species_t
  * structure.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param value nonzero to indicate true, zero to indicate false.
  *
@@ -2540,7 +2542,7 @@ Species_setConstant (Species_t *s, int value);
  * This function copies the string given in @p sid.  If the string
  * is NULL, this function performs unsetConversionFactor() instead.
  *
- * @param s the Species_t structure
+ * @param s the Species_t structure.
  * 
  * @param sid the identifer to which the "conversionFactor" attribute
  * should be set.
@@ -2613,7 +2615,7 @@ Species_unsetSpeciesType (Species_t *s);
  *
  * @param s the Species_t structure whose attribute is to be unset.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Species_t
@@ -2629,7 +2631,7 @@ Species_unsetInitialAmount (Species_t *s);
  *
  * @param s the Species_t structure whose attribute is to be unset.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Species_t
@@ -2832,7 +2834,7 @@ Species_getDerivedUnitDefinition(Species_t *s);
  * @param s the Species_t structure to check.
  *
  * @return a true if all the required
- * attributes for this structure have been defined, false otherwise.
+ * attributes for this structure have been defined, @c false otherwise.
  *
  * @memberof Species_t
  */
@@ -2865,7 +2867,7 @@ ListOfSpecies_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of Species_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The Species_t structure removed, or a null pointer if no such
  * item exists in @p lo.

@@ -42,6 +42,18 @@
  * @if conly C@endif@if cpp C++; @endif@if java Java@endif@if python Python@endif@~ lists,
  * so that it can provide the methods and features associated with SBase.
  *
+ * Whether a given ListOf element may be empty or not depends on the 
+ * element in question, and on what level and version of SBML it
+ * is being used for.  For ListOf elements in SBML Level&nbsp;3
+ * Version&nbsp;1 and prior, no core list and few package lists could
+ * be empty.  As of SBML Level&nbsp;3 Version&nbsp;2, the rules
+ * were relaxed, and lists were allowed to be empty.  In libSBML,
+ * documents created for Level&nbsp;3 Version&nbsp;2 will be written
+ * with empty ListOf's if that ListOf contains some other 'extra'
+ * information: an attribute such as metaid or sboTerm, a child
+ * '&lt;notes&gt;' or '&lt;annotation&gt;', or information from a SBML 
+ * Level&nbsp;3 package.
+ *
  * @copydetails doc_what_is_listof
  */
 
@@ -156,6 +168,9 @@ public:
 
   /**
    * Assignment operator for ListOf.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ListOf& operator=(const ListOf& rhs);
 
@@ -212,6 +227,7 @@ public:
    * ownership behavior, see the ListOf::append(SBase* item) method.
    *
    * @param disownedItem the item to be added to the list.
+   * Will become a child of the parent list.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -267,8 +283,9 @@ public:
    * This means that when the ListOf is destroyed, the original @p item
    * <em>will</em> be destroyed.
    *
-   * @param location the location where to insert the item
-   * @param disownedItem the item to be inserted to the list
+   * @param location the location where to insert the item.
+   * @param disownedItem the item to be inserted to the list.
+   * Will become a child of the parent list.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -337,6 +354,10 @@ public:
    *
    * The values returned include all children of the objects in this ListOf
    * list, nested to an arbitrary depth.
+   *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
    *
    * @return a List of pointers to all child objects.
    */
@@ -416,7 +437,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -431,7 +452,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -531,7 +552,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -550,7 +571,27 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
 
+
+  virtual bool hasOptionalElements() const;
+
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+
+  bool isExplicitlyListed() const;
+
+    /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  void setExplicitlyListed(bool value=true) ;
+
+
+  /** @endcond */
 protected:
   /** @cond doxygenLibsbmlInternal */
   typedef std::vector<SBase*>           ListItem;
@@ -568,14 +609,14 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -587,7 +628,10 @@ protected:
 
   virtual bool isValidTypeForList(SBase * item);
 
+
   ListItem mItems;
+
+  bool mExplicitlyListed;
 
   /** @endcond */
 };
@@ -678,6 +722,7 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
  *
  * @param lo the ListOf_t structure to which the @p disownedItem should be appended.
  * @param disownedItem the item to append to the list.
+ * Will become a child of the parent list.
  *
  * Unlike ListOf_append(), this function does not copy the @p disownedItem.
  * The given @p lo list will contain the original item.
@@ -739,6 +784,7 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
  * @param lo the list into which @p disownedItem will be inserted.
  * @param location the starting index for the @p disownedItem in the @p lo list.
  * @param disownedItem the item to append to insert into @p lo.
+ * Will become a child of the parent list.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -792,7 +838,7 @@ ListOf_getById (ListOf_t *lo, const char *sid);
  * for deleting all items.  (In the latter case, callers are advised to store
  * pointers to all items elsewhere before calling this function.)
  *
- * @param lo the ListOf_t structure to clear
+ * @param lo the ListOf_t structure to clear.
  * @param doDelete whether to delete the items.
  *
  * @memberof ListOf_t

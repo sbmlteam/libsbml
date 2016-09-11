@@ -95,10 +95,10 @@ public:
    * Creates a new SimpleSpeciesReference using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SimpleSpeciesReference
+   * @param level an unsigned int, the SBML Level to assign to this SimpleSpeciesReference.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * SimpleSpeciesReference
+   * SimpleSpeciesReference.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -124,7 +124,7 @@ public:
   /**
    * Assignment operator. 
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SimpleSpeciesReference& operator=(const SimpleSpeciesReference& rhs);
@@ -144,16 +144,27 @@ public:
 
   /**
    * Returns the value of the "id" attribute of this SimpleSpeciesReference.
-   * 
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
    * @return the id of this SimpleSpeciesReference.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
 
   /**
-   * Returns the value of the "name" attribute of this SimpleSpeciesReference.
-   * 
-   * @return the name of this SimpleSpeciesReference.
+   * Returns the value of the "name" attribute of this SimpleSpeciesReference object.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -171,8 +182,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this SimpleSpeciesReference is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -181,8 +191,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this SimpleSpeciesReference is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -215,31 +224,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this SimpleSpeciesReference.
    *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this SimpleSpeciesReference
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& sid);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this SimpleSpeciesReference.
    *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the SimpleSpeciesReference
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -247,9 +240,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this SimpleSpeciesReference.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -257,9 +248,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this SimpleSpeciesReference.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -330,7 +319,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -343,13 +332,13 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  std::string  mId;
-  std::string  mName;
+  //std::string  mId;
+  //std::string  mName;
   std::string  mSpecies;
 
   /** @endcond */

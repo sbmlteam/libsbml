@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" metaid="_000000" level="3" version="2">
+	<model metaid="_000001" id="EPSP_Edelstein" name="Edelstein1996_EPSP_AChEvent">
+		<annotation>
+			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+				<rdf:Description rdf:about="#_000001">
+					<dcterms:creator>
+						<rdf:Bag>
+							<rdf:li rdf:parseType="Resource">
+								<vCard:N rdf:parseType="Resource">
+									<vCard:Family>Le Novere</vCard:Family>
+									<vCard:Given>Nicolas</vCard:Given>
+								</vCard:N>
+								<vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>
+								<vCard:ORG  rdf:parseType="Resource">
+									<vCard:Orgname>EMBL-EBI</vCard:Orgname>
+								</vCard:ORG>
+							</rdf:li>
+						</rdf:Bag>
+					</dcterms:creator>
+					<dcterms:created rdf:parseType="Resource">
+						<dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>
+					</dcterms:created>
+					<dcterms:modified rdf:parseType="Resource">
+						<dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>
+					</dcterms:modified>
+				</rdf:Description>
+			</rdf:RDF>
+		</annotation>
+		
+		<listOfCompartments>
+			<compartment metaid="_000002" id="comp1" name="compartment1" size="1e-16" constant="true">
+				<annotation>
+					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+						<rdf:Description rdf:about="#_000002">
+							<bqbiol:is>
+								<rdf:Bag>
+									<rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+									<rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+									<rdf:li rdf:resource="http://www.genome.jp/kegg/pathway/#hsa04080"/>
+									<rdf:li rdf:resource="http://www.ncbi.nlm.nih.gov/Taxonomy/#7787"/>
+									<bqbiol:hasPart>
+										<rdf:Bag>
+											<rdf:li rdf:resource="other"/>
+										</rdf:Bag>
+									</bqbiol:hasPart>
+								</rdf:Bag>
+							</bqbiol:is>
+						</rdf:Description>
+					</rdf:RDF>
+				</annotation>
+			</compartment>
+			<compartment id="A" metaid="_000003" constant="true">
+				<annotation>
+					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+						<rdf:Description rdf:about="#_000003">
+							<bqbiol:is>
+								<rdf:Bag>
+									<rdf:li rdf:resource="top"/>
+								<bqbiol:is>
+									<rdf:Bag>
+										<rdf:li rdf:resource="nest"/>
+										<bqbiol:is>
+											<rdf:Bag>
+												<rdf:li rdf:resource="nest_nest"/>
+											</rdf:Bag>
+										</bqbiol:is>
+									</rdf:Bag>
+								</bqbiol:is>
+									</rdf:Bag>
+							</bqbiol:is>
+						</rdf:Description>
+					</rdf:RDF>
+					
+				</annotation>
+			</compartment>
+			<compartment id="B"  metaid="_4" constant="true">
+				
+			</compartment>
+			
+			
+			
+		</listOfCompartments>
+	</model>
+</sbml>

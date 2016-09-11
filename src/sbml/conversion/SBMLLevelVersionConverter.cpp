@@ -229,6 +229,13 @@ SBMLLevelVersionConverter::convert()
   unsigned int currentVersion = mDocument->getVersion();
   unsigned int targetLevel = getTargetLevel(); 
   unsigned int targetVersion = getTargetVersion();
+  bool resetAnnotations = false;
+  // depending on the level and version vcard4 may be used
+  // but for earlier levels only vcard3 was acceptable
+  // if we are doing a down conversion we can reset the annotation
+  if (currentLevel == 3 && targetLevel < 3)
+    resetAnnotations = true;
+
 
   if (currentLevel == targetLevel && currentVersion == targetVersion)
   {
@@ -245,10 +252,11 @@ SBMLLevelVersionConverter::convert()
 
   bool ignorePackages = getProperties()->getBoolValue("ignorePackages");
 
-  /* if model has extensions we cannot convert */
-  if (!ignorePackages && mDocument->getNumPlugins() > 0)
+  /* if model has extensions we cannot convert 
+   * except to L3V2 
+   */
+  if (targetLevel != 3 && !ignorePackages && mDocument->getNumPlugins() > 0)
   {
-
     // disable all unused packages
     SBMLExtensionRegistry::getInstance().disableUnusedPackages(mDocument);
     if (mDocument->getNumPlugins() > 0)
@@ -367,9 +375,8 @@ SBMLLevelVersionConverter::convert()
         /* now we want to mDocument->check whether the resulting model is valid
          */
         validateConvertedDocument();
-        unsigned int errors = 
-           mDocument->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-        if (errors > 0)
+        bool errors = has_fatal_errors(origLevel, origVersion);
+        if (errors)
         { /* error - we dont covert
            * restore original values and return
            */
@@ -382,7 +389,32 @@ SBMLLevelVersionConverter::convert()
         }
         else
         {
+          if (resetAnnotations) 
+          {
+            // hack to force the model history to think it haschanged - this will
+            // change the vacrd if necessary
+            if (mDocument->isSetModel() && mDocument->getModel()->isSetModelHistory())
+            {
+              ModelHistory * history = mDocument->getModel()->getModelHistory()->clone();
+              mDocument->getModel()->setModelHistory(history);
+              delete history;
+            }
+          }
           delete origModel;
+        }
+      }
+      else
+      {
+        if (resetAnnotations) 
+        {
+          // hack to force the model history to think it haschanged - this will
+          // change the vacrd if necessary
+          if (mDocument->isSetModel() && mDocument->getModel()->isSetModelHistory())
+          {
+            ModelHistory * history = mDocument->getModel()->getModelHistory()->clone();
+            mDocument->getModel()->setModelHistory(history);
+            delete history;
+          }
         }
       }
     }
@@ -492,6 +524,12 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       {
       case 1:
         if (!conversion_errors(mDocument->checkL3v1Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL3v2Compatibility()))
         {
           doConversion = true;
         }
@@ -757,6 +795,19 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           }
         }
         break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL3v2Compatibility()))
+        {
+          doConversion = true;
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId()
+              == DuplicateAnnotationInvalidInL2v4)
+              duplicateAnn = true;
+          }
+        }
+        break;
       default:
         mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
         break;
@@ -813,7 +864,13 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
             mDocument->expandFunctionDefinitions();
             mDocument->expandInitialAssignments();
             mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+            if (currentVersion == 2)
+              currentModel->convertFromL3V2(strict);
             currentModel->convertL3ToL1(strict);
+            if (currentVersion > 1)
+            {
+              currentModel->dealWithFast();
+            }
             conversion = true;
           }
         }
@@ -943,6 +1000,19 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
         currentModel->convertL3ToL2(strict);
+        if (currentVersion == 2)
+        {
+          // if v1 we have already expanded initial assignments
+          if (targetVersion > 1)
+          {
+            SBMLTransforms::expandL3V2InitialAssignments(currentModel);
+          }
+          currentModel->convertFromL3V2(strict);
+        }
+        if (currentVersion > 1)
+        {
+          currentModel->dealWithFast();
+        }
         conversion = true;
       }
       break;
@@ -950,11 +1020,34 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       switch (targetVersion)
       {
       case 1:
-        conversion = true;
+        if (!conversion_errors(mDocument->checkL3v1Compatibility(), strictUnits))
+        {
+          doConversion = true;
+        }
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL3v2Compatibility(), strictUnits))
+        {
+          doConversion = true;
+        }
         break;
       default:
         mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
         break;
+      }
+      if (doConversion == true)
+      {
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        if (currentVersion == 2)
+        {
+          SBMLTransforms::expandL3V2InitialAssignments(currentModel);
+          currentModel->convertFromL3V2(strict);
+        }
+        if (currentVersion > 1)
+        {
+          currentModel->dealWithFast();
+        }
+        conversion = true;
       }
       break;
     default:
@@ -1114,9 +1207,65 @@ SBMLLevelVersionConverter::validateConvertedDocument()
 
   nerrors += mDocument->checkConsistency();
 
+  if (mDocument->getLevel() < 2 || (mDocument->getLevel() == 2 && mDocument->getVersion() == 1))
+  {
+    if (mDocument->getModel()->getNumInitialAssignments() > 0)
+    {
+      std::string msg = "Initial assignment was not correctly converted.";
+      mDocument->getErrorLog()->logError(InitialAssignNotValidComponent, mDocument->getLevel(), 
+        mDocument->getVersion(), msg);
+      nerrors += 1;
+    }
+  }
+
+//  nerrors += mDocument->checkInternalConsistency();
+
   return nerrors;
 }
 /** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Predicate returning true if the errors encountered are not ignorable.
+ */
+bool
+SBMLLevelVersionConverter::has_fatal_errors(unsigned int level, unsigned int version)
+{ 
+  if (mDocument->getNumErrors() == 0)
+  {
+    return false;
+  }
+  else if (mDocument->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+  {
+    return true;
+  }
+  else
+  {
+    if (level == 3 && version == 2)
+    {
+      // there are a coupl of errors that will be logged as general warnings
+      // since they were not in teh relevant spec BUT should still stop a conversion
+      if (mDocument->getErrorLog()->contains(MathResultMustBeNumeric) ||
+        (mDocument->getErrorLog()->contains(PieceNeedsBoolean)) ||
+        (mDocument->getErrorLog()->contains(NumericOpsNeedNumericArgs)) ||
+        (mDocument->getErrorLog()->contains(ArgsToEqNeedSameType)) ||
+        (mDocument->getErrorLog()->contains(PiecewiseNeedsConsistentTypes)) ||
+        (mDocument->getErrorLog()->contains(ApplyCiMustBeUserFunction)) ||
+        (mDocument->getErrorLog()->contains(ApplyCiMustBeModelComponent)) ||
+        (mDocument->getErrorLog()->contains(KineticLawParametersAreLocalOnly)) ||
+        (mDocument->getErrorLog()->contains(OpsNeedCorrectNumberOfArgs)) ||
+        (mDocument->getErrorLog()->contains(BooleanOpsNeedBooleanArgs)))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+}
+/** @endcond */
+
 
 LIBSBML_CPP_NAMESPACE_END
 

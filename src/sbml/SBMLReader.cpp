@@ -190,6 +190,7 @@ isCriticalError(const unsigned int errorId)
   case UnclosedXMLToken:
   case XMLTagMismatch:
   case BadXMLPrefix:
+  case BadXMLPrefixValue:
   case MissingXMLAttributeValue:
   case BadXMLComment:
   case XMLUnexpectedEOF:
@@ -276,7 +277,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
     else
     {
       // here we do not have an xml document at all
-      d->getErrorLog()->logError(NotSchemaConformant);
+//      d->getErrorLog()->logError(NotSchemaConformant);
 
       if (stream.isError())
       {
@@ -325,8 +326,12 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
       if (d->getModel() == NULL)
       {
-        d->getErrorLog()->logError(MissingModel, 
-                                   d->getLevel(), d->getVersion());
+        // L3V2 removed the restriction that a model was necessary
+        if (d->getLevel() < 3 ||(d->getLevel() == 3 && d->getVersion() == 1))
+        {
+          d->getErrorLog()->logError(MissingModel, 
+                                     d->getLevel(), d->getVersion());
+        }
       }
       else if (d->getLevel() == 1)
       {

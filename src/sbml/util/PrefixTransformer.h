@@ -52,7 +52,7 @@ class SBase;
  * elements with the prefix given to the constructor. 
  * 
  * this will prefix metaids, unitsids and sids. 
- */ 
+ */
 class LIBSBML_EXTERN PrefixTransformer : public IdentifierTransformer
 {
 protected:
@@ -75,7 +75,7 @@ public:
   virtual ~PrefixTransformer();
 
   /**
-   * @return the currently set prefix
+   * @return the currently set prefix.
    */
   const std::string& getPrefix() const;
 
@@ -86,7 +86,7 @@ public:
 
   /** 
    * transform the given SBase element
-   */ 
+   */
   virtual int transform(SBase* element);  
 
 };

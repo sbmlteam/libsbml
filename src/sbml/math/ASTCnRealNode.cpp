@@ -61,18 +61,13 @@ ASTCnRealNode::ASTCnRealNode (int type) :
 }
 
   
-  /**
-   * Copy constructor
-   */
 ASTCnRealNode::ASTCnRealNode (const ASTCnRealNode& orig):
   ASTCnBase(orig)
     , mReal (orig.mReal)
     , mIsSetReal (orig.mIsSetReal)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCnRealNode&
 ASTCnRealNode::operator=(const ASTCnRealNode& rhs)
 {
@@ -84,9 +79,7 @@ ASTCnRealNode::operator=(const ASTCnRealNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCnRealNode::~ASTCnRealNode ()
 {
 }
@@ -129,10 +122,9 @@ ASTCnRealNode::deepCopy () const
    * of doing this is that any numerical values previously stored in this
    * node are reset to zero.
    *
-   * @param type the type to which this node should be set
+   * @param type the type to which this node should be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */

@@ -272,9 +272,9 @@ LocalParameter::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  *
- * @param attributes the XMLAttributes object to use
+ * @param attributes the XMLAttributes object to use.
  */
 void
 LocalParameter::readAttributes (const XMLAttributes& attributes,
@@ -288,10 +288,10 @@ LocalParameter::readAttributes (const XMLAttributes& attributes,
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  *
- * @param stream the XMLOutputStream to use
+ * @param stream the XMLOutputStream to use.
  */
 void
 LocalParameter::writeAttributes (XMLOutputStream& stream) const
@@ -462,7 +462,7 @@ ListOfLocalParameters::getElementPosition () const
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
  *
- * @param stream the XMLInputStream to use
+ * @param stream the XMLInputStream to use.
  */
 SBase*
 ListOfLocalParameters::createObject (XMLInputStream& stream)

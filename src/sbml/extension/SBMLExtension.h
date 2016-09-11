@@ -105,7 +105,14 @@
       variable = dynamic_cast<type*>(sbmlns);\
       if (variable == NULL)\
       {\
+       try\
+ {\
        variable = new type(sbmlns->getLevel(), sbmlns->getVersion(), version);\
+ }\
+ catch (SBMLExtensionException e)\
+ {\
+        variable = new type(sbmlns->getLevel(), 1, version);\
+}\
        for (int i = 0; i < xmlns->getNumNamespaces(); i++)\
        {\
          if (!variable->getNamespaces()->hasURI(xmlns->getURI(i)))\
@@ -190,7 +197,7 @@ public:
    *
    * This creates a copy of an SBMLExtension object.
    *
-   * @param orig The SBMLExtension object to copy.
+   * @param orig the SBMLExtension object to copy.
    */
   SBMLExtension(const SBMLExtension& orig);
 
@@ -204,7 +211,7 @@ public:
   /**
    * Assignment operator for SBMLExtension.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLExtension& operator=(const SBMLExtension& rhs);
@@ -216,7 +223,7 @@ public:
    *
    * @copydetails doc_sbaseplugincreator_objects
    *
-   * @param sbaseExt the SBasePluginCreatorBase object to add
+   * @param sbaseExt the SBasePluginCreatorBase object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -666,7 +673,7 @@ BEGIN_C_DECLS
 /**
  * Creates a deep copy of the given SBMLExtension_t structure
  *
- * @param ext the SBMLExtension_t structure to be copied
+ * @param ext the SBMLExtension_t structure to be copied.
  *
  * @return a (deep) copy of the given SBMLExtension_t structure.
  *
@@ -679,7 +686,7 @@ SBMLExtension_clone(SBMLExtension_t* ext);
 /**
  * Frees the given SBMLExtension_t structure
  *
- * @param ext the SBMLExtension_t structure to be freed
+ * @param ext the SBMLExtension_t structure to be freed.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -695,7 +702,7 @@ SBMLExtension_free(SBMLExtension_t* ext);
  * Adds the given SBasePluginCreatorBase_t structure to this package
  * extension.
  *
- * @param ext the SBMLExtension_t structure to be freed
+ * @param ext the SBMLExtension_t structure to be freed.
  * @param sbaseExt the SBasePluginCreatorBase_t structure bound to
  * some SBML element and creates a corresponding SBasePlugin_t structure
  * of this package extension.
@@ -715,7 +722,7 @@ SBMLExtension_addSBasePluginCreator(SBMLExtension_t* ext,
  * Returns an SBasePluginCreatorBase_t structure of this package extension
  * bound to the given extension point.
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  * @param extPoint the SBaseExtensionPoint_t to which the returned
  * SBasePluginCreatorBase_t structure bound.
  *
@@ -734,7 +741,7 @@ SBMLExtension_getSBasePluginCreator(SBMLExtension_t* ext,
  * Returns an SBasePluginCreatorBase_t structure of this package extension
  * with the given index.
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  * @param index the index of the returned SBasePluginCreatorBase_t structure for
  * this package extension.
  *
@@ -751,7 +758,7 @@ SBMLExtension_getSBasePluginCreatorByIndex(SBMLExtension_t* ext,
 /**
  * Returns the number of SBasePlugin_t structures stored in the structure.
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  *
  * @return the number of SBasePlugin_t structures stored in the structure,
  * or LIBSBML_INVALID_OBJECT.
@@ -766,7 +773,7 @@ SBMLExtension_getNumOfSBasePlugins(SBMLExtension_t* ext);
  * Returns the number of supported package namespaces (package versions)
  * for this package extension.
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  *
  * @return the number of supported package namespaces (package versions)
  * for this package extension or LIBSBML_INVALID_OBJECT.
@@ -781,8 +788,8 @@ SBMLExtension_getNumOfSupportedPackageURI(SBMLExtension_t* ext);
  * Returns a flag indicating, whether the given URI (package version) is
  * supported by this package extension.
  *
- * @param ext the SBMLExtension_t structure
- * @param uri the package uri
+ * @param ext the SBMLExtension_t structure.
+ * @param uri the package uri.
  *
  * @return true (1) if the given URI (package version) is supported by this
  * package extension, otherwise false (0) is returned.
@@ -797,8 +804,8 @@ SBMLExtension_isSupported(SBMLExtension_t* ext, const char* uri);
 /**
  * Returns the package URI (package version) for the given index.
  *
- * @param ext the SBMLExtension_t structure
- * @param index the index of the supported package uri to return
+ * @param ext the SBMLExtension_t structure.
+ * @param index the index of the supported package uri to return.
  *
  * @return the package URI (package version) for the given index or NULL.
  *
@@ -812,7 +819,7 @@ SBMLExtension_getSupportedPackageURI(SBMLExtension_t* ext, unsigned int index);
 /**
  * Returns the name of the package extension. (e.g. "layout", "multi").
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  *
  * @return the name of the package extension. (e.g. "layout", "multi").
  *
@@ -826,10 +833,10 @@ SBMLExtension_getName(SBMLExtension_t* ext);
  * Returns the uri corresponding to the given SBML level, SBML version,
  * and package version for this extension.
  *
- * @param ext the SBMLExtension_t structure
- * @param sbmlLevel the level of SBML
- * @param sbmlVersion the version of SBML
- * @param pkgVersion the version of package
+ * @param ext the SBMLExtension_t structure.
+ * @param sbmlLevel the level of SBML.
+ * @param sbmlVersion the version of SBML.
+ * @param pkgVersion the version of package.
  *
  * @return a string of the package URI
  *
@@ -843,8 +850,8 @@ SBMLExtension_getURI(SBMLExtension_t* ext, unsigned int sbmlLevel,
 /**
  * Returns the SBML level associated with the given URI of this package.
  *
- * @param ext the SBMLExtension_t structure
- * @param uri the string of URI that represents a versions of the package
+ * @param ext the SBMLExtension_t structure.
+ * @param uri the string of URI that represents a versions of the package.
  *
  * @return the SBML level associated with the given URI of this package.
  *
@@ -857,8 +864,8 @@ SBMLExtension_getLevel(SBMLExtension_t* ext, const char* uri);
 /**
  * Returns the SBML version associated with the given URI of this package.
  *
- * @param ext the SBMLExtension_t structure
- * @param uri the string of URI that represents a versions of the package
+ * @param ext the SBMLExtension_t structure.
+ * @param uri the string of URI that represents a versions of the package.
  *
  * @return the SBML version associated with the given URI of this package.
  *
@@ -871,8 +878,8 @@ SBMLExtension_getVersion(SBMLExtension_t* ext, const char* uri);
 /**
  * Returns the package version associated with the given URI of this package.
  *
- * @param ext the SBMLExtension_t structure
- * @param uri the string of URI that represents a versions of the package
+ * @param ext the SBMLExtension_t structure.
+ * @param uri the string of URI that represents a versions of the package.
  *
  * @return the package version associated with the given URI of this package.
  *
@@ -886,8 +893,8 @@ SBMLExtension_getPackageVersion(SBMLExtension_t* ext, const char* uri);
  * This method takes a type code of this package and returns a string
  * representing the code.
  *
- * @param ext the SBMLExtension_t structure
- * @param typeCode the typeCode supported by the package
+ * @param ext the SBMLExtension_t structure.
+ * @param typeCode the typeCode supported by the package.
  *
  * @return the string representing the given typecode, or @c NULL in case an
  * invalid extension was provided.
@@ -903,8 +910,8 @@ SBMLExtension_getStringFromTypeCode(SBMLExtension_t* ext, int typeCode);
  * NULL will be returned if the given uri is not defined in the corresponding
  * package.
  *
- * @param ext the SBMLExtension_t structure
- * @param uri the string of URI that represents one of versions of the package
+ * @param ext the SBMLExtension_t structure.
+ * @param uri the string of URI that represents one of versions of the package.
  *
  * @return an SBMLNamespaces_t structure corresponding to the uri. NULL
  *         will be returned if the given uri is not defined in the corresponding
@@ -919,8 +926,8 @@ SBMLExtension_getSBMLExtensionNamespaces(SBMLExtension_t* ext, const char* uri);
 /**
  * Enable/disable this package.
  *
- * @param ext the SBMLExtension_t structure
- * @param isEnabled the value to set : true (1) (enabled) or false (0) (disabled)
+ * @param ext the SBMLExtension_t structure.
+ * @param isEnabled the value to set : true (1) (enabled) or false (0) (disabled).
  *
  * @return true (1) if this function call succeeded, otherwise false (0)is returned.
  * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.
@@ -934,7 +941,7 @@ SBMLExtension_setEnabled(SBMLExtension_t* ext, int isEnabled);
 /**
  * Check if this package is enabled (true/1) or disabled (false/0).
  *
- * @param ext the SBMLExtension_t structure
+ * @param ext the SBMLExtension_t structure.
  *
  * @return true if the package is enabled, otherwise false is returned.
  * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.

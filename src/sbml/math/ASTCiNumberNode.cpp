@@ -78,18 +78,13 @@ ASTCiNumberNode::ASTCiNumberNode (int type) :
   
 
 
-  /**
-   * Copy constructor
-   */
 ASTCiNumberNode::ASTCiNumberNode (const ASTCiNumberNode& orig):
   ASTBase(orig)
     , mName      (orig.mName)
     , mDefinitionURL (orig.mDefinitionURL)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCiNumberNode&
 ASTCiNumberNode::operator=(const ASTCiNumberNode& rhs)
 {
@@ -101,9 +96,7 @@ ASTCiNumberNode::operator=(const ASTCiNumberNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCiNumberNode::~ASTCiNumberNode ()
 {
 }

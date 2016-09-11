@@ -72,8 +72,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Model::Model (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mId               ( "" )
- , mName             ( "" )
  , mSubstanceUnits   ( "" )
  , mTimeUnits        ( "" )
  , mVolumeUnits      ( "" )
@@ -106,8 +104,6 @@ Model::Model (unsigned int level, unsigned int version) :
 
 Model::Model (SBMLNamespaces * sbmlns) :
    SBase             ( sbmlns )
- , mId               ( "" )
- , mName             ( "" )
  , mSubstanceUnits   ( "" )
  , mTimeUnits        ( "" )
  , mVolumeUnits      ( "" )
@@ -165,8 +161,6 @@ Model::~Model ()
  */
 Model::Model(const Model& orig)
   : SBase                (orig)
-  , mId                  (orig.mId)
-  , mName                (orig.mName)
   , mSubstanceUnits      (orig.mSubstanceUnits)
   , mTimeUnits           (orig.mTimeUnits)
   , mVolumeUnits         (orig.mVolumeUnits)
@@ -215,8 +209,6 @@ Model& Model::operator=(const Model& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator = (rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
     mSubstanceUnits       = rhs.mSubstanceUnits ;
     mTimeUnits            = rhs.mTimeUnits ;
     mVolumeUnits          = rhs.mVolumeUnits ;
@@ -3931,6 +3923,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mFunctionDefinitions.setExplicitlyListed();
     object = &mFunctionDefinitions;
   }
 
@@ -3947,6 +3940,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mUnitDefinitions.setExplicitlyListed();
     object = &mUnitDefinitions;
   }
 
@@ -3962,6 +3956,7 @@ Model::createObject (XMLInputStream& stream)
     {
       logError(NotSchemaConformant);
     }
+    mCompartmentTypes.setExplicitlyListed();
     object = &mCompartmentTypes;
   }
 
@@ -3977,6 +3972,7 @@ Model::createObject (XMLInputStream& stream)
     {
       logError(NotSchemaConformant);
     }
+    mSpeciesTypes.setExplicitlyListed();
     object = &mSpeciesTypes;
   }
 
@@ -3993,6 +3989,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mCompartments.setExplicitlyListed();
     object = &mCompartments;
   }
   
@@ -4009,6 +4006,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mSpecies.setExplicitlyListed();
     object = &mSpecies;
   }
 
@@ -4025,6 +4023,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mParameters.setExplicitlyListed();
     object = &mParameters;
   }
 
@@ -4045,6 +4044,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mInitialAssignments.setExplicitlyListed();
     object = &mInitialAssignments;
   }
 
@@ -4061,6 +4061,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mRules.setExplicitlyListed();
     object = &mRules;
   }
 
@@ -4081,6 +4082,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mConstraints.setExplicitlyListed();
     object = &mConstraints;
   }
 
@@ -4097,6 +4099,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mReactions.setExplicitlyListed();
     object = &mReactions;
   }
 
@@ -4117,6 +4120,7 @@ Model::createObject (XMLInputStream& stream)
         logError(OneOfEachListOf);
       }
     }
+    mEvents.setExplicitlyListed();
     object = &mEvents;
   }
 
@@ -4183,7 +4187,7 @@ Model::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Model::readAttributes (const XMLAttributes& attributes,
@@ -4214,7 +4218,7 @@ Model::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Model::readL1Attributes (const XMLAttributes& attributes)
@@ -4242,7 +4246,7 @@ Model::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Model::readL2Attributes (const XMLAttributes& attributes)
@@ -4281,7 +4285,7 @@ Model::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Model::readL3Attributes (const XMLAttributes& attributes)
@@ -4289,22 +4293,33 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  bool assigned;
   //
   //   id: SId    { use="optional" }  (L2v1 -> )
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mId.size() == 0)
+  // for l3v2 sbase will read this as generically optional
+  // we want to log errors relating to the specific object
+  if (version == 1)
   {
-    logEmptyString("id", level, version, "<model>");
+    assigned = attributes.readInto("id", mId, getErrorLog(), false, 
+      getLine(), getColumn());
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<model>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId))
+    {
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + 
+      "' does not conform to the syntax.");
+    }
+
+    //
+    // name: string  { use="optional" }  (L2v1 ->)
+    //
+    attributes.readInto("name", mName, getErrorLog(), false, 
+                                       getLine(), getColumn());
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
-
-  //
-  // name: string  { use="optional" }  (L2v1 ->)
-  //
-  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUnits: string  { use="optional" }  (L3v1 ->)
@@ -4395,7 +4410,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -4416,19 +4431,26 @@ Model::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm);
   }
 
+  // for L3V2 and above SBase will write this out
+  if (level < 3 || (level == 3 && version == 1))
+  {
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1->)
   //
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
-
+  }
   if (level > 1)
   {
-    //
-    // name: string  { use="optional" }  (L2v1->)
-    //
-    stream.writeAttribute("name", mName);
+    // for L3V2 and above SBase will write this out
+    if (level < 3 || (level == 3 && version == 1))
+    {
+      //
+      // name: string  { use="optional" }  (L2v1->)
+      //
+      stream.writeAttribute("name", mName);
+    }
   }
 
   if (level > 2)
@@ -4481,7 +4503,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -4495,40 +4517,119 @@ Model::writeElements (XMLOutputStream& stream) const
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
-  if (level > 1 && getNumFunctionDefinitions() > 0)
+  // for l3v2 there may not be any elements in the listOf but
+  // if there is other information i.e. attributes/notes/annotations
+  // we write out the empty wrapper with this information
+  if (level == 3 && version > 1)
   {
-    mFunctionDefinitions.write(stream);
+    if (mFunctionDefinitions.hasOptionalElements() == true ||
+        mFunctionDefinitions.hasOptionalAttributes() == true ||
+        mFunctionDefinitions.isExplicitlyListed())
+    {
+      mFunctionDefinitions.write(stream);
+    }
+
+    if (mUnitDefinitions.hasOptionalElements() == true ||
+        mUnitDefinitions.hasOptionalAttributes() == true ||
+        mUnitDefinitions.isExplicitlyListed())
+    {
+      mUnitDefinitions.write(stream);
+    }
+
+    if (mCompartments.hasOptionalElements() == true ||
+        mCompartments.hasOptionalAttributes() == true ||
+        mCompartments.isExplicitlyListed())
+    {
+      mCompartments.write(stream);
+    }
+
+    if (mSpecies.hasOptionalElements() == true ||
+        mSpecies.hasOptionalAttributes() == true ||
+        mSpecies.isExplicitlyListed())
+    {
+      mSpecies.write(stream);
+    }
+
+    if (mParameters.hasOptionalElements() == true ||
+        mParameters.hasOptionalAttributes() == true ||
+        mParameters.isExplicitlyListed())
+    {
+      mParameters.write(stream);
+    }
+
+    if (mInitialAssignments.hasOptionalElements() == true ||
+        mInitialAssignments.hasOptionalAttributes() == true ||
+        mInitialAssignments.isExplicitlyListed())
+    {
+      mInitialAssignments.write(stream);
+    }
+
+    if (mRules.hasOptionalElements() == true ||
+        mRules.hasOptionalAttributes() == true ||
+        mRules.isExplicitlyListed())
+    {
+      mRules.write(stream);
+    }
+
+    if (mConstraints.hasOptionalElements() == true ||
+        mConstraints.hasOptionalAttributes() == true ||
+        mConstraints.isExplicitlyListed())
+    {
+      mConstraints.write(stream);
+    }
+
+    if (mReactions.hasOptionalElements() == true ||
+        mReactions.hasOptionalAttributes() == true ||
+        mReactions.isExplicitlyListed())
+    {
+      mReactions.write(stream);
+    }
+
+    if (mEvents.hasOptionalElements() == true ||
+        mEvents.hasOptionalAttributes() == true ||
+        mEvents.isExplicitlyListed())
+    {
+      mEvents.write(stream);
+    }
   }
-
-  if ( getNumUnitDefinitions() > 0 ) mUnitDefinitions.write(stream);
-
-  if (level == 2 && version > 1)
+  else
   {
-    if ( getNumCompartmentTypes() > 0 ) mCompartmentTypes.write(stream);
-    if ( getNumSpeciesTypes    () > 0 ) mSpeciesTypes    .write(stream);
-  }
+      // code as before
+    if (level > 1 && getNumFunctionDefinitions() > 0 )
+    {
+      mFunctionDefinitions.write(stream);
+    }
 
-  if ( getNumCompartments() > 0 ) mCompartments.write(stream);
-  if ( getNumSpecies     () > 0 ) mSpecies     .write(stream);
-  if ( getNumParameters  () > 0 ) mParameters  .write(stream);
+    if ( getNumUnitDefinitions() > 0 ) mUnitDefinitions.write(stream);
 
-  if (level > 2 || (level == 2 && version > 1))
-  {
-    if ( getNumInitialAssignments() > 0 ) mInitialAssignments.write(stream);
-  }
+    if (level == 2 && version > 1)
+    {
+      if ( getNumCompartmentTypes() > 0 ) mCompartmentTypes.write(stream);
+      if ( getNumSpeciesTypes    () > 0 ) mSpeciesTypes    .write(stream);
+    }
 
-  if ( getNumRules() > 0 ) mRules.write(stream);
+    if ( getNumCompartments() > 0 ) mCompartments.write(stream);
+    if ( getNumSpecies     () > 0 ) mSpecies     .write(stream);
+    if ( getNumParameters  () > 0 ) mParameters  .write(stream);
 
-  if (level > 2 || (level == 2 && version > 1))
-  {
-    if ( getNumConstraints() > 0 ) mConstraints.write(stream);
-  }
+    if (level > 2 || (level == 2 && version > 1))
+    {
+      if ( getNumInitialAssignments() > 0 ) mInitialAssignments.write(stream);
+    }
 
-  if ( getNumReactions() > 0 ) mReactions.write(stream);
+    if ( getNumRules() > 0 ) mRules.write(stream);
 
-  if (level > 1 && getNumEvents () > 0 )
-  {
-    mEvents.write(stream);
+    if (level > 2 || (level == 2 && version > 1))
+    {
+      if ( getNumConstraints() > 0 ) mConstraints.write(stream);
+    }
+
+    if ( getNumReactions() > 0 ) mReactions.write(stream);
+
+    if (level > 1 && getNumEvents () > 0 )
+    {
+      mEvents.write(stream);
+    }
   }
 
   //

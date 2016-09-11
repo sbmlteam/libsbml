@@ -60,7 +60,7 @@ public:
    * Creates a new SBMLExtensionException object with a given message.
    *
    * @param errmsg a string, the text of the error message to store
-   * with this exception
+   * with this exception.
    */
   SBMLExtensionException (const std::string& errmsg) throw();
 

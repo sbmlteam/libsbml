@@ -58,17 +58,12 @@ ASTNaryFunctionNode::ASTNaryFunctionNode (int type) :
 }
   
 
-  /**
-   * Copy constructor
-   */
 ASTNaryFunctionNode::ASTNaryFunctionNode (const ASTNaryFunctionNode& orig):
   ASTFunctionBase(orig)
     , mReducedToBinary (orig.mReducedToBinary)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTNaryFunctionNode&
 ASTNaryFunctionNode::operator=(const ASTNaryFunctionNode& rhs)
 {
@@ -79,9 +74,7 @@ ASTNaryFunctionNode::operator=(const ASTNaryFunctionNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTNaryFunctionNode::~ASTNaryFunctionNode ()
 {
 }

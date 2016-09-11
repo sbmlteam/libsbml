@@ -307,6 +307,32 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 
 
 /**
+* @if conly
+* @memberof ASTNode_t
+* @endif
+*/
+LIBSBML_EXTERN
+char *
+writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns)
+{
+  ostringstream   os;
+  XMLOutputStream stream(os);
+
+  char * result = NULL;
+
+  if (node != NULL && sbmlns != NULL)
+  {
+    MathML* mathml = new MathML(sbmlns);
+    mathml->writeMathML(stream, node);
+
+    result = safe_strdup(os.str().c_str());
+    delete mathml;
+  }
+
+  return result;
+}
+
+/**
  * @if conly
  * @memberof ASTNode_t
  * @endif
@@ -315,40 +341,35 @@ LIBSBML_EXTERN
 char *
 writeMathMLToString (const ASTNode* node)
 {
-  ostringstream   os;
-  XMLOutputStream stream(os);
   SBMLNamespaces sbmlns;
-  //stream.setSBMLNamespaces(&sbmlns);
-
-  char * result = NULL;
-
-  if (node != NULL)
-  { 
-    MathML* mathml = new MathML(&sbmlns);
-    mathml->writeMathML(stream, node);
-
-    result = safe_strdup( os.str().c_str() );
-    delete mathml;
-  }
-
-  return result;
+  return writeMathMLWithNamespaceToString(node, &sbmlns);
 }
 
 LIBSBML_EXTERN
 std::string
 writeMathMLToStdString (const ASTNode* node)
 {
-  if (node == NULL) return "";
-  
+  SBMLNamespaces sbmlns;
+  return writeMathMLToStdString(node, &sbmlns);
+}
+
+LIBSBML_EXTERN
+std::string
+writeMathMLToStdString(const ASTNode* node, SBMLNamespaces* sbmlns)
+{
+  if (node == NULL || sbmlns == NULL) return "";
+
   ostringstream   os;
   XMLOutputStream stream(os);
-  SBMLNamespaces sbmlns;
-  MathML* mathml = new MathML(&sbmlns);
+  MathML* mathml = new MathML(sbmlns);
   mathml->writeMathML(stream, node);
   delete mathml;
 
   return os.str();
+
 }
+
+
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

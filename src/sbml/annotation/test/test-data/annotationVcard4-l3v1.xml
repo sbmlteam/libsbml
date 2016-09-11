@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" metaid="_000000" level="3" version="2">
+	<model metaid="_000001">
+		<annotation>
+			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+				<rdf:Description rdf:about="#_000001">
+					<dc:creator rdf:parseType="Resource">
+						<rdf:Bag>
+							<rdf:li rdf:parseType="Resource">
+								<vCard4:hasName rdf:parseType="Resource">
+									<vCard4:family-name>Hucka</vCard4:family-name>
+									<vCard4:given-name>Mike</vCard4:given-name>
+								</vCard4:hasName>
+								<vCard4:hasEmail>mhucka@caltech.edu</vCard4:hasEmail>
+							    <vCard4:organization-name>BNMC</vCard4:organization-name>							
+							</rdf:li>
+							<rdf:li rdf:parseType="Resource">
+								<vCard4:fn><vCard4:text>Sarah Keating</vCard4:text></vCard4:fn>							
+								<vCard4:hasEmail>skeating@caltech.edu</vCard4:hasEmail>
+								<vCard4:organization-name>UH</vCard4:organization-name>							
+							</rdf:li>
+						</rdf:Bag>
+					</dc:creator>
+					<dcterms:created rdf:parseType="Resource">
+						<dcterms:W3CDTF>2005-02-02T14:56:11</dcterms:W3CDTF>
+					</dcterms:created>
+					<dcterms:modified rdf:parseType="Resource">
+						<dcterms:W3CDTF>2006-05-30T10:46:02</dcterms:W3CDTF>
+					</dcterms:modified>
+					<dcterms:modified rdf:parseType="Resource">
+						<dcterms:W3CDTF>2007-01-16T15:31:52</dcterms:W3CDTF>
+					</dcterms:modified>
+				</rdf:Description>
+			</rdf:RDF>
+		</annotation>
+	</model>
+</sbml>

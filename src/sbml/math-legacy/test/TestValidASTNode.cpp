@@ -38,6 +38,7 @@
 #include <check.h>
 
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -293,6 +294,36 @@ START_TEST (test_ValidASTNode_root)
 END_TEST
 
 
+START_TEST (test_ValidASTNode_log)
+{
+  ASTNode *n = new ASTNode(AST_FUNCTION_LOG);
+
+  fail_unless( !(n->isWellFormedASTNode()) );
+
+  ASTNode *c = SBML_parseFormula("c");
+  n->addChild(c);
+
+#ifndef LIBSBML_USE_LEGACY_MATH
+  fail_unless( n->isWellFormedASTNode() );
+#else
+  fail_unless( !(n->isWellFormedASTNode()));
+#endif
+
+  ASTNode *d = SBML_parseFormula("3");
+  n->addChild(d);
+
+  fail_unless( n->isWellFormedASTNode() );
+
+  ASTNode *e = SBML_parseFormula("3");
+  n->addChild(e);
+
+  fail_unless( !(n->isWellFormedASTNode()) );
+
+  delete n;
+}
+END_TEST
+
+
 START_TEST (test_ValidASTNode_lambda)
 {
   ASTNode *n = new ASTNode(AST_LAMBDA);
@@ -409,6 +440,7 @@ create_suite_TestValidASTNode ()
   tcase_add_test( tcase, test_ValidASTNode_binary            );
   tcase_add_test( tcase, test_ValidASTNode_nary              );
   tcase_add_test( tcase, test_ValidASTNode_root              );
+  tcase_add_test( tcase, test_ValidASTNode_log              );
   tcase_add_test( tcase, test_ValidASTNode_lambda            );
   tcase_add_test( tcase, test_ValidASTNode_setType           );
 

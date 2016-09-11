@@ -165,7 +165,15 @@ START_TEST (test_ReadSBML_SBML_ONLY)
   free (sSBML);
 
   // check that the errors were logged
-  fail_unless(SBMLDocument_getNumErrors(D) == 2);
+  // this will depend on the level and version
+  if (SBMLDocument_getLevel(D) == 3 && SBMLDocument_getVersion(D) == 2)
+  {
+    fail_unless(SBMLDocument_getNumErrors(D) == 1);
+  }
+  else
+  {
+    fail_unless(SBMLDocument_getNumErrors(D) == 2);
+  }
 }
 END_TEST
 

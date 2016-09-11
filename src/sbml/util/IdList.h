@@ -67,9 +67,9 @@ public:
   void append (const std::string& id);
 
   /**
-   * Returns true if id is already in this IdList, false otherwise.
+   * Returns @c true if id is already in this IdList, @c false otherwise.
    *
-   * @return true if id is already in this IdList, false otherwise.
+   * @return @c true if id is already in this IdList, @c false otherwise.
    */
   bool contains (const std::string& id) const;
 

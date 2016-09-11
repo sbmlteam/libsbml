@@ -60,13 +60,18 @@ public:
   ASTUnaryFunctionNode (int type = AST_UNKNOWN);
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTUnaryFunctionNode (const ASTUnaryFunctionNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTUnaryFunctionNode& operator=(const ASTUnaryFunctionNode& rhs);
 

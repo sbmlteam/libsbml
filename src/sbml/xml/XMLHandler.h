@@ -61,9 +61,11 @@ public:
 
 
   /**
-   * Copy Constructor
+   * Copy Constructor.
+   *
+   * @param orig the instance to copy.
    */
-  XMLHandler (const XMLHandler& other);
+  XMLHandler (const XMLHandler& orig);
 
 
   /**

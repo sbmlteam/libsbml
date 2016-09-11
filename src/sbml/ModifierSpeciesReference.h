@@ -88,10 +88,10 @@ public:
    * @p version values.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ModifierSpeciesReference
+   * ModifierSpeciesReference.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ModifierSpeciesReference
+   * ModifierSpeciesReference.
    *
    * @copydetails doc_throw_exception_lv
    *

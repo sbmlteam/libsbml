@@ -224,7 +224,7 @@ private:
   /**
    * Returns an SBMLExtension object with the given package URI or package name (string).
    *
-   * @param package the URI or name of the package extension
+   * @param package the URI or name of the package extension.
    *
    * @return the SBMLExtension object with the given package URI or name. The returned
    *         extension is NOT ALLOWED to be freed (i.e.: deleted)!
@@ -239,7 +239,7 @@ public:
   /**
    * Returns the list of SBasePluginCreators with the given extension point.
    *
-   * @param extPoint the SBaseExtensionPoint
+   * @param extPoint the SBaseExtensionPoint.
    *
    * @return the list of SBasePluginCreators with the given typecode.
    */
@@ -261,7 +261,7 @@ public:
    * Returns an SBasePluginCreator object with the combination of the given
    * extension point and package URI.
    *
-   * @param extPoint the SBaseExtensionPoint
+   * @param extPoint the SBaseExtensionPoint.
    * @param uri the URI of the target package extension.
    *
    * @return the SBasePluginCreator object corresponding to the arguments.
@@ -282,7 +282,7 @@ public:
   /**
    * Returns the number of extensions that have a given extension point.
    *
-   * @param extPoint the SBaseExtensionPoint object
+   * @param extPoint the SBaseExtensionPoint object.
    *
    * @return the number of SBMLExtension-derived objects with the given
    * extension point.
@@ -346,7 +346,7 @@ public:
    * SBML packages for which package extensions are registered with this copy
    * of libSBML.  The vector will contain <code>std::string</code> objects.
    *
-   * @return a vector of strings
+   * @return a vector of strings of the registered package names.
    */
   static std::vector<std::string> getAllRegisteredPackageNames();
 
@@ -440,7 +440,7 @@ SBMLExtensionRegistry_addExtension(const SBMLExtension_t* extension);
 /**
  * Returns an SBMLExtension_t structure with the given package URI or package name (string).
  *
- * @param package the URI or name of the package extension
+ * @param package the URI or name of the package extension.
  *
  * @return a clone of the SBMLExtension_t structure with the given package URI or name.
  * Or NULL in case of an invalid package name.
@@ -457,7 +457,7 @@ SBMLExtensionRegistry_getExtension(const char* package);
  * Returns an SBasePluginCreator_t structure with the combination of the given
  * extension point and URI of the package extension.
  *
- * @param extPoint the SBaseExtensionPoint_t
+ * @param extPoint the SBaseExtensionPoint_t.
  * @param uri the URI of the target package extension.
  *
  * @return the SBasePluginCreator_t with the combination of the given
@@ -473,7 +473,7 @@ SBMLExtensionRegistry_getSBasePluginCreator(const SBaseExtensionPoint_t* extPoin
 /**
  * Returns a copied array of SBasePluginCreators with the given extension point.
  *
- * @param extPoint the SBaseExtensionPoint_t
+ * @param extPoint the SBaseExtensionPoint_t.
  * @param length pointer to a variable holding the length of the array returned.
  *
  * @return an array of SBasePluginCreators with the given typecode.
@@ -521,7 +521,7 @@ SBMLExtensionRegistry_isEnabled(const char* uri);
  *
  * @param uri the URI of the target package.
  * @param isEnabled the bool value corresponding to enabled (true/1) or
- * disabled (false/0)
+ * disabled (false/0).
  *
  * @return false (0) will be returned if the given bool value is false
  * or the given package is not registered, otherwise true (1) will be
@@ -553,7 +553,7 @@ SBMLExtensionRegistry_isRegistered(const char* uri);
 /**
  * Returns the number of SBMLExtension_t structures for the given extension point.
  *
- * @param extPoint the SBaseExtensionPoint_t
+ * @param extPoint the SBaseExtensionPoint_t.
  *
  * @return the number of SBMLExtension_t structures for the given extension point.
  *
@@ -590,7 +590,7 @@ SBMLExtensionRegistry_getNumRegisteredPackages();
 /**
  * Returns the registered package name at the given index
  *
- * @param index zero based index of the package name to return
+ * @param index zero based index of the package name to return.
  *
  * @return the package name with the given index or NULL
  *

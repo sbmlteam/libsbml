@@ -296,18 +296,13 @@ START_TEST (test_read_MathML_2)
   math = SBML_formulaToString(child1);
   fail_unless (!strcmp(math, "3"), NULL);
   safe_free(math);
-  //fail_unless( child1->containsVariable("c") == false );
-  //fail_unless( child1->containsVariable("x") == false );
-  //fail_unless( child1->containsVariable("p") == false );
 
   fail_unless (child2->getType() == AST_NAME, NULL);
   fail_unless (child2->getNumChildren() == 0, NULL);
   math = SBML_formulaToString(child2);
   fail_unless (!strcmp(math, "x"), NULL);
   safe_free(math);
-  //fail_unless( child2->containsVariable("c") == false );
-  //fail_unless( child2->containsVariable("x") == true );
-  //fail_unless( child2->containsVariable("p") == false );
+
 
 
   delete d;

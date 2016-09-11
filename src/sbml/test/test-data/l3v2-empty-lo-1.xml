@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model substanceUnits="mole" timeUnits="second" volumeUnits="litre" areaUnits="metre" lengthUnits="metre" extentUnits="mole" conversionFactor="p">
+    <listOfFunctionDefinitions id="s"/>
+    <listOfUnitDefinitions name="ss"/>
+    <listOfCompartments id="s1"/>
+    <listOfSpecies>
+      <annotation>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+          <rdf:Description rdf:about="#_000002">
+            <bqbiol:is>
+              <rdf:Bag>
+                <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                <rdf:li rdf:resource="http://www.genome.jp/kegg/pathway/#hsa04080"/>
+                <rdf:li rdf:resource="http://www.ncbi.nlm.nih.gov/Taxonomy/#7787"/>
+              </rdf:Bag>
+            </bqbiol:is>
+          </rdf:Description>
+        </rdf:RDF>
+      </annotation>
+    </listOfSpecies>
+    <listOfParameters id="d"/>
+    <listOfInitialAssignments name="55"/>
+    <listOfRules>
+      <notes>
+        <body xmlns="http://www.w3.org/1999/xhtml">
+          <center>
+            <h2>A Simple Mitotic Oscillator</h2>
+          </center>
+          <p>A minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase</p>
+        </body>
+      </notes>
+    </listOfRules>
+    <listOfConstraints id="c"/>
+    <listOfReactions name="v"/>
+    <listOfEvents id="s"/>
+  </model>
+</sbml>

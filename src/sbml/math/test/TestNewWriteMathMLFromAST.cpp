@@ -58,7 +58,7 @@ LIBSBML_CPP_NAMESPACE_USE
 #define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
 #define MATHML_HEADER_UNITS  "<math xmlns=\"http://www.w3.org/1998/Math/MathML\""
-#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version2/core\">\n"
 #define MATHML_FOOTER "</math>"
 
 #define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
@@ -352,8 +352,6 @@ START_TEST (test_MathMLFromAST_csymbol_delay)
   fail_unless(N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
 
-  // N = SBML_parseFormula("delay(x, 0.1)");
-  // N->setName("my_delay");
 
   S = writeMathMLToString(N);
 
@@ -372,6 +370,32 @@ START_TEST (test_MathMLFromAST_csymbol_time)
 
   N = new ASTNode(AST_NAME_TIME);
   N->setName("t");
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFromAST_csymbol_rateof)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/"
+    "symbols/rateOf\"> my_delay </csymbol>\n"
+    "    <ci> x </ci>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_FUNCTION_RATE_OF);
+  fail_unless(N->setName("my_delay") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  fail_unless(c1->setName("x") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
 
   S = writeMathMLToString(N);
 
@@ -687,6 +711,57 @@ START_TEST (test_MathMLFromAST_plus_nary_4)
 END_TEST
 
 
+START_TEST (test_MathMLFromAST_plus_nary_5)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <plus/>\n"
+    "    <cn type=\"integer\"> 1 </cn>\n"
+    "    <cn type=\"integer\"> 4 </cn>\n"
+    "    <cn type=\"integer\"> 5 </cn>\n"
+    "    <cn type=\"integer\"> 3 </cn>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
+    "  </apply>\n"
+  );
+
+//  N = SBML_parseFormula("1 + (2 + 3)");
+  
+  N = new ASTNode(AST_PLUS);
+  
+  ASTNode *c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(1);
+  ASTNode *c2 = new ASTNode(AST_INTEGER);
+  c2->setValue(2);
+  ASTNode *c3 = new ASTNode(AST_INTEGER);
+  c3->setValue(3);
+  ASTNode *c4 = new ASTNode(AST_INTEGER);
+  c4->setValue(4);
+  ASTNode *c5 = new ASTNode(AST_INTEGER);
+  c5->setValue(5);
+  
+  ASTNode *plus = new ASTNode(AST_PLUS);
+  plus->addChild(c4);
+  plus->addChild(c5);
+
+  ASTNode *plus1 = new ASTNode(AST_PLUS);
+  plus1->addChild(plus);
+  plus1->addChild(c3);
+
+  ASTNode *plus2 = new ASTNode(AST_PLUS);
+  plus2->addChild(plus1);
+  plus2->addChild(c2);
+  
+  N->addChild(c1);
+  N->addChild(plus2);
+  
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 START_TEST (test_MathMLFromAST_minus)
 {
   const char* expected = wrapMathML
@@ -850,6 +925,66 @@ START_TEST (test_MathMLFromAST_sin)
   fail_unless(N->addChild(c) == LIBSBML_OPERATION_SUCCESS);
 
   // N = SBML_parseFormula("sin(x)");
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFromAST_rem)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <rem/>\n"
+    "    <cn type=\"integer\"> 1 </cn>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_FUNCTION_REM);
+  
+  ASTNode *c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(long(1));
+  ASTNode *c2 = new ASTNode(AST_INTEGER);
+  c2->setValue(long(2));
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFromAST_implies)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <implies/>\n"
+    "    <cn type=\"integer\"> 1 </cn>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
+    "    <cn type=\"integer\"> 3 </cn>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_LOGICAL_IMPLIES);
+  
+  ASTNode *c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(long(1));
+  ASTNode *c2 = new ASTNode(AST_INTEGER);
+  c2->setValue(long(2));
+  ASTNode *c3 = new ASTNode(AST_INTEGER);
+  c3->setValue(long(3));
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
+
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
@@ -2080,6 +2215,7 @@ create_suite_NewWriteMathMLFromAST ()
 
   tcase_add_test( tcase, test_MathMLFromAST_ci                    );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
+  tcase_add_test( tcase, test_MathMLFromAST_csymbol_rateof        );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
   tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
   tcase_add_test( tcase, test_MathMLFromAST_constant_false        );
@@ -2094,6 +2230,7 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_2           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_3           );
   tcase_add_test( tcase, test_MathMLFromAST_plus_nary_4           );
+  tcase_add_test( tcase, test_MathMLFromAST_plus_nary_5           );
   tcase_add_test( tcase, test_MathMLFromAST_minus                 );
   tcase_add_test( tcase, test_MathMLFromAST_minus_unary_1         );
   tcase_add_test( tcase, test_MathMLFromAST_minus_unary_2         );
@@ -2101,6 +2238,9 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_function_2            );
   tcase_add_test( tcase, test_MathMLFromAST_sin                   );
   tcase_add_test( tcase, test_MathMLFromAST_log                   );
+
+  tcase_add_test( tcase, test_MathMLFromAST_rem                   );
+  tcase_add_test( tcase, test_MathMLFromAST_implies               );
 
     // TO DO - crash
 

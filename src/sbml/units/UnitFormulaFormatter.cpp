@@ -143,6 +143,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_LOGICAL_XOR:
     case AST_CONSTANT_FALSE:
     case AST_CONSTANT_TRUE:
+    case AST_LOGICAL_IMPLIES:
 
     /* relational */
     case AST_RELATIONAL_EQ:
@@ -162,6 +163,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_FUNCTION_ABS:
     case AST_FUNCTION_CEILING:
     case AST_FUNCTION_FLOOR:
+    case AST_FUNCTION_MIN:
+    case AST_FUNCTION_MAX:
   
       ud = getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
       break;
@@ -181,8 +184,21 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
 
   /* divide functions */
     case AST_DIVIDE:
+    case AST_FUNCTION_QUOTIENT:
   
       ud = getUnitDefinitionFromDivide(node, inKL, reactNo);
+      break;
+
+  /* rem functions */
+    case AST_FUNCTION_REM:
+  
+      ud = getUnitDefinitionFromRem(node, inKL, reactNo);
+      break;
+
+  /* rateOf function */
+    case AST_FUNCTION_RATE_OF:
+  
+      ud = getUnitDefinitionFromRateOf(node, inKL, reactNo);
       break;
 
   /* piecewise functions */
@@ -498,6 +514,55 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
     unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
     ud->addUnit(unit);
   }
+  delete tempUD;
+
+  return ud;
+}
+/* @endcond */
+
+
+/* @cond doxygenLibsbmlInternal */
+/** 
+  * returns the unitDefinition for the ASTNode from a rem function
+  */
+UnitDefinition * 
+UnitFormulaFormatter::getUnitDefinitionFromRem(const ASTNode * node, 
+                                        bool inKL, int reactNo)
+{ 
+  UnitDefinition * ud;
+
+  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
+
+  return ud;
+}
+/* @endcond */
+
+
+/* @cond doxygenLibsbmlInternal */
+/** 
+  * returns the unitDefinition for the ASTNode from a rateOf function
+  */
+UnitDefinition * 
+UnitFormulaFormatter::getUnitDefinitionFromRateOf(const ASTNode * node, 
+                                        bool inKL, int reactNo)
+{ 
+  UnitDefinition * ud;
+  UnitDefinition * tempUD;
+  unsigned int i;
+  Unit * unit;
+
+  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
+
+  tempUD = getTimeUnitDefinition();
+  
+  for (i = 0; i < tempUD->getNumUnits(); i++)
+  {
+    unit = tempUD->getUnit(i)->clone();
+    unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
+    ud->addUnit(unit);
+    delete unit;
+  }
+
   delete tempUD;
 
   return ud;
@@ -2297,6 +2362,65 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
   delete conversion;
   return ud;
 }
+
+  /* @cond doxygenLibsbmlInternal */
+
+UnitDefinition * 
+UnitFormulaFormatter::getTimeUnitDefinition()
+{
+  UnitDefinition * ud = NULL;
+
+  std::string timeUnits = model->getTimeUnits();
+
+  try
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+  }
+  catch ( ... )
+  {
+    ud = new UnitDefinition(SBMLDocument::getDefaultLevel(),
+      SBMLDocument::getDefaultVersion());
+  }
+
+  if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
+                                      model->getLevel(), 
+                                      model->getVersion()))
+  {
+    Unit* u = ud->createUnit();
+    u->setKind(UnitKind_forName(timeUnits.c_str()));
+    u->initDefaults();
+  }
+  else if (model->getUnitDefinition(timeUnits) != NULL)
+  {
+    for (unsigned int n1 = 0; 
+      n1 < model->getUnitDefinition(timeUnits)->getNumUnits(); n1++)
+    {
+      // need to prevent level/version mismatches
+      // ud will have default level and veersion
+      const Unit* uFromModel = 
+                  model->getUnitDefinition(timeUnits)->getUnit(n1);
+      if (uFromModel  != NULL)
+      {
+        Unit* u = ud->createUnit();
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent());
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+      }
+    }
+  }
+  else
+  {
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
+  }
+
+  return ud;
+
+}
+
+  /** @endcond */
+
 
 /** 
   * returns canIgnoreUndeclaredUnits value

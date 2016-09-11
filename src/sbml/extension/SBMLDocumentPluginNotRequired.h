@@ -95,7 +95,7 @@ public:
   /**
    * Assignment operator for SBMLDocumentPluginNotRequired.
    *
-   * @param orig The object whose values are used as the basis of the
+   * @param orig the object whose values are used as the basis of the
    * assignment.
    */
   SBMLDocumentPluginNotRequired& operator=(const SBMLDocumentPluginNotRequired& orig);
@@ -142,10 +142,7 @@ public:
    * Doesn't do anything:  it is illegal to unset the 'required' attribute in this package,
    * as it must always be set to 'false'.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetRequired();

@@ -51,7 +51,7 @@ LIBSBML_CPP_NAMESPACE_USE
 #define XML_HEADER     "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define MATHML_HEADER  "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
 #define MATHML_HEADER_UNITS  "<math xmlns='http://www.w3.org/1998/Math/MathML'\n"
-#define MATHML_HEADER_UNITS2  " xmlns:sbml='http://www.sbml.org/sbml/level3/version1/core'>\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml='http://www.sbml.org/sbml/level3/version2/core'>\n"
 #define MATHML_FOOTER  "</math>"
 
 #define wrapXML(s)     XML_HEADER s
@@ -326,6 +326,99 @@ START_TEST (test_element_csymbol_delay_4)
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "my_delay(x)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_1)
+{
+  const char* s = wrapMathML
+  (
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/rateOf'> rateOf </csymbol>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  fail_unless( N->getType() == AST_FUNCTION_RATE_OF );
+  fail_unless( !strcmp(N->getName(), "rateOf") );
+  fail_unless( N->getNumChildren() == 0       );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_2)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> my_rateof </csymbol>"
+    "  <ci> x </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "my_rateof(x)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_3)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <power/>"
+    "  <apply>"
+    "    <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> rateof </csymbol>"
+    "    <ci> P </ci>"
+    "  </apply>\n"
+    "  <ci> q </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "pow(rateof(P), q)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_4)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> my_rateof </csymbol>"
+    "  <ci> x </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "my_rateof(x)") );
 }
 END_TEST
 
@@ -1357,6 +1450,101 @@ START_TEST (test_element_xor)
 END_TEST
 
 
+START_TEST (test_element_max)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <max/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "max(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_min)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <min/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "min(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_quotient)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <quotient/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "quotient(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_rem)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <rem/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "rem(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_implies)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <implies/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "implies(a, b)") );
+}
+END_TEST
+
+
 START_TEST (test_element_semantics)
 {
   const char* s = wrapMathML
@@ -2118,6 +2306,10 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_csymbol_delay_2           );
   tcase_add_test( tcase, test_element_csymbol_delay_3           );
   tcase_add_test( tcase, test_element_csymbol_delay_4           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_1           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_2           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_3           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_4           );
 
   tcase_add_test( tcase, test_element_constants_true            );
   tcase_add_test( tcase, test_element_constants_false           );

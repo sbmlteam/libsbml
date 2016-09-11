@@ -443,7 +443,7 @@ XMLAttributes::hasAttribute (int index) const
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given name and namespace URI exists in this XMLAttributes.
  *
- * @param name a string, the name of the attribute 
+ * @param name a string, the name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
  * @return @c true if an attribute with the given name exists in this
@@ -461,7 +461,7 @@ XMLAttributes::hasAttribute (const std::string name, const std::string uri) cons
  * Predicate returning @c true or @c false depending on whether
  * an attribute with the given XML triple exists in this XMLAttributes.
  *
- * @param triple an XMLTriple, the XML triple of the attribute 
+ * @param triple an XMLTriple, the XML triple of the attribute.
  *
  * @return @c true if an attribute with the given XML triple exists in this
  * XMLAttributes, @c false otherwise.
@@ -1147,8 +1147,8 @@ XMLAttributes::write (XMLOutputStream& stream) const
 /*
  * Logs an attribute format error.
  *
- * @param  name  Name of the attribute
- * @param  type  The datatype of the attribute value.
+ * @param  name  name of the attribute.
+ * @param  type  the datatype of the attribute value.
  */
 void
 XMLAttributes::attributeTypeError (  const std::string& name
@@ -1198,7 +1198,7 @@ XMLAttributes::attributeTypeError (  const std::string& name
 /*
  * Logs an error indicating a required attribute was missing.
  *
- * @param  name  Name of the attribute
+ * @param  name  name of the attribute.
  */
 void
 XMLAttributes::attributeRequiredError (const std::string&  name

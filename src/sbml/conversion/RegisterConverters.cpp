@@ -47,6 +47,7 @@
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLReactionConverter.h>
 #include <sbml/conversion/SBMLLevel1Version1Converter.h>
+#include <sbml/conversion/SBMLRateOfConverter.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -65,6 +66,7 @@ static SBMLConverterRegister<SBMLUnitsConverter> registerUnitsConverter;
 static SBMLConverterRegister<SBMLInferUnitsConverter> registerInferUnitsConverter;
 static SBMLConverterRegister<SBMLLocalParameterConverter> registerlocaLParameterConverter;
 static SBMLConverterRegister<SBMLReactionConverter> registerReactionConverter;
+static SBMLConverterRegister<SBMLRateOfConverter> registerRateOfConverter;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -52,8 +52,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Compartment::Compartment (unsigned int level, unsigned int version) :
    SBase             ( level, version )
- , mId               ( ""       )
- , mName             ( ""       )
  , mSpatialDimensions( 3        )
  , mSpatialDimensionsDouble( 3        )
  , mSize             ( 1.0      )
@@ -86,8 +84,6 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
 
 Compartment::Compartment(SBMLNamespaces * sbmlns) :
    SBase             ( sbmlns   )
- , mId               ( ""       )
- , mName             ( ""       )
  , mSpatialDimensions( 3        )
  , mSpatialDimensionsDouble( 3        )
  , mSize             ( 1.0      )
@@ -148,8 +144,6 @@ Compartment::Compartment(const Compartment& orig) :
     mCompartmentType         = orig.mCompartmentType;
     mUnits                   = orig.mUnits;
     mOutside                 = orig.mOutside;
-    mId                      = orig.mId;
-    mName                    = orig.mName;
     mIsSetSpatialDimensions  = orig.mIsSetSpatialDimensions;
     mIsSetConstant           = orig.mIsSetConstant;
     mExplicitlySetSpatialDimensions = orig.mExplicitlySetSpatialDimensions;
@@ -174,8 +168,6 @@ Compartment& Compartment::operator=(const Compartment& rhs)
     mCompartmentType  = rhs.mCompartmentType;
     mUnits            = rhs.mUnits ;
     mOutside          = rhs.mOutside ;
-    mId               = rhs.mId;
-    mName             = rhs.mName;
     mIsSetSpatialDimensions = rhs.mIsSetSpatialDimensions;
     mIsSetConstant          = rhs.mIsSetConstant;
     mExplicitlySetSpatialDimensions = rhs.mExplicitlySetSpatialDimensions;
@@ -1064,7 +1056,7 @@ Compartment::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Compartment::readAttributes (const XMLAttributes& attributes,
@@ -1095,7 +1087,7 @@ Compartment::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Compartment::readL1Attributes (const XMLAttributes& attributes)
@@ -1144,7 +1136,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Compartment::readL2Attributes (const XMLAttributes& attributes)
@@ -1231,7 +1223,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Compartment::readL3Attributes (const XMLAttributes& attributes)
@@ -1242,23 +1234,41 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
-  if (!assigned)
+  bool assigned;
+  // for l3v2 sbase will read this as generically optional
+  // we want to log errors relating to the specific object
+  if (version == 1)
   {
-    logError(AllowedAttributesOnCompartment, level, version, 
-      "The required attribute 'id' is missing.");
+    assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
+    if (!assigned)
+    {
+      logError(AllowedAttributesOnCompartment, level, version, 
+        "The required attribute 'id' is missing.");
+    }
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<compartment>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
+
   }
-  if (assigned && mId.size() == 0)
+  else
   {
-    logEmptyString("id", level, version, "<compartment>");
+    // need to check that id was present
+    // it has already been read and checked for syntax/emptyness
+    if (attributes.hasAttribute("id") == false)
+    {
+      logError(AllowedAttributesOnCompartment, level, version, 
+        "The required attribute 'id' is missing.");
+    }
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string elplusid = "<compartment>";
   if (!mId.empty()) {
     elplusid += " with the id '" + mId + "'";
   }
+
   //
   // size    { use="optional" }              (L2v1 ->)
   //
@@ -1283,7 +1293,12 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
+  // for l3v2 sbase will read this
+  if (version == 1)
+  {
+    attributes.readInto("name", mName, getErrorLog(), false, 
+                                       getLine(), getColumn());
+  }
    
   //
   // spatialDimensions { use="optional"}  (L3v1 ->)
@@ -1315,7 +1330,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -1326,19 +1341,26 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
-  //
-  // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
-  //
-  const string id = (level == 1) ? "name" : "id";
-  stream.writeAttribute(id, mId);
-
-  if (level > 1)
+  // for L3V2 and above SBase will write this out
+  if (level < 3 || (level == 3 && version == 1))
   {
     //
-    // name: string  { use="optional" }  (L2v1->)
+    // name: SName   { use="required" }  (L1v1, L1v2)
+    //   id: SId     { use="required" }  (L2v1, L2v2)
     //
-    stream.writeAttribute("name", mName);
+    const string id = (level == 1) ? "name" : "id";
+    stream.writeAttribute(id, mId);
+  }
+  if (level > 1)
+  {
+    // for L3V2 and above SBase will write this out
+    if (level < 3 || (level == 3 && version == 1))
+    {
+      //
+      // name: string  { use="optional" }  (L2v1->)
+      //
+      stream.writeAttribute("name", mName);
+    }
 
     //
     // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
@@ -1434,7 +1456,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void

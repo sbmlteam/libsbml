@@ -213,20 +213,11 @@ Rule::getVariable () const
 }
 
 
-/** @cond doxygenLibsbmlInternal */
-/**
- * @return the string of variable attribute of this object.
- * 
- * @note this function is an alias for getVariable()
- * 
- * @see getVariable()
- */
 const std::string& 
 Rule::getId() const
 {
   return getVariable();
 }
-/** @endcond */
 
 
 /*
@@ -828,9 +819,13 @@ Rule::hasRequiredElements() const
   bool allPresent = true;
 
   /* required attributes for rule: math */
+  /* l3v2 removed that requirement */
 
-  if (!isSetMath())
-    allPresent = false;
+  if ((getLevel() < 3 ) || (getLevel() == 3 && getVersion() == 1))
+  {
+    if (!isSetMath())
+      allPresent = false;
+  }
 
   return allPresent;
 }
@@ -931,7 +926,7 @@ Rule::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -1070,7 +1065,7 @@ Rule::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Rule::readAttributes (const XMLAttributes& attributes,
@@ -1102,7 +1097,7 @@ Rule::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Rule::readL1Attributes (const XMLAttributes& attributes)
@@ -1179,7 +1174,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Rule::readL2Attributes (const XMLAttributes& attributes)
@@ -1215,7 +1210,7 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Rule::readL3Attributes (const XMLAttributes& attributes)
@@ -1253,7 +1248,7 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void

@@ -92,9 +92,9 @@ public:
    * The outcome of the function is that the ASTNode now represents
    * the math expression: s * p
    *
-   * @param math ASTNode representing the math to be transformed
+   * @param math ASTNode representing the math to be transformed.
    *
-   * @param fd the FunctionDefinition to be expanded
+   * @param fd the FunctionDefinition to be expanded.
    *
    * @param idsToExclude an optional list of function definition ids to exclude.
    *
@@ -115,9 +115,9 @@ public:
    * The outcome of the function is that the ASTNode now represents
    * the math expression: s * p/q
    *
-   * @param math ASTNode representing the math to be transformed
+   * @param math ASTNode representing the math to be transformed.
    *
-   * @param lofd the ListOfFunctionDefinitions to be expanded
+   * @param lofd the ListOfFunctionDefinitions to be expanded.
    * 
    * @param idsToExclude an optional list of function definition ids to exclude.
    *
@@ -131,6 +131,9 @@ public:
 
 
   static double evaluateASTNode(const ASTNode * node, const Model * m = NULL);
+
+  static bool expandL3V2InitialAssignments(Model * m);
+
 
 #ifndef SWIG
   static double evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
@@ -163,6 +166,8 @@ protected:
   
   static bool expandInitialAssignment(Species * s, 
                                           const InitialAssignment *ia);
+
+  static bool expandIA(Model* m, const InitialAssignment *ia);
 
   static void recurseReplaceFD(ASTNode * math, const FunctionDefinition * fd,
                         const IdList* idsToExclude);

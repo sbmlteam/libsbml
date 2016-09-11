@@ -125,7 +125,7 @@ Stack_pop (Stack_t *s);
  * to track or manipulate the intermediate items popped.
  *
  * @param s the Stack_t structure.
- * @param n The number of times to pop the Stack_t.
+ * @param n the number of times to pop the Stack_t.
  *
  * @memberof Stack_t
  */
@@ -149,7 +149,7 @@ Stack_peek (Stack_t *s);
  * If n is out of range (n < 0 or n >= Stack_size()) returns NULL.
  *
  * @param s the Stack_t structure.
- * @param n The index of the item to return.
+ * @param n the index of the item to return.
  *
  * @memberof Stack_t
  */

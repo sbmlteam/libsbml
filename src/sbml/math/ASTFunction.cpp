@@ -177,12 +177,13 @@ ASTFunction::ASTFunction (int type) :
   , mSemantics        ( NULL )
   , mIsOther          ( false )
 {
-  if (this->ASTBase::isUnaryFunction() == true)
+  if (this->ASTBase::isUnaryFunction() == true
+    && type != AST_FUNCTION_RATE_OF)
   {
     mUnaryFunction = new ASTUnaryFunctionNode(type);
     this->ASTBase::syncPluginsFrom(mUnaryFunction);
   }
-  else if (type == AST_FUNCTION_DELAY)
+  else if (type == AST_FUNCTION_DELAY || type == AST_FUNCTION_RATE_OF)
   {
     mCSymbol = new ASTCSymbol(type);
     this->ASTBase::syncPluginsFrom(mCSymbol);
@@ -258,9 +259,6 @@ ASTFunction::ASTFunction (int type) :
   
 
  
-  /**
-   * Copy constructor
-   */
 ASTFunction::ASTFunction (const ASTFunction& orig):
     ASTBase (orig)
       , mUnaryFunction    ( NULL )
@@ -316,9 +314,7 @@ ASTFunction::ASTFunction (const ASTFunction& orig):
     mSemantics = static_cast<ASTSemanticsNode*>( orig.mSemantics->deepCopy() );
   }
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTFunction&
 ASTFunction::operator=(const ASTFunction& rhs)
 {
@@ -3066,6 +3062,10 @@ ASTFunction::isLogical() const
   {
     valid = mUnaryFunction->ASTBase::isLogical();
   }
+  else if (mBinaryFunction != NULL)
+  {
+    valid = mBinaryFunction->ASTBase::isLogical();
+  }
   else if (mNaryFunction != NULL)
   {
     valid = mNaryFunction->ASTBase::isLogical();
@@ -3991,6 +3991,22 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
   {
     done = readFunctionNode(stream, reqd_prefix, nextElement, 
                             read, type, numChildren);
+    /* log an error if we have used new l3v2 math
+     * in the wrong place
+     */
+    if (type <= AST_LOGICAL_IMPLIES && type >= AST_FUNCTION_MAX)
+    {
+      unsigned int level = stream.getSBMLNamespaces()->getLevel();
+      unsigned int version = stream.getSBMLNamespaces()->getVersion();
+      if (level != 3 || (level == 3 && version != 2))
+      {
+        stringstream message;
+        message << "<" << nextName << "> is not valid " 
+          << "in SBML Level " << level << " Version "  
+          << version << ".";
+        logError(stream, nextElement, DisallowedMathMLSymbol, message.str());
+      }
+    }
   }
 
   // if we are not done look at plugins for function name

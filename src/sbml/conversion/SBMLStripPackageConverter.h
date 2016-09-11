@@ -115,7 +115,7 @@ public:
   /**
    * Assignment operator for SBMLStripPackageConverter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLStripPackageConverter& operator=(const SBMLStripPackageConverter& rhs);
@@ -183,12 +183,12 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
   /** 
-   * @return the package to be stripped 
+   * @return the package to be stripped.
    */
   std::string getPackageToStrip() const;
 
   /** 
-   * @return whether all unrecognized packages should be removed
+   * @return a boolean indicating whether all unrecognized packages should be removed.
    */
   bool isStripAllUnrecognizedPackages() const;
 
@@ -204,7 +204,7 @@ protected:
   /**
    * This function strips the packge with given prefix
    *
-   * @return true, if the conversion succeeded, false otherwise.
+   * @return @c true, if the conversion succeeded, @c false otherwise.
    */
   bool stripPackage(const std::string& packageToStrip);
   

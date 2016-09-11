@@ -193,9 +193,6 @@ XMLNode::XMLNode(const XMLNode& orig):
 }
 
 
- /*
-  * Assignment operator for XMLNode.
-  */
 XMLNode& 
 XMLNode::operator=(const XMLNode& rhs)
 {
@@ -282,7 +279,7 @@ XMLNode::insertChild (unsigned int n, const XMLNode& node)
  * Removes the nth child of this XMLNode and returned the removed node.
  * The caller owns the returned node and is responsible for deleting it.
  *
- * @return the removed child, or NULL if the given index is out of range. 
+ * @return the removed child, or @c NULL if the given index is out of range. 
  */
 XMLNode* 
 XMLNode::removeChild(unsigned int n)

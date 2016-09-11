@@ -54,13 +54,18 @@ public:
 
   
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTCnExponentialNode (const ASTCnExponentialNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTCnExponentialNode& operator=(const ASTCnExponentialNode& rhs);
 

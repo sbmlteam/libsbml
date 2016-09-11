@@ -1050,6 +1050,12 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_SINH:
   case AST_FUNCTION_TAN:
   case AST_FUNCTION_TANH:
+  case AST_FUNCTION_MAX:
+  case AST_FUNCTION_MIN:
+  case AST_FUNCTION_QUOTIENT:
+  case AST_FUNCTION_RATE_OF:
+  case AST_FUNCTION_REM:
+  case AST_LOGICAL_IMPLIES:
   case AST_UNKNOWN:
     return 1;
 

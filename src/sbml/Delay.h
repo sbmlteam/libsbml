@@ -58,7 +58,7 @@
  * numerical value computed by the Delay's "math" expression are @em
  * required to be in units of time, or the model is considered to have a
  * unit consistency error.  In Level&nbsp;2 Version&nbsp;4 as well as SBML
- * Level&nbsp;3 Version&nbsp;1 Core, this requirement is relaxed; these
+ * Level&nbsp;3, this requirement is relaxed; these
  * specifications only stipulate that the units of the numerical value
  * computed by a Delay instance's "math" expression @em should match the
  * model's units of time (meaning the definition of the @c time units in
@@ -128,7 +128,7 @@
  * content of a @c cn element.  The attribute is named @c units but,
  * because it appears inside MathML element (which is in the XML namespace
  * for MathML and not the namespace for SBML), it must always be prefixed
- * with an XML namespace prefix for the SBML Level&nbsp;3 Version&nbsp;1
+ * with an XML namespace prefix for an SBML Level&nbsp;3
  * namespace.  The following is an example of this approach:
  * @verbatim
 <model timeUnits="second" ...>
@@ -148,6 +148,14 @@
     ...
 </model>
 @endverbatim
+ *
+ * @section delay-restrictions Restrictions relaxed in SBML Level&nbsp;3 Version&nbsp;2
+ * 
+ * In SBML Level&nbsp;3 Version&nbsp;2, the requirement that a Delay
+ * have a "math" subelement was relaxed, making it optional.  In
+ * this case, the Delay remains undefined, and unless that information
+ * is provided in some other form (such as with an SBML Level&nbsp;3
+ * package), the Event behaves as if it had no Delay.
  */
 
 /**
@@ -219,10 +227,10 @@ public:
    * Creates a new Delay using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Delay
+   * @param level an unsigned int, the SBML Level to assign to this Delay.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * Delay
+   * Delay.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -263,7 +271,7 @@ public:
   /**
    * Assignment operator for Delay.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   Delay& operator=(const Delay& rhs);
@@ -293,7 +301,7 @@ public:
    * Get the mathematical formula for the delay and return it
    * as an AST.
    * 
-   * @return the math of this Delay.
+   * @return the math of this Delay, or @c NULL if the math is not set.
    */
   const ASTNode* getMath () const;
 
@@ -447,7 +455,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -460,7 +468,8 @@ public:
    * have been set.
    *
    * @note The required elements for a Delay object are:
-   * @li "math"
+   * @li "math" inSBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1.  
+   *     (In SBML Level&nbsp;3 Version&nbsp;2+, it is no longer required.)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -517,7 +526,7 @@ protected:
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
@@ -542,7 +551,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -554,7 +563,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -601,10 +610,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Delay_t
+ * Delay_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Delay_t
+ * Delay_t.
  *
  * @return a pointer to the newly created Delay_t structure.
  *
@@ -628,7 +637,7 @@ Delay_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this Delay_t
+ * to assign to this Delay_t.
  *
  * @return a pointer to the newly created Delay_t structure.
  *
@@ -662,7 +671,7 @@ Delay_free (Delay_t *d);
 /**
  * Creates and returns a deep copy of the given Delay_t structure.
  *
- * @param d the Delay_t structure to copy. 
+ * @param d the Delay_t structure to copy.
  *
  * @return a (deep) copy of the given Delay_t structure @p t.
  *
@@ -677,7 +686,7 @@ Delay_clone (const Delay_t *d);
  * Returns a list of XMLNamespaces_t associated with this Delay_t
  * structure.
  *
- * @param d the Delay_t structure
+ * @param d the Delay_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -708,7 +717,7 @@ Delay_getMath (const Delay_t *d);
  * Predicate to test whether the formula for the given Delay_t structure
  * is set.
  *
- * @param d the Delay_t structure to query
+ * @param d the Delay_t structure to query.
  *
  * @return @c true if the formula (meaning the @c math subelement) of
  * this Delay_t is set, @c false otherwise.

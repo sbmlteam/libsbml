@@ -654,6 +654,55 @@ START_TEST (test_L3FormulaFormatter_multiPlusTimes)
 }
 END_TEST
 
+START_TEST (test_SBML_formulaToL3String_L3v2)
+{
+  ASTNode_t *n;
+  char      *s;
+
+
+  n = SBML_parseL3Formula("rateOf(x)");
+  s = SBML_formulaToL3String(n);
+
+  fail_unless( !strcmp(s, "rateOf(x)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+
+  n = SBML_parseL3Formula("rem(x,y)");
+  s = SBML_formulaToL3String(n);
+
+  fail_unless( !strcmp(s, "rem(x, y)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+
+  n = SBML_parseL3Formula("quotient(1,2)");
+  s = SBML_formulaToL3String(n);
+
+  fail_unless( !strcmp(s, "quotient(1, 2)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+
+  n = SBML_parseL3Formula("max(a,b,5,8.4)");
+  s = SBML_formulaToL3String(n);
+
+  fail_unless( !strcmp(s, "max(a, b, 5, 8.4)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+
+  n = SBML_parseL3Formula("min(x)");
+  s = SBML_formulaToL3String(n);
+
+  fail_unless( !strcmp(s, "min(x)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
+
+}
+END_TEST
+
 START_TEST (test_L3FormulaFormatter_collapseMinus)
 {
   char           *s;
@@ -1927,6 +1976,7 @@ create_suite_L3FormulaFormatter (void)
   tcase_add_test( tcase, test_SBML_formulaToL3String            );
   tcase_add_test( tcase, test_SBML_formulaToL3String_L1toL3     );
   tcase_add_test( tcase, test_SBML_formulaToL3String_L2toL3     );
+  tcase_add_test( tcase, test_SBML_formulaToL3String_L3v2       );
   tcase_add_test( tcase, test_L3FormulaFormatter_collapseMinus  );
   tcase_add_test( tcase, test_L3FormulaFormatter_parseUnits     );
   tcase_add_test( tcase, test_L3FormulaFormatter_multiEq        );

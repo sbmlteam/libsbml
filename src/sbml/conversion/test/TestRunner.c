@@ -63,6 +63,7 @@ Suite *create_suite_TestUnitsConverterL2 (void);
 Suite *create_suite_TestInferUnitsConverter (void);
 Suite *create_suite_TestStripPackageConverter (void);
 Suite *create_suite_TestLevelVersionConverter(void);
+Suite *create_suite_TestRateOfConverter(void);
 
 
 /**
@@ -118,6 +119,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestInferUnitsConverter    () );
   srunner_add_suite( runner, create_suite_TestStripPackageConverter  () );
   srunner_add_suite( runner, create_suite_TestLevelVersionConverter  () );
+  srunner_add_suite( runner, create_suite_TestRateOfConverter        () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

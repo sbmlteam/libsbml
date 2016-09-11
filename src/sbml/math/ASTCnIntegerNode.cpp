@@ -62,18 +62,13 @@ ASTCnIntegerNode::ASTCnIntegerNode (int type) :
 }
 
   
-  /**
-   * Copy constructor
-   */
 ASTCnIntegerNode::ASTCnIntegerNode (const ASTCnIntegerNode& orig):
   ASTCnBase(orig)
     , mInteger (orig.mInteger)
     , mIsSetInteger (orig.mIsSetInteger)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCnIntegerNode&
 ASTCnIntegerNode::operator=(const ASTCnIntegerNode& rhs)
 {
@@ -85,9 +80,7 @@ ASTCnIntegerNode::operator=(const ASTCnIntegerNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCnIntegerNode::~ASTCnIntegerNode ()
 {
 }
@@ -130,10 +123,9 @@ ASTCnIntegerNode::deepCopy () const
    * of doing this is that any numerical values previously stored in this
    * node are reset to zero.
    *
-   * @param type the type to which this node should be set
+   * @param type the type to which this node should be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */

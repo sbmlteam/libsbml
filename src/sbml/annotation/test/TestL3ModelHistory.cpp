@@ -158,8 +158,8 @@ START_TEST (test_L3ModelHistory_parseModelHistory)
 
   const XMLNode_t * creator = XMLNode_getChild(desc, 0);
   fail_unless(!strcmp(XMLNode_getName(creator), "creator"));
-  fail_unless(!strcmp(XMLNode_getPrefix(creator), "dc"));
-  fail_unless(!strcmp(XMLNode_getURI(creator), "http://purl.org/dc/elements/1.1/"));
+  fail_unless(!strcmp(XMLNode_getPrefix(creator), "dcterms"));
+  fail_unless(!strcmp(XMLNode_getURI(creator), "http://purl.org/dc/terms/"));
   fail_unless(XMLNode_getNumChildren(creator) == 1);
 
   const XMLNode_t * Bag = XMLNode_getChild(creator, 0);
@@ -496,8 +496,8 @@ START_TEST (test_L3ModelHistory_parseModelHistory_Model)
 
   const XMLNode_t * creator = XMLNode_getChild(desc, 0);
   fail_unless(!strcmp(XMLNode_getName(creator), "creator"));
-  fail_unless(!strcmp(XMLNode_getPrefix(creator), "dc"));
-  fail_unless(!strcmp(XMLNode_getURI(creator), "http://purl.org/dc/elements/1.1/"));
+  fail_unless(!strcmp(XMLNode_getPrefix(creator), "dcterms"));
+  fail_unless(!strcmp(XMLNode_getURI(creator), "http://purl.org/dc/terms/"));
   fail_unless(XMLNode_getNumChildren(creator) == 1);
 
   const XMLNode_t * Bag = XMLNode_getChild(creator, 0);

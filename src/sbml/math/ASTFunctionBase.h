@@ -53,13 +53,18 @@ public:
 
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTFunctionBase (const ASTFunctionBase& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTFunctionBase& operator=(const ASTFunctionBase& rhs);
 
@@ -95,7 +100,7 @@ public:
    * of doing this is that any numerical values previously stored in this
    * node are reset to zero.
    *
-   * @param type the type to which this node should be set
+   * @param type the type to which this node should be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

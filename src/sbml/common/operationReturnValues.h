@@ -162,6 +162,9 @@ typedef enum
      * for the combination of SBML Level and Version for the underlying
      * object. */
      
+     , LIBSBML_USE_ID_ATTRIBUTE_FUNCTION   = -16
+    /*!< For L3V2 use the IdAttribute functions. */
+     
    /* ---------------------------------------------------------------------------
     *   
     *              Return codes for package extension
@@ -272,7 +275,7 @@ typedef enum
  * This method takes an SBML operation return value and returns a string representing
  * the code.
  *
- * @param returnValue the operation return value to convert to a string
+ * @param returnValue the operation return value to convert to a string.
  *
  * @return a human readable name for the given
  * @if clike #OperationReturnValues_t value@else operation return value @endif.

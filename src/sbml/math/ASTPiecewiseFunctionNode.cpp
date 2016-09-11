@@ -60,18 +60,13 @@ ASTPiecewiseFunctionNode::ASTPiecewiseFunctionNode (int type) :
 }
   
   
-  /**
-   * Copy constructor
-   */
 ASTPiecewiseFunctionNode::ASTPiecewiseFunctionNode (const ASTPiecewiseFunctionNode& orig):
   ASTNaryFunctionNode(orig)
     , mNumPiece (orig.mNumPiece)
     , mHasOtherwise (orig.mHasOtherwise)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTPiecewiseFunctionNode&
 ASTPiecewiseFunctionNode::operator=(const ASTPiecewiseFunctionNode& rhs)
 {
@@ -83,9 +78,7 @@ ASTPiecewiseFunctionNode::operator=(const ASTPiecewiseFunctionNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTPiecewiseFunctionNode::~ASTPiecewiseFunctionNode ()
 {
 }

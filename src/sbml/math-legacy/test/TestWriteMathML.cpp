@@ -38,6 +38,7 @@
 #include <check.h>
 
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/L3Parser.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -58,11 +59,13 @@ LIBSBML_CPP_NAMESPACE_USE
 #define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
 #define MATHML_HEADER_UNITS  "<math xmlns=\"http://www.w3.org/1998/Math/MathML\""
-#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version2/core\">\n"
+#define MATHML_HEADER_UNITS_ALT  " xmlns:foo=\"http://www.sbml.org/sbml/level3/version2/core\">\n"
 #define MATHML_FOOTER "</math>"
 
 #define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
 #define wrapMathMLUnits(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS2 s MATHML_FOOTER
+#define wrapMathMLUnitsOtherPrefix(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS_ALT s MATHML_FOOTER
 
 
 static ASTNode* N;
@@ -318,6 +321,27 @@ START_TEST (test_MathMLFormatter_csymbol_delay)
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_csymbol_rateof)
+{
+  //const char* expected = wrapMathML
+  //(
+  //  "  <apply>\n"
+  //  "    <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/"
+  //  "symbols/rateOf\"> my_rateof </csymbol>\n"
+  //  "    <ci> x </ci>\n"
+  //  "  </apply>\n"
+  //);
+
+  //N = SBML_parseFormula("rateof(x)");
+  //N->setName("my_rateof");
+
+  //S = writeMathMLToString(N);
+
+  //fail_unless( equals(expected, S) );
 }
 END_TEST
 
@@ -967,6 +991,61 @@ START_TEST (test_MathMLFormatter_cn_units)
 END_TEST
 
 
+START_TEST (test_MathMLFormatter_apply_cn_units)
+{
+  const char *expected = wrapMathMLUnits(
+    "  <apply>\n"
+    "    <divide/>\n"
+    "    <cn sbml:units=\"mole\" type=\"integer\"> 3 </cn>\n"
+    "    <cn sbml:units=\"dimensionless\" type=\"integer\"> 4 </cn>\n"
+    "  </apply>\n");
+
+  N = SBML_parseL3Formula("3 mole / 4 dimensionless");
+  //N->setUnits("mole");
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+
+  // SBML_deleteL3Parser();
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_apply_cn_units_old)
+{
+  const char *expected = wrapMathMLUnits(
+    "  <apply>\n"
+    "    <divide/>\n"
+    "    <cn sbml:units=\"mole\" type=\"integer\"> 3 </cn>\n"
+    "    <cn sbml:units=\"dimensionless\" type=\"integer\"> 4 </cn>\n"
+    "  </apply>\n");
+
+  N = SBML_parseFormula("3 / 4");
+  N->getChild(0)->setUnits("mole");
+  N->getChild(1)->setUnits("dimensionless");
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+//START_TEST (test_MathMLFormatter_apply_cn_units_1)
+//{
+//  const char *expected = wrapMathMLUnitsOtherPrefix("  <apply>\n"
+//    "    <divide/>\n"
+//    "    <cn foo:units=\"mole\" type=\"integer\"> 3 </cn>\n"
+//    "    <cn foo:units=\"dimensionless\" type=\"integer\"> 4 </cn>\n"
+//    "  </apply>\n");
+//
+//  N = readMathMLFromString(expected);
+//  S = writeMathMLToString(N);
+//
+//  fail_unless( equals(expected, S) );
+//}
+//END_TEST
+
+
 START_TEST (test_MathMLFormatter_csymbol_avogadro)
 {
   const char* expected = wrapMathML
@@ -1060,6 +1139,7 @@ create_suite_WriteMathML ()
 
   tcase_add_test( tcase, test_MathMLFormatter_ci                    );
   tcase_add_test( tcase, test_MathMLFormatter_csymbol_delay         );
+  tcase_add_test( tcase, test_MathMLFormatter_csymbol_rateof        );
   tcase_add_test( tcase, test_MathMLFormatter_csymbol_time          );
   tcase_add_test( tcase, test_MathMLFormatter_constant_true         );
   tcase_add_test( tcase, test_MathMLFormatter_constant_false        );
@@ -1091,7 +1171,10 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_semantics_annxml      );
 
   /* L3 additions */
-  tcase_add_test( tcase, test_MathMLFormatter_cn_units           );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_units                 );
+  tcase_add_test( tcase, test_MathMLFormatter_apply_cn_units           );
+  tcase_add_test( tcase, test_MathMLFormatter_apply_cn_units_old       );
+//  tcase_add_test( tcase, test_MathMLFormatter_apply_cn_units_1         );
 
   tcase_add_test( tcase, test_MathMLFormatter_csymbol_avogadro         );
   tcase_add_test( tcase, test_MathMLFormatter_ci_definitionURL         );

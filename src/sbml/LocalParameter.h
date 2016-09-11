@@ -78,6 +78,16 @@
  *
  * As with all other major SBML components, LocalParameter is derived from
  * SBase, and the methods defined on SBase are available on LocalParameter.
+ *
+ * In SBML Level&nbsp;3 Version&nbsp;2, the scope of the LocalParameter 
+ * was expanded slightly to officially encompass the entire Reaction
+ * instead of just the KineticLaw in which it appears.  This has no
+ * effect on models using only SBML Level&nbsp;3 Core constructs,
+ * but has the potential to allow SBML Level&nbsp;3 Packages to
+ * include elements in a Reaction that could reference a
+ * LocalParameter from that Reaction's KineticLaw.  It also means that
+ * no LocalParameter may have the same @c "id" as a referenced Species
+ * in any SimpleSpeciesReference in that Reaction. 
  * 
  * @warning <span class="warning">LibSBML derives LocalParameter from
  * Parameter; however, this does not precisely match the object hierarchy
@@ -225,7 +235,7 @@ public:
   /**
    * Assignment operator for LocalParameter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   LocalParameter& operator=(const LocalParameter& rhs);
@@ -360,7 +370,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -370,7 +380,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -407,9 +417,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -540,7 +550,7 @@ public:
    * returned from this function (and is the reason we override the base
    * ListOf::getElementBySId function here).
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return pointer to the first element found with the given @p id.
    */
@@ -551,7 +561,7 @@ public:
    * Removes the nth item from this ListOfLocalParameters, and returns a
    * pointer to it.
    *
-   * @param n the index of the item to remove.  
+   * @param n the index of the item to remove.
    *
    * @return the item removed.  The caller owns the returned object and is
    * responsible for deleting it.  If the index number @p n is out of
@@ -624,10 +634,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * LocalParameter_t
+ * LocalParameter_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * LocalParameter_t
+ * LocalParameter_t.
  *
  * @return a pointer to the newly created LocalParameter_t structure.
  *
@@ -651,7 +661,7 @@ LocalParameter_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this LocalParameter_t
+ * to assign to this LocalParameter_t.
  *
  * @return a pointer to the newly created LocalParameter_t structure.
  *
@@ -685,7 +695,7 @@ LocalParameter_free (LocalParameter_t *p);
 /**
  * Creates a deep copy of the given LocalParameter_t structure
  * 
- * @param p the LocalParameter_t structure to be copied
+ * @param p the LocalParameter_t structure to be copied.
  * 
  * @return a (deep) copy of the given LocalParameter_t structure.
  *
@@ -699,7 +709,7 @@ LocalParameter_clone (const LocalParameter_t *p);
 /**
  * Does nothing:  this function initializes structures according to their defaults in SBML Level 2, but Local Parameters did not exist in SBML Level 2.
  * 
- * @param p the LocalParameter_t structure to be ignored
+ * @param p the LocalParameter_t structure to be ignored.
  * 
  * @memberof LocalParameter_t
  */
@@ -712,7 +722,7 @@ LocalParameter_initDefaults (LocalParameter_t *p);
  * Returns a list of XMLNamespaces_t associated with this LocalParameter_t
  * structure.
  *
- * @param p the LocalParameter_t structure
+ * @param p the LocalParameter_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -727,7 +737,7 @@ LocalParameter_getNamespaces(LocalParameter_t *p);
 /**
  * Takes a LocalParameter_t structure and returns its identifier.
  *
- * @param p the LocalParameter_t structure whose identifier is sought
+ * @param p the LocalParameter_t structure whose identifier is sought.
  * 
  * @return the identifier of this LocalParameter_t, as a pointer to a string.
  *
@@ -799,7 +809,7 @@ LocalParameter_getConstant (const LocalParameter_t *p);
  * Predicate returning @c true or @c false depending on whether the given
  * LocalParameter_t structure's identifier is set.
  *
- * @param p the LocalParameter_t structure to query
+ * @param p the LocalParameter_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * LocalParameter_t structure is set, zero (false) otherwise.
@@ -815,7 +825,7 @@ LocalParameter_isSetId (const LocalParameter_t *p);
  * Predicate returning @c true or @c false depending on whether the given
  * LocalParameter_t structure's name is set.
  *
- * @param p the LocalParameter_t structure to query
+ * @param p the LocalParameter_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * LocalParameter_t structure is set, zero (false) otherwise.
@@ -831,7 +841,7 @@ LocalParameter_isSetName (const LocalParameter_t *p);
  * Predicate returning @c true or @c false depending on whether the given
  * LocalParameter_t structure's value is set.
  * 
- * @param p the LocalParameter_t structure to query
+ * @param p the LocalParameter_t structure to query.
  * 
  * @return @c non-zero (true) if the "value" attribute of the given
  * LocalParameter_t structure is set, zero (false) otherwise.
@@ -851,7 +861,7 @@ LocalParameter_isSetValue (const LocalParameter_t *p);
  * Predicate returning @c true or @c false depending on whether the given
  * LocalParameter_t structure's units have been set.
  *
- * @param p the LocalParameter_t structure to query
+ * @param p the LocalParameter_t structure to query.
  * 
  * @return @c non-zero (true) if the "units" attribute of the given
  * LocalParameter_t structure is set, zero (false) otherwise.
@@ -913,7 +923,7 @@ LocalParameter_setName (LocalParameter_t *p, const char *name);
  * @param p the LocalParameter_t structure to set.
  * @param value the @c double value to use.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
@@ -949,12 +959,9 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units);
  * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
  *
  * @param p the LocalParameter_t structure to leave unchanged.
- * @param value The boolean value to ignore.
+ * @param value the boolean value to ignore.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible value
- * returned by this function is:
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
@@ -990,7 +997,7 @@ LocalParameter_unsetName (LocalParameter_t *p);
  *
  * @param p the LocalParameter_t structure whose value is to be unset.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
@@ -1022,10 +1029,7 @@ LocalParameter_unsetUnits (LocalParameter_t *p);
  *
  * @param p the LocalParameter_t structure to leave unchanged.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible value
- * returned by this function is:
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
@@ -1099,7 +1103,7 @@ ListOfLocalParameters_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of LocalParameter_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The LocalParameter_t structure removed, or a null pointer if no such
  * item exists in @p lo.

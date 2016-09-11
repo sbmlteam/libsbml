@@ -45,8 +45,11 @@
  * specification (e.g., Section 3.3 in the Level 2 Version 4
  * specification).
  * 
- * FunctionDefinition has a required "math" subelement containing a MathML
- * expression defining the function body.  The content of this element can
+ * FunctionDefinition has a "math" subelement containing a MathML
+ * expression defining the function body.  In SBML Level&nbsp;2 and SBML
+ * Level&nbsp;3 Version&nbsp;1, that "math" subelement is required;
+ * in SBML Level&nbsp;3 Version&nbsp;2, this restriction was relaxed,
+ * making the "math" subelement optional.  The content of this element can
  * only be a MathML "lambda" element.  The "lambda" element must begin with
  * zero or more "bvar" elements, followed by any other of the elements in
  * the MathML subset allowed in SBML Level 2 @em except "lambda" (i.e., a
@@ -68,6 +71,12 @@
  * applies also to the MathML @c csymbol elements for @em time and @em
  * delay; in SBML Level&nbsp;3, it additionally applies to the @c csymbol
  * element for @em avogadro.
+ *
+ * In SBML Level&nbsp;3 Version&nbsp;2, if no math element is present in 
+ * the FunctionDefinition, the function has no mathematical meaning 
+ * defined in SBML Level&nbsp;3 Core. This situation may arise when models 
+ * are incomplete, or when additional meanings are provided by an SBML 
+ * Level&nbsp;3 package.
  *
  * @note Function definitions (also informally known as user-defined
  * functions) were introduced in SBML Level 2.  They have purposefully
@@ -136,10 +145,10 @@ public:
    * Creates a new FunctionDefinition using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this FunctionDefinition
+   * @param level an unsigned int, the SBML Level to assign to this FunctionDefinition.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * FunctionDefinition
+   * FunctionDefinition.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -180,7 +189,7 @@ public:
   /**
    * Assignment operator for FunctionDefinition.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   FunctionDefinition& operator=(const FunctionDefinition& rhs);
@@ -210,16 +219,27 @@ public:
 
   /**
    * Returns the value of the "id" attribute of this FunctionDefinition.
-   * 
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
    * @return the id of this FunctionDefinition.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
 
   /**
-   * Returns the value of the "name" attribute of this FunctionDefinition.
-   * 
-   * @return the name of this FunctionDefinition.
+   * Returns the value of the "name" attribute of this FunctionDefinition object.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -228,7 +248,7 @@ public:
    * Get the mathematical formula of this FunctionDefinition.
    *
    * @return an ASTNode, the value of the "math" subelement of this
-   * FunctionDefinition
+   * FunctionDefinition, or @c NULL if the math is not set.
    */
   const ASTNode* getMath () const;
 
@@ -237,8 +257,7 @@ public:
    * Predicate returning @c true if this
    * FunctionDefinition's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this FunctionDefinition is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -247,8 +266,7 @@ public:
    * Predicate returning @c true if this
    * FunctionDefinition's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this FunctionDefinition is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -266,29 +284,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this FunctionDefinition.
    *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this FunctionDefinition
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& sid);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this FunctionDefinition.
    *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the FunctionDefinition
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -310,9 +314,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this FunctionDefinition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -337,7 +339,7 @@ public:
    * Get the argument named @p name to this FunctionDefinition.
    *
    * @param name the exact name (case-sensitive) of the sought-after
-   * argument
+   * argument.
    * 
    * @return the argument (bound variable) having the given name, or @c NULL if
    * no such argument exists.
@@ -413,7 +415,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -439,7 +441,8 @@ public:
    * have been set.
    *
    * @note The required elements for a FunctionDefinition object are:
-   * @li "math"
+   * @li "math" inSBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1.  
+   *     (In SBML Level&nbsp;3 Version&nbsp;2+, it is no longer required.)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -458,8 +461,8 @@ public:
    * the matching identifiers are replaced with @p newid.  The method does
    * @em not descend into child elements.
    * 
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
    */
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
@@ -470,7 +473,7 @@ protected:
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
@@ -487,7 +490,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -499,14 +502,14 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  std::string   mId;
-  std::string   mName;
+  //std::string   mId;
+  //std::string   mName;
   ASTNode*      mMath;
 
   /* the validator classes need to be friends to access the 
@@ -542,9 +545,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -668,7 +671,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -682,7 +685,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -737,10 +740,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * FunctionDefinition_t
+ * FunctionDefinition_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * FunctionDefinition_t
+ * FunctionDefinition_t.
  *
  * @return a pointer to the newly created FunctionDefinition_t structure.
  *
@@ -764,7 +767,7 @@ FunctionDefinition_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this FunctionDefinition_t
+ * to assign to this FunctionDefinition_t.
  *
  * @return a pointer to the newly created FunctionDefinition_t structure.
  *
@@ -786,7 +789,7 @@ FunctionDefinition_createWithNS (SBMLNamespaces_t *sbmlns);
 /**
  * Frees the given FunctionDefinition_t.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @memberof FunctionDefinition_t
  */
@@ -798,7 +801,7 @@ FunctionDefinition_free (FunctionDefinition_t *fd);
 /**
  * Creates a deep copy of the given FunctionDefinition_t structure
  * 
- * @param fd the FunctionDefinition_t structure to be copied
+ * @param fd the FunctionDefinition_t structure to be copied.
  * 
  * @return a (deep) copy of the given FunctionDefinition_t structure.
  *
@@ -813,7 +816,7 @@ FunctionDefinition_clone (const FunctionDefinition_t* fd);
  * Returns a list of XMLNamespaces_t associated with this FunctionDefinition_t
  * structure.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -828,7 +831,7 @@ FunctionDefinition_getNamespaces(FunctionDefinition_t *fd);
 /**
  * Get the identifier of the given FunctionDefinition_t structure.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  * 
  * @return the value of the "id" attribute of this FunctionDefinition_t
  * structure.
@@ -843,7 +846,7 @@ FunctionDefinition_getId (const FunctionDefinition_t *fd);
 /**
  * Get the name of the given FunctionDefinition_t structure.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @return the name of this FunctionDefinition_t structure.
  *
@@ -857,7 +860,7 @@ FunctionDefinition_getName (const FunctionDefinition_t *fd);
 /**
  * Get the mathematical formula implemented by the given function.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  * 
  * @return an ASTNode_t tree representing the mathematical formula of this
  * FunctionDefinition_t structure.
@@ -873,7 +876,7 @@ FunctionDefinition_getMath (const FunctionDefinition_t *fd);
  * Predicate returning @c true or @c false depending on whether the given
  * FunctionDefinition_t structure's "id" attribute is set.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @return nonzero if the "id" attribute of the FunctionDefinition_t
  * structure is set, zero (0) otherwise.
@@ -889,7 +892,7 @@ FunctionDefinition_isSetId (const FunctionDefinition_t *fd);
  * Predicate returning @c true or @c false depending on whether the given
  * FunctionDefinition_t structure's "name" attribute is set.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @return nonzero if the "name" attribute of the FunctionDefinition_t
  * structure is set, zero (0) otherwise.
@@ -905,7 +908,7 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd);
  * Predicate returning @c true or @c false depending on whether the given
  * FunctionDefinition_t structure's "math" subelement is set.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @return nonzero if the mathematical expression of this
  * FunctionDefinition_t is set, zero (0) otherwise.
@@ -922,7 +925,7 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd);
  *
  * @param fd the FunctionDefinition_t structure to set.
  *
- * @param sid the identifier to assign to the "id" attribute of @p fd
+ * @param sid the identifier to assign to the "id" attribute of @p fd.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -943,7 +946,7 @@ FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid);
  *
  * @param fd the FunctionDefinition_t structure to set.
  *
- * @param name the identifier to assign to the "name" attribute of @p fd
+ * @param name the identifier to assign to the "name" attribute of @p fd.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -967,7 +970,7 @@ FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name);
  * @param fd the FunctionDefinition_t structure to set.
  *
  * @param math the ASTNode_t structure to copy and assign to the "math"
- * subelement of the given FunctionDefinition_t structure
+ * subelement of the given FunctionDefinition_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -983,7 +986,7 @@ FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math);
 /**
  * Unsets the "name" attribute of the given FunctionDefinition_t structure.
  * 
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1000,9 +1003,9 @@ FunctionDefinition_unsetName (FunctionDefinition_t *fd);
  * Get the nth argument (bound variable) to the given FunctionDefinition_t
  * structure.
  * 
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
- * @param n the index of the argument to return
+ * @param n the index of the argument to return.
  *
  * @return an ASTNode_t tree structure for the argument.
  *
@@ -1016,9 +1019,9 @@ FunctionDefinition_getArgument(const FunctionDefinition_t *fd, unsigned int n);
 /**
  * Get the argument named @p name to the given FunctionDefinition_t structure.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
- * @param name the exact name (case-sensitive) of the sought-after argument
+ * @param name the exact name (case-sensitive) of the sought-after argument.
  *
  * @return an ASTNode_t structure representing the argument (bound
  * variable)
@@ -1035,10 +1038,10 @@ FunctionDefinition_getArgumentByName (  FunctionDefinition_t *fd
  * Get the mathematical expression that constitutes the body of the given
  * function definition.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  * 
  * @return an ASTNode_t tree that is the "math" subelement" of this
- * FunctionDefinition_t structure
+ * FunctionDefinition_t structure.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1051,7 +1054,7 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd);
  * Predicate returning @c true or @c false depending on whether the given
  * FunctionDefinition_t structure's "math" subelement has a body.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  *
  * @return nonzero if the body of this
  * FunctionDefinition_t is set, zero (0) otherwise.
@@ -1066,7 +1069,7 @@ FunctionDefinition_isSetBody (const FunctionDefinition_t *fd);
 /**
  * Get the number of arguments that the given function definition takes.
  *
- * @param fd the FunctionDefinition_t structure
+ * @param fd the FunctionDefinition_t structure.
  * 
  * @return the number of arguments (bound variables) that must be passed
  * to this FunctionDefinition_t structure.
@@ -1102,7 +1105,7 @@ ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of FunctionDefinition_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The FunctionDefinition_t structure removed, or a null pointer if no such
  * item exists in @p lo.

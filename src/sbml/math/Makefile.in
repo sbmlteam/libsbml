@@ -61,6 +61,7 @@ headers =            \
   ASTCSymbol.h             \
   ASTCSymbolAvogadroNode.h \
   ASTCSymbolDelayNode.h    \
+  ASTCSymbolRateOfNode.h   \
   ASTCSymbolTimeNode.h     \
   ASTCiFunctionNode.h      \
   ASTCiNumberNode.h        \
@@ -98,6 +99,7 @@ sources =            \
   ASTCSymbolAvogadroNode.cpp    \
   ASTCSymbolDelayNode.cpp       \
   ASTCSymbolTimeNode.cpp        \
+  ASTCSymbolRateOfNode.cpp      \
   ASTCiFunctionNode.cpp         \
   ASTCiNumberNode.cpp           \
   ASTCnBase.cpp                 \

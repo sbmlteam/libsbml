@@ -127,7 +127,7 @@ public:
   /**
    * Assignment operator for SBMLLevel1Version1Converter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLLevel1Version1Converter& operator=(const SBMLLevel1Version1Converter& rhs);

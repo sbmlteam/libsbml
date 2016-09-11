@@ -63,9 +63,6 @@ ASTCnRationalNode::ASTCnRationalNode (int type) :
 }
   
   
-  /**
-   * Copy constructor
-   */
 ASTCnRationalNode::ASTCnRationalNode (const ASTCnRationalNode& orig):
   ASTCnBase(orig)
     , mNumerator        (orig.mNumerator)
@@ -74,9 +71,7 @@ ASTCnRationalNode::ASTCnRationalNode (const ASTCnRationalNode& orig):
     , mIsSetNumerator   (orig.mIsSetNumerator)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCnRationalNode&
 ASTCnRationalNode::operator=(const ASTCnRationalNode& rhs)
 {

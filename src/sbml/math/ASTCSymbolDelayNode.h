@@ -53,13 +53,18 @@ public:
 
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTCSymbolDelayNode (const ASTCSymbolDelayNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTCSymbolDelayNode& operator=(const ASTCSymbolDelayNode& rhs);
 

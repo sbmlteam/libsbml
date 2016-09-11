@@ -77,10 +77,42 @@
  * formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and in SBML
  * Level&nbsp;3) or @em must (in SBML releases prior to Level&nbsp;2
  * version&nbsp;4) be the Parameter object's "unit" attribute value divided
- * by the model-wide unit of <em>time</em>.  </ul>
+ * by the model-wide unit of <em>time</em>.  
+ *
+ * <li> (For SBML Level&nbsp;3 Version &nbsp;2 only) <em>In the case of 
+ * an object from an SBML Level&nbsp;3 package</em>, a RateRule sets the rate 
+ * of change of the referenced object's value (as defined by that package) 
+ * to the value of the formula in "math".  The unit of measurement associated 
+ * with the value produced by the formula should be the same as that object's 
+ * units attribute value (if it has such an attribute) divided by the 
+ * model-wide unit of @em time, or be equal to the units of model components 
+ * of that type (if objects of that class are defined by the package as having 
+ * the same units) divided by the model-wide unit of @em time.
+ * </ul>
  * 
+ * In SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1, the "math" 
+ * subelement of the RateRule is required.  In SBML Level&nbsp;3
+ * Version&nbsp;2, this rule is relaxed, and the subelement is
+ * optional.  If a RateRule with no "math" child is present in the model, 
+ * the rate at which its referenced "variable" changes over time is 
+ * undefined.  This may represent a situation where the model itself
+ * is unfinished, or the missing information may be provided by an
+ * SBML Level&nbsp;3 package.
+ * 
+ * If the variable attribute of a RateRule object references an object in 
+ * an SBML namespace that is not understood by the interpreter reading a 
+ * given SBML document (that is, if the object is defined by an SBML 
+ * Level&nbsp;3 package that the software does not support), the rate rule 
+ * must be ignored--the object's value will not need to be set, as the 
+ * interpreter could not understand that package. If an interpreter cannot 
+ * establish whether a referenced object is missing from the model or 
+ * instead is defined in an SBML namespace not understood by the interpreter, 
+ * it may produce a warning to the user. (The latter situation may only 
+ * arise if an SBML package is present in the SBML document with a 
+ * package:required attribute of "true".)
+ *
  * In the context of a simulation, rate rules are in effect for simulation
- * time <em>t</em> &lt; <em>0</em>.  Please consult the relevant SBML
+ * time <em>t</em> &gt; <em>0</em>.  Please consult the relevant SBML
  * specification for additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
@@ -95,7 +127,7 @@
  * a rate rule for the same variable.
  * 
  * @copydetails doc_rules_general_summary
- */ 
+ */
 
 #ifndef RateRule_h
 #define RateRule_h
@@ -126,10 +158,10 @@ public:
    * Creates a new RateRule using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this RateRule
+   * @param level an unsigned int, the SBML Level to assign to this RateRule.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * RateRule
+   * RateRule.
    *
    * @copydetails doc_throw_exception_lv
    *

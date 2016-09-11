@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" xmlns:extra="http://www.sbml.org/sbml/level3/version1/extra/version1" level="3" version="2" extra:required="false">
+  <model>
+    <listOfInitialAssignments extra:foo="bar"/>
+  </model>  
+</sbml>

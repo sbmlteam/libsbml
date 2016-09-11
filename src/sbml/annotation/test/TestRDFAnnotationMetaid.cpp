@@ -98,9 +98,9 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation1)
 {
   const char * rdfAnn =
     "<annotation>\n"
-		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"    <rdf:Description rdf:about=\"#_002\">\n"
-    "      <dc:creator>\n"
+    "      <dcterms:creator>\n"
 		"        <rdf:Bag>\n"
 		"          <rdf:li rdf:parseType=\"Resource\">\n"
     "            <vCard:N rdf:parseType=\"Resource\">\n"
@@ -113,7 +113,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation1)
 		"            </vCard:ORG>\n"
 		"          </rdf:li>\n"
 		"        </rdf:Bag>\n"
-		"      </dc:creator>\n"
+		"      </dcterms:creator>\n"
 		"      <dcterms:created rdf:parseType=\"Resource\">\n"
 		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
 		"      </dcterms:created>\n"
@@ -150,9 +150,9 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation2)
 {
   const char * rdfAnn =
     "<annotation>\n"
-		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"    <rdf:Description rdf:about=\"#_002\">\n"
-    "      <dc:creator>\n"
+    "      <dcterms:creator>\n"
 		"        <rdf:Bag>\n"
 		"          <rdf:li rdf:parseType=\"Resource\">\n"
     "            <vCard:N rdf:parseType=\"Resource\">\n"
@@ -165,7 +165,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation2)
 		"            </vCard:ORG>\n"
 		"          </rdf:li>\n"
 		"        </rdf:Bag>\n"
-		"      </dc:creator>\n"
+		"      </dcterms:creator>\n"
 		"      <dcterms:created rdf:parseType=\"Resource\">\n"
 		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
 		"      </dcterms:created>\n"
@@ -206,9 +206,9 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation3)
 {
   const char * rdfAnn =
     "<annotation>\n"
-		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"    <rdf:Description rdf:about=\"#_003\">\n"
-    "      <dc:creator>\n"
+    "      <dcterms:creator>\n"
 		"        <rdf:Bag>\n"
 		"          <rdf:li rdf:parseType=\"Resource\">\n"
     "            <vCard:N rdf:parseType=\"Resource\">\n"
@@ -221,7 +221,7 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation3)
 		"            </vCard:ORG>\n"
 		"          </rdf:li>\n"
 		"        </rdf:Bag>\n"
-		"      </dc:creator>\n"
+		"      </dcterms:creator>\n"
 		"      <dcterms:created rdf:parseType=\"Resource\">\n"
 		"        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
 		"      </dcterms:created>\n"
@@ -246,9 +246,11 @@ START_TEST (test_RDFAnnotationMetaid_setAnnotation3)
   s->setMetaId("_003");
   fail_unless(s->setAnnotation(rdfAnn) == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(s->getAnnotation() != NULL);
+  XMLNode * ann = s->getAnnotation();
+  fail_unless(ann != NULL);
 
-  fail_unless( equals(rdfAnn, s->getAnnotation()->toXMLString().c_str()));
+  std::string annot = ann->toXMLString();
+  fail_unless( equals(rdfAnn, annot.c_str()));
 
 
 }

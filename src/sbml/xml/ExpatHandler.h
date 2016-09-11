@@ -60,9 +60,11 @@ public:
 
 
   /**
-   * Copy Constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
-  ExpatHandler (const ExpatHandler& other);
+  ExpatHandler (const ExpatHandler& orig);
 
 
   /**
@@ -93,8 +95,8 @@ public:
   /**
    * Receive notification of the start of an element.
    *
-   * @param  name   The element name
-   * @param  attrs  The specified or defaulted attributes
+   * @param  name   the element name.
+   * @param  attrs  the specified or defaulted attributes.
    */
   void startElement (const XML_Char* name, const XML_Char** attrs);
 
@@ -102,8 +104,8 @@ public:
   /**
    * Receive notification of the start of an XML namespace.
    *
-   * @param  prefix  The namespace prefix or NULL (for xmlns="...")
-   * @param  uri     The namespace uri    or NULL (for xmlns="")
+   * @param  prefix  the namespace prefix or NULL (for xmlns="...").
+   * @param  uri     the namespace uri    or NULL (for xmlns="").
    */
   void startNamespace (const XML_Char* prefix, const XML_Char* uri);
 
@@ -117,7 +119,7 @@ public:
   /**
    * Receive notification of the end of an element.
    *
-   * @param  name  The element name
+   * @param  name  the element name.
    */
   void endElement (const XML_Char* name);
 
@@ -125,8 +127,8 @@ public:
   /**
    * Receive notification of character data inside an element.
    *
-   * @param  chars   The characters
-   * @param  length  The number of characters to use from the character array
+   * @param  chars   the characters.
+   * @param  length  the number of characters to use from the character array.
    */
   void characters (const XML_Char* chars, int length);
 
@@ -148,7 +150,7 @@ public:
 
 
   /**
-   * Returns true or false depending on whether the handler
+   * Returns @c true or @c false depending on whether the handler
    * caught an error in-between our (liblax) code and Expat.
    */
   XMLError* error() { return mHandlerError; };

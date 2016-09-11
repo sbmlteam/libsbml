@@ -204,8 +204,8 @@ ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
 /**
  * Receive notification of the start of an element.
  *
- * @param  name   The element name
- * @param  attrs  The specified or defaulted attributes
+ * @param  name   the element name.
+ * @param  attrs  the specified or defaulted attributes.
  */
 void
 ExpatHandler::startElement (const XML_Char* name, const XML_Char** attrs)
@@ -223,8 +223,8 @@ ExpatHandler::startElement (const XML_Char* name, const XML_Char** attrs)
 /**
  * Receive notification of the start of an XML namespace.
  *
- * @param  prefix  The namespace prefix or NULL (for xmlns="...")
- * @param  uri     The namespace uri    or NULL (for xmlns="")
+ * @param  prefix  the namespace prefix or NULL (for xmlns="...").
+ * @param  uri     the namespace uri    or NULL (for xmlns="").
  */
 void
 ExpatHandler::startNamespace (const XML_Char* prefix, const XML_Char* uri)
@@ -263,7 +263,7 @@ ExpatHandler::endDocument ()
 /**
  * Receive notification of the end of an element.
  *
- * @param  name  The element name
+ * @param  name  the element name.
  */
 void
 ExpatHandler::endElement (const XML_Char* name)
@@ -278,8 +278,8 @@ ExpatHandler::endElement (const XML_Char* name)
 /**
  * Receive notification of character data inside an element.
  *
- * @param  chars   The characters
- * @param  length  The number of characters to use from the character array
+ * @param  chars   the characters.
+ * @param  length  the number of characters to use from the character array.
  */
 void
 ExpatHandler::characters (const XML_Char* chars, int length)

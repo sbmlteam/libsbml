@@ -82,18 +82,14 @@ ASTConstantNumberNode::ASTConstantNumberNode (int type) :
   
 
 
-  /**
-   * Copy constructor
-   */
+
 ASTConstantNumberNode::ASTConstantNumberNode (const ASTConstantNumberNode& orig):
   ASTCnBase(orig)
     , mValue      (orig.mValue)
     , mIsSetValue (orig.mIsSetValue)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTConstantNumberNode&
 ASTConstantNumberNode::operator=(const ASTConstantNumberNode& rhs)
 {
@@ -105,9 +101,7 @@ ASTConstantNumberNode::operator=(const ASTConstantNumberNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTConstantNumberNode::~ASTConstantNumberNode ()
 {
 }

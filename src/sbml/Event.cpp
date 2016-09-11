@@ -58,8 +58,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Event::Event (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mId                       ( ""   )
- , mName                     ( ""   )
  , mTrigger                  ( NULL    )
  , mDelay                    ( NULL    )
  , mPriority                 ( NULL    )
@@ -82,8 +80,6 @@ Event::Event (unsigned int level, unsigned int version) :
 
 Event::Event (SBMLNamespaces * sbmlns) :
    SBase                     ( sbmlns )
- , mId                       ( ""   )
- , mName                     ( ""   )
  , mTrigger                  ( NULL    )
  , mDelay                    ( NULL    )
  , mPriority                 ( NULL    )
@@ -123,17 +119,15 @@ Event::~Event ()
  */
 Event::Event (const Event& orig) :
    SBase                     ( orig            )
- , mId                       ( orig.mId        )
- , mName                     ( orig.mName      )
  , mTrigger                  ( NULL            )
  , mDelay                    ( NULL            )
  , mPriority                 ( NULL            )
  , mTimeUnits                ( orig.mTimeUnits )
  , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
  , mIsSetUseValuesFromTriggerTime ( orig.mIsSetUseValuesFromTriggerTime )
- , mInternalId      ( orig.mInternalId      )
  , mExplicitlySetUVFTT       ( orig.mExplicitlySetUVFTT )
  , mEventAssignments         ( orig.mEventAssignments   )
+ , mInternalId      ( orig.mInternalId      )
 {
   
   if (orig.mTrigger != NULL) 
@@ -165,8 +159,6 @@ Event& Event::operator=(const Event& rhs)
   {
     this->SBase::operator =(rhs);
    
-    mId = rhs.mId;
-    mName = rhs.mName;
     mTimeUnits        = rhs.mTimeUnits        ;
     mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
     mIsSetUseValuesFromTriggerTime = rhs.mIsSetUseValuesFromTriggerTime;
@@ -1255,6 +1247,7 @@ Event::createObject (XMLInputStream& stream)
       else
         logError(OneListOfEventAssignmentsPerEvent, getLevel(), getVersion());
     }
+    mEventAssignments.setExplicitlyListed();
     object = &mEventAssignments;
   }
   else if (name == "trigger")
@@ -1400,7 +1393,7 @@ Event::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Event::readAttributes (const XMLAttributes& attributes,
@@ -1432,7 +1425,7 @@ Event::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Event::readL2Attributes (const XMLAttributes& attributes)
@@ -1496,7 +1489,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Event::readL3Attributes (const XMLAttributes& attributes)
@@ -1507,19 +1500,29 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="optional" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mId.size() == 0)
+  // for l3v2 sbase will read this as generically optional
+  // we want to log errors relating to the specific object
+  if (version == 1)
   {
-    logEmptyString("id", level, version, "<event>");
+    bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<event>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
-
+  // for l3v2 sbase will read this
+  if (version == 1)
+  {
+    attributes.readInto("name", mName, getErrorLog(), false, 
+                                       getLine(), getColumn());
+  }
+   
   //
   //
   // useValuesFromTriggerTime: bool {use="required" } (L3 ->)
@@ -1543,7 +1546,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -1571,16 +1574,20 @@ Event::writeAttributes (XMLOutputStream& stream) const
   }
 
 
-  //
-  //
-  // id: SId  { use="optional" }  (L2v1 ->)
-  //
-  stream.writeAttribute("id", mId);
+  // for L3V2 and above SBase will write this out
+  if (level < 3 || (level == 3 && version == 1))
+  {
+    //
+    //
+    // id: SId  { use="optional" }  (L2v1 ->)
+    //
+    stream.writeAttribute("id", mId);
 
-  //
-  // name: string  { use="optional" }  (L2v1->)
-  //
-  stream.writeAttribute("name", mName);
+    //
+    // name: string  { use="optional" }  (L2v1->)
+    //
+    stream.writeAttribute("name", mName);
+  }
 
   if (level == 2 && version < 3)
   {
@@ -1620,7 +1627,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -1643,7 +1650,20 @@ Event::writeElements (XMLOutputStream& stream) const
     mPriority->write(stream);
   }
 
-  if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    if (mEventAssignments.hasOptionalElements() == true ||
+        mEventAssignments.hasOptionalAttributes() == true ||
+        mEventAssignments.isExplicitlyListed())
+    {
+      mEventAssignments.write(stream);
+    }
+  }
+  else
+  {
+    // use original code
+    if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
+  }
 
   //
   // (EXTENSION)

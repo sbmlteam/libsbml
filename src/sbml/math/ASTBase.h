@@ -67,12 +67,17 @@ public:
  
   /**
    * Copy constructor
+   *
+   * @param orig the instance to copy.
    */
   ASTBase (const ASTBase& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTBase& operator=(const ASTBase& rhs);
 
@@ -111,7 +116,7 @@ public:
    * of doing this is that any numerical values previously stored in this
    * node are reset to zero.
    *
-   * @param type the type to which this node should be set
+   * @param type the type to which this node should be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -256,7 +261,7 @@ public:
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
-   * @param package the name or URI of the package
+   * @param package the name or URI of the package.
    *
    * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
@@ -268,7 +273,7 @@ public:
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
    *
-   * @param package the name or URI of the package
+   * @param package the name or URI of the package.
    *
    * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
@@ -280,7 +285,7 @@ public:
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @param n the index of the plug-in to return
+   * @param n the index of the plug-in to return.
    *
    * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
@@ -292,7 +297,7 @@ public:
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @param n the index of the plug-in to return
+   * @param n the index of the plug-in to return.
    *
    * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
@@ -338,14 +343,14 @@ public:
   virtual const std::string& getUnitsPrefix() const;
   
   /**
-   * Returns true if this is a package function which should be written as
-   * "functionname(argumentlist)", false otherwise.
+   * Returns @c true if this is a package function which should be written as
+   * "functionname(argumentlist)", @c false otherwise.
    */
   virtual bool isPackageInfixFunction() const;
 
   /**
-   * Returns true if this is a package function which should be written
-   * special syntax that the package knows about, false otherwise.
+   * Returns @c true if this is a package function which should be written
+   * special syntax that the package knows about, @c false otherwise.
    */
   virtual bool hasPackageOnlyInfixSyntax() const;
 
@@ -355,8 +360,8 @@ public:
   virtual int getL3PackageInfixPrecedence() const;
 
   /**
-   * Returns true if this is a package function which needs no special
-   * consideration when writng as infix, false otherwise.
+   * Returns @c true if this is a package function which needs no special
+   * consideration when writng as infix, @c false otherwise.
    */
   virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
 

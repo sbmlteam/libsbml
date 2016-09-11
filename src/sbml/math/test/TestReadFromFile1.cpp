@@ -140,9 +140,11 @@ START_TEST (test_read_MathML_1)
   ASTNode *child1 = fd1_math->getRightChild();
   fail_unless (child1->getType() == AST_CONSTANT_TRUE, NULL);
   fail_unless (child1->getNumChildren() == 0, NULL);
+
   math = SBML_formulaToString(child1);
   fail_unless (!strcmp(math, "true"), NULL);
   safe_free(math);
+
   //fail_unless( child1->containsVariable("c") == false );
   //fail_unless( child1->containsVariable("x") == false );
 

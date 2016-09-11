@@ -49,6 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
 static const char* URL_AVOGADRO = "http://www.sbml.org/sbml/symbols/avogadro";
+static const char* URL_RATE_OF = "http://www.sbml.org/sbml/symbols/rateOf";
 
 
 ASTCSymbol::ASTCSymbol (int type) :
@@ -56,6 +57,7 @@ ASTCSymbol::ASTCSymbol (int type) :
   , mTime      ( NULL )
   , mDelay     ( NULL )
   , mAvogadro  ( NULL )
+  , mRateOf    ( NULL )
   , mIsOther   ( false )
   , mCalcNumChildren ( 0 )
   , mInReadFromApply ( false)
@@ -74,6 +76,10 @@ ASTCSymbol::ASTCSymbol (int type) :
       mAvogadro = new ASTCSymbolAvogadroNode(type);
       this->ASTBase::syncPluginsFrom(mAvogadro);
       break;
+    case AST_FUNCTION_RATE_OF:
+      mRateOf = new ASTCSymbolRateOfNode(type);
+      this->ASTBase::syncPluginsFrom(mRateOf);
+      break;
     default:
       break;
   }
@@ -86,14 +92,12 @@ ASTCSymbol::ASTCSymbol (int type) :
   
 
  
-  /**
-   * Copy constructor
-   */
 ASTCSymbol::ASTCSymbol (const ASTCSymbol& orig):
     ASTBase (orig)
   , mTime      ( NULL )
   , mDelay     ( NULL )
   , mAvogadro  ( NULL )
+  , mRateOf    ( NULL )
   , mIsOther        ( orig.mIsOther )
   , mCalcNumChildren ( orig.mCalcNumChildren )
   , mInReadFromApply ( orig.mInReadFromApply)
@@ -115,10 +119,14 @@ ASTCSymbol::ASTCSymbol (const ASTCSymbol& orig):
     mAvogadro = static_cast<ASTCSymbolAvogadroNode*>
                                 ( orig.mAvogadro->deepCopy() );
   }
+  if ( orig.mRateOf  != NULL)
+  {
+    mRateOf = static_cast<ASTCSymbolRateOfNode*>
+                                ( orig.mRateOf->deepCopy() );
+  }
+
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCSymbol&
 ASTCSymbol::operator=(const ASTCSymbol& rhs)
 {
@@ -163,17 +171,27 @@ ASTCSymbol::operator=(const ASTCSymbol& rhs)
       mAvogadro = NULL;
     }
 
+    delete mRateOf;
+    if ( rhs.mRateOf  != NULL)
+    {
+      mRateOf = static_cast<ASTCSymbolRateOfNode*>
+                                  ( rhs.mRateOf->deepCopy() );
+    }
+    else
+    {
+      mRateOf = NULL;
+    }
+
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCSymbol::~ASTCSymbol ()
 {
   if (mTime  != NULL) delete mTime;
   if (mDelay  != NULL) delete mDelay;
   if (mAvogadro  != NULL) delete mAvogadro;
+  if (mRateOf  != NULL) delete mRateOf;
 }
 
 int
@@ -204,6 +222,10 @@ ASTCSymbol::addChild(ASTBase * child)
   {
     return mDelay->addChild(child);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->addChild(child);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -221,6 +243,10 @@ ASTCSymbol::swapChildren(ASTFunction * that)
   if (mDelay != NULL)
   {
     return mDelay->swapChildren(that);
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->swapChildren(that);
   }
   else
   {
@@ -241,6 +267,10 @@ ASTCSymbol::insertChild(unsigned int n, ASTBase* newChild)
   {
     return mDelay->insertChild(n, newChild);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->insertChild(n, newChild);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -260,6 +290,10 @@ ASTCSymbol::prependChild(ASTBase * newChild)
   {
     return mDelay->prependChild(newChild);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->prependChild(newChild);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -273,6 +307,10 @@ ASTCSymbol::removeChild(unsigned int n)
   if (mDelay != NULL)
   {
     return mDelay->removeChild(n);
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->removeChild(n);
   }
   else
   {
@@ -293,6 +331,10 @@ ASTCSymbol::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
   {
     return mDelay->replaceChild(n, newChild, delreplaced);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->replaceChild(n, newChild, delreplaced);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -307,6 +349,10 @@ ASTCSymbol::getChild (unsigned int n) const
   {
     return mDelay->getChild(n);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getChild(n);
+  }
   else
   {
     return NULL;
@@ -319,6 +365,10 @@ ASTCSymbol::getNumChildren() const
   if (mDelay != NULL)
   {
     return mDelay->getNumChildren();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getNumChildren();
   }
   else
   {
@@ -344,6 +394,10 @@ ASTCSymbol::setIsChildFlag(bool flag)
   {
     mAvogadro->ASTBase::setIsChildFlag(flag);
   }
+  else if (mRateOf != NULL)
+  {
+    mRateOf->ASTBase::setIsChildFlag(flag);
+  }
 }
 
 
@@ -365,6 +419,10 @@ ASTCSymbol::setClass(std::string className)
     else if (mAvogadro != NULL)
     {
       success =  mAvogadro->ASTBase::setClass(className);
+    }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::setClass(className);
     }
   }
 
@@ -391,6 +449,10 @@ ASTCSymbol::setId(std::string id)
     {
       success =  mAvogadro->ASTBase::setId(id);
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::setId(id);
+    }
   }
 
   return success;
@@ -416,6 +478,10 @@ ASTCSymbol::setStyle(std::string style)
     {
       success =  mAvogadro->ASTBase::setStyle(style);
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::setStyle(style);
+    }
   }
 
   return success;
@@ -436,6 +502,10 @@ ASTCSymbol::setParentSBMLObject(SBase* sb)
     else if (mDelay != NULL)
     {
       success =  mDelay->ASTBase::setParentSBMLObject(sb);
+    }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::setParentSBMLObject(sb);
     }
     else if (mAvogadro != NULL)
     {
@@ -466,6 +536,10 @@ ASTCSymbol::setUserData(void* userData)
     {
       success =  mAvogadro->ASTBase::setUserData(userData);
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::setUserData(userData);
+    }
   }
 
   return success;
@@ -490,6 +564,10 @@ ASTCSymbol::unsetClass()
     else if (mAvogadro != NULL)
     {
       success =  mAvogadro->ASTBase::unsetClass();
+    }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::unsetClass();
     }
   }
 
@@ -516,6 +594,10 @@ ASTCSymbol::unsetId()
     {
       success =  mAvogadro->ASTBase::unsetId();
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::unsetId();
+    }
   }
 
   return success;
@@ -540,6 +622,10 @@ ASTCSymbol::unsetStyle()
     else if (mAvogadro != NULL)
     {
       success =  mAvogadro->ASTBase::unsetStyle();
+    }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::unsetStyle();
     }
   }
 
@@ -566,6 +652,10 @@ ASTCSymbol::unsetParentSBMLObject()
     {
       success =  mAvogadro->ASTBase::unsetParentSBMLObject();
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::unsetParentSBMLObject();
+    }
   }
 
   return success;
@@ -591,6 +681,10 @@ ASTCSymbol::unsetUserData()
     {
       success =  mAvogadro->ASTBase::unsetUserData();
     }
+    else if (mRateOf != NULL)
+    {
+      success =  mRateOf->ASTBase::unsetUserData();
+    }
   }
 
   return success;
@@ -611,6 +705,10 @@ ASTCSymbol::isSetClass() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->ASTBase::isSetClass();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::isSetClass();
   }
   else
   {
@@ -634,6 +732,10 @@ ASTCSymbol::isSetId() const
   {
     return mAvogadro->ASTBase::isSetId();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::isSetId();
+  }
   else
   {
     return ASTBase::isSetId();
@@ -655,6 +757,10 @@ ASTCSymbol::isSetStyle() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->ASTBase::isSetStyle();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::isSetStyle();
   }
   else
   {
@@ -678,6 +784,10 @@ ASTCSymbol::isSetParentSBMLObject() const
   {
     return mAvogadro->ASTBase::isSetParentSBMLObject();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::isSetParentSBMLObject();
+  }
   else
   {
     return ASTBase::isSetParentSBMLObject();
@@ -699,6 +809,10 @@ ASTCSymbol::isSetUserData() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->ASTBase::isSetUserData();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::isSetUserData();
   }
   else
   {
@@ -722,6 +836,10 @@ ASTCSymbol::getClass() const
   {
     return mAvogadro->ASTBase::getClass();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::getClass();
+  }
   else
   {
     return ASTBase::getClass();
@@ -743,6 +861,10 @@ ASTCSymbol::getId() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->ASTBase::getId();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::getId();
   }
   else
   {
@@ -766,6 +888,10 @@ ASTCSymbol::getStyle() const
   {
     return mAvogadro->ASTBase::getStyle();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::getStyle();
+  }
   else
   {
     return ASTBase::getStyle();
@@ -788,6 +914,10 @@ ASTCSymbol::getParentSBMLObject() const
   {
     return mAvogadro->ASTBase::getParentSBMLObject();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::getParentSBMLObject();
+  }
   else
   {
     return ASTBase::getParentSBMLObject();
@@ -809,6 +939,10 @@ ASTCSymbol::getUserData() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->ASTBase::getUserData();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->ASTBase::getUserData();
   }
   else
   {
@@ -867,6 +1001,10 @@ ASTCSymbol::getName() const
   {
     return mDelay->getName();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getName();
+  }
   else if (mAvogadro != NULL)
   {
     return mAvogadro->getName();
@@ -893,6 +1031,10 @@ ASTCSymbol::isSetName() const
   {
     return mAvogadro->isSetName();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->isSetName();
+  }
   else
   {
     return false;
@@ -915,6 +1057,10 @@ ASTCSymbol::setName(const std::string& name)
   {
     return mAvogadro->setName(name);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->setName(name);
+  }
   else
   {
     return LIBSBML_INVALID_OBJECT;
@@ -936,6 +1082,10 @@ ASTCSymbol::unsetName()
   else if (mAvogadro != NULL)
   {
     return mAvogadro->unsetName();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->unsetName();
   }
   else
   {
@@ -972,6 +1122,13 @@ ASTCSymbol::isAvogadro() const
 }
 
 
+bool
+ASTCSymbol::isRateOf() const
+{
+  return (mRateOf != NULL);
+}
+
+
 int 
 ASTCSymbol::setDefinitionURL(const std::string& url)
 {
@@ -986,6 +1143,10 @@ ASTCSymbol::setDefinitionURL(const std::string& url)
   else if (mAvogadro != NULL)
   {
     return mAvogadro->setDefinitionURL(url);
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->setDefinitionURL(url);
   }
   else
   {
@@ -1004,6 +1165,10 @@ ASTCSymbol::setEncoding(const std::string& encoding)
   else if (mDelay != NULL)
   {
     return mDelay->setEncoding(encoding);
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->setEncoding(encoding);
   }
   else if (mAvogadro != NULL)
   {
@@ -1032,6 +1197,10 @@ ASTCSymbol::getDefinitionURL() const
   {
     return mAvogadro->getDefinitionURL();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getDefinitionURL();
+  }
   else
   {
     return emptyString;
@@ -1050,6 +1219,10 @@ ASTCSymbol::getEncoding() const
   else if (mDelay != NULL)
   {
     return mDelay->getEncoding();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getEncoding();
   }
   else if (mAvogadro != NULL)
   {
@@ -1073,6 +1246,10 @@ ASTCSymbol::isSetDefinitionURL() const
   else if (mDelay != NULL)
   {
     return mDelay->isSetDefinitionURL();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->isSetDefinitionURL();
   }
   else if (mAvogadro != NULL)
   {
@@ -1100,6 +1277,10 @@ ASTCSymbol::isSetEncoding() const
   else if (mAvogadro != NULL)
   {
     return mAvogadro->isSetEncoding();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->isSetEncoding();
   }
   else
   {
@@ -1137,6 +1318,10 @@ ASTCSymbol::getPlugin(const std::string& package)
   {
     return mAvogadro->getPlugin(package);
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getPlugin(package);
+  }
   else
   {
     return getPlugin(package);
@@ -1165,6 +1350,10 @@ ASTCSymbol::getPlugin(unsigned int n)
   else if (mAvogadro != NULL)
   {
     return mAvogadro->getPlugin(n);
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getPlugin(n);
   }
   else
   {
@@ -1195,6 +1384,10 @@ ASTCSymbol::isWellFormedNode() const
   {
     return mAvogadro->isWellFormedNode();
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->isWellFormedNode();
+  }
   else
   {
     return ASTBase::isWellFormedNode();
@@ -1212,6 +1405,10 @@ ASTCSymbol::hasCorrectNumberArguments() const
   else if (mDelay != NULL)
   {
     return mDelay->hasCorrectNumberArguments();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->hasCorrectNumberArguments();
   }
   else if (mAvogadro != NULL)
   {
@@ -1239,6 +1436,10 @@ ASTCSymbol::getMember() const
   {
     return mAvogadro;
   }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf;
+  }
   else
   {
     return NULL;
@@ -1252,6 +1453,10 @@ ASTCSymbol::hasCnUnits() const
   if (mDelay != NULL)
   {
     return mDelay->hasCnUnits();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->hasCnUnits();
   }
   else
   {
@@ -1267,6 +1472,10 @@ ASTCSymbol::getUnitsPrefix() const
   if (mDelay != NULL)
   {
     return mDelay->getUnitsPrefix();
+  }
+  else if (mRateOf != NULL)
+  {
+    return mRateOf->getUnitsPrefix();
   }
   else
   {
@@ -1288,6 +1497,15 @@ ASTCSymbol::write(XMLOutputStream& stream) const
   else if (mTime != NULL)
   {
     mTime->write(stream);
+  }
+  else if (mRateOf != NULL)
+  {
+    if (stream.getSBMLNamespaces() != NULL
+      && stream.getSBMLNamespaces()->getLevel() == 3
+      && stream.getSBMLNamespaces()->getVersion() > 1)
+    {
+      mRateOf->write(stream);
+    }
   }
   else if (mIsOther == true)
   {
@@ -1383,6 +1601,46 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
         this->ASTBase::syncMembersAndResetParentsFrom(mTime);
       }
     }
+    else if (url == URL_RATE_OF)
+    {
+      bool allowed = true;
+      if (stream.getSBMLNamespaces() != NULL)
+      {
+        unsigned int level = stream.getSBMLNamespaces()->getLevel();
+        unsigned int vers = stream.getSBMLNamespaces()->getVersion();
+        if (level == 2)
+        {
+          allowed = false;
+        }
+        else if (level == 3 && vers == 1)
+        {
+          allowed = false;
+        }
+      }
+      if (!allowed)
+      {
+        logError(stream, element, BadCsymbolDefinitionURLValue, "The <csymbol> definitionURL '" 
+          + url +"' is not allowed for this level and version of SBML.");
+      }
+
+      mRateOf = new ASTCSymbolRateOfNode();
+      mRateOf->setExpectedNumChildren(getExpectedNumChildren());
+      read = mRateOf->read(stream, reqd_prefix);
+      if (read == true && mRateOf != NULL)
+      {
+        if (!allowed) 
+        {
+        std::string name = mRateOf->getName();
+        mRateOf->setType(AST_FUNCTION);
+        mRateOf->setName(name);
+        this->ASTBase::syncMembersAndResetParentsFrom(mRateOf);
+        }
+        else
+        {
+          this->ASTBase::syncMembersAndResetParentsFrom(mRateOf);
+        }
+      }
+    }
     else
     {
       /* HACK TO REPLICATE OLD AST */
@@ -1459,6 +1717,13 @@ ASTCSymbol::getAvogadro() const
 }
 
 
+ASTCSymbolRateOfNode * 
+ASTCSymbol::getRateOf() const
+{ 
+  return mRateOf; 
+}
+
+
 void
 ASTCSymbol::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
 {
@@ -1493,6 +1758,16 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
       mAvogadro->setName(rhs->getName());
     }
     this->ASTBase::syncMembersFrom(mAvogadro);
+  }
+  else if (mRateOf != NULL)
+  {
+    mRateOf->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
+    mRateOf->setType(type);
+    if (rhs->isSetName() == true)
+    {
+      mRateOf->setName(rhs->getName());
+    }
+    this->ASTBase::syncMembersFrom(mRateOf);
   }
   else if (mIsOther == true)
   {
@@ -1535,6 +1810,16 @@ ASTCSymbol::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       mAvogadro->setName(rhs->getName());
     }
     this->ASTBase::syncMembersFrom(mAvogadro);
+  }
+  else if (mRateOf != NULL)
+  {
+    mRateOf->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
+    mRateOf->setType(type);
+    if (rhs->isSetName() == true)
+    {
+      mRateOf->setName(rhs->getName());
+    }
+    this->ASTBase::syncMembersFrom(mRateOf);
   }
   else if (mIsOther == true)
   {

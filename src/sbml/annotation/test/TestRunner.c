@@ -57,6 +57,7 @@ Suite *create_suite_CVTerms (void);
 Suite *create_suite_CVTerms_newSetters (void);
 Suite *create_suite_RDFAnnotation (void);
 Suite *create_suite_RDFAnnotation2 (void);
+Suite *create_suite_RDFAnnotationV4 (void);
 Suite *create_suite_ModelHistory (void);
 Suite *create_suite_Date_newSetters (void);
 Suite *create_suite_ModelCreator_newSetters (void);
@@ -127,6 +128,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SyncAnnotation  () );
   srunner_add_suite( runner, create_suite_RDFAnnotationMetaid () );
   srunner_add_suite( runner, create_suite_RDFAnnotationNestedCVTerm () );
+  srunner_add_suite( runner, create_suite_RDFAnnotationV4() );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

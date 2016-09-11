@@ -178,7 +178,7 @@ public:
   /**
    * Creates a new XMLNode by copying an XMLToken object.
    *
-   * @param token XMLToken to be copied to XMLNode
+   * @param token XMLToken to be copied to XMLNode.
    */
   XMLNode (const XMLToken& token);
 
@@ -235,7 +235,7 @@ public:
   /**
    * Creates a text XMLNode.
    *
-   * @param chars a string, the text to be added to the XMLToken
+   * @param chars a string, the text to be added to the XMLToken.
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
@@ -277,7 +277,7 @@ public:
   /**
    * Assignment operator for XMLNode.
    *
-   * @param rhs The XMLNode object whose values are used as the basis
+   * @param rhs the XMLNode object whose values are used as the basis
    * of the assignment.
    */
   XMLNode& operator=(const XMLNode& rhs);
@@ -316,10 +316,10 @@ public:
    * the @p node is added at the end of the list of children.  Even in
    * that situation, this method does not throw an error.
    *
-   * @param n an integer, the index at which the given node is inserted
+   * @param n an integer, the index at which the given node is inserted.
    * @param node an XMLNode to be inserted as <code>n</code>th child.
    *
-   * @return a reference to the newly-inserted child @p node
+   * @return a reference to the newly-inserted child @p node.
    */
   XMLNode& insertChild (unsigned int n, const XMLNode& node);
 
@@ -334,10 +334,10 @@ public:
    * greater than the number of child nodes in this XMLNode, this method
    * takes no action (and returns @c NULL).
    *
-   * @param n an integer, the index of the node to be removed
+   * @param n an integer, the index of the node to be removed.
    *
    * @return the removed child, or @c NULL if @p n is greater than the number
-   * of children in this node
+   * of children in this node.
    *
    * @note The caller owns the returned node and is responsible for deleting it.
    */
@@ -358,7 +358,7 @@ public:
    * If the index @p n is greater than the number of child nodes,
    * this method returns an empty node.
    *
-   * @param n an unsigned integer, the index of the node to return
+   * @param n an unsigned integer, the index of the node to return.
    *
    * @return the <code>n</code>th child of this XMLNode.
    */
@@ -371,7 +371,7 @@ public:
    * If the index @p n is greater than the number of child nodes,
    * this method returns an empty node.
    *
-   * @param n an unsigned integer, the index of the node to return
+   * @param n an unsigned integer, the index of the node to return.
    *
    * @return the <code>n</code>th child of this XMLNode.
    */
@@ -384,7 +384,7 @@ public:
    * If no child with corrsponding name can be found,
    * this method returns an empty node.
    *
-   * @param name the name of the node to return
+   * @param name the name of the node to return.
    *
    * @return the first child of this XMLNode with given name.
    */
@@ -397,7 +397,7 @@ public:
    * If no child with corrsponding name can be found,
    * this method returns an empty node.
    *
-   * @param name the name of the node to return
+   * @param name the name of the node to return.
    *
    * @return the first child of this XMLNode with given name.
    */
@@ -473,9 +473,9 @@ public:
   /**
    * Returns a string representation of a given XMLNode.
    *
-   * @param node the XMLNode to be represented as a string
+   * @param node the XMLNode to be represented as a string.
    *
-   * @return a string-form representation of @p node
+   * @return a string-form representation of @p node.
    */
   static std::string convertXMLNodeToString(const XMLNode* node);
 
@@ -628,7 +628,7 @@ XMLNode_createEndElement (const XMLTriple_t *triple);
 /**
  * Creates a text XMLNode_t.  Defaults to creating the node with a line number of 0 and a column number of 0.
  *
- * @param text the text to be added to the XMLToken_t
+ * @param text the text to be added to the XMLToken_t.
  *
  * @memberof XMLNode_t
  */
@@ -640,7 +640,7 @@ XMLNode_createTextNode (const char *text);
 /**
  * Creates a deep copy of the given XMLNode_t structure
  *
- * @param n the XMLNode_t structure to be copied
+ * @param n the XMLNode_t structure to be copied.
  *
  * @return a (deep) copy of the given XMLNode_t structure.
  *
@@ -685,7 +685,7 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
  * Inserts a copy of child node to this XMLNode_t structure.
  *
  * @param node XMLNode_t structure to which child is to be added.
- * @param n the index at which the given node is inserted
+ * @param n the index at which the given node is inserted.
  * @param child XMLNode_t structure to be inserted as nth child.
  *
  * @return the newly inserted child in this XMLNode_t.
@@ -702,9 +702,9 @@ XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child);
  * Removes the nth child of this XMLNode_t and returned the removed node.
  *
  * @param node XMLNode_t structure to which child is to be removed.
- * @param n the index of the node to be removed
+ * @param n the index of the node to be removed.
  *
- * @return the removed child, or NULL if the given index is out of range.
+ * @return the removed child, or @c NULL if the given index is out of range.
  *
  * @note This function invalidates all existing references to child nodes
  * after the position or first.
@@ -814,7 +814,7 @@ XMLNode_getURI (const XMLNode_t *node);
  * Returns the nth child of this XMLNode_t structure.
  *
  * @param node XMLNode_t structure to be queried.
- * @param n the index of the node to return
+ * @param n the index of the node to return.
  *
  * @return the nth child of this XMLNode_t structure.
  *
@@ -829,7 +829,7 @@ XMLNode_getChild (const XMLNode_t *node, const int n);
  * Returns the (non-const) nth child of this XMLNode_t structure.
  *
  * @param node XMLNode_t structure to be queried.
- * @param n the index of the node to return
+ * @param n the index of the node to return.
  *
  * @return the non-const nth child of this XMLNode_t structure.
  *
@@ -846,7 +846,7 @@ XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
  * this method returns an empty node.
  *
  * @param node XMLNode_t structure to be queried.
- * @param name the name of the node to return
+ * @param name the name of the node to return.
  *
  * @return the first child of this XMLNode_t with given name.
  *
@@ -863,7 +863,7 @@ XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name);
  * this method returns an empty node.
  *
  * @param node XMLNode_t structure to be queried.
- * @param name the name of the node to return
+ * @param name the name of the node to return.
  *
  * @return the first child of this XMLNode_t with given name.
  *
@@ -907,8 +907,8 @@ XMLNode_hasChild (const XMLNode_t *node, const char*  name);
  * represent the same XML tree, or false (zero) otherwise.
  *
  *
- * @param node the original XMLNode_t structure
- * @param other another XMLNode_t to compare against
+ * @param node the original XMLNode_t structure.
+ * @param other another XMLNode_t to compare against.
  *
  * @return true (non-zero) if both nodes
  * represent the same XML tree, or false (zero) otherwise
@@ -1002,7 +1002,7 @@ XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value );
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
  * @param namespaceURI a string, the namespace URI of the attribute.
- * @param prefix a string, the prefix of the namespace
+ * @param prefix a string, the prefix of the namespace.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1053,7 +1053,7 @@ XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const cha
  * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure from which an attribute to be removed.
- * @param n an integer the index of the resource to be deleted
+ * @param n an integer the index of the resource to be deleted.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1424,7 +1424,7 @@ XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri)
  * this XMLNode_t
  *
  * @param node XMLNode_t structure to be queried.
- * @param triple an XMLTriple_t, the XML triple of the attribute
+ * @param triple an XMLTriple_t, the XML triple of the attribute.
  *
  * @return @c non-zero (true) if an attribute with the given XML triple exists
  * in the attribute set in this XMLNode_t, @c zero (false) otherwise.
@@ -1496,8 +1496,8 @@ XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces);
  * Nothing will be done if this XMLNode_t is not a start element.
  *
  * @param node XMLNode_t structure to be queried.
- * @param uri a string, the uri for the namespace
- * @param prefix a string, the prefix for the namespace
+ * @param uri a string, the uri for the namespace.
+ * @param prefix a string, the prefix for the namespace.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1711,7 +1711,7 @@ XMLNode_isNamespacesEmpty (const XMLNode_t *node);
  * this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
- * @param uri a string, the uri for the namespace
+ * @param uri a string, the uri for the namespace.
  *
  * @return @c no-zero (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.
@@ -1729,7 +1729,7 @@ XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
  * this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
- * @param prefix a string, the prefix for the namespace
+ * @param prefix a string, the prefix for the namespace.
  *
  * @return @c no-zero (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLNode_t, @c zero (false) otherwise.
@@ -1747,8 +1747,8 @@ XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
  * XMLNamespaces_t of this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
- * @param uri a string, the uri for the namespace
- * @param prefix a string, the prefix for the namespace
+ * @param uri a string, the uri for the namespace.
+ * @param prefix a string, the prefix for the namespace.
  *
  * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is
  * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.

@@ -68,7 +68,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicate
  */
 #define ASTNodeType_isFunction(t) \
-  ((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH))
+  (((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH)) || (t <= AST_FUNCTION_REM && t >= AST_FUNCTION_MAX))
 
 /**
  * ASTNodeType predicate
@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicate
  */
 #define ASTNodeType_isLogical(t) \
-  ((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR))
+  ((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR) || t == AST_LOGICAL_IMPLIES)
 
 /**
  * ASTNodeType predicate
@@ -188,6 +188,15 @@ static const char *AST_FUNCTION_STRINGS[] =
   , "tanh"
 };
 
+static const char *AST_NEW_FUNCTION_STRINGS[] =
+{
+    "max"
+  , "min"
+  , "quotient"
+  , "rateOf"
+  , "rem"
+};
+
 
 static const char *AST_LOGICAL_STRINGS[] =
 {
@@ -195,6 +204,12 @@ static const char *AST_LOGICAL_STRINGS[] =
   , "not"
   , "or"
   , "xor"
+};
+
+
+static const char *AST_NEW_LOGICAL_STRINGS[] =
+{
+    "implies"
 };
 
 
@@ -552,6 +567,10 @@ ASTNode::canonicalizeFunction ()
   const int last  = AST_FUNCTION_TANH;
   const int size  = last - first + 1;
 
+  const int new_first = AST_FUNCTION_MAX;
+  const int new_last  = AST_FUNCTION_REM;
+  const int new_size  = new_last - new_first + 1;
+
   int  index;
   bool found;
 
@@ -585,6 +604,19 @@ ASTNode::canonicalizeFunction ()
       setType( static_cast<ASTNodeType_t>(first + index) );
     }
   }
+
+  // and then the new ones
+  if (!found)
+  {
+    index = util_bsearchStringsI(AST_NEW_FUNCTION_STRINGS, mName, 0, new_size - 1);
+    found = (index < new_size);
+
+    if (found)
+    {
+      setType( static_cast<ASTNodeType_t>(new_first + index) );
+    }
+  }
+
 
   return found;
 }
@@ -698,6 +730,10 @@ ASTNode::canonicalizeLogical ()
   const int last  = AST_LOGICAL_XOR;
   const int size  = last - first + 1;
 
+  const int new_first = AST_LOGICAL_IMPLIES;
+  const int new_last  = AST_LOGICAL_IMPLIES;
+  const int new_size  = new_last - new_first + 1;
+
   int  index;
   bool found;
 
@@ -708,6 +744,17 @@ ASTNode::canonicalizeLogical ()
   if (found)
   {
     setType( static_cast<ASTNodeType_t>(first + index) );
+  }
+
+  if (!found)
+  {
+    index = util_bsearchStringsI(AST_NEW_LOGICAL_STRINGS, mName, 0, new_size - 1);
+    found = (index < new_size);
+
+    if (found)
+    {
+      setType( static_cast<ASTNodeType_t>(new_first + index) );
+    }
   }
 
   return found;
@@ -1130,11 +1177,25 @@ ASTNode::getName () const
     }
     else if ( isFunction() )
     {
-      result = AST_FUNCTION_STRINGS[ mType - AST_FUNCTION_ABS ];
+      if (mType >= AST_FUNCTION_MAX)
+      {
+        result = AST_NEW_FUNCTION_STRINGS[mType - AST_FUNCTION_MAX];
+      }
+      else
+      {
+        result = AST_FUNCTION_STRINGS[ mType - AST_FUNCTION_ABS ];
+      }
     }
     else if ( isLogical() )
     {
-      result = AST_LOGICAL_STRINGS[ mType - AST_LOGICAL_AND ];
+      if (mType == AST_LOGICAL_IMPLIES)
+      {
+        result = AST_NEW_LOGICAL_STRINGS[0];
+      }
+      else
+      {
+        result = AST_LOGICAL_STRINGS[ mType - AST_LOGICAL_AND ];
+      }
     }
     else if ( isRelational() )
     {
@@ -1361,6 +1422,53 @@ ASTNode::getUnits() const
 {
   return mUnits;
 }
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+bool
+ASTNode::usesL3V2MathConstructs() const
+{
+  bool mathConstructs = false;
+
+  int type = getType();
+  if (type == AST_FUNCTION_RATE_OF ||
+      type == AST_FUNCTION_MIN ||
+      type == AST_FUNCTION_MAX ||
+      type == AST_FUNCTION_REM ||
+      type == AST_FUNCTION_QUOTIENT ||
+      type == AST_LOGICAL_IMPLIES)
+      mathConstructs = true;
+  unsigned int i = 0;
+  while (!mathConstructs && i < getNumChildren())
+  {
+    mathConstructs = getChild(i)->usesL3V2MathConstructs();
+    i++;
+  }
+
+  return mathConstructs;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+bool
+ASTNode::usesRateOf() const
+{
+  bool mathConstructs = false;
+
+  if (getType() == AST_FUNCTION_RATE_OF)
+      mathConstructs = true;
+  unsigned int i = 0;
+  while (!mathConstructs && i < getNumChildren())
+  {
+    mathConstructs = getChild(i)->usesRateOf();
+    i++;
+  }
+
+  return mathConstructs;
+}
+/** @endcond */
 
 /*
  * @return true if this ASTNode is a boolean (a logical operator, a

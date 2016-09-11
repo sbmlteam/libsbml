@@ -411,9 +411,6 @@ ASTBase()
 /** @endcond */
 
 
-/*
-   * Copy constructor
-   */
 ASTNode::ASTNode (const ASTNode& orig) :
         ASTBase(orig)
       , mNumber  ( NULL )
@@ -445,10 +442,6 @@ ASTNode::ASTNode (const ASTNode& orig) :
 }
 
 
-/*
- * 
-   * Assignment operator for ASTNode.
-   */
 ASTNode&
 ASTNode::operator=(const ASTNode& rhs)
 {
@@ -1879,6 +1872,52 @@ ASTNode::freeName()
 
   return success;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+bool
+ASTNode::usesL3V2MathConstructs() const
+{
+  bool mathConstructs = false;
+
+  int type = getType();
+  if (type == AST_FUNCTION_RATE_OF ||
+      type == AST_FUNCTION_MIN ||
+      type == AST_FUNCTION_MAX ||
+      type == AST_FUNCTION_REM ||
+      type == AST_FUNCTION_QUOTIENT ||
+      type == AST_LOGICAL_IMPLIES)
+      mathConstructs = true;
+  unsigned int i = 0;
+  while (!mathConstructs && i < getNumChildren())
+  {
+    mathConstructs = getChild(i)->usesL3V2MathConstructs();
+    i++;
+  }
+
+  return mathConstructs;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+bool
+ASTNode::usesRateOf() const
+{
+  bool mathConstructs = false;
+
+  if (getType() == AST_FUNCTION_RATE_OF)
+      mathConstructs = true;
+  unsigned int i = 0;
+  while (!mathConstructs && i < getNumChildren())
+  {
+    mathConstructs = getChild(i)->usesRateOf();
+    i++;
+  }
+
+  return mathConstructs;
+}
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

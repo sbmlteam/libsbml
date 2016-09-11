@@ -91,7 +91,7 @@ StringBuffer_reset (StringBuffer_t *sb);
  * Appends the given string to this  StringBuffer_t.
  *
  * @param sb the StringBuffer_t structure.
- * @param s the string to be appended
+ * @param s the string to be appended.
  *
  * @memberof StringBuffer_t
  */
@@ -103,8 +103,8 @@ StringBuffer_append (StringBuffer_t *sb, const char *s);
  * Appends the given string to this  StringBuffer_t.
  *
  * @param sb the StringBuffer_t structure.
- * @param s the string to be appended
- * @param len number of characters of s to append
+ * @param s the string to be appended.
+ * @param len number of characters of s to append.
  *
  * @memberof StringBuffer_t
  */

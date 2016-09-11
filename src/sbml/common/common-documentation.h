@@ -53,6 +53,22 @@
  * defined by the SBML specification, such as "metaid" attributes and
  * annotations.
  *
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
+ *
+ * @htmlinclude listof-illustration.html
+ *
+ * SBML Level&nbsp;3 Version&nbsp;1 has essentially the same structure as 
+ * Level&nbsp;2 Version&nbsp;4, depicted above, but SBML Level&nbsp;3 
+ * Version&nbsp;2 allows
+ * containers to contain zero or more of the relevant object, instead of 
+ * requiring at least one.  As such, libsbml will write out an 
+ * otherwise-empty ListOf___ element that has any optional attribute set 
+ * (such as 'id' or 'metaid'), that has an optional child (such 
+ * as a 'notes' or 'annotation'), or that has attributes or children set
+ * from any SBML Level&nbsp;3 package, whether or not the ListOf___ has 
+ * any other children.
+ *
  * Readers may wonder about the motivations for using the ListOf___
  * containers in SBML.  A simpler approach in XML might be to place the
  * components all directly at the top level of the model definition.  The
@@ -111,6 +127,19 @@
  * common approach to using libSBML's SBMLNamespaces facilities is to create an
  * SBMLNamespaces object somewhere in a program once, then hand that object
  * as needed to object constructors that accept SBMLNamespaces as arguments.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_are_sbml_package_namespaces
+ *
+ * @par
+ * The package namespaces object used in this constructor is derived from a
+ * SBMLNamespaces object, which encapsulates SBML Level/Version/namespaces
+ * information.  It is used to communicate the SBML Level, Version, and 
+ * package version and name information used in addition to SBML Level&nbsp;3 Core.  A
+ * common approach to using libSBML's SBMLNamespaces facilities is to create an
+ * package namespace object somewhere in a program once, then hand that object
+ * as needed to object constructors of that package that accept it as and
+ * argument, such as this one.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_is_SBMLDocument
@@ -197,7 +226,7 @@
  * introduced for attribute values that refer to <code>SId</code> values; in
  * previous Levels of SBML, this data type did not exist and attributes were
  * simply described to as "referring to an identifier", but the effective
- * data type was the same as <code>SIdRef</code>in Level&nbsp;3.  These and
+ * data type was the same as <code>SIdRef</code> in Level&nbsp;3.  These and
  * other methods of libSBML refer to the type <code>SIdRef</code> for all
  * Levels of SBML, even if the corresponding SBML specification did not
  * explicitly name the data type.
@@ -228,27 +257,214 @@
  * SBML-defined type <code>SIdRef</code>.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_id_syntax
+ * @class doc_id_attribute
  *
  * @par
- * SBML has strict requirements for the syntax of identifiers, that is, the
- * values of the "id" attribute present on most types of SBML objects.
- * The following is a summary of the definition of the SBML identifier type
- * <code>SId</code>, which defines the permitted syntax of identifiers.  We
- * express the syntax using an extended form of BNF notation:
- * <pre style="margin-left: 2em; border: none; font-weight: bold; font-size: 13px; color: black">
- * letter ::= 'a'..'z','A'..'Z'
- * digit  ::= '0'..'9'
- * idChar ::= letter | digit | '_'
- * SId    ::= ( letter | '_' ) idChar*</pre>
+ * The identifier given by an object's "id" attribute value
+ * is used to identify the object within the SBML model definition.
+ * Other objects can refer to the component using this identifier.  The
+ * data type of "id" is always <code>SId</code> or a type derived
+ * from that, such as <code>UnitSId</code>, depending on the object in 
+ * question.  All data types are defined as follows:
+ * <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
+ *   letter ::= 'a'..'z','A'..'Z'
+ *   digit  ::= '0'..'9'
+ *   idChar ::= letter | digit | '_'
+ *   SId    ::= ( letter | '_' ) idChar*
+ * </pre>
+ *
  * The characters <code>(</code> and <code>)</code> are used for grouping, the
  * character <code>*</code> "zero or more times", and the character
  * <code>|</code> indicates logical "or".  The equality of SBML identifiers is
  * determined by an exact character sequence match; i.e., comparisons must be
- * performed in a case-sensitive manner.  In addition, there are a few
- * conditions for the uniqueness of identifiers in an SBML model.  Please
- * consult the SBML specifications for the exact details of the uniqueness
- * requirements.
+ * performed in a case-sensitive manner.  This applies to all uses of <code>SId</code>, 
+ * <code>SIdRef</code>, and derived types.
+ *
+ * In SBML Level&nbsp;3 Version&nbsp;2, the "id" and "name" attributes were
+ * moved to SBase directly, instead of being defined individually for many
+ * (but not all) objects.  Libsbml has for a long time provided functions
+ * defined on SBase itself to get, set, check, and unset those attributes, which 
+ * would fail or otherwise return empty strings if executed on any object 
+ * for which those attributes were not defined.  Now that all SBase objects 
+ * define those attributes, those functions now succeed for any object with 
+ * the appropriate level and version.
+ *
+ * The exception to this rule is that for InitialAssignment, EventAssignment, 
+ * AssignmentRule, and RateRule objects, the getId() function and the isSetId() 
+ * functions (though not the setId() or unsetId() functions) would instead 
+ * reference the value of the "variable" attribute (for the rules and event 
+ * assignments) or the "symbol" attribute (for initial assignments).  
+ * The AlgebraicRule fell into this category as well, though because it 
+ * contained neither a "variable" nor a "symbol" attribute, getId() would 
+ * always return an empty string, and isSetId() would always return @c false.
+ * For this reason, four new functions are now provided 
+ * (getIdAttribute(), setIdAttribute(@if java String@endif), 
+ * isSetIdAttribute(), and unsetIdAttribute()) that will always
+ * act on the actual "id" attribute, regardless of the object's type.  The
+ * new functions should be used instead of the old ones unless the old behavior
+ * is somehow necessary.
+ * 
+ * Regardless of the level and version of the SBML, these functions allow
+ * client applications to use more generalized code in some situations 
+ * (for instance, when manipulating objects that are all known to have 
+ * identifiers).  If the object in question does not posess an "id" attribute 
+ * according to the SBML specification for the Level and Version in use,
+ * libSBML will not allow the identifier to be set, nor will it read or 
+ * write "id" attributes for those objects.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_name_attribute
+ *
+ * @par
+ * In SBML Level&nbsp;3 Version&nbsp;2, the "id" and "name" attributes were
+ * moved to SBase directly, instead of being defined individually for many
+ * (but not all) objects.  Libsbml has for a long time provided functions
+ * defined on SBase itself to get, set, and unset those attributes, which 
+ * would fail or otherwise return empty strings if executed on any object 
+ * for which those attributes were not defined.  Now that all SBase objects 
+ * define those attributes, those functions now succeed for any object with 
+ * the appropriate level and version.
+ *
+ * The "name" attribute is
+ * optional and is not intended to be used for cross-referencing purposes
+ * within a model.  Its purpose instead is to provide a human-readable
+ * label for the component.  The data type of "name" is the type
+ * <code>string</code> defined in XML Schema.  SBML imposes no
+ * restrictions as to the content of "name" attributes beyond those
+ * restrictions defined by the <code>string</code> type in XML Schema.
+ *
+ * The recommended practice for handling "name" is as follows.  If a
+ * software tool has the capability for displaying the content of "name"
+ * attributes, it should display this content to the user as a
+ * component's label instead of the component's "id".  If the user
+ * interface does not have this capability (e.g., because it cannot
+ * display or use special characters in symbol names), or if the "name"
+ * attribute is missing on a given component, then the user interface
+ * should display the value of the "id" attribute instead.  (Script
+ * language interpreters are especially likely to display "id" instead of
+ * "name".)
+ * 
+ * As a consequence of the above, authors of systems that automatically
+ * generate the values of "id" attributes should be aware some systems
+ * may display the "id"'s to the user.  Authors therefore may wish to
+ * take some care to have their software create "id" values that are: (a)
+ * reasonably easy for humans to type and read; and (b) likely to be
+ * meaningful, for example by making the "id" attribute be an abbreviated
+ * form of the name attribute value.
+ * 
+ * An additional point worth mentioning is although there are
+ * restrictions on the uniqueness of "id" values, there are no
+ * restrictions on the uniqueness of "name" values in a model.  This
+ * allows software applications leeway in assigning component identifiers.
+ *
+ * Regardless of the level and version of the SBML, these functions allow
+ * client applications to use more generalized code in some situations 
+ * (for instance, when manipulating objects that are all known to have 
+ * names).  If the object in question does not posess a "name" attribute 
+ * according to the SBML specification for the Level and Version in use,
+ * libSBML will not allow the name to be set, nor will it read or 
+ * write "name" attributes for those objects.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_get_name
+ *
+ * @copydetails doc_name_attribute
+ *
+ * @return the name of this SBML object, or the empty string if not set or unsettable.
+ *
+ * @see getIdAttribute()
+ * @see isSetName()
+ * @see setName(const std::string& sid)
+ * @see unsetName()
+ * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_set_id
+ *
+ * @par
+ * The string @p sid is copied.
+ *
+ * @copydetails doc_id_attribute
+ * 
+ * @param sid the string to use as the identifier of this object.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+ *
+ * @see getIdAttribute()
+ * @see setIdAttribute(const std::string& sid)
+ * @see isSetIdAttribute()
+ * @see unsetIdAttribute()
+ * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_set_name
+ *
+ * @par
+ *
+ * The string in @p name is copied.
+ *
+ * @param name the new name for the SBML object.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_isset_id
+ *
+ * @note Because of the inconsistent behavior of this function with 
+ * respect to assignments and rules, it is now recommended to
+ * use the isSetIdAttribute() function instead.
+ *
+ * @copydetails doc_id_attribute
+ * 
+ * @return @c true if the "id" attribute of this SBML object is
+ * set, @c false otherwise.
+ *
+ * @see getIdAttribute()
+ * @see setIdAttribute(const std::string& sid)
+ * @see unsetIdAttribute()
+ * @see isSetIdAttribute()
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_isset_name
+ *
+ * @copydetails doc_name_attribute
+ * 
+ * @return @c true if the "name" attribute of this SBML object is
+ * set, @c false otherwise.
+ *
+ * @see getName()
+ * @see setName(const std::string& sid)
+ * @see unsetName()
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_unset_id
+ *
+ * @copydetails doc_id_attribute
+ * 
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @see getIdAttribute()
+ * @see setIdAttribute(const std::string& sid)
+ * @see isSetIdAttribute()
+ * @see unsetIdAttribute()
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_unset_name
+ *
+ * @copydetails doc_name_attribute
+ * 
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @see getName()
+ * @see setName(const std::string& sid)
+ * @see isSetName()
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_base_units
@@ -518,6 +734,15 @@
  * @li (Level&nbsp;3 only) If the node is the special MathML csymbol @c
  * avogadro, the value of the node will be
  * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t}.
+ *
+ * @li (Level&nbsp;3 Version&nbsp;2+ only) If the node is the special MathML csymbol @c
+ * rateOf, the value of the node will be
+ * @sbmlconstant{AST_FUNCTION_RATE_OF, ASTNodeType_t}.
+ *
+ * @li (Level&nbsp;3 Version&nbsp;2+ only) If the node is a MathML 
+ * operator that originates in a package, and is not defined in SBML 
+ * Leve&nbsp;3 core, the value of the node will be
+ * @sbmlconstant{AST_ORIGINATES_IN_PACKAGE, ASTNodeType_t}.
  *
  * @li If the node contains a numerical value, its type will be
  * @sbmlconstant{AST_INTEGER, ASTNodeType_t},
@@ -1402,6 +1627,22 @@
  * statements that contain the symbol in their "math" subelement expressions.
  * This graph must be acyclic.
  *
+ * Similarly, the combined set of RateRule and Reaction objects constitute 
+ * a set of definitions for the rates of change of various model entities 
+ * (namely, the objects identified by the values of the 'variable' attributes 
+ * of the RateRule objects, and the 'species' attributes of the SpeciesReference 
+ * objects in each Reaction).  In SBML Level&nbsp;3 Version&nbsp;2, these rates 
+ * of change may be referenced directly 
+ * using the <em>rateOf</em> csymbol, but may not thereby contain algebraic 
+ * loops---dependency chains between these statements must terminate.  More 
+ * formally, consider a directed graph in which the nodes are the definitions 
+ * of different variables' rates of change, and directed arcs exist for each 
+ * occurrence of a variable referenced by a <em>rateOf</em> csymbol from any 
+ * RateRule or KineticLaw object in the model.  Let the directed arcs point 
+ * from the variable referenced by the <em>rateOf</em> csymbol (call it 
+ * <em>x</em>) to the variable(s) determined by the 'math' expression in which
+ * <em>x</em> appears.  This graph must be acyclic.
+ *
  * SBML does not specify when or how often rules should be evaluated.
  * Eliminating algebraic loops ensures that assignment statements can be
  * evaluated any number of times without the result of those evaluations
@@ -1418,11 +1659,11 @@
  * @subsection rules-not-overdetermined A model must not be overdetermined
  *
  * An SBML model must not be overdetermined; that is, a model must not
- * define more equations than there are unknowns in a model.  An SBML model
+ * define more equations than there are unknowns in a model.  A valid SBML model
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  *
  * LibSBML implements the static analysis procedure described in
- * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
+ * Appendix&nbsp;B of the SBML Level&nbsp;3
  * specification for assessing whether a model is overdetermined.
  *
  * (In summary, assessing whether a given continuous, deterministic,
@@ -1691,6 +1932,27 @@ void example (SBase sb)
  * particular value to an attribute.
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_note_setting_lv_pkg
+ *
+ * @note Attempting to add an object to an SBMLDocument having a different
+ * combination of SBML Level, Version and XML namespaces than the object
+ * itself will result in an error at the time a caller attempts to make the
+ * addition.  A parent object must have compatible Level, Version and XML
+ * namespaces.  (Strictly speaking, a parent may also have more XML
+ * namespaces than a child, but the reverse is not permitted.)  The
+ * restriction is necessary to ensure that an SBML model has a consistent
+ * overall structure.  This requires callers to manage their objects
+ * carefully, but the benefit is increased flexibility in how models can be
+ * created by permitting callers to create objects bottom-up if desired.  In
+ * situations where objects are not yet attached to parents (e.g.,
+ * SBMLDocument), knowledge of the intented SBML Level and Version help
+ * libSBML determine such things as whether it is valid to assign a
+ * particular value to an attribute.  For packages, this means that the 
+ * parent object to which this package element is being added must have
+ * been created with the package namespace, or that the package namespace
+ * was added to it, even if that parent is not a package object itself.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_is_user_data
  *
  * @par
@@ -1713,8 +1975,8 @@ void example (SBase sb)
  * matching values are replaced with @p newid.  The method does @em not
  * descend into child elements.
  *
- * @param oldid the old identifier
- * @param newid the new identifier
+ * @param oldid the old identifier.
+ * @param newid the new identifier.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renameunitsidref_common
@@ -1730,8 +1992,8 @@ void example (SBase sb)
  * are found, the matching values are replaced with @p newid.  The method
  * does @em not descend into child elements.
  *
- * @param oldid the old identifier
- * @param newid the new identifier
+ * @param oldid the old identifier.
+ * @param newid the new identifier.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_renamemetasidref_common
@@ -1746,8 +2008,8 @@ void example (SBase sb)
  * found, the matching identifiers are replaced with @p newid.  The method
  * does @em not descend into child elements.
  *
- * @param oldid the old identifier
- * @param newid the new identifier
+ * @param oldid the old identifier.
+ * @param newid the new identifier.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_section_using_sbml_converters
@@ -1757,7 +2019,7 @@ void example (SBase sb)
  * The use of all the converters follows a similar approach.  First, one
  * creates a ConversionProperties object and calls
  * ConversionProperties::addOption(@if java ConversionOption@endif)
- * on this object with one arguments: a text string that identifies the desired
+ * on this object with one argument: a text string that identifies the desired
  * converter.  (The text string is specific to each converter; consult the
  * documentation for a given converter to find out how it should be enabled.)
  *
@@ -1907,6 +2169,33 @@ if (config != None) {
  * @copydetails doc_list_of_libsbml_converters
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_list_of_libsbml_converters_backup 
+ * The actual doc_list_of_libsbml_converters is supposed to be auto-generated
+ * by the makefiles in docs/src/ in the file generate-converters-list from 
+ * the file class-list, but this does not always get populated; hence this
+ * backup list which is accurate as of March 2016.
+ *
+ * @par 
+ * <ul>
+ * <li> CobraToFbcConverter
+ * <li> CompFlatteningConverter
+ * <li> FbcToCobraConverter
+ * <li> FbcV1ToV2Converter
+ * <li> FbcV2ToV1Converter
+ * <li> SBMLFunctionDefinitionConverter
+ * <li> SBMLIdConverter
+ * <li> SBMLInferUnitsConverter
+ * <li> SBMLInitialAssignmentConverter
+ * <li> SBMLLevel1Version1Converter
+ * <li> SBMLLevelVersionConverter
+ * <li> SBMLLocalParameterConverter
+ * <li> SBMLReactionConverter
+ * <li> SBMLRuleConverter
+ * <li> SBMLStripPackageConverter
+ * <li> SBMLUnitsConverter
+ * </ul>
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_formulaunitsdata
  *
  * @par The first element of the list of FormulaUnitsData refers to the default
@@ -1929,27 +2218,13 @@ if (config != None) {
  * returned by this function are:
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_what_is_sbmlextension
+ * @class doc_returns_one_success_code
  *
- * @par
- * The SBMLExtension class provides methods for managing common attributes of
- * package extensions (e.g., the SBML package name, the package version, and
- * more), registration of instantiated plug-in creators to hook into the rest
- * of libSBML, and initialization/registration of package extensions when the
- * library code for the package is loaded by libSBML.  SBMLExtension is an
- * abstract class that must be extended by each package extension
- * implementation.
- *
- * <!-- ------------------------------------------------------------------- -->
- * @class doc_what_is_sbmldocumentplugin
- *
- * @par
- * Every SBML Level&nbsp;3 package needs to add, at minimum, an attribute
- * called "required" to the top-level SBML <code>&lt;sbml&gt;</code> element.
- * Some packages need to go beyond that and add additional subcomponents.
- * The SBMLDocumentPlugin class is part of libSBML's machinery to support
- * the implementation of classes that manipulate <code>&lt;sbml&gt;</code>
- * and do other necessary operations.
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ This particular
+ * function only does one thing irrespective of user input or 
+ * object state, and thus will only return a single value:
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbmlextension
@@ -3226,7 +3501,7 @@ if (lmp != null)
  * validation interface so that user programs and SBML Level&nbsp;3 package
  * authors may use the facilities to implement new validators.  There are
  * two main interfaces to libSBML's validation facilities, based on the
- * classes Validator and ValidatingVisitor.
+ * classes Validator and SBMLValidator.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_section_package_validators_general_info
@@ -3324,29 +3599,66 @@ if (lmp != null)
  * object does not exist or if exists in an unparsed namespace, it may choose
  * to produce a warning.
  *
- */
-
-/* <!-- -------------------------------------------------------------------
- * Temporarily removed text from Lucian bout l3v2 things that are not yet
- * official.  This came from the section on "a model must not contain
- * algebraic loops".
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_fast_attribute_deprecated
  *
- * @copydetails doc_l3v2_specific_addition
+ * @par
+ * In SBML Level&nbsp;3 Version&nbsp;2, values of @c true
+ * for the "fast" attribute were deprecated, and in future
+ * versions of the specification, the attribute itself will
+ * be removed.  Users should be aware that even for previous
+ * levels/versions of the specification, the "fast" attribute
+ * has never achieved widespread support, and many software
+ * packages may ignore it.  To achieve the same or similar 
+ * effects as setting the fast attribute to "true" for a given 
+ * reaction, the KineticLaw attribute should be constructed to 
+ * produce a value in the desired time scale, or else the 
+ * reaction could be replaced with an AssignmentRule or 
+ * AlgebraicRule.
  *
- * Similarly, the combined set of RateRule and Reaction objects constitute
- * a set of definitions for the rates of change of various model entities
- * (namely, the objects identified by the values of the 'variable' attributes
- * of the RateRule objects, and the 'species' attributes of the SpeciesReference
- * objects in each Reaction).  These rates of change may be referenced directly
- * using the <em>rateOf</em> csymbol, but may not thereby contain algebraic
- * loops---dependency chains between these statements must terminate.  More
- * formally, consider a directed graph in which the nodes are the definitions
- * of different variables' rates of change, and directed arcs exist for each
- * occurrence of a variable referenced by a <em>rateOf</em> csymbol from any
- * RateRule or KineticLaw object in the model.  Let the directed arcs point
- * from the variable referenced by the <em>rateOf</em> csymbol (call it
- * <em>x</em>) to the variable(s) determined by the 'math' expression in which
- * <em>x</em> appears.  This graph must be acyclic.
+ * <!-- ------------------------------------------------------------------- -->
+ * @class note_fluxbound_v1_only
  *
- * -->
+ * @par
+ * @note FluxBound objects are only defined for version&nbsp;1
+ * of the "Flux Balance Constraints" specification, and are
+ * replaced in version&nbsp;2 by the "upperFluxBound" and
+ * "lowerFluxBound" attributes of the FbcReactionPlugin.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class note_geneproduct_v2_only
+ *
+ * @par
+ * @note GeneProduct objects are only defined for version&nbsp;2
+ * of the "Flux Balance Constraints" specification, and have no
+ * equivalent in version&nbsp;1 of the specification.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class note_strict_v2_only
+ *
+ * @par
+ * @note The 'strict' attribute of the FbcModelPlugin is only defined for 
+ * version&nbsp;2 of the "Flux Balance Constraints" specification, and has no
+ * equivalent in version&nbsp;1 of the specification.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class note_fluxbound_v2_only
+ *
+ * @par
+ * @note The 'upperFluxBound' and 'lowerFluxBound' attributes of the 
+ * FbcReactionPlugin are only defined for version&nbsp;2 of the "Flux 
+ * Balance Constraints" specification.  In version&nbsp;1, this information
+ * was encoded in the FluxBound children of the FbcModelPlugin.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class note_geneassociation_not_fbc
+ *
+ * @par
+ * @note GeneAssociation objects are not defined in any version of the
+ * "Flux Balance Constraints" specification, and can only be used for
+ * annotation purposes.  Version&nbsp;2 instead defines the 
+ * GeneProduct and GeneProductAssociation classes to cover the information
+ * otherwise encoded here.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  */

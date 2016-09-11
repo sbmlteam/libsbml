@@ -51,8 +51,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 SpeciesType::SpeciesType (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mId   ( "" )
- , mName ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -61,8 +59,6 @@ SpeciesType::SpeciesType (unsigned int level, unsigned int version) :
 
 SpeciesType::SpeciesType (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
- , mId   ( "" )
- , mName ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
@@ -86,8 +82,6 @@ SpeciesType::~SpeciesType ()
  */
 SpeciesType::SpeciesType(const SpeciesType& orig)
   : SBase             ( orig )
-  , mId               ( orig.mId )
-  , mName             ( orig.mName )
 {
 }
 
@@ -100,8 +94,6 @@ SpeciesType& SpeciesType::operator=(const SpeciesType& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
   }
 
   return *this;
@@ -283,7 +275,7 @@ SpeciesType::getElementName () const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -332,7 +324,7 @@ SpeciesType::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 SpeciesType::readAttributes (const XMLAttributes& attributes,
@@ -374,7 +366,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 SpeciesType::readL2Attributes (const XMLAttributes& attributes)
@@ -404,7 +396,7 @@ SpeciesType::readL2Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void

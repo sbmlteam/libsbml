@@ -49,6 +49,11 @@
 
 #include "TestPackage.h"
 
+#ifdef LIBSBML_HAS_PACKAGE_COMP
+#include <sbml/packages/comp/common/CompExtensionTypes.h>
+#endif
+
+
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
@@ -56,67 +61,67 @@ BEGIN_C_DECLS
 
 START_TEST (test_SBMLExtension)
 {
-	string uri = TestExtension::getXmlnsL3V1V1();
-	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
-	fail_unless(ext != NULL );
-	fail_unless(ext->getURI(3, 1, 1) == uri);
-	fail_unless(ext->getURI(300, 100, 100) == "");
+  string uri = TestExtension::getXmlnsL3V1V1();
+  TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+  fail_unless(ext != NULL );
+  fail_unless(ext->getURI(3, 1, 1) == uri);
+  fail_unless(ext->getURI(300, 100, 100) == "");
 
-	// test adding nothing
-	int status = ext->addSBasePluginCreator(NULL);
-	fail_unless(status == LIBSBML_INVALID_OBJECT );
+  // test adding nothing
+  int status = ext->addSBasePluginCreator(NULL);
+  fail_unless(status == LIBSBML_INVALID_OBJECT );
 
-	// test adding incomplete
+  // test adding incomplete
 
-	TestPkgNamespaces ns(3, 1, 1);
-	string prefix = "prefix";
-	std::vector<std::string> noURIs;
-	std::vector<std::string> packageURIs;
-	packageURIs.push_back(uri);
+  TestPkgNamespaces ns(3, 1, 1);
+  string prefix = "prefix";
+  std::vector<std::string> noURIs;
+  std::vector<std::string> packageURIs;
+  packageURIs.push_back(uri);
 
-	// create a creator for TestModelPlugins
-	SBaseExtensionPoint modelExtPoint("core",SBML_MODEL);
-	SBasePluginCreator<TestModelPlugin,   TestExtension> *modelPluginCreator
-		= new SBasePluginCreator<TestModelPlugin,   TestExtension>(modelExtPoint,noURIs);
-	
-	status = ext->addSBasePluginCreator(modelPluginCreator);
-	fail_unless(status == LIBSBML_INVALID_OBJECT );
+  // create a creator for TestModelPlugins
+  SBaseExtensionPoint modelExtPoint("core",SBML_MODEL);
+  SBasePluginCreator<TestModelPlugin,   TestExtension> *modelPluginCreator
+    = new SBasePluginCreator<TestModelPlugin,   TestExtension>(modelExtPoint,noURIs);
+  
+  status = ext->addSBasePluginCreator(modelPluginCreator);
+  fail_unless(status == LIBSBML_INVALID_OBJECT );
 
-	// now add real one
-	delete modelPluginCreator;
-	modelPluginCreator
-		= new SBasePluginCreator<TestModelPlugin,   TestExtension>(modelExtPoint,packageURIs);
-	
-	status = ext->addSBasePluginCreator(modelPluginCreator);
-	fail_unless(status == LIBSBML_OPERATION_SUCCESS );
+  // now add real one
+  delete modelPluginCreator;
+  modelPluginCreator
+    = new SBasePluginCreator<TestModelPlugin,   TestExtension>(modelExtPoint,packageURIs);
+  
+  status = ext->addSBasePluginCreator(modelPluginCreator);
+  fail_unless(status == LIBSBML_OPERATION_SUCCESS );
 
-	// this number is three as the static initializer already adds 3, plus the one created above
-	fail_unless(ext->getNumOfSBasePlugins() == 4 ); 
-	fail_unless(ext->getNumOfSupportedPackageURI() == 1 );
+  // this number is three as the static initializer already adds 3, plus the one created above
+  fail_unless(ext->getNumOfSBasePlugins() == 4 ); 
+  fail_unless(ext->getNumOfSupportedPackageURI() == 1 );
 
-	// now try to get it back
-	SBasePluginCreatorBase* plugin = ext->getSBasePluginCreator(modelExtPoint);
-	fail_unless(plugin != NULL );
+  // now try to get it back
+  SBasePluginCreatorBase* plugin = ext->getSBasePluginCreator(modelExtPoint);
+  fail_unless(plugin != NULL );
 
-	// get it by index
-	plugin = ext->getSBasePluginCreator(0);
-	fail_unless(plugin != NULL );
+  // get it by index
+  plugin = ext->getSBasePluginCreator(0);
+  fail_unless(plugin != NULL );
 
-	// test remaining methods
+  // test remaining methods
 
-	ext->setEnabled(true);
-	fail_unless(ext->isEnabled() == true);	
-	ext->setEnabled(false);
-	fail_unless(ext->isEnabled() == false);
-	ext->setEnabled(true);
-	fail_unless(ext->isEnabled() == true);	
+  ext->setEnabled(true);
+  fail_unless(ext->isEnabled() == true);	
+  ext->setEnabled(false);
+  fail_unless(ext->isEnabled() == false);
+  ext->setEnabled(true);
+  fail_unless(ext->isEnabled() == true);	
 
-	fail_unless(ext->isSupported(uri));
-	fail_unless(ext->getSupportedPackageURI(0) == uri);	
-	fail_unless(ext->getSupportedPackageURI(10) == "");	
+  fail_unless(ext->isSupported(uri));
+  fail_unless(ext->getSupportedPackageURI(0) == uri);	
+  fail_unless(ext->getSupportedPackageURI(10) == "");	
 
-	delete modelPluginCreator;
-	delete ext;
+  delete modelPluginCreator;
+  delete ext;
 }
 END_TEST
 
@@ -178,11 +183,11 @@ END_TEST
 
 START_TEST (test_SBMLExtension_copy)
 {
-	string uri = TestExtension::getXmlnsL3V1V1();
-	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
-	fail_unless(ext != NULL );
-	fail_unless(ext->getURI(3, 1, 1) == uri);
-	fail_unless(ext->getURI(300, 100, 100) == "");
+  string uri = TestExtension::getXmlnsL3V1V1();
+  TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+  fail_unless(ext != NULL );
+  fail_unless(ext->getURI(3, 1, 1) == uri);
+  fail_unless(ext->getURI(300, 100, 100) == "");
 
   // test that we get the creators back that we expect
 
@@ -195,16 +200,16 @@ START_TEST (test_SBMLExtension_copy)
   fail_unless(ext->getSBasePluginCreator(lorExtPoint) == NULL);
 
 
-	// test copy
+  // test copy
   TestExtension *copy = new TestExtension(*ext);
-	fail_unless(copy != NULL );
-	fail_unless(copy->getURI(3, 1, 1) == uri);
+  fail_unless(copy != NULL );
+  fail_unless(copy->getURI(3, 1, 1) == uri);
 
   // test assignment
   TestExtension *assign = new TestExtension();
   (*assign) = *ext;
-	fail_unless(assign != NULL );
-	fail_unless(assign->getURI(3, 1, 1) == uri);
+  fail_unless(assign != NULL );
+  fail_unless(assign->getURI(3, 1, 1) == uri);
 
   delete ext;
   delete copy;
@@ -213,17 +218,53 @@ START_TEST (test_SBMLExtension_copy)
 }
 END_TEST
 
+START_TEST(test_SBMLExtension_L3V2_with_L3V1_elements)
+{
+  SBMLDocument doc(3, 2);
+  fail_unless(doc.getLevel() == 3);
+  fail_unless(doc.getVersion() == 2);
+  fail_unless(doc.getPackageName() == "core");
+
+#ifdef LIBSBML_HAS_PACKAGE_COMP
+  CompPkgNamespaces ns(3, 1, 1);
+  fail_unless( doc.enablePackage(CompExtension::getXmlnsL3V1V1(), "comp", true) == LIBSBML_OPERATION_SUCCESS);
+  Model* model = doc.createModel();
+  fail_unless(model != NULL);
+  model->setId("bar");
+
+  CompModelPlugin* mplug = dynamic_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  fail_unless(mplug != NULL);
+  fail_unless(mplug->getLevel() == 3);
+  fail_unless(mplug->getVersion() == 1);
+  fail_unless(mplug->getPackageVersion() == 1);
+  fail_unless(mplug->getPackageName() == "comp");
+  
+  Submodel sm(&ns);
+  sm.setId("foo");
+  sm.setModelRef("bar");
+
+  fail_unless(sm.getLevel() == 3);
+  fail_unless(sm.getVersion() == 1);
+  fail_unless(sm.getPackageVersion() == 1);
+  fail_unless(sm.getPackageName() == "comp");
+
+  fail_unless(mplug->addSubmodel(&sm) == LIBSBML_OPERATION_SUCCESS);
+
+#endif
+}
+END_TEST
 
 Suite *
 create_suite_SBMLExtension (void)
 {
   Suite *suite = suite_create("SBMLExtension");
   TCase *tcase = tcase_create("SBMLExtension");
-	
+  
   tcase_add_test( tcase, test_SBMLExtension );
   tcase_add_test( tcase, test_SBMLExtension_c_api );
   tcase_add_test( tcase, test_SBMLExtension_reenable );
   tcase_add_test( tcase, test_SBMLExtension_copy );
+  tcase_add_test(tcase, test_SBMLExtension_L3V2_with_L3V1_elements);
   
   suite_add_tcase(suite, tcase);
 

@@ -71,12 +71,12 @@ public:
   /**
    * Creates an SBasePlugin object with a URI and package prefix.
    *
-   * @param uri the XML namespace URI for the SBML package
+   * @param uri the XML namespace URI for the SBML package.
    *
-   * @param prefix the namespace prefix
+   * @param prefix the namespace prefix.
    *
    * @param xmlns an XMLNamespaces object that identifies namespaces in
-   * use by this package extension
+   * use by this package extension.
    */
   virtual SBasePlugin* createPlugin(const std::string& uri,
                                     const std::string& prefix,
@@ -125,7 +125,7 @@ public:
   /**
    * Returns the target package name of this creator object.
    *
-   * @return a string, the package name
+   * @return a string, the package name.
    */
   const std::string& getTargetPackageName() const;
 
@@ -160,8 +160,10 @@ protected:
 
   /**
    * Copy Constructor
+   *
+   * @param orig the instance to copy.
    */
-  SBasePluginCreatorBase (const SBasePluginCreatorBase&);
+  SBasePluginCreatorBase (const SBasePluginCreatorBase& orig);
 
   /** @cond doxygenLibsbmlInternal */
   SupportedPackageURIList  mSupportedPackageURI;
@@ -192,10 +194,10 @@ BEGIN_C_DECLS
  * Creates an SBasePlugin_t structure with the given uri and the prefix
  * of the target package extension.
  *
- * @param creator the SBasePluginCreatorBase_t structure  
- * @param uri the package extension uri
- * @param prefix the package extension prefix
- * @param xmlns the package extension namespaces
+ * @param creator the SBasePluginCreatorBase_t structure.
+ * @param uri the package extension uri.
+ * @param prefix the package extension prefix.
+ * @param xmlns the package extension namespaces.
  *
  * @return an SBasePlugin_t structure with the given uri and the prefix
  * of the target package extension, or @c NULL in case an invalid creator, uri 
@@ -212,7 +214,7 @@ SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator,
 /**
  * Frees the given SBasePluginCreatorBase_t structure
  * 
- * @param plugin the SBasePluginCreatorBase_t structure to be freed
+ * @param plugin the SBasePluginCreatorBase_t structure to be freed.
  * 
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -228,7 +230,7 @@ SBasePluginCreator_free(SBasePluginCreatorBase_t* creator);
 /**
  * Creates a deep copy of the given SBasePluginCreatorBase_t structure
  * 
- * @param creator the SBasePluginCreatorBase_t structure to be copied
+ * @param creator the SBasePluginCreatorBase_t structure to be copied.
  * 
  * @return a (deep) copy of the given SBasePluginCreatorBase_t structure.
  *
@@ -242,7 +244,7 @@ SBasePluginCreator_clone(SBasePluginCreatorBase_t* creator);
 /**
  * Returns the number of supported packages by the given creator structure.
  * 
- * @param creator the SBasePluginCreatorBase_t structure
+ * @param creator the SBasePluginCreatorBase_t structure.
  * 
  * @return the number of supported packages by the given creator structure.
  *
@@ -255,8 +257,8 @@ SBasePluginCreator_getNumOfSupportedPackageURI(SBasePluginCreatorBase_t* creator
 /**
  * Returns a copy of the package uri with the specified index. 
  * 
- * @param creator the SBasePluginCreatorBase_t structure
- * @param index the index of the package uri to return
+ * @param creator the SBasePluginCreatorBase_t structure.
+ * @param index the index of the package uri to return.
  * 
  * @return a copy of the package uri with the specified index
  * (Has to be freed by the caller). If creator is invalid NULL will 
@@ -272,7 +274,7 @@ SBasePluginCreator_getSupportedPackageURI(SBasePluginCreatorBase_t* creator,
 /**
  * Returns the SBMLTypeCode_t tied to the creator structure.
  * 
- * @param creator the SBasePluginCreatorBase_t structure
+ * @param creator the SBasePluginCreatorBase_t structure.
  * 
  * @return the SBMLTypeCode_t tied with the creator structure or 
  * LIBSBML_INVALID_OBJECT.
@@ -286,7 +288,7 @@ SBasePluginCreator_getTargetSBMLTypeCode(SBasePluginCreatorBase_t* creator);
 /**
  * Returns the target package name of the creator structure.
  * 
- * @param creator the SBasePluginCreatorBase_t structure
+ * @param creator the SBasePluginCreatorBase_t structure.
  * 
  * @return the target package name of the creator structure, or @c NULL if 
  * creator is invalid.
@@ -300,7 +302,7 @@ SBasePluginCreator_getTargetPackageName(SBasePluginCreatorBase_t* creator);
 /**
  * Returns the SBaseExtensionPoint_t tied to this creator structure.
  * 
- * @param creator the SBasePluginCreatorBase_t structure
+ * @param creator the SBasePluginCreatorBase_t structure.
  * 
  * @return the SBaseExtensionPoint_t of the creator structure, or @c NULL if 
  * creator is invalid.
@@ -314,8 +316,8 @@ SBasePluginCreator_getTargetExtensionPoint(SBasePluginCreatorBase_t* creator);
 /**
  * Returns true (1), if a package with the given namespace is supported. 
  * 
- * @param creator the SBasePluginCreatorBase_t structure
- * @param uri the package uri to test
+ * @param creator the SBasePluginCreatorBase_t structure.
+ * @param uri the package uri to test.
  * 
  * @return true (1), if a package with the given namespace is supported.
  *

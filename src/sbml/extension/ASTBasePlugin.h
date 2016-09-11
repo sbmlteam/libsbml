@@ -74,6 +74,9 @@ public:
 
   /**
    * Assignment operator for ASTBasePlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   ASTBasePlugin& operator=(const ASTBasePlugin& orig);
 
@@ -136,7 +139,7 @@ public:
    * or more child elements. Also, ASTBasePlugin::connectToParent(@if java SBase@endif)
    * must be called in the overridden function.
    *
-   * @param sbase the SBase object to use
+   * @param sbase the SBase object to use.
    *
    * @see setSBMLDocument
    * @see enablePackageInternal
@@ -171,10 +174,10 @@ public:
 
   /**
    * Gets the URI to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * For example, all elements that belong to SBML Level&nbsp;3 Version&nbsp;1 Core
    * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
-   * Version 1 Core must would have the URI
+   * all elements that belong to Layout Extension Version&nbsp;1 for SBML Level&nbsp;3
+   * Version&nbsp;1 Core must would have the URI
    * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
    *
    * Unlike getElementNamespace, this function first returns the URI for this 
@@ -182,7 +185,7 @@ public:
    * the its package name. if not found it will return the result of 
    * getElementNamespace
    *
-   * @return the URI this elements  
+   * @return the URI of this ASTBasePlugin.
    *
    * @see getPackageName
    * @see getElementNamespace
@@ -220,10 +223,10 @@ public:
 
   /**
    * Sets the XML namespace to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * For example, all elements that belong to SBML Level&nbsp;3 Version&nbsp;1 Core
    * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core"; 
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
-   * Version 1 Core must set the namespace to 
+   * all elements that belong to Layout Extension Version&nbsp;1 for SBML Level&nbsp;3
+   * Version&nbsp;1 Core must set the namespace to 
    * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
    *
    * @copydetails doc_returns_success_code
@@ -379,19 +382,21 @@ protected:
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
+   *
+   * @param orig the instance to copy.
    */
   ASTBasePlugin(const ASTBasePlugin& orig);
 
 
   /**
-   * Returns true if this is a package function which should be written as
-   * "functionname(argumentlist)", false otherwise.
+   * Returns @c true if this is a package function which should be written as
+   * "functionname(argumentlist)", @c false otherwise.
    */
   virtual bool isPackageInfixFunction() const;
 
   /**
-   * Returns true if this is a package function which should be written
-   * special syntax that the package knows about, false otherwise.
+   * Returns @c true if this is a package function which should be written
+   * special syntax that the package knows about, @c false otherwise.
    */
   virtual bool hasPackageOnlyInfixSyntax() const;
 
@@ -401,8 +406,8 @@ protected:
   virtual int getL3PackageInfixPrecedence() const;
 
   /**
-   * Returns true if this is a package function which should be written
-   * special syntax that the package knows about, false otherwise.
+   * Returns @c true if this is a package function which should be written
+   * special syntax that the package knows about, @c false otherwise.
    */
   virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
 

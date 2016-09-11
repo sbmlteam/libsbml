@@ -54,13 +54,18 @@ public:
   ASTCnBase (int type = AST_UNKNOWN);
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTCnBase (const ASTCnBase& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTCnBase& operator=(const ASTCnBase& rhs);
 

@@ -37,6 +37,7 @@
 #include <sbml/util/util.h>
 
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -50,7 +51,7 @@ LIBSBML_CPP_NAMESPACE_USE
 #define XML_HEADER     "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define MATHML_HEADER  "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
 #define MATHML_HEADER_UNITS  "<math xmlns='http://www.w3.org/1998/Math/MathML'\n"
-#define MATHML_HEADER_UNITS2  " xmlns:sbml='http://www.sbml.org/sbml/level3/version1/core'>\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml='http://www.sbml.org/sbml/level3/version2/core'>\n"
 #define MATHML_FOOTER  "</math>"
 
 #define wrapXML(s)     XML_HEADER s
@@ -106,7 +107,7 @@ START_TEST (test_element_cn_default)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getNumChildren() == 0        );
 }
 END_TEST
@@ -122,7 +123,7 @@ START_TEST (test_element_cn_real)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getNumChildren() == 0        );
 }
 END_TEST
@@ -175,7 +176,7 @@ START_TEST (test_element_cn_e_notation)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == 12.3 );
+  fail_unless( util_isEqual(N->getMantissa(), 12.3) );
   fail_unless( N->getExponent()    == 5    );
   fail_unless( N->getNumChildren() == 0    );
 }
@@ -325,6 +326,99 @@ START_TEST (test_element_csymbol_delay_4)
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "my_delay(x)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_1)
+{
+  const char* s = wrapMathML
+  (
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/rateOf'> rateOf </csymbol>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  fail_unless( N->getType() == AST_FUNCTION_RATE_OF );
+  fail_unless( !strcmp(N->getName(), "rateOf") );
+  fail_unless( N->getNumChildren() == 0       );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_2)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> my_rateof </csymbol>"
+    "  <ci> x </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "my_rateof(x)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_3)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <power/>"
+    "  <apply>"
+    "    <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> rateof </csymbol>"
+    "    <ci> P </ci>"
+    "  </apply>\n"
+    "  <ci> q </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "pow(rateof(P), q)") );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_rateof_4)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/rateOf'> my_rateof </csymbol>"
+    "  <ci> x </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "my_rateof(x)") );
 }
 END_TEST
 
@@ -1356,6 +1450,101 @@ START_TEST (test_element_xor)
 END_TEST
 
 
+START_TEST (test_element_max)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <max/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "max(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_min)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <min/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "min(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_quotient)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <quotient/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "quotient(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_rem)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <rem/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "rem(a, b)") );
+}
+END_TEST
+
+
+START_TEST (test_element_implies)
+{
+  const char* s = wrapMathML
+  (
+    "<apply> <implies/> <ci>a</ci> <ci>b</ci> </apply>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F =SBML_formulaToString(N);
+
+  fail_unless( !strcmp(F, "implies(a, b)") );
+}
+END_TEST
+
+
 START_TEST (test_element_semantics)
 {
   const char* s = wrapMathML
@@ -1385,7 +1574,6 @@ START_TEST (test_element_semantics_URL)
     "<apply> <xor/> <ci>a</ci> <ci>b</ci> <ci>b</ci> <ci>a</ci> </apply>"
     "</semantics>"
   );
-
 
 
   N = readMathMLFromString(s);
@@ -1654,7 +1842,7 @@ START_TEST (test_element_bug_apply_ci_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType() == AST_REAL );
-  fail_unless( c->getReal() == 1        );
+  fail_unless( util_isEqual(c->getReal(), 1)        );
   fail_unless( c->getNumChildren() == 0 );
 }
 END_TEST
@@ -1730,7 +1918,7 @@ START_TEST (test_element_bug_csymbol_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
-  fail_unless( c->getReal()        == 5000     );
+  fail_unless( util_isEqual(c->getReal(), 5000)     );
   fail_unless( c->getNumChildren() == 0        );
 }
 END_TEST
@@ -1762,7 +1950,7 @@ START_TEST (test_element_bug_cn_e_notation_1)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    ==  2.0 );
+  fail_unless( util_isEqual(N->getMantissa(), 2.0) );
   fail_unless( N->getExponent()    == -8.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -1779,7 +1967,7 @@ START_TEST (test_element_bug_cn_e_notation_2)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == -3.0 );
+  fail_unless( util_isEqual(N->getMantissa(), -3.0) );
   fail_unless( N->getExponent()    ==  4.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -1796,7 +1984,7 @@ START_TEST (test_element_bug_cn_e_notation_3)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
-  fail_unless( N->getMantissa()    == -6.0 );
+  fail_unless( util_isEqual(N->getMantissa(), -6.0) );
   fail_unless( N->getExponent()    == -1.0 );
   fail_unless( N->getNumChildren() ==  0   );
 }
@@ -1851,7 +2039,7 @@ START_TEST (test_element_bug_csymbol_delay_1)
   fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
-  fail_unless( c->getReal()        == 0.1      );
+  fail_unless( util_isEqual(c->getReal(), 0.1)      );
   fail_unless( c->getNumChildren() == 0        );
 }
 END_TEST
@@ -1889,7 +2077,7 @@ START_TEST (test_element_cn_units)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -1904,7 +2092,7 @@ START_TEST (test_element_cn_id)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getId()          == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -1919,7 +2107,7 @@ START_TEST (test_element_cn_class)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getClass()       == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -1934,7 +2122,7 @@ START_TEST (test_element_cn_style)
   fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
-  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( util_isEqual(N->getReal(), 12345.7)  );
   fail_unless( N->getStyle()       == "test"   );
   fail_unless( N->getNumChildren() == 0        );
 }
@@ -2005,6 +2193,81 @@ START_TEST (test_convert_unary_plus)
 }
 END_TEST
 
+
+START_TEST (test_element_child_func)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <cos/>"
+    "  <apply>"
+    "    <power/>"
+    "    <ci> x </ci>"
+    "    <cn> 2 </cn>"
+    "  </apply>\n"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(x, 2))") );
+
+  safe_free(F);
+  ASTNode * child = N->getChild(0);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  c1->setName("y");
+
+  child->replaceChild(0, c1, true);
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(y, 2))") );
+
+}
+END_TEST
+
+
+START_TEST (test_element_child_func1)
+{
+  N = new ASTNode(AST_FUNCTION_COS);
+
+  ASTNode *pow = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *x = new ASTNode(AST_NAME);
+  x->setName("x");
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+
+  pow->addChild(x);
+  pow->addChild(two);
+  N->addChild(pow);
+
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(x, 2))") );
+
+  safe_free(F);
+
+  ASTNode * child = N->getChild(0);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  c1->setName("y");
+
+  child->replaceChild(0, c1, true);
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "cos(pow(y, 2))") );
+
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadMathML ()
 {
@@ -2028,6 +2291,10 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_csymbol_delay_2           );
   tcase_add_test( tcase, test_element_csymbol_delay_3           );
   tcase_add_test( tcase, test_element_csymbol_delay_4           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_1           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_2           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_3           );
+  tcase_add_test( tcase, test_element_csymbol_rateof_4           );
 
   tcase_add_test( tcase, test_element_constants_true            );
   tcase_add_test( tcase, test_element_constants_false           );
@@ -2117,12 +2384,18 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_cn_id                );
   tcase_add_test( tcase, test_element_cn_class             );
   tcase_add_test( tcase, test_element_cn_style             );
+  
+  
   // this fails while default level/version is 2/4
   // but other validation fails if I change it to 3/1
   
   // tcase_add_test( tcase, test_element_ci_definitionURL       );
+  
+  
   tcase_add_test( tcase, test_element_csymbol_avogadro              );
 
+  tcase_add_test( tcase, test_element_child_func             );
+  tcase_add_test( tcase, test_element_child_func1             );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -56,12 +56,17 @@ public:
 
   /**
    * Copy constructor
+   *
+   * @param orig the instance to copy.
    */
   ASTBinaryFunctionNode (const ASTBinaryFunctionNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTBinaryFunctionNode& operator=(const ASTBinaryFunctionNode& rhs);
 

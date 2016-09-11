@@ -103,9 +103,6 @@ ASTNumber::ASTNumber (int type) :
   
 
  
-  /**
-   * Copy constructor
-   */
 ASTNumber::ASTNumber (const ASTNumber& orig):
     ASTBase (orig)
       , mExponential    ( NULL )
@@ -153,9 +150,7 @@ ASTNumber::ASTNumber (const ASTNumber& orig):
                                 ( orig.mCSymbol->deepCopy() );
   }
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTNumber&
 ASTNumber::operator=(const ASTNumber& rhs)
 {

@@ -271,7 +271,7 @@ public:
   /**
    * Assignment operator for XMLAttributes.
    *
-   * @param rhs The XMLAttributes object whose values are used as the basis
+   * @param rhs the XMLAttributes object whose values are used as the basis
    * of the assignment.
    */
   XMLAttributes& operator=(const XMLAttributes& rhs);
@@ -372,7 +372,7 @@ public:
    * This method is simply an alias of XMLAttributes::remove(@if java
    * int@endif).
    *
-   * @param n an integer the index of the resource to be deleted
+   * @param n an integer the index of the resource to be deleted.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -395,7 +395,7 @@ public:
   /**
    * Removes the <em>n</em>th attribute from this list of attributes.
    *
-   * @param n an integer the index of the resource to be deleted
+   * @param n an integer the index of the resource to be deleted.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -458,7 +458,7 @@ public:
   /**
    * Removes all attributes in this XMLAttributes object.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see remove(int n)
@@ -1539,7 +1539,7 @@ public:
    * (Optional) Sets the log used when logging attributeTypeError() and
    * attributeRequired() errors.
    *
-   * @param log the log to use
+   * @param log the log to use.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1579,9 +1579,9 @@ protected:
   /**
    * Logs an attribute datatype error.
    *
-   * @param name  name of the attribute
+   * @param name  name of the attribute.
    * @param type  the datatype of the attribute value.
-   * @param log   the XMLErrorLog where the error should be logged
+   * @param log   the XMLErrorLog where the error should be logged.
    * @param line an unsigned int, the line number at which the error occured.
    * @param column an unsigned int, the column number at which the error occured.
    */
@@ -1596,8 +1596,8 @@ protected:
    * Logs an error indicating a required attribute was missing.
    * Used internally.
    *
-   * @param name  name of the attribute
-   * @param log   the XMLErrorLog where the error should be logged
+   * @param name  name of the attribute.
+   * @param log   the XMLErrorLog where the error should be logged.
    * @param line an unsigned int, the line number at which the error occured.
    * @param column an unsigned int, the column number at which the error occured.
    */
@@ -1621,7 +1621,7 @@ protected:
    *
    *
    * @param index a int, the index of the attribute.
-   * @param name a string, the name of the attribute
+   * @param name a string, the name of the attribute.
    * (only used for an error message (if error detected))
    * @param value a boolean, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
@@ -1655,7 +1655,7 @@ protected:
    *
    * @param index a int, the index of the attribute.
    * @param name a string, the name of the attribute
-   * (only used for an error message (if error detected))
+   * (only used for an error message (if error detected)).
    * @param value a double, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is being sought.
@@ -1688,7 +1688,7 @@ protected:
    *
    * @param index a int, the index of the attribute.
    * @param name a string, the name of the attribute
-   * (only used for an error message (if error detected))
+   * (only used for an error message (if error detected)).
    * @param value a long, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is being sought.
@@ -1721,7 +1721,7 @@ protected:
    *
    * @param index a int, the index of the attribute.
    * @param name a string, the name of the attribute
-   * (only used for an error message (if error detected))
+   * (only used for an error message (if error detected)).
    * @param value an integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is being sought.
@@ -1754,7 +1754,7 @@ protected:
    *
    * @param index a int, the index of the attribute.
    * @param name a string, the name of the attribute
-   * (only used for an error message (if error detected))
+   * (only used for an error message (if error detected)).
    * @param value an unsigned integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is being sought.
@@ -1781,7 +1781,7 @@ protected:
    *
    * @param index a int, the index of the attribute.
    * @param name a string, the name of the attribute
-   * (only used for an error message (if error detected))
+   * (only used for an error message (if error detected)).
    * @param value a string, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is being sought.
@@ -1845,7 +1845,7 @@ XMLAttributes_free (XMLAttributes_t *xa);
 /**
  * Creates a deep copy of the given XMLAttributes_t structure.
  *
- * @param att the XMLAttributes_t structure to be copied
+ * @param att the XMLAttributes_t structure to be copied.
  *
  * @return a (deep) copy of the given XMLAttributes_t structure.
  *
@@ -1859,7 +1859,7 @@ XMLAttributes_clone (const XMLAttributes_t* att);
 /**
  * Adds a name/value pair to this XMLAttributes_t structure.
  *
- * @param xa the XMLAttributes_t structure
+ * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
  *
@@ -1885,7 +1885,7 @@ XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
  * @param name a string, the local name of the attribute.
  * @param value a string, the value of the attribute.
  * @param uri a string, the namespace URI of the attribute.
- * @param prefix a string, the prefix of the namespace
+ * @param prefix a string, the prefix of the namespace.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1926,7 +1926,7 @@ XMLAttributes_addWithTriple (XMLAttributes_t *xa, const XMLTriple_t* triple, con
  * Removes an attribute (a name/value pair) from this XMLAttributes_t set.
  *
  * @param xa the XMLAttributes_t structure.
- * @param n an integer the index of the resource to be deleted
+ * @param n an integer the index of the resource to be deleted.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1944,7 +1944,7 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n);
  * Removes an attribute (a name/value pair) from this XMLAttributes_t set.
  *
  * @param xa the XMLAttributes_t structure.
- * @param n an integer the index of the resource to be deleted
+ * @param n an integer the index of the resource to be deleted.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

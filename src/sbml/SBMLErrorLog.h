@@ -146,7 +146,7 @@ public:
    *
    * @param n the index number of the error to retrieve (with 0 being the
    * first error).
-   * @param severity the severity of the error to retrieve 
+   * @param severity the severity of the error to retrieve.
    *
    * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
    * greater than or equal to
@@ -208,8 +208,10 @@ public:
 
   /**
    * Copy Constructor
+   *
+   * @param orig the instance to copy.
    */
-  SBMLErrorLog (const SBMLErrorLog& other);
+  SBMLErrorLog (const SBMLErrorLog& orig);
 
 
   /**
@@ -230,9 +232,9 @@ public:
    *
    * @param errorId an unsigned int, the identification number of the error.
    *
-   * @param level an unsigned int, the SBML Level
+   * @param level an unsigned int, the SBML Level.
    *
-   * @param version an unsigned int, the SBML Level's Version
+   * @param version an unsigned int, the SBML Level's Version.
    * 
    * @param details a string containing additional details about the error.
    * If the error code in @p errorId is one that is recognized by SBMLError,
@@ -328,7 +330,7 @@ public:
   void removeAll(const unsigned int errorId);
 
   /**
-   * Returns true if SBMLErrorLog contains an errorId
+   * Returns @c true if SBMLErrorLog contains an errorId
    *
    * @param errorId the error identifier of the error to be found.
    */

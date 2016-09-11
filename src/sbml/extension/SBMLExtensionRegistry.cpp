@@ -709,7 +709,7 @@ SBMLExtensionRegistry_getNumRegisteredPackages()
 /** 
  * Returns the registered package name at the given index
  * 
- * @param index zero based index of the package name to return
+ * @param index zero based index of the package name to return.
  * 
  * @return the package name with the given index or NULL
  */

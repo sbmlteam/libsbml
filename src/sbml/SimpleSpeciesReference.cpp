@@ -59,8 +59,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level, 
                                                 unsigned int version) :
    SBase ( level, version )
- , mId     ( "" )
- , mName   ( "" )
  , mSpecies( "" )
 {
 }
@@ -69,8 +67,6 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level,
 /** @cond doxygenLibsbmlInternal */
 SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
    SBase   (sbmlns  )
- , mId     ( "" )
- , mName   ( "" )
  , mSpecies( "" )
 {
   // does not need to load here as this is an inbetween class
@@ -92,8 +88,6 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
  */
 SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& orig)
  : SBase     ( orig                    )
- , mId       ( orig.mId )
- , mName     ( orig.mName )
  , mSpecies  ( orig.mSpecies)
 {
 }
@@ -107,8 +101,6 @@ SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesRef
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
     mSpecies = rhs.mSpecies;
   }
 
@@ -423,7 +415,7 @@ SimpleSpeciesReference::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes,
@@ -508,17 +500,32 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
 {
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
-  //
-  // id: SId  { use="optional" }  (L2v2->)
-  //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
-  if (assigned && mId.size() == 0)
+
+  bool assigned;
+  
+  // for l3v2 sbase will read this as generically optional
+  // we want to log errors relating to the specific object
+  if (version == 1)
   {
-    logEmptyString("id", level, version, "<speciesReference>");
-  }
-  if (!SyntaxChecker::isValidInternalSId(mId)) 
-  {
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
+    //
+    // id: SId  { use="optional" }  (L2v2->)
+    //
+    assigned = attributes.readInto("id", mId, getErrorLog(), false, 
+                                              getLine(), getColumn());
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<speciesReference>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+    {
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
+    }
+
+    //
+    // name: string  { use="optional" }  (L2v2->)
+    //
+    attributes.readInto("name" , mName, getErrorLog(), false, 
+                                        getLine(), getColumn());
   }
 
   //
@@ -546,11 +553,6 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
                      + elplusid + ".");
   }
  
-  //
-  // name: string  { use="optional" }  (L2v2->)
-  //
-  attributes.readInto("name" , mName, getErrorLog(), false, getLine(), getColumn());
-
 }
 /** @endcond */
 
@@ -558,7 +560,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -570,31 +572,29 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
   const unsigned int version = getVersion();
 
 
-  if (level > 1)
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //
+  //
+  // sboTerm for L2V3 or later is written in SBase::writeAttributes()
+  //
+  if ( (level == 2) && (version == 2) )
   {
-    if (!(level == 2 && version == 1))
-    {
-      //
-      // sboTerm: SBOTerm { use="optional" }  (L2v2->)
-      //
-      //
-      // sboTerm for L2V3 or later is written in SBase::writeAttributes()
-      //
-      if ( (level == 2) && (version == 2) )
-      {
-        SBO::writeTerm(stream, mSBOTerm);
-      }
+    SBO::writeTerm(stream, mSBOTerm);
+  }
+  
+  if ((level == 2 && version > 1) || (level == 3 && version == 1))
+  {
+    // for L3V2 and above SBase will write this out
+    //
+    // id: SId  { use="optional" }  (L2v2->)
+    //
+    stream.writeAttribute("id" , mId);
 
-      //
-      // id: SId  { use="optional" }  (L2v2->)
-      //
-      stream.writeAttribute("id" , mId);
-
-      //
-      // name: string  { use="optional" }  (L2v2->)
-      //
-      stream.writeAttribute("name" , mName);
-    }
+    //
+    // name: string  { use="optional" }  (L2v2->)
+    //
+    stream.writeAttribute("name" , mName);
   }
 
   //

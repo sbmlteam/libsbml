@@ -394,7 +394,7 @@ START_TEST (test_SBML_parseFormula_10)
   fail_unless( ASTNode_getType       (c) == AST_REAL_E, NULL );
   fail_unless( ASTNode_getMantissa   (c) ==  -2, NULL );
   fail_unless( ASTNode_getExponent   (c) == 100, NULL );
-  fail_unless( ASTNode_getReal       (c) == -2e+100, NULL );
+  fail_unless( util_isEqual(ASTNode_getReal       (c), -2e+100), NULL );
   fail_unless( ASTNode_getNumChildren(c) ==   0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild(r) );

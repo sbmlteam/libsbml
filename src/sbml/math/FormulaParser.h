@@ -50,7 +50,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_summary_of_string_math
  *
- * @param formula the text-string formula expression to be parsed
+ * @param formula the text-string formula expression to be parsed.
  *
  * @return the root node of the AST corresponding to the @p formula, or @c
  * NULL if an error occurred in parsing the formula

@@ -97,8 +97,11 @@ getSeverityForEntry(unsigned int index,
     switch (version)
     {
     case 1:
-    default:
       return errorTable[index].l3v1_severity;
+
+    case 2:
+    default:
+      return errorTable[index].l3v2_severity;
     }
   }
 }
@@ -328,8 +331,19 @@ SBMLError::SBMLError (  const unsigned int errorId
         }
         break;
       case 3:
+        switch(version)
+        {
+        case 1:
+          ref = errorTable[index].reference.ref_l3v1;
+          break;
+        case 2:
+        default:
+          ref = errorTable[index].reference.ref_l3v2;
+          break;
+        }
+        break;
       default:
-        ref = errorTable[index].reference.ref_l3v1;
+        ref = errorTable[index].reference.ref_l3v2;
         break;
       }
 

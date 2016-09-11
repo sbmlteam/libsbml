@@ -60,17 +60,12 @@ ASTLambdaFunctionNode::ASTLambdaFunctionNode (int type) :
 }
   
   
-  /**
-   * Copy constructor
-   */
 ASTLambdaFunctionNode::ASTLambdaFunctionNode (const ASTLambdaFunctionNode& orig):
   ASTNaryFunctionNode(orig)
     , mNumBvars (orig.mNumBvars)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTLambdaFunctionNode&
 ASTLambdaFunctionNode::operator=(const ASTLambdaFunctionNode& rhs)
 {
@@ -81,9 +76,7 @@ ASTLambdaFunctionNode::operator=(const ASTLambdaFunctionNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTLambdaFunctionNode::~ASTLambdaFunctionNode ()
 {
 }

@@ -54,13 +54,18 @@ public:
 
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTLambdaFunctionNode (const ASTLambdaFunctionNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTLambdaFunctionNode& operator=(const ASTLambdaFunctionNode& rhs);
 

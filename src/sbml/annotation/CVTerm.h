@@ -543,7 +543,7 @@ public:
   /**
    * Assignment operator for CVTerm.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   CVTerm& operator=(const CVTerm& rhs);
@@ -971,7 +971,7 @@ public:
    *
    * @param type the @if clike #QualifierType_t value@else qualifier type@endif.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see getQualifierType()
@@ -1288,7 +1288,7 @@ BEGIN_C_DECLS
  * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return
  * the string <code>"isDescribedBy"</code>.
  *
- * @param type The @if clike ModelQualifierType_t@endif@~ value to
+ * @param type the @if clike ModelQualifierType_t@endif@~ value to
  * translate. @ifnot clike The value should be a libSBML constant whose
  * name begins with @c BQM_, such as (for example)
  * @sbmlconstant{BQM_IS, BiolQualifierType_t}.@endif@~
@@ -1315,7 +1315,7 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  * passing it the qualifier <code>BQB_HAS_VERSION</code> will return
  * the string <code>"hasVersion"</code>.
  *
- * @param type The @if clike BiolQualifierType_t@endif@~ value to
+ * @param type the @if clike BiolQualifierType_t@endif@~ value to
  * translate. @ifnot clike The value should be a constant whose name
  * begins with @c BQB_, such as (for example)
  * @sbmlconstant{BQB_IS, BiolQualifierType_t}.@endif@~
@@ -1342,7 +1342,7 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  * <code>"isDescribedBy"</code> will return the qualifier
  * <code>BQM_IS_DESCRIBED_BY</code>.
  *
- * @param s The string to translate to a @if clike ModelQualifierType_t
+ * @param s the string to translate to a @if clike ModelQualifierType_t
  * value@else libSBML constant value representing a model qualifier@endif.
  *
  * @return a libSBML qualifier enumeration value for the given human readable
@@ -1365,7 +1365,7 @@ ModelQualifierType_fromString(const char* s);
  * <code>"hasVersion"</code> will return the qualifier
  * <code>BQB_HAS_VERSION</code>.
  *
- * @param s The string to translate to a @if clike BiolQualifierType_t
+ * @param s the string to translate to a @if clike BiolQualifierType_t
  * value@else libSBML constant value representing a biological qualifier@endif.
  *
  * @return a libSBML qualifier enumeration value for the given human readable
@@ -1694,8 +1694,8 @@ CVTerm_removeResource(CVTerm_t * term, const char * resource);
  *
  * @param term the CVTerm_t structure.
  *
- * @return true (1) if this CVTerm_t has all the required elements,
- * otherwise false (0) will be returned. If an invalid CVTerm_t
+ * @return @c true (1) if this CVTerm_t has all the required elements,
+ * otherwise @c false (0) will be returned. If an invalid CVTerm_t
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof CVTerm_t

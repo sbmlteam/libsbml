@@ -251,6 +251,15 @@ typedef enum
   , AST_RELATIONAL_LT /*!< Less than (MathML <code>&lt;lt&gt;</code>) */
   , AST_RELATIONAL_NEQ /*!< Not equal (MathML <code>&lt;neq&gt;</code>) */
 
+  /* L3V2 */
+  , AST_FUNCTION_MAX = 320
+  , AST_FUNCTION_MIN
+  , AST_FUNCTION_QUOTIENT
+  , AST_FUNCTION_RATE_OF
+  , AST_FUNCTION_REM
+  , AST_LOGICAL_IMPLIES
+
+
   , AST_UNKNOWN /*!< Unknown node:  will not produce any MathML */
 } ASTNodeType_t;
 
@@ -1837,6 +1846,32 @@ setValue(value, 0);
   
   LIBSBML_EXTERN
   void setBvar();
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns @c true if this ASTNode has uses math constructs introduced in L3V2.
+   *
+   * @return @c true if this ASTNode uses math constructs introduced in
+   * L3V2, @c false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool usesL3V2MathConstructs() const;
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns @c true if this ASTNode has uses math rateOf constructs introduced in L3V2.
+   *
+   * @return @c true if this ASTNode uses math constructs introduced in
+   * L3V2, @c false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool usesRateOf() const;
 
   /** @endcond */
 

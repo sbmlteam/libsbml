@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model>
+    <listOfParameters>
+      <parameter id="p" value="1" units="dimensionless" constant="true"/>
+    </listOfParameters>
+    <listOfEvents>
+        <event id="e" useValuesFromTriggerTime="true">
+          <trigger persistent="true" initialValue="true"/>
+          <priority/>
+          <delay/>
+          <listOfEventAssignments>
+            <eventAssignment variable="c"/>
+          </listOfEventAssignments>
+        </event>
+    </listOfEvents>
+  </model>
+</sbml>

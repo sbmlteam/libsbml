@@ -58,9 +58,9 @@ public:
   void append (const std::string UnitKind) { mKinds.push_back(UnitKind); }
 
   /**
-   * Returns true if @p UnitKind is already in this UnitKindList, false otherwise.
+   * Returns @c true if @p UnitKind is already in this UnitKindList, @c false otherwise.
    *
-   * @return true if UnitKind is already in this UnitKindList, false otherwise.
+   * @return @c true if UnitKind is already in this UnitKindList, @c false otherwise.
    */
   bool contains (const std::string UnitKind) const;
 

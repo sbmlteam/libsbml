@@ -1782,15 +1782,15 @@ START_TEST (test_RDFAnnotation_testCreateAnnotations)
   fail_unless(ann1->getNumChildren() == 0);
   fail_unless(ann1->getNamespaces().getLength() == 6);
   fail_unless(ann1->getNamespaceURI(0) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-  fail_unless(ann1->getNamespaceURI(1) == "http://purl.org/dc/elements/1.1/");
-  fail_unless(ann1->getNamespaceURI(2) == "http://purl.org/dc/terms/");
-  fail_unless(ann1->getNamespaceURI(3) == "http://www.w3.org/2001/vcard-rdf/3.0#");
+  fail_unless(ann1->getNamespaceURI(1) == "http://purl.org/dc/terms/");
+  fail_unless(ann1->getNamespaceURI(2) == "http://www.w3.org/2001/vcard-rdf/3.0#");
+  fail_unless(ann1->getNamespaceURI(3) == "http://www.w3.org/2006/vcard/ns#");
   fail_unless(ann1->getNamespaceURI(4) == "http://biomodels.net/biology-qualifiers/");
   fail_unless(ann1->getNamespaceURI(5) == "http://biomodels.net/model-qualifiers/");
   fail_unless(ann1->getNamespacePrefix(0) == "rdf");
-  fail_unless(ann1->getNamespacePrefix(1) == "dc");
-  fail_unless(ann1->getNamespacePrefix(2) == "dcterms");
-  fail_unless(ann1->getNamespacePrefix(3) == "vCard");
+  fail_unless(ann1->getNamespacePrefix(1) == "dcterms");
+  fail_unless(ann1->getNamespacePrefix(2) == "vCard");
+  fail_unless(ann1->getNamespacePrefix(3) == "vCard4");
   fail_unless(ann1->getNamespacePrefix(4) == "bqbiol");
   fail_unless(ann1->getNamespacePrefix(5) == "bqmodel");
 

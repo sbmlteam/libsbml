@@ -760,6 +760,30 @@ START_TEST (test_SBMLTransforms_replaceIA_species)
 END_TEST
 
 
+START_TEST(test_SBMLTransforms_evaluateL3V2AST)
+{
+  ASTNode * node;
+
+  node = SBML_parseL3Formula("max(2, 3, 4, 5)");
+  fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 5.0));
+
+  delete node;
+  node = SBML_parseL3Formula("min(2, 4.5, 1.2, 3)");
+  fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.2));
+
+  delete node;
+  node = SBML_parseL3Formula("rem(4,3)");
+  fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1));
+
+  delete node;
+  node = SBML_parseL3Formula("quotient(623,23)");
+  fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 27));
+
+  delete node;
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
@@ -773,6 +797,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_evaluateCustomAST);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
+  tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2AST);
 
 
   suite_add_tcase(suite, tcase);

@@ -452,6 +452,8 @@ public:
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    L3ParserSettings(const L3ParserSettings& source);
 
@@ -597,7 +599,7 @@ public:
    *
    * This method sets the formula parser's behavior with respect to units.
    *
-   * @param units A boolean indicating whether to parse units.  The
+   * @param units a boolean indicating whether to parse units.  The
    * possible values are as follows:
    * @copydetails doc_parsing_units_values
    *
@@ -814,7 +816,7 @@ L3ParserSettings_create ();
 /**
  * Frees the given L3ParserSettings_t structure.
  *
- * @param settings the L3ParserSettings_t to free
+ * @param settings the L3ParserSettings_t to free.
  *
  * @memberof L3ParserSettings_t
  */
@@ -831,7 +833,7 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
  * itself may affect future parsing.
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model_t.
- * @param model The Model_t structure to which infix strings are to be compared.
+ * @param model the Model_t structure to which infix strings are to be compared.
  *
  * @memberof L3ParserSettings_t
  */

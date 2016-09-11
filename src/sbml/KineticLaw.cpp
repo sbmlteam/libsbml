@@ -1117,9 +1117,13 @@ KineticLaw::hasRequiredElements() const
   bool allPresent = true;
 
   /* required attributes for kineticlaw: math */
+  /* l3v2 removed that requirement */
 
-  if (!isSetMath())
-    allPresent = false;
+  if ((getLevel() < 3 ) || (getLevel() == 3 && getVersion() == 1))
+  {
+    if (!isSetMath())
+      allPresent = false;
+  }
 
   return allPresent;
 }
@@ -1221,7 +1225,7 @@ KineticLaw::getElementPosition () const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -1229,15 +1233,32 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream, getSBMLNamespaces());
+  if ( getLevel() > 1 && isSetMath() ) 
+  {
+    writeMathML(getMath(), stream, getSBMLNamespaces());
+  }
+
   if ( getLevel() < 3 && getNumParameters() > 0 ) 
   {
     mParameters.write(stream);
   }
-  else if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
-  {
-    mLocalParameters.write(stream);
+  else if (getLevel() == 3)
+  { 
+    if ( getVersion() == 1 && getNumLocalParameters() > 0)
+    {
+      mLocalParameters.write(stream);
+    }
+    else if (getVersion() > 1)
+    {
+      if (mLocalParameters.hasOptionalElements() == true ||
+          mLocalParameters.hasOptionalAttributes() == true ||
+          mLocalParameters.isExplicitlyListed())
+      {
+        mLocalParameters.write(stream);
+      }
+    }
   }
+
   //
   // (EXTENSION)
   //
@@ -1274,6 +1295,7 @@ KineticLaw::createObject (XMLInputStream& stream)
     {
       logError(OneListOfPerKineticLaw, getLevel(), getVersion());
     }
+    mLocalParameters.setExplicitlyListed();
     object = &mLocalParameters;
   }
 
@@ -1397,7 +1419,7 @@ KineticLaw::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 KineticLaw::readAttributes (const XMLAttributes& attributes,
@@ -1428,7 +1450,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 KineticLaw::readL1Attributes (const XMLAttributes& attributes)
@@ -1456,7 +1478,7 @@ KineticLaw::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 KineticLaw::readL2Attributes (const XMLAttributes& attributes)
@@ -1491,7 +1513,7 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 KineticLaw::readL3Attributes (const XMLAttributes&)
@@ -1503,7 +1525,7 @@ KineticLaw::readL3Attributes (const XMLAttributes&)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void

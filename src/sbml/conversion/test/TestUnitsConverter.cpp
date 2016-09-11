@@ -2262,7 +2262,7 @@ START_TEST( test_convert_extend_to_l2 )
   
   // strict conversion ought to fail
   fail_unless(doc->setLevelAndVersion(2, 4, true) == false);
-  fail_unless(doc->getErrorLog()->contains(ExtentUnitsNotSubstance));
+  fail_unless(doc->getErrorLog()->contains(DanglingUnitReference));
   
 
   doc->getErrorLog()->clearLog();

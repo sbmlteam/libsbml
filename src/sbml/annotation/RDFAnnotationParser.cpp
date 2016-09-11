@@ -58,10 +58,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * logs the given erroron the error log of the stream.
  * 
- * @param stream the stream to log the error on
- * @param element the element to log the error for
- * @param code the error code to log
- * @param msg optional message
+ * @param stream the stream to log the error on.
+ * @param element the element to log the error for.
+ * @param code the error code to log.
+ * @param msg optional message.
  */
 static void
 logError (XMLInputStream* stream, const XMLToken& element, SBMLErrorCode_t code,
@@ -422,12 +422,18 @@ RDFAnnotationParser::createRDFAnnotation(unsigned int level,
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();
   xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
-  if ((level == 2 && version < 5) || (level == 3 && version < 2))
+  if ((level == 2 && version < 5) )
   {
     xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
   }
   xmlns.add("http://purl.org/dc/terms/", "dcterms");
-  xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
+  if (level < 3 )
+    xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
+  else
+  {
+    xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
+    xmlns.add("http://www.w3.org/2006/vcard/ns#", "vCard4");
+  }
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
   xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
 
@@ -603,7 +609,7 @@ RDFAnnotationParser::createBagElement(const CVTerm * term,
     bag->addChild(li);
   }
 
-  if ((level == 2 && version > 4) || (level == 3 && version > 1))
+  if ((level == 2 && version > 4) || (level == 3))
   {
     // only write out nested annotations in allowed levels
     for (unsigned int n = 0; n < term->getNumNestedCVTerms(); n++)
@@ -773,7 +779,29 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
   }
 
   XMLNode *description = createRDFDescription(object);
+  bool use_vcard3 = true;
+  std::string vcard_uri = "http://www.w3.org/2001/vcard-rdf/3.0#";
+  std::string vcard_prefix = "vCard";
+  std::string name_element = "N";
+  std::string family_element = "Family";
+  std::string given_element = "Given";
+  std::string email_element = "EMAIL";
+  std::string org_element = "ORG";
+  std::string fn_element = "fn";
+  std::string text_element = "text";
+  //bool use_fn = false;
 
+  if (object->getLevel() == 3 && object->getVersion() == 2)
+  {
+    vcard_uri = "http://www.w3.org/2006/vcard/ns#";
+    vcard_prefix = "vCard4";
+    name_element = "hasName";
+    family_element = "family-name";
+    given_element = "given-name";
+    email_element = "hasEmail";
+    org_element = "organization-name";
+    use_vcard3 = false;
+  }
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -783,7 +811,7 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
     "rdf");
   XMLTriple creator_triple;
   if ((object->getLevel() == 2 && object->getVersion() > 4) || 
-    (object->getLevel() == 3 && object->getVersion() > 1))
+    (object->getLevel() == 3))
   {
     creator_triple = XMLTriple("creator",
     "http://purl.org/dc/terms/",
@@ -795,24 +823,22 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
       "http://purl.org/dc/elements/1.1/",
       "dc");
   }
-  XMLTriple N_triple = XMLTriple("N",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Family_triple = XMLTriple("Family",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Given_triple = XMLTriple("Given",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Email_triple = XMLTriple("EMAIL",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Org_triple = XMLTriple("ORG",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
+  XMLTriple N_triple = XMLTriple(name_element,
+    vcard_uri, vcard_prefix);
+  XMLTriple Family_triple = XMLTriple(family_element,
+    vcard_uri, vcard_prefix);
+  XMLTriple Given_triple = XMLTriple(given_element,
+    vcard_uri, vcard_prefix);
+  XMLTriple Email_triple = XMLTriple(email_element,
+    vcard_uri, vcard_prefix);
+  XMLTriple Org_triple = XMLTriple(org_element,
+    vcard_uri, vcard_prefix);
+  XMLTriple Fn_triple = XMLTriple("fn",
+    vcard_uri, vcard_prefix);
+  XMLTriple Text_triple = XMLTriple(text_element,
+    vcard_uri, vcard_prefix);
   XMLTriple Orgname_triple = XMLTriple("Orgname",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
+    vcard_uri, vcard_prefix);
   XMLTriple created_triple = XMLTriple("created",
     "http://purl.org/dc/terms/",
     "dcterms");
@@ -851,10 +877,12 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
   XMLToken Family_token   = XMLToken(Family_triple,   blank_att);
   XMLToken Given_token    = XMLToken(Given_triple,    blank_att);
   XMLToken Email_token    = XMLToken(Email_triple,    blank_att);
+  XMLToken Fn_token   = XMLToken(Fn_triple,   blank_att);
+  XMLToken Text_token   = XMLToken(Text_triple,   blank_att);
   // for L2V4 it was realised that the VCard:ORG 
   // should  have a parseType attribute
   XMLToken Org_token;
-  if (object->getLevel() > 2 || 
+  if ((object->getLevel() == 3 && object->getVersion() == 1)  || 
     (object->getLevel() == 2 && object->getVersion() > 3))
   {
     Org_token  = XMLToken(Org_triple,  parseType_att);
@@ -899,31 +927,48 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
     XMLNode * Org   = 0;
 
     ModelCreator* c = history->getCreator(n);
-    if (c->isSetFamilyName())
+    if (c->usingFNVcard4())
     {
-      XMLNode empty(empty_token);
-      empty.append(c->getFamilyName());
-
-      XMLNode Family(Family_token);
-      Family.addChild(empty);
-
-      N = new XMLNode(N_token);
-      N->addChild(Family);
-    }
-
-    if (c->isSetGivenName())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getGivenName());
-
-      XMLNode Given(Given_token);
-      Given.addChild(empty);
-
-      if (N == NULL)
+      if (c->isSetName())
       {
-        N = new XMLNode(N_token);
+        XMLNode empty(empty_token);
+        empty.append(c->getName());
+
+        XMLNode Text(Text_token);
+        Text.addChild(empty);
+
+        N = new XMLNode(Fn_token);
+        N->addChild(Text);
       }
-      N->addChild(Given);
+    }
+    else
+    {
+      if (c->isSetFamilyName())
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getFamilyName());
+
+        XMLNode Family(Family_token);
+        Family.addChild(empty);
+
+        N = new XMLNode(N_token);
+        N->addChild(Family);
+      }
+
+      if (c->isSetGivenName())
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getGivenName());
+
+        XMLNode Given(Given_token);
+        Given.addChild(empty);
+
+        if (N == NULL)
+        {
+          N = new XMLNode(N_token);
+        }
+        N->addChild(Given);
+      }
     }
 
     if (c->isSetEmail())
@@ -937,13 +982,24 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
 
     if (c->isSetOrganisation())
     {
-      XMLNode empty(empty_token);
-      empty.append(c->getOrganisation());
-      XMLNode Orgname(Orgname_token);
-      Orgname.addChild(empty);
+      if (use_vcard3)
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getOrganisation());
+        XMLNode Orgname(Orgname_token);
+        Orgname.addChild(empty);
 
-      Org = new XMLNode(Org_token);
-      Org->addChild(Orgname);
+        Org = new XMLNode(Org_token);
+        Org->addChild(Orgname);
+      }
+      else
+      {
+        XMLNode empty(empty_token);
+        empty.append(c->getOrganisation());
+
+        Org = new XMLNode(Org_token);
+        Org->addChild(empty);
+      }
     }
 
     XMLNode li(li_token);

@@ -86,6 +86,7 @@ static const int MATHML_TYPES[] =
   , AST_FUNCTION_FLOOR
   , AST_RELATIONAL_GEQ
   , AST_RELATIONAL_GT
+  , AST_LOGICAL_IMPLIES
   , AST_REAL
   , AST_LAMBDA
   , AST_RELATIONAL_LEQ
@@ -94,6 +95,8 @@ static const int MATHML_TYPES[] =
   , AST_QUALIFIER_LOGBASE
   , AST_RELATIONAL_LT
   , AST_UNKNOWN
+  , AST_FUNCTION_MAX
+  , AST_FUNCTION_MIN
   , AST_MINUS
   , AST_RELATIONAL_NEQ
   , AST_LOGICAL_NOT
@@ -105,6 +108,9 @@ static const int MATHML_TYPES[] =
   , AST_FUNCTION_PIECEWISE
   , AST_PLUS
   , AST_FUNCTION_POWER
+  , AST_FUNCTION_QUOTIENT
+  , AST_FUNCTION_RATE_OF
+  , AST_FUNCTION_REM
   , AST_FUNCTION_ROOT
   , AST_FUNCTION_SEC
   , AST_FUNCTION_SECH
@@ -159,6 +165,7 @@ static const char* MATHML_ELEMENTS[] =
   , "floor"
   , "geq"
   , "gt"
+  , "implies"
   , "infinity"
   , "lambda"
   , "leq"
@@ -167,6 +174,8 @@ static const char* MATHML_ELEMENTS[] =
   , "logbase"
   , "lt"
   , "math"
+  , "max"
+  , "min"
   , "minus"
   , "neq"
   , "not"
@@ -178,6 +187,9 @@ static const char* MATHML_ELEMENTS[] =
   , "piecewise"
   , "plus"
   , "power"
+  , "quotient"
+  , "rateOf"
+  , "rem"
   , "root"
   , "sec"
   , "sech"
@@ -283,6 +295,8 @@ bool representsUnaryFunction(int type, ASTBasePlugin* plugin)
 
     case AST_LOGICAL_NOT:
 
+    case AST_FUNCTION_RATE_OF:
+
       valid = true;
       break;
     default:
@@ -314,8 +328,13 @@ bool representsBinaryFunction(int type, ASTBasePlugin* plugin)
 
     case AST_FUNCTION_DELAY:
     case AST_FUNCTION_POWER:
-
+    //case AST_FUNCTION_RATE_OF:
     case AST_RELATIONAL_NEQ:
+
+    case AST_FUNCTION_QUOTIENT:
+    case AST_FUNCTION_REM:
+    case AST_LOGICAL_IMPLIES:
+
   
     // hack to replicate old behaviour
     case AST_FUNCTION_LOG:       // a log may or may not have a base
@@ -361,6 +380,10 @@ bool representsNaryFunction(int type, ASTBasePlugin* plugin)
     case AST_MINUS:
     case AST_FUNCTION_ROOT:      // a root may or may not have a degree
     //case AST_FUNCTION_LOG:       // a log may or may not have a base
+
+    case AST_FUNCTION_MAX:
+    case AST_FUNCTION_MIN:
+
       valid = true;
       break;
     default:
@@ -528,6 +551,10 @@ getNameFromCoreType(int type)
   else if (type == AST_FUNCTION_DELAY)
   {
     name = "delay";
+  }
+  else if (type == AST_FUNCTION_RATE_OF)
+  {
+    name = "rateOf";
   }
   else
   {

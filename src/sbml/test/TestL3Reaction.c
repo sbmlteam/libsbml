@@ -49,6 +49,7 @@ LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
 static Reaction_t *R;
+static Reaction_t *R32;
 
 
 void
@@ -60,6 +61,12 @@ L3ReactionTest_setup (void)
   {
     fail("Reaction_create(3, 1) returned a NULL pointer.");
   }
+  R32 = Reaction_create(3, 2);
+
+  if (R == NULL)
+  {
+    fail("Reaction_create(3, 2) returned a NULL pointer.");
+  }
 }
 
 
@@ -67,6 +74,7 @@ void
 L3ReactionTest_teardown (void)
 {
   Reaction_free(R);
+  Reaction_free(R32);
 }
 
 
@@ -306,6 +314,54 @@ START_TEST (test_L3_Reaction_NS)
 END_TEST
 
 
+START_TEST (test_L3V2_Reaction_create)
+{
+  fail_unless( SBase_getTypeCode  ((SBase_t *) R32) == SBML_REACTION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) R32) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) R32) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) R32) == NULL );
+
+  fail_unless( Reaction_getId     (R32) == NULL );
+  fail_unless( Reaction_getName   (R32) == NULL );
+  fail_unless( Reaction_getCompartment  (R32) == NULL );
+  fail_unless( Reaction_getFast(R32) == 0   );
+  fail_unless( Reaction_getReversible(R32) == 1   );
+
+  fail_unless( !Reaction_isSetId     (R32) );
+  fail_unless( !Reaction_isSetName   (R32) );
+  fail_unless( !Reaction_isSetCompartment (R32) );
+  fail_unless( !Reaction_isSetFast  (R32) );
+  fail_unless( !Reaction_isSetReversible(R32) );
+}
+END_TEST
+
+
+START_TEST (test_L3V2_Reaction_fast)
+{
+  fail_unless(Reaction_isSetFast(R32) == 0);
+
+  int i = Reaction_setFast(R32, 1);
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless(Reaction_getFast(R32) == 0);
+  fail_unless(Reaction_isSetFast(R32) == 0);
+
+  i = Reaction_setFast(R32, 0);
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless(Reaction_getFast(R32) == 0);
+  fail_unless(Reaction_isSetFast(R32) == 0);
+
+  i = Reaction_unsetFast(R32);
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless(Reaction_getFast(R32) == 0);
+  fail_unless(Reaction_isSetFast(R32) == 0);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Reaction (void)
 {
@@ -327,6 +383,9 @@ create_suite_L3_Reaction (void)
   tcase_add_test( tcase, test_L3_Reaction_createWithNS         );
   tcase_add_test( tcase, test_L3_Reaction_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_Reaction_NS              );
+
+  tcase_add_test( tcase, test_L3V2_Reaction_create              );
+  tcase_add_test( tcase, test_L3V2_Reaction_fast      );
 
   suite_add_tcase(suite, tcase);
 

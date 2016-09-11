@@ -362,33 +362,33 @@
  * errors that can occur while validating general SBML constructs.  With
  * respect to the SBML specification, these concern failures in applying
  * the validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_IDENTIFIER_CONSISTENCY, XMLErrorCategory_t}</td><td>Category of
  * errors that can occur while validating symbol identifiers in a model.
  * With respect to the SBML specification, these concern failures in
  * applying the validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_UNITS_CONSISTENCY, XMLErrorCategory_t}</td><td>Category of
  * errors that can occur while validating the units of measurement on
  * quantities in a model.  With respect to the SBML specification, these
  * concern failures in applying the validation rules numbered 105xx in the
  * Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_MATHML_CONSISTENCY, XMLErrorCategory_t}</td><td>Category of
  * errors that can occur while validating MathML formulas in a model.  With
  * respect to the SBML specification, these concern failures in applying
  * the validation rules numbered 102xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_SBO_CONSISTENCY, XMLErrorCategory_t}</td><td>Category of errors
  * that can occur while validating SBO identifiers in a model.  With
  * respect to the SBML specification, these concern failures in applying
  * the validation rules numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_OVERDETERMINED_MODEL, XMLErrorCategory_t}</td><td>Error in the
  * system of equations in the model: the system is overdetermined,
  * therefore violating a tenet of proper SBML.  With respect to the SBML
  * specification, this is validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2&ndash;4
- * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
+ * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications.</td></tr>
  * <tr><td>@sbmlconstant{LIBSBML_CAT_SBML_L2V3_COMPAT, XMLErrorCategory_t}</td><td>Category of errors
  * that can only occur during attempted translation from one Level/Version
  * of SBML to another.  This particular category applies to errors
@@ -496,6 +496,9 @@ typedef enum
 , DisallowedMathUnitsUse                = 10220 /*!< Attribute 'units' is only permitted on <code>&lt;cn&gt;</code> elements. */
 , InvalidUnitsValue                     = 10221 /*!< Invalid value given for the 'units' attribute. */
 , CiCannotReference0DCompartment        = 10222
+, RateOfTargetMustBeCi                  = 10223
+, RateOfTargetCannotBeAssigned          = 10224
+, RateOfSpeciesTargetCompartmentNot     = 10225    
 , DuplicateComponentId                  = 10301 /*!< Duplicate 'id' attribute value. */
 , DuplicateUnitDefinitionId             = 10302 /*!< Duplicate unit definition 'id' attribute value. */
 , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter 'id' attribute value. */
@@ -508,7 +511,7 @@ typedef enum
 , InvalidIdSyntax                       = 10310 /*!< Invalid syntax for an 'id' attribute value. */
 , InvalidUnitIdSyntax                   = 10311 /*!< Invalid syntax for the identifier of a unit. */
 , InvalidNameSyntax                     = 10312 /*!< Invalid syntax for a 'name' attribute value. */
-, DanglingUnitReference                 = 10313 /*!< Dangling reference to a unit. */ 
+, DanglingUnitReference                 = 10313 /*!< Dangling reference to a unit. */
 , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of the XML namespace for the annotation. */
 , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using the same XML namespace. */
 , SBMLNamespaceInAnnotation             = 10403 /*!< The SBML XML namespace cannot be used in an Annotation object. */
@@ -555,6 +558,7 @@ typedef enum
 , InvalidTriggerSBOTerm                 = 10716 /*!< Invalid 'sboTerm' attribute value for an Event Trigger object. */
 , InvalidDelaySBOTerm                   = 10717 /*!< Invalid 'sboTerm' attribute value for an Event Delay object. */
 , InvalidLocalParameterSBOTerm          = 10718 /*!< Invalid 'sboTerm' attribute value for aLocal Parameter object. */
+, InvalidSBMLElementSBOTerm             = 10719
 , NotesNotInXHTMLNamespace              = 10801 /*!< Notes must be placed in the XHTML XML namespace. */
 , NotesContainsXMLDecl                  = 10802 /*!< XML declarations are not permitted in Notes objects. */
 , NotesContainsDOCTYPE                  = 10803 /*!< XML DOCTYPE elements are not permitted in Notes objects. */
@@ -680,6 +684,7 @@ typedef enum
 , AllowedAttributesOnRateRule           = 20909 /*!< Invalid attribute found on a RateRule object. */
 , AllowedAttributesOnAlgRule            = 20910 /*!< Invalid attribute found on an AlgebraicRule object. */
 , RuleCannotRef0DComp                   = 20911
+, CircularDependencyRateOf              = 20912
 , ConstraintMathNotBoolean              = 21001 /*!< A Constraint object's <code>&lt;math&gt;</code> must evaluate to a Boolean value. */
 , IncorrectOrderInConstraint            = 21002 /*!< Subobjects inside the Constraint object are not in the prescribed order. */
 , ConstraintNotInXHTMLNamespace         = 21003 /*!< A Constraint's Message subobject must be in the XHTML XML namespace. */
@@ -718,6 +723,7 @@ typedef enum
 , AllowedAttributesOnListOfMods         = 21151 /*!< Invalid attribute found on the ListOfModifiers object. */
 , L3V2FastDeprecated                    = 21152 /*!< Fast deprecated. */
 , AllowedAttributesOnLocalParameter     = 21172 /*!< Invalid attribute found on the LocalParameter object. */
+, LocalParameterShadowsSpecies          = 21173
 , MissingTriggerInEvent                 = 21201 /*!< The Event object is missing a Trigger subobject. */
 , TriggerMathNotBoolean                 = 21202 /*!< A Trigger object's <code>&lt;math&gt;</code> expression must evaluate to a Boolean value. */
 , MissingEventAssignment                = 21203 /*!< The Event object is missing an EventAssignment subobject. */
@@ -822,6 +828,15 @@ typedef enum
 , NoCompartmentOutsideInL3v1            = 96010 /*!< This Level+Version of SBML does not support the 'outside' attribute on Compartment objects. */
 , NoStoichiometryMathInL3v1             = 96011 /*!< This Level+Version of SBML does not support the StoichiometryMath object. */
 , DoubleExponentNotSupported            = 98001
+, MathMLElementNotSupported             = 98002
+, EmptyListOfElementNotSupported        = 98003
+, MissingMathElementNotSupported        = 98004
+, MissingTriggerElementNotSupported     = 98005
+, BooleanNumericDiscrepancy             = 98006
+, IdNameSBaseInL3V2                     = 98007
+, MissingParticipantsNotSupported       = 98008
+, ConvertibleMathInitialAssignment      = 98009
+, FastReactionsNotSupported             = 98010
 , InvalidSBMLLevelVersion               = 99101 /*!< Unknown Level+Version combination of SBML. */
 , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation objects on the SBML container element are not permitted in SBML Level 1. */
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
@@ -857,6 +872,7 @@ typedef enum
 , UndeclaredTimeUnitsL3                 = 99506 /*!< Unable to verify consistency of units: the unit of time has not been declared. */
 , UndeclaredExtentUnitsL3               = 99507 /*!< Unable to verify consistency of units: the units of reaction extent have not been declared. */
 , UndeclaredObjectUnitsL3               = 99508 /*!< Unable to verify consistency of units: encountered a model entity with no declared units. */
+, CannotVerifyUnitsObjectNoMath         = 99509
 , UnrecognisedSBOTerm                   = 99701 /*!< Unrecognized 'sboTerm' attribute value. */
 , ObseleteSBOTerm                       = 99702 /*!< Obsolete 'sboTerm' attribute value. */
 , IncorrectCompartmentSpatialDimensions = 99901 /*!< In SBML Level 1, only three-dimensional compartments are allowed. */
@@ -933,21 +949,21 @@ typedef enum
      * constructs.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 2xxxx in the
      * Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1 specifications. */
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications. */
 
   , LIBSBML_CAT_IDENTIFIER_CONSISTENCY
     /*!< Category of errors that can occur while validating symbol
      * identifiers in a model.  With respect to the SBML specification,
      * these concern failures in applying the validation rules numbered
      * 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1 specifications. */
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications. */
 
   , LIBSBML_CAT_UNITS_CONSISTENCY
     /*!< Category of errors that can occur while validating the units of
      * measurement on quantities in a model.  With respect to the SBML
      * specification, these concern failures in applying the validation
      * rules numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2
      * specifications. */
 
   , LIBSBML_CAT_MATHML_CONSISTENCY
@@ -955,21 +971,21 @@ typedef enum
      * in a model.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 102xx in the
      * Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1 specifications. */
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications. */
 
   , LIBSBML_CAT_SBO_CONSISTENCY
     /*!< Category of errors that can occur while validating SBO identifiers
      * in a model.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 107xx in the
      * Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1 specifications. */
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications. */
 
   , LIBSBML_CAT_OVERDETERMINED_MODEL
     /*!< Error in the system of equations in the model: the system is
      * overdetermined, therefore violating a tenet of proper SBML.  With
      * respect to the SBML specification, this is validation rule #10601 in
      * the SBML Level&nbsp;2 Versions&nbsp;2&ndash;4
-     * and Level&nbsp;3 Version&nbsp;1 specifications. */
+     * and Level&nbsp;3 Versions&nbsp;1&ndash;2 specifications. */
 
   , LIBSBML_CAT_SBML_L2V3_COMPAT
     /*!< Category of errors that can only occur during attempted
@@ -995,6 +1011,12 @@ typedef enum
      * convert a model to SBML Level&nbsp;2 Version&nbsp;4. */
 
   , LIBSBML_CAT_SBML_L3V1_COMPAT
+    /*!< Category of errors that can only occur during attempted
+     * translation from one Level/Version of SBML to another.  This
+     * particular category applies to errors encountered while trying to
+     * convert a model to SBML Level&nbsp;3 Version&nbsp;1. */
+
+  , LIBSBML_CAT_SBML_L3V2_COMPAT
     /*!< Category of errors that can only occur during attempted
      * translation from one Level/Version of SBML to another.  This
      * particular category applies to errors encountered while trying to
@@ -1141,9 +1163,9 @@ public:
    *
    * @param errorId an unsigned int, the identification number of the error.
    *
-   * @param level the SBML Level of the SBML model
+   * @param level the SBML Level of the SBML model.
    *
-   * @param version the SBML Version within the Level of the SBML model
+   * @param version the SBML Version within the Level of the SBML model.
    *
    * @param details a string containing additional details about the error.
    * If the error code in @p errorId is one that is recognized by SBMLError,
@@ -1183,6 +1205,8 @@ public:
 
   /**
    * Copy constructor; creates a copy of this SBMLError.
+   *
+   * @param orig the instance to copy.
    */
   SBMLError(const SBMLError& orig);
 

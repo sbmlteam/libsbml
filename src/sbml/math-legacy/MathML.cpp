@@ -44,6 +44,8 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
+#include <algorithm>
+
 /** @cond doxygenIgnored */
 
 using namespace std;
@@ -60,6 +62,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
 static const char* URL_AVOGADRO = "http://www.sbml.org/sbml/symbols/avogadro";
+static const char* URL_RATE_OF = "http://www.sbml.org/sbml/symbols/rateOf";
 
 static const char* MATHML_ELEMENTS[] =
 {
@@ -101,6 +104,7 @@ static const char* MATHML_ELEMENTS[] =
   , "floor"
   , "geq"
   , "gt"
+  , "implies"
   , "infinity"
   , "lambda"
   , "leq"
@@ -109,6 +113,8 @@ static const char* MATHML_ELEMENTS[] =
   , "logbase"
   , "lt"
   , "math"
+  , "max"
+  , "min"
   , "minus"
   , "neq"
   , "not"
@@ -120,6 +126,8 @@ static const char* MATHML_ELEMENTS[] =
   , "piecewise"
   , "plus"
   , "power"
+  , "quotient"
+  , "rem"
   , "root"
   , "sec"
   , "sech"
@@ -182,6 +190,11 @@ static const char* MATHML_FUNCTIONS[] =
   , "leq"
   , "lt"
   , "neq"
+  , "max"
+  , "min"
+  , "quotient"
+  , "rem"
+  , "implies"
 };
 
 
@@ -225,6 +238,7 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_FUNCTION_FLOOR
   , AST_RELATIONAL_GEQ
   , AST_RELATIONAL_GT
+  , AST_LOGICAL_IMPLIES
   , AST_REAL
   , AST_LAMBDA
   , AST_RELATIONAL_LEQ
@@ -233,6 +247,8 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_UNKNOWN
   , AST_RELATIONAL_LT
   , AST_UNKNOWN
+  , AST_FUNCTION_MAX
+  , AST_FUNCTION_MIN
   , AST_MINUS
   , AST_RELATIONAL_NEQ
   , AST_LOGICAL_NOT
@@ -244,6 +260,8 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_FUNCTION_PIECEWISE
   , AST_PLUS
   , AST_FUNCTION_POWER
+  , AST_FUNCTION_QUOTIENT
+  , AST_FUNCTION_REM
   , AST_FUNCTION_ROOT
   , AST_FUNCTION_SEC
   , AST_FUNCTION_SECH
@@ -397,9 +415,24 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     }
     else
     {
+      /* level 3 */
+      unsigned int version = stream.getSBMLNamespaces()->getVersion();
       if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
       else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
       else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
+      else if ( url == URL_RATE_OF)
+      {
+        if (version > 1) 
+        {
+          node.setType(AST_FUNCTION_RATE_OF);
+        }
+        else
+        {
+          node.setType(AST_FUNCTION);
+          logError(stream, element, BadCsymbolDefinitionURLValue);      
+        }
+
+      }
       else 
       {
         logError(stream, element, BadCsymbolDefinitionURLValue);      
@@ -637,6 +670,13 @@ static void
 readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
             bool inRead)
 {
+  unsigned int level = 3;
+  unsigned int version = 2;
+  if (stream.getSBMLNamespaces() != NULL)
+  {
+    level = stream.getSBMLNamespaces()->getLevel();
+    version = stream.getSBMLNamespaces()->getVersion();
+  }
 
   std::string prefix;
   bool prefix_reqd = false;
@@ -672,10 +712,24 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
 
   int  index = util_bsearchStringsI(MATHML_ELEMENTS, name.c_str(), 0, size - 1);
   bool found = (index < size);
+  int l3v2index[] = {38, 47, 48, 60, 61};
+  std::vector<int> l3v2;
+  l3v2.assign(l3v2index, l3v2index+5);
 
   if (!found)
   {
     logError(stream, elem, DisallowedMathMLSymbol);    
+  }
+  else if (level != 3 ||(level == 3 && version != 2))
+  {
+    if (std::find(l3v2.begin(), l3v2.end(), index) != l3v2.end())
+    {
+      stringstream message;
+      message << "<" << name << "> is not valid " 
+        << "in SBML Level " << level << " Version "  
+        << version << ".";
+      logError(stream, elem, DisallowedMathMLSymbol, message.str());    
+    }
   }
 
   // check any reqd prefix is correct
@@ -728,15 +782,14 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
   // and on ci in L3 and L2V5
   if ( !url.empty())
   {      
-    SBMLNamespaces* ns = stream.getSBMLNamespaces();
-    if (ns != NULL && ns->getLevel() > 2)
+    if (level > 2)
     {
       if (name != "csymbol" && name != "semantics" && name != "ci")
       {
         logError(stream, elem, DisallowedDefinitionURLUse);
       }
     }
-    else if (ns != NULL && ns->getLevel() == 2 && ns->getVersion() == 5)
+    else if (level == 2 && version == 5)
     {
       if (name != "csymbol" && name != "semantics" && name != "ci")
       {
@@ -750,14 +803,12 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
         logError(stream, elem, DisallowedDefinitionURLUse);
       }
     }
-
   }
 
 
   if ( !units.empty())
   {
-    if (stream.getSBMLNamespaces() != NULL
-      && stream.getSBMLNamespaces()->getLevel() > 2)
+    if (level > 2)
     {
       if (name != "cn")
       {
@@ -1224,6 +1275,7 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbml
        if (type == AST_FUNCTION_DELAY) url = URL_DELAY;
   else if (type == AST_NAME_TIME)      url = URL_TIME;
   else if (type == AST_NAME_AVOGADRO)  url = URL_AVOGADRO;
+  else if (type == AST_FUNCTION_RATE_OF)  url = URL_RATE_OF;
 
   stream.startElement("csymbol");
   stream.setAutoIndent(false);
@@ -1346,8 +1398,19 @@ writeFunctionLog (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *
 
     stream.endElement("logbase");
   }
+  /* I wanted to add this as a log can have a default logbase
+   * however the rest of the code relating to log assumes it
+   * has two children so I would break everything
+   */
+  //else if (node.getNumChildren() == 1)
+  //{
+  //  writeNode(*node.getChild(0), stream, sbmlns);
+  //}
 
-  if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream, sbmlns);
+  if ( node.getRightChild() ) 
+  {
+    writeNode(*node.getRightChild(), stream, sbmlns);
+  }
 }
 /** @endcond */
 
@@ -1401,14 +1464,21 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
     {
       writeCI(node, stream,sbmlns);
     }
-    else if (type == AST_FUNCTION_DELAY)
+    else if (type == AST_FUNCTION_DELAY || type == AST_FUNCTION_RATE_OF)
     {
       writeCSymbol(node, stream,sbmlns);
     }
     else
     {
-      const char* name = MATHML_FUNCTIONS[type - AST_FUNCTION_ABS];
-	  writeStartEndElement(name, node, stream);
+      unsigned int index = type - AST_FUNCTION_ABS;
+
+      if (type <= AST_FUNCTION_QUOTIENT && type > AST_RELATIONAL_NEQ)
+        index = type - AST_FUNCTION_ABS - 6;
+      else if (type > AST_FUNCTION_RATE_OF && type <= AST_LOGICAL_IMPLIES)
+        index = type - AST_FUNCTION_ABS - 7;
+        
+      const char* name = MATHML_FUNCTIONS[index];
+	    writeStartEndElement(name, node, stream);
       //stream.startEndElement(name);
     }
 
@@ -1775,9 +1845,16 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 	// FIX-ME need to know what level and version
 	if (node->hasUnits())
 	{
-    if (sbmlns == NULL || sbmlns->getLevel() == 3)
-		stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
-		                   SBMLNamespaces::getSBMLNamespaceURI(3,1));
+    unsigned int level = SBML_DEFAULT_LEVEL;
+    unsigned int version = SBML_DEFAULT_VERSION;
+    if (sbmlns != NULL)
+    {
+      level = sbmlns->getLevel();
+      version = sbmlns->getVersion();
+    }
+    
+    stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
+      SBMLNamespaces::getSBMLNamespaceURI(level, version));
 	}
 	
 	writeNode(*node, stream,sbmlns);
@@ -1815,7 +1892,6 @@ readMathMLFromString (const char *xml)
   else
   {
     std::ostringstream oss;
-    const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
     oss << dummy_xml;
     oss << xml;
@@ -1856,6 +1932,96 @@ readMathMLFromString (const char *xml)
   return ast;
 }
 
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
+{
+  if (xml == NULL) return NULL;
+
+  bool needDelete = false;
+
+  const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+  const char* xmlstr_c;
+  
+  if (!strncmp(xml, dummy_xml, 14))
+  {
+    xmlstr_c = xml;
+  }
+  else
+  {
+    std::ostringstream oss;
+
+    oss << dummy_xml;
+    oss << xml;
+
+
+    xmlstr_c = safe_strdup(oss.str().c_str());
+    needDelete = true;
+  }
+
+  XMLInputStream stream(xmlstr_c, false);
+  SBMLErrorLog   log;
+
+  stream.setErrorLog(&log);
+  SBMLNamespaces sbmlns;
+  if (xmlns != NULL)
+  {
+    sbmlns.addNamespaces(xmlns);
+  }
+  stream.setSBMLNamespaces(&sbmlns);
+
+  ASTNode_t* ast = readMathML(stream);
+  
+  if (needDelete == true)
+  {
+    safe_free((void *)(xmlstr_c));
+  }
+
+  // we only used to log really invalid math errors
+  // but now we might log errors about number of 
+  // children of piece and otherwise (since this the read
+  // is the only place
+  // but dont need to bail for these
+  if (log.getNumErrors() > 0)
+  {
+    if (!log.contains(10218))
+    {
+      delete ast;
+      return NULL;
+    }
+  }
+
+  return ast;
+}
+
+
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+char *
+writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns)
+{
+  ostringstream   os;
+  XMLOutputStream stream(os);
+
+  char * result = NULL;
+
+  if (node != NULL && sbmlns != NULL)
+  {
+    writeMathML(node, stream, sbmlns);
+    result = safe_strdup( os.str().c_str() );
+  }
+
+  return result;
+}
 
 /**
  * @if conly
@@ -1866,30 +2032,30 @@ LIBSBML_EXTERN
 char *
 writeMathMLToString (const ASTNode* node)
 {
-  ostringstream   os;
-  XMLOutputStream stream(os);
-
-  char * result = NULL;
-
-  if (node != NULL)
-  {
-    writeMathML(node, stream);
-    result = safe_strdup( os.str().c_str() );
-  }
-
-  return result;
+  SBMLNamespaces sbmlns;
+  return writeMathMLWithNamespaceToString(node, &sbmlns);
 }
 
 LIBSBML_EXTERN
 std::string
 writeMathMLToStdString (const ASTNode* node)
 {
+  SBMLNamespaces sbmlns;
+  return writeMathMLToStdString(node, &sbmlns);
+}
+
+LIBSBML_EXTERN
+std::string
+writeMathMLToStdString(const ASTNode* node, SBMLNamespaces* sbmlns)
+{
+  if (node == NULL || sbmlns == NULL) return "";
+
   ostringstream   os;
   XMLOutputStream stream(os);
 
-  if (node != NULL)
+  if (node != NULL && sbmlns != NULL)
   {
-    writeMathML(node, stream);
+    writeMathML(node, stream, sbmlns);
     return os.str();
   }
   else

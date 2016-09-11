@@ -122,7 +122,7 @@ public:
    * information, and create a list of corresponding CVTerm objects.
    *
    * @param annotation XMLNode containing the annotation.
-   * @param stream optional XMLInputStream that facilitates error logging
+   * @param stream optional XMLInputStream that facilitates error logging.
    * @param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
    *
    * @copydetails doc_note_static_methods
@@ -191,7 +191,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * Level&nbsp;2 (Versions 2&ndash;4) and SBML Level&nbsp;3 specification
    * documents.
    *
-   * @return a pointer to an XMLNode for the annotation
+   * @return a pointer to an XMLNode for the annotation.
    *
    * @copydetails doc_note_static_methods
    *
@@ -222,7 +222,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif@~
    * is available for creating the container.
    *
-   * @return a pointer to an XMLNode
+   * @return a pointer to an XMLNode.
    *
    * @copydetails doc_note_static_methods
    *
@@ -255,7 +255,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif@~
    * to create the rest of the structure for an annotation.
    *
-   * @param obj the object to which the "Description" refers
+   * @param obj the object to which the "Description" refers.
    *
    * @return a new XMLNode containing the "rdf:Description" element with
    * its "about" attribute value set to the @p object meta identifier.
@@ -275,7 +275,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * objects attached to it, creates an RDF "Description" element to hold
    * the terms, and adds each term with appropriate qualifiers.
    *
-   * @param obj the SBML object to start from
+   * @param obj the SBML object to start from.
    *
    * @return the XMLNode tree corresponding to the Description element of
    * an RDF annotation.
@@ -297,7 +297,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * RDFAnnotationParser::createAnnotation()@endif@~ to wrap the result as
    * an SBML <code>&lt;annotation&gt;</code> element.
    *
-   * @param obj the SBML object to start from
+   * @param obj the SBML object to start from.
    *
    * @return the XMLNode tree corresponding to the annotation.
    *
@@ -311,7 +311,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * XML structure for an SBML annotation representing that metadata if 
    * there is a model history stored in @p obj.
    *
-   * @param obj any SBase object
+   * @param obj any SBase object.
    *
    * @return the XMLNode corresponding to an annotation containing 
    * MIRIAM-compliant model history and CV term information in RDF format.
@@ -328,7 +328,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * Reads the model history stored in @p obj and creates the
    * XML structure for an SBML annotation representing that history.
    *
-   * @param obj any SBase object
+   * @param obj any SBase object.
    *
    * @return the XMLNode corresponding to an annotation containing 
    * MIRIAM-compliant model history information in RDF format.
@@ -350,7 +350,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * of a History or CVTerm element.
    *
    * @param annotation the XMLNode tree within which the RDF annotation is
-   * to be found and deleted
+   * to be found and deleted.
    *
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
@@ -372,7 +372,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * History element.
    *
    * @param annotation the XMLNode tree within which the RDF annotation is
-   * to be found and deleted
+   * to be found and deleted.
    *
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
@@ -394,7 +394,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    * CVTerm element.
    *
    * @param annotation the XMLNode tree within which the RDF annotation is
-   * to be found and deleted
+   * to be found and deleted.
    *
    * @return the XMLNode structure that is left after RDF annotations are
    * deleted.
@@ -562,7 +562,7 @@ RDFAnnotationParser_createRDFAnnotationForLevelAndVersion(unsigned int level,
   * method returns NULL.
   *
   * @param annotation the XMLNode_t tree within which the RDF annotation
-  * is to be found and deleted
+  * is to be found and deleted.
   *
   * @return the XMLNode_t structure with any RDF annotations deleted
   *
@@ -582,7 +582,7 @@ RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation);
   * RDF annotations that can serve as containers for RDF descriptions, see
   * RDFAnnotationParser_createRDFAnnotation().
   *
-  * @param obj the object to be annotated
+  * @param obj the object to be annotated.
   *
   * @return a new XMLNode_t containing the "rdf:about" structure for an
   * RDF "Description" element.
@@ -603,7 +603,7 @@ RDFAnnotationParser_createRDFDescription(const SBase_t * obj);
   * "Description" element to hold the terms and adds each term with
   * appropriate qualifiers.
   *
-  * @param obj the SBML object to start from
+  * @param obj the SBML object to start from.
   *
   * @return the XMLNode_t tree corresponding to the Description element of
   * an RDF annotation.
@@ -623,7 +623,7 @@ RDFAnnotationParser_createCVTerms(const SBase_t * obj);
   * annotation to hold the terms, and finally calls createAnnotation() to
   * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
   *
-  * @param obj the SBML object to start from
+  * @param obj the SBML object to start from.
   *
   * @return the XMLNode_t tree corresponding to the annotation.
   *
@@ -637,7 +637,7 @@ RDFAnnotationParser_parseCVTerms(const SBase_t * obj);
   * stored in it, and creates a complete SBML annotation to store that
   * history.
   *
-  * @param obj a Model_t
+  * @param obj a Model_t.
   *
   * @return the XMLNode_t corresponding to an annotation containing 
   * MIRIAM-compliant model history information in RDF format

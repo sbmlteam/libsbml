@@ -82,11 +82,19 @@
  * href="#unitdef-id">next section</a> for information about the values
  * permitted for "id".
  *
- * A UnitDefinition must contain exactly one ListOfUnits, and this list
- * must contain one or more Unit definitions; see the definitions of these
- * other object classes for more information about them.  The following
+ * A UnitDefinition may contain exactly one ListOfUnits, and this list
+ * may contain one or more Unit definitions; see the definitions of these
+ * other object classes for more information about them.  In SBML 
+ * Level&nbsp;2 and SBML Level&nbsp;3 Version&nbsp;1, if the ListOfUnits
+ * was present, it must have one or more Unit definitions.  In SBML
+ * Level&nbsp;3 Version&nbsp;2, this restriction was relaxed, and 
+ * a ListOfUnits was allowed to be empty.  In either case, if a
+ * UnitDefinition had no child Unit elements, the unit was considered
+ * to be undefined.
+ *
+ * The following
  * example illustrates a complete unit definition (when written in XML)
- * when they all the pieces are combined together.  This defines "mmls"
+ * when all the pieces are combined together.  This defines "mmls"
  * to be millimoles per litre per second.
  * @verbatim
  <listOfUnitDefinitions>
@@ -269,10 +277,10 @@ public:
    * Creates a new UnitDefinition using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this UnitDefinition
+   * @param level an unsigned int, the SBML Level to assign to this UnitDefinition.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * UnitDefinition
+   * UnitDefinition.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -313,7 +321,7 @@ public:
   /**
    * Assignment operator.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   UnitDefinition& operator=(const UnitDefinition& rhs);
@@ -346,7 +354,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find.
+   * @param id string representing the id of the object to find.
    *
    * @return pointer to the first element found with the given @p id.
    */
@@ -357,7 +365,7 @@ public:
    * Returns the first child element it can find with the given @p metaid, or
    * @c NULL if no such object is found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the metaid of the object to find.
    *
    * @return pointer to the first element found with the given @p metaid.
    */
@@ -368,23 +376,38 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
   
   
- /**
+  /**
    * Returns the value of the "id" attribute of this UnitDefinition.
-   * 
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
    * @return the id of this UnitDefinition.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
 
   /**
-   * Returns the value of the "name" attribute of this UnitDefinition.
-   * 
-   * @return the name of this UnitDefinition.
+   * Returns the value of the "name" attribute of this UnitDefinition object.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -393,8 +416,7 @@ public:
    * Predicate returning @c true if this
    * UnitDefinition's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this UnitDefinition is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -403,8 +425,7 @@ public:
    * Predicate returning @c true if this
    * UnitDefinition's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this UnitDefinition is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -412,29 +433,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this UnitDefinition.
    *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this UnitDefinition
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& sid);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this UnitDefinition.
    *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the UnitDefinition
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -442,9 +449,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this UnitDefinition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -457,7 +462,7 @@ public:
    * unit @c area, meaning square metres with only abritrary variations
    * in scale or multiplier values; @c false otherwise.
    */
-  bool isVariantOfArea () const;
+  bool isVariantOfArea (bool relaxed = false) const;
 
 
   /**
@@ -468,7 +473,7 @@ public:
    * unit @c length, meaning metres with only abritrary variations in scale
    * or multiplier values; @c false otherwise.
    */
-  bool isVariantOfLength () const;
+  bool isVariantOfLength (bool relaxed = false) const;
 
 
   /**
@@ -480,7 +485,7 @@ public:
    * SBML Level&nbsp;2 Version&nbsp;2 onwards) with only abritrary variations
    * in scale or multiplier values; @c false otherwise.
    */
-  bool isVariantOfSubstance () const;
+  bool isVariantOfSubstance (bool relaxed = false) const;
 
 
   /**
@@ -491,7 +496,7 @@ public:
    * unit @c time, meaning seconds with only abritrary variations in scale or
    * multiplier values; @c false otherwise.
    */
-  bool isVariantOfTime () const;
+  bool isVariantOfTime (bool relaxed = false) const;
 
 
   /**
@@ -502,7 +507,7 @@ public:
    * unit @c volume, meaning litre or cubic metre with only abritrary
    * variations in scale or multiplier values; @c false otherwise.
    */
-  bool isVariantOfVolume () const;
+  bool isVariantOfVolume (bool relaxed = false) const;
 
 
   /**
@@ -513,7 +518,7 @@ public:
    * dimensionless, meaning dimensionless with only abritrary variations in
    * scale or multiplier values; @c false otherwise.
    */
-  bool isVariantOfDimensionless () const;
+  bool isVariantOfDimensionless (bool relaxed = false) const;
 
 
   /**
@@ -524,7 +529,7 @@ public:
    * meaning gram or kilogram with only abritrary variations in scale or
    * multiplier values; @c false otherwise.
    */
-  bool isVariantOfMass () const;
+  bool isVariantOfMass (bool relaxed = false) const;
 
 
   /**
@@ -537,7 +542,7 @@ public:
    * units one of which is a variant of substance and the other is a
    * variant of time which an exponent of -1; @c false otherwise.
    */
-  bool isVariantOfSubstancePerTime () const;
+  bool isVariantOfSubstancePerTime (bool relaxed = false) const;
 
 
   /**
@@ -629,7 +634,7 @@ public:
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
-   * @param n the index of the Unit object to remove
+   * @param n the index of the Unit object to remove.
    *
    * @return the Unit object removed, or @c NULL if the given index 
    * is out of range.
@@ -642,7 +647,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument to use
+   * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -748,7 +753,7 @@ public:
    * Convert a given UnitDefinition into a new UnitDefinition object
    * that uses SI units.
    * 
-   * @param ud the UnitDefinition object to convert to SI
+   * @param ud the UnitDefinition object to convert to SI.
    *
    * @return a new UnitDefinition object representing the results of the
    * conversion.
@@ -770,8 +775,8 @@ public:
    * The predicate compares every attribute of the
    * Unit objects.
    *
-   * @param ud1 the first UnitDefinition object to compare
-   * @param ud2 the second UnitDefinition object to compare
+   * @param ud1 the first UnitDefinition object to compare.
+   * @param ud2 the second UnitDefinition object to compare.
    *
    * @return @c true if all the Unit objects in ud1 are identical to the
    * Unit objects of ud2, @c false otherwise.
@@ -796,9 +801,9 @@ public:
    * Unit::areEquivalent(@if java Unit, %Unit@endif).
    * The predicate tests a subset of the objects's attributes.
    *
-   * @param ud1 the first UnitDefinition object to compare
+   * @param ud1 the first UnitDefinition object to compare.
    * 
-   * @param ud2 the second UnitDefinition object to compare
+   * @param ud2 the second UnitDefinition object to compare.
    *
    * @return @c true if all the Unit objects in ud1 are equivalent
    * to the Unit objects in ud2, @c false otherwise.
@@ -824,8 +829,8 @@ public:
    * UnitDefinition object that expresses the product of the units of @p
    * ud1 and @p ud2.
    *
-   * @param ud1 the first UnitDefinition object 
-   * @param ud2 the second UnitDefinition object
+   * @param ud1 the first UnitDefinition object.
+   * @param ud2 the second UnitDefinition object.
    *
    * @return a UnitDefinition which represents the product of the 
    * units of the two argument UnitDefinitions.
@@ -843,8 +848,8 @@ public:
    * UnitDefinition object that expresses the division of the units of @p
    * ud1 and @p ud2.
    *
-   * @param ud1 the first UnitDefinition object 
-   * @param ud2 the second UnitDefinition object
+   * @param ud1 the first UnitDefinition object.
+   * @param ud2 the second UnitDefinition object.
    *
    * @return a UnitDefinition which represents the division of the 
    * units of the two argument UnitDefinitions.
@@ -875,9 +880,9 @@ public:
    * be useful for printing unit information to human users, or in
    * debugging software, or other situations.
    *
-   * @param ud the UnitDefinition object
+   * @param ud the UnitDefinition object.
    * @param compact boolean indicating whether the compact form
-   * should be used (defaults to false)
+   * should be used (defaults to false).
    *
    * @return a string expressing the unit definition defined by the given
    * UnitDefinition object @p ud.
@@ -891,7 +896,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -949,7 +954,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -963,14 +968,14 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  std::string mId;
-  std::string mName;
+  //std::string mId;
+  //std::string mName;
   ListOfUnits mUnits;
 
   /* the validator classes need to be friends to access the 
@@ -1007,9 +1012,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -1136,7 +1141,7 @@ public:
    * this function (and is the reason we override the base
    * ListOf::getElementBySId function here).
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return pointer to the first element found with the given @p id.
    */
@@ -1149,7 +1154,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -1163,7 +1168,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -1220,10 +1225,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this 
- * UnitDefinition_t
+ * UnitDefinition_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * UnitDefinition_t
+ * UnitDefinition_t.
  * 
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
@@ -1247,7 +1252,7 @@ UnitDefinition_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces, a pointer to an SBMLNamespaces_t structure
- * to assign to this UnitDefinition_t
+ * to assign to this UnitDefinition_t.
  *
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
@@ -1279,7 +1284,7 @@ UnitDefinition_free (UnitDefinition_t *ud);
 /**
  * Creates and returns a deep copy of the given UnitDefinition_t structure.
  *
- * @param ud the UnitDefinition_t structure to copy
+ * @param ud the UnitDefinition_t structure to copy.
  * 
  * @return a (deep) copy of UnitDefinition_t.
  *
@@ -1294,7 +1299,7 @@ UnitDefinition_clone (const UnitDefinition_t *ud);
  * Returns a list of XMLNamespaces_t associated with this UnitDefinition_t
  * structure.
  *
- * @param ud the UnitDefinition_t structure
+ * @param ud the UnitDefinition_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -1309,7 +1314,7 @@ UnitDefinition_getNamespaces(UnitDefinition_t *ud);
 /**
  * Returns the identifier of this UnitDefinition_t structure.
  *
- * @param ud the UnitDefinition_t whose identifier is sought
+ * @param ud the UnitDefinition_t whose identifier is sought.
  * 
  * @return the value of the "id" attribute of this UnitDefinition_t.
  *
@@ -1323,7 +1328,7 @@ UnitDefinition_getId (const UnitDefinition_t *ud);
 /**
  * Returns the name of this UnitDefinition_t structure.
  *
- * @param ud the UnitDefinition_t whose name is sought
+ * @param ud the UnitDefinition_t whose name is sought.
  * 
  * @return the value of the "name" attribute of this UnitDefinition_t.
  *
@@ -1508,8 +1513,8 @@ UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud);
  * Sets the attribute "id" of the given UnitDefinition_t structure to a
  * copy of the given string.
  *
- * @param ud the UnitDefinition_t structure whose id is to be set
- * @param sid a string, the new identifier for the UnitDefinition_t structure
+ * @param ud the UnitDefinition_t structure whose id is to be set.
+ * @param sid a string, the new identifier for the UnitDefinition_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1529,8 +1534,8 @@ UnitDefinition_setId (UnitDefinition_t *ud, const char *sid);
  * Sets the attribute "name" of the given UnitDefinition_t structure to a
  * copy of the given string.
  *
- * @param ud the UnitDefinition_t structure whose name is to be set
- * @param name a string, the new name for the UnitDefinition_t structure
+ * @param ud the UnitDefinition_t structure whose name is to be set.
+ * @param name a string, the new name for the UnitDefinition_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1606,7 +1611,7 @@ UnitDefinition_createUnit (UnitDefinition_t *ud);
 /**
  * Returns the list of Units for the given UnitDefinition_t structure.
  * 
- * @param ud the UnitDefinition_t to use
+ * @param ud the UnitDefinition_t to use.
  *
  * @return the ListOf_t containing the Unit_t's for the given UnitDefinition_t.
  *
@@ -1621,7 +1626,7 @@ UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
  * Returns a specific Unit_t instance belonging to the given
  * UnitDefinition_t structure.
  *
- * @param ud the UnitDefinition_t structure in question
+ * @param ud the UnitDefinition_t structure in question.
  * @param n an integer, the index of the Unit_t structure to be returned.
  * 
  * @return the nth Unit_t of this UnitDefinition_t structure.
@@ -1641,8 +1646,8 @@ UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param ud the UnitDefinition_t structure
- * @param n the integer index of the Unit_t sought
+ * @param ud the UnitDefinition_t structure.
+ * @param n the integer index of the Unit_t sought.
  *
  * @return the Unit_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -1659,7 +1664,7 @@ UnitDefinition_removeUnit (UnitDefinition_t *ud, unsigned int n);
  * Returns the number of Unit_t structures contained within this
  * UnitDefinition_t.
  *
- * @param ud the UnitDefinition_t structure in question
+ * @param ud the UnitDefinition_t structure in question.
  * 
  * @return an integer representing the number of Unit_t structures in this
  * UnitDefinition_t structure.
@@ -1717,7 +1722,7 @@ UnitDefinition_reorder(UnitDefinition_t * ud);
  * Convert a given @param ud UnitDefinition_t into a new UnitDefinition_t structure
  * that uses SI units.
  * 
- * @param ud the UnitDefinition_t structure to convert to SI
+ * @param ud the UnitDefinition_t structure to convert to SI.
  *
  * @return a new UnitDefinition_t structure representing the results of the
  * conversion.
@@ -1740,8 +1745,8 @@ UnitDefinition_convertToSI(UnitDefinition_t * ud);
  * The predicate compares every attribute of the
  * Unit_t structures.
  *
- * @param ud1 the first UnitDefinition_t structure to compare
- * @param ud2 the second UnitDefinition_t structure to compare
+ * @param ud1 the first UnitDefinition_t structure to compare.
+ * @param ud2 the second UnitDefinition_t structure to compare.
  *
  * @return @c true if all the Unit_t structures in ud1 are identical to the
  * Unit_t structures of ud2, @c false otherwise.
@@ -1769,9 +1774,9 @@ UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * Unit::areEquivalent(@if java Unit, %Unit@endif).
  * The predicate tests a subset of the_t structures's attributes.
  *
- * @param ud1 the first UnitDefinition_t structure to compare
+ * @param ud1 the first UnitDefinition_t structure to compare.
  * 
- * @param ud2 the second UnitDefinition_t structure to compare
+ * @param ud2 the second UnitDefinition_t structure to compare.
  *
  * @return @c true if all the Unit_t structures in ud1 are equivalent
  * to the Unit_t structures in ud2, @c false otherwise.
@@ -1792,8 +1797,8 @@ UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2);
  * UnitDefinition_t structure that expresses the product of the units of @p
  * ud1 and @p ud2.
  *
- * @param ud1 the first UnitDefinition_t structure 
- * @param ud2 the second UnitDefinition_t structure
+ * @param ud1 the first UnitDefinition_t structure.
+ * @param ud2 the second UnitDefinition_t structure.
  *
  * @return a UnitDefinition_t which represents the product of the 
  * units of the two argument UnitDefinition_t's.
@@ -1812,8 +1817,8 @@ UnitDefinition_combine(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * UnitDefinition_t structure that expresses the division of the units of @p
  * ud1 and @p ud2.
  *
- * @param ud1 the first UnitDefinition_t structure 
- * @param ud2 the second UnitDefinition_t structure
+ * @param ud1 the first UnitDefinition_t structure.
+ * @param ud2 the second UnitDefinition_t structure.
  *
  * @return a UnitDefinition_t which represents the division of the 
  * units of the two argument UnitDefinition_t's.
@@ -1846,7 +1851,7 @@ UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  *
  * @param ud the UnitDefinition_t structure
  * @param compact boolean indicating whether the compact form
- * should be used
+ * should be used.
  *
  * @return a string expressing the unit definition defined by the given
  * UnitDefinition_t structure @p ud.
@@ -1882,7 +1887,7 @@ ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of UnitDefinition_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The UnitDefinition_t structure removed, or a null pointer if no such
  * item exists in @p lo.

@@ -109,7 +109,7 @@ public:
   /**
    * Assignment operator for FormulaUnitsData.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   FormulaUnitsData& operator=(const FormulaUnitsData& rhs);

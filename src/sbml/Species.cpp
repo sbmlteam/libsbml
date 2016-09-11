@@ -52,8 +52,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Species::Species (unsigned int level, unsigned int version) :
    SBase ( level, version )
-  , mId                       ( ""    )
-  , mName                     ( ""    )
   , mSpeciesType              ( ""    )
   , mCompartment              ( ""    )
   , mInitialAmount            ( 0.0   )
@@ -99,8 +97,6 @@ Species::Species (unsigned int level, unsigned int version) :
 
 Species::Species (SBMLNamespaces *sbmlns) :
     SBase                     ( sbmlns    )
-  , mId                       ( ""    )
-  , mName                     ( ""    )
   , mSpeciesType              ( ""    )
   , mCompartment              ( ""    )
   , mInitialAmount            ( 0.0   )
@@ -161,8 +157,6 @@ Species::~Species ()
  */
 Species::Species(const Species& orig)
  : SBase                       ( orig )
- , mId                         ( orig.mId )
- , mName                       ( orig.mName)
  , mSpeciesType                ( orig.mSpeciesType)
  , mCompartment                ( orig.mCompartment)
  , mInitialAmount              ( orig.mInitialAmount)
@@ -195,8 +189,6 @@ Species& Species::operator=(const Species& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-    this->mId = rhs.mId;
-    this->mName = rhs.mName;
     this->mSpeciesType = rhs.mSpeciesType;
     this->mCompartment = rhs.mCompartment;
 
@@ -1358,7 +1350,7 @@ Species::addExpectedAttributes(ExpectedAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Species::readAttributes (const XMLAttributes& attributes,
@@ -1389,7 +1381,7 @@ Species::readAttributes (const XMLAttributes& attributes,
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Species::readL1Attributes (const XMLAttributes& attributes)
@@ -1451,7 +1443,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Species::readL2Attributes (const XMLAttributes& attributes)
@@ -1559,7 +1551,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 Species::readL3Attributes (const XMLAttributes& attributes)
@@ -1570,19 +1562,35 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), 
-                                      false, getLine(), getColumn());
-  if (!assigned)
+  bool assigned;
+  // for l3v2 sbase will read this as generically optional
+  // we want to log errors relating to the specific object
+  if (version == 1)
   {
-    logError(AllowedAttributesOnSpecies, level, version, 
-             "The required attribute 'id' is missing.");
+    assigned = attributes.readInto("id", mId, getErrorLog(), false, 
+                                              getLine(), getColumn());
+    if (!assigned)
+    {
+      logError(AllowedAttributesOnSpecies, level, version, 
+               "The required attribute 'id' is missing.");
+    }
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<species>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
   }
-  if (assigned && mId.size() == 0)
+  else
   {
-    logEmptyString("id", level, version, "<species>");
+    // need to check that id was present
+    // it has already been read and checked for syntax/emptyness
+    if (attributes.hasAttribute("id") == false)
+    {
+      logError(AllowedAttributesOnSpecies, level, version, 
+        "The required attribute 'id' is missing.");
+    }
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string spplusid = "<species>";
   if (!mId.empty()) {
@@ -1602,13 +1610,15 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // initialAmount: double  { use="optional" }  (L2v1->)
   //
-  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount, getErrorLog(), false, getLine(), getColumn());
+  mIsSetInitialAmount = attributes.readInto("initialAmount", 
+    mInitialAmount, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
-  assigned = attributes.readInto(units, mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
+  assigned = attributes.readInto(units, mSubstanceUnits, getErrorLog(), 
+                                 false, getLine(), getColumn());
   if (assigned && mSubstanceUnits.size() == 0)
   {
     logEmptyString("substanceUnits", level, version, "<species>");
@@ -1625,7 +1635,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   // { use="required" }  (L3v1->)
   //
   mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
-                               mBoundaryCondition, getErrorLog(), false, getLine(), getColumn());
+                               mBoundaryCondition, getErrorLog(), false, 
+                                                   getLine(), getColumn());
   if (!mIsSetBoundaryCondition)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
@@ -1636,13 +1647,19 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1->)
   //
-  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
+  // for l3v2 sbase will read this
+  if (version == 1)
+  {
+    attributes.readInto("name", mName, getErrorLog(), false, 
+                                       getLine(), getColumn());
+  }
 
   //
   // initialConcentration: double  { use="optional" }  (L2v1->)
   //
   mIsSetInitialConcentration =
-        attributes.readInto("initialConcentration", mInitialConcentration, getErrorLog(), false, getLine(), getColumn());
+        attributes.readInto("initialConcentration", mInitialConcentration, 
+                            getErrorLog(), false, getLine(), getColumn());
 
   //
   // hasOnlySubstanceUnits: boolean
@@ -1660,7 +1677,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // constant: boolean  { use="required" }  (L3v1->)
   //
-  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
+  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), 
+                                            false, getLine(), getColumn());
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
@@ -1671,7 +1689,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // conversionFactor: SIdRef {use="optional" } (L3v1 ->)
   //
-  assigned = attributes.readInto("conversionFactor", mConversionFactor, getErrorLog(), false, getLine(), getColumn());
+  assigned = attributes.readInto("conversionFactor", mConversionFactor, 
+                                 getErrorLog(), false, getLine(), getColumn());
   if (assigned && mConversionFactor.size() == 0)
   {
     logEmptyString("conversionFactor", level, version, "<species>");
@@ -1689,7 +1708,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -1707,7 +1726,7 @@ Species::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -1718,19 +1737,26 @@ Species::writeAttributes (XMLOutputStream& stream) const
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  // for L3V2 and above SBase will write this out
+  if (level < 3 || (level == 3 && version == 1))
+  {
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
   stream.writeAttribute(id, mId);
-
+  }
   if (level > 1)
   {
-    //
-    // name: string  { use="optional" }  (L2v1->)
-    //
-    stream.writeAttribute("name", mName);
+    // for L3V2 and above SBase will write this out
+    if (level < 3 || (level == 3 && version == 1))
+    {
+      //
+      // name: string  { use="optional" }  (L2v1->)
+      //
+      stream.writeAttribute("name", mName);
+    }
 
     //
     // speciesType: SId  { use="optional" }  (L2v2->)

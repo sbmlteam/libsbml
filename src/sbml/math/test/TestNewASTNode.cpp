@@ -1201,6 +1201,11 @@ START_TEST (test_ASTNode_getName)
   fail_unless(n->isWellFormedASTNode() == false);
 
 
+  n->setType(AST_FUNCTION_MIN);
+  fail_unless( !strcmp(n->getName(), "min") );
+  fail_unless(n->isWellFormedASTNode() == true);
+
+
   ///** AST_LOGICALs **/
   n->setType(AST_LOGICAL_AND);
   fail_unless( !strcmp(n->getName(), "and") );
@@ -1217,6 +1222,11 @@ START_TEST (test_ASTNode_getName)
   n->setType(AST_LOGICAL_XOR);
   fail_unless( !strcmp(n->getName(), "xor") );
   fail_unless(n->isWellFormedASTNode() == true);
+
+
+  n->setType(AST_LOGICAL_IMPLIES);
+  fail_unless( !strcmp(n->getName(), "implies") );
+  fail_unless(n->isWellFormedASTNode() == false);
 
 
   ///** AST_RELATIONALs **/
@@ -3904,6 +3914,417 @@ START_TEST (test_ASTNode_setNewTypes_6)
   fail_unless( child->getId() == "");
   fail_unless( child->getParentSBMLObject() == m);
   fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_1)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_DIVIDE);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  c2->setParentSBMLObject(m);
+  c2->setValue(3.2);
+  node->addChild(c2);
+
+  fail_unless( node->getType() == AST_DIVIDE);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  node->setType(AST_FUNCTION_REM);
+
+  fail_unless( node->getType() == AST_FUNCTION_REM);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_2)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_DIVIDE);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  c2->setParentSBMLObject(m);
+  c2->setValue(3.2);
+  node->addChild(c2);
+
+  fail_unless( node->getType() == AST_DIVIDE);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  node->setType(AST_FUNCTION_MIN);
+
+  fail_unless( node->getType() == AST_FUNCTION_MIN);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_3)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_DIVIDE);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  c2->setParentSBMLObject(m);
+  c2->setValue(3.2);
+  node->addChild(c2);
+
+  fail_unless( node->getType() == AST_DIVIDE);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  node->setType(AST_FUNCTION_MAX);
+
+  fail_unless( node->getType() == AST_FUNCTION_MAX);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_4)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_DIVIDE);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  c2->setParentSBMLObject(m);
+  c2->setValue(3.2);
+  node->addChild(c2);
+
+  fail_unless( node->getType() == AST_DIVIDE);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  node->setType(AST_FUNCTION_QUOTIENT);
+
+  fail_unless( node->getType() == AST_FUNCTION_QUOTIENT);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isQualifier() == false);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_5)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_DIVIDE);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  c2->setParentSBMLObject(m);
+  c2->setValue(3.2);
+  node->addChild(c2);
+
+  fail_unless( node->getType() == AST_DIVIDE);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isLogical() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  node->setType(AST_LOGICAL_IMPLIES);
+
+  fail_unless( node->getType() == AST_LOGICAL_IMPLIES);
+  fail_unless( node->getNumChildren() == 2);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isLogical() == true);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  child = node->getChild(1);
+
+  fail_unless( child->getType() == AST_REAL);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "");
+  fail_unless( child->getParentSBMLObject() == m);
+  fail_unless( util_isEqual(child->getReal(), 3.2));
+
+  delete node;
+  delete m;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_setL3V2NewTypes_6)
+{
+  Model* m = new Model(3,2);
+
+  ASTNode *node = new ASTNode(AST_FUNCTION_COS);
+  node->setId("s");
+  node->setParentSBMLObject(m);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setId("c1");
+  c1->setName("child");
+  node->addChild(c1);
+
+  fail_unless( node->getType() == AST_FUNCTION_COS);
+  fail_unless( node->getNumChildren() == 1);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isCSymbolFunction() == false);
+
+
+  ASTNode * child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
+
+  node->setType(AST_FUNCTION_RATE_OF);
+
+  fail_unless( node->getType() == AST_FUNCTION_RATE_OF);
+  fail_unless( node->getNumChildren() == 1);
+  fail_unless( node->getId() == "s");
+  fail_unless( node->getParentSBMLObject() == m);
+  fail_unless( node->isCSymbolFunction() == true);
+
+
+  child = node->getChild(0);
+
+  fail_unless( child->getType() == AST_NAME);
+  fail_unless( child->getNumChildren() == 0);
+  fail_unless( child->getId() == "c1");
+  fail_unless( child->getParentSBMLObject() == NULL);
+  fail_unless( strcmp(child->getName(), "child") == 0);
 
   delete node;
   delete m;
@@ -6798,6 +7219,74 @@ START_TEST (test_ASTNode_csymbol_4)
 }
 END_TEST
 
+
+START_TEST (test_ASTNode_csymbol_5)
+{
+  ASTNode *n = new ASTNode(AST_FUNCTION_RATE_OF);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setName("c1");
+
+  ASTNode *c2 = new ASTNode(AST_NAME);
+  c2->setName("c2");
+
+  ASTNode *c3 = new ASTNode(AST_NAME);
+  c3->setName("c3");
+
+  fail_unless( n->getNumChildren() == 0);
+
+  int i = n->addChild(c1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 1);
+  fail_unless( strcmp(n->getChild(0)->getName(), "c1") == 0);
+
+  i = n->insertChild(0, c2);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 2);
+  fail_unless( strcmp(n->getChild(0)->getName(), "c2") == 0);
+
+  i = n->removeChild(1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 1);
+  fail_unless( strcmp(n->getChild(0)->getName(), "c2") == 0);
+
+  i = n->prependChild(c3);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 2);
+  fail_unless( strcmp(n->getChild(0)->getName(), "c3") == 0);
+
+  i = n->replaceChild(0, c1, true);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 2);
+  fail_unless( strcmp(n->getChild(0)->getName(), "c1") == 0);
+
+  ASTNode *cc1 = new ASTNode(AST_PLUS);
+
+  ASTNode *cc2 = new ASTNode(AST_NAME);
+  cc2->setName("cc2");
+
+  ASTNode *cc3 = new ASTNode(AST_NAME);
+  cc3->setName("cc3");
+  cc1->addChild(cc2);
+  cc1->addChild(cc3);
+
+  i = n->swapChildren(cc1);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( n->getNumChildren() == 2);
+  fail_unless( strcmp(n->getChild(0)->getName(), "cc2") == 0);
+  
+  delete n;
+  delete cc1;
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_replace)
 {
   ASTNode* node = readMathMLFromString(
@@ -6991,6 +7480,13 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_setNewTypes_5             );
   tcase_add_test( tcase, test_ASTNode_setNewTypes_6             );
   
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_1         );
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_2         );
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_3         );
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_4         );
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_5         );
+  tcase_add_test( tcase, test_ASTNode_setL3V2NewTypes_6         );
+
   tcase_add_test( tcase, test_ASTNode_no_children             );
   tcase_add_test( tcase, test_ASTNode_one_child               );
   tcase_add_test( tcase, test_ASTNode_children                );
@@ -7048,6 +7544,7 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_csymbol_2   );
   tcase_add_test( tcase, test_ASTNode_csymbol_3   );
   tcase_add_test( tcase, test_ASTNode_csymbol_4   );
+  tcase_add_test( tcase, test_ASTNode_csymbol_5   );
   
   tcase_add_test( tcase, test_ASTNode_representsBvar   );
 

@@ -59,16 +59,11 @@ ASTQualifierNode::ASTQualifierNode (int type) :
 }
   
   
-  /**
-   * Copy constructor
-   */
 ASTQualifierNode::ASTQualifierNode (const ASTQualifierNode& orig):
   ASTFunctionBase(orig)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTQualifierNode&
 ASTQualifierNode::operator=(const ASTQualifierNode& rhs)
 {
@@ -78,9 +73,7 @@ ASTQualifierNode::operator=(const ASTQualifierNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTQualifierNode::~ASTQualifierNode ()
 {
 }

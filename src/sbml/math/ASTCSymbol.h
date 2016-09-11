@@ -43,6 +43,7 @@
 #include <sbml/math/ASTCSymbolTimeNode.h>
 #include <sbml/math/ASTCSymbolDelayNode.h>
 #include <sbml/math/ASTCSymbolAvogadroNode.h>
+#include <sbml/math/ASTCSymbolRateOfNode.h>
 
 #ifdef __cplusplus
 
@@ -58,13 +59,18 @@ public:
 
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTCSymbol (const ASTCSymbol& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTCSymbol& operator=(const ASTCSymbol& rhs);
 
@@ -187,6 +193,7 @@ public:
   bool isAvogadro() const;
   bool isDelay () const;
   bool isTime() const;
+  bool isRateOf() const;
   
   
 
@@ -204,6 +211,7 @@ public:
   ASTCSymbolTimeNode * getTime() const;
   ASTCSymbolDelayNode * getDelay() const;
   ASTCSymbolAvogadroNode * getAvogadro() const;
+  ASTCSymbolRateOfNode * getRateOf() const;
 
 
   virtual ASTBasePlugin* getPlugin(const std::string& package);
@@ -247,6 +255,7 @@ protected:
   ASTCSymbolTimeNode * mTime;
   ASTCSymbolDelayNode * mDelay;
   ASTCSymbolAvogadroNode * mAvogadro;
+  ASTCSymbolRateOfNode * mRateOf;
 
   bool mIsOther;
 

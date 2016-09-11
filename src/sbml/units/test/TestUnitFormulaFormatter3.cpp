@@ -401,6 +401,82 @@ START_TEST (test_getUnitDefinition_power_nondim_param_exponent)
 }
 END_TEST
 
+START_TEST (test_UnitFormulaFormatter3_getUnitDefinition_rem)
+{
+  UnitDefinition * ud = uff->getUnitDefinition(m->getRule(0)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter3_getUnitDefinition_quotient)
+{
+  UnitDefinition * ud = uff->getUnitDefinition(m->getRule(1)->getMath());
+
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(1)->getExponent() == -1);
+  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter3_getUnitDefinition_rateOf)
+{
+  UnitDefinition * ud = uff->getUnitDefinition(m->getRule(2)->getMath());
+
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(1)->getExponent() == -1);
+  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  delete ud;
+
+}
+END_TEST
+
+
 
 Suite *
 create_suite_UnitFormulaFormatter3 (void)
@@ -422,6 +498,10 @@ create_suite_UnitFormulaFormatter3 (void)
   tcase_add_test(tcase, test_getUnitDefinition_power_dim_param_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_nondim_param_exponent );
 
+// l3v2 tests
+  tcase_add_test(tcase, test_UnitFormulaFormatter3_getUnitDefinition_rem );
+  tcase_add_test(tcase, test_UnitFormulaFormatter3_getUnitDefinition_quotient );
+  tcase_add_test(tcase, test_UnitFormulaFormatter3_getUnitDefinition_rateOf );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -58,6 +58,7 @@ BEGIN_C_DECLS
 Suite *create_suite_ReadSBML                      (void);
 Suite *create_suite_WriteSBML                     (void);
 Suite *create_suite_WriteL3SBML                   (void);
+Suite *create_suite_WriteL3V2SBML                 (void);
 
 Suite *create_suite_AlgebraicRule                 (void);
 Suite *create_suite_AssignmentRule                (void);
@@ -104,6 +105,7 @@ Suite *create_suite_SBase                         (void);
 Suite *create_suite_SBase_newSetters              (void);
 Suite *create_suite_SBMLConvert                   (void);
 Suite *create_suite_SBMLConvertStrict             (void);
+Suite *create_suite_SBMLConvertFromL3V2           (void);
 Suite *create_suite_SBMLDocument                  (void);
 Suite *create_suite_SBMLError                     (void);
 Suite *create_suite_SBMLReader                    (void);
@@ -139,6 +141,13 @@ Suite *create_suite_TestReadFromFile7             (void);
 Suite *create_suite_TestReadFromFile8             (void);
 Suite *create_suite_TestReadFromFile9             (void);
 Suite *create_suite_TestReadFromFileL2V5          (void);
+Suite *create_suite_TestReadFromFileL3V2          (void);
+Suite *create_suite_TestReadFromFileL3V2_1          (void);
+Suite *create_suite_TestReadFromFileL3V2_2          (void);
+Suite *create_suite_TestReadFromFileL3V2_3          (void);
+Suite *create_suite_TestReadFromFileL3V2_4          (void);
+Suite *create_suite_TestReadFromFileL3V2_5          (void);
+Suite *create_suite_TestReadFromFileL3V2_6          (void);
 
 Suite *create_suite_TestConsistencyChecks         (void);
 Suite *create_suite_ParentObject                  (void);
@@ -158,6 +167,8 @@ Suite *create_suite_RenameIDs                     (void);
 Suite *create_suite_SBMLTransforms                (void);
 
 Suite *create_suite_LevelCompatibility                (void);
+
+Suite *create_suite_SBase_IdName                         (void);
 
 /**
  * Global.
@@ -209,6 +220,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
   srunner_add_suite( runner, create_suite_WriteSBML                     () );
   srunner_add_suite( runner, create_suite_WriteL3SBML                   () );
+  srunner_add_suite( runner, create_suite_WriteL3V2SBML                 () );
   srunner_add_suite( runner, create_suite_AlgebraicRule                 () ); 
   srunner_add_suite( runner, create_suite_AssignmentRule                () );
   srunner_add_suite( runner, create_suite_Compartment                   () );
@@ -272,6 +284,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_CopyAndClone                  () );
   srunner_add_suite( runner, create_suite_SBMLConvert                   () );
   srunner_add_suite( runner, create_suite_SBMLConvertStrict             () );
+  srunner_add_suite( runner, create_suite_SBMLConvertFromL3V2           () );
   srunner_add_suite( runner, create_suite_SBMLDocument                  () );
   srunner_add_suite( runner, create_suite_SBMLError                     () );
   srunner_add_suite( runner, create_suite_TestReadFromFile1             () );
@@ -284,6 +297,13 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_TestReadFromFile8             () );
   srunner_add_suite( runner, create_suite_TestReadFromFile9             () );
   srunner_add_suite( runner, create_suite_TestReadFromFileL2V5          () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2          () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_1        () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_2        () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_3        () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_4        () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_5        () );
+  srunner_add_suite( runner, create_suite_TestReadFromFileL3V2_6        () );
   srunner_add_suite( runner, create_suite_TestConsistencyChecks         () );
   srunner_add_suite( runner, create_suite_ParentObject                  () );
   srunner_add_suite( runner, create_suite_AncestorObject                () );
@@ -296,6 +316,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBMLTransforms                () );
   srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
   srunner_add_suite( runner, create_suite_LevelCompatibility            () );
+  srunner_add_suite( runner, create_suite_SBase_IdName                   () );
 
 
 #ifdef TRACE_MEMORY

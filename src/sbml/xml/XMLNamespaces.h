@@ -96,7 +96,7 @@ public:
   /**
    * Copy constructor; creates a copy of this XMLNamespaces list.
    *
-   * @param orig the XMLNamespaces object to copy
+   * @param orig the XMLNamespaces object to copy.
    */
   XMLNamespaces(const XMLNamespaces& orig);
 
@@ -104,7 +104,7 @@ public:
   /**
    * Assignment operator for XMLNamespaces.
    *
-   * @param rhs The XMLNamespaces object whose values are used as the basis
+   * @param rhs the XMLNamespaces object whose values are used as the basis
    * of the assignment.
    */
   XMLNamespaces& operator=(const XMLNamespaces& rhs);
@@ -137,8 +137,8 @@ public:
    * is necessary to replace the sbml namespace the namespace should be removed
    * prior to adding the new namespace.
    *
-   * @param uri a string, the uri for the namespace
-   * @param prefix a string, the prefix for the namespace
+   * @param uri a string, the uri for the namespace.
+   * @param prefix a string, the prefix for the namespace.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -217,7 +217,7 @@ public:
    * prefix @p prefix, this method returns its index in the list.
    *
    * @param prefix a string, the prefix string of the sought-after
-   * namespace
+   * namespace.
    *
    * @return the index of the given declaration, or <code>-1</code> if not
    * present.
@@ -255,10 +255,10 @@ public:
    * XMLAttributes::getLength() first to find out how many namespaces are
    * stored in the list.
    *
-   * @param index an integer, position of the sought-after prefix
+   * @param index an integer, position of the sought-after prefix.
    *
    * @return the prefix of an XML namespace declaration in this list (by
-   * position), or an empty string if the @p index is out of range
+   * position), or an empty string if the @p index is out of range.
    *
    * @see getLength()
    */
@@ -272,10 +272,10 @@ public:
    * prefixes.  This method returns the prefix for a pair that has the
    * given @p uri.
    *
-   * @param uri a string, the URI of the prefix being sought
+   * @param uri a string, the URI of the prefix being sought.
    *
    * @return the prefix of an XML namespace declaration given its URI, or
-   * an empty string if no such @p uri exists in this XMLNamespaces object
+   * an empty string if no such @p uri exists in this XMLNamespaces object.
    */
   std::string getPrefix (const std::string& uri) const;
 
@@ -306,11 +306,11 @@ public:
    * prefixes.  This method returns the namespace URI for a pair that has
    * the given @p prefix.
    *
-   * @param prefix a string, the prefix of the required URI
+   * @param prefix a string, the prefix of the required URI.
    *
    * @return the URI of an XML namespace declaration having the given @p
    * prefix, or an empty string if no such prefix-and-URI pair exists
-   * in this XMLNamespaces object
+   * in this XMLNamespaces object.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    * 
@@ -332,7 +332,7 @@ public:
    * Predicate returning @c true or @c false depending on whether an XML
    * Namespace with the given URI is contained in this XMLNamespaces list.
    * 
-   * @param uri a string, the uri for the namespace
+   * @param uri a string, the uri for the namespace.
    *
    * @return @c true if an XML Namespace with the given URI is contained in
    * this XMLNamespaces list, @c false otherwise.
@@ -345,7 +345,7 @@ public:
    * Namespace with the given prefix is contained in this XMLNamespaces
    * list.
    *
-   * @param prefix a string, the prefix for the namespace
+   * @param prefix a string, the prefix for the namespace.
    * 
    * @return @c true if an XML Namespace with the given URI is contained in
    * this XMLNamespaces list, @c false otherwise.
@@ -358,8 +358,8 @@ public:
    * Namespace with the given URI and prefix pair is contained in this
    * XMLNamespaces list.
    *
-   * @param uri a string, the URI for the namespace
-   * @param prefix a string, the prefix for the namespace
+   * @param uri a string, the URI for the namespace.
+   * @param prefix a string, the prefix for the namespace.
    * 
    * @return @c true if an XML Namespace with the given uri/prefix pair is
    * contained in this XMLNamespaces list, @c false otherwise.
@@ -453,7 +453,7 @@ XMLNamespaces_free (XMLNamespaces_t *ns);
 /**
  * Creates a deep copy of the given XMLNamespaces_t structure
  * 
- * @param ns the XMLNamespaces_t structure to be copied
+ * @param ns the XMLNamespaces_t structure to be copied.
  * 
  * @return a (deep) copy of the given XMLNamespaces_t structure.
  *
@@ -540,7 +540,7 @@ XMLNamespaces_clear (XMLNamespaces_t *ns);
 /**
  * Lookup the index of an XML namespace declaration by URI.
  *
- * @param ns the XMLNamespaces_t structure
+ * @param ns the XMLNamespaces_t structure.
  * @param uri a string, uri of the required namespace.
  *
  * @return the index of the given declaration, or -1 if not present.
@@ -555,7 +555,7 @@ XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri);
 /**
  * Look up the index of an XML namespace declaration by Prefix.
  *
- * @param ns the XMLNamespaces_t structure
+ * @param ns the XMLNamespaces_t structure.
  * @param prefix a string, prefix of the required namespace.
  *
  * @return the index of the given declaration, or -1 if not present.
@@ -570,7 +570,7 @@ int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefi
  * Returns the total number of URI-and-prefix pairs stored in this
  * particular XMLNamespaces instance.
  *
- * @param ns the XMLNamespaces_t structure
+ * @param ns the XMLNamespaces_t structure.
  *
  * @return the number of namespaces in this list.
  *
@@ -588,7 +588,7 @@ XMLNamespaces_getLength (const XMLNamespaces_t *ns);
  * This function is an alias for getLength introduced for consistency
  * with other XML classes.
  *
- * @param ns the XMLNamespaces_t structure
+ * @param ns the XMLNamespaces_t structure.
  *
  * @return the number of namespaces in this list.
  *
@@ -608,8 +608,8 @@ XMLNamespaces_getNumNamespaces (const XMLNamespaces_t *ns);
  * XMLAttributes_getLength() first to find out how many namespaces are
  * stored in the list.
  *
- * @param ns the XMLNamespaces_t structure
- * @param index an integer, position of the sought-after prefix
+ * @param ns the XMLNamespaces_t structure.
+ * @param index an integer, position of the sought-after prefix.
  *
  * @return the prefix of an XML namespace declaration in this list (by
  * position), or an empty string if the @p index is out of range
@@ -630,8 +630,8 @@ XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index);
  * prefixes.  This method returns the prefix for a pair that has the
  * given @p uri.
  *
- * @param ns the XMLNamespaces_t structure
- * @param uri a string, the URI of the prefix being sought
+ * @param ns the XMLNamespaces_t structure.
+ * @param uri a string, the URI of the prefix being sought.
  *
  * @return the prefix of an XML namespace declaration given its URI, or
  * an empty string if no such @p uri exists in this XMLNamespaces_t structure
@@ -652,7 +652,7 @@ XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri);
  * XMLAttributes::getLength() first to find out how many namespaces are
  * stored in the list.
  *
- * @param ns the XMLNamespaces_t structure
+ * @param ns the XMLNamespaces_t structure.
  * @param index an integer, position of the required URI.
  *
  * @return the URI of an XML namespace declaration in this list (by
@@ -674,8 +674,8 @@ XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index);
  * prefixes.  This method returns the namespace URI for a pair that has
  * the given @p prefix.
  *
- * @param ns the XMLNamespaces_t structure
- * @param prefix a string, the prefix of the required URI
+ * @param ns the XMLNamespaces_t structure.
+ * @param prefix a string, the prefix of the required URI.
  *
  * @return the URI of an XML namespace declaration having the given @p
  * prefix, or an empty string if no such prefix-and-URI pair exists

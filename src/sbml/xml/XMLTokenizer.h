@@ -63,9 +63,11 @@ public:
 
 
   /**
-   * Copy Constructor
+   * Copy Constructor.
+   *
+   * @param orig the instance to copy.
    */
-  XMLTokenizer (const XMLTokenizer& other);
+  XMLTokenizer (const XMLTokenizer& orig);
 
 
   /**
@@ -91,22 +93,22 @@ public:
 
 
   /**
-   * Returns true if this XMLTokenizer has at least one XMLToken ready to
-   * deliver, false otherwise.
+   * Returns @c true if this XMLTokenizer has at least one XMLToken ready to
+   * deliver, @c false otherwise.
    *
    * Note that hasNext() == false does not imply isEOF() == true.  The
    * XMLTokenizer may simply be waiting for the XMLParser to parse more of
    * the document.
    *
-   * @return true if this XMLTokenizer has at least one XMLToken ready to
-   * deliver, false otherwise.
+   * @return @c true if this XMLTokenizer has at least one XMLToken ready to
+   * deliver, @c false otherwise.
    */
   bool hasNext () const;
 
 
   /**
-   * @return true if the end of the XML file (document) has been reached
-   * and there are no more tokens to consume, false otherwise.
+   * @return @c true if the end of the XML file (document) has been reached
+   * and there are no more tokens to consume, @c false otherwise.
    */
   bool isEOF () const;
 

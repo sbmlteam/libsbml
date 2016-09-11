@@ -64,7 +64,6 @@ public:
    * @param packageURIs a vector of XML namespace URIs that identifies
    * the SBML package namespaces to which this extension applies.
    */
-
   SBasePluginCreator (const SBaseExtensionPoint& extPoint,
                       const std::vector<std::string>& packageURIs)
     : SBasePluginCreatorBase(extPoint, packageURIs) {}

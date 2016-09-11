@@ -198,7 +198,7 @@
  * by AssignmentRule or AlgebraicRule, and in addition, for simulation time
  * <em>t &gt; 0</em>, it may also be changed by a RateRule or Event
  * objects.  (However, some of these constructs are mutually exclusive; see
- * the SBML Level&nbsp;3 Version&nbsp;1 Core specifiation for more
+ * the SBML Level&nbsp;3 Core specifiation for more
  * details.)  It is not an error to define "stoichiometry" on a species
  * reference and also redefine the stoichiometry using an
  * InitialAssignment, but the "stoichiometry" attribute in that case is
@@ -276,10 +276,10 @@ public:
    * Creates a new SpeciesReference using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SpeciesReference
+   * @param level an unsigned int, the SBML Level to assign to this SpeciesReference.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * SpeciesReference
+   * SpeciesReference.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -318,7 +318,7 @@ public:
   /**
    * Assignment operator
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SpeciesReference& operator=(const SpeciesReference& rhs);
@@ -542,7 +542,7 @@ public:
    * In SBML Level 3, there is no StoichiometryMath, and SpeciesReference
    * objects have only the "stoichiometry" attribute.
    * 
-   * @param value the new value of the "stoichiometry" attribute
+   * @param value the new value of the "stoichiometry" attribute.
    *
    * @note In SBML Level&nbsp;2, the "stoichiometryMath" subelement of this
    * SpeciesReference object will be unset because the "stoichiometry"
@@ -615,7 +615,7 @@ public:
    * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or
    * a "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
    *
-   * @param value the scalar value 
+   * @param value the scalar value.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -628,7 +628,7 @@ public:
    * @p flag.
    *
    * @param flag a boolean, the value for the "constant" attribute of this
-   * SpeciesReference instance
+   * SpeciesReference instance.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -709,7 +709,7 @@ public:
    * Creates a new, empty StoichiometryMath object, adds it to this
    * SpeciesReference, and returns it.
    *
-   * @return the newly created StoichiometryMath object instance
+   * @return the newly created StoichiometryMath object instance.
    *
    * @see Reaction::addReactant(const SpeciesReference* sr)
    * @see Reaction::addProduct(const SpeciesReference* sr)
@@ -729,9 +729,9 @@ public:
    * discarded.  An alternative may be to use appendAnnotation().
    *
    * @param annotation an XML structure that is to be used as the content
-   * of the "annotation" subelement of this object
+   * of the "annotation" subelement of this object.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see appendAnnotation(const XMLNode* annotation)
@@ -752,7 +752,7 @@ public:
    * discarded.  An alternative may be to use appendAnnotation().
    *
    * @param annotation an XML string that is to be used as the content
-   * of the "annotation" subelement of this object
+   * of the "annotation" subelement of this object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -774,7 +774,7 @@ public:
    * adds its own data.
    *
    * @param annotation an XML structure that is to be copied and appended
-   * to the content of the "annotation" subelement of this object
+   * to the content of the "annotation" subelement of this object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -796,7 +796,7 @@ public:
    * adds its own data.
    *
    * @param annotation an XML string that is to be copied and appended
-   * to the content of the "annotation" subelement of this object
+   * to the content of the "annotation" subelement of this object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -834,7 +834,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -879,7 +879,7 @@ protected:
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   bool readOtherXML (XMLInputStream& stream);
 
@@ -896,7 +896,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -911,7 +911,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -976,9 +976,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -1102,7 +1102,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -1116,7 +1116,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -1180,10 +1180,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * SpeciesReference_t
+ * SpeciesReference_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * SpeciesReference_t
+ * SpeciesReference_t.
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
@@ -1207,7 +1207,7 @@ SpeciesReference_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this SpeciesReference_t
+ * to assign to this SpeciesReference_t.
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
@@ -1231,10 +1231,10 @@ SpeciesReference_createWithNS (SBMLNamespaces_t *sbmlns);
  * using the given SBMLNamespaces_t structure.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * SpeciesReference_t
+ * SpeciesReference_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * SpeciesReference_t
+ * SpeciesReference_t.
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
@@ -1258,7 +1258,7 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version);
  * using the given SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this modifier SpeciesReference_t
+ * to assign to this modifier SpeciesReference_t.
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
@@ -1280,7 +1280,7 @@ SpeciesReference_createModifierWithNS (SBMLNamespaces_t *sbmlns);
 /**
  * Frees the given SpeciesReference_t structure.
  *
- * @param sr The SpeciesReference_t structure.
+ * @param sr the SpeciesReference_t structure.
  *
  * @memberof SpeciesReference_t
  */
@@ -1293,7 +1293,7 @@ SpeciesReference_free (SpeciesReference_t *sr);
  * Creates and returns a deep copy of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return a (deep) copy of this SpeciesReference_t.
  *
@@ -1314,7 +1314,7 @@ SpeciesReference_clone (const SpeciesReference_t *sr);
  * This function has no effect if the SpeciesReference_t structure is a
  * modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @memberof SpeciesReference_t
  */
@@ -1327,10 +1327,10 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  * Returns a list of XMLNamespaces_t associated with this SpeciesReference_t
  * structure.
  *
- * @param sr the SpeciesReference_t structure
+ * @param sr the SpeciesReference_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
- * this structure
+ * this structure.
  *
  * @memberof SpeciesReference_t
  */
@@ -1343,7 +1343,7 @@ SpeciesReference_getNamespaces(SpeciesReference_t *sr);
  * Predicate returning @c true or @c false depending on whether the
  * given SpeciesReference_t structure is a modifier.
  * 
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if this SpeciesReference_t represents a modifier
  * species, zero (0)if it is a plain SpeciesReference_t.
@@ -1359,7 +1359,7 @@ SpeciesReference_isModifier (const SpeciesReference_t *sr);
  * Get the value of the "id" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the identifier of the SpeciesReference_t instance.
  *
@@ -1374,7 +1374,7 @@ SpeciesReference_getId (const SpeciesReference_t *sr);
  * Get the value of the "name" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the name of the SpeciesReference_t instance.
  *
@@ -1389,9 +1389,9 @@ SpeciesReference_getName (const SpeciesReference_t *sr);
  * Get the value of the "species" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
- * @return the "species" attribute value
+ * @return the "species" attribute value.
  *
  * @memberof SpeciesReference_t
  */
@@ -1407,9 +1407,9 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr);
  * This function returns zero if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
- * @return the "stoichiometry" attribute value
+ * @return the "stoichiometry" attribute value.
  *
  * @memberof SpeciesReference_t
  */
@@ -1425,7 +1425,7 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
  * This function returns NULL if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the stoichiometryMath of this SpeciesReference_t.
  *
@@ -1454,7 +1454,7 @@ SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr);
  * This function returns 0 if the SpeciesReference_t structure is a Modifer (see
  * SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the denominator of this SpeciesReference_t.
  *
@@ -1468,7 +1468,7 @@ SpeciesReference_getDenominator (const SpeciesReference_t *sr);
 /**
  * Get the value of the "constant" attribute.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the constant attribute of this SpeciesReference_t.
  *
@@ -1484,7 +1484,7 @@ SpeciesReference_getConstant (const SpeciesReference_t *sr);
  * whether the "id" attribute of the given SpeciesReference_t structure is
  * set.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "id" attribute of given SpeciesReference_t
  * structure is set, zero (0) otherwise.
@@ -1501,7 +1501,7 @@ SpeciesReference_isSetId (const SpeciesReference_t *sr);
  * whether the "name" attribute of the given SpeciesReference_t
  * structure is set.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "name" attribute of given SpeciesReference_t
  * structure is set, zero (0) otherwise.
@@ -1518,7 +1518,7 @@ SpeciesReference_isSetName (const SpeciesReference_t *sr);
  * whether the "species" attribute of the given SpeciesReference_t
  * structure is set.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "species" attribute of given SpeciesReference_t
  * structure is set, zero (0) otherwise.
@@ -1538,7 +1538,7 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
  * This function returns false if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "stoichiometryMath" subelement has content, zero
  * (0) otherwise.
@@ -1555,7 +1555,7 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
  * whether the "stoichiometry" attribute of the given SpeciesReference_t structure is
  * set.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "stoichiometry" attribute of given SpeciesReference_t
  * structure is set, zero (0) otherwise.
@@ -1572,7 +1572,7 @@ SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr);
  * whether the "constant" attribute of the given SpeciesReference_t structure is
  * set.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "constant" attribute of given SpeciesReference_t
  * structure is set, zero (0) otherwise.
@@ -1590,9 +1590,9 @@ SpeciesReference_isSetConstant (const SpeciesReference_t *sr);
  *
  * The string in @p sid will be copied.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param sid The identifier string that will be copied and assigned as the
+ * @param sid the identifier string that will be copied and assigned as the
  * "id" attribute value.
  *
  * @copydetails doc_returns_success_code
@@ -1616,9 +1616,9 @@ SpeciesReference_setId (SpeciesReference_t *sr, const char *sid);
  *
  * The string in @p sid will be copied.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param name The identifier string that will be copied and assigned as the
+ * @param name the identifier string that will be copied and assigned as the
  * "name" attribute value.
  *
  * @copydetails doc_returns_success_code
@@ -1642,9 +1642,9 @@ SpeciesReference_setName (SpeciesReference_t *sr, const char *name);
  *
  * The string in @p sid will be copied.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param sid The identifier string that will be copied and assigned as the
+ * @param sid the identifier string that will be copied and assigned as the
  * "species" attribute value.
  *
  * @copydetails doc_returns_success_code
@@ -1668,11 +1668,11 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param value The value to assign to the "stoichiometry" attribute.
+ * @param value the value to assign to the "stoichiometry" attribute.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SpeciesReference_t
@@ -1686,7 +1686,7 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
  * Creates a new, empty StoichiometryMath_t structure, adds it to the
  * @p sr SpeciesReference_t, and returns it.
  *
- * @return the newly created StoichiometryMath_t structure instance
+ * @return the newly created StoichiometryMath_t structure instance.
  *
  * @see Reaction_addReactant()
  * @see Reaction_addProduct()
@@ -1705,9 +1705,9 @@ SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr);
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param math The StoichiometryMath_t structure to use in the given SpeciesReference_t.
+ * @param math the StoichiometryMath_t structure to use in the given SpeciesReference_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1741,11 +1741,11 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
- * @param value The value to assign to the "denominator" attribute.
+ * @param value the value to assign to the "denominator" attribute.
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SpeciesReference_t
@@ -1777,7 +1777,7 @@ SpeciesReference_setConstant (SpeciesReference_t *sr, int value);
  * Unsets the value of the "id" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1794,7 +1794,7 @@ SpeciesReference_unsetId (SpeciesReference_t *sr);
  * Unsets the value of the "name" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1811,7 +1811,7 @@ SpeciesReference_unsetName (SpeciesReference_t *sr);
  * Unsets the value of the "species" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1828,7 +1828,7 @@ SpeciesReference_unsetSpecies (SpeciesReference_t *sr);
  * Unsets the value of the "constant" attribute of the given SpeciesReference_t
  * structure.
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1848,7 +1848,7 @@ SpeciesReference_unsetConstant (SpeciesReference_t *sr);
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1868,7 +1868,7 @@ SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr);
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
- * @param sr The SpeciesReference_t structure to use.
+ * @param sr the SpeciesReference_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1893,7 +1893,7 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
   * @param sr the SpeciesReference_t structure to check.
   *
   * @return a true if all the required
-  * attributes for this object have been defined, false otherwise.
+  * attributes for this object have been defined, @c false otherwise.
   *
  * @memberof SpeciesReference_t
  */
@@ -1926,7 +1926,7 @@ ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of SpeciesReference_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The SpeciesReference_t structure removed, or a null pointer if no such
  * item exists in @p lo.

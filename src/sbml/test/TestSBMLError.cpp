@@ -62,10 +62,20 @@ START_TEST (test_SBMLError_create)
   fail_unless( error != NULL );
   delete error;
 
-  error = new SBMLError(EmptyListInReaction);
-  fail_unless( error->getErrorId()  == EmptyListInReaction );
+  /* this will not be the same once the default level/version is L3V2 */
+  error = new SBMLError(ConstraintContainsXMLDecl);
+  fail_unless( error->getErrorId()  == ConstraintContainsXMLDecl );
   fail_unless( error->getSeverity() == LIBSBML_SEV_ERROR );
   fail_unless( error->getSeverityAsString() == "Error" );
+  fail_unless( error->getCategory() == LIBSBML_CAT_SBML );
+  fail_unless( error->getCategoryAsString() == "General SBML conformance");
+  fail_unless( error->isValid() == true);
+  delete error;
+
+  error = new SBMLError(EmptyListInReaction);
+  fail_unless( error->getErrorId()  == EmptyListInReaction );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_NOT_APPLICABLE );
+  fail_unless( error->getSeverityAsString() == "Not applicable" );
   fail_unless( error->getCategory() == LIBSBML_CAT_SBML );
   fail_unless( error->getCategoryAsString() == "General SBML conformance");
   fail_unless( error->isValid() == true);

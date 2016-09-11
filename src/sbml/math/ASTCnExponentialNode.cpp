@@ -64,9 +64,6 @@ ASTCnExponentialNode::ASTCnExponentialNode (int type) :
   
 
 
-  /**
-   * Copy constructor
-   */
 ASTCnExponentialNode::ASTCnExponentialNode (const ASTCnExponentialNode& orig):
   ASTCnBase(orig)
     , mExponent        (orig.mExponent)
@@ -75,9 +72,8 @@ ASTCnExponentialNode::ASTCnExponentialNode (const ASTCnExponentialNode& orig):
     , mIsSetExponent   (orig.mIsSetExponent)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
+
 ASTCnExponentialNode&
 ASTCnExponentialNode::operator=(const ASTCnExponentialNode& rhs)
 {

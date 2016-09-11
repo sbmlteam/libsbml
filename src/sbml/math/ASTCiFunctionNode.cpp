@@ -59,18 +59,13 @@ ASTCiFunctionNode::ASTCiFunctionNode (int type) :
 }
   
 
-  /**
-   * Copy constructor
-   */
 ASTCiFunctionNode::ASTCiFunctionNode (const ASTCiFunctionNode& orig):
   ASTNaryFunctionNode(orig)
     , mName (orig.mName)
     , mDefinitionURL (orig.mDefinitionURL)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCiFunctionNode&
 ASTCiFunctionNode::operator=(const ASTCiFunctionNode& rhs)
 {
@@ -82,9 +77,7 @@ ASTCiFunctionNode::operator=(const ASTCiFunctionNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCiFunctionNode::~ASTCiFunctionNode ()
 {
 }

@@ -140,7 +140,7 @@ public:
    * @param name the name of this program (where "this program" refers to
    * program in which libSBML is embedded, not libSBML itself!)
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * 
    * @see setProgramVersion(const std::string& version)
@@ -167,7 +167,7 @@ public:
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setProgramName(const std::string& name)
@@ -180,7 +180,7 @@ public:
    *
    * @htmlinclude assuming-compressed-file.html
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @param filename the name or full pathname of the file where the SBML
    * is to be written. 
@@ -199,7 +199,7 @@ public:
   /**
    * Writes the given SBML document to the output stream.
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @param stream the stream object where the SBML is to be written.
    *
@@ -220,7 +220,7 @@ public:
    * The string is owned by the caller and should be freed (with @c free())
    * when no longer needed.
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
@@ -237,7 +237,7 @@ public:
    *
    * @htmlinclude assuming-compressed-file.html
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @param filename the name or full pathname of the file where the SBML
    * is to be written. 
@@ -260,7 +260,7 @@ public:
    * The string is owned by the caller and should be freed (with @c free())
    * when no longer needed.
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
@@ -274,7 +274,7 @@ public:
   /**
    * Writes the given SBML document to an in-memory string and returns it.
    *
-   * @param d the SBML document to be written
+   * @param d the SBML document to be written.
    *
    * @return the string on success or an empty string, 
    *         if one of the underlying parser
@@ -338,7 +338,7 @@ public:
 /**
  * Writes the given SBML document to an in-memory string that is returned.
  *
- * @param d the SBML document to be written
+ * @param d the SBML document to be written.
  *
  * @return the string on success or an empty string, 
  *         if one of the underlying parser
@@ -389,7 +389,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
@@ -407,7 +407,7 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @copydetails doc_returns_success_code
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
@@ -537,7 +537,7 @@ SBMLWriter_hasBzip2 ();
  *
  * @htmlinclude assuming-compressed-file.html
  *
- * @param d the SBMLDocument object to be written out in XML format
+ * @param d the SBMLDocument object to be written out in XML format.
  * 
  * @param filename a string giving the path to a file where the XML
  * content is to be written.
@@ -571,7 +571,7 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
  *
  * but does not require the caller to create an SBMLWriter object first.
  *
- * @param d an SBMLDocument object to be written out in XML format
+ * @param d an SBMLDocument object to be written out in XML format.
  *
  * @return the string on success and @c NULL if one of the underlying parser
  * components fail.
@@ -598,7 +598,7 @@ writeSBMLToString (const SBMLDocument_t *d);
  *
  * @htmlinclude assuming-compressed-file.html
  * 
- * @param d an SBMLDocument object to be written out in XML format
+ * @param d an SBMLDocument object to be written out in XML format.
  *
  * @param filename a string giving the path to a file where the XML
  * content is to be written.

@@ -77,7 +77,7 @@ public:
   /**
    * Creates a new SBMLConverter object with a given name.
    *
-   * @param name the name for the converter to create
+   * @param name the name for the converter to create.
    */
   SBMLConverter (const std::string& name);
 
@@ -101,7 +101,7 @@ public:
   /**
    * Assignment operator for SBMLConverter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLConverter& operator=(const SBMLConverter& rhs);

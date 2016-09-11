@@ -119,7 +119,7 @@ public:
   /**
    * Assignment operator for SBMLUnitsConverter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLUnitsConverter& operator=(const SBMLUnitsConverter& rhs);

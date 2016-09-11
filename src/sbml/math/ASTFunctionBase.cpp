@@ -55,9 +55,6 @@ ASTFunctionBase::ASTFunctionBase (int type) :
 }
   
 
-  /**
-   * Copy constructor
-   */
 ASTFunctionBase::ASTFunctionBase (const ASTFunctionBase& orig):
   ASTBase(orig)
   , mChildren ()
@@ -69,9 +66,7 @@ ASTFunctionBase::ASTFunctionBase (const ASTFunctionBase& orig):
   }
 
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTFunctionBase&
 ASTFunctionBase::operator=(const ASTFunctionBase& rhs)
 {

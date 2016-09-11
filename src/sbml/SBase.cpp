@@ -237,9 +237,9 @@ SBase::prependStringToAllIdentifiers(const std::string& prefix)
   // so if we are going to bail on this we should have done
   // anything else first
 
-  if (isSetId())
+  if (isSetIdAttribute())
   {
-    ret = setId(prefix + getId());
+    ret = setIdAttribute(prefix + getIdAttribute());
     if (ret != LIBSBML_OPERATION_SUCCESS)
     {
       return ret;
@@ -304,9 +304,11 @@ SBase::getAllElementsFromPlugins(ElementFilter *filter)
  * Creates a new SBase object with the given level and version.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (unsigned int level, unsigned int version) 
- : mMetaId ("")
- , mNotes(NULL)
+SBase::SBase (unsigned int level, unsigned int version) :
+   mId   ( "" )
+ , mName ( "" )
+ , mMetaId ( "" )
+ , mNotes     ( NULL )
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
@@ -348,9 +350,11 @@ SBase::SBase (unsigned int level, unsigned int version)
  * Creates a new SBase object with the given SBMLNamespaces.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (SBMLNamespaces *sbmlns) 
- : mMetaId("")
- , mNotes(NULL)
+SBase::SBase (SBMLNamespaces *sbmlns) :
+   mId   ( "" )
+ , mName ( "" )
+ , mMetaId ( "" )
+ , mNotes     ( NULL )
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
@@ -401,7 +405,9 @@ SBase::SBase (SBMLNamespaces *sbmlns)
  * Copy constructor. Creates a copy of this SBase object.
  */
 SBase::SBase(const SBase& orig)
-  : mMetaId (orig.mMetaId)
+  : mId (orig.mId)
+  , mName (orig.mName)
+  , mMetaId (orig.mMetaId)
   , mNotes (NULL)
   , mAnnotation (NULL)
   , mSBML (NULL)
@@ -494,6 +500,8 @@ SBase& SBase::operator=(const SBase& rhs)
 {
   if(&rhs!=this)
   {
+    this->mId     = rhs.mId;
+    this->mName   = rhs.mName;
     this->mMetaId = rhs.mMetaId;
 
     delete this->mNotes;
@@ -694,31 +702,46 @@ SBase::getMetaId ()
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
- *
  * @return the id of this SBML object.
  */
 const string&
 SBase::getId () const
 {
-  return mEmptyString;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    return mId;
+  }
+  else
+  {
+    return mEmptyString;
+  }
 }
 
 
 
 /*
- * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
- *
  * @return the name of this SBML object.
  */
 const string&
 SBase::getName () const
 {
-  return mEmptyString;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    return mName;
+  }
+  else
+  {
+    return mEmptyString;
+  }
 }
-/** @endcond */
+
+const string&
+SBase::getIdAttribute () const
+{
+  return mId;       
+}
+
 
 /*
  * @return the notes of this SBML object.
@@ -1108,7 +1131,6 @@ SBase::isSetMetaId () const
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
@@ -1133,7 +1155,13 @@ SBase::isSetName () const
 {
   return (getName().empty() == false);
 }
-/** @endcond */
+
+
+bool
+SBase::isSetIdAttribute () const
+{
+  return (mId.empty() == false);
+}
 
 
 /*
@@ -1204,30 +1232,67 @@ SBase::setMetaId (const std::string& metaid)
 }
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
- *
- * Sets the id of this SBML object to a copy of sid.
- */
 int
-SBase::setId (const std::string&)
+SBase::setId (const std::string& sid)
 {
-  return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    // HACK to make a rule/initailassignment/eventassignment
+    // in l3v2 not able to use this function
+    int tc = getTypeCode();
+    if (tc == SBML_ALGEBRAIC_RULE || tc == SBML_ASSIGNMENT_RULE ||
+      tc == SBML_RATE_RULE || tc == SBML_INITIAL_ASSIGNMENT || 
+      tc == SBML_EVENT_ASSIGNMENT)
+    {
+      return LIBSBML_USE_ID_ATTRIBUTE_FUNCTION;
+    }
+
+
+    if (!(SyntaxChecker::isValidInternalSId(sid)))
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mId = sid;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
 }
 
 
-/*
- * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
- * Sets the name of this SBML object to a copy of name.
- */
 int
-SBase::setName (const std::string&)
+SBase::setName (const std::string& name)
 {
-  return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
 }
-/** @endcond */
 
+
+int
+SBase::setIdAttribute (const std::string& sid)
+{
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mId = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
 
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
@@ -2269,7 +2334,7 @@ SBase::setSBMLDocument (SBMLDocument* d)
 /*
   * Sets the parent SBML object of this SBML object.
   *
-  * @param sb the SBML object to use
+  * @param sb the SBML object to use.
   */
 void
 SBase::connectToParent (SBase* parent)
@@ -2405,7 +2470,7 @@ SBase::setSBOTerm (const std::string &sboid)
 /*
  * Sets the namespaces relevant of this SBML object.
  *
- * @param xmlns the namespaces to set
+ * @param xmlns the namespaces to set.
  */
 int
 SBase::setNamespaces(XMLNamespaces* xmlns)
@@ -2455,7 +2520,48 @@ SBase::unsetMetaId ()
 int
 SBase::unsetId ()
 {
-  return LIBSBML_OPERATION_FAILED;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    mId.erase();
+    // HACK to make a rule in l3v2 not able to use this function
+    int tc = getTypeCode();
+    if (tc == SBML_ALGEBRAIC_RULE || tc == SBML_ASSIGNMENT_RULE ||
+      tc == SBML_RATE_RULE || tc == SBML_INITIAL_ASSIGNMENT || 
+      tc == SBML_EVENT_ASSIGNMENT)
+    {
+      return LIBSBML_USE_ID_ATTRIBUTE_FUNCTION;
+    }
+
+
+    if (mId.empty())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+int
+SBase::unsetIdAttribute ()
+{
+  mId.erase();
+
+  if (mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -2465,7 +2571,23 @@ SBase::unsetId ()
 int
 SBase::unsetName ()
 {
-  return LIBSBML_OPERATION_FAILED;
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    mName.erase();
+
+    if (mName.empty())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -2709,7 +2831,7 @@ SBase::getNumCVTerms()
  * Returns the nth CVTerm in the list of CVTerms of this SBML
  * object.
  *
- * @param n unsigned int the index of the CVTerm to retrieve
+ * @param n unsigned int the index of the CVTerm to retrieve.
  *
  * @return the nth CVTerm in the list of CVTerms for this SBML object.
  */
@@ -2776,7 +2898,7 @@ SBase::unsetModelHistory()
  * an empty string if the resource does not exist.
  *
  * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
+ * "http://www.geneontology.org/#GO:0005892".
  *
  * @return the BiolQualifierType_t associated with the resource
  */
@@ -2813,7 +2935,7 @@ SBase::getResourceBiologicalQualifier(std::string resource)
  * an empty string if the resource does not exist.
  *
  * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
+ * "http://www.geneontology.org/#GO:0005892".
  *
  * @return the ModelQualifierType_t associated with the resource
  */
@@ -2970,7 +3092,7 @@ SBase::getElementName () const
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI.
@@ -3004,7 +3126,7 @@ SBase::getPlugin(const std::string& package)
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI.
@@ -3036,7 +3158,7 @@ SBase::getDisabledPlugin(unsigned int n)
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI.
@@ -3097,10 +3219,7 @@ SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
 /*
  * Enables/Disables the given package with this object.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
  * @li LIBSBML_PKG_UNKNOWN
  * @li LIBSBML_PKG_VERSION_MISMATCH
@@ -3180,9 +3299,12 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
         return LIBSBML_PKG_VERSION_MISMATCH;
       }
     }
-    else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
-         (sbmlext->getVersion(pkgURI) != getVersion())
-       )
+    // we decided l3v1 packages would work with l3v2 so dont force the version 
+    // to be the same
+    //else if ( (sbmlext->getLevel(pkgURI)   != getLevel()  ) ||
+    //     (sbmlext->getVersion(pkgURI) != getVersion())
+    //   )
+    else if (sbmlext->getLevel(pkgURI)   != getLevel()  )
     {
       return LIBSBML_PKG_VERSION_MISMATCH;
     }
@@ -3360,7 +3482,7 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
  * Predicate returning @c true if
  * the a package with the given URI is enabled with this object.
  *
- * @param pkgURI the URI of the package
+ * @param pkgURI the URI of the package.
  *
  * @return @c true if the given package is enabled with this object, @c
  * false otherwise.
@@ -3381,7 +3503,7 @@ SBase::isPackageURIEnabled(const std::string& pkgURI) const
  * Predicate returning @c true if
  * the a package with the given URI is enabled with this object.
  *
- * @param pkgURI the URI of the package
+ * @param pkgURI the URI of the package.
  *
  * @return @c true if the given package is enabled with this object, @c
  * false otherwise.
@@ -3397,7 +3519,7 @@ SBase::isPkgURIEnabled(const std::string& pkgURI) const
  * the given package (don't care the package version) is enabled with
  * this object.
  *
- * @param pkgName the URI of the package
+ * @param pkgName the URI of the package.
  *
  * @return @c true if the given package is enabled with this object, @c
  * false otherwise.
@@ -3418,7 +3540,7 @@ SBase::isPackageEnabled(const std::string& pkgName) const
  * the given package (don't care the package version) is enabled with
  * this object.
  *
- * @param pkgName the URI of the package
+ * @param pkgName the URI of the package.
  *
  * @return @c true if the given package is enabled with this object, @c
  * false otherwise.
@@ -3644,6 +3766,12 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
     //
     int numNS = 0;
 
+    if (xmlns->hasURI(SBML_XMLNS_L3V2))
+    {
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L3V2);
+    }
+
     if (xmlns->hasURI(SBML_XMLNS_L3V1))
     {
       ++numNS;
@@ -3844,6 +3972,17 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
             if (sbmlDeclared)
             {
               if (declaredURI != string(SBML_XMLNS_L3V1))
+              {
+                valid = false;
+              }
+            }
+            break;
+          case 2:
+           // the namespaces contains the sbml namespaces
+            // check it is the correct ns for the level/version
+            if (sbmlDeclared)
+            {
+              if (declaredURI != string(SBML_XMLNS_L3V2))
               {
                 valid = false;
               }
@@ -4145,7 +4284,7 @@ SBase::write (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.
  */
 void
@@ -4394,7 +4533,7 @@ SBase::readAnnotation (XMLInputStream& stream)
         unsigned int version = getVersion();
         if (level < 2 || 
             (level == 2 && version < 5) || 
-            (level == 3 && version < 2) )
+            (level == 3) )
         {
           logError(NestedAnnotationNotAllowed, level, version,
             "The nested annotation has been stored but will not be written out.");
@@ -5013,13 +5152,20 @@ SBase::addExpectedAttributes(ExpectedAttributes& attributes)
   //
   if (getLevel() > 2 || (getLevel() == 2 && getVersion() > 2) )
     attributes.add("sboTerm");
+
+  // l3v2 added id/name to sbase
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    attributes.add("id");
+    attributes.add("name");
+  }
 }
 
 
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * parent's implementation of this method as well.
  */
 void
 SBase::readAttributes (const XMLAttributes& attributes,
@@ -5108,6 +5254,42 @@ SBase::readAttributes (const XMLAttributes& attributes,
         getLine(), getColumn());
   }
 
+  // for l3v2 a document should only have sbo terms from modelling framework
+  // this is impossible to catch in teh validation framework which does not work
+  // on a document level - so we will need to catch it here
+  if (isSetSBOTerm() && getTypeCode() == SBML_DOCUMENT)
+  {
+    if (!SBO::isModellingFramework(mSBOTerm))
+    {
+      std::string message = SBO::intToString(mSBOTerm);
+      message += " does not derive from the modelling framework branch.";
+      this->getErrorLog()->logError(InvalidSBMLElementSBOTerm, level, version,
+        message, getLine(), getColumn());
+    }
+  }
+
+  // for l3v2 and above
+  // read id and name
+  if (level == 3 && version > 1)
+  {
+    bool assigned = attributes.readInto("id", mId, getErrorLog(), false, 
+                                         getLine(), getColumn());
+
+    if (assigned && mId.empty())
+    {
+      logEmptyString("id", level, version,
+           SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
+    }
+
+    if (isSetId())
+    {
+      if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+    }
+
+    attributes.readInto("name", mName, getErrorLog(), false, 
+                        getLine(), getColumn());
+
+  }
   //
   // (EXTENSION)
   //
@@ -5333,7 +5515,7 @@ SBase::getRootElement()
 
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
+ * to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  */
 void
@@ -5364,13 +5546,20 @@ SBase::writeAttributes (XMLOutputStream& stream) const
   {
     SBO::writeTerm(stream, mSBOTerm, sbmlPrefix);
   }
+
+  // only write for l3v2 and above
+  if (level == 3 && version > 1)
+  {
+    stream.writeAttribute("id", mId);
+    stream.writeAttribute("name", mName);
+  }
 }
 
 
 /*
  *
  * Subclasses should override this method to write their xmlns attriubutes
- * (if any) to the XMLOutputStream.  Be sure to call your parents implementation
+ * (if any) to the XMLOutputStream.  Be sure to call your parent's implementation
  * of this method as well.
  *
  */
@@ -5421,6 +5610,47 @@ SBase::writeExtensionAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
+  
+bool 
+SBase::hasOptionalAttributes() const
+{
+  bool hasAttributes = false;
+
+  if (isSetMetaId() == true)  hasAttributes = true;
+  if (isSetSBOTerm() == true) hasAttributes = true;
+
+  if (getLevel() == 3 && getVersion() > 1)
+  {
+    if (isSetId() == true)  hasAttributes = true;
+    if (isSetName() == true) hasAttributes = true;
+  }
+
+  return hasAttributes;
+}
+
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+  
+bool 
+SBase::hasOptionalElements() const
+{
+  bool hasElements = false;
+
+  if (isSetNotes() == true)  hasElements = true;
+  if (isSetAnnotation() == true) hasElements = true;
+
+  return hasElements;
+}
+
+
+/** @endcond */
+  
 /** @cond doxygenLibsbmlInternal */
 /*
  * Synchronizes the annotation of this SBML object.
@@ -5516,8 +5746,7 @@ SBase::reconstructRDFAnnotation()
       }
     }
 
-    if ((getLevel() == 2 && getVersion() < 5)
-      || (getLevel() == 3 && getVersion() < 2))
+    if (getLevel() == 2 && getVersion() < 5)
     {
     // now look for case where the original has nested annotations
     // in a level/version where it is strictly speaking invalid
@@ -5888,11 +6117,11 @@ SBase::checkListOfPopulated(SBase* object)
         // have to pass that to the qual extension
       }
       else if (object->getPackageName() == "multi" &&
-	object->getElementName() == "listOfSpeciesFeatures")
+  object->getElementName() == "listOfSpeciesFeatures")
       {
-	// do nothing
-	// will need to check for defaultTerm but will
-	// have to pass that to the multi extension
+  // do nothing
+  // will need to check for defaultTerm but will
+  // have to pass that to the multi extension
       }
       else
       {
@@ -6259,6 +6488,8 @@ SBase::checkAnnotation()
                                 "http://www.sbml.org/sbml/level2/version5");
       match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
                                 "http://www.sbml.org/sbml/level3/version1/core");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                                "http://www.sbml.org/sbml/level3/version2/core");
       n++;
     }
     string msg = "An SBML <" + getElementName() + "> element ";
@@ -6682,6 +6913,22 @@ SBase_getMetaId (SBase_t *sb)
 
 
 LIBSBML_EXTERN
+const char *
+SBase_getIdAttribute (SBase_t *sb)
+{
+  return (sb != NULL && sb->isSetIdAttribute()) ? sb->getIdAttribute().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+SBase_getName (SBase_t *sb)
+{
+  return (sb != NULL && sb->isSetName()) ? sb->getName().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
 const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb)
 {
@@ -6791,6 +7038,22 @@ SBase_isSetMetaId (const SBase_t *sb)
 
 LIBSBML_EXTERN
 int
+SBase_isSetIdAttribute (const SBase_t *sb)
+{
+  return (sb != NULL) ? static_cast<int>( sb->isSetIdAttribute() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_isSetName (const SBase_t *sb)
+{
+  return (sb != NULL) ? static_cast<int>( sb->isSetName() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
 SBase_isSetNotes (const SBase_t *sb)
 {
   return (sb != NULL) ? static_cast<int>( sb->isSetNotes() ) : 0;
@@ -6819,6 +7082,28 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
 {
   if (sb != NULL)
     return (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_setIdAttribute (SBase_t *sb, const char *id)
+{
+  if (sb != NULL)
+    return (id == NULL) ? sb->unsetIdAttribute() : sb->setIdAttribute(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_setName (SBase_t *sb, const char *name)
+{
+  if (sb != NULL)
+    return (name == NULL) ? sb->unsetName() : sb->setName(name);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -7068,16 +7353,34 @@ SBase_unsetMetaId (SBase_t *sb)
 }
 
 
+LIBSBML_EXTERN
+int
+SBase_unsetIdAttribute (SBase_t *sb)
+{
+  if (sb != NULL)
+    return sb->unsetIdAttribute();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_unsetName (SBase_t *sb)
+{
+  if (sb != NULL)
+    return sb->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
 ///*
 //* Unsets the "id" attribute of the given object.
 //*
-//* @param sb the SBase_t structure
+//* @param sb the SBase_t structure.
 //*
-//* @return integer value indicating success/failure of the
-//* function.  @if clike The value is drawn from the
-//* enumeration #OperationReturnValues_t. @endif@~ The possible values
-//* returned by this function are:
-//*
+//* @copydetails doc_returns_success_code
 //* @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
 //* @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
 //*/

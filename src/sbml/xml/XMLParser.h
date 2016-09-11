@@ -90,7 +90,7 @@ public:
    * which to read the XML content.  Otherwise, content is treated as a
    * null-terminated buffer containing XML data and is read directly.
    *
-   * @return true if the parse was successful, false otherwise.
+   * @return @c true if the parse was successful, @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -110,8 +110,8 @@ public:
    * which to read the XML content.  Otherwise, content is treated as a
    * null-terminated buffer containing XML data and is read directly.
    *
-   * @return true if the first step of the progressive parse was
-   * successful, false otherwise.
+   * @return @c true if the first step of the progressive parse was
+   * successful, @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -121,8 +121,8 @@ public:
   /**
    * Parses the next chunk of XML content.
    *
-   * @return true if the next step of the progressive parse was successful,
-   * false otherwise or when at EOF.
+   * @return @c true if the next step of the progressive parse was successful,
+   * @c false otherwise or when at EOF.
    */
   virtual bool parseNext () = 0;
 

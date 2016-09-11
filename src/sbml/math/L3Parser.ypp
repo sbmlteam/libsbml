@@ -916,12 +916,17 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "log"))      return AST_FUNCTION_LOG;
   if (l3StrCmp(name, "ln"))       return AST_FUNCTION_LN;
   if (l3StrCmp(name, "log10"))    return AST_FUNCTION_LOG;
+  if (l3StrCmp(name, "max"))      return AST_FUNCTION_MAX;
+  if (l3StrCmp(name, "min"))      return AST_FUNCTION_MIN;
   if (l3StrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
   if (l3StrCmp(name, "power"))    return AST_POWER;
   if (l3StrCmp(name, "pow"))      return AST_POWER;
   if (l3StrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
   if (l3StrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
+  if (l3StrCmp(name, "quotient")) return AST_FUNCTION_QUOTIENT;
   if (l3StrCmp(name, "root"))     return AST_FUNCTION_ROOT;
+  if (l3StrCmp(name, "rem"))      return AST_FUNCTION_REM;
+  if (l3StrCmp(name, "rateOf"))   return AST_FUNCTION_RATE_OF;
   if (l3StrCmp(name, "sec"))      return AST_FUNCTION_SEC;
   if (l3StrCmp(name, "sech"))     return AST_FUNCTION_SECH;
   if (l3StrCmp(name, "sin"))      return AST_FUNCTION_SIN;
@@ -932,6 +937,7 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "not"))      return AST_LOGICAL_NOT;
   if (l3StrCmp(name, "or"))       return AST_LOGICAL_OR;
   if (l3StrCmp(name, "xor"))      return AST_LOGICAL_XOR;
+  if (l3StrCmp(name, "implies"))  return AST_LOGICAL_IMPLIES;
   if (l3StrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
   if (l3StrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
   if (l3StrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
@@ -1131,7 +1137,8 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     name = function->getName();
   }
   error << "The function '" << name << "' takes ";
-  switch(function->getType()) {
+  ASTNodeType_t type = function->getType(); 
+  switch(type) {
   case AST_FUNCTION_ABS:
   case AST_FUNCTION_ARCCOS:
   case AST_FUNCTION_ARCCOSH:
@@ -1156,6 +1163,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   case AST_FUNCTION_FACTORIAL:
   case AST_FUNCTION_FLOOR:
   case AST_FUNCTION_LN:
+  case AST_FUNCTION_RATE_OF:
   case AST_FUNCTION_SEC:
   case AST_FUNCTION_SECH:
   case AST_FUNCTION_SIN:
@@ -1170,13 +1178,26 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
       delete function;
       return true;
     }
+    if (type == AST_FUNCTION_RATE_OF) {
+      //Additional test that its child is of type 'ci'
+      ASTNode* child = function->getChild(0);
+      if (child->getType() != AST_NAME) {
+        error << "exactly one argument, which must be the identifier of an element in the model.";
+        l3p->setError(error.str());
+        delete function;
+        return true;
+      }
+    }
     return false;
   case AST_DIVIDE:
+  case AST_FUNCTION_DELAY:
+  case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
+  case AST_FUNCTION_POWER:
+  case AST_FUNCTION_QUOTIENT:
+  case AST_FUNCTION_REM:
+  case AST_LOGICAL_IMPLIES:
   case AST_POWER:
   case AST_RELATIONAL_NEQ:
-  case AST_FUNCTION_DELAY:
-  case AST_FUNCTION_POWER:
-  case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
 
     if (children != 2) {
       error << "exactly two arguments, but " << children << " were found.";
@@ -1201,6 +1222,8 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
 
   case AST_FUNCTION_PIECEWISE:
   case AST_LAMBDA:
+  case AST_FUNCTION_MAX:
+  case AST_FUNCTION_MIN:
     if (children == 0) {
       error << "at least one argument, but none were found.";
       l3p->setError(error.str());

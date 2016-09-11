@@ -72,6 +72,24 @@
  * reactions lacking kinetic laws are simply undefined, and not determined by
  * the algebraic rule.)
  *
+ * Finally, any symbol that appears as the target of a rateOf csymbol 
+ * (@sbmlconstant{AST_FUNCTION_RATE_OF, ASTNodeType_t}, introduced in 
+ * SBML Level&nbsp;3 Version&nbsp;2) may 
+ * not be determined by an AlgebraicRule. This is because the rateOf 
+ * csymbol is defined as applying only to symbols whose rates of change 
+ * are easily determinable.
+ *
+ * Users should note that these rules about what symbols may not be 
+ * determined by an AlgebraicRule may be used to discover what symbol 
+ * is being determined by an AlgebraicRule. If three symbols appear in 
+ * the math element of an AlgebraicRule, the first of which is flagged 
+ * constant=@c true, and the second of which appears as the target of a
+ * rateOf csymbol, one may conclude that the AlgebraicRule must be used 
+ * to determine the value of the third symbol. This is, in fact, a 
+ * principle use (outside of validation) of the constant attribute: its 
+ * use in allowing software to properly identify the dependent variable 
+ * in an AlgebraicRule.
+ *
  * @copydetails doc_rules_general_summary
  */
 

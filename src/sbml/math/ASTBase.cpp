@@ -661,6 +661,7 @@ ASTBase::isCSymbolFunction() const
   switch (getType())
   {
   case AST_FUNCTION_DELAY:
+  case AST_FUNCTION_RATE_OF:
     isCsymbolFunc = true;
     break;
   default:
@@ -723,7 +724,8 @@ ASTBase::isFunction() const
   bool isFunction = false;
 
   int type = getType();
-  if (type >= AST_FUNCTION && type <= AST_FUNCTION_TANH)
+  if ((type >= AST_FUNCTION && type <= AST_FUNCTION_TANH)
+    || (type <= AST_FUNCTION_REM && type >= AST_FUNCTION_MAX))
   {
     isFunction = true;
   }
@@ -766,6 +768,10 @@ ASTBase::isLogical() const
 
   int type = getExtendedType();
   if (type >= AST_LOGICAL_AND && type <= AST_LOGICAL_XOR)
+  {
+    isLogical = true;
+  }
+  else if (type == AST_LOGICAL_IMPLIES)
   {
     isLogical = true;
   }
@@ -1452,7 +1458,7 @@ ASTBase::addPlugin(ASTBasePlugin* plugin)
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI. 
@@ -1486,7 +1492,7 @@ ASTBase::getPlugin(const std::string& package)
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI. 
@@ -1511,7 +1517,7 @@ ASTBase::getPlugin(unsigned int n)
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
  *
- * @param package the name or URI of the package
+ * @param package the name or URI of the package.
  *
  * @return the plugin object of package extension with the given package
  * name or URI. 

@@ -96,7 +96,7 @@
  *
  * @see ModelCreator
  * @see Date
- */ 
+ */
 
 #ifndef ModelHistory_h
 #define ModelHistory_h
@@ -152,7 +152,7 @@ public:
   /**
    * Assignment operator for ModelHistory.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   ModelHistory& operator=(const ModelHistory& rhs);
@@ -304,7 +304,7 @@ public:
    * creators.  The libSBML ModelHistory class supports this by storing a
    * list of "model creator" values.
    * 
-   * @param mc the ModelCreator to add
+   * @param mc the ModelCreator to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -361,7 +361,7 @@ public:
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
-   */ 
+   */
   bool hasRequiredAttributes();
 
     
@@ -429,7 +429,7 @@ void ModelHistory_free(ModelHistory_t* mh);
 /**
  * Creates a deep copy of the given ModelHistory_t structure
  * 
- * @param mh the ModelHistory_t structure to be copied
+ * @param mh the ModelHistory_t structure to be copied.
  * 
  * @return a (deep) copy of the given ModelHistory_t structure.
  *
@@ -444,7 +444,7 @@ ModelHistory_clone (const ModelHistory_t* mh);
  * Adds a copy of a ModelCreator_t structure to the 
  * ModelHistory_t structure.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * @param mc the ModelCreator_t structure to add.
  *
  * @copydetails doc_returns_success_code
@@ -462,7 +462,7 @@ int ModelHistory_addCreator(ModelHistory_t * mh,
  * Get the number of ModelCreator_t structures in this 
  * ModelHistory.
  * 
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return the number of ModelCreators in this 
  * ModelHistory.
@@ -476,7 +476,7 @@ unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh);
  * Get the List_t of ModelCreator_t structures in this 
  * ModelHistory.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return a pointer to the List_t structure of ModelCreators 
  * for this ModelHistory_t structure.
@@ -489,8 +489,8 @@ List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
 /**
  * Get the nth ModelCreator_t structure in this ModelHistory_t.
  * 
- * @param mh the ModelHistory_t structure
- * @param n an unsigned int indicating which ModelCreator_t
+ * @param mh the ModelHistory_t structure.
+ * @param n an unsigned int indicating which ModelCreator_t.
  *
  * @return the nth ModelCreator of this ModelHistory_t.
  *
@@ -502,7 +502,7 @@ ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n);
 /**
  * Sets the createdDate.
  *  
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * @param date the Date_t structure representing the date
  * the ModelHistory_t was created. 
  *
@@ -519,7 +519,7 @@ int ModelHistory_setCreatedDate(ModelHistory_t * mh,
 /**
  * Returns the createdDate from the ModelHistory_t.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return Date_t structure representing the createdDate
  * from the ModelHistory_t structure.
@@ -533,7 +533,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
  * Predicate indicating whether this
  * ModelHistory_t's createdDate is set.
  *
- * @param mh the ModelHistory_t structure to be queried
+ * @param mh the ModelHistory_t structure to be queried.
  *
  * @return true (non-zero) if the createdDate of this 
  * ModelHistory_t structure is set, false (0) otherwise.
@@ -546,7 +546,7 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
 /**
  * Sets the modifiedDate.
  *  
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * @param date the Date_t structure representing the date
  * the ModelHistory_t was modified. 
  *
@@ -564,7 +564,7 @@ int ModelHistory_setModifiedDate(ModelHistory_t * mh,
 /**
  * Returns the modifiedDate from the ModelHistory_t.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return Date_t structure representing the modifiedDate
  * from the ModelHistory_t structure.
@@ -578,7 +578,7 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
  * Predicate indicating whether this
  * ModelHistory_t's modifiedDate is set.
  *
- * @param mh the ModelHistory_t structure to be queried
+ * @param mh the ModelHistory_t structure to be queried.
  *
  * @return true (non-zero) if the modifiedDate of this 
  * ModelHistory_t structure is set, false (0) otherwise.
@@ -592,7 +592,7 @@ int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
  * Adds a copy of a Date_t structure to the 
  * list of modifiedDates in the ModelHistory_t structure.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * @param date the Date_t structure to add.
  *
  * @copydetails doc_returns_success_code
@@ -610,7 +610,7 @@ ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date);
  * Get the List_t of Date_t structures in the list of ModifiedDates 
  * in this ModelHistory_t.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return a pointer to the List_t structure of Dates 
  * for this ModelHistory_t structure.
@@ -625,7 +625,7 @@ ModelHistory_getListModifiedDates(ModelHistory_t * mh);
  * Get the number of modified Date_t structures in the list of ModifiedDates 
  * in this ModelHistory_t.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return the number of Dates in the list of ModifiedDates in this 
  * ModelHistory_t.
@@ -640,8 +640,8 @@ ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
  * Get the nth Date_t structure in the list of ModifiedDates
  * in this ModelHistory_t.
  * 
- * @param mh the ModelHistory_t structure
- * @param n an unsigned int indicating which Date_t
+ * @param mh the ModelHistory_t structure.
+ * @param n an unsigned int indicating which Date_t.
  *
  * @return the nth Date_t in the list of ModifiedDates
  * of this ModelHistory_t.
@@ -664,7 +664,7 @@ ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
 /** 
  * Checks if the model history has all the required attributes.
  *
- * @param mh the ModelHistory_t structure
+ * @param mh the ModelHistory_t structure.
  * 
  * @return true (1) if this ModelHistory_t has all the required elements,
  * otherwise false (0) will be returned. If an invalid ModelHistory_t 

@@ -102,6 +102,7 @@ START_TEST (test_read_MathML_1)
   fail_unless (!strcmp(math, "lambda(x, )"), NULL);
   safe_free(math);
   fail_unless (fd_math->getParentSBMLObject() == fd, NULL);
+  fail_unless (fd_math->getNumBvars() == 1);
   //fail_unless (fd_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( fd_math->containsVariable("c") == false );
   //fail_unless( fd_math->containsVariable("x") == true );

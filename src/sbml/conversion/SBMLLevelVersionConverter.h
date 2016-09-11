@@ -144,7 +144,7 @@ public:
   /**
    * Assignment operator for SBMLLevelVersionConverter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLLevelVersionConverter& operator=(const SBMLLevelVersionConverter& rhs);
@@ -274,6 +274,8 @@ private:
   bool performConversion(bool strict, bool strictUnits, bool duplicateAnn);
 
   unsigned int validateConvertedDocument();
+
+  bool has_fatal_errors(unsigned int level, unsigned int version);
 
   /** @endcond */
 };

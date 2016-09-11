@@ -50,6 +50,7 @@
 #include <sbml/util/ElementFilter.h>
 
 #include <sbml/math/FormulaParser.h>
+#include <sbml/math/L3Parser.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal **/
@@ -70,6 +71,14 @@ void useStoichMath(Model & m, SpeciesReference &sr, bool isRule);
 void dealWithL1Stoichiometry(Model & m, bool l2 = true);
 
 void dealWithAssigningL1Stoichiometry(Model & m, bool l2 = true);
+
+/* function to adjust from L3V2 */
+
+void removeElementsMissingMath(Model &m);
+
+void removeListOfMissingElements(Model &m);
+
+void addMissingTrigger(Model &m);
 
 class UnitRefsFilter : public ElementFilter
 {
@@ -287,6 +296,22 @@ Model::convertL3ToL2 (bool strict)
   dealWithDefaultValues();
 }
 
+
+void
+Model::convertFromL3V2(bool strict)
+{
+  if (strict)
+  {
+    removeElementsMissingMath(*this);
+    removeListOfMissingElements(*this);
+
+    // SK TODO: removeIds/Names
+
+  }
+
+  addMissingTrigger(*this);
+
+}
 
 void
 Model::dealWithDefaultValues()
@@ -784,6 +809,16 @@ Model::convertParametersToLocals(unsigned int level, unsigned int version)
     }
   }
 }
+
+void
+Model::dealWithFast()
+{
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    getReaction(i)->setFast(false);
+  }
+}
+
 /* the new strict setters mean that for a conversion to L2 to
  * take place the model needs to think it still l1 for
  * some actions and think it is already L2 for others
@@ -1993,6 +2028,186 @@ void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
         sr->setStoichiometry(sr->getStoichiometry());
         sr->setDenominator(1);
       }
+    }
+  }
+}
+
+void removeElementsMissingMath(Model &m)
+{
+  int i = 0;
+  for (i = m.getNumFunctionDefinitions()-1; i >= 0; i--)
+  {
+    if (!m.getFunctionDefinition(i)->isSetMath())
+    {
+      FunctionDefinition *obj = m.removeFunctionDefinition(i);
+      delete obj;
+    }
+  }
+  for (i = m.getNumInitialAssignments()-1; i >= 0; i--)
+  {
+    if (!m.getInitialAssignment(i)->isSetMath())
+    {
+      InitialAssignment *obj = m.removeInitialAssignment(i);
+      delete obj;
+    }
+  }
+  for (i = m.getNumRules()-1; i >= 0; i--)
+  {
+    if (!m.getRule(i)->isSetMath())
+    {
+      Rule *obj = m.removeRule(i);
+      delete obj;
+    }
+  }
+  for (i = m.getNumConstraints()-1; i >= 0; i--)
+  {
+    if (!m.getConstraint(i)->isSetMath())
+    {
+      Constraint *obj = m.removeConstraint(i);
+      delete obj;
+    }
+  }
+  for (i = m.getNumReactions()-1; i >= 0; i--)
+  {
+    if (m.getReaction(i)->isSetKineticLaw() && !m.getReaction(i)->getKineticLaw()->isSetMath())
+    {
+      m.getReaction(i)->unsetKineticLaw();
+    }
+  }
+  for (i = m.getNumEvents()-1; i >= 0; i--)
+  {
+    if (m.getEvent(i)->isSetTrigger() && !m.getEvent(i)->getTrigger()->isSetMath())
+    {
+      m.getEvent(i)->unsetTrigger();
+    }
+    if (m.getEvent(i)->isSetDelay() && !m.getEvent(i)->getDelay()->isSetMath())
+    {
+      m.getEvent(i)->unsetDelay();
+    }
+    if (m.getEvent(i)->isSetPriority() && !m.getEvent(i)->getPriority()->isSetMath())
+    {
+      m.getEvent(i)->unsetPriority();
+    }
+    for (int j = m.getEvent(i)->getNumEventAssignments()-1; j >= 0; j--)
+    {
+      if (!m.getEvent(i)->getEventAssignment(j)->isSetMath())
+      {
+        EventAssignment *obj = m.getEvent(i)->removeEventAssignment(j);
+        delete obj;
+      }
+    }
+  }
+
+
+}
+
+void adjustListOf(ListOf* listOf)
+{
+  if (listOf->size() == 0)
+  {
+    listOf->setExplicitlyListed(false);
+  }
+}
+
+void removeListOfMissingElements(Model &m)
+{
+  unsigned int i;
+  ListOf * listOf = m.getListOfFunctionDefinitions();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfUnitDefinitions();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfCompartments();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfSpecies();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfParameters();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfInitialAssignments();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfRules();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfConstraints();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfReactions();
+  adjustListOf(listOf);
+
+  listOf = m.getListOfEvents();
+  adjustListOf(listOf);
+
+  for (i = 0; i < m.getNumUnitDefinitions(); i++)
+  {
+    listOf = m.getUnitDefinition(i)->getListOfUnits();
+    adjustListOf(listOf);
+  }
+
+  for (i = 0; i < m.getNumReactions(); i++)
+  {
+    Reaction *r = m.getReaction(i);
+
+    listOf = r->getListOfReactants();
+    adjustListOf(listOf);
+
+    listOf = r->getListOfProducts();
+    adjustListOf(listOf);
+
+    listOf = r->getListOfModifiers();
+    adjustListOf(listOf);
+
+    if (r->isSetKineticLaw())
+    {
+      listOf = r->getKineticLaw()->getListOfLocalParameters();
+      adjustListOf(listOf);
+    }
+  }
+
+  for (i = 0; i < m.getNumEvents(); i++)
+  {
+    listOf = m.getEvent(i)->getListOfEventAssignments();
+    adjustListOf(listOf);
+  }
+}
+
+void addTrigger(Event * e)
+{
+  Trigger *t;
+  if (e->isSetTrigger())
+  {
+    t = e->getTrigger();
+  }
+  else
+  {
+    t = e->createTrigger();
+    t->setPersistent(true);
+    t->setInitialValue(true);
+  }
+
+  if (!t->isSetMath())
+  {
+    ASTNode * math = SBML_parseL3Formula("false");
+    t->setMath(math);
+    delete math;
+  }
+}
+void addMissingTrigger(Model &m)
+{
+  for (unsigned int i = 0; i < m.getNumEvents(); i++)
+  {
+    Event *e = m.getEvent(i);
+    if (!e->isSetTrigger())
+    {
+      addTrigger(e);
+    }
+    else if (!e->getTrigger()->isSetMath())
+    {
+      addTrigger(e);
     }
   }
 }

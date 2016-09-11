@@ -148,6 +148,8 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor
+   *
+   * @param other the instance to copy.
    */
   XMLErrorLog (const XMLErrorLog& other);
   /** @endcond */
@@ -211,7 +213,7 @@ public:
    * parsing code and probably has no useful reason to be called from
    * application programs.
    *
-   * @param p XMLParser, the parser to use
+   * @param p XMLParser, the parser to use.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -362,9 +364,9 @@ public:
    *
    * @copydetails doc_what_are_severity_overrides
    *
-   * @param originalSeverity the severity code to match
+   * @param originalSeverity the severity code to match.
    *
-   * @param targetSeverity the severity code to use as the new severity
+   * @param targetSeverity the severity code to use as the new severity.
    *
    * @param package a string, the name of an SBML Level&nbsp;3 package
    * extension to use to narrow the search for errors.  A value of @c "all"

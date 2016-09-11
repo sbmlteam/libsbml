@@ -101,7 +101,7 @@ public:
   /**
    * Assignment operator for SBMLInferUnitsConverter.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLInferUnitsConverter& operator=(const SBMLInferUnitsConverter& rhs);

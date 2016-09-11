@@ -64,6 +64,7 @@ test_sources =                   \
   TestRDFAnnotation.cpp          \
   TestRDFAnnotation2.cpp         \
   TestRDFAnnotationC.c           \
+  TestRDFAnnotationVCard4.cpp         \
   TestValidation.cpp             \
   TestL3ModelHistory.cpp         \
   TestSyncAnnotation.cpp         \

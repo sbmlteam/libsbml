@@ -76,17 +76,12 @@ ASTCSymbolTimeNode::ASTCSymbolTimeNode (int type) :
   
 
 
-  /**
-   * Copy constructor
-   */
 ASTCSymbolTimeNode::ASTCSymbolTimeNode (const ASTCSymbolTimeNode& orig):
   ASTCiNumberNode(orig)
     , mEncoding (orig.mEncoding)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCSymbolTimeNode&
 ASTCSymbolTimeNode::operator=(const ASTCSymbolTimeNode& rhs)
 {
@@ -97,9 +92,7 @@ ASTCSymbolTimeNode::operator=(const ASTCSymbolTimeNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCSymbolTimeNode::~ASTCSymbolTimeNode ()
 {
 }

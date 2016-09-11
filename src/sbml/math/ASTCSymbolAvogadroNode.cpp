@@ -80,9 +80,6 @@ ASTCSymbolAvogadroNode::ASTCSymbolAvogadroNode (int type) :
   
 
 
-  /**
-   * Copy constructor
-   */
 ASTCSymbolAvogadroNode::ASTCSymbolAvogadroNode (const ASTCSymbolAvogadroNode& orig):
   ASTConstantNumberNode(orig)
     , mEncoding (orig.mEncoding)
@@ -90,9 +87,7 @@ ASTCSymbolAvogadroNode::ASTCSymbolAvogadroNode (const ASTCSymbolAvogadroNode& or
     , mDefinitionURL (orig.mDefinitionURL)
 {
 }
-  /**
-   * Assignment operator for ASTNode.
-   */
+
 ASTCSymbolAvogadroNode&
 ASTCSymbolAvogadroNode::operator=(const ASTCSymbolAvogadroNode& rhs)
 {
@@ -105,9 +100,7 @@ ASTCSymbolAvogadroNode::operator=(const ASTCSymbolAvogadroNode& rhs)
   }
   return *this;
 }
-  /**
-   * Destroys this ASTNode, including any child nodes.
-   */
+
 ASTCSymbolAvogadroNode::~ASTCSymbolAvogadroNode ()
 {
 }

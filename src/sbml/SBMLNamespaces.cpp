@@ -89,6 +89,9 @@ SBMLNamespaces::initSBMLNamespace()
     case 1:
       mNamespaces->add(SBML_XMLNS_L3V1);
       break;
+    case 2:
+      mNamespaces->add(SBML_XMLNS_L3V2);
+      break;
     }
     break;
   }
@@ -194,6 +197,7 @@ SBMLNamespaces::getSupportedNamespaces()
   result->add(new SBMLNamespaces(2,4));
   result->add(new SBMLNamespaces(2,5));
   result->add(new SBMLNamespaces(3,1));
+  result->add(new SBMLNamespaces(3,2));
   return result;
 }
 
@@ -256,8 +260,11 @@ SBMLNamespaces::getSBMLNamespaceURI(unsigned int level,
     switch(version)
     {
     case 1:
-    default:
       uri = SBML_XMLNS_L3V1;
+      break;
+    case 2:
+    default:
+      uri = SBML_XMLNS_L3V2;
       break;
     }
     break;
@@ -547,6 +554,7 @@ SBMLNamespaces::isSBMLNamespace(const std::string& uri)
   if (uri == SBML_XMLNS_L2V4) return true;
   if (uri == SBML_XMLNS_L2V5) return true;
   if (uri == SBML_XMLNS_L3V1) return true;
+  if (uri == SBML_XMLNS_L3V2) return true;
 
   return false;
 }
@@ -568,6 +576,12 @@ SBMLNamespaces::isValidCombination()
     // (e.g. SBML_XMLNS_L2V1 and SBML_XMLNS_L2V3) are defined.
     //
     int numNS = 0;
+
+    if (xmlns->hasURI(SBML_XMLNS_L3V2))
+    {
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L3V2);
+    }
 
     if (xmlns->hasURI(SBML_XMLNS_L3V1))
     {
@@ -728,6 +742,17 @@ SBMLNamespaces::isValidCombination()
           if (sbmlDeclared)
           {
             if (declaredURI != string(SBML_XMLNS_L3V1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 2:
+         // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L3V2))
             {
               valid = false;
             }

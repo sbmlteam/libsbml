@@ -106,7 +106,7 @@ public:
   * 
   * @param elementName element name for the target element, in case 
   * multiple elements match the same type code (as will be the case
-  * for ListOf classes)
+  * for ListOf classes).
   *
   * @param elementOnly flag to be used during the registration 
   * of the package, when set then the plugin is only applied to 
@@ -197,8 +197,8 @@ BEGIN_C_DECLS
 /**
  * Creates a new SBaseExtensionPoint_t structure with the given arguments
  *
- * @param pkgName the package name for the new structure
- * @param typeCode the SBML Type code for the new structure
+ * @param pkgName the package name for the new structure.
+ * @param typeCode the SBML Type code for the new structure.
  *
  * @return the newly created SBaseExtensionPoint_t structure or NULL in case
  * the given pkgName is invalid (NULL).
@@ -212,7 +212,7 @@ SBaseExtensionPoint_create(const char* pkgName, int typeCode);
 /**
  * Frees the given SBaseExtensionPoint_t structure
  *
- * @param extPoint the SBaseExtensionPoint_t structure to be freed
+ * @param extPoint the SBaseExtensionPoint_t structure to be freed.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -227,7 +227,7 @@ SBaseExtensionPoint_free(SBaseExtensionPoint_t *extPoint);
 /**
  * Creates a deep copy of the given SBaseExtensionPoint_t structure
  *
- * @param extPoint the SBaseExtensionPoint_t structure to be copied
+ * @param extPoint the SBaseExtensionPoint_t structure to be copied.
  *
  * @return a (deep) copy of the given SBaseExtensionPoint_t structure.
  *
@@ -240,7 +240,7 @@ SBaseExtensionPoint_clone(const SBaseExtensionPoint_t *extPoint);
 /**
  * Returns the package name for the given SBaseExtensionPoint_t structure
  *
- * @param extPoint the SBaseExtensionPoint_t structure
+ * @param extPoint the SBaseExtensionPoint_t structure.
  *
  * @return the package name for the given SBaseExtensionPoint_t structure or
  * NULL.
@@ -254,7 +254,7 @@ SBaseExtensionPoint_getPackageName(const SBaseExtensionPoint_t *extPoint);
 /**
  * Returns the type code for the given SBaseExtensionPoint_t structure
  *
- * @param extPoint the SBaseExtensionPoint_t structure
+ * @param extPoint the SBaseExtensionPoint_t structure.
  *
  * @return the type code for the given SBaseExtensionPoint_t structure or
  * LIBSBML_INVALID_OBJECT in case an invalid object is given.

@@ -39,7 +39,7 @@
  * expressed using Reaction nor InitialAssignment objects alone.
  *
  * The libSBML implementation of rules mirrors the SBML Level&nbsp;3
- * Version&nbsp;1 Core definition (which is in turn is very similar to the
+ * definition (which is in turn is very similar to the
  * Level&nbsp;2 Version&nbsp;4 definition), with Rule being the parent
  * class of three subclasses as explained below.  The Rule class itself
  * cannot be instantiated by user programs and has no constructor; only the
@@ -170,7 +170,7 @@ public:
   /**
    * Assignment operator for Rule.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   Rule& operator=(const Rule& rhs);
@@ -222,7 +222,8 @@ public:
   /**
    * Get the mathematical formula of this Rule as an ASTNode tree.
    *
-   * @return an ASTNode, the value of the "math" subelement of this Rule.
+   * @return an ASTNode, the value of the "math" subelement of this Rule,
+   * or NULL if the math is not set.
    *
    * @note The subelement "math" is present in SBML Levels&nbsp;2
    * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
@@ -240,8 +241,13 @@ public:
    *
    * @copydetails doc_rule_level_1
    * 
+   * The "variable" attribute of a Rule indicates the element which
+   * the results of the "math" are to be applied.  An AlgebraicRule has
+   * no "variable", and will always return an empty string.
+   *
    * @return the identifier string stored as the "variable" attribute value
-   * in this Rule, or @c NULL if this object is an AlgebraicRule object.
+   * in this Rule, or @c NULL if this object is an AlgebraicRule object, or if 
+   * the attribute is unset.
    */
   const std::string& getVariable () const;
 
@@ -315,7 +321,7 @@ public:
    * Predicate returning @c true if this Rule's "units" attribute is set.
    *
    * @return @c true if the units for this Rule is set, @c false
-   * otherwise
+   * otherwise.
    *
    * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
    * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
@@ -388,7 +394,7 @@ public:
   /**
    * Sets the units for this Rule.
    *
-   * @param sname the identifier of the units
+   * @param sname the identifier of the units.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -656,7 +662,7 @@ public:
    * Beware that the last (@c "unknownRule") is not a valid SBML element
    * name.
    * 
-   * @return the name of this element
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -664,7 +670,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -691,7 +697,9 @@ public:
    * Predicate returning @c true if all the required elements for this Rule
    * object have been set.
    *
-   * The only required element for a Rule object is the "math" subelement.
+   * The only required element for a Rule object is the "math" subelement in
+   * SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1.  In SBML Level&nbsp;3
+   * Version&nbsp;2+, it is no longer required.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -705,7 +713,7 @@ public:
    *
    * The required attributes for a Rule object depend on the type of Rule
    * it is.  For AssignmentRule and RateRule objects (and SBML
-   * Level&nbsp1's SpeciesConcentrationRule, CompartmentVolumeRule, and
+   * Level&nbsp;1's SpeciesConcentrationRule, CompartmentVolumeRule, and
    * ParameterRule objects), the required attribute is "variable"; for
    * AlgebraicRule objects, there is no required attribute.
    *
@@ -735,19 +743,26 @@ public:
   /** @endcond */
 
   
-  /** @cond doxygenLibsbmlInternal */
-  /*
-   * Return the variable attribute of this object.
+  /**
+   * Returns the value of the "variable" attribute of this Rule (NOT the "id").
    *
-   * @note This function is an alias of getVariable() function.
-   *       (id attribute is not defined in Rule element.)
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() or the getVariable() function instead.
    *
-   * @return the string of variable attribute of this object.
+   * The "variable" attribute of a Rule indicates the element which
+   * the results of the "math" are to be applied.  An AlgebraicRule has
+   * no "variable", and will always return an empty string.
    *
+   * @return the variable of this Rule.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    * @see getVariable()
    */
   virtual const std::string& getId() const;
-  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -791,7 +806,7 @@ protected:
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
@@ -808,7 +823,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -822,7 +837,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -857,9 +872,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -976,7 +991,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -991,7 +1006,7 @@ public:
    * the libsbml interface pretends that they do: no assignment rule or rate
    * rule is returned by this function.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return pointer to the first element found with the given @p id.
    */
@@ -1005,7 +1020,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -1058,10 +1073,10 @@ BEGIN_C_DECLS
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * algebraic Rule_t
+ * algebraic Rule_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * algebraic Rule_t
+ * algebraic Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1085,7 +1100,7 @@ Rule_createAlgebraic (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this algebraic Rule_t
+ * to assign to this algebraic Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1109,10 +1124,10 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t *sbmlns);
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * assignment Rule_t
+ * assignment Rule_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * assignment Rule_t
+ * assignment Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1136,7 +1151,7 @@ Rule_createAssignment (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this assignment Rule_t
+ * to assign to this assignment Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1160,10 +1175,10 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t *sbmlns);
  * @p level and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * rate Rule_t
+ * rate Rule_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * rate Rule_t
+ * rate Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1187,7 +1202,7 @@ Rule_createRate (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to this rate Rule_t
+ * to assign to this rate Rule_t.
  *
  * @return a pointer to the newly created Rule_t structure.
  *
@@ -1230,7 +1245,7 @@ Rule_clone (const Rule_t *r);
  * Returns a list of XMLNamespaces_t associated with this Rule_t
  * structure.
  *
- * @param r the Rule_t structure
+ * @param r the Rule_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -1304,8 +1319,8 @@ Rule_getUnits (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the formula (or equivalently the math) for
- * this Rule_t is set, false (0) otherwise.
+ * @return @c true (non-zero) if the formula (or equivalently the math) for
+ * this Rule_t is set, @c false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1315,8 +1330,8 @@ Rule_isSetFormula (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the math (or equivalently the formula) for
- * this Rule_t is set, false (0) otherwise.
+ * @return @c true (non-zero) if the math (or equivalently the formula) for
+ * this Rule_t is set, @c false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1326,7 +1341,7 @@ Rule_isSetMath (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the variable of this Rule_t is set, false
+ * @return @c true (non-zero) if the variable of this Rule_t is set, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1337,7 +1352,7 @@ Rule_isSetVariable (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the units for this Rule_t is set, false
+ * @return @c true (non-zero) if the units for this Rule_t is set, false
  * (0) otherwise (L1 ParameterRules only).
  *
  * @memberof Rule_t
@@ -1437,7 +1452,7 @@ Rule_unsetUnits (Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule_t is an AlgebraicRule, false (0)
+ * @return @c true (non-zero) if this Rule_t is an AlgebraicRule, @c false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1448,7 +1463,7 @@ Rule_isAlgebraic (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule_t is an AssignmentRule, false (0)
+ * @return @c true (non-zero) if this Rule_t is an AssignmentRule, @c false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1462,7 +1477,7 @@ Rule_isAssignment (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Compartments.
  *
- * @return true (non-zero) if this Rule_t is a CompartmentVolumeRule, false
+ * @return @c true (non-zero) if this Rule_t is a CompartmentVolumeRule, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1476,7 +1491,7 @@ Rule_isCompartmentVolume (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Parameters.
  *
- * @return true (non-zero) if this Rule_t is a ParameterRule, false (0)
+ * @return @c true (non-zero) if this Rule_t is a ParameterRule, @c false (0)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1487,8 +1502,8 @@ Rule_isParameter (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule_t is a RateRule (L2) or has
- * type="rate" (L1), false (0) otherwise.
+ * @return @c true (non-zero) if this Rule_t is a RateRule (L2) or has
+ * type="rate" (L1), @c false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1498,8 +1513,8 @@ Rule_isRate (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if this Rule_t is an AssignmentRule (L2) has
- * type="scalar" (L1), false (0) otherwise.
+ * @return @c true (non-zero) if this Rule_t is an AssignmentRule (L2) has
+ * type="scalar" (L1), @c false (0) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1512,7 +1527,7 @@ Rule_isScalar (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Species.
  *
- * @return true (non-zero) if this Rule_t is a species concentration Rule_t, false
+ * @return @c true (non-zero) if this Rule_t is a species concentration Rule_t, false
  * (0) otherwise.
  *
  * @memberof Rule_t
@@ -1547,7 +1562,7 @@ Rule_getL1TypeCode (const Rule_t *r);
 /**
  * Sets the SBML Level&nbsp;1 typecode for this Rule_t.
  *
- * @param r the Rule_t structure
+ * @param r the Rule_t structure.
  * @param L1Type the SBML Level&nbsp;1 typecode for this Rule_t
  * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE,
  * or @c SBML_SPECIES_CONCENTRATION_RULE).
@@ -1637,7 +1652,7 @@ ListOfRules_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of Rule_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The Rule_t structure removed, or a null pointer if no such
  * item exists in @p lo.

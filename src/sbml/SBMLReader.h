@@ -380,7 +380,7 @@ public:
   /**
    * @copydoc doc_readsbmlfromstring
    *
-   * @param xml a string containing a full SBML model
+   * @param xml a string containing a full SBML model.
    *
    * @return a pointer to the SBMLDocument created from the SBML content,
    * or a null pointer if @p xml is null.
@@ -475,7 +475,7 @@ SBMLReader_free (SBMLReader_t *sr);
  *
  * This function is identical to SBMLReader_readSBMLFromFile().
  *
- * @param sr The SBMLReader_t structure to use.
+ * @param sr the SBMLReader_t structure to use.
  *
  * @param filename a string giving the path to a file where the XML
  * content is to be found.
@@ -499,7 +499,7 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
  *
  * This function is identical to SBMLReader_readSBML().
  *
- * @param sr The SBMLReader_t structure to use.
+ * @param sr the SBMLReader_t structure to use.
  *
  * @param filename a string giving the path to a file where the XML
  * content is to be found.
@@ -521,7 +521,7 @@ SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
 /**
  * @copydoc doc_readsbmlfromstring
  *
- * @param sr the SBMLReader_t structure to use
+ * @param sr the SBMLReader_t structure to use.
  *
  * @param xml the input xml string.
  *
@@ -610,7 +610,7 @@ readSBMLFromFile (const char *filename);
 /**
  * @copydoc doc_readsbmlfromstring
  *
- * @param xml a string containing a full SBML model
+ * @param xml a string containing a full SBML model.
  *
  * @return a pointer to the SBMLDocument structure created from the SBML
  * content in @p xml.

@@ -79,7 +79,7 @@ public:
    * Constructor that initializes the conversion properties
    * with a specific SBML target namespace.
    *
-   * @param targetNS the target namespace to convert to
+   * @param targetNS the target namespace to convert to.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -97,7 +97,7 @@ public:
   /**
    * Assignment operator for conversion properties.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   ConversionProperties& operator=(const ConversionProperties& rhs);
@@ -185,7 +185,7 @@ public:
   /**
    * Adds a copy of the given option to this properties object.
    *
-   * @param option the option to add
+   * @param option the option to add.
    */
   virtual void addOption(const ConversionOption& option);
 
@@ -193,11 +193,11 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value (optional) the value of that option
+   * @param key the key for the new option.
+   * @param value (optional) the value of that option.
    * @param type (optional) the type of the option (see the documentation
-   * for ConversionOption for more information about the types)
-   * @param description (optional) the description for the option
+   * for ConversionOption for more information about the types).
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -209,9 +209,9 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value the string value of that option
-   * @param description (optional) the description for the option
+   * @param key the key for the new option.
+   * @param value the string value of that option.
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -222,9 +222,9 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value the boolean value of that option
-   * @param description (optional) the description for the option
+   * @param key the key for the new option.
+   * @param value the boolean value of that option.
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -235,9 +235,9 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value the double value of that option
-   * @param description (optional) the description for the option
+   * @param key the key for the new option.
+   * @param value the double value of that option.
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -248,9 +248,9 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value the float value of that option
-   * @param description (optional) the description for the option
+   * @param key the key for the new option.
+   * @param value the float value of that option.
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -261,9 +261,9 @@ public:
   /**
    * Adds a new ConversionOption object with the given parameters.
    *
-   * @param key the key for the new option
-   * @param value the integer value of that option
-   * @param description (optional) the description for the option
+   * @param key the key for the new option.
+   * @param value the integer value of that option.
+   * @param description (optional) the description for the option.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -274,8 +274,8 @@ public:
   /**
    * Removes the option with the given key from this properties object.
    *
-   * @param key the key for the new option to remove
-   * @return the removed option
+   * @param key the key for the new option to remove.
+   * @return the removed option.
    */
   virtual ConversionOption* removeOption(const std::string& key);
 
@@ -305,8 +305,8 @@ public:
   /**
    * Sets the value of the given option to a string.
    *
-   * @param key the key for the option
-   * @param value the new value
+   * @param key the key for the option.
+   * @param value the new value.
    */
   virtual void setValue(const std::string& key, const std::string& value);
 
@@ -393,7 +393,7 @@ public:
   /** 
    * Returns the number of options in this Conversion Properties object
    *
-   * @return the number of options in this properties object
+   * @return the number of options in this properties object.
    */
   virtual int getNumOptions() const;
 
@@ -427,7 +427,7 @@ ConversionProperties_create();
  * Creates a new conversion properties structure
  * with a specific SBML target namespace.
  *
- * @param sbmlns the target namespace to convert to
+ * @param sbmlns the target namespace to convert to.
  *
  * @memberof ConversionProperties_t
  */
@@ -438,7 +438,7 @@ ConversionProperties_createWithSBMLNamespace(SBMLNamespaces_t* sbmlns);
 /**
  * Creates and returns a deep copy of the given ConversionProperties_t structure.
  *
- * @param cp the conversion properties to clone
+ * @param cp the conversion properties to clone.
  *
  * @return a (deep) copy of this ConversionProperties_t structure.
  *
@@ -452,10 +452,10 @@ ConversionProperties_clone(const ConversionProperties_t* cp);
  * Returns the value as boolean for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
- * @return the boolean value of the option with the given key to be freed by the caller, or NULL.
+ * @return the boolean value of the option with the given key to be freed by the caller, or @c NULL.
  *
  * @memberof ConversionProperties_t
  */
@@ -467,7 +467,7 @@ ConversionProperties_getBoolValue(const ConversionProperties_t* cp, const char* 
  * Returns the value as integer for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return the integer value of the option with the given key to be freed by the caller, or -1.
@@ -482,7 +482,7 @@ ConversionProperties_getIntValue(const ConversionProperties_t* cp, const char* k
  * Returns the description string for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return the description text of the option with the given key to be freed by the caller.
@@ -497,7 +497,7 @@ ConversionProperties_getDescription(const ConversionProperties_t* cp, const char
  * Returns the value as double for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return the double value of the option with the given key to be freed by the caller, or NaN.
@@ -512,7 +512,7 @@ ConversionProperties_getDoubleValue(const ConversionProperties_t* cp, const char
  * Returns the value as float for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return the float value of the option with the given key to be freed by the caller, or NaN.
@@ -527,10 +527,10 @@ ConversionProperties_getFloatValue(const ConversionProperties_t* cp, const char*
  * Returns the value string for a given option in the properties
  * structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
- * @return the string value of the option with the given key to be freed by the caller, or NULL.
+ * @return the string value of the option with the given key to be freed by the caller, or @c NULL.
  *
  * @memberof ConversionProperties_t
  */
@@ -541,10 +541,10 @@ ConversionProperties_getValue(const ConversionProperties_t* cp, const char* key)
 /**
  * Returns the ConversionOption_t structure for a given key.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
- * @return the option with the given key, or NULL.
+ * @return the option with the given key, or @c NULL.
  *
  * @memberof ConversionProperties_t
  */
@@ -555,7 +555,7 @@ ConversionProperties_getOption(const ConversionProperties_t* cp, const char* key
 /**
  * Returns the type of a given option in the properties structure.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return the type of the option with the given key.
@@ -569,9 +569,9 @@ ConversionProperties_getType(const ConversionProperties_t* cp, const char* key);
 /**
  * Returns the current target SBML namespace of the conversion properties.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  *
- * @return the SBMLNamepaces_t structure expressing the target namespace, or NULL.
+ * @return the SBMLNamepaces_t structure expressing the target namespace, or @c NULL.
  *
  * @memberof ConversionProperties_t
  */
@@ -582,7 +582,7 @@ ConversionProperties_getTargetNamespaces(const ConversionProperties_t* cp);
 /**
  * Checks whether the given properties structure has an option for the given key
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  *
  * @return @c 1 if the option exists, @c 0 otherwise.
@@ -596,7 +596,7 @@ ConversionProperties_hasOption(const ConversionProperties_t* cp, const char* key
 /**
  * Tests whether the given conversion properties has a target namespace set
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  *
  * @return @c 1 if the target namespace has been set, @c 0
  * otherwise.
@@ -610,7 +610,7 @@ ConversionProperties_hasTargetNamespaces(const ConversionProperties_t* cp);
 /**
  * Sets the target namespace.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param sbmlns the target namespace to use.
  *
  * @memberof ConversionProperties_t
@@ -622,7 +622,7 @@ ConversionProperties_setTargetNamespaces(ConversionProperties_t* cp, SBMLNamespa
 /**
  * Sets the value of the option with given key to the given boolean value.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  * @param value the new value for the option.
  *
@@ -635,7 +635,7 @@ ConversionProperties_setBoolValue(ConversionProperties_t* cp, const char* key, i
 /**
  * Sets the value of the option with given key to the given int value.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  * @param value the new value for the option.
  *
@@ -648,7 +648,7 @@ ConversionProperties_setIntValue(ConversionProperties_t* cp, const char* key, in
 /**
  * Sets the value of the option with given key to the given double value.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  * @param value the new value for the option.
  *
@@ -661,7 +661,7 @@ ConversionProperties_setDoubleValue(ConversionProperties_t* cp, const char* key,
 /**
  * Sets the value of the option with given key to the given float value.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  * @param value the new value for the option.
  *
@@ -674,7 +674,7 @@ ConversionProperties_setFloatValue(ConversionProperties_t* cp, const char* key, 
 /**
  * Sets the value of the option with given key to the given value.
  *
- * @param cp the conversion properties
+ * @param cp the conversion properties.
  * @param key the key for the option.
  * @param value the new value for the option.
  *
@@ -687,8 +687,8 @@ ConversionProperties_setValue(ConversionProperties_t* cp, const char* key, const
 /**
  * Adds a copy of the given ConversionOption_t structure to the properties.
  *
- * @param cp the conversion properties
- * @param option the option to add
+ * @param cp the conversion properties.
+ * @param option the option to add.
  *
  * @memberof ConversionProperties_t
  */
@@ -699,8 +699,8 @@ ConversionProperties_addOption(ConversionProperties_t* cp, const ConversionOptio
 /**
  * Adds a new ConversionOption_t structure with the given key to the properties.
  *
- * @param cp the conversion properties
- * @param key the key for the new option
+ * @param cp the conversion properties.
+ * @param key the key for the new option.
  *
  * @memberof ConversionProperties_t
  */
@@ -711,8 +711,8 @@ ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* ke
 /**
  * Removes the ConversionOption_t with the given key from the properties.
  *
- * @param cp the conversion properties
- * @param key the key for the option to remove
+ * @param cp the conversion properties.
+ * @param key the key for the option to remove.
  *
  * @return the removed conversion option (needs to be freed by the caller), 
  * or NULL, if no option with the given key exists

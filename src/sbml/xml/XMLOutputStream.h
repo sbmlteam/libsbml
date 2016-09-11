@@ -632,7 +632,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    * as a comment in the output stream.
    *
    * @param writeTimestamp an optional flag indicating that a timestamp should
-   * be written
+   * be written.
    */
   void writeComment (const std::string& programName,
                      const std::string& programVersion,
@@ -642,7 +642,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
   /**
    * Writes the given characters to the underlying stream.
    *
-   * @param chars the characters to write
+   * @param chars the characters to write.
    */
   XMLOutputStream& operator<< (const std::string& chars);
 
@@ -650,7 +650,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
   /**
    * Writes the given double-type number to the underlying stream.
    *
-   * @param value the value to write
+   * @param value the value to write.
    */
   XMLOutputStream& operator<< (const double& value);
 
@@ -658,7 +658,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
   /**
    * Outputs the given long-type number to the underlying stream.
    *
-   * @param value the value to write
+   * @param value the value to write.
    */
   XMLOutputStream& operator<< (const long& value);
 
@@ -714,40 +714,40 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 
   /**
    * @return a boolean, whether the output stream will write an XML
-   * comment at the top of the file. (Enabled by default)
+   * comment at the top of the file. (Enabled by default.)
    */
   static bool getWriteComment();
   /**
    * sets a flag, whether the output stream will write an XML
-   * comment at the top of the file. (Enabled by default)
+   * comment at the top of the file. (Enabled by default.)
    *
-   * @param writeComment the flag
+   * @param writeComment the flag.
    */
   static void setWriteComment(bool writeComment);
 
   /**
    * @return a boolean, whether the output stream will write an XML
-   * comment with a timestamp at the top of the file. (Enabled by default)
+   * comment with a timestamp at the top of the file. (Enabled by default.)
    */
   static bool getWriteTimestamp();
   /**
    * sets a flag, whether the output stream will write an XML
-   * comment with a timestamp at the top of the file. (Enabled by default)
+   * comment with a timestamp at the top of the file. (Enabled by default.)
    *
-   * @param writeTimestamp the flag
+   * @param writeTimestamp the flag.
    */
   static void setWriteTimestamp(bool writeTimestamp);
 
 
   /**
-   * @return the name of the library to be used in comments ('libSBML' by default)
+   * @return the name of the library to be used in comments ('libSBML' by default).
    */
   static std::string getLibraryName();
 
   /**
    * sets the name of the library writing the XML
 
-   * @param libraryName the name of the library to be used in comments
+   * @param libraryName the name of the library to be used in comments.
    */
   static void setLibraryName(const std::string& libraryName);
 
@@ -760,7 +760,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
   /**
    * sets the name of the library writing the output
    *
-   * @param libraryVersion the version information as string
+   * @param libraryVersion the version information as string.
    */
   static void setLibraryVersion(const std::string& libraryVersion);
 
@@ -768,6 +768,8 @@ private:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Copy Constructor, made private so as to notify users, that copying an input stream is not supported.
+   *
+   * @param other the instance to copy.
    */
   XMLOutputStream (const XMLOutputStream& other);
 

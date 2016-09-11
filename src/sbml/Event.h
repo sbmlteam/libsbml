@@ -50,26 +50,6 @@
  *
  * @section event-version-diffs SBML Level/Version differences
  * 
- * @subsection sbml-l3 SBML Level 3
- *
- * SBML Level 3 introduces several changes to the structure and components
- * of Events compared to SBML Level&nbsp;2.  These changes fall into two
- * main categories: changes to what is optional or required, and additions
- * of new attributes and elements.
- * <ul>
- * <li> The attribute "useValuesFromTriggerTime" on Event is mandatory (it
- * was optional in Level&nbsp;2);
- * <li> Event's "listOfEventAssignments" element (of class
- * ListOfEventAssignments) is optional (it was mandatory in Level&nbsp;2);
- * <li> Event's "priority" element (of class Priority) is new in
- * Level&nbsp;3; and
- * <li> The Trigger object gains new mandatory attributes (described as part
- * of the definition of Trigger).
- * </ul>
- *
- * The changes to the attributes of Event are described below; the changes
- * to Trigger and Priority are described in their respective sections.
- *
  * @subsection sbml-l2 SBML Level 2
  * 
  * In SBML Level&nbsp;2 versions before Version&nbsp;4, the semantics of
@@ -77,14 +57,19 @@
  * assignments were always evaluated at the time the event was
  * <em>triggered</em>.  This definition made it difficult to define an event
  * whose assignment formulas were meant to be evaluated at the time the
- * event was <em>executed</em> (i.e., after the time period defined by the
- * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4 and in
- * Level&nbsp;3, the attribute "useValuesFromTriggerTime" on Event allows a
- * model to indicate the time at which the event's assignments are intended
- * the values of the assignment formulas are computed at the moment the
- * event is triggered, not after the delay.  If "useValuesFromTriggerTime"=@c
- * false, it means that the formulas in the event's assignments are to be
- * computed @em after the delay, at the time the event is executed.
+ * event was <em>executed</em> (i.e., after the time period defined
+ * by the value of the Delay element, or after any other simultaneous
+ * event may have been <em>executed</em> and changed the model state).
+ * In SBML Level&nbsp;2 Version&nbsp;4 and in
+ * Level&nbsp;3, the attribute "useValuesFromTriggerTime" on Event was added 
+ * to allow a model to indicate the time at which the event's assignments 
+ * are to be calculated, whether at the moment the event is triggered (if
+ * the value of the attribute is @c true), or at the moment of execution
+ * (if "useValuesFromTriggerTime"=@c false).  If the event has a delay,
+ * the "useValuesFromTriggerTime" is likely to make a significant difference
+ * in the values used in the assignment, but the possibility of simultaneous
+ * events mean that even zero-delay events can have different results
+ * depending on the value of this attribute.
  *
  * The definition of Event in SBML Level&nbsp;2 Versions 1 and 2 includes
  * an additional attribute called "timeUnits", which allowed the time units
@@ -101,7 +86,29 @@
  * Level&nbsp;2 cannot use this attribute, and
  * SBMLDocument::checkConsistency() will report an error if they do.
  *
- * @section semantics Semantics of events in SBML Level 3 Version&nbsp;1
+ * @subsection sbml-l3 SBML Level 3
+ *
+ * SBML Level 3 introduces several changes to the structure and components
+ * of Events compared to SBML Level&nbsp;2.  These changes fall into two
+ * main categories: changes to what is optional or required, and additions
+ * of new attributes and elements.
+ * <ul>
+ * <li> The attribute "useValuesFromTriggerTime" on Event is mandatory (it
+ * was optional in Level&nbsp;2 and had a default value of @c true);
+ * <li> Event's "listOfEventAssignments" element (of class
+ * ListOfEventAssignments) is optional (it was mandatory in Level&nbsp;2);
+ * <li> Event's "priority" element (of class Priority) is new in
+ * Level&nbsp;3; and
+ * <li> The Trigger object gains new mandatory attributes (described as part
+ * of the definition of Trigger).
+ * <li> In SBML Level&nbsp;3 Version&nbsp;2, the Trigger object became 
+ * optional.  An Event with no Trigger will simply not fire.
+ * </ul>
+ *
+ * The changes to the attributes of Event are described below; the changes
+ * to Trigger and Priority are described in their respective sections.
+ *
+ * @section semantics Semantics of events in SBML Level&nbsp;3 Version&nbsp;1
  *
  * The detailed semantics of events are described in the specification
  * documents for each SBML Level/Version.  Here we include the description
@@ -201,6 +208,35 @@
  * 
  * </ul>
  *
+ * @section l3v2_restrictions Restrictions relaxed in SBML Level&nbsp;3 Version&nbsp;2
+ *
+ * In SBML Level&nbsp;3 Version&nbsp;2, several restrictions were lifted 
+ * that have the potential to affect the semantics of an Event:
+ *
+ * <ul>
+ * <li> The Trigger subobject of an Event is optional.  If missing,
+ * an Event is never @em triggered, unless an alternate triggering 
+ * scheme is introduced by an SBML Level&nbsp;3 package.
+ *
+ * <li> The "math" subelements of an Event Trigger, Delay, Priority,
+ * and EventAssignment are all optional.  If any of these elements lack 
+ * a "math" subelement, and that information is not supplied in an SBML
+ * Level&nbsp;3 package, it is mathematically equivalent to the Trigger, 
+ * Delay, Priority, or EventAssignment not being present at all.
+ *
+ * <li> The ListOfEventAssignments may be empty, which is mathematically 
+ * equivalent to the Event not having a ListOfEventAssignments at all.
+ *
+ * <li> Any "math" subelement may return a Boolean or a numeric value
+ * in any context.  If a numeric value is used in a Boolean context,
+ * a "0" is interpreted as @c false, and all other values are
+ * interpreted as @c true.  If a Boolean value is used in a numeric 
+ * context, a @c true is interpreted as a 1, and a @c false is 
+ * interpreted as a 0.  This means (for example) that a Trigger value 
+ * that changes from 0.0 to anything else is equivalent to changing 
+ * from @c false to @c true.
+ * </ul>
+ *
  * @see Trigger
  * @see Priority
  * @see Delay
@@ -246,7 +282,8 @@
  * @class doc_event_using_useValuesFromTriggerTime
  *
  * @par
- * The optional Delay on Event means there are two times to consider when
+ * The optional Delay on Event and the fact that multiple events may be
+ * simultaneously executed means there are two times to consider when
  * computing the results of an event: the time at which the event is
  * <em>triggered</em>, and the time at which assignments are
  * <em>executed</em>.  It is also possible to distinguish between the
@@ -262,7 +299,9 @@
  * <em>triggered</em>.  This definition made it difficult to define an
  * event whose assignment formulas were meant to be evaluated at the time
  * the event was <em>executed</em> (i.e., after the time period defined
- * by the value of the Delay element).  In SBML Level&nbsp;2
+ * by the value of the Delay element, or after any other simultaneous
+ * event may have been <em>executed</em> and changed the model state).
+ * In SBML Level&nbsp;2
  * Version&nbsp;4, the attribute "useValuesFromTriggerTime" on Event
  * allows a model to indicate the time at which the event's assignments
  * are intended to be evaluated.  In SBML Level&nbsp;2, the attribute has
@@ -311,10 +350,10 @@ public:
    * Creates a new Event using the given SBML @p level and @p version
    * values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Event
+   * @param level an unsigned int, the SBML Level to assign to this Event.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * Event
+   * Event.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -355,7 +394,7 @@ public:
   /**
    * Assignment operator for Event.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   Event& operator=(const Event& rhs);
@@ -392,7 +431,7 @@ public:
    * This method sets the values to certain common defaults, based
    * mostly on what they are in SBML Level&nbsp;2.  Specifically:
    *
-   * @li Sets attribute "spatialDimensions" to @c 3
+   * @li Sets attribute "useValuesFromTriggerTime" to @c true
    */
   void initDefaults ();
 
@@ -400,7 +439,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return pointer to the first element found with the given @p id.
    */
@@ -411,7 +450,7 @@ public:
    * Returns the first child element it can find with the given @p metaid, or
    * @c NULL if no such object is found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the metaid of the object to find.
    *
    * @return pointer to the first element found with the given @p metaid.
    */
@@ -422,6 +461,10 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
@@ -429,16 +472,27 @@ public:
   
   /**
    * Returns the value of the "id" attribute of this Event.
-   * 
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
    * @return the id of this Event.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
 
   /**
    * Returns the value of the "name" attribute of this Event.
-   * 
-   * @return the name of this Event.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -446,7 +500,7 @@ public:
   /**
    * Get the event trigger portion of this Event.
    * 
-   * @return the Trigger object of this Event.
+   * @return the Trigger object of this Event, or @c NULL if the trigger is not set.
    */
   const Trigger* getTrigger () const;
 
@@ -481,10 +535,11 @@ public:
    * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
-   * @return the Priority object of this Event.
+   * @return the Priority object of this Event, or NULL if the Priority
+   * has not been set.
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   const Priority* getPriority () const;
 
@@ -493,10 +548,11 @@ public:
    * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
-   * @return the Priority object of this Event.
+   * @return the Priority object of this Event, or NULL if the Priority
+   * has not been set.
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   Priority* getPriority ();
 
@@ -527,8 +583,7 @@ public:
    * Predicate returning @c true if this
    * Event's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Event is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -537,8 +592,7 @@ public:
    * Predicate returning @c true if this
    * Event's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Event is
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -568,8 +622,8 @@ public:
    * @return @c true if the priority of this Event is set, @c false
    * otherwise.
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   bool isSetPriority () const;
 
@@ -594,7 +648,7 @@ public:
    * set, @c false otherwise.
    *
    * @note In SBML Level&nbsp;2, this attribute is optional and has a default value of
-   * @c true, whereas in Level&nbsp;3 Version&nbsp;1, this optional is mandatory and
+   * @c true, whereas in Level&nbsp;3, this optional is mandatory and
    * has no default value.
    */
   bool isSetUseValuesFromTriggerTime () const;
@@ -603,29 +657,16 @@ public:
   /**
    * Sets the value of the "id" attribute of this Event.
    *
-   * The string @p sid is copied.
-   *
-   * @copydetails doc_id_syntax
-   *
-   * @param sid the string to use as the identifier of this Event
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& sid);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this Event.
    *
-   * The string in @p name is copied.
    *
-   * @param name the new name for the Event
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -648,7 +689,7 @@ public:
    * Sets the delay definition of this Event to a copy of the given Delay
    * object instance.
    *
-   * @param delay the Delay object instance to use
+   * @param delay the Delay object instance to use.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -662,7 +703,7 @@ public:
    * (SBML Level&nbsp;3 only) Sets the priority definition of this Event
    * to a copy of the given Priority object instance.
    *
-   * @param priority the Priority object instance to use
+   * @param priority the Priority object instance to use.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -670,8 +711,8 @@ public:
    * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   int setPriority (const Priority* priority);
 
@@ -711,9 +752,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this Event.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -721,9 +760,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Event.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -759,8 +796,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   int unsetPriority ();
 
@@ -772,8 +809,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   int unsetTrigger();
 
@@ -814,7 +851,7 @@ public:
    * Creates a new, empty EventAssignment, adds it to this Event's list of
    * event assignments and returns the EventAssignment.
    *
-   * @return the newly created EventAssignment object instance
+   * @return the newly created EventAssignment object instance.
    *
    * @see addEventAssignment(const EventAssignment* ea)
    */
@@ -825,7 +862,7 @@ public:
    * Creates a new, empty Trigger, adds it to this Event and 
    * returns the Trigger.
    *
-   * @return the newly created Trigger object instance
+   * @return the newly created Trigger object instance.
    */
   Trigger* createTrigger ();
 
@@ -834,7 +871,7 @@ public:
    * Creates a new, empty Delay, adds it to this Event and 
    * returns the Delay.
    *
-   * @return the newly created Delay object instance
+   * @return the newly created Delay object instance.
    */
   Delay* createDelay ();
 
@@ -843,10 +880,11 @@ public:
    * (SBML Level&nbsp;3 only) Creates a new, empty Priority, adds it to this
    * Event and returns the Priority.
    *
-   * @return the newly created Priority object instance
+   * @return the newly created Priority object instance, or NULL if the SBML
+   * level and version used for this Event does not define Priority children.
    * 
-   * @note The element "priority" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   * @note The element "priority" is available in SBML Level&nbsp;3,
+   * but is not present in lower Levels of SBML.
    */
   Priority* createPriority ();
 
@@ -870,7 +908,7 @@ public:
   /**
    * Return a specific EventAssignment object of this Event.
    *
-   * @param n an integer, the index of the EventAssignment object to return
+   * @param n an integer, the index of the EventAssignment object to return.
    * 
    * @return the <code>n</code>th EventAssignment of this Event.
    */
@@ -880,7 +918,7 @@ public:
   /**
    * Return a specific EventAssignment object of this Event.
    *
-   * @param n an integer, the index of the EventAssignment object to return
+   * @param n an integer, the index of the EventAssignment object to return.
    * 
    * @return the <code>n</code>th EventAssignment of this Event.
    */
@@ -926,7 +964,7 @@ public:
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
-   * @param n the index of the EventAssignment object to remove
+   * @param n the index of the EventAssignment object to remove.
    *
    * @return the EventAssignment object removed.  As mentioned above, 
    * the caller owns the returned item. @c NULL is returned if the given index 
@@ -945,7 +983,7 @@ public:
    * "variable" attribute @p variable, then @c NULL is returned.
    *
    * @param variable the "variable" attribute of the EventAssignment object 
-   * to remove
+   * to remove.
    *
    * @return the EventAssignment object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if no EventAssignment
@@ -958,7 +996,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument to use
+   * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
@@ -1010,7 +1048,7 @@ public:
    * Returns the XML element name of this object, which for Event, is
    * always @c "event".
    * 
-   * @return the name of this element, i.e., @c "event". 
+   * @return the name of this element, i.e., @c "event".
    */
   virtual const std::string& getElementName () const;
 
@@ -1018,7 +1056,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -1045,7 +1083,8 @@ public:
    * object have been set.
    *
    * @note The required elements for an Event object are:
-   * @li "trigger"
+   * @li "trigger" (required in SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1,
+   *     optional in SBML Level&nbsp;3 Version&nbsp;2+
    * @li "listOfEventAssignments" (required in SBML Level&nbsp;2, optional in Level&nbsp;3)
    */
   virtual bool hasRequiredElements() const;
@@ -1075,6 +1114,8 @@ protected:
    * expected attributes.
    * This function is invoked from corresponding readAttributes()
    * function.
+   *
+   * @param attributes the ExpectedAttributes to add.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
@@ -1082,7 +1123,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -1094,7 +1135,7 @@ protected:
 
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
@@ -1102,8 +1143,8 @@ protected:
   bool isExplicitlySetUVFTT() const { return mExplicitlySetUVFTT; } ;
 
 
-  std::string             mId;
-  std::string             mName;
+  //std::string             mId;
+  //std::string             mName;
   Trigger*                mTrigger;
   Delay*                  mDelay;
   Priority*               mPriority;
@@ -1152,9 +1193,9 @@ public:
    * The object is constructed such that it is valid for the given SBML
    * Level and Version combination.
    *
-   * @param level the SBML Level
+   * @param level the SBML Level.
    * 
-   * @param version the Version within the SBML Level
+   * @param version the Version within the SBML Level.
    *
    * @copydetails doc_throw_exception_lv
    *
@@ -1277,7 +1318,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -1291,7 +1332,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -1350,10 +1391,10 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Event_t
+ * Event_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * Event_t
+ * Event_t.
  *
  * @return a pointer to the newly created Event_t structure.
  *
@@ -1377,7 +1418,7 @@ Event_create (unsigned int level, unsigned int version);
  * SBMLNamespaces_t structure.
  *
  * @param sbmlns SBMLNamespaces_t, a pointer to an SBMLNamespaces_t structure
- * to assign to the given Event_t
+ * to assign to the given Event_t.
  *
  * @return a pointer to the newly created Event_t structure.
  *
@@ -1426,7 +1467,7 @@ Event_clone (const Event_t *e);
  * Returns a list of XMLNamespaces_t associated with the given Event_t
  * structure.
  *
- * @param e the Event_t structure
+ * @param e the Event_t structure.
  * 
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
@@ -1441,7 +1482,7 @@ Event_getNamespaces(Event_t *e);
 /**
  * Takes an Event_t structure and returns its identifier.
  *
- * @param e the Event_t structure whose identifier is sought
+ * @param e the Event_t structure whose identifier is sought.
  * 
  * @return the identifier of the given Event_t, as a pointer to a string.
  *
@@ -1512,7 +1553,7 @@ Event_getPriority (Event_t *e);
  * Takes an Event_t structure and returns the value of its "timeUnits"
  * attribute.
  *
- * @param e the Event_t structure whose "timeUnits" value is sought
+ * @param e the Event_t structure whose "timeUnits" value is sought.
  * 
  * @return the timeUnits of the given Event_t
  *
@@ -1533,7 +1574,7 @@ Event_getTimeUnits (const Event_t *e);
  * Takes an Event_t structure and returns the value of its "useValuesFromTriggerTime"
  * attribute.
  *
- * @param e the Event_t structure whose "useValuesFromTriggerTime" value is sought
+ * @param e the Event_t structure whose "useValuesFromTriggerTime" value is sought.
  * 
  * @return the useValuesFromTriggerTime of the given Event_t
  *
@@ -1548,7 +1589,7 @@ Event_getUseValuesFromTriggerTime (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's identifier is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * Event_t structure is set, zero (false) otherwise.
@@ -1564,7 +1605,7 @@ Event_isSetId (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's name is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * Event_t structure is set, zero (false) otherwise.
@@ -1580,7 +1621,7 @@ Event_isSetName (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's trigger is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if a Trigger_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
@@ -1596,7 +1637,7 @@ Event_isSetTrigger (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's delay is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if a Delay_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
@@ -1612,7 +1653,7 @@ Event_isSetDelay (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's priority is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if a Priority_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
@@ -1628,7 +1669,7 @@ Event_isSetPriority (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's "timeUnits" attribute is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if a value for the "timeUnits" attribute is
  * assigned in the given Event_t structure, zero (false) otherwise.
@@ -1650,7 +1691,7 @@ Event_isSetTimeUnits (const Event_t *e);
  * Predicate returning @c true or @c false depending on whether the given
  * Event_t structure's useValuesFromTriggerTime attribute is set.
  *
- * @param e the Event_t structure to query
+ * @param e the Event_t structure to query.
  * 
  * @return @c non-zero (true) if the "useValuesFromTriggerTime" attribute of the given
  * Event_t structure is set, zero (false) otherwise.
@@ -1687,7 +1728,7 @@ Event_setId (Event_t *e, const char *sid);
 /**
  * Sets the name of the given Event_t to a copy of @p name.
  *
- * @param e the Event_t structure to set
+ * @param e the Event_t structure to set.
  * @param name the name to assign to the given Event_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1707,7 +1748,7 @@ Event_setName (Event_t *e, const char *name);
 /**
  * Sets the trigger of the given Event_t to a copy of the given Trigger_t.
  *
- * @param e the Event_t structure to set
+ * @param e the Event_t structure to set.
  * @param trigger the Trigger_t structure to use.
  *
  * @copydetails doc_returns_success_code
@@ -1725,7 +1766,7 @@ Event_setTrigger (Event_t *e, const Trigger_t *trigger);
 /**
  * Sets the delay of the given Event_t to a copy of the given Delay_t.
  * 
- * @param e the Event_t structure to set
+ * @param e the Event_t structure to set.
  * @param delay the Delay_t structure to use.
  *
  * @copydetails doc_returns_success_code
@@ -1743,7 +1784,7 @@ Event_setDelay (Event_t *e, const Delay_t *delay);
 /**
  * Sets the priority of the given Event_t to a copy of the given Priority_t.
  * 
- * @param e the Event_t structure to set
+ * @param e the Event_t structure to set.
  * @param priority the Priority_t structure to use.
  *
  * @copydetails doc_returns_success_code
@@ -1762,9 +1803,9 @@ Event_setPriority (Event_t *e, const Priority_t *priority);
 /**
  * Sets the "timeUnits" attribute of the given Event_t to a copy of @p sid.
  * 
- * @param e the Event_t structure to set
+ * @param e the Event_t structure to set.
  * @param sid the identifier of the units to use as the value of the
- * "timeUnits" attribute
+ * "timeUnits" attribute.
  *
  * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
@@ -1790,8 +1831,8 @@ Event_setTimeUnits (Event_t *e, const char *sid);
 /**
  * Sets the "useValuesFromTriggerTime" attribute of the given Event_t to a @p value.
  * 
- * @param e the Event_t structure to set
- * @param value the value of the "useValuesFromTriggerTime" attribute
+ * @param e the Event_t structure to set.
+ * @param value the value of the "useValuesFromTriggerTime" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1807,7 +1848,7 @@ Event_setUseValuesFromTriggerTime (Event_t *e, int value);
 /**
  * Unsets the "id" attribute of the given Event_t structure.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1823,7 +1864,7 @@ Event_unsetId (Event_t *e);
 /**
  * Unsets the "name" attribute of the given Event_t structure.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1839,7 +1880,7 @@ Event_unsetName (Event_t *e);
 /**
  * Unsets the "useValuesFromTriggerTime" attribute of the given Event_t structure.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1855,7 +1896,7 @@ Event_unsetUseValuesFromTriggerTime (Event_t *e);
 /**
  * Unsets the delay of the given Event_t.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1871,7 +1912,7 @@ Event_unsetDelay (Event_t *e);
 /**
  * Unsets the priority of the given Event_t.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1887,7 +1928,7 @@ Event_unsetPriority (Event_t *e);
 /**
  * Unsets the "timeUnits" attribute of the given Event_t.
  *
- * @param e the Event_t structure to unset
+ * @param e the Event_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1945,9 +1986,9 @@ Event_hasRequiredElements (Event_t *e);
  * structure.
  *
  * @param e the Event_t structure to which the EventAssignment_t should be
- * added
+ * added.
  *
- * @param ea an EventAssignment_t structure to add
+ * @param ea an EventAssignment_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1968,7 +2009,7 @@ Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea);
  * Event_t's list of event assignments, and returns the EventAssignment_t.
  *
  * @param e the Event_t structure to which the event assignment should be
- * added
+ * added.
  *
  * @memberof Event_t
  */
@@ -1982,7 +2023,7 @@ Event_createEventAssignment (Event_t *e);
  * Event_t, and returns the Trigger_t.
  *
  * @param e the Event_t structure to which the trigger should be
- * added
+ * added.
  *
  * @memberof Event_t
  */
@@ -1996,7 +2037,7 @@ Event_createTrigger (Event_t *e);
  * Event_t, and returns the Delay_t.
  *
  * @param e the Event_t structure to which the delay should be
- * added
+ * added.
  *
  * @memberof Event_t
  */
@@ -2010,7 +2051,7 @@ Event_createDelay (Event_t *e);
  * Event_t, and returns the Priority_t.
  *
  * @param e the Event_t structure to which the priority should be
- * added
+ * added.
  *
  * @memberof Event_t
  */
@@ -2037,9 +2078,9 @@ Event_getListOfEventAssignments (Event_t *e);
 /**
  * Return a specific EventAssignment_t structure of the given Event_t.
  *
- * @param e the Event_t structure to use
+ * @param e the Event_t structure to use.
  *
- * @param n an integer, the index of the EventAssignment_t structure to return
+ * @param n an integer, the index of the EventAssignment_t structure to return.
  * 
  * @return the nth EventAssignment_t of the given Event_t, or @c NULL if no such EventAssignment_t exists.
  *
@@ -2053,7 +2094,7 @@ Event_getEventAssignment (Event_t *e, unsigned int n);
 /**
  * Return the event assignment indicated by the given @p variable.
  *
- * @param e the Event_t structure to use
+ * @param e the Event_t structure to use.
  *
  * @param variable a string, the identifier of the variable whose
  * EventAssignment_t is being sought.
@@ -2072,7 +2113,7 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable);
  * Returns the number of EventAssignment_t structures attached to the given
  * Event_t.
  *
- * @param e the Event_t structure to use
+ * @param e the Event_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given Event_t.
  *
@@ -2089,8 +2130,8 @@ Event_getNumEventAssignments (const Event_t *e);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param e the Event_t structure
- * @param n the integer index of the EventAssignment_t sought
+ * @param e the Event_t structure.
+ * @param n the integer index of the EventAssignment_t sought.
  *
  * @return the EventAssignment_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -2109,8 +2150,8 @@ Event_removeEventAssignment (Event_t *e, unsigned int n);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param e the Event_t structure
- * @param variable the string of the "variable" attribute of the EventAssignment_t sought
+ * @param e the Event_t structure.
+ * @param variable the string of the "variable" attribute of the EventAssignment_t sought.
  *
  * @return the EventAssignment_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no EventAssignment_t
@@ -2146,7 +2187,7 @@ ListOfEvents_getById (ListOf_t *lo, const char *sid);
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of Event_t structures to search.
- * @param sid the "id" attribute value of the structure to remove
+ * @param sid the "id" attribute value of the structure to remove.
  *
  * @return The Event_t structure removed, or a null pointer if no such
  * item exists in @p lo.

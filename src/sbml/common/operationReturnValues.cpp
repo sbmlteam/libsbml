@@ -53,6 +53,7 @@ static OperationReturnValues_t SBML_OPERATION_RETURN_VALUES_INDICES[] =
   , LIBSBML_ANNOTATION_NS_NOT_FOUND
   , LIBSBML_MISSING_METAID
   , LIBSBML_DEPRECATED_ATTRIBUTE
+  , LIBSBML_USE_ID_ATTRIBUTE_FUNCTION
   , LIBSBML_PKG_VERSION_MISMATCH
   , LIBSBML_PKG_UNKNOWN
   , LIBSBML_PKG_UNKNOWN_VERSION
@@ -180,6 +181,9 @@ static const char* SBML_OPERATION_RETURN_VALUES_STRINGS[] =
     "for the combination of SBML Level and Version for the underlying "
     "object. "
      
+  , /*LIBSBML_USE_ID_ATTRIBUTE_FUNCTION   = -16 */
+    "For L3V2 use the IdAttribute functions. "
+
   , /*LIBSBML_PKG_VERSION_MISMATCH = -20*/
    "The Version of package extension within the SBML Level and version "
    "associated with the object does not match the Version of the parent "

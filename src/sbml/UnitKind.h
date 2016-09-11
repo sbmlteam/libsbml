@@ -105,8 +105,8 @@ typedef enum
  * (because each of the above is a distinct enumeration value), but
  * this function returns @c true.
  *
- * @param uk1 a <code>UNIT_KIND_</code> value 
- * @param uk2 a second <code>UNIT_KIND_</code> value to compare to @p uk1
+ * @param uk1 a <code>UNIT_KIND_</code> value.
+ * @param uk2 a second <code>UNIT_KIND_</code> value to compare to @p uk1.
  *
  * @return nonzero (for @c true) if @p uk1 is logically equivalent to @p
  * uk2, zero (for @c false) otherwise.
@@ -127,7 +127,7 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  * Converts a text string naming a kind of unit to its corresponding
  * libSBML <code>UNIT_KIND_</code> constant/enumeration value.
  *
- * @param name a string, the name of a predefined base unit in SBML
+ * @param name a string, the name of a predefined base unit in SBML.
  * 
  * @return @if clike a value from UnitKind_t corresponding to the given
  * string @p name (determined in a case-insensitive manner).
@@ -181,9 +181,9 @@ UnitKind_toString (UnitKind_t uk);
  * Predicate for testing whether a given string corresponds to a
  * predefined libSBML unit code.
  *
- * @param str a text string naming a base unit defined by SBML
- * @param level the Level of SBML
- * @param version the Version within the Level of SBML
+ * @param str a text string naming a base unit defined by SBML.
+ * @param level the Level of SBML.
+ * @param version the Version within the Level of SBML.
  *
  * @return nonzero (for @c true) if string is the name of a valid
  * <code>UNIT_KIND_</code> value, zero (for @c false) otherwise.

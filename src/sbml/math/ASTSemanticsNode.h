@@ -57,13 +57,18 @@ public:
   ASTSemanticsNode (int type = AST_SEMANTICS);
 
   /**
-   * Copy constructor
+   * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   ASTSemanticsNode (const ASTSemanticsNode& orig);
   
 
   /**
    * Assignment operator for ASTNode.
+   *
+   * @param rhs the object whose values are used as the basis of the
+   * assignment.
    */
   ASTSemanticsNode& operator=(const ASTSemanticsNode& rhs);
 

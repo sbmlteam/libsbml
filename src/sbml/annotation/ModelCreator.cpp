@@ -50,6 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ModelCreator::ModelCreator () :
     mAdditionalRDF(NULL)
   , mHasBeenModified (false)
+  , mUsingFNVcard4 (false)
 {
 }
 
@@ -59,12 +60,33 @@ ModelCreator::ModelCreator () :
 ModelCreator::ModelCreator(const XMLNode creator):
     mAdditionalRDF(NULL)
   , mHasBeenModified (false)
+  , mUsingFNVcard4 (false)
 {
+  std::string vcard3_uri = "http://www.w3.org/2001/vcard-rdf/3.0#";
+  std::string vcard4_uri = "http://www.w3.org/2006/vcard/ns#";
+
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
   {
     int numChildren = static_cast<int>(creator.getNumChildren());
-    int n;
+    int n = 0;
+
+    // are we dealing with vcard3 or vcard4
+    bool vcard3 = true;
+    std::string name_element = "N";
+    std::string email_element = "EMAIL";
+    std::string org_element = "ORG";
+    std::string fn_element = "fn";
+    std::string text_element = "text";
+
+    const string& uri = creator.getChild((unsigned int)n).getURI();
+    if (uri == vcard4_uri)
+    {
+      vcard3 = false;
+      name_element = "hasName";
+      email_element = "hasEmail";
+      org_element = "organization-name";
+    }
 
     // we expect an N / EMAIL / ORG in that order 
     // find the positions of the first occurence of each
@@ -74,19 +96,39 @@ ModelCreator::ModelCreator(const XMLNode creator):
     for (n = 0; n < numChildren; n++)
     {
       const string& name = creator.getChild((unsigned int)n).getName();
-      if (name == "N" && Npos < 0)
+      if (name == name_element && Npos < 0)
         Npos = n;
-      else if (name == "EMAIL" && EMAILpos < 0 && n > Npos)
+      else if (name == fn_element && Npos < 0)
+      {
+        Npos = n;
+        mUsingFNVcard4 = true;
+      }
+      else if (name == email_element && EMAILpos < 0 && n > Npos)
         EMAILpos = n;
-      else if (name == "ORG" && ORGpos < 0 && n > EMAILpos)
+      else if (name == org_element && ORGpos < 0 && n > EMAILpos)
         ORGpos = n;
     }
 
     //get Names
     if (Npos >= 0)
     {
-      setFamilyName(creator.getChild((unsigned int)Npos).getChild("Family").getChild(0).getCharacters());
-      setGivenName(creator.getChild((unsigned int)Npos).getChild("Given").getChild(0).getCharacters());
+      if (vcard3)
+      {
+        setFamilyName(creator.getChild((unsigned int)Npos).getChild("Family").getChild(0).getCharacters());
+        setGivenName(creator.getChild((unsigned int)Npos).getChild("Given").getChild(0).getCharacters());
+      }
+      else
+      {
+        if (mUsingFNVcard4)
+        {
+          setName(creator.getChild((unsigned int)Npos).getChild("text").getChild(0).getCharacters());
+        }
+        else
+        {
+          setFamilyName(creator.getChild((unsigned int)Npos).getChild("family-name").getChild(0).getCharacters());
+          setGivenName(creator.getChild((unsigned int)Npos).getChild("given-name").getChild(0).getCharacters());
+        }
+      }
     }
 
     // get EMAIL
@@ -98,8 +140,15 @@ ModelCreator::ModelCreator(const XMLNode creator):
     // get ORG
     if (ORGpos >= 0)
     {
-      setOrganization(creator.getChild((unsigned int)ORGpos).getChild("Orgname")
-                             .getChild(0).getCharacters());
+      if (vcard3)
+      {
+        setOrganization(creator.getChild((unsigned int)ORGpos).getChild("Orgname")
+                               .getChild(0).getCharacters());
+      }
+      else
+      {
+        setOrganization(creator.getChild((unsigned int)ORGpos).getChild(0).getCharacters());
+      }
     }
     // loop thru and save any other elements
     numChildren = static_cast<int>(creator.getNumChildren());
@@ -144,6 +193,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
       this->mAdditionalRDF = NULL;
 
     mHasBeenModified = orig.mHasBeenModified;
+    mUsingFNVcard4 = orig.mUsingFNVcard4;
 
   }
 }
@@ -168,6 +218,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
       this->mAdditionalRDF = NULL;
 
     mHasBeenModified = rhs.mHasBeenModified;
+    mUsingFNVcard4 = rhs.mUsingFNVcard4;
   }
 
   return *this;
@@ -215,6 +266,16 @@ bool
 ModelCreator::isSetOrganisation()
 {
   return isSetOrganization();
+}
+
+
+bool 
+ModelCreator::isSetName()
+{
+  if (mUsingFNVcard4)
+    return (mFamilyName.empty() == false);
+  else
+    return false;
 }
 
 
@@ -275,6 +336,21 @@ int
 ModelCreator::setOrganisation(const std::string& organization)
 {
   return setOrganization(organization);
+}
+
+
+/*
+ * sets the family name
+ */
+int 
+ModelCreator::setName(const std::string& name)
+{
+  {
+    mFamilyName = name;
+    mHasBeenModified = true;
+    mUsingFNVcard4 = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -352,6 +428,24 @@ ModelCreator::unsetOrganisation()
   return unsetOrganization();
 }
 
+int 
+ModelCreator::unsetName()
+{
+  mFamilyName.erase();
+
+  if (mFamilyName.empty()) 
+  {
+    mHasBeenModified = true;
+    mUsingFNVcard4 = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
 /** @cond doxygenLibsbmlInternal */
 XMLNode *
 ModelCreator::getAdditionalRDF()
@@ -360,19 +454,30 @@ ModelCreator::getAdditionalRDF()
 }
 /** @endcond */
 
+
 bool
 ModelCreator::hasRequiredAttributes()
 {
   bool valid = true;
-
-  if (!isSetFamilyName())
+   
+  if (mUsingFNVcard4)
   {
-    valid = false;
+    if (!isSetName())
+    {
+      valid = false;
+    }
   }
-
-  if (!isSetGivenName())
+  else
   {
-    valid = false;
+    if (!isSetFamilyName())
+    {
+      valid = false;
+    }
+
+    if (!isSetGivenName())
+    {
+      valid = false;
+    }
   }
 
   return valid;
@@ -480,6 +585,15 @@ ModelCreator_getOrganization(ModelCreator_t *mc)
 
 
 LIBSBML_EXTERN
+const char * 
+ModelCreator_getName(ModelCreator_t *mc)
+{
+  if (mc == NULL) return NULL;
+  return mc->getName().c_str();
+}
+
+
+LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc)
 {
@@ -520,6 +634,15 @@ int
 ModelCreator_isSetOrganization(ModelCreator_t *mc)
 {
   return ModelCreator_isSetOrganisation(mc);
+}
+
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetName(ModelCreator_t *mc)
+{
+  if (mc == NULL) return (int)false;
+  return static_cast<int>(mc->isSetName());
 }
 
 
@@ -569,6 +692,15 @@ ModelCreator_setOrganization(ModelCreator_t *mc, const char * org)
 
 LIBSBML_EXTERN
 int 
+ModelCreator_setName(ModelCreator_t *mc, const char * name)
+{
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
+  return mc->setName(name);
+}
+
+
+LIBSBML_EXTERN
+int 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 {
   if (mc == NULL) return LIBSBML_INVALID_OBJECT;
@@ -608,6 +740,15 @@ int
 ModelCreator_unsetOrganization(ModelCreator_t *mc)
 {
   return ModelCreator_unsetOrganisation(mc);
+}
+
+
+LIBSBML_EXTERN
+int 
+ModelCreator_unsetName(ModelCreator_t *mc)
+{
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
+  return mc->unsetName();
 }
 
 

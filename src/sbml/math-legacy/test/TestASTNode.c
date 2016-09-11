@@ -3750,6 +3750,88 @@ START_TEST (test_ASTNode_setType_35)
 END_TEST
 
 
+START_TEST (test_ASTNode_setType_36)
+{
+  Model_t * m = Model_create(3, 2);
+
+  ASTNode_t  *node = ASTNode_createWithType(AST_DIVIDE);
+  ASTNode_setId(node, "s");
+  ASTNode_setParentSBMLObject(node, (SBase_t*)(m));
+  
+  ASTNode_t * c1 = ASTNode_createWithType(AST_NAME);
+  ASTNode_setId(c1, "c1");
+  ASTNode_setName(c1, "child");
+  ASTNode_addChild(node, c1);
+
+  ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
+  ASTNode_setReal(c2, 3.2);
+  ASTNode_addChild(node, c2);
+
+  fail_unless( ASTNode_getType(node) == AST_DIVIDE );
+  fail_unless( ASTNode_getNumChildren(node) == 2);
+  char* id = ASTNode_getId(node);
+  fail_unless( strcmp(id, "s") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
+  safe_free(id);
+
+  ASTNode_t *child = ASTNode_getChild(node, 0);
+
+  fail_unless( ASTNode_getType(child) == AST_NAME );
+  fail_unless( ASTNode_getNumChildren(child) == 0);
+  id = ASTNode_getId(child);
+  fail_unless( strcmp(id, "c1") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(child) == NULL);
+  fail_unless( strcmp(ASTNode_getName(child), "child") == 0);
+  safe_free(id);
+
+  child = ASTNode_getChild(node, 1);
+
+  fail_unless( ASTNode_getType(child) == AST_REAL );
+  fail_unless( ASTNode_getNumChildren(child) == 0);
+  id = ASTNode_getId(child);
+  fail_unless( strcmp(id, "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
+  fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
+  safe_free(id);
+
+  ASTNode_setType(node, AST_FUNCTION_MAX);
+
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION_MAX );
+  fail_unless( ASTNode_getNumChildren(node) == 2);
+  id = ASTNode_getId(node);
+  fail_unless( strcmp(id, "s") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
+  safe_free(id);
+
+  child = ASTNode_getChild(node, 0);
+
+  fail_unless( ASTNode_getType(child) == AST_NAME );
+  fail_unless( ASTNode_getNumChildren(child) == 0);
+  id = ASTNode_getId(child);
+  fail_unless( strcmp(id, "c1") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(child) == NULL);
+  fail_unless( strcmp(ASTNode_getName(child), "child") == 0);
+  safe_free(id);
+
+  child = ASTNode_getChild(node, 1);
+
+  fail_unless( ASTNode_getType(child) == AST_REAL );
+  fail_unless( ASTNode_getNumChildren(child) == 0);
+  id = ASTNode_getId(child);
+  fail_unless( strcmp(id, "") == 0);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
+  fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
+  safe_free(id);
+
+
+
+  ASTNode_free(node);
+  Model_free(m);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_no_children)
 {
   ASTNode_t *node = ASTNode_create();
@@ -5277,6 +5359,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_setType_33                 );
   tcase_add_test( tcase, test_ASTNode_setType_34                 );
   tcase_add_test( tcase, test_ASTNode_setType_35                 );
+  tcase_add_test( tcase, test_ASTNode_setType_36                 );
   tcase_add_test( tcase, test_ASTNode_no_children             );
   tcase_add_test( tcase, test_ASTNode_one_child               );
   tcase_add_test( tcase, test_ASTNode_children                );

@@ -50,9 +50,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Utility function that replaces all occurences of 'from' to 'to' 
  * in the given string. 
  * 
- * @param str, the string to be modified
- * @param from, the substring to be replaced
- * @param to, the target substring to be used instead of 'from'
+ * @param str, the string to be modified.
+ * @param from, the substring to be replaced.
+ * @param to, the target substring to be used instead of 'from'.
  *
  * @return a reference to the string, so that the replace calls can be chained
  */
@@ -240,7 +240,7 @@ util_NegZero (void);
 /**
  * Function for testing whether a given value represents negative infinity.
  *
- * @param d the floating-point value to test
+ * @param d the floating-point value to test.
  * 
  * @return @c -1 (for false) if @p d represents negative infinity, @c 1 if
  * @p d represents positive infinity, and @c 0 otherwise.
@@ -267,7 +267,7 @@ util_isFinite (double d);
 /**
  * Function for testing whether a given value represents negative zero.
  *
- * @param d the floating-point value to test
+ * @param d the floating-point value to test.
  * 
  * @return nonzero (for true) if @p d is an IEEE-754 negative zero, zero
  * (for false) otherwise.

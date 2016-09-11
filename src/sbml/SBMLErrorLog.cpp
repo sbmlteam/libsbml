@@ -362,7 +362,7 @@ SBMLErrorLog::getError (unsigned int n) const
  * Returns the nth SBMLError with severity in this log.
  *
  * @param n unsigned int number of the error to retrieve.
- * @param severity the severity sought
+ * @param severity the severity sought.
  *
  * @return the nth SBMLError in this log.
  */

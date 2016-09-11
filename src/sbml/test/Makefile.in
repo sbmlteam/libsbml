@@ -83,13 +83,13 @@ test_sources =                   \
   TestKineticLaw_newSetters.c    \
   TestL3Compartment.c            \
   TestL3Event.c                  \
-  TestL3KineticLaw.c                 \
-  TestL3LocalParameter.c                \
-  TestL3Model.c                    \
-  TestL3Parameter.c                \
-  TestL3Reaction.c                 \
-  TestL3Species.c                  \
-  TestL3SpeciesReference.c         \
+  TestL3KineticLaw.c             \
+  TestL3LocalParameter.c         \
+  TestL3Model.c                  \
+  TestL3Parameter.c              \
+  TestL3Reaction.c               \
+  TestL3Species.c                \
+  TestL3SpeciesReference.c       \
   TestL3Trigger.c                \
   TestL3Unit.c                   \
   TestLevelCompatibility.cpp     \
@@ -100,7 +100,7 @@ test_sources =                   \
   TestParameter.c                \
   TestParameterRule.c            \
   TestParameter_newSetters.c     \
-  TestPriority.c                \
+  TestPriority.c                 \
   TestRateRule.c                 \
   TestReaction.c                 \
   TestReaction_newSetters.c      \
@@ -114,23 +114,32 @@ test_sources =                   \
   TestReadFromFile8.cpp          \
   TestReadFromFile9.cpp          \
   TestReadFromFileL2V5.cpp       \
+  TestReadFromFileL3V2.cpp       \
+  TestReadFromFileL3V2_1.cpp     \
+  TestReadFromFileL3V2_2.cpp     \
+  TestReadFromFileL3V2_3.cpp     \
+  TestReadFromFileL3V2_4.cpp     \
+  TestReadFromFileL3V2_5.cpp     \
+  TestReadFromFileL3V2_5.cpp     \
+  TestSBMLConvertFromL3V2.cpp    \
   TestReadSBML.cpp               \
   TestRemoveFromParent.cpp       \
   TestRenameIDs.cpp              \
-  TestRequiredAttributes.cpp               \
-  TestRequiredElements.cpp               \
+  TestRequiredAttributes.cpp     \
+  TestRequiredElements.cpp       \
   TestRule.c                     \
   TestRule_newSetters.c          \
   TestRunner.c                   \
   TestSBMLConstructorException.cpp  \
   TestSBMLConvert.c              \
-  TestSBMLConvertStrict.c        \
+  TestSBMLConvertStrict.cpp      \
   TestSBMLDocument.c             \
   TestSBMLError.cpp              \
   TestSBMLNamespaces.cpp         \
   TestSBMLParentObject.cpp       \
-  TestSBMLTransforms.cpp      \
+  TestSBMLTransforms.cpp         \
   TestSBase.cpp                  \
+  TestSBaseIdName.cpp            \
   TestSBase_newSetters.cpp       \
   TestSpecies.c                  \
   TestSpeciesConcentrationRule.c \
@@ -148,6 +157,7 @@ test_sources =                   \
   TestUnitKind.c                 \
   TestUnit_newSetters.c          \
   TestWriteL3SBML.cpp            \
+  TestWriteL3V2SBML.cpp          \
   TestSBMLValidators.cpp         \
   TestWriteSBML.cpp              
 
