@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 SampledField::SampledField (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDataType (DATAKIND_UNKNOWN)
   , mNumSamples1 (SBML_INT_MAX)
   , mIsSetNumSamples1 (false)
@@ -77,7 +77,7 @@ SampledField::SampledField (unsigned int level, unsigned int version, unsigned i
  */
 SampledField::SampledField (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDataType (DATAKIND_UNKNOWN)
   , mNumSamples1 (SBML_INT_MAX)
   , mIsSetNumSamples1 (false)
@@ -109,7 +109,7 @@ SampledField::SampledField (SpatialPkgNamespaces* spatialns)
  */
 SampledField::SampledField (const SampledField& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDataType  ( orig.mDataType)
   , mNumSamples1  ( orig.mNumSamples1)
   , mIsSetNumSamples1  ( orig.mIsSetNumSamples1)

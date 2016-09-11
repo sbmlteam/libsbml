@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 SpatialPoints::SpatialPoints (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mCompression (COMPRESSIONKIND_UNKNOWN)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
@@ -65,7 +65,7 @@ SpatialPoints::SpatialPoints (unsigned int level, unsigned int version, unsigned
  */
 SpatialPoints::SpatialPoints (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mCompression (COMPRESSIONKIND_UNKNOWN)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
@@ -85,7 +85,7 @@ SpatialPoints::SpatialPoints (SpatialPkgNamespaces* spatialns)
  */
 SpatialPoints::SpatialPoints (const SpatialPoints& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mCompression  ( orig.mCompression)
   , mArrayData  ( NULL)
   , mArrayDataLength  ( orig.mArrayDataLength)

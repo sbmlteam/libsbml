@@ -62,7 +62,7 @@ class LIBSBML_EXTERN CSGObject : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   std::string   mDomainType;
   int           mOrdinal;
   bool          mIsSetOrdinal;

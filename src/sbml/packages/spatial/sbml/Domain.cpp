@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Domain::Domain (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (level, version, pkgVersion)
 {
@@ -65,7 +65,7 @@ Domain::Domain (unsigned int level, unsigned int version, unsigned int pkgVersio
  */
 Domain::Domain (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (spatialns)
 {
@@ -85,7 +85,7 @@ Domain::Domain (SpatialPkgNamespaces* spatialns)
  */
 Domain::Domain (const Domain& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDomainType  ( orig.mDomainType)
   , mInteriorPoints  ( orig.mInteriorPoints)
 {

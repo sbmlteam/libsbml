@@ -61,7 +61,7 @@ class LIBSBML_EXTERN CompartmentMapping : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   std::string   mDomainType;
   double        mUnitSize;
   bool          mIsSetUnitSize;

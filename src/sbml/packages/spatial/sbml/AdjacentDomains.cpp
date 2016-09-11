@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 AdjacentDomains::AdjacentDomains (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDomain1 ("")
   , mDomain2 ("")
 {
@@ -62,7 +62,7 @@ AdjacentDomains::AdjacentDomains (unsigned int level, unsigned int version, unsi
  */
 AdjacentDomains::AdjacentDomains (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDomain1 ("")
   , mDomain2 ("")
 {
@@ -79,7 +79,7 @@ AdjacentDomains::AdjacentDomains (SpatialPkgNamespaces* spatialns)
  */
 AdjacentDomains::AdjacentDomains (const AdjacentDomains& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDomain1  ( orig.mDomain1)
   , mDomain2  ( orig.mDomain2)
 {

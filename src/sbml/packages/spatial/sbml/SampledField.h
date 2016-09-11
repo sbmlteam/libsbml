@@ -61,7 +61,7 @@ class LIBSBML_EXTERN SampledField : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   DataKind_t   mDataType;
   int           mNumSamples1;
   bool          mIsSetNumSamples1;

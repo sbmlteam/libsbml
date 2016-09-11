@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CoordinateComponent::CoordinateComponent (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mType (COORDINATEKIND_UNKNOWN)
   , mUnit ("")
   , mBoundaryMin (NULL)
@@ -67,7 +67,7 @@ CoordinateComponent::CoordinateComponent (unsigned int level, unsigned int versi
  */
 CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mType (COORDINATEKIND_UNKNOWN)
   , mUnit ("")
   , mBoundaryMin (NULL)
@@ -89,7 +89,7 @@ CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
  */
 CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mType  ( orig.mType)
   , mUnit  ( orig.mUnit)
   , mBoundaryMin ( NULL)

@@ -55,7 +55,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mIsActive (false)
   , mIsSetIsActive (false)
 {
@@ -69,7 +69,7 @@ GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version
  */
 GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mIsActive (false)
   , mIsSetIsActive (false)
 {
@@ -86,7 +86,7 @@ GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
  */
 GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mIsActive  ( orig.mIsActive)
   , mIsSetIsActive  ( orig.mIsSetIsActive)
 {

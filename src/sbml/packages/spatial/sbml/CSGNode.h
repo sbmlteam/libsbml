@@ -69,7 +69,7 @@ class LIBSBML_EXTERN CSGNode : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
 
 
 public:

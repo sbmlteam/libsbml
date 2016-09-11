@@ -62,7 +62,7 @@ class LIBSBML_EXTERN Domain : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   std::string   mDomainType;
   ListOfInteriorPoints   mInteriorPoints;
 

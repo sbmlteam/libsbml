@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CSGObject::CSGObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -76,7 +76,7 @@ CSGObject::CSGObject (unsigned int level, unsigned int version, unsigned int pkg
  */
 CSGObject::CSGObject (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -98,7 +98,7 @@ CSGObject::CSGObject (SpatialPkgNamespaces* spatialns)
  */
 CSGObject::CSGObject (const CSGObject& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDomainType  ( orig.mDomainType)
   , mOrdinal  ( orig.mOrdinal)
   , mIsSetOrdinal  ( orig.mIsSetOrdinal)

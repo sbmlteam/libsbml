@@ -55,7 +55,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Geometry::Geometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
   , mCoordinateComponents (level, version, pkgVersion)
   , mDomainTypes (level, version, pkgVersion)
@@ -77,7 +77,7 @@ Geometry::Geometry (unsigned int level, unsigned int version, unsigned int pkgVe
  */
 Geometry::Geometry (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
   , mCoordinateComponents (spatialns)
   , mDomainTypes (spatialns)
@@ -102,7 +102,7 @@ Geometry::Geometry (SpatialPkgNamespaces* spatialns)
  */
 Geometry::Geometry (const Geometry& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mCoordinateSystem  ( orig.mCoordinateSystem)
   , mCoordinateComponents  ( orig.mCoordinateComponents)
   , mDomainTypes  ( orig.mDomainTypes)

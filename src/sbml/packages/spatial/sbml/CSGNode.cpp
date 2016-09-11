@@ -57,7 +57,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CSGNode::CSGNode (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -69,7 +69,7 @@ CSGNode::CSGNode (unsigned int level, unsigned int version, unsigned int pkgVers
  */
 CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -84,7 +84,7 @@ CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
  */
 CSGNode::CSGNode (const CSGNode& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
 {
 }
 

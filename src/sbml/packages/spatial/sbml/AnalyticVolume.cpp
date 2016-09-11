@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 AnalyticVolume::AnalyticVolume (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mFunctionType (FUNCTIONKIND_UNKNOWN)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -69,7 +69,7 @@ AnalyticVolume::AnalyticVolume (unsigned int level, unsigned int version, unsign
  */
 AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mFunctionType (FUNCTIONKIND_UNKNOWN)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
@@ -89,7 +89,7 @@ AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
  */
 AnalyticVolume::AnalyticVolume (const AnalyticVolume& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mFunctionType  ( orig.mFunctionType)
   , mOrdinal  ( orig.mOrdinal)
   , mIsSetOrdinal  ( orig.mIsSetOrdinal)

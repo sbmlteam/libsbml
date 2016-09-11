@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mUnitSize (numeric_limits<double>::quiet_NaN())
   , mIsSetUnitSize (false)
@@ -63,7 +63,7 @@ CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version
  */
 CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mUnitSize (numeric_limits<double>::quiet_NaN())
   , mIsSetUnitSize (false)
@@ -81,7 +81,7 @@ CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
  */
 CompartmentMapping::CompartmentMapping (const CompartmentMapping& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDomainType  ( orig.mDomainType)
   , mUnitSize  ( orig.mUnitSize)
   , mIsSetUnitSize  ( orig.mIsSetUnitSize)

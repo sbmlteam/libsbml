@@ -63,7 +63,7 @@ class LIBSBML_EXTERN CoordinateComponent : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   CoordinateKind_t   mType;
   std::string   mUnit;
   Boundary*      mBoundaryMin;

@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 ParametricObject::ParametricObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mPolygonType (POLYGONKIND_UNKNOWN)
   , mDomainType ("")
   , mPointIndex (NULL)
@@ -70,7 +70,7 @@ ParametricObject::ParametricObject (unsigned int level, unsigned int version, un
  */
 ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mPolygonType (POLYGONKIND_UNKNOWN)
   , mDomainType ("")
   , mPointIndex (NULL)
@@ -95,7 +95,7 @@ ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
  */
 ParametricObject::ParametricObject (const ParametricObject& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mPolygonType  ( orig.mPolygonType)
   , mDomainType  ( orig.mDomainType)
   , mPointIndex  ( NULL)

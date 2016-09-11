@@ -61,7 +61,7 @@ class LIBSBML_EXTERN SampledVolume : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   std::string   mDomainType;
   double        mSampledValue;
   bool          mIsSetSampledValue;

@@ -67,7 +67,7 @@ class LIBSBML_EXTERN GeometryDefinition : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   bool          mIsActive;
   bool          mIsSetIsActive;
 

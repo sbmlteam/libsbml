@@ -61,7 +61,7 @@ class LIBSBML_EXTERN AdjacentDomains : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   std::string   mDomain1;
   std::string   mDomain2;
 

@@ -61,7 +61,7 @@ class LIBSBML_EXTERN AnalyticVolume : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   FunctionKind_t   mFunctionType;
   int           mOrdinal;
   bool          mIsSetOrdinal;

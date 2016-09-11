@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 SampledVolume::SampledVolume (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mSampledValue (numeric_limits<double>::quiet_NaN())
   , mIsSetSampledValue (false)
@@ -67,7 +67,7 @@ SampledVolume::SampledVolume (unsigned int level, unsigned int version, unsigned
  */
 SampledVolume::SampledVolume (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mDomainType ("")
   , mSampledValue (numeric_limits<double>::quiet_NaN())
   , mIsSetSampledValue (false)
@@ -89,7 +89,7 @@ SampledVolume::SampledVolume (SpatialPkgNamespaces* spatialns)
  */
 SampledVolume::SampledVolume (const SampledVolume& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mDomainType  ( orig.mDomainType)
   , mSampledValue  ( orig.mSampledValue)
   , mIsSetSampledValue  ( orig.mIsSetSampledValue)

@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 DomainType::DomainType (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mSpatialDimensions (SBML_INT_MAX)
   , mIsSetSpatialDimensions (false)
 {
@@ -62,7 +62,7 @@ DomainType::DomainType (unsigned int level, unsigned int version, unsigned int p
  */
 DomainType::DomainType (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mSpatialDimensions (SBML_INT_MAX)
   , mIsSetSpatialDimensions (false)
 {
@@ -79,7 +79,7 @@ DomainType::DomainType (SpatialPkgNamespaces* spatialns)
  */
 DomainType::DomainType (const DomainType& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mSpatialDimensions  ( orig.mSpatialDimensions)
   , mIsSetSpatialDimensions  ( orig.mIsSetSpatialDimensions)
 {

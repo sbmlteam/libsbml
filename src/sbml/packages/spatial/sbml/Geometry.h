@@ -67,7 +67,7 @@ class LIBSBML_EXTERN Geometry : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   GeometryKind_t   mCoordinateSystem;
   ListOfCoordinateComponents   mCoordinateComponents;
   ListOfDomainTypes   mDomainTypes;

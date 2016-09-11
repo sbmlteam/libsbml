@@ -61,7 +61,7 @@ class LIBSBML_EXTERN SpatialPoints : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   CompressionKind_t   mCompression;
   double*         mArrayData;
   int           mArrayDataLength;

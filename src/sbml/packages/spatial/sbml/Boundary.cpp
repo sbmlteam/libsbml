@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Boundary::Boundary (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
+////  , mId ("")
   , mValue (numeric_limits<double>::quiet_NaN())
   , mIsSetValue (false)
   , mElementName("boundary")
@@ -63,7 +63,7 @@ Boundary::Boundary (unsigned int level, unsigned int version, unsigned int pkgVe
  */
 Boundary::Boundary (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
+////  , mId ("")
   , mValue (numeric_limits<double>::quiet_NaN())
   , mIsSetValue (false)
   , mElementName("boundary")
@@ -81,7 +81,7 @@ Boundary::Boundary (SpatialPkgNamespaces* spatialns)
  */
 Boundary::Boundary (const Boundary& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
+//  , mId  ( orig.mId)
   , mValue  ( orig.mValue)
   , mIsSetValue  ( orig.mIsSetValue)
   , mElementName ( orig.mElementName)

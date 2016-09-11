@@ -61,7 +61,7 @@ class LIBSBML_EXTERN ParametricObject : public SBase
 
 protected:
 
-  std::string   mId;
+////  std::string   mId;
   PolygonKind_t   mPolygonType;
   std::string   mDomainType;
   int*         mPointIndex;
