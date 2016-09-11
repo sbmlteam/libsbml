@@ -60,8 +60,8 @@ class LIBSBML_EXTERN Dimension : public SBase
 
 protected:
 
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   std::string   mSize;
   unsigned int  mArrayDimension;
   bool          mIsSetArrayDimension;
