@@ -60,8 +60,8 @@ class LIBSBML_EXTERN ChangedMath : public SBase
 
 protected:
 
-  std::string   mId;
-  std::string   mName;
+////  std::string   mId;
+////  std::string   mName;
   std::string   mChangedBy;
   bool          mViableWithoutChange;
   bool          mIsSetViableWithoutChange;
