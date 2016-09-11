@@ -69,15 +69,26 @@ public:
    * version. The ids of the associated GraphicalObject and
    * the originOfText are set to the empty string. The actual text is set
    * to the empty string as well.
-   */  
-  
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
   TextGlyph (unsigned int level      = LayoutExtension::getDefaultLevel(),
              unsigned int version    = LayoutExtension::getDefaultVersion(),
              unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
 
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   TextGlyph(LayoutPkgNamespaces* layoutns);
 
@@ -87,8 +98,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
@@ -98,8 +108,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, const std::string& text);
         
 
@@ -113,18 +122,22 @@ public:
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    TextGlyph(const TextGlyph& source);
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   virtual TextGlyph& operator=(const TextGlyph& source);
 
   /**
    * Destructor.
-   */ 
-  
+   */
   virtual ~TextGlyph ();
         
 
@@ -136,69 +149,59 @@ public:
 
   /**
    * Returns the text to be displayed by the text glyph.
-   */ 
-  
+   */
   const std::string& getText () const;
         
   /**
    * Sets the text to be displayed by the text glyph.
-   */ 
-  
+   */
   void setText (const std::string& text); 
         
   /**
    * Returns the id of the associated graphical object.
-   */ 
-  
+   */
   const std::string& getGraphicalObjectId () const;
         
   /**
    * Sets the id of the associated graphical object.
-   */ 
-  
+   */
   int setGraphicalObjectId (const std::string& id);
         
   /**
    * Returns the id of the origin of text.
-   */ 
-  
+   */
   const std::string& getOriginOfTextId () const;
         
   /**
    * Sets the id of the origin of text.
-   */ 
-  
+   */
   int setOriginOfTextId (const std::string& orig); 
         
   /**
-   * Returns true if the text is not the empty string.
-   */ 
-  
+   * Returns @c true if the text is not the empty string.
+   */
   bool isSetText () const;
         
   /**
-   * Returns true if the id of the origin of text is not the empty string.
-   */ 
-  
+   * Returns @c true if the id of the origin of text is not the empty string.
+   */
   bool isSetOriginOfTextId () const;
         
   /**
-   * Returns true if the id of the associated graphical object is not the
+   * Returns @c true if the id of the associated graphical object is not the
    * empty string.
-   */ 
-  
+   */
   bool isSetGraphicalObjectId () const;
         
   /**
    * Calls initDefaults from GraphicalObject.
-   */ 
-  
+   */
   void initDefaults ();
 
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -214,7 +217,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -233,7 +236,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_TEXTGLYPH, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_TEXTGLYPH, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -276,7 +279,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -286,7 +289,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -321,7 +324,7 @@ TextGlyph_create (void);
 /**
  * Creates a new TextGlyph_t from a template.
  *
- * @param temp The TextGlyph_t structure to copy.
+ * @param temp the TextGlyph_t structure to copy.
  *
  * @memberof TextGlyph_t
  */
@@ -332,7 +335,7 @@ TextGlyph_createFrom (const TextGlyph_t *temp);
 /**
  * Creates a new TextGlyph_t with the given @p id
  *
- * @param sid The intended ID of the TextGlyph_t
+ * @param sid the intended ID of the TextGlyph_t.
  *
  * @memberof TextGlyph_t
  */
@@ -343,8 +346,8 @@ TextGlyph_createWith (const char *sid);
 /**
  * Creates a new TextGlyph_t referencing the given text.
  *
- * @param sid The intended ID of the TextGlyph_t
- * @param text The intended text of the TextGlyph_t
+ * @param sid the intended ID of the TextGlyph_t.
+ * @param text the intended text of the TextGlyph_t.
  *
  * @memberof TextGlyph_t
  */
@@ -355,7 +358,7 @@ TextGlyph_createWithText (const char *sid, const char *text);
 /**
  * Frees the memory taken by the given text glyph.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -366,8 +369,8 @@ TextGlyph_free (TextGlyph_t *tg);
 /**
  * Sets the text for the text glyph.
  *
- * @param tg The TextGlyph_t structure.
- * @param text The intended text of the TextGlyph_t
+ * @param tg the TextGlyph_t structure.
+ * @param text the intended text of the TextGlyph_t.
  *
  * @memberof TextGlyph_t
  */
@@ -380,8 +383,8 @@ TextGlyph_setText (TextGlyph_t *tg, const char *text);
  * the id of any valid sbml model object. The name of the object is then
  * taken as the text for the TextGlyph_t.
  *
- * @param tg The TextGlyph_t structure.
- * @param sid The string to use as the ID of the origin of the text.
+ * @param tg the TextGlyph_t structure.
+ * @param sid the string to use as the ID of the origin of the text.
  *
  * @memberof TextGlyph_t
  */
@@ -395,8 +398,8 @@ TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid);
  * to that object and they might for example be moved together in an
  * editor.
  *
- * @param tg The TextGlyph_t structure.
- * @param sid The string to use as the ID of the GraphicalObject_t.
+ * @param tg the TextGlyph_t structure.
+ * @param sid the string to use as the ID of the GraphicalObject_t.
  *
  * @memberof TextGlyph_t
  */
@@ -408,7 +411,7 @@ TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid);
 /**
  * Returns the text associated with this text glyph.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -420,7 +423,7 @@ TextGlyph_getText (const TextGlyph_t *tg);
  * Returns the id of the origin of the text associated with this text
  * glyph.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -431,7 +434,7 @@ TextGlyph_getOriginOfTextId (const TextGlyph_t *tg);
 /**
  * Returns the id of the graphical object associated with this text glyph.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -443,7 +446,7 @@ TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg);
 /**
  * Returns true is the text attribute is not the empty string.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -455,7 +458,7 @@ TextGlyph_isSetText (const TextGlyph_t *tg);
 /**
  * Returns true is the originOfText attribute is not the empty string.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -468,7 +471,7 @@ TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg);
  * Returns true is the id of the associated graphical object is not the
  * empty string.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */
@@ -479,10 +482,10 @@ TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg);
 /**
  * Calls initDefaults from GraphicalObject.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 TextGlyph_initDefaults (TextGlyph_t *tg);
@@ -490,7 +493,7 @@ TextGlyph_initDefaults (TextGlyph_t *tg);
 /**
  * @return a (deep) copy of this TextGlyph_t.
  *
- * @param tg The TextGlyph_t structure.
+ * @param tg the TextGlyph_t structure.
  *
  * @memberof TextGlyph_t
  */

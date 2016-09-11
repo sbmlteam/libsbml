@@ -85,8 +85,8 @@ class LIBSBML_EXTERN Transition : public SBase
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   ListOfInputs   mInputs;
   ListOfOutputs   mOutputs;
   ListOfFunctionTerms   mFunctionTerms;
@@ -98,11 +98,13 @@ public:
   /**
    * Creates a new Transition with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Transition
+   * @param level an unsigned int, the SBML Level to assign to this Transition.
    *
-   * @param version an unsigned int, the SBML Version to assign to this Transition
+   * @param version an unsigned int, the SBML Version to assign to this Transition.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Transition
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Transition.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Transition(unsigned int level      = QualExtension::getDefaultLevel(),
              unsigned int version    = QualExtension::getDefaultVersion(),
@@ -112,7 +114,11 @@ public:
   /**
    * Creates a new Transition with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Transition(QualPkgNamespaces* qualns);
 
@@ -129,7 +135,7 @@ public:
    * Assignment operator for Transition.
    *
    * @param rhs the object whose values are used as the basis
-   * of the assignment
+   * of the assignment.
    */
   Transition& operator=(const Transition& rhs);
 
@@ -152,7 +158,7 @@ public:
    * Returns the first child element found that has the given @p id 
    * in the model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    */
@@ -164,7 +170,7 @@ public:
    * or itself if it has the given @p metaid, or @c NULL if no such object 
    * is found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the metaid of the object to find.
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
@@ -174,15 +180,24 @@ public:
   /**
    * Returns the value of the "id" attribute of this Transition.
    *
-   * @return the value of the "id" attribute of this Transition as a string.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Transition.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Returns the value of the "name" attribute of this Transition.
-   *
-   * @return the value of the "name" attribute of this Transition as a string.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName() const;
 
@@ -191,8 +206,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Transition's "id" attribute has been set.
    *
-   * @return @c true if this Transition's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
@@ -201,8 +215,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Transition's "name" attribute has been set.
    *
-   * @return @c true if this Transition's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
@@ -210,23 +223,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this Transition.
    *
-   * @param id const std::string& value of the "id" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId(const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this Transition.
    *
-   * @param name const std::string& value of the "name" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName(const std::string& name);
 
@@ -234,9 +239,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this Transition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
@@ -244,9 +247,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Transition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -363,9 +364,9 @@ public:
 
 
   /**
-   * Adds a copy the given "Input" to this Transition.
+   * Adds a copy the given Input to this Transition.
    *
-   * @param i the Input object to add
+   * @param i the Input object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -377,16 +378,16 @@ public:
   /**
    * Get the number of Input objects in this Transition.
    *
-   * @return the number of Input objects in this Transition
+   * @return the number of Input objects in this Transition.
    */
   unsigned int getNumInputs() const;
 
 
   /**
-   * Creates a new Input object, adds it to this Transitions
+   * Creates a new Input object, adds it to this Transition's
    * ListOfInputs and returns the Input object created. 
    *
-   * @return a new Input object instance
+   * @return a new Input object instance.
    *
    * @see addInput(const Input* i)
    */
@@ -535,9 +536,9 @@ public:
 
 
   /**
-   * Adds a copy the given "Output" to this Transition.
+   * Adds a copy the given Output to this Transition.
    *
-   * @param o the Output object to add
+   * @param o the Output object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -549,16 +550,16 @@ public:
   /**
    * Get the number of Output objects in this Transition.
    *
-   * @return the number of Output objects in this Transition
+   * @return the number of Output objects in this Transition.
    */
   unsigned int getNumOutputs() const;
 
 
   /**
-   * Creates a new Output object, adds it to this Transitions
+   * Creates a new Output object, adds it to this Transition's
    * ListOfOutputs and returns the Output object created. 
    *
-   * @return a new Output object instance
+   * @return a new Output object instance.
    *
    * @see addOutput(const Output* o)
    */
@@ -671,9 +672,9 @@ public:
 
 
   /**
-   * Adds a copy the given "FunctionTerm" to this Transition.
+   * Adds a copy the given FunctionTerm to this Transition.
    *
-   * @param ft the FunctionTerm object to add
+   * @param ft the FunctionTerm object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -685,16 +686,16 @@ public:
   /**
    * Get the number of FunctionTerm objects in this Transition.
    *
-   * @return the number of FunctionTerm objects in this Transition
+   * @return the number of FunctionTerm objects in this Transition.
    */
   unsigned int getNumFunctionTerms() const;
 
 
   /**
-   * Creates a new FunctionTerm object, adds it to this Transitions
+   * Creates a new FunctionTerm object, adds it to this Transition's
    * ListOfFunctionTerms and returns the FunctionTerm object created. 
    *
-   * @return a new FunctionTerm object instance
+   * @return a new FunctionTerm object instance.
    *
    * @see addFunctionTerm(const FunctionTerm* ft)
    */
@@ -731,10 +732,10 @@ public:
 
 
   /**
-   * Creates a new DefaultTerm object, adds it to this Transitions
+   * Creates a new DefaultTerm object, adds it to this Transition's
    * ListOfFunctionTerms and returns the DefaultTerm object created. 
    *
-   * @return a new DefaultTerm object instance
+   * @return a new DefaultTerm object instance.
    *
    * @see setDefaultTerm(const DefaultTerm* ft)
    */
@@ -742,9 +743,9 @@ public:
 
 
   /**
-   * Sets the given "DefaultTerm" to this Transition.
+   * Sets the given DefaultTerm to this Transition.
    *
-   * @param dt the DefaultTerm object to add
+   * @param dt the DefaultTerm object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -765,14 +766,14 @@ public:
   /**
    * Get the DefaultTerm from the ListOfFunctionTerms.
    *
-   * @return the DefaultTerm in the ListOfFunctionTerms within this Transition, or NULL if no such value is set.
+   * @return the DefaultTerm in the ListOfFunctionTerms within this Transition, or @c NULL if no such value is set.
    */
   DefaultTerm* getDefaultTerm();
 
   /**
    * Get the DefaultTerm from the ListOfFunctionTerms.
    *
-   * @return the DefaultTerm in the ListOfFunctionTerms within this Transition, or NULL if no such value is set.
+   * @return the DefaultTerm in the ListOfFunctionTerms within this Transition, or @c NULL if no such value is set.
    */
   const DefaultTerm* getDefaultTerm() const;
   
@@ -780,7 +781,7 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -799,7 +800,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_QUAL_TRANSITION, SBMLQualTypeCode_t}
+   * @sbmlconstant{SBML_QUAL_TRANSITION, SBMLQualTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -825,7 +826,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -936,11 +937,13 @@ public:
   /**
    * Creates a new ListOfTransitions with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfTransitions
+   * @param level an unsigned int, the SBML Level to assign to this ListOfTransitions.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfTransitions
+   * @param version an unsigned int, the SBML Version to assign to this ListOfTransitions.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfTransitions
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfTransitions.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfTransitions(unsigned int level      = QualExtension::getDefaultLevel(),
                     unsigned int version    = QualExtension::getDefaultVersion(),
@@ -950,7 +953,11 @@ public:
   /**
    * Creates a new ListOfTransitions with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfTransitions(QualPkgNamespaces* qualns);
 
@@ -1114,11 +1121,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Transition_t
+ * Transition_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * Transition_t
+ * Transition_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * Transition_t
+ * Transition_t.
  *
  * @return a pointer to the newly created Transition_t structure.
  *
@@ -1159,7 +1166,7 @@ Transition_clone(Transition_t * t);
 /**
  * Takes an Transition_t structure and returns its identifier.
  *
- * @param t the Transition_t structure whose identifier is sought
+ * @param t the Transition_t structure whose identifier is sought.
  * 
  * @return the identifier of this Transition_t, as a pointer to a string.
  *
@@ -1188,7 +1195,7 @@ Transition_getName(Transition_t * t);
  * Predicate returning @c true or @c false depending on whether the given
  * Transition_t structure's identifier is set.
  *
- * @param t the Transition_t structure to query
+ * @param t the Transition_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * Transition_t structure is set, zero (false) otherwise.
@@ -1204,7 +1211,7 @@ Transition_isSetId(Transition_t * t);
  * Predicate returning @c true or @c false depending on whether the given
  * Transition_t structure's name is set.
  *
- * @param t the Transition_t structure to query
+ * @param t the Transition_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * Transition_t structure is set, zero (false) otherwise.
@@ -1241,7 +1248,7 @@ Transition_setId(Transition_t * t, const char * sid);
 /**
  * Sets the name of the given Transition_t to a copy of @p name.
  *
- * @param t the Transition_t structure to set
+ * @param t the Transition_t structure to set.
  * @param name the name to assign to the given Transition_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1261,7 +1268,7 @@ Transition_setName(Transition_t * t, const char * name);
 /**
  * Unsets the "id" attribute of the given Transition_t structure.
  *
- * @param t the Transition_t structure to unset
+ * @param t the Transition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1277,7 +1284,7 @@ Transition_unsetId(Transition_t * t);
 /**
  * Unsets the "name" attribute of the given Transition_t structure.
  *
- * @param t the Transition_t structure to unset
+ * @param t the Transition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1295,9 +1302,9 @@ Transition_unsetName(Transition_t * t);
  * structure.
  *
  * @param t the Transition_t structure to which the Input_t should be
- * added
+ * added.
  *
- * @param i an Input_t structure to add
+ * @param i an Input_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1319,7 +1326,7 @@ Transition_addInput(Transition_t * t, Input_t * i);
  * Transition_t, and returns the Input_t.
  *
  * @param t the Transition_t structure to which the Input_t should be
- * added
+ * added.
  *
  * @return the newly-created empty Input_t.
  *
@@ -1348,9 +1355,9 @@ Transition_getListOfInputs(Transition_t * t);
 /**
  * Return a specific Input_t structure of the given Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
- * @param n an integer, the index of the Input_t structure to return
+ * @param n an integer, the index of the Input_t structure to return.
  * 
  * @return the nth Input_t of the given Transition_t, or @c NULL if no such Input_t exists.
  *
@@ -1364,7 +1371,7 @@ Transition_getInput(Transition_t * t, unsigned int n);
 /**
  * Return the Input_t indicated by the given @p sid.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Input_t is being sought.
@@ -1383,7 +1390,7 @@ Transition_getInputById(Transition_t * t, const char * sid);
  * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given Transition_t.
  *
@@ -1400,8 +1407,8 @@ Transition_getNumInputs(Transition_t * t);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param n the integer index of the Input_t sought
+ * @param t the Transition_t structure.
+ * @param n the integer index of the Input_t sought.
  *
  * @return the Input_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -1420,8 +1427,8 @@ Transition_removeInput(Transition_t * t, unsigned int n);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param sid the string of the "id" attribute of the Input_t sought
+ * @param t the Transition_t structure.
+ * @param sid the string of the "id" attribute of the Input_t sought.
  *
  * @return the Input_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Input_t
@@ -1439,9 +1446,9 @@ Transition_removeInputById(Transition_t * t, const char * sid);
  * structure.
  *
  * @param t the Transition_t structure to which the Output_t should be
- * added
+ * added.
  *
- * @param o an Output_t structure to add
+ * @param o an Output_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1463,7 +1470,7 @@ Transition_addOutput(Transition_t * t, Output_t * o);
  * Transition_t, and returns the Output_t.
  *
  * @param t the Transition_t structure to which the Output_t should be
- * added
+ * added.
  *
  * @return the newly-created empty Output_t.
  *
@@ -1492,9 +1499,9 @@ Transition_getListOfOutputs(Transition_t * t);
 /**
  * Return a specific Output_t structure of the given Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
- * @param n an integer, the index of the Output_t structure to return
+ * @param n an integer, the index of the Output_t structure to return.
  * 
  * @return the nth Output_t of the given Transition_t, or @c NULL if no such Output_t exists.
  *
@@ -1508,7 +1515,7 @@ Transition_getOutput(Transition_t * t, unsigned int n);
 /**
  * Return the Output_t indicated by the given @p sid.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Output_t is being sought.
@@ -1527,7 +1534,7 @@ Transition_getOutputById(Transition_t * t, const char * sid);
  * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given Transition_t.
  *
@@ -1544,8 +1551,8 @@ Transition_getNumOutputs(Transition_t * t);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param n the integer index of the Output_t sought
+ * @param t the Transition_t structure.
+ * @param n the integer index of the Output_t sought.
  *
  * @return the Output_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -1564,8 +1571,8 @@ Transition_removeOutput(Transition_t * t, unsigned int n);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param sid the string of the "id" attribute of the Output_t sought
+ * @param t the Transition_t structure.
+ * @param sid the string of the "id" attribute of the Output_t sought.
  *
  * @return the Output_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Output_t
@@ -1583,9 +1590,9 @@ Transition_removeOutputById(Transition_t * t, const char * sid);
  * structure.
  *
  * @param t the Transition_t structure to which the FunctionTerm_t should be
- * added
+ * added.
  *
- * @param ft a FunctionTerm_t structure to add
+ * @param ft a FunctionTerm_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1607,7 +1614,7 @@ Transition_addFunctionTerm(Transition_t * t, FunctionTerm_t * ft);
  * Transition_t, and returns the FunctionTerm_t.
  *
  * @param t the Transition_t structure to which the FunctionTerm_t should be
- * added
+ * added.
  *
  * @return the newly-created empty FunctionTerm_t.
  *
@@ -1636,9 +1643,9 @@ Transition_getListOfFunctionTerms(Transition_t * t);
 /**
  * Return a specific FunctionTerm_t structure of the given Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
- * @param n an integer, the index of the FunctionTerm_t structure to return
+ * @param n an integer, the index of the FunctionTerm_t structure to return.
  * 
  * @return the nth FunctionTerm_t of the given Transition_t, or @c NULL if no such FunctionTerm_t exists.
  *
@@ -1652,7 +1659,7 @@ Transition_getFunctionTerm(Transition_t * t, unsigned int n);
 /**
  * Return the FunctionTerm_t indicated by the given @p sid.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
  * FunctionTerm_t is being sought.
@@ -1671,7 +1678,7 @@ Transition_getFunctionTermById(Transition_t * t, const char * sid);
  * Returns the number of EventAssignment_t structures attached to the given
  * Transition_t.
  *
- * @param t the Transition_t structure to use
+ * @param t the Transition_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given Transition_t.
  *
@@ -1688,8 +1695,8 @@ Transition_getNumFunctionTerms(Transition_t * t);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param n the integer index of the FunctionTerm_t sought
+ * @param t the Transition_t structure.
+ * @param n the integer index of the FunctionTerm_t sought.
  *
  * @return the FunctionTerm_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -1708,8 +1715,8 @@ Transition_removeFunctionTerm(Transition_t * t, unsigned int n);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param t the Transition_t structure
- * @param sid the string of the "id" attribute of the FunctionTerm_t sought
+ * @param t the Transition_t structure.
+ * @param sid the string of the "id" attribute of the FunctionTerm_t sought.
  *
  * @return the FunctionTerm_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no FunctionTerm_t
@@ -1754,7 +1761,7 @@ Transition_hasRequiredElements(Transition_t * t);
 /**
  * Return the Transition_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Transition_t is being sought.
@@ -1775,8 +1782,8 @@ ListOfTransitions_getById(ListOf_t * lo, const char * sid);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the Transition_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the Transition_t sought.
  *
  * @return the Transition_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Transition_t

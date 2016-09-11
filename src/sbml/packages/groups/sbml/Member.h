@@ -98,7 +98,7 @@
  * <code>SId</code> namespace of the Model to which the Group belongs.
  * Conversely, elements with "id" values that are not part of the SId
  * namespace may @em not be referenced by this "idRef" attribute.  In SBML
- * Level&nbsp;3 Version&nbsp;1, this includes the Unit and LocalParameter
+ * Level&nbsp;3, this includes the Unit and LocalParameter
  * objects.
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -119,7 +119,7 @@
  * identifier value, including most elements from other SBML packages.
  *
  * Note that even if used in conjunction with the SBML Level&nbsp;3
- * Hierarchical Model Composition package, this attribute is not allowed to
+ * Hierarchical %Model Composition package, this attribute is not allowed to
  * reference elements that reside within other Model objects in the same SBML
  * Document.  Referenced elements must be normal members of the parent Model
  * containing the Member object, and submodel elements may be normally
@@ -155,8 +155,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
-  std::string mName;
+//  std::string mId;
+//  std::string mName;
   std::string mIdRef;
   std::string mMetaIdRef;
 
@@ -175,11 +175,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
    * this Member.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Member(unsigned int level = GroupsExtension::getDefaultLevel(),
          unsigned int version = GroupsExtension::getDefaultVersion(),
@@ -190,13 +186,11 @@ public:
   /**
    * Creates a new Member using the given GroupsPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param groupsns the GroupsPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Member(GroupsPkgNamespaces *groupsns);
 
@@ -426,8 +420,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_GROUPS_MEMBER, SBMLGroupsTypeCode_t}
+   * @sbmlconstant{SBML_GROUPS_MEMBER, SBMLGroupsTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -580,11 +573,7 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Groups Version to assign to this
  * Member_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
  *
  * @memberof Member_t
  */

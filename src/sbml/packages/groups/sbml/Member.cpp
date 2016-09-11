@@ -56,8 +56,8 @@ Member::Member(unsigned int level,
                unsigned int version,
                unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mIdRef ("")
   , mMetaIdRef ("")
 {
@@ -70,8 +70,8 @@ Member::Member(unsigned int level,
  */
 Member::Member(GroupsPkgNamespaces *groupsns)
   : SBase(groupsns)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mIdRef ("")
   , mMetaIdRef ("")
 {
@@ -85,8 +85,8 @@ Member::Member(GroupsPkgNamespaces *groupsns)
  */
 Member::Member(const Member& orig)
   : SBase( orig )
-  , mId ( orig.mId )
-  , mName ( orig.mName )
+  //, mId ( orig.mId )
+  //, mName ( orig.mName )
   , mIdRef ( orig.mIdRef )
   , mMetaIdRef ( orig.mMetaIdRef )
 {

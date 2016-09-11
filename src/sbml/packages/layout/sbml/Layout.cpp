@@ -55,8 +55,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Layout::Layout (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBase (level,version)
-   ,mId("")
-   ,mName("")
+//   ,mId("")
+//   ,mName("")
    ,mDimensions(level,version,pkgVersion)
    ,mCompartmentGlyphs(level,version,pkgVersion)
    ,mSpeciesGlyphs(level,version,pkgVersion)
@@ -78,8 +78,8 @@ Layout::Layout (unsigned int level, unsigned int version, unsigned int pkgVersio
  */
 Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dimensions* dimensions)
   : SBase (layoutns)
-   ,mId (id)
-   ,mName("")
+//   ,mId (id)
+//   ,mName("")
    ,mDimensions(layoutns)
    ,mCompartmentGlyphs(layoutns)
    ,mSpeciesGlyphs(layoutns)
@@ -88,6 +88,8 @@ Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dime
    ,mAdditionalGraphicalObjects(layoutns)
    ,mDimensionsExplicitlySet (false)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -110,12 +112,12 @@ Layout::Layout (LayoutPkgNamespaces* layoutns, const std::string& id, const Dime
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 Layout::Layout(LayoutPkgNamespaces* layoutns)
  : SBase(layoutns)
-  ,mId("")
-  ,mName("")
+//  ,mId("")
+//  ,mName("")
   ,mDimensions(layoutns)
   ,mCompartmentGlyphs(layoutns)
   ,mSpeciesGlyphs(layoutns)
@@ -145,8 +147,8 @@ Layout::Layout(LayoutPkgNamespaces* layoutns)
  */
 Layout::Layout(const XMLNode& node, unsigned int l2version)
  : SBase(2,l2version)
-  ,mId ("")
-  ,mName("")
+//  ,mId ("")
+//  ,mName("")
   ,mDimensions(2,l2version)
   ,mCompartmentGlyphs(2,l2version)
   ,mSpeciesGlyphs(2,l2version)
@@ -1891,7 +1893,7 @@ Layout::enablePackageInternal(const std::string& pkgURI,
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfLayouts::ListOfLayouts(LayoutPkgNamespaces* layoutns)
  : ListOf(layoutns)
@@ -1907,7 +1909,7 @@ ListOfLayouts::ListOfLayouts(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)
@@ -2078,7 +2080,7 @@ XMLNode ListOfLayouts::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(LayoutPkgNamespaces* layoutns)
  : ListOf(layoutns)
@@ -2091,7 +2093,7 @@ ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)
@@ -2230,7 +2232,7 @@ XMLNode ListOfCompartmentGlyphs::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(LayoutPkgNamespaces* layoutns)
   : ListOf(layoutns)
@@ -2243,7 +2245,7 @@ ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
   : ListOf(level,version)
@@ -2379,7 +2381,7 @@ XMLNode ListOfSpeciesGlyphs::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfReactionGlyphs::ListOfReactionGlyphs(LayoutPkgNamespaces* layoutns)
   : ListOf(layoutns)
@@ -2392,7 +2394,7 @@ ListOfReactionGlyphs::ListOfReactionGlyphs(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfReactionGlyphs::ListOfReactionGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
   : ListOf(level,version)
@@ -2528,7 +2530,7 @@ XMLNode ListOfReactionGlyphs::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfTextGlyphs::ListOfTextGlyphs(LayoutPkgNamespaces* layoutns)
   : ListOf(layoutns)
@@ -2541,7 +2543,7 @@ ListOfTextGlyphs::ListOfTextGlyphs(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfTextGlyphs::ListOfTextGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
   : ListOf(level,version)

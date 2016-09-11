@@ -1106,7 +1106,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   for (unsigned long el=0; el < allElements->getSize(); ++el) 
   {
     SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
-    string id = element->getId();
+    string id = element->getIdAttribute();
     string metaid = element->getMetaId();
     
     // if a custom prefix transformer was specified, use it, other wise
@@ -1119,7 +1119,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
     if (element->getTypeCode() == SBML_LOCAL_PARAMETER) {
       element->setId(id); //Change it back.  This would perhaps be better served by overriding 'prependStringToAllIdentifiers' but hey.
     }
-    string newid = element->getId();
+    string newid = element->getIdAttribute();
     string newmetaid = element->getMetaId();
     if (id != newid) {
       int type = element->getTypeCode();
@@ -1318,6 +1318,7 @@ int CompModelPlugin::performReplacementsAndConversions()
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* toremove)
 {
   while (toremove->size() > 0) {
@@ -1336,6 +1337,7 @@ int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* 
   }
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
   
 /** @cond doxygenLibsbmlInternal */

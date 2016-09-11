@@ -195,7 +195,7 @@ FbcReactionPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -304,7 +304,7 @@ FbcReactionPlugin::readAttributes (const XMLAttributes& attributes,
   }
 
 }
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -320,7 +320,7 @@ FbcReactionPlugin::renameSIdRefs(const std::string& oldid, const std::string& ne
     if (mUpperFluxBound==oldid) mUpperFluxBound=newid;
   }
 }
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -341,7 +341,7 @@ FbcReactionPlugin::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("upperFluxBound", getPrefix(), mUpperFluxBound);
 
 }
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 //---------------------------------------------------------------

@@ -110,7 +110,7 @@ public:
 
 
   /*
-   * Returns true if the ConstraintSet is empty, false otherwise
+   * Returns @c true if the ConstraintSet is empty, @c false otherwise
    */
   bool
   empty() const

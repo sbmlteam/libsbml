@@ -61,7 +61,6 @@ isWellFormedChemicalFormula(const std::string& chemicalFormula)
   }
 
   index++;
-  bool prevCapLetter = true;
   bool prevNum = false;
   while (valid && index < sizeStr)
   {
@@ -289,7 +288,7 @@ FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -346,7 +345,7 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -368,7 +367,7 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 //---------------------------------------------------------------

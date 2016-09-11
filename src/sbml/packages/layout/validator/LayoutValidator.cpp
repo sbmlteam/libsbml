@@ -106,7 +106,7 @@ public:
   }
 
   /*
-   * @return true if this ConstraintSet is empty, false otherwise.
+   * @return @c true if this ConstraintSet is empty, @c false otherwise.
    */
   bool empty () const
   {

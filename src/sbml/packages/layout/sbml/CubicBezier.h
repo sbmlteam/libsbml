@@ -73,15 +73,26 @@ public:
 
   /**
    * Creates a CubicBezier and returns the pointer.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  
   CubicBezier (unsigned int level      = LayoutExtension::getDefaultLevel(), 
                unsigned int version    = LayoutExtension::getDefaultVersion(), 
                unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
 
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   CubicBezier (LayoutPkgNamespaces* layoutns);
 
@@ -92,7 +103,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, double x2, double y2);
 
   /**
@@ -102,7 +112,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, double z1,
                double x2, double y2, double z2);
 
@@ -120,7 +129,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, const Point* end);
 
   /**
@@ -129,7 +137,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, const Point* base1,
                const Point* base2, const Point* end);
 
@@ -144,12 +151,14 @@ public:
 
   /**
    * Destructor.
-   */ 
-  
+   */
   virtual ~CubicBezier ();
 
   /**
    * Assignment operator
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   virtual CubicBezier& operator=(const CubicBezier& orig);
 
@@ -157,60 +166,84 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 
   /**
    * Returns the first base point of the curve (the one closer to the
    * starting point).
-   */ 
-  
+   *
+   * @return the Point child "basePoint1".  Will always return an
+   * actual object: if previously unset, the Point will exist, but
+   * have no set attributes nor children.
+   */
   const Point* getBasePoint1 () const;
 
   /**
    * Returns the first base point of the curve (the one closer to the
    * starting point).
-   */ 
-  
+   *
+   * @return the Point child "basePoint1".  Will always return an
+   * actual object: if previously unset, the Point will exist, but
+   * have no set attributes nor children.
+   */
   Point* getBasePoint1 ();
 
   /**
    * Initializes first base point with a copy of the given point.
+   *
+   * @param p the Point to use as "basePoint1" (creates a copy).
    */
-  
   void setBasePoint1 (const Point* p);
 
   /**
-   * Initializes first base point with the given coordinates.
+   * Initializes first base point with the given coordinates.  It is impossible to create a Point with @em no "z" attribute in this way; if no value is supplied, "0.0" will be used.
+   *
+   * @param x the value to use for the "x" attribute of the basePoint1 Point.
+   * @param y the value to use for the "y" attribute of the basePoint1 Point.
+   * @param z the value to use for the "z" attribute of the basePoint1 Point.
    */
-  
   void setBasePoint1 (double x, double y, double z = 0.0);
 
   /**
    * Returns the second base point of the curve (the one closer to the end
    * point).
-   */ 
-  
+   *
+   * @return the Point child "basePoint2".  Will always return an
+   * actual object: if previously unset, the Point will exist, but
+   * have no set attributes nor children.
+   */
   const Point* getBasePoint2 () const;
 
   /**
    * Returns the second base point of the curve (the one closer to the end
    * point).
-   */ 
-  
+   *
+   * @return the Point child "basePoint2".  Will always return an
+   * actual object: if previously unset, the Point will exist, but
+   * have no set attributes nor children.
+   */
   Point* getBasePoint2 ();
 
   /**
    * Initializes second base point with a copy of the given point.
+   *
+   * @param p the Point to use as "basePoint2" (creates a copy).
    */
-  
   void setBasePoint2 (const Point* p);
 
   /**
-   * Initializes second base point with the given coordinates.
+   * Initializes second base point with the given coordinates.  It is impossible to create a Point with @em no "z" attribute in this way; if no value is supplied, "0.0" will be used.
+   *
+   * @param x the value to use for the "x" attribute of the basePoint2 Point.
+   * @param y the value to use for the "y" attribute of the basePoint2 Point.
+   * @param z the value to use for the "z" attribute of the basePoint2 Point.
    */
-  
   void setBasePoint2 (double x, double y, double z = 0.0);
 
   /** @cond doxygenLibsbmlInternal */
@@ -220,23 +253,22 @@ public:
 
   /** @endcond */
 
-  /**
+ /**
    * Calls initDefaults from LineSegment.
-   */ 
-  
+   */
   void initDefaults ();
 
   /**
-   * Makes a line from a CubicBezier by setting both base points into the
-   * middle between the start and the end point.
+   * Turns the CubicBezier into a line by setting both "basepoint1" and
+   * "basepoint2" children to the midpoint between the "start" and the 
+   * "end" points.
    */
-  
   void straighten ();
 
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -252,7 +284,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -271,7 +303,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_CUBICBEZIER, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_CUBICBEZIER, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -302,7 +334,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -366,7 +398,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -376,7 +408,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -422,18 +454,18 @@ CubicBezier_create ();
 /**
  * Creates a CubicBezier_t with the given points and returns the pointer.
  *
- * @param x1 The value of the x coordinate of the start Point_t.
- * @param y1 The value of the y coordinate of the start Point_t.
- * @param z1 The value of the z coordinate of the start Point_t.
- * @param x2 The value of the x coordinate of the base1 Point_t.
- * @param y2 The value of the y coordinate of the base1 Point_t.
- * @param z2 The value of the z coordinate of the base1 Point_t.
- * @param x3 The value of the x coordinate of the base2 Point_t.
- * @param y3 The value of the y coordinate of the base2 Point_t.
- * @param z3 The value of the z coordinate of the base2 Point_t.
- * @param x4 The value of the x coordinate of the end Point_t.
- * @param y4 The value of the y coordinate of the end Point_t.
- * @param z4 The value of the z coordinate of the end Point_t.
+ * @param x1 the value of the x coordinate of the start Point_t.
+ * @param y1 the value of the y coordinate of the start Point_t.
+ * @param z1 the value of the z coordinate of the start Point_t.
+ * @param x2 the value of the x coordinate of the base1 Point_t.
+ * @param y2 the value of the y coordinate of the base1 Point_t.
+ * @param z2 the value of the z coordinate of the base1 Point_t.
+ * @param x3 the value of the x coordinate of the base2 Point_t.
+ * @param y3 the value of the y coordinate of the base2 Point_t.
+ * @param z3 the value of the z coordinate of the base2 Point_t.
+ * @param x4 the value of the x coordinate of the end Point_t.
+ * @param y4 the value of the y coordinate of the end Point_t.
+ * @param z4 the value of the z coordinate of the end Point_t.
  *
  * @memberof CubicBezier_t
  */
@@ -447,10 +479,10 @@ CubicBezier_createWithCoordinates (double x1, double y1, double z1,
 /**
  * Creates a CubicBezier_t with the given coordinates and returns the pointer.
  *
- * @param start The value of the 'start' Point_t
- * @param base1 The value of the 'base1' Point_t
- * @param base2 The value of the 'base2' Point_t
- * @param end The value of the 'end' Point_t
+ * @param start the value of the 'start' Point_t.
+ * @param base1 the value of the 'base1' Point_t.
+ * @param base2 the value of the 'base2' Point_t.
+ * @param end the value of the 'end' Point_t.
  *
  * @memberof CubicBezier_t
  */
@@ -463,7 +495,7 @@ CubicBezier_createWithPoints (const Point_t *start, const Point_t *base1,
 /**
  * Creates a CubicBezier_t structure from a template.
  *
- * @param temp The CubicBezier_t structure to copy.
+ * @param temp the CubicBezier_t structure to copy.
  *
  * @memberof CubicBezier_t
  */
@@ -475,7 +507,7 @@ CubicBezier_createFrom (const CubicBezier_t *temp);
 /**
  * Frees the memory for the cubic bezier.
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
  */
@@ -486,8 +518,8 @@ CubicBezier_free (CubicBezier_t *cb);
 /**
  * Initializes start point with a copy of the given point.
  *
- * @param cb The CubicBezier_t structure.
- * @param point The Point_t structure to use as the start point.
+ * @param cb the CubicBezier_t structure.
+ * @param point the Point_t structure to use as the start point.
  *
  * @memberof CubicBezier_t
  */
@@ -498,8 +530,8 @@ CubicBezier_setStart (CubicBezier_t *cb, const Point_t *point);
 /**
  * Initializes end point with a copy of the given point.
  *
- * @param cb The CubicBezier_t structure.
- * @param point The Point_t structure to use as the end point.
+ * @param cb the CubicBezier_t structure.
+ * @param point the Point_t structure to use as the end point.
  *
  * @memberof CubicBezier_t
  */
@@ -510,8 +542,8 @@ CubicBezier_setEnd (CubicBezier_t *cb, const Point_t *point);
 /**
  * Initializes the first base point with a copy of the given point.
  *
- * @param cb The CubicBezier_t structure.
- * @param point The Point_t structure to use as the base1 point.
+ * @param cb the CubicBezier_t structure.
+ * @param point the Point_t structure to use as the base1 point.
  *
  * @memberof CubicBezier_t
  */
@@ -522,8 +554,8 @@ CubicBezier_setBasePoint1 (CubicBezier_t *cb, const Point_t *point);
 /**
  * Initializes second base point with a copy of the given point.
  *
- * @param cb The CubicBezier_t structure.
- * @param point The Point_t structure to use as the base2 point.
+ * @param cb the CubicBezier_t structure.
+ * @param point the Point_t structure to use as the base2 point.
  *
  * @memberof CubicBezier_t
  */
@@ -534,10 +566,10 @@ CubicBezier_setBasePoint2 (CubicBezier_t *cb, const Point_t *point);
 /**
  * Returns the starting point of the curve.
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getStart (CubicBezier_t *cb);
@@ -545,10 +577,10 @@ CubicBezier_getStart (CubicBezier_t *cb);
 /**
  * Returns the endpoint of the curve.
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getEnd (CubicBezier_t *cb);
@@ -557,10 +589,10 @@ CubicBezier_getEnd (CubicBezier_t *cb);
  * Returns the first base point of the curve (the one closer to the
  * starting point).
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint1 (CubicBezier_t *cb);
@@ -570,10 +602,10 @@ CubicBezier_getBasePoint1 (CubicBezier_t *cb);
  * Returns the second base point of the curve (the one closer to the end
  * point).
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint2 (CubicBezier_t *cb);
@@ -581,10 +613,10 @@ CubicBezier_getBasePoint2 (CubicBezier_t *cb);
 /**
  * Calls initDefaults from LineSegment.
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 CubicBezier_initDefaults (CubicBezier_t *cb);
@@ -592,7 +624,7 @@ CubicBezier_initDefaults (CubicBezier_t *cb);
 /**
  * @return a (deep) copy of this CubicBezier_t.
  *
- * @param cb The CubicBezier_t structure.
+ * @param cb the CubicBezier_t structure.
  *
  * @memberof CubicBezier_t
  */

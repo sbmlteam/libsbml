@@ -66,9 +66,11 @@ public:
    * Creates a new ModelDefinition with the given level, version, and package
    * version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ModelDefinition(unsigned int level      = CompExtension::getDefaultLevel(),
                   unsigned int version    = CompExtension::getDefaultVersion(),
@@ -78,19 +80,28 @@ public:
   /**
    * Creates a new ModelDefinition with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ModelDefinition(CompPkgNamespaces* compns);
 
 
   /**
    * Copy constructor from base Model object.
+   *
+   * @param source the instance to copy.
    */
   ModelDefinition(const Model& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   ModelDefinition& operator=(const Model& source);
 
@@ -98,14 +109,14 @@ public:
   /**
    * Creates and returns a deep copy of this ModelDefinition object.
    * 
-   * @return a (deep) copy of this ModelDefinition object
+   * @return a (deep) copy of this ModelDefinition object.
    */
   virtual ModelDefinition* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~ModelDefinition ();
 
 
@@ -179,7 +190,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -205,11 +216,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * ModelDefinition_t
+ * ModelDefinition_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * ModelDefinition_t
+ * ModelDefinition_t.
  * @param pkgVersion an unsigned int, the SBML 'comp' package Version to assign to this
- * ModelDefinition_t
+ * ModelDefinition_t.
  *
  * @return a pointer to the newly created ModelDefinition_t structure.
  *

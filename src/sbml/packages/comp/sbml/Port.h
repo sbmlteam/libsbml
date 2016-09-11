@@ -82,8 +82,8 @@ class LIBSBML_EXTERN Port : public SBaseRef
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   /** @endcond */
 
 public:
@@ -91,9 +91,11 @@ public:
   /**
    * Creates a new Port with the given level, version, and package version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Port(unsigned int level      = CompExtension::getDefaultLevel(),
        unsigned int version    = CompExtension::getDefaultVersion(),
@@ -103,19 +105,28 @@ public:
   /**
    * Creates a new Port with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Port(CompPkgNamespaces* compns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
   Port(const Port& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   Port& operator=(const Port& source);
 
@@ -123,21 +134,32 @@ public:
   /**
    * Creates and returns a deep copy of this Port object.
    * 
-   * @return a (deep) copy of this Port object
+   * @return a (deep) copy of this Port object.
    */
   virtual Port* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~Port ();
 
 
   /**
    * Returns the value of the "id" attribute of this Port.
    *
-   * @return the value of the "id" attribute of this Port.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Port.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -146,8 +168,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Port's "id" attribute has been set.
    *
-   * @return @c true if this Port's "id" attribute has been set, 
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
@@ -155,31 +176,23 @@ public:
   /**
    * Sets the value of the "id" attribute of this Port.
    *
-   * This method fails if the @p id is not a valid syntax for an SId.
-   *
-   * @param id the identifier for the port
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this Port.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
 
   /**
-   * Returns the value of the "name" attribute of this Port.
+   * Returns the value of the "name" attribute of this Port object.
    *
-   * @return the value of the "name" attribute of this Port.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -188,8 +201,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Port's "name" attribute has been set.
    *
-   * @return @c true if this Port's "name" attribute has been set, 
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
@@ -197,9 +209,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this Port.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -207,9 +217,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Port.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -218,7 +226,7 @@ public:
    * Overrides SBaseRef::setPortRef to always fail, because Port objects
    * themselves cannot refer to model elements by PortSId.
    *
-   * @param id the identifier to set for the port reference
+   * @param id the identifier to set for the port reference.
    *
    * @return integer value indicating failure of the
    * function.  @if clike The value is drawn from the
@@ -230,7 +238,7 @@ public:
 
 
   /**
-   * Returns true if the 'id' attribute is set, and if exactly one of
+   * Returns @c true if the 'id' attribute is set, and if exactly one of
    * the optional attributes of SBaseRef (portRef, idRef, metaIdRef, 
    * and unitRef)are set.
    *
@@ -254,7 +262,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_COMP_PORT, SBMLCompTypeCode_t}
+   * @sbmlconstant{SBML_COMP_PORT, SBMLCompTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -297,7 +305,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -337,7 +345,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -347,7 +355,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -374,11 +382,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Port_t
+ * Port_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * Port_t
+ * Port_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * Port_t
+ * Port_t.
  *
  * @return a pointer to the newly created Port_t structure.
  *
@@ -419,7 +427,7 @@ Port_clone(Port_t * p);
 /**
  * Takes an Port_t structure and returns its identifier.
  *
- * @param p the Port_t structure whose identifier is sought
+ * @param p the Port_t structure whose identifier is sought.
  * 
  * @return the identifier of the given Port_t, as a pointer to a string.
  *
@@ -448,7 +456,7 @@ Port_getName(Port_t * p);
  * Predicate returning @c true or @c false depending on whether the given
  * Port_t structure's identifier is set.
  *
- * @param p the Port_t structure to query
+ * @param p the Port_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * Port_t structure is set, zero (false) otherwise.
@@ -464,7 +472,7 @@ Port_isSetId(Port_t * p);
  * Predicate returning @c true or @c false depending on whether the given
  * Port_t structure's name is set.
  *
- * @param p the Port_t structure to query
+ * @param p the Port_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * Port_t structure is set, zero (false) otherwise.
@@ -501,7 +509,7 @@ Port_setId(Port_t * p, const char * sid);
 /**
  * Sets the name of the given Port_t to a copy of @p name.
  *
- * @param p the Port_t structure to set
+ * @param p the Port_t structure to set.
  * @param name the name to assign to the given Port_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -521,7 +529,7 @@ Port_setName(Port_t * p, const char * name);
 /**
  * Unsets the "id" attribute of the given Port_t structure.
  *
- * @param p the Port_t structure to unset
+ * @param p the Port_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -537,7 +545,7 @@ Port_unsetId(Port_t * p);
 /**
  * Unsets the "name" attribute of the given Port_t structure.
  *
- * @param p the Port_t structure to unset
+ * @param p the Port_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -568,7 +576,7 @@ Port_hasRequiredAttributes(Port_t * p);
 /**
  * Return the Port_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Port_t is being sought.
@@ -589,8 +597,8 @@ ListOfPorts_getById(ListOf_t * lo, const char * sid);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the Port_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the Port_t sought.
  *
  * @return the Port_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Port_t

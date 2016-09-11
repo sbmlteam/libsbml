@@ -47,7 +47,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 GeneAssociation::GeneAssociation (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBase (level,version)
-   ,mId("")
+//   ,mId("")
    ,mReaction("")
    ,mAssociation(NULL)
 {
@@ -61,7 +61,7 @@ GeneAssociation::GeneAssociation (unsigned int level, unsigned int version, unsi
  */
 GeneAssociation::GeneAssociation(FbcPkgNamespaces* fbcns)
  : SBase(fbcns)
-  ,mId("")
+//  ,mId("")
   ,mReaction("")
   ,mAssociation(NULL)
 {
@@ -80,7 +80,7 @@ GeneAssociation::GeneAssociation(FbcPkgNamespaces* fbcns)
  */
 GeneAssociation::GeneAssociation(const GeneAssociation& source)
   : SBase(source)
-  , mId(source.mId)
+//  , mId(source.mId)
   , mReaction(source.mReaction)
   , mAssociation(NULL)
 {
@@ -97,7 +97,7 @@ GeneAssociation::GeneAssociation(const GeneAssociation& source)
  */
 GeneAssociation::GeneAssociation(const XMLNode& node, FbcPkgNamespaces* fbcns)
 : SBase(fbcns)
-,mId("")
+//,mId("")
 ,mReaction("")
 ,mAssociation(NULL)
 {
@@ -562,7 +562,7 @@ GeneAssociation::accept (SBMLVisitor& v) const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfGeneAssociations::ListOfGeneAssociations(FbcPkgNamespaces* fbcns)
  : ListOf(fbcns)
@@ -575,7 +575,7 @@ ListOfGeneAssociations::ListOfGeneAssociations(FbcPkgNamespaces* fbcns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfGeneAssociations::ListOfGeneAssociations(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)

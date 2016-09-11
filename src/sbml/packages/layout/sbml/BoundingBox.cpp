@@ -144,15 +144,18 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
 BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id)
  : 
   SBase(layoutns)
- ,mId (id)
+// ,mId (id)
  ,mPosition(layoutns)
  ,mDimensions(layoutns)
   ,mPositionExplicitlySet (false)
   ,mDimensionsExplicitlySet (false)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
+
   setElementNamespace(layoutns->getURI());
 
   mPosition.setElementName("position");
@@ -169,12 +172,14 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id)
 BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
                           double x, double y, double width, double height)
   : SBase     (layoutns)
-  , mId (id)
+//  , mId (id)
   , mPosition  (layoutns, x, y, 0.0)
   , mDimensions(layoutns, width, height, 0.0)
   ,mPositionExplicitlySet (true)
   ,mDimensionsExplicitlySet (true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -198,12 +203,14 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
                           double x, double y, double z,
                           double width, double height, double depth)
   : SBase     (layoutns)
-  , mId (id)
+//  , mId (id)
   , mPosition  (layoutns, x, y, z)
   , mDimensions(layoutns, width, height, depth)
   ,mPositionExplicitlySet (true)
   ,mDimensionsExplicitlySet (true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -227,12 +234,14 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
                           const Point*      p,
                           const Dimensions* d)
   : SBase     (layoutns)
-  , mId (id)
+//  , mId (id)
   , mPosition(layoutns)
   , mDimensions(layoutns)
   ,mPositionExplicitlySet (true)
   ,mDimensionsExplicitlySet (true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -263,7 +272,7 @@ BoundingBox::BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id,
  */
 BoundingBox::BoundingBox(const XMLNode& node, unsigned int l2version)
  :  SBase(2,l2version)
-  , mId("")
+//  , mId("")
   , mPosition(2,l2version)
   , mDimensions(2,l2version)
   ,mPositionExplicitlySet (false)
@@ -373,7 +382,7 @@ int BoundingBox::unsetId ()
 
 
 /*
- * Returns the position of the BoundingBox as const referece to a Point
+ * Returns the position of the BoundingBox as const reference to a Point
  * object.
  */ 
 const Point*
@@ -384,7 +393,7 @@ BoundingBox::getPosition () const
 
 
 /*
- * Returns the dimensions of the BoundingBox as const referece to a
+ * Returns the dimensions of the BoundingBox as const reference to a
  * Dimensions object.
  */ 
 const Dimensions*
@@ -395,7 +404,7 @@ BoundingBox::getDimensions () const
 
 
 /*
- * Returns the position of the BoundingBox as referece to a Point object.
+ * Returns the position of the BoundingBox as reference to a Point object.
  */ 
 Point*
 BoundingBox::getPosition ()
@@ -405,7 +414,7 @@ BoundingBox::getPosition ()
 
 
 /*
- * Returns the dimensions of the BoundingBox as referece to a Dimensions
+ * Returns the dimensions of the BoundingBox as reference to a Dimensions
  * object.
  */ 
 Dimensions*
@@ -569,7 +578,7 @@ BoundingBox::depth() const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.  For example:
  *
  *   SBase::writeElements(stream);

@@ -66,7 +66,18 @@ class LIBSBML_EXTERN FbcSBMLDocumentPlugin : public SBMLDocumentPlugin
 public:
 
   /**
-   * Creates a new FbcSBMLDocumentPlugin
+   * Creates a new FbcSBMLDocumentPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param fbcns the namespaces object for the package.
    */
   FbcSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
                                  FbcPkgNamespaces* fbcns);
@@ -75,7 +86,7 @@ public:
   /**
    * Copy constructor for FbcSBMLDocumentPlugin.
    *
-   * @param orig; the FbcSBMLDocumentPlugin instance to copy.
+   * @param orig the FbcSBMLDocumentPlugin instance to copy.
    */
   FbcSBMLDocumentPlugin(const FbcSBMLDocumentPlugin& orig);
 
@@ -83,8 +94,8 @@ public:
    /**
    * Assignment operator for FbcSBMLDocumentPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   FbcSBMLDocumentPlugin& operator=(const FbcSBMLDocumentPlugin& rhs);
 
@@ -114,7 +125,7 @@ public:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 #endif // SWIG
@@ -130,7 +141,7 @@ public:
   virtual bool isCompFlatteningImplemented() const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -141,7 +152,7 @@ public:
   virtual unsigned int checkConsistency();
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
   virtual bool accept(SBMLVisitor& v) const;
@@ -152,7 +163,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

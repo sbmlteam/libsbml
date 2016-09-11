@@ -28,8 +28,8 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * This converter takes a model in &ldquo;fbc&rdquo; Version&nbsp;2 format
- * and converts it to COBRA format.
+ * This converter takes a model in COBRA format and converts it to the
+ * &ldquo;fbc&rdquo; Version&nbsp;2 format.
  *
  * CobraToFbcConverter is enabled by creating a ConversionProperties object
  * with the option <code>"convert cobra"</code> (literally that full string,

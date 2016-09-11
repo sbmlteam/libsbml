@@ -90,11 +90,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
    * this ListOfGroups.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfGroups(unsigned int level = GroupsExtension::getDefaultLevel(),
                unsigned int version = GroupsExtension::getDefaultVersion(),
@@ -105,13 +101,11 @@ public:
   /**
    * Creates a new ListOfGroups using the given GroupsPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param groupsns the GroupsPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfGroups(GroupsPkgNamespaces *groupsns);
 
@@ -330,8 +324,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
-   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    */
@@ -345,8 +338,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML typecode for the objects contained in this ListOfGroups:
-   *
-   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
+   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

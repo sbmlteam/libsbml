@@ -68,7 +68,18 @@ class LIBSBML_EXTERN LayoutSBMLDocumentPlugin : public SBMLDocumentPlugin
 public:
 
   /**
-   * Creates a new LayoutSBMLDocumentPlugin
+   * Creates a new LayoutSBMLDocumentPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param layoutns the namespaces object for the package.
    */
   LayoutSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
                            LayoutPkgNamespaces* layoutns);
@@ -77,7 +88,7 @@ public:
   /**
    * Copy constructor for LayoutSBMLDocumentPlugin.
    *
-   * @param orig; the LayoutSBMLDocumentPlugin instance to copy.
+   * @param orig the LayoutSBMLDocumentPlugin instance to copy.
    */
   LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig);
 
@@ -85,8 +96,8 @@ public:
    /**
    * Assignment operator for LayoutSBMLDocumentPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   LayoutSBMLDocumentPlugin& operator=(const LayoutSBMLDocumentPlugin& rhs);
 
@@ -145,7 +156,6 @@ public:
   /**
    * Accepts the SBMLVisitor.
    */
-
   IdList getMetaidList() const;
 
   bool haveValidationListsBeenPopulated() const;

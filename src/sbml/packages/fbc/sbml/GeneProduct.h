@@ -78,8 +78,8 @@ class LIBSBML_EXTERN GeneProduct : public SBase
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   std::string   mLabel;
   std::string   mAssociatedSpecies;
   /** @endcond */
@@ -91,11 +91,13 @@ public:
    * Creates a new GeneProduct with the given SBML Level, Version, and
    * &ldquo;fbc&rdquo;package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this GeneProduct
+   * @param level an unsigned int, the SBML Level to assign to this GeneProduct.
    *
-   * @param version an unsigned int, the SBML Version to assign to this GeneProduct
+   * @param version an unsigned int, the SBML Version to assign to this GeneProduct.
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this GeneProduct
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this GeneProduct.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeneProduct(unsigned int level      = FbcExtension::getDefaultLevel(),
               unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -105,7 +107,11 @@ public:
   /**
    * Creates a new GeneProduct with the given FbcPkgNamespaces object.
    *
-   * @param fbcns the FbcPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeneProduct(FbcPkgNamespaces* fbcns);
 
@@ -113,7 +119,7 @@ public:
    /**
    * Copy constructor for GeneProduct.
    *
-   * @param orig; the GeneProduct instance to copy.
+   * @param orig the GeneProduct instance to copy.
    */
   GeneProduct(const GeneProduct& orig);
 
@@ -121,8 +127,8 @@ public:
    /**
    * Assignment operator for GeneProduct.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   GeneProduct& operator=(const GeneProduct& rhs);
 
@@ -141,18 +147,29 @@ public:
   virtual ~GeneProduct();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this GeneProduct.
    *
-   * @return the value of the "id" attribute of this GeneProduct as a string.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this GeneProduct.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Returns the value of the "name" attribute of this GeneProduct.
+   * Returns the value of the "name" attribute of this GeneProduct object.
    *
-   * @return the value of the "name" attribute of this GeneProduct as a string.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName() const;
 
@@ -179,8 +196,7 @@ public:
   /**
    * Predicate returning @c true if this GeneProduct's "id" attribute is set.
    *
-   * @return @c true if this GeneProduct's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
@@ -189,8 +205,7 @@ public:
    * Predicate returning @c true if this GeneProduct's "name" attribute is
    * set.
    *
-   * @return @c true if this GeneProduct's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
@@ -218,29 +233,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this GeneProduct.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId(const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "name" attribute of this GeneProduct.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName(const std::string& name);
 
@@ -248,13 +249,10 @@ public:
   /**
    * Sets the value of the "label" attribute of this GeneProduct.
    *
-   * @param label; const std::string& value of the "label" attribute to be
-   * set
+   * @param label the value of the "label" attribute to be
+   * set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -264,13 +262,10 @@ public:
   /**
    * Sets the value of the "associatedSpecies" attribute of this GeneProduct.
    *
-   * @param associatedSpecies; const std::string& value of the
-   * "associatedSpecies" attribute to be set
+   * @param associatedSpecies the value of the
+   * "associatedSpecies" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -280,12 +275,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this GeneProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
@@ -293,12 +283,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this GeneProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -306,10 +291,7 @@ public:
   /**
    * Unsets the value of the "label" attribute of this GeneProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -320,10 +302,7 @@ public:
    * Unsets the value of the "associatedSpecies" attribute of this
    * GeneProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -380,12 +359,12 @@ public:
 
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -395,7 +374,7 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -405,7 +384,7 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -416,7 +395,7 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -428,7 +407,7 @@ protected:
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -439,7 +418,7 @@ protected:
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -449,7 +428,7 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 };
 
@@ -480,13 +459,15 @@ public:
    * &ldquo;fbc&rdquo;package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ListOfGeneProducts
+   * ListOfGeneProducts.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ListOfGeneProducts
+   * ListOfGeneProducts.
    *
    * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to
-   * this ListOfGeneProducts
+   * this ListOfGeneProducts.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfGeneProducts(unsigned int level      = FbcExtension::getDefaultLevel(),
                      unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -496,7 +477,11 @@ public:
   /**
    * Creates a new ListOfGeneProducts with the given FbcPkgNamespaces object.
    *
-   * @param fbcns the FbcPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfGeneProducts(FbcPkgNamespaces* fbcns);
 
@@ -564,14 +549,11 @@ public:
 
 
   /**
-   * Adds a copy the given "GeneProduct" to this ListOfGeneProducts.
+   * Adds a copy the given GeneProduct to this ListOfGeneProducts.
    *
-   * @param gp; the GeneProduct object to add
+   * @param gp the GeneProduct object to add.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -581,7 +563,7 @@ public:
   /**
    * Get the number of GeneProduct objects in this ListOfGeneProducts.
    *
-   * @return the number of GeneProduct objects in this ListOfGeneProducts
+   * @return the number of GeneProduct objects in this ListOfGeneProducts.
    */
   unsigned int getNumGeneProducts() const;
 
@@ -590,7 +572,7 @@ public:
    * Creates a new GeneProduct object, adds it to the ListOfGeneProducts and
    * returns the GeneProduct object created.
    *
-   * @return a new GeneProduct object instance
+   * @return a new GeneProduct object instance.
    *
    * @see addGeneProduct(const GeneProduct* gp)
    */
@@ -676,7 +658,7 @@ protected:
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -686,7 +668,7 @@ protected:
    */
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 };
 
@@ -886,10 +868,7 @@ GeneProduct_isSetAssociatedSpecies(const GeneProduct_t * gp);
  * @param id the string to which the structures "id" attribute should be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -915,10 +894,7 @@ GeneProduct_setId(GeneProduct_t * gp, const char * id);
  * @param name the string to which the structures "name" attribute should be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -944,10 +920,7 @@ GeneProduct_setName(GeneProduct_t * gp, const char * name);
  * @param label the string to which the structures "label" attribute should be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -973,10 +946,7 @@ GeneProduct_setLabel(GeneProduct_t * gp, const char * label);
  * @param associatedSpecies the string to which the structures "associatedSpecies" attribute should be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -997,10 +967,7 @@ GeneProduct_setAssociatedSpecies(GeneProduct_t * gp, const char * associatedSpec
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -1018,10 +985,7 @@ GeneProduct_unsetId(GeneProduct_t * gp);
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -1039,10 +1003,7 @@ GeneProduct_unsetName(GeneProduct_t * gp);
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -1060,10 +1021,7 @@ GeneProduct_unsetLabel(GeneProduct_t * gp);
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}

@@ -56,7 +56,7 @@ class LIBSBML_EXTERN Point : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string mId;
+//  std::string mId;
   double mXOffset;
   double mYOffset;
   double mZOffset;
@@ -68,20 +68,33 @@ public:
 
   /**
    * Creates a new point with x,y and z set to 0.0.
-   */ 
-  
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
   Point (unsigned int level      = LayoutExtension::getDefaultLevel(),
          unsigned int version    = LayoutExtension::getDefaultVersion(),
          unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    Point(LayoutPkgNamespaces* layoutns);
 
         
   /**
    * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   Point(const Point& orig);
   
@@ -89,7 +102,7 @@ public:
    * Creates a new point with the given coordinates.
    *
    *
-   */ 
+   */
   Point (LayoutPkgNamespaces* layoutns, double x, double y, double z =0.0);
 
   /**
@@ -99,121 +112,128 @@ public:
 
   /**
    * Destructor.
-   */ 
-  
+   */
   virtual ~Point ();
 
 
   /**
    * Assignment operator
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   Point& operator=(const Point& orig);
 
 
   /**
    * Returns the x offset.
-   */ 
-  
+   */
   double x () const;
         
   /**
    * Returns the y offset.
-   */ 
-  
+   */
   double y () const;
         
   /**
    * Returns the z offset.
-   */ 
-  
+   */
   double z () const;
    /**
    * Returns the x offset.
-   */ 
-  
+   */
   double getXOffset () const;
         
   /**
    * Returns the y offset.
-   */ 
-  
+   */
   double getYOffset () const;
         
   /**
    * Returns the z offset.
-   */ 
-  
+   */
   double getZOffset () const;
         
   /**
    * Sets the x offset.
-   */ 
-  
+   */
   void setX (double x);
         
   /**
    * Sets the y offset.
-   */ 
-  
+   */
   void setY (double y);
         
   /**
    * Sets the z offset.
-   */ 
-  
+   */
   void setZ (double z);
 
   /**
    * Sets the x offset.
-   */ 
-  
+   */
   void setXOffset (double x);
         
   /**
    * Sets the y offset.
-   */ 
-  
+   */
   void setYOffset (double y);
         
   /**
    * Sets the z offset.
-   */ 
-  
+   */
   void setZOffset (double z);
         
   /**
    * Sets the coordinates to the given values.
-   */ 
-  
+   */
   void setOffsets (double x, double y, double z = 0.0);
    
   bool getZOffsetExplicitlySet() const;
   /**
    * Sets the Z offset to 0.0.
-   */ 
-  
+   */
   void initDefaults ();
 
   /**
    * Returns the value of the "id" attribute of this Point.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Point.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Point's "id" attribute has been set.
+   *
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
   
   /**
    * Sets the value of the "id" attribute of this Point.
+   *
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this Point.
+   *
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -221,7 +241,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -243,7 +263,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -262,7 +282,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_POINT, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_POINT, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -317,7 +337,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -327,7 +347,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -356,7 +376,7 @@ BEGIN_C_DECLS
  * Creates a new point with the coordinates (0.0,0.0,0.0).
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 Point_create (void);
@@ -364,12 +384,12 @@ Point_create (void);
 /**
  * Creates a new Point_t with the given coordinates.
  *
- * @param x The value of the x coordinate.
- * @param y The value of the y coordinate.
- * @param z The value of the z coordinate.
+ * @param x the value of the x coordinate.
+ * @param y the value of the y coordinate.
+ * @param z the value of the z coordinate.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 Point_createWithCoordinates (double x, double y, double z);
@@ -377,10 +397,10 @@ Point_createWithCoordinates (double x, double y, double z);
 /**
  * Frees all memory for the Point_t.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_free (Point_t *p);
@@ -388,10 +408,10 @@ Point_free (Point_t *p);
 /**
  * Sets the Z offset to 0.0
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_initDefaults (Point_t *p);
@@ -399,13 +419,13 @@ Point_initDefaults (Point_t *p);
 /**
  * Sets the coordinates to the given values.
  *
- * @param p The Point_t structure.
- * @param x The value of the x coordinate.
- * @param y The value of the y coordinate.
- * @param z The value of the z coordinate.
+ * @param p the Point_t structure.
+ * @param x the value of the x coordinate.
+ * @param y the value of the y coordinate.
+ * @param z the value of the z coordinate.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z);
@@ -413,11 +433,11 @@ Point_setOffsets (Point_t *p, double x, double y, double z);
 /**
  * Sets the x offset.
  *
- * @param p The Point_t structure.
- * @param x The value of the x coordinate.
+ * @param p the Point_t structure.
+ * @param x the value of the x coordinate.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setX (Point_t *p, double x);
@@ -425,11 +445,11 @@ Point_setX (Point_t *p, double x);
 /**
  * Sets the y offset.
  *
- * @param p The Point_t structure.
- * @param y The value of the y coordinate.
+ * @param p the Point_t structure.
+ * @param y the value of the y coordinate.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setY (Point_t *p, double y);
@@ -437,11 +457,11 @@ Point_setY (Point_t *p, double y);
 /**
  * Sets the z offset.
  *
- * @param p The Point_t structure.
- * @param z The value of the z coordinate.
+ * @param p the Point_t structure.
+ * @param z the value of the z coordinate.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setZ (Point_t *p, double z);
@@ -449,10 +469,10 @@ Point_setZ (Point_t *p, double z);
 /**
  * Gets the x offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_x (const Point_t *p);
@@ -460,10 +480,10 @@ Point_x (const Point_t *p);
 /**
  * Gets the y offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_y (const Point_t *p);
@@ -471,10 +491,10 @@ Point_y (const Point_t *p);
 /**
  * Gets the z offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_z (const Point_t *p);
@@ -483,11 +503,11 @@ Point_z (const Point_t *p);
 /**
  * Sets the x offset.
  *
- * @param p The Point_t structure.
- * @param x The value of the x offset.
+ * @param p the Point_t structure.
+ * @param x the value of the x offset.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x);
@@ -495,11 +515,11 @@ Point_setXOffset (Point_t *p, double x);
 /**
  * Sets the y offset.
  *
- * @param p The Point_t structure.
- * @param y The value of the y offset.
+ * @param p the Point_t structure.
+ * @param y the value of the y offset.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y);
@@ -507,11 +527,11 @@ Point_setYOffset (Point_t *p, double y);
 /**
  * Sets the z offset.
  *
- * @param p The Point_t structure.
- * @param z The value of the z offset.
+ * @param p the Point_t structure.
+ * @param z the value of the z offset.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z);
@@ -519,10 +539,10 @@ Point_setZOffset (Point_t *p, double z);
 /**
  * Gets the x offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p);
@@ -530,10 +550,10 @@ Point_getXOffset (const Point_t *p);
 /**
  * Gets the y offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p);
@@ -541,10 +561,10 @@ Point_getYOffset (const Point_t *p);
 /**
  * Gets the z offset.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p);
@@ -552,7 +572,7 @@ Point_getZOffset (const Point_t *p);
 /**
  * @return a (deep) copy of this Point_t.
  *
- * @param p The Point_t structure.
+ * @param p the Point_t structure.
  *
  * @memberof Point_t
  */

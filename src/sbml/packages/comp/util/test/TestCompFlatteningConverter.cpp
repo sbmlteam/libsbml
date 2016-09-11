@@ -2105,14 +2105,20 @@ START_TEST(test_submodel_callbacks)
 }
 END_TEST
 
+START_TEST (test_comp_flatten_test1_l3v2)
+{ 
+  TestFlattenedPair("test1_l3v2.xml", "test1_l3v2_flat.xml");
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
   TCase *tcase = tcase_create("SBMLCompFlatteningConverter");
   Suite *suite = suite_create("SBMLCompFlatteningConverter");
   
-                                                                           tcase_add_test(tcase, test_invalid_layout_disabled);
-  
+  tcase_add_test(tcase, test_invalid_layout_disabled);
   tcase_add_test(tcase, test_comp_flatten_double_ext2);
   tcase_add_test(tcase, test_comp_get_flattening_converter);
   tcase_add_test(tcase, test_comp_flatten_aggregate);
@@ -2244,6 +2250,8 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_validator_44781839);
   tcase_add_test(tcase, test_submodel_callbacks);
  
+  tcase_add_test(tcase, test_comp_flatten_test1_l3v2);
+
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -428,7 +428,7 @@ FbcExtension::init()
   FbcV2ToV1Converter c4;
   SBMLConverterRegistry::getInstance().addConverter(&c4);
 }
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -442,7 +442,7 @@ FbcExtension::getErrorTableV2(unsigned int index) const
   return fbcErrorTableV2[index];
 }
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -469,7 +469,7 @@ FbcExtension::getErrorTableIndex(unsigned int errorId) const
   return index;
 }
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -483,7 +483,7 @@ FbcExtension::getErrorIdOffset() const
   return 2000000;
 }
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
 

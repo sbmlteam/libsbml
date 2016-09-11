@@ -67,7 +67,18 @@ class LIBSBML_EXTERN QualSBMLDocumentPlugin : public SBMLDocumentPlugin
 public:
 
   /**
-   * Creates a new QualSBMLDocumentPlugin
+   * Creates a new QualSBMLDocumentPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param qualns the namespaces object for the package.
    */
   QualSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
                                  QualPkgNamespaces* qualns);
@@ -76,7 +87,7 @@ public:
   /**
    * Copy constructor for QualSBMLDocumentPlugin.
    *
-   * @param orig; the QualSBMLDocumentPlugin instance to copy.
+   * @param orig the QualSBMLDocumentPlugin instance to copy.
    */
   QualSBMLDocumentPlugin(const QualSBMLDocumentPlugin& orig);
 
@@ -84,7 +95,7 @@ public:
   /**
    * Assignment operator for QualSBMLDocumentPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   QualSBMLDocumentPlugin& operator=(const QualSBMLDocumentPlugin& rhs);

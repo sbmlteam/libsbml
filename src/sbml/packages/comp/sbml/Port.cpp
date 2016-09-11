@@ -45,16 +45,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Port::Port (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBaseRef (level,version, pkgVersion)
-  , mId("")
-  , mName("")
+//  , mId("")
+//  , mName("")
 {
 }
 
 
 Port::Port(CompPkgNamespaces* compns)
   : SBaseRef(compns, true)
-  , mId("")
-  , mName("")
+//  , mId("")
+//  , mName("")
 {
   loadPlugins(compns);
 }

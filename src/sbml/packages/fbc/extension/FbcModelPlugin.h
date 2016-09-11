@@ -38,7 +38,8 @@
  *
  * @section model-strict The "strict" attribute on the (extended) Model class
  *
- * The mandatory attribute "strict", of type <code>boolean</code>, is used to
+ * The mandatory attribute "strict", of type <code>boolean</code>, in 
+ * Version&nbsp;2 of this package, is used to
  * apply an additional set of restrictions to the model.  The "strict"
  * attribute helps ensure that the Flux Balance Constraints package can be
  * used to encode legacy flux-balance analysis models expressible as Linear
@@ -153,7 +154,18 @@ class LIBSBML_EXTERN FbcModelPlugin : public SBasePlugin
 public:
 
   /**
-   * Creates a new FbcModelPlugin
+   * Creates a new FbcModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param fbcns the namespaces object for the package.
    */
   FbcModelPlugin(const std::string& uri, const std::string& prefix, 
                                  FbcPkgNamespaces* fbcns);
@@ -162,7 +174,7 @@ public:
   /**
    * Copy constructor for FbcModelPlugin.
    *
-   * @param orig; the FbcModelPlugin instance to copy.
+   * @param orig the FbcModelPlugin instance to copy.
    */
   FbcModelPlugin(const FbcModelPlugin& orig);
 
@@ -170,8 +182,8 @@ public:
    /**
    * Assignment operator for FbcModelPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   FbcModelPlugin& operator=(const FbcModelPlugin& rhs);
 
@@ -210,12 +222,12 @@ public:
   virtual SBase* createObject (XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
   
   /** @cond doxygenLibsbmlInternal */
   int appendFrom(const Model* model);
   
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
   
   /** @cond doxygenLibsbmlInternal */
 
@@ -226,7 +238,7 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /*
@@ -235,8 +247,8 @@ public:
    * Subclasses must override this method 
    * if they have their specific elements.
    *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
+   * @return @c true if this plugin object has all the required elements
+   * otherwise @c false will be returned.
    */
   //virtual bool hasRequiredElements () const;
 
@@ -259,7 +271,7 @@ public:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -271,7 +283,7 @@ public:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -282,7 +294,7 @@ public:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   //---------------------------------------------------------------
@@ -298,13 +310,15 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the
    * objects to be retrieved.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
    * Returns the value of the "strict" attribute of this FbcModelPlugin.
+   *
+   * @copydetails note_strict_v2_only
    *
    * @return the value of the "strict" attribute of this FbcModelPlugin as a boolean.
    */
@@ -315,6 +329,8 @@ public:
    * Predicate returning @c true if this FbcModelPlugin's "strict" attribute
    * is set.
    *
+   * @copydetails note_strict_v2_only
+   *
    * @return @c true if this FbcModelPlugin's "strict" attribute has been set,
    * otherwise @c false is returned.
    */
@@ -324,14 +340,12 @@ public:
   /**
    * Sets the value of the "strict" attribute of this FbcModelPlugin.
    *
-   * @param strict; bool value of the "strict" attribute to be set
+   * @copydetails note_strict_v2_only
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @param strict bool value of the "strict" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setStrict(bool strict);
 
@@ -339,18 +353,18 @@ public:
   /**
    * Unsets the value of the "strict" attribute of this FbcModelPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails note_strict_v2_only
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetStrict();
 
  
   /**
    * Returns the ListOfFluxBounds in this plugin object.
+   *
+   * @copydetails note_fluxbound_v1_only
    *
    * @return ListOfFluxBounds object in this plugin object.
    */
@@ -360,6 +374,8 @@ public:
   /**
    * Returns the ListOfFluxBounds in this plugin object.
    *
+   * @copydetails note_fluxbound_v1_only
+   *
    * @return ListOfFluxBounds object in this plugin object.
    */
   ListOfFluxBounds* getListOfFluxBounds ();
@@ -368,6 +384,8 @@ public:
   /**
    * Returns the FluxBound object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
+   *
+   * @copydetails note_fluxbound_v1_only
    *
    * @param n the index number of the FluxBound to get.
    *
@@ -380,6 +398,8 @@ public:
    * Returns the FluxBound object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
+   * @copydetails note_fluxbound_v1_only
+   *
    * @param n the index number of the FluxBound to get.
    *
    * @return the nth FluxBound in the ListOfFluxBounds.
@@ -389,6 +409,8 @@ public:
 
   /**
    * Returns the FluxBound object based on its identifier.
+   *
+   * @copydetails note_fluxbound_v1_only
    *
    * @param sid a string representing the identifier 
    * of the FluxBound to get.
@@ -405,6 +427,8 @@ public:
   /**
    * Returns the FluxBound object based on its identifier.
    *
+   * @copydetails note_fluxbound_v1_only
+   *
    * @param sid a string representing the identifier 
    * of the FluxBound to get.
    * 
@@ -418,10 +442,17 @@ public:
 
 
   /**
+   * Creates a new ListOfFluxBounds object that contains only the 
+   * FluxBound objects associated with the given Reaction.  If no such
+   * Reaction can be found, or if there are no FluxBound objects associated
+   * with it, returns NULL. @if clike The caller owns the created object
+   * and is responsible for its deletion.@endif
    *
-   * @param reaction the id of an reaction to find fluxBounds for
+   * @copydetails note_fluxbound_v1_only
    *
-   * @return a listOfFluxBounds for the given reaction id
+   * @param reaction the id of an reaction to find FluxBound objects for.
+   *
+   * @return a listOfFluxBounds for the given reaction id.
    */
   ListOfFluxBounds *  getFluxBoundsForReaction(const std::string& reaction) const;
 
@@ -429,10 +460,17 @@ public:
   /**
    * Adds a copy of the given FluxBound object to the list of FluxBounds.
    *
+   * @copydetails note_fluxbound_v1_only
+   *
    * @param bound the FluxBound object to be added to the list of FluxBounds.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
    */
   int addFluxBound (const FluxBound* bound);
 
@@ -441,7 +479,9 @@ public:
    * Creates a new FluxBound object and adds it to the list of FluxBound objects
    * and returns it.
    *
-   * @return a newly created FluxBound object
+   * @copydetails note_fluxbound_v1_only
+   *
+   * @return a newly created FluxBound object.
    */
   FluxBound* createFluxBound();
 
@@ -453,7 +493,9 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @param n the index of the FluxBound object to remove
+   * @copydetails note_fluxbound_v1_only
+   *
+   * @param n the index of the FluxBound object to remove.
    *
    * @return the FluxBound object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
@@ -469,7 +511,9 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @param sid the id attribute of the FluxBound object to remove
+   * @copydetails note_fluxbound_v1_only
+   *
+   * @param sid the id attribute of the FluxBound object to remove.
    *
    * @return the FluxBound object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
@@ -481,29 +525,31 @@ public:
   /**
    * Returns the number of FluxBound object in this plugin object.
    *
+   * @copydetails note_fluxbound_v1_only
+   *
    * @return the number of FluxBound object in this plugin object.
    */
   unsigned int getNumFluxBounds() const;
 
 
   /**
-   * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
+   * Returns the ListOfObjectives in this FbcModelPlugin object.
    *
-   * @return the "ListOfObjectives" attribute of this FbcModelPlugin.
+   * @return the ListOfObjectives child of this FbcModelPlugin.
    */
   const ListOfObjectives* getListOfObjectives() const;
 
 
   /**
-   * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
+   * Returns the ListOfObjectives in this FbcModelPlugin object.
    *
-   * @return the "ListOfObjectives" attribute of this FbcModelPlugin.
+   * @return the ListOfObjectives child of this FbcModelPlugin.
    */
   ListOfObjectives* getListOfObjectives();
 
 
   /**
-   * Get a Objective from the ListOfObjectives.
+   * Get an Objective from the ListOfObjectives.
    *
    * @param n the index number of the Objective to get.
    *
@@ -515,7 +561,7 @@ public:
 
 
   /**
-   * Get a Objective from the ListOfObjectives.
+   * Get an Objective from the ListOfObjectives.
    *
    * @param n the index number of the Objective to get.
    *
@@ -527,7 +573,7 @@ public:
 
 
   /**
-   * Get a Objective from the ListOfObjectives
+   * Get an Objective from the ListOfObjectives
    * based on its identifier.
    *
    * @param sid a string representing the identifier
@@ -545,7 +591,7 @@ public:
 
 
   /**
-   * Get a Objective from the ListOfObjectives
+   * Get an Objective from the ListOfObjectives
    * based on its identifier.
    *
    * @param sid a string representing the identifier
@@ -563,16 +609,17 @@ public:
 
 
   /**
-   * Adds a copy the given "Objective" to this FbcModelPlugin.
+   * Adds a copy the given Objective to this FbcModelPlugin.
    *
-   * @param o; the Objective object to add
+   * @param o the Objective object to add.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
    */
   int addObjective(const Objective* o);
 
@@ -580,16 +627,16 @@ public:
   /**
    * Get the number of Objective objects in this FbcModelPlugin.
    *
-   * @return the number of Objective objects in this FbcModelPlugin
+   * @return the number of Objective objects in this FbcModelPlugin.
    */
   unsigned int getNumObjectives() const;
 
 
   /**
-   * Creates a new Objective object, adds it to this FbcModelPlugins
+   * Creates a new Objective object, adds it to this FbcModelPlugin's
    * ListOfObjectives and returns the Objective object created. 
    *
-   * @return a new Objective object instance
+   * @return a new Objective object instance.
    *
    * @see addObjective(const Objective* o)
    */
@@ -627,30 +674,45 @@ public:
 
   /** 
    * Returns the current active objective. 
+   *
+   * @return the Objective pointed to by the 'activeObjective' 
+   * attribute, or NULL if no such Objective can be found.
    */
   Objective* getActiveObjective();
 
   /** 
    * Returns the current active objective. 
+   *
+   * @return the Objective pointed to by the 'activeObjective' 
+   * attribute, or NULL if no such Objective can be found.
    */
   const Objective *getActiveObjective() const;
   
   /** 
    * Sets the id of the active objective.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int setActiveObjectiveId(const std::string& objectiveId);
 
   /** 
-   * returns the id of the current active objective.
-   */  
+   * Returns the id of the current active objective.
+   *
+   * @return the value of the "activeObjective" attribute of the ListOfObjectives.
+   */
   std::string getActiveObjectiveId() const;
   
   /** 
-   * Unsets the active objective.
-   */  
+   * Unsets the "activeObjective" attribute of the ListOfObjectives.
+   */
   void unsetActiveObjectiveId();
+
   /**
-   * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+   * Returns the "ListOfGeneProducts" in this FbcModelPlugin object.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
    */
@@ -660,6 +722,8 @@ public:
   /**
    * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
    *
+   * @copydetails note_geneproduct_v2_only
+   *
    * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
    */
   ListOfGeneProducts* getListOfGeneProducts();
@@ -667,6 +731,8 @@ public:
 
   /**
    * Get a GeneProduct from the ListOfGeneProducts.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @param n the index number of the GeneProduct to get.
    *
@@ -680,6 +746,8 @@ public:
   /**
    * Get a GeneProduct from the ListOfGeneProducts.
    *
+   * @copydetails note_geneproduct_v2_only
+   *
    * @param n the index number of the GeneProduct to get.
    *
    * @return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
@@ -692,6 +760,8 @@ public:
   /**
    * Get a GeneProduct from the ListOfGeneProducts
    * based on its identifier.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @param sid a string representing the identifier
    * of the GeneProduct to get.
@@ -710,6 +780,8 @@ public:
   * Get a GeneProduct from the ListOfGeneProducts
   * based on its label.
   *
+   * @copydetails note_geneproduct_v2_only
+   *
   * @param label a string representing the label
   * of the GeneProduct to get.
   *
@@ -728,6 +800,8 @@ public:
    * Get a GeneProduct from the ListOfGeneProducts
    * based on its identifier.
    *
+   * @copydetails note_geneproduct_v2_only
+   *
    * @param sid a string representing the identifier
    * of the GeneProduct to get.
    *
@@ -743,16 +817,19 @@ public:
 
 
   /**
-   * Adds a copy the given "GeneProduct" to this FbcModelPlugin.
+   * Adds a copy the given GeneProduct to this FbcModelPlugin.
    *
-   * @param gp; the GeneProduct object to add
+   * @copydetails note_geneproduct_v2_only
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @param gp the GeneProduct object to add.
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
    */
   int addGeneProduct(const GeneProduct* gp);
 
@@ -760,16 +837,20 @@ public:
   /**
    * Get the number of GeneProduct objects in this FbcModelPlugin.
    *
-   * @return the number of GeneProduct objects in this FbcModelPlugin
+   * @copydetails note_geneproduct_v2_only
+   *
+   * @return the number of GeneProduct objects in this FbcModelPlugin.
    */
   unsigned int getNumGeneProducts() const;
 
 
   /**
-   * Creates a new GeneProduct object, adds it to this FbcModelPlugins
+   * Creates a new GeneProduct object, adds it to this FbcModelPlugin's
    * ListOfGeneProducts and returns the GeneProduct object created. 
    *
-   * @return a new GeneProduct object instance
+   * @copydetails note_geneproduct_v2_only
+   *
+   * @return a new GeneProduct object instance.
    *
    * @see addGeneProduct(const GeneProduct* gp)
    */
@@ -781,6 +862,8 @@ public:
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @param n the index of the GeneProduct to remove.
    *
@@ -797,6 +880,8 @@ public:
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
+   * @copydetails note_geneproduct_v2_only
+   *
    * @param sid the identifier of the GeneProduct to remove.
    *
    * @return the GeneProduct removed. As mentioned above, the caller owns the
@@ -807,12 +892,16 @@ public:
   /**
    * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
    *
+   * @copydetails note_geneassociation_not_fbc
+   *
    * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
   const ListOfGeneAssociations* getListOfGeneAssociations () const;
 
   /**
    * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
+   *
+   * @copydetails note_geneassociation_not_fbc
    *
    * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
@@ -821,6 +910,8 @@ public:
   /**
    * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
+   *
+   * @copydetails note_geneassociation_not_fbc
    *
    * @param n the index number of the GeneAssociation annotation to get.
    *
@@ -832,6 +923,8 @@ public:
    * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
+   * @copydetails note_geneassociation_not_fbc
+   *
    * @param n the index number of the GeneAssociation annotation to get.
    *
    * @return the nth GeneAssociation annotation in the ListOfGeneAssociations.
@@ -840,6 +933,8 @@ public:
 
   /**
    * Returns the GeneAssociation annotation object based on its identifier.
+   *
+   * @copydetails note_geneassociation_not_fbc
    *
    * @param sid a string representing the identifier 
    * of the GeneAssociation annotation to get.
@@ -854,6 +949,8 @@ public:
 
   /**
    * Returns the GeneAssociation annotation object based on its identifier.
+   *
+   * @copydetails note_geneassociation_not_fbc
    *
    * @param sid a string representing the identifier 
    * of the GeneAssociation annotation to get.
@@ -871,16 +968,23 @@ public:
    *
    * @param association the GeneAssociation annotation object to be added to the list of GeneAssociations.
    *
+   * @copydetails note_geneassociation_not_fbc
+   *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   */
   int addGeneAssociation (const GeneAssociation* association);
 
   /**
    * Creates a new GeneAssociation annotation object and adds it to the list of GeneAssociation objects
    * and returns it.
    *
-   * @return a newly created GeneAssociation annotation object
+   * @return a newly created GeneAssociation annotation object.
    */
   GeneAssociation* createGeneAssociation();
 
@@ -891,7 +995,9 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @param n the index of the GeneAssociation annotation object to remove
+   * @copydetails note_geneassociation_not_fbc
+   *
+   * @param n the index of the GeneAssociation annotation object to remove.
    *
    * @return the GeneAssociation annotation object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
@@ -906,7 +1012,9 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @param sid the id attribute of the GeneAssociation annotation object to remove
+   * @copydetails note_geneassociation_not_fbc
+   *
+   * @param sid the id attribute of the GeneAssociation annotation object to remove.
    *
    * @return the GeneAssociation annotation object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
@@ -916,6 +1024,8 @@ public:
 
   /**
    * Returns the number of GeneAssociation annotation object in this plugin object.
+   *
+   * @copydetails note_geneassociation_not_fbc
    *
    * @return the number of GeneAssociation annotation object in this plugin object.
    */
@@ -927,7 +1037,7 @@ public:
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -944,18 +1054,18 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   virtual void connectToParent (SBase* sbase);
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
   virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -975,7 +1085,7 @@ protected:
   ListOfGeneProducts   mGeneProducts;
   ListOfFluxBounds mBounds;
   ListOfGeneAssociations mAssociations;
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
@@ -996,9 +1106,9 @@ BEGIN_C_DECLS
  * structure.
  *
  * @param fmp the FbcModelPlugin_t structure to which the FluxBound_t should be
- * added
+ * added.
  *
- * @param fb a FluxBound_t structure to add
+ * @param fb a FluxBound_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1018,9 +1128,9 @@ FbcModelPlugin_addFluxBound(SBasePlugin_t * fmp, FluxBound_t * fb);
 /**
  * Return a specific FluxBound_t structure of the given FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to use
+ * @param fmp the FbcModelPlugin_t structure to use.
  *
- * @param n an integer, the index of the FluxBound_t structure to return
+ * @param n an integer, the index of the FluxBound_t structure to return.
  * 
  * @return the nth FluxBound_t of the given FbcModelPlugin_t, or @c NULL if no such FluxBound_t exists.
  *
@@ -1035,7 +1145,7 @@ FbcModelPlugin_getFluxBound(SBasePlugin_t * fmp, unsigned int n);
  * Returns the number of FluxBound_t structures attached to the given
  * FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to use
+ * @param fmp the FbcModelPlugin_t structure to use.
  * 
  * @return the number of FluxBound_t structures in the given FbcModelPlugin_t.
  *
@@ -1051,9 +1161,9 @@ FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fmp);
  * structure.
  *
  * @param fmp the FbcModelPlugin_t structure to which the Objective_t should be
- * added
+ * added.
  *
- * @param obj an Objective_t structure to add
+ * @param obj an Objective_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1073,9 +1183,9 @@ FbcModelPlugin_addObjective(SBasePlugin_t * fmp, Objective_t * obj);
 /**
  * Return a specific Objective_t structure of the given FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to use
+ * @param fmp the FbcModelPlugin_t structure to use.
  *
- * @param n an integer, the index of the Objective_t structure to return
+ * @param n an integer, the index of the Objective_t structure to return.
  * 
  * @return the nth Objective_t of the given FbcModelPlugin_t, or @c NULL if no such Objective_t exists.
  *
@@ -1090,7 +1200,7 @@ FbcModelPlugin_getObjective(SBasePlugin_t * fmp, unsigned int n);
  * Returns the number of Objective_t structures attached to the given
  * FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to use
+ * @param fmp the FbcModelPlugin_t structure to use.
  * 
  * @return the number of Objective_t structures in the given FbcModelPlugin_t.
  *
@@ -1118,7 +1228,7 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fmp);
 /**
  * Sets the activeObjective of the given FbcModelPlugin_t to a copy of @p activeObjective.
  *
- * @param fmp the FbcModelPlugin_t structure to set
+ * @param fmp the FbcModelPlugin_t structure to set.
  * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1140,9 +1250,9 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fmp, const char * activeObje
  * structure.
  *
  * @param fmp the FbcModelPlugin_t structure to which the GeneProduct_t should be
- * added
+ * added.
  *
- * @param fb a GeneProduct_t structure to add
+ * @param fb a GeneProduct_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1162,9 +1272,9 @@ FbcModelPlugin_addGeneProduct(SBasePlugin_t * fmp, GeneProduct_t * fb);
 /**
  * Return a specific GeneProduct_t structure of the given FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to use
+ * @param fmp the FbcModelPlugin_t structure to use.
  *
- * @param n an integer, the index of the GeneProduct_t structure to return
+ * @param n an integer, the index of the GeneProduct_t structure to return.
  * 
  * @return the nth GeneProduct_t of the given FbcModelPlugin_t, or @c NULL if no such GeneProduct_t exists.
  *
@@ -1179,7 +1289,7 @@ FbcModelPlugin_getGeneProduct(SBasePlugin_t * fmp, unsigned int n);
  * Returns the number of GeneProduct_t structures attached to the given
  * FbcModelPlugin_t.
  *
- * @param fmp the GeneProduct_t structure to use
+ * @param fmp the GeneProduct_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given FbcModelPlugin_t.
  *
@@ -1192,6 +1302,8 @@ FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fmp);
 
 /**
  * Takes a FbcModelPlugin_t structure and returns the value of the strict attribute.
+ *
+ * @copydetails note_strict_v2_only
  *
  * @param fmp the FbcModelPlugin_t whose 'strict' attribute is sought.
  *
@@ -1207,7 +1319,9 @@ FbcModelPlugin_getStrict(SBasePlugin_t * fmp);
 /**
  * Sets the strict attribute of the given FbcModelPlugin_t.
  *
- * @param fmp the FbcModelPlugin_t structure to set
+ * @copydetails note_strict_v2_only
+ *
+ * @param fmp the FbcModelPlugin_t structure to set.
  * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
  *
  * @copydetails doc_returns_success_code

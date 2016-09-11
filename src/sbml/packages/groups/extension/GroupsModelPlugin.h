@@ -84,11 +84,16 @@ public:
    * Creates a new GroupsModelPlugin using the given URI, prefix and package
    * namespace.
    *
-   * @param uri a string, representing the URI of the package.
+   * @copydetails doc_what_are_xmlnamespaces
    *
-   * @param prefix a string, the prefix to be used.
+   * @copydetails doc_what_are_sbmlnamespaces
    *
-   * @param groupsns a pointer to the GroupsPkgNamespaces object to be used.
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param groupsns the namespaces object for the package.
    */
   GroupsModelPlugin(const std::string& uri,
                     const std::string& prefix,

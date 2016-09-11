@@ -56,10 +56,17 @@
  * be of type anyURI.  Since URIs may be either URLs, URNs, or relative or
  * absolute file locations, this offers flexibility in referencing SBML
  * documents.  In all cases, the "source" attribute value must refer
- * specifically to an SBML Level&nbsp;3 Version&nbsp;1 document; prior
+ * specifically to an SBML Level&nbsp;3 document; prior
  * Levels/Versions of SBML are not supported by this package.  The entire
  * file at the given location is referenced.  The "source" attribute must
  * have a value for every ExternalModelDefinition instance.
+ *
+ * It should be noted that even though there is currently only a
+ * Hierarchical %Model Composition package for SBML Level&nbsp;3
+ * Version&nbsp;1, it may be used in SBML Level&nbsp;3 Version&nbsp;2,
+ * as long as nothing new from that package is used.  This allows the
+ * ExternalModelDefinition to reference any SBML Level&nbsp;3 document,
+ * so long as only constructs from Version&nbsp;1 are used.
  * 
  * ExternalModelDefinition's optional attribute "modelRef", of type
  * SIdRef, is used to identify a Model or
@@ -112,8 +119,8 @@ class LIBSBML_EXTERN ExternalModelDefinition : public CompBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   std::string   mSource;
   std::string   mModelRef;
   std::string   mMd5;
@@ -125,9 +132,11 @@ public:
    * Creates a new ExternalModelDefinition with the given level, version, and
    * package version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ExternalModelDefinition(unsigned int level      = CompExtension::getDefaultLevel(),
                           unsigned int version    = CompExtension::getDefaultVersion(),
@@ -138,7 +147,11 @@ public:
    * Creates a new ExternalModelDefinition with the given CompPkgNamespaces
    * object.
    *
-   * @param compns the namespace to use.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ExternalModelDefinition(CompPkgNamespaces* compns);
 
@@ -153,6 +166,9 @@ public:
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   ExternalModelDefinition& operator=(const ExternalModelDefinition& source);
 
@@ -160,35 +176,40 @@ public:
  /**
    * Creates and returns a deep copy of this ExternalModelDefinition object.
    * 
-   * @return a (deep) copy of this ExternalModelDefinition object
+   * @return a (deep) copy of this ExternalModelDefinition object.
    */
   virtual ExternalModelDefinition* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~ExternalModelDefinition ();
 
 
   /**
    * Sets the value of the "id" attribute of this ExternalModelDefinition.
    *
-   * This method fails if the @p id is not a valid syntax for an SId.
-   *
-   * @param id the identifier to use
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string &id);
+  virtual int setId(const std::string &sid);
 
 
   /**
    * Returns the value of the "id" attribute of this ExternalModelDefinition.
-   * 
-   * @return the name of this ExternalModelDefinition.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this ExternalModelDefinition.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -197,10 +218,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "id" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
-   * @return @c true if the "id" attribute of this object has been
-   * set, @c false otherwise.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
@@ -208,9 +226,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this ExternalModelDefinition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
@@ -218,22 +234,15 @@ public:
   /**
    * Sets the value of the "name" attribute of this ExternalModelDefinition.
    *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the ExternalModelDefinition
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
 
   /**
-   * Returns the value of the "name" attribute of this
-   * ExternalModelDefinition.
-   * 
-   * @return the name of this ExternalModelDefinition.
+   * Returns the value of the "name" attribute of this ExternalModelDefinition object.
+   *
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -242,10 +251,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * object's "name" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
-   * @return @c true if the "name" attribute of this object has been
-   * set, @c false otherwise.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
@@ -254,9 +260,7 @@ public:
    * Unsets the value of the "name" attribute of this
    * ExternalModelDefinition.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -372,7 +376,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setSource (const std::string& source);
 
@@ -389,7 +392,7 @@ public:
 
 
   /**
-   * Returns true if the "modelRef" and "id" attributes are set, and false if not.
+   * Returns @c true if the "modelRef" and "id" attributes are set, and @c false if not.
    *
    * This method does not check to see if the referred-to model actually
    * exists.
@@ -414,7 +417,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_COMP_EXTERNALMODELDEFINITION, SBMLCompTypeCode_t}
+   * @sbmlconstant{SBML_COMP_EXTERNALMODELDEFINITION, SBMLCompTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -427,7 +430,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    * <pre>
    *   SBase::writeElements(stream);
@@ -480,7 +483,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -490,7 +493,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -522,11 +525,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * ExternalModelDefinition_t
+ * ExternalModelDefinition_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * ExternalModelDefinition_t
+ * ExternalModelDefinition_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * ExternalModelDefinition_t
+ * ExternalModelDefinition_t.
  *
  * @return a pointer to the newly created ExternalModelDefinition_t structure.
  *
@@ -567,7 +570,7 @@ ExternalModelDefinition_clone(ExternalModelDefinition_t * emd);
 /**
  * Takes an ExternalModelDefinition_t structure and returns its identifier.
  *
- * @param emd the ExternalModelDefinition_t structure whose identifier is sought
+ * @param emd the ExternalModelDefinition_t structure whose identifier is sought.
  * 
  * @return the identifier of the given ExternalModelDefinition_t, as a pointer to a string.
  *
@@ -624,7 +627,7 @@ ExternalModelDefinition_getModelRef(ExternalModelDefinition_t * emd);
  * Predicate returning @c true or @c false depending on whether the given
  * ExternalModelDefinition_t structure's identifier is set.
  *
- * @param emd the ExternalModelDefinition_t structure to query
+ * @param emd the ExternalModelDefinition_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * ExternalModelDefinition_t structure is set, zero (false) otherwise.
@@ -640,7 +643,7 @@ ExternalModelDefinition_isSetId(ExternalModelDefinition_t * emd);
  * Predicate returning @c true or @c false depending on whether the given
  * ExternalModelDefinition_t structure's source is set.
  *
- * @param emd the ExternalModelDefinition_t structure to query
+ * @param emd the ExternalModelDefinition_t structure to query.
  * 
  * @return @c non-zero (true) if the "source" attribute of the given
  * ExternalModelDefinition_t structure is set, zero (false) otherwise.
@@ -656,7 +659,7 @@ ExternalModelDefinition_isSetSource(ExternalModelDefinition_t * emd);
  * Predicate returning @c true or @c false depending on whether the given
  * ExternalModelDefinition_t structure's name is set.
  *
- * @param emd the ExternalModelDefinition_t structure to query
+ * @param emd the ExternalModelDefinition_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * ExternalModelDefinition_t structure is set, zero (false) otherwise.
@@ -672,7 +675,7 @@ ExternalModelDefinition_isSetName(ExternalModelDefinition_t * emd);
  * Predicate returning @c true or @c false depending on whether the given
  * ExternalModelDefinition_t structure's modelRef is set.
  *
- * @param emd the ExternalModelDefinition_t structure to query
+ * @param emd the ExternalModelDefinition_t structure to query.
  * 
  * @return @c non-zero (true) if the "modelRef" attribute of the given
  * ExternalModelDefinition_t structure is set, zero (false) otherwise.
@@ -709,7 +712,7 @@ ExternalModelDefinition_setId(ExternalModelDefinition_t * emd, const char * sid)
 /**
  * Sets the source of the given ExternalModelDefinition_t to a copy of @p source.
  *
- * @param emd the ExternalModelDefinition_t structure to set
+ * @param emd the ExternalModelDefinition_t structure to set.
  * @param source the source to assign to the given ExternalModelDefinition_t's "source" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -729,7 +732,7 @@ ExternalModelDefinition_setSource(ExternalModelDefinition_t * emd, const char * 
 /**
  * Sets the name of the given ExternalModelDefinition_t to a copy of @p name.
  *
- * @param emd the ExternalModelDefinition_t structure to set
+ * @param emd the ExternalModelDefinition_t structure to set.
  * @param name the name to assign to the given ExternalModelDefinition_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -749,7 +752,7 @@ ExternalModelDefinition_setName(ExternalModelDefinition_t * emd, const char * na
 /**
  * Sets the modelRef of the given ExternalModelDefinition_t to a copy of @p modelRef.
  *
- * @param emd the ExternalModelDefinition_t structure to set
+ * @param emd the ExternalModelDefinition_t structure to set.
  * @param modelRef the modelRef to assign to the given ExternalModelDefinition_t's "modelRef" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -769,7 +772,7 @@ ExternalModelDefinition_setModelRef(ExternalModelDefinition_t * emd, const char 
 /**
  * Unsets the "id" attribute of the given ExternalModelDefinition_t structure.
  *
- * @param emd the ExternalModelDefinition_t structure to unset
+ * @param emd the ExternalModelDefinition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -785,7 +788,7 @@ ExternalModelDefinition_unsetId(ExternalModelDefinition_t * emd);
 /**
  * Unsets the "source" attribute of the given ExternalModelDefinition_t structure.
  *
- * @param emd the ExternalModelDefinition_t structure to unset
+ * @param emd the ExternalModelDefinition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -801,7 +804,7 @@ ExternalModelDefinition_unsetSource(ExternalModelDefinition_t * emd);
 /**
  * Unsets the "name" attribute of the given ExternalModelDefinition_t structure.
  *
- * @param emd the ExternalModelDefinition_t structure to unset
+ * @param emd the ExternalModelDefinition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -817,7 +820,7 @@ ExternalModelDefinition_unsetName(ExternalModelDefinition_t * emd);
 /**
  * Unsets the "modelRef" attribute of the given ExternalModelDefinition_t structure.
  *
- * @param emd the ExternalModelDefinition_t structure to unset
+ * @param emd the ExternalModelDefinition_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -848,7 +851,7 @@ ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd);
 /**
  * Return the ExternalModelDefinition_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * ExternalModelDefinition_t is being sought.
@@ -869,8 +872,8 @@ ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the ExternalModelDefinition_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the ExternalModelDefinition_t sought.
  *
  * @return the ExternalModelDefinition_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no ExternalModelDefinition_t

@@ -1043,7 +1043,7 @@ XMLNode GeneralGlyph::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfReferenceGlyphs::ListOfReferenceGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)
@@ -1053,7 +1053,7 @@ ListOfReferenceGlyphs::ListOfReferenceGlyphs(unsigned int level, unsigned int ve
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfReferenceGlyphs::ListOfReferenceGlyphs(LayoutPkgNamespaces* layoutns)
  : ListOf(layoutns)

@@ -123,8 +123,8 @@ class ReplacedElement;
  * 
  * A ModelProcessingCallback takes two parameters: 
  * 
- * @param m the newly instantiated Model to be processed
- * @param log an error log to log potential issues to
+ * @param m the newly instantiated Model to be processed.
+ * @param log an error log to log potential issues to.
  * @param userdata any needed userdata that helps processing the document.
  *
  */
@@ -148,8 +148,8 @@ class LIBSBML_EXTERN Submodel : public CompBase
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   std::string   mModelRef;
   std::string   mTimeConversionFactor;
   std::string   mExtentConversionFactor;
@@ -165,9 +165,11 @@ public:
    * Creates a new Submodel with the given level, version, and package
    * version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Submodel(unsigned int level      = CompExtension::getDefaultLevel(),
            unsigned int version    = CompExtension::getDefaultVersion(),
@@ -177,13 +179,19 @@ public:
   /**
    * Creates a new Submodel with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Submodel(CompPkgNamespaces* compns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
   Submodel(const Submodel& source);
 
@@ -197,14 +205,14 @@ public:
   /**
    * Creates and returns a deep copy of this Submodel object.
    * 
-   * @return a (deep) copy of this Submodel object
+   * @return a (deep) copy of this Submodel object.
    */
   virtual Submodel* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~Submodel ();
 
 
@@ -212,7 +220,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    */
@@ -223,7 +231,7 @@ public:
    * Returns the first child element it can find with the given @p metaid, or
    * itself if it has the given @p metaid, or @c NULL if no such object is found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the metaid of the object to find.
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
@@ -234,6 +242,10 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
@@ -242,7 +254,18 @@ public:
   /**
    * Returns the value of the "id" attribute of this Submodel.
    *
-   * @return the value of the "id" attribute of this Submodel.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Submodel.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId() const;
 
@@ -251,37 +274,31 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Submodel's "id" attribute has been set.
    *
-   * @return @c true if this Submodel's "id" attribute has been set, 
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
   
   /**
-   * Sets the value of the "id" attribute of this Submodel.  Fails if the id
-   * is not a valid syntax for an SId.
+   * Sets the value of the "id" attribute of this Submodel.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId(const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this Submodel.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
 
   /**
-   * Returns the value of the "name" attribute of this Submodel.
+   * Returns the value of the "name" attribute of this Submodel object.
    *
-   * @return the value of the "name" attribute of this Submodel.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName() const;
 
@@ -290,19 +307,15 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Submodel's "name" attribute has been set.
    *
-   * @return @c true if this Submodel's "name" attribute has been set, 
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
   
   /**
-   * Sets the value of the "name" attribute of this Submodel.  Fails if the
-   * name is empty.
+   * Sets the value of the "name" attribute of this Submodel.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName(const std::string& name);
 
@@ -310,9 +323,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Submodel.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -359,7 +370,7 @@ public:
   /**
    * Returns an empty string, since "substanceConversionFactor" is not a part of the comp spec.
    *
-   * @return an empty string
+   * @return an empty string.
    */
   virtual const std::string& getSubstanceConversionFactor () const;
 
@@ -375,8 +386,7 @@ public:
   /**
    * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return value is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setSubstanceConversionFactor (const std::string& id);
@@ -385,8 +395,7 @@ public:
   /**
    * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return value is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetSubstanceConversionFactor ();
@@ -475,7 +484,7 @@ public:
    * Returns the ListOf object that holds all deletions.
    *
    * @return the ListOf object that holds all deletions.
-   */ 
+   */
   const ListOfDeletions* getListOfDeletions () const;
 
 
@@ -483,7 +492,7 @@ public:
    * Returns the ListOf object that holds all deletions.
    *
    * @return the ListOf object that holds all deletions.
-   */ 
+   */
   ListOfDeletions* getListOfDeletions ();
 
 
@@ -494,7 +503,7 @@ public:
    * @param n the index number of the Deletion to get.
    *
    * @return the nth Deletion in the ListOfDeletions.
-   */ 
+   */
   Deletion* getDeletion (unsigned int n);
 
 
@@ -505,7 +514,7 @@ public:
    * @param n the index number of the Deletion to get.
    *
    * @return the nth Deletion in the ListOfDeletions.
-   */ 
+   */
   const Deletion* getDeletion (unsigned int n) const;
 
 
@@ -516,7 +525,7 @@ public:
    * @param id the id of the Deletion to get.
    *
    * @return the Deletion in the ListOfDeletions with the given @p id.
-   */ 
+   */
   Deletion* getDeletion (std::string id);
 
 
@@ -527,7 +536,7 @@ public:
    * @param id the id of the Deletion to get.
    *
    * @return the Deletion in the ListOfDeletions with the given @p id.
-   */ 
+   */
   const Deletion* getDeletion (std::string id) const;
 
 
@@ -562,7 +571,7 @@ public:
    * deletion objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created Deletion object
+   * @return a newly created Deletion object.
    */
   Deletion* createDeletion ();
 
@@ -572,7 +581,7 @@ public:
    * A pointer to the deletion that was removed is returned.
    * If no deletion has been removed, @c NULL is returned.
    *
-   * @param index the index of the Deletion object to remove
+   * @param index the index of the Deletion object to remove.
    *
    * @return the Deletion object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -587,7 +596,7 @@ public:
    * If no deletion has been removed, @c NULL is returned.
    *
    * @param sid string representing the identifier
-   * of the Deletion object to remove
+   * of the Deletion object to remove.
    *
    * @return the Deletion object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -597,7 +606,7 @@ public:
 
 
   /**
-   * Returns true if the 'submodel' attribute is set, and if getNumReferents() is exactly 1.
+   * Returns @c true if the 'submodel' attribute is set, and if getNumReferents() is exactly 1.
    *
    * @return boolean: 'true' if the attributes are correctly set; 'false' if not.
    */
@@ -625,7 +634,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_COMP_SUBMODEL, SBMLCompTypeCode_t}
+   * @sbmlconstant{SBML_COMP_SUBMODEL, SBMLCompTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -638,7 +647,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -666,7 +675,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -808,20 +817,20 @@ public:
    * ModelDefinition object. This allows for all post processing on it that needs to 
    * happen before integrating it with the target document. 
    *
-   * @param cb the callback
-   * @param userdata an optional parameter containing userdata that the callback needs
+   * @param cb the callback.
+   * @param userdata an optional parameter containing userdata that the callback needs.
    */
   static void addProcessingCallback(ModelProcessingCallback cb, void* userdata = NULL);
 
   /** 
-   * @return the number of registered callbacks
+   * @return the number of registered callbacks.
    */
   static int getNumProcessingCallbacks();
 
   /**
    * Removes the callback with given index. 
    * 
-   * @param index the index of the callback to be removed from the list
+   * @param index the index of the callback to be removed from the list.
    *
    */
   static void removeProcessingCallback(int index);
@@ -829,8 +838,8 @@ public:
   /**
    * Removes the specified callback from the list of registered callbacks
    *
-   * @param cb the callback to be removed
-   */ 
+   * @param cb the callback to be removed.
+   */
   static void removeProcessingCallback(ModelProcessingCallback cb);
   /** @endcond */
 
@@ -851,7 +860,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -861,7 +870,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -904,11 +913,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Submodel_t
+ * Submodel_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * Submodel_t
+ * Submodel_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * Submodel_t
+ * Submodel_t.
  *
  * @return a pointer to the newly created Submodel_t structure.
  *
@@ -949,7 +958,7 @@ Submodel_clone(Submodel_t * s);
 /**
  * Takes an Submodel_t structure and returns its identifier.
  *
- * @param s the Submodel_t structure whose identifier is sought
+ * @param s the Submodel_t structure whose identifier is sought.
  * 
  * @return the identifier of the given Submodel_t, as a pointer to a string.
  *
@@ -1034,7 +1043,7 @@ Submodel_getExtentConversionFactor(Submodel_t * s);
  * Predicate returning @c true or @c false depending on whether the given
  * Submodel_t structure's identifier is set.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * Submodel_t structure is set, zero (false) otherwise.
@@ -1050,7 +1059,7 @@ Submodel_isSetId(Submodel_t * s);
  * Predicate returning @c true or @c false depending on whether the given
  * Submodel_t structure's name is set.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * Submodel_t structure is set, zero (false) otherwise.
@@ -1066,7 +1075,7 @@ Submodel_isSetName(Submodel_t * s);
  * Predicate returning @c true or @c false depending on whether the given
  * Submodel_t structure's modelRef is set.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c non-zero (true) if the "modelRef" attribute of the given
  * Submodel_t structure is set, zero (false) otherwise.
@@ -1081,7 +1090,7 @@ Submodel_isSetModelRef(Submodel_t * s);
 /**
  * Returns @c false, since "substanceConversionFactor" is not a part of the comp spec.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c 0 (false)
  *
@@ -1096,7 +1105,7 @@ Submodel_isSetSubstanceConversionFactor(Submodel_t * s);
  * Predicate returning @c true or @c false depending on whether the given
  * Submodel_t structure's timeConversionFactor is set.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c non-zero (true) if the "timeConversionFactor" attribute of the given
  * Submodel_t structure is set, zero (false) otherwise.
@@ -1112,7 +1121,7 @@ Submodel_isSetTimeConversionFactor(Submodel_t * s);
  * Predicate returning @c true or @c false depending on whether the given
  * Submodel_t structure's extentConversionFactor is set.
  *
- * @param s the Submodel_t structure to query
+ * @param s the Submodel_t structure to query.
  * 
  * @return @c non-zero (true) if the "extentConversionFactor" attribute of the given
  * Submodel_t structure is set, zero (false) otherwise.
@@ -1149,7 +1158,7 @@ Submodel_setId(Submodel_t * s, const char * sid);
 /**
  * Sets the name of the given Submodel_t to a copy of @p name.
  *
- * @param s the Submodel_t structure to set
+ * @param s the Submodel_t structure to set.
  * @param name the name to assign to the given Submodel_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1169,7 +1178,7 @@ Submodel_setName(Submodel_t * s, const char * name);
 /**
  * Sets the modelRef of the given Submodel_t to a copy of @p modelRef.
  *
- * @param s the Submodel_t structure to set
+ * @param s the Submodel_t structure to set.
  * @param modelRef the modelRef to assign to the given Submodel_t's "modelRef" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1189,13 +1198,10 @@ Submodel_setModelRef(Submodel_t * s, const char * modelRef);
 /**
  * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
  *
- * @param s the Submodel_t structure to set
- * @param substanceConversionFactor the substanceConversionFactor to ignore
+ * @param s the Submodel_t structure to set.
+ * @param substanceConversionFactor the substanceConversionFactor to ignore.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible value
- * returned by this function is:
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Submodel_t
@@ -1208,7 +1214,7 @@ Submodel_setSubstanceConversionFactor(Submodel_t * s, const char * substanceConv
 /**
  * Sets the timeConversionFactor of the given Submodel_t to a copy of @p timeConversionFactor.
  *
- * @param s the Submodel_t structure to set
+ * @param s the Submodel_t structure to set.
  * @param timeConversionFactor the timeConversionFactor to assign to the given Submodel_t's "timeConversionFactor" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1228,7 +1234,7 @@ Submodel_setTimeConversionFactor(Submodel_t * s, const char * timeConversionFact
 /**
  * Sets the extentConversionFactor of the given Submodel_t to a copy of @p extentConversionFactor.
  *
- * @param s the Submodel_t structure to set
+ * @param s the Submodel_t structure to set.
  * @param extentConversionFactor the extentConversionFactor to assign to the given Submodel_t's "extentConversionFactor" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1248,7 +1254,7 @@ Submodel_setExtentConversionFactor(Submodel_t * s, const char * extentConversion
 /**
  * Unsets the "id" attribute of the given Submodel_t structure.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1264,7 +1270,7 @@ Submodel_unsetId(Submodel_t * s);
 /**
  * Unsets the "name" attribute of the given Submodel_t structure.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1280,7 +1286,7 @@ Submodel_unsetName(Submodel_t * s);
 /**
  * Unsets the "modelRef" attribute of the given Submodel_t structure.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1296,12 +1302,9 @@ Submodel_unsetModelRef(Submodel_t * s);
 /**
  * Automatically fails, since "substanceConversionFactor" is not a part of the comp spec.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible value
- * returned by this function is:
+ * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof Submodel_t
@@ -1314,7 +1317,7 @@ Submodel_unsetSubstanceConversionFactor(Submodel_t * s);
 /**
  * Unsets the "timeConversionFactor" attribute of the given Submodel_t structure.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1330,7 +1333,7 @@ Submodel_unsetTimeConversionFactor(Submodel_t * s);
 /**
  * Unsets the "extentConversionFactor" attribute of the given Submodel_t structure.
  *
- * @param s the Submodel_t structure to unset
+ * @param s the Submodel_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1348,9 +1351,9 @@ Submodel_unsetExtentConversionFactor(Submodel_t * s);
  * structure.
  *
  * @param s the Submodel_t structure to which the Deletion_t should be
- * added
+ * added.
  *
- * @param d a Deletion_t structure to add
+ * @param d a Deletion_t structure to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1372,7 +1375,7 @@ Submodel_addDeletion(Submodel_t * s, Deletion_t * d);
  * Submodel_t, and returns the Deletion_t.
  *
  * @param s the Submodel_t structure to which the Deletion_t should be
- * added
+ * added.
  *
  * @return the newly-created empty Deletion_t.
  *
@@ -1401,9 +1404,9 @@ Submodel_getListOfDeletions(Submodel_t * s) ;
 /**
  * Return a specific Deletion_t structure of the given Submodel_t.
  *
- * @param s the Submodel_t structure to use
+ * @param s the Submodel_t structure to use.
  *
- * @param n an integer, the index of the Deletion_t structure to return
+ * @param n an integer, the index of the Deletion_t structure to return.
  * 
  * @return the nth Deletion_t of the given Submodel_t, or @c NULL if no such Deletion_t exists.
  *
@@ -1417,7 +1420,7 @@ Submodel_getDeletion(Submodel_t * s, unsigned int n);
 /**
  * Return the Deletion_t indicated by the given @p sid.
  *
- * @param s the Submodel_t structure to use
+ * @param s the Submodel_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Deletion_t is being sought.
@@ -1436,7 +1439,7 @@ Submodel_getDeletionById(Submodel_t * s, const char * sid);
  * Returns the number of EventAssignment_t structures attached to the given
  * Submodel_t.
  *
- * @param s the Submodel_t structure to use
+ * @param s the Submodel_t structure to use.
  * 
  * @return the number of EventAssignment_t structures in the given Submodel_t.
  *
@@ -1453,8 +1456,8 @@ Submodel_getNumDeletions(Submodel_t * s);
  *
  * * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param s the Submodel_t structure
- * @param n the integer index of the Deletion_t sought
+ * @param s the Submodel_t structure.
+ * @param n the integer index of the Deletion_t sought.
  *
  * @return the Deletion_t structure removed.  As mentioned above, 
  * the caller owns the returned item. @c NULL is returned if the given index 
@@ -1473,8 +1476,8 @@ Submodel_removeDeletion(Submodel_t * s, unsigned int n);
  *
  * * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param s the Submodel_t structure
- * @param sid the string of the "id" attribute of the Deletion_t sought
+ * @param s the Submodel_t structure.
+ * @param sid the string of the "id" attribute of the Deletion_t sought.
  *
  * @return the Deletion_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Deletion_t
@@ -1518,7 +1521,7 @@ Submodel_hasRequiredElements(Submodel_t * s);
 /**
  * Return the Submodel_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Submodel_t is being sought.
@@ -1539,8 +1542,8 @@ ListOfSubmodels_getById(ListOf_t * lo, const char * sid);
  *
  * * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the Submodel_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the Submodel_t sought.
  *
  * @return the Submodel_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Submodel_t

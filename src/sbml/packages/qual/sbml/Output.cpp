@@ -48,10 +48,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Output::Output (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-   ,mId ("")
+//   ,mId ("")
    ,mQualitativeSpecies ("")
    ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
-   ,mName ("")
+//   ,mName ("")
    ,mOutputLevel (SBML_INT_MAX)
    ,mIsSetOutputLevel (false)
 {
@@ -65,10 +65,10 @@ Output::Output (unsigned int level, unsigned int version, unsigned int pkgVersio
  */
 Output::Output (QualPkgNamespaces* qualns)
   : SBase(qualns)
-   ,mId ("")
+//   ,mId ("")
    ,mQualitativeSpecies ("")
    ,mTransitionEffect (OUTPUT_TRANSITION_EFFECT_UNKNOWN)
-   ,mName ("")
+//   ,mName ("")
    ,mOutputLevel (SBML_INT_MAX)
    ,mIsSetOutputLevel (false)
 {
@@ -85,10 +85,10 @@ Output::Output (QualPkgNamespaces* qualns)
  */
 Output::Output (const Output& orig)
   : SBase ( orig )
-  , mId ( orig.mId )
+  //, mId ( orig.mId )
   , mQualitativeSpecies ( orig.mQualitativeSpecies )
   , mTransitionEffect ( orig.mTransitionEffect )
-  , mName ( orig.mName )
+  //, mName ( orig.mName )
   , mOutputLevel ( orig.mOutputLevel )
   , mIsSetOutputLevel ( orig.mIsSetOutputLevel )
 {

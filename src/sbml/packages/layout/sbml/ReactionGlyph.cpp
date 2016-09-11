@@ -834,7 +834,7 @@ XMLNode ReactionGlyph::toXML() const
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)
@@ -844,7 +844,7 @@ ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(unsigned int level, u
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(LayoutPkgNamespaces* layoutns)
  : ListOf(layoutns)

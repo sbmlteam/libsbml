@@ -79,11 +79,11 @@ class LIBSBML_EXTERN QualitativeSpecies : public SBase
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
+//  std::string   mId;
   std::string   mCompartment;
   bool          mConstant;
   bool          mIsSetConstant;
-  std::string   mName;
+//  std::string   mName;
   int           mInitialLevel;
   bool          mIsSetInitialLevel;
   int           mMaxLevel;
@@ -96,11 +96,13 @@ public:
   /**
    * Creates a new QualitativeSpecies with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this QualitativeSpecies
+   * @param level an unsigned int, the SBML Level to assign to this QualitativeSpecies.
    *
-   * @param version an unsigned int, the SBML Version to assign to this QualitativeSpecies
+   * @param version an unsigned int, the SBML Version to assign to this QualitativeSpecies.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this QualitativeSpecies
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this QualitativeSpecies.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   QualitativeSpecies(unsigned int level      = QualExtension::getDefaultLevel(),
                      unsigned int version    = QualExtension::getDefaultVersion(),
@@ -110,7 +112,11 @@ public:
   /**
    * Creates a new QualitativeSpecies with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   QualitativeSpecies(QualPkgNamespaces* qualns);
 
@@ -127,7 +133,7 @@ public:
    * Assignment operator for QualitativeSpecies.
    *
    * @param rhs the object whose values are used as the basis
-   * of the assignment
+   * of the assignment.
    */
   QualitativeSpecies& operator=(const QualitativeSpecies& rhs);
 
@@ -149,7 +155,18 @@ public:
   /**
    * Returns the value of the "id" attribute of this QualitativeSpecies.
    *
-   * @return the value of the "id" attribute of this QualitativeSpecies as a string.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this QualitativeSpecies.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId() const;
 
@@ -171,9 +188,9 @@ public:
 
 
   /**
-   * Returns the value of the "name" attribute of this QualitativeSpecies.
+   * Returns the value of the "name" attribute of this QualitativeSpecies object.
    *
-   * @return the value of the "name" attribute of this QualitativeSpecies as a string.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName() const;
 
@@ -198,8 +215,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * QualitativeSpecies's "id" attribute has been set.
    *
-   * @return @c true if this QualitativeSpecies's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
@@ -228,8 +244,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * QualitativeSpecies's "name" attribute has been set.
    *
-   * @return @c true if this QualitativeSpecies's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
@@ -257,19 +272,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this QualitativeSpecies.
    *
-   * @param id const std::string& value of the "id" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId(const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
    *
-   * @param compartment const std::string& value of the "compartment" attribute to be set
+   * @param compartment the value of the "compartment" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -281,7 +292,7 @@ public:
   /**
    * Sets the value of the "constant" attribute of this QualitativeSpecies.
    *
-   * @param constant bool value of the "constant" attribute to be set
+   * @param constant bool value of the "constant" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -293,11 +304,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this QualitativeSpecies.
    *
-   * @param name const std::string& value of the "name" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName(const std::string& name);
 
@@ -305,7 +312,7 @@ public:
   /**
    * Sets the value of the "initialLevel" attribute of this QualitativeSpecies.
    *
-   * @param initialLevel int value of the "initialLevel" attribute to be set
+   * @param initialLevel int value of the "initialLevel" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -317,7 +324,7 @@ public:
   /**
    * Sets the value of the "maxLevel" attribute of this QualitativeSpecies.
    *
-   * @param maxLevel int value of the "maxLevel" attribute to be set
+   * @param maxLevel int value of the "maxLevel" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -329,9 +336,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this QualitativeSpecies.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
@@ -359,9 +364,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this QualitativeSpecies.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -434,7 +437,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -526,11 +529,13 @@ public:
   /**
    * Creates a new ListOfQualitativeSpecies with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfQualitativeSpecies
+   * @param level an unsigned int, the SBML Level to assign to this ListOfQualitativeSpecies.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfQualitativeSpecies
+   * @param version an unsigned int, the SBML Version to assign to this ListOfQualitativeSpecies.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfQualitativeSpecies
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfQualitativeSpecies.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfQualitativeSpecies(unsigned int level      = QualExtension::getDefaultLevel(),
                            unsigned int version    = QualExtension::getDefaultVersion(),
@@ -540,7 +545,11 @@ public:
   /**
    * Creates a new ListOfQualitativeSpecies with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfQualitativeSpecies(QualPkgNamespaces* qualns);
 
@@ -704,11 +713,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * QualitativeSpecies_t
+ * QualitativeSpecies_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * QualitativeSpecies_t
+ * QualitativeSpecies_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * QualitativeSpecies_t
+ * QualitativeSpecies_t.
  *
  * @return a pointer to the newly created QualitativeSpecies_t structure.
  *
@@ -749,7 +758,7 @@ QualitativeSpecies_clone(QualitativeSpecies_t * qs);
 /**
  * Takes an QualitativeSpecies_t structure and returns its identifier.
  *
- * @param qs the QualitativeSpecies_t structure whose identifier is sought
+ * @param qs the QualitativeSpecies_t structure whose identifier is sought.
  * 
  * @return the identifier of this QualitativeSpecies_t, as a pointer to a string.
  *
@@ -835,7 +844,7 @@ QualitativeSpecies_getMaxLevel(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's identifier is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -851,7 +860,7 @@ QualitativeSpecies_isSetId(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's compartment is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "compartment" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -867,7 +876,7 @@ QualitativeSpecies_isSetCompartment(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's constant is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "constant" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -883,7 +892,7 @@ QualitativeSpecies_isSetConstant(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's name is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -899,7 +908,7 @@ QualitativeSpecies_isSetName(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's initialLevel is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "initialLevel" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -915,7 +924,7 @@ QualitativeSpecies_isSetInitialLevel(QualitativeSpecies_t * qs);
  * Predicate returning @c true or @c false depending on whether the given
  * QualitativeSpecies_t structure's maxLevel is set.
  *
- * @param qs the QualitativeSpecies_t structure to query
+ * @param qs the QualitativeSpecies_t structure to query.
  * 
  * @return @c non-zero (true) if the "maxLevel" attribute of the given
  * QualitativeSpecies_t structure is set, zero (false) otherwise.
@@ -952,7 +961,7 @@ QualitativeSpecies_setId(QualitativeSpecies_t * qs, const char * sid);
 /**
  * Sets the compartment of the given QualitativeSpecies_t to a copy of @p compartment.
  *
- * @param qs the QualitativeSpecies_t structure to set
+ * @param qs the QualitativeSpecies_t structure to set.
  * @param compartment the compartment to assign to the given QualitativeSpecies_t's "compartment" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -972,7 +981,7 @@ QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compar
 /**
  * Sets the "constant" attribute of this QualitativeSpecies_t to @p constant.
  * 
- * @param qs the QualitativeSpecies_t structure to set
+ * @param qs the QualitativeSpecies_t structure to set.
  * @param constant the value of the "constant" attribute, converted to a boolean: 
  * all nonzero values set the "constant" attribute to 'true', and a value of 
  * zero (0) will set the "constant" attribute to 'false'.
@@ -991,7 +1000,7 @@ QualitativeSpecies_setConstant(QualitativeSpecies_t * qs, int constant);
 /**
  * Sets the name of the given QualitativeSpecies_t to a copy of @p name.
  *
- * @param qs the QualitativeSpecies_t structure to set
+ * @param qs the QualitativeSpecies_t structure to set.
  * @param name the name to assign to the given QualitativeSpecies_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -1012,9 +1021,9 @@ QualitativeSpecies_setName(QualitativeSpecies_t * qs, const char * name);
  * Sets the "initialLevel" attribute of the given QualitativeSpecies_t
  * structure.
  *
- * @param qs the QualitativeSpecies_t structure
+ * @param qs the QualitativeSpecies_t structure.
  * 
- * @param initialLevel the value of initialLevel to assign to the "initialLevel" attribute
+ * @param initialLevel the value of initialLevel to assign to the "initialLevel" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1031,9 +1040,9 @@ QualitativeSpecies_setInitialLevel(QualitativeSpecies_t * qs, int initialLevel);
  * Sets the "maxLevel" attribute of the given QualitativeSpecies_t
  * structure.
  *
- * @param qs the QualitativeSpecies_t structure
+ * @param qs the QualitativeSpecies_t structure.
  * 
- * @param maxLevel the value of maxLevel to assign to the "maxLevel" attribute
+ * @param maxLevel the value of maxLevel to assign to the "maxLevel" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1049,7 +1058,7 @@ QualitativeSpecies_setMaxLevel(QualitativeSpecies_t * qs, int maxLevel);
 /**
  * Unsets the "id" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1065,7 +1074,7 @@ QualitativeSpecies_unsetId(QualitativeSpecies_t * qs);
 /**
  * Unsets the "compartment" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1081,7 +1090,7 @@ QualitativeSpecies_unsetCompartment(QualitativeSpecies_t * qs);
 /**
  * Unsets the "constant" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1097,7 +1106,7 @@ QualitativeSpecies_unsetConstant(QualitativeSpecies_t * qs);
 /**
  * Unsets the "name" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1113,7 +1122,7 @@ QualitativeSpecies_unsetName(QualitativeSpecies_t * qs);
 /**
  * Unsets the "initialLevel" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1129,7 +1138,7 @@ QualitativeSpecies_unsetInitialLevel(QualitativeSpecies_t * qs);
 /**
  * Unsets the "maxLevel" attribute of the given QualitativeSpecies_t structure.
  *
- * @param qs the QualitativeSpecies_t structure to unset
+ * @param qs the QualitativeSpecies_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1160,7 +1169,7 @@ QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs);
 /**
  * Return the QualitativeSpecies_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * QualitativeSpecies_t is being sought.
@@ -1181,8 +1190,8 @@ ListOfQualitativeSpecies_getById(ListOf_t * lo, const char * sid);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the QualitativeSpecies_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the QualitativeSpecies_t sought.
  *
  * @return the QualitativeSpecies_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no QualitativeSpecies_t

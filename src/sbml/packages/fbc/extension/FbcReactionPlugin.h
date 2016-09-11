@@ -34,14 +34,17 @@
  * @sbmlbrief{fbc} Extension of Reaction by the &ldquo;fbc&rdquo; package.
  *
  * The FbcReactionPlugin class inherits from the SBasePlugin class, and
- * codifies the extensions to the Reaction class defined in the @ref fbc
- * package (&ldquo;fbc&rdquo;).  This extension allows the modeler to define
+ * codifies the extentions to the Reaction class defined in the @ref fbc
+ * package (&ldquo;fbc&rdquo;).  This extention allows the modeler to define
  * (in Version&nbsp;2 of the &ldquo;fbc&rdquo; package) an upper and lower
- * flux bound, as well as a way to reference any GeneProduct associated with
- * this Reaction.
+ * flux bound, with the 'upperFluxBound' and 'lowerFluxBound' attributes,
+ * as well as a way to reference any GeneProduct associated with
+ * this Reaction, through the GeneProductAssociation child.
  *
  * @note In Version&nbsp;1 of &ldquo;fbc&rdquo;, the FluxBound element is
- * used instead of this object.
+ * used instead of the 'upperFluxBound' and 'lowerFluxBound' attributes.
+ * There is no equivalent of the GeneProductAssociation, which was added 
+ * in Version&nbsp;2.
  */
 
 
@@ -67,7 +70,18 @@ class LIBSBML_EXTERN FbcReactionPlugin : public SBasePlugin
 public:
 
   /**
-   * Creates a new FbcReactionPlugin
+   * Creates a new FbcReactionPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param fbcns the namespaces object for the package.
    */
   FbcReactionPlugin(const std::string& uri, const std::string& prefix, 
                                  FbcPkgNamespaces* fbcns);
@@ -76,7 +90,7 @@ public:
   /**
    * Copy constructor for FbcReactionPlugin.
    *
-   * @param orig; the FbcReactionPlugin instance to copy.
+   * @param orig the FbcReactionPlugin instance to copy.
    */
   FbcReactionPlugin(const FbcReactionPlugin& orig);
 
@@ -84,8 +98,8 @@ public:
    /**
    * Assignment operator for FbcReactionPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   FbcReactionPlugin& operator=(const FbcReactionPlugin& rhs);
 
@@ -123,7 +137,7 @@ public:
   virtual SBase* createObject (XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -134,7 +148,7 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   //---------------------------------------------------------------
@@ -148,7 +162,7 @@ public:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   /**
    * @copydoc doc_renamesidref_common
@@ -165,7 +179,7 @@ public:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -176,7 +190,7 @@ public:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   //---------------------------------------------------------------
@@ -189,13 +203,15 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
    * Returns the GeneProductAssociation from this FbcReactionPlugin object.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @return the GeneProductAssociation from object in this FbcReactionPlugin object.
    */
@@ -204,6 +220,8 @@ public:
 
   /**
    * Returns the GeneProductAssociation from this FbcReactionPlugin object.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @return the GeneProductAssociation from object in this FbcReactionPlugin object.
    */
@@ -214,6 +232,8 @@ public:
    * Predicate returning @c true if this FbcReactionPlugin's
    * "GeneProductAssociation" element has been set.
    *
+   * @copydetails note_geneproduct_v2_only
+   *
    * @return @c true if the "GeneProductAssociation" element has been set,
    * otherwise @c false is returned.
    */
@@ -223,12 +243,11 @@ public:
   /**
    * Sets the GeneProductAssociation element in this FbcReactionPlugin object.
    *
-   * @param geneProductAssociation the geneProductAssociation* to be set.
+   * @copydetails note_geneproduct_v2_only
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @param geneProductAssociation the geneProductAssociation to be set.
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setGeneProductAssociation (const GeneProductAssociation* geneProductAssociation);
@@ -236,6 +255,8 @@ public:
 
   /**
    * Creates a new GeneProductAssociation object and adds it to the FbcReactionPlugin object.
+   *
+   * @copydetails note_geneproduct_v2_only
    *
    * @return the newly created GeneProductAssociation object.
    */
@@ -245,6 +266,8 @@ public:
   /**
    * Returns the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
+   * @copydetails note_fluxbound_v2_only
+   *
    * @return the value of the "lowerFluxBound" attribute of this FbcReactionPlugin as a string.
    */
   virtual const std::string& getLowerFluxBound() const;
@@ -252,6 +275,8 @@ public:
 
   /**
    * Returns the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
+   *
+   * @copydetails note_fluxbound_v2_only
    *
    * @return the value of the "upperFluxBound" attribute of this FbcReactionPlugin as a string.
    */
@@ -261,6 +286,8 @@ public:
   /**
    * Predicate returning @c true if this FbcReactionPlugin's "lowerFluxBound"
    * attribute is set.
+   *
+   * @copydetails note_fluxbound_v2_only
    *
    * @return @c true if this FbcReactionPlugin's "lowerFluxBound" attribute has been set,
    * otherwise @c false is returned.
@@ -272,6 +299,8 @@ public:
    * Predicate returning @c true if this FbcReactionPlugin's "upperFluxBound"
    * attribute is set.
    *
+   * @copydetails note_fluxbound_v2_only
+   *
    * @return @c true if this FbcReactionPlugin's "upperFluxBound" attribute has been set,
    * otherwise @c false is returned.
    */
@@ -281,12 +310,11 @@ public:
   /**
    * Sets the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @param lowerFluxBound; const std::string& value of the "lowerFluxBound" attribute to be set
+   * @copydetails note_fluxbound_v2_only
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @param lowerFluxBound the value of the "lowerFluxBound" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -296,12 +324,11 @@ public:
   /**
    * Sets the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @param upperFluxBound; const std::string& value of the "upperFluxBound" attribute to be set
+   * @copydetails note_fluxbound_v2_only
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @param upperFluxBound the value of the "upperFluxBound" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -311,10 +338,9 @@ public:
   /**
    * Unsets the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails note_fluxbound_v2_only
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -324,10 +350,9 @@ public:
   /**
    * Unsets the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails note_fluxbound_v2_only
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -336,10 +361,9 @@ public:
   /**
    * Unsets the the "geneProduct" element of this FbcReactionPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails note_fluxbound_v2_only
+   *
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -353,7 +377,7 @@ public:
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -361,7 +385,7 @@ public:
   virtual void connectToParent (SBase* sbase);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -370,14 +394,14 @@ public:
                                      const std::string& pkgPrefix, bool flag);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   virtual bool accept (SBMLVisitor& v) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -388,7 +412,7 @@ protected:
   std::string   mLowerFluxBound;
   std::string   mUpperFluxBound;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
@@ -422,7 +446,7 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
  * Predicate returning @c true or @c false depending on whether the given
  * FbcReactionPlugin_t structure's UpperFluxBound is set.
  *
- * @param fbc the FbcReactionPlugin_t structure to query
+ * @param fbc the FbcReactionPlugin_t structure to query.
  * 
  * @return @c non-zero (true) if the "UpperFluxBound" attribute of the given
  * FbcReactionPlugin_t structure is set, zero (false) otherwise.
@@ -437,7 +461,7 @@ FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc);
 /**
  * Sets the UpperFluxBound of the given FbcReactionPlugin_t to a copy of @p UpperFluxBound.
  *
- * @param fbc the FbcReactionPlugin_t structure to set
+ * @param fbc the FbcReactionPlugin_t structure to set.
  * @param UpperFluxBound the UpperFluxBound to assign to the given FbcReactionPlugin_t's "UpperFluxBound" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -457,7 +481,7 @@ FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * UpperFluxB
 /**
  * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
- * @param fbc the FbcReactionPlugin_t structure to unset
+ * @param fbc the FbcReactionPlugin_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -488,7 +512,7 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
  * Predicate returning @c true or @c false depending on whether the given
  * FbcReactionPlugin_t structure's LowerFluxBound is set.
  *
- * @param fbc the FbcReactionPlugin_t structure to query
+ * @param fbc the FbcReactionPlugin_t structure to query.
  * 
  * @return @c non-zero (true) if the "LowerFluxBound" attribute of the given
  * FbcReactionPlugin_t structure is set, zero (false) otherwise.
@@ -503,7 +527,7 @@ FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc);
 /**
  * Sets the LowerFluxBound of the given FbcReactionPlugin_t to a copy of @p LowerFluxBound.
  *
- * @param fbc the FbcReactionPlugin_t structure to set
+ * @param fbc the FbcReactionPlugin_t structure to set.
  * @param LowerFluxBound the LowerFluxBound to assign to the given FbcReactionPlugin_t's "LowerFluxBound" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -523,7 +547,7 @@ FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * LowerFluxB
 /**
  * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
- * @param fbc the FbcReactionPlugin_t structure to unset
+ * @param fbc the FbcReactionPlugin_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -540,7 +564,7 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
  * Predicate returning @c true or @c false depending on whether the given
  * FbcReactionPlugin_t structure's GeneProductAssociation is set.
  *
- * @param fbc the FbcReactionPlugin_t structure to query
+ * @param fbc the FbcReactionPlugin_t structure to query.
  * 
  * @return @c non-zero (true) if the "geneProductAssopciation" elemen of the given
  * FbcReactionPlugin_t structure is set, zero (false) otherwise.

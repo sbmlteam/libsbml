@@ -72,9 +72,11 @@ public:
   /**
    * Creates a new ListOfPorts with the given level, version, and package version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfPorts(unsigned int level      = CompExtension::getDefaultLevel(), 
               unsigned int version    = CompExtension::getDefaultVersion(), 
@@ -84,7 +86,11 @@ public:
   /**
    * Creates a new ListOfPorts with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfPorts(CompPkgNamespaces* compns);
 
@@ -153,7 +159,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param sid string representing the id of the Port to remove
+   * @param sid string representing the id of the Port to remove.
    *
    * @see size()
    */
@@ -166,7 +172,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -203,7 +209,7 @@ public:
    * id of Port objects are in the PortSId namespace, no Port object is
    * returned by this function.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    */

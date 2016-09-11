@@ -38,7 +38,7 @@
  * accepts one option:
  *
  * @li @c "strict": Should the model created be a strict one (i.e., should
- * all non-specified bounds be filled)?
+ * all non-specified bounds be filled)?  (Default value of @c true.)
  *
  * @copydetails doc_section_using_sbml_converters
  */

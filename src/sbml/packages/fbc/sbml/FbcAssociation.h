@@ -91,13 +91,15 @@ public:
    * &ldquo;fbc&rdquo;package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * FbcAssociation
+   * FbcAssociation.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * FbcAssociation
+   * FbcAssociation.
    *
    * @param pkgVersion an unsigned int, the SBML &ldquo;fbc&rdquo; package
-   * Version to assign to this FbcAssociation
+   * Version to assign to this FbcAssociation.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   FbcAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
                  unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -107,7 +109,11 @@ public:
   /**
    * Creates a new FbcAssociation with the given FbcPkgNamespaces object.
    *
-   * @param fbcns the FbcPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   FbcAssociation(FbcPkgNamespaces* fbcns);
 
@@ -115,7 +121,7 @@ public:
    /**
    * Copy constructor for FbcAssociation.
    *
-   * @param orig; the FbcAssociation instance to copy.
+   * @param orig the FbcAssociation instance to copy.
    */
   FbcAssociation(const FbcAssociation& orig);
 
@@ -123,8 +129,8 @@ public:
    /**
    * Assignment operator for FbcAssociation.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   FbcAssociation& operator=(const FbcAssociation& rhs);
 
@@ -144,28 +150,28 @@ public:
 
 
    /**
-   * Returns @c true, if this abstract "FbcAssociation" is of type FbcAnd.
+   * Returns @c true, if this abstract FbcAssociation is of type FbcAnd.
    *
-   * @return @c true, if this abstract "FbcAssociation" is of type FbcAnd.
+   * @return @c true, if this abstract FbcAssociation is of type FbcAnd.
    *
    */
   virtual bool isFbcAnd() const;
 
 
   /**
-   * Returns @c true, if this abstract "FbcAssociation" is of type FbcOr.
+   * Returns @c true, if this abstract FbcAssociation is of type FbcOr.
    *
-   * @return @c true, if this abstract "FbcAssociation" is of type FbcOr.
+   * @return @c true, if this abstract FbcAssociation is of type FbcOr.
    *
    */
   virtual bool isFbcOr() const;
 
 
   /**
-   * Returns @c true, if this abstract "FbcAssociation" is of type
+   * Returns @c true, if this abstract FbcAssociation is of type
    * GeneProductRef.
    *
-   * @return @c true, if this abstract "FbcAssociation" is of type
+   * @return @c true, if this abstract FbcAssociation is of type
    * GeneProductRef.
    *
    */
@@ -215,12 +221,12 @@ public:
 
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -230,7 +236,7 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**
@@ -243,11 +249,17 @@ public:
   (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
 @endverbatim
   *
+  * The 'and' operator takes precedence over the 'or' operator, meaning that
+  * the above input string would turn into two groups of gene names: either
+  * "b2422, b2425, b2423, and b2424" or "b2422, b2423, b2424, b2413, and b3917".
+  * Parentheses may be added to make things more clear, and to encode
+  * alternative schemes.
+  * 
   * This method also creates missing GeneProduct objects, in case the unique
   * reference does not yet exist.
   *
   * @param association the string to parse.
-  * @param plugin the FbcModelPlugin on which to add the geneProduct elements
+  * @param plugin the FbcModelPlugin on which to add the geneProduct elements.
   *
   * @return the parsed association, or @c NULL in case of an error.
   *
@@ -272,7 +284,7 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -283,7 +295,7 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -299,7 +311,7 @@ protected:
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -310,7 +322,7 @@ protected:
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -320,7 +332,7 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   friend class GeneProductAssociation;
 
@@ -369,13 +381,15 @@ public:
    * and &ldquo;fbc&rdquo;package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ListOfFbcAssociations
+   * ListOfFbcAssociations.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ListOfFbcAssociations
+   * ListOfFbcAssociations.
    *
    * @param pkgVersion an unsigned int, the SBML &ldquo;fbc&rdquo; package
-   * Version to assign to this ListOfFbcAssociations
+   * Version to assign to this ListOfFbcAssociations.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfFbcAssociations(unsigned int level      = FbcExtension::getDefaultLevel(),
                         unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -386,7 +400,11 @@ public:
    * Creates a new ListOfFbcAssociations with the given FbcPkgNamespaces
    * object.
    *
-   * @param fbcns the FbcPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfFbcAssociations(FbcPkgNamespaces* fbcns);
 
@@ -461,12 +479,9 @@ public:
    * Adds a copy the given FbcAssociation object to this
    * ListOfFbcAssociations.
    *
-   * @param fa; the FbcAssociation object to add
+   * @param fa the FbcAssociation object to add.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -477,7 +492,7 @@ public:
    * Get the number of FbcAssociation objects in this ListOfFbcAssociations.
    *
    * @return the number of FbcAssociation objects in this
-   * ListOfFbcAssociations
+   * ListOfFbcAssociations.
    */
   unsigned int getNumFbcAssociations() const;
 
@@ -489,7 +504,7 @@ public:
    * it to the ListOfFbcAssociations, and returns the FbcAssociation object
    * created.
    *
-   * @return a new FbcAssociation object instance
+   * @return a new FbcAssociation object instance.
    *
    * @see createOr()
    * @see createGeneProductRef()
@@ -505,7 +520,7 @@ public:
    * it to the ListOfFbcAssociations, and returns the FbcAssociation object
    * created.
    *
-   * @return a new FbcAssociation object instance
+   * @return a new FbcAssociation object instance.
    *
    * @see createAnd()
    * @see createGeneProductRef()
@@ -521,7 +536,7 @@ public:
    * GeneProductRef, adds it to the ListOfFbcAssociations, and returns the
    * FbcAssociation object created.
    *
-   * @return a new FbcAssociation object instance
+   * @return a new FbcAssociation object instance.
    *
    * @see createOr()
    * @see createAnd()
@@ -609,7 +624,7 @@ protected:
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -619,7 +634,7 @@ protected:
    */
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   virtual bool isValidTypeForList(SBase * item);

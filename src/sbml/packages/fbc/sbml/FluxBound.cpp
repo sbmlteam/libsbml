@@ -52,8 +52,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 FluxBound::FluxBound (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBase (level,version)
-   ,mId("")
-   ,mName("")
+//   ,mId("")
+//   ,mName("")
    ,mReaction("")
    ,mOperation (FLUXBOUND_OPERATION_UNKNOWN)
    ,mOperationString("")
@@ -72,8 +72,8 @@ FluxBound::FluxBound (unsigned int level, unsigned int version, unsigned int pkg
  */
 FluxBound::FluxBound(FbcPkgNamespaces* fbcns)
  : SBase(fbcns)
-   ,mId("")
-   ,mName("")
+//   ,mId("")
+//   ,mName("")
    ,mReaction("")
    ,mOperation (FLUXBOUND_OPERATION_UNKNOWN)
    ,mOperationString("")
@@ -731,7 +731,7 @@ FluxBound::enablePackageInternal(const std::string& pkgURI,
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfFluxBounds::ListOfFluxBounds(FbcPkgNamespaces* fbcns)
  : ListOf(fbcns)
@@ -744,7 +744,7 @@ ListOfFluxBounds::ListOfFluxBounds(FbcPkgNamespaces* fbcns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfFluxBounds::ListOfFluxBounds(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)

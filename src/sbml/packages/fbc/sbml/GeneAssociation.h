@@ -66,7 +66,7 @@ class LIBSBML_EXTERN GeneAssociation : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string mId;
+//  std::string mId;
   std::string mReaction;
   Association* mAssociation;
   /** @endcond */
@@ -75,6 +75,12 @@ public:
 
   /**
    * Creates a new GeneAssociation with the given @p level, @p version, and @p pkgVersion.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeneAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
                   unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -82,38 +88,67 @@ public:
 
   /**
    * Creates a new GeneAssociation with the given @p node and FbcPkgNamespaces @p fbcns.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param node the XMLNode to copy.
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeneAssociation(const XMLNode& node, FbcPkgNamespaces* fbcns);
 
 
   /**
    * Creates a new GeneAssociation with the given FbcPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GeneAssociation(FbcPkgNamespaces* fbcns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
   GeneAssociation(const GeneAssociation& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   GeneAssociation& operator=(const GeneAssociation& source);
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~GeneAssociation ();
 
   
   /**
-   * Returns the string of the "id" attribute of this GeneAssociation.
+   * Returns the value of the "id" attribute of this GeneAssociation.
    *
-   * @return the string of the "id" attribute of this GeneAssociation.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this GeneAssociation.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -122,30 +157,23 @@ public:
    * Predicate returning @c true if this GeneAssociation's "id" attribute is
    * set.
    *
-   * @return @c true if this GeneAssociation's "id" attribute has been set, 
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
   
   /**
-   * Sets the SIdRef string of the "id" attribute of this GeneAssociation.
+   * Sets the value of the "id" attribute of this GeneAssociation.
    *
-   * @param id a SIdRef string to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this GeneAssociation.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -279,7 +307,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -313,7 +341,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Creates and returns an SBML object corresponding to the next
-   * XMLToken in the @p stream, or NULL if the token was not recognized.
+   * XMLToken in the @p stream, or @c NULL if the token was not recognized.
    *
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
@@ -338,7 +366,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -348,7 +376,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -392,6 +420,12 @@ public:
 
   /**
    * Creates a new ListOfGeneAssociations with the given level, version, and package version.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    ListOfGeneAssociations(unsigned int level      = FbcExtension::getDefaultLevel(), 
                  unsigned int version    = FbcExtension::getDefaultVersion(), 
@@ -400,6 +434,12 @@ public:
 
   /**
    * Creates a new ListOfGeneAssociations with the given FbcPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    ListOfGeneAssociations(FbcPkgNamespaces* fbcns);
 
@@ -467,7 +507,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
    *
@@ -483,7 +523,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.

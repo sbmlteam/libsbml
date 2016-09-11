@@ -93,28 +93,66 @@ public:
   /**
    * Creates a new Association objet with the given SBML Level, Version, and
    * &ldquo;fbc&rdquo; package version.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    Association(unsigned int level      = FbcExtension::getDefaultLevel(),
                unsigned int version    = FbcExtension::getDefaultVersion(),
                unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
 
+  /**
+   * Creates a new Association with the given FbcPkgNamespaces object,
+   * and constructed to mimic the XMLNode: a '&lt;gene&gt;' node 
+   * argument will result in a  
+   * @sbmlconstant{GENE_ASSOCIATION, AssociationTypeCode_t} node; an
+   * &lt;and&gt; node argument will result in a
+   * @sbmlconstant{AND_ASSOCIATION, AssociationTypeCode_t} node; an
+   * &lt;or&gt; node argument will result in a
+   * @sbmlconstant{OR_ASSOCIATION, AssociationTypeCode_t} node.  Any
+   * other node will result in a
+   * @sbmlconstant{UNKNOWN_ASSOCIATION, AssociationTypeCode_t} node.
+   * 'And' and 'or' nodes will have Association children that again 
+   * parallel the children of the given XMLNode.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   * @param node the XMLNode to copy.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
    Association(const XMLNode& node, FbcPkgNamespaces* fbcns);
 
 
   /**
    * Creates a new Association with the given FbcPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    Association(FbcPkgNamespaces* fbcns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    Association(const Association& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
    Association& operator=(const Association& source);
 
@@ -228,7 +266,7 @@ public:
   /**
    * Adds a child Association to this Association object.
    *
-   * @param association the Association object to add. 
+   * @param association the Association object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -241,7 +279,7 @@ public:
    * Removes the child Associations with the given @p index from this
    * Association object.
    *
-   * @param index the index number of the item to remove
+   * @param index the index number of the item to remove.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -291,7 +329,7 @@ public:
    * this Association object or do anything else with it&mdash;the returning
    * pointer is now owned by the caller.
    *
-   * @param reference the gene reference, as a string
+   * @param reference the gene reference, as a string.
    *
    * @return a new Association object.
    */
@@ -326,7 +364,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_FBC_ASSOCIATION, SBMLFbcTypeCode_t}
+   * @sbmlconstant{SBML_FBC_ASSOCIATION, SBMLFbcTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -339,7 +377,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -380,14 +418,19 @@ public:
    * @return the parsed association, or @c NULL in case of an error.
    *
    * @copydetails doc_note_static_methods
+   *
+   * @see toInfix()
    */
   static Association* parseInfixAssociation(const std::string& association);
 
 
   /**
    * Converts this Association object into an infix string representation.
+   * The format is the same as is found in parseInfixAssociation().
    *
    * @return the association as infix string.
+   *
+   * @see parseInfixAssociation(const std::string& association)
    */
   std::string toInfix() const;
 
@@ -420,7 +463,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -429,7 +472,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);

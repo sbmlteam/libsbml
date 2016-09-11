@@ -168,8 +168,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  std::string mId;
-  std::string mName;
+//  std::string mId;
+//  std::string mName;
   GroupKind_t mKind;
   ListOfMembers mMembers;
 
@@ -188,12 +188,7 @@ public:
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
    * this Group.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   *
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Group(unsigned int level = GroupsExtension::getDefaultLevel(),
         unsigned int version = GroupsExtension::getDefaultVersion(),
@@ -203,14 +198,11 @@ public:
   /**
    * Creates a new Group using the given GroupsPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param groupsns the GroupsPkgNamespaces object.
    *
-   * @throws SBMLConstructorException
-   * Thrown if the given @p level and @p version combination, or this kind of
-   * SBML object, are either invalid or mismatched with respect to the parent
-   * SBMLDocument object.
-   *
-   * @copydetails doc_note_setting_lv
+   * @copydetails doc_note_setting_lv_pkg
    */
   Group(GroupsPkgNamespaces *groupsns);
 
@@ -651,7 +643,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
+   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -853,11 +845,7 @@ BEGIN_C_DECLS
  * @param pkgVersion an unsigned int, the SBML Groups Version to assign to this
  * Group_t.
  *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
+ * @copydetails doc_note_setting_lv_pkg
  *
  * @memberof Group_t
  */

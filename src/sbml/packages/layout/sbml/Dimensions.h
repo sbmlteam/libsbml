@@ -29,7 +29,7 @@
  * @class Dimensions
  * @sbmlbrief{layout} Spatial dimensions of a 2D or 3D shape.
  *
- * A dimension is specified via the required attributes width, height and an
+ * A dimension is specified via the required attributes width, height, and an
  * optional attribute depth, all of which are of type double. If the
  * attribute depth is not specified, the object is a two dimensional object.
  * The width attribute of Dimensions specifies the size of the object in the
@@ -62,7 +62,7 @@ class LIBSBML_EXTERN Dimensions : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string mId;
+//  std::string mId;
   double mW;
   double mH;
   double mD;
@@ -75,6 +75,12 @@ public:
   /**
    * Creates a new Dimensions object with the given level, version, and package version
    * and with all sizes set to 0.0.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    Dimensions(unsigned int level      = LayoutExtension::getDefaultLevel(),
               unsigned int version    = LayoutExtension::getDefaultVersion(),
@@ -82,21 +88,29 @@ public:
 
 
   /**
-   * Creates a new Dimensions object with the given LayoutPkgNamespaces object.
+   * Creates a new Dimensions object with the given LayoutPkgNamespaces object
+   * and with all sizes set to 0.0.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    Dimensions(LayoutPkgNamespaces* layoutns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   Dimensions(const Dimensions& orig);
 
   /**
    * Creates a new Dimensions object with the given sizes.
    *
-   */ 
-  
+   */
   Dimensions (LayoutPkgNamespaces* layoutns, double w, double h, double d = 0.0);
 
 
@@ -107,102 +121,145 @@ public:
  
   /**
    * Frees memory taken up by the Dimensions object.
-   */ 
-  
+   */
   virtual ~Dimensions ();
 
   /**
    * Assignment operator
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   Dimensions& operator=(const Dimensions& orig);
 
   /**
    * Returns the width.
+   *
+   * @return the width attribute as a double.
    */
-  
   double width () const;
 
   /**
    * Returns the height.
+   *
+   * @return the height attribute as a double.
    */
-  
   double height () const;
 
   /**
    * Returns the depth.
+   *
+   * @return the depth attribute as a double.
    */
-  
   double depth () const;
 
   /**
    * Returns the width.
+   *
+   * @return the width attribute as a double.
    */
-  
   double getWidth () const;
 
   /**
    * Returns the height.
+   *
+   * @return the height attribute as a double.
    */
-  
   double getHeight () const;
 
   /**
    * Returns the depth.
+   *
+   * @return the depth attribute as a double.
    */
-  
   double getDepth () const;
 
   /**
    * Sets the width to the given value.
-   */ 
-  
+   *
+   * @param w the width to use.
+   */
   void setWidth (double w);
 
   /**
    * Sets the height to the given value.
-   */ 
-  
+   *
+   * @param h the height to use.
+   */
   void setHeight (double h);
 
   /**
-   * Sets the depth to the given value.
-   */ 
-  
+   * Sets the depth to the given value.  This will set
+   * the depth to be 'explicitly set'.
+   *
+   * @param d the depth to use.
+   */
   void setDepth (double d);
 
   /**
    * Sets all sizes of the Dimensions object to the given values.
-   */ 
-  
+   * Using this function will set the depth to be 'explicitly
+   * set', even if the default is used.
+   *
+   * @param w the width to use.
+   * @param h the height to use.
+   * @param d the depth to use (defaults to 0.0).
+   */
   void setBounds (double w, double h, double d = 0.0);
 
-  bool getDExplicitlySet() const;
   /**
-   * Sets the depth to 0.0
-   */ 
-  
+   * Checks whether the depth has been explicitly set.
+   *
+   * @return a boolean value indicating whether the depth attribute 
+   * has been set explicitly or not.
+   */
+  bool getDExplicitlySet() const;
+
+  /**
+   * Sets the depth to 0.0.  This will set the depth to be
+   * 'explicitly set'.
+   */
   void initDefaults ();
 
   /**
    * Returns the value of the "id" attribute of this Dimensions.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Dimensions.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Dimensions's "id" attribute has been set.
+   *
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
   
   /**
    * Sets the value of the "id" attribute of this Dimensions.
+   *
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this Dimensions.
+   *
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -210,7 +267,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -226,7 +283,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -245,7 +302,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_DIMENSIONS, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_DIMENSIONS, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -300,7 +357,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -310,7 +367,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -338,7 +395,7 @@ BEGIN_C_DECLS
  * Creates a new Dimensions_t structure with all sizes set to 0.0.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_create ();
@@ -346,12 +403,12 @@ Dimensions_create ();
 /**
  * Creates a new Dimensions_t structure with the given sizes.
  *
- * @param w The width of the created Dimensions_t
- * @param h The height of the created Dimensions_t
- * @param d The depth of the created Dimensions_t
+ * @param w the width of the created Dimensions_t.
+ * @param h the height of the created Dimensions_t.
+ * @param d the depth of the created Dimensions_t.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_createWithSize (double w, double h, double d);
@@ -359,10 +416,10 @@ Dimensions_createWithSize (double w, double h, double d);
 /**
  * Frees memory taken up by the Dimensions_t structure.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_free (Dimensions_t *d);
@@ -370,10 +427,10 @@ Dimensions_free (Dimensions_t *d);
 /**
  * Sets the depth to 0.0
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_initDefaults (Dimensions_t *d);
@@ -381,13 +438,13 @@ Dimensions_initDefaults (Dimensions_t *d);
 /**
  * Sets all sizes of the Dimensions_t structure to the given values.
  *
- * @param d The Dimensions_t structure
- * @param width The value to use for the width of the Dimensions_t
- * @param height The value to use for the height of the Dimensions_t
- * @param depth The value to use for the depth of the Dimensions_t
+ * @param d the Dimensions_t structure.
+ * @param width the value to use for the width of the Dimensions_t.
+ * @param height the value to use for the height of the Dimensions_t.
+ * @param depth the value to use for the depth of the Dimensions_t.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_setBounds (Dimensions_t *d, double width, double height, double depth);
@@ -395,11 +452,11 @@ Dimensions_setBounds (Dimensions_t *d, double width, double height, double depth
 /**
  * Sets the width to the given value.
  *
- * @param d The Dimensions_t structure
- * @param width The value to use for the width of the Dimensions_t
+ * @param d the Dimensions_t structure.
+ * @param width the value to use for the width of the Dimensions_t.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_setWidth (Dimensions_t *d, double width);
@@ -407,11 +464,11 @@ Dimensions_setWidth (Dimensions_t *d, double width);
 /**
  * Sets the height to the given value.
  *
- * @param d The Dimensions_t structure
- * @param height The value to use for the height of the Dimensions_t
+ * @param d the Dimensions_t structure.
+ * @param height the value to use for the height of the Dimensions_t.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_setHeight (Dimensions_t *d, double height);
@@ -419,11 +476,11 @@ Dimensions_setHeight (Dimensions_t *d, double height);
 /**
  * Sets the depth to the given value.
  *
- * @param d The Dimensions_t structure
- * @param depth The value to use for the depth of the Dimensions_t
+ * @param d the Dimensions_t structure.
+ * @param depth the value to use for the depth of the Dimensions_t.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 Dimensions_setDepth (Dimensions_t *d, double depth);
@@ -431,7 +488,7 @@ Dimensions_setDepth (Dimensions_t *d, double depth);
 /**
  * Returns the height.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
  */
@@ -442,7 +499,7 @@ Dimensions_height (const Dimensions_t *d);
 /**
  * Returns the width.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
  */
@@ -453,10 +510,10 @@ Dimensions_width (const Dimensions_t *d);
 /**
  * Returns the depth.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Dimensions_depth (const Dimensions_t *d);
@@ -464,7 +521,7 @@ Dimensions_depth (const Dimensions_t *d);
 /**
  * Returns the height.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
  */
@@ -475,7 +532,7 @@ Dimensions_getHeight (const Dimensions_t *d);
 /**
  * Returns the width.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
  */
@@ -486,10 +543,10 @@ Dimensions_getWidth (const Dimensions_t *d);
 /**
  * Returns the depth.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
- */ 
+ */
 LIBSBML_EXTERN
 double
 Dimensions_getDepth (const Dimensions_t *d);
@@ -497,7 +554,7 @@ Dimensions_getDepth (const Dimensions_t *d);
 /**
  * @return a (deep) copy of this Dimensions_t.
  *
- * @param d The Dimensions_t structure
+ * @param d the Dimensions_t structure.
  *
  * @memberof Dimensions_t
  */

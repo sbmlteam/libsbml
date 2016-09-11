@@ -37,7 +37,7 @@
  * definitions, if present, allow Submodel objects to reference other Models
  * to instantiate.
  *
- * The presence of ModelDefinitions and ExternalModelDefinitions in an
+ * The presence of any ModelDefinition or ExternalModelDefinition in an
  * SBMLDocument does not change the default Model in the file.  If a
  * SBMLDocument is submitted somewhere to be simulated, it is still the
  * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element
@@ -94,7 +94,18 @@ protected:
 public:
 
   /**
-   * Constructor.
+   * Creates a new CompSBMLDocumentPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param compns the namespaces object for the package.
    */
   CompSBMLDocumentPlugin (const std::string &uri, const std::string &prefix,
                           CompPkgNamespaces *compns);
@@ -102,6 +113,8 @@ public:
 
   /**
    * Copy constructor. Creates a copy of this CompSBMLDocumentPlugin object.
+   *
+   * @param orig the instance to copy.
    */
   CompSBMLDocumentPlugin(const CompSBMLDocumentPlugin& orig);
 
@@ -114,6 +127,9 @@ public:
 
   /**
    * Assignment operator for CompSBMLDocumentPlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   CompSBMLDocumentPlugin& operator=(const CompSBMLDocumentPlugin& orig);
 
@@ -121,7 +137,7 @@ public:
   /**
    * Creates and returns a deep copy of this CompSBMLDocumentPlugin object.
    * 
-   * @return a (deep) copy of this CompSBMLDocumentPlugin object
+   * @return a (deep) copy of this CompSBMLDocumentPlugin object.
    */
   virtual CompSBMLDocumentPlugin* clone () const;
 
@@ -130,7 +146,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the identifier of objects to find
+   * @param id string representing the identifier of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    *
@@ -148,7 +164,7 @@ public:
    * itself if it has the given @p metaid, or @c NULL if no such object is
    * found.
    *
-   * @param metaid string representing the meta identifier of objects to find
+   * @param metaid string representing the meta identifier of the object to find.
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
@@ -158,6 +174,10 @@ public:
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
+   *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
    *
    * @return a List of pointers to all children objects.
    */
@@ -232,10 +252,10 @@ public:
    */
 
   /**
-   * Returns the ListOf object that holds all ModelDefinitions.
+   * Returns the ListOf object that holds each ModelDefinition.
    *
-   * @return the ListOf object that holds all ModelDefinitions.
-   */ 
+   * @return the ListOf object that holds each ModelDefinition.
+   */
   const ListOfModelDefinitions* getListOfModelDefinitions () const;
 
 
@@ -246,7 +266,7 @@ public:
    *
    * @return the nth ModelDefinition in the ListOfModelDefinitions.  If the
    * index is invalid, @c NULL is returned.
-   */ 
+   */
   ModelDefinition* getModelDefinition (unsigned int n);
 
 
@@ -257,7 +277,7 @@ public:
    *
    * @return the nth ModelDefinition in the ListOfModelDefinitions.  If the
    * index @p n is invalid, @c NULL is returned.
-   */ 
+   */
   const ModelDefinition* getModelDefinition (unsigned int n) const;
 
 
@@ -292,11 +312,11 @@ public:
 
 
   /**
-   * Adds a copy of the given ModelDefinition object to the list of
-   * ModelDefinitions.
+   * Adds a copy of the given ModelDefinition object to the 
+   * ListOfModelDefinitions.
    *
    * @param modelDefinition the ModelDefinition object to be added to the
-   * list of ModelDefinitions.  Fails if the added ModelDefinition is @c NULL,
+   * ListOfModelDefinitions.  Fails if the added ModelDefinition is @c NULL,
    * does not match the level/version/package of the parent object, or cannot
    * be added to the list of replaced elements.
    *
@@ -311,9 +331,9 @@ public:
 
 
   /**
-   * Returns the number of ModelDefinitions for this SBMLDocumentPlugin.
+   * Returns the number of ModelDefinition objects for this SBMLDocumentPlugin.
    *
-   * @return the number of ModelDefinitions.
+   * @return the number of ModelDefinition objects.
    */
   unsigned int getNumModelDefinitions () const;
 
@@ -323,7 +343,7 @@ public:
    * ModelDefinition objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created ModelDefinition object
+   * @return a newly created ModelDefinition object.
    */
   ModelDefinition* createModelDefinition ();
 
@@ -334,7 +354,7 @@ public:
    * A pointer to the ModelDefinition that was removed is returned.
    * If no ModelDefinition has been removed, @c NULL is returned.
    *
-   * @param index the index of the ModelDefinition object to remove
+   * @param index the index of the ModelDefinition object to remove.
    *
    * @return the ModelDefinition object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -349,7 +369,7 @@ public:
    * A pointer to the ModelDefinition that was removed is returned.
    * If no ModelDefinition has been removed, @c NULL is returned.
    *
-   * @param id the id of the ModelDefinition object to remove
+   * @param id the id of the ModelDefinition object to remove.
    *
    * @return the ModelDefinition object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -359,10 +379,10 @@ public:
 
 
   /**
-   * Returns the ListOf object that holds all ExternalModelDefinitions.
+   * Returns the ListOf object that holds each ExternalModelDefinition.
    *
-   * @return the ListOf object that holds all ExternalModelDefinitions.
-   */ 
+   * @return the ListOf object that each all ExternalModelDefinition.
+   */
   const ListOfExternalModelDefinitions* getListOfExternalModelDefinitions () const;
 
 
@@ -374,7 +394,7 @@ public:
    * @return the nth ExternalModelDefinition in the
    * ListOfExternalModelDefinitions.  If the index is invalid, @c NULL is
    * returned.
-   */ 
+   */
   ExternalModelDefinition* getExternalModelDefinition (unsigned int n);
 
 
@@ -386,7 +406,7 @@ public:
    * @return the nth ExternalModelDefinition in the
    * ListOfExternalModelDefinitions.  If the index is invalid, @c NULL is
    * returned.
-   */ 
+   */
   const ExternalModelDefinition* getExternalModelDefinition (unsigned int n) const;
 
 
@@ -464,11 +484,11 @@ public:
 
 
   /**
-   * Adds a copy of the given ExternalModelDefinition object to the list of
-   * ExternalModelDefinitions.
+   * Adds a copy of the given ExternalModelDefinition object to the
+   * ListOfExternalModelDefinitions.
    *
    * @param externalModelDefinition the ExternalModelDefinition object to be
-   * added to the list of ExternalModelDefinitions.  Fails if the added
+   * added to the ListOFExternalModelDefinitions.  Fails if the added
    * ExternalModelDefinition is @c NULL, does not match the
    * level/version/package of the parent object, or cannot be added to the
    * list of external model definitions.
@@ -484,9 +504,9 @@ public:
 
 
   /**
-   * Returns the number of ExternalModelDefinitions for this SBMLDocumentPlugin.
+   * Returns the number of ExternalModelDefinition objects for this SBMLDocumentPlugin.
    *
-   * @return the number of ExternalModelDefinitions for this SBMLDocumentPlugin.
+   * @return the number of ExternalModelDefinition objects for this SBMLDocumentPlugin.
    */
   unsigned int getNumExternalModelDefinitions () const;
 
@@ -496,7 +516,7 @@ public:
    * ExternalModelDefinition objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created ExternalModelDefinition object
+   * @return a newly created ExternalModelDefinition object.
    */
   ExternalModelDefinition* createExternalModelDefinition ();
 
@@ -507,7 +527,7 @@ public:
    * A pointer to the ExternalModelDefinition that was removed is returned.
    * If no ExternalModelDefinition has been removed, @c NULL is returned.
    *
-   * @param index the index of the ExternalModelDefinition object to remove
+   * @param index the index of the ExternalModelDefinition object to remove.
    *
    * @return the ExternalModelDefinition object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -522,7 +542,7 @@ public:
    * A pointer to the ExternalModelDefinition that was removed is returned.
    * If no ExternalModelDefinition has been removed, @c NULL is returned.
    *
-   * @param id the id of the ExternalModelDefinition object to remove
+   * @param id the id of the ExternalModelDefinition object to remove.
    *
    * @return the ExternalModelDefinition object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -545,7 +565,7 @@ public:
    * Subclasses which contain one or more SBase derived elements must
    * override this function.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    *
    * @see connectToParent
    * @see enablePackageInternal
@@ -575,7 +595,7 @@ public:
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param parent the SBML object to use
+   * @param parent the SBML object to use.
    */
   void connectToParent (SBase* parent);
   /** @endcond */
@@ -672,7 +692,7 @@ BEGIN_C_DECLS
  * CompSBMLDocumentPlugin_t, and returns the ModelDefinition_t.
  *
  * @param docPlug the CompSBMLDocumentPlugin_t structure to which the ModelDefinition_t should be
- * added
+ * added.
  *
  * @return the newly-created empty ModelDefinition_t.
  *

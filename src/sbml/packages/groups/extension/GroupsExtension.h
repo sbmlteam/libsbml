@@ -180,8 +180,8 @@ public:
    * The namespace URI constructed by this method corresponds to the
    * combination of the Level and Version of SBML, and the Version of the SBML
    * Level&nbsp;3 package. (At the time of this writing, the only SBML Level
-   * that supports packages is Level&nbsp;3, so the value of @p sbmlLevel is
-   * necessarily always <code>3</code>.)
+   * that supports packages is Level&nbsp;3, so the value of @p sbmlLevel must
+   * necessarily always be <code>3</code>.)
    *
    * @param sbmlLevel the level of SBML.
    *
@@ -203,7 +203,7 @@ public:
    * the "groups" package.
    *
    * @return the SBML Level for the given URI of this package, or @c 0 if the
-   * given URI is invalid.
+   * given URI is invalid, or for a different package.
    */
   virtual unsigned int getLevel(const std::string& uri) const;
 
@@ -216,7 +216,7 @@ public:
    * the "groups" package.
    *
    * @return the SBML Version within the SBML Level for the given URI of this
-   * package, or @c 0 if the given URI is invalid.
+   * package, or @c 0 if the given URI is invalid, or for a different package.
    */
   virtual unsigned int getVersion(const std::string& uri) const;
 
@@ -229,7 +229,7 @@ public:
    * the "groups" package.
    *
    * @return the version of the SBML Level&nbsp;3 package for the given URI of
-   * this package, or @c 0 if the given URI is invalid.
+   * this package, or @c 0 if the given URI is invalid, or for a different package.
    */
   virtual unsigned int getPackageVersion(const std::string& uri) const;
 

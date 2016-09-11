@@ -66,9 +66,11 @@ public:
    * Creates a new ReplacedBy with the given level, version, and package
    * version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ReplacedBy(unsigned int level      = CompExtension::getDefaultLevel(),
              unsigned int version    = CompExtension::getDefaultVersion(),
@@ -78,19 +80,28 @@ public:
   /**
    * Creates a new ReplacedBy with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ReplacedBy(CompPkgNamespaces* compns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
   ReplacedBy(const ReplacedBy& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   ReplacedBy& operator=(const ReplacedBy& source);
 
@@ -98,14 +109,14 @@ public:
   /**
    * Creates and returns a deep copy of this ReplacedBy object.
    * 
-   * @return a (deep) copy of this ReplacedBy object
+   * @return a (deep) copy of this ReplacedBy object.
    */
   virtual ReplacedBy* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~ReplacedBy ();
 
 
@@ -124,7 +135,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_COMP_REPLACEDBY, SBMLCompTypeCode_t}
+   * @sbmlconstant{SBML_COMP_REPLACEDBY, SBMLCompTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -209,11 +220,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * ReplacedBy_t
+ * ReplacedBy_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * ReplacedBy_t
+ * ReplacedBy_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * ReplacedBy_t
+ * ReplacedBy_t.
  *
  * @return a pointer to the newly created ReplacedBy_t structure.
  *
@@ -269,7 +280,7 @@ ReplacedBy_getSubmodelRef(ReplacedBy_t * rb);
  * Predicate returning @c true or @c false depending on whether the given
  * ReplacedBy_t structure's submodelRef is set.
  *
- * @param rb the ReplacedBy_t structure to query
+ * @param rb the ReplacedBy_t structure to query.
  * 
  * @return @c non-zero (true) if the "submodelRef" attribute of the given
  * ReplacedBy_t structure is set, zero (false) otherwise.
@@ -284,7 +295,7 @@ ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb);
 /**
  * Sets the submodelRef of the given ReplacedBy_t to a copy of @p submodelRef.
  *
- * @param rb the ReplacedBy_t structure to set
+ * @param rb the ReplacedBy_t structure to set.
  * @param submodelRef the submodelRef to assign to the given ReplacedBy_t's "submodelRef" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -304,7 +315,7 @@ ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef);
 /**
  * Unsets the "submodelRef" attribute of the given ReplacedBy_t structure.
  *
- * @param rb the ReplacedBy_t structure to unset
+ * @param rb the ReplacedBy_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

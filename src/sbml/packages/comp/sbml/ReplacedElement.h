@@ -143,9 +143,11 @@ public:
    * Creates a new ReplacedElement with the given level, version, and package
    * version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ReplacedElement(unsigned int level      = CompExtension::getDefaultLevel(),
                   unsigned int version    = CompExtension::getDefaultVersion(),
@@ -155,19 +157,28 @@ public:
   /**
    * Creates a new ReplacedElement with the given CompPkgNamespaces object.
    *
-   * @param compns the namespace to use
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ReplacedElement(CompPkgNamespaces* compns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
   ReplacedElement(const ReplacedElement& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
   ReplacedElement& operator=(const ReplacedElement& source);
 
@@ -175,14 +186,14 @@ public:
   /**
    * Creates and returns a deep copy of this ReplacedElement object.
    * 
-   * @return a (deep) copy of this ReplacedElement object
+   * @return a (deep) copy of this ReplacedElement object.
    */
   virtual ReplacedElement* clone () const;
 
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~ReplacedElement ();
 
 
@@ -294,7 +305,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_COMP_REPLACEDELEMENT, SBMLCompTypeCode_t}
+   * @sbmlconstant{SBML_COMP_REPLACEDELEMENT, SBMLCompTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -320,7 +331,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -360,7 +371,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -370,7 +381,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -413,11 +424,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * ReplacedElement_t
+ * ReplacedElement_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * ReplacedElement_t
+ * ReplacedElement_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * ReplacedElement_t
+ * ReplacedElement_t.
  *
  * @return a pointer to the newly created ReplacedElement_t structure.
  *
@@ -501,7 +512,7 @@ ReplacedElement_getConversionFactor(ReplacedElement_t * re);
  * Predicate returning @c true or @c false depending on whether the given
  * ReplacedElement_t structure's submodelRef is set.
  *
- * @param re the ReplacedElement_t structure to query
+ * @param re the ReplacedElement_t structure to query.
  * 
  * @return @c non-zero (true) if the "submodelRef" attribute of the given
  * ReplacedElement_t structure is set, zero (false) otherwise.
@@ -517,7 +528,7 @@ ReplacedElement_isSetSubmodelRef(ReplacedElement_t * re);
  * Predicate returning @c true or @c false depending on whether the given
  * ReplacedElement_t structure's deletion is set.
  *
- * @param re the ReplacedElement_t structure to query
+ * @param re the ReplacedElement_t structure to query.
  * 
  * @return @c non-zero (true) if the "deletion" attribute of the given
  * ReplacedElement_t structure is set, zero (false) otherwise.
@@ -533,7 +544,7 @@ ReplacedElement_isSetDeletion(ReplacedElement_t * re);
  * Predicate returning @c true or @c false depending on whether the given
  * ReplacedElement_t structure's conversionFactor is set.
  *
- * @param re the ReplacedElement_t structure to query
+ * @param re the ReplacedElement_t structure to query.
  * 
  * @return @c non-zero (true) if the "conversionFactor" attribute of the given
  * ReplacedElement_t structure is set, zero (false) otherwise.
@@ -548,7 +559,7 @@ ReplacedElement_isSetConversionFactor(ReplacedElement_t * re);
 /**
  * Sets the submodelRef of the given ReplacedElement_t to a copy of @p submodelRef.
  *
- * @param re the ReplacedElement_t structure to set
+ * @param re the ReplacedElement_t structure to set.
  * @param submodelRef the submodelRef to assign to the given ReplacedElement_t's "submodelRef" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -568,7 +579,7 @@ ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef)
 /**
  * Sets the deletion of the given ReplacedElement_t to a copy of @p deletion.
  *
- * @param re the ReplacedElement_t structure to set
+ * @param re the ReplacedElement_t structure to set.
  * @param deletion the deletion to assign to the given ReplacedElement_t's "deletion" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -588,7 +599,7 @@ ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion);
 /**
  * Sets the conversionFactor of the given ReplacedElement_t to a copy of @p conversionFactor.
  *
- * @param re the ReplacedElement_t structure to set
+ * @param re the ReplacedElement_t structure to set.
  * @param conversionFactor the conversionFactor to assign to the given ReplacedElement_t's "conversionFactor" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -608,7 +619,7 @@ ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * convers
 /**
  * Unsets the "submodelRef" attribute of the given ReplacedElement_t structure.
  *
- * @param re the ReplacedElement_t structure to unset
+ * @param re the ReplacedElement_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -624,7 +635,7 @@ ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re);
 /**
  * Unsets the "deletion" attribute of the given ReplacedElement_t structure.
  *
- * @param re the ReplacedElement_t structure to unset
+ * @param re the ReplacedElement_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -640,7 +651,7 @@ ReplacedElement_unsetDeletion(ReplacedElement_t * re);
 /**
  * Unsets the "conversionFactor" attribute of the given ReplacedElement_t structure.
  *
- * @param re the ReplacedElement_t structure to unset
+ * @param re the ReplacedElement_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

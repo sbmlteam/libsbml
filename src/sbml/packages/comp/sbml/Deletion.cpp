@@ -45,16 +45,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Deletion::Deletion (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBaseRef (level,version, pkgVersion)
-  ,mId("")
-  ,mName("")
+//  ,mId("")
+//  ,mName("")
 {
 }
 
 
 Deletion::Deletion(CompPkgNamespaces* compns)
   : SBaseRef(compns, true)
-  ,mId("")
-  ,mName("")
+//  ,mId("")
+//  ,mName("")
 {
   loadPlugins(compns);
 }

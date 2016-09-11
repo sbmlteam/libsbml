@@ -66,7 +66,7 @@ class LIBSBML_EXTERN GraphicalObject : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string mId;
+//  std::string mId;
   std::string mMetaIdRef;
   BoundingBox mBoundingBox;
   bool mBoundingBoxExplicitlySet;
@@ -77,8 +77,13 @@ public:
 
   /**
    * Creates a new GraphicalObject.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  
   GraphicalObject (unsigned int level      = LayoutExtension::getDefaultLevel(),
                    unsigned int version    = LayoutExtension::getDefaultVersion(),
                    unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
@@ -86,6 +91,12 @@ public:
 
   /**
    * Creates a new GraphicalObject with the given LayoutPkgNamespaces
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   GraphicalObject (LayoutPkgNamespaces* layoutns);
 
@@ -95,7 +106,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
@@ -105,7 +115,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
                    double x, double y, double w, double h);
 
@@ -116,7 +125,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id,
                    double x, double y, double z,
                    double w, double h, double d);
@@ -128,7 +136,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const Point* p, const Dimensions* d);
 
   /**
@@ -138,7 +145,6 @@ public:
    * (FOR BACKWARD COMPATIBILITY)
    *
    */
-  
   GraphicalObject (LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb);
 
 
@@ -152,25 +158,28 @@ public:
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    GraphicalObject(const GraphicalObject& source);
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
    virtual GraphicalObject& operator=(const GraphicalObject& source);
 
 
   /**
    * Destructor.
-   */ 
-  
+   */
   virtual ~GraphicalObject ();
 
   /**
    * Does nothing. No defaults are defined for GraphicalObject.
-   */ 
-  
+   */
   void initDefaults ();
 
 
@@ -178,7 +187,11 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 
@@ -191,13 +204,26 @@ public:
    * the matching identifiers are replaced with @p newid.  The method does
    * @em not descend into child elements.
    *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
    */
   virtual void renameMetaIdRefs(const std::string& oldid, const std::string& newid);
 
   /**
    * Returns the value of the "id" attribute of this GraphicalObject.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this GraphicalObject.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -205,18 +231,24 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * GraphicalObject's "id" attribute has been set.
+   *
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
   
   /**
    * Sets the value of the "id" attribute of this GraphicalObject.
+   *
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this GraphicalObject.
+   *
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -246,20 +278,17 @@ public:
   
   /**
    * Sets the boundingbox for the GraphicalObject.
-   */ 
-  
+   */
   void setBoundingBox (const BoundingBox* bb);
 
   /**
    * Returns the bounding box for the GraphicalObject.
-   */ 
-  
+   */
   BoundingBox* getBoundingBox ();
 
   /**
    * Returns the bounding box for the GraphicalObject.
-   */ 
-  
+   */
   const BoundingBox* getBoundingBox() const;
 
 
@@ -267,7 +296,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -283,7 +312,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -302,7 +331,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_GRAPHICALOBJECT, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_GRAPHICALOBJECT, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -334,7 +363,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -398,7 +427,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -408,7 +437,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -458,7 +487,13 @@ public:
 
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    ListOfGraphicalObjects(unsigned int level      = LayoutExtension::getDefaultLevel(),
                           unsigned int version    = LayoutExtension::getDefaultVersion(),
@@ -466,7 +501,13 @@ public:
 
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns);
 
@@ -489,7 +530,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -497,7 +538,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /* 
    * Allow overwriting the element name (as used by the generalGlyph)
-   */ 
+   */
   void setElementName(const std::string& elementName);
   /** @endcond **/
 
@@ -564,7 +605,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -578,7 +619,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -635,7 +676,7 @@ GraphicalObject_create (void);
 /**
  * Creates a GraphicalObject_t from a template.
  *
- * @param temp The GraphicalObject_t structure to copy.
+ * @param temp the GraphicalObject_t structure to copy.
  *
  * @memberof GraphicalObject_t
  */
@@ -646,10 +687,10 @@ GraphicalObject_createFrom (const GraphicalObject_t *temp);
 /**
  * Frees all memory taken up by the GraphicalObject_t.
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 GraphicalObject_free (GraphicalObject_t *go);
@@ -658,11 +699,11 @@ GraphicalObject_free (GraphicalObject_t *go);
 /**
  * Sets the boundingbox for the GraphicalObject_t.
  *
- * @param go The GraphicalObject_t structure.
- * @param bb The BoundingBox_t structure to use.
+ * @param go the GraphicalObject_t structure.
+ * @param bb the BoundingBox_t structure to use.
  *
  * @memberof GraphicalObject_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb);
@@ -670,10 +711,10 @@ GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb);
 /**
  * Returns the bounding box for the GraphicalObject_t.
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
- */ 
+ */
 LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox (GraphicalObject_t *go);
@@ -681,10 +722,10 @@ GraphicalObject_getBoundingBox (GraphicalObject_t *go);
 /**
  * Does nothing. No defaults are defined for GraphicalObject_t.
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
@@ -692,7 +733,7 @@ GraphicalObject_initDefaults (GraphicalObject_t *go);
 /**
  * @return a (deep) copy of this GraphicalObject_t.
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
  */
@@ -704,7 +745,7 @@ GraphicalObject_clone (const GraphicalObject_t *go);
 /**
  * Returns non-zero if the id is set
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
  */
@@ -716,7 +757,7 @@ GraphicalObject_isSetId (const GraphicalObject_t *go);
 /**
  * Returns the id
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
  */
@@ -728,8 +769,8 @@ GraphicalObject_getId (const GraphicalObject_t *go);
 /**
  * Sets the id
  *
- * @param go The GraphicalObject_t structure.
- * @param sid The string to use as the ID of the GraphicalObject_t
+ * @param go the GraphicalObject_t structure.
+ * @param sid the string to use as the ID of the GraphicalObject_t.
  *
  * @memberof GraphicalObject_t
  */
@@ -741,7 +782,7 @@ GraphicalObject_setId (GraphicalObject_t *go, const char *sid);
 /**
  * Unsets the id
  *
- * @param go The GraphicalObject_t structure.
+ * @param go the GraphicalObject_t structure.
  *
  * @memberof GraphicalObject_t
  */

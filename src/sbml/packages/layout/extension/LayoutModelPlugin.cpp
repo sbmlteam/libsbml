@@ -511,7 +511,7 @@ LayoutModelPlugin::removeLayout (unsigned int n)
 /*
  * Sets the parent SBMLDocument of this SBML object.
  *
- * @param d the SBMLDocument object to use
+ * @param d the SBMLDocument object to use.
  */
 void 
 LayoutModelPlugin::setSBMLDocument (SBMLDocument* d)

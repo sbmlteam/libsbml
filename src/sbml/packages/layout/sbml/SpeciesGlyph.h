@@ -65,14 +65,25 @@ public:
   /**
    * Creates a new SpeciesGlyph with the given SBML level, version, and package version
    * and the id of the associated species set to the empty string.
-   */        
-  
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
   SpeciesGlyph (unsigned int level      = LayoutExtension::getDefaultLevel(),
                 unsigned int version    = LayoutExtension::getDefaultVersion(),
                 unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
 
   /**
-   * Ctor.
+   * Constructor.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesGlyph(LayoutPkgNamespaces* layoutns);
 
@@ -82,7 +93,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */   
+   */
   SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& id);
 
   /**
@@ -91,7 +102,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */   
+   */
   SpeciesGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, const std::string& speciesId);
         
 
@@ -102,18 +113,22 @@ public:
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    SpeciesGlyph(const SpeciesGlyph& source);
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
    virtual SpeciesGlyph& operator=(const SpeciesGlyph& source);
 
   /**
    * Destructor.
-   */ 
-  
+   */
   virtual ~SpeciesGlyph ();        
 
   /**
@@ -123,33 +138,29 @@ public:
 
   /**
    * Returns the id of the associated species object.
-   */ 
-  
+   */
   const std::string& getSpeciesId () const;
         
   /**
    * Sets the id of the associated species object.
-   */ 
-  
+   */
   void setSpeciesId (const std::string& id);
         
   /**
-   * Returns true if the id of the associated species object is not the
+   * Returns @c true if the id of the associated species object is not the
    * empty string.
-   */ 
-  
+   */
   bool isSetSpeciesId () const;    
 
   /**
    * Calls initDefaults from GraphicalObject.
-   */ 
-  
+   */
   void initDefaults ();
 
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -165,7 +176,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element
+   * @return the string of the name of this element.
    */
   virtual const std::string& getElementName () const ;
 
@@ -184,7 +195,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_SPECIESGLYPH, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_SPECIESGLYPH, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -227,7 +238,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -237,7 +248,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -273,7 +284,7 @@ SpeciesGlyph_create (void);
 /**
  * Create a new SpeciesGlyph_t structure from a template.
  * 
- * @param temp The SpeciesGlyph_t structure to copy
+ * @param temp the SpeciesGlyph_t structure to copy.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -285,7 +296,7 @@ SpeciesGlyph_createFrom (const SpeciesGlyph_t *temp);
 /**
  * Creates a new SpeciesGlyph_t with the given @p id
  * 
- * @param sid The id of the created SpeciesGlyph_t
+ * @param sid the id of the created SpeciesGlyph_t.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -296,8 +307,8 @@ SpeciesGlyph_createWith (const char *sid);
 /**
  * Creates a new SpeciesGlyph_t referencing with the given id and species id.
  * 
- * @param id The id of the created SpeciesGlyph_t
- * @param speciesId The string to use as the species id
+ * @param id the id of the created SpeciesGlyph_t.
+ * @param speciesId the string to use as the species id.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -308,7 +319,7 @@ SpeciesGlyph_createWithSpeciesId (const char *id, const char *speciesId);
 /**
  * Frees the memory taken by the given compartment glyph.
  * 
- * @param sg The SpeciesGlyph_t structure
+ * @param sg the SpeciesGlyph_t structure.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -319,8 +330,8 @@ SpeciesGlyph_free (SpeciesGlyph_t *sg);
 /**
  * Sets the associated species id. 
  * 
- * @param sg The SpeciesGlyph_t structure
- * @param id The string to use as the species id
+ * @param sg the SpeciesGlyph_t structure.
+ * @param id the string to use as the species id.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -331,7 +342,7 @@ SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id);
 /**
  * Gets the the id of the associated species.
  * 
- * @param sg The SpeciesGlyph_t structure
+ * @param sg the SpeciesGlyph_t structure.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -343,7 +354,7 @@ SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg);
  * Returns 0 if the  id of the associated species is the empty string.
  * otherwise.
  * 
- * @param sg The SpeciesGlyph_t structure
+ * @param sg the SpeciesGlyph_t structure.
  *
  * @memberof SpeciesGlyph_t
  */
@@ -354,10 +365,10 @@ SpeciesGlyph_isSetSpeciesId (const SpeciesGlyph_t *sg);
 /**
  * Calls initDefaults from GraphicalObject.
  * 
- * @param sg The SpeciesGlyph_t structure
+ * @param sg the SpeciesGlyph_t structure.
  *
  * @memberof SpeciesGlyph_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg);
@@ -365,7 +376,7 @@ SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg);
 /**
  * @return a (deep) copy of this SpeciesGlyph_t.
  * 
- * @param sg The SpeciesGlyph_t structure
+ * @param sg the SpeciesGlyph_t structure.
  *
  * @memberof SpeciesGlyph_t
  */

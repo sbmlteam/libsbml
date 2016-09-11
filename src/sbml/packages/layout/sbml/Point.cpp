@@ -380,7 +380,7 @@ Point::getZOffsetExplicitlySet() const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML objects as XML elements.  Be sure to call your parent's
  * implementation of this method as well.  For example:
  *
  *   SBase::writeElements(stream);

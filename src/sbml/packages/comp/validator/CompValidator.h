@@ -32,7 +32,7 @@
  *
  * The CompValidator class extends the Validator class from core libSBML to
  * apply validation to the constructs introduced by the SBML Level&nbsp;3
- * Hierarchical Model Composition package. This class then acts as a base
+ * Hierarchical %Model Composition package. This class then acts as a base
  * class for any validators that apply rules to the &ldquo;comp&rdquo;
  * package specification constructs or to entire models that use the
  * &ldquo;comp&rdquo; package, and may therefore be subject to other global

@@ -83,13 +83,26 @@ protected:
 public:
 
   /**
-   * Constructor.
+   * Creates a new CompSBasePlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param compns the namespaces object for the package.
    */
   CompSBasePlugin (const std::string &uri, const std::string &prefix, CompPkgNamespaces *compns);
 
 
   /**
    * Copy constructor. Creates a copy of this CompSBasePlugin object.
+   *
+   * @param orig the instance to copy.
    */
   CompSBasePlugin(const CompSBasePlugin& orig);
 
@@ -102,6 +115,9 @@ public:
 
   /**
    * Assignment operator for CompSBasePlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   CompSBasePlugin& operator=(const CompSBasePlugin& orig);
 
@@ -109,7 +125,7 @@ public:
   /**
    * Creates and returns a deep copy of this CompSBasePlugin object.
    * 
-   * @return a (deep) copy of this CompSBasePlugin object
+   * @return a (deep) copy of this CompSBasePlugin object.
    */
   virtual CompSBasePlugin* clone () const;
 
@@ -138,7 +154,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the id of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    */
@@ -150,7 +166,7 @@ public:
    * itself if it has the given @p metaid, or @c NULL if no such object is
    * found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the metaid of the object to find.
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
@@ -160,6 +176,10 @@ public:
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
+   *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
    *
    * @return a List of pointers to all children objects.
    */
@@ -210,7 +230,7 @@ public:
    * Returns the ListOf object that holds all replacedElements.
    *
    * @return the ListOf object that holds all replacedElements.
-   */ 
+   */
   const ListOfReplacedElements* getListOfReplacedElements () const;
 
 
@@ -221,7 +241,7 @@ public:
    *
    * @return the nth ReplacedElement in the ListOfReplacedElements.  If the
    * index is invalid, @c NULL is returned.
-   */ 
+   */
   ReplacedElement* getReplacedElement (unsigned int n);
 
 
@@ -232,7 +252,7 @@ public:
    *
    * @return the nth ReplacedElement in the ListOfReplacedElements.  If the
    * index is invalid, @c NULL is returned.
-   */ 
+   */
   const ReplacedElement* getReplacedElement (unsigned int n) const;
 
 
@@ -273,7 +293,7 @@ public:
    * ReplacedElement objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created ReplacedElement object
+   * @return a newly created ReplacedElement object.
    */
   ReplacedElement* createReplacedElement ();
 
@@ -284,7 +304,7 @@ public:
    * A pointer to the ReplacedElement that was removed is returned.
    * If no ReplacedElement has been removed, @c NULL is returned.
    *
-   * @param index the index of the ReplacedElement object to remove
+   * @param index the index of the ReplacedElement object to remove.
    *
    * @return the ReplacedElement object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -296,7 +316,7 @@ public:
   /**
    * Get the child ReplacedBy of this SBase.
    * 
-   * @return the const ReplacedBy child of this SBase
+   * @return the const ReplacedBy child of this SBase.
    */
   const ReplacedBy* getReplacedBy () const;
 
@@ -342,8 +362,8 @@ public:
    * Creates a new, empty ReplacedBy, adds it to this CompSBasePlugin and 
    * returns the created ReplacedBy.
    *
-   * @return the newly created ReplacedBy object instance
-   */   
+   * @return the newly created ReplacedBy object instance.
+   */
   ReplacedBy* createReplacedBy ();
 
 
@@ -377,7 +397,7 @@ public:
    * Subclasses which contain one or more SBase derived elements must
    * override this function.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    *
    * @see connectToParent
    * @see enablePackageInternal
@@ -407,7 +427,7 @@ public:
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param parent the SBML object to use
+   * @param parent the SBML object to use.
    */
   void connectToParent (SBase* parent);
   /** @endcond */

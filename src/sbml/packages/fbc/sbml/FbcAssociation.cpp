@@ -160,6 +160,7 @@ FbcAssociation::getElementName () const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the element name for this object
  */
@@ -168,6 +169,7 @@ FbcAssociation::setElementName(const std::string& name)
 {
   mElementName = name;
 }
+/** @endcond */
 
 
 /*
@@ -205,7 +207,7 @@ FbcAssociation::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -220,7 +222,7 @@ FbcAssociation::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin);
@@ -396,7 +398,7 @@ FbcAssociation::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -412,7 +414,7 @@ FbcAssociation::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -428,7 +430,7 @@ FbcAssociation::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -450,8 +452,10 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
    * happened immediately prior to this read
   */
 
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfFbcAssociations*>(getParentSBMLObject())->size() < 2)
+  ListOfFbcAssociations* listOf = dynamic_cast<ListOfFbcAssociations*>(getParentSBMLObject());
+  unsigned int listOfSize = listOf != NULL ? listOf->size() : 0;
+
+  if (getErrorLog() != NULL && listOfSize < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
     for (int n = (int)numErrs-1; n >= 0; n--)
@@ -515,7 +519,7 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -531,7 +535,7 @@ FbcAssociation::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -611,14 +615,11 @@ ListOfFbcAssociations::get(const std::string& sid) const
 
 
 /*
- * Adds a copy the given "FbcAssociation" to this ListOfFbcAssociations.
+ * Adds a copy the given FbcAssociation to this ListOfFbcAssociations.
  *
- * @param fa; the FbcAssociation object to add
+ * @param fa the FbcAssociation object to add.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
@@ -666,7 +667,7 @@ ListOfFbcAssociations::getNumFbcAssociations() const
 
 /*
  * Creates a new FbcAnd object, adds it to this ListOfFbcAssociations
- * and and returns the FbcAnd object created. 
+ * and returns the FbcAnd object created. 
  *
  * @return a new FbcAnd object instance
  *
@@ -703,7 +704,7 @@ ListOfFbcAssociations::createAnd()
 
 /*
  * Creates a new FbcOr object, adds it to this ListOfFbcAssociations
- * or and returns the FbcOr object created. 
+ * and returns the FbcOr object created. 
  *
  * @return a new FbcOr object instance
  *
@@ -740,7 +741,7 @@ ListOfFbcAssociations::createOr()
 
 /*
  * Creates a new GeneProductRef object, adds it to this ListOfFbcAssociations
- * geneProductRef and returns the GeneProductRef object created. 
+ * and returns the GeneProductRef object created. 
  *
  * @return a new GeneProductRef object instance
  *
@@ -883,7 +884,7 @@ ListOfFbcAssociations::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -911,7 +912,7 @@ ListOfFbcAssociations::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 bool
 ListOfFbcAssociations::isValidTypeForList(SBase * item)

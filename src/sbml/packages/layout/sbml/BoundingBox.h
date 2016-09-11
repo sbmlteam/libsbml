@@ -55,7 +55,7 @@ class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string mId;
+//  std::string mId;
   Point mPosition;
   Dimensions mDimensions;
   bool mPositionExplicitlySet;
@@ -66,10 +66,15 @@ protected:
 public:
         
   /**
-   * Default Constructor set position and dimensions to (0.0,0.0,0.0) and
+   * Default Constructor.  Set position and dimensions to (0.0,0.0,0.0) and
    * the id to an empty string.
-   */ 
-  
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
   BoundingBox (unsigned int level      = LayoutExtension::getDefaultLevel(),
                unsigned int version    = LayoutExtension::getDefaultVersion(),
                unsigned int pkgVersion = LayoutExtension::getDefaultPackageVersion());
@@ -77,23 +82,30 @@ public:
 
   /**
    * Creates a new BoundingBox object with the given LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param layoutns the LayoutPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   BoundingBox(LayoutPkgNamespaces* layoutns);
 
   
   /**
    * Copy constructor.
+   *
+   * @param orig the instance to copy.
    */
   BoundingBox(const BoundingBox& orig); 
 
   /**
-   * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to
+   * Constructor.  Set position and dimensions to (0.0,0.0,0.0) and the id to
    * a copy of the given string.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id);
         
   /**
@@ -102,8 +114,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id, double x, double y,
                double width, double height);
         
@@ -113,8 +124,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id, double x, double y, double z,
                double width, double height, double depth);
   
@@ -124,8 +134,7 @@ public:
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
-   */ 
-  
+   */
   BoundingBox (LayoutPkgNamespaces* layoutns, const std::string id, const Point* p, const Dimensions* d);
 
   /**
@@ -137,18 +146,33 @@ public:
    BoundingBox(const XMLNode& node, unsigned int l2version=4);
 
   /**
-   * Destructor which does nothing.
-   */ 
-  
+   * Destructor.
+   */
   virtual ~BoundingBox ();
         
   /**
    * Assignment operator
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   BoundingBox& operator=(const BoundingBox& orig);
 
   /**
    * Returns the value of the "id" attribute of this BoundingBox.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this BoundingBox.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -156,164 +180,195 @@ public:
   /**
    * Predicate returning @c true or @c false depending on whether this
    * BoundingBox's "id" attribute has been set.
+   *
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
   
   /**
    * Sets the value of the "id" attribute of this BoundingBox.
+   *
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this BoundingBox.
+   *
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
 
   /**
-   * Returns the position of the BoundingBox as const referece to a Point
+   * Returns the position of the BoundingBox as const reference to a Point
    * object.
-   */ 
-  
+   *
+   * @return the Point representing the position.
+   */
   const Point* getPosition () const;
 
   /**
-   * Returns the dimensions of the BoundingBox as const referece to a
+   * Returns the dimensions of the BoundingBox as const reference to a
    * Dimensions object.
-   */ 
-  
+   *
+   * @return the Dimensions representing the dimensions.
+   */
   const Dimensions* getDimensions () const;
      
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 
 
   /**
-   * Returns the position of the BoundingBox as referece to a Point object.
-   */ 
-  
+   * Returns the position of the BoundingBox as reference to a Point object.
+   *
+   * @return the Point representing the position.
+   */
   Point* getPosition ();
         
   /**
-   * Returns the dimensions of the BoundingBox as referece to a Dimensions
+   * Returns the dimensions of the BoundingBox as reference to a Dimensions
    * object.
-   */ 
-  
+   *
+   * @return the Dimensions representing the dimensions.
+   */
   Dimensions* getDimensions ();
         
   /**
    * Sets the position to a copy of the Point object given.
-   */ 
-  
+   *
+   * @param p the Point to use as the position.
+   */
   void setPosition (const Point* p);
         
   /**
    * Sets the dimensions to a copy of the Dimensions object given.
-   */ 
-  
+   *
+   * @param d the Dimensions to use.
+   */
   void setDimensions (const Dimensions* d);  
     
 
   /**
-   * Return true or false based on whether Dimensions have been set 
+   * Return @c true or @c false based on whether Dimensions have been set.
+   *
+   * @return @c true if the Dimensions were set explicitly, @c false otherwise.
    */
   bool getDimensionsExplicitlySet() const;
 
   /**
-   * Return true or false based on whether Dimensions have been set 
+   * Return @c true or @c false based on whether Position has been set.
+   *
+   * @return @c true if the Position was set explicitly, @c false otherwise.
    */
   bool getPositionExplicitlySet() const;
 
   /**
-   * Does nothing yet since there are no defaults fo a BoundingBox. 
-   */ 
-  
+   * Does nothing since there are no defaults for a BoundingBox. 
+   */
   void initDefaults ();
 
 
   /**
    * Get the x offset of the bounding box.
+   *
+   * @return the double value of the x offset.
    */
-  
   double x() const;
   
   /**
    * Get the y offset of the bounding box.
+   *
+   * @return the double value of the y offset.
    */
-  
   double y() const;
   
   /**
    * Get the z offset of the bounding box.
+   *
+   * @return the double value of the z offset.
    */
-  
   double z() const;
   
   /**
    * Get the width of the bounding box.
+   *
+   * @return the double value of the width.
    */
-  
   double width() const;
   
   /**
    * Get the height of the bounding box.
+   *
+   * @return the double value of the height.
    */
-  
   double height() const;
   
   /**
    * Get the depth of the bounding box.
+   *
+   * @return the double value of the depth.
    */
-  
   double depth() const;
 
   /**
-   * Set x offset of the bounding box
+   * Set x offset of the bounding box.
+   *
+   * @param x the double value to set the x offset to.
    */
-  
   void setX(double x);
 
   /**
-   * Set y offset of the bounding box
+   * Set y offset of the bounding box.
+   *
+   * @param y the double value to set the y offset to.
    */
-  
   void setY(double y);
 
   /**
-   * Set z offset of the bounding box
+   * Set z offset of the bounding box.
+   *
+   * @param z the double value to set the z offset to.
    */
-  
   void setZ(double z);
 
   /**
-   * Set width of the bounding box
+   * Set width of the bounding box.
+   *
+   * @param width the double value to set the width to.
    */
-  
   void setWidth(double width);
 
   /**
-   * Set height of the bounding box
+   * Set height of the bounding box.
+   *
+   * @param height the double value to set the height to.
    */
-  
   void setHeight(double height);
 
   /**
-   * Set depth of the bounding box
+   * Set depth of the bounding box.
+   *
+   * @param depth the double value to set the depth to.
    */
-  
   void setDepth(double depth);
 
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -346,7 +401,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_LAYOUT_BOUNDINGBOX, SBMLLayoutTypeCode_t}
+   * @sbmlconstant{SBML_LAYOUT_BOUNDINGBOX, SBMLLayoutTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -370,6 +425,8 @@ public:
    
    /**
     * Creates an XMLNode object from this.
+    *
+    * @return an XMLNode representing this object.
     */
    XMLNode toXML() const;
 
@@ -377,7 +434,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -440,7 +497,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
@@ -450,7 +507,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -489,7 +546,7 @@ BoundingBox_create (void);
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0).  The id is set to the
  * given string.
  *
- * @param sid The id of the created BoundingBox_t
+ * @param sid the id of the created BoundingBox_t.
  *
  * @memberof BoundingBox_t
  */
@@ -501,16 +558,16 @@ BoundingBox_createWith (const char *sid);
  * Function that creates a BoundingBox_t structure with the coordinates and
  * sizes given as arguments. The id is set to the empty string.
  *
- * @param sid The id of the created BoundingBox_t
- * @param x The value of the x coordinate of the position Point_t.
- * @param y The value of the y coordinate of the position Point_t.
- * @param z The value of the z coordinate of the position Point_t.
- * @param width  The value of the width.
- * @param height The value of the height.
- * @param depth  The value of the depth.
+ * @param sid the id of the created BoundingBox_t.
+ * @param x the value of the x coordinate of the position Point_t.
+ * @param y the value of the y coordinate of the position Point_t.
+ * @param z the value of the z coordinate of the position Point_t.
+ * @param width  the value of the width.
+ * @param height the value of the height.
+ * @param depth  the value of the depth.
  *
  * @memberof BoundingBox_t
- */ 
+ */
 LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_createWithCoordinates (const char *sid, double x, double y, double z,
@@ -519,10 +576,10 @@ BoundingBox_createWithCoordinates (const char *sid, double x, double y, double z
 /**
  * Frees all memory taken by the given BoundingBox_t structure.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 BoundingBox_free (BoundingBox_t *bb);
@@ -530,7 +587,7 @@ BoundingBox_free (BoundingBox_t *bb);
 /**
  * Does nothing since no defaults are defined for BoundingBox.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -541,10 +598,10 @@ BoundingBox_initDefaults (BoundingBox_t *bb);
 /**
  * Returns the position as a Point_t structure.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
- */ 
+ */
 LIBSBML_EXTERN
 Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb);
@@ -552,10 +609,10 @@ BoundingBox_getPosition (BoundingBox_t *bb);
 /**
  * Returns the dimensions as a Dimensions_t structure.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
- */ 
+ */
 LIBSBML_EXTERN
 Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb);
@@ -563,8 +620,8 @@ BoundingBox_getDimensions (BoundingBox_t *bb);
 /**
  * Sets the position to a copy of the Point_t structure given as argument.
  *
- * @param bb The BoundingBox_t structure.
- * @param p The Point_t to use as the position of the BoundingBox_t
+ * @param bb the BoundingBox_t structure.
+ * @param p the Point_t to use as the position of the BoundingBox_t.
  *
  * @memberof BoundingBox_t
  */
@@ -575,11 +632,11 @@ BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p);
 /**
  * Sets the dimensions to a copy of the Dimensions_t structure given.
  *
- * @param bb The BoundingBox_t structure.
- * @param d The Dimensions_t to use as the dimensions of the BoundingBox_t
+ * @param bb the BoundingBox_t structure.
+ * @param d the Dimensions_t to use as the dimensions of the BoundingBox_t.
  *
  * @memberof BoundingBox_t
- */ 
+ */
 LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d);
@@ -587,8 +644,8 @@ BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d);
 /**
  * Sets the x offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param x The value of the x coordinate.
+ * @param bb the BoundingBox_t structure.
+ * @param x the value of the x coordinate.
  *
  * @memberof BoundingBox_t
  */
@@ -600,8 +657,8 @@ BoundingBox_setX(BoundingBox_t* bb, double x);
 /**
  * Sets the y offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param y The value of the y coordinate.
+ * @param bb the BoundingBox_t structure.
+ * @param y the value of the y coordinate.
  *
  * @memberof BoundingBox_t
  */
@@ -613,8 +670,8 @@ BoundingBox_setY(BoundingBox_t* bb, double y);
 /**
  * Sets the z offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param z The value of the z coordinate.
+ * @param bb the BoundingBox_t structure.
+ * @param z the value of the z coordinate.
  *
  * @memberof BoundingBox_t
  */
@@ -626,8 +683,8 @@ BoundingBox_setZ(BoundingBox_t* bb, double z);
 /**
  * Sets the width of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param width  The value of the width.
+ * @param bb the BoundingBox_t structure.
+ * @param width  the value of the width.
  *
  * @memberof BoundingBox_t
  */
@@ -639,8 +696,8 @@ BoundingBox_setWidth(BoundingBox_t* bb, double width);
 /**
  * Sets the height of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param height The value of the height.
+ * @param bb the BoundingBox_t structure.
+ * @param height the value of the height.
  *
  * @memberof BoundingBox_t
  */
@@ -652,8 +709,8 @@ BoundingBox_setHeight(BoundingBox_t* bb, double height);
 /**
  * Sets the depth of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
- * @param depth  The value of the depth.
+ * @param bb the BoundingBox_t structure.
+ * @param depth  the value of the depth.
  *
  * @memberof BoundingBox_t
  */
@@ -664,7 +721,7 @@ BoundingBox_setDepth(BoundingBox_t* bb, double depth);
 /**
  * Returns the x offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -676,7 +733,7 @@ BoundingBox_x(BoundingBox_t* bb);
 /**
  * Returns the y offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -688,7 +745,7 @@ BoundingBox_y(BoundingBox_t* bb);
 /**
  * Returns the z offset of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -700,7 +757,7 @@ BoundingBox_z(BoundingBox_t* bb);
 /**
  * Returns the width of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -711,7 +768,7 @@ BoundingBox_width(BoundingBox_t* bb);
 /**
  * Returns the height of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -722,7 +779,7 @@ BoundingBox_height(BoundingBox_t* bb);
 /**
  * Returns the depth of the bounding box.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -733,7 +790,7 @@ BoundingBox_depth(BoundingBox_t* bb);
 /**
  * @return a (deep) copy of this BoundingBox_t.
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -745,7 +802,7 @@ BoundingBox_clone (const BoundingBox_t *bb);
 /**
  * Returns non-zero if the id is set
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -757,7 +814,7 @@ BoundingBox_isSetId (const BoundingBox_t *bb);
 /**
  * Returns the id
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */
@@ -769,8 +826,8 @@ BoundingBox_getId (const BoundingBox_t *bb);
 /**
  * Sets the id
  *
- * @param bb The BoundingBox_t structure.
- * @param sid The value of the id.
+ * @param bb the BoundingBox_t structure.
+ * @param sid the value of the id.
  *
  * @memberof BoundingBox_t
  */
@@ -782,7 +839,7 @@ BoundingBox_setId (BoundingBox_t *bb, const char *sid);
 /**
  * Unsets the id
  *
- * @param bb The BoundingBox_t structure.
+ * @param bb the BoundingBox_t structure.
  *
  * @memberof BoundingBox_t
  */

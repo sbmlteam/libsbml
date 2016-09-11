@@ -33,9 +33,10 @@
  * @class DefaultTerm
  * @sbmlbrief{qual} The default result of a Transition.
  *
- * The DefaultTerm defines the default result of a Transition. This term is
- * used if there are no other FunctionTerm elements or if none of the Math
- * elements of the FunctionTerm elements evaluates to @c true.
+ * The DefaultTerm defines the default result of a Transition, held in the
+ * (required) "resultLevel" attribute.  This term is
+ * used when there are no other FunctionTerm elements or when none of the Math
+ * elements of the FunctionTerm elements evaluate to @c true.
  */
 
 #ifndef DefaultTerm_H__
@@ -77,11 +78,13 @@ public:
   /**
    * Creates a new DefaultTerm with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this DefaultTerm
+   * @param level an unsigned int, the SBML Level to assign to this DefaultTerm.
    *
-   * @param version an unsigned int, the SBML Version to assign to this DefaultTerm
+   * @param version an unsigned int, the SBML Version to assign to this DefaultTerm.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this DefaultTerm
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this DefaultTerm.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   DefaultTerm(unsigned int level      = QualExtension::getDefaultLevel(),
               unsigned int version    = QualExtension::getDefaultVersion(),
@@ -91,7 +94,11 @@ public:
   /**
    * Creates a new DefaultTerm with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   DefaultTerm(QualPkgNamespaces* qualns);
 
@@ -108,7 +115,7 @@ public:
    * Assignment operator for DefaultTerm.
    *
    * @param rhs the object whose values are used as the basis
-   * of the assignment
+   * of the assignment.
    */
   DefaultTerm& operator=(const DefaultTerm& rhs);
 
@@ -148,11 +155,10 @@ public:
   /**
    * Sets the value of the "resultLevel" attribute of this DefaultTerm.
    *
-   * @param resultLevel int value of the "resultLevel" attribute to be set
+   * @param resultLevel int value of the "resultLevel" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setResultLevel(int resultLevel);
 
@@ -181,7 +187,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_QUAL_DEFAULT_TERM, SBMLQualTypeCode_t}
+   * @sbmlconstant{SBML_QUAL_DEFAULT_TERM, SBMLQualTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -195,10 +201,11 @@ public:
    * Predicate returning @c true if all the required attributes
    * for this DefaultTerm object have been set.
    *
-   * @note The required attributes for a DefaultTerm object are:
+   * @note The required attribute for a DefaultTerm object is:
+   * @li "resultLevel"
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return a boolean value indicating whether the required
+   * attribute for this object has been defined.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -206,7 +213,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -296,11 +303,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * DefaultTerm_t
+ * DefaultTerm_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * DefaultTerm_t
+ * DefaultTerm_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * DefaultTerm_t
+ * DefaultTerm_t.
  *
  * @return a pointer to the newly created DefaultTerm_t structure.
  *
@@ -356,7 +363,7 @@ DefaultTerm_getResultLevel(DefaultTerm_t * dt);
  * Predicate returning @c true or @c false depending on whether the given
  * DefaultTerm_t structure's resultLevel is set.
  *
- * @param dt the DefaultTerm_t structure to query
+ * @param dt the DefaultTerm_t structure to query.
  * 
  * @return @c non-zero (true) if the "resultLevel" attribute of the given
  * DefaultTerm_t structure is set, zero (false) otherwise.
@@ -372,9 +379,9 @@ DefaultTerm_isSetResultLevel(DefaultTerm_t * dt);
  * Sets the "resultLevel" attribute of the given DefaultTerm_t
  * structure.
  *
- * @param dt the DefaultTerm_t structure
+ * @param dt the DefaultTerm_t structure.
  * 
- * @param resultLevel the value of resultLevel to assign to the "resultLevel" attribute
+ * @param resultLevel the value of resultLevel to assign to the "resultLevel" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -390,7 +397,7 @@ DefaultTerm_setResultLevel(DefaultTerm_t * dt, int resultLevel);
 /**
  * Unsets the "resultLevel" attribute of the given DefaultTerm_t structure.
  *
- * @param dt the DefaultTerm_t structure to unset
+ * @param dt the DefaultTerm_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

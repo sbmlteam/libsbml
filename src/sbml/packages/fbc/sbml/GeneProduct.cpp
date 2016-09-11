@@ -48,8 +48,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 GeneProduct::GeneProduct (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mLabel ("")
   , mAssociatedSpecies ("")
 {
@@ -63,8 +63,8 @@ GeneProduct::GeneProduct (unsigned int level, unsigned int version, unsigned int
  */
 GeneProduct::GeneProduct (FbcPkgNamespaces* fbcns)
   : SBase(fbcns)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mLabel ("")
   , mAssociatedSpecies ("")
 {
@@ -402,7 +402,7 @@ GeneProduct::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -417,7 +417,7 @@ GeneProduct::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -432,7 +432,7 @@ GeneProduct::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -448,7 +448,7 @@ GeneProduct::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -468,7 +468,7 @@ GeneProduct::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -629,7 +629,7 @@ GeneProduct::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -657,7 +657,7 @@ GeneProduct::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -737,14 +737,11 @@ ListOfGeneProducts::get(const std::string& sid) const
 
 
 /**
- * Adds a copy the given "GeneProduct" to this ListOfGeneProducts.
+ * Adds a copy the given GeneProduct to this ListOfGeneProducts.
  *
- * @param gp; the GeneProduct object to add
+ * @param gp the GeneProduct object to add.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
@@ -792,7 +789,7 @@ ListOfGeneProducts::getNumGeneProducts() const
 
 /*
  * Creates a new GeneProduct object, adds it to this ListOfGeneProducts
- * GeneProduct and returns the GeneProduct object created. 
+ * and returns the GeneProduct object created. 
  *
  * @return a new GeneProduct object instance
  *
@@ -911,7 +908,7 @@ ListOfGeneProducts::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -939,7 +936,7 @@ ListOfGeneProducts::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 LIBSBML_EXTERN

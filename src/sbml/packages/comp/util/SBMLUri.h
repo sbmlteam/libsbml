@@ -74,16 +74,16 @@ public:
   /**
    * Assignment operator for SBMLUri.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
-   */  
+   */
   SBMLUri& operator=(const SBMLUri& rhs);
 
 
   /**
    * Assignment operator for SBMLUri.  Allows parsing of the given string.
    *
-   * @param uri the URI to parse
+   * @param uri the URI to parse.
    */
   SBMLUri& operator=(const std::string& uri);
 
@@ -131,7 +131,7 @@ public:
    * present), and before the next @c "?" character.  The result may be an
    * empty string for some URIs.
    *
-   * @return the path of the URI (i.e., the full filename with path)
+   * @return the path of the URI (i.e., the full filename with path).
    */
   const std::string& getPath() const;
 
@@ -143,7 +143,7 @@ public:
    * the character @c "?".  For many URIs, this is an empty string.
    *
    * @return the query of the URI (i.e., the part after the full filename
-   * with path)
+   * with path).
    */
   const std::string& getQuery() const;
 
@@ -178,9 +178,9 @@ SBMLUri("c:\\test").relativeTo("test.xml");
    * would construct a new file URI, with path
    * <code>c:/test/test.xml</code>.
    *
-   * @param uri a URI to be added to this object
+   * @param uri a URI to be added to this object.
    *
-   * @return the resulting new URI
+   * @return the resulting new URI.
    */
   SBMLUri relativeTo(const std::string& uri) const;
 

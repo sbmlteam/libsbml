@@ -45,8 +45,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 ExternalModelDefinition::ExternalModelDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : CompBase (level,version, pkgVersion)
-  , mId("")
-  , mName("")
+//  , mId("")
+//  , mName("")
   , mSource("")
   , mModelRef("")
   , mMd5("")
@@ -59,8 +59,8 @@ ExternalModelDefinition::ExternalModelDefinition (unsigned int level, unsigned i
 
 ExternalModelDefinition::ExternalModelDefinition(CompPkgNamespaces* compns)
   : CompBase(compns)
-  , mId("")
-  , mName("")
+//  , mId("")
+//  , mName("")
   , mSource("")
   , mModelRef("")
   , mMd5("")
@@ -323,7 +323,6 @@ ExternalModelDefinition::unsetMd5 ()
 int
 ExternalModelDefinition::setSource (const std::string& source)
 {
-  //LS DEBUG:  check syntax of source.  Somehow.  Maybe at least so that it's not ""?
   mSource = source;
   return LIBSBML_OPERATION_SUCCESS;
 }

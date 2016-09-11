@@ -78,7 +78,7 @@ GraphicalObject::renameMetaIdRefs(const std::string& oldid, const std::string& n
  */
 GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsigned int pkgVersion)
 : SBase(level, version)
-, mId("")
+//, mId("")
 , mMetaIdRef("")
 , mBoundingBox(level, version, pkgVersion)
 , mBoundingBoxExplicitlySet(false)
@@ -92,7 +92,7 @@ GraphicalObject::GraphicalObject(unsigned int level, unsigned int version, unsig
  */
 GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns)
 : SBase(layoutns)
-, mId("")
+//, mId("")
 , mMetaIdRef("")
 , mBoundingBox(layoutns)
 , mBoundingBoxExplicitlySet(false)
@@ -116,11 +116,13 @@ GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns)
  */
 GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id)
 : SBase(layoutns)
-, mId(id)
+//, mId(id)
 , mMetaIdRef("")
 , mBoundingBox(layoutns)
 , mBoundingBoxExplicitlySet(false)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -142,11 +144,13 @@ GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::strin
 GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id,
   double x, double y, double w, double h)
   : SBase(layoutns)
-  , mId(id)
+  //, mId(id)
   , mMetaIdRef("")
   , mBoundingBox(BoundingBox(layoutns, "", x, y, 0.0, w, h, 0.0))
   , mBoundingBoxExplicitlySet(true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -169,11 +173,13 @@ GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::strin
   double x, double y, double z,
   double w, double h, double d)
   : SBase(layoutns)
-  , mId(id)
+  //, mId(id)
   , mMetaIdRef("")
   , mBoundingBox(BoundingBox(layoutns, "", x, y, z, w, h, d))
   , mBoundingBoxExplicitlySet(true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -196,11 +202,13 @@ GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::strin
   const Point*       p,
   const Dimensions*  d)
   : SBase(layoutns)
-  , mId(id)
+  //, mId(id)
   , mMetaIdRef("")
   , mBoundingBox(BoundingBox(layoutns, "", p, d))
   , mBoundingBoxExplicitlySet(true)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -221,11 +229,13 @@ GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::strin
  */
 GraphicalObject::GraphicalObject(LayoutPkgNamespaces* layoutns, const std::string& id, const BoundingBox* bb)
 : SBase(layoutns)
-, mId(id)
+//, mId(id)
 , mMetaIdRef("")
 , mBoundingBox(layoutns)
 , mBoundingBoxExplicitlySet(false)
 {
+  setId(id);
+
   //
   // set the element namespace of this object
   //
@@ -1040,7 +1050,7 @@ const std::string& pkgPrefix, bool flag)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
 : ListOf(layoutns)
@@ -1054,7 +1064,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(LayoutPkgNamespaces* layoutns)
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int version, unsigned int pkgVersion)
 : ListOf(level, version)

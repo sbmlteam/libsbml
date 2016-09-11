@@ -35,7 +35,8 @@
  * with the option <code>"convert fbc v2 to fbc v1"</code> (literally that
  * full string, including the spaces), and passing this properties object to
  * SBMLDocument::convert(@if java ConversionProperties@endif).  The converter
- * offers no options.
+ * offers no options.  Information present in v2 that cannot be encoded in 
+ * v1 is lost.
  *
  * @copydetails doc_section_using_sbml_converters
  */
@@ -122,9 +123,9 @@ public:
    *
    * This method causes the converter to do the actual conversion work,
    * that is, to convert the SBMLDocument object set by
-   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
+   * setDocument(@if java SBMLDocument@endif) and
    * with the configuration options set by
-   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
+   * setProperties(@if java ConversionProperties@endif).
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

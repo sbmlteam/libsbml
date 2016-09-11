@@ -50,7 +50,7 @@ using namespace std;
 
 /*
  * Creates a new Dimensions object with all sizes set to 0.0.
- */ 
+ */
 Dimensions::Dimensions (unsigned int level, unsigned int version, unsigned int pkgVersion) 
  :  SBase(level,version)
   , mW(0.0)
@@ -63,7 +63,7 @@ Dimensions::Dimensions (unsigned int level, unsigned int version, unsigned int p
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 Dimensions::Dimensions(LayoutPkgNamespaces* layoutns)
  : SBase(layoutns)
@@ -86,7 +86,7 @@ Dimensions::Dimensions(LayoutPkgNamespaces* layoutns)
 
 /*
  * Creates a new Dimensions object with the given sizes.
- */ 
+ */
 Dimensions::Dimensions (LayoutPkgNamespaces* layoutns, double width, double height, double depth)
   : SBase(layoutns)
   , mW(width)
@@ -171,7 +171,7 @@ Dimensions::Dimensions(const XMLNode& node, unsigned int l2version)
 
 /*
  * Frees memory taken up by the Dimensions object.
- */ 
+ */
 Dimensions::~Dimensions ()
 {
 }
@@ -283,7 +283,7 @@ Dimensions::getDepth () const
 
 /*
  * Sets the width to the given value.
- */ 
+ */
 void
 Dimensions::setWidth (double width)
 {
@@ -293,7 +293,7 @@ Dimensions::setWidth (double width)
 
 /*
  * Sets the height to the given value.
- */ 
+ */
 void
 Dimensions::setHeight (double height)
 {
@@ -303,7 +303,7 @@ Dimensions::setHeight (double height)
 
 /*
  * Sets the depth to the given value.
- */ 
+ */
 void Dimensions::setDepth (double depth)
 {
   this->mD = depth;
@@ -314,7 +314,7 @@ void Dimensions::setDepth (double depth)
 
 /*
  * Sets all sizes of the Dimensions object to the given values.
- */ 
+ */
 void
 Dimensions::setBounds (double w, double h, double d)
 {
@@ -331,7 +331,7 @@ Dimensions::getDExplicitlySet() const
 
 /*
  * Sets the depth to 0.0
- */ 
+ */
 void Dimensions::initDefaults ()
 {
   this->setDepth(0.0);
@@ -549,7 +549,7 @@ void Dimensions::writeAttributes (XMLOutputStream& stream) const
   stream.writeAttribute("height", getPrefix(), mH);
 
   //
-  // (TODO) default value should be allowd in package of Level 3?
+  // (TODO) default value should be allowed in package of Level 3?
   //
   if(this->mD!=0.0 || (getLevel() > 2 && mDExplicitlySet))
   {

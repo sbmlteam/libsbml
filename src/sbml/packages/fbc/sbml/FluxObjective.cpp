@@ -54,8 +54,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 FluxObjective::FluxObjective (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
@@ -70,8 +70,8 @@ FluxObjective::FluxObjective (unsigned int level, unsigned int version, unsigned
  */
 FluxObjective::FluxObjective (FbcPkgNamespaces* fbcns)
   : SBase(fbcns)
-  , mId ("")
-  , mName ("")
+//  , mId ("")
+//  , mName ("")
   , mReaction ("")
   , mCoefficient (numeric_limits<double>::quiet_NaN())
   , mIsSetCoefficient (false)
@@ -402,7 +402,7 @@ FluxObjective::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -417,7 +417,7 @@ FluxObjective::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -432,7 +432,7 @@ FluxObjective::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -448,7 +448,7 @@ FluxObjective::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -468,7 +468,7 @@ FluxObjective::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -619,7 +619,7 @@ FluxObjective::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -652,7 +652,7 @@ FluxObjective::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -732,14 +732,11 @@ ListOfFluxObjectives::get(const std::string& sid) const
 
 
 /*
- * Adds a copy the given "FluxObjective" to this ListOfFluxObjectives.
+ * Adds a copy the given FluxObjective to this ListOfFluxObjectives.
  *
- * @param fo; the FluxObjective object to add
+ * @param fo the FluxObjective object to add.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
@@ -787,7 +784,7 @@ ListOfFluxObjectives::getNumFluxObjectives() const
 
 /*
  * Creates a new FluxObjective object, adds it to this ListOfFluxObjectives
- * FluxObjective and returns the FluxObjective object created. 
+ * and returns the FluxObjective object created. 
  *
  * @return a new FluxObjective object instance
  *
@@ -906,7 +903,7 @@ ListOfFluxObjectives::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -934,7 +931,7 @@ ListOfFluxObjectives::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 LIBSBML_EXTERN

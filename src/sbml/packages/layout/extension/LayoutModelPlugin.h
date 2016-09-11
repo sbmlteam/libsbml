@@ -60,7 +60,18 @@ class LIBSBML_EXTERN LayoutModelPlugin : public SBasePlugin
 public:
 
   /**
-   * Constructor
+   * Creates a new LayoutModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param layoutns the namespaces object for the package.
    */
   LayoutModelPlugin (const std::string &uri, const std::string &prefix,
                      LayoutPkgNamespaces* layoutns);
@@ -68,6 +79,8 @@ public:
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
+   *
+   * @param orig the instance to copy.
    */
   LayoutModelPlugin(const LayoutModelPlugin& orig);
 
@@ -79,6 +92,9 @@ public:
 
   /**
    * Assignment operator for LayoutModelPlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   LayoutModelPlugin& operator=(const LayoutModelPlugin& orig);
 
@@ -86,7 +102,7 @@ public:
   /**
    * Creates and returns a deep copy of this LayoutModelPlugin object.
    * 
-   * @return a (deep) copy of this LayoutModelPlugin object
+   * @return a (deep) copy of this LayoutModelPlugin object.
    */
   virtual LayoutModelPlugin* clone () const;
 
@@ -187,7 +203,11 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 
@@ -263,7 +283,13 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   */
   int addLayout (const Layout* layout);
 
 
@@ -282,7 +308,7 @@ public:
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
-   * @param n the index of the Layout object to remove
+   * @param n the index of the Layout object to remove.
    *
    * @return the Layout object removed.  As mentioned above, the caller owns the
    * returned object. @c NULL is returned if the given index is out of range.
@@ -317,7 +343,7 @@ public:
    * Subclasses which contain one or more SBase derived elements must
    * override this function.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    *
    * @see connectToParent
    * @see enablePackageInternal
@@ -338,7 +364,7 @@ public:
    * or more child elements. Also, SBasePlugin::connectToParent()
    * must be called in the overridden function.
    *
-   * @param sbase the SBase object to use
+   * @param sbase the SBase object to use.
    *
    * @if cpp 
    * @see setSBMLDocument
@@ -377,9 +403,7 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   /*-- data members --*/
-
   ListOfLayouts mLayouts;
-
   /** @endcond */
 };
 

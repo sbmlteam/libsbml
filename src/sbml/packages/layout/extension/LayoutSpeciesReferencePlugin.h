@@ -59,7 +59,18 @@ class LIBSBML_EXTERN LayoutSpeciesReferencePlugin : public SBasePlugin
 public:
 
   /**
-   * Constructor
+   * Creates a new LayoutSpeciesReferencePlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param layoutns the namespaces object for the package.
    */
   LayoutSpeciesReferencePlugin (const std::string &uri, const std::string &prefix,
                                 LayoutPkgNamespaces* layoutns);
@@ -67,6 +78,8 @@ public:
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
+   *
+   * @param orig the instance to copy.
    */
   LayoutSpeciesReferencePlugin(const LayoutSpeciesReferencePlugin& orig);
 
@@ -78,6 +91,9 @@ public:
 
   /**
    * Assignment operator for LayoutSpeciesReferencePlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   LayoutSpeciesReferencePlugin& operator=(const LayoutSpeciesReferencePlugin& orig);
 
@@ -85,7 +101,7 @@ public:
   /**
    * Creates and returns a deep copy of this LayoutSpeciesReferencePlugin object.
    * 
-   * @return a (deep) copy of this LayoutSpeciesReferencePlugin object
+   * @return a (deep) copy of this LayoutSpeciesReferencePlugin object.
    */
   virtual LayoutSpeciesReferencePlugin* clone () const;
 

@@ -201,7 +201,7 @@ void Curve::initDefaults ()
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfLineSegments::ListOfLineSegments(unsigned int level, unsigned int version, unsigned int pkgVersion)
  : ListOf(level,version)
@@ -211,7 +211,7 @@ ListOfLineSegments::ListOfLineSegments(unsigned int level, unsigned int version,
 
 
 /*
- * Ctor.
+ * Constructor.
  */
 ListOfLineSegments::ListOfLineSegments(LayoutPkgNamespaces* layoutns)
  : ListOf(layoutns)

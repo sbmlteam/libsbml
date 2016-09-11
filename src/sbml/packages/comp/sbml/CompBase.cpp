@@ -1,6 +1,4 @@
 /**
- * @cond doxygenLibsbmlInternal
- *
  * @file    CompBase.cpp
  * @brief   Implementation of CompBase, the base class of extension 
  *          entities plugged in SBase derived classes in the SBML Core package.
@@ -503,4 +501,3 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-/** @endcond */

@@ -48,9 +48,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 GeneProductRef::GeneProductRef (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : FbcAssociation(level, version)
-  , mId ("")
+//  , mId ("")
   , mGeneProduct ("")
-  , mName ("")
+//  , mName ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
@@ -62,9 +62,9 @@ GeneProductRef::GeneProductRef (unsigned int level, unsigned int version, unsign
  */
 GeneProductRef::GeneProductRef (FbcPkgNamespaces* fbcns)
   : FbcAssociation(fbcns)
-  , mId ("")
+//  , mId ("")
   , mGeneProduct ("")
-  , mName ("")
+//  , mName ("")
 {
   // set the element namespace of this object
   setElementNamespace(fbcns->getURI());
@@ -362,7 +362,7 @@ GeneProductRef::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -377,7 +377,7 @@ GeneProductRef::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -392,7 +392,7 @@ GeneProductRef::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -408,7 +408,7 @@ GeneProductRef::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -428,7 +428,7 @@ GeneProductRef::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -447,7 +447,7 @@ GeneProductRef::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -557,7 +557,7 @@ GeneProductRef::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -582,7 +582,7 @@ GeneProductRef::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 LIBSBML_EXTERN

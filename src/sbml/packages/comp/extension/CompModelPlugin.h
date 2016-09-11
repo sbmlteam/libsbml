@@ -88,7 +88,18 @@ protected:
 public:
 
   /**
-   * Constructor.
+   * Creates a new CompModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param compns the namespaces object for the package.
    */
   CompModelPlugin (const std::string &uri, const std::string &prefix,
                    CompPkgNamespaces *compns);
@@ -96,6 +107,8 @@ public:
 
   /**
    * Copy constructor. Creates a copy of this CompModelPlugin object.
+   *
+   * @param orig the instance to copy.
    */
   CompModelPlugin(const CompModelPlugin& orig);
 
@@ -108,6 +121,9 @@ public:
 
   /**
    * Assignment operator for CompModelPlugin.
+   *
+   * @param orig the object whose values are used as the basis of the
+   * assignment.
    */
   CompModelPlugin& operator=(const CompModelPlugin& orig);
 
@@ -115,7 +131,7 @@ public:
   /**
    * Creates and returns a deep copy of this CompModelPlugin object.
    * 
-   * @return a (deep) copy of this CompModelPlugin object
+   * @return a (deep) copy of this CompModelPlugin object.
    */
   virtual CompModelPlugin* clone () const;
 
@@ -146,7 +162,7 @@ public:
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id a string representing the id of objects to find.
+   * @param id a string representing the id of the object to find.
    *
    * @return a pointer to the SBase element with the given @p id.
    */
@@ -158,7 +174,7 @@ public:
    * identifier, or itself if it has the given @p metaid, or @c NULL if no
    * such object is found.
    *
-   * @param metaid a string representing the metaid of objects to find.
+   * @param metaid a string representing the metaid of the object to find.
    *
    * @return a pointer to the SBase element with the given @p metaid.
    */
@@ -169,6 +185,10 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
@@ -178,7 +198,7 @@ public:
    * Returns the ListOf object that holds all submodels.
    *
    * @return the ListOf object that holds all submodels.
-   */ 
+   */
   const ListOfSubmodels* getListOfSubmodels () const;
 
 
@@ -189,7 +209,7 @@ public:
    * @param n the index number of the Submodel to get.
    *
    * @return the nth Submodel in the ListOfSubmodels.
-   */ 
+   */
   Submodel* getSubmodel (unsigned int n);
 
 
@@ -200,7 +220,7 @@ public:
    *
    * @return the nth Submodel in the ListOfSubmodels.  If the index @p n is
    * invalid, @c NULL is returned.
-   */ 
+   */
   const Submodel* getSubmodel (unsigned int n) const;
 
 
@@ -211,7 +231,7 @@ public:
    *
    * @return the Submodel in the ListOfSubmodels with the given identifier.
    * If no such submodel with identifier @p id exists, @c NULL is returned.
-   */ 
+   */
   Submodel* getSubmodel (std::string id);
 
 
@@ -224,7 +244,7 @@ public:
    * identifier. If no submodel with identifier @p id exists, @c NULL is
    * returned.
 
-   */ 
+   */
   const Submodel* getSubmodel (std::string id) const;
 
 
@@ -261,7 +281,7 @@ public:
    * submodel objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created Submodel object
+   * @return a newly created Submodel object.
    */
   Submodel* createSubmodel ();
 
@@ -269,8 +289,9 @@ public:
   /**
    * Removes the submodel with the given index.
    * A pointer to the submodel that was removed is returned.
+   * The caller owns the returned item and is responsible for deleting it.
    * 
-   * @param index the index of the Submodel object to remove
+   * @param index the index of the Submodel object to remove.
    *
    * @return the Submodel object removed.  As mentioned above, the caller
    * owns the returned object. @c NULL is returned if the given @p index is
@@ -283,7 +304,7 @@ public:
    * Returns the ListOf object that holds all ports.
    *
    * @return the ListOf object that holds all ports.
-   */ 
+   */
   const ListOfPorts* getListOfPorts () const;
 
 
@@ -294,7 +315,7 @@ public:
    *
    * @return the nth Port in the ListOfPorts.  If the index @p n is invalid,
    * @c NULL is returned.
-   */ 
+   */
   Port* getPort (unsigned int n);
 
 
@@ -305,7 +326,7 @@ public:
    *
    * @return the nth Port in the ListOfPorts. If the index @p n is invalid,
    * @c NULL is returned.
-   */ 
+   */
   const Port* getPort (unsigned int n) const;
 
 
@@ -316,7 +337,7 @@ public:
    *
    * @return the Port in the ListOfPorts with the given identifier.  If the
    * identifier is invalid, @c NULL is returned.
-   */ 
+   */
   Port* getPort (std::string id);
 
 
@@ -327,7 +348,7 @@ public:
    *
    * @return the Port in the ListOfPorts with the given identifier.  If the
    * identifier is invalid, @c NULL is returned.
-   */ 
+   */
   const Port* getPort (std::string id) const;
 
 
@@ -361,15 +382,16 @@ public:
    * port objects list and returns a pointer to the newly
    * created object.
    *
-   * @return a newly created Port object
+   * @return a newly created Port object.
    */
   Port* createPort ();
 
 
   /**
    * Removes the port with the given index.
+   * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param index the index of the Port object to remove
+   * @param index the index of the Port object to remove.
    *
    * @return the Port object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
@@ -402,6 +424,8 @@ public:
    * (&quot;<code>__</code>&quot;) by default, and can be overridden
    * with the setDivider() function.
    *
+   * @return the divider that will be used by any call to flattenModel().
+   *
    * @see setDivider(const std::string& divider)
    */
   std::string getDivider();
@@ -414,7 +438,7 @@ public:
    * Subclasses which contain one or more SBase derived elements must
    * override this function.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    *
    * @see connectToParent
    * @see enablePackageInternal
@@ -444,7 +468,7 @@ public:
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param parent the SBML object to use
+   * @param parent the SBML object to use.
    */
   void connectToParent (SBase* parent);
   /** @endcond */
@@ -483,6 +507,8 @@ public:
    *       take ownership of it. Thus the calling program is responsible of 
    *       freeing the transformer when no longer needed (i.e after the 
    *       SBML document has been deleted)
+   *
+   * @param transformer the prefix transformer to use.
    *      
    */
   void setTransformer(PrefixTransformer* transformer);
@@ -493,7 +519,7 @@ public:
   PrefixTransformer* getTransformer() const;
   
   /**
-   * @return an indicator, whether a custom transformer has been set. 
+   * @return an indicator, whether a custom transformer has been set.
    */
   bool isSetTransformer() const;
 
@@ -516,23 +542,25 @@ protected:
    *@return a Model object with no submodels.  On failure, return @c NULL.
    */
   virtual Model* flattenModel() const;
-  friend class CompFlatteningConverter;
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Deletes any elements in 'toremove' that do not already exist in 'removed', 
    * while taking care to not double-delete any element.  Intended for use with
-   * collectDeletionsAndDeleteCompConstructs and 
-   * collectRenameAndConvertReplacements.
+   * collectDeletionsAndDeleteCompConstructs() and 
+   * collectRenameAndConvertReplacements().
    */
   virtual int removeCollectedElements(std::set<SBase*>* removed, std::set<SBase*>* toremove);
-  friend class ReplacedElement;
+  /** @endcond */
 
   /**
    * Loop through all Submodels in this Model, instantiate all of them,
    * perform all deletions, and synchronize all replacements, including using
    * any conversion factors that may exist.  The resulting models are stored
    * in the Submodel objects, and available from
-   * 'Submodel::getInstantiation()'
+   * 'Submodel::getInstantiation()'.  This may be useful if separate simulation
+   * or analysis of submodels is desired, as opposed to using flattenModel()
+   * to get a single SBML model.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -545,9 +573,11 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
   std::set<SBase*>* getRemovedSet();
-  friend class Replacing;
-  friend class SBaseRef;
   friend class CompBase;
+  friend class CompFlatteningConverter;
+  friend class Replacing;
+  friend class ReplacedElement;
+  friend class SBaseRef;
   /** @endcond */
 
 private:
@@ -684,7 +714,7 @@ BEGIN_C_DECLS
  * CompModelPlugin_t, and returns the Submodel_t.
  *
  * @param modelPlug the CompModelPlugin_t structure to which the Submodel_t should be
- * added
+ * added.
  *
  * @return the newly-created empty Submodel_t.
  *

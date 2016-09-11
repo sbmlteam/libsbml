@@ -127,8 +127,8 @@ class LIBSBML_EXTERN FluxBound : public SBase
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
-  std::string   mName;
+//  std::string   mId;
+//  std::string   mName;
   std::string   mReaction;
   FluxBoundOperation_t   mOperation;
   std::string   mOperationString;
@@ -142,13 +142,15 @@ public:
    * &ldquo;fbc&rdquo;package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * FluxObjective
+   * FluxObjective.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * FluxObjective
+   * FluxObjective.
    *
    * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to
-   * this FluxObjective
+   * this FluxObjective.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   FluxBound(unsigned int level      = FbcExtension::getDefaultLevel(),
             unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -157,18 +159,29 @@ public:
 
   /**
    * Creates a new FluxBound with the given FbcPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    FluxBound(FbcPkgNamespaces* fbcns);
 
 
   /**
    * Copy constructor.
+   *
+   * @param source the instance to copy.
    */
    FluxBound(const FluxBound& source);
 
 
   /**
    * Assignment operator.
+   *
+   * @param source the object whose values are used as the basis of the
+   * assignment.
    */
    FluxBound& operator=(const FluxBound& source);
 
@@ -180,9 +193,20 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this FluxBound object.
+   * Returns the value of the "id" attribute of this FluxBound.
    *
-   * @return the value of the "id" attribute of this FluxBound object.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this FluxBound.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId () const;
 
@@ -190,28 +214,23 @@ public:
   /**
    * Predicate returning @c true if this FluxBound's "id" attribute is set.
    *
-   * @return @c true if this FluxBound object's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
 
 
   /**
-   * Sets the value of the "id" attribute of this FluxBound object.
+   * Sets the value of the "id" attribute of this FluxBound.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId (const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Unsets the value of the "id" attribute of this FluxBound object.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId ();
 
@@ -219,7 +238,7 @@ public:
   /**
    * Returns the value of the "name" attribute of this FluxBound object.
    *
-   * @return the value of the "name" attribute of this FluxBound object.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName () const;
 
@@ -227,18 +246,15 @@ public:
   /**
    * Predicate returning @c true if this FluxBound's "name" attribute is set.
    *
-   * @return @c true if this FluxBound object's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName () const;
 
 
   /**
-   * Sets the value of the "name" attribute of this FluxBound object.
+   * Sets the value of the "name" attribute of this FluxBound.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName (const std::string& name);
 
@@ -246,9 +262,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this FluxBound object.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName ();
 
@@ -414,7 +428,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_FBC_FLUXBOUND, SBMLFbcTypeCode_t}
+   * @sbmlconstant{SBML_FBC_FLUXBOUND, SBMLFbcTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -427,7 +441,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.  For example:
    *
    *   SBase::writeElements(stream);
@@ -455,7 +469,7 @@ public:
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -503,7 +517,7 @@ protected:
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
@@ -513,7 +527,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * to the XMLOutputStream.  Be sure to call your parent's implementation
    * of this method as well.  For example:
    *
    *   SBase::writeAttributes(stream);
@@ -559,6 +573,12 @@ public:
 
   /**
    * Creates a new ListOfFluxBounds with the given level, version, and package version.
+   *
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfFluxBounds(unsigned int level      = FbcExtension::getDefaultLevel(),
                    unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -567,6 +587,12 @@ public:
 
   /**
    * Creates a new ListOfFluxBounds with the given FbcPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param fbcns the FbcPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
    ListOfFluxBounds(FbcPkgNamespaces* fbcns);
 
@@ -635,7 +661,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -649,7 +675,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then @c
    * NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the item to remove.
    *
    * @return the item removed.  As mentioned above, the caller owns the
    * returned item.
@@ -713,11 +739,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * FluxBound_t
+ * FluxBound_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * FluxBound_t
+ * FluxBound_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * FluxBound_t
+ * FluxBound_t.
  *
  * @return a pointer to the newly created FluxBound_t structure.
  *
@@ -731,7 +757,7 @@ FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgVersi
 /**
  * Takes an FluxBound_t structure and returns its identifier.
  *
- * @param fb the FluxBound_t structure whose identifier is sought
+ * @param fb the FluxBound_t structure whose identifier is sought.
  *
  * @return the identifier of the given FluxBound_t, as a pointer to a string.
  *
@@ -746,7 +772,7 @@ FluxBound_getId(FluxBound_t * fb);
  * Predicate returning @c true or @c false depending on whether the given
  * FluxBound_t structure's identifier is set.
  *
- * @param fb the FluxBound_t structure to query
+ * @param fb the FluxBound_t structure to query.
  *
  * @return @c non-zero (true) if the "id" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
@@ -783,7 +809,7 @@ FluxBound_setId(FluxBound_t * fb, const char * sid);
 /**
  * Unsets the "id" attribute of the given FluxBound_t structure.
  *
- * @param fb the FluxBound_t structure to unset
+ * @param fb the FluxBound_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -813,7 +839,7 @@ FluxBound_getName(FluxBound_t * fb);
  * Predicate returning @c true or @c false depending on whether the given
  * FluxBound_t structure's name is set.
  *
- * @param fb the FluxBound_t structure to query
+ * @param fb the FluxBound_t structure to query.
  *
  * @return @c non-zero (true) if the "name" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
@@ -828,7 +854,7 @@ FluxBound_isSetName(FluxBound_t * fb);
 /**
  * Sets the name of the given FluxBound_t to a copy of @p name.
  *
- * @param fb the FluxBound_t structure to set
+ * @param fb the FluxBound_t structure to set.
  * @param name the name to assign to the given FluxBound_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -848,7 +874,7 @@ FluxBound_setName(FluxBound_t * fb, const char * name);
 /**
  * Unsets the "name" attribute of the given FluxBound_t structure.
  *
- * @param fb the FluxBound_t structure to unset
+ * @param fb the FluxBound_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -879,7 +905,7 @@ FluxBound_getReaction(FluxBound_t * fb);
  * Predicate returning @c true or @c false depending on whether the given
  * FluxBound_t structure's reaction is set.
  *
- * @param fb the FluxBound_t structure to query
+ * @param fb the FluxBound_t structure to query.
  *
  * @return @c non-zero (true) if the "reaction" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
@@ -894,7 +920,7 @@ FluxBound_isSetReaction(FluxBound_t * fb);
 /**
  * Sets the reaction of the given FluxBound_t to a copy of @p reaction.
  *
- * @param fb the FluxBound_t structure to set
+ * @param fb the FluxBound_t structure to set.
  * @param reaction the reaction to assign to the given FluxBound_t's "reaction" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -914,7 +940,7 @@ FluxBound_setReaction(FluxBound_t * fb, const char * reaction);
 /**
  * Unsets the "reaction" attribute of the given FluxBound_t structure.
  *
- * @param fb the FluxBound_t structure to unset
+ * @param fb the FluxBound_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -945,7 +971,7 @@ FluxBound_getOperation(FluxBound_t * fb);
  * Predicate returning @c true or @c false depending on whether the given
  * FluxBound_t structure's operation is set.
  *
- * @param fb the FluxBound_t structure to query
+ * @param fb the FluxBound_t structure to query.
  *
  * @return @c non-zero (true) if the "operation" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
@@ -960,7 +986,7 @@ FluxBound_isSetOperation(FluxBound_t * fb);
 /**
  * Sets the operation of the given FluxBound_t to a copy of @p operation.
  *
- * @param fb the FluxBound_t structure to set
+ * @param fb the FluxBound_t structure to set.
  * @param operation the operation to assign to the given FluxBound_t's "operation" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -980,7 +1006,7 @@ FluxBound_setOperation(FluxBound_t * fb, const char * operation);
 /**
  * Unsets the "operation" attribute of the given FluxBound_t structure.
  *
- * @param fb the FluxBound_t structure to unset
+ * @param fb the FluxBound_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1011,7 +1037,7 @@ FluxBound_getValue(FluxBound_t * fb);
  * Predicate returning @c true or @c false depending on whether the given
  * FluxBound_t structure's value is set.
  *
- * @param fb the FluxBound_t structure to query
+ * @param fb the FluxBound_t structure to query.
  *
  * @return @c non-zero (true) if the "value" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
@@ -1027,9 +1053,9 @@ FluxBound_isSetValue(FluxBound_t * fb);
  * Sets the "value" attribute of the given FluxBound_t
  * structure.
  *
- * @param fb the FluxBound_t structure
+ * @param fb the FluxBound_t structure.
  *
- * @param value the value of value to assign to the "value" attribute
+ * @param value the value of value to assign to the "value" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1045,7 +1071,7 @@ FluxBound_setValue(FluxBound_t * fb, double value);
 /**
  * Unsets the "value" attribute of the given FluxBound_t structure.
  *
- * @param fb the FluxBound_t structure to unset
+ * @param fb the FluxBound_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1060,10 +1086,10 @@ FluxBound_unsetValue(FluxBound_t * fb);
 /**
  * Returns the string version of the provided FluxBoundOperation_t enumeration.
  *
- * @param type The FluxBoundOperation_t enumeration to convert
+ * @param type the FluxBoundOperation_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "lessEqual",
- * "greaterEqual", "equal", or NULL if the value is FLUXBOUND_OPERATION_UNKNOWN
+ * "greaterEqual", "equal", or @c NULL if the value is FLUXBOUND_OPERATION_UNKNOWN
  * or another invalid enumeration value.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
@@ -1085,7 +1111,7 @@ FluxBoundOperation_toString(FluxBoundOperation_t type);
  * return FLUXBOUND_OPERATION_LESS_EQUAL, but "lessequal" will return
  * FLUXBOUND_OPERATION_UNKNOWN.
  *
- * @param s The string to convert to an FluxBoundOperation_t
+ * @param s the string to convert to an FluxBoundOperation_t.
  *
  * @return The corresponding FluxBoundOperation_t, or
  * FLUXBOUND_OPERATION_UNKNOWN if no match found.
@@ -1106,7 +1132,7 @@ FluxBoundOperation_fromString(const char* s);
  * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
  * FluxBoundOperation_t is valid.
  *
- * @param type the FluxBoundOperation_t enumeration to query
+ * @param type the FluxBoundOperation_t enumeration to query.
  *
  * @return @c non-zero (true) if the FluxBoundOperation_t is
  * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL,
@@ -1132,7 +1158,7 @@ FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
  * The matching is case-sensitive:  "lessEqual" will return @c true, but
  * "lessequal" will return @c false.
  *
- * @param s The string to query
+ * @param s the string to query.
  *
  * @return @c non-zero (true) if the string is
  * "lessEqual", "greaterEqual", "less", "greater", or "equal"; zero (false) otherwise.

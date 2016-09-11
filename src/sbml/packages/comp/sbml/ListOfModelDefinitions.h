@@ -75,9 +75,11 @@ public:
    * Creates a new ListOfModelDefinitions with the given level, version, and
    * package version.
    *
-   * @param level the SBML Level
-   * @param version the Version within the SBML Level
-   * @param pkgVersion the version of the package
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfModelDefinitions(unsigned int level      = CompExtension::getDefaultLevel(), 
                          unsigned int version    = CompExtension::getDefaultVersion(), 
@@ -87,6 +89,12 @@ public:
   /**
    * Creates a new ListOfModelDefinitions with the given CompPkgNamespaces
    * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param compns the CompPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfModelDefinitions(CompPkgNamespaces* compns);
 
@@ -155,7 +163,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
+   * @param n the index of the item to remove.
    *
    * @see size()
    */
@@ -168,10 +176,10 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param sid the id of the item to remove
+   * @param sid the id of the item to remove.
    *
    * @see size()
-   */  
+   */
    virtual ModelDefinition *remove (const std::string &sid);
 
 

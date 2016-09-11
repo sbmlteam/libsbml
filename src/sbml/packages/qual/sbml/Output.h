@@ -88,10 +88,10 @@ class LIBSBML_EXTERN Output : public SBase
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-  std::string   mId;
+//  std::string   mId;
   std::string   mQualitativeSpecies;
   OutputTransitionEffect_t   mTransitionEffect;
-  std::string   mName;
+//  std::string   mName;
   int           mOutputLevel;
   bool          mIsSetOutputLevel;
   /** @endcond */
@@ -102,11 +102,13 @@ public:
   /**
    * Creates a new Output with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Output
+   * @param level an unsigned int, the SBML Level to assign to this Output.
    *
-   * @param version an unsigned int, the SBML Version to assign to this Output
+   * @param version an unsigned int, the SBML Version to assign to this Output.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Output
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this Output.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Output(unsigned int level      = QualExtension::getDefaultLevel(),
          unsigned int version    = QualExtension::getDefaultVersion(),
@@ -116,7 +118,11 @@ public:
   /**
    * Creates a new Output with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   Output(QualPkgNamespaces* qualns);
 
@@ -133,7 +139,7 @@ public:
    * Assignment operator for Output.
    *
    * @param rhs the object whose values are used as the basis
-   * of the assignment
+   * of the assignment.
    */
   Output& operator=(const Output& rhs);
 
@@ -155,7 +161,18 @@ public:
   /**
    * Returns the value of the "id" attribute of this Output.
    *
-   * @return the value of the "id" attribute of this Output as a string.
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
+   *
+   * @copydetails doc_id_attribute
+   *
+   * @return the id of this Output.
+   *
+   * @see getIdAttribute()
+   * @see setIdAttribute(const std::string& sid)
+   * @see isSetIdAttribute()
+   * @see unsetIdAttribute()
    */
   virtual const std::string& getId() const;
 
@@ -177,9 +194,9 @@ public:
 
 
   /**
-   * Returns the value of the "name" attribute of this Output.
+   * Returns the value of the "name" attribute of this Output object.
    *
-   * @return the value of the "name" attribute of this Output as a string.
+   * @copydetails doc_get_name
    */
   virtual const std::string& getName() const;
 
@@ -196,8 +213,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Output's "id" attribute has been set.
    *
-   * @return @c true if this Output's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_id
    */
   virtual bool isSetId() const;
 
@@ -226,8 +242,7 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Output's "name" attribute has been set.
    *
-   * @return @c true if this Output's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @copydetails doc_isset_name
    */
   virtual bool isSetName() const;
 
@@ -245,19 +260,15 @@ public:
   /**
    * Sets the value of the "id" attribute of this Output.
    *
-   * @param id const std::string& value of the "id" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_id
    */
-  virtual int setId(const std::string& id);
+  virtual int setId(const std::string& sid);
 
 
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
    *
-   * @param qualitativeSpecies const std::string& value of the "qualitativeSpecies" attribute to be set
+   * @param qualitativeSpecies the value of the "qualitativeSpecies" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -269,7 +280,7 @@ public:
   /**
    * Sets the value of the "transitionEffect" attribute of this Output.
    *
-   * @param transitionEffect const std::string& value of the "transitionEffect" attribute to be set
+   * @param transitionEffect the value of the "transitionEffect" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -281,11 +292,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this Output.
    *
-   * @param name const std::string& value of the "name" attribute to be set
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @copydetails doc_set_name
    */
   virtual int setName(const std::string& name);
 
@@ -293,7 +300,7 @@ public:
   /**
    * Sets the value of the "outputLevel" attribute of this Output.
    *
-   * @param outputLevel int value of the "outputLevel" attribute to be set
+   * @param outputLevel int value of the "outputLevel" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -305,9 +312,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this Output.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_id
    */
   virtual int unsetId();
 
@@ -335,9 +340,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Output.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @copydetails doc_unset_name
    */
   virtual int unsetName();
 
@@ -399,7 +402,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML objects as XML elements.  Be sure to call your parent's
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
@@ -491,11 +494,13 @@ public:
   /**
    * Creates a new ListOfOutputs with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfOutputs
+   * @param level an unsigned int, the SBML Level to assign to this ListOfOutputs.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfOutputs
+   * @param version an unsigned int, the SBML Version to assign to this ListOfOutputs.
    *
-   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfOutputs
+   * @param pkgVersion an unsigned int, the SBML Qual Version to assign to this ListOfOutputs.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfOutputs(unsigned int level      = QualExtension::getDefaultLevel(),
                 unsigned int version    = QualExtension::getDefaultVersion(),
@@ -505,7 +510,11 @@ public:
   /**
    * Creates a new ListOfOutputs with the given QualPkgNamespaces object.
    *
-   * @param qualns the QualPkgNamespaces object
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param qualns the QualPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfOutputs(QualPkgNamespaces* qualns);
 
@@ -703,11 +712,11 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * Output_t
+ * Output_t.
  * @param version an unsigned int, the SBML Version to assign to this
- * Output_t
+ * Output_t.
  * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * Output_t
+ * Output_t.
  *
  * @return a pointer to the newly created Output_t structure.
  *
@@ -748,7 +757,7 @@ Output_clone(Output_t * o);
 /**
  * Takes an Output_t structure and returns its identifier.
  *
- * @param o the Output_t structure whose identifier is sought
+ * @param o the Output_t structure whose identifier is sought.
  * 
  * @return the identifier of this Output_t, as a pointer to a string.
  *
@@ -820,7 +829,7 @@ Output_getOutputLevel(Output_t * o);
  * Predicate returning @c true or @c false depending on whether the given
  * Output_t structure's identifier is set.
  *
- * @param o the Output_t structure to query
+ * @param o the Output_t structure to query.
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
  * Output_t structure is set, zero (false) otherwise.
@@ -836,7 +845,7 @@ Output_isSetId(Output_t * o);
  * Predicate returning @c true or @c false depending on whether the given
  * Output_t structure's qualitativeSpecies is set.
  *
- * @param o the Output_t structure to query
+ * @param o the Output_t structure to query.
  * 
  * @return @c non-zero (true) if the "qualitativeSpecies" attribute of the given
  * Output_t structure is set, zero (false) otherwise.
@@ -852,7 +861,7 @@ Output_isSetQualitativeSpecies(Output_t * o);
  * Predicate returning @c true or @c false depending on whether the given
  * Output_t structure's transitionEffect is set.
  *
- * @param o the Output_t structure to query
+ * @param o the Output_t structure to query.
  * 
  * @return @c non-zero (true) if the "transitionEffect" attribute of the given
  * Output_t structure is set, zero (false) otherwise.
@@ -868,7 +877,7 @@ Output_isSetTransitionEffect(Output_t * o);
  * Predicate returning @c true or @c false depending on whether the given
  * Output_t structure's name is set.
  *
- * @param o the Output_t structure to query
+ * @param o the Output_t structure to query.
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
  * Output_t structure is set, zero (false) otherwise.
@@ -884,7 +893,7 @@ Output_isSetName(Output_t * o);
  * Predicate returning @c true or @c false depending on whether the given
  * Output_t structure's outputLevel is set.
  *
- * @param o the Output_t structure to query
+ * @param o the Output_t structure to query.
  * 
  * @return @c non-zero (true) if the "outputLevel" attribute of the given
  * Output_t structure is set, zero (false) otherwise.
@@ -921,7 +930,7 @@ Output_setId(Output_t * o, const char * sid);
 /**
  * Sets the qualitativeSpecies of the given Output_t to a copy of @p qualitativeSpecies.
  *
- * @param o the Output_t structure to set
+ * @param o the Output_t structure to set.
  * @param qualitativeSpecies the qualitativeSpecies to assign to the given Output_t's "qualitativeSpecies" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -941,7 +950,7 @@ Output_setQualitativeSpecies(Output_t * o, const char * qualitativeSpecies);
 /**
  * Sets the transitionEffect of the given Output_t to a copy of @p transitionEffect.
  *
- * @param o the Output_t structure to set
+ * @param o the Output_t structure to set.
  * @param transitionEffect the transitionEffect to assign to the given Output_t's "transitionEffect" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -961,7 +970,7 @@ Output_setTransitionEffect(Output_t * o, const char * transitionEffect);
 /**
  * Sets the name of the given Output_t to a copy of @p name.
  *
- * @param o the Output_t structure to set
+ * @param o the Output_t structure to set.
  * @param name the name to assign to the given Output_t's "name" attribute.
  *
  * @copydetails doc_returns_success_code
@@ -982,9 +991,9 @@ Output_setName(Output_t * o, const char * name);
  * Sets the "outputLevel" attribute of the given Output_t
  * structure.
  *
- * @param o the Output_t structure
+ * @param o the Output_t structure.
  * 
- * @param outputLevel the value of outputLevel to assign to the "outputLevel" attribute
+ * @param outputLevel the value of outputLevel to assign to the "outputLevel" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1000,7 +1009,7 @@ Output_setOutputLevel(Output_t * o, int outputLevel);
 /**
  * Unsets the "id" attribute of the given Output_t structure.
  *
- * @param o the Output_t structure to unset
+ * @param o the Output_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1016,7 +1025,7 @@ Output_unsetId(Output_t * o);
 /**
  * Unsets the "qualitativeSpecies" attribute of the given Output_t structure.
  *
- * @param o the Output_t structure to unset
+ * @param o the Output_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1032,7 +1041,7 @@ Output_unsetQualitativeSpecies(Output_t * o);
 /**
  * Unsets the "transitionEffect" attribute of the given Output_t structure.
  *
- * @param o the Output_t structure to unset
+ * @param o the Output_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1048,7 +1057,7 @@ Output_unsetTransitionEffect(Output_t * o);
 /**
  * Unsets the "name" attribute of the given Output_t structure.
  *
- * @param o the Output_t structure to unset
+ * @param o the Output_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1064,7 +1073,7 @@ Output_unsetName(Output_t * o);
 /**
  * Unsets the "outputLevel" attribute of the given Output_t structure.
  *
- * @param o the Output_t structure to unset
+ * @param o the Output_t structure to unset.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1095,7 +1104,7 @@ Output_hasRequiredAttributes(Output_t * o);
 /**
  * Return the Output_t indicated by the given @p sid.
  *
- * @param lo the ListOf_t structure to use
+ * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
  * Output_t is being sought.
@@ -1116,8 +1125,8 @@ ListOfOutputs_getById(ListOf_t * lo, const char * sid);
  *
  * The caller owns the returned structure and is responsible for deleting it.
  *
- * @param lo the ListOf_t structure
- * @param sid the string of the "id" attribute of the Output_t sought
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the Output_t sought.
  *
  * @return the Output_t structure removed.  As mentioned above, the 
  * caller owns the returned structure. @c NULL is returned if no Output_t
@@ -1132,10 +1141,10 @@ ListOfOutputs_removeById(ListOf_t * lo, const char * sid);
 /**
  * Returns the string version of the provided OutputTransitionEffect_t enumeration.
  *
- * @param effect The OutputTransitionEffect_t enumeration to convert
+ * @param effect the OutputTransitionEffect_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "production", 
- * "assignmentLevel", or NULL if the value is OUTPUT_TRANSITION_EFFECT_UNKNOWN 
+ * "assignmentLevel", or @c NULL if the value is OUTPUT_TRANSITION_EFFECT_UNKNOWN 
  * or another invalid enumeration value.
  *
  * @memberof Output_t
@@ -1152,7 +1161,7 @@ OutputTransitionEffect_toString(OutputTransitionEffect_t effect);
  * return OUTPUT_TRANSITION_EFFECT_PRODUCTION, but "Production" will return 
  * OUTPUT_TRANSITION_EFFECT_UNKNOWN.
  *
- * @param s The string to convert to an OutputTransitionEffect_t
+ * @param s the string to convert to an OutputTransitionEffect_t.
  *
  * @return The corresponding OutputTransitionEffect_t, or 
  * OUTPUT_TRANSITION_EFFECT_UNKNOWN if no match found.
@@ -1168,7 +1177,7 @@ OutputTransitionEffect_fromString(const char* s);
  * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
  * OutputTransitionEffect_t is valid.
  *
- * @param effect the OutputTransitionEffect_t enumeration to query
+ * @param effect the OutputTransitionEffect_t enumeration to query.
  * 
  * @return @c non-zero (true) if the OutputTransitionEffect_t is
  * OUTPUT_TRANSITION_EFFECT_PRODUCTION or OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL,
@@ -1187,7 +1196,7 @@ OutputTransitionEffect_isValidOutputTransitionEffect(OutputTransitionEffect_t ef
  * The matching is case-sensitive:  "production" will return @c true, but 
  * "Production" will return @c false.
  *
- * @param s The string to query
+ * @param s the string to query.
  * 
  * @return @c non-zero (true) if the string is
  * "production" or "assignmentLevel"; zero (false) otherwise.

@@ -91,7 +91,7 @@ public:
   /**
    * Assignment operator for SBMLResolver.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param rhs the object whose values are used as the basis of the
    * assignment.
    */
   SBMLResolver& operator=(const SBMLResolver& rhs);
@@ -108,8 +108,8 @@ public:
   /**
    * Resolves the document for the given URI.
    *
-   * @param uri the URI to the target document
-   * @param baseUri base URI, in case the URI is a relative one
+   * @param uri the URI to the target document.
+   * @param baseUri base URI, in case the URI is a relative one.
    *
    * @return  the document, if this resolver can resolve the document or NULL.
    */
@@ -120,8 +120,8 @@ public:
    * Resolves the full URI for the given URI without actually reading the
    * document.
    *
-   * @param uri the URI to the target document
-   * @param baseUri base URI, in case the URI is a relative one
+   * @param uri the URI to the target document.
+   * @param baseUri base URI, in case the URI is a relative one.
    *
    * @return  the full URI to the document, if this resolver can resolve the document or NULL.
    */

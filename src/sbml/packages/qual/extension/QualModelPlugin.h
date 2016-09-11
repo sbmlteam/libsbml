@@ -62,14 +62,27 @@ class LIBSBML_EXTERN QualModelPlugin : public SBasePlugin
 public:
 
   /**
-   * Constructor
+   * Creates a new QualModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param qualns the namespaces object for the package.
    */
   QualModelPlugin (const std::string &uri, const std::string &prefix,
                     QualPkgNamespaces *qualns);
 
 
   /**
-   * Copy constructor. Creates a copy of this SBase object.
+   * Copy constructor. Creates a copy of this object.
+   *
+   * @param orig the instance to copy.
    */
   QualModelPlugin(const QualModelPlugin& orig);
 
@@ -89,7 +102,7 @@ public:
   /**
    * Creates and returns a deep copy of this QualModelPlugin object.
    * 
-   * @return a (deep) copy of this SBase object
+   * @return a (deep) copy of this QualModelPlugin object.
    */
   virtual QualModelPlugin* clone () const;
 
@@ -138,7 +151,7 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -218,7 +231,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
+   */
   int addQualitativeSpecies (const QualitativeSpecies* qualitativeSpecies);
 
 
@@ -226,7 +239,7 @@ public:
    * Creates a new qual object and adds it to the list of qual objects
    * and returns it.
    *
-   * @return a newly created QualitativeSpecies object
+   * @return a newly created QualitativeSpecies object.
    */
   QualitativeSpecies* createQualitativeSpecies();
 
@@ -238,7 +251,7 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @param n the index of the QualitativeSpecies object to remove
+   * @param n the index of the QualitativeSpecies object to remove.
    *
    * @return the QualitativeSpecies object removed.  As mentioned above, the 
    * caller owns the returned object. NULL is returned if the 
@@ -254,7 +267,7 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @param sid the id attribute of the QualitativeSpecies object to remove
+   * @param sid the id attribute of the QualitativeSpecies object to remove.
    *
    * @return the QualitativeSpecies object removed.  As mentioned above, the 
    * caller owns the returned object. NULL is returned if the 
@@ -345,7 +358,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
+   */
   int addTransition (const Transition* transition);
 
 
@@ -353,7 +366,7 @@ public:
    * Creates a new qual object and adds it to the list of qual objects
    * and returns it.
    *
-   * @return a newly created Transition object
+   * @return a newly created Transition object.
    */
   Transition* createTransition();
 
@@ -365,7 +378,7 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @param n the index of the Transition object to remove
+   * @param n the index of the Transition object to remove.
    *
    * @return the Transition object removed.  As mentioned above, the 
    * caller owns the returned object. NULL is returned if the 
@@ -381,7 +394,7 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @param sid the id attribute of the Transition object to remove
+   * @param sid the id attribute of the Transition object to remove.
    *
    * @return the Transition object removed.  As mentioned above, the 
    * caller owns the returned object. NULL is returned if the 
@@ -411,7 +424,7 @@ public:
    * Subclasses which contain one or more SBase derived elements must
    * override this function.
    *
-   * @param d the SBMLDocument object to use
+   * @param d the SBMLDocument object to use.
    *
    * @see connectToParent
    * @see enablePackageInternal
@@ -444,7 +457,7 @@ public:
    * or more child elements.Also, SBasePlugin::connectToParent()
    * must be called in the overridden function.
    *
-   * @param sbase the SBase object to use
+   * @param sbase the SBase object to use.
    *
    * @see setSBMLDocument
    * @see enablePackageInternal
