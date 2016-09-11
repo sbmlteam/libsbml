@@ -63,8 +63,8 @@ protected:
 
   SpatialKind_t   mSpatialIndex;
   std::string   mVariable;
-  std::string   mId;
-  std::string   mName;
+////  std::string   mId;
+////  std::string   mName;
 
 
 public:

@@ -62,8 +62,8 @@ class LIBSBML_EXTERN DynElement : public SBase
 protected:
 
   std::string   mIdRef;
-  std::string   mId;
-  std::string   mName;
+////  std::string   mId;
+////  std::string   mName;
   std::string   mMetaIdRef;
 
 

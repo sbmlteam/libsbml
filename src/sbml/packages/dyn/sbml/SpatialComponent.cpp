@@ -50,8 +50,8 @@ SpatialComponent::SpatialComponent (unsigned int level, unsigned int version, un
   : SBase(level, version)
   , mSpatialIndex (SPATIALKIND_UNKNOWN)
   , mVariable ("")
-  , mId ("")
-  , mName ("")
+////  , mId ("")
+////  , mName ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new DynPkgNamespaces(level, version, pkgVersion));
@@ -65,8 +65,8 @@ SpatialComponent::SpatialComponent (DynPkgNamespaces* dynns)
   : SBase(dynns)
   , mSpatialIndex (SPATIALKIND_UNKNOWN)
   , mVariable ("")
-  , mId ("")
-  , mName ("")
+////  , mId ("")
+////  , mName ("")
 {
   // set the element namespace of this object
   setElementNamespace(dynns->getURI());
@@ -83,8 +83,8 @@ SpatialComponent::SpatialComponent (const SpatialComponent& orig)
   : SBase(orig)
   , mSpatialIndex  ( orig.mSpatialIndex)
   , mVariable  ( orig.mVariable)
-  , mId  ( orig.mId)
-  , mName  ( orig.mName)
+//  , mId  ( orig.mId)
+//  , mName  ( orig.mName)
 {
 }
 

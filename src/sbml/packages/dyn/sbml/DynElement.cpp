@@ -48,9 +48,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 DynElement::DynElement (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mIdRef ("")
-  , mId ("")
-  , mName ("")
+////  , mIdRef ("")
+////  , mId ("")
+////  , mName ("")
   , mMetaIdRef ("")
 {
   // set an SBMLNamespaces derived object of this package
@@ -63,9 +63,9 @@ DynElement::DynElement (unsigned int level, unsigned int version, unsigned int p
  */
 DynElement::DynElement (DynPkgNamespaces* dynns)
   : SBase(dynns)
-  , mIdRef ("")
-  , mId ("")
-  , mName ("")
+////  , mIdRef ("")
+////  , mId ("")
+////  , mName ("")
   , mMetaIdRef ("")
 {
   // set the element namespace of this object
@@ -81,9 +81,9 @@ DynElement::DynElement (DynPkgNamespaces* dynns)
  */
 DynElement::DynElement (const DynElement& orig)
   : SBase(orig)
-  , mIdRef  ( orig.mIdRef)
-  , mId  ( orig.mId)
-  , mName  ( orig.mName)
+//  , mIdRef  ( orig.mIdRef)
+//  , mId  ( orig.mId)
+//  , mName  ( orig.mName)
   , mMetaIdRef  ( orig.mMetaIdRef)
 {
 }
