@@ -284,7 +284,7 @@ namespace LibSBMLCSTest.annotation {
       assertTrue( desc.getNumChildren() == 4 );
       XMLNode creator = desc.getChild(0);
       assertTrue((  "creator" == creator.getName() ));
-      assertTrue((  "dc" == creator.getPrefix() ));
+      assertTrue((  "dcterms" == creator.getPrefix() ));
       assertTrue((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ));
       assertTrue( creator.getNumChildren() == 1 );
       XMLNode Bag = creator.getChild(0);
@@ -366,7 +366,7 @@ namespace LibSBMLCSTest.annotation {
       assertTrue( desc.getNumChildren() == 4 );
       XMLNode creator = desc.getChild(0);
       assertTrue((  "creator" == creator.getName() ));
-      assertTrue((  "dc" == creator.getPrefix() ));
+      assertTrue((  "dcterms" == creator.getPrefix() ));
       assertTrue((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ));
       assertTrue( creator.getNumChildren() == 1 );
       XMLNode Bag = creator.getChild(0);
