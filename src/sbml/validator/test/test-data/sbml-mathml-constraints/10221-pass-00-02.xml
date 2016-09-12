@@ -14,11 +14,11 @@
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="p">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML"  xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
           <apply>
             <times/>
             <ci> p1 </ci>
-            <cn units="gh"> 5.5 </cn>
+            <cn sbml:units="gh"> 5.5 </cn>
           </apply>
         </math>
       </assignmentRule>

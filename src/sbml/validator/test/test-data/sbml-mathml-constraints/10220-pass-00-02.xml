@@ -6,13 +6,13 @@
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="p">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML"  xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
           <apply>
             <root/>
             <degree>
               <cn type="integer"> 2 </cn>
             </degree>
-            <cn units="dimensionless"> 5.5 </cn>
+            <cn sbml:units="dimensionless"> 5.5 </cn>
           </apply>
         </math>
       </assignmentRule>

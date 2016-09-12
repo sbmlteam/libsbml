@@ -7,8 +7,8 @@
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="p">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply units="volt">
+        <math xmlns="http://www.w3.org/1998/Math/MathML"  xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+          <apply sbml:units="volt">
             <times/>
             <ci> p1 </ci>
             <cn> 5.5 </cn>

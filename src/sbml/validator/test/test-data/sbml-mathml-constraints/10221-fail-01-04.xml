@@ -3,7 +3,7 @@
   <model>
     <listOfFunctionDefinitions>
       <functionDefinition id="y">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <math xmlns="http://www.w3.org/1998/Math/MathML"  xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
           <lambda>
             <bvar>
               <ci> x </ci>
@@ -11,7 +11,7 @@
             <apply>
               <power/>
               <ci> x </ci>
-              <cn units="hh"> 3 </cn>
+              <cn sbml:units="hh"> 3 </cn>
             </apply>
           </lambda>
         </math>
