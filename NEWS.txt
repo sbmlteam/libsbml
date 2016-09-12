@@ -18,7 +18,7 @@ full release.  Any changes/fixes listed as either referring to
 stable or experimental code may change before the next full release.
 
 This release includes support for the SBML L3V1R2(RC1) and L3V2(RC1)
-Release Candidiate specifications.
+Release Candidate specifications.
 
 STABLE RELEASE
 
