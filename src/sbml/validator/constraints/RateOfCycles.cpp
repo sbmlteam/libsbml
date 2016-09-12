@@ -101,6 +101,14 @@ RateOfCycles::check_ (const Model& m, const Model& object)
     }
   }
 
+  for (n = 0; n < m.getNumInitialAssignments(); ++n)
+  { 
+    if (m.getInitialAssignment(n)->isSetMath())
+    {
+      addInitialAssignmentDependencies(m, *m.getInitialAssignment(n));
+    }
+  }
+
   for (n = 0; n < m.getNumReactions(); ++n)
   { 
     if (m.getReaction(n)->isSetKineticLaw()){
@@ -156,7 +164,7 @@ RateOfCycles::addReactionDependencies(const Model& m, const Reaction& object)
   delete functions;
 
   /* now look  for the edge case where the math uses a <ci>
-   * that is the subject of an assignment rule that
+   * that is the subject of an assignment rule/InitialAssignment that
    * uses a rateOf expression
     */
   List* variables = object.getKineticLaw()->getMath()->getListOfNodes( ASTNode_isName );
@@ -275,6 +283,46 @@ RateOfCycles::addAssignmentRuleDependencies(const Model& m, const Rule& object)
 
 
 void 
+RateOfCycles::addInitialAssignmentDependencies(const Model& m, const InitialAssignment& object)
+{
+  unsigned int ns;
+  std::string thisId = object.getSymbol();
+
+  /* loop thru the list of any rateOf in the Math
+    * if they refer to a variable assigned by rate rule OR
+    * a species assigned by reaction
+    * add to the map
+    * with the variable as key
+    */
+  List* variables = object.getMath()->getListOfNodes( ASTNode_isFunction );
+  for (ns = 0; ns < variables->getSize(); ns++)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+    if (node->getType() != AST_FUNCTION_RATE_OF)
+    {
+      continue;
+    }
+    else
+    {
+      ASTNode * child = node->getChild(0);
+      string   name = child->getName() ? child->getName() : "";
+      
+      if (m.getRule(name) && m.getRule(name)->isRate())
+      {
+        mIdMap.insert(pair<const std::string, std::string>(thisId, name));
+      }
+      else if (assignedByReaction(m, name))
+      {
+        mIdMap.insert(pair<const std::string, std::string>(thisId, name));
+      }
+    }
+  }
+
+  delete variables;
+}
+
+
+void 
 RateOfCycles::addRnSpeciesDependencies(const std::string& name, const Reaction &r)
 {
   for (unsigned int i = 0; i < r.getNumReactants(); i++)
@@ -328,12 +376,33 @@ RateOfCycles::isEdgeCaseAssignment(const Model& m, const std::string& id)
   bool isEdgeCase = false;
 
   const AssignmentRule* ar = m.getAssignmentRuleByVariable(id);
+  const InitialAssignment *ia = m.getInitialAssignmentBySymbol(id);
 
   if (ar != NULL)
   {
     if (ar->isSetMath())
     {
       List* variables = ar->getMath()->getListOfNodes( ASTNode_isFunction );
+      for (size_t ns = 0; ns < variables->getSize(); ns++)
+      {
+        ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+        if (node->getType() != AST_FUNCTION_RATE_OF)
+        {
+          continue;
+        }
+        else
+        {
+          isEdgeCase = true;
+        }
+      }
+      delete variables;
+    }
+  }
+  else if (ia != NULL)
+  {
+    if (ia->isSetMath())
+    {
+      List* variables = ia->getMath()->getListOfNodes( ASTNode_isFunction );
       for (size_t ns = 0; ns < variables->getSize(); ns++)
       {
         ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
@@ -528,6 +597,10 @@ const SBase* getObject(const Model&m, const std::string& id)
   {
     object = static_cast<const SBase*>(m.getRuleByVariable(id));
   }
+  if (object == NULL)
+  {
+    object = static_cast<const SBase*>(m.getInitialAssignmentBySymbol(id));
+  }
 
   return object;
 }
@@ -582,7 +655,7 @@ RateOfCycles::logCycle ( const SBase* object, std::string& message)
 
   getReference(object, objRef);
 
-  msg = "The <";
+  msg = "The ";
   msg += objRef;
   msg += "creates a cycle with the following: ";
   msg += message;
@@ -611,6 +684,11 @@ RateOfCycles::getReference(const SBase* object, std::string& ref)
     case SBML_RATE_RULE:
       ref += "variable '";
       ref += static_cast<const Rule*>(object)->getVariable();
+      ref += "'";
+      break;
+    case SBML_INITIAL_ASSIGNMENT:
+      ref += "symbol '";
+      ref += static_cast<const InitialAssignment*>(object)->getSymbol();
       ref += "'";
       break;
     case SBML_SPECIES:

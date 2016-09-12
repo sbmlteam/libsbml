@@ -80,6 +80,9 @@ protected:
 
   void addRnSpeciesDependencies(const std::string& name, const Reaction &r);
   
+
+  void addInitialAssignmentDependencies(const Model &m, const InitialAssignment &ia);
+  
   // return true if the id passed is a product/species in any reaction
   bool assignedByReaction(const Model&, const std::string& id);
 
