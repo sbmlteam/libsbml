@@ -2,58 +2,49 @@
 
 
 ====================================================================
-5.13.1 (Current SVN)
+5.14.0 (2016-09-15)
 ====================================================================
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
+This release includes support for the SBML L3V1R2(RC1) and L3V2(RC1)
+Release Candidiate specifications.
 
 STABLE RELEASE
 
 * New features
-	
-  - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
 
+  - An Iterator class has been added to the List utility.
+	
 * Bug fixes
+
+  - Validation was not being correctly invoked on <localParameter>
+    objects. This has been fixed.
 
   - The functions for parsing a string to an ASTNode would cause a
     crash if passed a NULL pointer.  This has been fixed.  Thanks to
     Matthias König for reporting it.
 
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
-
-* Configuration/build system changes
-
-
-* Miscellaneous
-
+  - The L3Parser has been improved to catch a case when a NULL input 
+    has been provided and return an error to the user.
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
   - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
+    - Code has been updated to reflect the latest v 1.0.7 specification.
 
 ====================================================================
 5.13.0 (2016-04-14)
