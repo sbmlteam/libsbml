@@ -86,6 +86,8 @@ distfiles =                            \
   local.i                              \
   local-layout.i                       \
   local-packages.i.in                  \
+  local-downcast-astplugins.cpp.in     \
+  local-downcast-extension-layout.cpp  \
   local-downcast-extension-layout.cpp  \
   local-downcast-extension.cpp.in      \
   local-downcast-namespaces.cpp.in     \

@@ -391,6 +391,7 @@ rbindings =                                           \
   src/bindings/r/NAMESPACE                            \
   src/bindings/r/libsbml.i                            \
   src/bindings/r/local-downcast-extension-layout.cpp  \
+  src/bindings/r/local-downcast-astplugins.cpp.in     \
   src/bindings/r/local-downcast-extension.cpp.in      \
   src/bindings/r/local-downcast-namespaces-layout.cpp \
   src/bindings/r/local-downcast-namespaces.cpp.in     \
@@ -418,6 +419,7 @@ jsbindings =                                                   \
   src/bindings/javascript/compile-native-files.cmake           \
   src/bindings/javascript/libsbml.i                            \
   src/bindings/javascript/local.cpp                            \
+  src/bindings/javascript/local-downcast-astplugins.cpp.in     \
   src/bindings/javascript/local-downcast-converters.cpp.in     \
   src/bindings/javascript/local-downcast-converters-layout.cpp \
   src/bindings/javascript/local-downcast.cpp.in                \
@@ -440,6 +442,7 @@ phpbindings =                                                  \
   src/bindings/php/CMakeLists.txt                              \
   src/bindings/php/libsbml.i                                   \
   src/bindings/php/local-downcast-converters-layout.cpp        \
+  src/bindings/php/local-downcast-astplugins.cpp.in            \
   src/bindings/php/local-downcast-converters.cpp.in            \
   src/bindings/php/local-downcast-extension-layout.cpp         \
   src/bindings/php/local-downcast-extension.cpp.in             \

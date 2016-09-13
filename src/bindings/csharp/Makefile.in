@@ -91,6 +91,7 @@ extra_sources     = \
                      local.i \
 					 local-downcast-extension-layout.i \
 					 local-downcast-extension.i.in \
+					 local-downcast-astplugins.i.in \
 					 local-downcast-converters.i.in \
 					 local-downcast-converters-layout.i \
 					 local-downcast-namespaces-layout.i \
