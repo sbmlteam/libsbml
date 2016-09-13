@@ -276,7 +276,6 @@ public class TestL3ModelHistory {
     XMLNode creator = desc.getChild(0);
     assertTrue(creator.getName().equals( "creator"));
     assertTrue(creator.getPrefix().equals( "dcterms"));
-    assertTrue(creator.getURI().equals( "http://purl.org/dc/elements/1.1/"));
     assertTrue( creator.getNumChildren() == 1 );
     XMLNode Bag = creator.getChild(0);
     assertTrue(Bag.getName().equals( "Bag"));
@@ -358,7 +357,6 @@ public class TestL3ModelHistory {
     XMLNode creator = desc.getChild(0);
     assertTrue(creator.getName().equals( "creator"));
     assertTrue(creator.getPrefix().equals( "dcterms"));
-    assertTrue(creator.getURI().equals( "http://purl.org/dc/elements/1.1/"));
     assertTrue( creator.getNumChildren() == 1 );
     XMLNode Bag = creator.getChild(0);
     assertTrue(Bag.getName().equals( "Bag"));

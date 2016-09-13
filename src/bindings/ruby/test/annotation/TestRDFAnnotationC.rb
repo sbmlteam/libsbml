@@ -147,7 +147,6 @@ class TestRDFAnnotationC < Test::Unit::TestCase
     creator = desc.getChild(0)
     assert ((  "creator" == creator.getName() ))
     assert ((  "dc" == creator.getPrefix() ))
-    assert ((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ))
     assert( creator.getNumChildren() == 1 )
     bag = creator.getChild(0)
     assert ((  "Bag" == bag.getName() ))

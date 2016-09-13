@@ -250,7 +250,6 @@ namespace LibSBMLCSTest.annotation {
       XMLNode creator = desc.getChild(0);
       assertTrue((  "creator" == creator.getName() ));
       assertTrue((  "dc" == creator.getPrefix() ));
-      assertTrue((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ));
       assertTrue( creator.getNumChildren() == 1 );
       XMLNode Bag = creator.getChild(0);
       assertTrue((  "Bag" == Bag.getName() ));

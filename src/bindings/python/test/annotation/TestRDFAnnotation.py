@@ -325,7 +325,6 @@ class TestRDFAnnotation(unittest.TestCase):
     creator = desc.getChild(0)
     self.assert_((  "creator" == creator.getName() ))
     self.assert_((  "dc" == creator.getPrefix() ))
-    self.assert_((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ))
     self.assert_( creator.getNumChildren() == 1 )
     Bag = creator.getChild(0)
     self.assert_((  "Bag" == Bag.getName() ))
