@@ -121,6 +121,7 @@ test_sources =                   \
   TestReadFromFileL3V2_4.cpp     \
   TestReadFromFileL3V2_5.cpp     \
   TestReadFromFileL3V2_5.cpp     \
+  TestReadFromFileL3V2_6.cpp     \
   TestSBMLConvertFromL3V2.cpp    \
   TestReadSBML.cpp               \
   TestRemoveFromParent.cpp       \
