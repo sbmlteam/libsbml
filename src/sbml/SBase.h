@@ -2390,6 +2390,81 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+   // ------------------------------------------------------------------
+  //
+  //  functions to faciliate matlab binding
+
+   virtual int getAttribute(const std::string& attrib_name, double& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attrib_name, bool& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attrib_name, int& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attrib_name, unsigned int& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attrib_name, std::string& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual bool isSetAttribute(const std::string& attrib_name);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attrib_name, double value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attrib_name, bool value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attrib_name, int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attrib_name, unsigned int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attrib_name, const std::string& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int unsetAttribute(const std::string& attrib_name);
+
+  /** @endcond */
 
   // ------------------------------------------------------------------
   //

@@ -3007,6 +3007,174 @@ SBase::getVersion () const
     return SBMLDocument::getDefaultVersion();
 }
 
+  // ------------------------------------------------------------------
+  //
+  //  functions to faciliate matlab binding
+
+int 
+SBase::getAttribute(const std::string& attrib_name, double& value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::getAttribute(const std::string& attrib_name, bool& value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::getAttribute(const std::string& attrib_name, int& value)
+{
+  if (attrib_name == "sboTerm")
+  {
+    value = getSBOTerm();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::getAttribute(const std::string& attrib_name, unsigned int& value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::getAttribute(const std::string& attrib_name, std::string& value)
+{
+  if (attrib_name == "metaid")
+  {
+    value = getMetaId();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attrib_name == "id")
+  {
+    value = getIdAttribute();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attrib_name == "name")
+  {
+    value = getName();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+bool 
+SBase::isSetAttribute(const std::string& attrib_name)
+{
+  bool value = false;
+  if (attrib_name == "metaid")
+  {
+    value = isSetMetaId();
+  }
+  else if (attrib_name == "id")
+  {
+    value = isSetIdAttribute();
+  }
+  else if (attrib_name == "name")
+  {
+    value = isSetName();
+  }
+  else if (attrib_name == "sboTerm")
+  {
+    value = isSetSBOTerm();
+  }
+
+
+  return value;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attrib_name, double value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attrib_name, bool value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attrib_name, int value)
+{
+  int return_value = LIBSBML_OPERATION_FAILED;
+
+  if (attrib_name == "sboTerm")
+  {
+    return_value = setSBOTerm(value);
+  }
+
+  return return_value;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attrib_name, unsigned int value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attrib_name, const std::string& value)
+{
+  int return_value = LIBSBML_OPERATION_FAILED;
+  if (attrib_name == "metaid")
+  {
+    return_value = setMetaId(value);
+  }
+  else if (attrib_name == "id")
+  {
+    return_value = setIdAttribute(value);
+  }
+  else if (attrib_name == "name")
+  {
+    return_value = setName(value);
+  }
+
+  return return_value;
+}
+
+
+int 
+SBase::unsetAttribute(const std::string& attrib_name)
+{
+  int value = LIBSBML_OPERATION_FAILED;
+  if (attrib_name == "metaid")
+  {
+    value = unsetMetaId();
+  }
+  else if (attrib_name == "id")
+  {
+    value = unsetIdAttribute();
+  }
+  else if (attrib_name == "name")
+  {
+    value = unsetName();
+  }
+  else if (attrib_name == "sboTerm")
+  {
+    value = unsetSBOTerm();
+  }
+
+
+  return value;
+}
+
 
 /*
  * @return the version of package to which this SBML object
