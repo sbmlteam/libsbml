@@ -2,22 +2,22 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
 		xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" 
 		level="3" version="1" layout:required="false" >
-  <model id="TestModel_with_modifiers" timeUnits="time">
+  <model id="TestModel_with_modifiers" timeUnits="second">
     
     <listOfCompartments>
-      <compartment id="Yeast" spatialDimensions="3" units="volume" constant="true"/>
+      <compartment id="Yeast" spatialDimensions="3" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="Glucose" compartment="Yeast" substanceUnits="substance" 
+      <species id="Glucose" compartment="Yeast" substanceUnits="mole" 
 			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="G6P" name="Glucose-6-phosphate" compartment="Yeast" 
-			substanceUnits="substance" hasOnlySubstanceUnits="false" 
+			substanceUnits="mole" hasOnlySubstanceUnits="false" 
 			boundaryCondition="false" constant="false"/>
-      <species id="ATP" compartment="Yeast" substanceUnits="substance" 
+      <species id="ATP" compartment="Yeast" substanceUnits="mole" 
 			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="ADP" compartment="Yeast" substanceUnits="substance" 
+      <species id="ADP" compartment="Yeast" substanceUnits="mole" 
 			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="Pi" compartment="Yeast" substanceUnits="substance" 
+      <species id="Pi" compartment="Yeast" substanceUnits="mole" 
 			hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>

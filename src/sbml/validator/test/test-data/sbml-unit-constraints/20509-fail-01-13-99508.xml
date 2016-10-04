@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" units="volume" constant="true"/>
+      <compartment id="c" spatialDimensions="3" units="litre" constant="true"/>
     </listOfCompartments>
   </model>
 </sbml>

@@ -22,9 +22,9 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> k1 </ci>
-              <ci> X0 </ci>
-              <ci> cell </ci>
+              <ci> s1 </ci>
+              <cn> 1 </cn>
+              <ci> comp </ci>
             </apply>
           </math>
           
