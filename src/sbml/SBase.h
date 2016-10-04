@@ -2466,6 +2466,21 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+#ifndef SWIG
+
+  template<typename T> T getAttribute(const std::string& attrib_name)
+  {
+    T result;
+    getAttribute(attrib_name, result);
+    return result;
+  }
+
+#endif /* SWIG */
+
+   /** @endcond */
+
   // ------------------------------------------------------------------
   //
   // public functions for EXTENSION

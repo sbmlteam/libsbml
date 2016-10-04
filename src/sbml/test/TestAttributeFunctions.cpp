@@ -50,6 +50,8 @@ LIBSBML_CPP_NAMESPACE_USE
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 #endif
 
+
+
 BEGIN_C_DECLS
 
 static SBase *S;
@@ -79,6 +81,7 @@ START_TEST (test_Attributes_MetaId)
 {
   const std::string& metaid = "x12345";
   std::string value;
+  std::string other_value;
   int result;
 
   result = S->setAttribute("metaid", metaid);
@@ -93,6 +96,10 @@ START_TEST (test_Attributes_MetaId)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == metaid);
+
+  other_value = S->getAttribute<std::string>("metaid");
+
+  fail_unless(other_value == metaid);
 
   result = S->unsetAttribute("metaid");
 
@@ -112,6 +119,7 @@ START_TEST (test_Attributes_Id)
 {
   const std::string& id = "x12345";
   std::string value;
+  std::string other_value;
   int result;
 
   result = S->setAttribute("id", id);
@@ -126,6 +134,10 @@ START_TEST (test_Attributes_Id)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == id);
+
+  other_value = S->getAttribute<std::string>("id");
+
+  fail_unless(other_value == id);
 
   result = S->unsetAttribute("id");
 
@@ -144,6 +156,7 @@ START_TEST (test_Attributes_SBOTerm)
 {
   int sboTerm = 5;
   int value;
+  int other_value;
   int result;
 
   result = S->setAttribute("sboTerm", sboTerm);
@@ -158,6 +171,10 @@ START_TEST (test_Attributes_SBOTerm)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == sboTerm);
+
+  other_value = S->getAttribute<int>("sboTerm");
+
+  fail_unless(other_value == sboTerm);
 
   result = S->unsetAttribute("sboTerm");
 
