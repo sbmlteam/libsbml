@@ -29,7 +29,7 @@
         </trigger>
         <priority sboTerm="SBO:0000064">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
-              <true/>
+              <cn> 1 </cn>
           </math>
         </priority>
         <listOfEventAssignments metaid="kkkl" sboTerm="SBO:0000001">

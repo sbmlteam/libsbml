@@ -20,7 +20,7 @@ Pass: (3200) The units returned by the formula of a kinetic law
 			<parameter id="p" constant="false"/>
 		</listOfParameters>
 		<listOfRules>
-			<assignmentRule variable="z">
+			<assignmentRule variable="q">
 				<math xmlns="http://www.w3.org/1998/Math/MathML">
 					<apply>
 						<plus/>

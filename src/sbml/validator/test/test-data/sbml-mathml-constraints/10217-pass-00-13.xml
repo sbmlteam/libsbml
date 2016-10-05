@@ -8,7 +8,7 @@
       <parameter id="p" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
-      <initialAssignment symbol="z">
+      <initialAssignment symbol="q">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
