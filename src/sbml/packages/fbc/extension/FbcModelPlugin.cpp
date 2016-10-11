@@ -1351,10 +1351,11 @@ FbcModelPlugin::getActiveObjectiveId() const
 /* 
  * Unsets the active objective.
  */  
-void 
+int 
 FbcModelPlugin::unsetActiveObjectiveId()
 {
   mObjectives.unsetActiveObjective();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*

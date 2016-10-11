@@ -706,8 +706,13 @@ public:
   
   /** 
    * Unsets the "activeObjective" attribute of the ListOfObjectives.
+   * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * 
+   * @return success status
    */
-  void unsetActiveObjectiveId();
+  int unsetActiveObjectiveId();
 
   /**
    * Returns the "ListOfGeneProducts" in this FbcModelPlugin object.

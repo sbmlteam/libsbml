@@ -215,6 +215,9 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V1)
   objective->setId("obj1");
   objective->setType("maximize");
 
+  fail_unless(mplugin->unsetActiveObjectiveId() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(mplugin->setActiveObjectiveId("obj1") == LIBSBML_OPERATION_SUCCESS);
+
   FluxObjective* fluxObjective = objective->createFluxObjective();
   fluxObjective->setReaction("J0");
   fluxObjective->setCoefficient(1);
