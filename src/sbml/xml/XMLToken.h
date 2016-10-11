@@ -949,6 +949,25 @@ public:
 
 
   /**
+  * Sets the characters for this XMLToken
+  *
+  * This method only makes sense for XMLToken objects that contains text.
+  * If this method is called on a token that represents an XML start or end
+  * tag, it will return the code @sbmlconstant{LIBSBML_OPERATION_FAILED,
+  * OperationReturnValues_t}.
+  *
+  * @param chars string, characters to append to the text of this token.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @see isText()
+  * @see isElement()
+  */
+  int setCharacters(const std::string& chars);
+
+  /**
    * Appends characters to the text content of token.
    *
    * This method only makes sense for XMLToken objects that contains text.
@@ -1214,7 +1233,7 @@ XMLToken_createWithTriple (const XMLTriple_t *triple);
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
-			       const XMLAttributes_t *attr);
+             const XMLAttributes_t *attr);
 
 
 /**
@@ -1232,8 +1251,8 @@ XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
-				 const XMLAttributes_t *attr,
-				 const XMLNamespaces_t *ns);
+         const XMLAttributes_t *attr,
+         const XMLNamespaces_t *ns);
 
 
 /**
@@ -1292,6 +1311,22 @@ LIBLAX_EXTERN
 int
 XMLToken_append (XMLToken_t *token, const char *text);
 
+
+/**
+* Sets characters of this XML text content.
+*
+* @param token XMLToken_t structure whose characters to set.
+* @param text string, characters to set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+**
+* @memberof XMLToken_t
+*/
+LIBLAX_EXTERN
+int
+XMLToken_setCharacters(XMLToken_t *token, const char *text);
 
 /**
  * Returns the text of this element.
@@ -1419,9 +1454,9 @@ XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
 LIBLAX_EXTERN
 int
 XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
-	                , const char* value
-    	                , const char* namespaceURI
-	                , const char* prefix      );
+                  , const char* value
+                      , const char* namespaceURI
+                  , const char* prefix      );
 
 
 /**

@@ -236,11 +236,25 @@ XMLToken::append (const std::string& chars)
  * @return the characters of this XML text.
  */
 const string&
-XMLToken::getCharacters () const
+XMLToken::getCharacters() const
 {
   return mChars;
 } 
 
+
+int 
+XMLToken::setCharacters(const std::string& chars)
+{
+  if (chars.empty())
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    mChars = chars;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
 
 /*
  * @return the column at which this XMLToken occurred.
@@ -1277,7 +1291,7 @@ XMLToken_createWithTriple (const XMLTriple_t *triple)
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
-			       const XMLAttributes_t *attr)
+             const XMLAttributes_t *attr)
 {
   if (triple == NULL || attr == NULL) return NULL;
   return new(nothrow) XMLToken(*triple, *attr);
@@ -1287,8 +1301,8 @@ XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
-				 const XMLAttributes_t *attr,
-				 const XMLNamespaces_t *ns)
+         const XMLAttributes_t *attr,
+         const XMLNamespaces_t *ns)
 {
   if (triple == NULL || attr == NULL || ns == NULL) return NULL;
   return new(nothrow) XMLToken(*triple, *attr, *ns);
@@ -1333,6 +1347,21 @@ XMLToken_append (XMLToken_t *token, const char *text)
     return LIBSBML_OPERATION_FAILED;
   }
 }
+
+LIBLAX_EXTERN
+int
+XMLToken_setCharacters(XMLToken_t *token, const char *text)
+{
+  if (token != NULL && text != NULL)
+  {
+    return token->setCharacters(text);
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
 
 
 LIBLAX_EXTERN
@@ -1393,9 +1422,9 @@ XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value )
 LIBLAX_EXTERN
 int 
 XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
-	                , const char* value
-    	                , const char* namespaceURI
-	                , const char* prefix      )
+                  , const char* value
+                      , const char* namespaceURI
+                  , const char* prefix      )
 {
   if (token == NULL) return LIBSBML_INVALID_OBJECT;
   return token->addAttr(name, value, namespaceURI, prefix);

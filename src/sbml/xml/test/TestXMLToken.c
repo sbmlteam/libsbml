@@ -114,6 +114,10 @@ START_TEST (test_XMLToken_chars)
   fail_unless(XMLToken_isEOF(token) == 0);
 
   fail_unless(strcmp(XMLToken_getCharacters(token), "This is text") == 0);
+  fail_unless(XMLToken_append(token, " and more text") == 0);
+  fail_unless(strcmp(XMLToken_getCharacters(token), "This is text and more text") == 0);
+  fail_unless(XMLToken_setCharacters(token, "This is text too.") == 0);
+  fail_unless(strcmp(XMLToken_getCharacters(token), "This is text too.") == 0);
 
   XMLToken_free(token);
 }
