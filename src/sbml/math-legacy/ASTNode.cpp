@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicate
  */
 #define ASTNodeType_isLogical(t) \
-  ((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR) || t == AST_LOGICAL_IMPLIES)
+  (((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR)) || t == AST_LOGICAL_IMPLIES)
 
 /**
  * ASTNodeType predicate

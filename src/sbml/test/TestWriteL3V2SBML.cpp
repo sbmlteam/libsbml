@@ -148,7 +148,7 @@ START_TEST (test_WriteL3V2SBML_LO_ann)
 
   Model * m = D->createModel("");
   XMLNode * ann = XMLNode::convertStringToXMLNode("test");
-  (SBase*)(m->getListOfCompartments())->setAnnotation(ann);
+  ((SBase*)(m->getListOfCompartments()))->setAnnotation(ann);
   delete ann;
 
   string S = writeSBMLToStdString(D);
@@ -169,7 +169,7 @@ START_TEST (test_WriteL3V2SBML_emptyMath)
     );
 
   Model * m = D->createModel("");
-  InitialAssignment *ia = m->createInitialAssignment();
+  /*InitialAssignment *ia =*/ m->createInitialAssignment();
 
   string S = writeSBMLToStdString(D);
 

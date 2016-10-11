@@ -54,16 +54,16 @@ BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
 
-static bool
-equalDouble (double a, double b)
-{
-  bool result = fabs(a-b) < 1e-6;// sqrt(util_epsilon());
-  if (!result)
-    cerr << "not equal: " << a << " vs " << b 
-         << " difference: " << fabs(a-b)
-         << endl;
-  return result;
-}
+//static bool
+//equalDouble (double a, double b)
+//{
+//  bool result = fabs(a-b) < 1e-6;// sqrt(util_epsilon());
+//  if (!result)
+//    cerr << "not equal: " << a << " vs " << b 
+//         << " difference: " << fabs(a-b)
+//         << endl;
+//  return result;
+//}
 
 
 
