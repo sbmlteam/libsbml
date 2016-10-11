@@ -385,7 +385,7 @@ RateOfCycles::isEdgeCaseAssignment(const Model& m, const std::string& id)
       List* variables = ar->getMath()->getListOfNodes( ASTNode_isFunction );
       for (size_t ns = 0; ns < variables->getSize(); ns++)
       {
-        ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+        ASTNode* node = static_cast<ASTNode*>( variables->get((unsigned int)ns) );
         if (node->getType() != AST_FUNCTION_RATE_OF)
         {
           continue;
@@ -405,7 +405,7 @@ RateOfCycles::isEdgeCaseAssignment(const Model& m, const std::string& id)
       List* variables = ia->getMath()->getListOfNodes( ASTNode_isFunction );
       for (size_t ns = 0; ns < variables->getSize(); ns++)
       {
-        ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
+        ASTNode* node = static_cast<ASTNode*>( variables->get((unsigned int)ns) );
         if (node->getType() != AST_FUNCTION_RATE_OF)
         {
           continue;

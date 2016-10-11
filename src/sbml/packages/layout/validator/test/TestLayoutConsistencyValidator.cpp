@@ -105,8 +105,8 @@ runTests ( const string& msg,
   cout << msg << "." << endl;
 
   set<TestFile> files    = TestFile::getFilesIn(directory, begin, end, library);
-  unsigned int  passes   = count_if(files.begin(), files.end(), tester);
-  unsigned int  failures = files.size() - passes;
+  unsigned int  passes   = (unsigned int)count_if(files.begin(), files.end(), tester);
+  unsigned int  failures = (unsigned int)files.size() - passes;
   double        percent  = (static_cast<double>(passes) / files.size()) * 100;
 
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
