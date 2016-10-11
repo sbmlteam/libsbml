@@ -35,6 +35,10 @@
 #include <sbml/math/FormulaTokenizer.h>
 #include <sbml/math/FormulaParser.h>
 
+#ifdef _MSC_VER
+#pragma warning( disable: 4311)
+#pragma warning( disable: 4312)
+#endif
 
 /** @cond doxygenLibsbmlInternal */
 
