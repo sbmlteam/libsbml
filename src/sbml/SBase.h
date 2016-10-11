@@ -2390,9 +2390,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    void read(XMLNode& node, XMLErrorSeverityOverride_t flag = LIBSBML_OVERRIDE_DISABLED);
 
 
-  /** @cond doxygenLibsbmlInternal */
+#ifndef SWIG
+   /** @cond doxygenLibsbmlInternal */
 
-   // ------------------------------------------------------------------
+  // ------------------------------------------------------------------
   //
   //  functions to faciliate matlab binding
 
@@ -2424,7 +2425,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+#endif
+
+   /** @cond doxygenLibsbmlInternal */
 
    virtual bool isSetAttribute(const std::string& attrib_name);
 
