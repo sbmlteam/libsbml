@@ -34,6 +34,16 @@
 cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
+if(POLICY CMP0054) 
+    cmake_policy(SET CMP0054 NEW) 
+endif() 
+
+if(POLICY CMP0058) 
+    cmake_policy(SET CMP0058 NEW) 
+endif() 
+
+
+
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
     "Path to the libSBML root source directory")
 set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
@@ -213,6 +223,8 @@ mark_as_advanced(WITH_WALL)
 if(WITH_WALL)
     if(MSVC OR USING_INTEL)
         add_definitions(/W4)
+        string(REPLACE "/W3" "/W4" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+        string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     else()
         add_definitions(-Wall)
     endif()
@@ -1096,7 +1108,7 @@ set (PRIVATE_LIBS "${XERCES_LIBRARY} ${PRIVATE_LIBS}")
 endif()
 
 SET (PC_LIBDIR ${CMAKE_INSTALL_LIBDIR})
-if (${CMAKE_INSTALL_LIBDIR} STREQUAL "lib")
+if ("${CMAKE_INSTALL_LIBDIR}" STREQUAL "lib")
 SET (PC_LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 endif()
 
