@@ -1,0 +1,45 @@
+{
+  "about": {
+    "home": "http://sbml.org", 
+    "license": "LGPL", 
+    "summary": "LibSBML Python API"
+  }, 
+  "app": {}, 
+  "build": {
+    "entry_points": [], 
+    "features": [], 
+    "pin_depends": "", 
+    "script_env": [], 
+    "string": "", 
+    "track_features": []
+  }, 
+  "package": {
+    "name": "${NAME}", 
+    "version": "${PACKAGE_VERSION}"
+  }, 
+  "requirements": {
+    "build": [
+      "python"
+    ], 
+    "conflicts": [], 
+    "run": [
+      "python"
+    ]
+  }, 
+  "source": {
+    "fn": "${NAME}-${PACKAGE_VERSION}.tar.gz", 
+    "git_rev": "", 
+    "patches": [], 
+    "path": "", 
+    "svn_rev": "", 
+    "url": "https://pypi.python.org/packages/source/p/${NAME}/${NAME}-${PACKAGE_VERSION}.tar.gz"
+  }, 
+  "test": {
+    "commands": [], 
+    "files": [], 
+    "imports": [
+      "libsbml"
+    ], 
+    "requires": []
+  }
+}

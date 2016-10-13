@@ -1,0 +1,4 @@
+Lib/site-packages/libsbml/__init__.py
+Lib/site-packages/libsbml/__init__.pyc
+Lib/site-packages/libsbml/_libsbml.pyd
+Lib/site-packages/${TARGET_NAME}.egg-info

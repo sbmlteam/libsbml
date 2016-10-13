@@ -1,0 +1,13 @@
+{
+  "arch": "${ARCH}", 
+  "build": "py${SHORT_VERSION}_0", 
+  "build_number": 0, 
+  "depends": [
+    "python ${PYTHON_VERSION}*"
+  ], 
+  "license": "LGPL", 
+  "name": "${NAME}", 
+  "platform": "win", 
+  "subdir": "${SUBDIR}", 
+  "version": "${PACKAGE_VERSION}"
+}
