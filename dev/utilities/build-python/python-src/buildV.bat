@@ -25,7 +25,7 @@ SET MODE=%3
 if "%MODE%" == "" set MODE=ALL
 
 if "%MODE%" == "INSTALLER" GOTO INSTALLER
-if "%MODE%" == "WHEEL" GOTO INSTALLER
+if "%MODE%" == "WHEEL" GOTO WHEEL
 if "%MODE%" == "TEST" GOTO TEST
 
 
