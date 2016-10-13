@@ -51,6 +51,9 @@ call buildV.bat 3 3 INSTALLER
 call buildV.bat 3 4 INSTALLER
 call buildV.bat 3 5 INSTALLER
 
+:: move files
 move dist\*.exe %THIS_DIR%\dist
+:: rename files
+cmake -DSRC_DIR=%LIBSBML_SRC% -DOUT_DIR=%THIS_DIR%\dist -P rename-files.cmake
 
 popd
