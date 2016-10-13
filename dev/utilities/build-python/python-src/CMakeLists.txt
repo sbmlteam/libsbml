@@ -179,6 +179,10 @@ find_library(ZLIB_LIBRARY
 	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 
+if (MSVC)
+add_definitions(/bigobj)
+endif()
+
 set(LIBS 
 	${LIBS} ${SBML_LIBRARY} 
 	${XML_LIBRARY} ${ICONV_LIBRARY}
