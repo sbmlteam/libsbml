@@ -1562,6 +1562,236 @@ Reaction::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "fast")
+  {
+    value = getFast();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "reversible")
+  {
+    value = getReversible();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName,
+                       std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "compartment")
+  {
+    value = getCompartment();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Reaction's attribute "attributeName" is
+ * set.
+ */
+bool
+Reaction::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "fast")
+  {
+    value = isSetFast();
+  }
+  else if (attributeName == "reversible")
+  {
+    value = isSetReversible();
+  }
+  else if (attributeName == "compartment")
+  {
+    value = isSetCompartment();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "fast")
+  {
+    return_value = setFast(value);
+  }
+  else if (attributeName == "reversible")
+  {
+    return_value = setReversible(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName,
+                       const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "compartment")
+  {
+    return_value = setCompartment(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "fast")
+  {
+    value = unsetFast();
+  }
+  else if (attributeName == "reversible")
+  {
+    value = unsetReversible();
+  }
+  else if (attributeName == "compartment")
+  {
+    value = unsetCompartment();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 /** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of

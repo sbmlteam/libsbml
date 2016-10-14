@@ -1139,6 +1139,158 @@ int KineticLaw::removeFromParentAndDelete()
 }
 
 
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this KineticLaw.
+ */
+int
+KineticLaw::getAttribute(const std::string& attributeName,
+                         std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "timeUnits")
+  {
+    value = getTimeUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = getSubstanceUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this KineticLaw's attribute "attributeName"
+ * is set.
+ */
+bool
+KineticLaw::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "timeUnits")
+  {
+    value = isSetTimeUnits();
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = isSetSubstanceUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this KineticLaw.
+ */
+int
+KineticLaw::setAttribute(const std::string& attributeName,
+                         const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "timeUnits")
+  {
+    return_value = setTimeUnits(value);
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    return_value = setSubstanceUnits(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this KineticLaw.
+ */
+int
+KineticLaw::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "timeUnits")
+  {
+    value = unsetTimeUnits();
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = unsetSubstanceUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
 void
 KineticLaw::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {

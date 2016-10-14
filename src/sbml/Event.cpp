@@ -1346,6 +1346,219 @@ Event::createObject (XMLInputStream& stream)
 /** @endcond */
 
 
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "useValuesFromTriggerTime")
+  {
+    value = getUseValuesFromTriggerTime();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName,
+                    std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "timeUnits")
+  {
+    value = getTimeUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Event's attribute "attributeName" is
+ * set.
+ */
+bool
+Event::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "useValuesFromTriggerTime")
+  {
+    value = isSetUseValuesFromTriggerTime();
+  }
+  else if (attributeName == "timeUnits")
+  {
+    value = isSetTimeUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "useValuesFromTriggerTime")
+  {
+    return_value = setUseValuesFromTriggerTime(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName,
+                    const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "timeUnits")
+  {
+    return_value = setTimeUnits(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "useValuesFromTriggerTime")
+  {
+    value = unsetUseValuesFromTriggerTime();
+  }
+  else if (attributeName == "timeUnits")
+  {
+    value = unsetTimeUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
 /** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of

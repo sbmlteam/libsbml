@@ -452,6 +452,141 @@ InitialAssignment::hasRequiredElements() const
 }
 
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InitialAssignment.
+ */
+int
+InitialAssignment::getAttribute(const std::string& attributeName,
+                                std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "symbol")
+  {
+    value = getSymbol();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this InitialAssignment's attribute
+ * "attributeName" is set.
+ */
+bool
+InitialAssignment::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "symbol")
+  {
+    value = isSetSymbol();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InitialAssignment.
+ */
+int
+InitialAssignment::setAttribute(const std::string& attributeName,
+                                const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "symbol")
+  {
+    return_value = setSymbol(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this InitialAssignment.
+ */
+int
+InitialAssignment::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "symbol")
+  {
+    value = unsetSymbol();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 void
 InitialAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {

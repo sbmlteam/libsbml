@@ -1257,6 +1257,511 @@ Species::hasRequiredAttributes() const
 }
 
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "hasOnlySubstanceUnits")
+  {
+    value = getHasOnlySubstanceUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "boundaryCondition")
+  {
+    value = getBoundaryCondition();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "constant")
+  {
+    value = getConstant();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "charge")
+  {
+    value = getCharge();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "initialAmount")
+  {
+    value = getInitialAmount();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "initialConcentration")
+  {
+    value = getInitialConcentration();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName,
+                      std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "compartment")
+  {
+    value = getCompartment();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = getSubstanceUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = getConversionFactor();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "speciesType")
+  {
+    value = getSpeciesType();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    value = getSpatialSizeUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "units")
+  {
+    value = getUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Species's attribute "attributeName" is
+ * set.
+ */
+bool
+Species::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "compartment")
+  {
+    value = isSetCompartment();
+  }
+  else if (attributeName == "initialAmount")
+  {
+    value = isSetInitialAmount();
+  }
+  else if (attributeName == "initialConcentration")
+  {
+    value = isSetInitialConcentration();
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = isSetSubstanceUnits();
+  }
+  else if (attributeName == "hasOnlySubstanceUnits")
+  {
+    value = isSetHasOnlySubstanceUnits();
+  }
+  else if (attributeName == "boundaryCondition")
+  {
+    value = isSetBoundaryCondition();
+  }
+  else if (attributeName == "constant")
+  {
+    value = isSetConstant();
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = isSetConversionFactor();
+  }
+  else if (attributeName == "charge")
+  {
+    value = isSetCharge();
+  }
+  else if (attributeName == "speciesType")
+  {
+    value = isSetSpeciesType();
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    value = isSetSpatialSizeUnits();
+  }
+  else if (attributeName == "units")
+  {
+    value = isSetUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "hasOnlySubstanceUnits")
+  {
+    return_value = setHasOnlySubstanceUnits(value);
+  }
+  else if (attributeName == "boundaryCondition")
+  {
+    return_value = setBoundaryCondition(value);
+  }
+  else if (attributeName == "constant")
+  {
+    return_value = setConstant(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "charge")
+  {
+    return_value = setCharge(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "initialAmount")
+  {
+    return_value = setInitialAmount(value);
+  }
+  else if (attributeName == "initialConcentration")
+  {
+    return_value = setInitialConcentration(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName,
+                      const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "compartment")
+  {
+    return_value = setCompartment(value);
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    return_value = setSubstanceUnits(value);
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    return_value = setConversionFactor(value);
+  }
+  else if (attributeName == "speciesType")
+  {
+    return_value = setSpeciesType(value);
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    return_value = setSpatialSizeUnits(value);
+  }
+  else if (attributeName == "units")
+  {
+    return_value = setUnits(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "compartment")
+  {
+    value = unsetCompartment();
+  }
+  else if (attributeName == "initialAmount")
+  {
+    value = unsetInitialAmount();
+  }
+  else if (attributeName == "initialConcentration")
+  {
+    value = unsetInitialConcentration();
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = unsetSubstanceUnits();
+  }
+  else if (attributeName == "hasOnlySubstanceUnits")
+  {
+    value = unsetHasOnlySubstanceUnits();
+  }
+  else if (attributeName == "boundaryCondition")
+  {
+    value = unsetBoundaryCondition();
+  }
+  else if (attributeName == "constant")
+  {
+    value = unsetConstant();
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = unsetConversionFactor();
+  }
+  else if (attributeName == "charge")
+  {
+    value = unsetCharge();
+  }
+  else if (attributeName == "speciesType")
+  {
+    value = unsetSpeciesType();
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    value = unsetSpatialSizeUnits();
+  }
+  else if (attributeName == "units")
+  {
+    value = unsetUnits();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 void
 Species::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {

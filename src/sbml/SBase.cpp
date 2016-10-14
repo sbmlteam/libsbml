@@ -3012,23 +3012,23 @@ SBase::getVersion () const
   //  functions to faciliate matlab binding
 
 int 
-SBase::getAttribute(const std::string& attrib_name, double& value)
+SBase::getAttribute(const std::string& attributeName, double& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::getAttribute(const std::string& attrib_name, bool& value)
+SBase::getAttribute(const std::string& attributeName, bool& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::getAttribute(const std::string& attrib_name, int& value)
+SBase::getAttribute(const std::string& attributeName, int& value) const
 {
-  if (attrib_name == "sboTerm")
+  if (attributeName == "sboTerm")
   {
     value = getSBOTerm();
     return LIBSBML_OPERATION_SUCCESS;
@@ -3038,26 +3038,26 @@ SBase::getAttribute(const std::string& attrib_name, int& value)
 
 
 int 
-SBase::getAttribute(const std::string& attrib_name, unsigned int& value)
+SBase::getAttribute(const std::string& attributeName, unsigned int& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::getAttribute(const std::string& attrib_name, std::string& value)
+SBase::getAttribute(const std::string& attributeName, std::string& value) const
 {
-  if (attrib_name == "metaid")
+  if (attributeName == "metaid")
   {
     value = getMetaId();
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attrib_name == "id")
+  else if (attributeName == "id")
   {
     value = getIdAttribute();
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attrib_name == "name")
+  else if (attributeName == "name")
   {
     value = getName();
     return LIBSBML_OPERATION_SUCCESS;
@@ -3069,22 +3069,22 @@ SBase::getAttribute(const std::string& attrib_name, std::string& value)
 
 
 bool 
-SBase::isSetAttribute(const std::string& attrib_name)
+SBase::isSetAttribute(const std::string& attributeName) const
 {
   bool value = false;
-  if (attrib_name == "metaid")
+  if (attributeName == "metaid")
   {
     value = isSetMetaId();
   }
-  else if (attrib_name == "id")
+  else if (attributeName == "id")
   {
     value = isSetIdAttribute();
   }
-  else if (attrib_name == "name")
+  else if (attributeName == "name")
   {
     value = isSetName();
   }
-  else if (attrib_name == "sboTerm")
+  else if (attributeName == "sboTerm")
   {
     value = isSetSBOTerm();
   }
@@ -3095,25 +3095,25 @@ SBase::isSetAttribute(const std::string& attrib_name)
 
 
 int 
-SBase::setAttribute(const std::string& attrib_name, double value)
+SBase::setAttribute(const std::string& attributeName, double value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::setAttribute(const std::string& attrib_name, bool value)
+SBase::setAttribute(const std::string& attributeName, bool value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::setAttribute(const std::string& attrib_name, int value)
+SBase::setAttribute(const std::string& attributeName, int value)
 {
   int return_value = LIBSBML_OPERATION_FAILED;
 
-  if (attrib_name == "sboTerm")
+  if (attributeName == "sboTerm")
   {
     return_value = setSBOTerm(value);
   }
@@ -3123,25 +3123,25 @@ SBase::setAttribute(const std::string& attrib_name, int value)
 
 
 int 
-SBase::setAttribute(const std::string& attrib_name, unsigned int value)
+SBase::setAttribute(const std::string& attributeName, unsigned int value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
 
 
 int 
-SBase::setAttribute(const std::string& attrib_name, const std::string& value)
+SBase::setAttribute(const std::string& attributeName, const std::string& value)
 {
   int return_value = LIBSBML_OPERATION_FAILED;
-  if (attrib_name == "metaid")
+  if (attributeName == "metaid")
   {
     return_value = setMetaId(value);
   }
-  else if (attrib_name == "id")
+  else if (attributeName == "id")
   {
     return_value = setIdAttribute(value);
   }
-  else if (attrib_name == "name")
+  else if (attributeName == "name")
   {
     return_value = setName(value);
   }
@@ -3151,22 +3151,22 @@ SBase::setAttribute(const std::string& attrib_name, const std::string& value)
 
 
 int 
-SBase::unsetAttribute(const std::string& attrib_name)
+SBase::unsetAttribute(const std::string& attributeName)
 {
   int value = LIBSBML_OPERATION_FAILED;
-  if (attrib_name == "metaid")
+  if (attributeName == "metaid")
   {
     value = unsetMetaId();
   }
-  else if (attrib_name == "id")
+  else if (attributeName == "id")
   {
     value = unsetIdAttribute();
   }
-  else if (attrib_name == "name")
+  else if (attributeName == "name")
   {
     value = unsetName();
   }
-  else if (attrib_name == "sboTerm")
+  else if (attributeName == "sboTerm")
   {
     value = unsetSBOTerm();
   }

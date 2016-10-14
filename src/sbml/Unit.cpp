@@ -1003,6 +1003,258 @@ Unit::hasRequiredAttributes() const
 }
 
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "scale")
+  {
+    value = getScale();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "multiplier")
+  {
+    value = getMultiplier();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "exponent")
+  {
+    value = getExponent();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "offset")
+  {
+    value = getOffset();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Unit's attribute "attributeName" is set.
+ */
+bool
+Unit::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "kind")
+  {
+    value = isSetKind();
+  }
+  else if (attributeName == "multiplier")
+  {
+    value = isSetMultiplier();
+  }
+  else if (attributeName == "scale")
+  {
+    value = isSetScale();
+  }
+  else if (attributeName == "exponent")
+  {
+    value = isSetExponent();
+  }
+  else if (attributeName == "offset")
+  {
+    value = isSetOffset();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "scale")
+  {
+    return_value = setScale(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "multiplier")
+  {
+    return_value = setMultiplier(value);
+  }
+  else if (attributeName == "exponent")
+  {
+    return_value = setExponent(value);
+  }
+  else if (attributeName == "offset")
+  {
+    return_value = setOffset(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "kind")
+  {
+    value = unsetKind();
+  }
+  else if (attributeName == "multiplier")
+  {
+    value = unsetMultiplier();
+  }
+  else if (attributeName == "scale")
+  {
+    value = unsetScale();
+  }
+  else if (attributeName == "exponent")
+  {
+    value = unsetExponent();
+  }
+  else if (attributeName == "offset")
+  {
+    value = unsetOffset();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 /*
  * @return true if name is one of the five SBML built-in Unit names
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.

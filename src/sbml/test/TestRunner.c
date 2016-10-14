@@ -321,8 +321,6 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBase_IdName                   () );
   srunner_add_suite( runner, create_suite_Attributes                   () );
 
-  //SRunner *runner = srunner_create( create_suite_Attributes               () );
-
 #ifdef TRACE_MEMORY
   srunner_set_fork_status(runner, CK_NOFORK);
 #else

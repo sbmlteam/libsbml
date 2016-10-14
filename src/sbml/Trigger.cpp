@@ -397,6 +397,156 @@ Trigger::hasRequiredAttributes() const
   return allPresent;
 }
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Trigger.
+ */
+int
+Trigger::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "initialValue")
+  {
+    value = getInitialValue();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "persistent")
+  {
+    value = getPersistent();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Trigger's attribute "attributeName" is
+ * set.
+ */
+bool
+Trigger::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "initialValue")
+  {
+    value = isSetInitialValue();
+  }
+  else if (attributeName == "persistent")
+  {
+    value = isSetPersistent();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Trigger.
+ */
+int
+Trigger::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "initialValue")
+  {
+    return_value = setInitialValue(value);
+  }
+  else if (attributeName == "persistent")
+  {
+    return_value = setPersistent(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Trigger.
+ */
+int
+Trigger::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "initialValue")
+  {
+    value = unsetInitialValue();
+  }
+  else if (attributeName == "persistent")
+  {
+    value = unsetPersistent();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 int Trigger::removeFromParentAndDelete()
 {
   SBase* parent = getParentSBMLObject();

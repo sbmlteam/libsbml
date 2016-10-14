@@ -3742,6 +3742,243 @@ Model::removeEvent (const std::string& sid)
   return mEvents.remove(sid);
 }
 
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Model.
+ */
+int
+Model::getAttribute(const std::string& attributeName,
+                    std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "substanceUnits")
+  {
+    value = getSubstanceUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "timeUnits")
+  {
+    value = getTimeUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "volumeUnits")
+  {
+    value = getVolumeUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "lengthUnits")
+  {
+    value = getLengthUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "areaUnits")
+  {
+    value = getAreaUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "extentUnits")
+  {
+    value = getExtentUnits();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = getConversionFactor();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Model's attribute "attributeName" is
+ * set.
+ */
+bool
+Model::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "substanceUnits")
+  {
+    value = isSetSubstanceUnits();
+  }
+  else if (attributeName == "timeUnits")
+  {
+    value = isSetTimeUnits();
+  }
+  else if (attributeName == "volumeUnits")
+  {
+    value = isSetVolumeUnits();
+  }
+  else if (attributeName == "lengthUnits")
+  {
+    value = isSetLengthUnits();
+  }
+  else if (attributeName == "areaUnits")
+  {
+    value = isSetAreaUnits();
+  }
+  else if (attributeName == "extentUnits")
+  {
+    value = isSetExtentUnits();
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = isSetConversionFactor();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Model.
+ */
+int
+Model::setAttribute(const std::string& attributeName,
+                    const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "substanceUnits")
+  {
+    return_value = setSubstanceUnits(value);
+  }
+  else if (attributeName == "timeUnits")
+  {
+    return_value = setTimeUnits(value);
+  }
+  else if (attributeName == "volumeUnits")
+  {
+    return_value = setVolumeUnits(value);
+  }
+  else if (attributeName == "lengthUnits")
+  {
+    return_value = setLengthUnits(value);
+  }
+  else if (attributeName == "areaUnits")
+  {
+    return_value = setAreaUnits(value);
+  }
+  else if (attributeName == "extentUnits")
+  {
+    return_value = setExtentUnits(value);
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    return_value = setConversionFactor(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Model.
+ */
+int
+Model::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "substanceUnits")
+  {
+    value = unsetSubstanceUnits();
+  }
+  else if (attributeName == "timeUnits")
+  {
+    value = unsetTimeUnits();
+  }
+  else if (attributeName == "volumeUnits")
+  {
+    value = unsetVolumeUnits();
+  }
+  else if (attributeName == "lengthUnits")
+  {
+    value = unsetLengthUnits();
+  }
+  else if (attributeName == "areaUnits")
+  {
+    value = unsetAreaUnits();
+  }
+  else if (attributeName == "extentUnits")
+  {
+    value = unsetExtentUnits();
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = unsetConversionFactor();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* !SWIG */
 int 
 Model::appendFrom(const Model* model)
 {

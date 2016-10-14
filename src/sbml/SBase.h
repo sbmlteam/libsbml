@@ -2397,86 +2397,85 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   //
   //  functions to faciliate matlab binding
 
-   virtual int getAttribute(const std::string& attrib_name, double& value);
+   virtual int getAttribute(const std::string& attributeName, double& value) const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual int getAttribute(const std::string& attrib_name, bool& value);
+   virtual int getAttribute(const std::string& attributeName, bool& value) const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual int getAttribute(const std::string& attrib_name, int& value);
+   virtual int getAttribute(const std::string& attributeName, int& value) const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual int getAttribute(const std::string& attrib_name, unsigned int& value);
+   virtual int getAttribute(const std::string& attributeName, unsigned int& value) const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual int getAttribute(const std::string& attrib_name, std::string& value);
+   virtual int getAttribute(const std::string& attributeName, std::string& value) const;
 
   /** @endcond */
 
+
+
+   virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, unsigned int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, const std::string& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
 #endif
-
-   /** @cond doxygenLibsbmlInternal */
-
-   virtual bool isSetAttribute(const std::string& attrib_name);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int setAttribute(const std::string& attrib_name, double value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int setAttribute(const std::string& attrib_name, bool value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int setAttribute(const std::string& attrib_name, int value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int setAttribute(const std::string& attrib_name, unsigned int value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int setAttribute(const std::string& attrib_name, const std::string& value);
-
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-
-   virtual int unsetAttribute(const std::string& attrib_name);
-
-  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
 #ifndef SWIG
 
-  template<typename T> T getAttribute(const std::string& attrib_name)
+  template<typename T> T getAttribute(const std::string& attributeName)
   {
     T result;
-    getAttribute(attrib_name, result);
+    getAttribute(attributeName, result);
     return result;
   }
 
