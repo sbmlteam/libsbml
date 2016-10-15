@@ -35,6 +35,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Model.h>
+#include <sbml/SBMLTypes.h>
 
 #include <check.h>
 
