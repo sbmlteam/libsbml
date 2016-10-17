@@ -10,8 +10,10 @@ SET MAJOR=%1
 SET MINOR=%2
 SET CURRENT_DIR=%~dp0
 SET SOURCE_32=.
-SET PTYHON_32=c:\Python%MAJOR%%MINOR%_32\python.exe
-SET PTYHON_64=c:\Python%MAJOR%%MINOR%_64\python.exe
+::SET PTYHON_32=c:\Python%MAJOR%%MINOR%_32\python.exe
+::SET PTYHON_64=c:\Python%MAJOR%%MINOR%_64\python.exe
+SET PTYHON_32=c:\Python32\Python%MAJOR%%MINOR%\python.exe
+SET PTYHON_64=c:\Python64\Python%MAJOR%%MINOR%\python.exe
 SET BUILD_32=%SOURCE_32%\b32_%MAJOR%%MINOR%
 SET BUILD_64=%SOURCE_32%\b64_%MAJOR%%MINOR%
 

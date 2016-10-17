@@ -23,8 +23,10 @@ SET DEPENDENCY_DIR_64=\Development\libSBML-dependencies\install_vs%VS_VERSION%_r
 ::SET DEPENDENCY_DIR=\Development\libSBML-dependencies\install_vs12_release_x64
 
 :: be sure to update to the correct python path
-SET PYTHON_32=c:\python27_32\python.exe
-SET PYTHON_64=c:\python27_64\python.exe
+::SET PYTHON_32=c:\python27_32\python.exe
+::SET PYTHON_64=c:\python27_64\python.exe
+SET PYTHON_32=c:\python32\python27\python.exe
+SET PYTHON_64=c:\python64\python27\python.exe
 
 :: set up the packages to be used 
 SET CMAKE_OPTIONS=%CMAKE_OPTIONS% -DENABLE_COMP=ON -DENABLE_FBC=ON -DENABLE_LAYOUT=ON -DENABLE_QUAL=ON -DENABLE_GROUPS=ON
