@@ -107,49 +107,49 @@ IdBase::check_ (const Model& m, const Model&)
 //void
 //IdBase::checkId (const SBase& x)
 //{
-////  if (x.isSetId()) doCheckId(x.getId(), x);
+////  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 //}
 
 
 void
 IdBase::checkId (const Model& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const FunctionDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const UnitDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const Compartment& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const Species& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const Parameter& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
@@ -175,14 +175,14 @@ IdBase::checkId (const Rule& x)
 void
 IdBase::checkId (const Reaction& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 IdBase::checkId (const Event& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
@@ -196,25 +196,25 @@ IdBase::checkId (const EventAssignment& x)
 void
 IdBase::checkId (const CompartmentType& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 IdBase::checkId (const SpeciesType& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 IdBase::checkId (const SpeciesReference& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 IdBase::checkId (const ModifierSpeciesReference& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void

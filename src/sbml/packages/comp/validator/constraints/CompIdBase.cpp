@@ -102,49 +102,49 @@ CompIdBase::check_ (const Model& m, const Model&)
 //void
 //CompIdBase::checkId (const SBase& x)
 //{
-////  if (x.isSetId()) doCheckId(x.getId(), x);
+////  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 //}
 
 
 void
 CompIdBase::checkId (const Model& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Submodel& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Port& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Deletion& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const ReplacedElement& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const ReplacedBy& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
@@ -152,48 +152,48 @@ CompIdBase::checkId (const ReplacedBy& x)
 void
 CompIdBase::checkId (const ModelDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const ExternalModelDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 CompIdBase::checkId (const FunctionDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const UnitDefinition& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Compartment& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Species& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Parameter& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
@@ -219,46 +219,46 @@ CompIdBase::checkId (const Rule& x)
 void
 CompIdBase::checkId (const Reaction& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const Event& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const EventAssignment& x)
 {
-  if (x.isSetVariable()) doCheckId(x.getVariable(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 
 void
 CompIdBase::checkId (const CompartmentType& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 CompIdBase::checkId (const SpeciesType& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 CompIdBase::checkId (const SpeciesReference& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
 CompIdBase::checkId (const ModifierSpeciesReference& x)
 {
-  if (x.isSetId()) doCheckId(x.getId(), x);
+  if (x.isSetIdAttribute()) doCheckId(x.getIdAttribute(), x);
 }
 
 void
