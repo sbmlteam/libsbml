@@ -115,7 +115,7 @@
  * The Reaction object class has another boolean attribute called "fast".
  * This attribute is optional in SBML Level&nbsp;2, with a default of @c
  * false; it is mandatory in SBML Level&nbsp;3 (with no default value).  
- * In SBML Level&nbsp;3 Version &nbsp;2, a value of @c true for the "fast"
+ * In SBML Level&nbsp;3 Version&nbsp;2, a value of @c true for the "fast"
  * attribute is deprecated in favor of all reactions having a "fast" value 
  * of @c false.  It
  * is used to indicate that a reaction occurs on a vastly faster time scale

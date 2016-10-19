@@ -72,7 +72,7 @@
  * Each XMLError object also contains a category code; its value may be
  * retrieved using the method XMLError::getCategory().  Category values
  * are drawn from @if clike the enumeration <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> described below.@else a
- * set of constants whose names begin with the characters @c LIBSBML_CAT_, described below.@endif@~ &nbsp;Categories
+ * set of constants whose names begin with the characters @c LIBSBML_CAT_, described below.@endif@~&nbsp;Categories
  * are used by libSBML to provide more information to calling programs about
  * the nature of a given error.  
  *

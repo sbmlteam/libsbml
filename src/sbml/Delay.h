@@ -173,7 +173,7 @@
  * with SBML Level&nbsp;2 Version&nbsp;2, the units of that time are
  * calculated based on the mathematical expression and the model quantities
  * referenced by <code>&lt;ci&gt;</code> elements used within that
- * expression.  (In SBML Level &nbsp;2 Version&nbsp;1, there exists an
+ * expression.  (In SBML Level&nbsp;2 Version&nbsp;1, there exists an
  * attribute on Event called "timeUnits".  This attribute can be used to set
  * the units of the Delay expression explicitly.)  The method
  * Delay::getDerivedUnitDefinition() returns what libSBML computes the units

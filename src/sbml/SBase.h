@@ -1089,7 +1089,7 @@ public:
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1497,7 +1497,7 @@ public:
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1542,7 +1542,7 @@ public:
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1631,7 +1631,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    * 
@@ -1675,7 +1675,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1915,7 +1915,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML Level&nbsp;2 and&nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *

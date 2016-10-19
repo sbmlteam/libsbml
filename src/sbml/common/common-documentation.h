@@ -578,7 +578,7 @@
  * appropriate <a target="_blank"
  * href="http://sbml.org/Documents/Specifications">SBML specification
  * document</a> for the Level and Version of their model for more in-depth
- * explanations of using "notes" in SBML.  The SBML Level&nbsp;2 and &nbsp;3
+ * explanations of using "notes" in SBML.  The SBML Level&nbsp;2 and&nbsp;3
  * specifications have considerable detail about how "notes" element content
  * must be structured.
  *
