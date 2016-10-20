@@ -291,6 +291,8 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
   if (node->getType() == AST_NAME)
   {
     std::string name = node->getName();
+    replaceAllSubStrings(name, "__MINUS__", "-");
+    replaceAllSubStrings(name, "__COLON__", ":");
     replaceAllSubStrings(name, "__DOT__", ".");
     replaceAllSubStrings(name, "__ONE__", "1");
     replaceAllSubStrings(name, "__TWO__", "2");
@@ -355,6 +357,8 @@ FbcAssociation::parseFbcInfixAssociation(const std::string& association, FbcMode
   replaceAllSubStrings(tweaked, " AND ", " * ");
   replaceAllSubStrings(tweaked, " or ", " + ");
   replaceAllSubStrings(tweaked, " OR ", " + ");
+  replaceAllSubStrings(tweaked, "-", "__MINUS__");
+  replaceAllSubStrings(tweaked, ":", "__COLON__");
   replaceAllSubStrings(tweaked, ".", "__DOT__");
   replaceAllSubStrings(tweaked, "1", "__ONE__");
   replaceAllSubStrings(tweaked, "2", "__TWO__");
