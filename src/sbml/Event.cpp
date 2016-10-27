@@ -1347,7 +1347,6 @@ Event::createObject (XMLInputStream& stream)
 
 
 
-#ifndef SWIG
 
 
 
@@ -1379,13 +1378,55 @@ Event::getAttribute(const std::string& attributeName, bool& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName,
+                    unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1418,13 +1459,31 @@ Event::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::getAttribute(const std::string& attributeName, const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "timeUnits")
+  {
+    value = getTimeUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1455,16 +1514,6 @@ Event::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1487,13 +1536,54 @@ Event::setAttribute(const std::string& attributeName, bool value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1520,13 +1610,25 @@ Event::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Event.
+ */
+int
+Event::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "timeUnits")
+  {
+    return_value = setTimeUnits(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1557,7 +1659,6 @@ Event::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 
 /** @cond doxygenLibsbmlInternal */
 /**

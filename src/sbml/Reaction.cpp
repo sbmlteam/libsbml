@@ -1564,7 +1564,6 @@ Reaction::createObject (XMLInputStream& stream)
 
 
 
-#ifndef SWIG
 
 
 
@@ -1601,13 +1600,55 @@ Reaction::getAttribute(const std::string& attributeName, bool& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName,
+                       unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1640,13 +1681,32 @@ Reaction::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::getAttribute(const std::string& attributeName,
+                       const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "compartment")
+  {
+    value = getCompartment().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1681,16 +1741,6 @@ Reaction::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1717,13 +1767,54 @@ Reaction::setAttribute(const std::string& attributeName, bool value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1750,13 +1841,25 @@ Reaction::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Reaction.
+ */
+int
+Reaction::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "compartment")
+  {
+    return_value = setCompartment(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1791,7 +1894,6 @@ Reaction::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 /** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of

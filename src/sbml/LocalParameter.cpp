@@ -256,7 +256,42 @@ LocalParameter::hasRequiredAttributes() const
 
 
 
-#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::getAttribute(const std::string& attributeName,
+                             bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::getAttribute(const std::string& attributeName,
+                             int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -289,13 +324,21 @@ LocalParameter::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::getAttribute(const std::string& attributeName,
+                             unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -328,13 +371,32 @@ LocalParameter::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::getAttribute(const std::string& attributeName,
+                             const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "units")
+  {
+    value = getUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -365,13 +427,37 @@ LocalParameter::isSetAttribute(const std::string& attributeName) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Sets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -397,13 +483,21 @@ LocalParameter::setAttribute(const std::string& attributeName, double value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::setAttribute(const std::string& attributeName,
+                             unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -430,13 +524,26 @@ LocalParameter::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this LocalParameter.
+ */
+int
+LocalParameter::setAttribute(const std::string& attributeName,
+                             const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "units")
+  {
+    return_value = setUnits(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -465,9 +572,6 @@ LocalParameter::unsetAttribute(const std::string& attributeName)
 /** @endcond */
 
 
-
-
-#endif /* !SWIG */
 
 /** @cond doxygenLibsbmlInternal */
 /**

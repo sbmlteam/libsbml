@@ -688,9 +688,6 @@ Parameter::hasRequiredAttributes() const
 
 
 
-#ifndef SWIG
-
-
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -720,13 +717,20 @@ Parameter::getAttribute(const std::string& attributeName, bool& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -758,13 +762,21 @@ Parameter::getAttribute(const std::string& attributeName, double& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::getAttribute(const std::string& attributeName,
+                        unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -797,13 +809,32 @@ Parameter::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::getAttribute(const std::string& attributeName,
+                        const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "units")
+  {
+    value = getUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -838,16 +869,6 @@ Parameter::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -870,13 +891,20 @@ Parameter::setAttribute(const std::string& attributeName, bool value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -902,13 +930,20 @@ Parameter::setAttribute(const std::string& attributeName, double value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -935,13 +970,25 @@ Parameter::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Parameter.
+ */
+int
+Parameter::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "units")
+  {
+    return_value = setUnits(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -976,7 +1023,6 @@ Parameter::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 void 
 Parameter::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {

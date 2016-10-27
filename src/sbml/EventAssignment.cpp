@@ -475,7 +475,78 @@ EventAssignment::hasRequiredElements() const
 
 
 
-#ifndef SWIG
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::getAttribute(const std::string& attributeName,
+                              bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::getAttribute(const std::string& attributeName,
+                              int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::getAttribute(const std::string& attributeName,
+                              double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::getAttribute(const std::string& attributeName,
+                              unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -508,13 +579,32 @@ EventAssignment::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::getAttribute(const std::string& attributeName,
+                              const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "variable")
+  {
+    value = getVariable().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -541,13 +631,72 @@ EventAssignment::isSetAttribute(const std::string& attributeName) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Sets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::setAttribute(const std::string& attributeName,
+                              unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -574,13 +723,26 @@ EventAssignment::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this EventAssignment.
+ */
+int
+EventAssignment::setAttribute(const std::string& attributeName,
+                              const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -607,7 +769,6 @@ EventAssignment::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 
 void
 EventAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)

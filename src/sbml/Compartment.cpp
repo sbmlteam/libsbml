@@ -1000,7 +1000,7 @@ Compartment::hasRequiredAttributes() const
 }
 
 
-#ifndef SWIG
+
 
 
 
@@ -1032,13 +1032,20 @@ Compartment::getAttribute(const std::string& attributeName, bool& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Compartment.
+ */
+int
+Compartment::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1068,21 +1075,16 @@ Compartment::getAttribute(const std::string& attributeName,
     value = getVolume();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "spatialDimensions")
+  {
+    value = getSpatialDimensionsAsDouble();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1112,16 +1114,6 @@ Compartment::getAttribute(const std::string& attributeName,
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1164,13 +1156,42 @@ Compartment::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Compartment.
+ */
+int
+Compartment::getAttribute(const std::string& attributeName,
+                          const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "units")
+  {
+    value = getUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "outside")
+  {
+    value = getOutside().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "compartmentType")
+  {
+    value = getCompartmentType().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1221,16 +1242,6 @@ Compartment::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1253,13 +1264,20 @@ Compartment::setAttribute(const std::string& attributeName, bool value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Compartment.
+ */
+int
+Compartment::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1281,21 +1299,15 @@ Compartment::setAttribute(const std::string& attributeName, double value)
   {
     return_value = setVolume(value);
   }
+  else if (attributeName == "spatialDimensions")
+  {
+    return_value = setSpatialDimensions(value);
+  }
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1319,16 +1331,6 @@ Compartment::setAttribute(const std::string& attributeName,
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1363,13 +1365,33 @@ Compartment::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Compartment.
+ */
+int
+Compartment::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "units")
+  {
+    return_value = setUnits(value);
+  }
+  else if (attributeName == "outside")
+  {
+    return_value = setOutside(value);
+  }
+  else if (attributeName == "compartmentType")
+  {
+    return_value = setCompartmentType(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1416,11 +1438,6 @@ Compartment::unsetAttribute(const std::string& attributeName)
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
 
 
 

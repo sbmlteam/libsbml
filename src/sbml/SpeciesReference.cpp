@@ -566,7 +566,6 @@ SpeciesReference::hasRequiredAttributes() const
 
 
 
-#ifndef SWIG
 
 
 
@@ -579,7 +578,8 @@ int
 SpeciesReference::getAttribute(const std::string& attributeName,
                                bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -599,13 +599,33 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ */
+int
+SpeciesReference::getAttribute(const std::string& attributeName,
+                               int& value) const
+{
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
+  if (attributeName == "stoichiometry")
+  {
+    value = (int)(getStoichiometry());
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "denominator")
+  {
+    value = getDenominator();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -618,7 +638,8 @@ int
 SpeciesReference::getAttribute(const std::string& attributeName,
                                double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -638,13 +659,27 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this SpeciesReference.
+ */
+int
+SpeciesReference::getAttribute(const std::string& attributeName,
+                               unsigned int& value) const
+{
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -655,64 +690,34 @@ SpeciesReference::getAttribute(const std::string& attributeName,
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
-                               unsigned int& value) const
+                               std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "denominator")
-  {
-    value = getDenominator();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
- * SimpleSpeciesReference.
+ * Gets the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::getAttribute(const std::string& attributeName,
-                                     std::string& value) const
+                               const char* value) const
 {
-  int return_value = SimpleSpeciesReference::getAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+    value);
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -747,16 +752,6 @@ SpeciesReference::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -765,7 +760,8 @@ SpeciesReference::isSetAttribute(const std::string& attributeName) const
 int
 SpeciesReference::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
   if (attributeName == "constant")
   {
@@ -779,13 +775,29 @@ SpeciesReference::setAttribute(const std::string& attributeName, bool value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this SpeciesReference.
+ */
+int
+SpeciesReference::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
+  if (attributeName == "stoichiometry")
+  {
+    return_value = setStoichiometry(value);
+  }
+  else if (attributeName == "denominator")
+  {
+    return_value = setDenominator(value);
+  }
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -797,7 +809,8 @@ SpeciesReference::setAttribute(const std::string& attributeName, bool value)
 int
 SpeciesReference::setAttribute(const std::string& attributeName, double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
   if (attributeName == "stoichiometry")
   {
@@ -811,13 +824,22 @@ SpeciesReference::setAttribute(const std::string& attributeName, double value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this SpeciesReference.
+ */
+int
+SpeciesReference::setAttribute(const std::string& attributeName,
+                               unsigned int value)
+{
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -828,58 +850,34 @@ SpeciesReference::setAttribute(const std::string& attributeName, double value)
  */
 int
 SpeciesReference::setAttribute(const std::string& attributeName,
-                               unsigned int value)
+                               const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "denominator")
-  {
-    return_value = setDenominator(value);
-  }
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this
- * SimpleSpeciesReference.
+ * Sets the value of the "attributeName" attribute of this SpeciesReference.
  */
 int
 SpeciesReference::setAttribute(const std::string& attributeName,
-                                     const std::string& value)
+                               const char* value)
 {
-  int return_value = SimpleSpeciesReference::setAttribute(attributeName, value);
+  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+    value);
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -915,7 +913,6 @@ SpeciesReference::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 /*
  * Sets the annotation of this SBML object to a copy of annotation.
  */

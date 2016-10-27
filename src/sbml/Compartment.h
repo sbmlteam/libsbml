@@ -1315,6 +1315,8 @@ public:
   virtual bool hasRequiredAttributes() const;
 
 
+
+
   #ifndef SWIG
 
 
@@ -1339,13 +1341,22 @@ public:
 
 
 
+  /** @cond doxygenLibsbmlInternal */
 
-  #endif /* !SWIG */
+  /**
+   * Gets the value of the "attributeName" attribute of this Compartment.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
 
-
-
-
-  #ifndef SWIG
+  /** @endcond */
 
 
 
@@ -1369,16 +1380,6 @@ public:
 
 
 
-
-  #endif /* !SWIG */
-
-
-
-
-  #ifndef SWIG
-
-
-
   /** @cond doxygenLibsbmlInternal */
 
   /**
@@ -1396,16 +1397,6 @@ public:
                            unsigned int& value) const;
 
   /** @endcond */
-
-
-
-
-  #endif /* !SWIG */
-
-
-
-
-  #ifndef SWIG
 
 
 
@@ -1429,13 +1420,23 @@ public:
 
 
 
+  /** @cond doxygenLibsbmlInternal */
 
-  #endif /* !SWIG */
+  /**
+   * Gets the value of the "attributeName" attribute of this Compartment.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
 
-
-
-
-  #ifndef SWIG
+  /** @endcond */
 
 
 
@@ -1453,16 +1454,6 @@ public:
   virtual bool isSetAttribute(const std::string& attributeName) const;
 
   /** @endcond */
-
-
-
-
-  #endif /* !SWIG */
-
-
-
-
-  #ifndef SWIG
 
 
 
@@ -1485,13 +1476,22 @@ public:
 
 
 
+  /** @cond doxygenLibsbmlInternal */
 
-  #endif /* !SWIG */
+  /**
+   * Sets the value of the "attributeName" attribute of this Compartment.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
 
-
-
-
-  #ifndef SWIG
+  /** @endcond */
 
 
 
@@ -1511,16 +1511,6 @@ public:
   virtual int setAttribute(const std::string& attributeName, double value);
 
   /** @endcond */
-
-
-
-
-  #endif /* !SWIG */
-
-
-
-
-  #ifndef SWIG
 
 
 
@@ -1544,16 +1534,6 @@ public:
 
 
 
-
-  #endif /* !SWIG */
-
-
-
-
-  #ifndef SWIG
-
-
-
   /** @cond doxygenLibsbmlInternal */
 
   /**
@@ -1574,13 +1554,23 @@ public:
 
 
 
+  /** @cond doxygenLibsbmlInternal */
 
-  #endif /* !SWIG */
+  /**
+   * Sets the value of the "attributeName" attribute of this Compartment.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
 
-
-
-
-  #ifndef SWIG
+  /** @endcond */
 
 
 
@@ -1603,6 +1593,7 @@ public:
 
 
   #endif /* !SWIG */
+
 
 
 protected:

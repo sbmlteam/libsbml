@@ -1005,7 +1005,20 @@ Unit::hasRequiredAttributes() const
 
 
 
-#ifndef SWIG
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1029,21 +1042,16 @@ Unit::getAttribute(const std::string& attributeName, int& value) const
     value = getScale();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "exponent")
+  {
+    value = getExponent();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1069,7 +1077,7 @@ Unit::getAttribute(const std::string& attributeName, double& value) const
   }
   else if (attributeName == "exponent")
   {
-    value = getExponent();
+    value = getExponentAsDouble();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
   else if (attributeName == "offset")
@@ -1085,13 +1093,55 @@ Unit::getAttribute(const std::string& attributeName, double& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName,
+                   unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName, std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::getAttribute(const std::string& attributeName, const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1133,13 +1183,20 @@ Unit::isSetAttribute(const std::string& attributeName) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1157,21 +1214,15 @@ Unit::setAttribute(const std::string& attributeName, int value)
   {
     return_value = setScale(value);
   }
+  else if (attributeName == "exponent")
+  {
+    return_value = setExponent(value);
+  }
 
   return return_value;
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1205,13 +1256,54 @@ Unit::setAttribute(const std::string& attributeName, double value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#ifndef SWIG
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Unit.
+ */
+int
+Unit::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
 
 
 
@@ -1254,7 +1346,6 @@ Unit::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 /*
  * @return true if name is one of the five SBML built-in Unit names
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.

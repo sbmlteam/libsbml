@@ -3062,6 +3062,40 @@ SBase::getAttribute(const std::string& attributeName, std::string& value) const
     value = getName();
     return LIBSBML_OPERATION_SUCCESS;
   }
+  else if (attributeName == "sboTerm")
+  {
+    value = getSBOTermID();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBase::getAttribute(const std::string& attributeName, const char * value) const
+{
+  if (attributeName == "metaid")
+  {
+    value = getMetaId().c_str();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "id")
+  {
+    value = getIdAttribute().c_str();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName().c_str();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "sboTerm")
+  {
+    value = getSBOTermID().c_str();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 
 
   return LIBSBML_OPERATION_FAILED;
@@ -3144,6 +3178,36 @@ SBase::setAttribute(const std::string& attributeName, const std::string& value)
   else if (attributeName == "name")
   {
     return_value = setName(value);
+  }
+  else if (attributeName == "sboTerm")
+  {
+    return_value = setSBOTerm(value);
+  }
+
+
+  return return_value;
+}
+
+
+int 
+SBase::setAttribute(const std::string& attributeName, const char * value)
+{
+  int return_value = LIBSBML_OPERATION_FAILED;
+  if (attributeName == "metaid")
+  {
+    return_value = setMetaId(value);
+  }
+  else if (attributeName == "id")
+  {
+    return_value = setIdAttribute(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "sboTerm")
+  {
+    return_value = setSBOTerm(value);
   }
 
   return return_value;

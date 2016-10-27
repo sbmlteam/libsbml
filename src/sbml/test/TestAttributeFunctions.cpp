@@ -81,6 +81,7 @@ AttributeTest_teardown (void)
 START_TEST (test_Attributes_MetaId)
 {
   const std::string& metaid = "x12345";
+  const std::string name = "metaid";
   std::string value;
   std::string other_value;
   int result;
@@ -198,7 +199,7 @@ START_TEST (test_Attributes_AssignmentRule_variable)
   std::string otherValue;
   int result;
 
-  result = obj->setAttribute("variable", initialValue);
+  result =obj->setAttribute("variable", initialValue);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(obj->getVariable() == initialValue);
   fail_unless(obj->isSetVariable() == true);
@@ -319,6 +320,39 @@ START_TEST (test_Attributes_Compartment_spatialDimensions)
   result = obj->getAttribute("spatialDimensions", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == 0);
+}
+END_TEST
+
+
+START_TEST (test_Attributes_Compartment_spatialDimensions_double)
+{
+  Compartment *obj = new Compartment(3,1);
+  double initialValue = 2.7;
+  double value;
+  double otherValue;
+  int result;
+
+  result = obj->setAttribute("spatialDimensions", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isEqual(obj->getSpatialDimensionsAsDouble(), initialValue));
+  fail_unless(obj->isSetSpatialDimensions() == true);
+  fail_unless(obj->isSetAttribute("spatialDimensions") == true);
+
+  result = obj->getAttribute("spatialDimensions", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isEqual(value, initialValue));
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<double>("spatialDimensions");
+  fail_unless(otherValue == initialValue);
+
+  result = obj->unsetAttribute("spatialDimensions");
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->isSetSpatialDimensions() == false);
+  fail_unless(obj->isSetAttribute("spatialDimensions") == false);
+
+  result = obj->getAttribute("spatialDimensions", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isNaN(value));
 }
 END_TEST
 
@@ -455,6 +489,81 @@ START_TEST (test_Attributes_EventAssignment_variable)
   fail_unless(value.empty());
 }
 END_TEST
+
+
+START_TEST (test_Attributes_FunctionDefinition_sbo)
+{
+  FunctionDefinition *obj = new FunctionDefinition(3,1);
+  int initialValue = 67;
+  int value;
+  int otherValue;
+  int result;
+
+  result = obj->setAttribute("sboTerm", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->getSBOTerm() == initialValue);
+
+  fail_unless(obj->isSetSBOTerm() == true);
+  fail_unless(obj->isSetAttribute("sboTerm") == true);
+
+  result = obj->getAttribute("sboTerm", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == initialValue);
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<int>("sboTerm");
+
+  fail_unless(otherValue == initialValue);
+
+  result = obj->unsetAttribute("sboTerm");
+
+  fail_unless(obj->isSetSBOTerm() == false);
+  fail_unless(obj->isSetAttribute("sboTerm") == false);
+
+  result = obj->getAttribute("sboTerm", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value ==-1);
+}
+END_TEST
+
+
+START_TEST (test_Attributes_FunctionDefinition_sbo_string)
+{
+  FunctionDefinition *obj = new FunctionDefinition(3,1);
+  std::string initialValue = "SBO:0000067";
+  std::string value;
+  std::string otherValue;
+  int result;
+
+  result = obj->setAttribute("sboTerm", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->getSBOTermID() == initialValue);
+
+  fail_unless(obj->isSetSBOTerm() == true);
+  fail_unless(obj->isSetAttribute("sboTerm") == true);
+
+  result = obj->getAttribute("sboTerm", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == initialValue);
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<std::string>("sboTerm");
+
+  fail_unless(otherValue == initialValue);
+
+  result = obj->unsetAttribute("sboTerm");
+
+  fail_unless(obj->isSetSBOTerm() == false);
+  fail_unless(obj->isSetAttribute("sboTerm") == false);
+
+  result = obj->getAttribute("sboTerm", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value =="");
+}
+END_TEST
+
 
 
 START_TEST (test_Attributes_InitialAssignment_symbol)
@@ -1032,6 +1141,38 @@ END_TEST
 
 START_TEST (test_Attributes_SpeciesReference_stoichiometry)
 {
+  SpeciesReference *obj = new SpeciesReference(1,2);
+  int initialValue = 3;
+  int value;
+  int otherValue;
+  int result;
+
+  result = obj->setAttribute("stoichiometry", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isEqual(obj->getStoichiometry(), initialValue));
+  fail_unless(obj->isSetStoichiometry() == true);
+  fail_unless(obj->isSetAttribute("stoichiometry") == true);
+
+  result = obj->getAttribute("stoichiometry", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == initialValue);
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<int>("stoichiometry");
+  fail_unless(otherValue == initialValue);
+
+  result = obj->unsetAttribute("stoichiometry");
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->isSetStoichiometry() == true);
+  fail_unless(obj->isSetAttribute("stoichiometry") == true);
+
+  result = obj->getAttribute("stoichiometry", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == 1);
+}
+END_TEST
+
+START_TEST (test_Attributes_SpeciesReference_stoichiometry_double)
+{
   SpeciesReference *obj = new SpeciesReference(3,1);
   double initialValue = 3.6;
   double value;
@@ -1065,10 +1206,10 @@ END_TEST
 
 START_TEST (test_Attributes_SpeciesReference_denominator)
 {
-  SpeciesReference *obj = new SpeciesReference(3,1);
-  unsigned int initialValue = 2;
-  unsigned int value;
-  unsigned int otherValue;
+  SpeciesReference *obj = new SpeciesReference(1, 2);
+  int initialValue = 2;
+  int value;
+  int otherValue;
   int result;
 
   result = obj->setAttribute("denominator", initialValue);
@@ -1080,8 +1221,7 @@ START_TEST (test_Attributes_SpeciesReference_denominator)
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == initialValue);
 
-  otherValue = static_cast<SBase*>(obj)->getAttribute<unsigned
-    int>("denominator");
+  otherValue = static_cast<SBase*>(obj)->getAttribute<int>("denominator");
   fail_unless(otherValue == initialValue);
 
   result = obj->unsetAttribute("denominator");
@@ -1117,6 +1257,11 @@ START_TEST (test_Attributes_Trigger_initialValue)
   otherValue = static_cast<SBase*>(obj)->getAttribute<bool>("initialValue");
   fail_unless(otherValue == initialValue);
 
+  result = obj->getAttribute("initialValue", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == initialValue);
+
+
   result = obj->unsetAttribute("initialValue");
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(obj->isSetInitialValue() == false);
@@ -1129,6 +1274,83 @@ START_TEST (test_Attributes_Trigger_initialValue)
 END_TEST
 
 
+START_TEST (test_Attributes_Trigger_MetaId)
+{
+  Trigger *obj = new Trigger(3,1);
+  const std::string& metaid = "x12345";
+  std::string value;
+  std::string other_value;
+  int result;
+
+  result = obj->setAttribute("metaid", metaid);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->getMetaId() == metaid);
+
+  fail_unless(obj->isSetMetaId() == true);
+  fail_unless(obj->isSetAttribute("metaid") == true);
+
+  result = obj->getAttribute("metaid", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == metaid);
+
+  other_value = static_cast<SBase*>(obj)->getAttribute<std::string>("metaid");
+
+  fail_unless(other_value == metaid);
+
+  result = obj->unsetAttribute("metaid");
+
+  fail_unless(obj->isSetMetaId() == false);
+  fail_unless(obj->isSetAttribute("metaid") == false);
+
+  result = obj->getAttribute("metaid", value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == "");
+
+}
+END_TEST
+
+
+START_TEST (test_Attributes_Trigger_Id)
+{
+  Trigger *obj = new Trigger(3,2);
+  const std::string& att_name = "id";
+  const char* id = "x12345";
+  char* value;
+  const char* other_value;
+  int result;
+
+  result = obj->setAttribute(att_name, id);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->getId() == id);
+
+  fail_unless(obj->isSetId() == true);
+  fail_unless(obj->isSetAttribute(att_name) == true);
+
+  result = obj->getAttribute(att_name, value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(strcmp(value, id));
+
+  other_value = static_cast<SBase*>(obj)->getAttribute<const char *>(att_name);
+
+  fail_unless(strcmp(other_value, id));
+
+  result = obj->unsetAttribute(att_name);
+
+  fail_unless(obj->isSetId() == false);
+  fail_unless(obj->isSetAttribute(att_name) == false);
+
+  result = obj->getAttribute(att_name, value);
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(strcmp(value, ""));
+
+}
+END_TEST
 
 
 START_TEST (test_Attributes_Unit_scale)
@@ -1197,10 +1419,70 @@ START_TEST (test_Attributes_Unit_multiplier)
 END_TEST
 
 
+START_TEST (test_Attributes_Unit_exponent)
+{
+  Unit *obj = new Unit(3,1);
+  int initialValue = 2;
+  int value;
+  int otherValue;
+  int result;
+
+  result = obj->setAttribute("exponent", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->getExponent() == initialValue);
+  fail_unless(obj->isSetExponent() == true);
+  fail_unless(obj->isSetAttribute("exponent") == true);
+
+  result = obj->getAttribute("exponent", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == initialValue);
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<int>("exponent");
+  fail_unless(otherValue == initialValue);
+
+  result = obj->unsetAttribute("exponent");
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->isSetExponent() == false);
+  fail_unless(obj->isSetAttribute("exponent") == false);
+
+  result = obj->getAttribute("exponent", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(value == SBML_INT_MIN);
+}
+END_TEST
 
 
+START_TEST (test_Attributes_Unit_exponent_double)
+{
+  Unit *obj = new Unit(3,1);
+  double initialValue = 3.6;
+  double value;
+  double otherValue;
+  int result;
 
+  result = obj->setAttribute("exponent", initialValue);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isEqual(obj->getExponentAsDouble(), initialValue));
+  fail_unless(obj->isSetExponent() == true);
+  fail_unless(obj->isSetAttribute("exponent") == true);
 
+  result = obj->getAttribute("exponent", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isEqual(value, initialValue));
+
+  otherValue = static_cast<SBase*>(obj)->getAttribute<double>("exponent");
+  fail_unless(util_isEqual(otherValue, initialValue));
+
+  result = obj->unsetAttribute("exponent");
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(obj->isSetExponent() == false);
+  fail_unless(obj->isSetAttribute("exponent") == false);
+
+  result = obj->getAttribute("exponent", value);
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(util_isNaN(value));
+}
+END_TEST
 
 
 Suite *
@@ -1219,32 +1501,39 @@ create_suite_Attributes (void)
   tcase_add_test(tcase, test_Attributes_Compartment_constant);
   tcase_add_test(tcase, test_Attributes_Compartment_size);
   tcase_add_test(tcase, test_Attributes_Compartment_spatialDimensions);
+  tcase_add_test(tcase, test_Attributes_Compartment_spatialDimensions_double);
   tcase_add_test(tcase, test_Attributes_Compartment_units);
-tcase_add_test(tcase, test_Attributes_Event_useValuesFromTriggerTime);
-tcase_add_test(tcase, test_Attributes_Event_timeUnits);
-tcase_add_test(tcase, test_Attributes_EventAssignment_variable);
-tcase_add_test(tcase, test_Attributes_InitialAssignment_symbol);
-tcase_add_test(tcase, test_Attributes_KineticLaw_timeUnits);
-tcase_add_test(tcase, test_Attributes_LocalParameter_value);
-tcase_add_test(tcase, test_Attributes_LocalParameter_units);
-tcase_add_test(tcase, test_Attributes_Model_substanceUnits);
-tcase_add_test(tcase, test_Attributes_Parameter_constant);
-tcase_add_test(tcase, test_Attributes_Parameter_value);
-tcase_add_test(tcase, test_Attributes_Parameter_units);
-tcase_add_test(tcase, test_Attributes_RateRule_variable);
-tcase_add_test(tcase, test_Attributes_Reaction_fast);
-tcase_add_test(tcase, test_Attributes_Reaction_compartment);
-tcase_add_test(tcase, test_Attributes_SimpleSpeciesReference_species);
-tcase_add_test(tcase, test_Attributes_Species_hasOnlySubstanceUnits);
-tcase_add_test(tcase, test_Attributes_Species_charge);
-tcase_add_test(tcase, test_Attributes_Species_initialAmount);
-tcase_add_test(tcase, test_Attributes_Species_compartment);
-tcase_add_test(tcase, test_Attributes_SpeciesReference_constant);
-tcase_add_test(tcase, test_Attributes_SpeciesReference_stoichiometry);
-tcase_add_test(tcase, test_Attributes_SpeciesReference_denominator);
-tcase_add_test(tcase, test_Attributes_Trigger_initialValue);
-tcase_add_test(tcase, test_Attributes_Unit_scale);
-tcase_add_test(tcase, test_Attributes_Unit_multiplier);
+  tcase_add_test(tcase, test_Attributes_Event_useValuesFromTriggerTime);
+  tcase_add_test(tcase, test_Attributes_Event_timeUnits);
+  tcase_add_test(tcase, test_Attributes_EventAssignment_variable);
+  tcase_add_test(tcase, test_Attributes_FunctionDefinition_sbo);
+  tcase_add_test(tcase, test_Attributes_FunctionDefinition_sbo_string);
+  tcase_add_test(tcase, test_Attributes_InitialAssignment_symbol);
+  tcase_add_test(tcase, test_Attributes_KineticLaw_timeUnits);
+  tcase_add_test(tcase, test_Attributes_LocalParameter_value);
+  tcase_add_test(tcase, test_Attributes_LocalParameter_units);
+  tcase_add_test(tcase, test_Attributes_Model_substanceUnits);
+  tcase_add_test(tcase, test_Attributes_Parameter_constant);
+  tcase_add_test(tcase, test_Attributes_Parameter_value);
+  tcase_add_test(tcase, test_Attributes_Parameter_units);
+  tcase_add_test(tcase, test_Attributes_RateRule_variable);
+  tcase_add_test(tcase, test_Attributes_Reaction_fast);
+  tcase_add_test(tcase, test_Attributes_Reaction_compartment);
+  tcase_add_test(tcase, test_Attributes_SimpleSpeciesReference_species);
+  tcase_add_test(tcase, test_Attributes_Species_hasOnlySubstanceUnits);
+  tcase_add_test(tcase, test_Attributes_Species_charge);
+  tcase_add_test(tcase, test_Attributes_Species_initialAmount);
+  tcase_add_test(tcase, test_Attributes_Species_compartment);
+  tcase_add_test(tcase, test_Attributes_SpeciesReference_constant);
+  tcase_add_test(tcase, test_Attributes_SpeciesReference_stoichiometry);
+  tcase_add_test(tcase, test_Attributes_SpeciesReference_stoichiometry_double);
+  tcase_add_test(tcase, test_Attributes_SpeciesReference_denominator);
+  tcase_add_test(tcase, test_Attributes_Trigger_initialValue);
+  tcase_add_test(tcase, test_Attributes_Trigger_MetaId);
+  tcase_add_test(tcase, test_Attributes_Unit_scale);
+  tcase_add_test(tcase, test_Attributes_Unit_multiplier);
+  tcase_add_test(tcase, test_Attributes_Unit_exponent);
+  tcase_add_test(tcase, test_Attributes_Unit_exponent_double);
 
   suite_add_tcase(suite, tcase);
 

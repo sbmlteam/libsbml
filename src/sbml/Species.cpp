@@ -1259,7 +1259,6 @@ Species::hasRequiredAttributes() const
 
 
 
-#ifndef SWIG
 
 
 
@@ -1301,16 +1300,6 @@ Species::getAttribute(const std::string& attributeName, bool& value) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1336,16 +1325,6 @@ Species::getAttribute(const std::string& attributeName, int& value) const
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1382,13 +1361,21 @@ Species::getAttribute(const std::string& attributeName, double& value) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName,
+                      unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1446,13 +1433,57 @@ Species::getAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Gets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::getAttribute(const std::string& attributeName,
+                      const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
 
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
 
+  if (attributeName == "compartment")
+  {
+    value = getCompartment().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    value = getSubstanceUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    value = getConversionFactor().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "speciesType")
+  {
+    value = getSpeciesType().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    value = getSpatialSizeUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "units")
+  {
+    value = getUnits().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
 
+  return return_value;
+}
 
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1523,16 +1554,6 @@ Species::isSetAttribute(const std::string& attributeName) const
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1563,16 +1584,6 @@ Species::setAttribute(const std::string& attributeName, bool value)
 
 
 
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -1592,16 +1603,6 @@ Species::setAttribute(const std::string& attributeName, int value)
 }
 
 /** @endcond */
-
-
-
-
-#endif /* !SWIG */
-
-
-
-
-#ifndef SWIG
 
 
 
@@ -1631,13 +1632,20 @@ Species::setAttribute(const std::string& attributeName, double value)
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  return return_value;
+}
 
-
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1684,13 +1692,45 @@ Species::setAttribute(const std::string& attributeName,
 
 
 
+/** @cond doxygenLibsbmlInternal */
 
-#endif /* !SWIG */
+/*
+ * Sets the value of the "attributeName" attribute of this Species.
+ */
+int
+Species::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
 
+  if (attributeName == "compartment")
+  {
+    return_value = setCompartment(value);
+  }
+  else if (attributeName == "substanceUnits")
+  {
+    return_value = setSubstanceUnits(value);
+  }
+  else if (attributeName == "conversionFactor")
+  {
+    return_value = setConversionFactor(value);
+  }
+  else if (attributeName == "speciesType")
+  {
+    return_value = setSpeciesType(value);
+  }
+  else if (attributeName == "spatialSizeUnits")
+  {
+    return_value = setSpatialSizeUnits(value);
+  }
+  else if (attributeName == "units")
+  {
+    return_value = setUnits(value);
+  }
 
+  return return_value;
+}
 
-
-#ifndef SWIG
+/** @endcond */
 
 
 
@@ -1761,7 +1801,6 @@ Species::unsetAttribute(const std::string& attributeName)
 
 
 
-#endif /* !SWIG */
 void
 Species::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {

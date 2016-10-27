@@ -2425,6 +2425,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
+   virtual int getAttribute(const std::string& attributeName, const char * value) const;
 
 
    virtual bool isSetAttribute(const std::string& attributeName) const;
@@ -2458,6 +2459,12 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /** @cond doxygenLibsbmlInternal */
 
    virtual int setAttribute(const std::string& attributeName, const std::string& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, const char* value);
 
   /** @endcond */
 
