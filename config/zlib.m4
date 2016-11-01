@@ -1,7 +1,7 @@
 dnl
 dnl Filename    : zlib.m4
 dnl Description : Autoconf macro to check for existence of zlib library
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
+dnl Author(s)   : SBML Team <sbml-team@googlegroups.com>
 dnl Organization: California Institute of Technology
 dnl Created     : 2008-07-04
 dnl

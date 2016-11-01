@@ -25,7 +25,7 @@ function buildSBML(varargin)
 
 % Filename    : buildSBML.m
 % Description : Build MATLAB binding.
-% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Author(s)   : SBML Team <sbml-team@googlegroups.com>
 % Organization: EMBL-EBI, Caltech
 % Created     : 2011-02-08
 %

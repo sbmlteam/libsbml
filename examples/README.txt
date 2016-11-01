@@ -13,7 +13,7 @@
 
 			    The SBML Team
 			 http://www.sbml.org/
-		     mailto:sbml-team@caltech.edu
+		     mailto:sbml-team@googlegroups.com
 
 		  Date of last update to this file:
 		  $Date: 2009-01-04 11:26:05 +0900#$

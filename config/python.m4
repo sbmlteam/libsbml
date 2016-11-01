@@ -1,7 +1,7 @@
 dnl
 dnl Filename    : python.m4
 dnl Description : Autoconf macro to check for Python
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
+dnl Author(s)   : SBML Team <sbml-team@googlegroups.com>
 dnl Organization: California Institute of Technology
 dnl Created     : 2004-06-18
 dnl

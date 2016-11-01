@@ -14,7 +14,7 @@ function installSBML(varargin)
 
 % Filename    : installSBML.m
 % Description : install matlab binding
-% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Author(s)   : SBML Team <sbml-team@googlegroups.com>
 % Organization: EMBL-EBI
 % 
 % This file is part of libSBML.  Please visit http://sbml.org for more

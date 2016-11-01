@@ -37,7 +37,7 @@ function Formula = ConvertFormulaToMathML(Input)
 %      United Kingdom
 %
 %      http://www.sbml.org
-%      mailto:sbml-team@caltech.edu
+%      mailto:sbml-team@googlegroups.com
 %
 % Contributor(s):
 

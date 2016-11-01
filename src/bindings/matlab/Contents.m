@@ -47,7 +47,7 @@
 
 % Description : This is the binding to translate 
 %				 sbml models into a MATLAB structure 
-% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Author(s)   : SBML Team <sbml-team@googlegroups.com>
 % Organization: University of Hertfordshire STRC
 % Created     : 2003-09-15
 %
@@ -85,7 +85,7 @@
 %      United Kingdom
 %
 %      http://www.sbml.org
-%      mailto:sbml-team@caltech.edu
+%      mailto:sbml-team@googlegroups.com
 %
 % Contributor(s):
 %

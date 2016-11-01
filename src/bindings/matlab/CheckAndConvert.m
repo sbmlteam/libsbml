@@ -3,7 +3,7 @@ function Formula = CheckAndConvert(Input)
 
 % Filename    : CheckAndConvert.m
 % Description : converts from MathML in-fix to MATLAB functions
-% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Author(s)   : SBML Team <sbml-team@googlegroups.com>
 % Organization: University of Hertfordshire STRC
 % Created     : 2004-12-13
 %
@@ -41,7 +41,7 @@ function Formula = CheckAndConvert(Input)
 %      United Kingdom
 %
 %      http://www.sbml.org
-%      mailto:sbml-team@caltech.edu
+%      mailto:sbml-team@googlegroups.com
 %
 % Contributor(s):
 

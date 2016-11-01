@@ -40,7 +40,7 @@
  *     Pasadena, CA, 91125, USA
  *
  *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
+ *     mailto:sbml-team@googlegroups.com
  *
  * Contributor(s):
  */

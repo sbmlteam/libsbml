@@ -1,7 +1,7 @@
 dnl
 dnl Filename    : csharp.m4
 dnl Description : Autoconf macro for CSharp bindings
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
+dnl Author(s)   : SBML Team <sbml-team@googlegroups.com>
 dnl Organization: California Institute of Technology
 dnl Created     : 2008-07-02
 dnl

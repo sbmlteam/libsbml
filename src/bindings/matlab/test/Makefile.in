@@ -2,7 +2,7 @@
 ##
 ## \file    Makefile.in
 ## \brief   Makefile template for libsbml MATLAB bindings test
-## \author  SBML Team <sbml-team@caltech.edu>
+## \author  SBML Team <sbml-team@googlegroups.com>
 ##
 ##
 ## <!--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 ##
 ## Filename    : Makefile.in
 ## Description : Makefile template for libsbml src/sbml/packages/comp/validator/constraints
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@googlegroups.com>
 ## Organization: California Institute of Technology
 ## 
 ## <!--------------------------------------------------------------------------

@@ -17,4 +17,4 @@
 
 			     The SBML Team
 			    http://sbml.org
-		      mailto:sbml-team@caltech.edu
+		      mailto:sbml-team@googlegroups.com

@@ -4,7 +4,7 @@
  *
  * @file    FormulaUnitsData.cpp
  * @brief   Class for storing information relating to units of a formula
- * @author  SBML Team <sbml-team@caltech.edu>
+ * @author  SBML Team <sbml-team@googlegroups.com>
  *
  *
  * <!--------------------------------------------------------------------------

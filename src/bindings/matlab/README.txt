@@ -4,7 +4,7 @@
 
 			    The SBML Team
 			 http://www.sbml.org/
-		     mailto:sbml-team@caltech.edu
+		     mailto:sbml-team@googlegroups.com
 
 
 

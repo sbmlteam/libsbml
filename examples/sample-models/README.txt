@@ -5,7 +5,7 @@
 
 			    The SBML Team
 			 http://www.sbml.org/
-		     mailto:sbml-team@caltech.edu
+		     mailto:sbml-team@googlegroups.com
 
 This directory contains sample models taken from a variety of sources,
 such as the SBML specification documents.  These models are provided

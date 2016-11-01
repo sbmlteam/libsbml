@@ -24,7 +24,7 @@
 
 %  Filename    : OutputSBML.m
 %  Description : MATLAB help file for OutputSBML
-%  Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+%  Author(s)   : SBML Development Group <sbml-team@googlegroups.com>
 %
 %
 %<!---------------------------------------------------------------------------

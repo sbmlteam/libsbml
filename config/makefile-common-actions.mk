@@ -1,6 +1,6 @@
 ## Filename    : makefile-common-actions.mk
 ## Description : Makefile include file containing common actions
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@googlegroups.com>
 ## Organization: California Institute of Technology
 ## Created     : 2004-06-17
 ##

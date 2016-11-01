@@ -2,7 +2,7 @@
 ##
 ## Filename    : Makefile.in
 ## Description : Makefile template for libsbml src/validator/test
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@googlegroups.com>
 ## Organization: California Institute of Technology
 ## Created     : 2005-03-15
 ## 
@@ -40,7 +40,7 @@
 ##     Pasadena, CA, 91125, USA
 ##
 ##     http://www.sbml.org
-##     mailto:sbml-team@caltech.edu
+##     mailto:sbml-team@googlegroups.com
 ##
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.

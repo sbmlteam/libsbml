@@ -1,7 +1,7 @@
 dnl
 dnl Filename    : configure.ac
 dnl Description : Run this file through autoconf to produce `configure'
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
+dnl Author(s)   : SBML Team <sbml-team@googlegroups.com>
 dnl 
 dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more

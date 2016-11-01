@@ -2,7 +2,7 @@
 ##
 ## Filename    : Makefile
 ## Description : Builds the example programs
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@googlegroups.com>
 ## Created     : 2002-12-05
 ##
 ## <!--------------------------------------------------------------------------
@@ -41,7 +41,7 @@
 ##     Pasadena, CA, 91125, USA
 ##
 ##     http://www.sbml.org
-##     mailto:sbml-team@caltech.edu
+##     mailto:sbml-team@googlegroups.com
 ##
 ## Contributor(s):
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.

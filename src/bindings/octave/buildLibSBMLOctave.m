@@ -11,7 +11,7 @@ function buildLibSBMLOctave(varargin)
 
 % Filename    : buildLibSBMLOctave.m
 % Description : build octave binding
-% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Author(s)   : SBML Team <sbml-team@googlegroups.com>
 % Organization: EMBL-EBI
 % Created     : 2011-02-08
 %
