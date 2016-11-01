@@ -19,20 +19,20 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * Perl
 * Ruby
 
-* [libSBML-@PACKAGE_VERSION@-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-Linux-x64.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
-* [libSBML-@PACKAGE_VERSION@-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-Linux-x64.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-packages-Linux-x64.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-packages-Linux-x64.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
 
 
-* [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
-* [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-packages-Linux-x64-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-packages-Linux-x64-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
 
 
-* [libSBML-@PACKAGE_VERSION@-Linux-x86.rpm](libSBML-@PACKAGE_VERSION@-Linux-x86.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
-* [libSBML-@PACKAGE_VERSION@-Linux-x86.deb](libSBML-@PACKAGE_VERSION@-Linux-x86.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x86.rpm](libSBML-@PACKAGE_VERSION@-packages-Linux-x86.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x86.deb](libSBML-@PACKAGE_VERSION@-packages-Linux-x86.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
 
 
-* [libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
-* [libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x86-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-packages-Linux-x86-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
+* [libSBML-@PACKAGE_VERSION@-packages-Linux-x86-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-packages-Linux-x86-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
 
 By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
