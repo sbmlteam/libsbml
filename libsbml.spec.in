@@ -93,7 +93,7 @@ Release: %{release}
 Group: Development/Libraries
 Source: http://downloads.sourceforge.net/sbml/libsbml-%{package_version}-src.tar.gz
 URL: http://sbml.org/Software/libSBML
-Packager: LibSBML Team <libsbml-team@caltech.edu>
+Packager: LibSBML Team <libsbml-team@googlegroups.com>
 License: LGPL
 Prefix: /usr
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

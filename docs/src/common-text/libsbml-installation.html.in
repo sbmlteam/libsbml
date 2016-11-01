@@ -1465,7 +1465,7 @@ offer the following tips for what to do if you encounter problems:
 <li>Ask for help on <a href="libsbml-communications.html">the libSBML and SBML mailing lists</a>.
 
 <li>Contact the developers directly by sending email
-to <a href="mailto:libsbml-team@caltech.edu">libsbml-team@caltech.edu</a>.
+to <a href="mailto:libsbml-team@googlegroups.com">libsbml-team@googlegroups.com</a>.
   Please make sure to include the following information:
   <ul class="tight-list" style="margin-top: 1em">
     <li>The version of libSBML you are using,

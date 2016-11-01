@@ -2,7 +2,7 @@ Package: libSBML
 Version: ${PACKAGE_VERSION}
 Date: ${CURRENT_DATE}
 Title: libSBML: An API Library for SBML
-Author: LibSBML Team <libsbml-team@caltech.edu>
+Author: LibSBML Team <libsbml-team@googlegroups.com>
 Maintainer: Frank Bergmann <fbergman@caltech.edu>
 Depends: R (>= 1.8.0), methods
 Description: LibSBML is an open-source programming library designed to help you 

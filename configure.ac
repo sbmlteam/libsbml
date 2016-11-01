@@ -44,7 +44,7 @@ AC_PREREQ([2.62])
 
 AC_INIT([libSBML],
         [LIBSBML_VERSION],
-        [libsbml-team@caltech.edu],
+        [libsbml-team@googlegroups.com],
         [libsbml],
         [http://sbml.org/Software/libSBML])
 
@@ -761,7 +761,7 @@ echo ""
 echo "Please report problems using the issue tracker at"
 echo "http://sbml.org/software/libsbml/issue-tracker"
 echo ""
-echo "To contact the developers directly, email libsbml-team@caltech.edu"
+echo "To contact the developers directly, email libsbml-team@googlegroups.com"
 echo ""
 echo "Configured on host \"`hostname`\""
 echo "  host type                     = $HOST_TYPE"

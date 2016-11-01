@@ -119,7 +119,7 @@ include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SBML.")
 set(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_VENDOR "The libSBML Team")
-set(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@caltech.edu>")
+set(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@googlegroups.com>")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.txt")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING.txt")
 set(CPACK_PACKAGE_VERSION_MAJOR "${LIBSBML_VERSION_MAJOR}")
@@ -1156,7 +1156,7 @@ libSBML version ${PACKAGE_VERSION}
    Please report problems using the issue tracker at
    http://sbml.org/Software/libsbml/issue-tracker
 
-   To contact the developers directly, email libsbml-team@caltech.edu
+   To contact the developers directly, email libsbml-team@googlegroups.com
 
    Configured on host '${HOSTNAME}'
      host type                       = ${CMAKE_SYSTEM_NAME}

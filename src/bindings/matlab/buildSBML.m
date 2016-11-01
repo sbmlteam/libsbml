@@ -105,7 +105,7 @@ function buildSBML(varargin)
   else
     message = sprintf('\n%s\n%s\n', ...
       'Unable to determine the type of operating system in use.', ...
-      'Please contact libsbml-team@caltech.edu to help resolve this problem.');
+      'Please contact libsbml-team@googlegroups.com to help resolve this problem.');
       error(message);
   end;
 
@@ -141,7 +141,7 @@ function y = isWindows()
   if ~ispc()
     message = sprintf('\n%s\n%s\n', ...
       'Unable to determine the type of operating system in use.', ...
-      'Please contact libsbml-team@caltech.edu to help resolve this problem.');
+      'Please contact libsbml-team@googlegroups.com to help resolve this problem.');
     error(message);
   end;
 

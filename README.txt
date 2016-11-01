@@ -21,7 +21,7 @@
                         http://sbml.org/Forums
 
     To contact the core libSBML developers directly, send email to
-		       libsbml-team@caltech.edu
+		       libsbml-team@googlegroups.com
 
    ,---------------------------------------------------------------.
   | Table of contents                                               |

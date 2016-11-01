@@ -659,7 +659,7 @@ on your system before proceeding further.
 
 If you are certain that you have a properly configured and installed Java
 JDK on your system, please use the libSBML issue tracker to file a report
-that this problem has occurred, or else email libsbml-team@caltech.edu
+that this problem has occurred, or else email libsbml-team@googlegroups.com
 directly, and please include the file "config.log".  (The file should have
 been left at the top level of your libSBML source code directory.)  We will
 attempt to debug the problem and improve 'configure' for future releases.
