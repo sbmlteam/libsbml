@@ -485,7 +485,9 @@ L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, co
   case AST_FUNCTION_DELAY:
     StringBuffer_append(sb, "delay");
     break;
-
+  case AST_FUNCTION_RATE_OF:
+    StringBuffer_append(sb, "rateOf");
+    break;
   default:
     FormulaFormatter_formatFunction(sb, node);
     break;
