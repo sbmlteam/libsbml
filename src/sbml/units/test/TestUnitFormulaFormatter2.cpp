@@ -615,6 +615,39 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
 END_TEST
 
 
+START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_model_time)
+{
+  UnitDefinition * ud = NULL;
+
+  /* model extent units */
+  ud = uff->getTimeUnitDefinition();
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 60);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+
+  /* check deals with invalid nodes */
+  delete ud;
+  UnitDefinition * ud1 = NULL;
+  
+  m->unsetExtentUnits();
+
+  ud1 = uff->getExtentUnitDefinition();
+
+  fail_unless (ud1->getNumUnits() == 0);
+
+  delete ud1;
+
+}
+END_TEST
+
 Suite *
 create_suite_UnitFormulaFormatter2 (void)
 {
@@ -632,6 +665,7 @@ create_suite_UnitFormulaFormatter2 (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter2_getUnitDefinition_event);
   tcase_add_test(tcase, test_UnitFormulaFormatter2_getUnitDefinition_model_extent);
   tcase_add_test(tcase, test_UnitFormulaFormatter2_getUnitDefinition_species_extent);
+  tcase_add_test(tcase, test_UnitFormulaFormatter2_getUnitDefinition_model_time);
 
   suite_add_tcase(suite, tcase);
 

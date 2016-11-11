@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1" >
+  <model substanceUnits="mole" timeUnits="h" extentUnits="mole" >
+    <listOfUnitDefinitions>
+  
+  <unitDefinition id="h">
+    <listOfUnits>
+      <unit kind="second" exponent="1" scale="0" multiplier="3600"/>
+    </listOfUnits>
+  </unitDefinition>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    </listOfUnitDefinitions>
+ <listOfParameters>
+  <parameter id="t1" value="48" units="h" constant="false"/>
+  <parameter id="f1" units="h" constant="false"/>
+</listOfParameters><listOfRules>
+  <assignmentRule variable="f1">
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+      <apply>
+        <plus/>
+           <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+           <ci> t1 </ci>
+              </apply>
+    </math>
+  </assignmentRule>
+</listOfRules>
+</model>
+</sbml>

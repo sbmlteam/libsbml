@@ -175,6 +175,15 @@ public:
 
    /**
    * Returns the unitDefinition constructed
+   * from the time units of this Model.
+   *
+   * @return the unitDefinition constructed to represent the time units 
+   * of the Model.
+   */
+  UnitDefinition * getTimeUnitDefinition();
+
+   /**
+   * Returns the unitDefinition constructed
    * from the substance units of this Species.
    */
   UnitDefinition * getSpeciesSubstanceUnitDefinition(const Species * species);
@@ -342,7 +351,7 @@ public:
 protected:
   /* @cond doxygenLibsbmlInternal */
 
-  UnitDefinition * getTimeUnitDefinition();
+//  UnitDefinition * getTimeUnitDefinition();
 
   /** @endcond */
 

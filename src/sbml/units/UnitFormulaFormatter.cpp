@@ -1022,30 +1022,30 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   {
     if (node->getType() == AST_NAME_TIME)
     {
-      tempUd = model->getUnitDefinition("time");
+      ud = getTimeUnitDefinition();
 
-      try
-      {
-        ud = new UnitDefinition(model->getSBMLNamespaces());
-      }
-      catch ( ... )
-      {
-        ud = new UnitDefinition(SBMLDocument::getDefaultLevel(),
-          SBMLDocument::getDefaultVersion());
-      }
-      if (tempUd == NULL) 
-      {
-        unit = ud->createUnit();
-        unit->setKind(UnitKind_forName("second"));
-        unit->initDefaults();
-      }
-      else
-      {
-        for (n = 0; n < tempUd->getNumUnits(); n++)
-        {
-          ud->addUnit(tempUd->getUnit(n));
-        }
-      }
+      //try
+      //{
+      //  ud = new UnitDefinition(model->getSBMLNamespaces());
+      //}
+      //catch ( ... )
+      //{
+      //  ud = new UnitDefinition(SBMLDocument::getDefaultLevel(),
+      //    SBMLDocument::getDefaultVersion());
+      //}
+      //if (tempUd == NULL) 
+      //{
+      //  unit = ud->createUnit();
+      //  unit->setKind(UnitKind_forName("second"));
+      //  unit->initDefaults();
+      //}
+      //else
+      //{
+      //  for (n = 0; n < tempUd->getNumUnits(); n++)
+      //  {
+      //    ud->addUnit(tempUd->getUnit(n));
+      //  }
+      //}
     }
     /* must be the name of a compartment, species or parameter */
     else
@@ -2371,6 +2371,13 @@ UnitFormulaFormatter::getTimeUnitDefinition()
   UnitDefinition * ud = NULL;
 
   std::string timeUnits = model->getTimeUnits();
+  if (model->getLevel() < 3)
+  {
+    if (model->getUnitDefinition("time") != NULL)
+      timeUnits = "time";
+    else
+      timeUnits = "second";
+  }
 
   try
   {
