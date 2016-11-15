@@ -31,7 +31,9 @@
 ###############################################################################
 
 # used to create CMake config files for projects using this library
+if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
 include(CMakePackageConfigHelpers)
+endif()
 
 ###############################################################################
 #
@@ -541,6 +543,7 @@ INSTALL(EXPORT ${LIBSBML_LIBRARY}-config
         DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 
+if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
 WRITE_BASIC_PACKAGE_VERSION_FILE(
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake 
   VERSION ${PROJECT_VERSION}
@@ -551,6 +554,7 @@ INSTALL(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake
   DESTINATION ${PACKAGE_CONFIG_DIR}
 )
+endif()
 
   
 endif()
@@ -577,6 +581,7 @@ INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-config
         DESTINATION ${PACKAGE_CONFIG_DIR}
 )
 
+if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
 WRITE_BASIC_PACKAGE_VERSION_FILE(
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
   VERSION ${PROJECT_VERSION}
@@ -587,7 +592,7 @@ INSTALL(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
   DESTINATION ${PACKAGE_CONFIG_DIR}
 )
-
+endif()
 
 ##############################################################################
 #
