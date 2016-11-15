@@ -39,7 +39,7 @@ if(POLICY CMP0054)
 endif() 
 
 if(POLICY CMP0058) 
-    cmake_policy(SET CMP0058 NEW) 
+    cmake_policy(SET CMP0058 OLD) 
 endif() 
 
 
@@ -93,6 +93,13 @@ endif()
 MATH(EXPR LIBSBML_VERSION_NUMERIC "${LIBSBML_VERSION_MAJOR} * 10000 + ${LIBSBML_VERSION_MINOR} * 100 + ${LIBSBML_VERSION_PATCH}" )
 set(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
 set(PACKAGE_NAME "libSBML")
+set(PACKAGE_CONFIG_DIR lib/cmake)
+
+
+# PACKAGE_VERSION gets overridden by using other packages, so setting
+# the PROJECT_VERSION, which will be used when exporting targets in
+# src/CMakeLists.txt
+set(PROJECT_VERSION ${PACKAGE_VERSION})
 
 if (WITH_DOXYGEN OR WITH_PYTHON)
   # configure the version for documentation / bindings
@@ -511,6 +518,21 @@ find_library(LIBBZ_LIBRARY
     PATHS /usr/lib /usr/local/lib
           ${CMAKE_OSX_SYSROOT}/usr/lib
           ${LIBSBML_DEPENDENCY_DIR}/lib
+          NO_DEFAULT_PATH
+          NO_CMAKE_ENVIRONMENT_PATH
+          NO_CMAKE_PATH
+          NO_SYSTEM_ENVIRONMENT_PATH
+          NO_CMAKE_SYSTEM_PATH    
+ 
+          DOC "The file name of the bzip2 library."
+)
+endif()
+if (NOT LIBBZ_LIBRARY)
+find_library(LIBBZ_LIBRARY
+    NAMES bzip2.lib bz2 libbz2.lib
+    PATHS /usr/lib /usr/local/lib
+          ${CMAKE_OSX_SYSROOT}/usr/lib
+          ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
 endif()
@@ -594,6 +616,20 @@ Separate multiple directories using semicolons." )
 #
 
 set(ZLIB_INITIAL_VALUE)
+if (NOT LIBZ_LIBRARY)
+find_library(LIBZ_LIBRARY
+    NAMES zdll.lib z zlib.lib
+    PATHS /usr/lib /usr/local/lib
+          ${CMAKE_OSX_SYSROOT}/usr/lib
+          ${LIBSBML_DEPENDENCY_DIR}/lib
+          NO_DEFAULT_PATH
+          NO_CMAKE_ENVIRONMENT_PATH
+          NO_CMAKE_PATH
+          NO_SYSTEM_ENVIRONMENT_PATH
+          NO_CMAKE_SYSTEM_PATH    
+          DOC "The file name of the zip compression library."
+    )
+endif()
 if (NOT LIBZ_LIBRARY)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib

@@ -30,6 +30,9 @@
 #
 ###############################################################################
 
+# used to create CMake config files for projects using this library
+include(CMakePackageConfigHelpers)
+
 ###############################################################################
 #
 # Initialize SBML sources
@@ -522,12 +525,29 @@ endif()
 
 target_link_libraries(${LIBSBML_LIBRARY} ${LIBSBML_LIBS} ${EXTRA_LIBS})
 
-INSTALL(TARGETS ${LIBSBML_LIBRARY}
+INSTALL(TARGETS ${LIBSBML_LIBRARY} EXPORT ${LIBSBML_LIBRARY}-config
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES DESTINATION include
   )
 
+# and install the exported target configuration
+INSTALL(EXPORT ${LIBSBML_LIBRARY}-config
+        DESTINATION ${PACKAGE_CONFIG_DIR}
+)
+
+WRITE_BASIC_PACKAGE_VERSION_FILE(
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake 
+  COMPATIBILITY AnyNewerVersion
+)
+  
+INSTALL(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-config-version.cmake
+  DESTINATION ${PACKAGE_CONFIG_DIR}
+)
+
+  
 endif()
 
 add_library (${LIBSBML_LIBRARY}-static STATIC ${LIBSBML_SOURCES} )
@@ -540,10 +560,28 @@ endif(WIN32 AND NOT CYGWIN)
 target_link_libraries(${LIBSBML_LIBRARY}-static ${LIBSBML_LIBS} ${EXTRA_LIBS})
 
 INSTALL(TARGETS ${LIBSBML_LIBRARY}-static
+        EXPORT  ${LIBSBML_LIBRARY}-static-config
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES DESTINATION include
 )
+
+# and install the exported target configuration
+INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-config 
+        DESTINATION ${PACKAGE_CONFIG_DIR}
+)
+
+WRITE_BASIC_PACKAGE_VERSION_FILE(
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
+  COMPATIBILITY AnyNewerVersion
+)
+
+INSTALL(FILES 
+  ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config-version.cmake
+  DESTINATION ${PACKAGE_CONFIG_DIR}
+)
+
 
 ##############################################################################
 #
