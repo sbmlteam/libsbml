@@ -318,6 +318,7 @@ START_TEST (test_FormulaFormatter_formatReal)
   /** 1e-100 **/
   ASTNode_setRealWithExponent(n, 1, -100);
   FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
 
   fail_unless( !strcmp(s, "1e-100"), NULL );
   StringBuffer_reset(sb);
