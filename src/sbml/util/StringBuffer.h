@@ -178,7 +178,10 @@ StringBuffer_appendReal (StringBuffer_t *sb, double r);
  *
  * This function is equivalent to:
  *
- *   StringBuffer_appendNumber(sb, LIBSBML_FLOAT_FORMAT, r);
+ *   StringBuffer_appendNumber(sb, "%e", r);
+ *
+ * meaning that it always uses the e-notation format, and always writes out
+ * exactly six digits of precision.
  *
  * @param sb the StringBuffer_t structure.
  *
@@ -187,6 +190,21 @@ StringBuffer_appendReal (StringBuffer_t *sb, double r);
 LIBSBML_EXTERN
 void
 StringBuffer_appendExp (StringBuffer_t *sb, double r);
+
+
+/**
+* Appends a string representation of the given exp to this
+* StringBuffer_t.
+*
+* This function writes out the mantissa and exponent of a value explicitly
+*
+* @param sb the StringBuffer_t structure.
+*
+* @memberof StringBuffer_t
+*/
+LIBSBML_EXTERN
+void
+StringBuffer_appendFullExp(StringBuffer_t *sb, double mantissa, long exponent, double value);
 
 
 /**

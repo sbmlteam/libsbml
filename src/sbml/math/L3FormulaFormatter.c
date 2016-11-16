@@ -580,8 +580,8 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
   {
     if (ASTNode_getType(node) == AST_REAL_E)
     {
-      StringBuffer_appendExp(sb, value);
-    }
+	    StringBuffer_appendFullExp(sb, ASTNode_getMantissa(node), ASTNode_getExponent(node), value);
+	  }
     else
     {
       StringBuffer_appendReal(sb, value);

@@ -319,7 +319,7 @@ START_TEST (test_FormulaFormatter_formatReal)
   ASTNode_setRealWithExponent(n, 1, -100);
   FormulaFormatter_formatReal(sb, n);
 
-  fail_unless( !strcmp(s, "1.000000e-100"), NULL );
+  fail_unless( !strcmp(s, "1e-100"), NULL );
   StringBuffer_reset(sb);
 
 
@@ -367,22 +367,14 @@ START_TEST (test_SBML_formulaToString)
   {
     "1",
     "2.1",
-#if defined(WIN32) && !defined(CYGWIN)
-#if _MSC_VER < 1900
-    "2.100000e-010",
-#else
-	"2.100000e-10",
-#endif
-#else
-    "2.100000e-10",
-#endif
+    "2.101e-10",
     "foo",
     "1 + foo",
     "1 + 2",
     "1 + 2 * 3",
     "(1 - 2) * 3",
     "1 + -2 / 3",
-    "1 + -2.000000e-100 / 3",
+    "1 + -2e-100 / 3",
     "1 - -foo / 3",
     "2 * foo^bar + 3.1",
     "foo()",
@@ -406,7 +398,7 @@ START_TEST (test_SBML_formulaToString)
     n = SBML_parseFormula( formulae[i] );
     s = SBML_formulaToString(n);
 
-	fail_unless( !strcmp(s, formulae[i]), NULL );
+    fail_unless( !strcmp(s, formulae[i]), NULL );
 
     ASTNode_free(n);
     safe_free(s);

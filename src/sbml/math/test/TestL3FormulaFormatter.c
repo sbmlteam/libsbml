@@ -321,22 +321,14 @@ START_TEST (test_SBML_formulaToL3String)
   {
     "1",
     "2.1",
-#if defined(WIN32) && !defined(CYGWIN)
-#if _MSC_VER < 1900
-	  "2.100000e-010",
-#else
-	  "2.100000e-10",
-#endif
-#else
-    "2.100000e-10",
-#endif
+    "2.101e-10",
     "foo",
     "1 + foo",
     "1 + 2",
     "1 + 2 * 3",
     "(1 - 2) * 3",
     "1 + -2 / 3",
-    "1 + -2.000000e-100 / 3",
+    "1 + -2e-100 / 3",
     "1 - -foo / 3",
     "2 * foo^bar + 3.1",
     "foo()",
