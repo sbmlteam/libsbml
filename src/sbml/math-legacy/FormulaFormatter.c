@@ -290,7 +290,7 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node)
   {
     if (ASTNode_getType(node) == AST_REAL_E)
     {
-      StringBuffer_appendExp(sb, value);
+      StringBuffer_appendFullExp(sb, ASTNode_getMantissa(node), ASTNode_getExponent(node), value);
     }
     else
     {
@@ -469,6 +469,5 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
     StringBuffer_appendChar(sb, ')');
   }
 }
-
 /** @endcond */
 
