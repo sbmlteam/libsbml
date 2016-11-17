@@ -171,7 +171,7 @@ LIBSBML_EXTERN
 void
 StringBuffer_appendFullExp(StringBuffer_t *sb, double mantissa, long exponent, double value)
 {
-  if (mantissa > 10000 || mantissa < -10000 || (mantissa < 0.0001 && mantissa > -0.0001)) {
+  if (mantissa >= 1e14 || mantissa <= -1e14 || (mantissa < 1e-4 && mantissa > -1e-4)) {
     StringBuffer_appendReal(sb, value);
     return;
   }
