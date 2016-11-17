@@ -933,12 +933,11 @@ START_TEST(test_FormulaFormatter_formatENotation)
   fail_unless(!strcmp(s, "10000000000e3"), NULL);
   StringBuffer_reset(sb);
 
-  // 1e028
-  //ASTNode_setRealWithExponent(n, 1e15, 13);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "1e+28"), NULL);
-  //StringBuffer_reset(sb);
+  ASTNode_setRealWithExponent(n, 1e15, -13);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "100"), NULL);
+  StringBuffer_reset(sb);
 
 
   ASTNode_setRealWithExponent(n, 9.999e13, 13);
@@ -947,18 +946,19 @@ START_TEST(test_FormulaFormatter_formatENotation)
   fail_unless(!strcmp(s, "99990000000000e13"), NULL);
   StringBuffer_reset(sb);
 
-  // 1e028
-  //ASTNode_setRealWithExponent(n, 9.999999999999999e14, 13);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "1e+28"), NULL);
-  //StringBuffer_reset(sb);
 
-  //ASTNode_setRealWithExponent(n, 9.99999999999e14, 13);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "9.99999999999e+27"), NULL);
-  //StringBuffer_reset(sb);
+  ASTNode_setRealWithExponent(n, 9.999999999999999e14, -13);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "100"), NULL);
+  StringBuffer_reset(sb);
+
+
+  ASTNode_setRealWithExponent(n, 9.99999999999e14, -13);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "99.9999999999"), NULL);
+  StringBuffer_reset(sb);
 
 
   ASTNode_setRealWithExponent(n, 9.99999999999e13, 13);
@@ -975,18 +975,18 @@ START_TEST(test_FormulaFormatter_formatENotation)
   StringBuffer_reset(sb);
 
 
-  //ASTNode_setRealWithExponent(n, 9e-5, -3);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "9e-08"), NULL);
-  //StringBuffer_reset(sb);
+  ASTNode_setRealWithExponent(n, 9e-5, 3);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "0.09"), NULL);
+  StringBuffer_reset(sb);
 
 
-  //ASTNode_setRealWithExponent(n, -9e-5, -3);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "-9e-08"), NULL);
-  //StringBuffer_reset(sb);
+  ASTNode_setRealWithExponent(n, -9e-5, 3);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "-0.09"), NULL);
+  StringBuffer_reset(sb);
 
 
   ASTNode_setRealWithExponent(n, 9e-4, -3);
@@ -1003,11 +1003,11 @@ START_TEST(test_FormulaFormatter_formatENotation)
   StringBuffer_reset(sb);
 
 
-  //ASTNode_setRealWithExponent(n, 1e-53, 13);
-  //FormulaFormatter_formatReal(sb, n);
-  //s = StringBuffer_getBuffer(sb);
-  //fail_unless(!strcmp(s, "1e-40"), NULL);
-  //StringBuffer_reset(sb);
+  ASTNode_setRealWithExponent(n, 1e-53, 51);
+  FormulaFormatter_formatReal(sb, n);
+  s = StringBuffer_getBuffer(sb);
+  fail_unless(!strcmp(s, "0.01"), NULL);
+  StringBuffer_reset(sb);
 
 
   StringBuffer_free(sb);
