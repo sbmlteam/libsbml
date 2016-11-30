@@ -1,70 +1,61 @@
 /**
- * @file:   SpatialExtension.cpp
- * @brief:  Implementation of the SpatialExtension class
- * @author: SBMLTeam
+ * @file SpatialExtension.cpp
+ * @brief Implementation of SpatialExtension.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/extension/SBMLExtensionRegister.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
 
-
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/extension/SpatialSBMLDocumentPlugin.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLErrorTable.h>
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialSpeciesPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialParameterPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialReactionPlugin.h>
-#include <sbml/packages/spatial/extension/SpatialSBMLDocumentPlugin.h>
-#include <sbml/packages/spatial/validator/SpatialSBMLErrorTable.h>
 
 
-#ifdef __cplusplus
+using namespace std;
 
-
-#include <iostream>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/*---------------------------------------------------------------
- *
- * This block is global initialization code which should be automatically
- * executed before invoking main() block.
- *
- */
 
-/*------------------ (START) ----------------------------------*/
+
+#ifdef __cplusplus
+
 
 /*
  * Returns the package name of this extension.
@@ -340,535 +331,63 @@ SpatialExtension::getStringFromTypeCode(int typeCode) const
 }
 
 
-static
-const char * SBML_BOUNDARYCONDITIONKIND_STRINGS[] = 
-{
-   "Unknown BoundaryConditionKind"
- , "Robin_valueCoefficient"
- , "Robin_inwardNormalGradientCoefficient"
- , "Robin_sum"
- , "Neumann"
- , "Dirichlet"
-};
 
+  /** @cond doxygenLibsbmlInternal */
 
 /*
- * This method takes a type code from the BoundaryConditionKind enum and returns a string representing 
+ * Return error table entry. 
  */
-LIBSBML_EXTERN
-const char *
-BoundaryConditionKind_toString(BoundaryConditionKind_t typeCode)
+packageErrorTableEntry
+SpatialExtension::getErrorTable(unsigned int index) const
 {
-  int min = BOUNDARYCONDITIONKIND_UNKNOWN;
-  int max = SPATIAL_BOUNDARYKIND_DIRICHLET;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown BoundaryConditionKind value)";
-  }
-
-  return SBML_BOUNDARYCONDITIONKIND_STRINGS[typeCode - min];
+  return spatialErrorTable[index];
 }
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
- * This method takes a string and tries to find a BoundaryConditionKind code to match it
+ * Return error table index for this id. 
  */
-LIBSBML_EXTERN
-BoundaryConditionKind_t
-BoundaryConditionKind_parse(const char* code)
+unsigned int
+SpatialExtension::getErrorTableIndex(unsigned int errorId) const
 {
-  static const int size = sizeof(SBML_BOUNDARYCONDITIONKIND_STRINGS) / sizeof(SBML_BOUNDARYCONDITIONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
+  unsigned int tableSize = sizeof(spatialErrorTable)/sizeof(spatialErrorTable[0]);
+  unsigned int index = 0;
+
+  for(unsigned int i = 0; i < tableSize; i++)
   {
-    if (type == SBML_BOUNDARYCONDITIONKIND_STRINGS[i])
-      return (BoundaryConditionKind_t)i;
+    if (errorId == spatialErrorTable[i].code)
+    {
+      index = i;
+      break;
+    }
   }
-  return BOUNDARYCONDITIONKIND_UNKNOWN;
+
+  return index;
 }
 
+  /** @endcond doxygenLibsbmlInternal */
 
-static
-const char * SBML_COORDINATEKIND_STRINGS[] = 
-{
-   "Unknown CoordinateKind"
- , "cartesianX"
- , "cartesianY"
- , "cartesianZ"
-};
 
+  /** @cond doxygenLibsbmlInternal */
 
 /*
- * This method takes a type code from the CoordinateKind enum and returns a string representing 
+ * Return error offset. 
  */
-LIBSBML_EXTERN
-const char *
-CoordinateKind_toString(CoordinateKind_t typeCode)
+unsigned int
+SpatialExtension::getErrorIdOffset() const
 {
-  int min = COORDINATEKIND_UNKNOWN;
-  int max = SPATIAL_COORDINATEKIND_CARTESIAN_Z;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown CoordinateKind value)";
-  }
-
-  return SBML_COORDINATEKIND_STRINGS[typeCode - min];
+  return 1200000;
 }
 
+/** @endcond */
 
-/*
- * This method takes a string and tries to find a CoordinateKind code to match it
- */
-LIBSBML_EXTERN
-CoordinateKind_t
-CoordinateKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_COORDINATEKIND_STRINGS) / sizeof(SBML_COORDINATEKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_COORDINATEKIND_STRINGS[i])
-      return (CoordinateKind_t)i;
-  }
-  return COORDINATEKIND_UNKNOWN;
-}
 
 
-static
-const char * SBML_DIFFUSIONKIND_STRINGS[] = 
-{
-   "Unknown DiffusionKind"
- , "isotropic"
- , "anisotropic"
- , "tensor"
-};
-
-
-/*
- * This method takes a type code from the DiffusionKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-DiffusionKind_toString(DiffusionKind_t typeCode)
-{
-  int min = DIFFUSIONKIND_UNKNOWN;
-  int max = SPATIAL_DIFFUSIONKIND_TENSOR;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown DiffusionKind value)";
-  }
-
-  return SBML_DIFFUSIONKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a DiffusionKind code to match it
- */
-LIBSBML_EXTERN
-DiffusionKind_t
-DiffusionKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_DIFFUSIONKIND_STRINGS) / sizeof(SBML_DIFFUSIONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_DIFFUSIONKIND_STRINGS[i])
-      return (DiffusionKind_t)i;
-  }
-  return DIFFUSIONKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_FUNCTIONKIND_STRINGS[] = 
-{
-   "Unknown FunctionKind"
- , "layered"
-};
-
-
-/*
- * This method takes a type code from the FunctionKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-FunctionKind_toString(FunctionKind_t typeCode)
-{
-  int min = FUNCTIONKIND_UNKNOWN;
-  int max = SPATIAL_FUNCTIONKIND_LAYERED;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown FunctionKind value)";
-  }
-
-  return SBML_FUNCTIONKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a FunctionKind code to match it
- */
-LIBSBML_EXTERN
-FunctionKind_t
-FunctionKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_FUNCTIONKIND_STRINGS) / sizeof(SBML_FUNCTIONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_FUNCTIONKIND_STRINGS[i])
-      return (FunctionKind_t)i;
-  }
-  return FUNCTIONKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_GEOMETRYKIND_STRINGS[] = 
-{
-   "Unknown GeometryKind"
- , "cartesian"
-};
-
-
-/*
- * This method takes a type code from the GeometryKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-GeometryKind_toString(GeometryKind_t typeCode)
-{
-  int min = GEOMETRYKIND_UNKNOWN;
-  int max = SPATIAL_GEOMETRYKIND_CARTESIAN;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown GeometryKind value)";
-  }
-
-  return SBML_GEOMETRYKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a GeometryKind code to match it
- */
-LIBSBML_EXTERN
-GeometryKind_t
-GeometryKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_GEOMETRYKIND_STRINGS) / sizeof(SBML_GEOMETRYKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_GEOMETRYKIND_STRINGS[i])
-      return (GeometryKind_t)i;
-  }
-  return GEOMETRYKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_SETOPERATION_STRINGS[] = 
-{
-   "Unknown SetOperation"
- , "union"
- , "intersection"
- , "relativeComplement"
-};
-
-
-/*
- * This method takes a type code from the SetOperation enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-SetOperation_toString(SetOperation_t typeCode)
-{
-  int min = SETOPERATION_UNKNOWN;
-  int max = SPATIAL_SETOPERATION_RELATIVECOMPLEMENT;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown SetOperation value)";
-  }
-
-  return SBML_SETOPERATION_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a SetOperation code to match it
- */
-LIBSBML_EXTERN
-SetOperation_t
-SetOperation_parse(const char* code)
-{
-  static const int size = sizeof(SBML_SETOPERATION_STRINGS) / sizeof(SBML_SETOPERATION_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_SETOPERATION_STRINGS[i])
-      return (SetOperation_t)i;
-  }
-  return SETOPERATION_UNKNOWN;
-}
-
-
-static
-const char * SBML_INTERPOLATIONKIND_STRINGS[] = 
-{
-   "Unknown InterpolationKind"
- , "nearestNeighbor"
- , "linear"
-};
-
-
-/*
- * This method takes a type code from the InterpolationKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-InterpolationKind_toString(InterpolationKind_t typeCode)
-{
-  int min = INTERPOLATIONKIND_UNKNOWN;
-  int max = SPATIAL_INTERPOLATIONKIND_LINEAR;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown InterpolationKind value)";
-  }
-
-  return SBML_INTERPOLATIONKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a InterpolationKind code to match it
- */
-LIBSBML_EXTERN
-InterpolationKind_t
-InterpolationKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_INTERPOLATIONKIND_STRINGS) / sizeof(SBML_INTERPOLATIONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_INTERPOLATIONKIND_STRINGS[i])
-      return (InterpolationKind_t)i;
-  }
-  return INTERPOLATIONKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_POLYGONKIND_STRINGS[] = 
-{
-   "Unknown PolygonKind"
- , "triangle"
- , "quadrilateral"
-};
-
-
-/*
- * This method takes a type code from the PolygonKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-PolygonKind_toString(PolygonKind_t typeCode)
-{
-  int min = POLYGONKIND_UNKNOWN;
-  int max = SPATIAL_POLYGONKIND_QUADRILATERAL;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown PolygonKind value)";
-  }
-
-  return SBML_POLYGONKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a PolygonKind code to match it
- */
-LIBSBML_EXTERN
-PolygonKind_t
-PolygonKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_POLYGONKIND_STRINGS) / sizeof(SBML_POLYGONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_POLYGONKIND_STRINGS[i])
-      return (PolygonKind_t)i;
-  }
-  return POLYGONKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_PRIMITIVEKIND_STRINGS[] = 
-{
-   "Unknown PrimitiveKind"
- , "sphere"
- , "cube"
- , "cylinder"
- , "cone"
- , "circle"
- , "square"
- , "rightTriangle"
-};
-
-
-/*
- * This method takes a type code from the PrimitiveKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-PrimitiveKind_toString(PrimitiveKind_t typeCode)
-{
-  int min = PRIMITIVEKIND_UNKNOWN;
-  int max = SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown PrimitiveKind value)";
-  }
-
-  return SBML_PRIMITIVEKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a PrimitiveKind code to match it
- */
-LIBSBML_EXTERN
-PrimitiveKind_t
-PrimitiveKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_PRIMITIVEKIND_STRINGS) / sizeof(SBML_PRIMITIVEKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_PRIMITIVEKIND_STRINGS[i])
-      return (PrimitiveKind_t)i;
-  }
-  return PRIMITIVEKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_DATAKIND_STRINGS[] = 
-{
-   "Unknown DataKind"
- , "double"
- , "float"
- , "uint8"
- , "uint16"
- , "uint32"
-};
-
-
-/*
- * This method takes a type code from the DataKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-DataKind_toString(DataKind_t typeCode)
-{
-  int min = DATAKIND_UNKNOWN;
-  int max = SPATIAL_DATAKIND_UINT32;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown DataKind value)";
-  }
-
-  return SBML_DATAKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a DataKind code to match it
- */
-LIBSBML_EXTERN
-DataKind_t
-DataKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_DATAKIND_STRINGS) / sizeof(SBML_DATAKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_DATAKIND_STRINGS[i])
-      return (DataKind_t)i;
-  }
-  return DATAKIND_UNKNOWN;
-}
-
-
-static
-const char * SBML_COMPRESSIONKIND_STRINGS[] = 
-{
-   "Unknown CompressionKind"
- , "uncompressed"
- , "deflated"
-};
-
-
-/*
- * This method takes a type code from the CompressionKind enum and returns a string representing 
- */
-LIBSBML_EXTERN
-const char *
-CompressionKind_toString(CompressionKind_t typeCode)
-{
-  int min = COMPRESSIONKIND_UNKNOWN;
-  int max = SPATIAL_COMPRESSIONKIND_DEFLATED;
-
-  if ( typeCode < min || typeCode > max)
-  {
-    return "(Unknown CompressionKind value)";
-  }
-
-  return SBML_COMPRESSIONKIND_STRINGS[typeCode - min];
-}
-
-
-/*
- * This method takes a string and tries to find a CompressionKind code to match it
- */
-LIBSBML_EXTERN
-CompressionKind_t
-CompressionKind_parse(const char* code)
-{
-  static const int size = sizeof(SBML_COMPRESSIONKIND_STRINGS) / sizeof(SBML_COMPRESSIONKIND_STRINGS[0]);
-  unsigned int i;
-  std::string type(code);
-  for (i = 0; i < size; ++i)
-  {
-    if (type == SBML_COMPRESSIONKIND_STRINGS[i])
-      return (CompressionKind_t)i;
-  }
-  return COMPRESSIONKIND_UNKNOWN;
-}
-
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Initialization function of spatial extension module which is automatically invoked
  * by SBMLExtensionRegister class before main() function invoked. 
@@ -947,66 +466,952 @@ SpatialExtension::init()
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+
+
+
+#endif /* __cplusplus */
+static
+const char * SBML_BOUNDARYCONDITIONKIND_STRINGS[] = 
+{
+   "Unknown BoundaryConditionKind"
+ , "Robin_valueCoefficient"
+ , "Robin_inwardNormalGradientCoefficient"
+ , "Robin_sum"
+ , "Neumann"
+ , "Dirichlet"
+};
+
 
 /*
- * Return error table entry. 
+ * This method takes a type code from the BoundaryConditionKind enum and returns a string representing 
  */
-packageErrorTableEntry
-SpatialExtension::getErrorTable(unsigned int index) const
+LIBSBML_EXTERN
+const char *
+BoundaryConditionKind_toString(BoundaryConditionKind_t typeCode)
 {
-  return spatialErrorTable[index];
-}
+  int min = BOUNDARYCONDITIONKIND_UNKNOWN;
+  int max = SPATIAL_BOUNDARYKIND_DIRICHLET;
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Return error table index for this id. 
- */
-unsigned int
-SpatialExtension::getErrorTableIndex(unsigned int errorId) const
-{
-  unsigned int tableSize = sizeof(spatialErrorTable)/sizeof(spatialErrorTable[0]);
-  unsigned int index = 0;
-
-  for(unsigned int i = 0; i < tableSize; i++)
+  if ( typeCode < min || typeCode > max)
   {
-    if (errorId == spatialErrorTable[i].code)
-    {
-      index = i;
-      break;
-    }
-
+    return "(Unknown BoundaryConditionKind value)";
   }
 
-  return index;
+  return SBML_BOUNDARYCONDITIONKIND_STRINGS[typeCode - min];
 }
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error offset. 
+ * This method takes a string and tries to find a BoundaryConditionKind code to match it
  */
-unsigned int
-SpatialExtension::getErrorIdOffset() const
+LIBSBML_EXTERN
+BoundaryConditionKind_t
+BoundaryConditionKind_parse(const char* code)
 {
-  return 1200000;
+  static const int size = sizeof(SBML_BOUNDARYCONDITIONKIND_STRINGS) / sizeof(SBML_BOUNDARYCONDITIONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_BOUNDARYCONDITIONKIND_STRINGS[i])
+      return (BoundaryConditionKind_t)i;
+  }
+  return BOUNDARYCONDITIONKIND_UNKNOWN;
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+BoundaryConditionKind_t
+BoundaryConditionKind_fromString(const char* code)
+{
+  return BoundaryConditionKind_parse(code);
+}
+
+
+LIBSBML_EXTERN
+int
+BoundaryConditionKind_isValid(BoundaryConditionKind_t bck)
+{
+  int min = BOUNDARYCONDITIONKIND_UNKNOWN;
+  int max = SPATIAL_BOUNDARYKIND_DIRICHLET;
+
+  if (bck <= min || bck > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+BoundaryConditionKind_isValidString(const char* code)
+{
+  return BoundaryConditionKind_isValid(BoundaryConditionKind_fromString(code));
+}
+static
+const char * SBML_COORDINATEKIND_STRINGS[] = 
+{
+   "Unknown CoordinateKind"
+ , "cartesianX"
+ , "cartesianY"
+ , "cartesianZ"
+};
+
+
+/*
+ * This method takes a type code from the CoordinateKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+CoordinateKind_toString(CoordinateKind_t typeCode)
+{
+  int min = COORDINATEKIND_UNKNOWN;
+  int max = SPATIAL_COORDINATEKIND_CARTESIAN_Z;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown CoordinateKind value)";
+  }
+
+  return SBML_COORDINATEKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a CoordinateKind code to match it
+ */
+LIBSBML_EXTERN
+CoordinateKind_t
+CoordinateKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_COORDINATEKIND_STRINGS) / sizeof(SBML_COORDINATEKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_COORDINATEKIND_STRINGS[i])
+      return (CoordinateKind_t)i;
+  }
+  return COORDINATEKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+CoordinateKind_t
+CoordinateKind_fromString(const char* code)
+{
+  return CoordinateKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+CoordinateKind_isValid(CoordinateKind_t ck)
+{
+  int min = COORDINATEKIND_UNKNOWN;
+  int max = SPATIAL_COORDINATEKIND_CARTESIAN_Z;
+
+  if (ck <= min || ck > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+CoordinateKind_isValidString(const char* code)
+{
+  return CoordinateKind_isValid(CoordinateKind_fromString(code));
+}
+
+
+static
+const char * SBML_DIFFUSIONKIND_STRINGS[] = 
+{
+   "Unknown DiffusionKind"
+ , "isotropic"
+ , "anisotropic"
+ , "tensor"
+};
+
+
+/*
+ * This method takes a type code from the DiffusionKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+DiffusionKind_toString(DiffusionKind_t typeCode)
+{
+  int min = DIFFUSIONKIND_UNKNOWN;
+  int max = SPATIAL_DIFFUSIONKIND_TENSOR;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown DiffusionKind value)";
+  }
+
+  return SBML_DIFFUSIONKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a DiffusionKind code to match it
+ */
+LIBSBML_EXTERN
+DiffusionKind_t
+DiffusionKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_DIFFUSIONKIND_STRINGS) / sizeof(SBML_DIFFUSIONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_DIFFUSIONKIND_STRINGS[i])
+      return (DiffusionKind_t)i;
+  }
+  return DIFFUSIONKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+DiffusionKind_t
+DiffusionKind_fromString(const char* code)
+{
+  return DiffusionKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+DiffusionKind_isValid(DiffusionKind_t dk)
+{
+  int min = DIFFUSIONKIND_UNKNOWN;
+  int max = SPATIAL_DIFFUSIONKIND_TENSOR;
+
+  if (dk <= min || dk > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+DiffusionKind_isValidString(const char* code)
+{
+  return DiffusionKind_isValid(DiffusionKind_fromString(code));
+}
+
+
+static
+const char * SBML_FUNCTIONKIND_STRINGS[] = 
+{
+   "Unknown FunctionKind"
+ , "layered"
+};
+
+
+/*
+ * This method takes a type code from the FunctionKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+FunctionKind_toString(FunctionKind_t typeCode)
+{
+  int min = FUNCTIONKIND_UNKNOWN;
+  int max = SPATIAL_FUNCTIONKIND_LAYERED;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown FunctionKind value)";
+  }
+
+  return SBML_FUNCTIONKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a FunctionKind code to match it
+ */
+LIBSBML_EXTERN
+FunctionKind_t
+FunctionKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_FUNCTIONKIND_STRINGS) / sizeof(SBML_FUNCTIONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_FUNCTIONKIND_STRINGS[i])
+      return (FunctionKind_t)i;
+  }
+  return FUNCTIONKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+FunctionKind_t
+FunctionKind_fromString(const char* code)
+{
+  return FunctionKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+FunctionKind_isValid(FunctionKind_t fk)
+{
+  int min = FUNCTIONKIND_UNKNOWN;
+  int max = SPATIAL_FUNCTIONKIND_LAYERED;
+
+  if (fk <= min || fk > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+FunctionKind_isValidString(const char* code)
+{
+  return FunctionKind_isValid(FunctionKind_fromString(code));
+}
+static
+const char * SBML_GEOMETRYKIND_STRINGS[] = 
+{
+   "Unknown GeometryKind"
+ , "cartesian"
+};
+
+
+/*
+ * This method takes a type code from the GeometryKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+GeometryKind_toString(GeometryKind_t typeCode)
+{
+  int min = GEOMETRYKIND_UNKNOWN;
+  int max = SPATIAL_GEOMETRYKIND_CARTESIAN;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown GeometryKind value)";
+  }
+
+  return SBML_GEOMETRYKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a GeometryKind code to match it
+ */
+LIBSBML_EXTERN
+GeometryKind_t
+GeometryKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_GEOMETRYKIND_STRINGS) / sizeof(SBML_GEOMETRYKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_GEOMETRYKIND_STRINGS[i])
+      return (GeometryKind_t)i;
+  }
+  return GEOMETRYKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+GeometryKind_t
+GeometryKind_fromString(const char* code)
+{
+  return GeometryKind_parse(code);
+}
+
+
+LIBSBML_EXTERN
+int
+GeometryKind_isValid(GeometryKind_t gk)
+{
+  int min = GEOMETRYKIND_UNKNOWN;
+  int max = SPATIAL_GEOMETRYKIND_CARTESIAN;
+
+  if (gk <= min || gk > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+GeometryKind_isValidString(const char* code)
+{
+  return GeometryKind_isValid(GeometryKind_fromString(code));
+}
+
+
+static
+const char * SBML_SETOPERATION_STRINGS[] = 
+{
+   "Unknown SetOperation"
+ , "union"
+ , "intersection"
+ , "relativeComplement"
+};
+
+
+/*
+ * This method takes a type code from the SetOperation enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+SetOperation_toString(SetOperation_t typeCode)
+{
+  int min = SETOPERATION_UNKNOWN;
+  int max = SPATIAL_SETOPERATION_RELATIVECOMPLEMENT;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown SetOperation value)";
+  }
+
+  return SBML_SETOPERATION_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a SetOperation code to match it
+ */
+LIBSBML_EXTERN
+SetOperation_t
+SetOperation_parse(const char* code)
+{
+  static const int size = sizeof(SBML_SETOPERATION_STRINGS) / sizeof(SBML_SETOPERATION_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_SETOPERATION_STRINGS[i])
+      return (SetOperation_t)i;
+  }
+  return SETOPERATION_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+SetOperation_t
+SetOperation_fromString(const char* code)
+{
+  return SetOperation_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+SetOperation_isValid(SetOperation_t so)
+{
+  int min = SETOPERATION_UNKNOWN;
+  int max = SPATIAL_SETOPERATION_RELATIVECOMPLEMENT;
+
+  if (so <= min || so > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+SetOperation_isValidString(const char* code)
+{
+  return SetOperation_isValid(SetOperation_fromString(code));
+}
+
+
+static
+const char * SBML_INTERPOLATIONKIND_STRINGS[] = 
+{
+   "Unknown InterpolationKind"
+ , "nearestNeighbor"
+ , "linear"
+};
+
+
+/*
+ * This method takes a type code from the InterpolationKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+InterpolationKind_toString(InterpolationKind_t typeCode)
+{
+  int min = INTERPOLATIONKIND_UNKNOWN;
+  int max = SPATIAL_INTERPOLATIONKIND_LINEAR;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown InterpolationKind value)";
+  }
+
+  return SBML_INTERPOLATIONKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a InterpolationKind code to match it
+ */
+LIBSBML_EXTERN
+InterpolationKind_t
+InterpolationKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_INTERPOLATIONKIND_STRINGS) / sizeof(SBML_INTERPOLATIONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_INTERPOLATIONKIND_STRINGS[i])
+      return (InterpolationKind_t)i;
+  }
+  return INTERPOLATIONKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+InterpolationKind_t
+InterpolationKind_fromString(const char* code)
+{
+  return InterpolationKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+InterpolationKind_isValid(InterpolationKind_t ik)
+{
+  int min = INTERPOLATIONKIND_UNKNOWN;
+  int max = SPATIAL_INTERPOLATIONKIND_LINEAR;
+
+  if (ik <= min || ik > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+InterpolationKind_isValidString(const char* code)
+{
+  return InterpolationKind_isValid(InterpolationKind_fromString(code));
+}
+
+
+static
+const char * SBML_POLYGONKIND_STRINGS[] = 
+{
+   "Unknown PolygonKind"
+ , "triangle"
+ , "quadrilateral"
+};
+
+
+/*
+ * This method takes a type code from the PolygonKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+PolygonKind_toString(PolygonKind_t typeCode)
+{
+  int min = POLYGONKIND_UNKNOWN;
+  int max = SPATIAL_POLYGONKIND_QUADRILATERAL;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown PolygonKind value)";
+  }
+
+  return SBML_POLYGONKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a PolygonKind code to match it
+ */
+LIBSBML_EXTERN
+PolygonKind_t
+PolygonKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_POLYGONKIND_STRINGS) / sizeof(SBML_POLYGONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_POLYGONKIND_STRINGS[i])
+      return (PolygonKind_t)i;
+  }
+  return POLYGONKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+PolygonKind_t
+PolygonKind_fromString(const char* code)
+{
+  return PolygonKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+PolygonKind_isValid(PolygonKind_t pk)
+{
+  int min = POLYGONKIND_UNKNOWN;
+  int max = SPATIAL_POLYGONKIND_QUADRILATERAL;
+
+  if (pk <= min || pk > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+PolygonKind_isValidString(const char* code)
+{
+  return PolygonKind_isValid(PolygonKind_fromString(code));
+}
+
+
+static
+const char * SBML_PRIMITIVEKIND_STRINGS[] = 
+{
+   "Unknown PrimitiveKind"
+ , "sphere"
+ , "cube"
+ , "cylinder"
+ , "cone"
+ , "circle"
+ , "square"
+ , "rightTriangle"
+};
+
+
+/*
+ * This method takes a type code from the PrimitiveKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+PrimitiveKind_toString(PrimitiveKind_t typeCode)
+{
+  int min = PRIMITIVEKIND_UNKNOWN;
+  int max = SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown PrimitiveKind value)";
+  }
+
+  return SBML_PRIMITIVEKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a PrimitiveKind code to match it
+ */
+LIBSBML_EXTERN
+PrimitiveKind_t
+PrimitiveKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_PRIMITIVEKIND_STRINGS) / sizeof(SBML_PRIMITIVEKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_PRIMITIVEKIND_STRINGS[i])
+      return (PrimitiveKind_t)i;
+  }
+  return PRIMITIVEKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+PrimitiveKind_t
+PrimitiveKind_fromString(const char* code)
+{
+  return PrimitiveKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+PrimitiveKind_isValid(PrimitiveKind_t pk)
+{
+  int min = PRIMITIVEKIND_UNKNOWN;
+  int max = SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE;
+
+  if (pk < min || pk >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+PrimitiveKind_isValidString(const char* code)
+{
+  return PrimitiveKind_isValid(PrimitiveKind_fromString(code));
+}
+
+
+static
+const char * SBML_DATAKIND_STRINGS[] = 
+{
+   "Unknown DataKind"
+ , "double"
+ , "float"
+ , "uint8"
+ , "uint16"
+ , "uint32"
+};
+
+
+/*
+ * This method takes a type code from the DataKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+DataKind_toString(DataKind_t typeCode)
+{
+  int min = DATAKIND_UNKNOWN;
+  int max = SPATIAL_DATAKIND_UINT32;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown DataKind value)";
+  }
+
+  return SBML_DATAKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a DataKind code to match it
+ */
+LIBSBML_EXTERN
+DataKind_t
+DataKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_DATAKIND_STRINGS) / sizeof(SBML_DATAKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_DATAKIND_STRINGS[i])
+      return (DataKind_t)i;
+  }
+  return DATAKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+DataKind_t
+DataKind_fromString(const char* code)
+{
+  return DataKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+DataKind_isValid(DataKind_t dk)
+{
+  int min = DATAKIND_UNKNOWN;
+  int max = SPATIAL_DATAKIND_UINT32;
+
+  if (dk <= min || dk > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+DataKind_isValidString(const char* code)
+{
+  return DataKind_isValid(DataKind_fromString(code));
+}
+
+
+static
+const char * SBML_COMPRESSIONKIND_STRINGS[] = 
+{
+   "Unknown CompressionKind"
+ , "uncompressed"
+ , "deflated"
+};
+
+
+/*
+ * This method takes a type code from the CompressionKind enum and returns a string representing 
+ */
+LIBSBML_EXTERN
+const char *
+CompressionKind_toString(CompressionKind_t typeCode)
+{
+  int min = COMPRESSIONKIND_UNKNOWN;
+  int max = SPATIAL_COMPRESSIONKIND_DEFLATED;
+
+  if ( typeCode < min || typeCode > max)
+  {
+    return "(Unknown CompressionKind value)";
+  }
+
+  return SBML_COMPRESSIONKIND_STRINGS[typeCode - min];
+}
+
+
+/*
+ * This method takes a string and tries to find a CompressionKind code to match it
+ */
+LIBSBML_EXTERN
+CompressionKind_t
+CompressionKind_parse(const char* code)
+{
+  static const int size = sizeof(SBML_COMPRESSIONKIND_STRINGS) / sizeof(SBML_COMPRESSIONKIND_STRINGS[0]);
+  unsigned int i;
+  std::string type(code);
+  for (i = 0; i < size; ++i)
+  {
+    if (type == SBML_COMPRESSIONKIND_STRINGS[i])
+      return (CompressionKind_t)i;
+  }
+  return COMPRESSIONKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+CompressionKind_t
+CompressionKind_fromString(const char* code)
+{
+  return CompressionKind_parse(code);
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+CompressionKind_isValid(CompressionKind_t ck)
+{
+  int min = COMPRESSIONKIND_UNKNOWN;
+  int max = SPATIAL_COMPRESSIONKIND_DEFLATED;
+
+  if (ck <= min || ck > max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ */
+LIBSBML_EXTERN
+int
+CompressionKind_isValidString(const char* code)
+{
+  return CompressionKind_isValid(CompressionKind_fromString(code));
+}
 
 
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
-#endif /* __cplusplus */
 
 

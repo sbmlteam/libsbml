@@ -1,37 +1,35 @@
 /**
- * @file:   CSGeometry.cpp
- * @brief:  Implementation of the CSGeometry class
- * @author: SBMLTeam
+ * @file CSGeometry.cpp
+ * @brief Implementation of the CSGeometry class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/CSGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
@@ -40,38 +38,40 @@
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/*
- * Creates a new CSGeometry with the given level, version, and package version.
- */
-CSGeometry::CSGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-  : GeometryDefinition(level, version)
-  , mCsgObjects (level, version, pkgVersion)
-{
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 
-  // connect to child objects
+
+#ifdef __cplusplus
+
+
+/*
+ * Creates a new CSGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
+CSGeometry::CSGeometry(unsigned int level,
+                       unsigned int version,
+                       unsigned int pkgVersion)
+  : GeometryDefinition(level, version)
+  , mCSGObjects (level, version, pkgVersion)
+{
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new CSGeometry with the given SpatialPkgNamespaces object.
+ * Creates a new CSGeometry using the given SpatialPkgNamespaces object.
  */
-CSGeometry::CSGeometry (SpatialPkgNamespaces* spatialns)
+CSGeometry::CSGeometry(SpatialPkgNamespaces *spatialns)
   : GeometryDefinition(spatialns)
-  , mCsgObjects (spatialns)
+  , mCSGObjects (spatialns)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -79,17 +79,16 @@ CSGeometry::CSGeometry (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for CSGeometry.
  */
-CSGeometry::CSGeometry (const CSGeometry& orig)
-  : GeometryDefinition(orig)
-  , mCsgObjects  ( orig.mCsgObjects)
+CSGeometry::CSGeometry(const CSGeometry& orig)
+  : GeometryDefinition( orig )
+  , mCSGObjects ( orig.mCSGObjects )
 {
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for CSGeometry.
+ * Assignment operator for CSGeometry.
  */
 CSGeometry&
 CSGeometry::operator=(const CSGeometry& rhs)
@@ -97,20 +96,19 @@ CSGeometry::operator=(const CSGeometry& rhs)
   if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
-    mCsgObjects  = rhs.mCsgObjects;
-
-    // connect to child objects
+    mCSGObjects = rhs.mCSGObjects;
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for CSGeometry.
+ * Creates and returns a deep copy of this CSGeometry object.
  */
 CSGeometry*
-CSGeometry::clone () const
+CSGeometry::clone() const
 {
   return new CSGeometry(*this);
 }
@@ -119,111 +117,108 @@ CSGeometry::clone () const
 /*
  * Destructor for CSGeometry.
  */
-CSGeometry::~CSGeometry ()
+CSGeometry::~CSGeometry()
 {
 }
 
 
 /*
- * Returns the  "ListOfCSGObjects" in this CSGeometry object.
+ * Returns the ListOfCSGObjects from this CSGeometry.
  */
 const ListOfCSGObjects*
-CSGeometry::getListOfCsgObjects() const
+CSGeometry::getListOfCSGObjects() const
 {
-  return &mCsgObjects;
+  return &mCSGObjects;
 }
 
 
 /*
- * Returns the  "ListOfCSGObjects" in this CSGeometry object.
+ * Returns the ListOfCSGObjects from this CSGeometry.
  */
 ListOfCSGObjects*
-CSGeometry::getListOfCsgObjects()
+CSGeometry::getListOfCSGObjects()
 {
-  return &mCsgObjects;
+  return &mCSGObjects;
 }
 
 
 /*
- * Removes the nth CsgObject from the ListOfCSGObjects.
+ * Get a CSGObject from the CSGeometry.
  */
 CSGObject*
-CSGeometry::removeCsgObject(unsigned int n)
+CSGeometry::getCSGObject(unsigned int n)
 {
-	return mCsgObjects.remove(n);
+  return mCSGObjects.get(n);
 }
 
 
 /*
- * Removes the a CsgObject with given id from the ListOfCSGObjects.
- */
-CSGObject*
-CSGeometry::removeCsgObject(const std::string& sid)
-{
-	return mCsgObjects.remove(sid);
-}
-
-
-/*
- * Return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
- */
-CSGObject*
-CSGeometry::getCsgObject(unsigned int n)
-{
-	return mCsgObjects.get(n);
-}
-
-
-/*
- * Return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
+ * Get a CSGObject from the CSGeometry.
  */
 const CSGObject*
-CSGeometry::getCsgObject(unsigned int n) const
+CSGeometry::getCSGObject(unsigned int n) const
 {
-	return mCsgObjects.get(n);
+  return mCSGObjects.get(n);
 }
 
 
 /*
- * Return a CsgObject from the ListOfCSGObjects by id.
+ * Get a CSGObject from the CSGeometry based on its identifier.
  */
 CSGObject*
-CSGeometry::getCsgObject(const std::string& sid)
+CSGeometry::getCSGObject(const std::string& sid)
 {
-	return mCsgObjects.get(sid);
+  return mCSGObjects.get(sid);
 }
 
 
 /*
- * Return a CsgObject from the ListOfCSGObjects by id.
+ * Get a CSGObject from the CSGeometry based on its identifier.
  */
 const CSGObject*
-CSGeometry::getCsgObject(const std::string& sid) const
+CSGeometry::getCSGObject(const std::string& sid) const
 {
-	return mCsgObjects.get(sid);
+  return mCSGObjects.get(sid);
 }
 
 
 /*
- * Adds a copy the given "CSGObject" to this CSGeometry.
- *
- * @param csgo; the CSGObject object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Get a CSGObject from the CSGeometry based on the DomainType to which it
+ * refers.
+ */
+const CSGObject*
+CSGeometry::getCSGObjectByDomainType(const std::string& sid) const
+{
+  return mCSGObjects.getByDomainType(sid);
+}
+
+
+/*
+ * Get a CSGObject from the CSGeometry based on the DomainType to which it
+ * refers.
+ */
+CSGObject*
+CSGeometry::getCSGObjectByDomainType(const std::string& sid)
+{
+  return mCSGObjects.getByDomainType(sid);
+}
+
+
+/*
+ * Adds a copy of the given CSGObject to this CSGeometry.
  */
 int
-CSGeometry::addCsgObject(const CSGObject* csgo)
+CSGeometry::addCSGObject(const CSGObject* csgo)
 {
   if (csgo == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
   else if (csgo->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (csgo->hasRequiredElements() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
@@ -235,40 +230,38 @@ CSGeometry::addCsgObject(const CSGObject* csgo)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(csgo)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(csgo)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
+  else if (csgo->isSetId() && (mCSGObjects.get(csgo->getId())) != NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
   else
   {
-    mCsgObjects.append(csgo);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mCSGObjects.append(csgo);
   }
 }
 
 
 /*
  * Get the number of CSGObject objects in this CSGeometry.
- *
- * @return the number of CSGObject objects in this CSGeometry
  */
 unsigned int
-CSGeometry::getNumCsgObjects() const
+CSGeometry::getNumCSGObjects() const
 {
-  return mCsgObjects.size();
+  return mCSGObjects.size();
 }
 
 
 /*
- * Creates a new CSGObject object, adds it to this CSGeometrys
- * CSGeometry and returns the CSGObject object created. 
- *
- * @return a new CSGObject object instance
- *
- * @see addCSGObject(const CSGObject* csgo)
+ * Creates a new CSGObject object, adds it to this CSGeometry object and
+ * returns the CSGObject object created.
  */
 CSGObject*
-CSGeometry::createCsgObject()
+CSGeometry::createCSGObject()
 {
   CSGObject* csgo = NULL;
 
@@ -280,62 +273,65 @@ CSGeometry::createCsgObject()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(csgo != NULL)
+  if (csgo != NULL)
   {
-    mCsgObjects.appendAndOwn(csgo);
+    mCSGObjects.appendAndOwn(csgo);
   }
 
   return csgo;
 }
 
 
-List*
-CSGeometry::getAllElements(ElementFilter* filter)
+/*
+ * Removes the nth CSGObject from this CSGeometry and returns a pointer to it.
+ */
+CSGObject*
+CSGeometry::removeCSGObject(unsigned int n)
 {
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mCsgObjects, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
+  return mCSGObjects.remove(n);
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Removes the CSGObject from this CSGeometry based on its identifier and
+ * returns a pointer to it.
+ */
+CSGObject*
+CSGeometry::removeCSGObject(const std::string& sid)
+{
+  return mCSGObjects.remove(sid);
+}
+
+
+/*
+ * Returns the XML element name of this CSGeometry object.
  */
 const std::string&
-CSGeometry::getElementName () const
+CSGeometry::getElementName() const
 {
-  static const string name = "csGeometry";
+  static const string name = "csgeometry";
   return name;
 }
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this CSGeometry object.
  */
 int
-CSGeometry::getTypeCode () const
+CSGeometry::getTypeCode() const
 {
   return SBML_SPATIAL_CSGEOMETRY;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * CSGeometry object have been set.
  */
 bool
-CSGeometry::hasRequiredAttributes () const
+CSGeometry::hasRequiredAttributes() const
 {
   bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
@@ -344,10 +340,11 @@ CSGeometry::hasRequiredAttributes () const
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this CSGeometry
+ * object have been set.
  */
 bool
-CSGeometry::hasRequiredElements () const
+CSGeometry::hasRequiredElements() const
 {
   bool allPresent = GeometryDefinition::hasRequiredElements();
 
@@ -355,225 +352,573 @@ CSGeometry::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-CSGeometry::writeElements (XMLOutputStream& stream) const
+CSGeometry::writeElements(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeElements(stream);
-  if (getNumCsgObjects() > 0)
+
+  if (getNumCSGObjects() > 0)
   {
-    mCsgObjects.write(stream);
+    mCSGObjects.write(stream);
   }
 
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-CSGeometry::accept (SBMLVisitor& v) const
+CSGeometry::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-/* VISIT CHILDREN */
+  mCSGObjects.accept(v);
 
   v.leave(*this);
-
   return true;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-CSGeometry::setSBMLDocument (SBMLDocument* d)
+CSGeometry::setSBMLDocument(SBMLDocument* d)
 {
   GeometryDefinition::setSBMLDocument(d);
-  mCsgObjects.setSBMLDocument(d);
+
+  mCSGObjects.setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
+ * Connects to child elements
  */
 void
 CSGeometry::connectToChild()
 {
   GeometryDefinition::connectToChild();
 
-  mCsgObjects.connectToParent(this);
+  mCSGObjects.connectToParent(this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 CSGeometry::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                  const std::string& pkgPrefix,
+                                  bool flag)
 {
   GeometryDefinition::enablePackageInternal(pkgURI, pkgPrefix, flag);
-  mCsgObjects.enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  mCSGObjects.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName,
+                         double& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName,
+                         unsigned int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName,
+                         std::string& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::getAttribute(const std::string& attributeName,
+                         const char* value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this CSGeometry's attribute "attributeName"
+ * is set.
+ */
+bool
+CSGeometry::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = GeometryDefinition::isSetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName,
+                         const std::string& value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this CSGeometry.
+ */
+int
+CSGeometry::unsetAttribute(const std::string& attributeName)
+{
+  int value = GeometryDefinition::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this CSGeometry.
+ */
+SBase*
+CSGeometry::createObject(const std::string& elementName)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "csgObject")
+  {
+    return createCSGObject();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+CSGeometry::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mCSGObjects.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+CSGeometry::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
 
+  SBase* obj = NULL;
 
-  /** @cond doxygenLibsbmlInternal */
+  if (mCSGObjects.getMetaId() == metaid)
+  {
+    return &mCSGObjects;
+  }
+
+  obj = mCSGObjects.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
 
 /*
- * creates object.
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+CSGeometry::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mCSGObjects, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 CSGeometry::createObject(XMLInputStream& stream)
 {
-  SBase* object = GeometryDefinition::createObject(stream);
+  SBase* obj = GeometryDefinition::createObject(stream);
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   if (name == "listOfCSGObjects")
   {
-    object = &mCsgObjects;
+    if (mCSGObjects.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCSGeometryAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
+    }
+
+    obj = &mCSGObjects;
   }
 
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 CSGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   GeometryDefinition::addExpectedAttributes(attributes);
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-CSGeometry::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+CSGeometry::readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+        version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial", SpatialCSGeometryAllowedCoreAttributes,
+        pkgVersion, level, version, details);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-CSGeometry::writeAttributes (XMLOutputStream& stream) const
+void
+CSGeometry::writeAttributes(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeAttributes(stream);
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new CSGeometry_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 CSGeometry_t *
-CSGeometry_create(unsigned int level, unsigned int version,
+CSGeometry_create(unsigned int level,
+                  unsigned int version,
                   unsigned int pkgVersion)
 {
   return new CSGeometry(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this CSGeometry_t object.
+ */
 LIBSBML_EXTERN
-void
-CSGeometry_free(CSGeometry_t * csg)
-{
-  if (csg != NULL)
-    delete csg;
-}
-
-
-LIBSBML_EXTERN
-CSGeometry_t *
-CSGeometry_clone(CSGeometry_t * csg)
+CSGeometry_t*
+CSGeometry_clone(const CSGeometry_t* csg)
 {
   if (csg != NULL)
   {
@@ -586,62 +931,128 @@ CSGeometry_clone(CSGeometry_t * csg)
 }
 
 
+/*
+ * Frees this CSGeometry_t object.
+ */
+LIBSBML_EXTERN
+void
+CSGeometry_free(CSGeometry_t* csg)
+{
+  if (csg != NULL)
+  {
+    delete csg;
+  }
+}
+
+
+/*
+ * Returns a ListOf_t* containing CSGObject_t objects from this CSGeometry_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+CSGeometry_getListOfCSGObjects(CSGeometry_t* csg)
+{
+  return (csg != NULL) ? csg->getListOfCSGObjects() : NULL;
+}
+
+
+/*
+ * Get a CSGObject_t from the CSGeometry_t.
+ */
+LIBSBML_EXTERN
+const CSGObject_t*
+CSGeometry_getCSGObject(CSGeometry_t* csg, unsigned int n)
+{
+  return (csg != NULL) ? csg->getCSGObject(n) : NULL;
+}
+
+
+/*
+ * Get a CSGObject_t from the CSGeometry_t based on its identifier.
+ */
+LIBSBML_EXTERN
+const CSGObject_t*
+CSGeometry_getCSGObjectById(CSGeometry_t* csg, const char *sid)
+{
+  return (csg != NULL && sid != NULL) ? csg->getCSGObject(sid) : NULL;
+}
+
+
+/*
+ * Get a CSGObject_t from the CSGeometry_t based on the DomainType to which it
+ * refers.
+ */
+LIBSBML_EXTERN
+const CSGObject_t*
+CSGeometry_getCSGObjectByDomainType(CSGeometry_t* csg, const char *sid)
+{
+  return (csg != NULL && sid != NULL) ? csg->getCSGObjectByDomainType(sid) :
+    NULL;
+}
+
+
+/*
+ * Adds a copy of the given CSGObject_t to this CSGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-CSGeometry_addCsgObject(CSGeometry_t * csg, CSGObject_t * csgo)
+CSGeometry_addCSGObject(CSGeometry_t* csg, const CSGObject_t* csgo)
 {
-	return  (csg != NULL) ? csg->addCsgObject(csgo) : LIBSBML_INVALID_OBJECT;
+  return (csg != NULL) ? csg->addCSGObject(csgo) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-CSGObject_t *
-CSGeometry_createCsgObject(CSGeometry_t * csg)
-{
-	return  (csg != NULL) ? csg->createCsgObject() : NULL;
-}
 
-LIBSBML_EXTERN
-ListOf_t *
-CSGeometry_getListOfCSGObjects(CSGeometry_t * csg)
-{
-	return  (csg != NULL) ? (ListOf_t *)csg->getListOfCsgObjects() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGObject_t *
-CSGeometry_getCsgObject(CSGeometry_t * csg, unsigned int n)
-{
-	return  (csg != NULL) ? csg->getCsgObject(n) : NULL;
-}
-
-LIBSBML_EXTERN
-CSGObject_t *
-CSGeometry_getCsgObjectById(CSGeometry_t * csg, const char * sid)
-{
-	return  (csg != NULL) ? csg->getCsgObject(sid) : NULL;
-}
-
+/*
+ * Get the number of CSGObject_t objects in this CSGeometry_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-CSGeometry_getNumCsgObjects(CSGeometry_t * csg)
+CSGeometry_getNumCSGObjects(CSGeometry_t* csg)
 {
-	return  (csg != NULL) ? csg->getNumCsgObjects() : SBML_INT_MAX;
+  return (csg != NULL) ? csg->getNumCSGObjects() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new CSGObject_t object, adds it to this CSGeometry_t object and
+ * returns the CSGObject_t object created.
+ */
 LIBSBML_EXTERN
-CSGObject_t *
-CSGeometry_removeCsgObject(CSGeometry_t * csg, unsigned int n)
+CSGObject_t*
+CSGeometry_createCSGObject(CSGeometry_t* csg)
 {
-	return  (csg != NULL) ? csg->removeCsgObject(n) : NULL;
+  return (csg != NULL) ? csg->createCSGObject() : NULL;
 }
 
+
+/*
+ * Removes the nth CSGObject_t from this CSGeometry_t and returns a pointer to
+ * it.
+ */
 LIBSBML_EXTERN
-CSGObject_t *
-CSGeometry_removeCsgObjectById(CSGeometry_t * csg, const char * sid)
+CSGObject_t*
+CSGeometry_removeCSGObject(CSGeometry_t* csg, unsigned int n)
 {
-	return  (csg != NULL) ? csg->removeCsgObject(sid) : NULL;
+  return (csg != NULL) ? csg->removeCSGObject(n) : NULL;
 }
 
+
+/*
+ * Removes the CSGObject_t from this CSGeometry_t based on its identifier and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+CSGObject_t*
+CSGeometry_removeCSGObjectById(CSGeometry_t* csg, const char* sid)
+{
+  return (csg != NULL && sid != NULL) ? csg->removeCSGObject(sid) : NULL;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * CSGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 CSGeometry_hasRequiredAttributes(const CSGeometry_t * csg)
@@ -650,11 +1061,15 @@ CSGeometry_hasRequiredAttributes(const CSGeometry_t * csg)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this CSGeometry_t
+ * object have been set.
+ */
 LIBSBML_EXTERN
 int
 CSGeometry_hasRequiredElements(const CSGeometry_t * csg)
 {
-	return (csg != NULL) ? static_cast<int>(csg->hasRequiredElements()) : 0;
+  return (csg != NULL) ? static_cast<int>(csg->hasRequiredElements()) : 0;
 }
 
 

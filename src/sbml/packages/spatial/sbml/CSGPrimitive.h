@@ -1,34 +1,37 @@
 /**
- * @file:   CSGPrimitive.h
- * @brief:  Implementation of the CSGPrimitive class
- * @author: SBMLTeam
+ * @file CSGPrimitive.h
+ * @brief Definition of the CSGPrimitive class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class CSGPrimitive
+ * @sbmlbrief{spatial} TODO:Definition of the CSGPrimitive class.
  */
 
 
@@ -47,288 +50,573 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
-#include <sbml/ListOf.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/CSGNode.h>
+#include <sbml/packages/spatial/extension/SpatialExtension.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-
 class LIBSBML_EXTERN CSGPrimitive : public CSGNode
 {
-
 protected:
 
-  PrimitiveKind_t   mPrimitiveType;
+  /** @cond doxygenLibsbmlInternal */
 
+  PrimitiveKind_t mPrimitiveType;
+
+  /** @endcond */
 
 public:
 
   /**
-   * Creates a new CSGPrimitive with the given level, version, and package version.
+   * Creates a new CSGPrimitive using the given SBML Level, Version and
+   * &ldquo;spatial&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this CSGPrimitive
+   * @param level an unsigned int, the SBML Level to assign to this
+   * CSGPrimitive.
    *
-   * @param version an unsigned int, the SBML Version to assign to this CSGPrimitive
+   * @param version an unsigned int, the SBML Version to assign to this
+   * CSGPrimitive.
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGPrimitive
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+   * this CSGPrimitive.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  CSGPrimitive(unsigned int level      = SpatialExtension::getDefaultLevel(),
-               unsigned int version    = SpatialExtension::getDefaultVersion(),
-               unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  CSGPrimitive(unsigned int level = SpatialExtension::getDefaultLevel(),
+               unsigned int version = SpatialExtension::getDefaultVersion(),
+               unsigned int pkgVersion =
+                 SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new CSGPrimitive with the given SpatialPkgNamespaces object.
+   * Creates a new CSGPrimitive using the given SpatialPkgNamespaces object.
    *
-   * @param spatialns the SpatialPkgNamespaces object
+   * @param spatialns the SpatialPkgNamespaces object.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  CSGPrimitive(SpatialPkgNamespaces* spatialns);
+  CSGPrimitive(SpatialPkgNamespaces *spatialns);
 
 
-   /**
+  /**
    * Copy constructor for CSGPrimitive.
    *
-   * @param orig; the CSGPrimitive instance to copy.
+   * @param orig the CSGPrimitive instance to copy.
    */
   CSGPrimitive(const CSGPrimitive& orig);
 
 
-   /**
+  /**
    * Assignment operator for CSGPrimitive.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the CSGPrimitive object whose values are to be used as the
+   * basis of the assignment.
    */
   CSGPrimitive& operator=(const CSGPrimitive& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this CSGPrimitive object.
    *
    * @return a (deep) copy of this CSGPrimitive object.
    */
-  virtual CSGPrimitive* clone () const;
+  virtual CSGPrimitive* clone() const;
 
 
-   /**
+  /**
    * Destructor for CSGPrimitive.
    */
   virtual ~CSGPrimitive();
 
 
-   /**
+  /**
    * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @return the value of the "primitiveType" attribute of this CSGPrimitive as a PrimitiveKind_t.
+   * @return the value of the "primitiveType" attribute of this CSGPrimitive as
+   * a PrimitiveKind_t.
    */
-  virtual PrimitiveKind_t getPrimitiveType() const;
+  PrimitiveKind_t getPrimitiveType() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGPrimitive's "primitiveType" attribute has been set.
+   * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @return @c true if this CSGPrimitive's "primitiveType" attribute has been set,
-   * otherwise @c false is returned.
+   * @return the value of the "primitiveType" attribute of this CSGPrimitive as
+   * a string.
    */
-  virtual bool isSetPrimitiveType() const;
+  const std::string& getPrimitiveTypeAsString() const;
 
 
   /**
-   * Sets the value of the "primitiveType" attribute of this CSGPrimitive.
+   * Predicate returning @c true if this CSGPrimitive's "primitiveType"
+   * attribute is set.
    *
-   * @param primitiveType; PrimitiveKind_t value of the "primitiveType" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @return @c true if this CSGPrimitive's "primitiveType" attribute has been
+   * set, otherwise @c false is returned.
    */
-  virtual int setPrimitiveType(PrimitiveKind_t primitiveType);
+  bool isSetPrimitiveType() const;
 
 
   /**
    * Sets the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @param primitiveType; string value of the "primitiveType" attribute to be set
+   * @param primitiveType PrimitiveKind_t value of the "primitiveType"
+   * attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setPrimitiveType(const std::string& primitiveType);
+  int setPrimitiveType(const PrimitiveKind_t primitiveType);
+
+
+  /**
+   * Sets the value of the "primitiveType" attribute of this CSGPrimitive.
+   *
+   * @param primitiveType std::string& of the "primitiveType" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setPrimitiveType(const std::string& primitiveType);
 
 
   /**
    * Unsets the value of the "primitiveType" attribute of this CSGPrimitive.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetPrimitiveType();
+  int unsetPrimitiveType();
 
 
   /**
-   * Returns the XML element name of this object, which for CSGPrimitive, is
-   * always @c "cSGPrimitive".
+   * Returns the XML element name of this CSGPrimitive object.
    *
-   * @return the name of this element, i.e. @c "cSGPrimitive".
+   * For CSGPrimitive, the XML element name is always @c "csgPrimitive".
+   *
+   * @return the name of this element, i.e. @c "csgPrimitive".
    */
-  virtual const std::string& getElementName () const;
+  virtual const std::string& getElementName() const;
 
 
   /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for this CSGPrimitive object.
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   *
+   * @sbmlconstant{SBML_SPATIAL_CSGPRIMITIVE, SBMLSpatialTypeCode_t}
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  virtual int getTypeCode () const;
+  virtual int getTypeCode() const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this CSGPrimitive object have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * CSGPrimitive object have been set.
    *
-   * @note The required attributes for a CSGPrimitive object are:
+   * @return @c true to indicate that all the required attributes of this
+   * CSGPrimitive have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the CSGPrimitive object are:
    * @li "primitiveType"
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
    */
   virtual bool hasRequiredAttributes() const;
 
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
+   * Write any contained elements
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
+  virtual void writeElements(XMLOutputStream& stream) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual bool accept(SBMLVisitor& v) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the parent SBMLDocument.
+   * Sets the parent SBMLDocument
    */
-  virtual void setSBMLDocument (SBMLDocument* d);
+  virtual void setSBMLDocument(SBMLDocument* d);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Enables/Disables the given package with this element.
+   * Enables/disables the given package with this element
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
-               const std::string& pkgPrefix, bool flag);
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this CSGPrimitive's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this CSGPrimitive's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this CSGPrimitive.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * return the SBML object corresponding to next XMLToken.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Get the list of expected attributes for this element.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Read values from the given XMLAttributes set into their specific fields.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write values of XMLAttributes to the output stream.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
 
 
 };
@@ -337,72 +625,92 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+
+
+
+#endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
 /**
- * Creates a new CSGPrimitive_t structure using the given SBML @p level and
- * @p version values.
+ * Creates a new CSGPrimitive_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
- * @param level an unsigned int, the SBML level to assign to this
- * CSGPrimitive_t structure.
+ * @param level an unsigned int, the SBML Level to assign to this
+ * CSGPrimitive_t.
  *
- * @param version an unsigned int, the SBML version to assign to this
- * CSGPrimitive_t structure.
+ * @param version an unsigned int, the SBML Version to assign to this
+ * CSGPrimitive_t.
  *
- * @returns the newly-created CSGPrimitive_t structure, or a null pointer if
- * an error occurred during construction.
+ * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+ * this CSGPrimitive_t.
  *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination, or this kind of
+ * SBML object, are either invalid or mismatched with respect to the parent
+ * SBMLDocument object.
  * @copydetails doc_note_setting_lv
  *
  * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 CSGPrimitive_t *
-CSGPrimitive_create(unsigned int level, unsigned int version,
-                    unsigned int pkgVersion);
+CSGPrimitive_create(unsigned int level = SpatialExtension::getDefaultLevel(),
+                    unsigned int version =
+                      SpatialExtension::getDefaultVersion(),
+                    unsigned int pkgVersion =
+                      SpatialExtension::getDefaultPackageVersion());
 
 
 /**
- * Frees the given CSGPrimitive_t structure.
- * 
- * @param csgp the CSGPrimitive_t structure to be freed.
+ * Creates and returns a deep copy of this CSGPrimitive_t object.
+ *
+ * @param csgp the CSGPrimitive_t structure.
+ *
+ * @return a (deep) copy of this CSGPrimitive_t object.
+ *
+ * @memberof CSGPrimitive_t
+ */
+LIBSBML_EXTERN
+CSGPrimitive_t*
+CSGPrimitive_clone(const CSGPrimitive_t* csgp);
+
+
+/**
+ * Frees this CSGPrimitive_t object.
+ *
+ * @param csgp the CSGPrimitive_t structure.
  *
  * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 void
-CSGPrimitive_free(CSGPrimitive_t * csgp);
+CSGPrimitive_free(CSGPrimitive_t* csgp);
 
 
 /**
- * Creates a deep copy of the given CSGPrimitive_t structure.
- * 
- * @param csgp the CSGPrimitive_t structure to be copied.
+ * Returns the value of the "primitiveType" attribute of this CSGPrimitive_t.
  *
- * @returns a (deep) copy of the given CSGPrimitive_t structure, or a null
- * pointer if a failure occurred.
+ * @param csgp the CSGPrimitive_t structure whose primitiveType is sought.
+ *
+ * @return the value of the "primitiveType" attribute of this CSGPrimitive_t as
+ * a PrimitiveKind_t.
  *
  * @memberof CSGPrimitive_t
- */
-LIBSBML_EXTERN
-CSGPrimitive_t *
-CSGPrimitive_clone(CSGPrimitive_t * csgp);
-
-
-/**
- * Returns the value of the "primitiveType" attribute of the given CSGPrimitive_t
- * structure.
- *
- * @param csgp the CSGPrimitive_t structure.
- *
- * @return the primitiveType of this structure.
- *
- * @member of CSGPrimitive_t
  */
 LIBSBML_EXTERN
 PrimitiveKind_t
@@ -410,15 +718,30 @@ CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp);
 
 
 /**
- * Predicate returning @c 1 if the given CSGPrimitive_t structure's "primitiveType"
+ * Returns the value of the "primitiveType" attribute of this CSGPrimitive_t.
+ *
+ * @param csgp the CSGPrimitive_t structure whose primitiveType is sought.
+ *
+ * @return the value of the "primitiveType" attribute of this CSGPrimitive_t as
+ * a const char *.
+ *
+ * @memberof CSGPrimitive_t
+ */
+LIBSBML_EXTERN
+const char *
+CSGPrimitive_getPrimitiveTypeAsString(const CSGPrimitive_t * csgp);
+
+
+/**
+ * Predicate returning @c 1 if this CSGPrimitive_t's "primitiveType" attribute
  * is set.
  *
  * @param csgp the CSGPrimitive_t structure.
  *
- * @return @c 1 if the "primitiveType" of this CSGPrimitive_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this CSGPrimitive_t's "primitiveType" attribute has been
+ * set, otherwise @c 0 is returned.
  *
- * @member of CSGPrimitive_t
+ * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 int
@@ -426,43 +749,55 @@ CSGPrimitive_isSetPrimitiveType(const CSGPrimitive_t * csgp);
 
 
 /**
- * Sets the "primitiveType" attribute of the given CSGPrimitive_t structure.
+ * Sets the value of the "primitiveType" attribute of this CSGPrimitive_t.
  *
  * @param csgp the CSGPrimitive_t structure.
  *
- * @param primitiveType the string to which the structures "primitiveType" attribute should be
- * set.
+ * @param primitiveType PrimitiveKind_t value of the "primitiveType" attribute
+ * to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @member of CSGPrimitive_t
+ * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 int
-CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, PrimitiveKind_t primitiveType);
+CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp,
+                              PrimitiveKind_t primitiveType);
 
 
 /**
- * Unsets the value of the "primitiveType" attribute of the given 
- * CSGPrimitive_t structure.
+ * Sets the value of the "primitiveType" attribute of this CSGPrimitive_t.
  *
  * @param csgp the CSGPrimitive_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @param primitiveType const char * of the "primitiveType" attribute to be
+ * set.
  *
- * @member of CSGPrimitive_t
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof CSGPrimitive_t
+ */
+LIBSBML_EXTERN
+int
+CSGPrimitive_setPrimitiveTypeAsString(CSGPrimitive_t * csgp,
+                                      const char * primitiveType);
+
+
+/**
+ * Unsets the value of the "primitiveType" attribute of this CSGPrimitive_t.
+ *
+ * @param csgp the CSGPrimitive_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 int
@@ -470,15 +805,19 @@ CSGPrimitive_unsetPrimitiveType(CSGPrimitive_t * csgp);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given CSGPrimitive_t structure have been set.
+ * Predicate returning @c 1 if all the required attributes for this
+ * CSGPrimitive_t object have been set.
  *
- * @param csgp the CSGPrimitive_t structure to check.
+ * @param csgp the CSGPrimitive_t structure.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 to indicate that all the required attributes of this
+ * CSGPrimitive_t have been set, otherwise @c 0 is returned.
  *
- * @member of CSGPrimitive_t
+ *
+ * @note The required attributes for the CSGPrimitive_t object are:
+ * @li "primitiveType"
+ *
+ * @memberof CSGPrimitive_t
  */
 LIBSBML_EXTERN
 int
@@ -488,9 +827,20 @@ CSGPrimitive_hasRequiredAttributes(const CSGPrimitive_t * csgp);
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
 
-#endif /*  CSGPrimitive_H__  */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !CSGPrimitive_H__ */
+
 

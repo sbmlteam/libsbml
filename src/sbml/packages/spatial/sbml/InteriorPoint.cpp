@@ -1,81 +1,85 @@
 /**
- * @file:   InteriorPoint.cpp
- * @brief:  Implementation of the InteriorPoint class
- * @author: SBMLTeam
+ * @file InteriorPoint.cpp
+ * @brief Implementation of the InteriorPoint class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/InteriorPoint.h>
+#include <sbml/packages/spatial/sbml/ListOfInteriorPoints.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new InteriorPoint with the given level, version, and package version.
+ * Creates a new InteriorPoint using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-InteriorPoint::InteriorPoint (unsigned int level, unsigned int version, unsigned int pkgVersion)
+InteriorPoint::InteriorPoint(unsigned int level,
+                             unsigned int version,
+                             unsigned int pkgVersion)
   : SBase(level, version)
-  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mCoord1 (util_NaN())
   , mIsSetCoord1 (false)
-  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mCoord2 (util_NaN())
   , mIsSetCoord2 (false)
-  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mCoord3 (util_NaN())
   , mIsSetCoord3 (false)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new InteriorPoint with the given SpatialPkgNamespaces object.
+ * Creates a new InteriorPoint using the given SpatialPkgNamespaces object.
  */
-InteriorPoint::InteriorPoint (SpatialPkgNamespaces* spatialns)
+InteriorPoint::InteriorPoint(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mCoord1 (util_NaN())
   , mIsSetCoord1 (false)
-  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mCoord2 (util_NaN())
   , mIsSetCoord2 (false)
-  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mCoord3 (util_NaN())
   , mIsSetCoord3 (false)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -83,20 +87,20 @@ InteriorPoint::InteriorPoint (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for InteriorPoint.
  */
-InteriorPoint::InteriorPoint (const InteriorPoint& orig)
-  : SBase(orig)
-  , mCoord1  ( orig.mCoord1)
-  , mIsSetCoord1  ( orig.mIsSetCoord1)
-  , mCoord2  ( orig.mCoord2)
-  , mIsSetCoord2  ( orig.mIsSetCoord2)
-  , mCoord3  ( orig.mCoord3)
-  , mIsSetCoord3  ( orig.mIsSetCoord3)
+InteriorPoint::InteriorPoint(const InteriorPoint& orig)
+  : SBase( orig )
+  , mCoord1 ( orig.mCoord1 )
+  , mIsSetCoord1 ( orig.mIsSetCoord1 )
+  , mCoord2 ( orig.mCoord2 )
+  , mIsSetCoord2 ( orig.mIsSetCoord2 )
+  , mCoord3 ( orig.mCoord3 )
+  , mIsSetCoord3 ( orig.mIsSetCoord3 )
 {
 }
 
 
 /*
- * Assignment for InteriorPoint.
+ * Assignment operator for InteriorPoint.
  */
 InteriorPoint&
 InteriorPoint::operator=(const InteriorPoint& rhs)
@@ -104,22 +108,23 @@ InteriorPoint::operator=(const InteriorPoint& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mCoord1  = rhs.mCoord1;
-    mIsSetCoord1  = rhs.mIsSetCoord1;
-    mCoord2  = rhs.mCoord2;
-    mIsSetCoord2  = rhs.mIsSetCoord2;
-    mCoord3  = rhs.mCoord3;
-    mIsSetCoord3  = rhs.mIsSetCoord3;
+    mCoord1 = rhs.mCoord1;
+    mIsSetCoord1 = rhs.mIsSetCoord1;
+    mCoord2 = rhs.mCoord2;
+    mIsSetCoord2 = rhs.mIsSetCoord2;
+    mCoord3 = rhs.mCoord3;
+    mIsSetCoord3 = rhs.mIsSetCoord3;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for InteriorPoint.
+ * Creates and returns a deep copy of this InteriorPoint object.
  */
 InteriorPoint*
-InteriorPoint::clone () const
+InteriorPoint::clone() const
 {
   return new InteriorPoint(*this);
 }
@@ -128,7 +133,7 @@ InteriorPoint::clone () const
 /*
  * Destructor for InteriorPoint.
  */
-InteriorPoint::~InteriorPoint ()
+InteriorPoint::~InteriorPoint()
 {
 }
 
@@ -164,7 +169,8 @@ InteriorPoint::getCoord3() const
 
 
 /*
- * Returns true/false if coord1 is set.
+ * Predicate returning @c true if this InteriorPoint's "coord1" attribute is
+ * set.
  */
 bool
 InteriorPoint::isSetCoord1() const
@@ -174,7 +180,8 @@ InteriorPoint::isSetCoord1() const
 
 
 /*
- * Returns true/false if coord2 is set.
+ * Predicate returning @c true if this InteriorPoint's "coord2" attribute is
+ * set.
  */
 bool
 InteriorPoint::isSetCoord2() const
@@ -184,7 +191,8 @@ InteriorPoint::isSetCoord2() const
 
 
 /*
- * Returns true/false if coord3 is set.
+ * Predicate returning @c true if this InteriorPoint's "coord3" attribute is
+ * set.
  */
 bool
 InteriorPoint::isSetCoord3() const
@@ -194,7 +202,7 @@ InteriorPoint::isSetCoord3() const
 
 
 /*
- * Sets coord1 and returns value indicating success.
+ * Sets the value of the "coord1" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::setCoord1(double coord1)
@@ -206,7 +214,7 @@ InteriorPoint::setCoord1(double coord1)
 
 
 /*
- * Sets coord2 and returns value indicating success.
+ * Sets the value of the "coord2" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::setCoord2(double coord2)
@@ -218,7 +226,7 @@ InteriorPoint::setCoord2(double coord2)
 
 
 /*
- * Sets coord3 and returns value indicating success.
+ * Sets the value of the "coord3" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::setCoord3(double coord3)
@@ -230,12 +238,12 @@ InteriorPoint::setCoord3(double coord3)
 
 
 /*
- * Unsets coord1 and returns value indicating success.
+ * Unsets the value of the "coord1" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::unsetCoord1()
 {
-  mCoord1 = numeric_limits<double>::quiet_NaN();
+  mCoord1 = util_NaN();
   mIsSetCoord1 = false;
 
   if (isSetCoord1() == false)
@@ -250,12 +258,12 @@ InteriorPoint::unsetCoord1()
 
 
 /*
- * Unsets coord2 and returns value indicating success.
+ * Unsets the value of the "coord2" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::unsetCoord2()
 {
-  mCoord2 = numeric_limits<double>::quiet_NaN();
+  mCoord2 = util_NaN();
   mIsSetCoord2 = false;
 
   if (isSetCoord2() == false)
@@ -270,12 +278,12 @@ InteriorPoint::unsetCoord2()
 
 
 /*
- * Unsets coord3 and returns value indicating success.
+ * Unsets the value of the "coord3" attribute of this InteriorPoint.
  */
 int
 InteriorPoint::unsetCoord3()
 {
-  mCoord3 = numeric_limits<double>::quiet_NaN();
+  mCoord3 = util_NaN();
   mIsSetCoord3 = false;
 
   if (isSetCoord3() == false)
@@ -290,10 +298,10 @@ InteriorPoint::unsetCoord3()
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this InteriorPoint object.
  */
 const std::string&
-InteriorPoint::getElementName () const
+InteriorPoint::getElementName() const
 {
   static const string name = "interiorPoint";
   return name;
@@ -301,96 +309,410 @@ InteriorPoint::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this InteriorPoint object.
  */
 int
-InteriorPoint::getTypeCode () const
+InteriorPoint::getTypeCode() const
 {
   return SBML_SPATIAL_INTERIORPOINT;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * InteriorPoint object have been set.
  */
 bool
-InteriorPoint::hasRequiredAttributes () const
+InteriorPoint::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetCoord1() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-InteriorPoint::writeElements (XMLOutputStream& stream) const
+InteriorPoint::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-InteriorPoint::accept (SBMLVisitor& v) const
+InteriorPoint::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-InteriorPoint::setSBMLDocument (SBMLDocument* d)
+InteriorPoint::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 InteriorPoint::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                     const std::string& pkgPrefix,
+                                     bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "coord1")
+  {
+    value = getCoord1();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coord2")
+  {
+    value = getCoord2();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coord3")
+  {
+    value = getCoord3();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::getAttribute(const std::string& attributeName,
+                            const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this InteriorPoint's attribute
+ * "attributeName" is set.
+ */
+bool
+InteriorPoint::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "coord1")
+  {
+    value = isSetCoord1();
+  }
+  else if (attributeName == "coord2")
+  {
+    value = isSetCoord2();
+  }
+  else if (attributeName == "coord3")
+  {
+    value = isSetCoord3();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "coord1")
+  {
+    return_value = setCoord1(value);
+  }
+  else if (attributeName == "coord2")
+  {
+    return_value = setCoord2(value);
+  }
+  else if (attributeName == "coord3")
+  {
+    return_value = setCoord3(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName,
+                            unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName,
+                            const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::setAttribute(const std::string& attributeName,
+                            const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this InteriorPoint.
+ */
+int
+InteriorPoint::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "coord1")
+  {
+    value = unsetCoord1();
+  }
+  else if (attributeName == "coord2")
+  {
+    value = unsetCoord2();
+  }
+  else if (attributeName == "coord3")
+  {
+    value = unsetCoord3();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 InteriorPoint::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -398,485 +720,205 @@ InteriorPoint::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("coord1");
+
   attributes.add("coord2");
+
   attributes.add("coord3");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-InteriorPoint::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+InteriorPoint::readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfInteriorPoints - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfInteriorPoints*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfInteriorPoints*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialInteriorPointAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialDomainLOInteriorPointsAllowedCoreAttributes, pkgVersion, level,
+            version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialInteriorPointAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialInteriorPointAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
 
-  //
-  // coord1 double   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // coord1 double (use = "required" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetCoord1 = attributes.readInto("coord1", mCoord1);
 
-  if (mIsSetCoord1 == false)
+  if ( mIsSetCoord1 == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'coord1' is missing from 'interiorPoint' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'coord1' from the "
+        "<InteriorPoint> element must be an integer.";
+      log->logPackageError("spatial", SpatialInteriorPointCoord1MustBeDouble,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      std::string message = "Spatial attribute 'coord1' is missing from the "
+        "<InteriorPoint> element.";
+      log->logPackageError("spatial", SpatialInteriorPointAllowedAttributes,
+        pkgVersion, level, version, message);
     }
   }
 
-  //
-  // coord2 double   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // coord2 double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetCoord2 = attributes.readInto("coord2", mCoord2);
 
-  if (mIsSetCoord2 == false)
+  if ( mIsSetCoord2 == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'coord2' from the "
+        "<InteriorPoint> element must be an integer.";
+      log->logPackageError("spatial", SpatialInteriorPointCoord2MustBeDouble,
+        pkgVersion, level, version, message);
     }
   }
 
-  //
-  // coord3 double   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // coord3 double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetCoord3 = attributes.readInto("coord3", mCoord3);
 
-  if (mIsSetCoord3 == false)
+  if ( mIsSetCoord3 == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'coord3' from the "
+        "<InteriorPoint> element must be an integer.";
+      log->logPackageError("spatial", SpatialInteriorPointCoord3MustBeDouble,
+        pkgVersion, level, version, message);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-InteriorPoint::writeAttributes (XMLOutputStream& stream) const
+void
+InteriorPoint::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetCoord1() == true)
+  {
     stream.writeAttribute("coord1", getPrefix(), mCoord1);
+  }
 
   if (isSetCoord2() == true)
+  {
     stream.writeAttribute("coord2", getPrefix(), mCoord2);
+  }
 
   if (isSetCoord3() == true)
+  {
     stream.writeAttribute("coord3", getPrefix(), mCoord3);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * Constructor 
- */
-ListOfInteriorPoints::ListOfInteriorPoints(unsigned int level, 
-                       unsigned int version, 
-                       unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfInteriorPoints::ListOfInteriorPoints(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfInteriorPoints 
- */
-ListOfInteriorPoints* 
-ListOfInteriorPoints::clone () const
- {
-  return new ListOfInteriorPoints(*this);
-}
-
-
-/*
- * Get a InteriorPoint from the ListOfInteriorPoints by index.
-*/
-InteriorPoint*
-ListOfInteriorPoints::get(unsigned int n)
-{
-  return static_cast<InteriorPoint*>(ListOf::get(n));
-}
-
-
-/*
- * Get a InteriorPoint from the ListOfInteriorPoints by index.
- */
-const InteriorPoint*
-ListOfInteriorPoints::get(unsigned int n) const
-{
-  return static_cast<const InteriorPoint*>(ListOf::get(n));
-}
-
-
-/*
- * Get a InteriorPoint from the ListOfInteriorPoints by id.
- */
-InteriorPoint*
-ListOfInteriorPoints::get(const std::string& sid)
-{
-	return const_cast<InteriorPoint*>(
-    static_cast<const ListOfInteriorPoints&>(*this).get(sid));
-}
-
-
-/*
- * Get a InteriorPoint from the ListOfInteriorPoints by id.
- */
-const InteriorPoint*
-ListOfInteriorPoints::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<InteriorPoint>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <InteriorPoint*> (*result);
-}
-
-
-/**
- * Adds a copy the given "InteriorPoint" to this ListOfInteriorPoints.
- *
- * @param ip; the InteriorPoint object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfInteriorPoints::addInteriorPoint(const InteriorPoint* ip)
-{
-  if (ip == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (ip->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ip->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ip->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ip)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(ip);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of InteriorPoint objects in this ListOfInteriorPoints.
- *
- * @return the number of InteriorPoint objects in this ListOfInteriorPoints
- */
-unsigned int 
-ListOfInteriorPoints::getNumInteriorPoints() const
-{
-	return size();
-}
-
-/**
- * Creates a new InteriorPoint object, adds it to this ListOfInteriorPoints
- * InteriorPoint and returns the InteriorPoint object created. 
- *
- * @return a new InteriorPoint object instance
- *
- * @see addInteriorPoint(const InteriorPoint* ip)
- */
-InteriorPoint* 
-ListOfInteriorPoints::createInteriorPoint()
-{
-  InteriorPoint* ip = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    ip = new InteriorPoint(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(ip != NULL)
-  {
-    appendAndOwn(ip);
-  }
-
-  return ip;
+  SBase::writeExtensionAttributes(stream);
 }
 
-/*
- * Removes the nth InteriorPoint from this ListOfInteriorPoints
- */
-InteriorPoint*
-ListOfInteriorPoints::remove(unsigned int n)
-{
-  return static_cast<InteriorPoint*>(ListOf::remove(n));
-}
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Removes the InteriorPoint from this ListOfInteriorPoints with the given identifier
+ * Creates a new InteriorPoint_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-InteriorPoint*
-ListOfInteriorPoints::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<InteriorPoint>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <InteriorPoint*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfInteriorPoints::getElementName () const
-{
-  static const string name = "listOfInteriorPoints";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfInteriorPoints::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfInteriorPoints::getItemTypeCode () const
-{
-  return SBML_SPATIAL_INTERIORPOINT;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new InteriorPoint in this ListOfInteriorPoints
- */
-SBase*
-ListOfInteriorPoints::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "interiorPoint")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new InteriorPoint(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfInteriorPoints::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 InteriorPoint_t *
-InteriorPoint_create(unsigned int level, unsigned int version,
+InteriorPoint_create(unsigned int level,
+                     unsigned int version,
                      unsigned int pkgVersion)
 {
   return new InteriorPoint(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this InteriorPoint_t object.
+ */
 LIBSBML_EXTERN
-void
-InteriorPoint_free(InteriorPoint_t * ip)
-{
-  if (ip != NULL)
-    delete ip;
-}
-
-
-LIBSBML_EXTERN
-InteriorPoint_t *
-InteriorPoint_clone(InteriorPoint_t * ip)
+InteriorPoint_t*
+InteriorPoint_clone(const InteriorPoint_t* ip)
 {
   if (ip != NULL)
   {
@@ -889,30 +931,57 @@ InteriorPoint_clone(InteriorPoint_t * ip)
 }
 
 
+/*
+ * Frees this InteriorPoint_t object.
+ */
+LIBSBML_EXTERN
+void
+InteriorPoint_free(InteriorPoint_t* ip)
+{
+  if (ip != NULL)
+  {
+    delete ip;
+  }
+}
+
+
+/*
+ * Returns the value of the "coord1" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 double
 InteriorPoint_getCoord1(const InteriorPoint_t * ip)
 {
-	return (ip != NULL) ? ip->getCoord1() : numeric_limits<double>::quiet_NaN();
+  return (ip != NULL) ? ip->getCoord1() : util_NaN();
 }
 
 
+/*
+ * Returns the value of the "coord2" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 double
 InteriorPoint_getCoord2(const InteriorPoint_t * ip)
 {
-	return (ip != NULL) ? ip->getCoord2() : numeric_limits<double>::quiet_NaN();
+  return (ip != NULL) ? ip->getCoord2() : util_NaN();
 }
 
 
+/*
+ * Returns the value of the "coord3" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 double
 InteriorPoint_getCoord3(const InteriorPoint_t * ip)
 {
-	return (ip != NULL) ? ip->getCoord3() : numeric_limits<double>::quiet_NaN();
+  return (ip != NULL) ? ip->getCoord3() : util_NaN();
 }
 
 
+/*
+ * Predicate returning @c 1 if this InteriorPoint_t's "coord1" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_isSetCoord1(const InteriorPoint_t * ip)
@@ -921,6 +990,10 @@ InteriorPoint_isSetCoord1(const InteriorPoint_t * ip)
 }
 
 
+/*
+ * Predicate returning @c 1 if this InteriorPoint_t's "coord2" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_isSetCoord2(const InteriorPoint_t * ip)
@@ -929,6 +1002,10 @@ InteriorPoint_isSetCoord2(const InteriorPoint_t * ip)
 }
 
 
+/*
+ * Predicate returning @c 1 if this InteriorPoint_t's "coord3" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_isSetCoord3(const InteriorPoint_t * ip)
@@ -937,39 +1014,42 @@ InteriorPoint_isSetCoord3(const InteriorPoint_t * ip)
 }
 
 
+/*
+ * Sets the value of the "coord1" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_setCoord1(InteriorPoint_t * ip, double coord1)
 {
-  if (ip != NULL)
-    return ip->setCoord1(coord1);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (ip != NULL) ? ip->setCoord1(coord1) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coord2" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_setCoord2(InteriorPoint_t * ip, double coord2)
 {
-  if (ip != NULL)
-    return ip->setCoord2(coord2);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (ip != NULL) ? ip->setCoord2(coord2) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coord3" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_setCoord3(InteriorPoint_t * ip, double coord3)
 {
-  if (ip != NULL)
-    return ip->setCoord3(coord3);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (ip != NULL) ? ip->setCoord3(coord3) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "coord1" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_unsetCoord1(InteriorPoint_t * ip)
@@ -978,6 +1058,9 @@ InteriorPoint_unsetCoord1(InteriorPoint_t * ip)
 }
 
 
+/*
+ * Unsets the value of the "coord2" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_unsetCoord2(InteriorPoint_t * ip)
@@ -986,6 +1069,9 @@ InteriorPoint_unsetCoord2(InteriorPoint_t * ip)
 }
 
 
+/*
+ * Unsets the value of the "coord3" attribute of this InteriorPoint_t.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_unsetCoord3(InteriorPoint_t * ip)
@@ -994,39 +1080,15 @@ InteriorPoint_unsetCoord3(InteriorPoint_t * ip)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * InteriorPoint_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 InteriorPoint_hasRequiredAttributes(const InteriorPoint_t * ip)
 {
   return (ip != NULL) ? static_cast<int>(ip->hasRequiredAttributes()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-InteriorPoint_t *
-ListOfInteriorPoints_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfInteriorPoints *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-InteriorPoint_t *
-ListOfInteriorPoints_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfInteriorPoints *>(lo)->remove(sid) : NULL;
 }
 
 

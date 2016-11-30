@@ -1,34 +1,37 @@
 /**
- * @file:   BoundaryCondition.h
- * @brief:  Implementation of the BoundaryCondition class
- * @author: SBMLTeam
+ * @file BoundaryCondition.h
+ * @brief Definition of the BoundaryCondition class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class BoundaryCondition
+ * @sbmlbrief{spatial} TODO:Definition of the BoundaryCondition class.
  */
 
 
@@ -48,432 +51,709 @@
 
 
 #include <sbml/SBase.h>
-#include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-
 class LIBSBML_EXTERN BoundaryCondition : public SBase
 {
-
 protected:
 
-  std::string   mVariable;
-  BoundaryConditionKind_t   mType;
-  std::string   mCoordinateBoundary;
-  std::string   mBoundaryDomainType;
+  /** @cond doxygenLibsbmlInternal */
 
+  std::string mVariable;
+  BoundaryConditionKind_t mType;
+  std::string mCoordinateBoundary;
+  std::string mBoundaryDomainType;
+
+  /** @endcond */
 
 public:
 
   /**
-   * Creates a new BoundaryCondition with the given level, version, and package version.
+   * Creates a new BoundaryCondition using the given SBML Level, Version and
+   * &ldquo;spatial&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this BoundaryCondition
+   * @param level an unsigned int, the SBML Level to assign to this
+   * BoundaryCondition.
    *
-   * @param version an unsigned int, the SBML Version to assign to this BoundaryCondition
+   * @param version an unsigned int, the SBML Version to assign to this
+   * BoundaryCondition.
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this BoundaryCondition
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+   * this BoundaryCondition.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  BoundaryCondition(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                    unsigned int version    = SpatialExtension::getDefaultVersion(),
-                    unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  BoundaryCondition(unsigned int level = SpatialExtension::getDefaultLevel(),
+                    unsigned int version =
+                      SpatialExtension::getDefaultVersion(),
+                    unsigned int pkgVersion =
+                      SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new BoundaryCondition with the given SpatialPkgNamespaces object.
+   * Creates a new BoundaryCondition using the given SpatialPkgNamespaces
+   * object.
    *
-   * @param spatialns the SpatialPkgNamespaces object
+   * @param spatialns the SpatialPkgNamespaces object.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  BoundaryCondition(SpatialPkgNamespaces* spatialns);
+  BoundaryCondition(SpatialPkgNamespaces *spatialns);
 
 
-   /**
+  /**
    * Copy constructor for BoundaryCondition.
    *
-   * @param orig; the BoundaryCondition instance to copy.
+   * @param orig the BoundaryCondition instance to copy.
    */
   BoundaryCondition(const BoundaryCondition& orig);
 
 
-   /**
+  /**
    * Assignment operator for BoundaryCondition.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the BoundaryCondition object whose values are to be used as the
+   * basis of the assignment.
    */
   BoundaryCondition& operator=(const BoundaryCondition& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this BoundaryCondition object.
    *
    * @return a (deep) copy of this BoundaryCondition object.
    */
-  virtual BoundaryCondition* clone () const;
+  virtual BoundaryCondition* clone() const;
 
 
-   /**
+  /**
    * Destructor for BoundaryCondition.
    */
   virtual ~BoundaryCondition();
 
 
-   /**
+  /**
    * Returns the value of the "variable" attribute of this BoundaryCondition.
    *
-   * @return the value of the "variable" attribute of this BoundaryCondition as a string.
+   * @return the value of the "variable" attribute of this BoundaryCondition as
+   * a string.
    */
-  virtual const std::string& getVariable() const;
+  const std::string& getVariable() const;
 
 
   /**
    * Returns the value of the "type" attribute of this BoundaryCondition.
    *
-   * @return the value of the "type" attribute of this BoundaryCondition as a BoundaryConditionKind_t.
+   * @return the value of the "type" attribute of this BoundaryCondition as a
+   * BoundaryConditionKind_t.
    */
-  virtual BoundaryConditionKind_t getType() const;
+  BoundaryConditionKind_t getType() const;
 
 
   /**
-   * Returns the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * Returns the value of the "type" attribute of this BoundaryCondition.
    *
-   * @return the value of the "coordinateBoundary" attribute of this BoundaryCondition as a string.
+   * @return the value of the "type" attribute of this BoundaryCondition as a
+   * string.
    */
-  virtual const std::string& getCoordinateBoundary() const;
+  const std::string& getTypeAsString() const;
 
 
   /**
-   * Returns the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Returns the value of the "coordinateBoundary" attribute of this
+   * BoundaryCondition.
    *
-   * @return the value of the "boundaryDomainType" attribute of this BoundaryCondition as a string.
+   * @return the value of the "coordinateBoundary" attribute of this
+   * BoundaryCondition as a string.
    */
-  virtual const std::string& getBoundaryDomainType() const;
+  const std::string& getCoordinateBoundary() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "variable" attribute has been set.
+   * Returns the value of the "boundaryDomainType" attribute of this
+   * BoundaryCondition.
    *
-   * @return @c true if this BoundaryCondition's "variable" attribute has been set,
-   * otherwise @c false is returned.
+   * @return the value of the "boundaryDomainType" attribute of this
+   * BoundaryCondition as a string.
    */
-  virtual bool isSetVariable() const;
+  const std::string& getBoundaryDomainType() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "type" attribute has been set.
+   * Predicate returning @c true if this BoundaryCondition's "variable"
+   * attribute is set.
+   *
+   * @return @c true if this BoundaryCondition's "variable" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  bool isSetVariable() const;
+
+
+  /**
+   * Predicate returning @c true if this BoundaryCondition's "type" attribute
+   * is set.
    *
    * @return @c true if this BoundaryCondition's "type" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetType() const;
+  bool isSetType() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "coordinateBoundary" attribute has been set.
+   * Predicate returning @c true if this BoundaryCondition's
+   * "coordinateBoundary" attribute is set.
    *
-   * @return @c true if this BoundaryCondition's "coordinateBoundary" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this BoundaryCondition's "coordinateBoundary" attribute
+   * has been set, otherwise @c false is returned.
    */
-  virtual bool isSetCoordinateBoundary() const;
+  bool isSetCoordinateBoundary() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "boundaryDomainType" attribute has been set.
+   * Predicate returning @c true if this BoundaryCondition's
+   * "boundaryDomainType" attribute is set.
    *
-   * @return @c true if this BoundaryCondition's "boundaryDomainType" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this BoundaryCondition's "boundaryDomainType" attribute
+   * has been set, otherwise @c false is returned.
    */
-  virtual bool isSetBoundaryDomainType() const;
+  bool isSetBoundaryDomainType() const;
 
 
   /**
    * Sets the value of the "variable" attribute of this BoundaryCondition.
    *
-   * @param variable; const std::string& value of the "variable" attribute to be set
+   * @param variable std::string& value of the "variable" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setVariable(const std::string& variable);
+  int setVariable(const std::string& variable);
 
 
   /**
    * Sets the value of the "type" attribute of this BoundaryCondition.
    *
-   * @param type; BoundaryConditionKind_t value of the "type" attribute to be set
+   * @param type BoundaryConditionKind_t value of the "type" attribute to be
+   * set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setType(BoundaryConditionKind_t type);
+  int setType(const BoundaryConditionKind_t type);
 
 
   /**
    * Sets the value of the "type" attribute of this BoundaryCondition.
    *
-   * @param type; string value of the "type" attribute to be set
+   * @param type std::string& of the "type" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setType(const std::string& type);
+  int setType(const std::string& type);
 
 
   /**
-   * Sets the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * Sets the value of the "coordinateBoundary" attribute of this
+   * BoundaryCondition.
    *
-   * @param coordinateBoundary; const std::string& value of the "coordinateBoundary" attribute to be set
+   * @param coordinateBoundary std::string& value of the "coordinateBoundary"
+   * attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setCoordinateBoundary(const std::string& coordinateBoundary);
+  int setCoordinateBoundary(const std::string& coordinateBoundary);
 
 
   /**
-   * Sets the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Sets the value of the "boundaryDomainType" attribute of this
+   * BoundaryCondition.
    *
-   * @param boundaryDomainType; const std::string& value of the "boundaryDomainType" attribute to be set
+   * @param boundaryDomainType std::string& value of the "boundaryDomainType"
+   * attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setBoundaryDomainType(const std::string& boundaryDomainType);
+  int setBoundaryDomainType(const std::string& boundaryDomainType);
 
 
   /**
    * Unsets the value of the "variable" attribute of this BoundaryCondition.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetVariable();
+  int unsetVariable();
 
 
   /**
    * Unsets the value of the "type" attribute of this BoundaryCondition.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetType();
+  int unsetType();
 
 
   /**
-   * Unsets the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * Unsets the value of the "coordinateBoundary" attribute of this
+   * BoundaryCondition.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetCoordinateBoundary();
+  int unsetCoordinateBoundary();
 
 
   /**
-   * Unsets the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Unsets the value of the "boundaryDomainType" attribute of this
+   * BoundaryCondition.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetBoundaryDomainType();
+  int unsetBoundaryDomainType();
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
-   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
 
 
   /**
-   * Returns the XML element name of this object, which for BoundaryCondition, is
-   * always @c "boundaryCondition".
+   * Returns the XML element name of this BoundaryCondition object.
+   *
+   * For BoundaryCondition, the XML element name is always @c
+   * "boundaryCondition".
    *
    * @return the name of this element, i.e. @c "boundaryCondition".
    */
-  virtual const std::string& getElementName () const;
+  virtual const std::string& getElementName() const;
 
 
   /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for this BoundaryCondition object.
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   *
+   * @sbmlconstant{SBML_SPATIAL_BOUNDARYCONDITION, SBMLSpatialTypeCode_t}
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  virtual int getTypeCode () const;
+  virtual int getTypeCode() const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this BoundaryCondition object have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * BoundaryCondition object have been set.
    *
-   * @note The required attributes for a BoundaryCondition object are:
+   * @return @c true to indicate that all the required attributes of this
+   * BoundaryCondition have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the BoundaryCondition object are:
    * @li "variable"
    * @li "type"
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
    */
   virtual bool hasRequiredAttributes() const;
 
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
+   * Write any contained elements
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
+  virtual void writeElements(XMLOutputStream& stream) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual bool accept(SBMLVisitor& v) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the parent SBMLDocument.
+   * Sets the parent SBMLDocument
    */
-  virtual void setSBMLDocument (SBMLDocument* d);
+  virtual void setSBMLDocument(SBMLDocument* d);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Enables/Disables the given package with this element.
+   * Enables/disables the given package with this element
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
-               const std::string& pkgPrefix, bool flag);
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this BoundaryCondition's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this BoundaryCondition's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this
+   * BoundaryCondition.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Get the list of expected attributes for this element.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Read values from the given XMLAttributes set into their specific fields.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write values of XMLAttributes to the output stream.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
 
 
 };
@@ -482,72 +762,94 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+
+
+
+#endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
 /**
- * Creates a new BoundaryCondition_t structure using the given SBML @p level and
- * @p version values.
+ * Creates a new BoundaryCondition_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
- * @param level an unsigned int, the SBML level to assign to this
- * BoundaryCondition_t structure.
+ * @param level an unsigned int, the SBML Level to assign to this
+ * BoundaryCondition_t.
  *
- * @param version an unsigned int, the SBML version to assign to this
- * BoundaryCondition_t structure.
+ * @param version an unsigned int, the SBML Version to assign to this
+ * BoundaryCondition_t.
  *
- * @returns the newly-created BoundaryCondition_t structure, or a null pointer if
- * an error occurred during construction.
+ * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+ * this BoundaryCondition_t.
  *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination, or this kind of
+ * SBML object, are either invalid or mismatched with respect to the parent
+ * SBMLDocument object.
  * @copydetails doc_note_setting_lv
  *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 BoundaryCondition_t *
-BoundaryCondition_create(unsigned int level, unsigned int version,
-                         unsigned int pkgVersion);
+BoundaryCondition_create(
+                         unsigned int level =
+                           SpatialExtension::getDefaultLevel(),
+                         unsigned int version =
+                           SpatialExtension::getDefaultVersion(),
+                         unsigned int pkgVersion =
+                           SpatialExtension::getDefaultPackageVersion());
 
 
 /**
- * Frees the given BoundaryCondition_t structure.
- * 
- * @param bc the BoundaryCondition_t structure to be freed.
+ * Creates and returns a deep copy of this BoundaryCondition_t object.
+ *
+ * @param bc the BoundaryCondition_t structure.
+ *
+ * @return a (deep) copy of this BoundaryCondition_t object.
+ *
+ * @memberof BoundaryCondition_t
+ */
+LIBSBML_EXTERN
+BoundaryCondition_t*
+BoundaryCondition_clone(const BoundaryCondition_t* bc);
+
+
+/**
+ * Frees this BoundaryCondition_t object.
+ *
+ * @param bc the BoundaryCondition_t structure.
  *
  * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 void
-BoundaryCondition_free(BoundaryCondition_t * bc);
+BoundaryCondition_free(BoundaryCondition_t* bc);
 
 
 /**
- * Creates a deep copy of the given BoundaryCondition_t structure.
- * 
- * @param bc the BoundaryCondition_t structure to be copied.
+ * Returns the value of the "variable" attribute of this BoundaryCondition_t.
  *
- * @returns a (deep) copy of the given BoundaryCondition_t structure, or a null
- * pointer if a failure occurred.
+ * @param bc the BoundaryCondition_t structure whose variable is sought.
+ *
+ * @return the value of the "variable" attribute of this BoundaryCondition_t as
+ * a pointer to a string.
  *
  * @memberof BoundaryCondition_t
- */
-LIBSBML_EXTERN
-BoundaryCondition_t *
-BoundaryCondition_clone(BoundaryCondition_t * bc);
-
-
-/**
- * Returns the value of the "variable" attribute of the given BoundaryCondition_t
- * structure.
- *
- * @param bc the BoundaryCondition_t structure.
- *
- * @return the variable of this structure.
- *
- * @member of BoundaryCondition_t
  */
 LIBSBML_EXTERN
 const char *
@@ -555,14 +857,14 @@ BoundaryCondition_getVariable(const BoundaryCondition_t * bc);
 
 
 /**
- * Returns the value of the "type" attribute of the given BoundaryCondition_t
- * structure.
+ * Returns the value of the "type" attribute of this BoundaryCondition_t.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param bc the BoundaryCondition_t structure whose type is sought.
  *
- * @return the type of this structure.
+ * @return the value of the "type" attribute of this BoundaryCondition_t as a
+ * BoundaryConditionKind_t.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 BoundaryConditionKind_t
@@ -570,14 +872,31 @@ BoundaryCondition_getType(const BoundaryCondition_t * bc);
 
 
 /**
- * Returns the value of the "coordinateBoundary" attribute of the given BoundaryCondition_t
- * structure.
+ * Returns the value of the "type" attribute of this BoundaryCondition_t.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param bc the BoundaryCondition_t structure whose type is sought.
  *
- * @return the coordinateBoundary of this structure.
+ * @return the value of the "type" attribute of this BoundaryCondition_t as a
+ * const char *.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
+ */
+LIBSBML_EXTERN
+const char *
+BoundaryCondition_getTypeAsString(const BoundaryCondition_t * bc);
+
+
+/**
+ * Returns the value of the "coordinateBoundary" attribute of this
+ * BoundaryCondition_t.
+ *
+ * @param bc the BoundaryCondition_t structure whose coordinateBoundary is
+ * sought.
+ *
+ * @return the value of the "coordinateBoundary" attribute of this
+ * BoundaryCondition_t as a pointer to a string.
+ *
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 const char *
@@ -585,14 +904,16 @@ BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc);
 
 
 /**
- * Returns the value of the "boundaryDomainType" attribute of the given BoundaryCondition_t
- * structure.
+ * Returns the value of the "boundaryDomainType" attribute of this
+ * BoundaryCondition_t.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param bc the BoundaryCondition_t structure whose boundaryDomainType is
+ * sought.
  *
- * @return the boundaryDomainType of this structure.
+ * @return the value of the "boundaryDomainType" attribute of this
+ * BoundaryCondition_t as a pointer to a string.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 const char *
@@ -600,15 +921,15 @@ BoundaryCondition_getBoundaryDomainType(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "variable"
+ * Predicate returning @c 1 if this BoundaryCondition_t's "variable" attribute
  * is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if the "variable" of this BoundaryCondition_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this BoundaryCondition_t's "variable" attribute has been
+ * set, otherwise @c 0 is returned.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -616,15 +937,15 @@ BoundaryCondition_isSetVariable(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "type"
- * is set.
+ * Predicate returning @c 1 if this BoundaryCondition_t's "type" attribute is
+ * set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if the "type" of this BoundaryCondition_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this BoundaryCondition_t's "type" attribute has been set,
+ * otherwise @c 0 is returned.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -632,15 +953,15 @@ BoundaryCondition_isSetType(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "coordinateBoundary"
- * is set.
+ * Predicate returning @c 1 if this BoundaryCondition_t's "coordinateBoundary"
+ * attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if the "coordinateBoundary" of this BoundaryCondition_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this BoundaryCondition_t's "coordinateBoundary" attribute
+ * has been set, otherwise @c 0 is returned.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -648,15 +969,15 @@ BoundaryCondition_isSetCoordinateBoundary(const BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "boundaryDomainType"
- * is set.
+ * Predicate returning @c 1 if this BoundaryCondition_t's "boundaryDomainType"
+ * attribute is set.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if the "boundaryDomainType" of this BoundaryCondition_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this BoundaryCondition_t's "boundaryDomainType" attribute
+ * has been set, otherwise @c 0 is returned.
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -664,130 +985,114 @@ BoundaryCondition_isSetBoundaryDomainType(const BoundaryCondition_t * bc);
 
 
 /**
- * Sets the "variable" attribute of the given BoundaryCondition_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetVariable() instead.
+ * Sets the value of the "variable" attribute of this BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @param variable the string to which the structures "variable" attribute should be
- * set.
+ * @param variable const char * value of the "variable" attribute to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setVariable(BoundaryCondition_t * bc, const char * variable);
+BoundaryCondition_setVariable(BoundaryCondition_t * bc,
+                              const char * variable);
 
 
 /**
- * Sets the "type" attribute of the given BoundaryCondition_t structure.
+ * Sets the value of the "type" attribute of this BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @param type the string to which the structures "type" attribute should be
- * set.
+ * @param type BoundaryConditionKind_t value of the "type" attribute to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryConditionKind_t type);
+BoundaryCondition_setType(BoundaryCondition_t * bc,
+                          BoundaryConditionKind_t type);
 
 
 /**
- * Sets the "coordinateBoundary" attribute of the given BoundaryCondition_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetCoordinateBoundary() instead.
+ * Sets the value of the "type" attribute of this BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @param coordinateBoundary the string to which the structures "coordinateBoundary" attribute should be
- * set.
+ * @param type const char * of the "type" attribute to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setCoordinateBoundary(BoundaryCondition_t * bc, const char * coordinateBoundary);
+BoundaryCondition_setTypeAsString(BoundaryCondition_t * bc,
+                                  const char * type);
 
 
 /**
- * Sets the "boundaryDomainType" attribute of the given BoundaryCondition_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetBoundaryDomainType() instead.
+ * Sets the value of the "coordinateBoundary" attribute of this
+ * BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @param boundaryDomainType the string to which the structures "boundaryDomainType" attribute should be
- * set.
+ * @param coordinateBoundary const char * value of the "coordinateBoundary"
+ * attribute to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setBoundaryDomainType(BoundaryCondition_t * bc, const char * boundaryDomainType);
+BoundaryCondition_setCoordinateBoundary(BoundaryCondition_t * bc,
+                                        const char * coordinateBoundary);
 
 
 /**
- * Unsets the value of the "variable" attribute of the given 
- * BoundaryCondition_t structure.
+ * Sets the value of the "boundaryDomainType" attribute of this
+ * BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @param boundaryDomainType const char * value of the "boundaryDomainType"
+ * attribute to be set.
  *
- * @member of BoundaryCondition_t
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof BoundaryCondition_t
+ */
+LIBSBML_EXTERN
+int
+BoundaryCondition_setBoundaryDomainType(BoundaryCondition_t * bc,
+                                        const char * boundaryDomainType);
+
+
+/**
+ * Unsets the value of the "variable" attribute of this BoundaryCondition_t.
+ *
+ * @param bc the BoundaryCondition_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -795,20 +1100,15 @@ BoundaryCondition_unsetVariable(BoundaryCondition_t * bc);
 
 
 /**
- * Unsets the value of the "type" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "type" attribute of this BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -816,20 +1116,16 @@ BoundaryCondition_unsetType(BoundaryCondition_t * bc);
 
 
 /**
- * Unsets the value of the "coordinateBoundary" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "coordinateBoundary" attribute of this
+ * BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -837,20 +1133,16 @@ BoundaryCondition_unsetCoordinateBoundary(BoundaryCondition_t * bc);
 
 
 /**
- * Unsets the value of the "boundaryDomainType" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "boundaryDomainType" attribute of this
+ * BoundaryCondition_t.
  *
  * @param bc the BoundaryCondition_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @member of BoundaryCondition_t
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -858,15 +1150,20 @@ BoundaryCondition_unsetBoundaryDomainType(BoundaryCondition_t * bc);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given BoundaryCondition_t structure have been set.
+ * Predicate returning @c 1 if all the required attributes for this
+ * BoundaryCondition_t object have been set.
  *
- * @param bc the BoundaryCondition_t structure to check.
+ * @param bc the BoundaryCondition_t structure.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 to indicate that all the required attributes of this
+ * BoundaryCondition_t have been set, otherwise @c 0 is returned.
  *
- * @member of BoundaryCondition_t
+ *
+ * @note The required attributes for the BoundaryCondition_t object are:
+ * @li "variable"
+ * @li "type"
+ *
+ * @memberof BoundaryCondition_t
  */
 LIBSBML_EXTERN
 int
@@ -876,9 +1173,20 @@ BoundaryCondition_hasRequiredAttributes(const BoundaryCondition_t * bc);
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
 
-#endif /*  BoundaryCondition_H__  */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !BoundaryCondition_H__ */
+
 

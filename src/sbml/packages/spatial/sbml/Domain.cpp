@@ -1,38 +1,37 @@
 /**
- * @file:   Domain.cpp
- * @brief:  Implementation of the Domain class
- * @author: SBMLTeam
+ * @file Domain.cpp
+ * @brief Implementation of the Domain class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/Domain.h>
+#include <sbml/packages/spatial/sbml/ListOfDomains.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
@@ -40,42 +39,44 @@
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Domain with the given level, version, and package version.
+ * Creates a new Domain using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-Domain::Domain (unsigned int level, unsigned int version, unsigned int pkgVersion)
+Domain::Domain(unsigned int level,
+               unsigned int version,
+               unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (level, version, pkgVersion)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new Domain with the given SpatialPkgNamespaces object.
+ * Creates a new Domain using the given SpatialPkgNamespaces object.
  */
-Domain::Domain (SpatialPkgNamespaces* spatialns)
+Domain::Domain(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mDomainType ("")
   , mInteriorPoints (spatialns)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -83,19 +84,18 @@ Domain::Domain (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for Domain.
  */
-Domain::Domain (const Domain& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mDomainType  ( orig.mDomainType)
-  , mInteriorPoints  ( orig.mInteriorPoints)
+Domain::Domain(const Domain& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mDomainType ( orig.mDomainType )
+  , mInteriorPoints ( orig.mInteriorPoints )
 {
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for Domain.
+ * Assignment operator for Domain.
  */
 Domain&
 Domain::operator=(const Domain& rhs)
@@ -103,22 +103,21 @@ Domain::operator=(const Domain& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mDomainType  = rhs.mDomainType;
-    mInteriorPoints  = rhs.mInteriorPoints;
-
-    // connect to child objects
+    mId = rhs.mId;
+    mDomainType = rhs.mDomainType;
+    mInteriorPoints = rhs.mInteriorPoints;
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for Domain.
+ * Creates and returns a deep copy of this Domain object.
  */
 Domain*
-Domain::clone () const
+Domain::clone() const
 {
   return new Domain(*this);
 }
@@ -127,7 +126,7 @@ Domain::clone () const
 /*
  * Destructor for Domain.
  */
-Domain::~Domain ()
+Domain::~Domain()
 {
 }
 
@@ -153,7 +152,7 @@ Domain::getDomainType() const
 
 
 /*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this Domain's "id" attribute is set.
  */
 bool
 Domain::isSetId() const
@@ -163,7 +162,7 @@ Domain::isSetId() const
 
 
 /*
- * Returns true/false if domainType is set.
+ * Predicate returning @c true if this Domain's "domainType" attribute is set.
  */
 bool
 Domain::isSetDomainType() const
@@ -173,7 +172,7 @@ Domain::isSetDomainType() const
 
 
 /*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this Domain.
  */
 int
 Domain::setId(const std::string& id)
@@ -183,7 +182,7 @@ Domain::setId(const std::string& id)
 
 
 /*
- * Sets domainType and returns value indicating success.
+ * Sets the value of the "domainType" attribute of this Domain.
  */
 int
 Domain::setDomainType(const std::string& domainType)
@@ -201,7 +200,7 @@ Domain::setDomainType(const std::string& domainType)
 
 
 /*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this Domain.
  */
 int
 Domain::unsetId()
@@ -220,7 +219,7 @@ Domain::unsetId()
 
 
 /*
- * Unsets domainType and returns value indicating success.
+ * Unsets the value of the "domainType" attribute of this Domain.
  */
 int
 Domain::unsetDomainType()
@@ -239,7 +238,7 @@ Domain::unsetDomainType()
 
 
 /*
- * Returns the  "ListOfInteriorPoints" in this Domain object.
+ * Returns the ListOfInteriorPoints from this Domain.
  */
 const ListOfInteriorPoints*
 Domain::getListOfInteriorPoints() const
@@ -249,7 +248,7 @@ Domain::getListOfInteriorPoints() const
 
 
 /*
- * Returns the  "ListOfInteriorPoints" in this Domain object.
+ * Returns the ListOfInteriorPoints from this Domain.
  */
 ListOfInteriorPoints*
 Domain::getListOfInteriorPoints()
@@ -259,76 +258,27 @@ Domain::getListOfInteriorPoints()
 
 
 /*
- * Removes the nth InteriorPoint from the ListOfInteriorPoints.
- */
-InteriorPoint*
-Domain::removeInteriorPoint(unsigned int n)
-{
-	return mInteriorPoints.remove(n);
-}
-
-
-/*
- * Removes the a InteriorPoint with given id from the ListOfInteriorPoints.
- */
-InteriorPoint*
-Domain::removeInteriorPoint(const std::string& sid)
-{
-	return mInteriorPoints.remove(sid);
-}
-
-
-/*
- * Return the nth InteriorPoint in the ListOfInteriorPoints within this Domain.
+ * Get an InteriorPoint from the Domain.
  */
 InteriorPoint*
 Domain::getInteriorPoint(unsigned int n)
 {
-	return mInteriorPoints.get(n);
+  return mInteriorPoints.get(n);
 }
 
 
 /*
- * Return the nth InteriorPoint in the ListOfInteriorPoints within this Domain.
+ * Get an InteriorPoint from the Domain.
  */
 const InteriorPoint*
 Domain::getInteriorPoint(unsigned int n) const
 {
-	return mInteriorPoints.get(n);
+  return mInteriorPoints.get(n);
 }
 
 
 /*
- * Return a InteriorPoint from the ListOfInteriorPoints by id.
- */
-InteriorPoint*
-Domain::getInteriorPoint(const std::string& sid)
-{
-	return mInteriorPoints.get(sid);
-}
-
-
-/*
- * Return a InteriorPoint from the ListOfInteriorPoints by id.
- */
-const InteriorPoint*
-Domain::getInteriorPoint(const std::string& sid) const
-{
-	return mInteriorPoints.get(sid);
-}
-
-
-/*
- * Adds a copy the given "InteriorPoint" to this Domain.
- *
- * @param ip; the InteriorPoint object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Adds a copy of the given InteriorPoint to this Domain.
  */
 int
 Domain::addInteriorPoint(const InteriorPoint* ip)
@@ -349,22 +299,20 @@ Domain::addInteriorPoint(const InteriorPoint* ip)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(ip)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(ip)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-    mInteriorPoints.append(ip);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mInteriorPoints.append(ip);
   }
 }
 
 
 /*
  * Get the number of InteriorPoint objects in this Domain.
- *
- * @return the number of InteriorPoint objects in this Domain
  */
 unsigned int
 Domain::getNumInteriorPoints() const
@@ -374,12 +322,8 @@ Domain::getNumInteriorPoints() const
 
 
 /*
- * Creates a new InteriorPoint object, adds it to this Domains
- * Domain and returns the InteriorPoint object created. 
- *
- * @return a new InteriorPoint object instance
- *
- * @see addInteriorPoint(const InteriorPoint* ip)
+ * Creates a new InteriorPoint object, adds it to this Domain object and
+ * returns the InteriorPoint object created.
  */
 InteriorPoint*
 Domain::createInteriorPoint()
@@ -394,14 +338,9 @@ Domain::createInteriorPoint()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(ip != NULL)
+  if (ip != NULL)
   {
     mInteriorPoints.appendAndOwn(ip);
   }
@@ -411,39 +350,33 @@ Domain::createInteriorPoint()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * Removes the nth InteriorPoint from this Domain and returns a pointer to it.
  */
-void
-Domain::renameSIdRefs(const std::string& oldid, const std::string& newid)
+InteriorPoint*
+Domain::removeInteriorPoint(unsigned int n)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetDomainType() == true && mDomainType == oldid)
-  {
-    setDomainType(newid);
-  }
-
-}
-
-
-List*
-Domain::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mInteriorPoints, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
+  return mInteriorPoints.remove(n);
 }
 
 
 /*
- * Returns the XML element name of this object
+ * @copydoc doc_renamesidref_common
+ */
+void
+Domain::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetDomainType() && mDomainType == oldid)
+  {
+    setDomainType(newid);
+  }
+}
+
+
+/*
+ * Returns the XML element name of this Domain object.
  */
 const std::string&
-Domain::getElementName () const
+Domain::getElementName() const
 {
   static const string name = "domain";
   return name;
@@ -451,38 +384,44 @@ Domain::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this Domain object.
  */
 int
-Domain::getTypeCode () const
+Domain::getTypeCode() const
 {
   return SBML_SPATIAL_DOMAIN;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this Domain
+ * object have been set.
  */
 bool
-Domain::hasRequiredAttributes () const
+Domain::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetId() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetDomainType() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this Domain
+ * object have been set.
  */
 bool
-Domain::hasRequiredElements () const
+Domain::hasRequiredElements() const
 {
   bool allPresent = true;
 
@@ -490,15 +429,17 @@ Domain::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-Domain::writeElements (XMLOutputStream& stream) const
+Domain::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   if (getNumInteriorPoints() > 0)
   {
     mInteriorPoints.write(stream);
@@ -507,51 +448,51 @@ Domain::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-Domain::accept (SBMLVisitor& v) const
+Domain::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-/* VISIT CHILDREN */
+  mInteriorPoints.accept(v);
 
   v.leave(*this);
-
   return true;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-Domain::setSBMLDocument (SBMLDocument* d)
+Domain::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
+
   mInteriorPoints.setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
+ * Connects to child elements
  */
 void
 Domain::connectToChild()
@@ -561,57 +502,472 @@ Domain::connectToChild()
   mInteriorPoints.connectToParent(this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 Domain::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                              const std::string& pkgPrefix,
+                              bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
   mInteriorPoints.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * creates object.
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName,
+                     unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName,
+                     std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::getAttribute(const std::string& attributeName,
+                     const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Domain's attribute "attributeName" is
+ * set.
+ */
+bool
+Domain::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = isSetDomainType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName,
+                     const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Domain.
+ */
+int
+Domain::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = unsetDomainType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this Domain.
+ */
+SBase*
+Domain::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "interiorPoint")
+  {
+    return createInteriorPoint();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+Domain::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mInteriorPoints.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+Domain::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mInteriorPoints.getMetaId() == metaid)
+  {
+    return &mInteriorPoints;
+  }
+
+  obj = mInteriorPoints.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+Domain::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mInteriorPoints, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 Domain::createObject(XMLInputStream& stream)
 {
-  SBase* object = NULL;
+  SBase* obj = NULL;
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   if (name == "listOfInteriorPoints")
   {
-    object = &mInteriorPoints;
+    if (mInteriorPoints.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial", SpatialDomainAllowedElements,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
+    obj = &mInteriorPoints;
   }
+
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 Domain::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -619,469 +975,182 @@ Domain::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("domainType");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-Domain::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+Domain::readAttributes(const XMLAttributes& attributes,
+                       const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfDomains - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfDomains*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfDomains*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialDomainAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialGeometryLODomainsAllowedCoreAttributes, pkgVersion, level,
+            version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialDomainAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial", SpatialDomainAllowedCoreAttributes,
+        pkgVersion, level, version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<Domain>");
+      logEmptyString(mId, level, version, "<Domain>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'domain' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the <Domain> "
+      "element.";
+    log->logPackageError("spatial", SpatialDomainAllowedAttributes, pkgVersion,
+      level, version, message);
   }
 
-  //
-  // domainType SIdRef   ( use = "required" )
-  //
+  // 
+  // domainType SIdRef (use = "required" )
+  // 
+
   assigned = attributes.readInto("domainType", mDomainType);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomainType, getLevel(), getVersion(), "<Domain>");
+      logEmptyString(mDomainType, level, version, "<Domain>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
+      logError(SpatialDomainDomainTypeMustBeSId, level, version, "The attribute "
+        "domainType='" + mDomainType + "' does not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'domainType' is missing from 'domain' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'domainType' is missing from the "
+      "<Domain> element.";
+    log->logPackageError("spatial", SpatialDomainAllowedAttributes, pkgVersion,
+      level, version, message);
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-Domain::writeAttributes (XMLOutputStream& stream) const
+void
+Domain::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetDomainType() == true)
+  {
     stream.writeAttribute("domainType", getPrefix(), mDomainType);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * Constructor 
- */
-ListOfDomains::ListOfDomains(unsigned int level, 
-                unsigned int version, 
-                unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfDomains::ListOfDomains(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfDomains 
- */
-ListOfDomains* 
-ListOfDomains::clone () const
- {
-  return new ListOfDomains(*this);
-}
-
-
-/*
- * Get a Domain from the ListOfDomains by index.
-*/
-Domain*
-ListOfDomains::get(unsigned int n)
-{
-  return static_cast<Domain*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Domain from the ListOfDomains by index.
- */
-const Domain*
-ListOfDomains::get(unsigned int n) const
-{
-  return static_cast<const Domain*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Domain from the ListOfDomains by id.
- */
-Domain*
-ListOfDomains::get(const std::string& sid)
-{
-	return const_cast<Domain*>(
-    static_cast<const ListOfDomains&>(*this).get(sid));
-}
-
-
-/*
- * Get a Domain from the ListOfDomains by id.
- */
-const Domain*
-ListOfDomains::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Domain>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Domain*> (*result);
-}
-
-
-/**
- * Adds a copy the given "Domain" to this ListOfDomains.
- *
- * @param d; the Domain object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfDomains::addDomain(const Domain* d)
-{
-  if (d == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (d->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != d->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != d->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(d)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(d);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of Domain objects in this ListOfDomains.
- *
- * @return the number of Domain objects in this ListOfDomains
- */
-unsigned int 
-ListOfDomains::getNumDomains() const
-{
-	return size();
-}
-
-/**
- * Creates a new Domain object, adds it to this ListOfDomains
- * Domain and returns the Domain object created. 
- *
- * @return a new Domain object instance
- *
- * @see addDomain(const Domain* d)
- */
-Domain* 
-ListOfDomains::createDomain()
-{
-  Domain* d = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    d = new Domain(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(d != NULL)
-  {
-    appendAndOwn(d);
-  }
-
-  return d;
+  SBase::writeExtensionAttributes(stream);
 }
 
-/*
- * Removes the nth Domain from this ListOfDomains
- */
-Domain*
-ListOfDomains::remove(unsigned int n)
-{
-  return static_cast<Domain*>(ListOf::remove(n));
-}
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Removes the Domain from this ListOfDomains with the given identifier
+ * Creates a new Domain_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-Domain*
-ListOfDomains::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Domain>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <Domain*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfDomains::getElementName () const
-{
-  static const string name = "listOfDomains";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfDomains::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfDomains::getItemTypeCode () const
-{
-  return SBML_SPATIAL_DOMAIN;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new Domain in this ListOfDomains
- */
-SBase*
-ListOfDomains::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "domain")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new Domain(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfDomains::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 Domain_t *
-Domain_create(unsigned int level, unsigned int version,
+Domain_create(unsigned int level,
+              unsigned int version,
               unsigned int pkgVersion)
 {
   return new Domain(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this Domain_t object.
+ */
 LIBSBML_EXTERN
-void
-Domain_free(Domain_t * d)
-{
-  if (d != NULL)
-    delete d;
-}
-
-
-LIBSBML_EXTERN
-Domain_t *
-Domain_clone(Domain_t * d)
+Domain_t*
+Domain_clone(const Domain_t* d)
 {
   if (d != NULL)
   {
@@ -1094,22 +1163,56 @@ Domain_clone(Domain_t * d)
 }
 
 
+/*
+ * Frees this Domain_t object.
+ */
+LIBSBML_EXTERN
+void
+Domain_free(Domain_t* d)
+{
+  if (d != NULL)
+  {
+    delete d;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 const char *
 Domain_getId(const Domain_t * d)
 {
-	return (d != NULL && d->isSetId()) ? d->getId().c_str() : NULL;
+  if (d == NULL)
+  {
+    return NULL;
+  }
+
+  return d->getId().empty() ? NULL : safe_strdup(d->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "domainType" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 const char *
 Domain_getDomainType(const Domain_t * d)
 {
-	return (d != NULL && d->isSetDomainType()) ? d->getDomainType().c_str() : NULL;
+  if (d == NULL)
+  {
+    return NULL;
+  }
+
+  return d->getDomainType().empty() ? NULL :
+    safe_strdup(d->getDomainType().c_str());
 }
 
 
+/*
+ * Predicate returning @c 1 if this Domain_t's "id" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 Domain_isSetId(const Domain_t * d)
@@ -1118,6 +1221,9 @@ Domain_isSetId(const Domain_t * d)
 }
 
 
+/*
+ * Predicate returning @c 1 if this Domain_t's "domainType" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 Domain_isSetDomainType(const Domain_t * d)
@@ -1126,28 +1232,31 @@ Domain_isSetDomainType(const Domain_t * d)
 }
 
 
+/*
+ * Sets the value of the "id" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 int
 Domain_setId(Domain_t * d, const char * id)
 {
-  if (d != NULL)
-    return (id == NULL) ? d->setId("") : d->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "domainType" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 int
 Domain_setDomainType(Domain_t * d, const char * domainType)
 {
-  if (d != NULL)
-    return (domainType == NULL) ? d->setDomainType("") : d->setDomainType(domainType);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->setDomainType(domainType) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "id" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 int
 Domain_unsetId(Domain_t * d)
@@ -1156,6 +1265,9 @@ Domain_unsetId(Domain_t * d)
 }
 
 
+/*
+ * Unsets the value of the "domainType" attribute of this Domain_t.
+ */
 LIBSBML_EXTERN
 int
 Domain_unsetDomainType(Domain_t * d)
@@ -1164,62 +1276,78 @@ Domain_unsetDomainType(Domain_t * d)
 }
 
 
+/*
+ * Returns a ListOf_t* containing InteriorPoint_t objects from this Domain_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+Domain_getListOfInteriorPoints(Domain_t* d)
+{
+  return (d != NULL) ? d->getListOfInteriorPoints() : NULL;
+}
+
+
+/*
+ * Get an InteriorPoint_t from the Domain_t.
+ */
+LIBSBML_EXTERN
+const InteriorPoint_t*
+Domain_getInteriorPoint(Domain_t* d, unsigned int n)
+{
+  return (d != NULL) ? d->getInteriorPoint(n) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given InteriorPoint_t to this Domain_t.
+ */
 LIBSBML_EXTERN
 int
-Domain_addInteriorPoint(Domain_t * d, InteriorPoint_t * ip)
+Domain_addInteriorPoint(Domain_t* d, const InteriorPoint_t* ip)
 {
-	return  (d != NULL) ? d->addInteriorPoint(ip) : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->addInteriorPoint(ip) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-InteriorPoint_t *
-Domain_createInteriorPoint(Domain_t * d)
-{
-	return  (d != NULL) ? d->createInteriorPoint() : NULL;
-}
 
-LIBSBML_EXTERN
-ListOf_t *
-Domain_getListOfInteriorPoints(Domain_t * d)
-{
-	return  (d != NULL) ? (ListOf_t *)d->getListOfInteriorPoints() : NULL;
-}
-
-LIBSBML_EXTERN
-InteriorPoint_t *
-Domain_getInteriorPoint(Domain_t * d, unsigned int n)
-{
-	return  (d != NULL) ? d->getInteriorPoint(n) : NULL;
-}
-
-LIBSBML_EXTERN
-InteriorPoint_t *
-Domain_getInteriorPointById(Domain_t * d, const char * sid)
-{
-	return  (d != NULL) ? d->getInteriorPoint(sid) : NULL;
-}
-
+/*
+ * Get the number of InteriorPoint_t objects in this Domain_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-Domain_getNumInteriorPoints(Domain_t * d)
+Domain_getNumInteriorPoints(Domain_t* d)
 {
-	return  (d != NULL) ? d->getNumInteriorPoints() : SBML_INT_MAX;
+  return (d != NULL) ? d->getNumInteriorPoints() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new InteriorPoint_t object, adds it to this Domain_t object and
+ * returns the InteriorPoint_t object created.
+ */
 LIBSBML_EXTERN
-InteriorPoint_t *
-Domain_removeInteriorPoint(Domain_t * d, unsigned int n)
+InteriorPoint_t*
+Domain_createInteriorPoint(Domain_t* d)
 {
-	return  (d != NULL) ? d->removeInteriorPoint(n) : NULL;
+  return (d != NULL) ? d->createInteriorPoint() : NULL;
 }
 
+
+/*
+ * Removes the nth InteriorPoint_t from this Domain_t and returns a pointer to
+ * it.
+ */
 LIBSBML_EXTERN
-InteriorPoint_t *
-Domain_removeInteriorPointById(Domain_t * d, const char * sid)
+InteriorPoint_t*
+Domain_removeInteriorPoint(Domain_t* d, unsigned int n)
 {
-	return  (d != NULL) ? d->removeInteriorPoint(sid) : NULL;
+  return (d != NULL) ? d->removeInteriorPoint(n) : NULL;
 }
 
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this Domain_t
+ * object have been set.
+ */
 LIBSBML_EXTERN
 int
 Domain_hasRequiredAttributes(const Domain_t * d)
@@ -1228,39 +1356,15 @@ Domain_hasRequiredAttributes(const Domain_t * d)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this Domain_t
+ * object have been set.
+ */
 LIBSBML_EXTERN
 int
 Domain_hasRequiredElements(const Domain_t * d)
 {
-	return (d != NULL) ? static_cast<int>(d->hasRequiredElements()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Domain_t *
-ListOfDomains_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDomains *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Domain_t *
-ListOfDomains_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDomains *>(lo)->remove(sid) : NULL;
+  return (d != NULL) ? static_cast<int>(d->hasRequiredElements()) : 0;
 }
 
 

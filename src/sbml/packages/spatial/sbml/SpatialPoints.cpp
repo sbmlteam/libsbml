@@ -1,81 +1,84 @@
 /**
- * @file:   SpatialPoints.cpp
- * @brief:  Implementation of the SpatialPoints class
- * @author: SBMLTeam
+ * @file SpatialPoints.cpp
+ * @brief Implementation of the SpatialPoints class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/SpatialPoints.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new SpatialPoints with the given level, version, and package version.
+ * Creates a new SpatialPoints using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-SpatialPoints::SpatialPoints (unsigned int level, unsigned int version, unsigned int pkgVersion)
+SpatialPoints::SpatialPoints(unsigned int level,
+                             unsigned int version,
+                             unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mCompression (COMPRESSIONKIND_UNKNOWN)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
   , mDataType (DATAKIND_UNKNOWN)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new SpatialPoints with the given SpatialPkgNamespaces object.
+ * Creates a new SpatialPoints using the given SpatialPkgNamespaces object.
  */
-SpatialPoints::SpatialPoints (SpatialPkgNamespaces* spatialns)
+SpatialPoints::SpatialPoints(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mCompression (COMPRESSIONKIND_UNKNOWN)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
   , mDataType (DATAKIND_UNKNOWN)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -83,21 +86,22 @@ SpatialPoints::SpatialPoints (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for SpatialPoints.
  */
-SpatialPoints::SpatialPoints (const SpatialPoints& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mCompression  ( orig.mCompression)
-  , mArrayData  ( NULL)
-  , mArrayDataLength  ( orig.mArrayDataLength)
-  , mIsSetArrayDataLength  ( orig.mIsSetArrayDataLength)
-  , mDataType  ( orig.mDataType)
+SpatialPoints::SpatialPoints(const SpatialPoints& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mCompression ( orig.mCompression )
+  , mArrayData ( NULL )
+  , mArrayDataLength ( orig.mArrayDataLength )
+  , mIsSetArrayDataLength ( orig.mIsSetArrayDataLength )
+  , mDataType ( orig.mDataType )
 {
   setArrayData(orig.mArrayData, orig.mArrayDataLength);
+
 }
 
 
 /*
- * Assignment for SpatialPoints.
+ * Assignment operator for SpatialPoints.
  */
 SpatialPoints&
 SpatialPoints::operator=(const SpatialPoints& rhs)
@@ -105,23 +109,24 @@ SpatialPoints::operator=(const SpatialPoints& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mCompression  = rhs.mCompression;
-    mArrayData  = NULL;
+    mId = rhs.mId;
+    mCompression = rhs.mCompression;
+    mArrayData = NULL;
     setArrayData(rhs.mArrayData, rhs.mArrayDataLength);
-    mArrayDataLength  = rhs.mArrayDataLength;
-    mIsSetArrayDataLength  = rhs.mIsSetArrayDataLength;
-    mDataType  = rhs.mDataType;
+    mArrayDataLength = rhs.mArrayDataLength;
+    mIsSetArrayDataLength = rhs.mIsSetArrayDataLength;
+    mDataType = rhs.mDataType;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for SpatialPoints.
+ * Creates and returns a deep copy of this SpatialPoints object.
  */
 SpatialPoints*
-SpatialPoints::clone () const
+SpatialPoints::clone() const
 {
   return new SpatialPoints(*this);
 }
@@ -130,10 +135,13 @@ SpatialPoints::clone () const
 /*
  * Destructor for SpatialPoints.
  */
-SpatialPoints::~SpatialPoints ()
+SpatialPoints::~SpatialPoints()
 {
   if (mArrayData != NULL)
-    delete[] mArrayData;
+  {
+    delete [] mArrayData;
+  }
+
   mArrayData = NULL;
 }
 
@@ -159,19 +167,28 @@ SpatialPoints::getCompression() const
 
 
 /*
- * The "arrayData" attribute of this SpatialPoints is returned in an double* array (pointer)
- * that is passed as argument to the method (this is needed while using SWIG to
- * convert int[] from C++ to Java). The method itself has a return type void.
- *
- * NOTE: you have to pre-allocate the array with the correct length! *
- * @return void.
+ * Returns the value of the "compression" attribute of this SpatialPoints.
+ */
+const std::string&
+SpatialPoints::getCompressionAsString() const
+{
+  static const std::string code_str = CompressionKind_toString(mCompression);
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "arrayData" attribute of this SpatialPoints.
  */
 void
 SpatialPoints::getArrayData(double* outArray) const
 {
-   if (outArray == NULL || mArrayData == NULL) return;
+  if (outArray == NULL || mArrayData == NULL)
+  {
+    return;
+  }
 
-   memcpy(outArray , mArrayData, sizeof(double)*mArrayDataLength);
+  memcpy(outArray, mArrayData, sizeof(double)*mArrayDataLength);
 }
 
 
@@ -196,7 +213,18 @@ SpatialPoints::getDataType() const
 
 
 /*
- * Returns true/false if id is set.
+ * Returns the value of the "dataType" attribute of this SpatialPoints.
+ */
+const std::string&
+SpatialPoints::getDataTypeAsString() const
+{
+  static const std::string code_str = DataKind_toString(mDataType);
+  return code_str;
+}
+
+
+/*
+ * Predicate returning @c true if this SpatialPoints's "id" attribute is set.
  */
 bool
 SpatialPoints::isSetId() const
@@ -206,17 +234,19 @@ SpatialPoints::isSetId() const
 
 
 /*
- * Returns true/false if compression is set.
+ * Predicate returning @c true if this SpatialPoints's "compression" attribute
+ * is set.
  */
 bool
 SpatialPoints::isSetCompression() const
 {
-  return mCompression != COMPRESSIONKIND_UNKNOWN;
+  return (mCompression != COMPRESSIONKIND_UNKNOWN);
 }
 
 
 /*
- * Returns true/false if arrayData is set.
+ * Predicate returning @c true if this SpatialPoints's "arrayData" attribute is
+ * set.
  */
 bool
 SpatialPoints::isSetArrayData() const
@@ -226,7 +256,8 @@ SpatialPoints::isSetArrayData() const
 
 
 /*
- * Returns true/false if arrayDataLength is set.
+ * Predicate returning @c true if this SpatialPoints's "arrayDataLength"
+ * attribute is set.
  */
 bool
 SpatialPoints::isSetArrayDataLength() const
@@ -236,17 +267,18 @@ SpatialPoints::isSetArrayDataLength() const
 
 
 /*
- * Returns true/false if dataType is set.
+ * Predicate returning @c true if this SpatialPoints's "dataType" attribute is
+ * set.
  */
 bool
 SpatialPoints::isSetDataType() const
 {
-  return mDataType != DATAKIND_UNKNOWN;
+  return (mDataType != DATAKIND_UNKNOWN);
 }
 
 
 /*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::setId(const std::string& id)
@@ -256,48 +288,59 @@ SpatialPoints::setId(const std::string& id)
 
 
 /*
- * Sets compression and returns value indicating success.
+ * Sets the value of the "compression" attribute of this SpatialPoints.
  */
 int
-SpatialPoints::setCompression(CompressionKind_t compression)
+SpatialPoints::setCompression(const CompressionKind_t compression)
 {
-  mCompression = compression;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CompressionKind_isValid(compression) == 0)
+  {
+    mCompression = COMPRESSIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompression = compression;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets compression and returns value indicating success.
+ * Sets the value of the "compression" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::setCompression(const std::string& compression)
 {
-  CompressionKind_t parsed = CompressionKind_parse(compression.c_str());
-  if (parsed == COMPRESSIONKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mCompression = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CompressionKind_isValidString(compression.c_str()) == 0)
+  {
+    mCompression = COMPRESSIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompression = CompressionKind_fromString(compression.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets the "arrayData" element of this SpatialPoints.
- *
- * @param inArray; double* array to be set (it will be copied).
- * @param arrayLength; the length of the array.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Sets the value of the "arrayData" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::setArrayData(double* inArray, int arrayLength)
 {
-  if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
 
-  if (mArrayData != NULL) delete[] mArrayData;
+  if (mArrayData != NULL)
+  {
+    delete[] mArrayData;
+  }
+
   mArrayData = new double[arrayLength];
   memcpy(mArrayData, inArray, sizeof(double)*arrayLength);
   mIsSetArrayDataLength = true;
@@ -305,8 +348,10 @@ SpatialPoints::setArrayData(double* inArray, int arrayLength)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+
 /*
- * Sets arrayDataLength and returns value indicating success.
+ * Sets the value of the "arrayDataLength" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::setArrayDataLength(int arrayDataLength)
@@ -318,31 +363,45 @@ SpatialPoints::setArrayDataLength(int arrayDataLength)
 
 
 /*
- * Sets dataType and returns value indicating success.
+ * Sets the value of the "dataType" attribute of this SpatialPoints.
  */
 int
-SpatialPoints::setDataType(DataKind_t dataType)
+SpatialPoints::setDataType(const DataKind_t dataType)
 {
-  mDataType = dataType;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (DataKind_isValid(dataType) == 0)
+  {
+    mDataType = DATAKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDataType = dataType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets dataType and returns value indicating success.
+ * Sets the value of the "dataType" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::setDataType(const std::string& dataType)
 {
-  DataKind_t parsed = DataKind_parse(dataType.c_str());
-  if (parsed == DATAKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mDataType = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (DataKind_isValidString(dataType.c_str()) == 0)
+  {
+    mDataType = DATAKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDataType = DataKind_fromString(dataType.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::unsetId()
@@ -361,7 +420,7 @@ SpatialPoints::unsetId()
 
 
 /*
- * Unsets compression and returns value indicating success.
+ * Unsets the value of the "compression" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::unsetCompression()
@@ -372,20 +431,24 @@ SpatialPoints::unsetCompression()
 
 
 /*
- * Unsets arrayData and returns value indicating success.
+ * Unsets the value of the "arrayData" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::unsetArrayData()
 {
   if (mArrayData != NULL)
-   delete[] mArrayData;
+  {
+    delete[] mArrayData;
+  }
+
   mArrayData = NULL;
+
   return unsetArrayDataLength();
 }
 
 
 /*
- * Unsets arrayDataLength and returns value indicating success.
+ * Unsets the value of the "arrayDataLength" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::unsetArrayDataLength()
@@ -405,7 +468,7 @@ SpatialPoints::unsetArrayDataLength()
 
 
 /*
- * Unsets dataType and returns value indicating success.
+ * Unsets the value of the "dataType" attribute of this SpatialPoints.
  */
 int
 SpatialPoints::unsetDataType()
@@ -416,10 +479,10 @@ SpatialPoints::unsetDataType()
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this SpatialPoints object.
  */
 const std::string&
-SpatialPoints::getElementName () const
+SpatialPoints::getElementName() const
 {
   static const string name = "spatialPoints";
   return name;
@@ -427,105 +490,517 @@ SpatialPoints::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this SpatialPoints object.
  */
 int
-SpatialPoints::getTypeCode () const
+SpatialPoints::getTypeCode() const
 {
   return SBML_SPATIAL_SPATIALPOINTS;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * SpatialPoints object have been set.
  */
 bool
-SpatialPoints::hasRequiredAttributes () const
+SpatialPoints::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetId() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetCompression() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetArrayData() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetArrayDataLength() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-SpatialPoints::writeElements (XMLOutputStream& stream) const
+SpatialPoints::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-SpatialPoints::accept (SBMLVisitor& v) const
+SpatialPoints::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-SpatialPoints::setSBMLDocument (SBMLDocument* d)
+SpatialPoints::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * used to write arrays
+ */
+void
+SpatialPoints::write(XMLOutputStream& stream) const
+{
+  stream.startElement(getElementName(), getPrefix());
+  writeAttributes(stream);
+
+  if (isSetArrayData())
+  {
+    for (int i = 0; i < mArrayDataLength; ++i)
+    {
+      stream << (double)mArrayData[i] << " ";
+    }
+  }
+
+  stream.endElement(getElementName(), getPrefix());
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
  */
 void
 SpatialPoints::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                     const std::string& pkgPrefix,
+                                     bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "arrayDataLength")
+  {
+    value = getArrayDataLength();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "compression")
+  {
+    value = getCompressionAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "dataType")
+  {
+    value = getDataTypeAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::getAttribute(const std::string& attributeName,
+                            const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "compression")
+  {
+    value = getCompressionAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "dataType")
+  {
+    value = getDataTypeAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this SpatialPoints's attribute
+ * "attributeName" is set.
+ */
+bool
+SpatialPoints::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "compression")
+  {
+    value = isSetCompression();
+  }
+  else if (attributeName == "arrayData")
+  {
+    value = isSetArrayData();
+  }
+  else if (attributeName == "arrayDataLength")
+  {
+    value = isSetArrayDataLength();
+  }
+  else if (attributeName == "dataType")
+  {
+    value = isSetDataType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "arrayDataLength")
+  {
+    return_value = setArrayDataLength(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName,
+                            unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName,
+                            const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "compression")
+  {
+    return_value = setCompression(value);
+  }
+  else if (attributeName == "dataType")
+  {
+    return_value = setDataType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::setAttribute(const std::string& attributeName,
+                            const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "compression")
+  {
+    return_value = setCompression(value);
+  }
+  else if (attributeName == "dataType")
+  {
+    return_value = setDataType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this SpatialPoints.
+ */
+int
+SpatialPoints::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "compression")
+  {
+    value = unsetCompression();
+  }
+  else if (attributeName == "arrayData")
+  {
+    value = unsetArrayData();
+  }
+  else if (attributeName == "arrayDataLength")
+  {
+    value = unsetArrayDataLength();
+  }
+  else if (attributeName == "dataType")
+  {
+    value = unsetDataType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 SpatialPoints::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -533,225 +1008,252 @@ SpatialPoints::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("compression");
+
   attributes.add("arrayDataLength");
+
   attributes.add("dataType");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-SpatialPoints::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+SpatialPoints::readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialSpatialPointsAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<SpatialPoints>");
+      logEmptyString(mId, level, version, "<SpatialPoints>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'spatialPoints' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the "
+      "<SpatialPoints> element.";
+    log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // compression enum  ( use = "required" )
-  //
-  mCompression = COMPRESSIONKIND_UNKNOWN;
+  // 
+  // compression enum (use = "required" )
+  // 
+
+  std::string compression;
+  assigned = attributes.readInto("compression", compression);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("compression", stringValue);
-
-    if (assigned == true)
+    if (compression.empty() == true)
     {
-      // parse enum
+      logEmptyString(compression, level, version, "<SpatialPoints>");
+    }
+    else
+    {
+      mCompression = CompressionKind_fromString(compression.c_str());
 
-      mCompression = CompressionKind_parse(stringValue.c_str());
-      if(mCompression == COMPRESSIONKIND_UNKNOWN)
+      if (CompressionKind_isValid(mCompression) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'compression' in 'spatialPoints' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The compression on the <SpatialPoints> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + compression + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialSpatialPointsCompressionMustBeCompressionKindEnum, pkgVersion,
+            level, version, msg);
       }
     }
   }
-  if(mCompression == COMPRESSIONKIND_UNKNOWN)
+  else
   {
-    std::string message = "Spatial attribute 'compression' is missing from 'spatialPoints' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'compression' is missing.";
+    log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // arrayDataLength int   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
-  mIsSetArrayDataLength = attributes.readInto("arrayDataLength", mArrayDataLength);
+  // 
+  // arrayDataLength int (use = "required" )
+  // 
 
-  if (mIsSetArrayDataLength == false)
+  numErrs = log->getNumErrors();
+  mIsSetArrayDataLength = attributes.readInto("arrayDataLength",
+    mArrayDataLength);
+
+  if ( mIsSetArrayDataLength == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'arrayDataLength' is missing from 'spatialPoints' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'arrayDataLength' from the "
+        "<SpatialPoints> element must be an integer.";
+      log->logPackageError("spatial",
+        SpatialSpatialPointsArrayDataLengthMustBeInteger, pkgVersion, level,
+          version, message);
+    }
+    else
+    {
+      std::string message = "Spatial attribute 'arrayDataLength' is missing "
+        "from the <SpatialPoints> element.";
+      log->logPackageError("spatial", SpatialSpatialPointsAllowedAttributes,
+        pkgVersion, level, version, message);
     }
   }
 
-  //
-  // dataType enum  ( use = "optional" )
-  //
-  mDataType = DATAKIND_UNKNOWN;
+  // 
+  // dataType enum (use = "optional" )
+  // 
+
+  std::string datatype;
+  assigned = attributes.readInto("dataType", datatype);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("dataType", stringValue);
-
-    if (assigned == true)
+    if (datatype.empty() == true)
     {
-      // parse enum
+      logEmptyString(datatype, level, version, "<SpatialPoints>");
+    }
+    else
+    {
+      mDataType = DataKind_fromString(datatype.c_str());
 
-      mDataType = DataKind_parse(stringValue.c_str());
-      if(mDataType == DATAKIND_UNKNOWN)
+      if (DataKind_isValid(mDataType) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'dataType' in 'spatialPoints' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The dataType on the <SpatialPoints> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + datatype + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialSpatialPointsDataTypeMustBeDataKindEnum, pkgVersion, level,
+            version, msg);
       }
     }
   }
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-SpatialPoints::writeAttributes (XMLOutputStream& stream) const
+void
+SpatialPoints::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetCompression() == true)
-    stream.writeAttribute("compression", getPrefix(), CompressionKind_toString(mCompression));
+  {
+    stream.writeAttribute("compression", getPrefix(),
+      CompressionKind_toString(mCompression));
+  }
 
   if (isSetArrayDataLength() == true)
+  {
     stream.writeAttribute("arrayDataLength", getPrefix(), mArrayDataLength);
+  }
 
   if (isSetDataType() == true)
-    stream.writeAttribute("dataType", getPrefix(), DataKind_toString(mDataType));
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-void
-SpatialPoints::write(XMLOutputStream& stream) const
-{
-  stream.startElement(getElementName(), getPrefix());
-  writeAttributes(stream);
-  if(isSetArrayData())
   {
-    for (int i = 0; i < mArrayDataLength; ++i)
-    {
-      stream << (double)mArrayData[i] << " ";
-    }
+    stream.writeAttribute("dataType", getPrefix(),
+      DataKind_toString(mDataType));
   }
-  stream.endElement(getElementName(), getPrefix());
+
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the array data as a text element
+ */
 void
-SpatialPoints::setElementText(const std::string &text)
+SpatialPoints::setElementText(const std::string& text)
 {
-  stringstream strStream(text); // Insert the string into a stream
+  stringstream strStream(text);
   double val;
   vector<double> valuesVector;
+
   while (strStream >> val)
   {
     valuesVector.push_back(val);
   }
 
-  // convert the vector to an array
   unsigned int length = (unsigned int)valuesVector.size();
+
   if (length > 0)
   {
-
     double* data = new double[length];
     for (unsigned int i = 0; i < length; ++i)
     {
@@ -762,27 +1264,35 @@ SpatialPoints::setElementText(const std::string &text)
     delete[] data;
   }
 }
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new SpatialPoints_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 SpatialPoints_t *
-SpatialPoints_create(unsigned int level, unsigned int version,
+SpatialPoints_create(unsigned int level,
+                     unsigned int version,
                      unsigned int pkgVersion)
 {
   return new SpatialPoints(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this SpatialPoints_t object.
+ */
 LIBSBML_EXTERN
-void
-SpatialPoints_free(SpatialPoints_t * sp)
-{
-  if (sp != NULL)
-    delete sp;
-}
-
-
-LIBSBML_EXTERN
-SpatialPoints_t *
-SpatialPoints_clone(SpatialPoints_t * sp)
+SpatialPoints_t*
+SpatialPoints_clone(const SpatialPoints_t* sp)
 {
   if (sp != NULL)
   {
@@ -795,38 +1305,105 @@ SpatialPoints_clone(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Frees this SpatialPoints_t object.
+ */
+LIBSBML_EXTERN
+void
+SpatialPoints_free(SpatialPoints_t* sp)
+{
+  if (sp != NULL)
+  {
+    delete sp;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 const char *
 SpatialPoints_getId(const SpatialPoints_t * sp)
 {
-	return (sp != NULL && sp->isSetId()) ? sp->getId().c_str() : NULL;
+  if (sp == NULL)
+  {
+    return NULL;
+  }
+
+  return sp->getId().empty() ? NULL : safe_strdup(sp->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "compression" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 CompressionKind_t
 SpatialPoints_getCompression(const SpatialPoints_t * sp)
 {
-	return (sp != NULL) ? sp->getCompression() : COMPRESSIONKIND_UNKNOWN;
+  if (sp == NULL)
+  {
+    return COMPRESSIONKIND_UNKNOWN;
+  }
+
+  return sp->getCompression();
 }
 
 
+/*
+ * Returns the value of the "compression" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+const char *
+SpatialPoints_getCompressionAsString(const SpatialPoints_t * sp)
+{
+  return CompressionKind_toString(sp->getCompression());
+}
+
+
+/*
+ * Returns the value of the "arrayDataLength" attribute of this
+ * SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_getArrayDataLength(const SpatialPoints_t * sp)
 {
-	return (sp != NULL) ? sp->getArrayDataLength() : SBML_INT_MAX;
+  return (sp != NULL) ? sp->getArrayDataLength() : SBML_INT_MAX;
 }
 
 
+/*
+ * Returns the value of the "dataType" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 DataKind_t
 SpatialPoints_getDataType(const SpatialPoints_t * sp)
 {
-	return (sp != NULL) ? sp->getDataType() : DATAKIND_UNKNOWN;
+  if (sp == NULL)
+  {
+    return DATAKIND_UNKNOWN;
+  }
+
+  return sp->getDataType();
 }
 
 
+/*
+ * Returns the value of the "dataType" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+const char *
+SpatialPoints_getDataTypeAsString(const SpatialPoints_t * sp)
+{
+  return DataKind_toString(sp->getDataType());
+}
+
+
+/*
+ * Predicate returning @c 1 if this SpatialPoints_t's "id" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetId(const SpatialPoints_t * sp)
@@ -835,6 +1412,10 @@ SpatialPoints_isSetId(const SpatialPoints_t * sp)
 }
 
 
+/*
+ * Predicate returning @c 1 if this SpatialPoints_t's "compression" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetCompression(const SpatialPoints_t * sp)
@@ -843,6 +1424,10 @@ SpatialPoints_isSetCompression(const SpatialPoints_t * sp)
 }
 
 
+/*
+ * Predicate returning @c 1 if this SpatialPoints_t's "arrayData" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetArrayData(const SpatialPoints_t * sp)
@@ -851,6 +1436,10 @@ SpatialPoints_isSetArrayData(const SpatialPoints_t * sp)
 }
 
 
+/*
+ * Predicate returning @c 1 if this SpatialPoints_t's "arrayDataLength"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp)
@@ -859,6 +1448,10 @@ SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp)
 }
 
 
+/*
+ * Predicate returning @c 1 if this SpatialPoints_t's "dataType" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_isSetDataType(const SpatialPoints_t * sp)
@@ -867,50 +1460,94 @@ SpatialPoints_isSetDataType(const SpatialPoints_t * sp)
 }
 
 
+/*
+ * Sets the value of the "id" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_setId(SpatialPoints_t * sp, const char * id)
 {
-  if (sp != NULL)
-    return (id == NULL) ? sp->setId("") : sp->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (sp != NULL) ? sp->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "compression" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
-SpatialPoints_setCompression(SpatialPoints_t * sp, CompressionKind_t compression)
+SpatialPoints_setCompression(SpatialPoints_t * sp,
+                             CompressionKind_t compression)
 {
-  if (sp != NULL)
-    return sp->setCompression(compression);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (sp != NULL) ? sp->setCompression(compression) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "compression" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setCompressionAsString(SpatialPoints_t * sp,
+                                     const char * compression)
+{
+  return (sp != NULL) ? sp->setCompression(compression):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "arrayData" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setArrayData(SpatialPoints_t* sp,
+                           double* arrayData,
+                           int arrayLength)
+{
+  return (sp != NULL) ? sp->setArrayData(arrayData, arrayLength) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "arrayDataLength" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_setArrayDataLength(SpatialPoints_t * sp, int arrayDataLength)
 {
-  if (sp != NULL)
-    return sp->setArrayDataLength(arrayDataLength);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (sp != NULL) ? sp->setArrayDataLength(arrayDataLength) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "dataType" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_setDataType(SpatialPoints_t * sp, DataKind_t dataType)
 {
-  if (sp != NULL)
-    return sp->setDataType(dataType);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (sp != NULL) ? sp->setDataType(dataType) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "dataType" attribute of this SpatialPoints_t.
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setDataTypeAsString(SpatialPoints_t * sp, const char * dataType)
+{
+  return (sp != NULL) ? sp->setDataType(dataType): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_unsetId(SpatialPoints_t * sp)
@@ -919,6 +1556,9 @@ SpatialPoints_unsetId(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Unsets the value of the "compression" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_unsetCompression(SpatialPoints_t * sp)
@@ -927,6 +1567,9 @@ SpatialPoints_unsetCompression(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Unsets the value of the "arrayData" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_unsetArrayData(SpatialPoints_t * sp)
@@ -935,6 +1578,9 @@ SpatialPoints_unsetArrayData(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Unsets the value of the "arrayDataLength" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_unsetArrayDataLength(SpatialPoints_t * sp)
@@ -943,6 +1589,9 @@ SpatialPoints_unsetArrayDataLength(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Unsets the value of the "dataType" attribute of this SpatialPoints_t.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_unsetDataType(SpatialPoints_t * sp)
@@ -951,6 +1600,10 @@ SpatialPoints_unsetDataType(SpatialPoints_t * sp)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * SpatialPoints_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 SpatialPoints_hasRequiredAttributes(const SpatialPoints_t * sp)

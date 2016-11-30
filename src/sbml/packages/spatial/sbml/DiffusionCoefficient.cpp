@@ -1,77 +1,81 @@
 /**
- * @file:   DiffusionCoefficient.cpp
- * @brief:  Implementation of the DiffusionCoefficient class
- * @author: SBMLTeam
+ * @file DiffusionCoefficient.cpp
+ * @brief Implementation of the DiffusionCoefficient class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/DiffusionCoefficient.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new DiffusionCoefficient with the given level, version, and package version.
+ * Creates a new DiffusionCoefficient using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-DiffusionCoefficient::DiffusionCoefficient (unsigned int level, unsigned int version, unsigned int pkgVersion)
+DiffusionCoefficient::DiffusionCoefficient(unsigned int level,
+                                           unsigned int version,
+                                           unsigned int pkgVersion)
   : SBase(level, version)
   , mVariable ("")
   , mType (DIFFUSIONKIND_UNKNOWN)
   , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
   , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new DiffusionCoefficient with the given SpatialPkgNamespaces object.
+ * Creates a new DiffusionCoefficient using the given SpatialPkgNamespaces
+ * object.
  */
-DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
+DiffusionCoefficient::DiffusionCoefficient(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mVariable ("")
   , mType (DIFFUSIONKIND_UNKNOWN)
   , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
   , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -79,18 +83,18 @@ DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for DiffusionCoefficient.
  */
-DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
-  : SBase(orig)
-  , mVariable  ( orig.mVariable)
-  , mType  ( orig.mType)
-  , mCoordinateReference1  ( orig.mCoordinateReference1)
-  , mCoordinateReference2  ( orig.mCoordinateReference2)
+DiffusionCoefficient::DiffusionCoefficient(const DiffusionCoefficient& orig)
+  : SBase( orig )
+  , mVariable ( orig.mVariable )
+  , mType ( orig.mType )
+  , mCoordinateReference1 ( orig.mCoordinateReference1 )
+  , mCoordinateReference2 ( orig.mCoordinateReference2 )
 {
 }
 
 
 /*
- * Assignment for DiffusionCoefficient.
+ * Assignment operator for DiffusionCoefficient.
  */
 DiffusionCoefficient&
 DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
@@ -98,20 +102,21 @@ DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mVariable  = rhs.mVariable;
-    mType  = rhs.mType;
-    mCoordinateReference1  = rhs.mCoordinateReference1;
-    mCoordinateReference2  = rhs.mCoordinateReference2;
+    mVariable = rhs.mVariable;
+    mType = rhs.mType;
+    mCoordinateReference1 = rhs.mCoordinateReference1;
+    mCoordinateReference2 = rhs.mCoordinateReference2;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for DiffusionCoefficient.
+ * Creates and returns a deep copy of this DiffusionCoefficient object.
  */
 DiffusionCoefficient*
-DiffusionCoefficient::clone () const
+DiffusionCoefficient::clone() const
 {
   return new DiffusionCoefficient(*this);
 }
@@ -120,7 +125,7 @@ DiffusionCoefficient::clone () const
 /*
  * Destructor for DiffusionCoefficient.
  */
-DiffusionCoefficient::~DiffusionCoefficient ()
+DiffusionCoefficient::~DiffusionCoefficient()
 {
 }
 
@@ -146,7 +151,19 @@ DiffusionCoefficient::getType() const
 
 
 /*
- * Returns the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
+ * Returns the value of the "type" attribute of this DiffusionCoefficient.
+ */
+const std::string&
+DiffusionCoefficient::getTypeAsString() const
+{
+  static const std::string code_str = DiffusionKind_toString(mType);
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient.
  */
 CoordinateKind_t
 DiffusionCoefficient::getCoordinateReference1() const
@@ -156,7 +173,21 @@ DiffusionCoefficient::getCoordinateReference1() const
 
 
 /*
- * Returns the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
+ * Returns the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient.
+ */
+const std::string&
+DiffusionCoefficient::getCoordinateReference1AsString() const
+{
+  static const std::string code_str =
+    CoordinateKind_toString(mCoordinateReference1);
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient.
  */
 CoordinateKind_t
 DiffusionCoefficient::getCoordinateReference2() const
@@ -166,7 +197,21 @@ DiffusionCoefficient::getCoordinateReference2() const
 
 
 /*
- * Returns true/false if variable is set.
+ * Returns the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient.
+ */
+const std::string&
+DiffusionCoefficient::getCoordinateReference2AsString() const
+{
+  static const std::string code_str =
+    CoordinateKind_toString(mCoordinateReference2);
+  return code_str;
+}
+
+
+/*
+ * Predicate returning @c true if this DiffusionCoefficient's "variable"
+ * attribute is set.
  */
 bool
 DiffusionCoefficient::isSetVariable() const
@@ -176,37 +221,40 @@ DiffusionCoefficient::isSetVariable() const
 
 
 /*
- * Returns true/false if type is set.
+ * Predicate returning @c true if this DiffusionCoefficient's "type" attribute
+ * is set.
  */
 bool
 DiffusionCoefficient::isSetType() const
 {
-  return mType != DIFFUSIONKIND_UNKNOWN;
+  return (mType != DIFFUSIONKIND_UNKNOWN);
 }
 
 
 /*
- * Returns true/false if coordinateReference1 is set.
+ * Predicate returning @c true if this DiffusionCoefficient's
+ * "coordinateReference1" attribute is set.
  */
 bool
 DiffusionCoefficient::isSetCoordinateReference1() const
 {
-  return mCoordinateReference1 != COORDINATEKIND_UNKNOWN;
+  return (mCoordinateReference1 != COORDINATEKIND_UNKNOWN);
 }
 
 
 /*
- * Returns true/false if coordinateReference2 is set.
+ * Predicate returning @c true if this DiffusionCoefficient's
+ * "coordinateReference2" attribute is set.
  */
 bool
 DiffusionCoefficient::isSetCoordinateReference2() const
 {
-  return mCoordinateReference2 != COORDINATEKIND_UNKNOWN;
+  return (mCoordinateReference2 != COORDINATEKIND_UNKNOWN);
 }
 
 
 /*
- * Sets variable and returns value indicating success.
+ * Sets the value of the "variable" attribute of this DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::setVariable(const std::string& variable)
@@ -224,79 +272,131 @@ DiffusionCoefficient::setVariable(const std::string& variable)
 
 
 /*
- * Sets type and returns value indicating success.
+ * Sets the value of the "type" attribute of this DiffusionCoefficient.
  */
 int
-DiffusionCoefficient::setType(DiffusionKind_t type)
+DiffusionCoefficient::setType(const DiffusionKind_t type)
 {
-  mType = type;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (DiffusionKind_isValid(type) == 0)
+  {
+    mType = DIFFUSIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mType = type;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets type and returns value indicating success.
+ * Sets the value of the "type" attribute of this DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::setType(const std::string& type)
 {
-  DiffusionKind_t parsed = DiffusionKind_parse(type.c_str());
-  if (parsed == DIFFUSIONKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mType = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (DiffusionKind_isValidString(type.c_str()) == 0)
+  {
+    mType = DIFFUSIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mType = DiffusionKind_fromString(type.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets coordinateReference1 and returns value indicating success.
+ * Sets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient.
  */
 int
-DiffusionCoefficient::setCoordinateReference1(CoordinateKind_t coordinateReference1)
+DiffusionCoefficient::setCoordinateReference1(const CoordinateKind_t
+  coordinateReference1)
 {
-  mCoordinateReference1 = coordinateReference1;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValid(coordinateReference1) == 0)
+  {
+    mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinateReference1 = coordinateReference1;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets coordinateReference1 and returns value indicating success.
+ * Sets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient.
  */
 int
-DiffusionCoefficient::setCoordinateReference1(const std::string& coordinateReference1)
+DiffusionCoefficient::setCoordinateReference1(const std::string&
+  coordinateReference1)
 {
-  CoordinateKind_t parsed = CoordinateKind_parse(coordinateReference1.c_str());
-  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mCoordinateReference1 = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValidString(coordinateReference1.c_str()) == 0)
+  {
+    mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinateReference1 =
+      CoordinateKind_fromString(coordinateReference1.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets coordinateReference2 and returns value indicating success.
+ * Sets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient.
  */
 int
-DiffusionCoefficient::setCoordinateReference2(CoordinateKind_t coordinateReference2)
+DiffusionCoefficient::setCoordinateReference2(const CoordinateKind_t
+  coordinateReference2)
 {
-  mCoordinateReference2 = coordinateReference2;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValid(coordinateReference2) == 0)
+  {
+    mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinateReference2 = coordinateReference2;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets coordinateReference2 and returns value indicating success.
+ * Sets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient.
  */
 int
-DiffusionCoefficient::setCoordinateReference2(const std::string& coordinateReference2)
+DiffusionCoefficient::setCoordinateReference2(const std::string&
+  coordinateReference2)
 {
-  CoordinateKind_t parsed = CoordinateKind_parse(coordinateReference2.c_str());
-  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mCoordinateReference2 = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValidString(coordinateReference2.c_str()) == 0)
+  {
+    mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinateReference2 =
+      CoordinateKind_fromString(coordinateReference2.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Unsets variable and returns value indicating success.
+ * Unsets the value of the "variable" attribute of this DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::unsetVariable()
@@ -315,7 +415,7 @@ DiffusionCoefficient::unsetVariable()
 
 
 /*
- * Unsets type and returns value indicating success.
+ * Unsets the value of the "type" attribute of this DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::unsetType()
@@ -326,7 +426,8 @@ DiffusionCoefficient::unsetType()
 
 
 /*
- * Unsets coordinateReference1 and returns value indicating success.
+ * Unsets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::unsetCoordinateReference1()
@@ -337,7 +438,8 @@ DiffusionCoefficient::unsetCoordinateReference1()
 
 
 /*
- * Unsets coordinateReference2 and returns value indicating success.
+ * Unsets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient.
  */
 int
 DiffusionCoefficient::unsetCoordinateReference2()
@@ -348,25 +450,24 @@ DiffusionCoefficient::unsetCoordinateReference2()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
-DiffusionCoefficient::renameSIdRefs(const std::string& oldid, const std::string& newid)
+DiffusionCoefficient::renameSIdRefs(const std::string& oldid,
+                                    const std::string& newid)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetVariable() == true && mVariable == oldid)
+  if (isSetVariable() && mVariable == oldid)
   {
     setVariable(newid);
   }
-
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this DiffusionCoefficient object.
  */
 const std::string&
-DiffusionCoefficient::getElementName () const
+DiffusionCoefficient::getElementName() const
 {
   static const string name = "diffusionCoefficient";
   return name;
@@ -374,99 +475,491 @@ DiffusionCoefficient::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this DiffusionCoefficient object.
  */
 int
-DiffusionCoefficient::getTypeCode () const
+DiffusionCoefficient::getTypeCode() const
 {
   return SBML_SPATIAL_DIFFUSIONCOEFFICIENT;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * DiffusionCoefficient object have been set.
  */
 bool
-DiffusionCoefficient::hasRequiredAttributes () const
+DiffusionCoefficient::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetVariable() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetType() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-DiffusionCoefficient::writeElements (XMLOutputStream& stream) const
+DiffusionCoefficient::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-DiffusionCoefficient::accept (SBMLVisitor& v) const
+DiffusionCoefficient::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-DiffusionCoefficient::setSBMLDocument (SBMLDocument* d)
+DiffusionCoefficient::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 DiffusionCoefficient::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                            const std::string& pkgPrefix,
+                                            bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "variable")
+  {
+    value = getVariable();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "type")
+  {
+    value = getTypeAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    value = getCoordinateReference1AsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    value = getCoordinateReference2AsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::getAttribute(const std::string& attributeName,
+                                   const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "variable")
+  {
+    value = getVariable().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "type")
+  {
+    value = getTypeAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    value = getCoordinateReference1AsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    value = getCoordinateReference2AsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this DiffusionCoefficient's attribute
+ * "attributeName" is set.
+ */
+bool
+DiffusionCoefficient::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "variable")
+  {
+    value = isSetVariable();
+  }
+  else if (attributeName == "type")
+  {
+    value = isSetType();
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    value = isSetCoordinateReference1();
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    value = isSetCoordinateReference2();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
+  else if (attributeName == "type")
+  {
+    return_value = setType(value);
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    return_value = setCoordinateReference1(value);
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    return_value = setCoordinateReference2(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::setAttribute(const std::string& attributeName,
+                                   const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
+  else if (attributeName == "type")
+  {
+    return_value = setType(value);
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    return_value = setCoordinateReference1(value);
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    return_value = setCoordinateReference2(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * DiffusionCoefficient.
+ */
+int
+DiffusionCoefficient::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "variable")
+  {
+    value = unsetVariable();
+  }
+  else if (attributeName == "type")
+  {
+    value = unsetType();
+  }
+  else if (attributeName == "coordinateReference1")
+  {
+    value = unsetCoordinateReference1();
+  }
+  else if (attributeName == "coordinateReference2")
+  {
+    value = unsetCoordinateReference2();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 DiffusionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -474,209 +967,274 @@ DiffusionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("variable");
+
   attributes.add("type");
+
   attributes.add("coordinateReference1");
+
   attributes.add("coordinateReference2");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+DiffusionCoefficient::readAttributes(const XMLAttributes& attributes,
+                                     const ExpectedAttributes&
+                                       expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial",
+        SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level, version,
+          details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialDiffusionCoefficientAllowedCoreAttributes, pkgVersion, level,
+          version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // variable SIdRef (use = "required" )
+  // 
 
-  //
-  // variable SIdRef   ( use = "required" )
-  //
   assigned = attributes.readInto("variable", mVariable);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mVariable.empty() == true)
     {
-      logEmptyString(mVariable, getLevel(), getVersion(), "<DiffusionCoefficient>");
+      logEmptyString(mVariable, level, version, "<DiffusionCoefficient>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mVariable) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mVariable) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute variable='" + mVariable + "' does not conform.");
+      logError(SpatialDiffusionCoefficientVariableMustBeSpecies, level,
+        version, "The attribute variable='" + mVariable + "' does not conform to "
+          "the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'variable' is missing from 'diffusionCoefficient' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'variable' is missing from the "
+      "<DiffusionCoefficient> element.";
+    log->logPackageError("spatial",
+      SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level, version,
+        message);
   }
 
-  //
-  // type enum  ( use = "required" )
-  //
-  mType = DIFFUSIONKIND_UNKNOWN;
+  // 
+  // type enum (use = "required" )
+  // 
+
+  std::string type;
+  assigned = attributes.readInto("type", type);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("type", stringValue);
-
-    if (assigned == true)
+    if (type.empty() == true)
     {
-      // parse enum
+      logEmptyString(type, level, version, "<DiffusionCoefficient>");
+    }
+    else
+    {
+      mType = DiffusionKind_fromString(type.c_str());
 
-      mType = DiffusionKind_parse(stringValue.c_str());
-      if(mType == DIFFUSIONKIND_UNKNOWN)
+      if (DiffusionKind_isValid(mType) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'type' in 'diffusionCoefficient' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The type on the <DiffusionCoefficient> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + type + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialDiffusionCoefficientTypeMustBeDiffusionKindEnum, pkgVersion,
+            level, version, msg);
       }
     }
   }
-  if(mType == DIFFUSIONKIND_UNKNOWN)
+  else
   {
-    std::string message = "Spatial attribute 'type' is missing from 'diffusionCoefficient' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'type' is missing.";
+    log->logPackageError("spatial",
+      SpatialDiffusionCoefficientAllowedAttributes, pkgVersion, level, version,
+        message);
   }
 
-  //
-  // coordinateReference1 enum  ( use = "optional" )
-  //
-  mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+  // 
+  // coordinateReference1 enum (use = "optional" )
+  // 
+
+  std::string coordinatereference1;
+  assigned = attributes.readInto("coordinateReference1", coordinatereference1);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinateReference1", stringValue);
-
-    if (assigned == true)
+    if (coordinatereference1.empty() == true)
     {
-      // parse enum
+      logEmptyString(coordinatereference1, level, version,
+        "<DiffusionCoefficient>");
+    }
+    else
+    {
+      mCoordinateReference1 =
+        CoordinateKind_fromString(coordinatereference1.c_str());
 
-      mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
-      if(mCoordinateReference1 == COORDINATEKIND_UNKNOWN)
+      if (CoordinateKind_isValid(mCoordinateReference1) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'coordinateReference1' in 'diffusionCoefficient' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The coordinateReference1 on the "
+          "<DiffusionCoefficient> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + coordinatereference1 + "', which is not a valid "
+          "option.";
+
+        log->logPackageError("spatial",
+          SpatialDiffusionCoefficientCoordinateReference1MustBeCoordinateKindEnum,
+            pkgVersion, level, version, msg);
       }
     }
   }
-  //
-  // coordinateReference2 enum  ( use = "optional" )
-  //
-  mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+
+  // 
+  // coordinateReference2 enum (use = "optional" )
+  // 
+
+  std::string coordinatereference2;
+  assigned = attributes.readInto("coordinateReference2", coordinatereference2);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinateReference2", stringValue);
-
-    if (assigned == true)
+    if (coordinatereference2.empty() == true)
     {
-      // parse enum
+      logEmptyString(coordinatereference2, level, version,
+        "<DiffusionCoefficient>");
+    }
+    else
+    {
+      mCoordinateReference2 =
+        CoordinateKind_fromString(coordinatereference2.c_str());
 
-      mCoordinateReference2 = CoordinateKind_parse(stringValue.c_str());
-      if(mCoordinateReference2 == COORDINATEKIND_UNKNOWN)
+      if (CoordinateKind_isValid(mCoordinateReference2) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'coordinateReference2' in 'diffusionCoefficient' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The coordinateReference2 on the "
+          "<DiffusionCoefficient> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + coordinatereference2 + "', which is not a valid "
+          "option.";
+
+        log->logPackageError("spatial",
+          SpatialDiffusionCoefficientCoordinateReference2MustBeCoordinateKindEnum,
+            pkgVersion, level, version, msg);
       }
     }
   }
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-DiffusionCoefficient::writeAttributes (XMLOutputStream& stream) const
+void
+DiffusionCoefficient::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetVariable() == true)
+  {
     stream.writeAttribute("variable", getPrefix(), mVariable);
+  }
 
   if (isSetType() == true)
+  {
     stream.writeAttribute("type", getPrefix(), DiffusionKind_toString(mType));
+  }
 
   if (isSetCoordinateReference1() == true)
-    stream.writeAttribute("coordinateReference1", getPrefix(), CoordinateKind_toString(mCoordinateReference1));
+  {
+    stream.writeAttribute("coordinateReference1", getPrefix(),
+      CoordinateKind_toString(mCoordinateReference1));
+  }
 
   if (isSetCoordinateReference2() == true)
-    stream.writeAttribute("coordinateReference2", getPrefix(), CoordinateKind_toString(mCoordinateReference2));
+  {
+    stream.writeAttribute("coordinateReference2", getPrefix(),
+      CoordinateKind_toString(mCoordinateReference2));
+  }
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new DiffusionCoefficient_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 DiffusionCoefficient_t *
-DiffusionCoefficient_create(unsigned int level, unsigned int version,
+DiffusionCoefficient_create(unsigned int level,
+                            unsigned int version,
                             unsigned int pkgVersion)
 {
   return new DiffusionCoefficient(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this DiffusionCoefficient_t object.
+ */
 LIBSBML_EXTERN
-void
-DiffusionCoefficient_free(DiffusionCoefficient_t * dc)
-{
-  if (dc != NULL)
-    delete dc;
-}
-
-
-LIBSBML_EXTERN
-DiffusionCoefficient_t *
-DiffusionCoefficient_clone(DiffusionCoefficient_t * dc)
+DiffusionCoefficient_t*
+DiffusionCoefficient_clone(const DiffusionCoefficient_t* dc)
 {
   if (dc != NULL)
   {
@@ -689,38 +1247,129 @@ DiffusionCoefficient_clone(DiffusionCoefficient_t * dc)
 }
 
 
+/*
+ * Frees this DiffusionCoefficient_t object.
+ */
+LIBSBML_EXTERN
+void
+DiffusionCoefficient_free(DiffusionCoefficient_t* dc)
+{
+  if (dc != NULL)
+  {
+    delete dc;
+  }
+}
+
+
+/*
+ * Returns the value of the "variable" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 const char *
 DiffusionCoefficient_getVariable(const DiffusionCoefficient_t * dc)
 {
-	return (dc != NULL && dc->isSetVariable()) ? dc->getVariable().c_str() : NULL;
+  if (dc == NULL)
+  {
+    return NULL;
+  }
+
+  return dc->getVariable().empty() ? NULL :
+    safe_strdup(dc->getVariable().c_str());
 }
 
 
+/*
+ * Returns the value of the "type" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 DiffusionKind_t
 DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc)
 {
-	return (dc != NULL) ? dc->getType() : DIFFUSIONKIND_UNKNOWN;
+  if (dc == NULL)
+  {
+    return DIFFUSIONKIND_UNKNOWN;
+  }
+
+  return dc->getType();
 }
 
 
+/*
+ * Returns the value of the "type" attribute of this DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+const char *
+DiffusionCoefficient_getTypeAsString(const DiffusionCoefficient_t * dc)
+{
+  return DiffusionKind_toString(dc->getType());
+}
+
+
+/*
+ * Returns the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 CoordinateKind_t
 DiffusionCoefficient_getCoordinateReference1(const DiffusionCoefficient_t * dc)
 {
-	return (dc != NULL) ? dc->getCoordinateReference1() : COORDINATEKIND_UNKNOWN;
+  if (dc == NULL)
+  {
+    return COORDINATEKIND_UNKNOWN;
+  }
+
+  return dc->getCoordinateReference1();
 }
 
 
+/*
+ * Returns the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+const char *
+DiffusionCoefficient_getCoordinateReference1AsString(const
+  DiffusionCoefficient_t * dc)
+{
+  return CoordinateKind_toString(dc->getCoordinateReference1());
+}
+
+
+/*
+ * Returns the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 CoordinateKind_t
 DiffusionCoefficient_getCoordinateReference2(const DiffusionCoefficient_t * dc)
 {
-	return (dc != NULL) ? dc->getCoordinateReference2() : COORDINATEKIND_UNKNOWN;
+  if (dc == NULL)
+  {
+    return COORDINATEKIND_UNKNOWN;
+  }
+
+  return dc->getCoordinateReference2();
 }
 
 
+/*
+ * Returns the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+const char *
+DiffusionCoefficient_getCoordinateReference2AsString(const
+  DiffusionCoefficient_t * dc)
+{
+  return CoordinateKind_toString(dc->getCoordinateReference2());
+}
+
+
+/*
+ * Predicate returning @c 1 if this DiffusionCoefficient_t's "variable"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc)
@@ -729,6 +1378,10 @@ DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc)
 }
 
 
+/*
+ * Predicate returning @c 1 if this DiffusionCoefficient_t's "type" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc)
@@ -737,66 +1390,135 @@ DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc)
 }
 
 
+/*
+ * Predicate returning @c 1 if this DiffusionCoefficient_t's
+ * "coordinateReference1" attribute is set.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_isSetCoordinateReference1(const DiffusionCoefficient_t * dc)
+DiffusionCoefficient_isSetCoordinateReference1(const DiffusionCoefficient_t *
+  dc)
 {
   return (dc != NULL) ? static_cast<int>(dc->isSetCoordinateReference1()) : 0;
 }
 
 
+/*
+ * Predicate returning @c 1 if this DiffusionCoefficient_t's
+ * "coordinateReference2" attribute is set.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_isSetCoordinateReference2(const DiffusionCoefficient_t * dc)
+DiffusionCoefficient_isSetCoordinateReference2(const DiffusionCoefficient_t *
+  dc)
 {
   return (dc != NULL) ? static_cast<int>(dc->isSetCoordinateReference2()) : 0;
 }
 
 
+/*
+ * Sets the value of the "variable" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setVariable(DiffusionCoefficient_t * dc, const char * variable)
+DiffusionCoefficient_setVariable(DiffusionCoefficient_t * dc,
+                                 const char * variable)
 {
-  if (dc != NULL)
-    return (variable == NULL) ? dc->setVariable("") : dc->setVariable(variable);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->setVariable(variable) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "type" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setType(DiffusionCoefficient_t * dc, DiffusionKind_t type)
+DiffusionCoefficient_setType(DiffusionCoefficient_t * dc,
+                             DiffusionKind_t type)
 {
-  if (dc != NULL)
-    return dc->setType(type);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->setType(type) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "type" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setCoordinateReference1(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference1)
+DiffusionCoefficient_setTypeAsString(DiffusionCoefficient_t * dc,
+                                     const char * type)
 {
-  if (dc != NULL)
-    return dc->setCoordinateReference1(coordinateReference1);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->setType(type): LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference2)
+DiffusionCoefficient_setCoordinateReference1(DiffusionCoefficient_t * dc,
+                                             CoordinateKind_t
+                                               coordinateReference1)
 {
-  if (dc != NULL)
-    return dc->setCoordinateReference2(coordinateReference2);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->setCoordinateReference1(coordinateReference1) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference1AsString(
+                                                     DiffusionCoefficient_t *
+                                                       dc,
+                                                     const char *
+                                                       coordinateReference1)
+{
+  return (dc != NULL) ? dc->setCoordinateReference1(coordinateReference1):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc,
+                                             CoordinateKind_t
+                                               coordinateReference2)
+{
+  return (dc != NULL) ? dc->setCoordinateReference2(coordinateReference2) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient_t.
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference2AsString(
+                                                     DiffusionCoefficient_t *
+                                                       dc,
+                                                     const char *
+                                                       coordinateReference2)
+{
+  return (dc != NULL) ? dc->setCoordinateReference2(coordinateReference2):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "variable" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc)
@@ -805,6 +1527,9 @@ DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc)
 }
 
 
+/*
+ * Unsets the value of the "type" attribute of this DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc)
@@ -813,22 +1538,36 @@ DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc)
 }
 
 
+/*
+ * Unsets the value of the "coordinateReference1" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_unsetCoordinateReference1(DiffusionCoefficient_t * dc)
 {
-  return (dc != NULL) ? dc->unsetCoordinateReference1() : LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->unsetCoordinateReference1() :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "coordinateReference2" attribute of this
+ * DiffusionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_unsetCoordinateReference2(DiffusionCoefficient_t * dc)
 {
-  return (dc != NULL) ? dc->unsetCoordinateReference2() : LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->unsetCoordinateReference2() :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * DiffusionCoefficient_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_hasRequiredAttributes(const DiffusionCoefficient_t * dc)

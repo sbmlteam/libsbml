@@ -1,33 +1,33 @@
 /**
- * @file:   SpatialCompartmentPlugin.cpp
- * @brief:  Implementation of the SpatialCompartmentPlugin class
- * @author: SBMLTeam
+ * @file SpatialCompartmentPlugin.cpp
+ * @brief Implementation of the SpatialCompartmentPlugin class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
 
@@ -41,14 +41,18 @@
 using namespace std;
 
 
-#ifdef __cplusplus
-
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new SpatialCompartmentPlugin
+ * Creates a new SpatialCompartmentPlugin using the given uri, prefix and
+ * package namespace.
  */
 SpatialCompartmentPlugin::SpatialCompartmentPlugin(const std::string& uri,  
                                  const std::string& prefix, 
@@ -56,6 +60,7 @@ SpatialCompartmentPlugin::SpatialCompartmentPlugin(const std::string& uri,
     SBasePlugin(uri, prefix, spatialns)
   , mCompartmentMapping  ( NULL )
 {
+  connectToChild();
 }
 
 
@@ -70,6 +75,8 @@ SpatialCompartmentPlugin::SpatialCompartmentPlugin(const SpatialCompartmentPlugi
   {
     mCompartmentMapping = orig.mCompartmentMapping->clone();
   }
+
+  connectToChild();
 }
 
 
@@ -85,7 +92,15 @@ SpatialCompartmentPlugin::operator=(const SpatialCompartmentPlugin& rhs)
     delete mCompartmentMapping;
     mCompartmentMapping = NULL;
     if (rhs.mCompartmentMapping != NULL)
+    {
       mCompartmentMapping = rhs.mCompartmentMapping->clone();
+    }
+    else
+    {
+      mCompartmentMapping = NULL;
+    }
+
+    connectToChild();
   }
 
   return *this;
@@ -95,8 +110,8 @@ SpatialCompartmentPlugin::operator=(const SpatialCompartmentPlugin& rhs)
 /*
  * Creates and returns a deep copy of this SpatialCompartmentPlugin object.
  */
-SpatialCompartmentPlugin* 
-SpatialCompartmentPlugin::clone () const
+SpatialCompartmentPlugin*
+SpatialCompartmentPlugin::clone() const
 {
   return new SpatialCompartmentPlugin(*this);
 }
@@ -112,200 +127,42 @@ SpatialCompartmentPlugin::~SpatialCompartmentPlugin()
 }
 
 
-//---------------------------------------------------------------
-//
-// overridden virtual functions for read/write/check
-//
-//---------------------------------------------------------------
-
 /*
- * create object
+ * Returns the value of the "compartmentMapping" element of this
+ * SpatialCompartmentPlugin.
  */
-SBase*
-SpatialCompartmentPlugin::createObject (XMLInputStream& stream)
+const CompartmentMapping*
+SpatialCompartmentPlugin::getCompartmentMapping() const
 {
-  SBase* object = NULL; 
-
-  const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-  const std::string&      prefix = stream.peek().getPrefix(); 
-
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
-
-  if (prefix == targetPrefix) 
-  { 
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    if (name == "compartmentMapping" ) 
-    { 
-      mCompartmentMapping = new CompartmentMapping(spatialns);
-
-      object = mCompartmentMapping;
-
-    } 
-
-    delete spatialns;
-  } 
-
-  return object; 
+  return mCompartmentMapping;
 }
 
 
 /*
- * write elements
+ * Returns the value of the "compartmentMapping" element of this
+ * SpatialCompartmentPlugin.
  */
-void
-SpatialCompartmentPlugin::writeElements (XMLOutputStream& stream) const
+CompartmentMapping*
+SpatialCompartmentPlugin::getCompartmentMapping()
 {
-  if (isSetCompartmentMapping() == true) 
-  { 
-    mCompartmentMapping->write(stream);
-  } 
+  return mCompartmentMapping;
 }
 
 
 /*
- * Checks if this plugin object has all the required elements.
+ * Predicate returning @c true if this SpatialCompartmentPlugin's
+ * "compartmentMapping" element is set.
  */
 bool
-SpatialCompartmentPlugin::hasRequiredElements () const
-{
-  bool allPresent = true; 
-
-  // TO DO 
-
-  return allPresent; 
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Get the list of expected attributes for this element.
- */
-void
-SpatialCompartmentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBasePlugin::addExpectedAttributes(attributes);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Read values from the given XMLAttributes set into their specific fields.
- */
-void
-SpatialCompartmentPlugin::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
-{
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  unsigned int numErrs;
-
-  SBasePlugin::readAttributes(attributes, expectedAttributes);
-
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
-  {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-    }
-  }
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write values of XMLAttributes to the output stream.
- */
-  void
-SpatialCompartmentPlugin::writeAttributes (XMLOutputStream& stream) const
-{
-  SBasePlugin::writeAttributes(stream);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-//---------------------------------------------------------------
-//
-// Functions for interacting with the members of the plugin
-//
-//---------------------------------------------------------------
-
-List*
-SpatialCompartmentPlugin::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_POINTER(ret, sublist, mCompartmentMapping, filter);
-
-  return ret;
-}
-
-
-/*
- * Returns the CompartmentMapping from this SpatialCompartmentPlugin object.
- */
-const CompartmentMapping* 
-SpatialCompartmentPlugin::getCompartmentMapping () const
-{
-  return mCompartmentMapping;
-}
-
-
-/*
- * Returns the CompartmentMapping from this SpatialCompartmentPlugin object.
- */
-CompartmentMapping* 
-SpatialCompartmentPlugin::getCompartmentMapping ()
-{
-  return mCompartmentMapping;
-}
-
-
-/*
- * @return @c true if the "CompartmentMapping" element has been set,
- */
-bool 
-SpatialCompartmentPlugin::isSetCompartmentMapping () const
+SpatialCompartmentPlugin::isSetCompartmentMapping() const
 {
   return (mCompartmentMapping != NULL);
 }
 
 
 /*
- * Sets the CompartmentMapping element in this SpatialCompartmentPlugin object.
+ * Sets the value of the "compartmentMapping" element of this
+ * SpatialCompartmentPlugin.
  */
 int
 SpatialCompartmentPlugin::setCompartmentMapping(const CompartmentMapping* compartmentMapping)
@@ -340,12 +197,18 @@ SpatialCompartmentPlugin::setCompartmentMapping(const CompartmentMapping* compar
 
 
 /*
- * Creates a new CompartmentMapping object and adds it to the SpatialCompartmentPlugin object.
+ * Creates a new CompartmentMapping object, adds it to this
+ * SpatialCompartmentPlugin object and returns the CompartmentMapping object
+ * created.
  */
 CompartmentMapping*
 SpatialCompartmentPlugin::createCompartmentMapping()
 {
-  delete mCompartmentMapping;
+  if (mCompartmentMapping != NULL)
+  {
+    delete mCompartmentMapping;
+  }
+
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mCompartmentMapping = new CompartmentMapping(spatialns);
 
@@ -353,30 +216,121 @@ SpatialCompartmentPlugin::createCompartmentMapping()
 
   delete spatialns;
 
+  connectToChild();
+
   return mCompartmentMapping;
 }
 
 
-//---------------------------------------------------------------
+/*
+ * Unsets the value of the "compartmentMapping" element of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::unsetCompartmentMapping()
+{
+  delete mCompartmentMapping;
+  mCompartmentMapping = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
 
 /*
- * Set the SBMLDocument.
+ * Predicate returning @c true if all the required elements for this
+ * SpatialCompartmentPlugin object have been set.
+ */
+bool
+SpatialCompartmentPlugin::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  return allPresent;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+SpatialCompartmentPlugin::writeElements(XMLOutputStream& stream) const
+{
+  if (isSetCompartmentMapping() == true)
+  {
+    mCompartmentMapping->write(stream);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+SpatialCompartmentPlugin::accept(SBMLVisitor& v) const
+{
+  const Compartment* c = static_cast<const
+    Compartment*>(this->getParentSBMLObject());
+  v.visit(*c);
+  v.leave(*c);
+
+  if (mCompartmentMapping != NULL)
+  {
+    mCompartmentMapping->accept(v);
+  }
+
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
  */
 void
 SpatialCompartmentPlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
 
-  if (isSetCompartmentMapping() == true)
+  if (mCompartmentMapping != NULL)
   {
     mCompartmentMapping->setSBMLDocument(d);
   }
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Connect to parent.
+ * Connects to child elements
+ */
+void
+SpatialCompartmentPlugin::connectToChild()
+{
+  connectToParent(getParentSBMLObject());
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to parent element
  */
 void
 SpatialCompartmentPlugin::connectToParent(SBase* sbase)
@@ -389,9 +343,14 @@ SpatialCompartmentPlugin::connectToParent(SBase* sbase)
   }
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables the given package.
+ * Enables/disables the given package with this element
  */
 void
 SpatialCompartmentPlugin::enablePackageInternal(const std::string& pkgURI,
@@ -403,27 +362,467 @@ SpatialCompartmentPlugin::enablePackageInternal(const std::string& pkgURI,
   }
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accept the SBMLVisitor.
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       bool& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       double& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       unsigned int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       std::string& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::getAttribute(const std::string& attributeName,
+                                       const char* value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this SpatialCompartmentPlugin's attribute
+ * "attributeName" is set.
  */
 bool
-SpatialCompartmentPlugin::accept(SBMLVisitor& v) const
+SpatialCompartmentPlugin::isSetAttribute(const std::string& attributeName)
+  const
 {
-  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+  bool value = SBasePlugin::isSetAttribute(attributeName);
 
-  v.visit(*model);
-  v.leave(*model);
-
-  return true;
+  return value;
 }
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       bool value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       double value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       unsigned int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       const std::string& value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::setAttribute(const std::string& attributeName,
+                                       const char* value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * SpatialCompartmentPlugin.
+ */
+int
+SpatialCompartmentPlugin::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBasePlugin::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this
+ * SpatialCompartmentPlugin.
+ */
+SBase*
+SpatialCompartmentPlugin::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "compartmentMapping")
+  {
+    return createCompartmentMapping();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+SpatialCompartmentPlugin::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mCompartmentMapping != NULL)
+  {
+    if (mCompartmentMapping->getId() == id)
+    {
+      return mCompartmentMapping;
+    }
+
+    obj = mCompartmentMapping->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+SpatialCompartmentPlugin::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mCompartmentMapping != NULL)
+  {
+    if (mCompartmentMapping->getMetaId() == metaid)
+    {
+      return mCompartmentMapping;
+    }
+
+    obj = mCompartmentMapping->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+SpatialCompartmentPlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_POINTER(ret, sublist, mCompartmentMapping, filter);
+
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Append items from model (used in comp flattening)
+ */
+int
+SpatialCompartmentPlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const SpatialCompartmentPlugin* plug = static_cast<const
+    SpatialCompartmentPlugin*>(model->getPlugin(getPrefix()));
+
+  if (plug == NULL)
+  {
+    return ret;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  return ret;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+SpatialCompartmentPlugin::createObject (XMLInputStream& stream)
+{
+  SBase* obj = NULL;
+
+  const std::string&      name   = stream.peek().getName(); 
+  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const std::string&      prefix = stream.peek().getPrefix(); 
+
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+
+  if (prefix == targetPrefix)
+  {
+    if (name == "compartmentMapping")
+    {
+      if (isSetCompartmentMapping())
+      {
+        getErrorLog()->logPackageError("spatial",
+          SpatialCompartmentAllowedElements, getPackageVersion(), getLevel(),
+            getVersion());
+      }
+
+      mCompartmentMapping = new CompartmentMapping(spatialns);
+      obj = mCompartmentMapping;
+    }
+  }
+
+  delete spatialns;
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
-#endif /* __cplusplus */
 
 

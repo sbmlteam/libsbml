@@ -1,40 +1,38 @@
 /**
- * @file:   GeometryDefinition.cpp
- * @brief:  Implementation of the GeometryDefinition class
- * @author: SBMLTeam
+ * @file GeometryDefinition.cpp
+ * @brief Implementation of the GeometryDefinition class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/GeometryDefinition.h>
+#include <sbml/packages/spatial/sbml/ListOfGeometryDefinitions.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
@@ -43,40 +41,46 @@
 #include <sbml/packages/spatial/sbml/MixedGeometry.h>
 
 
-
 using namespace std;
+
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new GeometryDefinition with the given level, version, and package version.
+ * Creates a new GeometryDefinition using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion)
+GeometryDefinition::GeometryDefinition(unsigned int level,
+                                       unsigned int version,
+                                       unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mIsActive (false)
   , mIsSetIsActive (false)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new GeometryDefinition with the given SpatialPkgNamespaces object.
+ * Creates a new GeometryDefinition using the given SpatialPkgNamespaces
+ * object.
  */
-GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
+GeometryDefinition::GeometryDefinition(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mIsActive (false)
   , mIsSetIsActive (false)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -84,17 +88,17 @@ GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for GeometryDefinition.
  */
-GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mIsActive  ( orig.mIsActive)
-  , mIsSetIsActive  ( orig.mIsSetIsActive)
+GeometryDefinition::GeometryDefinition(const GeometryDefinition& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mIsActive ( orig.mIsActive )
+  , mIsSetIsActive ( orig.mIsSetIsActive )
 {
 }
 
 
 /*
- * Assignment for GeometryDefinition.
+ * Assignment operator for GeometryDefinition.
  */
 GeometryDefinition&
 GeometryDefinition::operator=(const GeometryDefinition& rhs)
@@ -102,19 +106,20 @@ GeometryDefinition::operator=(const GeometryDefinition& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mIsActive  = rhs.mIsActive;
-    mIsSetIsActive  = rhs.mIsSetIsActive;
+    mId = rhs.mId;
+    mIsActive = rhs.mIsActive;
+    mIsSetIsActive = rhs.mIsSetIsActive;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for GeometryDefinition.
+ * Creates and returns a deep copy of this GeometryDefinition object.
  */
 GeometryDefinition*
-GeometryDefinition::clone () const
+GeometryDefinition::clone() const
 {
   return new GeometryDefinition(*this);
 }
@@ -123,7 +128,7 @@ GeometryDefinition::clone () const
 /*
  * Destructor for GeometryDefinition.
  */
-GeometryDefinition::~GeometryDefinition ()
+GeometryDefinition::~GeometryDefinition()
 {
 }
 
@@ -149,7 +154,8 @@ GeometryDefinition::getIsActive() const
 
 
 /*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this GeometryDefinition's "id" attribute is
+ * set.
  */
 bool
 GeometryDefinition::isSetId() const
@@ -159,7 +165,8 @@ GeometryDefinition::isSetId() const
 
 
 /*
- * Returns true/false if isActive is set.
+ * Predicate returning @c true if this GeometryDefinition's "isActive"
+ * attribute is set.
  */
 bool
 GeometryDefinition::isSetIsActive() const
@@ -169,7 +176,7 @@ GeometryDefinition::isSetIsActive() const
 
 
 /*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this GeometryDefinition.
  */
 int
 GeometryDefinition::setId(const std::string& id)
@@ -179,7 +186,7 @@ GeometryDefinition::setId(const std::string& id)
 
 
 /*
- * Sets isActive and returns value indicating success.
+ * Sets the value of the "isActive" attribute of this GeometryDefinition.
  */
 int
 GeometryDefinition::setIsActive(bool isActive)
@@ -191,7 +198,7 @@ GeometryDefinition::setIsActive(bool isActive)
 
 
 /*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this GeometryDefinition.
  */
 int
 GeometryDefinition::unsetId()
@@ -210,19 +217,28 @@ GeometryDefinition::unsetId()
 
 
 /*
- * Unsets isActive and returns value indicating success.
+ * Unsets the value of the "isActive" attribute of this GeometryDefinition.
  */
 int
 GeometryDefinition::unsetIsActive()
 {
   mIsActive = false;
   mIsSetIsActive = false;
-  return LIBSBML_OPERATION_SUCCESS;
+
+  if (isSetIsActive() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
 /*
- * Return @c true if of type AnalyticGeometry.
+ * Predicate returning @c true if this abstract "GeometryDefinition" is of type
+ * AnalyticGeometry
  */
 bool
 GeometryDefinition::isAnalyticGeometry() const
@@ -232,7 +248,8 @@ GeometryDefinition::isAnalyticGeometry() const
 
 
 /*
- * Return @c true if of type SampledFieldGeometry.
+ * Predicate returning @c true if this abstract "GeometryDefinition" is of type
+ * SampledFieldGeometry
  */
 bool
 GeometryDefinition::isSampledFieldGeometry() const
@@ -242,7 +259,8 @@ GeometryDefinition::isSampledFieldGeometry() const
 
 
 /*
- * Return @c true if of type CSGeometry.
+ * Predicate returning @c true if this abstract "GeometryDefinition" is of type
+ * CSGeometry
  */
 bool
 GeometryDefinition::isCSGeometry() const
@@ -252,7 +270,8 @@ GeometryDefinition::isCSGeometry() const
 
 
 /*
- * Return @c true if of type ParametricGeometry.
+ * Predicate returning @c true if this abstract "GeometryDefinition" is of type
+ * ParametricGeometry
  */
 bool
 GeometryDefinition::isParametricGeometry() const
@@ -262,7 +281,8 @@ GeometryDefinition::isParametricGeometry() const
 
 
 /*
- * Return @c true if of type MixedGeometry.
+ * Predicate returning @c true if this abstract "GeometryDefinition" is of type
+ * MixedGeometry
  */
 bool
 GeometryDefinition::isMixedGeometry() const
@@ -272,10 +292,10 @@ GeometryDefinition::isMixedGeometry() const
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this GeometryDefinition object.
  */
 const std::string&
-GeometryDefinition::getElementName () const
+GeometryDefinition::getElementName() const
 {
   static const string name = "geometryDefinition";
   return name;
@@ -283,99 +303,423 @@ GeometryDefinition::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this GeometryDefinition object.
  */
 int
-GeometryDefinition::getTypeCode () const
+GeometryDefinition::getTypeCode() const
 {
   return SBML_SPATIAL_GEOMETRYDEFINITION;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * GeometryDefinition object have been set.
  */
 bool
-GeometryDefinition::hasRequiredAttributes () const
+GeometryDefinition::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetId() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetIsActive() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-GeometryDefinition::writeElements (XMLOutputStream& stream) const
+GeometryDefinition::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-GeometryDefinition::accept (SBMLVisitor& v) const
+GeometryDefinition::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-GeometryDefinition::setSBMLDocument (SBMLDocument* d)
+GeometryDefinition::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 GeometryDefinition::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                          const std::string& pkgPrefix,
+                                          bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "isActive")
+  {
+    value = getIsActive();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::getAttribute(const std::string& attributeName,
+                                 const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this GeometryDefinition's attribute
+ * "attributeName" is set.
+ */
+bool
+GeometryDefinition::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "isActive")
+  {
+    value = isSetIsActive();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "isActive")
+  {
+    return_value = setIsActive(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName,
+                                 double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName,
+                                 unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName,
+                                 const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GeometryDefinition.
+ */
+int
+GeometryDefinition::setAttribute(const std::string& attributeName,
+                                 const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * GeometryDefinition.
+ */
+int
+GeometryDefinition::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "isActive")
+  {
+    value = unsetIsActive();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 GeometryDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -383,653 +727,231 @@ GeometryDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("isActive");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-GeometryDefinition::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+GeometryDefinition::readAttributes(const XMLAttributes& attributes,
+                                   const ExpectedAttributes&
+                                     expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfGeometryDefinitions - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfGeometryDefinitions*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfGeometryDefinitions*>(getParentSBMLObject())->size() <
+    2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialGeometryDefinitionAllowedAttributes, pkgVersion, level, version,
+            details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialGeometryLOGeometryDefinitionsAllowedCoreAttributes, pkgVersion,
+            level, version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial",
+        SpatialGeometryDefinitionAllowedAttributes, pkgVersion, level, version,
+          details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialGeometryDefinitionAllowedCoreAttributes, pkgVersion, level,
+          version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<GeometryDefinition>");
+      logEmptyString(mId, level, version, "<GeometryDefinition>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'geometryDefinition' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the "
+      "<GeometryDefinition> element.";
+    log->logPackageError("spatial", SpatialGeometryDefinitionAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // isActive bool   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // isActive bool (use = "required" )
+  // 
+
   mIsSetIsActive = attributes.readInto("isActive", mIsActive);
 
-  if (mIsSetIsActive == false)
+  if (!mIsSetIsActive)
   {
-    if (getErrorLog() != NULL)
-    {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'isActive' is missing from 'geometryDefinition' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-      }
-    }
+    std::string message = "Spatial attribute 'isActive' is missing from the "
+      "<GeometryDefinition> element.";
+    log->logPackageError("spatial", SpatialGeometryDefinitionAllowedAttributes,
+      pkgVersion, level, version, message);
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-GeometryDefinition::writeAttributes (XMLOutputStream& stream) const
+void
+GeometryDefinition::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetIsActive() == true)
+  {
     stream.writeAttribute("isActive", getPrefix(), mIsActive);
+  }
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Constructor 
+ * Creates a new AnalyticGeometry (GeometryDefinition_t) using the given SBML
+ * Level, Version and &ldquo;spatial&rdquo; package version.
  */
-ListOfGeometryDefinitions::ListOfGeometryDefinitions(unsigned int level, 
-                            unsigned int version, 
-                            unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfGeometryDefinitions::ListOfGeometryDefinitions(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfGeometryDefinitions 
- */
-ListOfGeometryDefinitions* 
-ListOfGeometryDefinitions::clone () const
- {
-  return new ListOfGeometryDefinitions(*this);
-}
-
-
-/*
- * Get a GeometryDefinition from the ListOfGeometryDefinitions by index.
-*/
-GeometryDefinition*
-ListOfGeometryDefinitions::get(unsigned int n)
-{
-  return static_cast<GeometryDefinition*>(ListOf::get(n));
-}
-
-
-/*
- * Get a GeometryDefinition from the ListOfGeometryDefinitions by index.
- */
-const GeometryDefinition*
-ListOfGeometryDefinitions::get(unsigned int n) const
-{
-  return static_cast<const GeometryDefinition*>(ListOf::get(n));
-}
-
-
-/*
- * Get a GeometryDefinition from the ListOfGeometryDefinitions by id.
- */
-GeometryDefinition*
-ListOfGeometryDefinitions::get(const std::string& sid)
-{
-	return const_cast<GeometryDefinition*>(
-    static_cast<const ListOfGeometryDefinitions&>(*this).get(sid));
-}
-
-
-/*
- * Get a GeometryDefinition from the ListOfGeometryDefinitions by id.
- */
-const GeometryDefinition*
-ListOfGeometryDefinitions::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<GeometryDefinition>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <GeometryDefinition*> (*result);
-}
-
-
-/**
- * Adds a copy the given "GeometryDefinition" to this ListOfGeometryDefinitions.
- *
- * @param gd; the GeometryDefinition object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfGeometryDefinitions::addGeometryDefinition(const GeometryDefinition* gd)
-{
-  if (gd == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (gd->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != gd->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != gd->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(gd)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(gd);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of GeometryDefinition objects in this ListOfGeometryDefinitions.
- *
- * @return the number of GeometryDefinition objects in this ListOfGeometryDefinitions
- */
-unsigned int 
-ListOfGeometryDefinitions::getNumGeometryDefinitions() const
-{
-	return size();
-}
-
-/**
- * Creates a new AnalyticGeometry object, adds it to this ListOfGeometryDefinitions
- * analyticGeometry and returns the AnalyticGeometry object created. 
- *
- * @return a new AnalyticGeometry object instance
- *
- * @see addAnalyticGeometry(const GeometryDefinition* gd)
- */
-AnalyticGeometry* 
-ListOfGeometryDefinitions::createAnalyticGeometry()
-{
-  AnalyticGeometry* ag = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    ag = new AnalyticGeometry(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(ag != NULL)
-  {
-    appendAndOwn(ag);
-  }
-
-  return ag;
-}
-
-/**
- * Creates a new SampledFieldGeometry object, adds it to this ListOfGeometryDefinitions
- * sampledFieldGeometry and returns the SampledFieldGeometry object created. 
- *
- * @return a new SampledFieldGeometry object instance
- *
- * @see addSampledFieldGeometry(const GeometryDefinition* gd)
- */
-SampledFieldGeometry* 
-ListOfGeometryDefinitions::createSampledFieldGeometry()
-{
-  SampledFieldGeometry* sfg = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    sfg = new SampledFieldGeometry(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(sfg != NULL)
-  {
-    appendAndOwn(sfg);
-  }
-
-  return sfg;
-}
-
-/**
- * Creates a new CSGeometry object, adds it to this ListOfGeometryDefinitions
- * csGeometry and returns the CSGeometry object created. 
- *
- * @return a new CSGeometry object instance
- *
- * @see addCsGeometry(const GeometryDefinition* gd)
- */
-CSGeometry* 
-ListOfGeometryDefinitions::createCsGeometry()
-{
-  CSGeometry* csg = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csg = new CSGeometry(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(csg != NULL)
-  {
-    appendAndOwn(csg);
-  }
-
-  return csg;
-}
-
-/**
- * Creates a new ParametricGeometry object, adds it to this ListOfGeometryDefinitions
- * parametricGeometry and returns the ParametricGeometry object created. 
- *
- * @return a new ParametricGeometry object instance
- *
- * @see addParametricGeometry(const GeometryDefinition* gd)
- */
-ParametricGeometry* 
-ListOfGeometryDefinitions::createParametricGeometry()
-{
-  ParametricGeometry* pg = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    pg = new ParametricGeometry(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(pg != NULL)
-  {
-    appendAndOwn(pg);
-  }
-
-  return pg;
-}
-
-/**
- * Creates a new MixedGeometry object, adds it to this ListOfGeometryDefinitions
- * mixedGeometry and returns the MixedGeometry object created. 
- *
- * @return a new MixedGeometry object instance
- *
- * @see addMixedGeometry(const GeometryDefinition* gd)
- */
-MixedGeometry* 
-ListOfGeometryDefinitions::createMixedGeometry()
-{
-  MixedGeometry* mg = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    mg = new MixedGeometry(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(mg != NULL)
-  {
-    appendAndOwn(mg);
-  }
-
-  return mg;
-}
-
-/*
- * Removes the nth GeometryDefinition from this ListOfGeometryDefinitions
- */
-GeometryDefinition*
-ListOfGeometryDefinitions::remove(unsigned int n)
-{
-  return static_cast<GeometryDefinition*>(ListOf::remove(n));
-}
-
-
-/*
- * Removes the GeometryDefinition from this ListOfGeometryDefinitions with the given identifier
- */
-GeometryDefinition*
-ListOfGeometryDefinitions::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<GeometryDefinition>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <GeometryDefinition*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfGeometryDefinitions::getElementName () const
-{
-  static const string name = "listOfGeometryDefinitions";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfGeometryDefinitions::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfGeometryDefinitions::getItemTypeCode () const
-{
-  return SBML_SPATIAL_GEOMETRYDEFINITION;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new GeometryDefinition in this ListOfGeometryDefinitions
- */
-SBase*
-ListOfGeometryDefinitions::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "geometryDefinition")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new GeometryDefinition(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  if (name == "analyticGeometry")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new AnalyticGeometry(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  if (name == "sampledFieldGeometry")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new SampledFieldGeometry(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  if (name == "csGeometry")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new CSGeometry(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  if (name == "parametricGeometry")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new ParametricGeometry(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  if (name == "mixedGeometry")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new MixedGeometry(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfGeometryDefinitions::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 GeometryDefinition_t *
-GeometryDefinition_create(unsigned int level, unsigned int version,
-                          unsigned int pkgVersion)
+GeometryDefinition_createAnalyticGeometry(unsigned int level,
+                                          unsigned int version,
+                                          unsigned int pkgVersion)
 {
-  return new GeometryDefinition(level, version, pkgVersion);
+  return new AnalyticGeometry(level, version, pkgVersion);
 }
 
 
-LIBSBML_EXTERN
-void
-GeometryDefinition_free(GeometryDefinition_t * gd)
-{
-  if (gd != NULL)
-    delete gd;
-}
-
-
+/*
+ * Creates a new SampledFieldGeometry (GeometryDefinition_t) using the given
+ * SBML Level, Version and &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 GeometryDefinition_t *
-GeometryDefinition_clone(GeometryDefinition_t * gd)
+GeometryDefinition_createSampledFieldGeometry(unsigned int level,
+                                              unsigned int version,
+                                              unsigned int pkgVersion)
+{
+  return new SampledFieldGeometry(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates a new CSGeometry (GeometryDefinition_t) using the given SBML Level,
+ * Version and &ldquo;spatial&rdquo; package version.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t *
+GeometryDefinition_createCSGeometry(unsigned int level,
+                                    unsigned int version,
+                                    unsigned int pkgVersion)
+{
+  return new CSGeometry(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates a new ParametricGeometry (GeometryDefinition_t) using the given SBML
+ * Level, Version and &ldquo;spatial&rdquo; package version.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t *
+GeometryDefinition_createParametricGeometry(unsigned int level,
+                                            unsigned int version,
+                                            unsigned int pkgVersion)
+{
+  return new ParametricGeometry(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates a new MixedGeometry (GeometryDefinition_t) using the given SBML
+ * Level, Version and &ldquo;spatial&rdquo; package version.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t *
+GeometryDefinition_createMixedGeometry(unsigned int level,
+                                       unsigned int version,
+                                       unsigned int pkgVersion)
+{
+  return new MixedGeometry(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this GeometryDefinition_t object.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t*
+GeometryDefinition_clone(const GeometryDefinition_t* gd)
 {
   if (gd != NULL)
   {
@@ -1042,22 +964,51 @@ GeometryDefinition_clone(GeometryDefinition_t * gd)
 }
 
 
+/*
+ * Frees this GeometryDefinition_t object.
+ */
+LIBSBML_EXTERN
+void
+GeometryDefinition_free(GeometryDefinition_t* gd)
+{
+  if (gd != NULL)
+  {
+    delete gd;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 const char *
 GeometryDefinition_getId(const GeometryDefinition_t * gd)
 {
-	return (gd != NULL && gd->isSetId()) ? gd->getId().c_str() : NULL;
+  if (gd == NULL)
+  {
+    return NULL;
+  }
+
+  return gd->getId().empty() ? NULL : safe_strdup(gd->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "isActive" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_getIsActive(const GeometryDefinition_t * gd)
 {
-	return (gd != NULL) ? static_cast<int>(gd->getIsActive()) : 0;
+  return (gd != NULL) ? static_cast<int>(gd->getIsActive()) : 0;
 }
 
 
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t's "id" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_isSetId(const GeometryDefinition_t * gd)
@@ -1066,6 +1017,10 @@ GeometryDefinition_isSetId(const GeometryDefinition_t * gd)
 }
 
 
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t's "isActive" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd)
@@ -1074,28 +1029,31 @@ GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd)
 }
 
 
+/*
+ * Sets the value of the "id" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id)
 {
-  if (gd != NULL)
-    return (id == NULL) ? gd->setId("") : gd->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (gd != NULL) ? gd->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "isActive" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive)
 {
-  if (gd != NULL)
-    return gd->setIsActive(isActive);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (gd != NULL) ? gd->setIsActive(isActive) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "id" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_unsetId(GeometryDefinition_t * gd)
@@ -1104,6 +1062,9 @@ GeometryDefinition_unsetId(GeometryDefinition_t * gd)
 }
 
 
+/*
+ * Unsets the value of the "isActive" attribute of this GeometryDefinition_t.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_unsetIsActive(GeometryDefinition_t * gd)
@@ -1112,39 +1073,75 @@ GeometryDefinition_unsetIsActive(GeometryDefinition_t * gd)
 }
 
 
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t is of type
+ * AnalyticGeometry_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isAnalyticGeometry(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isAnalyticGeometry()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t is of type
+ * SampledFieldGeometry_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isSampledFieldGeometry(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isSampledFieldGeometry()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t is of type
+ * CSGeometry_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isCSGeometry(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isCSGeometry()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t is of type
+ * ParametricGeometry_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isParametricGeometry(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isParametricGeometry()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GeometryDefinition_t is of type
+ * MixedGeometry_t
+ */
+LIBSBML_EXTERN
+int
+GeometryDefinition_isMixedGeometry(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isMixedGeometry()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * GeometryDefinition_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 GeometryDefinition_hasRequiredAttributes(const GeometryDefinition_t * gd)
 {
   return (gd != NULL) ? static_cast<int>(gd->hasRequiredAttributes()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-GeometryDefinition_t *
-ListOfGeometryDefinitions_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfGeometryDefinitions *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-GeometryDefinition_t *
-ListOfGeometryDefinitions_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfGeometryDefinitions *>(lo)->remove(sid) : NULL;
 }
 
 

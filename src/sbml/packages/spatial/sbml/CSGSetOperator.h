@@ -1,34 +1,37 @@
 /**
- * @file:   CSGSetOperator.h
- * @brief:  Implementation of the CSGSetOperator class
- * @author: SBMLTeam
+ * @file CSGSetOperator.h
+ * @brief Definition of the CSGSetOperator class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class CSGSetOperator
+ * @sbmlbrief{spatial} TODO:Definition of the CSGSetOperator class.
  */
 
 
@@ -47,636 +50,951 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
-#include <sbml/ListOf.h>
+#include <sbml/packages/spatial/sbml/CSGNode.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/packages/spatial/sbml/CSGNode.h>
+#include <sbml/packages/spatial/sbml/ListOfCSGNodes.h>
 
-#include <sbml/packages/spatial/sbml/CSGNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-
 class LIBSBML_EXTERN CSGSetOperator : public CSGNode
 {
-
 protected:
 
-  SetOperation_t   mOperationType;
-  std::string   mComplementA;
-  std::string   mComplementB;
-  ListOfCSGNodes   mCsgNodes;
+  /** @cond doxygenLibsbmlInternal */
 
+  SetOperation_t mOperationType;
+  std::string mComplementA;
+  std::string mComplementB;
+  ListOfCSGNodes mCSGNodes;
+
+  /** @endcond */
 
 public:
 
   /**
-   * Creates a new CSGSetOperator with the given level, version, and package version.
+   * Creates a new CSGSetOperator using the given SBML Level, Version and
+   * &ldquo;spatial&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this CSGSetOperator
+   * @param level an unsigned int, the SBML Level to assign to this
+   * CSGSetOperator.
    *
-   * @param version an unsigned int, the SBML Version to assign to this CSGSetOperator
+   * @param version an unsigned int, the SBML Version to assign to this
+   * CSGSetOperator.
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGSetOperator
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+   * this CSGSetOperator.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  CSGSetOperator(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                 unsigned int version    = SpatialExtension::getDefaultVersion(),
-                 unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  CSGSetOperator(unsigned int level = SpatialExtension::getDefaultLevel(),
+                 unsigned int version = SpatialExtension::getDefaultVersion(),
+                 unsigned int pkgVersion =
+                   SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new CSGSetOperator with the given SpatialPkgNamespaces object.
+   * Creates a new CSGSetOperator using the given SpatialPkgNamespaces object.
    *
-   * @param spatialns the SpatialPkgNamespaces object
+   * @param spatialns the SpatialPkgNamespaces object.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  CSGSetOperator(SpatialPkgNamespaces* spatialns);
+  CSGSetOperator(SpatialPkgNamespaces *spatialns);
 
 
-   /**
+  /**
    * Copy constructor for CSGSetOperator.
    *
-   * @param orig; the CSGSetOperator instance to copy.
+   * @param orig the CSGSetOperator instance to copy.
    */
   CSGSetOperator(const CSGSetOperator& orig);
 
 
-   /**
+  /**
    * Assignment operator for CSGSetOperator.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the CSGSetOperator object whose values are to be used as the
+   * basis of the assignment.
    */
   CSGSetOperator& operator=(const CSGSetOperator& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this CSGSetOperator object.
    *
    * @return a (deep) copy of this CSGSetOperator object.
    */
-  virtual CSGSetOperator* clone () const;
+  virtual CSGSetOperator* clone() const;
 
 
-   /**
+  /**
    * Destructor for CSGSetOperator.
    */
   virtual ~CSGSetOperator();
 
 
-   /**
+  /**
    * Returns the value of the "operationType" attribute of this CSGSetOperator.
    *
-   * @return the value of the "operationType" attribute of this CSGSetOperator as a SetOperation_t.
+   * @return the value of the "operationType" attribute of this CSGSetOperator
+   * as a SetOperation_t.
    */
-  virtual SetOperation_t getOperationType() const;
+  SetOperation_t getOperationType() const;
+
+
+  /**
+   * Returns the value of the "operationType" attribute of this CSGSetOperator.
+   *
+   * @return the value of the "operationType" attribute of this CSGSetOperator
+   * as a string.
+   */
+  const std::string& getOperationTypeAsString() const;
 
 
   /**
    * Returns the value of the "complementA" attribute of this CSGSetOperator.
    *
-   * @return the value of the "complementA" attribute of this CSGSetOperator as a string.
+   * @return the value of the "complementA" attribute of this CSGSetOperator as
+   * a string.
    */
-  virtual const std::string& getComplementA() const;
+  const std::string& getComplementA() const;
 
 
   /**
    * Returns the value of the "complementB" attribute of this CSGSetOperator.
    *
-   * @return the value of the "complementB" attribute of this CSGSetOperator as a string.
+   * @return the value of the "complementB" attribute of this CSGSetOperator as
+   * a string.
    */
-  virtual const std::string& getComplementB() const;
+  const std::string& getComplementB() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGSetOperator's "operationType" attribute has been set.
+   * Predicate returning @c true if this CSGSetOperator's "operationType"
+   * attribute is set.
    *
-   * @return @c true if this CSGSetOperator's "operationType" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CSGSetOperator's "operationType" attribute has
+   * been set, otherwise @c false is returned.
    */
-  virtual bool isSetOperationType() const;
+  bool isSetOperationType() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGSetOperator's "complementA" attribute has been set.
+   * Predicate returning @c true if this CSGSetOperator's "complementA"
+   * attribute is set.
    *
-   * @return @c true if this CSGSetOperator's "complementA" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CSGSetOperator's "complementA" attribute has been
+   * set, otherwise @c false is returned.
    */
-  virtual bool isSetComplementA() const;
+  bool isSetComplementA() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGSetOperator's "complementB" attribute has been set.
+   * Predicate returning @c true if this CSGSetOperator's "complementB"
+   * attribute is set.
    *
-   * @return @c true if this CSGSetOperator's "complementB" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CSGSetOperator's "complementB" attribute has been
+   * set, otherwise @c false is returned.
    */
-  virtual bool isSetComplementB() const;
-
-
-  /**
-   * Sets the value of the "operationType" attribute of this CSGSetOperator.
-   *
-   * @param operationType; SetOperation_t value of the "operationType" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setOperationType(SetOperation_t operationType);
+  bool isSetComplementB() const;
 
 
   /**
    * Sets the value of the "operationType" attribute of this CSGSetOperator.
    *
-   * @param operationType; string value of the "operationType" attribute to be set
+   * @param operationType SetOperation_t value of the "operationType" attribute
+   * to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setOperationType(const std::string& operationType);
+  int setOperationType(const SetOperation_t operationType);
+
+
+  /**
+   * Sets the value of the "operationType" attribute of this CSGSetOperator.
+   *
+   * @param operationType std::string& of the "operationType" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setOperationType(const std::string& operationType);
 
 
   /**
    * Sets the value of the "complementA" attribute of this CSGSetOperator.
    *
-   * @param complementA; const std::string& value of the "complementA" attribute to be set
+   * @param complementA std::string& value of the "complementA" attribute to be
+   * set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setComplementA(const std::string& complementA);
+  int setComplementA(const std::string& complementA);
 
 
   /**
    * Sets the value of the "complementB" attribute of this CSGSetOperator.
    *
-   * @param complementB; const std::string& value of the "complementB" attribute to be set
+   * @param complementB std::string& value of the "complementB" attribute to be
+   * set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setComplementB(const std::string& complementB);
+  int setComplementB(const std::string& complementB);
 
 
   /**
    * Unsets the value of the "operationType" attribute of this CSGSetOperator.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetOperationType();
+  int unsetOperationType();
 
 
   /**
    * Unsets the value of the "complementA" attribute of this CSGSetOperator.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetComplementA();
+  int unsetComplementA();
 
 
   /**
    * Unsets the value of the "complementB" attribute of this CSGSetOperator.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetComplementB();
+  int unsetComplementB();
 
 
   /**
-   * Returns the  "ListOfCSGNodes" in this CSGSetOperator object.
+   * Returns the ListOfCSGNodes from this CSGSetOperator.
    *
-   * @return the "ListOfCSGNodes" attribute of this CSGSetOperator.
+   * @return the ListOfCSGNodes from this CSGSetOperator.
    */
-  const ListOfCSGNodes* getListOfCsgNodes() const;
+  const ListOfCSGNodes* getListOfCSGNodes() const;
 
 
   /**
-   * Returns the  "ListOfCSGNodes" in this CSGSetOperator object.
+   * Returns the ListOfCSGNodes from this CSGSetOperator.
    *
-   * @return the "ListOfCSGNodes" attribute of this CSGSetOperator.
+   * @return the ListOfCSGNodes from this CSGSetOperator.
    */
-  ListOfCSGNodes* getListOfCsgNodes();
+  ListOfCSGNodes* getListOfCSGNodes();
 
 
   /**
-   * Get a CsgNode from the ListOfCSGNodes.
+   * Get a CSGNode from the CSGSetOperator.
    *
-   * @param n the index number of the CsgNode to get.
+   * @param n an unsigned int representing the index of the CSGNode to
+   * retrieve.
    *
-   * @return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
+   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator.
    *
-   * @see getNumCsgNodes()
+   * @see getNumCSGNodes()
    */
-	CSGNode* getCsgNode(unsigned int n);
+  CSGNode* getCSGNode(unsigned int n);
 
 
   /**
-   * Get a CsgNode from the ListOfCSGNodes.
+   * Get a CSGNode from the CSGSetOperator.
    *
-   * @param n the index number of the CsgNode to get.
+   * @param n an unsigned int representing the index of the CSGNode to
+   * retrieve.
    *
-   * @return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
+   * @return the nth CSGNode in the ListOfCSGNodes within this CSGSetOperator.
    *
-   * @see getNumCsgNodes()
+   * @see getNumCSGNodes()
    */
-	const CSGNode* getCsgNode(unsigned int n) const;
+  const CSGNode* getCSGNode(unsigned int n) const;
 
 
   /**
-   * Get a CsgNode from the ListOfCSGNodes
-   * based on its identifier.
+   * Get a CSGNode from the CSGSetOperator based on its identifier.
    *
-   * @param sid a string representing the identifier
-   * of the CsgNode to get.
+   * @param sid a string representing the identifier of the CSGNode to
+   * retrieve.
    *
-   * @return the CsgNode in the ListOfCSGNodes
-   * with the given id or NULL if no such
-   * CsgNode exists.
+   * @return the CSGNode in the ListOfCSGNodes within this CSGSetOperator with
+   * the given id or NULL if no such CSGNode exists.
    *
-   * @see getCsgNode(unsigned int n)
-   *
-   * @see getNumCsgNodes()
+   * @see getCSGNode(unsigned int n)
+   * @see getNumCSGNodes()
    */
-	CSGNode* getCsgNode(const std::string& sid);
+  CSGNode* getCSGNode(const std::string& sid);
 
 
   /**
-   * Get a CsgNode from the ListOfCSGNodes
-   * based on its identifier.
+   * Get a CSGNode from the CSGSetOperator based on its identifier.
    *
-   * @param sid a string representing the identifier
-   * of the CsgNode to get.
+   * @param sid a string representing the identifier of the CSGNode to
+   * retrieve.
    *
-   * @return the CsgNode in the ListOfCSGNodes
-   * with the given id or NULL if no such
-   * CsgNode exists.
+   * @return the CSGNode in the ListOfCSGNodes within this CSGSetOperator with
+   * the given id or NULL if no such CSGNode exists.
    *
-   * @see getCsgNode(unsigned int n)
-   *
-   * @see getNumCsgNodes()
+   * @see getCSGNode(unsigned int n)
+   * @see getNumCSGNodes()
    */
-	const CSGNode* getCsgNode(const std::string& sid) const;
+  const CSGNode* getCSGNode(const std::string& sid) const;
 
 
   /**
-   * Adds a copy the given "CSGNode" to this CSGSetOperator.
+   * Adds a copy of the given CSGNode to this CSGSetOperator.
    *
-   * @param csgn; the CSGNode object to add
+   * @param csgn the CSGNode object to add.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createCSGNode()
    */
-  int addCsgNode(const CSGNode* csgn);
+  int addCSGNode(const CSGNode* csgn);
 
 
   /**
    * Get the number of CSGNode objects in this CSGSetOperator.
    *
-   * @return the number of CSGNode objects in this CSGSetOperator
+   * @return the number of CSGNode objects in this CSGSetOperator.
    */
-  unsigned int getNumCsgNodes() const;
+  unsigned int getNumCSGNodes() const;
 
 
   /**
-   * Creates a new CSGPrimitive object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGPrimitive object created. 
+   * Creates a new CSGPrimitive object, adds it to this CSGSetOperator object
+   * and returns the CSGPrimitive object created.
    *
-   * @return a new CSGPrimitive object instance
+   * @return a new CSGPrimitive object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGPrimitive* createCsgPrimitive();
+  CSGPrimitive* createCSGPrimitive();
 
 
   /**
-   * Creates a new CSGTranslation object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGTranslation object created. 
+   * Creates a new CSGTranslation object, adds it to this CSGSetOperator object
+   * and returns the CSGTranslation object created.
    *
-   * @return a new CSGTranslation object instance
+   * @return a new CSGTranslation object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGTranslation* createCsgTranslation();
+  CSGTranslation* createCSGTranslation();
 
 
   /**
-   * Creates a new CSGRotation object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGRotation object created. 
+   * Creates a new CSGRotation object, adds it to this CSGSetOperator object
+   * and returns the CSGRotation object created.
    *
-   * @return a new CSGRotation object instance
+   * @return a new CSGRotation object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGRotation* createCsgRotation();
+  CSGRotation* createCSGRotation();
 
 
   /**
-   * Creates a new CSGScale object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGScale object created. 
+   * Creates a new CSGScale object, adds it to this CSGSetOperator object and
+   * returns the CSGScale object created.
    *
-   * @return a new CSGScale object instance
+   * @return a new CSGScale object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGScale* createCsgScale();
+  CSGScale* createCSGScale();
 
 
   /**
-   * Creates a new CSGHomogeneousTransformation object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGHomogeneousTransformation object created. 
+   * Creates a new CSGHomogeneousTransformation object, adds it to this
+   * CSGSetOperator object and returns the CSGHomogeneousTransformation object
+   * created.
    *
-   * @return a new CSGHomogeneousTransformation object instance
+   * @return a new CSGHomogeneousTransformation object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGHomogeneousTransformation* createCsgHomogeneousTransformation();
+  CSGHomogeneousTransformation* createCSGHomogeneousTransformation();
 
 
   /**
-   * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGPseudoPrimitive object created. 
+   * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperator
+   * object and returns the CSGPseudoPrimitive object created.
    *
-   * @return a new CSGPseudoPrimitive object instance
+   * @return a new CSGPseudoPrimitive object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGPseudoPrimitive* createCsgPseudoPrimitive();
+  CSGPseudoPrimitive* createCSGPseudoPrimitive();
 
 
   /**
-   * Creates a new CSGSetOperator object, adds it to this CSGSetOperators
-   * ListOfCSGNodes and returns the CSGSetOperator object created. 
+   * Creates a new CSGSetOperator object, adds it to this CSGSetOperator object
+   * and returns the CSGSetOperator object created.
    *
-   * @return a new CSGSetOperator object instance
+   * @return a new CSGSetOperator object instance.
    *
    * @see addCSGNode(const CSGNode* csgn)
    */
-  CSGSetOperator* createCsgSetOperator();
+  CSGSetOperator* createCSGSetOperator();
 
 
   /**
-   * Removes the nth CsgNode from the ListOfCSGNodes within this CSGSetOperator.
-   * and returns a pointer to it.
+   * Removes the nth CSGNode from this CSGSetOperator and returns a pointer to
+   * it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
+   * @param n an unsigned int representing the index of the CSGNode to remove.
    *
-   * @param n the index of the CsgNode to remove.
+   * @return a pointer to the nth CSGNode in this CSGSetOperator.
    *
-   * @see getNumCsgNodes()
+   * @see getNumCSGNodes
+   *
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
-	CSGNode* removeCsgNode(unsigned int n);
+  CSGNode* removeCSGNode(unsigned int n);
 
 
   /**
-   * Removes the CsgNode with the given identifier from the ListOfCSGNodes within this CSGSetOperator
-   * and returns a pointer to it.
+   * Removes the CSGNode from this CSGSetOperator based on its identifier and
+   * returns a pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * @param sid a string representing the identifier of the CSGNode to remove.
    *
-   * @param sid the identifier of the CsgNode to remove.
+   * @return the CSGNode in this CSGSetOperator based on the identifier or NULL
+   * if no such CSGNode exists.
    *
-   * @return the CsgNode removed. As mentioned above, the caller owns the
-   * returned item.
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
-	CSGNode* removeCsgNode(const std::string& sid);
+  CSGNode* removeCSGNode(const std::string& sid);
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
-   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
+
+
+  /**
+   * Returns the XML element name of this CSGSetOperator object.
+   *
+   * For CSGSetOperator, the XML element name is always @c "csgSetOperator".
+   *
+   * @return the name of this element, i.e. @c "csgSetOperator".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this CSGSetOperator object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   *
+   * @sbmlconstant{SBML_SPATIAL_CSGSETOPERATOR, SBMLSpatialTypeCode_t}
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * CSGSetOperator object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * CSGSetOperator have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the CSGSetOperator object are:
+   * @li "operationType"
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * CSGSetOperator object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * CSGSetOperator have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the CSGSetOperator object are:
+   */
+  virtual bool hasRequiredElements() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this CSGSetOperator's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this CSGSetOperator's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this CSGSetOperator.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this CSGSetOperator.
+   *
+   * @param objectName, the name of the element to create.
+   *
+   * pointer to the object created.
+   */
+  virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
 
 
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * @return a List* of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
-
-  /**
-   * Returns the XML element name of this object, which for CSGSetOperator, is
-   * always @c "cSGSetOperator".
+   * filter, an ElementFilter that may impose restrictions on the objects to be
+   * retrieved.
    *
-   * @return the name of this element, i.e. @c "cSGSetOperator".
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
    */
-  virtual const std::string& getElementName () const;
-
-
-  /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode () const;
-
-
-  /**
-   * Predicate returning @c true if all the required attributes
-   * for this CSGSetOperator object have been set.
-   *
-   * @note The required attributes for a CSGSetOperator object are:
-   * @li "operationType"
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
-   */
-  virtual bool hasRequiredAttributes() const;
-
-
-  /**
-   * Predicate returning @c true if all the required elements
-   * for this CSGSetOperator object have been set.
-   *
-   * @note The required elements for a CSGSetOperator object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
-   */
-  virtual bool hasRequiredElements() const;
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Accepts the given SBMLVisitor.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the parent SBMLDocument.
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Connects to child elements.
-   */
-  virtual void connectToChild ();
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Enables/Disables the given package with this element.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-               const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * return the SBML object corresponding to next XMLToken.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Get the list of expected attributes for this element.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Read values from the given XMLAttributes set into their specific fields.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write values of XMLAttributes to the output stream.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
 
 
 };
@@ -685,72 +1003,92 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+
+
+
+#endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
 /**
- * Creates a new CSGSetOperator_t structure using the given SBML @p level and
- * @p version values.
+ * Creates a new CSGSetOperator_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
- * @param level an unsigned int, the SBML level to assign to this
- * CSGSetOperator_t structure.
+ * @param level an unsigned int, the SBML Level to assign to this
+ * CSGSetOperator_t.
  *
- * @param version an unsigned int, the SBML version to assign to this
- * CSGSetOperator_t structure.
+ * @param version an unsigned int, the SBML Version to assign to this
+ * CSGSetOperator_t.
  *
- * @returns the newly-created CSGSetOperator_t structure, or a null pointer if
- * an error occurred during construction.
+ * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+ * this CSGSetOperator_t.
  *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination, or this kind of
+ * SBML object, are either invalid or mismatched with respect to the parent
+ * SBMLDocument object.
  * @copydetails doc_note_setting_lv
  *
  * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 CSGSetOperator_t *
-CSGSetOperator_create(unsigned int level, unsigned int version,
-                      unsigned int pkgVersion);
+CSGSetOperator_create(unsigned int level = SpatialExtension::getDefaultLevel(),
+                      unsigned int version =
+                        SpatialExtension::getDefaultVersion(),
+                      unsigned int pkgVersion =
+                        SpatialExtension::getDefaultPackageVersion());
 
 
 /**
- * Frees the given CSGSetOperator_t structure.
- * 
- * @param csgso the CSGSetOperator_t structure to be freed.
+ * Creates and returns a deep copy of this CSGSetOperator_t object.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return a (deep) copy of this CSGSetOperator_t object.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGSetOperator_t*
+CSGSetOperator_clone(const CSGSetOperator_t* csgso);
+
+
+/**
+ * Frees this CSGSetOperator_t object.
+ *
+ * @param csgso the CSGSetOperator_t structure.
  *
  * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 void
-CSGSetOperator_free(CSGSetOperator_t * csgso);
+CSGSetOperator_free(CSGSetOperator_t* csgso);
 
 
 /**
- * Creates a deep copy of the given CSGSetOperator_t structure.
- * 
- * @param csgso the CSGSetOperator_t structure to be copied.
+ * Returns the value of the "operationType" attribute of this CSGSetOperator_t.
  *
- * @returns a (deep) copy of the given CSGSetOperator_t structure, or a null
- * pointer if a failure occurred.
+ * @param csgso the CSGSetOperator_t structure whose operationType is sought.
+ *
+ * @return the value of the "operationType" attribute of this CSGSetOperator_t
+ * as a SetOperation_t.
  *
  * @memberof CSGSetOperator_t
- */
-LIBSBML_EXTERN
-CSGSetOperator_t *
-CSGSetOperator_clone(CSGSetOperator_t * csgso);
-
-
-/**
- * Returns the value of the "operationType" attribute of the given CSGSetOperator_t
- * structure.
- *
- * @param csgso the CSGSetOperator_t structure.
- *
- * @return the operationType of this structure.
- *
- * @member of CSGSetOperator_t
  */
 LIBSBML_EXTERN
 SetOperation_t
@@ -758,14 +1096,29 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
 
 
 /**
- * Returns the value of the "complementA" attribute of the given CSGSetOperator_t
- * structure.
+ * Returns the value of the "operationType" attribute of this CSGSetOperator_t.
  *
- * @param csgso the CSGSetOperator_t structure.
+ * @param csgso the CSGSetOperator_t structure whose operationType is sought.
  *
- * @return the complementA of this structure.
+ * @return the value of the "operationType" attribute of this CSGSetOperator_t
+ * as a const char *.
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+const char *
+CSGSetOperator_getOperationTypeAsString(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Returns the value of the "complementA" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure whose complementA is sought.
+ *
+ * @return the value of the "complementA" attribute of this CSGSetOperator_t as
+ * a pointer to a string.
+ *
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 const char *
@@ -773,14 +1126,14 @@ CSGSetOperator_getComplementA(const CSGSetOperator_t * csgso);
 
 
 /**
- * Returns the value of the "complementB" attribute of the given CSGSetOperator_t
- * structure.
+ * Returns the value of the "complementB" attribute of this CSGSetOperator_t.
  *
- * @param csgso the CSGSetOperator_t structure.
+ * @param csgso the CSGSetOperator_t structure whose complementB is sought.
  *
- * @return the complementB of this structure.
+ * @return the value of the "complementB" attribute of this CSGSetOperator_t as
+ * a pointer to a string.
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 const char *
@@ -788,15 +1141,15 @@ CSGSetOperator_getComplementB(const CSGSetOperator_t * csgso);
 
 
 /**
- * Predicate returning @c 1 if the given CSGSetOperator_t structure's "operationType"
- * is set.
+ * Predicate returning @c 1 if this CSGSetOperator_t's "operationType"
+ * attribute is set.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return @c 1 if the "operationType" of this CSGSetOperator_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this CSGSetOperator_t's "operationType" attribute has been
+ * set, otherwise @c 0 is returned.
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -804,15 +1157,15 @@ CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso);
 
 
 /**
- * Predicate returning @c 1 if the given CSGSetOperator_t structure's "complementA"
+ * Predicate returning @c 1 if this CSGSetOperator_t's "complementA" attribute
  * is set.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return @c 1 if the "complementA" of this CSGSetOperator_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this CSGSetOperator_t's "complementA" attribute has been
+ * set, otherwise @c 0 is returned.
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -820,15 +1173,15 @@ CSGSetOperator_isSetComplementA(const CSGSetOperator_t * csgso);
 
 
 /**
- * Predicate returning @c 1 if the given CSGSetOperator_t structure's "complementB"
+ * Predicate returning @c 1 if this CSGSetOperator_t's "complementB" attribute
  * is set.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return @c 1 if the "complementB" of this CSGSetOperator_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 if this CSGSetOperator_t's "complementB" attribute has been
+ * set, otherwise @c 0 is returned.
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -836,101 +1189,95 @@ CSGSetOperator_isSetComplementB(const CSGSetOperator_t * csgso);
 
 
 /**
- * Sets the "operationType" attribute of the given CSGSetOperator_t structure.
+ * Sets the value of the "operationType" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @param operationType the string to which the structures "operationType" attribute should be
- * set.
+ * @param operationType SetOperation_t value of the "operationType" attribute
+ * to be set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
-CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operationType);
+CSGSetOperator_setOperationType(CSGSetOperator_t * csgso,
+                                SetOperation_t operationType);
 
 
 /**
- * Sets the "complementA" attribute of the given CSGSetOperator_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs CSGSetOperator_unsetComplementA() instead.
+ * Sets the value of the "operationType" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @param complementA the string to which the structures "complementA" attribute should be
+ * @param operationType const char * of the "operationType" attribute to be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
-CSGSetOperator_setComplementA(CSGSetOperator_t * csgso, const char * complementA);
+CSGSetOperator_setOperationTypeAsString(CSGSetOperator_t * csgso,
+                                        const char * operationType);
 
 
 /**
- * Sets the "complementB" attribute of the given CSGSetOperator_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs CSGSetOperator_unsetComplementB() instead.
+ * Sets the value of the "complementA" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @param complementB the string to which the structures "complementB" attribute should be
+ * @param complementA const char * value of the "complementA" attribute to be
  * set.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
-CSGSetOperator_setComplementB(CSGSetOperator_t * csgso, const char * complementB);
+CSGSetOperator_setComplementA(CSGSetOperator_t * csgso,
+                              const char * complementA);
 
 
 /**
- * Unsets the value of the "operationType" attribute of the given 
- * CSGSetOperator_t structure.
+ * Sets the value of the "complementB" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @param complementB const char * value of the "complementB" attribute to be
+ * set.
  *
- * @member of CSGSetOperator_t
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementB(CSGSetOperator_t * csgso,
+                              const char * complementB);
+
+
+/**
+ * Unsets the value of the "operationType" attribute of this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -938,20 +1285,15 @@ CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso);
 
 
 /**
- * Unsets the value of the "complementA" attribute of the given 
- * CSGSetOperator_t structure.
+ * Unsets the value of the "complementA" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -959,106 +1301,266 @@ CSGSetOperator_unsetComplementA(CSGSetOperator_t * csgso);
 
 
 /**
- * Unsets the value of the "complementB" attribute of the given 
- * CSGSetOperator_t structure.
+ * Unsets the value of the "complementB" attribute of this CSGSetOperator_t.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @member of CSGSetOperator_t
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
 CSGSetOperator_unsetComplementB(CSGSetOperator_t * csgso);
 
 
+/**
+ * Returns a ListOf_t* containing CSGNode_t objects from this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure whose "ListOfCSGNodes" is
+ * sought.
+ *
+ * @return the "ListOfCSGNodes" from this CSGSetOperator_t as a ListOf_t *.
+ *
+ * @memberof CSGSetOperator_t
+ */
 LIBSBML_EXTERN
-int
-CSGSetOperator_addCsgNode(CSGSetOperator_t * csgso, CSGNode_t * csgn);
-
-
-LIBSBML_EXTERN
-CSGPrimitive_t *
-CSGSetOperator_createCsgPrimitive(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGTranslation_t *
-CSGSetOperator_createCsgTranslation(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGRotation_t *
-CSGSetOperator_createCsgRotation(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGScale_t *
-CSGSetOperator_createCsgScale(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGHomogeneousTransformation_t *
-CSGSetOperator_createCsgHomogeneousTransformation(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t *
-CSGSetOperator_createCsgPseudoPrimitive(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGSetOperator_t *
-CSGSetOperator_createCsgSetOperator(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-CSGSetOperator_getListOfCSGNodes(CSGSetOperator_t * csgso) ;
-
-
-LIBSBML_EXTERN
-CSGNode_t *
-CSGSetOperator_getCsgNode(CSGSetOperator_t * csgso, unsigned int n);
-
-
-LIBSBML_EXTERN
-CSGNode_t *
-CSGSetOperator_getCsgNodeById(CSGSetOperator_t * csgso, const char * sid);
-
-
-LIBSBML_EXTERN
-unsigned int
-CSGSetOperator_getNumCsgNodes(CSGSetOperator_t * csgso);
-
-
-LIBSBML_EXTERN
-CSGNode_t *
-CSGSetOperator_removeCsgNode(CSGSetOperator_t * csgso, unsigned int n);
-
-
-LIBSBML_EXTERN
-CSGNode_t *
-CSGSetOperator_removeCsgNodeById(CSGSetOperator_t * csgso, const char * sid);
+ListOf_t*
+CSGSetOperator_getListOfCSGNodes(CSGSetOperator_t* csgso);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given CSGSetOperator_t structure have been set.
+ * Get a CSGNode_t from the CSGSetOperator_t.
  *
- * @param csgso the CSGSetOperator_t structure to check.
+ * @param csgso the CSGSetOperator_t structure to search.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @param n an unsigned int representing the index of the CSGNode_t to
+ * retrieve.
  *
- * @member of CSGSetOperator_t
+ * @return the nth CSGNode_t in the ListOfCSGNodes within this CSGSetOperator.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+const CSGNode_t*
+CSGSetOperator_getCSGNode(CSGSetOperator_t* csgso, unsigned int n);
+
+
+/**
+ * Get a CSGNode_t from the CSGSetOperator_t based on its identifier.
+ *
+ * @param csgso the CSGSetOperator_t structure to search.
+ *
+ * @param sid a string representing the identifier of the CSGNode_t to
+ * retrieve.
+ *
+ * @return the CSGNode_t in the ListOfCSGNodes within this CSGSetOperator with
+ * the given id or NULL if no such CSGNode_t exists.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+const CSGNode_t*
+CSGSetOperator_getCSGNodeById(CSGSetOperator_t* csgso, const char *sid);
+
+
+/**
+ * Adds a copy of the given CSGNode_t to this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGNode_t should be
+ * added.
+ *
+ * @param csgn the CSGNode_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_addCSGNode(CSGSetOperator_t* csgso, const CSGNode_t* csgn);
+
+
+/**
+ * Get the number of CSGNode_t objects in this CSGSetOperator_t.
+ *
+ * @param csgso the CSGSetOperator_t structure to query.
+ *
+ * @return the number of CSGNode_t objects in this CSGSetOperator_t.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+unsigned int
+CSGSetOperator_getNumCSGNodes(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGPrimitive_t object, adds it to this CSGSetOperator_t object
+ * and returns the CSGPrimitive_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGPrimitive_t
+ * should be added.
+ *
+ * @return a new CSGPrimitive_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGPrimitive_t*
+CSGSetOperator_createCSGPrimitive(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGTranslation_t object, adds it to this CSGSetOperator_t
+ * object and returns the CSGTranslation_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGTranslation_t
+ * should be added.
+ *
+ * @return a new CSGTranslation_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGTranslation_t*
+CSGSetOperator_createCSGTranslation(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGRotation_t object, adds it to this CSGSetOperator_t object
+ * and returns the CSGRotation_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGRotation_t
+ * should be added.
+ *
+ * @return a new CSGRotation_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGRotation_t*
+CSGSetOperator_createCSGRotation(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGScale_t object, adds it to this CSGSetOperator_t object and
+ * returns the CSGScale_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGScale_t should
+ * be added.
+ *
+ * @return a new CSGScale_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGScale_t*
+CSGSetOperator_createCSGScale(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGHomogeneousTransformation_t object, adds it to this
+ * CSGSetOperator_t object and returns the CSGHomogeneousTransformation_t
+ * object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the
+ * CSGHomogeneousTransformation_t should be added.
+ *
+ * @return a new CSGHomogeneousTransformation_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t*
+CSGSetOperator_createCSGHomogeneousTransformation(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGPseudoPrimitive_t object, adds it to this CSGSetOperator_t
+ * object and returns the CSGPseudoPrimitive_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the
+ * CSGPseudoPrimitive_t should be added.
+ *
+ * @return a new CSGPseudoPrimitive_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t*
+CSGSetOperator_createCSGPseudoPrimitive(CSGSetOperator_t* csgso);
+
+
+/**
+ * Creates a new CSGSetOperator_t object, adds it to this CSGSetOperator_t
+ * object and returns the CSGSetOperator_t object created.
+ *
+ * @param csgso the CSGSetOperator_t structure to which the CSGSetOperator_t
+ * should be added.
+ *
+ * @return a new CSGSetOperator_t object instance.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGSetOperator_t*
+CSGSetOperator_createCSGSetOperator(CSGSetOperator_t* csgso);
+
+
+/**
+ * Removes the nth CSGNode_t from this CSGSetOperator_t and returns a pointer
+ * to it.
+ *
+ * @param csgso the CSGSetOperator_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the CSGNode_t to remove.
+ *
+ * @return a pointer to the nth CSGNode_t in this CSGSetOperator_t.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGNode_t*
+CSGSetOperator_removeCSGNode(CSGSetOperator_t* csgso, unsigned int n);
+
+
+/**
+ * Removes the CSGNode_t from this CSGSetOperator_t based on its identifier and
+ * returns a pointer to it.
+ *
+ * @param csgso the CSGSetOperator_t structure to search.
+ *
+ * @param sid a string representing the identifier of the CSGNode_t to remove.
+ *
+ * @return the CSGNode_t in this CSGSetOperator_t based on the identifier or
+ * NULL if no such CSGNode_t exists.
+ *
+ * @memberof CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+CSGNode_t*
+CSGSetOperator_removeCSGNodeById(CSGSetOperator_t* csgso, const char* sid);
+
+
+/**
+ * Predicate returning @c 1 if all the required attributes for this
+ * CSGSetOperator_t object have been set.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return @c 1 to indicate that all the required attributes of this
+ * CSGSetOperator_t have been set, otherwise @c 0 is returned.
+ *
+ *
+ * @note The required attributes for the CSGSetOperator_t object are:
+ * @li "operationType"
+ *
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -1066,15 +1568,18 @@ CSGSetOperator_hasRequiredAttributes(const CSGSetOperator_t * csgso);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * sub-elements of the given CSGSetOperator_t structure have been set.
+ * Predicate returning @c 1 if all the required elements for this
+ * CSGSetOperator_t object have been set.
  *
- * @param csgso the CSGSetOperator_t structure to check.
+ * @param csgso the CSGSetOperator_t structure.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 to indicate that all the required elements of this
+ * CSGSetOperator_t have been set, otherwise @c 0 is returned.
  *
- * @member of CSGSetOperator_t
+ *
+ * @note The required elements for the CSGSetOperator_t object are:
+ *
+ * @memberof CSGSetOperator_t
  */
 LIBSBML_EXTERN
 int
@@ -1084,9 +1589,20 @@ CSGSetOperator_hasRequiredElements(const CSGSetOperator_t * csgso);
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
 
-#endif /*  CSGSetOperator_H__  */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !CSGSetOperator_H__ */
+
 

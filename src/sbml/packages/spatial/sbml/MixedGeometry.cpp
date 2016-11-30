@@ -1,37 +1,35 @@
 /**
- * @file:   MixedGeometry.cpp
- * @brief:  Implementation of the MixedGeometry class
- * @author: SBMLTeam
+ * @file MixedGeometry.cpp
+ * @brief Implementation of the MixedGeometry class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/MixedGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
@@ -43,44 +41,45 @@
 #include <sbml/packages/spatial/sbml/MixedGeometry.h>
 
 
-
 using namespace std;
+
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new MixedGeometry with the given level, version, and package version.
+ * Creates a new MixedGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-MixedGeometry::MixedGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
+MixedGeometry::MixedGeometry(unsigned int level,
+                             unsigned int version,
+                             unsigned int pkgVersion)
   : GeometryDefinition(level, version)
   , mGeometryDefinitions (level, version, pkgVersion)
   , mOrdinalMappings (level, version, pkgVersion)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new MixedGeometry with the given SpatialPkgNamespaces object.
+ * Creates a new MixedGeometry using the given SpatialPkgNamespaces object.
  */
-MixedGeometry::MixedGeometry (SpatialPkgNamespaces* spatialns)
+MixedGeometry::MixedGeometry(SpatialPkgNamespaces *spatialns)
   : GeometryDefinition(spatialns)
   , mGeometryDefinitions (spatialns)
   , mOrdinalMappings (spatialns)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -88,18 +87,17 @@ MixedGeometry::MixedGeometry (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for MixedGeometry.
  */
-MixedGeometry::MixedGeometry (const MixedGeometry& orig)
-  : GeometryDefinition(orig)
-  , mGeometryDefinitions  ( orig.mGeometryDefinitions)
-  , mOrdinalMappings  ( orig.mOrdinalMappings)
+MixedGeometry::MixedGeometry(const MixedGeometry& orig)
+  : GeometryDefinition( orig )
+  , mGeometryDefinitions ( orig.mGeometryDefinitions )
+  , mOrdinalMappings ( orig.mOrdinalMappings )
 {
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for MixedGeometry.
+ * Assignment operator for MixedGeometry.
  */
 MixedGeometry&
 MixedGeometry::operator=(const MixedGeometry& rhs)
@@ -107,21 +105,20 @@ MixedGeometry::operator=(const MixedGeometry& rhs)
   if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
-    mGeometryDefinitions  = rhs.mGeometryDefinitions;
-    mOrdinalMappings  = rhs.mOrdinalMappings;
-
-    // connect to child objects
+    mGeometryDefinitions = rhs.mGeometryDefinitions;
+    mOrdinalMappings = rhs.mOrdinalMappings;
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for MixedGeometry.
+ * Creates and returns a deep copy of this MixedGeometry object.
  */
 MixedGeometry*
-MixedGeometry::clone () const
+MixedGeometry::clone() const
 {
   return new MixedGeometry(*this);
 }
@@ -130,13 +127,13 @@ MixedGeometry::clone () const
 /*
  * Destructor for MixedGeometry.
  */
-MixedGeometry::~MixedGeometry ()
+MixedGeometry::~MixedGeometry()
 {
 }
 
 
 /*
- * Returns the  "ListOfGeometryDefinitions" in this MixedGeometry object.
+ * Returns the ListOfGeometryDefinitions from this MixedGeometry.
  */
 const ListOfGeometryDefinitions*
 MixedGeometry::getListOfGeometryDefinitions() const
@@ -146,7 +143,7 @@ MixedGeometry::getListOfGeometryDefinitions() const
 
 
 /*
- * Returns the  "ListOfGeometryDefinitions" in this MixedGeometry object.
+ * Returns the ListOfGeometryDefinitions from this MixedGeometry.
  */
 ListOfGeometryDefinitions*
 MixedGeometry::getListOfGeometryDefinitions()
@@ -156,76 +153,47 @@ MixedGeometry::getListOfGeometryDefinitions()
 
 
 /*
- * Removes the nth GeometryDefinition from the ListOfGeometryDefinitions.
- */
-GeometryDefinition*
-MixedGeometry::removeGeometryDefinition(unsigned int n)
-{
-	return mGeometryDefinitions.remove(n);
-}
-
-
-/*
- * Removes the a GeometryDefinition with given id from the ListOfGeometryDefinitions.
- */
-GeometryDefinition*
-MixedGeometry::removeGeometryDefinition(const std::string& sid)
-{
-	return mGeometryDefinitions.remove(sid);
-}
-
-
-/*
- * Return the nth GeometryDefinition in the ListOfGeometryDefinitions within this MixedGeometry.
+ * Get a GeometryDefinition from the MixedGeometry.
  */
 GeometryDefinition*
 MixedGeometry::getGeometryDefinition(unsigned int n)
 {
-	return mGeometryDefinitions.get(n);
+  return mGeometryDefinitions.get(n);
 }
 
 
 /*
- * Return the nth GeometryDefinition in the ListOfGeometryDefinitions within this MixedGeometry.
+ * Get a GeometryDefinition from the MixedGeometry.
  */
 const GeometryDefinition*
 MixedGeometry::getGeometryDefinition(unsigned int n) const
 {
-	return mGeometryDefinitions.get(n);
+  return mGeometryDefinitions.get(n);
 }
 
 
 /*
- * Return a GeometryDefinition from the ListOfGeometryDefinitions by id.
+ * Get a GeometryDefinition from the MixedGeometry based on its identifier.
  */
 GeometryDefinition*
 MixedGeometry::getGeometryDefinition(const std::string& sid)
 {
-	return mGeometryDefinitions.get(sid);
+  return mGeometryDefinitions.get(sid);
 }
 
 
 /*
- * Return a GeometryDefinition from the ListOfGeometryDefinitions by id.
+ * Get a GeometryDefinition from the MixedGeometry based on its identifier.
  */
 const GeometryDefinition*
 MixedGeometry::getGeometryDefinition(const std::string& sid) const
 {
-	return mGeometryDefinitions.get(sid);
+  return mGeometryDefinitions.get(sid);
 }
 
 
 /*
- * Adds a copy the given "GeometryDefinition" to this MixedGeometry.
- *
- * @param gd; the GeometryDefinition object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Adds a copy of the given GeometryDefinition to this MixedGeometry.
  */
 int
 MixedGeometry::addGeometryDefinition(const GeometryDefinition* gd)
@@ -246,22 +214,24 @@ MixedGeometry::addGeometryDefinition(const GeometryDefinition* gd)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(gd)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(gd)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
+  else if (gd->isSetId() && (mGeometryDefinitions.get(gd->getId())) != NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
   else
   {
-    mGeometryDefinitions.append(gd);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mGeometryDefinitions.append(gd);
   }
 }
 
 
 /*
  * Get the number of GeometryDefinition objects in this MixedGeometry.
- *
- * @return the number of GeometryDefinition objects in this MixedGeometry
  */
 unsigned int
 MixedGeometry::getNumGeometryDefinitions() const
@@ -270,15 +240,11 @@ MixedGeometry::getNumGeometryDefinitions() const
 }
 
 
-/**
- * Creates a new AnalyticGeometry object, adds it to this MixedGeometrys
- * ListOfGeometryDefinitions and returns the AnalyticGeometry object created. 
- *
- * @return a new AnalyticGeometry object instance
- *
- * @see addGeometryDefinition(const GeometryDefinition*)
+/*
+ * Creates a new AnalyticGeometry object, adds it to this MixedGeometry object
+ * and returns the AnalyticGeometry object created.
  */
-AnalyticGeometry* 
+AnalyticGeometry*
 MixedGeometry::createAnalyticGeometry()
 {
   AnalyticGeometry* ag = NULL;
@@ -291,14 +257,9 @@ MixedGeometry::createAnalyticGeometry()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(ag != NULL)
+  if (ag != NULL)
   {
     mGeometryDefinitions.appendAndOwn(ag);
   }
@@ -307,15 +268,11 @@ MixedGeometry::createAnalyticGeometry()
 }
 
 
-/**
- * Creates a new SampledFieldGeometry object, adds it to this MixedGeometrys
- * ListOfGeometryDefinitions and returns the SampledFieldGeometry object created. 
- *
- * @return a new SampledFieldGeometry object instance
- *
- * @see addGeometryDefinition(const GeometryDefinition*)
+/*
+ * Creates a new SampledFieldGeometry object, adds it to this MixedGeometry
+ * object and returns the SampledFieldGeometry object created.
  */
-SampledFieldGeometry* 
+SampledFieldGeometry*
 MixedGeometry::createSampledFieldGeometry()
 {
   SampledFieldGeometry* sfg = NULL;
@@ -328,14 +285,9 @@ MixedGeometry::createSampledFieldGeometry()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(sfg != NULL)
+  if (sfg != NULL)
   {
     mGeometryDefinitions.appendAndOwn(sfg);
   }
@@ -344,16 +296,12 @@ MixedGeometry::createSampledFieldGeometry()
 }
 
 
-/**
- * Creates a new CSGeometry object, adds it to this MixedGeometrys
- * ListOfGeometryDefinitions and returns the CSGeometry object created. 
- *
- * @return a new CSGeometry object instance
- *
- * @see addGeometryDefinition(const GeometryDefinition*)
+/*
+ * Creates a new CSGeometry object, adds it to this MixedGeometry object and
+ * returns the CSGeometry object created.
  */
-CSGeometry* 
-MixedGeometry::createCsGeometry()
+CSGeometry*
+MixedGeometry::createCSGeometry()
 {
   CSGeometry* csg = NULL;
 
@@ -365,14 +313,9 @@ MixedGeometry::createCsGeometry()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(csg != NULL)
+  if (csg != NULL)
   {
     mGeometryDefinitions.appendAndOwn(csg);
   }
@@ -381,15 +324,11 @@ MixedGeometry::createCsGeometry()
 }
 
 
-/**
- * Creates a new ParametricGeometry object, adds it to this MixedGeometrys
- * ListOfGeometryDefinitions and returns the ParametricGeometry object created. 
- *
- * @return a new ParametricGeometry object instance
- *
- * @see addGeometryDefinition(const GeometryDefinition*)
+/*
+ * Creates a new ParametricGeometry object, adds it to this MixedGeometry
+ * object and returns the ParametricGeometry object created.
  */
-ParametricGeometry* 
+ParametricGeometry*
 MixedGeometry::createParametricGeometry()
 {
   ParametricGeometry* pg = NULL;
@@ -402,14 +341,9 @@ MixedGeometry::createParametricGeometry()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(pg != NULL)
+  if (pg != NULL)
   {
     mGeometryDefinitions.appendAndOwn(pg);
   }
@@ -418,15 +352,11 @@ MixedGeometry::createParametricGeometry()
 }
 
 
-/**
- * Creates a new MixedGeometry object, adds it to this MixedGeometrys
- * ListOfGeometryDefinitions and returns the MixedGeometry object created. 
- *
- * @return a new MixedGeometry object instance
- *
- * @see addGeometryDefinition(const GeometryDefinition*)
+/*
+ * Creates a new MixedGeometry object, adds it to this MixedGeometry object and
+ * returns the MixedGeometry object created.
  */
-MixedGeometry* 
+MixedGeometry*
 MixedGeometry::createMixedGeometry()
 {
   MixedGeometry* mg = NULL;
@@ -439,14 +369,9 @@ MixedGeometry::createMixedGeometry()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(mg != NULL)
+  if (mg != NULL)
   {
     mGeometryDefinitions.appendAndOwn(mg);
   }
@@ -456,7 +381,29 @@ MixedGeometry::createMixedGeometry()
 
 
 /*
- * Returns the  "ListOfOrdinalMappings" in this MixedGeometry object.
+ * Removes the nth GeometryDefinition from this MixedGeometry and returns a
+ * pointer to it.
+ */
+GeometryDefinition*
+MixedGeometry::removeGeometryDefinition(unsigned int n)
+{
+  return mGeometryDefinitions.remove(n);
+}
+
+
+/*
+ * Removes the GeometryDefinition from this MixedGeometry based on its
+ * identifier and returns a pointer to it.
+ */
+GeometryDefinition*
+MixedGeometry::removeGeometryDefinition(const std::string& sid)
+{
+  return mGeometryDefinitions.remove(sid);
+}
+
+
+/*
+ * Returns the ListOfOrdinalMappings from this MixedGeometry.
  */
 const ListOfOrdinalMappings*
 MixedGeometry::getListOfOrdinalMappings() const
@@ -466,7 +413,7 @@ MixedGeometry::getListOfOrdinalMappings() const
 
 
 /*
- * Returns the  "ListOfOrdinalMappings" in this MixedGeometry object.
+ * Returns the ListOfOrdinalMappings from this MixedGeometry.
  */
 ListOfOrdinalMappings*
 MixedGeometry::getListOfOrdinalMappings()
@@ -476,76 +423,50 @@ MixedGeometry::getListOfOrdinalMappings()
 
 
 /*
- * Removes the nth OrdinalMapping from the ListOfOrdinalMappings.
- */
-OrdinalMapping*
-MixedGeometry::removeOrdinalMapping(unsigned int n)
-{
-	return mOrdinalMappings.remove(n);
-}
-
-
-/*
- * Removes the a OrdinalMapping with given id from the ListOfOrdinalMappings.
- */
-OrdinalMapping*
-MixedGeometry::removeOrdinalMapping(const std::string& sid)
-{
-	return mOrdinalMappings.remove(sid);
-}
-
-
-/*
- * Return the nth OrdinalMapping in the ListOfOrdinalMappings within this MixedGeometry.
+ * Get an OrdinalMapping from the MixedGeometry.
  */
 OrdinalMapping*
 MixedGeometry::getOrdinalMapping(unsigned int n)
 {
-	return mOrdinalMappings.get(n);
+  return mOrdinalMappings.get(n);
 }
 
 
 /*
- * Return the nth OrdinalMapping in the ListOfOrdinalMappings within this MixedGeometry.
+ * Get an OrdinalMapping from the MixedGeometry.
  */
 const OrdinalMapping*
 MixedGeometry::getOrdinalMapping(unsigned int n) const
 {
-	return mOrdinalMappings.get(n);
+  return mOrdinalMappings.get(n);
 }
 
 
 /*
- * Return a OrdinalMapping from the ListOfOrdinalMappings by id.
- */
-OrdinalMapping*
-MixedGeometry::getOrdinalMapping(const std::string& sid)
-{
-	return mOrdinalMappings.get(sid);
-}
-
-
-/*
- * Return a OrdinalMapping from the ListOfOrdinalMappings by id.
+ * Get an OrdinalMapping from the MixedGeometry based on the GeometryDefinition
+ * to which it refers.
  */
 const OrdinalMapping*
-MixedGeometry::getOrdinalMapping(const std::string& sid) const
+MixedGeometry::getOrdinalMappingByGeometryDefinition(const std::string& sid)
+  const
 {
-	return mOrdinalMappings.get(sid);
+  return mOrdinalMappings.getByGeometryDefinition(sid);
 }
 
 
 /*
- * Adds a copy the given "OrdinalMapping" to this MixedGeometry.
- *
- * @param om; the OrdinalMapping object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Get an OrdinalMapping from the MixedGeometry based on the GeometryDefinition
+ * to which it refers.
+ */
+OrdinalMapping*
+MixedGeometry::getOrdinalMappingByGeometryDefinition(const std::string& sid)
+{
+  return mOrdinalMappings.getByGeometryDefinition(sid);
+}
+
+
+/*
+ * Adds a copy of the given OrdinalMapping to this MixedGeometry.
  */
 int
 MixedGeometry::addOrdinalMapping(const OrdinalMapping* om)
@@ -566,22 +487,20 @@ MixedGeometry::addOrdinalMapping(const OrdinalMapping* om)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(om)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(om)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-    mOrdinalMappings.append(om);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mOrdinalMappings.append(om);
   }
 }
 
 
 /*
  * Get the number of OrdinalMapping objects in this MixedGeometry.
- *
- * @return the number of OrdinalMapping objects in this MixedGeometry
  */
 unsigned int
 MixedGeometry::getNumOrdinalMappings() const
@@ -591,12 +510,8 @@ MixedGeometry::getNumOrdinalMappings() const
 
 
 /*
- * Creates a new OrdinalMapping object, adds it to this MixedGeometrys
- * MixedGeometry and returns the OrdinalMapping object created. 
- *
- * @return a new OrdinalMapping object instance
- *
- * @see addOrdinalMapping(const OrdinalMapping* om)
+ * Creates a new OrdinalMapping object, adds it to this MixedGeometry object
+ * and returns the OrdinalMapping object created.
  */
 OrdinalMapping*
 MixedGeometry::createOrdinalMapping()
@@ -611,14 +526,9 @@ MixedGeometry::createOrdinalMapping()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(om != NULL)
+  if (om != NULL)
   {
     mOrdinalMappings.appendAndOwn(om);
   }
@@ -627,26 +537,22 @@ MixedGeometry::createOrdinalMapping()
 }
 
 
-List*
-MixedGeometry::getAllElements(ElementFilter* filter)
+/*
+ * Removes the nth OrdinalMapping from this MixedGeometry and returns a pointer
+ * to it.
+ */
+OrdinalMapping*
+MixedGeometry::removeOrdinalMapping(unsigned int n)
 {
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mGeometryDefinitions, filter);
-  ADD_FILTERED_LIST(ret, sublist, mOrdinalMappings, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
+  return mOrdinalMappings.remove(n);
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this MixedGeometry object.
  */
 const std::string&
-MixedGeometry::getElementName () const
+MixedGeometry::getElementName() const
 {
   static const string name = "mixedGeometry";
   return name;
@@ -654,20 +560,21 @@ MixedGeometry::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this MixedGeometry object.
  */
 int
-MixedGeometry::getTypeCode () const
+MixedGeometry::getTypeCode() const
 {
   return SBML_SPATIAL_MIXEDGEOMETRY;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * MixedGeometry object have been set.
  */
 bool
-MixedGeometry::hasRequiredAttributes () const
+MixedGeometry::hasRequiredAttributes() const
 {
   bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
@@ -676,10 +583,11 @@ MixedGeometry::hasRequiredAttributes () const
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this
+ * MixedGeometry object have been set.
  */
 bool
-MixedGeometry::hasRequiredElements () const
+MixedGeometry::hasRequiredElements() const
 {
   bool allPresent = GeometryDefinition::hasRequiredElements();
 
@@ -687,15 +595,17 @@ MixedGeometry::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-MixedGeometry::writeElements (XMLOutputStream& stream) const
+MixedGeometry::writeElements(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeElements(stream);
+
   if (getNumGeometryDefinitions() > 0)
   {
     mGeometryDefinitions.write(stream);
@@ -709,52 +619,55 @@ MixedGeometry::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-MixedGeometry::accept (SBMLVisitor& v) const
+MixedGeometry::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-/* VISIT CHILDREN */
+  mGeometryDefinitions.accept(v);
+
+  mOrdinalMappings.accept(v);
 
   v.leave(*this);
-
   return true;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-MixedGeometry::setSBMLDocument (SBMLDocument* d)
+MixedGeometry::setSBMLDocument(SBMLDocument* d)
 {
   GeometryDefinition::setSBMLDocument(d);
+
   mGeometryDefinitions.setSBMLDocument(d);
+
   mOrdinalMappings.setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
+ * Connects to child elements
  */
 void
 MixedGeometry::connectToChild()
@@ -762,161 +675,546 @@ MixedGeometry::connectToChild()
   GeometryDefinition::connectToChild();
 
   mGeometryDefinitions.connectToParent(this);
+
   mOrdinalMappings.connectToParent(this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 MixedGeometry::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                     const std::string& pkgPrefix,
+                                     bool flag)
 {
   GeometryDefinition::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
   mGeometryDefinitions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+
   mOrdinalMappings.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * creates object.
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            bool& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            double& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            unsigned int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            std::string& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::getAttribute(const std::string& attributeName,
+                            const char* value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this MixedGeometry's attribute
+ * "attributeName" is set.
+ */
+bool
+MixedGeometry::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = GeometryDefinition::isSetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName,
+                            unsigned int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName,
+                            const std::string& value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::setAttribute(const std::string& attributeName,
+                            const char* value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this MixedGeometry.
+ */
+int
+MixedGeometry::unsetAttribute(const std::string& attributeName)
+{
+  int value = GeometryDefinition::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this MixedGeometry.
+ */
+SBase*
+MixedGeometry::createObject(const std::string& elementName)
+{
+  GeometryDefinition* obj = NULL;
+
+  //if (elementName == "geometryDefinition")
+  //{
+  //  return createGeometryDefinition();
+  //}
+  if (elementName == "ordinalMapping")
+  {
+    return createOrdinalMapping();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+MixedGeometry::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mGeometryDefinitions.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mOrdinalMappings.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+MixedGeometry::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mGeometryDefinitions.getMetaId() == metaid)
+  {
+    return &mGeometryDefinitions;
+  }
+
+  if (mOrdinalMappings.getMetaId() == metaid)
+  {
+    return &mOrdinalMappings;
+  }
+
+  obj = mGeometryDefinitions.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mOrdinalMappings.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+MixedGeometry::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mGeometryDefinitions, filter);
+  ADD_FILTERED_LIST(ret, sublist, mOrdinalMappings, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 MixedGeometry::createObject(XMLInputStream& stream)
 {
-  SBase* object = GeometryDefinition::createObject(stream);
+  SBase* obj = GeometryDefinition::createObject(stream);
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   if (name == "listOfGeometryDefinitions")
   {
-    object = &mGeometryDefinitions;
+    if (mGeometryDefinitions.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialMixedGeometryAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
+    }
+
+    obj = &mGeometryDefinitions;
   }
   else if (name == "listOfOrdinalMappings")
   {
-    object = &mOrdinalMappings;
+    if (mOrdinalMappings.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialMixedGeometryAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
+    }
+
+    obj = &mOrdinalMappings;
   }
+
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 MixedGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   GeometryDefinition::addExpectedAttributes(attributes);
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-MixedGeometry::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+MixedGeometry::readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+        version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialMixedGeometryAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-MixedGeometry::writeAttributes (XMLOutputStream& stream) const
+void
+MixedGeometry::writeAttributes(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeAttributes(stream);
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new MixedGeometry_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 MixedGeometry_t *
-MixedGeometry_create(unsigned int level, unsigned int version,
+MixedGeometry_create(unsigned int level,
+                     unsigned int version,
                      unsigned int pkgVersion)
 {
   return new MixedGeometry(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this MixedGeometry_t object.
+ */
 LIBSBML_EXTERN
-void
-MixedGeometry_free(MixedGeometry_t * mg)
-{
-  if (mg != NULL)
-    delete mg;
-}
-
-
-LIBSBML_EXTERN
-MixedGeometry_t *
-MixedGeometry_clone(MixedGeometry_t * mg)
+MixedGeometry_t*
+MixedGeometry_clone(const MixedGeometry_t* mg)
 {
   if (mg != NULL)
   {
@@ -929,146 +1227,251 @@ MixedGeometry_clone(MixedGeometry_t * mg)
 }
 
 
+/*
+ * Frees this MixedGeometry_t object.
+ */
+LIBSBML_EXTERN
+void
+MixedGeometry_free(MixedGeometry_t* mg)
+{
+  if (mg != NULL)
+  {
+    delete mg;
+  }
+}
+
+
+/*
+ * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * MixedGeometry_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t* mg)
+{
+  return (mg != NULL) ? mg->getListOfGeometryDefinitions() : NULL;
+}
+
+
+/*
+ * Get a GeometryDefinition_t from the MixedGeometry_t.
+ */
+LIBSBML_EXTERN
+const GeometryDefinition_t*
+MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n)
+{
+  return (mg != NULL) ? mg->getGeometryDefinition(n) : NULL;
+}
+
+
+/*
+ * Get a GeometryDefinition_t from the MixedGeometry_t based on its identifier.
+ */
+LIBSBML_EXTERN
+const GeometryDefinition_t*
+MixedGeometry_getGeometryDefinitionById(MixedGeometry_t* mg, const char *sid)
+{
+  return (mg != NULL && sid != NULL) ? mg->getGeometryDefinition(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given GeometryDefinition_t to this MixedGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-MixedGeometry_addGeometryDefinition(MixedGeometry_t * mg, GeometryDefinition_t * gd)
+MixedGeometry_addGeometryDefinition(MixedGeometry_t* mg,
+                                    const GeometryDefinition_t* gd)
 {
-	return  (mg != NULL) ? mg->addGeometryDefinition(gd) : LIBSBML_INVALID_OBJECT;
+  return (mg != NULL) ? mg->addGeometryDefinition(gd) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-AnalyticGeometry_t *
-MixedGeometry_createAnalyticGeometry(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createAnalyticGeometry() : NULL;
-}
 
-LIBSBML_EXTERN
-SampledFieldGeometry_t *
-MixedGeometry_createSampledFieldGeometry(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createSampledFieldGeometry() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGeometry_t *
-MixedGeometry_createCsGeometry(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createCsGeometry() : NULL;
-}
-
-LIBSBML_EXTERN
-ParametricGeometry_t *
-MixedGeometry_createParametricGeometry(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createParametricGeometry() : NULL;
-}
-
-LIBSBML_EXTERN
-MixedGeometry_t *
-MixedGeometry_createMixedGeometry(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createMixedGeometry() : NULL;
-}
-
-LIBSBML_EXTERN
-ListOf_t *
-MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? (ListOf_t *)mg->getListOfGeometryDefinitions() : NULL;
-}
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_getGeometryDefinition(MixedGeometry_t * mg, unsigned int n)
-{
-	return  (mg != NULL) ? mg->getGeometryDefinition(n) : NULL;
-}
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_getGeometryDefinitionById(MixedGeometry_t * mg, const char * sid)
-{
-	return  (mg != NULL) ? mg->getGeometryDefinition(sid) : NULL;
-}
-
+/*
+ * Get the number of GeometryDefinition_t objects in this MixedGeometry_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-MixedGeometry_getNumGeometryDefinitions(MixedGeometry_t * mg)
+MixedGeometry_getNumGeometryDefinitions(MixedGeometry_t* mg)
 {
-	return  (mg != NULL) ? mg->getNumGeometryDefinitions() : SBML_INT_MAX;
+  return (mg != NULL) ? mg->getNumGeometryDefinitions() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new AnalyticGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the AnalyticGeometry_t object created.
+ */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_removeGeometryDefinition(MixedGeometry_t * mg, unsigned int n)
+AnalyticGeometry_t*
+MixedGeometry_createAnalyticGeometry(MixedGeometry_t* mg)
 {
-	return  (mg != NULL) ? mg->removeGeometryDefinition(n) : NULL;
+  return (mg != NULL) ? mg->createAnalyticGeometry() : NULL;
 }
 
+
+/*
+ * Creates a new SampledFieldGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the SampledFieldGeometry_t object created.
+ */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t * mg, const char * sid)
+SampledFieldGeometry_t*
+MixedGeometry_createSampledFieldGeometry(MixedGeometry_t* mg)
 {
-	return  (mg != NULL) ? mg->removeGeometryDefinition(sid) : NULL;
+  return (mg != NULL) ? mg->createSampledFieldGeometry() : NULL;
 }
 
+
+/*
+ * Creates a new CSGeometry_t object, adds it to this MixedGeometry_t object
+ * and returns the CSGeometry_t object created.
+ */
+LIBSBML_EXTERN
+CSGeometry_t*
+MixedGeometry_createCSGeometry(MixedGeometry_t* mg)
+{
+  return (mg != NULL) ? mg->createCSGeometry() : NULL;
+}
+
+
+/*
+ * Creates a new ParametricGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the ParametricGeometry_t object created.
+ */
+LIBSBML_EXTERN
+ParametricGeometry_t*
+MixedGeometry_createParametricGeometry(MixedGeometry_t* mg)
+{
+  return (mg != NULL) ? mg->createParametricGeometry() : NULL;
+}
+
+
+/*
+ * Creates a new MixedGeometry_t object, adds it to this MixedGeometry_t object
+ * and returns the MixedGeometry_t object created.
+ */
+LIBSBML_EXTERN
+MixedGeometry_t*
+MixedGeometry_createMixedGeometry(MixedGeometry_t* mg)
+{
+  return (mg != NULL) ? mg->createMixedGeometry() : NULL;
+}
+
+
+/*
+ * Removes the nth GeometryDefinition_t from this MixedGeometry_t and returns a
+ * pointer to it.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t*
+MixedGeometry_removeGeometryDefinition(MixedGeometry_t* mg, unsigned int n)
+{
+  return (mg != NULL) ? mg->removeGeometryDefinition(n) : NULL;
+}
+
+
+/*
+ * Removes the GeometryDefinition_t from this MixedGeometry_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t*
+MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t* mg,
+                                           const char* sid)
+{
+  return (mg != NULL && sid != NULL) ? mg->removeGeometryDefinition(sid) :
+    NULL;
+}
+
+
+/*
+ * Returns a ListOf_t* containing OrdinalMapping_t objects from this
+ * MixedGeometry_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t* mg)
+{
+  return (mg != NULL) ? mg->getListOfOrdinalMappings() : NULL;
+}
+
+
+/*
+ * Get an OrdinalMapping_t from the MixedGeometry_t.
+ */
+LIBSBML_EXTERN
+const OrdinalMapping_t*
+MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n)
+{
+  return (mg != NULL) ? mg->getOrdinalMapping(n) : NULL;
+}
+
+
+/*
+ * Get an OrdinalMapping_t from the MixedGeometry_t based on the
+ * GeometryDefinition to which it refers.
+ */
+LIBSBML_EXTERN
+const OrdinalMapping_t*
+MixedGeometry_getOrdinalMappingByGeometryDefinition(MixedGeometry_t* mg,
+                                                    const char *sid)
+{
+  return (mg != NULL && sid != NULL) ?
+    mg->getOrdinalMappingByGeometryDefinition(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given OrdinalMapping_t to this MixedGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-MixedGeometry_addOrdinalMapping(MixedGeometry_t * mg, OrdinalMapping_t * om)
+MixedGeometry_addOrdinalMapping(MixedGeometry_t* mg,
+                                const OrdinalMapping_t* om)
 {
-	return  (mg != NULL) ? mg->addOrdinalMapping(om) : LIBSBML_INVALID_OBJECT;
+  return (mg != NULL) ? mg->addOrdinalMapping(om) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_createOrdinalMapping(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? mg->createOrdinalMapping() : NULL;
-}
 
-LIBSBML_EXTERN
-ListOf_t *
-MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t * mg)
-{
-	return  (mg != NULL) ? (ListOf_t *)mg->getListOfOrdinalMappings() : NULL;
-}
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_getOrdinalMapping(MixedGeometry_t * mg, unsigned int n)
-{
-	return  (mg != NULL) ? mg->getOrdinalMapping(n) : NULL;
-}
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_getOrdinalMappingById(MixedGeometry_t * mg, const char * sid)
-{
-	return  (mg != NULL) ? mg->getOrdinalMapping(sid) : NULL;
-}
-
+/*
+ * Get the number of OrdinalMapping_t objects in this MixedGeometry_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-MixedGeometry_getNumOrdinalMappings(MixedGeometry_t * mg)
+MixedGeometry_getNumOrdinalMappings(MixedGeometry_t* mg)
 {
-	return  (mg != NULL) ? mg->getNumOrdinalMappings() : SBML_INT_MAX;
+  return (mg != NULL) ? mg->getNumOrdinalMappings() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new OrdinalMapping_t object, adds it to this MixedGeometry_t
+ * object and returns the OrdinalMapping_t object created.
+ */
 LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_removeOrdinalMapping(MixedGeometry_t * mg, unsigned int n)
+OrdinalMapping_t*
+MixedGeometry_createOrdinalMapping(MixedGeometry_t* mg)
 {
-	return  (mg != NULL) ? mg->removeOrdinalMapping(n) : NULL;
+  return (mg != NULL) ? mg->createOrdinalMapping() : NULL;
 }
 
+
+/*
+ * Removes the nth OrdinalMapping_t from this MixedGeometry_t and returns a
+ * pointer to it.
+ */
 LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_removeOrdinalMappingById(MixedGeometry_t * mg, const char * sid)
+OrdinalMapping_t*
+MixedGeometry_removeOrdinalMapping(MixedGeometry_t* mg, unsigned int n)
 {
-	return  (mg != NULL) ? mg->removeOrdinalMapping(sid) : NULL;
+  return (mg != NULL) ? mg->removeOrdinalMapping(n) : NULL;
 }
 
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * MixedGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 MixedGeometry_hasRequiredAttributes(const MixedGeometry_t * mg)
@@ -1077,11 +1480,15 @@ MixedGeometry_hasRequiredAttributes(const MixedGeometry_t * mg)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this
+ * MixedGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 MixedGeometry_hasRequiredElements(const MixedGeometry_t * mg)
 {
-	return (mg != NULL) ? static_cast<int>(mg->hasRequiredElements()) : 0;
+  return (mg != NULL) ? static_cast<int>(mg->hasRequiredElements()) : 0;
 }
 
 

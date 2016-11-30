@@ -1,85 +1,88 @@
 /**
- * @file:   AnalyticVolume.cpp
- * @brief:  Implementation of the AnalyticVolume class
- * @author: SBMLTeam
+ * @file AnalyticVolume.cpp
+ * @brief Implementation of the AnalyticVolume class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/AnalyticVolume.h>
+#include <sbml/packages/spatial/sbml/ListOfAnalyticVolumes.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 #include <sbml/math/MathML.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new AnalyticVolume with the given level, version, and package version.
+ * Creates a new AnalyticVolume using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-AnalyticVolume::AnalyticVolume (unsigned int level, unsigned int version, unsigned int pkgVersion)
+AnalyticVolume::AnalyticVolume(unsigned int level,
+                               unsigned int version,
+                               unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mFunctionType (FUNCTIONKIND_UNKNOWN)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mDomainType ("")
   , mMath (NULL)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new AnalyticVolume with the given SpatialPkgNamespaces object.
+ * Creates a new AnalyticVolume using the given SpatialPkgNamespaces object.
  */
-AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
+AnalyticVolume::AnalyticVolume(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mFunctionType (FUNCTIONKIND_UNKNOWN)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mDomainType ("")
   , mMath (NULL)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
+  connectToChild();
   loadPlugins(spatialns);
 }
 
@@ -87,24 +90,26 @@ AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for AnalyticVolume.
  */
-AnalyticVolume::AnalyticVolume (const AnalyticVolume& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mFunctionType  ( orig.mFunctionType)
-  , mOrdinal  ( orig.mOrdinal)
-  , mIsSetOrdinal  ( orig.mIsSetOrdinal)
-  , mDomainType  ( orig.mDomainType)
-  , mMath ( NULL)
+AnalyticVolume::AnalyticVolume(const AnalyticVolume& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mFunctionType ( orig.mFunctionType )
+  , mOrdinal ( orig.mOrdinal )
+  , mIsSetOrdinal ( orig.mIsSetOrdinal )
+  , mDomainType ( orig.mDomainType )
+  , mMath ( NULL )
 {
   if (orig.mMath != NULL)
   {
     mMath = orig.mMath->deepCopy();
   }
+
+  connectToChild();
 }
 
 
 /*
- * Assignment for AnalyticVolume.
+ * Assignment operator for AnalyticVolume.
  */
 AnalyticVolume&
 AnalyticVolume::operator=(const AnalyticVolume& rhs)
@@ -112,11 +117,12 @@ AnalyticVolume::operator=(const AnalyticVolume& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mFunctionType  = rhs.mFunctionType;
-    mOrdinal  = rhs.mOrdinal;
-    mIsSetOrdinal  = rhs.mIsSetOrdinal;
-    mDomainType  = rhs.mDomainType;
+    mId = rhs.mId;
+    mFunctionType = rhs.mFunctionType;
+    mOrdinal = rhs.mOrdinal;
+    mIsSetOrdinal = rhs.mIsSetOrdinal;
+    mDomainType = rhs.mDomainType;
+    delete mMath;
     if (rhs.mMath != NULL)
     {
       mMath = rhs.mMath->deepCopy();
@@ -125,16 +131,19 @@ AnalyticVolume::operator=(const AnalyticVolume& rhs)
     {
       mMath = NULL;
     }
+
+    connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for AnalyticVolume.
+ * Creates and returns a deep copy of this AnalyticVolume object.
  */
 AnalyticVolume*
-AnalyticVolume::clone () const
+AnalyticVolume::clone() const
 {
   return new AnalyticVolume(*this);
 }
@@ -143,7 +152,7 @@ AnalyticVolume::clone () const
 /*
  * Destructor for AnalyticVolume.
  */
-AnalyticVolume::~AnalyticVolume ()
+AnalyticVolume::~AnalyticVolume()
 {
   delete mMath;
   mMath = NULL;
@@ -171,6 +180,17 @@ AnalyticVolume::getFunctionType() const
 
 
 /*
+ * Returns the value of the "functionType" attribute of this AnalyticVolume.
+ */
+const std::string&
+AnalyticVolume::getFunctionTypeAsString() const
+{
+  static const std::string code_str = FunctionKind_toString(mFunctionType);
+  return code_str;
+}
+
+
+/*
  * Returns the value of the "ordinal" attribute of this AnalyticVolume.
  */
 int
@@ -191,17 +211,7 @@ AnalyticVolume::getDomainType() const
 
 
 /*
- * Returns the value of the "math" attribute of this AnalyticVolume.
- */
-const ASTNode*
-AnalyticVolume::getMath() const
-{
-  return mMath;
-}
-
-
-/*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this AnalyticVolume's "id" attribute is set.
  */
 bool
 AnalyticVolume::isSetId() const
@@ -211,17 +221,19 @@ AnalyticVolume::isSetId() const
 
 
 /*
- * Returns true/false if functionType is set.
+ * Predicate returning @c true if this AnalyticVolume's "functionType"
+ * attribute is set.
  */
 bool
 AnalyticVolume::isSetFunctionType() const
 {
-  return mFunctionType != FUNCTIONKIND_UNKNOWN;
+  return (mFunctionType != FUNCTIONKIND_UNKNOWN);
 }
 
 
 /*
- * Returns true/false if ordinal is set.
+ * Predicate returning @c true if this AnalyticVolume's "ordinal" attribute is
+ * set.
  */
 bool
 AnalyticVolume::isSetOrdinal() const
@@ -231,7 +243,8 @@ AnalyticVolume::isSetOrdinal() const
 
 
 /*
- * Returns true/false if domainType is set.
+ * Predicate returning @c true if this AnalyticVolume's "domainType" attribute
+ * is set.
  */
 bool
 AnalyticVolume::isSetDomainType() const
@@ -241,17 +254,7 @@ AnalyticVolume::isSetDomainType() const
 
 
 /*
- * Returns true/false if math is set.
- */
-bool
-AnalyticVolume::isSetMath() const
-{
-  return (mMath != NULL);
-}
-
-
-/*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this AnalyticVolume.
  */
 int
 AnalyticVolume::setId(const std::string& id)
@@ -261,31 +264,45 @@ AnalyticVolume::setId(const std::string& id)
 
 
 /*
- * Sets functionType and returns value indicating success.
+ * Sets the value of the "functionType" attribute of this AnalyticVolume.
  */
 int
-AnalyticVolume::setFunctionType(FunctionKind_t functionType)
+AnalyticVolume::setFunctionType(const FunctionKind_t functionType)
 {
-  mFunctionType = functionType;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (FunctionKind_isValid(functionType) == 0)
+  {
+    mFunctionType = FUNCTIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFunctionType = functionType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets functionType and returns value indicating success.
+ * Sets the value of the "functionType" attribute of this AnalyticVolume.
  */
 int
 AnalyticVolume::setFunctionType(const std::string& functionType)
 {
-  FunctionKind_t parsed = FunctionKind_parse(functionType.c_str());
-  if (parsed == FUNCTIONKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mFunctionType = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (FunctionKind_isValidString(functionType.c_str()) == 0)
+  {
+    mFunctionType = FUNCTIONKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFunctionType = FunctionKind_fromString(functionType.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets ordinal and returns value indicating success.
+ * Sets the value of the "ordinal" attribute of this AnalyticVolume.
  */
 int
 AnalyticVolume::setOrdinal(int ordinal)
@@ -297,7 +314,7 @@ AnalyticVolume::setOrdinal(int ordinal)
 
 
 /*
- * Sets domainType and returns value indicating success.
+ * Sets the value of the "domainType" attribute of this AnalyticVolume.
  */
 int
 AnalyticVolume::setDomainType(const std::string& domainType)
@@ -315,7 +332,106 @@ AnalyticVolume::setDomainType(const std::string& domainType)
 
 
 /*
- * Sets math and returns value indicating success.
+ * Unsets the value of the "id" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "functionType" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::unsetFunctionType()
+{
+  mFunctionType = FUNCTIONKIND_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "ordinal" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::unsetOrdinal()
+{
+  mOrdinal = SBML_INT_MAX;
+  mIsSetOrdinal = false;
+
+  if (isSetOrdinal() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "domainType" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::unsetDomainType()
+{
+  mDomainType.erase();
+
+  if (mDomainType.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Returns the value of the "math" element of this AnalyticVolume.
+ */
+const ASTNode*
+AnalyticVolume::getMath() const
+{
+  return mMath;
+}
+
+
+/*
+ * Returns the value of the "math" element of this AnalyticVolume.
+ */
+ASTNode*
+AnalyticVolume::getMath()
+{
+  return mMath;
+}
+
+
+/*
+ * Predicate returning @c true if this AnalyticVolume's "math" element is set.
+ */
+bool
+AnalyticVolume::isSetMath() const
+{
+  return (mMath != NULL);
+}
+
+
+/*
+ * Sets the value of the "math" element of this AnalyticVolume.
  */
 int
 AnalyticVolume::setMath(const ASTNode* math)
@@ -337,88 +453,19 @@ AnalyticVolume::setMath(const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != NULL) ?
-      math->deepCopy() : NULL;
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
     if (mMath != NULL)
     {
       mMath->setParentSBMLObject(this);
     }
+
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
 
 /*
- * Unsets id and returns value indicating success.
- */
-int
-AnalyticVolume::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets functionType and returns value indicating success.
- */
-int
-AnalyticVolume::unsetFunctionType()
-{
-  mFunctionType = FUNCTIONKIND_UNKNOWN;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets ordinal and returns value indicating success.
- */
-int
-AnalyticVolume::unsetOrdinal()
-{
-  mOrdinal = SBML_INT_MAX;
-  mIsSetOrdinal = false;
-
-  if (isSetOrdinal() == false)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets domainType and returns value indicating success.
- */
-int
-AnalyticVolume::unsetDomainType()
-{
-  mDomainType.erase();
-
-  if (mDomainType.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets math and returns value indicating success.
+ * Unsets the value of the "math" element of this AnalyticVolume.
  */
 int
 AnalyticVolume::unsetMath()
@@ -430,30 +477,29 @@ AnalyticVolume::unsetMath()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
-AnalyticVolume::renameSIdRefs(const std::string& oldid, const std::string& newid)
+AnalyticVolume::renameSIdRefs(const std::string& oldid,
+                              const std::string& newid)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetDomainType() == true && mDomainType == oldid)
+  if (isSetDomainType() && mDomainType == oldid)
   {
     setDomainType(newid);
   }
 
-  if (isSetMath() == true)
+  if (isSetMath())
   {
     mMath->renameSIdRefs(oldid, newid);
   }
-
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this AnalyticVolume object.
  */
 const std::string&
-AnalyticVolume::getElementName () const
+AnalyticVolume::getElementName() const
 {
   static const string name = "analyticVolume";
   return name;
@@ -461,41 +507,49 @@ AnalyticVolume::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this AnalyticVolume object.
  */
 int
-AnalyticVolume::getTypeCode () const
+AnalyticVolume::getTypeCode() const
 {
   return SBML_SPATIAL_ANALYTICVOLUME;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * AnalyticVolume object have been set.
  */
 bool
-AnalyticVolume::hasRequiredAttributes () const
+AnalyticVolume::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetId() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetFunctionType() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetDomainType() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this
+ * AnalyticVolume object have been set.
  */
 bool
-AnalyticVolume::hasRequiredElements () const
+AnalyticVolume::hasRequiredElements() const
 {
   bool allPresent = true;
 
@@ -503,15 +557,17 @@ AnalyticVolume::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-AnalyticVolume::writeElements (XMLOutputStream& stream) const
+AnalyticVolume::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   if (isSetMath() == true)
   {
     writeMathML(getMath(), stream, getSBMLNamespaces());
@@ -520,60 +576,442 @@ AnalyticVolume::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-AnalyticVolume::accept (SBMLVisitor& v) const
+AnalyticVolume::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-AnalyticVolume::setSBMLDocument (SBMLDocument* d)
+AnalyticVolume::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Connects to child elements
+ */
+void
+AnalyticVolume::connectToChild()
+{
+  SBase::connectToChild();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
  */
 void
 AnalyticVolume::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                      const std::string& pkgPrefix,
+                                      bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "ordinal")
+  {
+    value = getOrdinal();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "functionType")
+  {
+    value = getFunctionTypeAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::getAttribute(const std::string& attributeName,
+                             const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "functionType")
+  {
+    value = getFunctionTypeAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this AnalyticVolume's attribute
+ * "attributeName" is set.
+ */
+bool
+AnalyticVolume::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "functionType")
+  {
+    value = isSetFunctionType();
+  }
+  else if (attributeName == "ordinal")
+  {
+    value = isSetOrdinal();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = isSetDomainType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "ordinal")
+  {
+    return_value = setOrdinal(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName,
+                             unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName,
+                             const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "functionType")
+  {
+    return_value = setFunctionType(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::setAttribute(const std::string& attributeName,
+                             const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "functionType")
+  {
+    return_value = setFunctionType(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this AnalyticVolume.
+ */
+int
+AnalyticVolume::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "functionType")
+  {
+    value = unsetFunctionType();
+  }
+  else if (attributeName == "ordinal")
+  {
+    value = unsetOrdinal();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = unsetDomainType();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 AnalyticVolume::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -581,207 +1019,214 @@ AnalyticVolume::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("functionType");
+
   attributes.add("ordinal");
+
   attributes.add("domainType");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-AnalyticVolume::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+AnalyticVolume::readAttributes(const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfAnalyticVolumes - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfAnalyticVolumes*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfAnalyticVolumes*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialAnalyticGeometryLOAnalyticVolumesAllowedCoreAttributes,
+            pkgVersion, level, version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialAnalyticVolumeAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<AnalyticVolume>");
+      logEmptyString(mId, level, version, "<AnalyticVolume>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'analyticVolume' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the "
+      "<AnalyticVolume> element.";
+    log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // functionType enum  ( use = "required" )
-  //
-  mFunctionType = FUNCTIONKIND_UNKNOWN;
+  // 
+  // functionType enum (use = "required" )
+  // 
+
+  std::string functiontype;
+  assigned = attributes.readInto("functionType", functiontype);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("functionType", stringValue);
-
-    if (assigned == true)
+    if (functiontype.empty() == true)
     {
-      // parse enum
+      logEmptyString(functiontype, level, version, "<AnalyticVolume>");
+    }
+    else
+    {
+      mFunctionType = FunctionKind_fromString(functiontype.c_str());
 
-      mFunctionType = FunctionKind_parse(stringValue.c_str());
-      if(mFunctionType == FUNCTIONKIND_UNKNOWN)
+      if (FunctionKind_isValid(mFunctionType) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'functionType' in 'analyticVolume' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The functionType on the <AnalyticVolume> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + functiontype + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialAnalyticVolumeFunctionTypeMustBeFunctionKindEnum, pkgVersion,
+            level, version, msg);
       }
     }
   }
-  if(mFunctionType == FUNCTIONKIND_UNKNOWN)
+  else
   {
-    std::string message = "Spatial attribute 'functionType' is missing from 'analyticVolume' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'functionType' is missing.";
+    log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // ordinal int   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // ordinal int (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
 
-  if (mIsSetOrdinal == false)
+  if ( mIsSetOrdinal == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'ordinal' from the "
+        "<AnalyticVolume> element must be an integer.";
+      log->logPackageError("spatial",
+        SpatialAnalyticVolumeOrdinalMustBeInteger, pkgVersion, level, version,
+          message);
     }
   }
 
-  //
-  // domainType SIdRef   ( use = "required" )
-  //
+  // 
+  // domainType SIdRef (use = "required" )
+  // 
+
   assigned = attributes.readInto("domainType", mDomainType);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomainType, getLevel(), getVersion(), "<AnalyticVolume>");
+      logEmptyString(mDomainType, level, version, "<AnalyticVolume>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
+      logError(SpatialAnalyticVolumeDomainTypeMustBeDomainType, level, version,
+        "The attribute domainType='" + mDomainType + "' does not conform to the "
+          "syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'domainType' is missing from 'analyticVolume' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'domainType' is missing from the "
+      "<AnalyticVolume> element.";
+    log->logPackageError("spatial", SpatialAnalyticVolumeAllowedAttributes,
+      pkgVersion, level, version, message);
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
+/*
+ * Reads other XML such as math/notes etc.
+ */
 bool
-AnalyticVolume::readOtherXML (XMLInputStream& stream)
+AnalyticVolume::readOtherXML(XMLInputStream& stream)
 {
-  bool          read = false;
+  bool read = false;
   const string& name = stream.peek().getName();
 
   if (name == "math")
   {
     const XMLToken elem = stream.peek();
     const std::string prefix = checkMathMLNamespace(elem);
-
     if (stream.getSBMLNamespaces() == NULL)
     {
       stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
@@ -796,344 +1241,76 @@ AnalyticVolume::readOtherXML (XMLInputStream& stream)
   {
     read = true;
   }
+
   return read;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-AnalyticVolume::writeAttributes (XMLOutputStream& stream) const
+void
+AnalyticVolume::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetFunctionType() == true)
-    stream.writeAttribute("functionType", getPrefix(), FunctionKind_toString(mFunctionType));
+  {
+    stream.writeAttribute("functionType", getPrefix(),
+      FunctionKind_toString(mFunctionType));
+  }
 
   if (isSetOrdinal() == true)
+  {
     stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
+  }
 
   if (isSetDomainType() == true)
+  {
     stream.writeAttribute("domainType", getPrefix(), mDomainType);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * Constructor 
- */
-ListOfAnalyticVolumes::ListOfAnalyticVolumes(unsigned int level, 
-                        unsigned int version, 
-                        unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfAnalyticVolumes::ListOfAnalyticVolumes(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfAnalyticVolumes 
- */
-ListOfAnalyticVolumes* 
-ListOfAnalyticVolumes::clone () const
- {
-  return new ListOfAnalyticVolumes(*this);
-}
-
-
-/*
- * Get a AnalyticVolume from the ListOfAnalyticVolumes by index.
-*/
-AnalyticVolume*
-ListOfAnalyticVolumes::get(unsigned int n)
-{
-  return static_cast<AnalyticVolume*>(ListOf::get(n));
-}
-
-
-/*
- * Get a AnalyticVolume from the ListOfAnalyticVolumes by index.
- */
-const AnalyticVolume*
-ListOfAnalyticVolumes::get(unsigned int n) const
-{
-  return static_cast<const AnalyticVolume*>(ListOf::get(n));
-}
-
-
-/*
- * Get a AnalyticVolume from the ListOfAnalyticVolumes by id.
- */
-AnalyticVolume*
-ListOfAnalyticVolumes::get(const std::string& sid)
-{
-	return const_cast<AnalyticVolume*>(
-    static_cast<const ListOfAnalyticVolumes&>(*this).get(sid));
-}
-
-
-/*
- * Get a AnalyticVolume from the ListOfAnalyticVolumes by id.
- */
-const AnalyticVolume*
-ListOfAnalyticVolumes::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<AnalyticVolume>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <AnalyticVolume*> (*result);
-}
-
-
-/**
- * Adds a copy the given "AnalyticVolume" to this ListOfAnalyticVolumes.
- *
- * @param av; the AnalyticVolume object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfAnalyticVolumes::addAnalyticVolume(const AnalyticVolume* av)
-{
-  if (av == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (av->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != av->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != av->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(av)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(av);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of AnalyticVolume objects in this ListOfAnalyticVolumes.
- *
- * @return the number of AnalyticVolume objects in this ListOfAnalyticVolumes
- */
-unsigned int 
-ListOfAnalyticVolumes::getNumAnalyticVolumes() const
-{
-	return size();
-}
-
-/**
- * Creates a new AnalyticVolume object, adds it to this ListOfAnalyticVolumes
- * AnalyticVolume and returns the AnalyticVolume object created. 
- *
- * @return a new AnalyticVolume object instance
- *
- * @see addAnalyticVolume(const AnalyticVolume* av)
- */
-AnalyticVolume* 
-ListOfAnalyticVolumes::createAnalyticVolume()
-{
-  AnalyticVolume* av = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    av = new AnalyticVolume(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(av != NULL)
-  {
-    appendAndOwn(av);
-  }
-
-  return av;
+  SBase::writeExtensionAttributes(stream);
 }
 
-/*
- * Removes the nth AnalyticVolume from this ListOfAnalyticVolumes
- */
-AnalyticVolume*
-ListOfAnalyticVolumes::remove(unsigned int n)
-{
-  return static_cast<AnalyticVolume*>(ListOf::remove(n));
-}
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Removes the AnalyticVolume from this ListOfAnalyticVolumes with the given identifier
+ * Creates a new AnalyticVolume_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-AnalyticVolume*
-ListOfAnalyticVolumes::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<AnalyticVolume>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <AnalyticVolume*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfAnalyticVolumes::getElementName () const
-{
-  static const string name = "listOfAnalyticVolumes";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfAnalyticVolumes::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfAnalyticVolumes::getItemTypeCode () const
-{
-  return SBML_SPATIAL_ANALYTICVOLUME;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new AnalyticVolume in this ListOfAnalyticVolumes
- */
-SBase*
-ListOfAnalyticVolumes::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "analyticVolume")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new AnalyticVolume(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfAnalyticVolumes::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 AnalyticVolume_t *
-AnalyticVolume_create(unsigned int level, unsigned int version,
+AnalyticVolume_create(unsigned int level,
+                      unsigned int version,
                       unsigned int pkgVersion)
 {
   return new AnalyticVolume(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this AnalyticVolume_t object.
+ */
 LIBSBML_EXTERN
-void
-AnalyticVolume_free(AnalyticVolume_t * av)
-{
-  if (av != NULL)
-    delete av;
-}
-
-
-LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticVolume_clone(AnalyticVolume_t * av)
+AnalyticVolume_t*
+AnalyticVolume_clone(const AnalyticVolume_t* av)
 {
   if (av != NULL)
   {
@@ -1146,49 +1323,94 @@ AnalyticVolume_clone(AnalyticVolume_t * av)
 }
 
 
+/*
+ * Frees this AnalyticVolume_t object.
+ */
+LIBSBML_EXTERN
+void
+AnalyticVolume_free(AnalyticVolume_t* av)
+{
+  if (av != NULL)
+  {
+    delete av;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 const char *
 AnalyticVolume_getId(const AnalyticVolume_t * av)
 {
-	return (av != NULL && av->isSetId()) ? av->getId().c_str() : NULL;
+  if (av == NULL)
+  {
+    return NULL;
+  }
+
+  return av->getId().empty() ? NULL : safe_strdup(av->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "functionType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 FunctionKind_t
 AnalyticVolume_getFunctionType(const AnalyticVolume_t * av)
 {
-	return (av != NULL) ? av->getFunctionType() : FUNCTIONKIND_UNKNOWN;
+  if (av == NULL)
+  {
+    return FUNCTIONKIND_UNKNOWN;
+  }
+
+  return av->getFunctionType();
 }
 
 
+/*
+ * Returns the value of the "functionType" attribute of this AnalyticVolume_t.
+ */
+LIBSBML_EXTERN
+const char *
+AnalyticVolume_getFunctionTypeAsString(const AnalyticVolume_t * av)
+{
+  return FunctionKind_toString(av->getFunctionType());
+}
+
+
+/*
+ * Returns the value of the "ordinal" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_getOrdinal(const AnalyticVolume_t * av)
 {
-	return (av != NULL) ? av->getOrdinal() : SBML_INT_MAX;
+  return (av != NULL) ? av->getOrdinal() : SBML_INT_MAX;
 }
 
 
+/*
+ * Returns the value of the "domainType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 const char *
 AnalyticVolume_getDomainType(const AnalyticVolume_t * av)
 {
-	return (av != NULL && av->isSetDomainType()) ? av->getDomainType().c_str() : NULL;
+  if (av == NULL)
+  {
+    return NULL;
+  }
+
+  return av->getDomainType().empty() ? NULL :
+    safe_strdup(av->getDomainType().c_str());
 }
 
 
-LIBSBML_EXTERN
-const ASTNode_t*
-AnalyticVolume_getMath(const AnalyticVolume_t * av)
-{
-	if (av == NULL)
-		return NULL;
-
-	return (ASTNode_t*)(av->getMath());
-}
-
-
+/*
+ * Predicate returning @c 1 if this AnalyticVolume_t's "id" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_isSetId(const AnalyticVolume_t * av)
@@ -1197,6 +1419,10 @@ AnalyticVolume_isSetId(const AnalyticVolume_t * av)
 }
 
 
+/*
+ * Predicate returning @c 1 if this AnalyticVolume_t's "functionType" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_isSetFunctionType(const AnalyticVolume_t * av)
@@ -1205,6 +1431,10 @@ AnalyticVolume_isSetFunctionType(const AnalyticVolume_t * av)
 }
 
 
+/*
+ * Predicate returning @c 1 if this AnalyticVolume_t's "ordinal" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_isSetOrdinal(const AnalyticVolume_t * av)
@@ -1213,6 +1443,10 @@ AnalyticVolume_isSetOrdinal(const AnalyticVolume_t * av)
 }
 
 
+/*
+ * Predicate returning @c 1 if this AnalyticVolume_t's "domainType" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_isSetDomainType(const AnalyticVolume_t * av)
@@ -1221,66 +1455,68 @@ AnalyticVolume_isSetDomainType(const AnalyticVolume_t * av)
 }
 
 
-LIBSBML_EXTERN
-int
-AnalyticVolume_isSetMath(const AnalyticVolume_t * av)
-{
-  return (av != NULL) ? static_cast<int>(av->isSetMath()) : 0;
-}
-
-
+/*
+ * Sets the value of the "id" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_setId(AnalyticVolume_t * av, const char * id)
 {
-  if (av != NULL)
-    return (id == NULL) ? av->setId("") : av->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (av != NULL) ? av->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "functionType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
-AnalyticVolume_setFunctionType(AnalyticVolume_t * av, FunctionKind_t functionType)
+AnalyticVolume_setFunctionType(AnalyticVolume_t * av,
+                               FunctionKind_t functionType)
 {
-  if (av != NULL)
-    return av->setFunctionType(functionType);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (av != NULL) ? av->setFunctionType(functionType) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "functionType" attribute of this AnalyticVolume_t.
+ */
+LIBSBML_EXTERN
+int
+AnalyticVolume_setFunctionTypeAsString(AnalyticVolume_t * av,
+                                       const char * functionType)
+{
+  return (av != NULL) ? av->setFunctionType(functionType):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "ordinal" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_setOrdinal(AnalyticVolume_t * av, int ordinal)
 {
-  if (av != NULL)
-    return av->setOrdinal(ordinal);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (av != NULL) ? av->setOrdinal(ordinal) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "domainType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_setDomainType(AnalyticVolume_t * av, const char * domainType)
 {
-  if (av != NULL)
-    return (domainType == NULL) ? av->setDomainType("") : av->setDomainType(domainType);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (av != NULL) ? av->setDomainType(domainType) : LIBSBML_INVALID_OBJECT;
 }
 
 
-LIBSBML_EXTERN
-int
-AnalyticVolume_setMath(AnalyticVolume_t * av, const ASTNode_t* math)
-{
-	return (av != NULL) ? av->setMath(math) : LIBSBML_INVALID_OBJECT;
-}
-
-
+/*
+ * Unsets the value of the "id" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_unsetId(AnalyticVolume_t * av)
@@ -1289,6 +1525,9 @@ AnalyticVolume_unsetId(AnalyticVolume_t * av)
 }
 
 
+/*
+ * Unsets the value of the "functionType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_unsetFunctionType(AnalyticVolume_t * av)
@@ -1297,6 +1536,9 @@ AnalyticVolume_unsetFunctionType(AnalyticVolume_t * av)
 }
 
 
+/*
+ * Unsets the value of the "ordinal" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_unsetOrdinal(AnalyticVolume_t * av)
@@ -1305,6 +1547,9 @@ AnalyticVolume_unsetOrdinal(AnalyticVolume_t * av)
 }
 
 
+/*
+ * Unsets the value of the "domainType" attribute of this AnalyticVolume_t.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_unsetDomainType(AnalyticVolume_t * av)
@@ -1313,6 +1558,59 @@ AnalyticVolume_unsetDomainType(AnalyticVolume_t * av)
 }
 
 
+/*
+ * Returns the value of the "math" element of this AnalyticVolume_t.
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+AnalyticVolume_getMath(const AnalyticVolume_t * av)
+{
+  if (av == NULL)
+  {
+    return NULL;
+  }
+
+  return (ASTNode_t*)(av->getMath());
+}
+
+
+/*
+ * Predicate returning @c 1 if this AnalyticVolume_t's "math" element is set.
+ */
+LIBSBML_EXTERN
+int
+AnalyticVolume_isSetMath(const AnalyticVolume_t * av)
+{
+  return (av != NULL) ? static_cast<int>(av->isSetMath()) : 0;
+}
+
+
+/*
+ * Sets the value of the "math" element of this AnalyticVolume_t.
+ */
+LIBSBML_EXTERN
+int
+AnalyticVolume_setMath(AnalyticVolume_t * av, const ASTNode_t* math)
+{
+  return (av != NULL) ? av->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "math" element of this AnalyticVolume_t.
+ */
+LIBSBML_EXTERN
+int
+AnalyticVolume_unsetMath(AnalyticVolume_t * av)
+{
+  return (av != NULL) ? av->unsetMath() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * AnalyticVolume_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_hasRequiredAttributes(const AnalyticVolume_t * av)
@@ -1321,39 +1619,15 @@ AnalyticVolume_hasRequiredAttributes(const AnalyticVolume_t * av)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this
+ * AnalyticVolume_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticVolume_hasRequiredElements(const AnalyticVolume_t * av)
 {
-	return (av != NULL) ? static_cast<int>(av->hasRequiredElements()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-AnalyticVolume_t *
-ListOfAnalyticVolumes_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfAnalyticVolumes *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-AnalyticVolume_t *
-ListOfAnalyticVolumes_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfAnalyticVolumes *>(lo)->remove(sid) : NULL;
+  return (av != NULL) ? static_cast<int>(av->hasRequiredElements()) : 0;
 }
 
 

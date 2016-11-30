@@ -1,73 +1,77 @@
 /**
- * @file:   AdvectionCoefficient.cpp
- * @brief:  Implementation of the AdvectionCoefficient class
- * @author: SBMLTeam
+ * @file AdvectionCoefficient.cpp
+ * @brief Implementation of the AdvectionCoefficient class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/AdvectionCoefficient.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new AdvectionCoefficient with the given level, version, and package version.
+ * Creates a new AdvectionCoefficient using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-AdvectionCoefficient::AdvectionCoefficient (unsigned int level, unsigned int version, unsigned int pkgVersion)
+AdvectionCoefficient::AdvectionCoefficient(unsigned int level,
+                                           unsigned int version,
+                                           unsigned int pkgVersion)
   : SBase(level, version)
   , mVariable ("")
   , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new AdvectionCoefficient with the given SpatialPkgNamespaces object.
+ * Creates a new AdvectionCoefficient using the given SpatialPkgNamespaces
+ * object.
  */
-AdvectionCoefficient::AdvectionCoefficient (SpatialPkgNamespaces* spatialns)
+AdvectionCoefficient::AdvectionCoefficient(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mVariable ("")
   , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -75,16 +79,16 @@ AdvectionCoefficient::AdvectionCoefficient (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for AdvectionCoefficient.
  */
-AdvectionCoefficient::AdvectionCoefficient (const AdvectionCoefficient& orig)
-  : SBase(orig)
-  , mVariable  ( orig.mVariable)
-  , mCoordinate  ( orig.mCoordinate)
+AdvectionCoefficient::AdvectionCoefficient(const AdvectionCoefficient& orig)
+  : SBase( orig )
+  , mVariable ( orig.mVariable )
+  , mCoordinate ( orig.mCoordinate )
 {
 }
 
 
 /*
- * Assignment for AdvectionCoefficient.
+ * Assignment operator for AdvectionCoefficient.
  */
 AdvectionCoefficient&
 AdvectionCoefficient::operator=(const AdvectionCoefficient& rhs)
@@ -92,18 +96,19 @@ AdvectionCoefficient::operator=(const AdvectionCoefficient& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mVariable  = rhs.mVariable;
-    mCoordinate  = rhs.mCoordinate;
+    mVariable = rhs.mVariable;
+    mCoordinate = rhs.mCoordinate;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for AdvectionCoefficient.
+ * Creates and returns a deep copy of this AdvectionCoefficient object.
  */
 AdvectionCoefficient*
-AdvectionCoefficient::clone () const
+AdvectionCoefficient::clone() const
 {
   return new AdvectionCoefficient(*this);
 }
@@ -112,7 +117,7 @@ AdvectionCoefficient::clone () const
 /*
  * Destructor for AdvectionCoefficient.
  */
-AdvectionCoefficient::~AdvectionCoefficient ()
+AdvectionCoefficient::~AdvectionCoefficient()
 {
 }
 
@@ -128,7 +133,8 @@ AdvectionCoefficient::getVariable() const
 
 
 /*
- * Returns the value of the "coordinate" attribute of this AdvectionCoefficient.
+ * Returns the value of the "coordinate" attribute of this
+ * AdvectionCoefficient.
  */
 CoordinateKind_t
 AdvectionCoefficient::getCoordinate() const
@@ -138,7 +144,20 @@ AdvectionCoefficient::getCoordinate() const
 
 
 /*
- * Returns true/false if variable is set.
+ * Returns the value of the "coordinate" attribute of this
+ * AdvectionCoefficient.
+ */
+const std::string&
+AdvectionCoefficient::getCoordinateAsString() const
+{
+  static const std::string code_str = CoordinateKind_toString(mCoordinate);
+  return code_str;
+}
+
+
+/*
+ * Predicate returning @c true if this AdvectionCoefficient's "variable"
+ * attribute is set.
  */
 bool
 AdvectionCoefficient::isSetVariable() const
@@ -148,17 +167,18 @@ AdvectionCoefficient::isSetVariable() const
 
 
 /*
- * Returns true/false if coordinate is set.
+ * Predicate returning @c true if this AdvectionCoefficient's "coordinate"
+ * attribute is set.
  */
 bool
 AdvectionCoefficient::isSetCoordinate() const
 {
-  return mCoordinate != COORDINATEKIND_UNKNOWN;
+  return (mCoordinate != COORDINATEKIND_UNKNOWN);
 }
 
 
 /*
- * Sets variable and returns value indicating success.
+ * Sets the value of the "variable" attribute of this AdvectionCoefficient.
  */
 int
 AdvectionCoefficient::setVariable(const std::string& variable)
@@ -176,31 +196,45 @@ AdvectionCoefficient::setVariable(const std::string& variable)
 
 
 /*
- * Sets coordinate and returns value indicating success.
+ * Sets the value of the "coordinate" attribute of this AdvectionCoefficient.
  */
 int
-AdvectionCoefficient::setCoordinate(CoordinateKind_t coordinate)
+AdvectionCoefficient::setCoordinate(const CoordinateKind_t coordinate)
 {
-  mCoordinate = coordinate;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValid(coordinate) == 0)
+  {
+    mCoordinate = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinate = coordinate;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets coordinate and returns value indicating success.
+ * Sets the value of the "coordinate" attribute of this AdvectionCoefficient.
  */
 int
 AdvectionCoefficient::setCoordinate(const std::string& coordinate)
 {
-  CoordinateKind_t parsed = CoordinateKind_parse(coordinate.c_str());
-  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mCoordinate = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValidString(coordinate.c_str()) == 0)
+  {
+    mCoordinate = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCoordinate = CoordinateKind_fromString(coordinate.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Unsets variable and returns value indicating success.
+ * Unsets the value of the "variable" attribute of this AdvectionCoefficient.
  */
 int
 AdvectionCoefficient::unsetVariable()
@@ -219,7 +253,7 @@ AdvectionCoefficient::unsetVariable()
 
 
 /*
- * Unsets coordinate and returns value indicating success.
+ * Unsets the value of the "coordinate" attribute of this AdvectionCoefficient.
  */
 int
 AdvectionCoefficient::unsetCoordinate()
@@ -230,25 +264,24 @@ AdvectionCoefficient::unsetCoordinate()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
-AdvectionCoefficient::renameSIdRefs(const std::string& oldid, const std::string& newid)
+AdvectionCoefficient::renameSIdRefs(const std::string& oldid,
+                                    const std::string& newid)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetVariable() == true && mVariable == oldid)
+  if (isSetVariable() && mVariable == oldid)
   {
     setVariable(newid);
   }
-
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this AdvectionCoefficient object.
  */
 const std::string&
-AdvectionCoefficient::getElementName () const
+AdvectionCoefficient::getElementName() const
 {
   static const string name = "advectionCoefficient";
   return name;
@@ -256,99 +289,439 @@ AdvectionCoefficient::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this AdvectionCoefficient object.
  */
 int
-AdvectionCoefficient::getTypeCode () const
+AdvectionCoefficient::getTypeCode() const
 {
   return SBML_SPATIAL_ADVECTIONCOEFFICIENT;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * AdvectionCoefficient object have been set.
  */
 bool
-AdvectionCoefficient::hasRequiredAttributes () const
+AdvectionCoefficient::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetVariable() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetCoordinate() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-AdvectionCoefficient::writeElements (XMLOutputStream& stream) const
+AdvectionCoefficient::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-AdvectionCoefficient::accept (SBMLVisitor& v) const
+AdvectionCoefficient::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-AdvectionCoefficient::setSBMLDocument (SBMLDocument* d)
+AdvectionCoefficient::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 AdvectionCoefficient::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                            const std::string& pkgPrefix,
+                                            bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "variable")
+  {
+    value = getVariable();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinate")
+  {
+    value = getCoordinateAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::getAttribute(const std::string& attributeName,
+                                   const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "variable")
+  {
+    value = getVariable().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "coordinate")
+  {
+    value = getCoordinateAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this AdvectionCoefficient's attribute
+ * "attributeName" is set.
+ */
+bool
+AdvectionCoefficient::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "variable")
+  {
+    value = isSetVariable();
+  }
+  else if (attributeName == "coordinate")
+  {
+    value = isSetCoordinate();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
+  else if (attributeName == "coordinate")
+  {
+    return_value = setCoordinate(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::setAttribute(const std::string& attributeName,
+                                   const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "variable")
+  {
+    return_value = setVariable(value);
+  }
+  else if (attributeName == "coordinate")
+  {
+    return_value = setCoordinate(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * AdvectionCoefficient.
+ */
+int
+AdvectionCoefficient::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "variable")
+  {
+    value = unsetVariable();
+  }
+  else if (attributeName == "coordinate")
+  {
+    value = unsetCoordinate();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 AdvectionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -356,159 +729,181 @@ AdvectionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("variable");
+
   attributes.add("coordinate");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-AdvectionCoefficient::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+AdvectionCoefficient::readAttributes(const XMLAttributes& attributes,
+                                     const ExpectedAttributes&
+                                       expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial",
+        SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
+          details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialAdvectionCoefficientAllowedCoreAttributes, pkgVersion, level,
+          version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // variable SIdRef (use = "required" )
+  // 
 
-  //
-  // variable SIdRef   ( use = "required" )
-  //
   assigned = attributes.readInto("variable", mVariable);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mVariable.empty() == true)
     {
-      logEmptyString(mVariable, getLevel(), getVersion(), "<AdvectionCoefficient>");
+      logEmptyString(mVariable, level, version, "<AdvectionCoefficient>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mVariable) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mVariable) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute variable='" + mVariable + "' does not conform.");
+      logError(SpatialAdvectionCoefficientVariableMustBeSpecies, level,
+        version, "The attribute variable='" + mVariable + "' does not conform to "
+          "the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'variable' is missing from 'advectionCoefficient' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'variable' is missing from the "
+      "<AdvectionCoefficient> element.";
+    log->logPackageError("spatial",
+      SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
+        message);
   }
 
-  //
-  // coordinate enum  ( use = "required" )
-  //
-  mCoordinate = COORDINATEKIND_UNKNOWN;
+  // 
+  // coordinate enum (use = "required" )
+  // 
+
+  std::string coordinate;
+  assigned = attributes.readInto("coordinate", coordinate);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinate", stringValue);
-
-    if (assigned == true)
+    if (coordinate.empty() == true)
     {
-      // parse enum
+      logEmptyString(coordinate, level, version, "<AdvectionCoefficient>");
+    }
+    else
+    {
+      mCoordinate = CoordinateKind_fromString(coordinate.c_str());
 
-      mCoordinate = CoordinateKind_parse(stringValue.c_str());
-      if(mCoordinate == COORDINATEKIND_UNKNOWN)
+      if (CoordinateKind_isValid(mCoordinate) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'coordinate' in 'advectionCoefficient' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The coordinate on the <AdvectionCoefficient> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + coordinate + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialAdvectionCoefficientCoordinateMustBeCoordinateKindEnum,
+            pkgVersion, level, version, msg);
       }
     }
   }
-  if(mCoordinate == COORDINATEKIND_UNKNOWN)
+  else
   {
-    std::string message = "Spatial attribute 'coordinate' is missing from 'advectionCoefficient' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'coordinate' is missing.";
+    log->logPackageError("spatial",
+      SpatialAdvectionCoefficientAllowedAttributes, pkgVersion, level, version,
+        message);
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-AdvectionCoefficient::writeAttributes (XMLOutputStream& stream) const
+void
+AdvectionCoefficient::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetVariable() == true)
+  {
     stream.writeAttribute("variable", getPrefix(), mVariable);
+  }
 
   if (isSetCoordinate() == true)
-    stream.writeAttribute("coordinate", getPrefix(), CoordinateKind_toString(mCoordinate));
+  {
+    stream.writeAttribute("coordinate", getPrefix(),
+      CoordinateKind_toString(mCoordinate));
+  }
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new AdvectionCoefficient_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 AdvectionCoefficient_t *
-AdvectionCoefficient_create(unsigned int level, unsigned int version,
+AdvectionCoefficient_create(unsigned int level,
+                            unsigned int version,
                             unsigned int pkgVersion)
 {
   return new AdvectionCoefficient(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this AdvectionCoefficient_t object.
+ */
 LIBSBML_EXTERN
-void
-AdvectionCoefficient_free(AdvectionCoefficient_t * ac)
-{
-  if (ac != NULL)
-    delete ac;
-}
-
-
-LIBSBML_EXTERN
-AdvectionCoefficient_t *
-AdvectionCoefficient_clone(AdvectionCoefficient_t * ac)
+AdvectionCoefficient_t*
+AdvectionCoefficient_clone(const AdvectionCoefficient_t* ac)
 {
   if (ac != NULL)
   {
@@ -521,22 +916,71 @@ AdvectionCoefficient_clone(AdvectionCoefficient_t * ac)
 }
 
 
+/*
+ * Frees this AdvectionCoefficient_t object.
+ */
+LIBSBML_EXTERN
+void
+AdvectionCoefficient_free(AdvectionCoefficient_t* ac)
+{
+  if (ac != NULL)
+  {
+    delete ac;
+  }
+}
+
+
+/*
+ * Returns the value of the "variable" attribute of this
+ * AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 const char *
 AdvectionCoefficient_getVariable(const AdvectionCoefficient_t * ac)
 {
-	return (ac != NULL && ac->isSetVariable()) ? ac->getVariable().c_str() : NULL;
+  if (ac == NULL)
+  {
+    return NULL;
+  }
+
+  return ac->getVariable().empty() ? NULL :
+    safe_strdup(ac->getVariable().c_str());
 }
 
 
+/*
+ * Returns the value of the "coordinate" attribute of this
+ * AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 CoordinateKind_t
 AdvectionCoefficient_getCoordinate(const AdvectionCoefficient_t * ac)
 {
-	return (ac != NULL) ? ac->getCoordinate() : COORDINATEKIND_UNKNOWN;
+  if (ac == NULL)
+  {
+    return COORDINATEKIND_UNKNOWN;
+  }
+
+  return ac->getCoordinate();
 }
 
 
+/*
+ * Returns the value of the "coordinate" attribute of this
+ * AdvectionCoefficient_t.
+ */
+LIBSBML_EXTERN
+const char *
+AdvectionCoefficient_getCoordinateAsString(const AdvectionCoefficient_t * ac)
+{
+  return CoordinateKind_toString(ac->getCoordinate());
+}
+
+
+/*
+ * Predicate returning @c 1 if this AdvectionCoefficient_t's "variable"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 AdvectionCoefficient_isSetVariable(const AdvectionCoefficient_t * ac)
@@ -545,6 +989,10 @@ AdvectionCoefficient_isSetVariable(const AdvectionCoefficient_t * ac)
 }
 
 
+/*
+ * Predicate returning @c 1 if this AdvectionCoefficient_t's "coordinate"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 AdvectionCoefficient_isSetCoordinate(const AdvectionCoefficient_t * ac)
@@ -553,28 +1001,45 @@ AdvectionCoefficient_isSetCoordinate(const AdvectionCoefficient_t * ac)
 }
 
 
+/*
+ * Sets the value of the "variable" attribute of this AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-AdvectionCoefficient_setVariable(AdvectionCoefficient_t * ac, const char * variable)
+AdvectionCoefficient_setVariable(AdvectionCoefficient_t * ac,
+                                 const char * variable)
 {
-  if (ac != NULL)
-    return (variable == NULL) ? ac->setVariable("") : ac->setVariable(variable);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (ac != NULL) ? ac->setVariable(variable) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coordinate" attribute of this AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
-AdvectionCoefficient_setCoordinate(AdvectionCoefficient_t * ac, CoordinateKind_t coordinate)
+AdvectionCoefficient_setCoordinate(AdvectionCoefficient_t * ac,
+                                   CoordinateKind_t coordinate)
 {
-  if (ac != NULL)
-    return ac->setCoordinate(coordinate);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (ac != NULL) ? ac->setCoordinate(coordinate) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "coordinate" attribute of this AdvectionCoefficient_t.
+ */
+LIBSBML_EXTERN
+int
+AdvectionCoefficient_setCoordinateAsString(AdvectionCoefficient_t * ac,
+                                           const char * coordinate)
+{
+  return (ac != NULL) ? ac->setCoordinate(coordinate): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "variable" attribute of this AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 AdvectionCoefficient_unsetVariable(AdvectionCoefficient_t * ac)
@@ -583,6 +1048,10 @@ AdvectionCoefficient_unsetVariable(AdvectionCoefficient_t * ac)
 }
 
 
+/*
+ * Unsets the value of the "coordinate" attribute of this
+ * AdvectionCoefficient_t.
+ */
 LIBSBML_EXTERN
 int
 AdvectionCoefficient_unsetCoordinate(AdvectionCoefficient_t * ac)
@@ -591,6 +1060,10 @@ AdvectionCoefficient_unsetCoordinate(AdvectionCoefficient_t * ac)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * AdvectionCoefficient_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 AdvectionCoefficient_hasRequiredAttributes(const AdvectionCoefficient_t * ac)

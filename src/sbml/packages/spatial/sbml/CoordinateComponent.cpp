@@ -1,85 +1,88 @@
 /**
- * @file:   CoordinateComponent.cpp
- * @brief:  Implementation of the CoordinateComponent class
- * @author: SBMLTeam
+ * @file CoordinateComponent.cpp
+ * @brief Implementation of the CoordinateComponent class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/CoordinateComponent.h>
+#include <sbml/packages/spatial/sbml/ListOfCoordinateComponents.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
+#include <util/ElementFilter.h>
+
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new CoordinateComponent with the given level, version, and package version.
+ * Creates a new CoordinateComponent using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-CoordinateComponent::CoordinateComponent (unsigned int level, unsigned int version, unsigned int pkgVersion)
+CoordinateComponent::CoordinateComponent(unsigned int level,
+                                         unsigned int version,
+                                         unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mType (COORDINATEKIND_UNKNOWN)
   , mUnit ("")
   , mBoundaryMin (NULL)
   , mBoundaryMax (NULL)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new CoordinateComponent with the given SpatialPkgNamespaces object.
+ * Creates a new CoordinateComponent using the given SpatialPkgNamespaces
+ * object.
  */
-CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
+CoordinateComponent::CoordinateComponent(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mType (COORDINATEKIND_UNKNOWN)
   , mUnit ("")
   , mBoundaryMin (NULL)
   , mBoundaryMax (NULL)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -87,13 +90,13 @@ CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for CoordinateComponent.
  */
-CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mType  ( orig.mType)
-  , mUnit  ( orig.mUnit)
-  , mBoundaryMin ( NULL)
-  , mBoundaryMax ( NULL)
+CoordinateComponent::CoordinateComponent(const CoordinateComponent& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mType ( orig.mType )
+  , mUnit ( orig.mUnit )
+  , mBoundaryMin ( NULL )
+  , mBoundaryMax ( NULL )
 {
   if (orig.mBoundaryMin != NULL)
   {
@@ -105,13 +108,12 @@ CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
     mBoundaryMax = orig.mBoundaryMax->clone();
   }
 
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for CoordinateComponent.
+ * Assignment operator for CoordinateComponent.
  */
 CoordinateComponent&
 CoordinateComponent::operator=(const CoordinateComponent& rhs)
@@ -119,9 +121,10 @@ CoordinateComponent::operator=(const CoordinateComponent& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mType  = rhs.mType;
-    mUnit  = rhs.mUnit;
+    mId = rhs.mId;
+    mType = rhs.mType;
+    mUnit = rhs.mUnit;
+    delete mBoundaryMin;
     if (rhs.mBoundaryMin != NULL)
     {
       mBoundaryMin = rhs.mBoundaryMin->clone();
@@ -130,6 +133,8 @@ CoordinateComponent::operator=(const CoordinateComponent& rhs)
     {
       mBoundaryMin = NULL;
     }
+
+    delete mBoundaryMax;
     if (rhs.mBoundaryMax != NULL)
     {
       mBoundaryMax = rhs.mBoundaryMax->clone();
@@ -139,18 +144,18 @@ CoordinateComponent::operator=(const CoordinateComponent& rhs)
       mBoundaryMax = NULL;
     }
 
-    // connect to child objects
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for CoordinateComponent.
+ * Creates and returns a deep copy of this CoordinateComponent object.
  */
 CoordinateComponent*
-CoordinateComponent::clone () const
+CoordinateComponent::clone() const
 {
   return new CoordinateComponent(*this);
 }
@@ -159,7 +164,7 @@ CoordinateComponent::clone () const
 /*
  * Destructor for CoordinateComponent.
  */
-CoordinateComponent::~CoordinateComponent ()
+CoordinateComponent::~CoordinateComponent()
 {
   delete mBoundaryMin;
   mBoundaryMin = NULL;
@@ -189,6 +194,17 @@ CoordinateComponent::getType() const
 
 
 /*
+ * Returns the value of the "type" attribute of this CoordinateComponent.
+ */
+const std::string&
+CoordinateComponent::getTypeAsString() const
+{
+  static const std::string code_str = CoordinateKind_toString(mType);
+  return code_str;
+}
+
+
+/*
  * Returns the value of the "unit" attribute of this CoordinateComponent.
  */
 const std::string&
@@ -199,79 +215,8 @@ CoordinateComponent::getUnit() const
 
 
 /*
- * Returns the value of the "boundaryMin" attribute of this CoordinateComponent.
- */
-const Boundary*
-CoordinateComponent::getBoundaryMin() const
-{
-  return mBoundaryMin;
-}
-
-
-/*
- * Returns the value of the "boundaryMin" attribute of this CoordinateComponent.
- */
-Boundary*
-CoordinateComponent::getBoundaryMin()
-{
-  return mBoundaryMin;
-}
-
-
-/*
- * Creates a new "boundaryMin" element of this CoordinateComponent and returns it.
- */
-Boundary*
-CoordinateComponent::createBoundaryMin()
-{
-  if (mBoundaryMin != NULL) delete mBoundaryMin;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mBoundaryMin = new Boundary(spatialns);
-  mBoundaryMin->setElementName("boundaryMin");
-  delete spatialns;
-  connectToChild();
-  return mBoundaryMin;
-}
-
-
-/*
- * Returns the value of the "boundaryMax" attribute of this CoordinateComponent.
- */
-const Boundary*
-CoordinateComponent::getBoundaryMax() const
-{
-  return mBoundaryMax;
-}
-
-
-/*
- * Returns the value of the "boundaryMax" attribute of this CoordinateComponent.
- */
-Boundary*
-CoordinateComponent::getBoundaryMax()
-{
-  return mBoundaryMax;
-}
-
-
-/*
- * Creates a new "boundaryMax" element of this CoordinateComponent and returns it.
- */
-Boundary*
-CoordinateComponent::createBoundaryMax()
-{
-  if (mBoundaryMax != NULL) delete mBoundaryMax;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mBoundaryMax = new Boundary(spatialns);
-  mBoundaryMax->setElementName("boundaryMax");
-  delete spatialns;
-  connectToChild();
-  return mBoundaryMax;
-}
-
-
-/*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this CoordinateComponent's "id" attribute is
+ * set.
  */
 bool
 CoordinateComponent::isSetId() const
@@ -281,17 +226,19 @@ CoordinateComponent::isSetId() const
 
 
 /*
- * Returns true/false if type is set.
+ * Predicate returning @c true if this CoordinateComponent's "type" attribute
+ * is set.
  */
 bool
 CoordinateComponent::isSetType() const
 {
-  return mType != COORDINATEKIND_UNKNOWN;
+  return (mType != COORDINATEKIND_UNKNOWN);
 }
 
 
 /*
- * Returns true/false if unit is set.
+ * Predicate returning @c true if this CoordinateComponent's "unit" attribute
+ * is set.
  */
 bool
 CoordinateComponent::isSetUnit() const
@@ -301,27 +248,7 @@ CoordinateComponent::isSetUnit() const
 
 
 /*
- * Returns true/false if boundaryMin is set.
- */
-bool
-CoordinateComponent::isSetBoundaryMin() const
-{
-  return (mBoundaryMin != NULL);
-}
-
-
-/*
- * Returns true/false if boundaryMax is set.
- */
-bool
-CoordinateComponent::isSetBoundaryMax() const
-{
-  return (mBoundaryMax != NULL);
-}
-
-
-/*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::setId(const std::string& id)
@@ -331,36 +258,50 @@ CoordinateComponent::setId(const std::string& id)
 
 
 /*
- * Sets type and returns value indicating success.
+ * Sets the value of the "type" attribute of this CoordinateComponent.
  */
 int
-CoordinateComponent::setType(CoordinateKind_t type)
+CoordinateComponent::setType(const CoordinateKind_t type)
 {
-  mType = type;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValid(type) == 0)
+  {
+    mType = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mType = type;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets type and returns value indicating success.
+ * Sets the value of the "type" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::setType(const std::string& type)
 {
-  CoordinateKind_t parsed = CoordinateKind_parse(type.c_str());
-  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  mType = parsed;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (CoordinateKind_isValidString(type.c_str()) == 0)
+  {
+    mType = COORDINATEKIND_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mType = CoordinateKind_fromString(type.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets unit and returns value indicating success.
+ * Sets the value of the "unit" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::setUnit(const std::string& unit)
 {
-  if (!(SyntaxChecker::isValidInternalSId(unit)))
+  if (!(SyntaxChecker::isValidInternalUnitSId(unit)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -373,69 +314,7 @@ CoordinateComponent::setUnit(const std::string& unit)
 
 
 /*
- * Sets boundaryMin and returns value indicating success.
- */
-int
-CoordinateComponent::setBoundaryMin(Boundary* boundaryMin)
-{
-  if (mBoundaryMin == boundaryMin)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (boundaryMin == NULL)
-  {
-    delete mBoundaryMin;
-    mBoundaryMin = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    delete mBoundaryMin;
-    mBoundaryMin = (boundaryMin != NULL) ?
-      static_cast<Boundary*>(boundaryMin->clone()) : NULL;
-    if (mBoundaryMin != NULL)
-    {
-      mBoundaryMin->setElementName("boundaryMin");
-      mBoundaryMin->connectToParent(this);
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Sets boundaryMax and returns value indicating success.
- */
-int
-CoordinateComponent::setBoundaryMax(Boundary* boundaryMax)
-{
-  if (mBoundaryMax == boundaryMax)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (boundaryMax == NULL)
-  {
-    delete mBoundaryMax;
-    mBoundaryMax = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    delete mBoundaryMax;
-    mBoundaryMax = (boundaryMax != NULL) ?
-      static_cast<Boundary*>(boundaryMax->clone()) : NULL;
-    if (mBoundaryMax != NULL)
-    {
-      mBoundaryMax->setElementName("boundaryMax");
-      mBoundaryMax->connectToParent(this);
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::unsetId()
@@ -454,7 +333,7 @@ CoordinateComponent::unsetId()
 
 
 /*
- * Unsets type and returns value indicating success.
+ * Unsets the value of the "type" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::unsetType()
@@ -465,7 +344,7 @@ CoordinateComponent::unsetType()
 
 
 /*
- * Unsets unit and returns value indicating success.
+ * Unsets the value of the "unit" attribute of this CoordinateComponent.
  */
 int
 CoordinateComponent::unsetUnit()
@@ -484,7 +363,181 @@ CoordinateComponent::unsetUnit()
 
 
 /*
- * Unsets boundaryMin and returns value indicating success.
+ * Returns the value of the "boundaryMin" element of this CoordinateComponent.
+ */
+const Boundary*
+CoordinateComponent::getBoundaryMin() const
+{
+  return mBoundaryMin;
+}
+
+
+/*
+ * Returns the value of the "boundaryMin" element of this CoordinateComponent.
+ */
+Boundary*
+CoordinateComponent::getBoundaryMin()
+{
+  return mBoundaryMin;
+}
+
+
+/*
+ * Returns the value of the "boundaryMax" element of this CoordinateComponent.
+ */
+const Boundary*
+CoordinateComponent::getBoundaryMax() const
+{
+  return mBoundaryMax;
+}
+
+
+/*
+ * Returns the value of the "boundaryMax" element of this CoordinateComponent.
+ */
+Boundary*
+CoordinateComponent::getBoundaryMax()
+{
+  return mBoundaryMax;
+}
+
+
+/*
+ * Predicate returning @c true if this CoordinateComponent's "boundaryMin"
+ * element is set.
+ */
+bool
+CoordinateComponent::isSetBoundaryMin() const
+{
+  return (mBoundaryMin != NULL);
+}
+
+
+/*
+ * Predicate returning @c true if this CoordinateComponent's "boundaryMax"
+ * element is set.
+ */
+bool
+CoordinateComponent::isSetBoundaryMax() const
+{
+  return (mBoundaryMax != NULL);
+}
+
+
+/*
+ * Sets the value of the "boundaryMin" element of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setBoundaryMin(const Boundary* boundaryMin)
+{
+  if (mBoundaryMin == boundaryMin)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (boundaryMin == NULL)
+  {
+    delete mBoundaryMin;
+    mBoundaryMin = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mBoundaryMin;
+    mBoundaryMin = (boundaryMin != NULL) ? boundaryMin->clone() : NULL;
+    if (mBoundaryMin != NULL)
+    {
+      mBoundaryMin->setElementName("boundaryMin");
+      mBoundaryMin->connectToParent(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the value of the "boundaryMax" element of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setBoundaryMax(const Boundary* boundaryMax)
+{
+  if (mBoundaryMax == boundaryMax)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (boundaryMax == NULL)
+  {
+    delete mBoundaryMax;
+    mBoundaryMax = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mBoundaryMax;
+    mBoundaryMax = (boundaryMax != NULL) ? boundaryMax->clone() : NULL;
+    if (mBoundaryMax != NULL)
+    {
+      mBoundaryMax->setElementName("boundaryMax");
+      mBoundaryMax->connectToParent(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Creates a new Boundary object, adds it to this CoordinateComponent object
+ * and returns the Boundary object created.
+ */
+Boundary*
+CoordinateComponent::createBoundaryMin()
+{
+  if (mBoundaryMin != NULL)
+  {
+    delete mBoundaryMin;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mBoundaryMin = new Boundary(spatialns);
+
+  mBoundaryMin->setElementName("boundaryMin");
+
+  delete spatialns;
+
+  connectToChild();
+
+  return mBoundaryMin;
+}
+
+
+/*
+ * Creates a new Boundary object, adds it to this CoordinateComponent object
+ * and returns the Boundary object created.
+ */
+Boundary*
+CoordinateComponent::createBoundaryMax()
+{
+  if (mBoundaryMax != NULL)
+  {
+    delete mBoundaryMax;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mBoundaryMax = new Boundary(spatialns);
+
+  mBoundaryMax->setElementName("boundaryMax");
+
+  delete spatialns;
+
+  connectToChild();
+
+  return mBoundaryMax;
+}
+
+
+/*
+ * Unsets the value of the "boundaryMin" element of this CoordinateComponent.
  */
 int
 CoordinateComponent::unsetBoundaryMin()
@@ -496,7 +549,7 @@ CoordinateComponent::unsetBoundaryMin()
 
 
 /*
- * Unsets boundaryMax and returns value indicating success.
+ * Unsets the value of the "boundaryMax" element of this CoordinateComponent.
  */
 int
 CoordinateComponent::unsetBoundaryMax()
@@ -508,20 +561,685 @@ CoordinateComponent::unsetBoundaryMax()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
-CoordinateComponent::renameSIdRefs(const std::string& oldid, const std::string& newid)
+CoordinateComponent::renameSIdRefs(const std::string& oldid,
+                                   const std::string& newid)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetUnit() == true && mUnit == oldid)
+  if (isSetUnit() && mUnit == oldid)
   {
     setUnit(newid);
   }
-
 }
 
 
+/*
+ * Returns the XML element name of this CoordinateComponent object.
+ */
+const std::string&
+CoordinateComponent::getElementName() const
+{
+  static const string name = "coordinateComponent";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this CoordinateComponent object.
+ */
+int
+CoordinateComponent::getTypeCode() const
+{
+  return SBML_SPATIAL_COORDINATECOMPONENT;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * CoordinateComponent object have been set.
+ */
+bool
+CoordinateComponent::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  if (isSetId() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetType() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this
+ * CoordinateComponent object have been set.
+ */
+bool
+CoordinateComponent::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  if (isSetBoundaryMin() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetBoundaryMax() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+CoordinateComponent::writeElements(XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+
+  if (isSetBoundaryMin() == true)
+  {
+    mBoundaryMin->write(stream);
+  }
+
+  if (isSetBoundaryMax() == true)
+  {
+    mBoundaryMax->write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+CoordinateComponent::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+
+  if (mBoundaryMin != NULL)
+  {
+    mBoundaryMin->accept(v);
+  }
+
+  if (mBoundaryMax != NULL)
+  {
+    mBoundaryMax->accept(v);
+  }
+
+  v.leave(*this);
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+CoordinateComponent::setSBMLDocument(SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+
+  if (mBoundaryMin != NULL)
+  {
+    mBoundaryMin->setSBMLDocument(d);
+  }
+
+  if (mBoundaryMax != NULL)
+  {
+    mBoundaryMax->setSBMLDocument(d);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to child elements
+ */
+void
+CoordinateComponent::connectToChild()
+{
+  SBase::connectToChild();
+
+  if (mBoundaryMin != NULL)
+  {
+    mBoundaryMin->connectToParent(this);
+  }
+
+  if (mBoundaryMax != NULL)
+  {
+    mBoundaryMax->connectToParent(this);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+CoordinateComponent::enablePackageInternal(const std::string& pkgURI,
+                                           const std::string& pkgPrefix,
+                                           bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  if (isSetBoundaryMin())
+  {
+    mBoundaryMin->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+
+  if (isSetBoundaryMax())
+  {
+    mBoundaryMax->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "type")
+  {
+    value = getTypeAsString();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "unit")
+  {
+    value = getUnit();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::getAttribute(const std::string& attributeName,
+                                  const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "type")
+  {
+    value = getTypeAsString().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "unit")
+  {
+    value = getUnit().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this CoordinateComponent's attribute
+ * "attributeName" is set.
+ */
+bool
+CoordinateComponent::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "type")
+  {
+    value = isSetType();
+  }
+  else if (attributeName == "unit")
+  {
+    value = isSetUnit();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName,
+                                  bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName,
+                                  double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName,
+                                  unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName,
+                                  const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "type")
+  {
+    return_value = setType(value);
+  }
+  else if (attributeName == "unit")
+  {
+    return_value = setUnit(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CoordinateComponent.
+ */
+int
+CoordinateComponent::setAttribute(const std::string& attributeName,
+                                  const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "type")
+  {
+    return_value = setType(value);
+  }
+  else if (attributeName == "unit")
+  {
+    return_value = setUnit(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * CoordinateComponent.
+ */
+int
+CoordinateComponent::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "type")
+  {
+    value = unsetType();
+  }
+  else if (attributeName == "unit")
+  {
+    value = unsetUnit();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this CoordinateComponent.
+ */
+SBase*
+CoordinateComponent::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "boundaryMin")
+  {
+    return createBoundaryMin();
+  }
+  else if (elementName == "boundaryMax")
+  {
+    return createBoundaryMax();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+CoordinateComponent::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mBoundaryMin != NULL)
+  {
+    if (mBoundaryMin->getId() == id)
+    {
+      return mBoundaryMin;
+    }
+
+    obj = mBoundaryMin->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  if (mBoundaryMax != NULL)
+  {
+    if (mBoundaryMax->getId() == id)
+    {
+      return mBoundaryMax;
+    }
+
+    obj = mBoundaryMax->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+CoordinateComponent::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mBoundaryMin != NULL)
+  {
+    if (mBoundaryMin->getMetaId() == metaid)
+    {
+      return mBoundaryMin;
+    }
+
+    obj = mBoundaryMin->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  if (mBoundaryMax != NULL)
+  {
+    if (mBoundaryMax->getMetaId() == metaid)
+    {
+      return mBoundaryMax;
+    }
+
+    obj = mBoundaryMax->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
 List*
 CoordinateComponent::getAllElements(ElementFilter* filter)
 {
@@ -531,212 +1249,70 @@ CoordinateComponent::getAllElements(ElementFilter* filter)
   ADD_FILTERED_POINTER(ret, sublist, mBoundaryMin, filter);
   ADD_FILTERED_POINTER(ret, sublist, mBoundaryMax, filter);
 
+
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
   return ret;
 }
 
 
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-CoordinateComponent::getElementName () const
-{
-  static const string name = "coordinateComponent";
-  return name;
-}
 
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the libSBML type code for this SBML object.
- */
-int
-CoordinateComponent::getTypeCode () const
-{
-  return SBML_SPATIAL_COORDINATECOMPONENT;
-}
-
-
-/*
- * check if all the required attributes are set
- */
-bool
-CoordinateComponent::hasRequiredAttributes () const
-{
-  bool allPresent = true;
-
-  if (isSetId() == false)
-    allPresent = false;
-
-  if (isSetType() == false)
-    allPresent = false;
-
-  return allPresent;
-}
-
-
-/*
- * check if all the required elements are set
- */
-bool
-CoordinateComponent::hasRequiredElements () const
-{
-  bool allPresent = true;
-
-  if (isSetBoundaryMin() == false)
-    allPresent = false;
-
-  if (isSetBoundaryMax() == false)
-    allPresent = false;
-
-  return allPresent;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * write contained elements
- */
-void
-CoordinateComponent::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
-  if (isSetBoundaryMin() == true)
-  {
-    mBoundaryMin->write(stream);
-  }
-  if (isSetBoundaryMax() == true)
-  {
-    mBoundaryMax->write(stream);
-  }
-  SBase::writeExtensionElements(stream);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
-bool
-CoordinateComponent::accept (SBMLVisitor& v) const
-{
-  v.visit(*this);
-
-/* VISIT CHILDREN */
-
-  v.leave(*this);
-
-  return true;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the parent SBMLDocument.
- */
-void
-CoordinateComponent::setSBMLDocument (SBMLDocument* d)
-{
-  SBase::setSBMLDocument(d);
-  if ( mBoundaryMin != NULL)
-    mBoundaryMin->setSBMLDocument(d);
-  if ( mBoundaryMax != NULL)
-    mBoundaryMax->setSBMLDocument(d);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
-   * Connects to child elements.
- */
-void
-CoordinateComponent::connectToChild()
-{
-  SBase::connectToChild();
-
-  if (mBoundaryMin != NULL)
-    mBoundaryMin->connectToParent(this);
-  if (mBoundaryMax != NULL)
-    mBoundaryMax->connectToParent(this);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Enables/Disables the given package with this element.
- */
-void
-CoordinateComponent::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
-{
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * creates object.
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 CoordinateComponent::createObject(XMLInputStream& stream)
 {
-  SBase* object = NULL;
+  SBase* obj = NULL;
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
 
   if (name == "boundaryMin")
   {
+    if (mBoundaryMin != NULL)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCoordinateComponentAllowedElements, getPackageVersion(),
+          getLevel(), getVersion());
+    }
+
     mBoundaryMin = new Boundary(spatialns);
     mBoundaryMin->setElementName(name);
-    object = mBoundaryMin;
+    obj = mBoundaryMin;
   }
   else if (name == "boundaryMax")
   {
+    if (mBoundaryMax != NULL)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialCoordinateComponentAllowedElements, getPackageVersion(),
+          getLevel(), getVersion());
+    }
+
     mBoundaryMax = new Boundary(spatialns);
     mBoundaryMax->setElementName(name);
-    object = mBoundaryMax;
+    obj = mBoundaryMax;
   }
 
   delete spatialns;
 
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 CoordinateComponent::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -744,495 +1320,230 @@ CoordinateComponent::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("type");
+
   attributes.add("unit");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-CoordinateComponent::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+CoordinateComponent::readAttributes(const XMLAttributes& attributes,
+                                    const ExpectedAttributes&
+                                      expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfCoordinateComponents - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfCoordinateComponents*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfCoordinateComponents*>(getParentSBMLObject())->size() <
+    2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial",
+          SpatialCoordinateComponentAllowedAttributes, pkgVersion, level,
+            version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialGeometryLOCoordinateComponentsAllowedCoreAttributes, pkgVersion,
+            level, version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial",
+        SpatialCoordinateComponentAllowedAttributes, pkgVersion, level, version,
+          details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialCoordinateComponentAllowedCoreAttributes, pkgVersion, level,
+          version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<CoordinateComponent>");
+      logEmptyString(mId, level, version, "<CoordinateComponent>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'coordinateComponent' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the "
+      "<CoordinateComponent> element.";
+    log->logPackageError("spatial",
+      SpatialCoordinateComponentAllowedAttributes, pkgVersion, level, version,
+        message);
   }
 
-  //
-  // type enum  ( use = "required" )
-  //
-  mType = COORDINATEKIND_UNKNOWN;
+  // 
+  // type enum (use = "required" )
+  // 
+
+  std::string type;
+  assigned = attributes.readInto("type", type);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("type", stringValue);
-
-    if (assigned == true)
+    if (type.empty() == true)
     {
-      // parse enum
+      logEmptyString(type, level, version, "<CoordinateComponent>");
+    }
+    else
+    {
+      mType = CoordinateKind_fromString(type.c_str());
 
-      mType = CoordinateKind_parse(stringValue.c_str());
-      if(mType == COORDINATEKIND_UNKNOWN)
+      if (CoordinateKind_isValid(mType) == 0)
       {
-        std::string message = "Unknown value for Spatial attribute 'type' in 'coordinateComponent' object: " + stringValue;
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        std::string msg = "The type on the <CoordinateComponent> ";
+
+        if (isSetId())
+        {
+          msg += "with id '" + getId() + "'";
+        }
+
+        msg += "is '" + type + "', which is not a valid option.";
+
+        log->logPackageError("spatial",
+          SpatialCoordinateComponentTypeMustBeCoordinateKindEnum, pkgVersion,
+            level, version, msg);
       }
     }
   }
-  if(mType == COORDINATEKIND_UNKNOWN)
+  else
   {
-    std::string message = "Spatial attribute 'type' is missing from 'coordinateComponent' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'type' is missing.";
+    log->logPackageError("spatial",
+      SpatialCoordinateComponentAllowedAttributes, pkgVersion, level, version,
+        message);
   }
 
-  //
-  // unit SIdRef   ( use = "optional" )
-  //
+  // 
+  // unit UnitSIdRef (use = "optional" )
+  // 
+
   assigned = attributes.readInto("unit", mUnit);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mUnit.empty() == true)
     {
-      logEmptyString(mUnit, getLevel(), getVersion(), "<CoordinateComponent>");
+      logEmptyString(mUnit, level, version, "<CoordinateComponent>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mUnit) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mUnit) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute unit='" + mUnit + "' does not conform.");
+      logError(SpatialCoordinateComponentUnitMustBeUnitSId, level, version,
+        "The attribute unit='" + mUnit + "' does not conform to the syntax.");
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-CoordinateComponent::writeAttributes (XMLOutputStream& stream) const
+void
+CoordinateComponent::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetType() == true)
+  {
     stream.writeAttribute("type", getPrefix(), CoordinateKind_toString(mType));
+  }
 
   if (isSetUnit() == true)
+  {
     stream.writeAttribute("unit", getPrefix(), mUnit);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * Constructor 
- */
-ListOfCoordinateComponents::ListOfCoordinateComponents(unsigned int level, 
-                             unsigned int version, 
-                             unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfCoordinateComponents::ListOfCoordinateComponents(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfCoordinateComponents 
- */
-ListOfCoordinateComponents* 
-ListOfCoordinateComponents::clone () const
- {
-  return new ListOfCoordinateComponents(*this);
-}
-
-
-/*
- * Get a CoordinateComponent from the ListOfCoordinateComponents by index.
-*/
-CoordinateComponent*
-ListOfCoordinateComponents::get(unsigned int n)
-{
-  return static_cast<CoordinateComponent*>(ListOf::get(n));
-}
-
-
-/*
- * Get a CoordinateComponent from the ListOfCoordinateComponents by index.
- */
-const CoordinateComponent*
-ListOfCoordinateComponents::get(unsigned int n) const
-{
-  return static_cast<const CoordinateComponent*>(ListOf::get(n));
-}
-
-
-/*
- * Get a CoordinateComponent from the ListOfCoordinateComponents by id.
- */
-CoordinateComponent*
-ListOfCoordinateComponents::get(const std::string& sid)
-{
-	return const_cast<CoordinateComponent*>(
-    static_cast<const ListOfCoordinateComponents&>(*this).get(sid));
-}
-
-
-/*
- * Get a CoordinateComponent from the ListOfCoordinateComponents by id.
- */
-const CoordinateComponent*
-ListOfCoordinateComponents::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CoordinateComponent>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <CoordinateComponent*> (*result);
-}
-
-
-/**
- * Adds a copy the given "CoordinateComponent" to this ListOfCoordinateComponents.
- *
- * @param cc; the CoordinateComponent object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfCoordinateComponents::addCoordinateComponent(const CoordinateComponent* cc)
-{
-  if (cc == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (cc->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != cc->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != cc->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(cc)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(cc);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of CoordinateComponent objects in this ListOfCoordinateComponents.
- *
- * @return the number of CoordinateComponent objects in this ListOfCoordinateComponents
- */
-unsigned int 
-ListOfCoordinateComponents::getNumCoordinateComponents() const
-{
-	return size();
-}
-
-/**
- * Creates a new CoordinateComponent object, adds it to this ListOfCoordinateComponents
- * CoordinateComponent and returns the CoordinateComponent object created. 
- *
- * @return a new CoordinateComponent object instance
- *
- * @see addCoordinateComponent(const CoordinateComponent* cc)
- */
-CoordinateComponent* 
-ListOfCoordinateComponents::createCoordinateComponent()
-{
-  CoordinateComponent* cc = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    cc = new CoordinateComponent(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(cc != NULL)
-  {
-    appendAndOwn(cc);
-  }
-
-  return cc;
+  SBase::writeExtensionAttributes(stream);
 }
 
-/*
- * Removes the nth CoordinateComponent from this ListOfCoordinateComponents
- */
-CoordinateComponent*
-ListOfCoordinateComponents::remove(unsigned int n)
-{
-  return static_cast<CoordinateComponent*>(ListOf::remove(n));
-}
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Removes the CoordinateComponent from this ListOfCoordinateComponents with the given identifier
+ * Creates a new CoordinateComponent_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-CoordinateComponent*
-ListOfCoordinateComponents::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CoordinateComponent>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <CoordinateComponent*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfCoordinateComponents::getElementName () const
-{
-  static const string name = "listOfCoordinateComponents";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfCoordinateComponents::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfCoordinateComponents::getItemTypeCode () const
-{
-  return SBML_SPATIAL_COORDINATECOMPONENT;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new CoordinateComponent in this ListOfCoordinateComponents
- */
-SBase*
-ListOfCoordinateComponents::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "coordinateComponent")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new CoordinateComponent(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfCoordinateComponents::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 CoordinateComponent_t *
-CoordinateComponent_create(unsigned int level, unsigned int version,
+CoordinateComponent_create(unsigned int level,
+                           unsigned int version,
                            unsigned int pkgVersion)
 {
   return new CoordinateComponent(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this CoordinateComponent_t object.
+ */
 LIBSBML_EXTERN
-void
-CoordinateComponent_free(CoordinateComponent_t * cc)
-{
-  if (cc != NULL)
-    delete cc;
-}
-
-
-LIBSBML_EXTERN
-CoordinateComponent_t *
-CoordinateComponent_clone(CoordinateComponent_t * cc)
+CoordinateComponent_t*
+CoordinateComponent_clone(const CoordinateComponent_t* cc)
 {
   if (cc != NULL)
   {
@@ -1245,74 +1556,83 @@ CoordinateComponent_clone(CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Frees this CoordinateComponent_t object.
+ */
+LIBSBML_EXTERN
+void
+CoordinateComponent_free(CoordinateComponent_t* cc)
+{
+  if (cc != NULL)
+  {
+    delete cc;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 const char *
 CoordinateComponent_getId(const CoordinateComponent_t * cc)
 {
-	return (cc != NULL && cc->isSetId()) ? cc->getId().c_str() : NULL;
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return cc->getId().empty() ? NULL : safe_strdup(cc->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "type" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 CoordinateKind_t
 CoordinateComponent_getType(const CoordinateComponent_t * cc)
 {
-	return (cc != NULL) ? cc->getType() : COORDINATEKIND_UNKNOWN;
+  if (cc == NULL)
+  {
+    return COORDINATEKIND_UNKNOWN;
+  }
+
+  return cc->getType();
 }
 
 
+/*
+ * Returns the value of the "type" attribute of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+const char *
+CoordinateComponent_getTypeAsString(const CoordinateComponent_t * cc)
+{
+  return CoordinateKind_toString(cc->getType());
+}
+
+
+/*
+ * Returns the value of the "unit" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 const char *
 CoordinateComponent_getUnit(const CoordinateComponent_t * cc)
 {
-	return (cc != NULL && cc->isSetUnit()) ? cc->getUnit().c_str() : NULL;
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return cc->getUnit().empty() ? NULL : safe_strdup(cc->getUnit().c_str());
 }
 
 
-LIBSBML_EXTERN
-Boundary_t*
-CoordinateComponent_getBoundaryMin(CoordinateComponent_t * cc)
-{
-	if (cc == NULL)
-		return NULL;
-
-	return (Boundary_t*)cc->getBoundaryMin();
-}
-
-
-LIBSBML_EXTERN
-Boundary_t*
-CoordinateComponent_createBoundaryMin(CoordinateComponent_t * cc)
-{
-	if (cc == NULL)
-		return NULL;
-
-	return (Boundary_t*)cc->createBoundaryMin();
-}
-
-
-LIBSBML_EXTERN
-Boundary_t*
-CoordinateComponent_getBoundaryMax(CoordinateComponent_t * cc)
-{
-	if (cc == NULL)
-		return NULL;
-
-	return (Boundary_t*)cc->getBoundaryMax();
-}
-
-
-LIBSBML_EXTERN
-Boundary_t*
-CoordinateComponent_createBoundaryMax(CoordinateComponent_t * cc)
-{
-	if (cc == NULL)
-		return NULL;
-
-	return (Boundary_t*)cc->createBoundaryMax();
-}
-
-
+/*
+ * Predicate returning @c 1 if this CoordinateComponent_t's "id" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_isSetId(const CoordinateComponent_t * cc)
@@ -1321,6 +1641,10 @@ CoordinateComponent_isSetId(const CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CoordinateComponent_t's "type" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_isSetType(const CoordinateComponent_t * cc)
@@ -1329,6 +1653,10 @@ CoordinateComponent_isSetType(const CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CoordinateComponent_t's "unit" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_isSetUnit(const CoordinateComponent_t * cc)
@@ -1337,71 +1665,54 @@ CoordinateComponent_isSetUnit(const CoordinateComponent_t * cc)
 }
 
 
-LIBSBML_EXTERN
-int
-CoordinateComponent_isSetBoundaryMin(const CoordinateComponent_t * cc)
-{
-  return (cc != NULL) ? static_cast<int>(cc->isSetBoundaryMin()) : 0;
-}
-
-
-LIBSBML_EXTERN
-int
-CoordinateComponent_isSetBoundaryMax(const CoordinateComponent_t * cc)
-{
-  return (cc != NULL) ? static_cast<int>(cc->isSetBoundaryMax()) : 0;
-}
-
-
+/*
+ * Sets the value of the "id" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_setId(CoordinateComponent_t * cc, const char * id)
 {
-  if (cc != NULL)
-    return (id == NULL) ? cc->setId("") : cc->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (cc != NULL) ? cc->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "type" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_setType(CoordinateComponent_t * cc, CoordinateKind_t type)
 {
-  if (cc != NULL)
-    return cc->setType(type);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (cc != NULL) ? cc->setType(type) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "type" attribute of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_setTypeAsString(CoordinateComponent_t * cc,
+                                    const char * type)
+{
+  return (cc != NULL) ? cc->setType(type): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "unit" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_setUnit(CoordinateComponent_t * cc, const char * unit)
 {
-  if (cc != NULL)
-    return (unit == NULL) ? cc->setUnit("") : cc->setUnit(unit);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (cc != NULL) ? cc->setUnit(unit) : LIBSBML_INVALID_OBJECT;
 }
 
 
-LIBSBML_EXTERN
-int
-CoordinateComponent_setBoundaryMin(CoordinateComponent_t * cc, Boundary_t* boundaryMin)
-{
-	return (cc != NULL) ? cc->setBoundaryMin(boundaryMin) : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-CoordinateComponent_setBoundaryMax(CoordinateComponent_t * cc, Boundary_t* boundaryMax)
-{
-	return (cc != NULL) ? cc->setBoundaryMax(boundaryMax) : LIBSBML_INVALID_OBJECT;
-}
-
-
+/*
+ * Unsets the value of the "id" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_unsetId(CoordinateComponent_t * cc)
@@ -1410,6 +1721,9 @@ CoordinateComponent_unsetId(CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Unsets the value of the "type" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_unsetType(CoordinateComponent_t * cc)
@@ -1418,6 +1732,9 @@ CoordinateComponent_unsetType(CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Unsets the value of the "unit" attribute of this CoordinateComponent_t.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_unsetUnit(CoordinateComponent_t * cc)
@@ -1426,6 +1743,150 @@ CoordinateComponent_unsetUnit(CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Returns the value of the "boundaryMin" element of this
+ * CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+const Boundary_t*
+CoordinateComponent_getBoundaryMin(const CoordinateComponent_t * cc)
+{
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return (Boundary_t*)(cc->getBoundaryMin());
+}
+
+
+/*
+ * Returns the value of the "boundaryMax" element of this
+ * CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+const Boundary_t*
+CoordinateComponent_getBoundaryMax(const CoordinateComponent_t * cc)
+{
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return (Boundary_t*)(cc->getBoundaryMax());
+}
+
+
+/*
+ * Predicate returning @c 1 if this CoordinateComponent_t's "boundaryMin"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_isSetBoundaryMin(const CoordinateComponent_t * cc)
+{
+  return (cc != NULL) ? static_cast<int>(cc->isSetBoundaryMin()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this CoordinateComponent_t's "boundaryMax"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_isSetBoundaryMax(const CoordinateComponent_t * cc)
+{
+  return (cc != NULL) ? static_cast<int>(cc->isSetBoundaryMax()) : 0;
+}
+
+
+/*
+ * Sets the value of the "boundaryMin" element of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_setBoundaryMin(CoordinateComponent_t * cc,
+                                   const Boundary_t* boundaryMin)
+{
+  return (cc != NULL) ? cc->setBoundaryMin(boundaryMin) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "boundaryMax" element of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_setBoundaryMax(CoordinateComponent_t * cc,
+                                   const Boundary_t* boundaryMax)
+{
+  return (cc != NULL) ? cc->setBoundaryMax(boundaryMax) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Creates a new Boundary_t object, adds it to this CoordinateComponent_t
+ * object and returns the Boundary_t object created.
+ */
+LIBSBML_EXTERN
+Boundary_t*
+CoordinateComponent_createBoundaryMin(CoordinateComponent_t* cc)
+{
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return (Boundary_t*)(cc->createBoundaryMin());
+}
+
+
+/*
+ * Creates a new Boundary_t object, adds it to this CoordinateComponent_t
+ * object and returns the Boundary_t object created.
+ */
+LIBSBML_EXTERN
+Boundary_t*
+CoordinateComponent_createBoundaryMax(CoordinateComponent_t* cc)
+{
+  if (cc == NULL)
+  {
+    return NULL;
+  }
+
+  return (Boundary_t*)(cc->createBoundaryMax());
+}
+
+
+/*
+ * Unsets the value of the "boundaryMin" element of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_unsetBoundaryMin(CoordinateComponent_t * cc)
+{
+  return (cc != NULL) ? cc->unsetBoundaryMin() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "boundaryMax" element of this CoordinateComponent_t.
+ */
+LIBSBML_EXTERN
+int
+CoordinateComponent_unsetBoundaryMax(CoordinateComponent_t * cc)
+{
+  return (cc != NULL) ? cc->unsetBoundaryMax() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * CoordinateComponent_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_hasRequiredAttributes(const CoordinateComponent_t * cc)
@@ -1434,39 +1895,15 @@ CoordinateComponent_hasRequiredAttributes(const CoordinateComponent_t * cc)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this
+ * CoordinateComponent_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 CoordinateComponent_hasRequiredElements(const CoordinateComponent_t * cc)
 {
-	return (cc != NULL) ? static_cast<int>(cc->hasRequiredElements()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-CoordinateComponent_t *
-ListOfCoordinateComponents_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfCoordinateComponents *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-CoordinateComponent_t *
-ListOfCoordinateComponents_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfCoordinateComponents *>(lo)->remove(sid) : NULL;
+  return (cc != NULL) ? static_cast<int>(cc->hasRequiredElements()) : 0;
 }
 
 

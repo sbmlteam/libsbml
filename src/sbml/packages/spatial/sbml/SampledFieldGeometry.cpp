@@ -1,37 +1,35 @@
 /**
- * @file:   SampledFieldGeometry.cpp
- * @brief:  Implementation of the SampledFieldGeometry class
- * @author: SBMLTeam
+ * @file SampledFieldGeometry.cpp
+ * @brief Implementation of the SampledFieldGeometry class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
@@ -40,40 +38,43 @@
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new SampledFieldGeometry with the given level, version, and package version.
+ * Creates a new SampledFieldGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-SampledFieldGeometry::SampledFieldGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
+SampledFieldGeometry::SampledFieldGeometry(unsigned int level,
+                                           unsigned int version,
+                                           unsigned int pkgVersion)
   : GeometryDefinition(level, version)
   , mSampledVolumes (level, version, pkgVersion)
   , mSampledField ("")
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new SampledFieldGeometry with the given SpatialPkgNamespaces object.
+ * Creates a new SampledFieldGeometry using the given SpatialPkgNamespaces
+ * object.
  */
-SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
+SampledFieldGeometry::SampledFieldGeometry(SpatialPkgNamespaces *spatialns)
   : GeometryDefinition(spatialns)
   , mSampledVolumes (spatialns)
   , mSampledField ("")
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -81,18 +82,17 @@ SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for SampledFieldGeometry.
  */
-SampledFieldGeometry::SampledFieldGeometry (const SampledFieldGeometry& orig)
-  : GeometryDefinition(orig)
-  , mSampledVolumes  ( orig.mSampledVolumes)
-  , mSampledField  ( orig.mSampledField)
+SampledFieldGeometry::SampledFieldGeometry(const SampledFieldGeometry& orig)
+  : GeometryDefinition( orig )
+  , mSampledVolumes ( orig.mSampledVolumes )
+  , mSampledField ( orig.mSampledField )
 {
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for SampledFieldGeometry.
+ * Assignment operator for SampledFieldGeometry.
  */
 SampledFieldGeometry&
 SampledFieldGeometry::operator=(const SampledFieldGeometry& rhs)
@@ -100,21 +100,20 @@ SampledFieldGeometry::operator=(const SampledFieldGeometry& rhs)
   if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
-    mSampledVolumes  = rhs.mSampledVolumes;
-    mSampledField  = rhs.mSampledField;
-
-    // connect to child objects
+    mSampledVolumes = rhs.mSampledVolumes;
+    mSampledField = rhs.mSampledField;
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for SampledFieldGeometry.
+ * Creates and returns a deep copy of this SampledFieldGeometry object.
  */
 SampledFieldGeometry*
-SampledFieldGeometry::clone () const
+SampledFieldGeometry::clone() const
 {
   return new SampledFieldGeometry(*this);
 }
@@ -123,13 +122,14 @@ SampledFieldGeometry::clone () const
 /*
  * Destructor for SampledFieldGeometry.
  */
-SampledFieldGeometry::~SampledFieldGeometry ()
+SampledFieldGeometry::~SampledFieldGeometry()
 {
 }
 
 
 /*
- * Returns the value of the "sampledField" attribute of this SampledFieldGeometry.
+ * Returns the value of the "sampledField" attribute of this
+ * SampledFieldGeometry.
  */
 const std::string&
 SampledFieldGeometry::getSampledField() const
@@ -139,7 +139,8 @@ SampledFieldGeometry::getSampledField() const
 
 
 /*
- * Returns true/false if sampledField is set.
+ * Predicate returning @c true if this SampledFieldGeometry's "sampledField"
+ * attribute is set.
  */
 bool
 SampledFieldGeometry::isSetSampledField() const
@@ -149,7 +150,7 @@ SampledFieldGeometry::isSetSampledField() const
 
 
 /*
- * Sets sampledField and returns value indicating success.
+ * Sets the value of the "sampledField" attribute of this SampledFieldGeometry.
  */
 int
 SampledFieldGeometry::setSampledField(const std::string& sampledField)
@@ -167,7 +168,8 @@ SampledFieldGeometry::setSampledField(const std::string& sampledField)
 
 
 /*
- * Unsets sampledField and returns value indicating success.
+ * Unsets the value of the "sampledField" attribute of this
+ * SampledFieldGeometry.
  */
 int
 SampledFieldGeometry::unsetSampledField()
@@ -186,7 +188,7 @@ SampledFieldGeometry::unsetSampledField()
 
 
 /*
- * Returns the  "ListOfSampledVolumes" in this SampledFieldGeometry object.
+ * Returns the ListOfSampledVolumes from this SampledFieldGeometry.
  */
 const ListOfSampledVolumes*
 SampledFieldGeometry::getListOfSampledVolumes() const
@@ -196,7 +198,7 @@ SampledFieldGeometry::getListOfSampledVolumes() const
 
 
 /*
- * Returns the  "ListOfSampledVolumes" in this SampledFieldGeometry object.
+ * Returns the ListOfSampledVolumes from this SampledFieldGeometry.
  */
 ListOfSampledVolumes*
 SampledFieldGeometry::getListOfSampledVolumes()
@@ -206,76 +208,70 @@ SampledFieldGeometry::getListOfSampledVolumes()
 
 
 /*
- * Removes the nth SampledVolume from the ListOfSampledVolumes.
- */
-SampledVolume*
-SampledFieldGeometry::removeSampledVolume(unsigned int n)
-{
-	return mSampledVolumes.remove(n);
-}
-
-
-/*
- * Removes the a SampledVolume with given id from the ListOfSampledVolumes.
- */
-SampledVolume*
-SampledFieldGeometry::removeSampledVolume(const std::string& sid)
-{
-	return mSampledVolumes.remove(sid);
-}
-
-
-/*
- * Return the nth SampledVolume in the ListOfSampledVolumes within this SampledFieldGeometry.
+ * Get a SampledVolume from the SampledFieldGeometry.
  */
 SampledVolume*
 SampledFieldGeometry::getSampledVolume(unsigned int n)
 {
-	return mSampledVolumes.get(n);
+  return mSampledVolumes.get(n);
 }
 
 
 /*
- * Return the nth SampledVolume in the ListOfSampledVolumes within this SampledFieldGeometry.
+ * Get a SampledVolume from the SampledFieldGeometry.
  */
 const SampledVolume*
 SampledFieldGeometry::getSampledVolume(unsigned int n) const
 {
-	return mSampledVolumes.get(n);
+  return mSampledVolumes.get(n);
 }
 
 
 /*
- * Return a SampledVolume from the ListOfSampledVolumes by id.
+ * Get a SampledVolume from the SampledFieldGeometry based on its identifier.
  */
 SampledVolume*
 SampledFieldGeometry::getSampledVolume(const std::string& sid)
 {
-	return mSampledVolumes.get(sid);
+  return mSampledVolumes.get(sid);
 }
 
 
 /*
- * Return a SampledVolume from the ListOfSampledVolumes by id.
+ * Get a SampledVolume from the SampledFieldGeometry based on its identifier.
  */
 const SampledVolume*
 SampledFieldGeometry::getSampledVolume(const std::string& sid) const
 {
-	return mSampledVolumes.get(sid);
+  return mSampledVolumes.get(sid);
 }
 
 
 /*
- * Adds a copy the given "SampledVolume" to this SampledFieldGeometry.
- *
- * @param sv; the SampledVolume object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Get a SampledVolume from the SampledFieldGeometry based on the DomainType to
+ * which it refers.
+ */
+const SampledVolume*
+SampledFieldGeometry::getSampledVolumeByDomainType(const std::string& sid)
+  const
+{
+  return mSampledVolumes.getByDomainType(sid);
+}
+
+
+/*
+ * Get a SampledVolume from the SampledFieldGeometry based on the DomainType to
+ * which it refers.
+ */
+SampledVolume*
+SampledFieldGeometry::getSampledVolumeByDomainType(const std::string& sid)
+{
+  return mSampledVolumes.getByDomainType(sid);
+}
+
+
+/*
+ * Adds a copy of the given SampledVolume to this SampledFieldGeometry.
  */
 int
 SampledFieldGeometry::addSampledVolume(const SampledVolume* sv)
@@ -296,22 +292,24 @@ SampledFieldGeometry::addSampledVolume(const SampledVolume* sv)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sv)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(sv)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
+  else if (sv->isSetId() && (mSampledVolumes.get(sv->getId())) != NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
   else
   {
-    mSampledVolumes.append(sv);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mSampledVolumes.append(sv);
   }
 }
 
 
 /*
  * Get the number of SampledVolume objects in this SampledFieldGeometry.
- *
- * @return the number of SampledVolume objects in this SampledFieldGeometry
  */
 unsigned int
 SampledFieldGeometry::getNumSampledVolumes() const
@@ -321,12 +319,8 @@ SampledFieldGeometry::getNumSampledVolumes() const
 
 
 /*
- * Creates a new SampledVolume object, adds it to this SampledFieldGeometrys
- * SampledFieldGeometry and returns the SampledVolume object created. 
- *
- * @return a new SampledVolume object instance
- *
- * @see addSampledVolume(const SampledVolume* sv)
+ * Creates a new SampledVolume object, adds it to this SampledFieldGeometry
+ * object and returns the SampledVolume object created.
  */
 SampledVolume*
 SampledFieldGeometry::createSampledVolume()
@@ -341,14 +335,9 @@ SampledFieldGeometry::createSampledVolume()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(sv != NULL)
+  if (sv != NULL)
   {
     mSampledVolumes.appendAndOwn(sv);
   }
@@ -358,39 +347,46 @@ SampledFieldGeometry::createSampledVolume()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * Removes the nth SampledVolume from this SampledFieldGeometry and returns a
+ * pointer to it.
  */
-void
-SampledFieldGeometry::renameSIdRefs(const std::string& oldid, const std::string& newid)
+SampledVolume*
+SampledFieldGeometry::removeSampledVolume(unsigned int n)
 {
-  GeometryDefinition::renameSIdRefs(oldid, newid);
-  if (isSetSampledField() == true && mSampledField == oldid)
-  {
-    setSampledField(newid);
-  }
-
-}
-
-
-List*
-SampledFieldGeometry::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mSampledVolumes, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
+  return mSampledVolumes.remove(n);
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Removes the SampledVolume from this SampledFieldGeometry based on its
+ * identifier and returns a pointer to it.
+ */
+SampledVolume*
+SampledFieldGeometry::removeSampledVolume(const std::string& sid)
+{
+  return mSampledVolumes.remove(sid);
+}
+
+
+/*
+ * @copydoc doc_renamesidref_common
+ */
+void
+SampledFieldGeometry::renameSIdRefs(const std::string& oldid,
+                                    const std::string& newid)
+{
+  if (isSetSampledField() && mSampledField == oldid)
+  {
+    setSampledField(newid);
+  }
+}
+
+
+/*
+ * Returns the XML element name of this SampledFieldGeometry object.
  */
 const std::string&
-SampledFieldGeometry::getElementName () const
+SampledFieldGeometry::getElementName() const
 {
   static const string name = "sampledFieldGeometry";
   return name;
@@ -398,35 +394,39 @@ SampledFieldGeometry::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this SampledFieldGeometry object.
  */
 int
-SampledFieldGeometry::getTypeCode () const
+SampledFieldGeometry::getTypeCode() const
 {
   return SBML_SPATIAL_SAMPLEDFIELDGEOMETRY;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * SampledFieldGeometry object have been set.
  */
 bool
-SampledFieldGeometry::hasRequiredAttributes () const
+SampledFieldGeometry::hasRequiredAttributes() const
 {
   bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
   if (isSetSampledField() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this
+ * SampledFieldGeometry object have been set.
  */
 bool
-SampledFieldGeometry::hasRequiredElements () const
+SampledFieldGeometry::hasRequiredElements() const
 {
   bool allPresent = GeometryDefinition::hasRequiredElements();
 
@@ -434,15 +434,17 @@ SampledFieldGeometry::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-SampledFieldGeometry::writeElements (XMLOutputStream& stream) const
+SampledFieldGeometry::writeElements(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeElements(stream);
+
   if (getNumSampledVolumes() > 0)
   {
     mSampledVolumes.write(stream);
@@ -451,51 +453,51 @@ SampledFieldGeometry::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-SampledFieldGeometry::accept (SBMLVisitor& v) const
+SampledFieldGeometry::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-/* VISIT CHILDREN */
+  mSampledVolumes.accept(v);
 
   v.leave(*this);
-
   return true;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-SampledFieldGeometry::setSBMLDocument (SBMLDocument* d)
+SampledFieldGeometry::setSBMLDocument(SBMLDocument* d)
 {
   GeometryDefinition::setSBMLDocument(d);
+
   mSampledVolumes.setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
+ * Connects to child elements
  */
 void
 SampledFieldGeometry::connectToChild()
@@ -505,57 +507,469 @@ SampledFieldGeometry::connectToChild()
   mSampledVolumes.connectToParent(this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 SampledFieldGeometry::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                            const std::string& pkgPrefix,
+                                            bool flag)
 {
   GeometryDefinition::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
   mSampledVolumes.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * creates object.
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   bool& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   double& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   unsigned int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   std::string& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "sampledField")
+  {
+    value = getSampledField();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::getAttribute(const std::string& attributeName,
+                                   const char* value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "sampledField")
+  {
+    value = getSampledField().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this SampledFieldGeometry's attribute
+ * "attributeName" is set.
+ */
+bool
+SampledFieldGeometry::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = GeometryDefinition::isSetAttribute(attributeName);
+
+  if (attributeName == "sampledField")
+  {
+    value = isSetSampledField();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   bool value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   double value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   unsigned int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   const std::string& value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  if (attributeName == "sampledField")
+  {
+    return_value = setSampledField(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::setAttribute(const std::string& attributeName,
+                                   const char* value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  if (attributeName == "sampledField")
+  {
+    return_value = setSampledField(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * SampledFieldGeometry.
+ */
+int
+SampledFieldGeometry::unsetAttribute(const std::string& attributeName)
+{
+  int value = GeometryDefinition::unsetAttribute(attributeName);
+
+  if (attributeName == "sampledField")
+  {
+    value = unsetSampledField();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this
+ * SampledFieldGeometry.
+ */
+SBase*
+SampledFieldGeometry::createObject(const std::string& elementName)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "sampledVolume")
+  {
+    return createSampledVolume();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+SampledFieldGeometry::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mSampledVolumes.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+SampledFieldGeometry::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mSampledVolumes.getMetaId() == metaid)
+  {
+    return &mSampledVolumes;
+  }
+
+  obj = mSampledVolumes.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+SampledFieldGeometry::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mSampledVolumes, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 SampledFieldGeometry::createObject(XMLInputStream& stream)
 {
-  SBase* object = GeometryDefinition::createObject(stream);
+  SBase* obj = GeometryDefinition::createObject(stream);
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   if (name == "listOfSampledVolumes")
   {
-    object = &mSampledVolumes;
+    if (mSampledVolumes.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialSampledFieldGeometryAllowedElements, getPackageVersion(),
+          getLevel(), getVersion());
+    }
+
+    obj = &mSampledVolumes;
   }
+
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 SampledFieldGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -565,125 +979,129 @@ SampledFieldGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("sampledField");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+SampledFieldGeometry::readAttributes(const XMLAttributes& attributes,
+                                     const ExpectedAttributes&
+                                       expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial",
+        SpatialSampledFieldGeometryAllowedAttributes, pkgVersion, level, version,
+          details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialSampledFieldGeometryAllowedCoreAttributes, pkgVersion, level,
+          version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // sampledField SIdRef (use = "required" )
+  // 
 
-  //
-  // sampledField SIdRef   ( use = "required" )
-  //
   assigned = attributes.readInto("sampledField", mSampledField);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mSampledField.empty() == true)
     {
-      logEmptyString(mSampledField, getLevel(), getVersion(), "<SampledFieldGeometry>");
+      logEmptyString(mSampledField, level, version, "<SampledFieldGeometry>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mSampledField) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mSampledField) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute sampledField='" + mSampledField + "' does not conform.");
+      logError(SpatialSampledFieldGeometrySampledFieldMustBeSampledField,
+        level, version, "The attribute sampledField='" + mSampledField + "' does "
+          "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'sampledField' is missing from 'sampledFieldGeometry' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'sampledField' is missing from the "
+      "<SampledFieldGeometry> element.";
+    log->logPackageError("spatial",
+      SpatialSampledFieldGeometryAllowedAttributes, pkgVersion, level, version,
+        message);
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-SampledFieldGeometry::writeAttributes (XMLOutputStream& stream) const
+void
+SampledFieldGeometry::writeAttributes(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeAttributes(stream);
 
   if (isSetSampledField() == true)
+  {
     stream.writeAttribute("sampledField", getPrefix(), mSampledField);
+  }
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new SampledFieldGeometry_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 SampledFieldGeometry_t *
-SampledFieldGeometry_create(unsigned int level, unsigned int version,
+SampledFieldGeometry_create(unsigned int level,
+                            unsigned int version,
                             unsigned int pkgVersion)
 {
   return new SampledFieldGeometry(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this SampledFieldGeometry_t object.
+ */
 LIBSBML_EXTERN
-void
-SampledFieldGeometry_free(SampledFieldGeometry_t * sfg)
-{
-  if (sfg != NULL)
-    delete sfg;
-}
-
-
-LIBSBML_EXTERN
-SampledFieldGeometry_t *
-SampledFieldGeometry_clone(SampledFieldGeometry_t * sfg)
+SampledFieldGeometry_t*
+SampledFieldGeometry_clone(const SampledFieldGeometry_t* sfg)
 {
   if (sfg != NULL)
   {
@@ -696,14 +1114,42 @@ SampledFieldGeometry_clone(SampledFieldGeometry_t * sfg)
 }
 
 
+/*
+ * Frees this SampledFieldGeometry_t object.
+ */
+LIBSBML_EXTERN
+void
+SampledFieldGeometry_free(SampledFieldGeometry_t* sfg)
+{
+  if (sfg != NULL)
+  {
+    delete sfg;
+  }
+}
+
+
+/*
+ * Returns the value of the "sampledField" attribute of this
+ * SampledFieldGeometry_t.
+ */
 LIBSBML_EXTERN
 const char *
 SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg)
 {
-	return (sfg != NULL && sfg->isSetSampledField()) ? sfg->getSampledField().c_str() : NULL;
+  if (sfg == NULL)
+  {
+    return NULL;
+  }
+
+  return sfg->getSampledField().empty() ? NULL :
+    safe_strdup(sfg->getSampledField().c_str());
 }
 
 
+/*
+ * Predicate returning @c 1 if this SampledFieldGeometry_t's "sampledField"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SampledFieldGeometry_isSetSampledField(const SampledFieldGeometry_t * sfg)
@@ -712,17 +1158,24 @@ SampledFieldGeometry_isSetSampledField(const SampledFieldGeometry_t * sfg)
 }
 
 
+/*
+ * Sets the value of the "sampledField" attribute of this
+ * SampledFieldGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, const char * sampledField)
+SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg,
+                                     const char * sampledField)
 {
-  if (sfg != NULL)
-    return (sampledField == NULL) ? sfg->setSampledField("") : sfg->setSampledField(sampledField);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (sfg != NULL) ? sfg->setSampledField(sampledField) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "sampledField" attribute of this
+ * SampledFieldGeometry_t.
+ */
 LIBSBML_EXTERN
 int
 SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg)
@@ -731,62 +1184,122 @@ SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg)
 }
 
 
+/*
+ * Returns a ListOf_t* containing SampledVolume_t objects from this
+ * SampledFieldGeometry_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+SampledFieldGeometry_getListOfSampledVolumes(SampledFieldGeometry_t* sfg)
+{
+  return (sfg != NULL) ? sfg->getListOfSampledVolumes() : NULL;
+}
+
+
+/*
+ * Get a SampledVolume_t from the SampledFieldGeometry_t.
+ */
+LIBSBML_EXTERN
+const SampledVolume_t*
+SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t* sfg,
+                                      unsigned int n)
+{
+  return (sfg != NULL) ? sfg->getSampledVolume(n) : NULL;
+}
+
+
+/*
+ * Get a SampledVolume_t from the SampledFieldGeometry_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+const SampledVolume_t*
+SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t* sfg,
+                                          const char *sid)
+{
+  return (sfg != NULL && sid != NULL) ? sfg->getSampledVolume(sid) : NULL;
+}
+
+
+/*
+ * Get a SampledVolume_t from the SampledFieldGeometry_t based on the
+ * DomainType to which it refers.
+ */
+LIBSBML_EXTERN
+const SampledVolume_t*
+SampledFieldGeometry_getSampledVolumeByDomainType(SampledFieldGeometry_t* sfg,
+                                                  const char *sid)
+{
+  return (sfg != NULL && sid != NULL) ? sfg->getSampledVolumeByDomainType(sid)
+    : NULL;
+}
+
+
+/*
+ * Adds a copy of the given SampledVolume_t to this SampledFieldGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-SampledFieldGeometry_addSampledVolume(SampledFieldGeometry_t * sfg, SampledVolume_t * sv)
+SampledFieldGeometry_addSampledVolume(SampledFieldGeometry_t* sfg,
+                                      const SampledVolume_t* sv)
 {
-	return  (sfg != NULL) ? sfg->addSampledVolume(sv) : LIBSBML_INVALID_OBJECT;
+  return (sfg != NULL) ? sfg->addSampledVolume(sv) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-SampledVolume_t *
-SampledFieldGeometry_createSampledVolume(SampledFieldGeometry_t * sfg)
-{
-	return  (sfg != NULL) ? sfg->createSampledVolume() : NULL;
-}
 
-LIBSBML_EXTERN
-ListOf_t *
-SampledFieldGeometry_getListOfSampledVolumes(SampledFieldGeometry_t * sfg)
-{
-	return  (sfg != NULL) ? (ListOf_t *)sfg->getListOfSampledVolumes() : NULL;
-}
-
-LIBSBML_EXTERN
-SampledVolume_t *
-SampledFieldGeometry_getSampledVolume(SampledFieldGeometry_t * sfg, unsigned int n)
-{
-	return  (sfg != NULL) ? sfg->getSampledVolume(n) : NULL;
-}
-
-LIBSBML_EXTERN
-SampledVolume_t *
-SampledFieldGeometry_getSampledVolumeById(SampledFieldGeometry_t * sfg, const char * sid)
-{
-	return  (sfg != NULL) ? sfg->getSampledVolume(sid) : NULL;
-}
-
+/*
+ * Get the number of SampledVolume_t objects in this SampledFieldGeometry_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-SampledFieldGeometry_getNumSampledVolumes(SampledFieldGeometry_t * sfg)
+SampledFieldGeometry_getNumSampledVolumes(SampledFieldGeometry_t* sfg)
 {
-	return  (sfg != NULL) ? sfg->getNumSampledVolumes() : SBML_INT_MAX;
+  return (sfg != NULL) ? sfg->getNumSampledVolumes() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new SampledVolume_t object, adds it to this SampledFieldGeometry_t
+ * object and returns the SampledVolume_t object created.
+ */
 LIBSBML_EXTERN
-SampledVolume_t *
-SampledFieldGeometry_removeSampledVolume(SampledFieldGeometry_t * sfg, unsigned int n)
+SampledVolume_t*
+SampledFieldGeometry_createSampledVolume(SampledFieldGeometry_t* sfg)
 {
-	return  (sfg != NULL) ? sfg->removeSampledVolume(n) : NULL;
+  return (sfg != NULL) ? sfg->createSampledVolume() : NULL;
 }
 
+
+/*
+ * Removes the nth SampledVolume_t from this SampledFieldGeometry_t and returns
+ * a pointer to it.
+ */
 LIBSBML_EXTERN
-SampledVolume_t *
-SampledFieldGeometry_removeSampledVolumeById(SampledFieldGeometry_t * sfg, const char * sid)
+SampledVolume_t*
+SampledFieldGeometry_removeSampledVolume(SampledFieldGeometry_t* sfg,
+                                         unsigned int n)
 {
-	return  (sfg != NULL) ? sfg->removeSampledVolume(sid) : NULL;
+  return (sfg != NULL) ? sfg->removeSampledVolume(n) : NULL;
 }
 
+
+/*
+ * Removes the SampledVolume_t from this SampledFieldGeometry_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SampledVolume_t*
+SampledFieldGeometry_removeSampledVolumeById(SampledFieldGeometry_t* sfg,
+                                             const char* sid)
+{
+  return (sfg != NULL && sid != NULL) ? sfg->removeSampledVolume(sid) : NULL;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * SampledFieldGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 SampledFieldGeometry_hasRequiredAttributes(const SampledFieldGeometry_t * sfg)
@@ -795,11 +1308,15 @@ SampledFieldGeometry_hasRequiredAttributes(const SampledFieldGeometry_t * sfg)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this
+ * SampledFieldGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 SampledFieldGeometry_hasRequiredElements(const SampledFieldGeometry_t * sfg)
 {
-	return (sfg != NULL) ? static_cast<int>(sfg->hasRequiredElements()) : 0;
+  return (sfg != NULL) ? static_cast<int>(sfg->hasRequiredElements()) : 0;
 }
 
 

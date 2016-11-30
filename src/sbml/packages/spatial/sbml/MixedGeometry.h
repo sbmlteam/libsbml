@@ -1,34 +1,37 @@
 /**
- * @file:   MixedGeometry.h
- * @brief:  Implementation of the MixedGeometry class
- * @author: SBMLTeam
+ * @file MixedGeometry.h
+ * @brief Definition of the MixedGeometry class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MixedGeometry
+ * @sbmlbrief{spatial} TODO:Definition of the MixedGeometry class.
  */
 
 
@@ -47,169 +50,187 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
-#include <sbml/ListOf.h>
+#include <sbml/packages/spatial/sbml/GeometryDefinition.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/packages/spatial/sbml/GeometryDefinition.h>
+#include <sbml/packages/spatial/sbml/ListOfGeometryDefinitions.h>
+#include <sbml/packages/spatial/sbml/ListOfOrdinalMappings.h>
 
-#include <sbml/packages/spatial/sbml/GeometryDefinition.h>
-#include <sbml/packages/spatial/sbml/OrdinalMapping.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-
 class LIBSBML_EXTERN MixedGeometry : public GeometryDefinition
 {
-
 protected:
 
-  ListOfGeometryDefinitions   mGeometryDefinitions;
-  ListOfOrdinalMappings   mOrdinalMappings;
+  /** @cond doxygenLibsbmlInternal */
 
+  ListOfGeometryDefinitions mGeometryDefinitions;
+  ListOfOrdinalMappings mOrdinalMappings;
+
+  /** @endcond */
 
 public:
 
   /**
-   * Creates a new MixedGeometry with the given level, version, and package version.
+   * Creates a new MixedGeometry using the given SBML Level, Version and
+   * &ldquo;spatial&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this MixedGeometry
+   * @param level an unsigned int, the SBML Level to assign to this
+   * MixedGeometry.
    *
-   * @param version an unsigned int, the SBML Version to assign to this MixedGeometry
+   * @param version an unsigned int, the SBML Version to assign to this
+   * MixedGeometry.
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this MixedGeometry
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+   * this MixedGeometry.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  MixedGeometry(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                unsigned int version    = SpatialExtension::getDefaultVersion(),
-                unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  MixedGeometry(unsigned int level = SpatialExtension::getDefaultLevel(),
+                unsigned int version = SpatialExtension::getDefaultVersion(),
+                unsigned int pkgVersion =
+                  SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new MixedGeometry with the given SpatialPkgNamespaces object.
+   * Creates a new MixedGeometry using the given SpatialPkgNamespaces object.
    *
-   * @param spatialns the SpatialPkgNamespaces object
+   * @param spatialns the SpatialPkgNamespaces object.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  MixedGeometry(SpatialPkgNamespaces* spatialns);
+  MixedGeometry(SpatialPkgNamespaces *spatialns);
 
 
-   /**
+  /**
    * Copy constructor for MixedGeometry.
    *
-   * @param orig; the MixedGeometry instance to copy.
+   * @param orig the MixedGeometry instance to copy.
    */
   MixedGeometry(const MixedGeometry& orig);
 
 
-   /**
+  /**
    * Assignment operator for MixedGeometry.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the MixedGeometry object whose values are to be used as the
+   * basis of the assignment.
    */
   MixedGeometry& operator=(const MixedGeometry& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MixedGeometry object.
    *
    * @return a (deep) copy of this MixedGeometry object.
    */
-  virtual MixedGeometry* clone () const;
+  virtual MixedGeometry* clone() const;
 
 
-   /**
+  /**
    * Destructor for MixedGeometry.
    */
   virtual ~MixedGeometry();
 
 
-   /**
-   * Returns the  "ListOfGeometryDefinitions" in this MixedGeometry object.
+  /**
+   * Returns the ListOfGeometryDefinitions from this MixedGeometry.
    *
-   * @return the "ListOfGeometryDefinitions" attribute of this MixedGeometry.
+   * @return the ListOfGeometryDefinitions from this MixedGeometry.
    */
   const ListOfGeometryDefinitions* getListOfGeometryDefinitions() const;
 
 
   /**
-   * Returns the  "ListOfGeometryDefinitions" in this MixedGeometry object.
+   * Returns the ListOfGeometryDefinitions from this MixedGeometry.
    *
-   * @return the "ListOfGeometryDefinitions" attribute of this MixedGeometry.
+   * @return the ListOfGeometryDefinitions from this MixedGeometry.
    */
   ListOfGeometryDefinitions* getListOfGeometryDefinitions();
 
 
   /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
+   * Get a GeometryDefinition from the MixedGeometry.
    *
-   * @param n the index number of the GeometryDefinition to get.
+   * @param n an unsigned int representing the index of the GeometryDefinition
+   * to retrieve.
    *
-   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within this MixedGeometry.
-   *
-   * @see getNumGeometryDefinitions()
-   */
-	GeometryDefinition* getGeometryDefinition(unsigned int n);
-
-
-  /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
-   *
-   * @param n the index number of the GeometryDefinition to get.
-   *
-   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within this MixedGeometry.
+   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
+   * this MixedGeometry.
    *
    * @see getNumGeometryDefinitions()
    */
-	const GeometryDefinition* getGeometryDefinition(unsigned int n) const;
+  GeometryDefinition* getGeometryDefinition(unsigned int n);
 
 
   /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions
-   * based on its identifier.
+   * Get a GeometryDefinition from the MixedGeometry.
    *
-   * @param sid a string representing the identifier
-   * of the GeometryDefinition to get.
+   * @param n an unsigned int representing the index of the GeometryDefinition
+   * to retrieve.
    *
-   * @return the GeometryDefinition in the ListOfGeometryDefinitions
-   * with the given id or NULL if no such
-   * GeometryDefinition exists.
+   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within
+   * this MixedGeometry.
+   *
+   * @see getNumGeometryDefinitions()
+   */
+  const GeometryDefinition* getGeometryDefinition(unsigned int n) const;
+
+
+  /**
+   * Get a GeometryDefinition from the MixedGeometry based on its identifier.
+   *
+   * @param sid a string representing the identifier of the GeometryDefinition
+   * to retrieve.
+   *
+   * @return the GeometryDefinition in the ListOfGeometryDefinitions within
+   * this MixedGeometry with the given id or NULL if no such GeometryDefinition
+   * exists.
    *
    * @see getGeometryDefinition(unsigned int n)
-   *
    * @see getNumGeometryDefinitions()
    */
-	GeometryDefinition* getGeometryDefinition(const std::string& sid);
+  GeometryDefinition* getGeometryDefinition(const std::string& sid);
 
 
   /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions
-   * based on its identifier.
+   * Get a GeometryDefinition from the MixedGeometry based on its identifier.
    *
-   * @param sid a string representing the identifier
-   * of the GeometryDefinition to get.
+   * @param sid a string representing the identifier of the GeometryDefinition
+   * to retrieve.
    *
-   * @return the GeometryDefinition in the ListOfGeometryDefinitions
-   * with the given id or NULL if no such
-   * GeometryDefinition exists.
+   * @return the GeometryDefinition in the ListOfGeometryDefinitions within
+   * this MixedGeometry with the given id or NULL if no such GeometryDefinition
+   * exists.
    *
    * @see getGeometryDefinition(unsigned int n)
-   *
    * @see getNumGeometryDefinitions()
    */
-	const GeometryDefinition* getGeometryDefinition(const std::string& sid) const;
+  const GeometryDefinition* getGeometryDefinition(const std::string& sid)
+    const;
 
 
   /**
-   * Adds a copy the given "GeometryDefinition" to this MixedGeometry.
+   * Adds a copy of the given GeometryDefinition to this MixedGeometry.
    *
-   * @param gd; the GeometryDefinition object to add
+   * @param gd the GeometryDefinition object to add.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createGeometryDefinition()
    */
   int addGeometryDefinition(const GeometryDefinition* gd);
 
@@ -217,16 +238,16 @@ public:
   /**
    * Get the number of GeometryDefinition objects in this MixedGeometry.
    *
-   * @return the number of GeometryDefinition objects in this MixedGeometry
+   * @return the number of GeometryDefinition objects in this MixedGeometry.
    */
   unsigned int getNumGeometryDefinitions() const;
 
 
   /**
-   * Creates a new AnalyticGeometry object, adds it to this MixedGeometrys
-   * ListOfGeometryDefinitions and returns the AnalyticGeometry object created. 
+   * Creates a new AnalyticGeometry object, adds it to this MixedGeometry
+   * object and returns the AnalyticGeometry object created.
    *
-   * @return a new AnalyticGeometry object instance
+   * @return a new AnalyticGeometry object instance.
    *
    * @see addGeometryDefinition(const GeometryDefinition* gd)
    */
@@ -234,10 +255,10 @@ public:
 
 
   /**
-   * Creates a new SampledFieldGeometry object, adds it to this MixedGeometrys
-   * ListOfGeometryDefinitions and returns the SampledFieldGeometry object created. 
+   * Creates a new SampledFieldGeometry object, adds it to this MixedGeometry
+   * object and returns the SampledFieldGeometry object created.
    *
-   * @return a new SampledFieldGeometry object instance
+   * @return a new SampledFieldGeometry object instance.
    *
    * @see addGeometryDefinition(const GeometryDefinition* gd)
    */
@@ -245,21 +266,21 @@ public:
 
 
   /**
-   * Creates a new CSGeometry object, adds it to this MixedGeometrys
-   * ListOfGeometryDefinitions and returns the CSGeometry object created. 
+   * Creates a new CSGeometry object, adds it to this MixedGeometry object and
+   * returns the CSGeometry object created.
    *
-   * @return a new CSGeometry object instance
+   * @return a new CSGeometry object instance.
    *
    * @see addGeometryDefinition(const GeometryDefinition* gd)
    */
-  CSGeometry* createCsGeometry();
+  CSGeometry* createCSGeometry();
 
 
   /**
-   * Creates a new ParametricGeometry object, adds it to this MixedGeometrys
-   * ListOfGeometryDefinitions and returns the ParametricGeometry object created. 
+   * Creates a new ParametricGeometry object, adds it to this MixedGeometry
+   * object and returns the ParametricGeometry object created.
    *
-   * @return a new ParametricGeometry object instance
+   * @return a new ParametricGeometry object instance.
    *
    * @see addGeometryDefinition(const GeometryDefinition* gd)
    */
@@ -267,10 +288,10 @@ public:
 
 
   /**
-   * Creates a new MixedGeometry object, adds it to this MixedGeometrys
-   * ListOfGeometryDefinitions and returns the MixedGeometry object created. 
+   * Creates a new MixedGeometry object, adds it to this MixedGeometry object
+   * and returns the MixedGeometry object created.
    *
-   * @return a new MixedGeometry object instance
+   * @return a new MixedGeometry object instance.
    *
    * @see addGeometryDefinition(const GeometryDefinition* gd)
    */
@@ -278,121 +299,122 @@ public:
 
 
   /**
-   * Removes the nth GeometryDefinition from the ListOfGeometryDefinitions within this MixedGeometry.
-   * and returns a pointer to it.
+   * Removes the nth GeometryDefinition from this MixedGeometry and returns a
+   * pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
+   * @param n an unsigned int representing the index of the GeometryDefinition
+   * to remove.
    *
-   * @param n the index of the GeometryDefinition to remove.
+   * @return a pointer to the nth GeometryDefinition in this MixedGeometry.
    *
-   * @see getNumGeometryDefinitions()
+   * @see getNumGeometryDefinitions
+   *
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
-	GeometryDefinition* removeGeometryDefinition(unsigned int n);
+  GeometryDefinition* removeGeometryDefinition(unsigned int n);
 
 
   /**
-   * Removes the GeometryDefinition with the given identifier from the ListOfGeometryDefinitions within this MixedGeometry
-   * and returns a pointer to it.
+   * Removes the GeometryDefinition from this MixedGeometry based on its
+   * identifier and returns a pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * @param sid a string representing the identifier of the GeometryDefinition
+   * to remove.
    *
-   * @param sid the identifier of the GeometryDefinition to remove.
+   * @return the GeometryDefinition in this MixedGeometry based on the
+   * identifier or NULL if no such GeometryDefinition exists.
    *
-   * @return the GeometryDefinition removed. As mentioned above, the caller owns the
-   * returned item.
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
-	GeometryDefinition* removeGeometryDefinition(const std::string& sid);
+  GeometryDefinition* removeGeometryDefinition(const std::string& sid);
 
 
   /**
-   * Returns the  "ListOfOrdinalMappings" in this MixedGeometry object.
+   * Returns the ListOfOrdinalMappings from this MixedGeometry.
    *
-   * @return the "ListOfOrdinalMappings" attribute of this MixedGeometry.
+   * @return the ListOfOrdinalMappings from this MixedGeometry.
    */
   const ListOfOrdinalMappings* getListOfOrdinalMappings() const;
 
 
   /**
-   * Returns the  "ListOfOrdinalMappings" in this MixedGeometry object.
+   * Returns the ListOfOrdinalMappings from this MixedGeometry.
    *
-   * @return the "ListOfOrdinalMappings" attribute of this MixedGeometry.
+   * @return the ListOfOrdinalMappings from this MixedGeometry.
    */
   ListOfOrdinalMappings* getListOfOrdinalMappings();
 
 
   /**
-   * Get a OrdinalMapping from the ListOfOrdinalMappings.
+   * Get an OrdinalMapping from the MixedGeometry.
    *
-   * @param n the index number of the OrdinalMapping to get.
+   * @param n an unsigned int representing the index of the OrdinalMapping to
+   * retrieve.
    *
-   * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this MixedGeometry.
-   *
-   * @see getNumOrdinalMappings()
-   */
-	OrdinalMapping* getOrdinalMapping(unsigned int n);
-
-
-  /**
-   * Get a OrdinalMapping from the ListOfOrdinalMappings.
-   *
-   * @param n the index number of the OrdinalMapping to get.
-   *
-   * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this MixedGeometry.
+   * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this
+   * MixedGeometry.
    *
    * @see getNumOrdinalMappings()
    */
-	const OrdinalMapping* getOrdinalMapping(unsigned int n) const;
+  OrdinalMapping* getOrdinalMapping(unsigned int n);
 
 
   /**
-   * Get a OrdinalMapping from the ListOfOrdinalMappings
-   * based on its identifier.
+   * Get an OrdinalMapping from the MixedGeometry.
    *
-   * @param sid a string representing the identifier
-   * of the OrdinalMapping to get.
+   * @param n an unsigned int representing the index of the OrdinalMapping to
+   * retrieve.
    *
-   * @return the OrdinalMapping in the ListOfOrdinalMappings
-   * with the given id or NULL if no such
-   * OrdinalMapping exists.
-   *
-   * @see getOrdinalMapping(unsigned int n)
+   * @return the nth OrdinalMapping in the ListOfOrdinalMappings within this
+   * MixedGeometry.
    *
    * @see getNumOrdinalMappings()
    */
-	OrdinalMapping* getOrdinalMapping(const std::string& sid);
+  const OrdinalMapping* getOrdinalMapping(unsigned int n) const;
 
 
   /**
-   * Get a OrdinalMapping from the ListOfOrdinalMappings
-   * based on its identifier.
+   * Get an OrdinalMapping from the MixedGeometry based on the
+   * GeometryDefinition to which it refers.
    *
-   * @param sid a string representing the identifier
-   * of the OrdinalMapping to get.
+   * @param sid a string representing the geometryDefinition attribute of the
+   * OrdinalMapping object to retrieve.
    *
-   * @return the OrdinalMapping in the ListOfOrdinalMappings
-   * with the given id or NULL if no such
-   * OrdinalMapping exists.
-   *
-   * @see getOrdinalMapping(unsigned int n)
-   *
-   * @see getNumOrdinalMappings()
+   * @return the first OrdinalMapping in this MixedGeometry based on the given
+   * geometryDefinition attribute or NULL if no such OrdinalMapping exists.
    */
-	const OrdinalMapping* getOrdinalMapping(const std::string& sid) const;
+  const OrdinalMapping* getOrdinalMappingByGeometryDefinition(const
+    std::string& sid) const;
 
 
   /**
-   * Adds a copy the given "OrdinalMapping" to this MixedGeometry.
+   * Get an OrdinalMapping from the MixedGeometry based on the
+   * GeometryDefinition to which it refers.
    *
-   * @param om; the OrdinalMapping object to add
+   * @param sid a string representing the geometryDefinition attribute of the
+   * OrdinalMapping object to retrieve.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @return the first OrdinalMapping in this MixedGeometry based on the given
+   * geometryDefinition attribute or NULL if no such OrdinalMapping exists.
+   */
+  OrdinalMapping* getOrdinalMappingByGeometryDefinition(const std::string&
+    sid);
+
+
+  /**
+   * Adds a copy of the given OrdinalMapping to this MixedGeometry.
+   *
+   * @param om the OrdinalMapping object to add.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createOrdinalMapping()
    */
   int addOrdinalMapping(const OrdinalMapping* om);
 
@@ -400,16 +422,16 @@ public:
   /**
    * Get the number of OrdinalMapping objects in this MixedGeometry.
    *
-   * @return the number of OrdinalMapping objects in this MixedGeometry
+   * @return the number of OrdinalMapping objects in this MixedGeometry.
    */
   unsigned int getNumOrdinalMappings() const;
 
 
   /**
-   * Creates a new OrdinalMapping object, adds it to this MixedGeometrys
-   * ListOfOrdinalMappings and returns the OrdinalMapping object created. 
+   * Creates a new OrdinalMapping object, adds it to this MixedGeometry object
+   * and returns the OrdinalMapping object created.
    *
-   * @return a new OrdinalMapping object instance
+   * @return a new OrdinalMapping object instance.
    *
    * @see addOrdinalMapping(const OrdinalMapping* om)
    */
@@ -417,213 +439,509 @@ public:
 
 
   /**
-   * Removes the nth OrdinalMapping from the ListOfOrdinalMappings within this MixedGeometry.
-   * and returns a pointer to it.
+   * Removes the nth OrdinalMapping from this MixedGeometry and returns a
+   * pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
+   * @param n an unsigned int representing the index of the OrdinalMapping to
+   * remove.
    *
-   * @param n the index of the OrdinalMapping to remove.
+   * @return a pointer to the nth OrdinalMapping in this MixedGeometry.
    *
-   * @see getNumOrdinalMappings()
+   * @see getNumOrdinalMappings
+   *
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
-	OrdinalMapping* removeOrdinalMapping(unsigned int n);
+  OrdinalMapping* removeOrdinalMapping(unsigned int n);
 
 
   /**
-   * Removes the OrdinalMapping with the given identifier from the ListOfOrdinalMappings within this MixedGeometry
-   * and returns a pointer to it.
+   * Returns the XML element name of this MixedGeometry object.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * For MixedGeometry, the XML element name is always @c "mixedGeometry".
    *
-   * @param sid the identifier of the OrdinalMapping to remove.
-   *
-   * @return the OrdinalMapping removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the name of this element, i.e. @c "mixedGeometry".
    */
-	OrdinalMapping* removeOrdinalMapping(const std::string& sid);
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this MixedGeometry object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   *
+   * @sbmlconstant{SBML_SPATIAL_MIXEDGEOMETRY, SBMLSpatialTypeCode_t}
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * MixedGeometry object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * MixedGeometry have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the MixedGeometry object are:
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * MixedGeometry object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * MixedGeometry have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the MixedGeometry object are:
+   */
+  virtual bool hasRequiredElements() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this MixedGeometry's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this MixedGeometry's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this MixedGeometry.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this MixedGeometry.
+   *
+   * @param objectName, the name of the element to create.
+   *
+   * pointer to the object created.
+   */
+  virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
 
 
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * @return a List* of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
-
-  /**
-   * Returns the XML element name of this object, which for MixedGeometry, is
-   * always @c "mixedGeometry".
+   * filter, an ElementFilter that may impose restrictions on the objects to be
+   * retrieved.
    *
-   * @return the name of this element, i.e. @c "mixedGeometry".
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
    */
-  virtual const std::string& getElementName () const;
-
-
-  /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode () const;
-
-
-  /**
-   * Predicate returning @c true if all the required attributes
-   * for this MixedGeometry object have been set.
-   *
-   * @note The required attributes for a MixedGeometry object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
-   */
-  virtual bool hasRequiredAttributes() const;
-
-
-  /**
-   * Predicate returning @c true if all the required elements
-   * for this MixedGeometry object have been set.
-   *
-   * @note The required elements for a MixedGeometry object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
-   */
-  virtual bool hasRequiredElements() const;
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Accepts the given SBMLVisitor.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the parent SBMLDocument.
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Connects to child elements.
-   */
-  virtual void connectToChild ();
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Enables/Disables the given package with this element.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-               const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * return the SBML object corresponding to next XMLToken.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Get the list of expected attributes for this element.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Read values from the given XMLAttributes set into their specific fields.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write values of XMLAttributes to the output stream.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
 
 
 };
@@ -632,173 +950,426 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+
+
+
+#endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
 /**
- * Creates a new MixedGeometry_t structure using the given SBML @p level and
- * @p version values.
+ * Creates a new MixedGeometry_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  *
- * @param level an unsigned int, the SBML level to assign to this
- * MixedGeometry_t structure.
+ * @param level an unsigned int, the SBML Level to assign to this
+ * MixedGeometry_t.
  *
- * @param version an unsigned int, the SBML version to assign to this
- * MixedGeometry_t structure.
+ * @param version an unsigned int, the SBML Version to assign to this
+ * MixedGeometry_t.
  *
- * @returns the newly-created MixedGeometry_t structure, or a null pointer if
- * an error occurred during construction.
+ * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
+ * this MixedGeometry_t.
  *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination, or this kind of
+ * SBML object, are either invalid or mismatched with respect to the parent
+ * SBMLDocument object.
  * @copydetails doc_note_setting_lv
  *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
 MixedGeometry_t *
-MixedGeometry_create(unsigned int level, unsigned int version,
-                     unsigned int pkgVersion);
+MixedGeometry_create(unsigned int level = SpatialExtension::getDefaultLevel(),
+                     unsigned int version =
+                       SpatialExtension::getDefaultVersion(),
+                     unsigned int pkgVersion =
+                       SpatialExtension::getDefaultPackageVersion());
 
 
 /**
- * Frees the given MixedGeometry_t structure.
- * 
- * @param mg the MixedGeometry_t structure to be freed.
+ * Creates and returns a deep copy of this MixedGeometry_t object.
+ *
+ * @param mg the MixedGeometry_t structure.
+ *
+ * @return a (deep) copy of this MixedGeometry_t object.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+MixedGeometry_t*
+MixedGeometry_clone(const MixedGeometry_t* mg);
+
+
+/**
+ * Frees this MixedGeometry_t object.
+ *
+ * @param mg the MixedGeometry_t structure.
  *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
 void
-MixedGeometry_free(MixedGeometry_t * mg);
+MixedGeometry_free(MixedGeometry_t* mg);
 
 
 /**
- * Creates a deep copy of the given MixedGeometry_t structure.
- * 
- * @param mg the MixedGeometry_t structure to be copied.
+ * Returns a ListOf_t* containing GeometryDefinition_t objects from this
+ * MixedGeometry_t.
  *
- * @returns a (deep) copy of the given MixedGeometry_t structure, or a null
- * pointer if a failure occurred.
+ * @param mg the MixedGeometry_t structure whose "ListOfGeometryDefinitions" is
+ * sought.
+ *
+ * @return the "ListOfGeometryDefinitions" from this MixedGeometry_t as a
+ * ListOf_t *.
  *
  * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
-MixedGeometry_t *
-MixedGeometry_clone(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-int
-MixedGeometry_addGeometryDefinition(MixedGeometry_t * mg, GeometryDefinition_t * gd);
-
-
-LIBSBML_EXTERN
-AnalyticGeometry_t *
-MixedGeometry_createAnalyticGeometry(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-SampledFieldGeometry_t *
-MixedGeometry_createSampledFieldGeometry(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-CSGeometry_t *
-MixedGeometry_createCsGeometry(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-ParametricGeometry_t *
-MixedGeometry_createParametricGeometry(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-MixedGeometry_t *
-MixedGeometry_createMixedGeometry(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t * mg) ;
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_getGeometryDefinition(MixedGeometry_t * mg, unsigned int n);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_getGeometryDefinitionById(MixedGeometry_t * mg, const char * sid);
-
-
-LIBSBML_EXTERN
-unsigned int
-MixedGeometry_getNumGeometryDefinitions(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_removeGeometryDefinition(MixedGeometry_t * mg, unsigned int n);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t * mg, const char * sid);
-
-
-LIBSBML_EXTERN
-int
-MixedGeometry_addOrdinalMapping(MixedGeometry_t * mg, OrdinalMapping_t * om);
-
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_createOrdinalMapping(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t * mg) ;
-
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_getOrdinalMapping(MixedGeometry_t * mg, unsigned int n);
-
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_getOrdinalMappingById(MixedGeometry_t * mg, const char * sid);
-
-
-LIBSBML_EXTERN
-unsigned int
-MixedGeometry_getNumOrdinalMappings(MixedGeometry_t * mg);
-
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_removeOrdinalMapping(MixedGeometry_t * mg, unsigned int n);
-
-
-LIBSBML_EXTERN
-OrdinalMapping_t *
-MixedGeometry_removeOrdinalMappingById(MixedGeometry_t * mg, const char * sid);
+ListOf_t*
+MixedGeometry_getListOfGeometryDefinitions(MixedGeometry_t* mg);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given MixedGeometry_t structure have been set.
+ * Get a GeometryDefinition_t from the MixedGeometry_t.
  *
- * @param mg the MixedGeometry_t structure to check.
+ * @param mg the MixedGeometry_t structure to search.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @param n an unsigned int representing the index of the GeometryDefinition_t
+ * to retrieve.
  *
- * @member of MixedGeometry_t
+ * @return the nth GeometryDefinition_t in the ListOfGeometryDefinitions within
+ * this MixedGeometry.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+const GeometryDefinition_t*
+MixedGeometry_getGeometryDefinition(MixedGeometry_t* mg, unsigned int n);
+
+
+/**
+ * Get a GeometryDefinition_t from the MixedGeometry_t based on its identifier.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param sid a string representing the identifier of the GeometryDefinition_t
+ * to retrieve.
+ *
+ * @return the GeometryDefinition_t in the ListOfGeometryDefinitions within
+ * this MixedGeometry with the given id or NULL if no such GeometryDefinition_t
+ * exists.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+const GeometryDefinition_t*
+MixedGeometry_getGeometryDefinitionById(MixedGeometry_t* mg, const char *sid);
+
+
+/**
+ * Adds a copy of the given GeometryDefinition_t to this MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure to which the GeometryDefinition_t
+ * should be added.
+ *
+ * @param gd the GeometryDefinition_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+int
+MixedGeometry_addGeometryDefinition(MixedGeometry_t* mg,
+                                    const GeometryDefinition_t* gd);
+
+
+/**
+ * Get the number of GeometryDefinition_t objects in this MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure to query.
+ *
+ * @return the number of GeometryDefinition_t objects in this MixedGeometry_t.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+unsigned int
+MixedGeometry_getNumGeometryDefinitions(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new AnalyticGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the AnalyticGeometry_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the AnalyticGeometry_t
+ * should be added.
+ *
+ * @return a new AnalyticGeometry_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+AnalyticGeometry_t*
+MixedGeometry_createAnalyticGeometry(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new SampledFieldGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the SampledFieldGeometry_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the SampledFieldGeometry_t
+ * should be added.
+ *
+ * @return a new SampledFieldGeometry_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+SampledFieldGeometry_t*
+MixedGeometry_createSampledFieldGeometry(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new CSGeometry_t object, adds it to this MixedGeometry_t object
+ * and returns the CSGeometry_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the CSGeometry_t should be
+ * added.
+ *
+ * @return a new CSGeometry_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+CSGeometry_t*
+MixedGeometry_createCSGeometry(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new ParametricGeometry_t object, adds it to this MixedGeometry_t
+ * object and returns the ParametricGeometry_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the ParametricGeometry_t
+ * should be added.
+ *
+ * @return a new ParametricGeometry_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+ParametricGeometry_t*
+MixedGeometry_createParametricGeometry(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new MixedGeometry_t object, adds it to this MixedGeometry_t object
+ * and returns the MixedGeometry_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the MixedGeometry_t should
+ * be added.
+ *
+ * @return a new MixedGeometry_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+MixedGeometry_t*
+MixedGeometry_createMixedGeometry(MixedGeometry_t* mg);
+
+
+/**
+ * Removes the nth GeometryDefinition_t from this MixedGeometry_t and returns a
+ * pointer to it.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the GeometryDefinition_t
+ * to remove.
+ *
+ * @return a pointer to the nth GeometryDefinition_t in this MixedGeometry_t.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t*
+MixedGeometry_removeGeometryDefinition(MixedGeometry_t* mg, unsigned int n);
+
+
+/**
+ * Removes the GeometryDefinition_t from this MixedGeometry_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param sid a string representing the identifier of the GeometryDefinition_t
+ * to remove.
+ *
+ * @return the GeometryDefinition_t in this MixedGeometry_t based on the
+ * identifier or NULL if no such GeometryDefinition_t exists.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+GeometryDefinition_t*
+MixedGeometry_removeGeometryDefinitionById(MixedGeometry_t* mg,
+                                           const char* sid);
+
+
+/**
+ * Returns a ListOf_t* containing OrdinalMapping_t objects from this
+ * MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure whose "ListOfOrdinalMappings" is
+ * sought.
+ *
+ * @return the "ListOfOrdinalMappings" from this MixedGeometry_t as a ListOf_t
+ * *.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MixedGeometry_getListOfOrdinalMappings(MixedGeometry_t* mg);
+
+
+/**
+ * Get an OrdinalMapping_t from the MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the OrdinalMapping_t to
+ * retrieve.
+ *
+ * @return the nth OrdinalMapping_t in the ListOfOrdinalMappings within this
+ * MixedGeometry.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+const OrdinalMapping_t*
+MixedGeometry_getOrdinalMapping(MixedGeometry_t* mg, unsigned int n);
+
+
+/**
+ * Get an OrdinalMapping_t from the MixedGeometry_t based on the
+ * GeometryDefinition to which it refers.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param sid a string representing the geometryDefinition attribute of the
+ * OrdinalMapping_t object to retrieve.
+ *
+ * @return the first OrdinalMapping_t in this MixedGeometry_t based on the
+ * given geometryDefinition attribute or NULL if no such OrdinalMapping_t
+ * exists.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+const OrdinalMapping_t*
+MixedGeometry_getOrdinalMappingByGeometryDefinition(MixedGeometry_t* mg,
+                                                    const char *sid);
+
+
+/**
+ * Adds a copy of the given OrdinalMapping_t to this MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure to which the OrdinalMapping_t should
+ * be added.
+ *
+ * @param om the OrdinalMapping_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+int
+MixedGeometry_addOrdinalMapping(MixedGeometry_t* mg,
+                                const OrdinalMapping_t* om);
+
+
+/**
+ * Get the number of OrdinalMapping_t objects in this MixedGeometry_t.
+ *
+ * @param mg the MixedGeometry_t structure to query.
+ *
+ * @return the number of OrdinalMapping_t objects in this MixedGeometry_t.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+unsigned int
+MixedGeometry_getNumOrdinalMappings(MixedGeometry_t* mg);
+
+
+/**
+ * Creates a new OrdinalMapping_t object, adds it to this MixedGeometry_t
+ * object and returns the OrdinalMapping_t object created.
+ *
+ * @param mg the MixedGeometry_t structure to which the OrdinalMapping_t should
+ * be added.
+ *
+ * @return a new OrdinalMapping_t object instance.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+OrdinalMapping_t*
+MixedGeometry_createOrdinalMapping(MixedGeometry_t* mg);
+
+
+/**
+ * Removes the nth OrdinalMapping_t from this MixedGeometry_t and returns a
+ * pointer to it.
+ *
+ * @param mg the MixedGeometry_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the OrdinalMapping_t to
+ * remove.
+ *
+ * @return a pointer to the nth OrdinalMapping_t in this MixedGeometry_t.
+ *
+ * @memberof MixedGeometry_t
+ */
+LIBSBML_EXTERN
+OrdinalMapping_t*
+MixedGeometry_removeOrdinalMapping(MixedGeometry_t* mg, unsigned int n);
+
+
+/**
+ * Predicate returning @c 1 if all the required attributes for this
+ * MixedGeometry_t object have been set.
+ *
+ * @param mg the MixedGeometry_t structure.
+ *
+ * @return @c 1 to indicate that all the required attributes of this
+ * MixedGeometry_t have been set, otherwise @c 0 is returned.
+ *
+ *
+ * @note The required attributes for the MixedGeometry_t object are:
+ *
+ * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
 int
@@ -806,15 +1377,18 @@ MixedGeometry_hasRequiredAttributes(const MixedGeometry_t * mg);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * sub-elements of the given MixedGeometry_t structure have been set.
+ * Predicate returning @c 1 if all the required elements for this
+ * MixedGeometry_t object have been set.
  *
- * @param mg the MixedGeometry_t structure to check.
+ * @param mg the MixedGeometry_t structure.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 to indicate that all the required elements of this
+ * MixedGeometry_t have been set, otherwise @c 0 is returned.
  *
- * @member of MixedGeometry_t
+ *
+ * @note The required elements for the MixedGeometry_t object are:
+ *
+ * @memberof MixedGeometry_t
  */
 LIBSBML_EXTERN
 int
@@ -824,9 +1398,20 @@ MixedGeometry_hasRequiredElements(const MixedGeometry_t * mg);
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
 
-#endif /*  MixedGeometry_H__  */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !MixedGeometry_H__ */
+
 

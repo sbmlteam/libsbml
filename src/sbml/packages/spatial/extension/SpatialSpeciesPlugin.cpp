@@ -1,59 +1,60 @@
 /**
- * @file:   SpatialSpeciesPlugin.cpp
- * @brief:  Implementation of the SpatialSpeciesPlugin class
- * @author: SBMLTeam
+ * @file SpatialSpeciesPlugin.cpp
+ * @brief Implementation of the SpatialSpeciesPlugin class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/extension/SpatialSpeciesPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 #include <sbml/Model.h>
 
 
 using namespace std;
 
 
-#ifdef __cplusplus
-
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new SpatialSpeciesPlugin
+ * Creates a new SpatialSpeciesPlugin using the given uri, prefix and package
+ * namespace.
  */
-SpatialSpeciesPlugin::SpatialSpeciesPlugin(const std::string& uri,  
-                                 const std::string& prefix, 
-                               SpatialPkgNamespaces* spatialns) :
-    SBasePlugin(uri, prefix, spatialns)
+SpatialSpeciesPlugin::SpatialSpeciesPlugin(const std::string& uri,
+                                           const std::string& prefix,
+                                           SpatialPkgNamespaces* spatialns)
+  : SBasePlugin(uri, prefix, spatialns)
   , mIsSpatial (false)
   , mIsSetIsSpatial (false)
 {
@@ -63,25 +64,25 @@ SpatialSpeciesPlugin::SpatialSpeciesPlugin(const std::string& uri,
 /*
  * Copy constructor for SpatialSpeciesPlugin.
  */
-SpatialSpeciesPlugin::SpatialSpeciesPlugin(const SpatialSpeciesPlugin& orig) :
-    SBasePlugin(orig)
+SpatialSpeciesPlugin::SpatialSpeciesPlugin(const SpatialSpeciesPlugin& orig)
+  : SBasePlugin( orig )
+  , mIsSpatial ( orig.mIsSpatial )
+  , mIsSetIsSpatial ( orig.mIsSetIsSpatial )
 {
-    mIsSpatial  = orig.mIsSpatial;
-    mIsSetIsSpatial  = orig.mIsSetIsSpatial;
 }
 
 
 /*
  * Assignment operator for SpatialSpeciesPlugin.
  */
-SpatialSpeciesPlugin& 
+SpatialSpeciesPlugin&
 SpatialSpeciesPlugin::operator=(const SpatialSpeciesPlugin& rhs)
 {
   if (&rhs != this)
   {
-    this->SBasePlugin::operator=(rhs);
-    mIsSpatial  = rhs.mIsSpatial;
-    mIsSetIsSpatial  = rhs.mIsSetIsSpatial;
+    SBasePlugin::operator=(rhs);
+    mIsSpatial = rhs.mIsSpatial;
+    mIsSetIsSpatial = rhs.mIsSetIsSpatial;
   }
 
   return *this;
@@ -91,8 +92,8 @@ SpatialSpeciesPlugin::operator=(const SpatialSpeciesPlugin& rhs)
 /*
  * Creates and returns a deep copy of this SpatialSpeciesPlugin object.
  */
-SpatialSpeciesPlugin* 
-SpatialSpeciesPlugin::clone () const
+SpatialSpeciesPlugin*
+SpatialSpeciesPlugin::clone() const
 {
   return new SpatialSpeciesPlugin(*this);
 }
@@ -103,163 +104,6 @@ SpatialSpeciesPlugin::clone () const
  */
 SpatialSpeciesPlugin::~SpatialSpeciesPlugin()
 {
-}
-
-
-//---------------------------------------------------------------
-//
-// overridden virtual functions for read/write/check
-//
-//---------------------------------------------------------------
-
-/*
- * create object
- */
-SBase*
-SpatialSpeciesPlugin::createObject (XMLInputStream& stream)
-{
-  return NULL; 
-}
-
-
-/*
- * write elements
- */
-void
-SpatialSpeciesPlugin::writeElements (XMLOutputStream& stream) const
-{
-}
-
-
-/*
- * Checks if this plugin object has all the required elements.
- */
-bool
-SpatialSpeciesPlugin::hasRequiredElements () const
-{
-  bool allPresent = true; 
-
-  // TO DO 
-
-  return allPresent; 
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Get the list of expected attributes for this element.
- */
-void
-SpatialSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBasePlugin::addExpectedAttributes(attributes);
-
-  attributes.add("isSpatial");
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Read values from the given XMLAttributes set into their specific fields.
- */
-void
-SpatialSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
-{
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  unsigned int numErrs;
-
-  SBasePlugin::readAttributes(attributes, expectedAttributes);
-
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
-  {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-    }
-  }
-
-  //
-  // isSpatial bool   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
-  mIsSetIsSpatial = attributes.readInto("isSpatial", mIsSpatial);
-
-  if (mIsSetIsSpatial == false)
-  {
-    if (getErrorLog() != NULL)
-    {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-    }
-  }
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write values of XMLAttributes to the output stream.
- */
-  void
-SpatialSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
-{
-  SBasePlugin::writeAttributes(stream);
-
-  if (isSetIsSpatial() == true)
-    stream.writeAttribute("isSpatial", getPrefix(), mIsSpatial);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-//---------------------------------------------------------------
-//
-// Functions for interacting with the members of the plugin
-//
-//---------------------------------------------------------------
-
-List*
-SpatialSpeciesPlugin::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-
-  return ret;
 }
 
 
@@ -274,7 +118,8 @@ SpatialSpeciesPlugin::getIsSpatial() const
 
 
 /*
- * Returns true/false if isSpatial is set.
+ * Predicate returning @c true if this SpatialSpeciesPlugin's "isSpatial"
+ * attribute is set.
  */
 bool
 SpatialSpeciesPlugin::isSetIsSpatial() const
@@ -284,7 +129,7 @@ SpatialSpeciesPlugin::isSetIsSpatial() const
 
 
 /*
- * Sets isSpatial and returns value indicating success.
+ * Sets the value of the "isSpatial" attribute of this SpatialSpeciesPlugin.
  */
 int
 SpatialSpeciesPlugin::setIsSpatial(bool isSpatial)
@@ -296,72 +141,485 @@ SpatialSpeciesPlugin::setIsSpatial(bool isSpatial)
 
 
 /*
- * Unsets isSpatial and returns value indicating success.
+ * Unsets the value of the "isSpatial" attribute of this SpatialSpeciesPlugin.
  */
 int
 SpatialSpeciesPlugin::unsetIsSpatial()
 {
   mIsSpatial = false;
   mIsSetIsSpatial = false;
-  return LIBSBML_OPERATION_SUCCESS;
+
+  if (isSetIsSpatial() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-//---------------------------------------------------------------
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * SpatialSpeciesPlugin object have been set.
+ */
+bool
+SpatialSpeciesPlugin::hasRequiredAttributes() const
+{
+  bool allPresent = true;
 
+  return allPresent;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Set the SBMLDocument.
+ * Write any contained elements
+ */
+void
+SpatialSpeciesPlugin::writeElements(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+SpatialSpeciesPlugin::accept(SBMLVisitor& v) const
+{
+  const Species* s = static_cast<const Species*>(this->getParentSBMLObject());
+  v.visit(*s);
+  v.leave(*s);
+
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
  */
 void
 SpatialSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
-
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Connect to parent.
- */
-void
-SpatialSpeciesPlugin::connectToParent(SBase* sbase)
-{
-  SBasePlugin::connectToParent(sbase);
-
-}
-
-
-/*
- * Enables the given package.
+ * Enables/disables the given package with this element
  */
 void
 SpatialSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix, bool flag)
+                                            const std::string& pkgPrefix,
+                                            bool flag)
 {
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accept the SBMLVisitor.
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   bool& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "isSpatial")
+  {
+    value = getIsSpatial();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   double& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   unsigned int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   std::string& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
+                                   const char* value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this SpatialSpeciesPlugin's attribute
+ * "attributeName" is set.
  */
 bool
-SpatialSpeciesPlugin::accept(SBMLVisitor& v) const
+SpatialSpeciesPlugin::isSetAttribute(const std::string& attributeName) const
 {
-  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+  bool value = SBasePlugin::isSetAttribute(attributeName);
 
-  v.visit(*model);
-  v.leave(*model);
+  if (attributeName == "isSpatial")
+  {
+    value = isSetIsSpatial();
+  }
 
-  return true;
+  return value;
 }
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   bool value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  if (attributeName == "isSpatial")
+  {
+    return_value = setIsSpatial(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   double value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   unsigned int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   const std::string& value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
+                                   const char* value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * SpatialSpeciesPlugin.
+ */
+int
+SpatialSpeciesPlugin::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBasePlugin::unsetAttribute(attributeName);
+
+  if (attributeName == "isSpatial")
+  {
+    value = unsetIsSpatial();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+void
+SpatialSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBasePlugin::addExpectedAttributes(attributes);
+
+  attributes.add("isSpatial");
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+SpatialSpeciesPlugin::readAttributes(const XMLAttributes& attributes,
+                                     const ExpectedAttributes&
+                                       expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
+
+  for (int n = numErrs-1; n >= 0; n--)
+  {
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+  }
+
+  // 
+  // isSpatial bool (use = "optional" )
+  // 
+
+  mIsSetIsSpatial = attributes.readInto("isSpatial", mIsSpatial);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+SpatialSpeciesPlugin::writeAttributes(XMLOutputStream& stream) const
+{
+  SBasePlugin::writeAttributes(stream);
+
+  if (isSetIsSpatial() == true)
+  {
+    stream.writeAttribute("isSpatial", getPrefix(), mIsSpatial);
+  }
+}
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
-#endif /* __cplusplus */
 
 

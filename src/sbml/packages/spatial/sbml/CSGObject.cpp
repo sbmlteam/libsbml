@@ -1,38 +1,37 @@
 /**
- * @file:   CSGObject.cpp
- * @brief:  Implementation of the CSGObject class
- * @author: SBMLTeam
+ * @file CSGObject.cpp
+ * @brief Implementation of the CSGObject class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/CSGObject.h>
+#include <sbml/packages/spatial/sbml/ListOfCSGObjects.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
@@ -45,50 +44,51 @@
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
 
-
 using namespace std;
+
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new CSGObject with the given level, version, and package version.
+ * Creates a new CSGObject using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-CSGObject::CSGObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
+CSGObject::CSGObject(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
   : SBase(level, version)
-////  , mId ("")
+  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mCsgNode (NULL)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new CSGObject with the given SpatialPkgNamespaces object.
+ * Creates a new CSGObject using the given SpatialPkgNamespaces object.
  */
-CSGObject::CSGObject (SpatialPkgNamespaces* spatialns)
+CSGObject::CSGObject(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
-////  , mId ("")
+  , mId ("")
   , mDomainType ("")
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mCsgNode (NULL)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -96,26 +96,25 @@ CSGObject::CSGObject (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for CSGObject.
  */
-CSGObject::CSGObject (const CSGObject& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-  , mDomainType  ( orig.mDomainType)
-  , mOrdinal  ( orig.mOrdinal)
-  , mIsSetOrdinal  ( orig.mIsSetOrdinal)
-  , mCsgNode ( NULL)
+CSGObject::CSGObject(const CSGObject& orig)
+  : SBase( orig )
+  , mId ( orig.mId )
+  , mDomainType ( orig.mDomainType )
+  , mOrdinal ( orig.mOrdinal )
+  , mIsSetOrdinal ( orig.mIsSetOrdinal )
+  , mCsgNode ( NULL )
 {
   if (orig.mCsgNode != NULL)
   {
     mCsgNode = orig.mCsgNode->clone();
   }
 
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for CSGObject.
+ * Assignment operator for CSGObject.
  */
 CSGObject&
 CSGObject::operator=(const CSGObject& rhs)
@@ -123,10 +122,11 @@ CSGObject::operator=(const CSGObject& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mDomainType  = rhs.mDomainType;
-    mOrdinal  = rhs.mOrdinal;
-    mIsSetOrdinal  = rhs.mIsSetOrdinal;
+    mId = rhs.mId;
+    mDomainType = rhs.mDomainType;
+    mOrdinal = rhs.mOrdinal;
+    mIsSetOrdinal = rhs.mIsSetOrdinal;
+    delete mCsgNode;
     if (rhs.mCsgNode != NULL)
     {
       mCsgNode = rhs.mCsgNode->clone();
@@ -136,18 +136,18 @@ CSGObject::operator=(const CSGObject& rhs)
       mCsgNode = NULL;
     }
 
-    // connect to child objects
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for CSGObject.
+ * Creates and returns a deep copy of this CSGObject object.
  */
 CSGObject*
-CSGObject::clone () const
+CSGObject::clone() const
 {
   return new CSGObject(*this);
 }
@@ -156,7 +156,7 @@ CSGObject::clone () const
 /*
  * Destructor for CSGObject.
  */
-CSGObject::~CSGObject ()
+CSGObject::~CSGObject()
 {
   delete mCsgNode;
   mCsgNode = NULL;
@@ -194,132 +194,7 @@ CSGObject::getOrdinal() const
 
 
 /*
- * Returns the value of the "csgNode" attribute of this CSGObject.
- */
-const CSGNode*
-CSGObject::getCsgNode() const
-{
-  return mCsgNode;
-}
-
-
-/*
- * Returns the value of the "csgNode" attribute of this CSGObject.
- */
-CSGNode*
-CSGObject::getCsgNode()
-{
-  return mCsgNode;
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGPrimitive*
-CSGObject::createCsgPrimitive()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGPrimitive(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGPrimitive*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGTranslation*
-CSGObject::createCsgTranslation()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGTranslation(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGTranslation*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGRotation*
-CSGObject::createCsgRotation()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGRotation(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGRotation*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGScale*
-CSGObject::createCsgScale()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGScale(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGScale*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGHomogeneousTransformation*
-CSGObject::createCsgHomogeneousTransformation()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGHomogeneousTransformation(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGHomogeneousTransformation*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGPseudoPrimitive*
-CSGObject::createCsgPseudoPrimitive()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGPseudoPrimitive(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGPseudoPrimitive*>(mCsgNode);
-}
-
-
-/*
- * Creates a new "csgNode" element of this CSGObject and returns it.
- */
-CSGSetOperator*
-CSGObject::createCsgSetOperator()
-{
-  if (mCsgNode != NULL) delete mCsgNode;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGSetOperator(spatialns);
-  delete spatialns;
-  connectToChild();
-  return static_cast<CSGSetOperator*>(mCsgNode);
-}
-
-
-/*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this CSGObject's "id" attribute is set.
  */
 bool
 CSGObject::isSetId() const
@@ -329,7 +204,8 @@ CSGObject::isSetId() const
 
 
 /*
- * Returns true/false if domainType is set.
+ * Predicate returning @c true if this CSGObject's "domainType" attribute is
+ * set.
  */
 bool
 CSGObject::isSetDomainType() const
@@ -339,7 +215,7 @@ CSGObject::isSetDomainType() const
 
 
 /*
- * Returns true/false if ordinal is set.
+ * Predicate returning @c true if this CSGObject's "ordinal" attribute is set.
  */
 bool
 CSGObject::isSetOrdinal() const
@@ -349,17 +225,7 @@ CSGObject::isSetOrdinal() const
 
 
 /*
- * Returns true/false if csgNode is set.
- */
-bool
-CSGObject::isSetCsgNode() const
-{
-  return (mCsgNode != NULL);
-}
-
-
-/*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this CSGObject.
  */
 int
 CSGObject::setId(const std::string& id)
@@ -369,7 +235,7 @@ CSGObject::setId(const std::string& id)
 
 
 /*
- * Sets domainType and returns value indicating success.
+ * Sets the value of the "domainType" attribute of this CSGObject.
  */
 int
 CSGObject::setDomainType(const std::string& domainType)
@@ -387,7 +253,7 @@ CSGObject::setDomainType(const std::string& domainType)
 
 
 /*
- * Sets ordinal and returns value indicating success.
+ * Sets the value of the "ordinal" attribute of this CSGObject.
  */
 int
 CSGObject::setOrdinal(int ordinal)
@@ -399,37 +265,7 @@ CSGObject::setOrdinal(int ordinal)
 
 
 /*
- * Sets csgNode and returns value indicating success.
- */
-int
-CSGObject::setCsgNode(CSGNode* csgNode)
-{
-  if (mCsgNode == csgNode)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (csgNode == NULL)
-  {
-    delete mCsgNode;
-    mCsgNode = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    delete mCsgNode;
-    mCsgNode = (csgNode != NULL) ?
-      static_cast<CSGNode*>(csgNode->clone()) : NULL;
-    if (mCsgNode != NULL)
-    {
-      mCsgNode->connectToParent(this);
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this CSGObject.
  */
 int
 CSGObject::unsetId()
@@ -448,7 +284,7 @@ CSGObject::unsetId()
 
 
 /*
- * Unsets domainType and returns value indicating success.
+ * Unsets the value of the "domainType" attribute of this CSGObject.
  */
 int
 CSGObject::unsetDomainType()
@@ -467,7 +303,7 @@ CSGObject::unsetDomainType()
 
 
 /*
- * Unsets ordinal and returns value indicating success.
+ * Unsets the value of the "ordinal" attribute of this CSGObject.
  */
 int
 CSGObject::unsetOrdinal()
@@ -487,7 +323,228 @@ CSGObject::unsetOrdinal()
 
 
 /*
- * Unsets csgNode and returns value indicating success.
+ * Returns the value of the "csgNode" element of this CSGObject.
+ */
+const CSGNode*
+CSGObject::getCsgNode() const
+{
+  return mCsgNode;
+}
+
+
+/*
+ * Returns the value of the "csgNode" element of this CSGObject.
+ */
+CSGNode*
+CSGObject::getCsgNode()
+{
+  return mCsgNode;
+}
+
+
+/*
+ * Predicate returning @c true if this CSGObject's "csgNode" element is set.
+ */
+bool
+CSGObject::isSetCsgNode() const
+{
+  return (mCsgNode != NULL);
+}
+
+
+/*
+ * Sets the value of the "csgNode" element of this CSGObject.
+ */
+int
+CSGObject::setCsgNode(const CSGNode* csgNode)
+{
+  if (mCsgNode == csgNode)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (csgNode == NULL)
+  {
+    delete mCsgNode;
+    mCsgNode = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mCsgNode;
+    mCsgNode = (csgNode != NULL) ? csgNode->clone() : NULL;
+    if (mCsgNode != NULL)
+    {
+      mCsgNode->connectToParent(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Creates a new CSGPrimitive object, adds it to this CSGObject object and
+ * returns the CSGPrimitive object created.
+ */
+CSGPrimitive*
+CSGObject::createCSGPrimitive()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGPrimitive(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGPrimitive*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGTranslation object, adds it to this CSGObject object and
+ * returns the CSGTranslation object created.
+ */
+CSGTranslation*
+CSGObject::createCSGTranslation()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGTranslation(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGTranslation*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGRotation object, adds it to this CSGObject object and
+ * returns the CSGRotation object created.
+ */
+CSGRotation*
+CSGObject::createCSGRotation()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGRotation(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGRotation*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGScale object, adds it to this CSGObject object and returns
+ * the CSGScale object created.
+ */
+CSGScale*
+CSGObject::createCSGScale()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGScale(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGScale*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGHomogeneousTransformation object, adds it to this CSGObject
+ * object and returns the CSGHomogeneousTransformation object created.
+ */
+CSGHomogeneousTransformation*
+CSGObject::createCSGHomogeneousTransformation()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGHomogeneousTransformation(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGHomogeneousTransformation*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGPseudoPrimitive object, adds it to this CSGObject object
+ * and returns the CSGPseudoPrimitive object created.
+ */
+CSGPseudoPrimitive*
+CSGObject::createCSGPseudoPrimitive()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGPseudoPrimitive(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGPseudoPrimitive*>(mCsgNode);
+}
+
+
+/*
+ * Creates a new CSGSetOperator object, adds it to this CSGObject object and
+ * returns the CSGSetOperator object created.
+ */
+CSGSetOperator*
+CSGObject::createCSGSetOperator()
+{
+  if (mCsgNode != NULL)
+  {
+    delete mCsgNode;
+  }
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mCsgNode = new CSGSetOperator(spatialns);
+
+  delete spatialns;
+
+  connectToChild();
+
+  return static_cast<CSGSetOperator*>(mCsgNode);
+}
+
+
+/*
+ * Unsets the value of the "csgNode" element of this CSGObject.
  */
 int
 CSGObject::unsetCsgNode()
@@ -499,20 +556,612 @@ CSGObject::unsetCsgNode()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
 CSGObject::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetDomainType() == true && mDomainType == oldid)
+  if (isSetDomainType() && mDomainType == oldid)
   {
     setDomainType(newid);
   }
-
 }
 
 
+/*
+ * Returns the XML element name of this CSGObject object.
+ */
+const std::string&
+CSGObject::getElementName() const
+{
+  static const string name = "csgObject";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this CSGObject object.
+ */
+int
+CSGObject::getTypeCode() const
+{
+  return SBML_SPATIAL_CSGOBJECT;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * CSGObject object have been set.
+ */
+bool
+CSGObject::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  if (isSetId() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetDomainType() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this CSGObject
+ * object have been set.
+ */
+bool
+CSGObject::hasRequiredElements() const
+{
+  bool allPresent = true;
+
+  if (isSetCsgNode() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+CSGObject::writeElements(XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+
+  if (isSetCsgNode() == true)
+  {
+    mCsgNode->write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+CSGObject::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+
+  if (mCsgNode != NULL)
+  {
+    mCsgNode->accept(v);
+  }
+
+  v.leave(*this);
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+CSGObject::setSBMLDocument(SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+
+  if (mCsgNode != NULL)
+  {
+    mCsgNode->setSBMLDocument(d);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to child elements
+ */
+void
+CSGObject::connectToChild()
+{
+  SBase::connectToChild();
+
+  if (mCsgNode != NULL)
+  {
+    mCsgNode->connectToParent(this);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+CSGObject::enablePackageInternal(const std::string& pkgURI,
+                                 const std::string& pkgPrefix,
+                                 bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  if (isSetCsgNode())
+  {
+    mCsgNode->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "ordinal")
+  {
+    value = getOrdinal();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName,
+                        unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName,
+                        std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::getAttribute(const std::string& attributeName,
+                        const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "domainType")
+  {
+    value = getDomainType().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this CSGObject's attribute "attributeName" is
+ * set.
+ */
+bool
+CSGObject::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = isSetDomainType();
+  }
+  else if (attributeName == "ordinal")
+  {
+    value = isSetOrdinal();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "ordinal")
+  {
+    return_value = setOrdinal(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName,
+                        const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "domainType")
+  {
+    return_value = setDomainType(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this CSGObject.
+ */
+int
+CSGObject::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "domainType")
+  {
+    value = unsetDomainType();
+  }
+  else if (attributeName == "ordinal")
+  {
+    value = unsetOrdinal();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this CSGObject.
+ */
+SBase*
+CSGObject::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  //if (elementName == "csgNode")
+  //{
+  //  return createCSGNode();
+  //}
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+CSGObject::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mCsgNode != NULL)
+  {
+    if (mCsgNode->getId() == id)
+    {
+      return mCsgNode;
+    }
+
+    obj = mCsgNode->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+CSGObject::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mCsgNode != NULL)
+  {
+    if (mCsgNode->getMetaId() == metaid)
+    {
+      return mCsgNode;
+    }
+
+    obj = mCsgNode->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
 List*
 CSGObject::getAllElements(ElementFilter* filter)
 {
@@ -521,224 +1170,79 @@ CSGObject::getAllElements(ElementFilter* filter)
 
   ADD_FILTERED_POINTER(ret, sublist, mCsgNode, filter);
 
+
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
   return ret;
 }
 
 
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-CSGObject::getElementName () const
-{
-  static const string name = "csgObject";
-  return name;
-}
 
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Returns the libSBML type code for this SBML object.
- */
-int
-CSGObject::getTypeCode () const
-{
-  return SBML_SPATIAL_CSGOBJECT;
-}
-
-
-/*
- * check if all the required attributes are set
- */
-bool
-CSGObject::hasRequiredAttributes () const
-{
-  bool allPresent = true;
-
-  if (isSetId() == false)
-    allPresent = false;
-
-  if (isSetDomainType() == false)
-    allPresent = false;
-
-  return allPresent;
-}
-
-
-/*
- * check if all the required elements are set
- */
-bool
-CSGObject::hasRequiredElements () const
-{
-  bool allPresent = true;
-
-  if (isSetCsgNode() == false)
-    allPresent = false;
-
-  return allPresent;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * write contained elements
- */
-void
-CSGObject::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
-  if (isSetCsgNode() == true)
-  {
-    mCsgNode->write(stream);
-  }
-  SBase::writeExtensionElements(stream);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
-bool
-CSGObject::accept (SBMLVisitor& v) const
-{
-  v.visit(*this);
-
-/* VISIT CHILDREN */
-
-  v.leave(*this);
-
-  return true;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the parent SBMLDocument.
- */
-void
-CSGObject::setSBMLDocument (SBMLDocument* d)
-{
-  SBase::setSBMLDocument(d);
-  if ( mCsgNode != NULL)
-    mCsgNode->setSBMLDocument(d);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
-   * Connects to child elements.
- */
-void
-CSGObject::connectToChild()
-{
-  SBase::connectToChild();
-
-  if (mCsgNode != NULL)
-    mCsgNode->connectToParent(this);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Enables/Disables the given package with this element.
- */
-void
-CSGObject::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
-{
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * creates object.
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 CSGObject::createObject(XMLInputStream& stream)
 {
-  SBase* object = NULL;
+  SBase* obj = NULL;
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
 
   if (name == "csgPrimitive")
   {
     mCsgNode = new CSGPrimitive(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgTranslation")
   {
     mCsgNode = new CSGTranslation(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgRotation")
   {
     mCsgNode = new CSGRotation(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgScale")
   {
     mCsgNode = new CSGScale(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgHomogeneousTransformation")
   {
     mCsgNode = new CSGHomogeneousTransformation(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgPseudoPrimitive")
   {
     mCsgNode = new CSGPseudoPrimitive(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
   else if (name == "csgSetOperator")
   {
     mCsgNode = new CSGSetOperator(spatialns);
-    object = mCsgNode;
+    obj = mCsgNode;
   }
 
   delete spatialns;
 
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 CSGObject::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -746,493 +1250,210 @@ CSGObject::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("domainType");
+
   attributes.add("ordinal");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-CSGObject::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+CSGObject::readAttributes(const XMLAttributes& attributes,
+                          const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfCSGObjects - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfCSGObjects*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfCSGObjects*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("spatial",
+          SpatialCSGeometryLOCSGObjectsAllowedCoreAttributes, pkgVersion, level,
+            version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial", SpatialCSGObjectAllowedCoreAttributes,
+        pkgVersion, level, version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "required" )
+  // 
 
-  //
-  // id SId  ( use = "required" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<CSGObject>");
+      logEmptyString(mId, level, version, "<CSGObject>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+      logError(SpatialIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing from 'csgObject' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'id' is missing from the "
+      "<CSGObject> element.";
+    log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // domainType SIdRef   ( use = "required" )
-  //
+  // 
+  // domainType SIdRef (use = "required" )
+  // 
+
   assigned = attributes.readInto("domainType", mDomainType);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomainType, getLevel(), getVersion(), "<CSGObject>");
+      logEmptyString(mDomainType, level, version, "<CSGObject>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
+      logError(SpatialCSGObjectDomainTypeMustBeDomainType, level, version, "The "
+        "attribute domainType='" + mDomainType + "' does not conform to the "
+          "syntax.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'domainType' is missing from 'csgObject' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    std::string message = "Spatial attribute 'domainType' is missing from the "
+      "<CSGObject> element.";
+    log->logPackageError("spatial", SpatialCSGObjectAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // ordinal int   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // ordinal int (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
 
-  if (mIsSetOrdinal == false)
+  if ( mIsSetOrdinal == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'ordinal' from the <CSGObject> "
+        "element must be an integer.";
+      log->logPackageError("spatial", SpatialCSGObjectOrdinalMustBeInteger,
+        pkgVersion, level, version, message);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-CSGObject::writeAttributes (XMLOutputStream& stream) const
+void
+CSGObject::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetDomainType() == true)
+  {
     stream.writeAttribute("domainType", getPrefix(), mDomainType);
+  }
 
   if (isSetOrdinal() == true)
+  {
     stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * Constructor 
- */
-ListOfCSGObjects::ListOfCSGObjects(unsigned int level, 
-                   unsigned int version, 
-                   unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfCSGObjects::ListOfCSGObjects(SpatialPkgNamespaces* spatialns)
-  : ListOf(spatialns)
-{
-  setElementNamespace(spatialns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfCSGObjects 
- */
-ListOfCSGObjects* 
-ListOfCSGObjects::clone () const
- {
-  return new ListOfCSGObjects(*this);
-}
-
-
-/*
- * Get a CsgObject from the ListOfCSGObjects by index.
-*/
-CSGObject*
-ListOfCSGObjects::get(unsigned int n)
-{
-  return static_cast<CSGObject*>(ListOf::get(n));
-}
-
-
-/*
- * Get a CsgObject from the ListOfCSGObjects by index.
- */
-const CSGObject*
-ListOfCSGObjects::get(unsigned int n) const
-{
-  return static_cast<const CSGObject*>(ListOf::get(n));
-}
-
-
-/*
- * Get a CsgObject from the ListOfCSGObjects by id.
- */
-CSGObject*
-ListOfCSGObjects::get(const std::string& sid)
-{
-	return const_cast<CSGObject*>(
-    static_cast<const ListOfCSGObjects&>(*this).get(sid));
-}
-
-
-/*
- * Get a CsgObject from the ListOfCSGObjects by id.
- */
-const CSGObject*
-ListOfCSGObjects::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGObject>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <CSGObject*> (*result);
-}
-
-
-/**
- * Adds a copy the given "CSGObject" to this ListOfCSGObjects.
- *
- * @param csgo; the CSGObject object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
- */
-int
-ListOfCSGObjects::addCsgObject(const CSGObject* csgo)
-{
-  if (csgo == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (csgo->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != csgo->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != csgo->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(csgo)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-	append(csgo);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/**
- * Get the number of CSGObject objects in this ListOfCSGObjects.
- *
- * @return the number of CSGObject objects in this ListOfCSGObjects
- */
-unsigned int 
-ListOfCSGObjects::getNumCsgObjects() const
-{
-	return size();
-}
-
-/**
- * Creates a new CSGObject object, adds it to this ListOfCSGObjects
- * CSGObject and returns the CSGObject object created. 
- *
- * @return a new CSGObject object instance
- *
- * @see addCSGObject(const CSGObject* csgo)
- */
-CSGObject* 
-ListOfCSGObjects::createCsgObject()
-{
-  CSGObject* csgo = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csgo = new CSGObject(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(csgo != NULL)
-  {
-    appendAndOwn(csgo);
-  }
-
-  return csgo;
+  SBase::writeExtensionAttributes(stream);
 }
 
-/*
- * Removes the nth CsgObject from this ListOfCSGObjects
- */
-CSGObject*
-ListOfCSGObjects::remove(unsigned int n)
-{
-  return static_cast<CSGObject*>(ListOf::remove(n));
-}
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Removes the CsgObject from this ListOfCSGObjects with the given identifier
+ * Creates a new CSGObject_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-CSGObject*
-ListOfCSGObjects::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGObject>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-	return static_cast <CSGObject*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfCSGObjects::getElementName () const
-{
-  static const string name = "listOfCSGObjects";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfCSGObjects::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfCSGObjects::getItemTypeCode () const
-{
-  return SBML_SPATIAL_CSGOBJECT;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new CSGObject in this ListOfCSGObjects
- */
-SBase*
-ListOfCSGObjects::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "csgObject")
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new CSGObject(spatialns);
-    appendAndOwn(object);
-    delete spatialns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Spatial package.
- */
-void
-ListOfCSGObjects::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
 LIBSBML_EXTERN
 CSGObject_t *
-CSGObject_create(unsigned int level, unsigned int version,
+CSGObject_create(unsigned int level,
+                 unsigned int version,
                  unsigned int pkgVersion)
 {
   return new CSGObject(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this CSGObject_t object.
+ */
 LIBSBML_EXTERN
-void
-CSGObject_free(CSGObject_t * csgo)
-{
-  if (csgo != NULL)
-    delete csgo;
-}
-
-
-LIBSBML_EXTERN
-CSGObject_t *
-CSGObject_clone(CSGObject_t * csgo)
+CSGObject_t*
+CSGObject_clone(const CSGObject_t* csgo)
 {
   if (csgo != NULL)
   {
@@ -1245,90 +1466,67 @@ CSGObject_clone(CSGObject_t * csgo)
 }
 
 
+/*
+ * Frees this CSGObject_t object.
+ */
+LIBSBML_EXTERN
+void
+CSGObject_free(CSGObject_t* csgo)
+{
+  if (csgo != NULL)
+  {
+    delete csgo;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 const char *
 CSGObject_getId(const CSGObject_t * csgo)
 {
-	return (csgo != NULL && csgo->isSetId()) ? csgo->getId().c_str() : NULL;
+  if (csgo == NULL)
+  {
+    return NULL;
+  }
+
+  return csgo->getId().empty() ? NULL : safe_strdup(csgo->getId().c_str());
 }
 
 
+/*
+ * Returns the value of the "domainType" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 const char *
 CSGObject_getDomainType(const CSGObject_t * csgo)
 {
-	return (csgo != NULL && csgo->isSetDomainType()) ? csgo->getDomainType().c_str() : NULL;
+  if (csgo == NULL)
+  {
+    return NULL;
+  }
+
+  return csgo->getDomainType().empty() ? NULL :
+    safe_strdup(csgo->getDomainType().c_str());
 }
 
 
+/*
+ * Returns the value of the "ordinal" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_getOrdinal(const CSGObject_t * csgo)
 {
-	return (csgo != NULL) ? csgo->getOrdinal() : SBML_INT_MAX;
+  return (csgo != NULL) ? csgo->getOrdinal() : SBML_INT_MAX;
 }
 
 
-LIBSBML_EXTERN
-CSGNode_t*
-CSGObject_getCsgNode(CSGObject_t * csgo)
-{
-	if (csgo == NULL)
-		return NULL;
-
-	return (CSGNode_t*)csgo->getCsgNode();
-}
-
-
-LIBSBML_EXTERN
-CSGPrimitive_t *
-CSGObject_createCsgPrimitive(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgPrimitive() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGTranslation_t *
-CSGObject_createCsgTranslation(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgTranslation() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGRotation_t *
-CSGObject_createCsgRotation(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgRotation() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGScale_t *
-CSGObject_createCsgScale(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgScale() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGHomogeneousTransformation_t *
-CSGObject_createCsgHomogeneousTransformation(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgHomogeneousTransformation() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t *
-CSGObject_createCsgPseudoPrimitive(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgPseudoPrimitive() : NULL;
-}
-
-LIBSBML_EXTERN
-CSGSetOperator_t *
-CSGObject_createCsgSetOperator(CSGObject_t * csgo)
-{
-	return  (csgo != NULL) ? csgo->createCsgSetOperator() : NULL;
-}
-
+/*
+ * Predicate returning @c 1 if this CSGObject_t's "id" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_isSetId(const CSGObject_t * csgo)
@@ -1337,6 +1535,10 @@ CSGObject_isSetId(const CSGObject_t * csgo)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CSGObject_t's "domainType" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_isSetDomainType(const CSGObject_t * csgo)
@@ -1345,6 +1547,9 @@ CSGObject_isSetDomainType(const CSGObject_t * csgo)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CSGObject_t's "ordinal" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_isSetOrdinal(const CSGObject_t * csgo)
@@ -1353,55 +1558,43 @@ CSGObject_isSetOrdinal(const CSGObject_t * csgo)
 }
 
 
-LIBSBML_EXTERN
-int
-CSGObject_isSetCsgNode(const CSGObject_t * csgo)
-{
-  return (csgo != NULL) ? static_cast<int>(csgo->isSetCsgNode()) : 0;
-}
-
-
+/*
+ * Sets the value of the "id" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_setId(CSGObject_t * csgo, const char * id)
 {
-  if (csgo != NULL)
-    return (id == NULL) ? csgo->setId("") : csgo->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgo != NULL) ? csgo->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "domainType" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_setDomainType(CSGObject_t * csgo, const char * domainType)
 {
-  if (csgo != NULL)
-    return (domainType == NULL) ? csgo->setDomainType("") : csgo->setDomainType(domainType);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgo != NULL) ? csgo->setDomainType(domainType) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "ordinal" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_setOrdinal(CSGObject_t * csgo, int ordinal)
 {
-  if (csgo != NULL)
-    return csgo->setOrdinal(ordinal);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgo != NULL) ? csgo->setOrdinal(ordinal) : LIBSBML_INVALID_OBJECT;
 }
 
 
-LIBSBML_EXTERN
-int
-CSGObject_setCsgNode(CSGObject_t * csgo, CSGNode_t* csgNode)
-{
-	return (csgo != NULL) ? csgo->setCsgNode(csgNode) : LIBSBML_INVALID_OBJECT;
-}
-
-
+/*
+ * Unsets the value of the "id" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_unsetId(CSGObject_t * csgo)
@@ -1410,6 +1603,9 @@ CSGObject_unsetId(CSGObject_t * csgo)
 }
 
 
+/*
+ * Unsets the value of the "domainType" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_unsetDomainType(CSGObject_t * csgo)
@@ -1418,6 +1614,9 @@ CSGObject_unsetDomainType(CSGObject_t * csgo)
 }
 
 
+/*
+ * Unsets the value of the "ordinal" attribute of this CSGObject_t.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_unsetOrdinal(CSGObject_t * csgo)
@@ -1426,6 +1625,144 @@ CSGObject_unsetOrdinal(CSGObject_t * csgo)
 }
 
 
+/*
+ * Returns the value of the "csgNode" element of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+const CSGNode_t*
+CSGObject_getCsgNode(const CSGObject_t * csgo)
+{
+  if (csgo == NULL)
+  {
+    return NULL;
+  }
+
+  return (CSGNode_t*)(csgo->getCsgNode());
+}
+
+
+/*
+ * Predicate returning @c 1 if this CSGObject_t's "csgNode" element is set.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetCsgNode(const CSGObject_t * csgo)
+{
+  return (csgo != NULL) ? static_cast<int>(csgo->isSetCsgNode()) : 0;
+}
+
+
+/*
+ * Sets the value of the "csgNode" element of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_setCsgNode(CSGObject_t * csgo, const CSGNode_t* csgNode)
+{
+  return (csgo != NULL) ? csgo->setCsgNode(csgNode) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Creates a new CSGPrimitive_t object, adds it to this CSGObject_t object and
+ * returns the CSGPrimitive_t object created.
+ */
+LIBSBML_EXTERN
+CSGPrimitive_t*
+CSGObject_createCSGPrimitive(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGPrimitive() : NULL;
+}
+
+
+/*
+ * Creates a new CSGTranslation_t object, adds it to this CSGObject_t object
+ * and returns the CSGTranslation_t object created.
+ */
+LIBSBML_EXTERN
+CSGTranslation_t*
+CSGObject_createCSGTranslation(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGTranslation() : NULL;
+}
+
+
+/*
+ * Creates a new CSGRotation_t object, adds it to this CSGObject_t object and
+ * returns the CSGRotation_t object created.
+ */
+LIBSBML_EXTERN
+CSGRotation_t*
+CSGObject_createCSGRotation(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGRotation() : NULL;
+}
+
+
+/*
+ * Creates a new CSGScale_t object, adds it to this CSGObject_t object and
+ * returns the CSGScale_t object created.
+ */
+LIBSBML_EXTERN
+CSGScale_t*
+CSGObject_createCSGScale(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGScale() : NULL;
+}
+
+
+/*
+ * Creates a new CSGHomogeneousTransformation_t object, adds it to this
+ * CSGObject_t object and returns the CSGHomogeneousTransformation_t object
+ * created.
+ */
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t*
+CSGObject_createCSGHomogeneousTransformation(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGHomogeneousTransformation() : NULL;
+}
+
+
+/*
+ * Creates a new CSGPseudoPrimitive_t object, adds it to this CSGObject_t
+ * object and returns the CSGPseudoPrimitive_t object created.
+ */
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t*
+CSGObject_createCSGPseudoPrimitive(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGPseudoPrimitive() : NULL;
+}
+
+
+/*
+ * Creates a new CSGSetOperator_t object, adds it to this CSGObject_t object
+ * and returns the CSGSetOperator_t object created.
+ */
+LIBSBML_EXTERN
+CSGSetOperator_t*
+CSGObject_createCSGSetOperator(CSGObject_t* csgo)
+{
+  return (csgo != NULL) ? csgo->createCSGSetOperator() : NULL;
+}
+
+
+/*
+ * Unsets the value of the "csgNode" element of this CSGObject_t.
+ */
+LIBSBML_EXTERN
+int
+CSGObject_unsetCsgNode(CSGObject_t * csgo)
+{
+  return (csgo != NULL) ? csgo->unsetCsgNode() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this CSGObject_t
+ * object have been set.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_hasRequiredAttributes(const CSGObject_t * csgo)
@@ -1434,39 +1771,15 @@ CSGObject_hasRequiredAttributes(const CSGObject_t * csgo)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this CSGObject_t
+ * object have been set.
+ */
 LIBSBML_EXTERN
 int
 CSGObject_hasRequiredElements(const CSGObject_t * csgo)
 {
-	return (csgo != NULL) ? static_cast<int>(csgo->hasRequiredElements()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-CSGObject_t *
-ListOfCSGObjects_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfCSGObjects *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-CSGObject_t *
-ListOfCSGObjects_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfCSGObjects *>(lo)->remove(sid) : NULL;
+  return (csgo != NULL) ? static_cast<int>(csgo->hasRequiredElements()) : 0;
 }
 
 

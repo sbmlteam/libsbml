@@ -1,81 +1,84 @@
 /**
- * @file:   CSGTranslation.cpp
- * @brief:  Implementation of the CSGTranslation class
- * @author: SBMLTeam
+ * @file CSGTranslation.cpp
+ * @brief Implementation of the CSGTranslation class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/CSGTranslation.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new CSGTranslation with the given level, version, and package version.
+ * Creates a new CSGTranslation using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-CSGTranslation::CSGTranslation (unsigned int level, unsigned int version, unsigned int pkgVersion)
+CSGTranslation::CSGTranslation(unsigned int level,
+                               unsigned int version,
+                               unsigned int pkgVersion)
   : CSGTransformation(level, version)
-  , mTranslateX (numeric_limits<double>::quiet_NaN())
+  , mTranslateX (util_NaN())
   , mIsSetTranslateX (false)
-  , mTranslateY (numeric_limits<double>::quiet_NaN())
+  , mTranslateY (util_NaN())
   , mIsSetTranslateY (false)
-  , mTranslateZ (numeric_limits<double>::quiet_NaN())
+  , mTranslateZ (util_NaN())
   , mIsSetTranslateZ (false)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
 }
 
 
 /*
- * Creates a new CSGTranslation with the given SpatialPkgNamespaces object.
+ * Creates a new CSGTranslation using the given SpatialPkgNamespaces object.
  */
-CSGTranslation::CSGTranslation (SpatialPkgNamespaces* spatialns)
+CSGTranslation::CSGTranslation(SpatialPkgNamespaces *spatialns)
   : CSGTransformation(spatialns)
-  , mTranslateX (numeric_limits<double>::quiet_NaN())
+  , mTranslateX (util_NaN())
   , mIsSetTranslateX (false)
-  , mTranslateY (numeric_limits<double>::quiet_NaN())
+  , mTranslateY (util_NaN())
   , mIsSetTranslateY (false)
-  , mTranslateZ (numeric_limits<double>::quiet_NaN())
+  , mTranslateZ (util_NaN())
   , mIsSetTranslateZ (false)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -83,20 +86,20 @@ CSGTranslation::CSGTranslation (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for CSGTranslation.
  */
-CSGTranslation::CSGTranslation (const CSGTranslation& orig)
-  : CSGTransformation(orig)
-  , mTranslateX  ( orig.mTranslateX)
-  , mIsSetTranslateX  ( orig.mIsSetTranslateX)
-  , mTranslateY  ( orig.mTranslateY)
-  , mIsSetTranslateY  ( orig.mIsSetTranslateY)
-  , mTranslateZ  ( orig.mTranslateZ)
-  , mIsSetTranslateZ  ( orig.mIsSetTranslateZ)
+CSGTranslation::CSGTranslation(const CSGTranslation& orig)
+  : CSGTransformation( orig )
+  , mTranslateX ( orig.mTranslateX )
+  , mIsSetTranslateX ( orig.mIsSetTranslateX )
+  , mTranslateY ( orig.mTranslateY )
+  , mIsSetTranslateY ( orig.mIsSetTranslateY )
+  , mTranslateZ ( orig.mTranslateZ )
+  , mIsSetTranslateZ ( orig.mIsSetTranslateZ )
 {
 }
 
 
 /*
- * Assignment for CSGTranslation.
+ * Assignment operator for CSGTranslation.
  */
 CSGTranslation&
 CSGTranslation::operator=(const CSGTranslation& rhs)
@@ -104,22 +107,23 @@ CSGTranslation::operator=(const CSGTranslation& rhs)
   if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
-    mTranslateX  = rhs.mTranslateX;
-    mIsSetTranslateX  = rhs.mIsSetTranslateX;
-    mTranslateY  = rhs.mTranslateY;
-    mIsSetTranslateY  = rhs.mIsSetTranslateY;
-    mTranslateZ  = rhs.mTranslateZ;
-    mIsSetTranslateZ  = rhs.mIsSetTranslateZ;
+    mTranslateX = rhs.mTranslateX;
+    mIsSetTranslateX = rhs.mIsSetTranslateX;
+    mTranslateY = rhs.mTranslateY;
+    mIsSetTranslateY = rhs.mIsSetTranslateY;
+    mTranslateZ = rhs.mTranslateZ;
+    mIsSetTranslateZ = rhs.mIsSetTranslateZ;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for CSGTranslation.
+ * Creates and returns a deep copy of this CSGTranslation object.
  */
 CSGTranslation*
-CSGTranslation::clone () const
+CSGTranslation::clone() const
 {
   return new CSGTranslation(*this);
 }
@@ -128,7 +132,7 @@ CSGTranslation::clone () const
 /*
  * Destructor for CSGTranslation.
  */
-CSGTranslation::~CSGTranslation ()
+CSGTranslation::~CSGTranslation()
 {
 }
 
@@ -164,7 +168,8 @@ CSGTranslation::getTranslateZ() const
 
 
 /*
- * Returns true/false if translateX is set.
+ * Predicate returning @c true if this CSGTranslation's "translateX" attribute
+ * is set.
  */
 bool
 CSGTranslation::isSetTranslateX() const
@@ -174,7 +179,8 @@ CSGTranslation::isSetTranslateX() const
 
 
 /*
- * Returns true/false if translateY is set.
+ * Predicate returning @c true if this CSGTranslation's "translateY" attribute
+ * is set.
  */
 bool
 CSGTranslation::isSetTranslateY() const
@@ -184,7 +190,8 @@ CSGTranslation::isSetTranslateY() const
 
 
 /*
- * Returns true/false if translateZ is set.
+ * Predicate returning @c true if this CSGTranslation's "translateZ" attribute
+ * is set.
  */
 bool
 CSGTranslation::isSetTranslateZ() const
@@ -194,7 +201,7 @@ CSGTranslation::isSetTranslateZ() const
 
 
 /*
- * Sets translateX and returns value indicating success.
+ * Sets the value of the "translateX" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::setTranslateX(double translateX)
@@ -206,7 +213,7 @@ CSGTranslation::setTranslateX(double translateX)
 
 
 /*
- * Sets translateY and returns value indicating success.
+ * Sets the value of the "translateY" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::setTranslateY(double translateY)
@@ -218,7 +225,7 @@ CSGTranslation::setTranslateY(double translateY)
 
 
 /*
- * Sets translateZ and returns value indicating success.
+ * Sets the value of the "translateZ" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::setTranslateZ(double translateZ)
@@ -230,12 +237,12 @@ CSGTranslation::setTranslateZ(double translateZ)
 
 
 /*
- * Unsets translateX and returns value indicating success.
+ * Unsets the value of the "translateX" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::unsetTranslateX()
 {
-  mTranslateX = numeric_limits<double>::quiet_NaN();
+  mTranslateX = util_NaN();
   mIsSetTranslateX = false;
 
   if (isSetTranslateX() == false)
@@ -250,12 +257,12 @@ CSGTranslation::unsetTranslateX()
 
 
 /*
- * Unsets translateY and returns value indicating success.
+ * Unsets the value of the "translateY" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::unsetTranslateY()
 {
-  mTranslateY = numeric_limits<double>::quiet_NaN();
+  mTranslateY = util_NaN();
   mIsSetTranslateY = false;
 
   if (isSetTranslateY() == false)
@@ -270,12 +277,12 @@ CSGTranslation::unsetTranslateY()
 
 
 /*
- * Unsets translateZ and returns value indicating success.
+ * Unsets the value of the "translateZ" attribute of this CSGTranslation.
  */
 int
 CSGTranslation::unsetTranslateZ()
 {
-  mTranslateZ = numeric_limits<double>::quiet_NaN();
+  mTranslateZ = util_NaN();
   mIsSetTranslateZ = false;
 
   if (isSetTranslateZ() == false)
@@ -290,10 +297,10 @@ CSGTranslation::unsetTranslateZ()
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this CSGTranslation object.
  */
 const std::string&
-CSGTranslation::getElementName () const
+CSGTranslation::getElementName() const
 {
   static const string name = "csgTranslation";
   return name;
@@ -301,116 +308,429 @@ CSGTranslation::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this CSGTranslation object.
  */
 int
-CSGTranslation::getTypeCode () const
+CSGTranslation::getTypeCode() const
 {
   return SBML_SPATIAL_CSGTRANSLATION;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * CSGTranslation object have been set.
  */
 bool
-CSGTranslation::hasRequiredAttributes () const
+CSGTranslation::hasRequiredAttributes() const
 {
   bool allPresent = CSGTransformation::hasRequiredAttributes();
 
   if (isSetTranslateX() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-CSGTranslation::writeElements (XMLOutputStream& stream) const
+CSGTranslation::writeElements(XMLOutputStream& stream) const
 {
   CSGTransformation::writeElements(stream);
+
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-CSGTranslation::accept (SBMLVisitor& v) const
+CSGTranslation::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-CSGTranslation::setSBMLDocument (SBMLDocument* d)
+CSGTranslation::setSBMLDocument(SBMLDocument* d)
 {
   CSGTransformation::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 CSGTranslation::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                      const std::string& pkgPrefix,
+                                      bool flag)
 {
   CSGTransformation::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * creates object.
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             bool& value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             int& value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             double& value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "translateX")
+  {
+    value = getTranslateX();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "translateY")
+  {
+    value = getTranslateY();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "translateZ")
+  {
+    value = getTranslateZ();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             unsigned int& value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             std::string& value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::getAttribute(const std::string& attributeName,
+                             const char* value) const
+{
+  int return_value = CSGTransformation::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this CSGTranslation's attribute
+ * "attributeName" is set.
+ */
+bool
+CSGTranslation::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = CSGTransformation::isSetAttribute(attributeName);
+
+  if (attributeName == "translateX")
+  {
+    value = isSetTranslateX();
+  }
+  else if (attributeName == "translateY")
+  {
+    value = isSetTranslateY();
+  }
+  else if (attributeName == "translateZ")
+  {
+    value = isSetTranslateZ();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  if (attributeName == "translateX")
+  {
+    return_value = setTranslateX(value);
+  }
+  else if (attributeName == "translateY")
+  {
+    return_value = setTranslateY(value);
+  }
+  else if (attributeName == "translateZ")
+  {
+    return_value = setTranslateZ(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName,
+                             unsigned int value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName,
+                             const std::string& value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::setAttribute(const std::string& attributeName,
+                             const char* value)
+{
+  int return_value = CSGTransformation::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this CSGTranslation.
+ */
+int
+CSGTranslation::unsetAttribute(const std::string& attributeName)
+{
+  int value = CSGTransformation::unsetAttribute(attributeName);
+
+  if (attributeName == "translateX")
+  {
+    value = unsetTranslateX();
+  }
+  else if (attributeName == "translateY")
+  {
+    value = unsetTranslateY();
+  }
+  else if (attributeName == "translateZ")
+  {
+    value = unsetTranslateZ();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 CSGTranslation::createObject(XMLInputStream& stream)
 {
-  SBase* object = CSGTransformation::createObject(stream);
+  SBase* obj = CSGTransformation::createObject(stream);
 
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 CSGTranslation::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -418,173 +738,185 @@ CSGTranslation::addExpectedAttributes(ExpectedAttributes& attributes)
   CSGTransformation::addExpectedAttributes(attributes);
 
   attributes.add("translateX");
+
   attributes.add("translateY");
+
   attributes.add("translateZ");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-CSGTranslation::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+CSGTranslation::readAttributes(const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   CSGTransformation::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialCSGTranslationAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialCSGTranslationAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
 
-  //
-  // translateX double   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // translateX double (use = "required" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetTranslateX = attributes.readInto("translateX", mTranslateX);
 
-  if (mIsSetTranslateX == false)
+  if ( mIsSetTranslateX == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'translateX' is missing from 'csgTranslation' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'translateX' from the "
+        "<CSGTranslation> element must be an integer.";
+      log->logPackageError("spatial",
+        SpatialCSGTranslationTranslateXMustBeDouble, pkgVersion, level, version,
+          message);
+    }
+    else
+    {
+      std::string message = "Spatial attribute 'translateX' is missing from the "
+        "<CSGTranslation> element.";
+      log->logPackageError("spatial", SpatialCSGTranslationAllowedAttributes,
+        pkgVersion, level, version, message);
     }
   }
 
-  //
-  // translateY double   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // translateY double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetTranslateY = attributes.readInto("translateY", mTranslateY);
 
-  if (mIsSetTranslateY == false)
+  if ( mIsSetTranslateY == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'translateY' from the "
+        "<CSGTranslation> element must be an integer.";
+      log->logPackageError("spatial",
+        SpatialCSGTranslationTranslateYMustBeDouble, pkgVersion, level, version,
+          message);
     }
   }
 
-  //
-  // translateZ double   ( use = "optional" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
+  // 
+  // translateZ double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
   mIsSetTranslateZ = attributes.readInto("translateZ", mTranslateZ);
 
-  if (mIsSetTranslateZ == false)
+  if ( mIsSetTranslateZ == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Spatial attribute 'translateZ' from the "
+        "<CSGTranslation> element must be an integer.";
+      log->logPackageError("spatial",
+        SpatialCSGTranslationTranslateZMustBeDouble, pkgVersion, level, version,
+          message);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-CSGTranslation::writeAttributes (XMLOutputStream& stream) const
+void
+CSGTranslation::writeAttributes(XMLOutputStream& stream) const
 {
   CSGTransformation::writeAttributes(stream);
 
   if (isSetTranslateX() == true)
+  {
     stream.writeAttribute("translateX", getPrefix(), mTranslateX);
+  }
 
   if (isSetTranslateY() == true)
+  {
     stream.writeAttribute("translateY", getPrefix(), mTranslateY);
+  }
 
   if (isSetTranslateZ() == true)
+  {
     stream.writeAttribute("translateZ", getPrefix(), mTranslateZ);
+  }
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new CSGTranslation_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 CSGTranslation_t *
-CSGTranslation_create(unsigned int level, unsigned int version,
+CSGTranslation_create(unsigned int level,
+                      unsigned int version,
                       unsigned int pkgVersion)
 {
   return new CSGTranslation(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this CSGTranslation_t object.
+ */
 LIBSBML_EXTERN
-void
-CSGTranslation_free(CSGTranslation_t * csgt)
-{
-  if (csgt != NULL)
-    delete csgt;
-}
-
-
-LIBSBML_EXTERN
-CSGTranslation_t *
-CSGTranslation_clone(CSGTranslation_t * csgt)
+CSGTranslation_t*
+CSGTranslation_clone(const CSGTranslation_t* csgt)
 {
   if (csgt != NULL)
   {
@@ -597,30 +929,57 @@ CSGTranslation_clone(CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Frees this CSGTranslation_t object.
+ */
+LIBSBML_EXTERN
+void
+CSGTranslation_free(CSGTranslation_t* csgt)
+{
+  if (csgt != NULL)
+  {
+    delete csgt;
+  }
+}
+
+
+/*
+ * Returns the value of the "translateX" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 double
 CSGTranslation_getTranslateX(const CSGTranslation_t * csgt)
 {
-	return (csgt != NULL) ? csgt->getTranslateX() : numeric_limits<double>::quiet_NaN();
+  return (csgt != NULL) ? csgt->getTranslateX() : util_NaN();
 }
 
 
+/*
+ * Returns the value of the "translateY" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 double
 CSGTranslation_getTranslateY(const CSGTranslation_t * csgt)
 {
-	return (csgt != NULL) ? csgt->getTranslateY() : numeric_limits<double>::quiet_NaN();
+  return (csgt != NULL) ? csgt->getTranslateY() : util_NaN();
 }
 
 
+/*
+ * Returns the value of the "translateZ" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 double
 CSGTranslation_getTranslateZ(const CSGTranslation_t * csgt)
 {
-	return (csgt != NULL) ? csgt->getTranslateZ() : numeric_limits<double>::quiet_NaN();
+  return (csgt != NULL) ? csgt->getTranslateZ() : util_NaN();
 }
 
 
+/*
+ * Predicate returning @c 1 if this CSGTranslation_t's "translateX" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_isSetTranslateX(const CSGTranslation_t * csgt)
@@ -629,6 +988,10 @@ CSGTranslation_isSetTranslateX(const CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CSGTranslation_t's "translateY" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_isSetTranslateY(const CSGTranslation_t * csgt)
@@ -637,6 +1000,10 @@ CSGTranslation_isSetTranslateY(const CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Predicate returning @c 1 if this CSGTranslation_t's "translateZ" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_isSetTranslateZ(const CSGTranslation_t * csgt)
@@ -645,39 +1012,45 @@ CSGTranslation_isSetTranslateZ(const CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Sets the value of the "translateX" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_setTranslateX(CSGTranslation_t * csgt, double translateX)
 {
-  if (csgt != NULL)
-    return csgt->setTranslateX(translateX);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgt != NULL) ? csgt->setTranslateX(translateX) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "translateY" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_setTranslateY(CSGTranslation_t * csgt, double translateY)
 {
-  if (csgt != NULL)
-    return csgt->setTranslateY(translateY);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgt != NULL) ? csgt->setTranslateY(translateY) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Sets the value of the "translateZ" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_setTranslateZ(CSGTranslation_t * csgt, double translateZ)
 {
-  if (csgt != NULL)
-    return csgt->setTranslateZ(translateZ);
-  else
-    return LIBSBML_INVALID_OBJECT;
+  return (csgt != NULL) ? csgt->setTranslateZ(translateZ) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
+/*
+ * Unsets the value of the "translateX" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_unsetTranslateX(CSGTranslation_t * csgt)
@@ -686,6 +1059,9 @@ CSGTranslation_unsetTranslateX(CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Unsets the value of the "translateY" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_unsetTranslateY(CSGTranslation_t * csgt)
@@ -694,6 +1070,9 @@ CSGTranslation_unsetTranslateY(CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Unsets the value of the "translateZ" attribute of this CSGTranslation_t.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_unsetTranslateZ(CSGTranslation_t * csgt)
@@ -702,6 +1081,10 @@ CSGTranslation_unsetTranslateZ(CSGTranslation_t * csgt)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * CSGTranslation_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 CSGTranslation_hasRequiredAttributes(const CSGTranslation_t * csgt)

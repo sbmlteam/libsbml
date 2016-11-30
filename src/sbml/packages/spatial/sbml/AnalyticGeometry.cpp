@@ -1,37 +1,35 @@
 /**
- * @file:   AnalyticGeometry.cpp
- * @brief:  Implementation of the AnalyticGeometry class
- * @author: SBMLTeam
+ * @file AnalyticGeometry.cpp
+ * @brief Implementation of the AnalyticGeometry class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2016 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
@@ -40,38 +38,40 @@
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new AnalyticGeometry with the given level, version, and package version.
+ * Creates a new AnalyticGeometry using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
  */
-AnalyticGeometry::AnalyticGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
+AnalyticGeometry::AnalyticGeometry(unsigned int level,
+                                   unsigned int version,
+                                   unsigned int pkgVersion)
   : GeometryDefinition(level, version)
   , mAnalyticVolumes (level, version, pkgVersion)
 {
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
+    pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new AnalyticGeometry with the given SpatialPkgNamespaces object.
+ * Creates a new AnalyticGeometry using the given SpatialPkgNamespaces object.
  */
-AnalyticGeometry::AnalyticGeometry (SpatialPkgNamespaces* spatialns)
+AnalyticGeometry::AnalyticGeometry(SpatialPkgNamespaces *spatialns)
   : GeometryDefinition(spatialns)
   , mAnalyticVolumes (spatialns)
 {
-  // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
 }
 
@@ -79,17 +79,16 @@ AnalyticGeometry::AnalyticGeometry (SpatialPkgNamespaces* spatialns)
 /*
  * Copy constructor for AnalyticGeometry.
  */
-AnalyticGeometry::AnalyticGeometry (const AnalyticGeometry& orig)
-  : GeometryDefinition(orig)
-  , mAnalyticVolumes  ( orig.mAnalyticVolumes)
+AnalyticGeometry::AnalyticGeometry(const AnalyticGeometry& orig)
+  : GeometryDefinition( orig )
+  , mAnalyticVolumes ( orig.mAnalyticVolumes )
 {
-  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Assignment for AnalyticGeometry.
+ * Assignment operator for AnalyticGeometry.
  */
 AnalyticGeometry&
 AnalyticGeometry::operator=(const AnalyticGeometry& rhs)
@@ -97,20 +96,19 @@ AnalyticGeometry::operator=(const AnalyticGeometry& rhs)
   if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
-    mAnalyticVolumes  = rhs.mAnalyticVolumes;
-
-    // connect to child objects
+    mAnalyticVolumes = rhs.mAnalyticVolumes;
     connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for AnalyticGeometry.
+ * Creates and returns a deep copy of this AnalyticGeometry object.
  */
 AnalyticGeometry*
-AnalyticGeometry::clone () const
+AnalyticGeometry::clone() const
 {
   return new AnalyticGeometry(*this);
 }
@@ -119,13 +117,13 @@ AnalyticGeometry::clone () const
 /*
  * Destructor for AnalyticGeometry.
  */
-AnalyticGeometry::~AnalyticGeometry ()
+AnalyticGeometry::~AnalyticGeometry()
 {
 }
 
 
 /*
- * Returns the  "ListOfAnalyticVolumes" in this AnalyticGeometry object.
+ * Returns the ListOfAnalyticVolumes from this AnalyticGeometry.
  */
 const ListOfAnalyticVolumes*
 AnalyticGeometry::getListOfAnalyticVolumes() const
@@ -135,7 +133,7 @@ AnalyticGeometry::getListOfAnalyticVolumes() const
 
 
 /*
- * Returns the  "ListOfAnalyticVolumes" in this AnalyticGeometry object.
+ * Returns the ListOfAnalyticVolumes from this AnalyticGeometry.
  */
 ListOfAnalyticVolumes*
 AnalyticGeometry::getListOfAnalyticVolumes()
@@ -145,76 +143,69 @@ AnalyticGeometry::getListOfAnalyticVolumes()
 
 
 /*
- * Removes the nth AnalyticVolume from the ListOfAnalyticVolumes.
- */
-AnalyticVolume*
-AnalyticGeometry::removeAnalyticVolume(unsigned int n)
-{
-	return mAnalyticVolumes.remove(n);
-}
-
-
-/*
- * Removes the a AnalyticVolume with given id from the ListOfAnalyticVolumes.
- */
-AnalyticVolume*
-AnalyticGeometry::removeAnalyticVolume(const std::string& sid)
-{
-	return mAnalyticVolumes.remove(sid);
-}
-
-
-/*
- * Return the nth AnalyticVolume in the ListOfAnalyticVolumes within this AnalyticGeometry.
+ * Get an AnalyticVolume from the AnalyticGeometry.
  */
 AnalyticVolume*
 AnalyticGeometry::getAnalyticVolume(unsigned int n)
 {
-	return mAnalyticVolumes.get(n);
+  return mAnalyticVolumes.get(n);
 }
 
 
 /*
- * Return the nth AnalyticVolume in the ListOfAnalyticVolumes within this AnalyticGeometry.
+ * Get an AnalyticVolume from the AnalyticGeometry.
  */
 const AnalyticVolume*
 AnalyticGeometry::getAnalyticVolume(unsigned int n) const
 {
-	return mAnalyticVolumes.get(n);
+  return mAnalyticVolumes.get(n);
 }
 
 
 /*
- * Return a AnalyticVolume from the ListOfAnalyticVolumes by id.
+ * Get an AnalyticVolume from the AnalyticGeometry based on its identifier.
  */
 AnalyticVolume*
 AnalyticGeometry::getAnalyticVolume(const std::string& sid)
 {
-	return mAnalyticVolumes.get(sid);
+  return mAnalyticVolumes.get(sid);
 }
 
 
 /*
- * Return a AnalyticVolume from the ListOfAnalyticVolumes by id.
+ * Get an AnalyticVolume from the AnalyticGeometry based on its identifier.
  */
 const AnalyticVolume*
 AnalyticGeometry::getAnalyticVolume(const std::string& sid) const
 {
-	return mAnalyticVolumes.get(sid);
+  return mAnalyticVolumes.get(sid);
 }
 
 
 /*
- * Adds a copy the given "AnalyticVolume" to this AnalyticGeometry.
- *
- * @param av; the AnalyticVolume object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Get an AnalyticVolume from the AnalyticGeometry based on the DomainType to
+ * which it refers.
+ */
+const AnalyticVolume*
+AnalyticGeometry::getAnalyticVolumeByDomainType(const std::string& sid) const
+{
+  return mAnalyticVolumes.getByDomainType(sid);
+}
+
+
+/*
+ * Get an AnalyticVolume from the AnalyticGeometry based on the DomainType to
+ * which it refers.
+ */
+AnalyticVolume*
+AnalyticGeometry::getAnalyticVolumeByDomainType(const std::string& sid)
+{
+  return mAnalyticVolumes.getByDomainType(sid);
+}
+
+
+/*
+ * Adds a copy of the given AnalyticVolume to this AnalyticGeometry.
  */
 int
 AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
@@ -235,22 +226,24 @@ AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(av)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(av)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
+  else if (av->isSetId() && (mAnalyticVolumes.get(av->getId())) != NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
   else
   {
-    mAnalyticVolumes.append(av);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mAnalyticVolumes.append(av);
   }
 }
 
 
 /*
  * Get the number of AnalyticVolume objects in this AnalyticGeometry.
- *
- * @return the number of AnalyticVolume objects in this AnalyticGeometry
  */
 unsigned int
 AnalyticGeometry::getNumAnalyticVolumes() const
@@ -260,12 +253,8 @@ AnalyticGeometry::getNumAnalyticVolumes() const
 
 
 /*
- * Creates a new AnalyticVolume object, adds it to this AnalyticGeometrys
- * AnalyticGeometry and returns the AnalyticVolume object created. 
- *
- * @return a new AnalyticVolume object instance
- *
- * @see addAnalyticVolume(const AnalyticVolume* av)
+ * Creates a new AnalyticVolume object, adds it to this AnalyticGeometry object
+ * and returns the AnalyticVolume object created.
  */
 AnalyticVolume*
 AnalyticGeometry::createAnalyticVolume()
@@ -280,14 +269,9 @@ AnalyticGeometry::createAnalyticVolume()
   }
   catch (...)
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
   }
 
-  if(av != NULL)
+  if (av != NULL)
   {
     mAnalyticVolumes.appendAndOwn(av);
   }
@@ -296,25 +280,33 @@ AnalyticGeometry::createAnalyticVolume()
 }
 
 
-List*
-AnalyticGeometry::getAllElements(ElementFilter* filter)
+/*
+ * Removes the nth AnalyticVolume from this AnalyticGeometry and returns a
+ * pointer to it.
+ */
+AnalyticVolume*
+AnalyticGeometry::removeAnalyticVolume(unsigned int n)
 {
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mAnalyticVolumes, filter);
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
+  return mAnalyticVolumes.remove(n);
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Removes the AnalyticVolume from this AnalyticGeometry based on its
+ * identifier and returns a pointer to it.
+ */
+AnalyticVolume*
+AnalyticGeometry::removeAnalyticVolume(const std::string& sid)
+{
+  return mAnalyticVolumes.remove(sid);
+}
+
+
+/*
+ * Returns the XML element name of this AnalyticGeometry object.
  */
 const std::string&
-AnalyticGeometry::getElementName () const
+AnalyticGeometry::getElementName() const
 {
   static const string name = "analyticGeometry";
   return name;
@@ -322,20 +314,21 @@ AnalyticGeometry::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this AnalyticGeometry object.
  */
 int
-AnalyticGeometry::getTypeCode () const
+AnalyticGeometry::getTypeCode() const
 {
   return SBML_SPATIAL_ANALYTICGEOMETRY;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * AnalyticGeometry object have been set.
  */
 bool
-AnalyticGeometry::hasRequiredAttributes () const
+AnalyticGeometry::hasRequiredAttributes() const
 {
   bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
@@ -344,10 +337,11 @@ AnalyticGeometry::hasRequiredAttributes () const
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this
+ * AnalyticGeometry object have been set.
  */
 bool
-AnalyticGeometry::hasRequiredElements () const
+AnalyticGeometry::hasRequiredElements() const
 {
   bool allPresent = GeometryDefinition::hasRequiredElements();
 
@@ -355,15 +349,17 @@ AnalyticGeometry::hasRequiredElements () const
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-AnalyticGeometry::writeElements (XMLOutputStream& stream) const
+AnalyticGeometry::writeElements(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeElements(stream);
+
   if (getNumAnalyticVolumes() > 0)
   {
     mAnalyticVolumes.write(stream);
@@ -372,51 +368,51 @@ AnalyticGeometry::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-AnalyticGeometry::accept (SBMLVisitor& v) const
+AnalyticGeometry::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-/* VISIT CHILDREN */
+  mAnalyticVolumes.accept(v);
 
   v.leave(*this);
-
   return true;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-AnalyticGeometry::setSBMLDocument (SBMLDocument* d)
+AnalyticGeometry::setSBMLDocument(SBMLDocument* d)
 {
   GeometryDefinition::setSBMLDocument(d);
+
   mAnalyticVolumes.setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
+ * Connects to child elements
  */
 void
 AnalyticGeometry::connectToChild()
@@ -426,153 +422,505 @@ AnalyticGeometry::connectToChild()
   mAnalyticVolumes.connectToParent(this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 AnalyticGeometry::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                        const std::string& pkgPrefix,
+                                        bool flag)
 {
   GeometryDefinition::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
   mAnalyticVolumes.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * creates object.
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               bool& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               double& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               unsigned int& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               std::string& value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::getAttribute(const std::string& attributeName,
+                               const char* value) const
+{
+  int return_value = GeometryDefinition::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this AnalyticGeometry's attribute
+ * "attributeName" is set.
+ */
+bool
+AnalyticGeometry::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = GeometryDefinition::isSetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName,
+                               unsigned int value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName,
+                               const std::string& value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::setAttribute(const std::string& attributeName,
+                               const char* value)
+{
+  int return_value = GeometryDefinition::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this AnalyticGeometry.
+ */
+int
+AnalyticGeometry::unsetAttribute(const std::string& attributeName)
+{
+  int value = GeometryDefinition::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this AnalyticGeometry.
+ */
+SBase*
+AnalyticGeometry::createObject(const std::string& elementName)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "analyticVolume")
+  {
+    return createAnalyticVolume();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+AnalyticGeometry::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mAnalyticVolumes.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+AnalyticGeometry::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mAnalyticVolumes.getMetaId() == metaid)
+  {
+    return &mAnalyticVolumes;
+  }
+
+  obj = mAnalyticVolumes.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+AnalyticGeometry::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mAnalyticVolumes, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
 SBase*
 AnalyticGeometry::createObject(XMLInputStream& stream)
 {
-  SBase* object = GeometryDefinition::createObject(stream);
+  SBase* obj = GeometryDefinition::createObject(stream);
 
-  const string& name = stream.peek().getName();
+  const std::string& name = stream.peek().getName();
 
   if (name == "listOfAnalyticVolumes")
   {
-    object = &mAnalyticVolumes;
+    if (mAnalyticVolumes.size() != 0)
+    {
+      getErrorLog()->logPackageError("spatial",
+        SpatialAnalyticGeometryAllowedElements, getPackageVersion(), getLevel(),
+          getVersion());
+    }
+
+    obj = &mAnalyticVolumes;
   }
+
   connectToChild();
 
-
-  return object;
+  return obj;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Adds the expected attributes for this element
  */
 void
 AnalyticGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   GeometryDefinition::addExpectedAttributes(attributes);
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-AnalyticGeometry::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+AnalyticGeometry::readAttributes(const XMLAttributes& attributes,
+                                 const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("spatial", SpatialUnknown, pkgVersion, level,
+        version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("spatial",
+        SpatialAnalyticGeometryAllowedCoreAttributes, pkgVersion, level, version,
+          details);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-AnalyticGeometry::writeAttributes (XMLOutputStream& stream) const
+void
+AnalyticGeometry::writeAttributes(XMLOutputStream& stream) const
 {
   GeometryDefinition::writeAttributes(stream);
 
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new AnalyticGeometry_t using the given SBML Level, Version and
+ * &ldquo;spatial&rdquo; package version.
+ */
 LIBSBML_EXTERN
 AnalyticGeometry_t *
-AnalyticGeometry_create(unsigned int level, unsigned int version,
+AnalyticGeometry_create(unsigned int level,
+                        unsigned int version,
                         unsigned int pkgVersion)
 {
   return new AnalyticGeometry(level, version, pkgVersion);
 }
 
 
+/*
+ * Creates and returns a deep copy of this AnalyticGeometry_t object.
+ */
 LIBSBML_EXTERN
-void
-AnalyticGeometry_free(AnalyticGeometry_t * ag)
-{
-  if (ag != NULL)
-    delete ag;
-}
-
-
-LIBSBML_EXTERN
-AnalyticGeometry_t *
-AnalyticGeometry_clone(AnalyticGeometry_t * ag)
+AnalyticGeometry_t*
+AnalyticGeometry_clone(const AnalyticGeometry_t* ag)
 {
   if (ag != NULL)
   {
@@ -585,62 +933,133 @@ AnalyticGeometry_clone(AnalyticGeometry_t * ag)
 }
 
 
+/*
+ * Frees this AnalyticGeometry_t object.
+ */
+LIBSBML_EXTERN
+void
+AnalyticGeometry_free(AnalyticGeometry_t* ag)
+{
+  if (ag != NULL)
+  {
+    delete ag;
+  }
+}
+
+
+/*
+ * Returns a ListOf_t* containing AnalyticVolume_t objects from this
+ * AnalyticGeometry_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+AnalyticGeometry_getListOfAnalyticVolumes(AnalyticGeometry_t* ag)
+{
+  return (ag != NULL) ? ag->getListOfAnalyticVolumes() : NULL;
+}
+
+
+/*
+ * Get an AnalyticVolume_t from the AnalyticGeometry_t.
+ */
+LIBSBML_EXTERN
+const AnalyticVolume_t*
+AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n)
+{
+  return (ag != NULL) ? ag->getAnalyticVolume(n) : NULL;
+}
+
+
+/*
+ * Get an AnalyticVolume_t from the AnalyticGeometry_t based on its identifier.
+ */
+LIBSBML_EXTERN
+const AnalyticVolume_t*
+AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t* ag,
+                                       const char *sid)
+{
+  return (ag != NULL && sid != NULL) ? ag->getAnalyticVolume(sid) : NULL;
+}
+
+
+/*
+ * Get an AnalyticVolume_t from the AnalyticGeometry_t based on the DomainType
+ * to which it refers.
+ */
+LIBSBML_EXTERN
+const AnalyticVolume_t*
+AnalyticGeometry_getAnalyticVolumeByDomainType(AnalyticGeometry_t* ag,
+                                               const char *sid)
+{
+  return (ag != NULL && sid != NULL) ? ag->getAnalyticVolumeByDomainType(sid) :
+    NULL;
+}
+
+
+/*
+ * Adds a copy of the given AnalyticVolume_t to this AnalyticGeometry_t.
+ */
 LIBSBML_EXTERN
 int
-AnalyticGeometry_addAnalyticVolume(AnalyticGeometry_t * ag, AnalyticVolume_t * av)
+AnalyticGeometry_addAnalyticVolume(AnalyticGeometry_t* ag,
+                                   const AnalyticVolume_t* av)
 {
-	return  (ag != NULL) ? ag->addAnalyticVolume(av) : LIBSBML_INVALID_OBJECT;
+  return (ag != NULL) ? ag->addAnalyticVolume(av) : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticGeometry_createAnalyticVolume(AnalyticGeometry_t * ag)
-{
-	return  (ag != NULL) ? ag->createAnalyticVolume() : NULL;
-}
 
-LIBSBML_EXTERN
-ListOf_t *
-AnalyticGeometry_getListOfAnalyticVolumes(AnalyticGeometry_t * ag)
-{
-	return  (ag != NULL) ? (ListOf_t *)ag->getListOfAnalyticVolumes() : NULL;
-}
-
-LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticGeometry_getAnalyticVolume(AnalyticGeometry_t * ag, unsigned int n)
-{
-	return  (ag != NULL) ? ag->getAnalyticVolume(n) : NULL;
-}
-
-LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticGeometry_getAnalyticVolumeById(AnalyticGeometry_t * ag, const char * sid)
-{
-	return  (ag != NULL) ? ag->getAnalyticVolume(sid) : NULL;
-}
-
+/*
+ * Get the number of AnalyticVolume_t objects in this AnalyticGeometry_t.
+ */
 LIBSBML_EXTERN
 unsigned int
-AnalyticGeometry_getNumAnalyticVolumes(AnalyticGeometry_t * ag)
+AnalyticGeometry_getNumAnalyticVolumes(AnalyticGeometry_t* ag)
 {
-	return  (ag != NULL) ? ag->getNumAnalyticVolumes() : SBML_INT_MAX;
+  return (ag != NULL) ? ag->getNumAnalyticVolumes() : SBML_INT_MAX;
 }
 
+
+/*
+ * Creates a new AnalyticVolume_t object, adds it to this AnalyticGeometry_t
+ * object and returns the AnalyticVolume_t object created.
+ */
 LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticGeometry_removeAnalyticVolume(AnalyticGeometry_t * ag, unsigned int n)
+AnalyticVolume_t*
+AnalyticGeometry_createAnalyticVolume(AnalyticGeometry_t* ag)
 {
-	return  (ag != NULL) ? ag->removeAnalyticVolume(n) : NULL;
+  return (ag != NULL) ? ag->createAnalyticVolume() : NULL;
 }
 
+
+/*
+ * Removes the nth AnalyticVolume_t from this AnalyticGeometry_t and returns a
+ * pointer to it.
+ */
 LIBSBML_EXTERN
-AnalyticVolume_t *
-AnalyticGeometry_removeAnalyticVolumeById(AnalyticGeometry_t * ag, const char * sid)
+AnalyticVolume_t*
+AnalyticGeometry_removeAnalyticVolume(AnalyticGeometry_t* ag, unsigned int n)
 {
-	return  (ag != NULL) ? ag->removeAnalyticVolume(sid) : NULL;
+  return (ag != NULL) ? ag->removeAnalyticVolume(n) : NULL;
 }
 
+
+/*
+ * Removes the AnalyticVolume_t from this AnalyticGeometry_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+AnalyticVolume_t*
+AnalyticGeometry_removeAnalyticVolumeById(AnalyticGeometry_t* ag,
+                                          const char* sid)
+{
+  return (ag != NULL && sid != NULL) ? ag->removeAnalyticVolume(sid) : NULL;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this
+ * AnalyticGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticGeometry_hasRequiredAttributes(const AnalyticGeometry_t * ag)
@@ -649,11 +1068,15 @@ AnalyticGeometry_hasRequiredAttributes(const AnalyticGeometry_t * ag)
 }
 
 
+/*
+ * Predicate returning @c 1 if all the required elements for this
+ * AnalyticGeometry_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 AnalyticGeometry_hasRequiredElements(const AnalyticGeometry_t * ag)
 {
-	return (ag != NULL) ? static_cast<int>(ag->hasRequiredElements()) : 0;
+  return (ag != NULL) ? static_cast<int>(ag->hasRequiredElements()) : 0;
 }
 
 
