@@ -461,7 +461,7 @@ public:
    *
    * @see setFormula(const std::string& formula)
    */
-  int setMath (const ASTNode* math);
+  virtual int setMath (const ASTNode* math);
 
 
   /**
@@ -1294,6 +1294,21 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this KineticLaw.
+   *
+   * @param objectName, the name of the element to create.
+   *
+   * pointer to the object created.
+   */
+  virtual SBase* createObject(const std::string& elementName);
 
   /** @endcond */
 

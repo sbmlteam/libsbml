@@ -2473,6 +2473,25 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    virtual int unsetAttribute(const std::string& attributeName);
 
   /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual SBase* createObject(const std::string& objectName);
+
+  /** @endcond */
+
+     /** @cond doxygenLibsbmlInternal */
+
+   virtual int setMath(const ASTNode* math);
+
+  /** @endcond */
+
+     /** @cond doxygenLibsbmlInternal */
+
+  virtual int setMessage (const std::string& message, bool addXHTMLMarkup = false);
+
+  /** @endcond */
+
 #endif
 
   /** @cond doxygenLibsbmlInternal */

@@ -1893,6 +1893,40 @@ Reaction::unsetAttribute(const std::string& attributeName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this Reaction.
+ */
+SBase*
+Reaction::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "kineticLaw")
+  {
+    return createKineticLaw();
+  }
+  else if (elementName == "product")
+  {
+    return createProduct();
+  }
+  else if (elementName == "reactant")
+  {
+    return createReactant();
+  }
+  else if (elementName == "modifier")
+  {
+    return createModifier();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
 
 /** @cond doxygenLibsbmlInternal */
 /**

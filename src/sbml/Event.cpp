@@ -1658,6 +1658,40 @@ Event::unsetAttribute(const std::string& attributeName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this Event.
+ */
+SBase*
+Event::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "trigger")
+  {
+    return createTrigger();
+  }
+  else if (elementName == "priority")
+  {
+    return createPriority();
+  }
+  else if (elementName == "delay")
+  {
+    return createDelay();
+  }
+  else if (elementName == "eventAssignment")
+  {
+    return createEventAssignment();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
 
 
 /** @cond doxygenLibsbmlInternal */

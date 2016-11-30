@@ -362,9 +362,20 @@ AssignmentRule::setAttribute(const std::string& attributeName,
 {
   int return_value = Rule::setAttribute(attributeName, value);
 
-  if (attributeName == "variable")
+  if (attributeName == "variable" )
   {
     return_value = setVariable(value);
+  }
+  if (getL1TypeCode() != SBML_UNKNOWN)
+  {
+    if (attributeName == "name" || attributeName == "compartment" 
+      || attributeName == "species")
+    {
+      if (!isSetVariable())
+      {
+        return_value = setVariable(value);
+      }
+    }
   }
 
   return return_value;
@@ -388,6 +399,14 @@ AssignmentRule::setAttribute(const std::string& attributeName,
   if (attributeName == "variable")
   {
     return_value = setVariable(value);
+  }
+  if (getL1TypeCode() != SBML_UNKNOWN)
+  {
+    if (attributeName == "name" || attributeName == "compartment" 
+      || attributeName == "species")
+    {
+      return_value = setVariable(value);
+    }
   }
 
   return return_value;

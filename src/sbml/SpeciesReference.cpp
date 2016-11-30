@@ -910,6 +910,25 @@ SpeciesReference::unsetAttribute(const std::string& attributeName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this SpeciesReference.
+ */
+SBase*
+SpeciesReference::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "stoichiometryMath")
+  {
+    return createStoichiometryMath();
+  }
+
+  return obj;
+}
+
+/** @endcond */
 
 
 

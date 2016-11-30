@@ -342,6 +342,14 @@ RateRule::setAttribute(const std::string& attributeName,
   {
     return_value = setVariable(value);
   }
+  if (getL1TypeCode() != SBML_UNKNOWN)
+  {
+    if (attributeName == "name" || attributeName == "compartment" 
+      || attributeName == "species")
+    {
+      return_value = setVariable(value);
+    }
+  }
 
   return return_value;
 }
@@ -363,6 +371,17 @@ RateRule::setAttribute(const std::string& attributeName, const char* value)
   if (attributeName == "variable")
   {
     return_value = setVariable(value);
+  }
+  if (getL1TypeCode() != SBML_UNKNOWN)
+  {
+    if (attributeName == "name" || attributeName == "compartment" 
+      || attributeName == "species")
+    {
+      if (!isSetVariable())
+      {
+        return_value = setVariable(value);
+      }
+    }
   }
 
   return return_value;

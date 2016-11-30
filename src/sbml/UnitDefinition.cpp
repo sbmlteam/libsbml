@@ -1814,6 +1814,28 @@ UnitDefinition::unsetAttribute(const std::string& attributeName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this UnitDefinition.
+ */
+SBase*
+UnitDefinition::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "unit")
+  {
+    return createUnit();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /* @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the

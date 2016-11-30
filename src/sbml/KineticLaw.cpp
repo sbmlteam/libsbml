@@ -1455,6 +1455,31 @@ KineticLaw::unsetAttribute(const std::string& attributeName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this KineticLaw.
+ */
+SBase*
+KineticLaw::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "localParameter")
+  {
+    return createLocalParameter();
+  }
+  else if (elementName == "parameter")
+  {
+    return createParameter();
+  }
+
+
+  return obj;
+}
+
+/** @endcond */
+
 
 
 void

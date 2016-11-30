@@ -4187,6 +4187,115 @@ Model::unsetAttribute(const std::string& attributeName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this Model.
+ */
+SBase*
+Model::createObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "functionDefinition")
+  {
+    return createFunctionDefinition();
+  }
+  else if (elementName == "unitDefinition")
+  {
+    return createUnitDefinition();
+  }
+  else if (elementName == "compartment")
+  {
+    return createCompartment();
+  }
+  else if (elementName == "species")
+  {
+    return createSpecies();
+  }
+  else if (elementName == "parameter")
+  {
+    return createParameter();
+  }
+  else if (elementName == "initialAssignment")
+  {
+    return createInitialAssignment();
+  }
+  else if (elementName == "constraint")
+  {
+    return createConstraint();
+  }
+  else if (elementName == "reaction")
+  {
+    return createReaction();
+  }
+  else if (elementName == "event")
+  {
+    return createEvent();
+  }
+  else if (elementName == "assignmentRule")
+  {
+    return createAssignmentRule();
+  }
+  else if (elementName == "parameterAssignmentRule")
+  {
+    AssignmentRule *ar = createAssignmentRule();
+    ar->setL1TypeCode(SBML_PARAMETER_RULE);
+    return ar;
+  }
+  else if (elementName == "speciesAssignmentRule")
+  {
+    AssignmentRule *ar = createAssignmentRule();
+    ar->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
+    return ar;
+  }
+  else if (elementName == "compartmentAssignmentRule")
+  {
+    AssignmentRule *ar = createAssignmentRule();
+    ar->setL1TypeCode(SBML_COMPARTMENT_VOLUME_RULE);
+    return ar;
+  }
+  else if (elementName == "parameterRateRule")
+  {
+    RateRule *ar = createRateRule();
+    ar->setL1TypeCode(SBML_PARAMETER_RULE);
+    return ar;
+  }
+  else if (elementName == "speciesRateRule")
+  {
+    RateRule *ar = createRateRule();
+    ar->setL1TypeCode(SBML_SPECIES_CONCENTRATION_RULE);
+    return ar;
+  }
+  else if (elementName == "compartmentRateRule")
+  {
+    RateRule *ar = createRateRule();
+    ar->setL1TypeCode(SBML_COMPARTMENT_VOLUME_RULE);
+    return ar;
+  }
+  else if (elementName == "rateRule")
+  {
+    return createRateRule();
+  }
+  else if (elementName == "algebraicRule")
+  {
+    return createAlgebraicRule();
+  }
+  else if (elementName == "compartmentType")
+  {
+    return createCompartmentType();
+  }
+  else if (elementName == "speciesType")
+  {
+    return createSpeciesType();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 
 int 
 Model::appendFrom(const Model* model)

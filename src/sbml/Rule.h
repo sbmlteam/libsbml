@@ -372,7 +372,7 @@ public:
    *
    * @see setFormula(const std::string& formula)
    */
-  int setMath (const ASTNode* math);
+  virtual int setMath (const ASTNode* math);
 
 
   /**

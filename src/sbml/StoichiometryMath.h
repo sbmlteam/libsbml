@@ -317,7 +317,7 @@ public:
    *
    * @copydetails doc_note_stoichiometrymath_availability
    */
-  int setMath (const ASTNode* math);
+  virtual int setMath (const ASTNode* math);
 
 
   /**

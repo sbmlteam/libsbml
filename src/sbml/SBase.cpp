@@ -3239,6 +3239,27 @@ SBase::unsetAttribute(const std::string& attributeName)
   return value;
 }
 
+SBase* 
+SBase::createObject(const std::string& objectName)
+{
+  return NULL;
+}
+
+     /** @cond doxygenLibsbmlInternal */
+
+int
+SBase::setMath(const ASTNode* math)
+{
+  return LIBSBML_UNEXPECTED_ATTRIBUTE;
+}
+
+int
+SBase::setMessage (const std::string& message, bool addXHTMLMarkup)
+{
+  return LIBSBML_UNEXPECTED_ATTRIBUTE;
+}
+
+  /** @endcond */
 
 /*
  * @return the version of package to which this SBML object
