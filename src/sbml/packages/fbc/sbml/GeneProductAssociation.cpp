@@ -555,6 +555,368 @@ GeneProductAssociation::enablePackageInternal(const std::string& pkgURI,
   /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::getAttribute(const std::string& attributeName,
+                                     const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this GeneProductAssociation's attribute
+ * "attributeName" is set.
+ */
+bool
+GeneProductAssociation::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::setAttribute(const std::string& attributeName,
+                                     const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * GeneProductAssociation.
+ */
+int
+GeneProductAssociation::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this
+ * GeneProductAssociation.
+ */
+SBase*
+GeneProductAssociation::createObject(const std::string& elementName)
+{
+  FbcAssociation* obj = NULL;
+
+  if (elementName == "and")
+  {
+    return createAnd();
+  }
+  else if (elementName == "or")
+  {
+    return createOr();
+  }
+  else if (elementName == "geneProductRef")
+  {
+    return createGeneProductRef();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
   /** @cond doxygenLibsbmlInternal */
 
 /*

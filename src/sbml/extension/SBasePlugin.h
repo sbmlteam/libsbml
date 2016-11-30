@@ -700,6 +700,106 @@ public:
 
   /** @endcond */
 
+  #ifndef SWIG
+   /** @cond doxygenLibsbmlInternal */
+
+  // ------------------------------------------------------------------
+  //
+  //  functions to faciliate matlab binding
+
+   virtual int getAttribute(const std::string& attributeName, double& value) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attributeName, bool& value) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attributeName, unsigned int& value) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int getAttribute(const std::string& attributeName, std::string& value) const;
+
+  /** @endcond */
+
+   virtual int getAttribute(const std::string& attributeName, const char * value) const;
+
+
+   virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, unsigned int value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, const std::string& value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int setAttribute(const std::string& attributeName, const char* value);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual SBase* createObject(const std::string& objectName);
+
+  /** @endcond */
+
+     /** @cond doxygenLibsbmlInternal */
+
+   //virtual int setMath(const ASTNode* math);
+
+  /** @endcond */
+
+
+#endif
+
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**

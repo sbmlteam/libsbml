@@ -542,6 +542,319 @@ FbcSpeciesPlugin::accept(SBMLVisitor&) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               bool& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "charge")
+  {
+    value = getCharge();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               double& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               unsigned int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               std::string& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "chemicalFormula")
+  {
+    value = getChemicalFormula();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getAttribute(const std::string& attributeName,
+                               const char* value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "chemicalFormula")
+  {
+    value = getChemicalFormula().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this FbcSpeciesPlugin's attribute
+ * "attributeName" is set.
+ */
+bool
+FbcSpeciesPlugin::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBasePlugin::isSetAttribute(attributeName);
+
+  if (attributeName == "charge")
+  {
+    value = isSetCharge();
+  }
+  else if (attributeName == "chemicalFormula")
+  {
+    value = isSetChemicalFormula();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  if (attributeName == "charge")
+  {
+    return_value = setCharge(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
+                               unsigned int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
+                               const std::string& value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  if (attributeName == "chemicalFormula")
+  {
+    return_value = setChemicalFormula(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::setAttribute(const std::string& attributeName,
+                               const char* value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  if (attributeName == "chemicalFormula")
+  {
+    return_value = setChemicalFormula(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBasePlugin::unsetAttribute(attributeName);
+
+  if (attributeName == "charge")
+  {
+    value = unsetCharge();
+  }
+  else if (attributeName == "chemicalFormula")
+  {
+    value = unsetChemicalFormula();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */

@@ -817,6 +817,114 @@ SBasePlugin::getSBMLExtension() const
 
 
 
+  // ------------------------------------------------------------------
+  //
+  //  functions to faciliate matlab binding
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, double& value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, bool& value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, int& value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, unsigned int& value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, std::string& value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::getAttribute(const std::string& attributeName, const char * value) const
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+bool 
+SBasePlugin::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = false;
+  return value;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, double value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, bool value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, int value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, const std::string& value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::setAttribute(const std::string& attributeName, const char * value)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+
+int 
+SBasePlugin::unsetAttribute(const std::string& attributeName)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+
+SBase* 
+SBasePlugin::createObject(const std::string& objectName)
+{
+  return NULL;
+}
+
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
