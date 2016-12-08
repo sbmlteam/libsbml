@@ -325,8 +325,12 @@ Model::dealWithDefaultValues()
     double spDims = c->getSpatialDimensionsAsDouble();
     bool replaceSD = (c->isSetSpatialDimensions() == true &&
       util_isEqual(spDims, 3.0) == false);
+    bool replaceSize = c->isSetSize();
+    double size = c->getSize();
 
     c->initDefaults();
+    if (replaceSize)
+      c->setSize(size);
     if (replaceConstant) 
       c->setConstant(constant);
     if (replaceSD) 

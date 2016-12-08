@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="Model_1" name="New Model" substanceUnits="mole" timeUnits="second" extentUnits="mole">
     <listOfCompartments>
-      <compartment id="compartment_1" name="compartment" spatialDimensions="3" size="1" units="litre" constant="true"/>
+      <compartment id="compartment_1" name="compartment" spatialDimensions="3" size="1.5" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
       <species id="species_2" name="B" compartment="compartment_1" initialConcentration="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>

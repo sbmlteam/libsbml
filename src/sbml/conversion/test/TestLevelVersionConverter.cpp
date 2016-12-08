@@ -285,6 +285,48 @@ START_TEST (test_convertToL1V1)
 }
 END_TEST
 
+START_TEST (test_compartment_size)
+{
+  SBMLNamespaces sbmlns(2, 5);
+  ConversionProperties prop(&sbmlns);
+  prop.addOption("strict", true, "should validity be preserved");
+  prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
+  prop.addOption("ignorePackages", true);
+
+  SBMLLevelVersionConverter * converter = new SBMLLevelVersionConverter();
+  converter->setProperties(&prop);
+
+  string filename(TestDataDirectory);
+  filename += "l3v1-components.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  Model * m = d->getModel();
+  Compartment *c = m->getCompartment(0);
+
+
+  fail_unless(c->isSetSize());
+  fail_unless(util_isEqual(c->getSize(), 1.5));
+
+  // convert to L2V5
+  converter->setDocument(d);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  m = d->getModel();
+  c = m->getCompartment(0);
+
+  fail_unless(d->getLevel() == 2);
+  fail_unless(d->getVersion() == 5);
+  fail_unless(c->isSetSize());
+  fail_unless(util_isEqual(c->getSize(), 1.5));
+  
+  
+  delete d;
+  delete converter;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestLevelVersionConverter (void)
 { 
@@ -299,6 +341,8 @@ create_suite_TestLevelVersionConverter (void)
   tcase_add_test(tcase, test_convertL3V1ToL2V5_strict);
   tcase_add_test(tcase, test_convertL2V5ToL3V1_strict);
   tcase_add_test(tcase, test_convertToL1V1);
+
+  tcase_add_test(tcase, test_compartment_size);
 
   suite_add_tcase(suite, tcase);
 
