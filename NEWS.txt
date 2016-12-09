@@ -2,6 +2,76 @@
 
 
 ====================================================================
+5.14.1 (Current SVN)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - A new function setCharacters has been added to the XMLToken class.
+	
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - The export of the Avagadro Constant as an exponential number was losing 
+    precision. This has been fixed.
+
+  - Unit checking was failing to correctly associate the model 'timeUnits' 
+    with the use of the csymbol for time. This has been corrected. Thanks
+    to Matthias König for reporting it.
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+
+    - The 'unsetActiveObjective' function now returns an OperationReturnValue
+      in line with other set/unset functions.
+
+  - 'groups' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+  - The minizip library used for compression supported has been updated.
+    There are no backwards compatability issues. 
+
+  - The CMake build has been extended to enable export of the configuration
+    used in building. This will facilitate users who use libsbml and/or its
+    dependencies as dependencies in other projects.
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+
+====================================================================
 5.14.0 (2016-09-15)
 ====================================================================
 
