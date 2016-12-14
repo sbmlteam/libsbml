@@ -290,7 +290,7 @@ public:
    *
    * @copydetails doc_note_stoichiometrymath_availability
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**

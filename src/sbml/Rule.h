@@ -233,7 +233,7 @@ public:
    *
    * @see getFormula()
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**

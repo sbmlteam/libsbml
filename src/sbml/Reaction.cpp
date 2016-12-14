@@ -1927,8 +1927,76 @@ Reaction::createObject(const std::string& elementName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this Reaction.
+ */
+unsigned int
+Reaction::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "kineticLaw")
+  {
+    if (isSetKineticLaw())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "reactant")
+  {
+    return getNumReactants();
+  }
+  else if (elementName == "product")
+  {
+    return getNumProducts();
+  }
+  else if (elementName == "modifier")
+  {
+    return getNumModifiers();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this Reaction.
+ */
+SBase*
+Reaction::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "kineticLaw")
+  {
+    return getKineticLaw();
+  }
+  else if (elementName == "reactant")
+  {
+    return getReactant(index);
+  }
+  else if (elementName == "product")
+  {
+    return getProduct(index);
+  }
+  else if (elementName == "modifier")
+  {
+    return getModifier(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.

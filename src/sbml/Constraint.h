@@ -247,7 +247,7 @@ public:
    * 
    * @return the math for this Constraint, as an ASTNode, or @c NULL if the math is not set.
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**

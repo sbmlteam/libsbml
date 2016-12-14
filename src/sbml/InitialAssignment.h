@@ -371,7 +371,7 @@ public:
    * @return an ASTNode, the value of the "math" subelement of this
    * InitialAssignment, or @c NULL if the math is not set.
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**

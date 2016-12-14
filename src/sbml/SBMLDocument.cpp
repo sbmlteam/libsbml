@@ -365,6 +365,50 @@ SBMLDocument::getModel ()
   return mModel;
 }
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this Reaction.
+ */
+unsigned int
+SBMLDocument::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "model")
+  {
+    if (isSetModel())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this Reaction.
+ */
+SBase*
+SBMLDocument::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "model")
+  {
+    return getModel();
+  }
+
+  return obj;
+}
+
+/** @endcond */
 
 SBase* 
 SBMLDocument::getElementBySId(const std::string& id)

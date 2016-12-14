@@ -1482,6 +1482,58 @@ KineticLaw::createObject(const std::string& elementName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this KineticLaw.
+ */
+unsigned int
+KineticLaw::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "localParameter")
+  {
+    return getNumLocalParameters();
+  }
+  else if (elementName == "parameter")
+  {
+    return getNumParameters();
+  }
+
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this KineticLaw.
+ */
+SBase*
+KineticLaw::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "localParameter")
+  {
+    return getLocalParameter(index);
+  }
+  else if (elementName == "parameter")
+  {
+    return getParameter(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 void
 KineticLaw::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {

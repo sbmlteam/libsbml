@@ -500,7 +500,20 @@ public:
    */
   Model* getModel ();
 
+#ifndef SWIG
 
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual unsigned int getNumObjects(const std::string& objectName);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual SBase* getObject(const std::string& objectName, unsigned int index);
+
+  /** @endcond */
+#endif
   /**
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.

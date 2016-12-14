@@ -380,7 +380,7 @@ public:
    * @return the top ASTNode of an abstract syntax tree representing the
    * mathematical formula in this EventAssignment, or @c NULL if the math is not set.
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**

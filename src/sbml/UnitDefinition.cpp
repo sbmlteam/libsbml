@@ -1836,6 +1836,51 @@ UnitDefinition::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this UnitDefinition.
+ */
+unsigned int
+UnitDefinition::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "unit")
+  {
+    return getNumUnits();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this UnitDefinition.
+ */
+SBase*
+UnitDefinition::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "unit")
+  {
+    return getUnit(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
 /* @cond doxygenLibsbmlInternal */
 /*
  * @return the SBML object corresponding to next XMLToken in the

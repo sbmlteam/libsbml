@@ -3245,6 +3245,25 @@ SBase::createObject(const std::string& objectName)
   return NULL;
 }
 
+  /** @cond doxygenLibsbmlInternal */
+
+unsigned int
+  SBase::getNumObjects(const std::string& objectName)
+{
+  return 0;
+}
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+SBase* 
+SBase::getObject(const std::string& objectName, unsigned int index)
+{
+  return NULL;
+}
+
+  /** @endcond */
      /** @cond doxygenLibsbmlInternal */
 
 int
@@ -3258,6 +3277,13 @@ SBase::setMessage (const std::string& message, bool addXHTMLMarkup)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
+
+const ASTNode*
+SBase::getMath() const
+{
+  return NULL;
+}
+
 
   /** @endcond */
 

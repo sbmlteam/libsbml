@@ -2480,6 +2480,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual unsigned int getNumObjects(const std::string& objectName);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual SBase* getObject(const std::string& objectName, unsigned int index);
+
+  /** @endcond */
+
      /** @cond doxygenLibsbmlInternal */
 
    virtual int setMath(const ASTNode* math);
@@ -2489,6 +2501,12 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
      /** @cond doxygenLibsbmlInternal */
 
   virtual int setMessage (const std::string& message, bool addXHTMLMarkup = false);
+
+  /** @endcond */
+
+       /** @cond doxygenLibsbmlInternal */
+
+   virtual const ASTNode* getMath() const;
 
   /** @endcond */
 

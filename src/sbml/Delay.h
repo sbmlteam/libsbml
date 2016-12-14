@@ -303,7 +303,7 @@ public:
    * 
    * @return the math of this Delay, or @c NULL if the math is not set.
    */
-  const ASTNode* getMath () const;
+  virtual const ASTNode* getMath () const;
 
 
   /**
