@@ -1127,14 +1127,11 @@ START_TEST(test_write_csg)
   CSGObject* csObj2 = csGeometry->createCSGObject();
   fail_unless(csObj->setId("csObj2") == LIBSBML_OPERATION_SUCCESS);
   CSGHomogeneousTransformation* trans = csObj2->createCSGHomogeneousTransformation();
-  CSGPseudoPrimitive* pseudo = trans->createCSGPseudoPrimitive();
-  pseudo->setId("pseudo1");
-  pseudo->setCsgObjectRef("csObj1");
-  TransformationComponents* forward = trans->createForwardTransformation();
+  TransformationComponent* forward = trans->createForwardTransformation();
   double test1[] = { 0.1, 0.0, 1.0, 2.0, 3.0 };
   double test2[] = { 3.0, 2.0, 1.0, 0.0, 0.1 };
   fail_unless(forward->setComponents(test1, 5) == LIBSBML_OPERATION_SUCCESS);
-  TransformationComponents* back = trans->createReverseTransformation();
+  TransformationComponent* back = trans->createReverseTransformation();
   fail_unless(back->setComponents(test2, 5) == LIBSBML_OPERATION_SUCCESS);
   std::string test = writeSBMLToStdString(&doc);
 

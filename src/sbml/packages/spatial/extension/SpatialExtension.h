@@ -384,19 +384,17 @@ typedef enum
 , SBML_SPATIAL_CSGROTATION                      =   320  /*!<CSGRotation */
 , SBML_SPATIAL_CSGSCALE                         =   321  /*!<CSGScale */
 , SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION     =   322  /*!<CSGHomogeneousTransformation */
-, SBML_SPATIAL_TRANSFORMATIONCOMPONENTS         =   323  /*!<TransformationComponents */
+, SBML_SPATIAL_TRANSFORMATIONCOMPONENT          =   323  /*!<TransformationComponent */
 , SBML_SPATIAL_CSGPRIMITIVE                     =   324  /*!<CSGPrimitive */
-, SBML_SPATIAL_CSGPSEUDOPRIMITIVE               =   325  /*!<CSGPseudoPrimitive */
-, SBML_SPATIAL_CSGSETOPERATOR                   =   326  /*!<CSGSetOperator */
-, SBML_SPATIAL_SPATIALSYMBOLREFERENCE           =   327  /*!<SpatialSymbolReference */
-, SBML_SPATIAL_DIFFUSIONCOEFFICIENT             =   328  /*!<DiffusionCoefficient */
-, SBML_SPATIAL_ADVECTIONCOEFFICIENT             =   329  /*!<AdvectionCoefficient */
-, SBML_SPATIAL_BOUNDARYCONDITION                =   330  /*!<BoundaryCondition */
-, SBML_SPATIAL_GEOMETRY                         =   331  /*!<Geometry */
-, SBML_SPATIAL_COORDINATEREFERENCE              =   332  /*!<CoordinateReference */
-, SBML_SPATIAL_MIXEDGEOMETRY                    =   333  /*!<MixedGeometry */
-, SBML_SPATIAL_ORDINALMAPPING                   =   334  /*!<OrdinalMapping */
-, SBML_SPATIAL_SPATIALPOINTS                    =   335  /*!<SpatialPoints */
+, SBML_SPATIAL_CSGSETOPERATOR                   =   325  /*!<CSGSetOperator */
+, SBML_SPATIAL_SPATIALSYMBOLREFERENCE           =   326  /*!<SpatialSymbolReference */
+, SBML_SPATIAL_DIFFUSIONCOEFFICIENT             =   327  /*!<DiffusionCoefficient */
+, SBML_SPATIAL_ADVECTIONCOEFFICIENT             =   328  /*!<AdvectionCoefficient */
+, SBML_SPATIAL_BOUNDARYCONDITION                =   329  /*!<BoundaryCondition */
+, SBML_SPATIAL_GEOMETRY                         =   330  /*!<Geometry */
+, SBML_SPATIAL_MIXEDGEOMETRY                    =   331  /*!<MixedGeometry */
+, SBML_SPATIAL_ORDINALMAPPING                   =   332  /*!<OrdinalMapping */
+, SBML_SPATIAL_SPATIALPOINTS                    =   333  /*!<SpatialPoints */
 } SBMLSpatialTypeCode_t;
 
 

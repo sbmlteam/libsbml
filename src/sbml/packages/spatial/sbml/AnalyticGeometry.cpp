@@ -714,6 +714,51 @@ AnalyticGeometry::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this AnalyticGeometry.
+ */
+unsigned int
+AnalyticGeometry::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "analyticVolume")
+  {
+    return getNumAnalyticVolumes();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this AnalyticGeometry.
+ */
+SBase*
+AnalyticGeometry::getObject(const std::string& elementName,
+                            unsigned int index)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "analyticVolume")
+  {
+    return getAnalyticVolume(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.

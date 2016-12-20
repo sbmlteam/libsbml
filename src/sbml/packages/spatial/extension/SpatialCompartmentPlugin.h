@@ -552,11 +552,43 @@ public:
    * Creates and returns an new "elementName" object in this
    * SpatialCompartmentPlugin.
    *
-   * @param objectName, the name of the element to create.
+   * @param elementName, the name of the element to create.
    *
-   * pointer to the object created.
+   * pointer to the element created.
    */
   virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this SpatialCompartmentPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this SpatialCompartmentPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
   /** @endcond */
 

@@ -251,7 +251,6 @@ END_TEST
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_ADVECTIONCOEFFICIENT)   , "AdvectionCoefficient") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_BOUNDARYCONDITION)      , "BoundaryCondition") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_GEOMETRY)               , "Geometry") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_COORDINATEREFERENCE), "CoordinateReference") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_DOMAINTYPE-1)           , "(Unknown SBML Spatial Type)") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_SPATIALPOINTS + 1), "(Unknown SBML Spatial Type)") == 0);
 
@@ -274,7 +273,6 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADVECTIONCOEFFICIENT,  "spatial")   , "AdvectionCoefficient") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYCONDITION,   "spatial")     , "BoundaryCondition") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY,  "spatial")               , "Geometry") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE, "spatial"), "CoordinateReference") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE-1, "spatial")            , "(Unknown SBML Spatial Type)") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_SPATIALPOINTS + 1, "spatial"), "(Unknown SBML Spatial Type)") == 0);
 
@@ -303,7 +301,6 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADVECTIONCOEFFICIENT   ,"spatial"), "AdvectionCoefficient")        == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYCONDITION      ,"spatial"), "BoundaryCondition")           == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY               ,"spatial"), "Geometry")                    == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE, "spatial"), "CoordinateReference") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE - 1         ,"spatial"), "(Unknown SBML Spatial Type)") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_SPATIALPOINTS + 1, "spatial"), "(Unknown SBML Spatial Type)") == 0);
 

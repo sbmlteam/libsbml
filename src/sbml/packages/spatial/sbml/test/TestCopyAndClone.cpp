@@ -205,15 +205,15 @@ START_TEST ( test_SampledField_clone )
 END_TEST
 
 
-START_TEST ( test_TransformationComponents_copyConstructor )
+START_TEST ( test_TransformationComponent_copyConstructor )
 {
-  TransformationComponents* o1=new TransformationComponents(GNS);
+  TransformationComponent* o1=new TransformationComponent(GNS);
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
   fail_unless(o1->getComponentsLength() == 3);
 
-  TransformationComponents* o2=new TransformationComponents(*o1);
+  TransformationComponent* o2=new TransformationComponent(*o1);
 
   fail_unless(o2->getComponentsLength() == 3);
   
@@ -232,15 +232,15 @@ START_TEST ( test_TransformationComponents_copyConstructor )
 END_TEST
 
 
-START_TEST ( test_TransformationComponents_assignmentOperator )
+START_TEST ( test_TransformationComponent_assignmentOperator )
 {
-  TransformationComponents* o1=new TransformationComponents(GNS);
+  TransformationComponent* o1=new TransformationComponent(GNS);
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
   fail_unless(o1->getComponentsLength() == 3);
   
-  TransformationComponents* o2 = new TransformationComponents(GNS);;
+  TransformationComponent* o2 = new TransformationComponent(GNS);;
   (*o2)=*o1;
 
   fail_unless(o2->getComponentsLength() == 3);
@@ -260,15 +260,15 @@ START_TEST ( test_TransformationComponents_assignmentOperator )
 END_TEST
 
 
-START_TEST ( test_TransformationComponents_clone )
+START_TEST ( test_TransformationComponent_clone )
 {
-  TransformationComponents* o1=new TransformationComponents(GNS);
+  TransformationComponent* o1=new TransformationComponent(GNS);
   double points [] = {1,2,3};
   o1->setComponents(points, 3);
   
   fail_unless(o1->getComponentsLength() == 3);
 
-  TransformationComponents* o2=o1->clone();
+  TransformationComponent* o2=o1->clone();
  
   fail_unless(o2->getComponentsLength() == 3);
 
@@ -303,9 +303,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_SampledField_copyConstructor );
   tcase_add_test( tcase, test_SampledField_assignmentOperator );
   tcase_add_test( tcase, test_SampledField_clone );
-  tcase_add_test( tcase, test_TransformationComponents_copyConstructor );
-  tcase_add_test( tcase, test_TransformationComponents_assignmentOperator );
-  tcase_add_test( tcase, test_TransformationComponents_clone );
+  tcase_add_test( tcase, test_TransformationComponent_copyConstructor );
+  tcase_add_test( tcase, test_TransformationComponent_assignmentOperator );
+  tcase_add_test( tcase, test_TransformationComponent_clone );
 
   suite_add_tcase(suite, tcase);
 

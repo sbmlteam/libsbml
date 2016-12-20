@@ -1370,7 +1370,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGeometry> object may contain one and only one instance of the "
-    "<listOfCsgObjects> element. No other elements from the SBML Level 3 "
+    "<listOfCSGObjects> element. No other elements from the SBML Level 3 "
     "Spatial Processes namespaces are permitted on a <cSGeometry> object. ",
     { "L3V1 Spatial V1 Section"
     }
@@ -1382,7 +1382,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotations subobjects permitted on all "
-    "SBML objects, a <listOfCsgObjects> container object may only contain "
+    "SBML objects, a <listOfCSGObjects> container object may only contain "
     "<cSGObject> objects.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1393,9 +1393,9 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "Core attributes allowed on <listOfCSGObjects>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <listOfCsgObjects> object may have the optional SBML Level 3 Core "
+    "A <listOfCSGObjects> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <listOfCsgObjects> object.",
+    "3 Core namespaces are permitted on a <listOfCSGObjects> object.",
     { "L3V1 Spatial V1 Section"
     }
   },
@@ -1799,8 +1799,8 @@ static const packageErrorTableEntry spatialErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGHomogeneousTransformation> object must contain one and only one "
-    "instance of each of the TransformationComponents and "
-    "<transformationComponents> elements. No other elements from the SBML Level "
+    "instance of each of the TransformationComponent and "
+    "<transformationComponent> elements. No other elements from the SBML Level "
     "3 Spatial Processes namespaces are permitted on a "
     "<cSGHomogeneousTransformation> object. ",
     { "L3V1 Spatial V1 Section"
@@ -1808,60 +1808,60 @@ static const packageErrorTableEntry spatialErrorTable[] =
   },
 
   // 1223001
-  { SpatialTransformationComponentsAllowedCoreAttributes,
-    "Core attributes allowed on <transformationComponents>.",
+  { SpatialTransformationComponentAllowedCoreAttributes,
+    "Core attributes allowed on <transformationComponent>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <transformationComponents> object may have the optional SBML Level 3 "
-    "Core attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespaces are permitted on a <transformationComponents>.",
+    "A <transformationComponent> object may have the optional SBML Level 3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
+    "3 Core namespaces are permitted on a <transformationComponent>.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
   // 1223002
-  { SpatialTransformationComponentsAllowedCoreElements,
-    "Core elements allowed on <transformationComponents>.",
+  { SpatialTransformationComponentAllowedCoreElements,
+    "Core elements allowed on <transformationComponent>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <transformationComponents> object may have the optional SBML Level 3 "
-    "Core subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <transformationComponents>.",
+    "A <transformationComponent> object may have the optional SBML Level 3 Core "
+    "subobjects for notes and annotations. No other elements from the SBML "
+    "Level 3 Core namespaces are permitted on a <transformationComponent>.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
   // 1223003
-  { SpatialTransformationComponentsAllowedAttributes,
-    "Attributes allowed on <transformationComponents>.",
+  { SpatialTransformationComponentAllowedAttributes,
+    "Attributes allowed on <transformationComponent>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <transformationComponents> object must have the required attributes "
+    "A <transformationComponent> object must have the required attributes "
     "'spatial:components' and 'spatial:componentsLength'. No other attributes "
     "from the SBML Level 3 Spatial Processes namespaces are permitted on a "
-    "<transformationComponents> object. ",
+    "<transformationComponent> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
 
   // 1223004
-  { SpatialTransformationComponentsComponentsMustBeString,
+  { SpatialTransformationComponentComponentsMustBeString,
     "Components attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'spatial:components' of a "
-    "<transformationComponents> object must be an array of values of type "
+    "<transformationComponent> object must be an array of values of type "
     "'Double'.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
   // 1223005
-  { SpatialTransformationComponentsComponentsLengthMustBeInteger,
+  { SpatialTransformationComponentComponentsLengthMustBeInteger,
     "ComponentsLength attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'spatial:componentsLength' on a <transformationComponents> "
+    "The attribute 'spatial:componentsLength' on a <transformationComponent> "
     "must have a value of data type 'integer'.",
     { "L3V1 Spatial V1 Section"
     }
@@ -1912,60 +1912,12 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "object must conform to the syntax of SBML data type 'primitiveKind' and "
     "may only take on the allowed values of 'primitiveKind' defined in SBML; "
     "that is, the value must be one of the following: 'sphere', 'cube', "
-    "'cylinder', 'cone', 'circle', 'square' or 'rightTriangle'.",
+    "'cylinder', 'cone', 'circle' or 'square'.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
   // 1223201
-  { SpatialCSGPseudoPrimitiveAllowedCoreAttributes,
-    "Core attributes allowed on <csgPseudoPrimitive>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <cSGPseudoPrimitive> object may have the optional SBML Level 3 Core "
-    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <cSGPseudoPrimitive>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223202
-  { SpatialCSGPseudoPrimitiveAllowedCoreElements,
-    "Core elements allowed on <csgPseudoPrimitive>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <cSGPseudoPrimitive> object may have the optional SBML Level 3 Core "
-    "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <cSGPseudoPrimitive>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223203
-  { SpatialCSGPseudoPrimitiveAllowedAttributes,
-    "Attributes allowed on <csgPseudoPrimitive>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <cSGPseudoPrimitive> object must have the required attribute "
-    "'spatial:csgObjectRef'. No other attributes from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <cSGPseudoPrimitive> object. ",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223204
-  { SpatialCSGPseudoPrimitiveCsgObjectRefMustBeCSGObject,
-    "CsgObjectRef attribute must be CSGObject.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:csgObjectRef' of a "
-    "<cSGPseudoPrimitive> object must be the identifier of an existing "
-    "<cSGObject> object defined in the enclosing <model> object.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223301
   { SpatialCSGSetOperatorAllowedCoreAttributes,
     "Core attributes allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1977,7 +1929,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223302
+  // 1223202
   { SpatialCSGSetOperatorAllowedCoreElements,
     "Core elements allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -1989,7 +1941,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223303
+  // 1223203
   { SpatialCSGSetOperatorAllowedAttributes,
     "Attributes allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2003,19 +1955,19 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223304
+  // 1223204
   { SpatialCSGSetOperatorAllowedElements,
     "Elements allowed on <csgSetOperator>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGSetOperator> object may contain one and only one instance of the "
-    "<listOfCsgNodes> element. No other elements from the SBML Level 3 Spatial "
+    "<listOfCSGNodes> element. No other elements from the SBML Level 3 Spatial "
     "Processes namespaces are permitted on a <cSGSetOperator> object. ",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1223305
+  // 1223205
   { SpatialCSGSetOperatorOperationTypeMustBeSetOperationEnum,
     "OperationType attribute must be SetOperationEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2029,7 +1981,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223306
+  // 1223206
   { SpatialCSGSetOperatorComplementAMustBeCSGNode,
     "ComplementA attribute must be CSGNode.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2041,7 +1993,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223307
+  // 1223207
   { SpatialCSGSetOperatorComplementBMustBeCSGNode,
     "ComplementB attribute must be CSGNode.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2053,31 +2005,31 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223308
+  // 1223208
   { SpatialCSGSetOperatorLOCSGNodesAllowedCoreElements,
     "Core elements allowed on <listOfCSGNodes>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotations subobjects permitted on all "
-    "SBML objects, a <listOfCsgNodes> container object may only contain "
+    "SBML objects, a <listOfCSGNodes> container object may only contain "
     "<cSGNode> objects.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1223309
+  // 1223209
   { SpatialCSGSetOperatorLOCSGNodesAllowedCoreAttributes,
     "Core attributes allowed on <listOfCSGNodes>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <listOfCsgNodes> object may have the optional SBML Level 3 Core "
+    "A <listOfCSGNodes> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <listOfCsgNodes> object.",
+    "3 Core namespaces are permitted on a <listOfCSGNodes> object.",
     { "L3V1 Spatial V1 Section"
     }
   },
 
-  // 1223401
+  // 1223301
   { SpatialSpatialSymbolReferenceAllowedCoreAttributes,
     "Core attributes allowed on <spatialSymbolReference>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2089,7 +2041,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223402
+  // 1223302
   { SpatialSpatialSymbolReferenceAllowedCoreElements,
     "Core elements allowed on <spatialSymbolReference>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2101,7 +2053,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223403
+  // 1223303
   { SpatialSpatialSymbolReferenceAllowedAttributes,
     "Attributes allowed on <spatialSymbolReference>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2113,7 +2065,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223404
+  // 1223304
   { SpatialSpatialSymbolReferenceSpatialRefMustBeGeometry,
     "SpatialRef attribute must be Geometry.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2125,7 +2077,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223501
+  // 1223401
   { SpatialDiffusionCoefficientAllowedCoreAttributes,
     "Core attributes allowed on <diffusionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2137,7 +2089,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223502
+  // 1223402
   { SpatialDiffusionCoefficientAllowedCoreElements,
     "Core elements allowed on <diffusionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2149,7 +2101,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223503
+  // 1223403
   { SpatialDiffusionCoefficientAllowedAttributes,
     "Attributes allowed on <diffusionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2164,7 +2116,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223504
+  // 1223404
   { SpatialDiffusionCoefficientVariableMustBeSpecies,
     "Variable attribute must be Species.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2176,7 +2128,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223505
+  // 1223405
   { SpatialDiffusionCoefficientTypeMustBeDiffusionKindEnum,
     "Type attribute must be DiffusionKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2190,7 +2142,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223506
+  // 1223406
   { SpatialDiffusionCoefficientCoordinateReference1MustBeCoordinateKindEnum,
     "CoordinateReference1 attribute must be CoordinateKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2204,7 +2156,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223507
+  // 1223407
   { SpatialDiffusionCoefficientCoordinateReference2MustBeCoordinateKindEnum,
     "CoordinateReference2 attribute must be CoordinateKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2218,7 +2170,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223601
+  // 1223501
   { SpatialAdvectionCoefficientAllowedCoreAttributes,
     "Core attributes allowed on <advectionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2230,7 +2182,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223602
+  // 1223502
   { SpatialAdvectionCoefficientAllowedCoreElements,
     "Core elements allowed on <advectionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2242,7 +2194,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223603
+  // 1223503
   { SpatialAdvectionCoefficientAllowedAttributes,
     "Attributes allowed on <advectionCoefficient>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2255,7 +2207,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223604
+  // 1223504
   { SpatialAdvectionCoefficientVariableMustBeSpecies,
     "Variable attribute must be Species.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2267,7 +2219,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223605
+  // 1223505
   { SpatialAdvectionCoefficientCoordinateMustBeCoordinateKindEnum,
     "Coordinate attribute must be CoordinateKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2281,7 +2233,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223701
+  // 1223601
   { SpatialBoundaryConditionAllowedCoreAttributes,
     "Core attributes allowed on <boundaryCondition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2293,7 +2245,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223702
+  // 1223602
   { SpatialBoundaryConditionAllowedCoreElements,
     "Core elements allowed on <boundaryCondition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2305,7 +2257,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223703
+  // 1223603
   { SpatialBoundaryConditionAllowedAttributes,
     "Attributes allowed on <boundaryCondition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2319,7 +2271,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223704
+  // 1223604
   { SpatialBoundaryConditionVariableMustBeSpecies,
     "Variable attribute must be Species.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2331,7 +2283,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223705
+  // 1223605
   { SpatialBoundaryConditionTypeMustBeBoundaryConditionKindEnum,
     "Type attribute must be BoundaryConditionKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2346,7 +2298,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223706
+  // 1223606
   { SpatialBoundaryConditionCoordinateBoundaryMustBeBoundary,
     "CoordinateBoundary attribute must be Boundary.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2358,7 +2310,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223707
+  // 1223607
   { SpatialBoundaryConditionBoundaryDomainTypeMustBeDomainType,
     "BoundaryDomainType attribute must be DomainType.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2370,7 +2322,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223801
+  // 1223701
   { SpatialGeometryAllowedCoreAttributes,
     "Core attributes allowed on <geometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2382,7 +2334,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223802
+  // 1223702
   { SpatialGeometryAllowedCoreElements,
     "Core elements allowed on <geometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2394,7 +2346,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223803
+  // 1223703
   { SpatialGeometryAllowedAttributes,
     "Attributes allowed on <geometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2407,7 +2359,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223804
+  // 1223704
   { SpatialGeometryAllowedElements,
     "Elements allowed on <geometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2421,7 +2373,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223805
+  // 1223705
   { SpatialGeometryCoordinateSystemMustBeGeometryKindEnum,
     "CoordinateSystem attribute must be GeometryKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2434,7 +2386,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223806
+  // 1223706
   { SpatialGeometryLOCoordinateComponentsAllowedCoreElements,
     "Core elements allowed on <listOfCoordinateComponents>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2446,7 +2398,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223807
+  // 1223707
   { SpatialGeometryLODomainTypesAllowedCoreElements,
     "Core elements allowed on <listOfDomainTypes>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2458,7 +2410,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223808
+  // 1223708
   { SpatialGeometryLODomainsAllowedCoreElements,
     "Core elements allowed on <listOfDomains>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2470,7 +2422,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223809
+  // 1223709
   { SpatialGeometryLOAdjacentDomainsAllowedCoreElements,
     "Core elements allowed on <listOfAdjacentDomains>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2482,7 +2434,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223810
+  // 1223710
   { SpatialGeometryLOGeometryDefinitionsAllowedCoreElements,
     "Core elements allowed on <listOfGeometryDefinitions>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2494,7 +2446,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223811
+  // 1223711
   { SpatialGeometryLOSampledFieldsAllowedCoreElements,
     "Core elements allowed on <listOfSampledFields>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2506,7 +2458,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223812
+  // 1223712
   { SpatialGeometryLOCoordinateComponentsAllowedCoreAttributes,
     "Core attributes allowed on <listOfCoordinateComponents>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2519,7 +2471,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223813
+  // 1223713
   { SpatialGeometryLODomainTypesAllowedCoreAttributes,
     "Core attributes allowed on <listOfDomainTypes>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2531,7 +2483,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223814
+  // 1223714
   { SpatialGeometryLODomainsAllowedCoreAttributes,
     "Core attributes allowed on <listOfDomains>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2543,7 +2495,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223815
+  // 1223715
   { SpatialGeometryLOAdjacentDomainsAllowedCoreAttributes,
     "Core attributes allowed on <listOfAdjacentDomains>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2555,7 +2507,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223816
+  // 1223716
   { SpatialGeometryLOGeometryDefinitionsAllowedCoreAttributes,
     "Core attributes allowed on <listOfGeometryDefinitions>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2568,7 +2520,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223817
+  // 1223717
   { SpatialGeometryLOSampledFieldsAllowedCoreAttributes,
     "Core attributes allowed on <listOfSampledFields>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2580,57 +2532,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1223901
-  { SpatialCoordinateReferenceAllowedCoreAttributes,
-    "Core attributes allowed on <coordinateReference>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <coordinateReference> object may have the optional SBML Level 3 Core "
-    "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
-    "3 Core namespaces are permitted on a <coordinateReference>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223902
-  { SpatialCoordinateReferenceAllowedCoreElements,
-    "Core elements allowed on <coordinateReference>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <coordinateReference> object may have the optional SBML Level 3 Core "
-    "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <coordinateReference>.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223903
-  { SpatialCoordinateReferenceAllowedAttributes,
-    "Attributes allowed on <coordinateReference>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <coordinateReference> object must have the required attribute "
-    "'spatial:coordinate'. No other attributes from the SBML Level 3 Spatial "
-    "Processes namespaces are permitted on a <coordinateReference> object. ",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1223904
-  { SpatialCoordinateReferenceCoordinateMustBeCoordinateKindEnum,
-    "Coordinate attribute must be CoordinateKindEnum.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "The value of the attribute 'spatial:coordinate' of a <coordinateReference> "
-    "object must conform to the syntax of SBML data type 'coordinateKind' and "
-    "may only take on the allowed values of 'coordinateKind' defined in SBML; "
-    "that is, the value must be one of the following: 'cartesianX', "
-    "'cartesianY' or 'cartesianZ'.",
-    { "L3V1 Spatial V1 Section"
-    }
-  },
-
-  // 1224001
+  // 1223801
   { SpatialMixedGeometryAllowedCoreAttributes,
     "Core attributes allowed on <mixedGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2642,7 +2544,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224002
+  // 1223802
   { SpatialMixedGeometryAllowedCoreElements,
     "Core elements allowed on <mixedGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2654,7 +2556,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224003
+  // 1223803
   { SpatialMixedGeometryAllowedElements,
     "Elements allowed on <mixedGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2667,7 +2569,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224004
+  // 1223804
   { SpatialMixedGeometryLOGeometryDefinitionsAllowedCoreElements,
     "Core elements allowed on <listOfGeometryDefinitions>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2679,7 +2581,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224005
+  // 1223805
   { SpatialMixedGeometryLOOrdinalMappingsAllowedCoreElements,
     "Core elements allowed on <listOfOrdinalMappings>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2691,7 +2593,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224006
+  // 1223806
   { SpatialMixedGeometryLOGeometryDefinitionsAllowedCoreAttributes,
     "Core attributes allowed on <listOfGeometryDefinitions>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2704,7 +2606,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224007
+  // 1223807
   { SpatialMixedGeometryLOOrdinalMappingsAllowedCoreAttributes,
     "Core attributes allowed on <listOfOrdinalMappings>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2716,7 +2618,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224101
+  // 1223901
   { SpatialOrdinalMappingAllowedCoreAttributes,
     "Core attributes allowed on <ordinalMapping>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2728,7 +2630,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224102
+  // 1223902
   { SpatialOrdinalMappingAllowedCoreElements,
     "Core elements allowed on <ordinalMapping>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2740,7 +2642,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224103
+  // 1223903
   { SpatialOrdinalMappingAllowedAttributes,
     "Attributes allowed on <ordinalMapping>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2753,7 +2655,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224104
+  // 1223904
   { SpatialOrdinalMappingGeometryDefinitionMustBeGeometryDefinition,
     "GeometryDefinition attribute must be GeometryDefinition.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2765,7 +2667,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224105
+  // 1223905
   { SpatialOrdinalMappingOrdinalMustBeInteger,
     "Ordinal attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2776,7 +2678,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224201
+  // 1224001
   { SpatialSpatialPointsAllowedCoreAttributes,
     "Core attributes allowed on <spatialPoints>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2788,7 +2690,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224202
+  // 1224002
   { SpatialSpatialPointsAllowedCoreElements,
     "Core elements allowed on <spatialPoints>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2800,7 +2702,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224203
+  // 1224003
   { SpatialSpatialPointsAllowedAttributes,
     "Attributes allowed on <spatialPoints>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2814,7 +2716,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224204
+  // 1224004
   { SpatialSpatialPointsCompressionMustBeCompressionKindEnum,
     "Compression attribute must be CompressionKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2828,7 +2730,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224205
+  // 1224005
   { SpatialSpatialPointsArrayDataMustBeString,
     "ArrayData attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2839,7 +2741,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224206
+  // 1224006
   { SpatialSpatialPointsArrayDataLengthMustBeInteger,
     "ArrayDataLength attribute must be Integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -2850,7 +2752,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     }
   },
 
-  // 1224207
+  // 1224007
   { SpatialSpatialPointsDataTypeMustBeDataKindEnum,
     "DataType attribute must be DataKindEnum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

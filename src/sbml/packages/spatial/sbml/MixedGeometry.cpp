@@ -977,6 +977,58 @@ MixedGeometry::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this MixedGeometry.
+ */
+unsigned int
+MixedGeometry::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "geometryDefinition")
+  {
+    return getNumGeometryDefinitions();
+  }
+  else if (elementName == "ordinalMapping")
+  {
+    return getNumOrdinalMappings();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this MixedGeometry.
+ */
+SBase*
+MixedGeometry::getObject(const std::string& elementName, unsigned int index)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "geometryDefinition")
+  {
+    return getGeometryDefinition(index);
+  }
+  else if (elementName == "ordinalMapping")
+  {
+    return getOrdinalMapping(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.

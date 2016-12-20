@@ -587,20 +587,38 @@ SpatialReactionPlugin::readAttributes(const XMLAttributes& attributes,
       log->logPackageError("spatial", SpatialReactionAllowedAttributes,
         pkgVersion, level, version, details);
     }
+    else if (log->getError(n)->getErrorId() == NotSchemaConformant)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(NotSchemaConformant);
+      log->logPackageError("spatial", SpatialReactionAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
   }
 
   // 
   // isLocal bool (use = "required" )
   // 
 
+  numErrs = log->getNumErrors();
   mIsSetIsLocal = attributes.readInto("isLocal", mIsLocal);
 
-  if (!mIsSetIsLocal)
+  if (mIsSetIsLocal == false)
   {
-    std::string message = "Spatial attribute 'isLocal' is missing from the "
-      "<SpatialReactionPlugin> element.";
-    log->logPackageError("spatial", SpatialReactionAllowedAttributes, pkgVersion, level, version,
-      message);
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("spatial", SpatialReactionIsLocalMustBeBoolean,
+        pkgVersion, level, version);
+    }
+    else
+    {
+      std::string message = "Spatial attribute 'isLocal' is missing from the "
+        "<SpatialReactionPlugin> element.";
+      log->logPackageError("spatial", SpatialReactionAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
   }
 }
 

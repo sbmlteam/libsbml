@@ -39,7 +39,6 @@
 #include <sbml/packages/spatial/sbml/CSGRotation.h>
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
-#include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
 
@@ -226,17 +225,6 @@ bool
 CSGNode::isCSGHomogeneousTransformation() const
 {
   return dynamic_cast<const CSGHomogeneousTransformation*>(this) != NULL;
-}
-
-
-/*
- * Predicate returning @c true if this abstract "CSGNode" is of type
- * CSGPseudoPrimitive
- */
-bool
-CSGNode::isCSGPseudoPrimitive() const
-{
-  return dynamic_cast<const CSGPseudoPrimitive*>(this) != NULL;
 }
 
 
@@ -832,20 +820,6 @@ CSGNode_createCSGHomogeneousTransformation(unsigned int level,
 
 
 /*
- * Creates a new CSGPseudoPrimitive (CSGNode_t) using the given SBML Level,
- * Version and &ldquo;spatial&rdquo; package version.
- */
-LIBSBML_EXTERN
-CSGNode_t *
-CSGNode_createCSGPseudoPrimitive(unsigned int level,
-                                 unsigned int version,
-                                 unsigned int pkgVersion)
-{
-  return new CSGPseudoPrimitive(level, version, pkgVersion);
-}
-
-
-/*
  * Creates a new CSGSetOperator (CSGNode_t) using the given SBML Level, Version
  * and &ldquo;spatial&rdquo; package version.
  */
@@ -994,17 +968,6 @@ CSGNode_isCSGHomogeneousTransformation(const CSGNode_t * csgn)
 {
   return (csgn != NULL) ?
     static_cast<int>(csgn->isCSGHomogeneousTransformation()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 if this CSGNode_t is of type CSGPseudoPrimitive_t
- */
-LIBSBML_EXTERN
-int
-CSGNode_isCSGPseudoPrimitive(const CSGNode_t * csgn)
-{
-  return (csgn != NULL) ? static_cast<int>(csgn->isCSGPseudoPrimitive()) : 0;
 }
 
 

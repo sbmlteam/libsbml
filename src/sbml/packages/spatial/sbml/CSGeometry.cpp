@@ -713,6 +713,50 @@ CSGeometry::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this CSGeometry.
+ */
+unsigned int
+CSGeometry::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "csgObject")
+  {
+    return getNumCSGObjects();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this CSGeometry.
+ */
+SBase*
+CSGeometry::getObject(const std::string& elementName, unsigned int index)
+{
+  GeometryDefinition* obj = NULL;
+
+  if (elementName == "csgObject")
+  {
+    return getCSGObject(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.

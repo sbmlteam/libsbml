@@ -58,10 +58,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Returns the package name of this extension.
+ * Returns the nickname of the SBML Level&nbsp;3 package implemented by this
+ * libSBML extension.
  */
 const std::string&
-SpatialExtension::getPackageName ()
+SpatialExtension::getPackageName()
 {
   static const std::string pkgName = "spatial";
   return pkgName;
@@ -69,42 +70,45 @@ SpatialExtension::getPackageName ()
 
 
 /*
- * Returns the default SBML Level this extension.
+ * Returns the default SBML Level implemented by this libSBML extension.
  */
 unsigned int
-SpatialExtension::getDefaultLevel ()
+SpatialExtension::getDefaultLevel()
 {
   return 3;
 }
 
 
 /*
- * Returns the default SBML Version this extension.
+ * Returns the default SBML Version implemented by this libSBML extension.
  */
 unsigned int
-SpatialExtension::getDefaultVersion ()
+SpatialExtension::getDefaultVersion()
 {
   return 1;
 }
 
 
 /*
- * Returns the default SBML version this extension.
+ * Returns the default version of the SBML Level&nbsp;3 package implemented by
+ * this libSBML extension.
  */
 unsigned int
-SpatialExtension::getDefaultPackageVersion ()
+SpatialExtension::getDefaultPackageVersion()
 {
   return 1;
 }
 
 
 /*
- * XML namespaces of package.
+ * Returns the XML namespace URI of the SBML Level&nbsp;3 package implemented
+ * by this libSBML extension.
  */
 const std::string&
-SpatialExtension::getXmlnsL3V1V1 ()
+SpatialExtension::getXmlnsL3V1V1()
 {
-  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/spatial/version1";
+  static const std::string xmlns =
+    "http://www.sbml.org/sbml/level3/version1/spatial/version1";
   return xmlns;
 }
 
@@ -143,16 +147,14 @@ const char * SBML_SPATIAL_TYPECODE_STRINGS[] =
   , "CSGRotation"
   , "CSGScale"
   , "CSGHomogeneousTransformation"
-  , "TransformationComponents"
+  , "TransformationComponent"
   , "CSGPrimitive"
-  , "CSGPseudoPrimitive"
   , "CSGSetOperator"
   , "SpatialSymbolReference"
   , "DiffusionCoefficient"
   , "AdvectionCoefficient"
   , "BoundaryCondition"
   , "Geometry"
-  , "CoordinateReference"
   , "MixedGeometry"
   , "OrdinalMapping"
   , "SpatialPoints"
@@ -200,7 +202,7 @@ SpatialExtension::operator=(const SpatialExtension& rhs)
 
 
 /*
- * Clone
+ * Creates and returns a deep copy of this SpatialExtension object.
  */
 SpatialExtension*
 SpatialExtension::clone () const
@@ -210,7 +212,7 @@ SpatialExtension::clone () const
 
 
 /*
- * Destructor
+ * Destructor for SpatialExtension.
  */
 SpatialExtension::~SpatialExtension()
  {
@@ -218,7 +220,7 @@ SpatialExtension::~SpatialExtension()
 
 
 /*
- * Returns the name of this package
+ * Returns the name of this SBML Level&nbsp;3 package ("spatial").
  */
 const std::string&
 SpatialExtension::getName() const
@@ -228,12 +230,13 @@ SpatialExtension::getName() const
 
 
 /*
- * Returns the URI (namespace) of the package
+ * Returns a string representing the SBML XML namespace of this SBML
+ * Level&nbsp;3 package.
  */
 const std::string&
 SpatialExtension::getURI(unsigned int sbmlLevel,
-                                  unsigned int sbmlVersion,
-                                  unsigned int pkgVersion) const
+                         unsigned int sbmlVersion,
+                         unsigned int pkgVersion) const
 {
   if (sbmlLevel == 3)
   {
@@ -253,10 +256,10 @@ SpatialExtension::getURI(unsigned int sbmlLevel,
 
 
 /*
- * Returns the SBML level with the given URI of this package.
+ * Returns the SBML Level for the given URI of this package.
  */
 unsigned int
-SpatialExtension::getLevel(const std::string &uri) const
+SpatialExtension::getLevel(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -268,10 +271,10 @@ SpatialExtension::getLevel(const std::string &uri) const
 
 
 /*
- * Returns the SBML version with the given URI of this package.
+ * Returns the Version within the SBML Level for the given URI of this package.
  */
 unsigned int
-SpatialExtension::getVersion(const std::string &uri) const
+SpatialExtension::getVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -283,10 +286,11 @@ SpatialExtension::getVersion(const std::string &uri) const
 
 
 /*
- * Returns the package version with the given URI of this package.
+ * Returns the SBML Level&nbsp;3 package version for the given URI of this
+ * package.
  */
 unsigned int
-SpatialExtension::getPackageVersion(const std::string &uri) const
+SpatialExtension::getPackageVersion(const std::string& uri) const
 {
   if (uri == getXmlnsL3V1V1())
   {
@@ -314,7 +318,8 @@ SpatialExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 
 
 /*
- * This method takes a type code from the Spatial package and returns a string representing 
+ * Takes a type code of the &ldquo;spatial&rdquo; package and returns a string
+ * describing the code.
  */
 const char*
 SpatialExtension::getStringFromTypeCode(int typeCode) const
@@ -322,7 +327,7 @@ SpatialExtension::getStringFromTypeCode(int typeCode) const
   int min = SBML_SPATIAL_DOMAINTYPE;
   int max = SBML_SPATIAL_SPATIALPOINTS;
 
-  if ( typeCode < min || typeCode > max)
+  if (typeCode < min || typeCode > max)
   {
     return "(Unknown SBML Spatial Type)";
   }
@@ -332,10 +337,10 @@ SpatialExtension::getStringFromTypeCode(int typeCode) const
 
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error table entry. 
+ * Returns the entry in the error table at this index.
  */
 packageErrorTableEntry
 SpatialExtension::getErrorTable(unsigned int index) const
@@ -343,21 +348,23 @@ SpatialExtension::getErrorTable(unsigned int index) const
   return spatialErrorTable[index];
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error table index for this id. 
+ * Return the index in the error table with the given errorId.
  */
 unsigned int
 SpatialExtension::getErrorTableIndex(unsigned int errorId) const
 {
-  unsigned int tableSize = sizeof(spatialErrorTable)/sizeof(spatialErrorTable[0]);
+  unsigned int tableSize =
+    sizeof(spatialErrorTable)/sizeof(spatialErrorTable[0]);
   unsigned int index = 0;
 
-  for(unsigned int i = 0; i < tableSize; i++)
+  for (unsigned int i = 0; i < tableSize; i++)
   {
     if (errorId == spatialErrorTable[i].code)
     {
@@ -369,13 +376,14 @@ SpatialExtension::getErrorTableIndex(unsigned int errorId) const
   return index;
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error offset. 
+ * Returns the offset for the errorId range for the "spatial" package.
  */
 unsigned int
 SpatialExtension::getErrorIdOffset() const
@@ -388,9 +396,11 @@ SpatialExtension::getErrorIdOffset() const
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Initialization function of spatial extension module which is automatically invoked
- * by SBMLExtensionRegister class before main() function invoked. 
+ * Initializes spatial extension by creating an object of this class with the
+ * required SBasePlugin derived objects and registering the object to the
+ * SBMLExtensionRegistry class
  */
 void
 SpatialExtension::init()

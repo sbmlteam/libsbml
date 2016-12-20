@@ -39,7 +39,6 @@
 #include <sbml/packages/spatial/sbml/CSGRotation.h>
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
-#include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
 
@@ -585,34 +584,6 @@ CSGSetOperator::createCSGHomogeneousTransformation()
   }
 
   return csght;
-}
-
-
-/*
- * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperator
- * object and returns the CSGPseudoPrimitive object created.
- */
-CSGPseudoPrimitive*
-CSGSetOperator::createCSGPseudoPrimitive()
-{
-  CSGPseudoPrimitive* csgpp = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csgpp = new CSGPseudoPrimitive(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-  }
-
-  if (csgpp != NULL)
-  {
-    mCSGNodes.appendAndOwn(csgpp);
-  }
-
-  return csgpp;
 }
 
 
@@ -1189,6 +1160,50 @@ CSGSetOperator::createObject(const std::string& elementName)
   //{
   //  return createCSGNode();
   //}
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this CSGSetOperator.
+ */
+unsigned int
+CSGSetOperator::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "csgNode")
+  {
+    return getNumCSGNodes();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this CSGSetOperator.
+ */
+SBase*
+CSGSetOperator::getObject(const std::string& elementName, unsigned int index)
+{
+  CSGNode* obj = NULL;
+
+  if (elementName == "csgNode")
+  {
+    return getCSGNode(index);
+  }
 
   return obj;
 }
@@ -1828,18 +1843,6 @@ CSGHomogeneousTransformation_t*
 CSGSetOperator_createCSGHomogeneousTransformation(CSGSetOperator_t* csgso)
 {
   return (csgso != NULL) ? csgso->createCSGHomogeneousTransformation() : NULL;
-}
-
-
-/*
- * Creates a new CSGPseudoPrimitive_t object, adds it to this CSGSetOperator_t
- * object and returns the CSGPseudoPrimitive_t object created.
- */
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t*
-CSGSetOperator_createCSGPseudoPrimitive(CSGSetOperator_t* csgso)
-{
-  return (csgso != NULL) ? csgso->createCSGPseudoPrimitive() : NULL;
 }
 
 

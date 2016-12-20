@@ -63,7 +63,6 @@ class CSGTranslation;
 class CSGRotation;
 class CSGScale;
 class CSGHomogeneousTransformation;
-class CSGPseudoPrimitive;
 class CSGSetOperator;
 
 class LIBSBML_EXTERN ListOfCSGNodes : public ListOf
@@ -304,17 +303,6 @@ public:
    * @see addCSGNode(const CSGNode* csgn)
    */
   CSGHomogeneousTransformation* createCSGHomogeneousTransformation();
-
-
-  /**
-   * Creates a new CSGPseudoPrimitive object, adds it to this ListOfCSGNodes
-   * object and returns the CSGPseudoPrimitive object created.
-   *
-   * @return a new CSGPseudoPrimitive object instance.
-   *
-   * @see addCSGNode(const CSGNode* csgn)
-   */
-  CSGPseudoPrimitive* createCSGPseudoPrimitive();
 
 
   /**

@@ -53,8 +53,8 @@
 
 #include <sbml/packages/spatial/sbml/CSGTransformation.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/packages/spatial/sbml/TransformationComponents.h>
-#include <sbml/packages/spatial/sbml/TransformationComponents.h>
+#include <sbml/packages/spatial/sbml/TransformationComponent.h>
+#include <sbml/packages/spatial/sbml/TransformationComponent.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -66,8 +66,8 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  TransformationComponents* mForwardTransformation;
-  TransformationComponents* mReverseTransformation;
+  TransformationComponent* mForwardTransformation;
+  TransformationComponent* mReverseTransformation;
 
   /** @endcond */
 
@@ -154,9 +154,9 @@ public:
    * CSGHomogeneousTransformation.
    *
    * @return the value of the "forwardTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponents*.
+   * CSGHomogeneousTransformation as a TransformationComponent*.
    */
-  const TransformationComponents* getForwardTransformation() const;
+  const TransformationComponent* getForwardTransformation() const;
 
 
   /**
@@ -164,9 +164,9 @@ public:
    * CSGHomogeneousTransformation.
    *
    * @return the value of the "forwardTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponents*.
+   * CSGHomogeneousTransformation as a TransformationComponent*.
    */
-  TransformationComponents* getForwardTransformation();
+  TransformationComponent* getForwardTransformation();
 
 
   /**
@@ -174,9 +174,9 @@ public:
    * CSGHomogeneousTransformation.
    *
    * @return the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponents*.
+   * CSGHomogeneousTransformation as a TransformationComponent*.
    */
-  const TransformationComponents* getReverseTransformation() const;
+  const TransformationComponent* getReverseTransformation() const;
 
 
   /**
@@ -184,9 +184,9 @@ public:
    * CSGHomogeneousTransformation.
    *
    * @return the value of the "reverseTransformation" element of this
-   * CSGHomogeneousTransformation as a TransformationComponents*.
+   * CSGHomogeneousTransformation as a TransformationComponent*.
    */
-  TransformationComponents* getReverseTransformation();
+  TransformationComponent* getReverseTransformation();
 
 
   /**
@@ -215,7 +215,7 @@ public:
    * Sets the value of the "forwardTransformation" element of this
    * CSGHomogeneousTransformation.
    *
-   * @param forwardTransformation TransformationComponents* value of the
+   * @param forwardTransformation TransformationComponent* value of the
    * "forwardTransformation" element to be set.
    *
    * @copydetails doc_returns_success_code
@@ -223,7 +223,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setForwardTransformation(const TransformationComponents*
+  int setForwardTransformation(const TransformationComponent*
     forwardTransformation);
 
 
@@ -231,7 +231,7 @@ public:
    * Sets the value of the "reverseTransformation" element of this
    * CSGHomogeneousTransformation.
    *
-   * @param reverseTransformation TransformationComponents* value of the
+   * @param reverseTransformation TransformationComponent* value of the
    * "reverseTransformation" element to be set.
    *
    * @copydetails doc_returns_success_code
@@ -239,28 +239,28 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setReverseTransformation(const TransformationComponents*
+  int setReverseTransformation(const TransformationComponent*
     reverseTransformation);
 
 
   /**
-   * Creates a new TransformationComponents object, adds it to this
+   * Creates a new TransformationComponent object, adds it to this
    * CSGHomogeneousTransformation object and returns the
-   * TransformationComponents object created.
+   * TransformationComponent object created.
    *
-   * @return a new TransformationComponents object instance.
+   * @return a new TransformationComponent object instance.
    */
-  TransformationComponents* createForwardTransformation();
+  TransformationComponent* createForwardTransformation();
 
 
   /**
-   * Creates a new TransformationComponents object, adds it to this
+   * Creates a new TransformationComponent object, adds it to this
    * CSGHomogeneousTransformation object and returns the
-   * TransformationComponents object created.
+   * TransformationComponent object created.
    *
-   * @return a new TransformationComponents object instance.
+   * @return a new TransformationComponent object instance.
    */
-  TransformationComponents* createReverseTransformation();
+  TransformationComponent* createReverseTransformation();
 
 
   /**
@@ -699,11 +699,44 @@ public:
    * Creates and returns an new "elementName" object in this
    * CSGHomogeneousTransformation.
    *
-   * @param objectName, the name of the element to create.
+   * @param elementName, the name of the element to create.
    *
-   * pointer to the object created.
+   * pointer to the element created.
    */
   virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this CSGHomogeneousTransformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this
+   * CSGHomogeneousTransformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
   /** @endcond */
 
@@ -892,12 +925,12 @@ CSGHomogeneousTransformation_free(CSGHomogeneousTransformation_t* csght);
  * forwardTransformation is sought.
  *
  * @return the value of the "forwardTransformation" element of this
- * CSGHomogeneousTransformation_t as a TransformationComponents*.
+ * CSGHomogeneousTransformation_t as a TransformationComponent*.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
 LIBSBML_EXTERN
-const TransformationComponents_t*
+const TransformationComponent_t*
 CSGHomogeneousTransformation_getForwardTransformation(const
   CSGHomogeneousTransformation_t * csght);
 
@@ -910,12 +943,12 @@ CSGHomogeneousTransformation_getForwardTransformation(const
  * reverseTransformation is sought.
  *
  * @return the value of the "reverseTransformation" element of this
- * CSGHomogeneousTransformation_t as a TransformationComponents*.
+ * CSGHomogeneousTransformation_t as a TransformationComponent*.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
 LIBSBML_EXTERN
-const TransformationComponents_t*
+const TransformationComponent_t*
 CSGHomogeneousTransformation_getReverseTransformation(const
   CSGHomogeneousTransformation_t * csght);
 
@@ -960,7 +993,7 @@ CSGHomogeneousTransformation_isSetReverseTransformation(const
  *
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
- * @param forwardTransformation TransformationComponents_t* value of the
+ * @param forwardTransformation TransformationComponent_t* value of the
  * "forwardTransformation" element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -975,7 +1008,7 @@ CSGHomogeneousTransformation_setForwardTransformation(
                                                       CSGHomogeneousTransformation_t
                                                         * csght,
                                                       const
-                                                        TransformationComponents_t*
+                                                        TransformationComponent_t*
                                                           forwardTransformation);
 
 
@@ -985,7 +1018,7 @@ CSGHomogeneousTransformation_setForwardTransformation(
  *
  * @param csght the CSGHomogeneousTransformation_t structure.
  *
- * @param reverseTransformation TransformationComponents_t* value of the
+ * @param reverseTransformation TransformationComponent_t* value of the
  * "reverseTransformation" element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -1000,42 +1033,42 @@ CSGHomogeneousTransformation_setReverseTransformation(
                                                       CSGHomogeneousTransformation_t
                                                         * csght,
                                                       const
-                                                        TransformationComponents_t*
+                                                        TransformationComponent_t*
                                                           reverseTransformation);
 
 
 /**
- * Creates a new TransformationComponents_t object, adds it to this
+ * Creates a new TransformationComponent_t object, adds it to this
  * CSGHomogeneousTransformation_t object and returns the
- * TransformationComponents_t object created.
+ * TransformationComponent_t object created.
  *
  * @param csght the CSGHomogeneousTransformation_t structure to which the
- * TransformationComponents_t should be added.
+ * TransformationComponent_t should be added.
  *
- * @return a new TransformationComponents_t object instance.
+ * @return a new TransformationComponent_t object instance.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
 LIBSBML_EXTERN
-TransformationComponents_t*
+TransformationComponent_t*
 CSGHomogeneousTransformation_createForwardTransformation(CSGHomogeneousTransformation_t*
   csght);
 
 
 /**
- * Creates a new TransformationComponents_t object, adds it to this
+ * Creates a new TransformationComponent_t object, adds it to this
  * CSGHomogeneousTransformation_t object and returns the
- * TransformationComponents_t object created.
+ * TransformationComponent_t object created.
  *
  * @param csght the CSGHomogeneousTransformation_t structure to which the
- * TransformationComponents_t should be added.
+ * TransformationComponent_t should be added.
  *
- * @return a new TransformationComponents_t object instance.
+ * @return a new TransformationComponent_t object instance.
  *
  * @memberof CSGHomogeneousTransformation_t
  */
 LIBSBML_EXTERN
-TransformationComponents_t*
+TransformationComponent_t*
 CSGHomogeneousTransformation_createReverseTransformation(CSGHomogeneousTransformation_t*
   csght);
 

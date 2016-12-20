@@ -1,6 +1,6 @@
 /**
- * @file    TestTransformationComponents.cpp
- * @brief   TestTransformationComponents unit tests
+ * @file    TestTransformationComponent.cpp
+ * @brief   TestTransformationComponent unit tests
  * @author  Sarah Keating
  *
  * <!--------------------------------------------------------------------------
@@ -62,26 +62,26 @@ equals (const char* expected, const char* actual)
 
 CK_CPPSTART
 
-static TransformationComponents* G; 
+static TransformationComponent* G; 
 static SpatialPkgNamespaces* GNS;
 static char*    S;
 
 void
-TransformationComponentsTest_setup (void)
+TransformationComponentTest_setup (void)
 {
   GNS = new SpatialPkgNamespaces();
-  G = new TransformationComponents(GNS);
+  G = new TransformationComponent(GNS);
   S = NULL;
   
   if (G == NULL)
   {
-    fail("Failed to create a TransformationComponents object");
+    fail("Failed to create a TransformationComponent object");
   }
 }
 
 
 void
-TransformationComponentsTest_teardown (void)
+TransformationComponentTest_teardown (void)
 {
   delete G;
   delete GNS;
@@ -89,7 +89,7 @@ TransformationComponentsTest_teardown (void)
 }
 
 
-START_TEST (test_TransformationComponents_create)
+START_TEST (test_TransformationComponent_create)
 {
   fail_unless(G->isSetComponents() == false);
   fail_unless(G->isSetComponentsLength() == false);
@@ -97,7 +97,7 @@ START_TEST (test_TransformationComponents_create)
 END_TEST
 
 
-START_TEST (test_TransformationComponents_componentsLength)
+START_TEST (test_TransformationComponent_componentsLength)
 {
   fail_unless(G->isSetComponents() == false);
   fail_unless(G->isSetComponentsLength() == false);
@@ -124,7 +124,7 @@ START_TEST (test_TransformationComponents_componentsLength)
 END_TEST
 
 
-START_TEST (test_TransformationComponents_components)
+START_TEST (test_TransformationComponent_components)
 {
   fail_unless(G->isSetComponents() == false);
   fail_unless(G->isSetComponentsLength() == false);
@@ -150,7 +150,7 @@ START_TEST (test_TransformationComponents_components)
 END_TEST
 
 #if (0)
-START_TEST (test_TransformationComponents_components_mismatchLength_1)
+START_TEST (test_TransformationComponent_components_mismatchLength_1)
 {
   fail_unless(G->isSetComponents() == false);
   fail_unless(G->isSetComponentsLength() == false);
@@ -177,7 +177,7 @@ START_TEST (test_TransformationComponents_components_mismatchLength_1)
 END_TEST
 
 
-START_TEST (test_TransformationComponents_components_mismatchLength_2)
+START_TEST (test_TransformationComponent_components_mismatchLength_2)
 {
   fail_unless(G->isSetComponents() == false);
   fail_unless(G->isSetComponentsLength() == false);
@@ -205,9 +205,9 @@ START_TEST (test_TransformationComponents_components_mismatchLength_2)
 END_TEST
 #endif
 
-START_TEST (test_TransformationComponents_output)
+START_TEST (test_TransformationComponent_output)
 {
-  const char *expected = "<transformationComponents componentsLength=\"3\">1.3 2.5 3.7 </transformationComponents>";
+  const char *expected = "<transformationComponent componentsLength=\"3\">1.3 2.5 3.7 </transformationComponent>";
 
   double points [] = {1.3,2.5,3.7};
   G->setComponents(points, 3);
@@ -220,20 +220,20 @@ END_TEST
 
 
 Suite *
-create_suite_TransformationComponents (void)
+create_suite_TransformationComponent (void)
 {
-  Suite *suite = suite_create("TransformationComponents");
-  TCase *tcase = tcase_create("TransformationComponents");
+  Suite *suite = suite_create("TransformationComponent");
+  TCase *tcase = tcase_create("TransformationComponent");
 
-  tcase_add_checked_fixture(tcase, TransformationComponentsTest_setup, TransformationComponentsTest_teardown);
+  tcase_add_checked_fixture(tcase, TransformationComponentTest_setup, TransformationComponentTest_teardown);
  
-  tcase_add_test( tcase, test_TransformationComponents_create         );
+  tcase_add_test( tcase, test_TransformationComponent_create         );
 
-  tcase_add_test( tcase, test_TransformationComponents_componentsLength   );
-  tcase_add_test( tcase, test_TransformationComponents_components         );
-  //tcase_add_test( tcase, test_TransformationComponents_components_mismatchLength_1  );
-  //tcase_add_test( tcase, test_TransformationComponents_components_mismatchLength_2  );
-  tcase_add_test( tcase, test_TransformationComponents_output         );
+  tcase_add_test( tcase, test_TransformationComponent_componentsLength   );
+  tcase_add_test( tcase, test_TransformationComponent_components         );
+  //tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_1  );
+  //tcase_add_test( tcase, test_TransformationComponent_components_mismatchLength_2  );
+  tcase_add_test( tcase, test_TransformationComponent_output         );
 
   suite_add_tcase(suite, tcase);
 

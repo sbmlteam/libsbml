@@ -69,16 +69,14 @@
 #include <sbml/packages/spatial/sbml/CSGRotation.h>
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
-#include <sbml/packages/spatial/sbml/TransformationComponents.h>
+#include <sbml/packages/spatial/sbml/TransformationComponent.h>
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
-#include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 #include <sbml/packages/spatial/sbml/SpatialSymbolReference.h>
 #include <sbml/packages/spatial/sbml/DiffusionCoefficient.h>
 #include <sbml/packages/spatial/sbml/AdvectionCoefficient.h>
 #include <sbml/packages/spatial/sbml/BoundaryCondition.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
-#include <sbml/packages/spatial/sbml/CoordinateReference.h>
 #include <sbml/packages/spatial/sbml/MixedGeometry.h>
 #include <sbml/packages/spatial/sbml/OrdinalMapping.h>
 #include <sbml/packages/spatial/sbml/SpatialPoints.h>

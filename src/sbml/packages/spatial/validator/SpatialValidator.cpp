@@ -156,16 +156,14 @@ struct SpatialValidatorConstraints
   ConstraintSet<CSGRotation>                    mCSGRotation;
   ConstraintSet<CSGScale>                       mCSGScale;
   ConstraintSet<CSGHomogeneousTransformation>   mCSGHomogeneousTransformation;
-  ConstraintSet<TransformationComponents>       mTransformationComponents;
+  ConstraintSet<TransformationComponent>        mTransformationComponent;
   ConstraintSet<CSGPrimitive>                   mCSGPrimitive;
-  ConstraintSet<CSGPseudoPrimitive>             mCSGPseudoPrimitive;
   ConstraintSet<CSGSetOperator>                 mCSGSetOperator;
   ConstraintSet<SpatialSymbolReference>         mSpatialSymbolReference;
   ConstraintSet<DiffusionCoefficient>           mDiffusionCoefficient;
   ConstraintSet<AdvectionCoefficient>           mAdvectionCoefficient;
   ConstraintSet<BoundaryCondition>              mBoundaryCondition;
   ConstraintSet<Geometry>                       mGeometry;
-  ConstraintSet<CoordinateReference>            mCoordinateReference;
   ConstraintSet<MixedGeometry>                  mMixedGeometry;
   ConstraintSet<OrdinalMapping>                 mOrdinalMapping;
   ConstraintSet<SpatialPoints>                  mSpatialPoints;
@@ -364,23 +362,16 @@ SpatialValidatorConstraints::add(VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<TransformationComponents>* >(c) != NULL)
+  if (dynamic_cast< TConstraint<TransformationComponent>* >(c) != NULL)
   {
-    mTransformationComponents.add(static_cast<
-      TConstraint<TransformationComponents>* >(c) );
+    mTransformationComponent.add(static_cast<
+      TConstraint<TransformationComponent>* >(c) );
     return;
   }
 
   if (dynamic_cast< TConstraint<CSGPrimitive>* >(c) != NULL)
   {
     mCSGPrimitive.add(static_cast< TConstraint<CSGPrimitive>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<CSGPseudoPrimitive>* >(c) != NULL)
-  {
-    mCSGPseudoPrimitive.add(static_cast< TConstraint<CSGPseudoPrimitive>* >(c)
-      );
     return;
   }
 
@@ -420,13 +411,6 @@ SpatialValidatorConstraints::add(VConstraint* c)
   if (dynamic_cast< TConstraint<Geometry>* >(c) != NULL)
   {
     mGeometry.add(static_cast< TConstraint<Geometry>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<CoordinateReference>* >(c) != NULL)
-  {
-    mCoordinateReference.add(static_cast< TConstraint<CoordinateReference>*
-      >(c) );
     return;
   }
 
@@ -652,10 +636,10 @@ public:
 
 
   bool
-  visit(const TransformationComponents& x)
+  visit(const TransformationComponent& x)
   {
-    v.mSpatialConstraints->mTransformationComponents.applyTo(m, x);
-    return !v.mSpatialConstraints->mTransformationComponents.empty();
+    v.mSpatialConstraints->mTransformationComponent.applyTo(m, x);
+    return !v.mSpatialConstraints->mTransformationComponent.empty();
   }
 
 
@@ -664,14 +648,6 @@ public:
   {
     v.mSpatialConstraints->mCSGPrimitive.applyTo(m, x);
     return !v.mSpatialConstraints->mCSGPrimitive.empty();
-  }
-
-
-  bool
-  visit(const CSGPseudoPrimitive& x)
-  {
-    v.mSpatialConstraints->mCSGPseudoPrimitive.applyTo(m, x);
-    return !v.mSpatialConstraints->mCSGPseudoPrimitive.empty();
   }
 
 
@@ -720,14 +696,6 @@ public:
   {
     v.mSpatialConstraints->mGeometry.applyTo(m, x);
     return !v.mSpatialConstraints->mGeometry.empty();
-  }
-
-
-  bool
-  visit(const CoordinateReference& x)
-  {
-    v.mSpatialConstraints->mCoordinateReference.applyTo(m, x);
-    return !v.mSpatialConstraints->mCoordinateReference.empty();
   }
 
 
@@ -865,17 +833,13 @@ public:
       {
         return visit((const CSGHomogeneousTransformation&)x);
       }
-      else if (code == SBML_SPATIAL_TRANSFORMATIONCOMPONENTS)
+      else if (code == SBML_SPATIAL_TRANSFORMATIONCOMPONENT)
       {
-        return visit((const TransformationComponents&)x);
+        return visit((const TransformationComponent&)x);
       }
       else if (code == SBML_SPATIAL_CSGPRIMITIVE)
       {
         return visit((const CSGPrimitive&)x);
-      }
-      else if (code == SBML_SPATIAL_CSGPSEUDOPRIMITIVE)
-      {
-        return visit((const CSGPseudoPrimitive&)x);
       }
       else if (code == SBML_SPATIAL_CSGSETOPERATOR)
       {
@@ -900,10 +864,6 @@ public:
       else if (code == SBML_SPATIAL_GEOMETRY)
       {
         return visit((const Geometry&)x);
-      }
-      else if (code == SBML_SPATIAL_COORDINATEREFERENCE)
-      {
-        return visit((const CoordinateReference&)x);
       }
       else if (code == SBML_SPATIAL_MIXEDGEOMETRY)
       {

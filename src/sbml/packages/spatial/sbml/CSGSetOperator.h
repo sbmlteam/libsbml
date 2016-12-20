@@ -448,17 +448,6 @@ public:
 
 
   /**
-   * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperator
-   * object and returns the CSGPseudoPrimitive object created.
-   *
-   * @return a new CSGPseudoPrimitive object instance.
-   *
-   * @see addCSGNode(const CSGNode* csgn)
-   */
-  CSGPseudoPrimitive* createCSGPseudoPrimitive();
-
-
-  /**
    * Creates a new CSGSetOperator object, adds it to this CSGSetOperator object
    * and returns the CSGSetOperator object created.
    *
@@ -899,11 +888,43 @@ public:
   /**
    * Creates and returns an new "elementName" object in this CSGSetOperator.
    *
-   * @param objectName, the name of the element to create.
+   * @param elementName, the name of the element to create.
    *
-   * pointer to the object created.
+   * pointer to the element created.
    */
   virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this CSGSetOperator.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this CSGSetOperator.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
   /** @endcond */
 
@@ -1478,22 +1499,6 @@ CSGSetOperator_createCSGScale(CSGSetOperator_t* csgso);
 LIBSBML_EXTERN
 CSGHomogeneousTransformation_t*
 CSGSetOperator_createCSGHomogeneousTransformation(CSGSetOperator_t* csgso);
-
-
-/**
- * Creates a new CSGPseudoPrimitive_t object, adds it to this CSGSetOperator_t
- * object and returns the CSGPseudoPrimitive_t object created.
- *
- * @param csgso the CSGSetOperator_t structure to which the
- * CSGPseudoPrimitive_t should be added.
- *
- * @return a new CSGPseudoPrimitive_t object instance.
- *
- * @memberof CSGSetOperator_t
- */
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t*
-CSGSetOperator_createCSGPseudoPrimitive(CSGSetOperator_t* csgso);
 
 
 /**

@@ -581,13 +581,32 @@ SpatialSpeciesPlugin::readAttributes(const XMLAttributes& attributes,
       log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
         pkgVersion, level, version, details);
     }
+    else if (log->getError(n)->getErrorId() == NotSchemaConformant)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(NotSchemaConformant);
+      log->logPackageError("spatial", SpatialSpeciesAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
   }
 
   // 
   // isSpatial bool (use = "optional" )
   // 
 
+  numErrs = log->getNumErrors();
   mIsSetIsSpatial = attributes.readInto("isSpatial", mIsSpatial);
+
+  if (mIsSetIsSpatial == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("spatial", SpatialSpeciesIsSpatialMustBeBoolean,
+        pkgVersion, level, version);
+    }
+  }
 }
 
 /** @endcond */

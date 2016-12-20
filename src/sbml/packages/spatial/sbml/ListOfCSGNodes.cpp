@@ -38,7 +38,6 @@
 #include <sbml/packages/spatial/sbml/CSGRotation.h>
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
-#include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
 
@@ -382,34 +381,6 @@ ListOfCSGNodes::createCSGHomogeneousTransformation()
 
 
 /*
- * Creates a new CSGPseudoPrimitive object, adds it to this ListOfCSGNodes
- * object and returns the CSGPseudoPrimitive object created.
- */
-CSGPseudoPrimitive*
-ListOfCSGNodes::createCSGPseudoPrimitive()
-{
-  CSGPseudoPrimitive* csgpp = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csgpp = new CSGPseudoPrimitive(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-  }
-
-  if (csgpp != NULL)
-  {
-    appendAndOwn(csgpp);
-  }
-
-  return csgpp;
-}
-
-
-/*
  * Creates a new CSGSetOperator object, adds it to this ListOfCSGNodes object
  * and returns the CSGSetOperator object created.
  */
@@ -518,12 +489,6 @@ ListOfCSGNodes::createObject(XMLInputStream& stream)
     appendAndOwn(object);
   }
 
-  if (name == "csgPseudoPrimitive")
-  {
-    object = new CSGPseudoPrimitive(spatialns);
-    appendAndOwn(object);
-  }
-
   if (name == "csgSetOperator")
   {
     object = new CSGSetOperator(spatialns);
@@ -578,8 +543,7 @@ ListOfCSGNodes::isValidTypeForList(SBase* item)
   return ((tc == SBML_SPATIAL_CSGPRIMITIVE) || (tc ==
     SBML_SPATIAL_CSGTRANSLATION) || (tc == SBML_SPATIAL_CSGROTATION) || (tc ==
       SBML_SPATIAL_CSGSCALE) || (tc == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)
-        || (tc == SBML_SPATIAL_CSGPSEUDOPRIMITIVE) || (tc ==
-          SBML_SPATIAL_CSGSETOPERATOR));
+        || (tc == SBML_SPATIAL_CSGSETOPERATOR));
 }
 
 /** @endcond */

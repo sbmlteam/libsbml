@@ -830,14 +830,27 @@ GeometryDefinition::readAttributes(const XMLAttributes& attributes,
   // isActive bool (use = "required" )
   // 
 
+  numErrs = log->getNumErrors();
   mIsSetIsActive = attributes.readInto("isActive", mIsActive);
 
-  if (!mIsSetIsActive)
+  if (mIsSetIsActive == false)
   {
-    std::string message = "Spatial attribute 'isActive' is missing from the "
-      "<GeometryDefinition> element.";
-    log->logPackageError("spatial", SpatialGeometryDefinitionAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("spatial",
+        SpatialGeometryDefinitionIsActiveMustBeBoolean, pkgVersion, level,
+          version);
+    }
+    else
+    {
+      std::string message = "Spatial attribute 'isActive' is missing from the "
+        "<GeometryDefinition> element.";
+      log->logPackageError("spatial",
+        SpatialGeometryDefinitionAllowedAttributes, pkgVersion, level, version,
+          message);
+    }
   }
 }
 

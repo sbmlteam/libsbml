@@ -1128,6 +1128,87 @@ SpatialParameterPlugin::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this SpatialParameterPlugin.
+ */
+unsigned int
+SpatialParameterPlugin::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "spatialSymbolReference")
+  {
+    if (isSetSpatialSymbolReference())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "advectionCoefficient")
+  {
+    if (isSetAdvectionCoefficient())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "boundaryCondition")
+  {
+    if (isSetBoundaryCondition())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "diffusionCoefficient")
+  {
+    if (isSetDiffusionCoefficient())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this SpatialParameterPlugin.
+ */
+SBase*
+SpatialParameterPlugin::getObject(const std::string& elementName,
+                                  unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "spatialSymbolReference")
+  {
+    return getSpatialSymbolReference();
+  }
+  else if (elementName == "advectionCoefficient")
+  {
+    return getAdvectionCoefficient();
+  }
+  else if (elementName == "boundaryCondition")
+  {
+    return getBoundaryCondition();
+  }
+  else if (elementName == "diffusionCoefficient")
+  {
+    return getDiffusionCoefficient();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.

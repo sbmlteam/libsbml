@@ -39,7 +39,6 @@
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
-#include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
 
@@ -63,7 +62,7 @@ CSGTransformation::CSGTransformation(unsigned int level,
                                      unsigned int version,
                                      unsigned int pkgVersion)
   : CSGNode(level, version)
-  , mCsgNode (NULL)
+  , mCSGNode (NULL)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -76,7 +75,7 @@ CSGTransformation::CSGTransformation(unsigned int level,
  */
 CSGTransformation::CSGTransformation(SpatialPkgNamespaces *spatialns)
   : CSGNode(spatialns)
-  , mCsgNode (NULL)
+  , mCSGNode (NULL)
 {
   setElementNamespace(spatialns->getURI());
   connectToChild();
@@ -89,11 +88,11 @@ CSGTransformation::CSGTransformation(SpatialPkgNamespaces *spatialns)
  */
 CSGTransformation::CSGTransformation(const CSGTransformation& orig)
   : CSGNode( orig )
-  , mCsgNode ( NULL )
+  , mCSGNode ( NULL )
 {
-  if (orig.mCsgNode != NULL)
+  if (orig.mCSGNode != NULL)
   {
-    mCsgNode = orig.mCsgNode->clone();
+    mCSGNode = orig.mCSGNode->clone();
   }
 
   connectToChild();
@@ -109,14 +108,14 @@ CSGTransformation::operator=(const CSGTransformation& rhs)
   if (&rhs != this)
   {
     CSGNode::operator=(rhs);
-    delete mCsgNode;
-    if (rhs.mCsgNode != NULL)
+    delete mCSGNode;
+    if (rhs.mCSGNode != NULL)
     {
-      mCsgNode = rhs.mCsgNode->clone();
+      mCSGNode = rhs.mCSGNode->clone();
     }
     else
     {
-      mCsgNode = NULL;
+      mCSGNode = NULL;
     }
 
     connectToChild();
@@ -141,8 +140,8 @@ CSGTransformation::clone() const
  */
 CSGTransformation::~CSGTransformation()
 {
-  delete mCsgNode;
-  mCsgNode = NULL;
+  delete mCSGNode;
+  mCSGNode = NULL;
 }
 
 
@@ -150,9 +149,9 @@ CSGTransformation::~CSGTransformation()
  * Returns the value of the "csgNode" element of this CSGTransformation.
  */
 const CSGNode*
-CSGTransformation::getCsgNode() const
+CSGTransformation::getCSGNode() const
 {
-  return mCsgNode;
+  return mCSGNode;
 }
 
 
@@ -160,9 +159,9 @@ CSGTransformation::getCsgNode() const
  * Returns the value of the "csgNode" element of this CSGTransformation.
  */
 CSGNode*
-CSGTransformation::getCsgNode()
+CSGTransformation::getCSGNode()
 {
-  return mCsgNode;
+  return mCSGNode;
 }
 
 
@@ -171,9 +170,9 @@ CSGTransformation::getCsgNode()
  * set.
  */
 bool
-CSGTransformation::isSetCsgNode() const
+CSGTransformation::isSetCSGNode() const
 {
-  return (mCsgNode != NULL);
+  return (mCSGNode != NULL);
 }
 
 
@@ -181,25 +180,25 @@ CSGTransformation::isSetCsgNode() const
  * Sets the value of the "csgNode" element of this CSGTransformation.
  */
 int
-CSGTransformation::setCsgNode(const CSGNode* csgNode)
+CSGTransformation::setCSGNode(const CSGNode* csgNode)
 {
-  if (mCsgNode == csgNode)
+  if (mCSGNode == csgNode)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (csgNode == NULL)
   {
-    delete mCsgNode;
-    mCsgNode = NULL;
+    delete mCSGNode;
+    mCSGNode = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
-    delete mCsgNode;
-    mCsgNode = (csgNode != NULL) ? csgNode->clone() : NULL;
-    if (mCsgNode != NULL)
+    delete mCSGNode;
+    mCSGNode = (csgNode != NULL) ? csgNode->clone() : NULL;
+    if (mCSGNode != NULL)
     {
-      mCsgNode->connectToParent(this);
+      mCSGNode->connectToParent(this);
     }
 
     return LIBSBML_OPERATION_SUCCESS;
@@ -214,19 +213,19 @@ CSGTransformation::setCsgNode(const CSGNode* csgNode)
 CSGPrimitive*
 CSGTransformation::createCSGPrimitive()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGPrimitive(spatialns);
+  mCSGNode = new CSGPrimitive(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGPrimitive*>(mCsgNode);
+  return static_cast<CSGPrimitive*>(mCSGNode);
 }
 
 
@@ -237,19 +236,19 @@ CSGTransformation::createCSGPrimitive()
 CSGTranslation*
 CSGTransformation::createCSGTranslation()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGTranslation(spatialns);
+  mCSGNode = new CSGTranslation(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGTranslation*>(mCsgNode);
+  return static_cast<CSGTranslation*>(mCSGNode);
 }
 
 
@@ -260,19 +259,19 @@ CSGTransformation::createCSGTranslation()
 CSGRotation*
 CSGTransformation::createCSGRotation()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGRotation(spatialns);
+  mCSGNode = new CSGRotation(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGRotation*>(mCsgNode);
+  return static_cast<CSGRotation*>(mCSGNode);
 }
 
 
@@ -283,19 +282,19 @@ CSGTransformation::createCSGRotation()
 CSGScale*
 CSGTransformation::createCSGScale()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGScale(spatialns);
+  mCSGNode = new CSGScale(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGScale*>(mCsgNode);
+  return static_cast<CSGScale*>(mCSGNode);
 }
 
 
@@ -307,42 +306,19 @@ CSGTransformation::createCSGScale()
 CSGHomogeneousTransformation*
 CSGTransformation::createCSGHomogeneousTransformation()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGHomogeneousTransformation(spatialns);
+  mCSGNode = new CSGHomogeneousTransformation(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGHomogeneousTransformation*>(mCsgNode);
-}
-
-
-/*
- * Creates a new CSGPseudoPrimitive object, adds it to this CSGTransformation
- * object and returns the CSGPseudoPrimitive object created.
- */
-CSGPseudoPrimitive*
-CSGTransformation::createCSGPseudoPrimitive()
-{
-  if (mCsgNode != NULL)
-  {
-    delete mCsgNode;
-  }
-
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGPseudoPrimitive(spatialns);
-
-  delete spatialns;
-
-  connectToChild();
-
-  return static_cast<CSGPseudoPrimitive*>(mCsgNode);
+  return static_cast<CSGHomogeneousTransformation*>(mCSGNode);
 }
 
 
@@ -353,19 +329,19 @@ CSGTransformation::createCSGPseudoPrimitive()
 CSGSetOperator*
 CSGTransformation::createCSGSetOperator()
 {
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    delete mCsgNode;
+    delete mCSGNode;
   }
 
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mCsgNode = new CSGSetOperator(spatialns);
+  mCSGNode = new CSGSetOperator(spatialns);
 
   delete spatialns;
 
   connectToChild();
 
-  return static_cast<CSGSetOperator*>(mCsgNode);
+  return static_cast<CSGSetOperator*>(mCSGNode);
 }
 
 
@@ -373,10 +349,10 @@ CSGTransformation::createCSGSetOperator()
  * Unsets the value of the "csgNode" element of this CSGTransformation.
  */
 int
-CSGTransformation::unsetCsgNode()
+CSGTransformation::unsetCSGNode()
 {
-  delete mCsgNode;
-  mCsgNode = NULL;
+  delete mCSGNode;
+  mCSGNode = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -483,9 +459,9 @@ CSGTransformation::writeElements(XMLOutputStream& stream) const
 {
   CSGNode::writeElements(stream);
 
-  if (isSetCsgNode() == true)
+  if (isSetCSGNode() == true)
   {
-    mCsgNode->write(stream);
+    mCSGNode->write(stream);
   }
 
   SBase::writeExtensionElements(stream);
@@ -505,9 +481,9 @@ CSGTransformation::accept(SBMLVisitor& v) const
 {
   v.visit(*this);
 
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    mCsgNode->accept(v);
+    mCSGNode->accept(v);
   }
 
   v.leave(*this);
@@ -528,9 +504,9 @@ CSGTransformation::setSBMLDocument(SBMLDocument* d)
 {
   CSGNode::setSBMLDocument(d);
 
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    mCsgNode->setSBMLDocument(d);
+    mCSGNode->setSBMLDocument(d);
   }
 }
 
@@ -548,9 +524,9 @@ CSGTransformation::connectToChild()
 {
   CSGNode::connectToChild();
 
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    mCsgNode->connectToParent(this);
+    mCSGNode->connectToParent(this);
   }
 }
 
@@ -570,9 +546,9 @@ CSGTransformation::enablePackageInternal(const std::string& pkgURI,
 {
   CSGNode::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
-  if (isSetCsgNode())
+  if (isSetCSGNode())
   {
-    mCsgNode->enablePackageInternal(pkgURI, pkgPrefix, flag);
+    mCSGNode->enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
 }
 
@@ -850,6 +826,54 @@ CSGTransformation::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this CSGTransformation.
+ */
+unsigned int
+CSGTransformation::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "csgNode")
+  {
+    if (isSetCSGNode())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this CSGTransformation.
+ */
+SBase*
+CSGTransformation::getObject(const std::string& elementName,
+                             unsigned int index)
+{
+  CSGNode* obj = NULL;
+
+  if (elementName == "csgNode")
+  {
+    return getCSGNode();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.
@@ -864,14 +888,14 @@ CSGTransformation::getElementBySId(const std::string& id)
 
   SBase* obj = NULL;
 
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    if (mCsgNode->getId() == id)
+    if (mCSGNode->getId() == id)
     {
-      return mCsgNode;
+      return mCSGNode;
     }
 
-    obj = mCsgNode->getElementBySId(id);
+    obj = mCSGNode->getElementBySId(id);
     if (obj != NULL)
     {
       return obj;
@@ -896,14 +920,14 @@ CSGTransformation::getElementByMetaId(const std::string& metaid)
 
   SBase* obj = NULL;
 
-  if (mCsgNode != NULL)
+  if (mCSGNode != NULL)
   {
-    if (mCsgNode->getMetaId() == metaid)
+    if (mCSGNode->getMetaId() == metaid)
     {
-      return mCsgNode;
+      return mCSGNode;
     }
 
-    obj = mCsgNode->getElementByMetaId(metaid);
+    obj = mCSGNode->getElementByMetaId(metaid);
     if (obj != NULL)
     {
       return obj;
@@ -924,7 +948,7 @@ CSGTransformation::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_POINTER(ret, sublist, mCsgNode, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mCSGNode, filter);
 
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
@@ -950,38 +974,33 @@ CSGTransformation::createObject(XMLInputStream& stream)
 
   if (name == "csgPrimitive")
   {
-    mCsgNode = new CSGPrimitive(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGPrimitive(spatialns);
+    obj = mCSGNode;
   }
   else if (name == "csgTranslation")
   {
-    mCsgNode = new CSGTranslation(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGTranslation(spatialns);
+    obj = mCSGNode;
   }
   else if (name == "csgRotation")
   {
-    mCsgNode = new CSGRotation(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGRotation(spatialns);
+    obj = mCSGNode;
   }
   else if (name == "csgScale")
   {
-    mCsgNode = new CSGScale(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGScale(spatialns);
+    obj = mCSGNode;
   }
   else if (name == "csgHomogeneousTransformation")
   {
-    mCsgNode = new CSGHomogeneousTransformation(spatialns);
-    obj = mCsgNode;
-  }
-  else if (name == "csgPseudoPrimitive")
-  {
-    mCsgNode = new CSGPseudoPrimitive(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGHomogeneousTransformation(spatialns);
+    obj = mCSGNode;
   }
   else if (name == "csgSetOperator")
   {
-    mCsgNode = new CSGSetOperator(spatialns);
-    obj = mCsgNode;
+    mCSGNode = new CSGSetOperator(spatialns);
+    obj = mCSGNode;
   }
 
   delete spatialns;
@@ -1125,14 +1144,14 @@ CSGTransformation_free(CSGTransformation_t* csgt)
  */
 LIBSBML_EXTERN
 const CSGNode_t*
-CSGTransformation_getCsgNode(const CSGTransformation_t * csgt)
+CSGTransformation_getCSGNode(const CSGTransformation_t * csgt)
 {
   if (csgt == NULL)
   {
     return NULL;
   }
 
-  return (CSGNode_t*)(csgt->getCsgNode());
+  return (CSGNode_t*)(csgt->getCSGNode());
 }
 
 
@@ -1142,9 +1161,9 @@ CSGTransformation_getCsgNode(const CSGTransformation_t * csgt)
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt)
+CSGTransformation_isSetCSGNode(const CSGTransformation_t * csgt)
 {
-  return (csgt != NULL) ? static_cast<int>(csgt->isSetCsgNode()) : 0;
+  return (csgt != NULL) ? static_cast<int>(csgt->isSetCSGNode()) : 0;
 }
 
 
@@ -1153,10 +1172,10 @@ CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt)
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_setCsgNode(CSGTransformation_t * csgt,
+CSGTransformation_setCSGNode(CSGTransformation_t * csgt,
                              const CSGNode_t* csgNode)
 {
-  return (csgt != NULL) ? csgt->setCsgNode(csgNode) : LIBSBML_INVALID_OBJECT;
+  return (csgt != NULL) ? csgt->setCSGNode(csgNode) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1222,19 +1241,6 @@ CSGTransformation_createCSGHomogeneousTransformation(CSGTransformation_t* csgt)
 
 
 /*
- * Creates a new CSGPseudoPrimitive_t object, adds it to this
- * CSGTransformation_t object and returns the CSGPseudoPrimitive_t object
- * created.
- */
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t*
-CSGTransformation_createCSGPseudoPrimitive(CSGTransformation_t* csgt)
-{
-  return (csgt != NULL) ? csgt->createCSGPseudoPrimitive() : NULL;
-}
-
-
-/*
  * Creates a new CSGSetOperator_t object, adds it to this CSGTransformation_t
  * object and returns the CSGSetOperator_t object created.
  */
@@ -1251,9 +1257,9 @@ CSGTransformation_createCSGSetOperator(CSGTransformation_t* csgt)
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_unsetCsgNode(CSGTransformation_t * csgt)
+CSGTransformation_unsetCSGNode(CSGTransformation_t * csgt)
 {
-  return (csgt != NULL) ? csgt->unsetCsgNode() : LIBSBML_INVALID_OBJECT;
+  return (csgt != NULL) ? csgt->unsetCSGNode() : LIBSBML_INVALID_OBJECT;
 }
 
 

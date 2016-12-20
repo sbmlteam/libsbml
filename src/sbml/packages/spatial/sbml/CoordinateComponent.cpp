@@ -1144,6 +1144,65 @@ CoordinateComponent::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this CoordinateComponent.
+ */
+unsigned int
+CoordinateComponent::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "boundaryMin")
+  {
+    if (isSetBoundaryMin())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "boundaryMax")
+  {
+    if (isSetBoundaryMax())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this CoordinateComponent.
+ */
+SBase*
+CoordinateComponent::getObject(const std::string& elementName,
+                               unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "boundaryMin")
+  {
+    return getBoundaryMin();
+  }
+  else if (elementName == "boundaryMax")
+  {
+    return getBoundaryMax();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 /*
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.

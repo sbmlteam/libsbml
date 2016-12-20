@@ -69,7 +69,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  CSGNode* mCsgNode;
+  CSGNode* mCSGNode;
 
   /** @endcond */
 
@@ -153,7 +153,7 @@ public:
    * @return the value of the "csgNode" element of this CSGTransformation as a
    * CSGNode*.
    */
-  const CSGNode* getCsgNode() const;
+  const CSGNode* getCSGNode() const;
 
 
   /**
@@ -162,7 +162,7 @@ public:
    * @return the value of the "csgNode" element of this CSGTransformation as a
    * CSGNode*.
    */
-  CSGNode* getCsgNode();
+  CSGNode* getCSGNode();
 
 
   /**
@@ -172,7 +172,7 @@ public:
    * @return @c true if this CSGTransformation's "csgNode" element has been
    * set, otherwise @c false is returned.
    */
-  bool isSetCsgNode() const;
+  bool isSetCSGNode() const;
 
 
   /**
@@ -185,7 +185,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
-  int setCsgNode(const CSGNode* csgNode);
+  int setCSGNode(const CSGNode* csgNode);
 
 
   /**
@@ -235,15 +235,6 @@ public:
 
 
   /**
-   * Creates a new CSGPseudoPrimitive object, adds it to this CSGTransformation
-   * object and returns the CSGPseudoPrimitive object created.
-   *
-   * @return a new CSGPseudoPrimitive object instance.
-   */
-  CSGPseudoPrimitive* createCSGPseudoPrimitive();
-
-
-  /**
    * Creates a new CSGSetOperator object, adds it to this CSGTransformation
    * object and returns the CSGSetOperator object created.
    *
@@ -259,7 +250,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetCsgNode();
+  int unsetCSGNode();
 
 
   /**
@@ -695,11 +686,43 @@ public:
   /**
    * Creates and returns an new "elementName" object in this CSGTransformation.
    *
-   * @param objectName, the name of the element to create.
+   * @param elementName, the name of the element to create.
    *
-   * pointer to the object created.
+   * pointer to the element created.
    */
   virtual SBase* createObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this CSGTransformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this CSGTransformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
   /** @endcond */
 
@@ -890,7 +913,7 @@ CSGTransformation_free(CSGTransformation_t* csgt);
  */
 LIBSBML_EXTERN
 const CSGNode_t*
-CSGTransformation_getCsgNode(const CSGTransformation_t * csgt);
+CSGTransformation_getCSGNode(const CSGTransformation_t * csgt);
 
 
 /**
@@ -906,7 +929,7 @@ CSGTransformation_getCsgNode(const CSGTransformation_t * csgt);
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt);
+CSGTransformation_isSetCSGNode(const CSGTransformation_t * csgt);
 
 
 /**
@@ -924,7 +947,7 @@ CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt);
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_setCsgNode(CSGTransformation_t * csgt,
+CSGTransformation_setCSGNode(CSGTransformation_t * csgt,
                              const CSGNode_t* csgNode);
 
 
@@ -1011,23 +1034,6 @@ CSGTransformation_createCSGHomogeneousTransformation(CSGTransformation_t*
 
 
 /**
- * Creates a new CSGPseudoPrimitive_t object, adds it to this
- * CSGTransformation_t object and returns the CSGPseudoPrimitive_t object
- * created.
- *
- * @param csgt the CSGTransformation_t structure to which the
- * CSGPseudoPrimitive_t should be added.
- *
- * @return a new CSGPseudoPrimitive_t object instance.
- *
- * @memberof CSGTransformation_t
- */
-LIBSBML_EXTERN
-CSGPseudoPrimitive_t*
-CSGTransformation_createCSGPseudoPrimitive(CSGTransformation_t* csgt);
-
-
-/**
  * Creates a new CSGSetOperator_t object, adds it to this CSGTransformation_t
  * object and returns the CSGSetOperator_t object created.
  *
@@ -1056,7 +1062,7 @@ CSGTransformation_createCSGSetOperator(CSGTransformation_t* csgt);
  */
 LIBSBML_EXTERN
 int
-CSGTransformation_unsetCsgNode(CSGTransformation_t * csgt);
+CSGTransformation_unsetCSGNode(CSGTransformation_t * csgt);
 
 
 /**

@@ -62,7 +62,6 @@ class CSGTranslation;
 class CSGRotation;
 class CSGScale;
 class CSGHomogeneousTransformation;
-class CSGPseudoPrimitive;
 class CSGSetOperator;
 
 class LIBSBML_EXTERN CSGNode : public SBase
@@ -233,16 +232,6 @@ public:
    * CSGHomogeneousTransformation, @c false otherwise
    */
   virtual bool isCSGHomogeneousTransformation() const;
-
-
-  /**
-   * Predicate returning @c true if this abstract "CSGNode" is of type
-   * CSGPseudoPrimitive
-   *
-   * @return @c true if this abstract "CSGNode" is of type CSGPseudoPrimitive,
-   * @c false otherwise
-   */
-  virtual bool isCSGPseudoPrimitive() const;
 
 
   /**
@@ -840,37 +829,6 @@ CSGNode_createCSGHomogeneousTransformation(
 
 
 /**
- * Creates a new CSGPseudoPrimitive (CSGNode_t) using the given SBML Level,
- * Version and &ldquo;spatial&rdquo; package version.
- *
- * @param level an unsigned int, the SBML Level to assign to this CSGNode_t.
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * CSGNode_t.
- *
- * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to
- * this CSGNode_t.
- *
- * @throws SBMLConstructorException
- * Thrown if the given @p level and @p version combination, or this kind of
- * SBML object, are either invalid or mismatched with respect to the parent
- * SBMLDocument object.
- * @copydetails doc_note_setting_lv
- *
- * @memberof CSGNode_t
- */
-LIBSBML_EXTERN
-CSGNode_t *
-CSGNode_createCSGPseudoPrimitive(
-                                 unsigned int level =
-                                   SpatialExtension::getDefaultLevel(),
-                                 unsigned int version =
-                                   SpatialExtension::getDefaultVersion(),
-                                 unsigned int pkgVersion =
-                                   SpatialExtension::getDefaultPackageVersion());
-
-
-/**
  * Creates a new CSGSetOperator (CSGNode_t) using the given SBML Level, Version
  * and &ldquo;spatial&rdquo; package version.
  *
@@ -1061,21 +1019,6 @@ CSGNode_isCSGScale(const CSGNode_t * csgn);
 LIBSBML_EXTERN
 int
 CSGNode_isCSGHomogeneousTransformation(const CSGNode_t * csgn);
-
-
-/**
- * Predicate returning @c 1 if this CSGNode_t is of type CSGPseudoPrimitive_t
- *
- * @param csgn the CSGNode_t structure.
- *
- * @return @c 1 if this CSGNode_t is of type CSGPseudoPrimitive_t, @c 0
- * otherwise
- *
- * @memberof CSGNode_t
- */
-LIBSBML_EXTERN
-int
-CSGNode_isCSGPseudoPrimitive(const CSGNode_t * csgn);
 
 
 /**
