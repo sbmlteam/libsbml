@@ -930,6 +930,52 @@ SpeciesReference::createObject(const std::string& elementName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this SpeciesReference.
+ */
+unsigned int
+SpeciesReference::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "stoichiometryMath")
+  {
+    if (isSetStoichiometryMath())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this SpeciesReference.
+ */
+SBase*
+SpeciesReference::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "stoichiometryMath")
+  {
+    return getStoichiometryMath();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
 
 
 /*

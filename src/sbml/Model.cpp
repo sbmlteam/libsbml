@@ -4408,13 +4408,14 @@ SBase*
 Model::getObject(const std::string& elementName, unsigned int index)
 {
   SBase* obj = NULL;
-  if (elementName == "compartment")
+
+  if (elementName == "functionDefinition")
   {
-    return getCompartment(index);
+    return getFunctionDefinition(index);
   }
-  else if (elementName == "event")
+  else if (elementName == "unitDefinition")
   {
-    return getEvent(index);
+    return getUnitDefinition(index);
   }
   else if (elementName == "compartment")
   {

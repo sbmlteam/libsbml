@@ -1016,6 +1016,50 @@ Objective::createObject(const std::string& elementName)
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this Objective.
+ */
+unsigned int
+Objective::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "fluxObjective")
+  {
+    return getNumFluxObjectives();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this Objective.
+ */
+SBase*
+Objective::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "fluxObjective")
+  {
+    return getFluxObjective(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
   /** @cond doxygenLibsbmlInternal */
 
 /*

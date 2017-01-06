@@ -796,6 +796,36 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this FbcModelPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this FbcModelPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
 
 #endif
 

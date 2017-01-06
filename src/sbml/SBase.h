@@ -2510,6 +2510,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
+  virtual std::string getMessageString () const;
 #endif
 
   /** @cond doxygenLibsbmlInternal */

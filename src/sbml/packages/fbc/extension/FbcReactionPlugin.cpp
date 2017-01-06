@@ -961,6 +961,53 @@ FbcReactionPlugin::createObject(const std::string& elementName)
 
 
 /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this FbcReactionPlugin.
+ */
+unsigned int
+FbcReactionPlugin::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "geneProductAssociation")
+  {
+    if (isSetGeneProductAssociation())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this FbcReactionPlugin.
+ */
+SBase*
+FbcReactionPlugin::getObject(const std::string& elementName,
+                             unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "geneProductAssociation")
+  {
+    return getGeneProductAssociation();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
 /*
  * Accept the SBMLVisitor.
  */

@@ -1731,6 +1731,11 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::getAttribute(attributeName, value);
 
+  if (attributeName == "activeObjective")
+  {
+    value = getActiveObjectiveId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   return return_value;
 }
 
@@ -1749,6 +1754,11 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::getAttribute(attributeName, value);
 
+  if (attributeName == "activeObjective")
+  {
+    value = getActiveObjectiveId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
   return return_value;
 }
 
@@ -1770,6 +1780,10 @@ FbcModelPlugin::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "strict")
   {
     value = isSetStrict();
+  }
+  else if (attributeName == "activeObjective")
+  {
+    value = (getActiveObjectiveId().empty() == false);
   }
 
   return value;
@@ -1864,6 +1878,10 @@ FbcModelPlugin::setAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 
+  if (attributeName == "activeObjective")
+  {
+    return_value = setActiveObjectiveId(value);
+  }
   return return_value;
 }
 
@@ -1882,6 +1900,10 @@ FbcModelPlugin::setAttribute(const std::string& attributeName,
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 
+  if (attributeName == "activeObjective")
+  {
+    return_value = setActiveObjectiveId(value);
+  }
   return return_value;
 }
 
@@ -1902,6 +1924,10 @@ FbcModelPlugin::unsetAttribute(const std::string& attributeName)
   if (attributeName == "strict")
   {
     value = unsetStrict();
+  }
+  if (attributeName == "activeObjective")
+  {
+    value = unsetActiveObjectiveId();
   }
 
   return value;
@@ -1942,6 +1968,66 @@ FbcModelPlugin::createObject(const std::string& elementName)
 
 
 /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this FbcModelPlugin.
+ */
+unsigned int
+FbcModelPlugin::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "objective")
+  {
+    return getNumObjectives();
+  }
+  else if (elementName == "fluxBound")
+  {
+    return getNumFluxBounds();
+  }
+  else if (elementName == "geneProduct")
+  {
+    return getNumGeneProducts();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this FbcModelPlugin.
+ */
+SBase*
+FbcModelPlugin::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "objective")
+  {
+    return getObjective(index);
+  }
+  else if (elementName == "fluxBound")
+  {
+    return getFluxBound(index);
+  }
+  else if (elementName == "geneProduct")
+  {
+    return getGeneProduct(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
 /*
  * Accept the SBMLVisitor.
  */

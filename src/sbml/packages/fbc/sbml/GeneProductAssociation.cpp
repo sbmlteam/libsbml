@@ -917,6 +917,55 @@ GeneProductAssociation::createObject(const std::string& elementName)
 
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this GeneProductAssociation.
+ */
+unsigned int
+GeneProductAssociation::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "association" || elementName == "and"
+    || elementName == "or" || elementName == "geneProductRef")
+  {
+    if (isSetAssociation())
+      n = 1;
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this GeneProductAssociation.
+ */
+SBase*
+GeneProductAssociation::getObject(const std::string& elementName,
+                                  unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "association" || elementName == "and"
+    || elementName == "or" || elementName == "geneProductRef")
+  {
+    return getAssociation();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
   /** @cond doxygenLibsbmlInternal */
 
 /*

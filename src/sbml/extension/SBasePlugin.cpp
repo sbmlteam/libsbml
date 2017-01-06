@@ -816,6 +816,7 @@ SBasePlugin::getSBMLExtension() const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 
   // ------------------------------------------------------------------
   //
@@ -924,6 +925,20 @@ SBasePlugin::createObject(const std::string& objectName)
 {
   return NULL;
 }
+
+unsigned int 
+SBasePlugin::getNumObjects(const std::string& elementName)
+{
+  return 0;
+}
+
+SBase* 
+SBasePlugin::getObject(const std::string& elementName, unsigned int index)
+{
+  return NULL;
+}
+
+  /** @endcond */
 
 
 #endif /* __cplusplus */

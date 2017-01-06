@@ -172,7 +172,14 @@ Constraint::getMessage () const
 std::string
 Constraint::getMessageString () const
 {
-  return mMessage->toXMLString();
+  if (mMessage != NULL)
+  {
+    return mMessage->toXMLString();
+  }
+  else
+  {
+    return "";
+  }
 }
 
 

@@ -3278,6 +3278,13 @@ SBase::setMessage (const std::string& message, bool addXHTMLMarkup)
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
 
+std::string 
+SBase::getMessageString () const
+{
+  return mEmptyString;
+}
+
+
 const ASTNode*
 SBase::getMath() const
 {

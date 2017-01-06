@@ -239,7 +239,7 @@ public:
    * 
    * @return the message for this Constraint, as a string.
    */
-  std::string getMessageString () const;
+  virtual std::string getMessageString () const;
 
 
   /**

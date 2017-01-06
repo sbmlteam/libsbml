@@ -818,6 +818,52 @@ FbcAnd::createObject(const std::string& elementName)
 
 /** @endcond */
 
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this FbcAnd.
+ */
+unsigned int
+FbcAnd::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "association" || elementName == "and"
+    || elementName == "or" || elementName == "geneProductRef")
+  {
+    return getNumAssociations();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this FbcAnd.
+ */
+SBase*
+FbcAnd::getObject(const std::string& elementName, unsigned int index)
+{
+  FbcAssociation* obj = NULL;
+
+  if (elementName == "association" || elementName == "and"
+    || elementName == "or" || elementName == "geneProductRef")
+  {
+    return getAssociation(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
   /** @cond doxygenLibsbmlInternal */
 
 /*
