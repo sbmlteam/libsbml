@@ -227,7 +227,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 5);
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction.reactant.species, 's'));
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction.reactant.stoichiometryMath.math, 's*p'));
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.kineticLaw.math, 's * k / p'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.kineticLaw.math, 's*k/p'));
   Totalfail = Totalfail + fail_unless( length(m.reaction.kineticLaw.parameter) == 1);
   
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction.kineticLaw.parameter(1).id, 'k'));

@@ -31,9 +31,9 @@ end;
 function Totalfail = doTestRuns(install, test)
 
 Totalfail = 0;
-cd ..;
+%cd ..;
 FbcEnabled = isFbcEnabled();
-cd test;
+%cd test;
 
 try
 

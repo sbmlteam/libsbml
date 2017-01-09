@@ -4,7 +4,7 @@ filename = fullfile(pwd,'test-data', 'l2v1-allelements.xml');
 
 m = TranslateSBML(filename);
 
-test = 25;
+test = 27;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 2);
@@ -30,6 +30,9 @@ Totalfail = Totalfail + fail_unless( strcmp(m.metaid, '_001'));
   Totalfail = Totalfail + fail_unless( strcmp(m.functionDefinition.id, 'f'));
   Totalfail = Totalfail + fail_unless( strcmp(m.functionDefinition.metaid, '_002'));
   Totalfail = Totalfail + fail_unless( strcmp(m.functionDefinition.math, 'lambda(x,y,x+y)'));
+  Totalfail = Totalfail + fail_unless( m.functionDefinition.version == 1);
+  Totalfail = Totalfail + fail_unless( m.functionDefinition.level == 2);
+
 
 %         <listOfSpecies>
 %             <species id="X0" name="s1" compartment="cell" initialConcentration="1"/>

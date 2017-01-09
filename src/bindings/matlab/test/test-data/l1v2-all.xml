@@ -34,10 +34,10 @@
       <parameter name="k_p" value="2" units="dimensionless"/>
     </listOfParameters>
     <listOfRules>
-      <algebraicRule formula="p*4"/>
-      <speciesConcentrationRule formula="k_s/k_c" species="s"/>
-      <compartmentVolumeRule formula="p*k_c" compartment="c"/>
-      <parameterRule formula="k_p/k_t" type="rate" name="p"/>
+      <algebraicRule formula="p * 4"/>
+      <speciesConcentrationRule formula="k_s / k_c" species="s"/>
+      <compartmentVolumeRule formula="p * k_c" compartment="c"/>
+      <parameterRule formula="k_p / k_t" type="rate" name="p"/>
     </listOfRules>
     <listOfReactions>
       <reaction name="R1" reversible="false" fast="false">
@@ -48,7 +48,7 @@
         <listOfProducts>
           <speciesReference species="S3" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="kf*S1*S2">
+        <kineticLaw formula="kf * S1 * S2">
           <listOfParameters>
             <parameter name="kf" value="750000000000000" units="vol_per_time_per_mol"/>
           </listOfParameters>

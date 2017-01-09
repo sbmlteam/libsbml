@@ -16,7 +16,7 @@ notes1 = sprintf('%s\n  %s\n    %s\n    %s\n    %s\n    %s\n    %s\n  %s\n%s', .
 
 m = TranslateSBML(filename);
 
-test = 70;
+test = 72;
 Totalfail = 0;
 
 Totalfail = Totalfail + fail_unless(m.SBML_level == 1);
@@ -33,6 +33,8 @@ Totalfail = Totalfail + fail_unless(strcmp(m.notes, notes1));
 
   Totalfail = Totalfail + fail_unless( strcmp(m.compartment.name, 'compartmentOne'));
   Totalfail = Totalfail + fail_unless( m.compartment.volume == 1);
+  Totalfail = Totalfail + fail_unless( m.compartment.level == 1);
+
 
 
 %   /**
@@ -68,6 +70,7 @@ Totalfail = Totalfail + fail_unless(strcmp(m.notes, notes1));
   Totalfail = Totalfail + fail_unless( strcmp( m.species(4).compartment, 'compartmentOne' ));
   Totalfail = Totalfail + fail_unless( m.species(4).initialAmount == 0);
   Totalfail = Totalfail + fail_unless( m.species(4).boundaryCondition == 1);
+  Totalfail = Totalfail + fail_unless( m.species(4).version == 1);
 
 % 
 %   /**

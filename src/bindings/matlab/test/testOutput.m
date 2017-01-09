@@ -63,6 +63,8 @@ for i=1:length(files)
     %do nothing
   elseif (fbcEnabled == 0 && strcmp(files(i).name, 'fbc.xml'))
     % do nothing
+  elseif (fbcEnabled == 0 && strcmp(files(i).name, 'fbcV2.xml'))
+    % do nothing
   else
     model = [];
     model = TranslateSBML(['test-data', filesep, files(i).name]);
@@ -96,7 +98,7 @@ test = test + 2;
 m = [];
 [v, mess] = isSBML_Model(m);
 
-expected = sprintf('Invalid Model structure\n%s\n', '');
+expected = sprintf('Invalid Model structure');
 if v ~= 0 || ~strcmp(mess, expected)
   invalidFail = invalidFail + 1;
   disp('empty [] failed');
@@ -113,7 +115,7 @@ test = test + 2;
 m = struct();
 [v, mess] = isSBML_Model(m);
 
-expected = sprintf('missing typecode field');
+expected = sprintf('model missing typecode field');
 if v ~= 0 || ~strcmp(mess, expected)
   invalidFail = invalidFail + 1;
   disp('empty structure failed');

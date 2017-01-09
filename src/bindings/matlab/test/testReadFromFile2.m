@@ -156,7 +156,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(1).product.stoichiometry == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(1).product.denominator == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).kineticLaw.formula, '(vm*s1)/(km+s1)'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).kineticLaw.formula, 'vm*s1/(km+s1)'));
 
 %   /**
 %    * <reaction name="v2">
@@ -181,7 +181,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(2).product.stoichiometry == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(2).product.denominator == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(2).kineticLaw.formula, '(vm*s2)/(km+s2)'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(2).kineticLaw.formula, 'vm*s2/(km+s2)'));
 
 %   /**
 %    * <reaction name="v3">
@@ -205,7 +205,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(3).product.stoichiometry == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(3).product.denominator == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(3).kineticLaw.formula, '(vm*s1)/(km+s1)'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(3).kineticLaw.formula, 'vm*s1/(km+s1)'));
 
 if (silent == 0)
 disp('Testing readFromFile2:');

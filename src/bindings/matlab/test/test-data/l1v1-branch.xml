@@ -27,7 +27,7 @@
         <listOfProducts>
           <specieReference specie="S1" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="k1*X0">
+        <kineticLaw formula="k1 * X0">
           <listOfParameters>
             <parameter name="k1" value="0"/>
           </listOfParameters>
@@ -40,7 +40,7 @@
         <listOfProducts>
           <specieReference specie="X1" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="k2*S1">
+        <kineticLaw formula="k2 * S1">
           <listOfParameters>
             <parameter name="k2" value="0"/>
           </listOfParameters>
@@ -53,7 +53,7 @@
         <listOfProducts>
           <specieReference specie="X2" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="k3*S1">
+        <kineticLaw formula="k3 * S1">
           <listOfParameters>
             <parameter name="k3" value="0"/>
           </listOfParameters>

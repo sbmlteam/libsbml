@@ -36,7 +36,7 @@
         <listOfProducts>
           <specieReference specie="s1" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="(vm*s1)/(km+s1)"/>
+        <kineticLaw formula="vm * s1 / (km + s1)"/>
       </reaction>
       <reaction name="v2" reversible="true" fast="false">
         <listOfReactants>
@@ -45,7 +45,7 @@
         <listOfProducts>
           <specieReference specie="s2" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="(vm*s2)/(km+s2)"/>
+        <kineticLaw formula="vm * s2 / (km + s2)"/>
       </reaction>
       <reaction name="v3" reversible="true" fast="false">
         <listOfReactants>
@@ -54,7 +54,7 @@
         <listOfProducts>
           <specieReference specie="x1" stoichiometry="1" denominator="1"/>
         </listOfProducts>
-        <kineticLaw formula="(vm*s1)/(km+s1)"/>
+        <kineticLaw formula="vm * s1 / (km + s1)"/>
       </reaction>
     </listOfReactions>
   </model>

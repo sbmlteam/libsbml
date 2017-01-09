@@ -19,7 +19,7 @@ function t=isoctave()
 %             All standard disclaimers apply.
 %
 
-if exist('OCTAVE_VERSION')
+if exist('OCTAVE_VERSION', 'var')
   % Only Octave has this variable.
   t='1';
 else

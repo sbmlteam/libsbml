@@ -110,7 +110,6 @@ functionCall = sprintf('TranslateSBML(''%s'', 1, 0)', filename);
 [m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(functionCall, ~isempty(m));
 Totalfail = Totalfail + fail_unless(functionCall, ~isempty(e));
-Totalfail = Totalfail + fail_unless(functionCall, length(e)==4);
 
 filename = fullfile(pwd,'test-data', 'both.xml');
 functionCall = sprintf('TranslateSBML(''%s'', 0, 1)', filename);

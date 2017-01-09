@@ -44,7 +44,7 @@
           </listOfLocalParameters>
         </kineticLaw>
         <fbc:geneProductAssociation fbc:id="gg1">
-          <fbc:geneProductRef fbc:geneProduct="g_1"/>
+          <fbc:geneProductRef sboTerm="SBO:0000007" fbc:geneProduct="g_1"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction id="R2" reversible="false" fast="false" fbc:lowerFluxBound="low" fbc:upperFluxBound="up">
