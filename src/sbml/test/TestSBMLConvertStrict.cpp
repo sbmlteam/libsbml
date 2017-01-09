@@ -1031,6 +1031,109 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
 END_TEST
 
 
+START_TEST (test_SBMLConvertStrict_convertFuncDefsInInitialAssignmentToL1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  
+  /* create model */
+  Model_t * m = SBMLDocument_createModel(d);
+  
+  FunctionDefinition_t * fd = Model_createFunctionDefinition(m);
+  FunctionDefinition_setId(fd, "fd");
+  ASTNode_t *math = SBML_parseFormula("lambda(x, x+2)");
+  FunctionDefinition_setMath(fd, math);
+
+  /* create a parameter with sbo*/
+  Parameter_t * p = Model_createParameter(m);
+  Parameter_setId(p, "p");
+  Parameter_setConstant(p, 0);
+
+  InitialAssignment_t* ia = Model_createInitialAssignment(m);
+  ASTNode_t *math1 = SBML_parseFormula("fd(3)");
+  InitialAssignment_setMath(ia, math1);
+  InitialAssignment_setSymbol(ia, "p");
+
+  fail_unless (Model_getNumFunctionDefinitions(m) == 1);
+  fail_unless (Model_getNumInitialAssignments(m) == 1);
+  fail_unless (Parameter_isSetValue(p) == 0);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
+
+  Model_t * m1 = SBMLDocument_getModel(d);
+  Parameter_t * p1 = Model_getParameter(m, 0);
+
+  fail_unless (Model_getNumFunctionDefinitions(m1) == 0);
+  fail_unless (Model_getNumInitialAssignments(m1) == 0);
+  fail_unless (Parameter_isSetValue(p1) == 1);
+  fail_unless (util_isEqual(Parameter_getValue(p1), 5.0));
+
+  SBMLDocument_free(d);
+  ASTNode_free(math);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsUsingRnId)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 1);
+  SpeciesReference_setStoichiometry(sr, 1);
+  KineticLaw_t *kl = Reaction_createKineticLaw(r);
+  ASTNode_t *math = SBML_parseFormula("3");
+  KineticLaw_setMath(kl, math);
+
+  Parameter_t * p = Model_createParameter(m);
+  Parameter_setId(p, "p");
+  Parameter_setConstant(p, 0);
+
+  /* create initialAssignments */
+  InitialAssignment_t *ia1 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia1, "p");
+  ASTNode_t *math1 = SBML_parseFormula("3/r");
+  InitialAssignment_setMath(ia1, math1);
+
+  fail_unless (Model_getNumInitialAssignments(m) == 1);
+
+  fail_unless (Parameter_isSetValue(Model_getParameter(m, 0)) == 0);
+
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
+
+  Model_t * m1 = SBMLDocument_getModel(d);
+
+  fail_unless (Model_getNumInitialAssignments(m1) == 0);
+
+  fail_unless (Parameter_isSetValue(Model_getParameter(m1, 0)) == 1);
+  fail_unless (util_isEqual(Parameter_getValue(Model_getParameter(m1, 0)), 1.0));
+
+  SBMLDocument_free(d);
+  ASTNode_free(math);
+  ASTNode_free(math1);
+}
+END_TEST
+
+
 START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
@@ -1976,6 +2079,8 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFuncDefsToL1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFuncDefsInInitialAssignmentToL1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsUsingRnId );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich2 );

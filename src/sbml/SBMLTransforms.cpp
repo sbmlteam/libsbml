@@ -463,6 +463,11 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
         values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
+
+    // the id of a reaction might be used
+    ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
+    values.insert(pair<const std::string, ValueSet>(rn->getId(), v));
+
   }
 
   /* returns a list of ids for which the model has no declared value
@@ -508,6 +513,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
   }
   double result = 0;
   int i;
+  const ListOfFunctionDefinitions *lfd = NULL;
+  ASTNode *tempNode = NULL;
 
   switch (node->getType())
   {
@@ -542,6 +549,7 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
             const Rule *r = m->getRule(node->getName());
             const InitialAssignment *ia = 
                                 m->getInitialAssignment(node->getName());
+            const Reaction *rn = m->getReaction(node->getName()); 
             if (r != NULL)
             {
               result = evaluateASTNode(r->getMath(), values, m);
@@ -549,6 +557,10 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
             else if (ia != NULL)
             {
               result = evaluateASTNode(ia->getMath(), values, m);
+            }
+            else if (rn != NULL && rn->isSetKineticLaw())
+            {
+              result = evaluateASTNode(rn->getKineticLaw()->getMath(), values, m);
             }
           }
         }
@@ -589,11 +601,19 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     break;
 
   case AST_LAMBDA:
-  case AST_FUNCTION:
     /* shouldnt get here */
     result = numeric_limits<double>::quiet_NaN();
     break;
 
+  case AST_FUNCTION:
+    /* shouldnt get here */
+    // but we do if math we are expanding uses a functionDefinition
+    lfd = m->getListOfFunctionDefinitions();
+    tempNode = node->deepCopy();
+    replaceFD(tempNode, lfd);
+    result = evaluateASTNode(tempNode, values, m);
+    delete tempNode;
+    break;
   case AST_PLUS:
     if (node->getNumChildren() == 0)
     {
