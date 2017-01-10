@@ -65,6 +65,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * memory.  If the memory could not be allocated, prints an error message
  * and exits.
  */
+LIBSBML_EXTERN
 void *
 safe_malloc (size_t size)
 {

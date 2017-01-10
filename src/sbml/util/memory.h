@@ -55,6 +55,7 @@ safe_calloc (size_t nmemb, size_t size);
  * memory.  If the memory could not be allocated, prints an error message
  * and exits.
  */
+LIBSBML_EXTERN
 void *
 safe_malloc (size_t size);
 
