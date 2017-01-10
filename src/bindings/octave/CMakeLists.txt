@@ -111,10 +111,14 @@ build_octave_file("OutputSBML")
 foreach(mFile
 
     test.xml
+	addLevelVersion.m
     buildSBML.m
     CheckAndConvert.m  
     Contents.m
     ConvertFormulaToMathML.m
+	getDefaultValues.m
+	getStructureFieldnames.m
+	getValueType.m
     installSBML.m
     isoctave.m
     isSBML_Model.m
