@@ -361,7 +361,9 @@ for j = 1:length(Start) % each occurence of the logical expression
     while ((Stop == 0) && (i <= length(Formula)))
         c = Formula(i);
 
-        if (strcmp(c, '('))
+        if (strcmp(c, ','))
+            Stop = 1;
+        elseif (strcmp(c, '('))
             flag = flag + 1;
             output = strcat(output, c);
         elseif (strcmp(c, ')'))
