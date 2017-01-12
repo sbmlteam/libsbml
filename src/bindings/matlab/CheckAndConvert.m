@@ -345,6 +345,7 @@ if (isempty(Start))
     return;
 end;
 
+
 Arguments = cell(1, length(Start));
 for j = 1:length(Start) % each occurence of the logical expression
 
@@ -357,16 +358,19 @@ for j = 1:length(Start) % each occurence of the logical expression
         output = strcat(output, Formula(i));
     end;
     i = i + 1;
+    % catch case with zero args
+    if (strcmp(Formula(i-1), ')') && (length(output) == (length(LogicalExpression) + 1)))
+        Stop = 1;
+    end;
 
     while ((Stop == 0) && (i <= length(Formula)))
         c = Formula(i);
+        prev = Formula(i-1);
 
-        if (strcmp(c, ','))
-            Stop = 1;
-        elseif (strcmp(c, '('))
+         if (strcmp(c, '('))
             flag = flag + 1;
             output = strcat(output, c);
-        elseif (strcmp(c, ')'))
+         elseif (strcmp(c, ')'))
             if (flag > 0)
                 output = strcat(output, c);
                 flag = flag - 1;
@@ -378,11 +382,8 @@ for j = 1:length(Start) % each occurence of the logical expression
         else
             output = strcat(output, c);
         end;
-
         i = i + 1;
-
     end;
-
 
     Arguments{j} = output;
 
