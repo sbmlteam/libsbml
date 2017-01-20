@@ -22,7 +22,7 @@ function [SBMLfieldnames, nNumberFields] = getStructureFieldnames(varargin)
 % This file is part of SBMLToolbox.  Please visit http://sbml.org for more
 % information about SBML, and the latest version of SBMLToolbox.
 %
-% Copyright (C) 2009-2016 jointly by the following organizations: 
+% Copyright (C) 2009-2017 jointly by the following organizations: 
 %     1. California Institute of Technology, Pasadena, CA, USA
 %     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
 %
