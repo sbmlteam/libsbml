@@ -39,15 +39,18 @@
 
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 
+#include "UniqueSpatialIds.h"
+
 #endif /* AddingConstraintsToValidator */
 
 #include <sbml/validator/ConstraintMacros.h>
 
 using namespace std;
 
-/**
- * PUT CONSTRAINTS HERE
- */
+// 10301
+EXTERN_CONSTRAINT(SpatialDuplicateComponentId, UniqueSpatialIds);
+
+// 10302 - caught at read
 
 
 /** @endcond */

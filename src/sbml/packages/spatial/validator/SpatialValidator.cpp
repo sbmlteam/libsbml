@@ -723,6 +723,12 @@ public:
   }
 
 
+  virtual void visit (const Model &x)
+  {
+    v.mSpatialConstraints->mModel.applyTo(m, x);
+  }
+
+
   virtual bool
   visit(const SBase& x)
   {

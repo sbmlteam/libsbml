@@ -34,5 +34,8 @@
  * ------------------------------------------------------------------------ -->
  */
 
+
+addConstraint(new UniqueSpatialIds(SpatialDuplicateComponentId, *this));
+
 /** @endcond */
 
