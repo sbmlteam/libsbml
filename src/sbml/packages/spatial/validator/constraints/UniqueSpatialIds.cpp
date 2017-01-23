@@ -27,6 +27,7 @@
 
 #include "UniqueSpatialIds.h"
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -230,6 +231,18 @@ UniqueSpatialIds::doCheck (const Model& m)
     for (n = 0; n < size; n++)
     {
       doCheckId(*g->getSampledField(n));
+    }
+  }
+
+  size = m.getNumCompartments();
+  for (n = 0; n < size; n++)
+  {
+    SpatialCompartmentPlugin *compPlug = (SpatialCompartmentPlugin*)
+                             (m.getCompartment(n)->getPlugin("spatial"));
+
+    if (compPlug->isSetCompartmentMapping())
+    {
+      doCheckId(*compPlug->getCompartmentMapping());
     }
   }
 
