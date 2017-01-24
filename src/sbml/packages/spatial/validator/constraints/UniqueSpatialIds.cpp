@@ -183,8 +183,6 @@ UniqueSpatialIds::getMessage (const string& id, const SBase& object)
 void
 UniqueSpatialIds::doCheck (const Model& m)
 {
-  //createExistingMap(m);
-
   unsigned int n, size, j, num;
 
   const SpatialModelPlugin * modelPlug = 
@@ -289,24 +287,6 @@ UniqueSpatialIds::doCheck (const Model& m)
     }
   }
 
-  //size = modelPlug->getNumFluxBounds();
-  //for (n = 0; n < size; ++n) 
-  //{
-  //  doCheckId( *modelPlug->getFluxBound(n) );
-  //}
-
-  //size = modelPlug->getNumObjectives();
-  //for (n = 0; n < size; ++n) 
-  //{
-  //  const Objective *obj = modelPlug->getObjective(n);
-  //  doCheckId( *obj );
-  //  num = obj->getNumFluxObjectives();
-  //  for (j = 0; j < num; j++)
-  //  {
-  //    doCheckId(*obj->getFluxObjective(j));
-  //  }
-  //}
-
   reset();
 }
 
@@ -325,66 +305,6 @@ UniqueSpatialIds::checkCSG(const CSGNode& csg)
   }
 }
 
-/*
- * Checks that all ids on the following Model objects are unique:
- * FunctionDefinitions, Species, Compartments, global Parameters,
- * Reactions, and Events.
- */
-void
-UniqueSpatialIds::createExistingMap (const Model& m)
-{
-  // spatial ids have the SpId ns and so do not overlap with ids from core
-
-  //unsigned int n, size, sr, sr_size;
-
-  //logId( m );
-
-  //size = m.getNumFunctionDefinitions();
-  //for (n = 0; n < size; ++n) logId( *m.getFunctionDefinition(n) );
-
-  //size = m.getNumCompartments();
-  //for (n = 0; n < size; ++n) logId( *m.getCompartment(n) );
-
-  //size = m.getNumSpecies();
-  //for (n = 0; n < size; ++n) logId( *m.getSpecies(n) );
-
-  //size = m.getNumParameters();
-  //for (n = 0; n < size; ++n) logId( *m.getParameter(n) );
-
-  //size = m.getNumReactions();
-  //for (n = 0; n < size; ++n) 
-  //{
-  //  logId( *m.getReaction(n) );
-
-  //  sr_size = m.getReaction(n)->getNumReactants();
-  //  for (sr = 0; sr < sr_size; sr++)
-  //  {
-  //    logId(*m.getReaction(n)->getReactant(sr));
-  //  }
-
-  //  sr_size = m.getReaction(n)->getNumProducts();
-  //  for (sr = 0; sr < sr_size; sr++)
-  //  {
-  //    logId(*m.getReaction(n)->getProduct(sr));
-  //  }
-
-  //  sr_size = m.getReaction(n)->getNumModifiers();
-  //  for (sr = 0; sr < sr_size; sr++)
-  //  {
-  //    logId((SBase&)(*m.getReaction(n)->getModifier(sr)));
-  //  }
-
-  //}
-
-  //size = m.getNumEvents();
-  //for (n = 0; n < size; ++n) logId( *m.getEvent(n) );
-
-  //size = m.getNumCompartmentTypes();
-  //for (n = 0; n < size; ++n) logId( *m.getCompartmentType(n) );
-
-  //size = m.getNumSpeciesTypes();
-  //for (n = 0; n < size; ++n) logId( *m.getSpeciesType(n) );
-}
 
 #endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END

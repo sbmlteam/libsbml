@@ -78,11 +78,6 @@ protected:
    */
   void doCheck (const Model& m);
 
-  /**
-   * Checks that the id associated with the given object adheres to this
-   * constraint.  If it does not, logFailure is called.
-   */
-  void doCheckId (const std::string& id, const SBase& object);
 
   /**
    * Checks that the id associated with the given object adheres to this
@@ -90,10 +85,6 @@ protected:
    */
   void logId (const SBase& object);
 
-  /**
-   * Called by check().  Override this method to define your own subset.
-   */
-  void createExistingMap (const Model& m);
 
   /**
    * Returns the error message to use when logging constraint violations.
