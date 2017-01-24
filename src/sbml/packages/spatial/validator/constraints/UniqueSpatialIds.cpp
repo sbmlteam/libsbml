@@ -28,6 +28,7 @@
 #include "UniqueSpatialIds.h"
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
+#include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -224,7 +225,37 @@ UniqueSpatialIds::doCheck (const Model& m)
     size = g->getNumGeometryDefinitions();
     for (n = 0; n < size; n++)
     {
-      doCheckId(*g->getGeometryDefinition(n));
+      const GeometryDefinition *gd = g->getGeometryDefinition(n);
+      doCheckId(*gd);
+
+      if (gd->isAnalyticGeometry()) 
+      {
+        num = dynamic_cast<const AnalyticGeometry *>(gd)->getNumAnalyticVolumes();
+        for (j = 0; j < num; j++)
+        {
+          doCheckId(*(dynamic_cast<const AnalyticGeometry *>(gd)->getAnalyticVolume(j)));
+        }
+      }
+      if (gd->isSampledFieldGeometry())
+      {
+        num = dynamic_cast<const SampledFieldGeometry *>(gd)->getNumSampledVolumes();
+        for (j = 0; j < num; j++)
+        {
+          doCheckId(*(dynamic_cast<const SampledFieldGeometry *>(gd)->getSampledVolume(j)));
+        }
+      }
+      if (gd->isParametricGeometry())
+      {
+        if (dynamic_cast<const ParametricGeometry *>(gd)->isSetSpatialPoints())
+        {
+          doCheckId(*(dynamic_cast<const ParametricGeometry *>(gd)->getSpatialPoints()));
+        }
+        num = dynamic_cast<const ParametricGeometry *>(gd)->getNumParametricObjects();
+        for (j = 0; j < num; j++)
+        {
+          doCheckId(*(dynamic_cast<const ParametricGeometry *>(gd)->getParametricObject(j)));
+        }
+      }
     }
 
     size = g->getNumSampledFields();
