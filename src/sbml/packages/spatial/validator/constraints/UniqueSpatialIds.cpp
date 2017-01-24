@@ -256,6 +256,18 @@ UniqueSpatialIds::doCheck (const Model& m)
           doCheckId(*(dynamic_cast<const ParametricGeometry *>(gd)->getParametricObject(j)));
         }
       }
+      if (gd->isCSGeometry())
+      {
+        num = dynamic_cast<const CSGeometry *>(gd)->getNumCSGObjects();
+        for (j = 0; j < num; j++)
+        {
+          doCheckId(*(dynamic_cast<const CSGeometry *>(gd)->getCSGObject(j)));
+          if ((dynamic_cast<const CSGeometry *>(gd)->getCSGObject(j))->isSetCSGNode())
+          {
+            checkCSG(*(dynamic_cast<const CSGeometry *>(gd)->getCSGObject(j))->getCSGNode());
+          }
+        }
+      }
     }
 
     size = g->getNumSampledFields();
@@ -296,6 +308,21 @@ UniqueSpatialIds::doCheck (const Model& m)
   //}
 
   reset();
+}
+
+void
+UniqueSpatialIds::checkCSG(const CSGNode& csg)
+{
+  doCheckId(csg);
+
+  if (csg.isCSGTranslation() || csg.isCSGHomogeneousTransformation()
+    || csg.isCSGRotation() || csg.isCSGScale())
+  {
+    if (dynamic_cast<const CSGTransformation*>(&(csg))->isSetCSGNode())
+    {
+      checkCSG(*(dynamic_cast<const CSGTransformation*>(&(csg))->getCSGNode()));
+    }
+  }
 }
 
 /*

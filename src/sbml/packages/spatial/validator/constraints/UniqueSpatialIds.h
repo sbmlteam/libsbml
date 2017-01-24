@@ -37,6 +37,7 @@
 #include <map>
 
 #include <sbml/validator/VConstraint.h>
+#include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -60,6 +61,12 @@ public:
 
 
 protected:
+
+  /**
+   * Check CSGObjects
+   */
+  void checkCSG(const CSGNode& csg);
+
   /**
    * Resets the state of this GlobalConstraint by clearing its internal
    * list of error messages.
