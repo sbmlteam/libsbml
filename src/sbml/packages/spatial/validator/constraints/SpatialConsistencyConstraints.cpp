@@ -38,6 +38,7 @@
 #include <sbml/validator/VConstraint.h>
 
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
 #endif /* AddingConstraintsToValidator */
 
@@ -45,10 +46,107 @@
 
 using namespace std;
 
-/**
- * PUT CONSTRAINTS HERE
- */
+START_CONSTRAINT(SpatialDomainDomainTypeMustBeSId, Domain, domain)
+{
+  pre(domain.isSetDomainType());
 
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+
+  pre(plug != NULL);
+
+  pre(plug->isSetGeometry());
+
+  bool fail = false;
+
+  const std::string dt = domain.getDomainType();
+
+  msg = "Domain";
+  if (domain.isSetId())
+  {
+    msg += " with id '";
+    msg += domain.getId();
+    msg += "'";
+  }
+  msg += " has 'domainType' set to '";
+  msg += domain.getDomainType();
+  msg += "' which is not the id of a DomainType object in the model.";
+
+  if (plug->getGeometry()->getDomainType(dt) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(SpatialAdjacentDomainsDomain1MustBeDomain, AdjacentDomains, domain)
+{
+  pre(domain.isSetDomain1());
+
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+
+  pre(plug != NULL);
+
+  pre(plug->isSetGeometry());
+
+  bool fail = false;
+
+  const std::string dt = domain.getDomain1();
+
+  msg = "AdjacebtDomain";
+  if (domain.isSetId())
+  {
+    msg += " with id '";
+    msg += domain.getId();
+    msg += "'";
+  }
+  msg += " has 'domain1' set to '";
+  msg += domain.getDomain1();
+  msg += "' which is not the id of a Domain object in the model.";
+
+  if (plug->getGeometry()->getDomain(dt) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT(SpatialAdjacentDomainsDomain2MustBeDomain, AdjacentDomains, domain)
+{
+  pre(domain.isSetDomain2());
+
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+
+  pre(plug != NULL);
+
+  pre(plug->isSetGeometry());
+
+  bool fail = false;
+
+  const std::string dt = domain.getDomain2();
+  msg = "AdjacebtDomains";
+  if (domain.isSetId())
+  {
+    msg += " with id '";
+    msg += domain.getId();
+    msg += "'";
+  }
+  msg += " has 'domain2' set to '";
+  msg += domain.getDomain2();
+  msg += "' which is not the id of a Domain object in the model.";
+
+  if (plug->getGeometry()->getDomain(dt) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
 
 /** @endcond */
 
