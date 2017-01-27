@@ -404,9 +404,14 @@ Model::dealWithDefaultValues()
     bool rev = r->getReversible();
     bool replaceRev = (r->isSetReversible() == true 
       && r->getReversible() == false);
+    bool fast = r->getFast();
+    bool replaceFast = (r->isSetFast() == true
+      && r->getFast() == true);
     r->initDefaults();
     if (replaceRev == true)
       r->setReversible(rev);
+    if (replaceFast == true)
+      r->setFast(fast);
 
     for (unsigned int j = 0; j < r->getNumReactants(); j++)
     {

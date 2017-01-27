@@ -2048,6 +2048,43 @@ START_TEST (test_SBMLConvertStrict_convertFrom_L3V2_fast)
 }
 END_TEST
 
+START_TEST(test_SBMLConvertStrict_convertFromL3_fast)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 1);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  r = Model_getReaction(m, 0);
+
+  fail_unless(Reaction_isSetFast(r) == 1);
+  fail_unless(Reaction_getFast(r) == 1);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -2110,6 +2147,7 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoichMath1 );
 
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFrom_L3V2_fast);
+  tcase_add_test(tcase, test_SBMLConvertStrict_convertFromL3_fast);
 
   suite_add_tcase(suite, tcase);
 
