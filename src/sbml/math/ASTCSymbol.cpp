@@ -1500,12 +1500,13 @@ ASTCSymbol::write(XMLOutputStream& stream) const
   }
   else if (mRateOf != NULL)
   {
-    if (stream.getSBMLNamespaces() != NULL
-      && stream.getSBMLNamespaces()->getLevel() == 3
-      && stream.getSBMLNamespaces()->getVersion() > 1)
-    {
+    // actually for any other csymbol we write it whether it was valid or not
+    //if (stream.getSBMLNamespaces() != NULL
+    //  && stream.getSBMLNamespaces()->getLevel() == 3
+    //  && stream.getSBMLNamespaces()->getVersion() > 1)
+    //{
       mRateOf->write(stream);
-    }
+    //}
   }
   else if (mIsOther == true)
   {
