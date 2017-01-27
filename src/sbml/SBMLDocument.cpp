@@ -559,6 +559,7 @@ void
 SBMLDocument::setInvalidLevel()
 {
   mLevel = 0;
+  mVersion = 0;
 }
 
 /** @endcond */
