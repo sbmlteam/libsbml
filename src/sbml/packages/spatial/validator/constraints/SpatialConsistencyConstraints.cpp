@@ -46,6 +46,7 @@
 
 using namespace std;
 
+// 1220805
 START_CONSTRAINT(SpatialDomainDomainTypeMustBeSId, Domain, domain)
 {
   pre(domain.isSetDomainType());
@@ -81,6 +82,7 @@ START_CONSTRAINT(SpatialDomainDomainTypeMustBeSId, Domain, domain)
 END_CONSTRAINT
 
 
+// 1221105
 START_CONSTRAINT(SpatialAdjacentDomainsDomain1MustBeDomain, AdjacentDomains, domain)
 {
   pre(domain.isSetDomain1());
@@ -95,7 +97,7 @@ START_CONSTRAINT(SpatialAdjacentDomainsDomain1MustBeDomain, AdjacentDomains, dom
 
   const std::string dt = domain.getDomain1();
 
-  msg = "AdjacebtDomain";
+  msg = "AdjacentDomain";
   if (domain.isSetId())
   {
     msg += " with id '";
@@ -115,6 +117,7 @@ START_CONSTRAINT(SpatialAdjacentDomainsDomain1MustBeDomain, AdjacentDomains, dom
 }
 END_CONSTRAINT
 
+// 1221104
 START_CONSTRAINT(SpatialAdjacentDomainsDomain2MustBeDomain, AdjacentDomains, domain)
 {
   pre(domain.isSetDomain2());
@@ -128,7 +131,7 @@ START_CONSTRAINT(SpatialAdjacentDomainsDomain2MustBeDomain, AdjacentDomains, dom
   bool fail = false;
 
   const std::string dt = domain.getDomain2();
-  msg = "AdjacebtDomains";
+  msg = "AdjacentDomains";
   if (domain.isSetId())
   {
     msg += " with id '";
@@ -140,6 +143,40 @@ START_CONSTRAINT(SpatialAdjacentDomainsDomain2MustBeDomain, AdjacentDomains, dom
   msg += "' which is not the id of a Domain object in the model.";
 
   if (plug->getGeometry()->getDomain(dt) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 1221304
+START_CONSTRAINT(SpatialCompartmentMappingDomainTypeMustBeDomainType, CompartmentMapping, mapping)
+{
+  pre(mapping.isSetDomainType());
+
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+
+  pre(plug != NULL);
+
+  pre(plug->isSetGeometry());
+
+  bool fail = false;
+
+  const std::string dt = mapping.getDomainType();
+  msg = "CompartmentMapping";
+  if (mapping.isSetId())
+  {
+    msg += " with id '";
+    msg += mapping.getId();
+    msg += "'";
+  }
+  msg += " has 'domainType' set to '";
+  msg += dt;
+  msg += "' which is not the id of a DomainType object in the model.";
+
+  if (plug->getGeometry()->getDomainType(dt) == NULL)
   {
     fail = true;
   }

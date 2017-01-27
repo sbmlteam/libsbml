@@ -38,6 +38,7 @@
 addConstraint(new VConstraintDomainSpatialDomainDomainTypeMustBeSId(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain1MustBeDomain(*this));
 addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain2MustBeDomain(*this));
+addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingDomainTypeMustBeDomainType(*this));
 
 /** @endcond */
 

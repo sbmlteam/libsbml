@@ -938,6 +938,7 @@ unsigned int
 SpatialValidator::validate(const SBMLDocument& d)
 {
   const Model* m = d.getModel();
+  unsigned int i;
 
   if (m != NULL)
   {
@@ -948,9 +949,37 @@ SpatialValidator::validate(const SBMLDocument& d)
     {
       plugin->accept(vv);
     }
-  }
 
-  // ADD ANY OTHER OBJECTS THAT HAS PLUGINS
+    for (i = 0; i < m->getNumCompartments(); i++)
+    {
+      const SpatialCompartmentPlugin* compPlug = static_cast<const 
+        SpatialCompartmentPlugin*>(m->getCompartment(i)->getPlugin("spatial"));
+      if (compPlug != NULL)
+      {
+        compPlug->accept(vv);
+      }
+    }
+
+    for (i = 0; i < m->getNumSpecies(); i++)
+    {
+      const SpatialSpeciesPlugin* spPlug = static_cast<const
+        SpatialSpeciesPlugin*>(m->getSpecies(i)->getPlugin("spatial"));
+      if (spPlug != NULL)
+      {
+        spPlug->accept(vv);
+      }
+    }
+
+    for (i = 0; i < m->getNumReactions(); i++)
+    {
+      const SpatialReactionPlugin* rnPlug = static_cast<const
+        SpatialReactionPlugin*>(m->getReaction(i)->getPlugin("spatial"));
+      if (rnPlug != NULL)
+      {
+        rnPlug->accept(vv);
+      }
+    }
+  }
 
   return (unsigned int)(mFailures.size());
 }
