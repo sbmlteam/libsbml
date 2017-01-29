@@ -33,7 +33,7 @@
                     spatial:id="EC1_EN10"/>
             </spatial:listOfAdjacentDomains>
             <spatial:listOfGeometryDefinitions>
-                <spatial:csGeometry spatial:id="csg1" spatial:isActive="true">
+                <spatial:csgeometry spatial:id="csg1" spatial:isActive="true">
                     <spatial:listOfCSGObjects>
                         <spatial:csgObject spatial:domainType="EC" spatial:id="csg1" spatial:ordinal="0">
                             <spatial:csgTranslation spatial:translateX="11.3951" spatial:translateY="14.7822" spatial:translateZ="1.0043">
@@ -65,7 +65,7 @@
                             </spatial:csgRotation>
                         </spatial:csgObject>
                     </spatial:listOfCSGObjects>
-                </spatial:csGeometry>
+                </spatial:csgeometry>
             </spatial:listOfGeometryDefinitions>
         </spatial:geometry>
         
