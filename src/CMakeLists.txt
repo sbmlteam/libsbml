@@ -360,6 +360,8 @@ set(COMPRESS_SOURCES ${COMPRESS_SOURCES}
         sbml/compress/unzip.c
         sbml/compress/ioapi.h
         sbml/compress/ioapi.c
+        sbml/compress/ioapi_mem.h
+        sbml/compress/ioapi_mem.c
         sbml/compress/zfstream.h
         sbml/compress/zfstream.cpp
         sbml/compress/zipfstream.cpp
