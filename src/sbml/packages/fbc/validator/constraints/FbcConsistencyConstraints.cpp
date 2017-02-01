@@ -495,7 +495,7 @@ START_CONSTRAINT (FbcReactionLwrBoundNotInfStrict, Reaction, r)
   msg = "<Reaction> '";
   msg += r.getId() ;
 
-  if (util_isInf(m.getParameter(low)->getValue()))
+  if (util_isInf(m.getParameter(low)->getValue()) == 1)
   {
     msg += "' and lowerBound with id '";
     msg += low;
