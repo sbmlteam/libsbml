@@ -2818,6 +2818,22 @@ ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
     stream.skipText();
     read = ASTNode::read(stream, reqd_prefix);
+    // we may have a legitimate read but the next token is not the end of math
+    // we want to tell the user but allow the astnode as-is
+    if (read && !(stream.getErrorLog()->contains(BadMathML)))
+    {
+      stream.skipText();
+      const XMLToken element1 = stream.peek();
+      const string&  name = element1.getName();
+      if (element1.isEndFor(element) == false)
+      {
+        std::string message = "Unexpected element encountered. The element <" +
+          name + "> should not be encountered here.";
+        logError(stream, element, InvalidMathElement, message);
+        stream.skipPastEnd(element);
+      }
+
+    }
   }
   else if (isTopLevelMathMLNumberNodeTag(name) == true)
   {
@@ -3846,7 +3862,7 @@ LIBSBML_EXTERN
 int
 ASTNode_addChild (ASTNode_t *node, ASTNode_t *child)
 {
-	if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->addChild
                                     ( static_cast<ASTNode*>(child) );
 }

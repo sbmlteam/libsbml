@@ -386,6 +386,13 @@ public:
                            XMLErrorSeverity_t targetSeverity,
                            std::string package = "all");
 
+  /**
+  * Returns @c true if XMLErrorLog contains an errorId
+  *
+  * @param errorId the error identifier of the error to be found.
+  */
+  bool contains(const unsigned int errorId) const;
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   std::vector<XMLError*> mErrors;

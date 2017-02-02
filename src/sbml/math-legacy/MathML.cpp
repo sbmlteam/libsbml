@@ -1809,6 +1809,17 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix, bool inRead)
         logError(stream, stream.peek(), BadMathMLNodeType, message);      
     }
 
+    // we may have a legitimate read but the next token is not the end of math
+    // we want to tell the user but allow the astnode as-is
+    stream.skipText();
+    const XMLToken element1 = stream.peek();
+    const string&  name = element1.getName();
+    if (element1.isEndFor(elem) == false && !stream.getErrorLog()->contains(BadMathML))
+    {
+      std::string message = "Unexpected element encountered. The element <" +
+        name + "> should not be encountered here.";
+      logError(stream, elem, InvalidMathElement, message);
+    }
     stream.skipPastEnd(elem);
   }
   else if (name == "apply" )

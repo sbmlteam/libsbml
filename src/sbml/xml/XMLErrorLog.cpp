@@ -346,6 +346,48 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
   }
 }
 
+/*
+* Helper class used by XMLErrorLog::contains.
+*/
+class MatchErrorId
+{
+public:
+  MatchErrorId(const unsigned int theId) : idToFind(theId) {};
+
+  bool operator() (XMLError* e) const
+  {
+    return e->getErrorId() == idToFind;
+  };
+
+private:
+  unsigned int idToFind;
+};
+
+
+
+
+bool
+XMLErrorLog::contains(const unsigned int errorId) const
+{
+  vector<XMLError*>::const_iterator iter;
+
+  // finds an item with the given errorId (the first item will be found if
+  // there are two or more items with the same Id)
+  iter = find_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+
+  if (iter != mErrors.end())
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+
+
+
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
 LIBLAX_EXTERN
