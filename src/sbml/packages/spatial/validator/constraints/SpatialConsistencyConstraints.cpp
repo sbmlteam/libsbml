@@ -255,5 +255,41 @@ START_CONSTRAINT(SpatialCoordinateComponentUnitMustBeUnitSId, CoordinateComponen
 }
 END_CONSTRAINT
 
+
+// 1221505
+START_CONSTRAINT(SpatialSampledFieldGeometrySampledFieldMustBeSampledField, SampledFieldGeometry, sfg)
+{
+  pre(sfg.isSetSampledField());
+
+  SpatialModelPlugin *plug = (SpatialModelPlugin*)(m.getPlugin("spatial"));
+
+  pre(plug != NULL);
+
+  pre(plug->isSetGeometry());
+
+  bool fail = false;
+
+  const std::string sf = sfg.getSampledField();
+  msg = "SampledFieldGeometry";
+  if (sfg.isSetId())
+  {
+    msg += " with id '";
+    msg += sfg.getId();
+    msg += "'";
+  }
+  msg += " has 'sampledField' set to '";
+  msg += sf;
+  msg += "' which is not the id of a SampledField object in the model.";
+
+  if (plug->getGeometry()->getSampledField(sf) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 

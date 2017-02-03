@@ -41,6 +41,7 @@ addConstraint(new VConstraintAdjacentDomainsSpatialAdjacentDomainsDomain2MustBeD
 addConstraint(new VConstraintCompartmentMappingSpatialCompartmentMappingDomainTypeMustBeDomainType(*this));
 addConstraint(new VConstraintCoordinateComponentSpatialCoordinateComponentAllowedElements(*this));
 addConstraint(new VConstraintCoordinateComponentSpatialCoordinateComponentUnitMustBeUnitSId(*this));
+addConstraint(new VConstraintSampledFieldGeometrySpatialSampledFieldGeometrySampledFieldMustBeSampledField(*this));
 
 /** @endcond */
 

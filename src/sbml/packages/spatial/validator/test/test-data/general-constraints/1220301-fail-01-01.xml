@@ -29,7 +29,7 @@
                         </spatial:analyticVolume>
                     </spatial:listOfAnalyticVolumes>
                 </spatial:analyticGeometry>
-                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="failed_match_1">
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0" spatial:sampledValue="0"/>
                     </spatial:listOfSampledVolumes>
@@ -62,9 +62,9 @@
         <listOfParameters>
             <parameter constant="false" id="id_3">
                 <spatial:spatialSymbolReference spatial:spatialRef="geometry_1"/>
-                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="failed_match_1"/>
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="failed_match_1"/>
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="failed_match_1"/>
+                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_1" spatial:coordinateBoundary="boundary_2" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
+                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>

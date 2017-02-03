@@ -778,27 +778,31 @@ GeometryDefinition::readAttributes(const XMLAttributes& attributes,
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
 
-  for (int n = numErrs-1; n >= 0; n--)
-  {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("spatial",
-        SpatialGeometryDefinitionAllowedAttributes, pkgVersion, level, version,
-          details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("spatial",
-        SpatialGeometryDefinitionAllowedCoreAttributes, pkgVersion, level,
-          version, details);
-    }
-  }
+  // since geometryDefinition is a base class we want this error to be
+  // more specific to the actual class being used
+
+  //numErrs = log->getNumErrors();
+
+  //for (int n = numErrs-1; n >= 0; n--)
+  //{
+  //  if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+  //  {
+  //    const std::string details = log->getError(n)->getMessage();
+  //    log->remove(UnknownPackageAttribute);
+  //    log->logPackageError("spatial",
+  //      SpatialGeometryDefinitionAllowedAttributes, pkgVersion, level, version,
+  //        details);
+  //  }
+  //  else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+  //  {
+  //    const std::string details = log->getError(n)->getMessage();
+  //    log->remove(UnknownCoreAttribute);
+  //    log->logPackageError("spatial",
+  //      SpatialGeometryDefinitionAllowedCoreAttributes, pkgVersion, level,
+  //        version, details);
+  //  }
+  //}
 
   // 
   // id SId (use = "required" )

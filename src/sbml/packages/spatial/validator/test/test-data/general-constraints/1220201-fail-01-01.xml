@@ -29,7 +29,7 @@
                         </spatial:analyticVolume>
                     </spatial:listOfAnalyticVolumes>
                 </spatial:analyticGeometry>
-                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="failed_match_1">
+                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_2" spatial:isActive="false" spatial:sampledField="sampledField_1">
                     <spatial:listOfSampledVolumes>
                         <spatial:sampledVolume spatial:domainType="domainType_1" spatial:id="sampledVolume_1" spatial:maxValue="0" spatial:minValue="0" spatial:sampledValue="0"/>
                     </spatial:listOfSampledVolumes>
@@ -78,11 +78,6 @@
                         </spatial:analyticVolume>
                     </spatial:listOfAnalyticVolumes>
                 </spatial:analyticGeometry>
-                <spatial:sampledFieldGeometry spatial:id="geometryDefinition_6" spatial:isActive="false" spatial:sampledField="sampledField_1">
-                    <spatial:listOfSampledVolumes>
-                        <spatial:sampledVolume spatial:domainType="domainType_2" spatial:id="sampledVolume_2" spatial:maxValue="0" spatial:minValue="0" spatial:sampledValue="0"/>
-                    </spatial:listOfSampledVolumes>
-                </spatial:sampledFieldGeometry>
                 <spatial:parametricGeometry spatial:id="geometryDefinition_7" spatial:isActive="false">
                     <spatial:spatialPoints spatial:arrayDataLength="0" spatial:compression="uncompressed" spatial:dataType="double" spatial:id="spatialPoints_2"/>
                     <spatial:listOfParametricObjects>
@@ -110,9 +105,9 @@
         <listOfParameters>
             <parameter constant="false" id="id_3">
                 <spatial:spatialSymbolReference spatial:spatialRef="geometry_2"/>
-                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="failed_match_1"/>
-                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_2" spatial:coordinateBoundary="boundary_4" spatial:type="Robin_valueCoefficient" spatial:variable="failed_match_1"/>
-                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="failed_match_1"/>
+                <spatial:advectionCoefficient spatial:coordinate="cartesianX" spatial:variable="species_1"/>
+                <spatial:boundaryCondition spatial:boundaryDomainType="domainType_2" spatial:coordinateBoundary="boundary_4" spatial:type="Robin_valueCoefficient" spatial:variable="species_1"/>
+                <spatial:diffusionCoefficient spatial:coordinateReference1="cartesianX" spatial:coordinateReference2="cartesianX" spatial:type="isotropic" spatial:variable="species_1"/>
             </parameter>
         </listOfParameters>
     </model>
