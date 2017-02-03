@@ -1537,8 +1537,9 @@ CoordinateComponent::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mUnit) == false)
     {
-      logError(SpatialCoordinateComponentUnitMustBeUnitSId, level, version,
-        "The attribute unit='" + mUnit + "' does not conform to the syntax.");
+      log->logPackageError("spatial",
+        SpatialCoordinateComponentUnitMustBeUnitSId, pkgVersion, level, version,
+      "The attribute unit='" + mUnit + "' does not conform to the syntax.");
     }
   }
 }

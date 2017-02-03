@@ -185,5 +185,75 @@ START_CONSTRAINT(SpatialCompartmentMappingDomainTypeMustBeDomainType, Compartmen
 }
 END_CONSTRAINT
 
+
+// 1221404
+START_CONSTRAINT(SpatialCoordinateComponentAllowedElements, CoordinateComponent, cc)
+{
+  bool fail = false;
+
+  msg = "CoordinateComponent";
+  if (cc.isSetId())
+  {
+    msg += " with id '";
+    msg += cc.getId();
+    msg += "'";
+  }
+
+  if (cc.isSetBoundaryMax() == false)
+  {
+    if (cc.isSetBoundaryMin() == false)
+    {
+      fail = true;
+      msg += " is missing both a boundaryMin and boundaryMax element.";
+    }
+    else
+    {
+      fail = true;
+      msg += " is missing a boundaryMax element.";
+    }
+  }
+  else if (cc.isSetBoundaryMin() == false)
+  {
+    fail = true;
+    msg += " is missing a boundaryMin element.";
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 1221406
+START_CONSTRAINT(SpatialCoordinateComponentUnitMustBeUnitSId, CoordinateComponent, cc)
+{
+  pre(cc.isSetUnit());
+
+  bool fail = false;
+  const string& units = cc.getUnit();
+
+  msg = "CoordinateComponent";
+  if (cc.isSetId())
+  {
+    msg += " with id '";
+    msg += cc.getId();
+    msg += "'";
+  }
+  msg += " uses a unit value of '";
+  msg += units;
+  msg += "' which is not a built in unit or the identifier of an existing <unitDefinition>.";
+
+  if (!Unit::isUnitKind(units, cc.getLevel(), cc.getVersion()))
+  {
+    const UnitDefinition *ud = m.getUnitDefinition(units);
+    if (ud == NULL)
+    {
+      fail = true;
+    }
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
 /** @endcond */
 

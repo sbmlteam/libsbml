@@ -3,7 +3,7 @@
     <model>
         <spatial:geometry spatial:coordinateSystem="cartesian" spatial:id="geometry_1">
             <spatial:listOfCoordinateComponents>
-                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX" spatial:unit="someString">
+                <spatial:coordinateComponent spatial:id="coordinateComponent_1" spatial:type="cartesianX" spatial:unit="dimensionless">
                     <spatial:boundaryMin spatial:id="boundary_1"/>
                     <spatial:boundaryMax spatial:id="boundary_2" spatial:value="0"/>
                 </spatial:coordinateComponent>
