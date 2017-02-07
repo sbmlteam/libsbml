@@ -2536,19 +2536,22 @@ START_CONSTRAINT (21212, EventAssignment, ea)
   const Compartment* c = m.getCompartment(id);
   const Species*     s = m.getSpecies    (id);
   const Parameter*   p = m.getParameter  (id);
+  const SpeciesReference * sr = m.getSpeciesReference(id);
 
-  pre( c || s || p );
+  pre( c || s || p || sr);
 
   msg = "The";
   if (c) msg += " compartment with id '";
   else if (s) msg += " species with id '";
   else if (p) msg += " parameter with id '";
+  else if (sr) msg += " speciesReference with id '";
   msg += id;
   msg += "' should have a constant value of 'false'.";
 
   inv_or( c && c->getConstant() == false );
   inv_or( s && s->getConstant() == false );
   inv_or( p && p->getConstant() == false );
+  inv_or( sr && sr->getConstant() == false);
 }
 END_CONSTRAINT
 
