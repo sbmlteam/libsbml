@@ -152,7 +152,8 @@ validateModel()
   mxArray * mxCheckStructure[2];
   int nStatus = mexCallMATLAB(2, mxCheckStructure, 2, mxModel, "isSBML_Model");
 
-  if ((nStatus != 0) || (mxIsLogicalScalarTrue(mxCheckStructure[0]) != 1))
+  int value = (int)(mxGetScalar(mxCheckStructure[0]));
+  if ((nStatus != 0) || (value != 1))
   {
     /* there are errors - use the pacTempString1 char * to list these to the user */
     size_t nBuflen = (mxGetM(mxCheckStructure[1])*mxGetN(mxCheckStructure[1])+1);

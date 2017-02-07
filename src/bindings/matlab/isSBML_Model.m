@@ -190,7 +190,9 @@ while (valid == 1 && index <= numFields)
             value = getfield(SBMLStructure, field);
             if (strcmp(types{index}, 'structure') ~= 1)
                 correctType = getCorrectType(types{index});
-                valid = isa(value, correctType);
+                % need to deal with matlab number types 
+                valid = isValidType(value, correctType);
+%                valid = isa(value, correctType);
             else
                 for i=1:length(value)
                     if (valid == 1)
@@ -296,5 +298,13 @@ elseif (isnumeric(number))
     end;
 end;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function valid = isValidType(value, correctType)
+
+valid = isIntegralNumber(value);
+
+if (~valid)
+    valid = isa(value, correctType);
+end;
 
 
