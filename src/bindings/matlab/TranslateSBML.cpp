@@ -51,6 +51,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 // global variables
 mxArray * mxModel[2];
+bool freeMemory;
 ModelDetails * details;
 
 IdList reqdPkgPrefixes;
@@ -138,6 +139,7 @@ readSBMLDocument(FILE_CHAR filename)
     char* file = (char*) mxCalloc(len+1, sizeof(char));
     wcstombs(file, filename, len);
     doc = readSBML(file);
+    mxFree(file);
   }
 #else
   doc = readSBML(filename); 
@@ -285,6 +287,8 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
 void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+  // we have not made persistent memory
+  freeMemory = false;
   std::ostringstream numErrs;
   /* determine whether we are in octave or matlab */
   unsigned int usingOctave = determinePlatform();
@@ -364,15 +368,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     StructureFields *sf = new StructureFields(tc);
     sf->createStructure(func, sbmlDocument);
 
-    plhs[0] = sf->getStructure();
+//    plhs[0] = sf->getStructure();
     mxArray* mxArgs[3];
-    mxArgs[0] = sf->getStructure();
+    mxArgs[0] = mxDuplicateArray(sf->getStructure());
     mxArgs[1] = CreateIntScalar(sbmlDocument->getLevel());
     mxArgs[2] = CreateIntScalar(sbmlDocument->getVersion());
     mexCallMATLAB(0, &plhs[0], 3, mxArgs, "addLevelVersion");
     mxDestroyArray(mxArgs[0]);
     mxDestroyArray(mxArgs[1]);
     mxDestroyArray(mxArgs[2]);
+    delete details;
+    delete sf;
   }
   else
   {

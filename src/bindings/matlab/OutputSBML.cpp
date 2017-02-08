@@ -56,6 +56,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 // global variables
 mxArray * mxModel[2];
+bool freeMemory;
 ModelDetails * details;
 
 IdList reqdPkgPrefixes;
@@ -208,6 +209,8 @@ dealWithAnomalies(SBMLDocument* sbmlDocument)
 void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+  // we have not made persistent memory
+  freeMemory = false;
   FILE_CHAR pacFilename = NULL;
   SBMLDocument *sbmlDocument;
   Model *sbmlModel;
@@ -301,6 +304,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   }
 
   delete sbmlDocument;
+  delete details;
+  delete sf;
 
 //  FreeMem();
 }

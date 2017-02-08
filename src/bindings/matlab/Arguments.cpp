@@ -44,22 +44,22 @@ unsigned int
 determinePlatform()
 {
   unsigned int usingOctave = 0;
-  mxArray * mxOctave;
+  mxArray * mxOctave[1];
 
-  mexCallMATLAB(1, &mxOctave, 0, NULL, "isoctave");
+  mexCallMATLAB(1, mxOctave, 0, NULL, "isoctave");
 
-  size_t nBuflen = (mxGetM(mxOctave)*mxGetN(mxOctave)+1);
+  size_t nBuflen = (mxGetM(mxOctave[0])*mxGetN(mxOctave[0])+1);
   char * pacTempString1 = (char *)(safe_calloc(nBuflen, sizeof(char)));
-  int nStatus = mxGetString(mxOctave, pacTempString1, (mwSize)(nBuflen));
+  int nStatus = mxGetString(mxOctave[0], pacTempString1, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
     reportError("OutputSBML:platformDetection", 
-      "Could not determine platform", false);
+      "Could not determine platform");
   }
 
   safe_free(pacTempString1);
-  mxDestroyArray(mxOctave);
+  mxDestroyArray(mxOctave[0]);
 
   return usingOctave;
 }
@@ -77,7 +77,7 @@ answerYesToQuestion(const std::string& question)
   mxDestroyArray(mxPrompt[1]);
 
   size_t nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
-  pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+  pacReply = (char *) (safe_calloc(nBufferLen, sizeof(char)));
   mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
   mxDestroyArray(mxReply[0]);
 
@@ -85,6 +85,7 @@ answerYesToQuestion(const std::string& question)
   {
     answer = true;
   }
+  safe_free(pacReply);
 
   return answer;
 }
@@ -100,18 +101,18 @@ validateNumberOfInputsForOutput(int nrhs, const mxArray *prhs[], unsigned int us
   {
     reportError("OutputSBML:inputArgs", 
       "Must supply at least the model as an input argument\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))", false);
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
   }
   if (usingOctave == 1 && nrhs < 2)
   {
     reportError("OutputSBML:Octave:needFilename", 
       "Octave requires the filename to be specified\n"
-      "USAGE: OutputSBML(SBMLModel, filename, (exclusiveFlag))", false);
+      "USAGE: OutputSBML(SBMLModel, filename, (exclusiveFlag))");
   }
   if (nrhs > 4)
   {
     reportError("OutputSBML:inputArguments", "Too many input arguments\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))", false);
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
   }
 }
 
@@ -121,7 +122,7 @@ validateNumberOfOutputsForOutput(int nlhs)
   if (nlhs > 0)
   {
     reportError("OutputSBML:outputArguments", "Too many output arguments\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))", false);
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
   }
 }
 
@@ -129,8 +130,6 @@ void
 populateModelArray(int nrhs, const mxArray *prhs[])
 {
   mxModel[0] = mxDuplicateArray(prhs[0]);
-  mexMakeArrayPersistent(mxModel[0]);
-  mexAtExit(FreeMem);
 
   /**
   * we now have the option of a third argument that indicates that we
@@ -138,12 +137,19 @@ populateModelArray(int nrhs, const mxArray *prhs[])
   */
   if (nrhs > 2)
   {
-    mxModel[1] = (mxArray *)prhs[2];
+    mxModel[1] = mxDuplicateArray(prhs[2]);
   }  
   else
   {
     mxModel[1] = mxCreateDoubleScalar(1);
   }
+  mexMakeArrayPersistent(mxModel[0]);
+  mexMakeArrayPersistent(mxModel[1]);
+  
+  // we have made persistent memory - need to free it is we exit prematurely
+  freeMemory = true;
+
+  mexAtExit(FreeMem);
 }
 
 void 
@@ -165,13 +171,13 @@ validateModel()
       errMsg << "\nFirst input must be a valid MATLAB_SBML Structure\n\n" <<
         "Errors reported: " << pacTempString1 << "\nUSAGE: OutputSBML(SBMLModel"
         << ", (filename), (exclusiveFlag))";
-      reportError("OutputSBML:inputArguments:invalidModelSupplied", errMsg.str(), false);
+      reportError("OutputSBML:inputArguments:invalidModelSupplied", errMsg.str());
     }
     else
     {
       errMsg << "\nFirst input must be a valid MATLAB_SBML Structure\n\n" <<
         "\nUSAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))";
-      reportError("OutputSBML:inputArguments:invalidStructureSupplied", errMsg.str(), false);
+      reportError("OutputSBML:inputArguments:invalidStructureSupplied", errMsg.str());
     } 
     safe_free(pacTempString1);
   }
@@ -300,12 +306,13 @@ checkFileExists(FILE_CHAR filename)
     {
       char * msgTxt = NULL;
 #if USE_FILE_WCHAR
-      msgTxt = (char *) mxCalloc(wcslen(filename)+35, sizeof(char));
+      msgTxt = (char *) safe_calloc(wcslen(filename)+35, sizeof(char));
 #else
-      msgTxt = (char *) mxCalloc(strlen(filename)+35, sizeof(char));
+      msgTxt = (char *) safe_calloc(strlen(filename)+35, sizeof(char));
 #endif
       sprintf(msgTxt, "File %s does not exist on this path", filename);
       reportError("TranslateSBML:inputArguments:filename", msgTxt);
+      safe_free(msgTxt);
     }
     else
     {

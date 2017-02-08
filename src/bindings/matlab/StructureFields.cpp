@@ -208,6 +208,8 @@ private:
 
   mxArray* getNamespacesStructure();
 
+  void freeMemory();
+
 protected:
 
   mxArray* mxFieldnames;
@@ -279,6 +281,7 @@ protected:
 
 // global variables
 extern mxArray * mxModel[2];
+extern bool freeMemory;
 extern ModelDetails * details;
 
 extern IdList reqdPkgPrefixes;
@@ -290,17 +293,15 @@ extern IdList unreqdPkgPrefixes;
 
 void FreeMem(void)
 {
-#ifndef USE_OCTAVE
   /* destroy arrays created */
   mxDestroyArray(mxModel[0]);
   mxDestroyArray(mxModel[1]);
-#endif
 }
 
 void
-reportError(const std::string&id, const std::string& message, bool freeMem = true)
+reportError(const std::string&id, const std::string& message)
 {
-  if (freeMem)
+  if (freeMemory)
   {
     FreeMem();
   }
@@ -473,6 +474,14 @@ StructureFields::~StructureFields()
 }
 
 void
+StructureFields::freeMemory()
+{
+  mxDestroyArray(mxFieldnames);
+  mxDestroyArray(mxDefaultValues);
+  mxDestroyArray(mxValueTypes);
+}
+
+void
 StructureFields::determineTypeCode()
 {
   if (!sbmlTC.empty()) return;
@@ -577,6 +586,7 @@ StructureFields::getFieldname(unsigned int i, const std::string& id)
     reportError(id, "Failed in GetFieldname");
   }
   const std::string f = std::string(fieldname); 
+  mxFree(fieldname);
   return f;
 }
 
@@ -591,6 +601,7 @@ StructureFields::getDefaultValue(unsigned int i, const std::string& id)
     reportError(id, "Failed in GetDefaultValue");
   }
   const std::string f = std::string(fieldname); 
+  mxFree(fieldname);
   return f;
 }
 
@@ -616,9 +627,12 @@ StructureFields::getValueType(unsigned int i, const std::string& id)
   char * fieldname = (char *) mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxName, (char *) fieldname, (mwSize)(nBuflen)) != 0)
   {
+    mxFree(fieldname);
     reportError(id, "Failed in GetValueType");
   }
-  return getFieldType(fieldname); 
+  FieldType_t ft = getFieldType(fieldname); 
+  mxFree(fieldname);
+  return ft;
 }
 
 bool
@@ -683,6 +697,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   }
 
   mxStructure = mxCreateStructArray(2, dims, n, (const char**)(field_names));
+  safe_free(field_names);
 
   for (unsigned int i = 0; i < total_no; i++)
   {
@@ -727,7 +742,8 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
       {
         StructureFields *sf = new StructureFields(attName);
         sf->createStructure(functionId + ":" + fieldname, base, usePlugin, prefix);
-        mxSetField(mxStructure, index, fieldname.c_str(), sf->getStructure());
+        mxSetField(mxStructure, index, fieldname.c_str(), mxDuplicateArray(sf->getStructure()));
+        delete sf;
       }
     }
     else if (anomalousMathStructures(fieldname, type))
@@ -1115,6 +1131,7 @@ StructureFields::getMathString(SBase* base)
   char * formula = SBML_formulaToString(ast);
   char * matlab = GetMatlabFormula(formula, sbmlTC);
   std::string math = std::string(matlab);
+  mxFree(matlab);
   return math;
 
 }
@@ -1331,6 +1348,8 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
 
       std::string id = std::string("OutputSBML:addChildElement:") + sf->getTypeCode();
       sf->addAttributes(id, i, n);
+
+      sf->freeMemory();
     }
   }
 }
@@ -1378,7 +1397,7 @@ StructureFields::getMathChild(const std::string& value)
   char * cvalue = convertMathFormula(value);
   const ASTNode *ast = SBML_parseFormula(cvalue);
   adjustForCSymbols(const_cast<ASTNode*>(ast));
-
+  mxFree(cvalue);
   return ast;
 }
 
@@ -1680,7 +1699,7 @@ StructureFields::convertMathFormula(const std::string& pacFormula)
 
   /* get the formula returned */
   nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  formula = (char *) safe_calloc(nBuflen, sizeof(char));
+  formula = (char *) mxCalloc(nBuflen, sizeof(char));
   nStatus = mxGetString(mxOutput[0], (char *) formula, (mwSize)(nBuflen));
 
   if (nStatus != 0)
