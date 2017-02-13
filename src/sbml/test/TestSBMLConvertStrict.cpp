@@ -718,6 +718,144 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath9)
 END_TEST
 
 
+START_TEST(test_SBMLConvertStrict_convertFromL3_stoichMath10)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 4.0);
+  InitialAssignment_t *ia = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia, "XREF");
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
+  ASTNode_t* math1 = SBML_parseFormula("1");
+  Rule_t * rr = Model_createRateRule(m);
+  Rule_setVariable(rr, "XREF");
+  Rule_setMath(rr, math1);
+  ASTNode_free(math1);
+
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  fail_unless(Model_getNumInitialAssignments(m) == 0);
+  fail_unless(Model_getNumRules(m) == 1);
+  fail_unless(Model_getNumParameters(m) == 1);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "parameterId_0"));
+  safe_free(mathstr);
+
+  Parameter_t * p = Model_getParameter(m, 0);
+  fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
+  fail_unless(util_isEqual(Parameter_getValue(p), 0.001));
+
+  rr = Model_getRule(m, 0);
+  fail_unless(!strcmp(Rule_getVariable(rr), "parameterId_0"));
+  mathstr = SBML_formulaToString(Rule_getMath(rr));
+  fail_unless(!strcmp(mathstr, "1"));
+  safe_free(mathstr);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST(test_SBMLConvertStrict_convertFromL3_stoichMath11)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 4.0);
+  InitialAssignment_t *ia = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia, "XREF");
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
+  ASTNode_t* math1 = SBML_parseFormula("1");
+  Rule_t * rr = Model_createRateRule(m);
+  Rule_setVariable(rr, "XREF");
+  Rule_setMath(rr, math1);
+  ASTNode_free(math1);
+
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  fail_unless(Model_getNumInitialAssignments(m) == 1);
+  fail_unless(Model_getNumRules(m) == 1);
+  fail_unless(Model_getNumParameters(m) == 1);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "parameterId_0"));
+  safe_free(mathstr);
+
+  Parameter_t * p = Model_getParameter(m, 0);
+  fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
+  fail_unless(util_isEqual(Parameter_getValue(p), 4.0));
+
+  rr = Model_getRule(m, 0);
+  fail_unless(!strcmp(Rule_getVariable(rr), "parameterId_0"));
+  mathstr = SBML_formulaToString(Rule_getMath(rr));
+  fail_unless(!strcmp(mathstr, "1"));
+  safe_free(mathstr);
+
+  ia = Model_getInitialAssignment(m, 0);
+  fail_unless(!strcmp(InitialAssignment_getSymbol(ia), "parameterId_0"));
+  mathstr = SBML_formulaToString(InitialAssignment_getMath(ia));
+  fail_unless(!strcmp(mathstr, "0.001"));
+  safe_free(mathstr);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim1)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
@@ -2108,6 +2246,8 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath7 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath8 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath9 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath10);
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath11);
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim2 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim3 );
