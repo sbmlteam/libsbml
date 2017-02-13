@@ -128,7 +128,8 @@ UnitsBase::check_ (const Model& m, const Model& )
     }
     for (sr = 0; sr < m.getReaction(n)->getNumProducts(); sr++)
     {
-      if (m.getReaction(n)->getProduct(sr)->isSetStoichiometryMath())
+      if (m.getReaction(n)->getProduct(sr)->isSetStoichiometryMath() && 
+        m.getReaction(n)->getProduct(sr)->getStoichiometryMath()->isSetMath())
       {
         checkUnits(m, 
           *m.getReaction(n)->getProduct(sr)->getStoichiometryMath()->getMath(), 
@@ -137,7 +138,8 @@ UnitsBase::check_ (const Model& m, const Model& )
     }
     for (sr = 0; sr < m.getReaction(n)->getNumReactants(); sr++)
     {
-      if (m.getReaction(n)->getReactant(sr)->isSetStoichiometryMath())
+      if (m.getReaction(n)->getReactant(sr)->isSetStoichiometryMath() &&
+        m.getReaction(n)->getReactant(sr)->getStoichiometryMath()->isSetMath())
       {
         checkUnits(m, 
           *m.getReaction(n)->getReactant(sr)->getStoichiometryMath()->getMath(), 

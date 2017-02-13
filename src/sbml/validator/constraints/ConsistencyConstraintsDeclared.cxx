@@ -172,6 +172,8 @@ addConstraint(new VConstraintSpeciesReference21111(*this));
 
 addConstraint(new VConstraintSpeciesReference21113(*this));
 
+addConstraint(new VConstraintSpeciesReference99131(*this));
+
 addConstraint(new KineticLawVars(21121, *this));
 
 addConstraint(new VConstraintKineticLaw21124(*this));

@@ -92,7 +92,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
   {
     const SpeciesReference *sr = r.getReactant(n);
 
-    if (sr->isSetStoichiometryMath())
+    if (sr->isSetStoichiometryMath() && sr->getStoichiometryMath()->isSetMath())
     {
       List* variables = sr->getStoichiometryMath()->getMath()
         ->getListOfNodes( ASTNode_isName );
@@ -113,7 +113,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
   {
     const SpeciesReference *sr = r.getProduct(n);
 
-    if (sr->isSetStoichiometryMath())
+    if (sr->isSetStoichiometryMath() && sr->getStoichiometryMath()->isSetMath())
     {
       List* variables = sr->getStoichiometryMath()->getMath()
         ->getListOfNodes( ASTNode_isName );

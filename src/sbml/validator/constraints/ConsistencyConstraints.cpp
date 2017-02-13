@@ -1817,6 +1817,26 @@ START_CONSTRAINT (21113, SpeciesReference, sr)
 END_CONSTRAINT
 
 
+START_CONSTRAINT(99131, SpeciesReference, sr)
+{
+  pre(sr.getLevel() == 2);
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
+  pre(sr.isSetStoichiometryMath());
+
+  std::string rnId = (sr.getAncestorOfType(SBML_REACTION) != NULL) ?
+    sr.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
+
+  msg = "In <reaction> with id '" + rnId + "' the <speciesReference> "
+    "with species '" + sr.getSpecies() + "' has a <stoichiometryMath> element "
+    "with no <math> element.";
+
+  inv(sr.getStoichiometryMath()->isSetMath());
+}
+END_CONSTRAINT
+
+
 // KineticLaw validation
 
 EXTERN_CONSTRAINT(21121, KineticLawVars)
