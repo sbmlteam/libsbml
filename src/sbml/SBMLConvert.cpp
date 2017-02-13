@@ -1842,18 +1842,32 @@ createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr,
 void
 useStoichMath(Model & m, SpeciesReference &sr, bool isRule)
 {
-  // use stoichiometryMath instead
-  StoichiometryMath *sm = sr.createStoichiometryMath();
-  if (sm != NULL)
+  // if we are oming from l3v2 we might not have math set
+  // in which case merely remove rule/ia
+  if (isRule)
   {
-    if (isRule == true)
+    if (m.getRule(sr.getId())->isSetMath())
     {
+      StoichiometryMath *sm = sr.createStoichiometryMath();
       sm->setMath(m.getRule(sr.getId())->getMath());
       delete m.removeRule(sr.getId());
+
     }
     else
     {
+      delete m.removeRule(sr.getId());
+    }
+  }
+  else
+  {
+    if (m.getInitialAssignment(sr.getId())->isSetMath())
+    {
+      StoichiometryMath *sm = sr.createStoichiometryMath();
       sm->setMath(m.getInitialAssignment(sr.getId())->getMath());
+      delete m.removeInitialAssignment(sr.getId());
+    }
+    else
+    {
       delete m.removeInitialAssignment(sr.getId());
     }
   }

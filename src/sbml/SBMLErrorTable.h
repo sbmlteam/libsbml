@@ -10487,6 +10487,34 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V2 Section 4.2.6"}
   },
 
+      
+  //99131
+  {
+    StoichiometryMathMissingMath,
+    "StoichiometryMath missing Math",
+      LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      "The <stoichiometryMath> element must contain a <math> element.",
+      { "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "" }
+  },
+
+
+
   //99206
   {
     TimeUnitsRemoved,
@@ -11996,7 +12024,8 @@ static const sbmlErrorTableEntry errorTable[] =
    },
 
 
-/* Explanation about 99994 and 99995:
+
+      /* Explanation about 99994 and 99995:
 
 If SBase::readAttributes function finds an attribute it does not know about
 in a namespace it does not recognize, it stores the attribute BUT.  If it

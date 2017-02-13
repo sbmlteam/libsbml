@@ -1106,6 +1106,48 @@ START_TEST (test_SBMLConvertFromL3V2_convertMissingFast)
 END_TEST
 
 
+START_TEST(test_SBMLConvertFromL3V2_convertMissingMathForStoich_strict)
+{
+  std::string filename(TestDataDirectory);
+  filename += "l3v2-stoich-math-missing.xml";
+  SBMLDocument * doc = readSBML(filename.c_str());
+  Model* m = doc->getModel();
+  AssignmentRule* ar = (AssignmentRule*)(m->getRule(0));
+  SpeciesReference *sr = m->getReaction(0)->getProduct(0);
+
+  fail_unless(doc->getLevel() == 3);
+  fail_unless(doc->getVersion() == 2);
+  fail_unless(ar->getLevel() == 3);
+  fail_unless(ar->getVersion() == 2);
+
+  fail_unless(ar->isSetMath() == false);
+
+  fail_unless(m->getNumRules() == 1);
+
+  fail_unless(ar->getVariable() == sr->getId());
+
+  bool done = doc->setLevelAndVersion(2, 4, true);
+
+  fail_unless(done == true);
+
+  fail_unless(doc->getLevel() == 2);
+  fail_unless(doc->getVersion() == 4);
+
+  m = doc->getModel();
+
+  // expect the rule to have gone and no stoichiometryMath
+  fail_unless(m->getNumRules() == 0);
+  sr = m->getReaction(0)->getProduct(0);
+
+  fail_unless(sr->isSetStoichiometryMath() == false);
+  fail_unless(sr->isSetStoichiometry() == true);
+
+
+  delete doc;
+}
+END_TEST
+
+
 
 Suite *
 create_suite_SBMLConvertFromL3V2 (void) 
@@ -1136,6 +1178,7 @@ create_suite_SBMLConvertFromL3V2 (void)
   tcase_add_test( tcase, test_SBMLConvertFromL3V2_convertMissingReactantProducts_strict       );
   tcase_add_test( tcase, test_SBMLConvertFromL3V2_convertMissingReactantProducts_nonstrict       );
   tcase_add_test( tcase, test_SBMLConvertFromL3V2_convertMissingFast );
+  tcase_add_test(tcase, test_SBMLConvertFromL3V2_convertMissingMathForStoich_strict);
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -847,6 +847,7 @@ typedef enum
 , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' on KineticLaw object. */
 , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are allowed in SBML Level 1 formulas. */
 , L3SubstanceUnitsOnModel               = 99130 /*!< Invalid 'substanceUnits' attribute value. */
+, StoichiometryMathMissingMath          = 99131
 , TimeUnitsRemoved                      = 99206 /*!< This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects. */
 , BadMathML                             = 99219 /*!< Invalid MathML expression. */
 , FailedMathMLReadOfDouble              = 99220 /*!< Missing or invalid floating-point number in MathML expression. */
