@@ -245,24 +245,22 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            const SBMLResolverRegistry& registry = 
+            SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
-            mReferencedDocument = registry.resolve(uri, locationURI);
-
-            pre(mReferencedDocument != NULL);
-
-            if (mReferencedDocument != NULL)
+            doc = registry.resolve(uri, locationURI);
+            if (doc != NULL)
             {
+              registry.addOwnedSBMLDocument(doc);
               if (emd->isSetModelRef() == false)
               {
-                mReferencedModel = mReferencedDocument->getModel();
+                mReferencedModel = doc->getModel();
                 found = true;
               }
-              else if (mReferencedDocument->getModel() != NULL &&
-                mReferencedDocument->getModel()->isSetId() == true &&
-                emd->getModelRef() == mReferencedDocument->getModel()->getId())
+              else if (doc->getModel() != NULL &&
+                doc->getModel()->isSetId() == true &&
+                emd->getModelRef() == doc->getModel()->getId())
               {
-                mReferencedModel = mReferencedDocument->getModel();
+                mReferencedModel = doc->getModel();
                 found = true;
               }
               else
