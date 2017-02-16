@@ -135,10 +135,10 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
   ASTNode fdMath(AST_UNKNOWN);
   unsigned int noBvars;
 
-  if (fd->isSetMath() && fd->getMath()->getRightChild() != NULL)
+  if (fd->isSetMath() && fd->getBody() != NULL)
   {
     noBvars = fd->getMath()->getNumBvars();
-    fdMath = *fd->getMath()->getRightChild();
+    fdMath = *fd->getBody();
 
     for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {

@@ -784,6 +784,54 @@ START_TEST(test_SBMLTransforms_evaluateL3V2AST)
 END_TEST
 
 
+START_TEST(test_SBMLTransforms_replaceIAWithFD)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+  Model*            m;
+
+  std::string filename(TestDataDirectory);
+  filename += "initialAssignmentsWithFD.xml";
+
+
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"initialAssignments.xml\") returned a NULL pointer.");
+  }
+
+  m = d->getModel();
+
+  fail_unless(m->getNumInitialAssignments() == 5);
+  fail_unless(m->getParameter(0)->isSetValue() == false);
+  fail_unless(m->getParameter(1)->isSetValue() == false);
+  fail_unless(m->getParameter(2)->isSetValue() == false);
+  fail_unless(m->getParameter(3)->isSetValue() == false);
+  fail_unless(m->getParameter(4)->isSetValue() == false);
+
+  d->expandInitialAssignments();
+
+  m = d->getModel();
+
+  fail_unless(m->getNumInitialAssignments() == 0);
+  fail_unless(m->getParameter(0)->isSetValue() == true);
+  fail_unless(m->getParameter(1)->isSetValue() == true);
+  fail_unless(m->getParameter(2)->isSetValue() == true);
+  fail_unless(m->getParameter(3)->isSetValue() == true);
+  fail_unless(m->getParameter(4)->isSetValue() == true);
+  fail_unless(util_isEqual(m->getParameter(0)->getValue(), 0.0));
+  fail_unless(util_isEqual(m->getParameter(1)->getValue(), 1.0));
+  fail_unless(util_isEqual(m->getParameter(2)->getValue(), 1.0));
+  fail_unless(util_isEqual(m->getParameter(3)->getValue(), 0.0));
+  fail_unless(util_isEqual(m->getParameter(4)->getValue(), 0.0));
+
+  delete d;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
