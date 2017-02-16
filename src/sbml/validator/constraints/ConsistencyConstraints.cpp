@@ -346,6 +346,7 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
 
   inv_or( fd.getBody()->isBoolean() );
   inv_or( fd.getBody()->isNumber()  );
+  inv_or(fd.getBody()->isConstantNumber());
   inv_or( fd.getBody()->isFunction());
   inv_or( fd.getBody()->isOperator());
   inv_or( specialCase);

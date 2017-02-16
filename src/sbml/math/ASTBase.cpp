@@ -629,6 +629,7 @@ ASTBase::isConstantNumber() const
     case AST_CONSTANT_FALSE:
     case AST_CONSTANT_PI:
     case AST_CONSTANT_TRUE:
+    case AST_NAME_AVOGADRO:
       isNumber = true;
       break;
     default:

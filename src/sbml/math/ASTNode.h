@@ -976,6 +976,21 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
+  * Returns @c true if this node represents a MathML
+  * constant numeric.
+  *
+  * Examples of MathML constants include such things as pi.
+  *
+  * @return @c true if this ASTNode is a MathML constant, @c false
+  * otherwise.
+  *
+  * @note This function will also return @c true for nodes of type
+  * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} in SBML Level&nbsp;3.
+  */
+  virtual bool isConstantNumber() const;
+
+
+  /**
    * Returns @c true if this node represents a function.
    *
    * The three types of functions in SBML are MathML functions (e.g.,
@@ -2926,6 +2941,22 @@ ASTNode_returnsBooleanForModel (const ASTNode_t *node, const Model_t* model);
 LIBSBML_EXTERN
 int
 ASTNode_isConstant (const ASTNode_t * node);
+
+
+/**
+* Returns true if the given node represents a MathML constant.
+*
+* Examples of constants in this context are @c Pi, @c true, etc.
+*
+* @param node the node
+*
+* @return @c 1 if @p node is a MathML constant, @c 0 otherwise.
+*
+* @memberof ASTNode_t
+*/
+LIBSBML_EXTERN
+int
+ASTNode_isConstantNumber(const ASTNode_t * node);
 
 
 /**

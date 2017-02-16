@@ -6035,6 +6035,7 @@ START_TEST (test_ASTNode_testConvenienceIs)
   fail_unless(n->isUnknown() == false);
   fail_unless(n->isUPlus() == false);
   fail_unless(n->isWellFormedASTNode() == true);
+  fail_unless(n->isConstantNumber() == true);
 
   delete n;
 
@@ -6091,6 +6092,7 @@ START_TEST (test_ASTNode_testConvenienceIs)
   fail_unless(n->isUnknown() == false);
   fail_unless(n->isUPlus() == false);
   fail_unless(n->isWellFormedASTNode() == true);
+  fail_unless(n->isConstantNumber() == true);
 
   delete n;
 

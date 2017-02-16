@@ -2072,6 +2072,24 @@ ASTNode::isConstant() const
 
 
 bool 
+ASTNode::isConstantNumber() const
+{
+  bool valid = false;
+  
+  if (mNumber != NULL)
+  {
+    valid = mNumber->isConstantNumber();
+  }
+  else if (mFunction != NULL)
+  {
+    valid = false;
+  }
+
+  return valid;
+}
+
+
+bool 
 ASTNode::isFunction() const
 {
   bool valid = false;
@@ -4127,6 +4145,15 @@ ASTNode_isConstant (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isConstant();
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isConstantNumber(const ASTNode_t *node)
+{
+  if (node == NULL) return (int)false;
+  return (int) static_cast<const ASTNode*>(node)->isConstantNumber();
 }
 
 
