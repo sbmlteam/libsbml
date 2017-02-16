@@ -300,11 +300,13 @@ end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function valid = isValidType(value, correctType)
+if (isempty(value))
+    valid = 1;
+else
+    valid = isIntegralNumber(value);
 
-valid = isIntegralNumber(value);
-
-if (~valid)
-    valid = isa(value, correctType);
+    if (~valid)
+        valid = isa(value, correctType);
+    end;
 end;
-
 
