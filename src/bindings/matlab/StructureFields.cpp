@@ -196,6 +196,8 @@ private:
 
   void dealWithAvogadroSymbol(ASTNode* math);
 
+  void dealWithRateOfSymbol(ASTNode* math);
+
   bool determineStatus(const std::string& name, unsigned int index);
 
   void reportReadError(const std::string& type, const std::string& name, 
@@ -240,10 +242,12 @@ public:
   const std::string& getDelaySymbol() { return mDelaySymbol; } ;
   const std::string& getTimeSymbol() { return mTimeSymbol; } ;
   const std::string& getAvogadroSymbol() { return mAvogadroSymbol; } ;
+  const std::string& getRateOfSymbol() { return mRateOfSymbol; } ;
 
   void setDelaySymbol(const std::string& symbol) { mDelaySymbol = symbol; } ;
   void setAvogadroSymbol(const std::string& symbol) { mAvogadroSymbol = symbol; } ;
   void setTimeSymbol(const std::string& symbol) { mTimeSymbol = symbol; } ;
+  void setRateOfSymbol(const std::string& symbol) { mRateOfSymbol = symbol; } ;
 
   SBMLNamespaces* getNamespaces() { return mSBMLns; };
 
@@ -268,6 +272,7 @@ protected:
   std::string mDelaySymbol;
   std::string mTimeSymbol;
   std::string mAvogadroSymbol;
+  std::string mRateOfSymbol;
 
   SBMLNamespaces *mSBMLns;
 
@@ -959,6 +964,17 @@ StructureFields::getStringValue(const std::string& functionId, SBase* base,
       value = getDefaultValue(fieldIndex, functionId);
     }
   }
+  else if (fieldname == "rateOf_symbol")
+  {
+    if (!details->getRateOfSymbol().empty())
+    {
+      value = details->getRateOfSymbol();
+    }
+    else
+    {
+      value = getDefaultValue(fieldIndex, functionId);
+    }
+  }
   else
   {
     value = getDefaultValue(fieldIndex, functionId);
@@ -1175,6 +1191,8 @@ StructureFields::GetMatlabFormula(char * pacFormula, std::string object)
 void
 StructureFields::lookForCSymbols(ASTNode* math)
 {
+  if (math == NULL) return;
+
   unsigned int nChild = math->getNumChildren();
   ASTNodeType_t type;
 
@@ -1199,6 +1217,10 @@ StructureFields::lookForCSymbols(ASTNode* math)
     {
       dealWithDelaySymbol(math);
     }
+    else if (type == AST_FUNCTION_RATE_OF)
+    {
+      dealWithRateOfSymbol(math);
+    }
   }
 
   for (unsigned int i = 0; i < nChild; i++)
@@ -1211,6 +1233,7 @@ StructureFields::lookForCSymbols(ASTNode* math)
 void 
 StructureFields::dealWithAvogadroSymbol(ASTNode* math)
 {
+  if (math == NULL) return;
   if (details->getAvogadroSymbol().empty())
   {
     details->setAvogadroSymbol(math->getName());
@@ -1224,6 +1247,7 @@ StructureFields::dealWithAvogadroSymbol(ASTNode* math)
 void 
 StructureFields::dealWithTimeSymbol(ASTNode* math)
 {
+  if (math == NULL) return;
   if (details->getTimeSymbol().empty())
   {
     details->setTimeSymbol(math->getName());
@@ -1237,6 +1261,7 @@ StructureFields::dealWithTimeSymbol(ASTNode* math)
 void 
 StructureFields::dealWithDelaySymbol(ASTNode* math)
 {
+  if (math == NULL) return;
   if (details->getDelaySymbol().empty())
   {
     details->setDelaySymbol(math->getName());
@@ -1244,6 +1269,20 @@ StructureFields::dealWithDelaySymbol(ASTNode* math)
   else
   {
     math->setName(details->getDelaySymbol().c_str());
+  }
+}
+
+void 
+StructureFields::dealWithRateOfSymbol(ASTNode* math)
+{
+  if (math == NULL) return;
+  if (details->getRateOfSymbol().empty())
+  {
+    details->setRateOfSymbol(math->getName());
+  }
+  else
+  {
+    math->setName(details->getRateOfSymbol().c_str());
   }
 }
 
@@ -1395,7 +1434,9 @@ StructureFields::getMathChild(const std::string& value)
 {
   /* convert MATLAB formula to MathML infix */
   char * cvalue = convertMathFormula(value);
-  const ASTNode *ast = SBML_parseFormula(cvalue);
+  L3ParserSettings settings;
+  settings.setParseLog(L3P_PARSE_LOG_AS_LN);
+  const ASTNode *ast = SBML_parseL3FormulaWithSettings(cvalue, &settings);
   adjustForCSymbols(const_cast<ASTNode*>(ast));
   mxFree(cvalue);
   return ast;
@@ -1415,6 +1456,10 @@ StructureFields::adjustForCSymbols(ASTNode * math)
     {
       math->setType(AST_FUNCTION_DELAY);
     }
+    else if (math->getName() == details->getRateOfSymbol())
+    {
+      math->setType(AST_FUNCTION_RATE_OF);
+    }  
   }
   else if (math->getType() == AST_NAME)
   {

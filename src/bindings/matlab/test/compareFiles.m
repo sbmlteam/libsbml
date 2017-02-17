@@ -41,6 +41,8 @@ while (~feof(fid1) || ~feof(fid2))
   if (~strcmp(line1, line2))
     disp(sprintf('%s is Not equal to %s', line1, line2));
      y = 1;
+     fclose('all');
      return;
   end;
 end;
+fclose('all');

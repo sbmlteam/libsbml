@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model>
+    <listOfParameters>
+      <parameter id="p4" value="2" units="dimensionless" constant="false"/>
+      <parameter id="p1" value="2" units="dimensionless" constant="false"/>
+      <parameter id="p2" value="2" units="dimensionless" constant="false"/>
+      <parameter id="p3" value="2" units="dimensionless" constant="false"/>
+      <parameter id="p5" value="2" units="dimensionless" constant="false"/>
+      <parameter id="p6" value="2" units="dimensionless" constant="false"/>
+      <parameter id="x" value="2" units="dimensionless" constant="false"/>
+      <parameter id="d" units="dimensionless" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <min/>
+            <ci> x </ci>
+            <ci> d </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <max/>
+            <ci> x </ci>
+            <ci> d </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="p3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <rem/>
+            <ci> x </ci>
+            <ci> d </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="p4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <quotient/>
+            <ci> x </ci>
+            <ci> d </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="p5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <implies/>
+            <ci> x </ci>
+            <ci> d </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="p6">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/rateOf"> rateOf </csymbol>
+            <ci> x </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>
