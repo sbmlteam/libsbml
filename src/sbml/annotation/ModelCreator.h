@@ -425,6 +425,10 @@ public:
   void resetModifiedFlags();
 
   bool usingFNVcard4() { return mUsingFNVcard4; };
+
+  bool usingSingleName();
+
+  void setUseSingleName(bool flag);
    
   
   /** @endcond */
@@ -440,6 +444,7 @@ protected:
 
   bool mHasBeenModified;
   bool mUsingFNVcard4;
+  bool mUseSingleName;
 
   /** @endcond */
 };

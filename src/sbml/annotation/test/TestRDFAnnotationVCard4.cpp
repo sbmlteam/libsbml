@@ -116,7 +116,7 @@ START_TEST (test_RDFAnnotationV4_getModelHistory)
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(mc1), "Sarah Keating"));
   fail_unless(!strcmp(ModelCreator_getName(mc1), "Sarah Keating"));
-  fail_unless(!strcmp(ModelCreator_getGivenName(mc1), ""));
+  fail_unless(!strcmp(ModelCreator_getGivenName(mc1), "Sarah Keating"));
   fail_unless(!strcmp(ModelCreator_getEmail(mc1), "skeating@caltech.edu"));
   fail_unless(!strcmp(ModelCreator_getOrganisation(mc1), "UH"));
 
@@ -362,7 +362,7 @@ START_TEST (test_RDFAnnotationV4_getModelHistory_31)
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(mc1), "Sarah Keating"));
   fail_unless(!strcmp(ModelCreator_getName(mc1), "Sarah Keating"));
-  fail_unless(!strcmp(ModelCreator_getGivenName(mc1), ""));
+  fail_unless(!strcmp(ModelCreator_getGivenName(mc1), "Sarah Keating"));
   fail_unless(!strcmp(ModelCreator_getEmail(mc1), "skeating@caltech.edu"));
   fail_unless(!strcmp(ModelCreator_getOrganisation(mc1), "UH"));
 
@@ -591,6 +591,238 @@ START_TEST (test_RDFAnnotationV4_modelWithHistoryWithOneName_31)
 END_TEST
 
 
+START_TEST(test_RDFAnnotationV4_modelWithHistoryVcard4_1)
+
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setFamilyName("Smith");
+  c->setGivenName("John");
+  c->setEmail("a@bcd");
+  c->setOrganization("UT");
+  c->setUseSingleName(true);
+
+  h->addCreator(c);
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+
+  m31->unsetModelHistory();
+
+  m31->setModelHistory(h);
+
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m31);
+
+  const char * expected =
+    "<annotation>\n"
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000001\">\n"
+    "      <dcterms:creator>\n"
+    "        <rdf:Bag>\n"
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+    "            <vCard4:fn>\n"
+    "              <vCard4:text>John Smith</vCard4:text>\n"
+    "            </vCard4:fn>\n"
+    "            <vCard4:hasEmail>a@bcd</vCard4:hasEmail>\n"
+    "            <vCard4:organization-name>UT</vCard4:organization-name>\n"
+    "          </rdf:li>\n"
+    "        </rdf:Bag>\n"
+    "      </dcterms:creator>\n"
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:created>\n"
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:modified>\n"
+    "    </rdf:Description>\n"
+    "  </rdf:RDF>\n"
+    "</annotation>";
+
+  fail_unless(equals(expected, ann->toXMLString().c_str()));
+
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
+}
+END_TEST
+
+
+START_TEST(test_RDFAnnotationV4_modelWithHistoryVcard4_2)
+
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setFamilyName("Smith");
+  c->setGivenName("John");
+  c->setEmail("a@bcd");
+  c->setOrganization("UT");
+  c->setUseSingleName(false);
+
+  h->addCreator(c);
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+
+  m31->unsetModelHistory();
+
+  m31->setModelHistory(h);
+
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m31);
+
+  const char * expected =
+    "<annotation>\n"
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000001\">\n"
+    "      <dcterms:creator>\n"
+    "        <rdf:Bag>\n"
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+    "            <vCard4:hasName rdf:parseType=\"Resource\">\n"
+    "              <vCard4:family-name>Smith</vCard4:family-name>\n"
+    "              <vCard4:given-name>John</vCard4:given-name>\n"
+    "            </vCard4:hasName>\n"
+    "            <vCard4:hasEmail>a@bcd</vCard4:hasEmail>\n"
+    "            <vCard4:organization-name>UT</vCard4:organization-name>\n"
+    "          </rdf:li>\n"
+    "        </rdf:Bag>\n"
+    "      </dcterms:creator>\n"
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:created>\n"
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:modified>\n"
+    "    </rdf:Description>\n"
+    "  </rdf:RDF>\n"
+    "</annotation>";
+
+  fail_unless(equals(expected, ann->toXMLString().c_str()));
+
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
+}
+END_TEST
+
+
+START_TEST(test_RDFAnnotationV4_modelWithHistoryVcard4_3)
+
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setName("John Smith");
+  c->setEmail("a@bcd");
+  c->setOrganization("UT");
+  c->setUseSingleName(false);
+
+  h->addCreator(c);
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+
+  m31->unsetModelHistory();
+
+  m31->setModelHistory(h);
+
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m31);
+
+  const char * expected =
+    "<annotation>\n"
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000001\">\n"
+    "      <dcterms:creator>\n"
+    "        <rdf:Bag>\n"
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+    "            <vCard4:hasName rdf:parseType=\"Resource\">\n"
+    "              <vCard4:family-name>Smith</vCard4:family-name>\n"
+    "              <vCard4:given-name>John</vCard4:given-name>\n"
+    "            </vCard4:hasName>\n"
+    "            <vCard4:hasEmail>a@bcd</vCard4:hasEmail>\n"
+    "            <vCard4:organization-name>UT</vCard4:organization-name>\n"
+    "          </rdf:li>\n"
+    "        </rdf:Bag>\n"
+    "      </dcterms:creator>\n"
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:created>\n"
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:modified>\n"
+    "    </rdf:Description>\n"
+    "  </rdf:RDF>\n"
+    "</annotation>";
+
+  fail_unless(equals(expected, ann->toXMLString().c_str()));
+
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
+}
+END_TEST
+
+
+START_TEST(test_RDFAnnotationV4_modelWithHistoryVcard4_4)
+
+{
+  ModelHistory * h = new ModelHistory();
+
+  ModelCreator *c = new ModelCreator();
+  c->setName("John Smith");
+  c->setEmail("a@bcd");
+  c->setOrganization("UT");
+  c->setUseSingleName(true);
+
+  h->addCreator(c);
+  Date * d = new Date(2005, 2, 2, 14, 56, 11);
+  h->setCreatedDate(d);
+  h->addModifiedDate(d);
+
+  m31->unsetModelHistory();
+
+  m31->setModelHistory(h);
+
+  XMLNode *ann = RDFAnnotationParser::parseModelHistory(m31);
+
+  const char * expected =
+    "<annotation>\n"
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:vCard4=\"http://www.w3.org/2006/vcard/ns#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#_000001\">\n"
+    "      <dcterms:creator>\n"
+    "        <rdf:Bag>\n"
+    "          <rdf:li rdf:parseType=\"Resource\">\n"
+    "            <vCard4:fn>\n"
+    "              <vCard4:text>John Smith</vCard4:text>\n"
+    "            </vCard4:fn>\n"
+    "            <vCard4:hasEmail>a@bcd</vCard4:hasEmail>\n"
+    "            <vCard4:organization-name>UT</vCard4:organization-name>\n"
+    "          </rdf:li>\n"
+    "        </rdf:Bag>\n"
+    "      </dcterms:creator>\n"
+    "      <dcterms:created rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:created>\n"
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+    "      </dcterms:modified>\n"
+    "    </rdf:Description>\n"
+    "  </rdf:RDF>\n"
+    "</annotation>";
+
+  fail_unless(equals(expected, ann->toXMLString().c_str()));
+
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
+}
+END_TEST
+
+
 Suite *
 create_suite_RDFAnnotationV4 (void)
 {
@@ -611,6 +843,10 @@ create_suite_RDFAnnotationV4 (void)
   tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryWithCharacterReference_31);
   tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryWithOneName_31);
 
+  tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryVcard4_1);
+  tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryVcard4_2);
+  tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryVcard4_3);
+  tcase_add_test(tcase, test_RDFAnnotationV4_modelWithHistoryVcard4_4);
   suite_add_tcase(suite, tcase);
 
   return suite;

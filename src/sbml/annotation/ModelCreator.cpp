@@ -51,6 +51,7 @@ ModelCreator::ModelCreator () :
     mAdditionalRDF(NULL)
   , mHasBeenModified (false)
   , mUsingFNVcard4 (false)
+  , mUseSingleName (false)
 {
 }
 
@@ -61,6 +62,7 @@ ModelCreator::ModelCreator(const XMLNode creator):
     mAdditionalRDF(NULL)
   , mHasBeenModified (false)
   , mUsingFNVcard4 (false)
+  , mUseSingleName (false)
 {
   std::string vcard3_uri = "http://www.w3.org/2001/vcard-rdf/3.0#";
   std::string vcard4_uri = "http://www.w3.org/2006/vcard/ns#";
@@ -194,7 +196,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
 
     mHasBeenModified = orig.mHasBeenModified;
     mUsingFNVcard4 = orig.mUsingFNVcard4;
-
+    mUseSingleName = orig.mUseSingleName;
   }
 }
 
@@ -219,6 +221,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 
     mHasBeenModified = rhs.mHasBeenModified;
     mUsingFNVcard4 = rhs.mUsingFNVcard4;
+    mUseSingleName = rhs.mUseSingleName;
   }
 
   return *this;
@@ -288,6 +291,7 @@ ModelCreator::setFamilyName(const std::string& name)
   {
     mFamilyName = name;
     mHasBeenModified = true;
+    mUseSingleName = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -302,6 +306,7 @@ ModelCreator::setGivenName(const std::string& name)
   {
     mGivenName = name;
     mHasBeenModified = true;
+    mUseSingleName = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -347,8 +352,10 @@ ModelCreator::setName(const std::string& name)
 {
   {
     mFamilyName = name;
+    mGivenName = name;
     mHasBeenModified = true;
     mUsingFNVcard4 = true;
+    mUseSingleName = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -500,6 +507,26 @@ ModelCreator::resetModifiedFlags()
   mHasBeenModified = false;
 }
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+bool
+ModelCreator::usingSingleName()
+{
+  return mUseSingleName;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+void
+ModelCreator::setUseSingleName(bool flag)
+{
+  mUsingFNVcard4 = flag;
+  mUseSingleName = flag;
+}
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */

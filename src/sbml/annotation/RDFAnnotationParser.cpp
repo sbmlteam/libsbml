@@ -304,7 +304,7 @@ RDFAnnotationParser::parseRDFAnnotation(
   // if no error logged create history
   if (RDFDesc != NULL)
   {
-	  history = deriveHistoryFromAnnotation(annotation);
+    history = deriveHistoryFromAnnotation(annotation);
   }
   
   return history;
@@ -352,13 +352,13 @@ RDFAnnotationParser::deriveHistoryFromAnnotation(
   ModelCreator* creator = NULL;
   Date * modified = NULL;
   Date * created = NULL;
-	static const XMLNode outOfRange;
+  static const XMLNode outOfRange;
 
   // find creation nodes and create history
   
   if (RDFDesc != NULL)
   {
-	  history = new ModelHistory();
+    history = new ModelHistory();
 
     const XMLNode *creatorNode = &(RDFDesc->getChild("creator").getChild("Bag"));
     if (creatorNode->equals(outOfRange) == false)
@@ -500,8 +500,8 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 {
 
   if (object == NULL || 
-	  object->getCVTerms() == NULL || 
-	  object->getCVTerms()->getSize() == 0 ||
+    object->getCVTerms() == NULL || 
+    object->getCVTerms()->getSize() == 0 ||
     !object->isSetMetaId())
   {
     return NULL;
@@ -529,8 +529,8 @@ XMLNode *
 RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
 {
   if (object == NULL || 
-	  object->getCVTerms() == NULL || 
-	  object->getCVTerms()->getSize() == 0 ||
+    object->getCVTerms() == NULL || 
+    object->getCVTerms()->getSize() == 0 ||
     !object->isSetMetaId())
   {
     return NULL;
@@ -695,7 +695,7 @@ XMLNode *
 RDFAnnotationParser::parseModelHistory(const SBase *object)
 {
   if (object == NULL  || 
-		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
+    (object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
     !object->isSetMetaId())
   {
     return NULL;
@@ -736,7 +736,7 @@ XMLNode *
 RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
 {
   if (object == NULL  || 
-		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
+    (object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
     !object->isSetMetaId())
   {
     return NULL;
@@ -766,7 +766,7 @@ XMLNode *
 RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
 {
     if (object == NULL  || 
-		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
+    (object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
     !object->isSetMetaId())
   {
     return NULL;
@@ -929,10 +929,16 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
     ModelCreator* c = history->getCreator(n);
     if (c->usingFNVcard4())
     {
-      if (c->isSetName())
+      if (c->usingSingleName())
       {
+        // we want to a single name but we have entered it as two
+        std::string name = c->getName();
+        if (name != c->getGivenName())
+        {
+          name = c->getGivenName() + " " + c->getFamilyName();
+        }
         XMLNode empty(empty_token);
-        empty.append(c->getName());
+        empty.append(name);
 
         XMLNode Text(Text_token);
         Text.addChild(empty);
@@ -943,6 +949,17 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
     }
     else
     {
+      std::string name = c->getName();
+      std::string fname, gname;
+      // we have entered one name but want to display it as 2
+      if (name == c->getGivenName())
+      {
+        std::size_t found = name.find(" ");
+        gname = name.substr(0, found);
+        fname = name.substr(found + 1);
+        c->setFamilyName(fname);
+        c->setGivenName(gname);
+      }
       if (c->isSetFamilyName())
       {
         XMLNode empty(empty_token);
