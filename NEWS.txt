@@ -10,6 +10,11 @@ STABLE RELEASE
 * New features
 
   - A new function setCharacters has been added to the XMLToken class.
+
+  - The SBMLDocument object resulting from an invalid read will now
+    report level and version as '0'. This facilitates distinguishing
+    between an invalid read and a Level 3 Version 2 document that 
+    does not contain a <model> element.
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
@@ -19,6 +24,27 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - Code was failing to recognize teh math elements <pi/> and
+    <exponetntiale/> as returning numeric values. This has been
+    corrected.
+
+  - A <stoichiometryMath> element with no child <math> was causing
+    code to crash. This has been sorted.
+
+  - Validation of MathML was failing to report when a <math> element
+    contained two top-level elements. This is now caught and correctly
+    reported.
+
+  - A speciesReference id which has been declared 'constant' cannot be 
+    changed by an event. Validation was failing to catch this situation.
+    This is now fixed.
+
+  - Several fixes have been made to the conversion of SBML documents
+    to lower levels and versions. These include: loss of compartment size;
+    evaluation of functionDefinitions and initialAssignments; conversion of 
+    fast reactions; evaluation of stoichiometry using initialAssignment 
+    and rules and expanding functionDefinitions with no bvar elements.
+
   - The export of the Avagadro Constant as an exponential number was losing 
     precision. This has been fixed.
 
@@ -27,7 +53,14 @@ STABLE RELEASE
     to Matthias König for reporting it.
 
   - 'comp' package-specific bug fixes:
+
+    - Validation of a model that indirectly referenced a replacedBy element
+      was causing a problem. This has been resolved.
+
   - 'fbc' package-specific bug fixes:
+
+    - Validation was incorrectly reporting that a lower fluxBound could
+      not have a value of -INF. This has been corrected. 
 
     - The 'unsetActiveObjective' function now returns an OperationReturnValue
       in line with other set/unset functions.
