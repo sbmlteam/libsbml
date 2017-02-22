@@ -573,10 +573,12 @@ XercesParser::parse (const char* content, bool isFile, bool isProgressive)
   // Xerces throws an exception here if the xml declaration is corrupt
   catch (const OurSAXParseException& e)
   {
+    char * xercesMessage = XMLString::transcode(e.getMessage());
     reportError(translateError(e.lastXercesError), 
-      XMLString::transcode(e.getMessage()),
+      xercesMessage,
 		e.getLineNumber(), e.getColumnNumber());
     result = false;
+    XMLString::release(&xercesMessage);
   }
   catch (...)
   {
