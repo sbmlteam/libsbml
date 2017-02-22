@@ -220,6 +220,7 @@ START_TEST (test_Attributes_AssignmentRule_variable)
   result = obj->getAttribute("variable", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -253,6 +254,7 @@ START_TEST (test_Attributes_Compartment_constant)
   result = obj->getAttribute("constant", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -286,6 +288,7 @@ START_TEST (test_Attributes_Compartment_size)
   result = obj->getAttribute("size", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -320,6 +323,7 @@ START_TEST (test_Attributes_Compartment_spatialDimensions)
   result = obj->getAttribute("spatialDimensions", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == 0);
+  delete obj;
 }
 END_TEST
 
@@ -353,6 +357,7 @@ START_TEST (test_Attributes_Compartment_spatialDimensions_double)
   result = obj->getAttribute("spatialDimensions", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -386,6 +391,7 @@ START_TEST (test_Attributes_Compartment_units)
   result = obj->getAttribute("units", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -420,6 +426,7 @@ START_TEST (test_Attributes_Event_useValuesFromTriggerTime)
   result = obj->getAttribute("useValuesFromTriggerTime", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -454,6 +461,7 @@ START_TEST (test_Attributes_Event_timeUnits)
   result = obj->getAttribute("timeUnits", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -487,6 +495,7 @@ START_TEST (test_Attributes_EventAssignment_variable)
   result = obj->getAttribute("variable", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -524,6 +533,7 @@ START_TEST (test_Attributes_FunctionDefinition_sbo)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value ==-1);
+  delete obj;
 }
 END_TEST
 
@@ -561,6 +571,7 @@ START_TEST (test_Attributes_FunctionDefinition_sbo_string)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value =="");
+  delete obj;
 }
 END_TEST
 
@@ -595,6 +606,7 @@ START_TEST (test_Attributes_InitialAssignment_symbol)
   result = obj->getAttribute("symbol", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -629,6 +641,7 @@ START_TEST (test_Attributes_KineticLaw_timeUnits)
   result = obj->getAttribute("timeUnits", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -662,6 +675,7 @@ START_TEST (test_Attributes_LocalParameter_value)
   result = obj->getAttribute("value", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -695,10 +709,9 @@ START_TEST (test_Attributes_LocalParameter_units)
   result = obj->getAttribute("units", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
-
-
 
 
 START_TEST (test_Attributes_Model_substanceUnits)
@@ -731,6 +744,7 @@ START_TEST (test_Attributes_Model_substanceUnits)
   result = obj->getAttribute("substanceUnits", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -764,6 +778,7 @@ START_TEST (test_Attributes_Parameter_constant)
   result = obj->getAttribute("constant", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -797,6 +812,7 @@ START_TEST (test_Attributes_Parameter_value)
   result = obj->getAttribute("value", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -830,6 +846,7 @@ START_TEST (test_Attributes_Parameter_units)
   result = obj->getAttribute("units", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -863,6 +880,7 @@ START_TEST (test_Attributes_RateRule_variable)
   result = obj->getAttribute("variable", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -897,6 +915,7 @@ START_TEST (test_Attributes_Reaction_fast)
   result = obj->getAttribute("fast", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -931,6 +950,7 @@ START_TEST (test_Attributes_Reaction_compartment)
   result = obj->getAttribute("compartment", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -965,10 +985,9 @@ START_TEST (test_Attributes_SimpleSpeciesReference_species)
   result = obj->getAttribute("species", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
-
-
 
 
 START_TEST (test_Attributes_Species_hasOnlySubstanceUnits)
@@ -1001,6 +1020,7 @@ START_TEST (test_Attributes_Species_hasOnlySubstanceUnits)
   result = obj->getAttribute("hasOnlySubstanceUnits", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -1034,6 +1054,7 @@ START_TEST (test_Attributes_Species_charge)
   result = obj->getAttribute("charge", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == 0);
+  delete obj;
 }
 END_TEST
 
@@ -1067,6 +1088,7 @@ START_TEST (test_Attributes_Species_initialAmount)
   result = obj->getAttribute("initialAmount", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -1101,6 +1123,7 @@ START_TEST (test_Attributes_Species_compartment)
   result = obj->getAttribute("compartment", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value.empty());
+  delete obj;
 }
 END_TEST
 
@@ -1135,6 +1158,7 @@ START_TEST (test_Attributes_SpeciesReference_constant)
   result = obj->getAttribute("constant", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -1168,6 +1192,7 @@ START_TEST (test_Attributes_SpeciesReference_stoichiometry)
   result = obj->getAttribute("stoichiometry", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == 1);
+  delete obj;
 }
 END_TEST
 
@@ -1200,6 +1225,7 @@ START_TEST (test_Attributes_SpeciesReference_stoichiometry_double)
   result = obj->getAttribute("stoichiometry", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -1231,6 +1257,7 @@ START_TEST (test_Attributes_SpeciesReference_denominator)
   result = obj->getAttribute("denominator", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == 1);
+  delete obj;
 }
 END_TEST
 
@@ -1270,6 +1297,7 @@ START_TEST (test_Attributes_Trigger_initialValue)
   result = obj->getAttribute("initialValue", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == true);
+  delete obj;
 }
 END_TEST
 
@@ -1308,7 +1336,7 @@ START_TEST (test_Attributes_Trigger_MetaId)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == "");
-
+  delete obj;
 }
 END_TEST
 
@@ -1348,7 +1376,7 @@ START_TEST (test_Attributes_Trigger_Id)
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(strcmp(value, ""));
-
+  delete obj;
 }
 END_TEST
 
@@ -1382,6 +1410,7 @@ START_TEST (test_Attributes_Unit_scale)
   result = obj->getAttribute("scale", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == SBML_INT_MAX);
+  delete obj;
 }
 END_TEST
 
@@ -1415,6 +1444,7 @@ START_TEST (test_Attributes_Unit_multiplier)
   result = obj->getAttribute("multiplier", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 
@@ -1448,6 +1478,7 @@ START_TEST (test_Attributes_Unit_exponent)
   result = obj->getAttribute("exponent", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(value == SBML_INT_MIN);
+  delete obj;
 }
 END_TEST
 
@@ -1481,6 +1512,7 @@ START_TEST (test_Attributes_Unit_exponent_double)
   result = obj->getAttribute("exponent", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
   fail_unless(util_isNaN(value));
+  delete obj;
 }
 END_TEST
 

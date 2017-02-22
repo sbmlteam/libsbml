@@ -1209,6 +1209,7 @@ START_TEST (test_SBMLConvertStrict_convertFuncDefsInInitialAssignmentToL1)
 
   SBMLDocument_free(d);
   ASTNode_free(math);
+  ASTNode_free(math1);
 }
 END_TEST
 
