@@ -2266,6 +2266,16 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+  * Returns the Version within the SBML Level of the actual object.
+  *
+  * @copydetails doc_what_is_SBMLDocument
+  *
+  * @return the SBML version of this SBML object.
+  */
+  unsigned int getObjectVersion() const;
+
+
+  /**
    * Returns the Version of the SBML Level&nbsp;3 package to which this
    * element belongs to.
    *
