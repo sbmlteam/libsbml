@@ -2899,7 +2899,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 1)
           SBMLfieldnames = { 'fbc_version', ...
                              'fbc_fluxBound', ...
@@ -2937,7 +2937,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'fbc_charge', ...
                          'fbc_chemicalFormula', ...
@@ -2969,7 +2969,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version <3)
     if (pkgVersion == 1)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
@@ -3011,7 +3011,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
@@ -3048,7 +3048,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
@@ -3085,7 +3085,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion  == 2)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
@@ -3126,7 +3126,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
       SBMLfieldnames = { 'fbc_lowerFluxBound', ...
                          'fbc_upperFluxBound', ...
@@ -3161,7 +3161,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
 
       SBMLfieldnames = { 'typecode', ...
@@ -3202,7 +3202,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
 
       SBMLfieldnames = { 'typecode', ...

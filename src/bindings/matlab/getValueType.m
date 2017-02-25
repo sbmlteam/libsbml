@@ -2865,7 +2865,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 1)
           SBMLfieldnames = { 'uint', ...
                              'structure', ...
@@ -2903,7 +2903,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'int', ...
                          'char', ...
@@ -2935,7 +2935,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version <3)
     if (pkgVersion == 1)
       SBMLfieldnames = { 'SBML_FBC_FLUXBOUND', ...
                          'char', ...
@@ -2977,7 +2977,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'SBML_FBC_FLUXOBJECTIVE', ...
                          'char', ...
@@ -3014,7 +3014,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion < 3)
       SBMLfieldnames = { 'SBML_FBC_OBJECTIVE', ...
                          'char', ...
@@ -3051,7 +3051,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion  == 2)
       SBMLfieldnames = { 'SBML_FBC_GENE_PRODUCT', ...
                          'char', ...
@@ -3092,7 +3092,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
       SBMLfieldnames = { 'char', ...
                          'char', ...
@@ -3127,7 +3127,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
 
       SBMLfieldnames = { 'SBML_FBC_GENE_PRODUCT_ASSOCIATION', ...
@@ -3168,7 +3168,7 @@ elseif (level == 2)
 	SBMLfieldnames = [];
 	nNumberFields = 0;
 elseif (level == 3)
-	if (version == 1)
+	if (version < 3)
     if (pkgVersion == 2)
 
       SBMLfieldnames = { 'SBML_FBC_ASSOCIATION', ...
