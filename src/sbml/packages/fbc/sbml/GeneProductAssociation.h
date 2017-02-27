@@ -302,7 +302,8 @@ public:
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
   */
-  virtual int setAssociation(const std::string& association);
+  virtual int setAssociation(const std::string& association, bool usingId = false,
+    bool addMissingGP = true);
 
   /**
    * Unsets the value of the "id" attribute of this GeneProductAssociation.

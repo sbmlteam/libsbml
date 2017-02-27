@@ -180,7 +180,7 @@ public:
   *
   * @return the association as infix string.
   */
-  virtual std::string toInfix() const;
+  virtual std::string toInfix(bool usingId=false) const;
 
   /**
    * Returns the value of the "name" attribute of this GeneProductRef object.

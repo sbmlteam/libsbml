@@ -225,9 +225,11 @@ FbcAssociation::accept (SBMLVisitor& v) const
   /** @endcond */
 
 
-FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin);
+FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin, bool usingId, bool addMissingGP);
 
-void addChildren(FbcAssociation* association, const ASTNode* node, const ASTNode *current, FbcModelPlugin* plugin)
+void addChildren(FbcAssociation* association, const ASTNode* node, 
+                 const ASTNode *current, FbcModelPlugin* plugin, 
+                 bool usingId, bool addMissingGP)
 {
 
   if (node->getType() == AST_TIMES || node->getType() == AST_PLUS)
@@ -237,11 +239,11 @@ void addChildren(FbcAssociation* association, const ASTNode* node, const ASTNode
       ASTNode* astChild = node->getChild(i);
       if (astChild->getType() == current->getType())
       {
-        addChildren(association, astChild, node, plugin);
+        addChildren(association, astChild, node, plugin, usingId, addMissingGP);
         continue;
       }
 
-      FbcAssociation* child = toAssociation(astChild, plugin);
+      FbcAssociation* child = toAssociation(astChild, plugin, usingId, addMissingGP);
       if (child == NULL)
         continue;
 
@@ -260,7 +262,7 @@ void addChildren(FbcAssociation* association, const ASTNode* node, const ASTNode
     }
   }
   else{
-    FbcAssociation* child = toAssociation(node, plugin);
+    FbcAssociation* child = toAssociation(node, plugin, usingId, addMissingGP);
     if (child == NULL)
       return;
 
@@ -279,11 +281,11 @@ void addChildren(FbcAssociation* association, const ASTNode* node, const ASTNode
     delete child;
 
   }
-
-
 }
 
-FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
+
+FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin, 
+                               bool usingId, bool addMissingGP)
 {
   if (node == NULL)
     return NULL;
@@ -291,41 +293,72 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
   if (node->getType() == AST_NAME)
   {
     std::string name = node->getName();
-    replaceAllSubStrings(name, "__MINUS__", "-");
-    replaceAllSubStrings(name, "__COLON__", ":");
-    replaceAllSubStrings(name, "__DOT__", ".");
-    replaceAllSubStrings(name, "__ONE__", "1");
-    replaceAllSubStrings(name, "__TWO__", "2");
-    replaceAllSubStrings(name, "__THREE__", "3");
-    replaceAllSubStrings(name, "__FOUR__", "4");
-    replaceAllSubStrings(name, "__FIVE__", "5");
-    replaceAllSubStrings(name, "__SIX__", "6");
-    replaceAllSubStrings(name, "__SEVEN__", "7");
-    replaceAllSubStrings(name, "__EIGHT__", "8");
-    replaceAllSubStrings(name, "__NINE__", "9");
-    replaceAllSubStrings(name, "__ZERO__", "0");
+    if (!usingId)
+    {
+      replaceAllSubStrings(name, "__MINUS__", "-");
+      replaceAllSubStrings(name, "__COLON__", ":");
+      replaceAllSubStrings(name, "__DOT__", ".");
+      replaceAllSubStrings(name, "__ONE__", "1");
+      replaceAllSubStrings(name, "__TWO__", "2");
+      replaceAllSubStrings(name, "__THREE__", "3");
+      replaceAllSubStrings(name, "__FOUR__", "4");
+      replaceAllSubStrings(name, "__FIVE__", "5");
+      replaceAllSubStrings(name, "__SIX__", "6");
+      replaceAllSubStrings(name, "__SEVEN__", "7");
+      replaceAllSubStrings(name, "__EIGHT__", "8");
+      replaceAllSubStrings(name, "__NINE__", "9");
+      replaceAllSubStrings(name, "__ZERO__", "0");
+    }
 
-    GeneProduct* prod = plugin->getGeneProductByLabel(node->getName());
-    if (prod == NULL)
+    GeneProduct* prod = NULL;
+    if (usingId)
+    {
+      prod = plugin->getGeneProduct(name);
+    }
+    else
+    {
+      prod = plugin->getGeneProductByLabel(node->getName());
+      if (prod == NULL)
         prod = plugin->getGeneProductByLabel(name);
+    }
     string id;
     if (prod == NULL)
     {
-      prod = plugin->createGeneProduct();
-      string base("gp_");
-      base += node->getName();
-      id = base;
-      int count = 0;
-      while (plugin->getGeneProduct(id))
+      if (usingId)
       {
-        stringstream str;  str << base << "_" << ++count;
-        id = str.str();
+        id = name;
       }
-      prod->setId(id);
-      prod->setLabel(name);
+      else
+      {
+        string base("gp_");
+        base += node->getName();
+        id = base;
+        int count = 0;
+        while (plugin->getGeneProduct(id))
+        {
+          stringstream str;  str << base << "_" << ++count;
+          id = str.str();
+        }
+      }
+      if (addMissingGP)
+      {
+        prod = plugin->createGeneProduct();
+        if (usingId)
+        {
+          prod->setId(name);
+          prod->setLabel(name);
+        }
+        else
+        {
+          prod->setId(id);
+          prod->setLabel(name);
+        }
+      }
     }
     else
+    {
       id = prod->getId();
+    }
 
     GeneProductRef* a = new GeneProductRef();
     a->setGeneProduct(id);
@@ -334,13 +367,13 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
   else if (node->getType() == AST_PLUS)
   {
     FbcOr* a = new FbcOr();
-    addChildren(a, node, node, plugin);
+    addChildren(a, node, node, plugin, usingId, addMissingGP);
     return a;
   }
   else if (node->getType() == AST_TIMES)
   {
     FbcAnd* a = new FbcAnd();
-    addChildren(a, node, node, plugin);
+    addChildren(a, node, node, plugin, usingId, addMissingGP);
     return a;
   }
   return NULL;
@@ -350,33 +383,37 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
 
 
 FbcAssociation* 
-FbcAssociation::parseFbcInfixAssociation(const std::string& association, FbcModelPlugin* plugin)
+FbcAssociation::parseFbcInfixAssociation(const std::string& association, FbcModelPlugin* plugin,
+                                          bool usingId, bool addMissingGP)
 {
   std::string tweaked(association);
   replaceAllSubStrings(tweaked, " and ", " * ");
   replaceAllSubStrings(tweaked, " AND ", " * ");
   replaceAllSubStrings(tweaked, " or ", " + ");
   replaceAllSubStrings(tweaked, " OR ", " + ");
-  replaceAllSubStrings(tweaked, "-", "__MINUS__");
-  replaceAllSubStrings(tweaked, ":", "__COLON__");
-  replaceAllSubStrings(tweaked, ".", "__DOT__");
-  replaceAllSubStrings(tweaked, "1", "__ONE__");
-  replaceAllSubStrings(tweaked, "2", "__TWO__");
-  replaceAllSubStrings(tweaked, "3", "__THREE__");
-  replaceAllSubStrings(tweaked, "4", "__FOUR__");
-  replaceAllSubStrings(tweaked, "5", "__FIVE__");
-  replaceAllSubStrings(tweaked, "6", "__SIX__");
-  replaceAllSubStrings(tweaked, "7", "__SEVEN__");
-  replaceAllSubStrings(tweaked, "8", "__EIGHT__");
-  replaceAllSubStrings(tweaked, "9", "__NINE__");
-  replaceAllSubStrings(tweaked, "0", "__ZERO__");
+  if (!usingId)
+  {
+    replaceAllSubStrings(tweaked, "-", "__MINUS__");
+    replaceAllSubStrings(tweaked, ":", "__COLON__");
+    replaceAllSubStrings(tweaked, ".", "__DOT__");
+    replaceAllSubStrings(tweaked, "1", "__ONE__");
+    replaceAllSubStrings(tweaked, "2", "__TWO__");
+    replaceAllSubStrings(tweaked, "3", "__THREE__");
+    replaceAllSubStrings(tweaked, "4", "__FOUR__");
+    replaceAllSubStrings(tweaked, "5", "__FIVE__");
+    replaceAllSubStrings(tweaked, "6", "__SIX__");
+    replaceAllSubStrings(tweaked, "7", "__SEVEN__");
+    replaceAllSubStrings(tweaked, "8", "__EIGHT__");
+    replaceAllSubStrings(tweaked, "9", "__NINE__");
+    replaceAllSubStrings(tweaked, "0", "__ZERO__");
+  }
 
   ASTNode* node = SBML_parseFormula(tweaked.c_str());
 
   if (node == NULL)
     return NULL;
 
-  FbcAssociation* result = toAssociation(node, plugin);
+  FbcAssociation* result = toAssociation(node, plugin, usingId, addMissingGP);
 
   delete node;
 
@@ -385,12 +422,14 @@ FbcAssociation::parseFbcInfixAssociation(const std::string& association, FbcMode
 
 }
 
-std::string 
-FbcAssociation::toInfix() const
+std::string
+FbcAssociation::toInfix(bool usingId) const
 {
   return "";
 }
-  /** @cond doxygenLibsbmlInternal */
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Sets the parent SBMLDocument.

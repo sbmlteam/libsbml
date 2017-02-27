@@ -142,20 +142,27 @@ GeneProductRef::getGeneProduct() const
 
 
 std::string 
-GeneProductRef::toInfix() const
+GeneProductRef::toInfix(bool usingId) const
 {
-  const SBMLDocument* doc = getSBMLDocument(); 
+  const SBMLDocument* doc = getSBMLDocument();
   if (doc == NULL) return mGeneProduct;
-  
+
   const Model* model = doc->getModel();
   if (model == NULL) return mGeneProduct;
-    
+
   const FbcModelPlugin* plug = dynamic_cast<const FbcModelPlugin*>(model->getPlugin("fbc"));
   if (plug == NULL) return mGeneProduct;
   const GeneProduct* product = plug->getGeneProduct(mGeneProduct);
   if (product == NULL) return mGeneProduct;
-      
-  return product->getLabel();
+
+  if (usingId)
+  {
+    return product->getId();
+  }
+  else
+  {
+    return product->getLabel();
+  }
 }
 
 

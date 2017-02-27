@@ -325,7 +325,8 @@ GeneProductAssociation::setAssociation(FbcAssociation* association)
 }
 
 
-int GeneProductAssociation::setAssociation(const std::string& association)
+int GeneProductAssociation::setAssociation(const std::string& association, 
+                                           bool usingId, bool addMissingGP)
 {
   SBMLDocument* doc = getSBMLDocument();
   if (doc == NULL)
@@ -337,7 +338,7 @@ int GeneProductAssociation::setAssociation(const std::string& association)
   if (plugin == NULL)
     return LIBSBML_INVALID_OBJECT;
 
-  FbcAssociation* newAssociation = FbcAssociation::parseFbcInfixAssociation(association, plugin);
+  FbcAssociation* newAssociation = FbcAssociation::parseFbcInfixAssociation(association, plugin, usingId, addMissingGP);
   if (newAssociation == NULL)
     return LIBSBML_OPERATION_FAILED;
 

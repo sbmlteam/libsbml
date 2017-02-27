@@ -260,13 +260,19 @@ public:
   *
   * @param association the string to parse.
   * @param plugin the FbcModelPlugin on which to add the geneProduct elements.
+  * @param usingId boolean indicating whether the infix assumes identifiers (@c true)
+  * or labels (@c false default).
+  * @param addMissingGP boolean indicating whether to add missing geneProducts 
+  * (@c true default) or not (@c false).
   *
   * @return the parsed association, or @c NULL in case of an error.
   *
   * @copydetails doc_note_static_methods
   */
   static FbcAssociation* parseFbcInfixAssociation(const std::string& association,
-                                                  FbcModelPlugin* plugin);
+                                                  FbcModelPlugin* plugin,
+                                                  bool usingId=false, 
+                                                  bool addMissingGP=true);
 
 
   /**
@@ -274,7 +280,7 @@ public:
   *
   * @return the association as infix string.
   */
-  virtual std::string toInfix() const;
+  virtual std::string toInfix(bool usingId=false) const;
 
 
   /** @cond doxygenLibsbmlInternal */
