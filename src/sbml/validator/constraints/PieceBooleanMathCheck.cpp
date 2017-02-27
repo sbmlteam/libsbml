@@ -127,7 +127,7 @@ PieceBooleanMathCheck::checkMath (const Model& m, const ASTNode& node, const SBa
   * If not, an error message is logged.
   */
 void 
-PieceBooleanMathCheck::checkPiece (const Model&, const ASTNode& node, 
+PieceBooleanMathCheck::checkPiece (const Model& m, const ASTNode& node, 
                                         const SBase & sb)
 {
   unsigned int numChildren = node.getNumChildren();
@@ -155,7 +155,9 @@ PieceBooleanMathCheck::checkPiece (const Model&, const ASTNode& node,
     
     if (child != NULL)
     {
-      if (!child->returnsBoolean())
+      // need to pass the model here in case we have used a functionDefinition
+      // as the piece child
+      if (!child->returnsBoolean(&m))
       {
         logMathConflict(node, sb);
       }

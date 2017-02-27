@@ -312,7 +312,8 @@ MathMLBase::checkFunction (const Model& m,
       // as anything other than numbers and so for the logical arguments
       // check will fail if the function uses a logical operator
       // so we have to replace the bvars with the arguments being used
-      if (fdMath->isLogical())
+      // similarly with a piecewise function
+      if (fdMath->isLogical() || fdMath->isPiecewise())
       {
         for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
         {
@@ -537,11 +538,14 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
       //}
     
       isNumeric = returnsNumeric(m, fdMath);
-      delete fdMath;
       mNumericFunctionsChecked.insert(std::pair<const std::string, 
                                                 bool>(name, isNumeric));
 
-      if (isNumeric)
+      // returnsNumeric cdoes in fact check the relevant children of a piecewise 
+      // so we dont need to do this again - and indeed not every child of a piecewise
+      // should be numeric
+
+      if (isNumeric && !fdMath->isPiecewise())
       {
         // check the children
         unsigned int numChildren = node->getNumChildren();
@@ -558,8 +562,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
         else
           isNumeric = true;
       }
-
-   
+      delete fdMath; 
       return isNumeric;
     }
     else
