@@ -8194,7 +8194,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <speciesReference> containing a non-integer or non-rational "
-    "<stoichiometryMath> subelement cannot be represented in SBML Level 1.",
+    "<stoichiometryMath> subelement (or in Level3 whose stoichiometry is assigned by "
+     "non-integer or non-rational math) cannot be represented in SBML Level 1.",
     {"",
      "",
      "",

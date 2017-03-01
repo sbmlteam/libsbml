@@ -127,6 +127,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (91008, SpeciesReference, sr) 
 {
+  bool fail = false;
   //msg =
   //  "A <speciesReference> containing a non-integer or non-rational "
   //  "<stoichiometryMath> subelement cannot be represented in SBML Level 1.";
@@ -134,15 +135,43 @@ START_CONSTRAINT (91008, SpeciesReference, sr)
   /* doesnt apply if the SpeciesReference is a modifier */
   pre(!sr.isModifier());
 
-  if (sr.isSetStoichiometryMath() )
+  if (sr.isSetStoichiometryMath())
   {
-    inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
-    inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
+    if (!sr.getStoichiometryMath()->getMath()->isInteger() &&
+      !sr.getStoichiometryMath()->getMath()->isRational())
+    {
+      fail = true;
+    }
   }
   else if (sr.getLevel() > 2)
   {
-    inv( sr.getConstant());
+    if (!sr.getConstant())
+    {
+      fail = true;
+    }
+    else
+    {
+      // here we need to check whether we are being assigned by an initialAssignment
+      if (sr.isSetId() && (m.getInitialAssignmentBySymbol(sr.getId()) != NULL))
+      {
+        if (!m.getInitialAssignmentBySymbol(sr.getId())->isSetMath())
+        {
+          fail = true;
+        }
+        else
+        {
+          const ASTNode* math = m.getInitialAssignmentBySymbol(sr.getId())->getMath();
+          if (!math->isInteger() && !math->isRational())
+          {
+            fail = true;
+          }
+        }
+       
+      }
+    }
   }
+
+  inv(fail == false);
 }
 END_CONSTRAINT
 
