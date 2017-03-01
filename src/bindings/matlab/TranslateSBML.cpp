@@ -50,7 +50,7 @@ LIBSBML_CPP_NAMESPACE_USE
 ///////////////////////////////////////////////////////////////////////////////
 
 // global variables
-mxArray * mxModel[2];
+mxArray * mxModel[3];
 bool freeMemory;
 ModelDetails * details;
 

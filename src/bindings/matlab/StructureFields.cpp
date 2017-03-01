@@ -285,12 +285,15 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 
 // global variables
-extern mxArray * mxModel[2];
+extern mxArray * mxModel[3];
 extern bool freeMemory;
 extern ModelDetails * details;
 
 extern IdList reqdPkgPrefixes;
 extern IdList unreqdPkgPrefixes;
+
+extern bool fbcUsingId;
+extern bool fbcAddGeneProducts;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -301,6 +304,7 @@ void FreeMem(void)
   /* destroy arrays created */
   mxDestroyArray(mxModel[0]);
   mxDestroyArray(mxModel[1]);
+  mxDestroyArray(mxModel[2]);
 }
 
 void
@@ -917,7 +921,7 @@ StructureFields::getStringValue(const std::string& functionId, SBase* base,
 
     else if (fieldname == "association")
     {
-      value = FbcAssociation_toInfix(static_cast<FbcAssociation*>(base));
+      value = static_cast<FbcAssociation*>(base)->toInfix(fbcUsingId);//FbcAssociation_toInfix(static_cast<FbcAssociation*>(base));
     }
 #endif
 

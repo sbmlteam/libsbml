@@ -56,6 +56,7 @@ try
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
     Totalfail = Totalfail + testReadFromFileFbc2(install);
+    Totalfail = Totalfail + testReadWriteGeneProductIds(install);
   end;
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);

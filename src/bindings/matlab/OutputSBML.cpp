@@ -55,13 +55,12 @@ LIBSBML_CPP_NAMESPACE_USE
 ///////////////////////////////////////////////////////////////////////////////
 
 // global variables
-mxArray * mxModel[2];
+mxArray * mxModel[3];
 bool freeMemory;
 ModelDetails * details;
 
 IdList reqdPkgPrefixes;
 IdList unreqdPkgPrefixes;
-
 
 
 SBMLDocument *
@@ -158,7 +157,8 @@ addGeneProductAssociations(SBMLDocument* sbmlDocument)
         std::string association = StructureFields::readString(mxAssoc, "fbc_association", 0);
         if (!association.empty())
         {
-          FbcAssociation* pAssociation = FbcAssociation::parseFbcInfixAssociation(association, mplug);
+          FbcAssociation* pAssociation = FbcAssociation::parseFbcInfixAssociation(association, mplug,
+            fbcUsingId, fbcAddGeneProducts);
           plug->getGeneProductAssociation()->setAssociation(pAssociation);
           addGPAAttributes(plug->getGeneProductAssociation()->getAssociation(), mxAssoc);
         }

@@ -85,6 +85,44 @@ for i=1:length(files)
   end;
 end;
 
+if (fbcEnabled)
+    % test new arguments to Translate/Output
+    filename = ['test-data', filesep, 'fbcV2Labels.xml'];
+    outfile = [outdir, filesep, 'fbcV2Labels.xml'];
+    outfile1 = [outdir, filesep, 'fbcV2Labels-ids.xml'];
+    outfile2 = [outdir, filesep, 'fbcV2Labels-explicit.xml'];
+    model = TranslateSBML(filename);
+    if (~isempty(model))
+        disp(sprintf('Printing  %s', filename));
+        OutputSBML(model, outfile);
+    end;
+    test = test + 1;
+    if (compareFiles(filename, outfile))
+        disp(sprintf('Output of %s failed', outfile));
+        fail = fail + 1;
+    end;
+    model = TranslateSBML(filename, 0, 0, [1,0]);
+    if (~isempty(model))
+        disp(sprintf('Printing  %s', outfile1));
+        OutputSBML(model, outfile1, 0, 0, [1,0]);
+    end;
+    test = test + 1;
+    if (compareFiles(filename, outfile1))
+        disp(sprintf('Output of %s failed', outfile1));
+        fail = fail + 1;
+    end;
+    model = TranslateSBML(filename, 0, 0, [0,1]);
+    if (~isempty(model))
+        disp(sprintf('Printing  %s', outfile2));
+        OutputSBML(model, outfile2, 0, 0, [0,1]);
+    end;
+    test = test + 1;
+    if (compareFiles(filename, outfile2))
+        disp(sprintf('Output of %s failed', outfile2));
+        fail = fail + 1;
+    end;
+end; % fbc enabled
+
 disp ('************************************');
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));

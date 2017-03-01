@@ -54,9 +54,15 @@ if (nargin < 1)
 elseif (nargin == 1)
   SBMLStructure = varargin{1};
   extensions_allowed = 1;
+  userValidation = 0;
 elseif (nargin == 2)
   SBMLStructure = varargin{1};
   extensions_allowed = varargin{2};
+  userValidation = 0;
+elseif (nargin == 3)
+  SBMLStructure = varargin{1};
+  extensions_allowed = varargin{2};
+  userValidation = varargin{3};
 else
   error('too many arguments to isSBML_Model');
 end;
@@ -96,6 +102,9 @@ end;
 
 [valid, message] = isSBML_Struct('model', SBMLStructure, level, version, packages, pkgVersion, extensions_allowed);
 
+if (valid == 1 && pkgCount > 0 && strcmp(packages{1}, 'fbc') && userValidation == 1)
+    [valid, message] = applyUserValidation(SBMLStructure, level, version, packages, pkgVersion);
+end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, packages, pkgVersion, extensions_allowed)
 
