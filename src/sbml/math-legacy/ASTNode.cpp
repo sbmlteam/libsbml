@@ -1583,6 +1583,19 @@ ASTNode::isConstantNumber() const
 }
 
 
+/*
+* @return true if this ASTNode is a MathML constant number
+*(pi, exponentiale), false otherwise.
+*/
+LIBSBML_EXTERN
+bool
+ASTNode::isCSymbolFunction() const
+{
+  return (mType == AST_FUNCTION_DELAY || mType == AST_FUNCTION_RATE_OF);
+}
+
+
+
 bool
 ASTNode::isFunction () const
 {
@@ -1862,6 +1875,13 @@ ASTNode::isUPlus () const
   }
 
   return uplus;
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isUserFunction() const
+{
+  return (mType == AST_FUNCTION);
 }
 
 LIBSBML_EXTERN

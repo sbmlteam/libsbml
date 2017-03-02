@@ -2001,7 +2001,29 @@ START_CONSTRAINT (99129, KineticLaw, kl)
    */
   bool fail = false;
   bool logFailure = false;
-  while (t->type != TT_END)
+
+  /* okay so we hit an example where the model used a formula where
+  *  the name of the formula mirrored a comp/species/parameter
+  * so the type code checking below just accepted it
+  */
+  const ASTNode* math = kl.getMath();
+  if (math != NULL)
+  {
+    const char* name = math->getName();
+    if (name != NULL) {
+      if (math->isCSymbolFunction() ||
+        (math->isUserFunction() &&
+          (m.getCompartment(name) != NULL ||
+            m.getSpecies(name) != NULL ||
+            m.getParameter(name) != NULL)))
+      {
+        fail = true;
+        logFailure = true;
+      }
+    }
+  }
+
+  while (!logFailure && t->type != TT_END)
   {
     if (t->type == TT_NAME)
     {
@@ -2102,9 +2124,32 @@ START_CONSTRAINT (99129, AssignmentRule, ar)
    * of the model or the name of a function in which case 
    * need to check whether it is defined
    */
+
   bool fail = false;
   bool logFailure = false;
-  while (t->type != TT_END)
+
+  /* okay so we hit an example where the model used a formula where
+  *  the name of the formula mirrored a comp/species/parameter
+  * so the type code checking below just accepted it
+  */
+  const ASTNode* math = ar.getMath();
+  if (math != NULL)
+  {
+    const char* name = math->getName();
+    if (name != NULL) {
+      if (math->isCSymbolFunction() ||
+        (math->isUserFunction() &&
+          (m.getCompartment(name) != NULL ||
+            m.getSpecies(name) != NULL ||
+            m.getParameter(name) != NULL)))
+      {
+        fail = true;
+        logFailure = true;
+      }
+    }
+  }
+
+  while (!logFailure && t->type != TT_END)
   {
     if (t->type == TT_NAME)
     {
@@ -2205,7 +2250,29 @@ START_CONSTRAINT (99129, RateRule, rr)
    */
   bool fail = false;
   bool logFailure = false;
-  while (t->type != TT_END)
+
+  /* okay so we hit an example where the model used a formula where
+  *  the name of the formula mirrored a comp/species/parameter
+  * so the type code checking below just accepted it
+  */
+  const ASTNode* math = rr.getMath();
+  if (math != NULL)
+  {
+    const char* name = math->getName();
+    if (name != NULL) {
+      if (math->isCSymbolFunction() ||
+        (math->isUserFunction() &&
+          (m.getCompartment(name) != NULL ||
+            m.getSpecies(name) != NULL ||
+            m.getParameter(name) != NULL)))
+      {
+        fail = true;
+        logFailure = true;
+      }
+    }
+  }
+
+  while (!logFailure && t->type != TT_END)
   {
     if (t->type == TT_NAME)
     {
