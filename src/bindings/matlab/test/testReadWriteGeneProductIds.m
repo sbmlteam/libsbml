@@ -15,7 +15,7 @@ test = 0;
 [Totalfail, test] = runTest(Totalfail, test, fail_unless( strcmp(m.reaction(1).fbc_geneProductAssociation.fbc_association.fbc_association, 'g1-hh')));
 [Totalfail, test] = runTest(Totalfail, test, fail_unless( strcmp(m.reaction(2).fbc_geneProductAssociation.fbc_association.fbc_association, '(g1-hh or g2-23)')));
 
-m = TranslateSBML(filename, 0, 0, [1,0]);
+m = TranslateSBML(filename, 0, 0, [4,0]);
 
 [Totalfail, test] = runTest(Totalfail, test, fail_unless( strcmp(m.fbc_geneProduct(1).fbc_id, 'g_1')));
 [Totalfail, test] = runTest(Totalfail, test, fail_unless( strcmp(m.fbc_geneProduct(1).fbc_label, 'g1-hh')));
