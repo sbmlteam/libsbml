@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01486" name="case01486">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="my_piecewise">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <bvar>
+              <ci> z </ci>
+            </bvar>
+            <piecewise>
+              <piece>
+                <ci> x </ci>
+                <ci> y </ci>
+              </piece>
+              <otherwise>
+                <ci> z </ci>
+              </otherwise>
+            </piecewise>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="my_not">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <not/>
+              <ci> x </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfParameters>
+      <parameter id="P12" constant="false"/>
+      <parameter id="P13" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="P12">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> my_piecewise </ci>
+            <cn type="integer"> 2 </cn>
+            <apply>
+              <ci> my_not </ci>
+              <false/>
+            </apply>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="P13">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> my_piecewise </ci>
+            <cn type="integer"> 4 </cn>
+            <apply>
+              <ci> my_not </ci>
+              <false/>
+            </apply>
+            <cn type="integer"> 5 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

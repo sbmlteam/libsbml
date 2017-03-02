@@ -505,20 +505,32 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
       return isNumeric;
     else
     {
-      unsigned int numChildren = node->getNumChildren();
-      unsigned int count = 0;
-      bool temp;
-      for (unsigned int n = 0; n < numChildren; n++)
+      // if the functionDefinition is a piecewise children are already checked
+      // checking children this way 
+      // will give a false negative
+      const FunctionDefinition *fd = m.getFunctionDefinition(name);
+      if (fd != NULL && fd->isSetMath() == true
+        && fd->isSetBody() == true && fd->getBody()->isPiecewise())
       {
-        temp = returnsNumeric(m, node->getChild(n));
-        if (temp)
-          count++;
+        return isNumeric;
       }
-      if (count != numChildren)
-        isNumeric = false;
       else
-        isNumeric = true;
-      return isNumeric;
+      {
+        unsigned int numChildren = node->getNumChildren();
+        unsigned int count = 0;
+        bool temp;
+        for (unsigned int n = 0; n < numChildren; n++)
+        {
+          temp = returnsNumeric(m, node->getChild(n));
+          if (temp)
+            count++;
+        }
+        if (count != numChildren)
+          isNumeric = false;
+        else
+          isNumeric = true;
+        return isNumeric;
+      }
     }
   }
   else
