@@ -978,6 +978,16 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   bool isConstantNumber() const;
 
   /**
+  * Returns @c true (non-zero) if this node represents a MathML
+  * csymbol representing a function.
+  *
+  * @return @c true if this ASTNode is a MathML csymbol function, @c false otherwise.
+  */
+
+  LIBSBML_EXTERN
+  bool isCSymbolFunction() const;
+
+  /**
    * Returns @c true (non-zero) if this node represents a
    * MathML function (e.g., <code>abs()</code>), or an SBML Level&nbsp;1
    * function, or a user-defined function.
@@ -1201,6 +1211,16 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    */
   LIBSBML_EXTERN
   bool isUPlus () const;
+
+
+  /**
+  * Returns @c true (non-zero) if this node represents a
+  * MathML user-defined function.
+  *
+  * @return @c true if this ASTNode is a user-defined function, @c false otherwise.
+  */
+  LIBSBML_EXTERN
+  bool isUserFunction() const;
 
 
   /**
