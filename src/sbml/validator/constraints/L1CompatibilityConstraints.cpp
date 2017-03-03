@@ -163,7 +163,19 @@ START_CONSTRAINT (91008, SpeciesReference, sr)
           const ASTNode* math = m.getInitialAssignmentBySymbol(sr.getId())->getMath();
           if (!math->isInteger() && !math->isRational())
           {
-            fail = true;
+            // do a last minute check on whether the math will evaluate to an integer
+            double value = SBMLTransforms::evaluateASTNode(math, &m);
+            if (!util_isNaN(value))
+            {
+              if (!util_isEqual(value, floor(value)))
+              {
+                fail = true;
+              }
+            }
+            else 
+            {
+              fail = true;
+            }
           }
         }
        
