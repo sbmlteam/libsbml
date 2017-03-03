@@ -199,7 +199,7 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
     }
     break;
   }
-  msg << "uses a piecewise function that does not return a boolean.";
+  msg << "uses a piecewise function that does not return a Boolean.";
   safe_free(formula);
 
   return msg.str();

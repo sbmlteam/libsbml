@@ -178,7 +178,7 @@ LogicalArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
     }
     break;
   }
-  msg << "uses an argument to a logical operator that is not boolean.";
+  msg << "uses an argument to a logical operator that is not Boolean.";
   safe_free(formula);
 
   return msg.str();

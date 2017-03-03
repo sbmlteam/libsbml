@@ -1717,7 +1717,7 @@ START_CONSTRAINT (21001, Constraint, c)
   char* formula = SBML_formulaToString(c.getMath());
   msg = "The <constraint> with the formula '";
   msg += formula;
-  msg += "' returns a value that is not boolean.";
+  msg += "' returns a value that is not Boolean.";
   safe_free(formula);
 
   inv( m.isBoolean( c.getMath() ) );
@@ -2436,7 +2436,7 @@ START_CONSTRAINT (21202, Trigger, t)
     t.getAncestorOfType(SBML_EVENT)->getId() : std::string("");
 
   msg = "The <trigger> element of the <event> with id '" + id + "' "
-    "returns a value that is not boolean. ";
+    "returns a value that is not Boolean. ";
 
   inv( m.isBoolean( t.getMath() ) );
 }
