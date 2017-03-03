@@ -595,6 +595,7 @@ UnitDefinition::isVariantOfMass (bool relaxed) const
     }
   }
 
+  delete ud;
   return result;
 }
 
