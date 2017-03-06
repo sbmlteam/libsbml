@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.9.1 with libSBML version 5.14.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case_01491" name="case_01491">
+    <listOfFunctionDefinitions>
+      
+      
+      <functionDefinition id="my_and0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <apply>
+              <and/>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      
+      
+      
+      
+      <functionDefinition id="my_and">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <apply>
+              <and/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      
+      
+    </listOfFunctionDefinitions>
+    <listOfParameters>
+      
+      
+      <parameter id="c" constant="false"/>
+      
+      
+    </listOfParameters>
+    <listOfRules>
+      
+      
+      <assignmentRule variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn type="integer"> 1 </cn>
+              <apply>
+                <ci> my_and </ci>
+                <apply>
+                  <ci> my_and </ci>
+                  <apply>
+                    <ci> my_and0 </ci>
+                  </apply>
+                  <true/>
+                </apply>
+                <true/>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      
+      
+    </listOfRules>
+  </model>
+</sbml>
