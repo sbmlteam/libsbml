@@ -2496,7 +2496,10 @@ ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
 
       if (fd != NULL && fd->isSetMath())
       {
-        return fd->getMath()->getRightChild()->returnsBoolean();
+        // when getting the function from a FD need to use getBody();
+//        return fd->getMath()->getRightChild()->returnsBoolean();
+        return (fd->getBody() != NULL ?
+          fd->getBody()->returnsBoolean() : false);
       }
       else
       {

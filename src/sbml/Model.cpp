@@ -3333,7 +3333,7 @@ Model::isBoolean (const ASTNode* node) const
 
     if (fd != NULL && fd->isSetMath())
     {
-      return isBoolean( fd->getMath()->getRightChild() );
+      return isBoolean( fd->getBody() );
     }
     else
     {
