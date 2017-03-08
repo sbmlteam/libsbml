@@ -788,6 +788,18 @@ function y = testIsSBMLModel(silent, FbcEnabled)
       disp('fbc species extra exclusive failed:');
       disp(message);
   end;
+  
+  m = TranslateSBML('test-data/fbc.xml');
+  m.fbc_version = '';
+
+  test = test + 1;
+  [pass, message] = isSBML_Model(m);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('fbc missing version should fail');
+      disp(message);
+  end;
+  test = test + 1;
 
   m = TranslateSBML('test-data/fbcV2.xml');
 

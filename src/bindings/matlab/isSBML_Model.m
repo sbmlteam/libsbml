@@ -68,12 +68,12 @@ else
 end;
      
 if ~isempty(SBMLStructure)
-  if isfield(SBMLStructure, 'SBML_level')
+  if isfield(SBMLStructure, 'SBML_level') && ~isempty(SBMLStructure.SBML_level)
     level = SBMLStructure.SBML_level;
   else
     level = 3;
   end;
-  if isfield(SBMLStructure, 'SBML_version')
+  if isfield(SBMLStructure, 'SBML_version') && ~isempty(SBMLStructure.SBML_version)
     version = SBMLStructure.SBML_version;
   else
     version = 1;
@@ -89,21 +89,28 @@ num = length(supported);
 packages = cell(1, num);
 pkgVersion = zeros(1, num);
 
+valid = 1;
 % identify packages
 for i=1:length(supported)
     vers = strcat(supported{i}, '_version');
     if isfield(SBMLStructure, vers)
-        pkgCount = pkgCount + 1;
-        packages{pkgCount} = supported{i};
-        pkgVersion(pkgCount) = SBMLStructure.(vers);
+        if isempty(SBMLStructure.(vers))
+          valid = 0;
+          message = sprintf('Missing %s value', vers);
+        else
+            pkgCount = pkgCount + 1;
+            packages{pkgCount} = supported{i};
+            pkgVersion(pkgCount) = SBMLStructure.(vers);
+        end;
     end;
 end;
 
+if (valid == 1)
+    [valid, message] = isSBML_Struct('model', SBMLStructure, level, version, packages, pkgVersion, extensions_allowed);
 
-[valid, message] = isSBML_Struct('model', SBMLStructure, level, version, packages, pkgVersion, extensions_allowed);
-
-if (valid == 1 && pkgCount > 0 && strcmp(packages{1}, 'fbc') && userValidation == 1)
-    [valid, message] = applyUserValidation(SBMLStructure, level, version, packages, pkgVersion);
+    if (valid == 1 && pkgCount > 0 && strcmp(packages{1}, 'fbc') && userValidation == 1)
+        [valid, message] = applyUserValidation(SBMLStructure, level, version, packages, pkgVersion);
+    end;
 end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, packages, pkgVersion, extensions_allowed)

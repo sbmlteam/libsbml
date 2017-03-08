@@ -66,6 +66,7 @@ try
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
     Totalfail = Totalfail + testVersionInformation(FbcEnabled);
+    Totalfail = Totalfail + testMissingOutput('Out-test1', 0, FbcEnabled);
   end;
 
 catch exception

@@ -1774,9 +1774,17 @@ StructureFields::readInt(const std::string& name, unsigned int index, unsigned i
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField) && mxIsNumeric(mxField))
+    if (!mxIsEmpty(mxField)) 
     {
-      value = (int)(mxGetScalar(mxField));
+      if (mxIsNumeric(mxField))
+      {
+        value = (int)(mxGetScalar(mxField));
+        nStatus = 0;
+      }
+    }
+    else
+    {
+      value = 0;
       nStatus = 0;
     }
 
@@ -1800,9 +1808,17 @@ StructureFields::readInt(mxArray* mxArray1, const std::string& name, unsigned in
   mxField = mxGetField(mxArray1, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField) && mxIsNumeric(mxField))
+    if (!mxIsEmpty(mxField)) 
     {
-      value = (int)(mxGetScalar(mxField));
+      if (mxIsNumeric(mxField))
+      {
+        value = (int)(mxGetScalar(mxField));
+        nStatus = 0;
+      }
+    }
+    else
+    {
+      value = 0;
       nStatus = 0;
     }
 
@@ -1826,9 +1842,17 @@ StructureFields::readDouble(const std::string& name, unsigned int index, unsigne
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField) && mxIsNumeric(mxField))
+    if (!mxIsEmpty(mxField))
     {
-      value = mxGetScalar(mxField);
+      if (mxIsNumeric(mxField))
+      {
+        value = mxGetScalar(mxField);
+        nStatus = 0;
+      }
+    }
+    else
+    {
+      value = util_NaN();
       nStatus = 0;
     }
 
@@ -1904,9 +1928,17 @@ StructureFields::readUint(const std::string& name, unsigned int index, unsigned 
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField) && mxIsNumeric(mxField))
+    if (!mxIsEmpty(mxField)) 
     {
-      value = (unsigned int)(mxGetScalar(mxField));
+      if (mxIsNumeric(mxField))
+      {
+        value = (unsigned int)(mxGetScalar(mxField));
+        nStatus = 0;
+      }
+    }
+    else
+    {
+      value = 0;
       nStatus = 0;
     }
 
@@ -1932,9 +1964,17 @@ StructureFields::readUint(mxArray* mxArray1, const std::string& name,
   mxField = mxGetField(mxArray1, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField) && mxIsNumeric(mxField))
+    if (!mxIsEmpty(mxField)) 
     {
-      value = (unsigned int)(mxGetScalar(mxField));
+      if (mxIsNumeric(mxField))
+      {
+        value = (unsigned int)(mxGetScalar(mxField));
+        nStatus = 0;
+      }
+    }
+    else
+    {
+      value = 0;
       nStatus = 0;
     }
 
@@ -1951,9 +1991,16 @@ bool
 StructureFields::determineStatus(const std::string& name, unsigned int index)
 {
   bool setStatus = true;
+  mxArray * mxField;
+  // if the field itself is empty then it is clearly not set
+  mxField = mxGetField(mxStructure, index, name.c_str());
+  if (mxIsEmpty(mxField))
+  {
+    return false;
+  }
+
   // want to know whether there is an isSetXYZ field coming from matlab
   // and if so what is its value
-  mxArray * mxField;
   unsigned int value = 0;
   int nStatus = 1;
   const char * cname = name.c_str();
