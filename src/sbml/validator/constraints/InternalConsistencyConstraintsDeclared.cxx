@@ -164,6 +164,8 @@ addConstraint(new VConstraintReaction21101(*this));
 
 addConstraint(new VConstraintKineticLaw21130(*this));
 
+addConstraint(new VConstraintReaction21152(*this));
+ 
 addConstraint(new VConstraintEvent21201(*this));
 
 addConstraint(new VConstraintEvent21203(*this));

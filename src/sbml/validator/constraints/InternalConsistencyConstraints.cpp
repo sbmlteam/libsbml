@@ -776,6 +776,20 @@ START_CONSTRAINT (21130, KineticLaw, kl)
 END_CONSTRAINT
 
 
+START_CONSTRAINT(21152, Reaction, r)
+{
+  // only applies to l3v2
+  pre(r.getLevel() == 3)
+  pre(r.getVersion() > 1);
+
+
+  inv(r.isSetFast());
+}
+END_CONSTRAINT
+
+
+
+
 START_CONSTRAINT (21201, Event, e)
 {
   // does not apply to l3v2
