@@ -1218,6 +1218,11 @@ SBase::setMetaId (const std::string& metaid)
   else if (metaid.empty())
   {
     mMetaId.erase();
+    // force any annotation to synchronize
+    if (isSetAnnotation())
+    {
+      mCVTermsChanged = true;
+    }
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(SyntaxChecker::isValidXMLID(metaid)))
@@ -1227,6 +1232,11 @@ SBase::setMetaId (const std::string& metaid)
   else
   {
     mMetaId = metaid;
+    // force any annotation to synchronize
+    if (isSetAnnotation())
+    {
+      mCVTermsChanged = true;
+    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }

@@ -929,6 +929,13 @@ START_TEST (test_comp_flatten_test61)
 END_TEST
 
 
+START_TEST(test_comp_flatten_test62)
+{
+  TestFlattenedPair("test62.xml", "test62_flat.xml");
+}
+END_TEST
+
+
 START_TEST (test_comp_flatten_id_collisions)
 { 
   TestFlattenedPair("id_collisions.xml", "id_collisions_flat.xml");
@@ -2198,6 +2205,7 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_test59);
   tcase_add_test(tcase, test_comp_flatten_test60);
   tcase_add_test(tcase, test_comp_flatten_test61);
+  tcase_add_test(tcase, test_comp_flatten_test62);
 
   tcase_add_test(tcase, test_comp_flatten_id_collisions);
   tcase_add_test(tcase, test_comp_flatten_id_collisions2);
