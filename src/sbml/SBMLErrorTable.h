@@ -10077,7 +10077,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98006
   {
     BooleanNumericDiscrepancy,
-    "Interchangeable boolean/numeric only allowed in L3V2.",
+    "Interchangeable Boolean/numeric only allowed in L3V2.",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -10089,7 +10089,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     "SBML Level 3 Version 2 relaxed the restrictions on where a math "
-    "expression should return a boolean or a numeric result.",
+    "expression should return a Boolean or a numeric result.",
     {"",
      "",
      "",
@@ -10103,7 +10103,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98007
   {
     IdNameSBaseInL3V2,
-    "Interchangeable boolean/numeric only allowed in L3V2.",
+    "Interchangeable Boolean/numeric only allowed in L3V2.",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,

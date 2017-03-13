@@ -6067,7 +6067,7 @@
 <td class="s-error"></td>
 </tr>
 <tr><td class="code">@sbmlconstant{QualFunctionTermBool, SBMLErrorCode_t}</td>
-<td class="meaning">FunctionTerm should return boolean</td>
+<td class="meaning">FunctionTerm should return Boolean</td>
 <td class="s-na"></td>
 <td class="s-na"></td>
 <td class="s-na"></td>
@@ -6217,7 +6217,7 @@
 <td class="s-error"></td>
 </tr>
 <tr><td class="code">@sbmlconstant{QualConstantMustBeBool, SBMLErrorCode_t}</td>
-<td class="meaning">Attribute 'constant' on <code>&lt;qualitativeSpecies&gt;</code> must be boolean.</td>
+<td class="meaning">Attribute 'constant' on <code>&lt;qualitativeSpecies&gt;</code> must be Boolean.</td>
 <td class="s-na"></td>
 <td class="s-na"></td>
 <td class="s-na"></td>
