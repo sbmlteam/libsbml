@@ -1025,6 +1025,21 @@ START_TEST(test_SBML_parseL3Formula_modulo2)
 END_TEST
 
 
+START_TEST(test_SBML_parseL3Formula_modulo3)
+{
+  L3ParserSettings l3ps;
+  l3ps.setParseModuloL3v2(L3P_MODULO_IS_PIECEWISE);
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("x % y", &l3ps);
+  fail_unless(r != NULL);
+  char * s = SBML_formulaToString(r);
+  //Instead of trying to go through everything individually, we'll just test the round-tripping:
+  fail_unless(!strcmp(s, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL);
+  ASTNode_free(r);
+  safe_free(s);
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseL3Formula_oddMathML1)
 {
   ASTNode_t *r = SBML_parseL3Formula("sqrt(3)");
@@ -3805,6 +3820,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants12);
   tcase_add_test( tcase, test_SBML_parseL3Formula_modulo);
   tcase_add_test( tcase, test_SBML_parseL3Formula_modulo2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML3);
