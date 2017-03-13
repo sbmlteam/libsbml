@@ -210,6 +210,10 @@ private:
 
   mxArray* getNamespacesStructure();
 
+  mxArray* getCVTermsStructure(SBase* base);
+
+  void addCVTerms(const std::string& name, unsigned int index);
+
   void freeMemory();
 
 protected:
@@ -747,6 +751,10 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
       {
         mxSetField(mxStructure, index, fieldname.c_str(), getNamespacesStructure());
       }
+      else if (fieldname == "cvterms")
+      {
+        mxSetField(mxStructure, index, fieldname.c_str(), getCVTermsStructure(base));
+      }
       else
       {
         StructureFields *sf = new StructureFields(attName);
@@ -834,6 +842,124 @@ StructureFields::getNamespacesStructure()
   }
 
   return mxNSReturn;
+}
+
+mxArray*
+  createCVTermStructure(int num)
+{
+  mxArray* mxCVTermReturn;
+  mwSize dims[2] = {1, num};
+
+  /* fields within a cvterm structure */
+  const int nNoFields = 4;
+  const char *field_names[] = {
+    "qualifierType",
+    "qualifier", 
+    "resources",
+    "cvterms"
+  };
+
+  mxCVTermReturn = mxCreateStructArray(2, dims, nNoFields, field_names);
+
+  return mxCVTermReturn;
+}
+
+
+
+void
+  addCVTerm (mxArray* mxCVTermReturn, int i, CVTerm* cv)
+{
+  const char * pacQualifier = NULL;
+  const char * pacQualifierType = NULL;
+  mxArray* mxResources = NULL;
+
+  if (cv->getQualifierType() == BIOLOGICAL_QUALIFIER)
+  {
+    std::string bq = "biological";
+    pacQualifierType = (char*)(safe_malloc((bq.size() * sizeof(char))+ 1));
+    pacQualifierType = safe_strdup(bq.c_str());
+
+    size_t s = sizeof((const char *)(BiolQualifierType_toString(cv->getBiologicalQualifierType()))) * sizeof(char);
+    pacQualifier = (char*)(safe_malloc(s + 1));
+    pacQualifier = safe_strdup(BiolQualifierType_toString(cv->getBiologicalQualifierType()));
+  }
+  else if  (cv->getQualifierType() == MODEL_QUALIFIER)
+  {
+    std::string bq = "model";
+    pacQualifierType = (char*)(safe_malloc((bq.size() * sizeof(char))+ 1));
+    pacQualifierType = safe_strdup(bq.c_str());
+
+    size_t s = sizeof((const char *)(ModelQualifierType_toString(cv->getModelQualifierType()))) * sizeof(char);
+    pacQualifier = (char*)(safe_malloc(s + 1));
+    pacQualifier = safe_strdup(ModelQualifierType_toString(cv->getModelQualifierType()));
+  }
+  else
+  {
+    std::string bq = "unknown";
+    pacQualifierType = (char*)(safe_malloc((bq.size() * sizeof(char))+ 1));
+    pacQualifierType = safe_strdup(bq.c_str());
+
+    pacQualifier = (char*)(safe_malloc((bq.size() * sizeof(char))+ 1));
+    pacQualifier = safe_strdup(bq.c_str());
+
+  }
+  mwSize num = cv->getNumResources(); 
+  std::string fieldname;
+
+  char **resources = (char**)(safe_malloc(num * sizeof(char*)));
+  for (unsigned int j = 0; j < num; j++)
+  {
+    fieldname = cv->getResourceURI(j);
+    size_t s = (fieldname.size() * sizeof(char)) + 1;
+    resources[j] = (char*)(safe_malloc(s));
+    resources[j] = safe_strdup(fieldname.c_str());
+  }
+
+  mxResources = mxCreateCellMatrix(1, num);
+  for (unsigned int j = 0; j < num; j++)
+  {
+    mxSetCell(mxResources, j, mxCreateString(resources[j]));
+  }
+
+  mxSetField(mxCVTermReturn, i, "qualifierType", mxCreateString(pacQualifierType)); 
+  mxSetField(mxCVTermReturn, i, "qualifier", mxCreateString(pacQualifier)); 
+  mxSetField(mxCVTermReturn, i, "resources",   mxResources); 
+
+  unsigned int numNested = cv->getNumNestedCVTerms();
+  if (cv->getNumNestedCVTerms() > 0)
+  {
+    mxArray* mxNested = createCVTermStructure(numNested);
+    for (unsigned int j = 0; j < numNested; j++)
+    {
+      addCVTerm(mxNested, j, cv->getNestedCVTerm(j));
+    }
+    mxSetField(mxCVTermReturn, i, "cvterms",   mxNested); 
+  }
+
+  safe_free((void*)(pacQualifier));
+  safe_free((void*)(pacQualifierType));
+  safe_free(resources);
+}
+
+
+mxArray* 
+StructureFields::getCVTermsStructure(SBase* base)
+{
+  mxArray* mxCVTermReturn = NULL;
+  
+  int n = base->getNumCVTerms();
+  if (n > 0)
+  {
+    mxCVTermReturn = createCVTermStructure(n);
+  }
+
+  for (int i = 0; i < n; i++)
+  {
+    CVTerm * cv = base->getCVTerm(i);
+    addCVTerm(mxCVTermReturn, i, cv);
+  }
+
+  return mxCVTermReturn;
 }
 
 
@@ -1335,7 +1461,14 @@ StructureFields::addAttributes(const std::string& functionId, unsigned int index
     type = getValueType(i, functionId);
     if (type == TYPE_ELEMENT)
     {
-      addChildElement(fieldname, index);
+      if (fieldname == "cvterms")
+      {
+        addCVTerms(fieldname, index);
+      }
+      else 
+      {
+       addChildElement(fieldname, index);
+      }
     }
     else if (anomalousMathStructures(fieldname, type))
     {
@@ -1349,6 +1482,75 @@ StructureFields::addAttributes(const std::string& functionId, unsigned int index
   }
 }
 
+CVTerm *
+  getCVTerm(mxArray* mxCVTerms, unsigned int i)
+{
+  CVTerm *cv;
+  std::string qualType = StructureFields::readString(mxCVTerms, "qualifierType", i);
+  std::string qual = StructureFields::readString(mxCVTerms, "qualifier", i);
+  if (qualType == "biological")
+  {
+    cv = new CVTerm(BIOLOGICAL_QUALIFIER);
+    cv->setBiologicalQualifierType(qual);
+  }
+  else if (qualType == "model")
+  {
+    cv = new CVTerm(MODEL_QUALIFIER);
+    cv->setModelQualifierType(qual);
+  }
+  else
+  {
+    cv = new CVTerm();
+  }
+
+  mxArray* mxResources = mxGetField(mxCVTerms, i, "resources");
+  size_t numRes = mxGetNumberOfElements(mxResources);
+
+  for (unsigned int j = 0; j < numRes; j++)
+  {
+    mxArray* mxField = mxGetCell(mxResources, j);
+    char *value = mxArrayToString(mxField);
+    if (value != NULL)
+    {
+      cv->addResource(std::string(value));
+    }
+  }
+
+  mxArray* mxNestedCV = mxGetField(mxCVTerms, i, "cvterms");
+  if (mxNestedCV != NULL)
+  {
+    size_t numNested = mxGetNumberOfElements(mxNestedCV);
+
+    for (unsigned int n = 0; n < numNested; n++)
+    {
+      CVTerm *nested = getCVTerm(mxNestedCV, n);
+      cv->addNestedCVTerm(nested);
+      delete nested;
+    }
+  }
+
+  return cv;
+}
+
+void
+StructureFields::addCVTerms(const std::string& name, unsigned int index)
+{
+  mxArray* mxCVTerms = mxGetField(mxStructure, index, "cvterms");
+  if (mxCVTerms == NULL)
+    return;
+
+	size_t numCV = mxGetNumberOfElements(mxCVTerms);
+
+  for (unsigned int i = 0; i < numCV; i++)
+  {
+    CVTerm *cv = getCVTerm(mxCVTerms, i);
+    if (!mSBase->isSetMetaId())
+      mSBase->setMetaId("temp");
+    mSBase->addCVTerm(cv);
+    delete cv;
+  }
+
+}
 
 void
 StructureFields::addChildElement(const std::string& name, unsigned int index)

@@ -198,7 +198,10 @@ index = 1;
 while (valid == 1 && index <= numFields)
     field = char(SBMLfieldnames(index));
 	valid = isfield(SBMLStructure, field);
-    if (valid == 0)
+    if (strcmp(char(field), 'cvterms')==1)
+        % do nothing
+        valid = 1;
+    elseif (valid == 0)
 		message = sprintf('%s field missing', field);
     else
         mess = '';
@@ -212,7 +215,7 @@ while (valid == 1 && index <= numFields)
             else
                 for i=1:length(value)
                     if (valid == 1)
-                        if (strcmp(char(field), 'namespaces') ~= 1)
+                        if (strcmp(char(field), 'namespaces') ~= 1 && strcmp(char(field), 'cvterms')~=1)
                             [valid, mess] = isSBML_Struct(field, value(i), level, version, packages, pkgVersion, extensions_allowed);
                         end;
                     end;

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model metaid="_000002" id="doc0" name="doc0" fbc:strict="false">
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+        <rdf:Description rdf:about="#_000002">
+          <bqbiol:is>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+              <bqbiol:isVersionOf>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                  <bqbiol:hasPart>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                    </rdf:Bag>
+                  </bqbiol:hasPart>
+                </rdf:Bag>
+              </bqbiol:isVersionOf>
+              <bqmodel:isDescribedBy>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="other"/>
+                </rdf:Bag>
+              </bqmodel:isDescribedBy>
+            </rdf:Bag>
+          </bqbiol:is>
+          <bqbiol:isVersionOf>
+            <rdf:Bag>
+              <rdf:li rdf:resource="http://www.geneontology.org/#GO:xyz"/>
+              <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+              <bqmodel:isDescribedBy>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="other"/>
+                </rdf:Bag>
+              </bqmodel:isDescribedBy>
+            </rdf:Bag>
+          </bqbiol:isVersionOf>
+        </rdf:Description>
+      </rdf:RDF>
+    </annotation>
+    <listOfCompartments>
+      <compartment metaid="_000001" id="c" spatialDimensions="3" size="1" constant="true">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#_000001">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                  <bqbiol:hasPart>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="http://www.geneontology.org/#GO:aaa"/>
+                    </rdf:Bag>
+                  </bqbiol:hasPart>
+                </rdf:Bag>
+              </bqbiol:is>
+              <bqbiol:isVersionOf>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:asd"/>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                  <bqmodel:isDescribedBy>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="other"/>
+                    </rdf:Bag>
+                  </bqmodel:isDescribedBy>
+                </rdf:Bag>
+              </bqbiol:isVersionOf>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="_000003" id="s" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#_000003">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                </rdf:Bag>
+              </bqbiol:is>
+              <bqbiol:hasPart>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                  <bqmodel:isDescribedBy>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="other"/>
+                    </rdf:Bag>
+                  </bqmodel:isDescribedBy>
+                </rdf:Bag>
+              </bqbiol:hasPart>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter metaid="_001" id="k2" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#_001">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                  <bqmodel:isDescribedBy>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="other"/>
+                    </rdf:Bag>
+                  </bqmodel:isDescribedBy>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </parameter>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="R1" reversible="false" fast="false" fbc:lowerFluxBound="low" fbc:upperFluxBound="up">
+        <listOfReactants>
+          <speciesReference species="S1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter metaid="_x" id="k" value="0.1" units="vol_per_time">
+              <annotation>
+                <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                  <rdf:Description rdf:about="#_x">
+                    <bqbiol:is>
+                      <rdf:Bag>
+                        <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                        <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                      </rdf:Bag>
+                    </bqbiol:is>
+                  </rdf:Description>
+                </rdf:RDF>
+              </annotation>
+            </localParameter>
+          </listOfLocalParameters>
+        </kineticLaw>
+        <fbc:geneProductAssociation metaid="_gpa" fbc:id="gg1">
+          <annotation>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+              <rdf:Description rdf:about="#_gpa">
+                <bqbiol:is>
+                  <rdf:Bag>
+                    <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                    <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                    <bqmodel:isDescribedBy>
+                      <rdf:Bag>
+                        <rdf:li rdf:resource="other"/>
+                      </rdf:Bag>
+                    </bqmodel:isDescribedBy>
+                  </rdf:Bag>
+                </bqbiol:is>
+              </rdf:Description>
+            </rdf:RDF>
+          </annotation>
+          <fbc:geneProductRef sboTerm="SBO:0000007" fbc:geneProduct="g_1"/>
+        </fbc:geneProductAssociation>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfObjectives fbc:activeObjective="c">
+      <fbc:objective fbc:id="c" fbc:type="maximize">
+        <fbc:listOfFluxObjectives>
+          <fbc:fluxObjective metaid="_000f0" fbc:reaction="R1" fbc:coefficient="1">
+            <annotation>
+              <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                <rdf:Description rdf:about="#_000f0">
+                  <bqbiol:is>
+                    <rdf:Bag>
+                      <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                      <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                      <bqmodel:isDescribedBy>
+                        <rdf:Bag>
+                          <rdf:li rdf:resource="other"/>
+                        </rdf:Bag>
+                      </bqmodel:isDescribedBy>
+                    </rdf:Bag>
+                  </bqbiol:is>
+                </rdf:Description>
+              </rdf:RDF>
+            </annotation>
+          </fbc:fluxObjective>
+        </fbc:listOfFluxObjectives>
+      </fbc:objective>
+    </fbc:listOfObjectives>
+    <fbc:listOfGeneProducts>
+      <fbc:geneProduct metaid="_77" fbc:id="g_1" fbc:label="g1-hh">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#_77">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:0015464"/>
+                  <rdf:li rdf:resource="http://www.genome.jp/kegg/pathway/#hsa04080"/>
+                  <rdf:li rdf:resource="http://www.ncbi.nlm.nih.gov/Taxonomy/#7787"/>
+                </rdf:Bag>
+              </bqbiol:is>
+              <bqbiol:hasPart>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:111"/>
+                  <rdf:li rdf:resource="http://www.geneontology.org/#GO:asd"/>
+                </rdf:Bag>
+              </bqbiol:hasPart>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </fbc:geneProduct>
+      <fbc:geneProduct fbc:id="g_2" fbc:label="g2-23"/>
+    </fbc:listOfGeneProducts>
+  </model>
+</sbml>
