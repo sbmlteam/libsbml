@@ -57,6 +57,7 @@ L3ParserSettings::L3ParserSettings()
   , mParseunits(L3P_PARSE_UNITS)
   , mAvoCsymbol(L3P_AVOGADRO_IS_CSYMBOL)
   , mStrCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE)
+  , mModuloL3v2(L3P_MODULO_IS_PIECEWISE)
 #ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
 #endif
@@ -64,13 +65,14 @@ L3ParserSettings::L3ParserSettings()
   setPlugins(NULL);
 }
 
-L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, bool caseSensitive, SBMLNamespaces* sbmlns)
+L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, bool caseSensitive, SBMLNamespaces* sbmlns, bool modulol3v2)
   : mModel (model)
   , mParselog(parselog)
   , mCollapseminus(collapseminus)
   , mParseunits(parseunits)
   , mAvoCsymbol(avocsymbol)
   , mStrCmpIsCaseSensitive(caseSensitive)
+  , mModuloL3v2(modulol3v2)
 #ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
 #endif
@@ -86,6 +88,7 @@ L3ParserSettings::L3ParserSettings(const L3ParserSettings& source)
   mParseunits = source.mParseunits;
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+  mModuloL3v2 = source.mModuloL3v2;
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
@@ -103,6 +106,7 @@ L3ParserSettings& L3ParserSettings::operator=(const L3ParserSettings& source)
   mParseunits = source.mParseunits;
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+  mModuloL3v2 = source.mModuloL3v2;
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   deletePlugins();
@@ -328,6 +332,16 @@ void L3ParserSettings::setComparisonCaseSensitivity(bool strcmp)
 bool L3ParserSettings::getComparisonCaseSensitivity() const
 {
   return mStrCmpIsCaseSensitive;
+}
+
+void L3ParserSettings::setParseModuloL3v2(bool modulol3v2)
+{
+  mModuloL3v2 = modulol3v2;
+}
+
+bool L3ParserSettings::getParseModuloL3v2() const
+{
+  return mModuloL3v2;
 }
 
 
