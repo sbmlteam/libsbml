@@ -1448,17 +1448,19 @@ START_TEST (test_MathMLFromAST_root3)
 
   N = new ASTNode(AST_FUNCTION_ROOT);
 
-
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
+  
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless (N->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
 
   ASTNode* c3 = new ASTNode(AST_NAME);
   fail_unless( c3->setName("y") == LIBSBML_OPERATION_SUCCESS);
   ASTNode* c2 = new ASTNode(AST_NAME);
   fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
 
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
   fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
   
