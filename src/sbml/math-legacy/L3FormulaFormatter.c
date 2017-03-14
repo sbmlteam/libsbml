@@ -482,7 +482,9 @@ L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, co
   case AST_FUNCTION_DELAY:
     StringBuffer_append(sb, "delay");
     break;
-
+  case AST_FUNCTION_RATE_OF:
+    StringBuffer_append(sb, "rateOf");
+    break;
   default:
     FormulaFormatter_formatFunction(sb, node);
     break;
@@ -982,7 +984,6 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
     return 0;
 
   case AST_LOGICAL_XOR:
-  case AST_LOGICAL_IMPLIES:
   case AST_LAMBDA:
   case AST_FUNCTION:
   case AST_FUNCTION_ABS:
@@ -1011,12 +1012,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_FLOOR:
   case AST_FUNCTION_LN:
   case AST_FUNCTION_LOG:
-  case AST_FUNCTION_MAX:
-  case AST_FUNCTION_MIN:
   case AST_FUNCTION_PIECEWISE:
-  case AST_FUNCTION_QUOTIENT:
-  case AST_FUNCTION_RATE_OF:
-  case AST_FUNCTION_REM:
   case AST_FUNCTION_ROOT:
   case AST_FUNCTION_SEC:
   case AST_FUNCTION_SECH:
@@ -1024,6 +1020,12 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_SINH:
   case AST_FUNCTION_TAN:
   case AST_FUNCTION_TANH:
+  case AST_FUNCTION_MAX:
+  case AST_FUNCTION_MIN:
+  case AST_FUNCTION_QUOTIENT:
+  case AST_FUNCTION_RATE_OF:
+  case AST_FUNCTION_REM:
+  case AST_LOGICAL_IMPLIES:
   case AST_UNKNOWN:
     return 1;
   }

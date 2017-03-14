@@ -162,9 +162,17 @@ START_TEST (test_ValidASTNode_Number)
   fail_unless( n->isWellFormedASTNode() );
 
   ASTNode *d = SBML_parseFormula("d");
-  n->addChild(d);
+  int i = n->addChild(d);
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+  // old test allowed to create invalid node
+//  fail_unless( !(n->isWellFormedASTNode()) );
+  fail_unless( i == LIBSBML_INVALID_OBJECT);
+
+  delete d;
+#else
   fail_unless( !(n->isWellFormedASTNode()) );
+#endif
 
   delete n;
 }
@@ -178,10 +186,17 @@ START_TEST (test_ValidASTNode_Name)
   fail_unless( n->isWellFormedASTNode() );
 
   ASTNode *d = SBML_parseFormula("d");
-  n->addChild(d);
+  int i = n->addChild(d);
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+  // old test allowed to create invalid node
+//  fail_unless( !(n->isWellFormedASTNode()) );
+  fail_unless( i == LIBSBML_INVALID_OBJECT);
+
+  delete d;
+#else
   fail_unless( !(n->isWellFormedASTNode()) );
-
+#endif
   delete n;
 }
 END_TEST

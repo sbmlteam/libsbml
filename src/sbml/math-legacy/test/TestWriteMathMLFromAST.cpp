@@ -1112,6 +1112,20 @@ START_TEST (test_MathMLFromAST_log)
   );
 
   N = new ASTNode(AST_FUNCTION_LOG);
+#ifndef LIBSBML_USE_LEGACY_MATH
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
+  
+  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
+  fail_unless( c1_1->setValue(2) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode* c2 = new ASTNode(AST_NAME);
+  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#else
 
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(2) == LIBSBML_OPERATION_SUCCESS);
@@ -1122,6 +1136,7 @@ START_TEST (test_MathMLFromAST_log)
   fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#endif
 
   // valid ast
   S = writeMathMLToString(N);
@@ -1185,10 +1200,21 @@ START_TEST (test_MathMLFromAST_log_3)
 #endif
   N = new ASTNode(AST_FUNCTION_LOG);
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
+  
+
+  ASTNode* c2 = new ASTNode(AST_NAME);
+  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#else
   ASTNode* c2 = new ASTNode(AST_NAME);
   fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#endif
 
   // logbase with no args
   S = writeMathMLToString(N);
@@ -1212,6 +1238,25 @@ START_TEST (test_MathMLFromAST_log_4)
   );
 
   N = new ASTNode(AST_FUNCTION_LOG);
+#ifndef LIBSBML_USE_LEGACY_MATH
+
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
+  
+  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
+  fail_unless( c1_1->setValue(10) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode* c2 = new ASTNode(AST_NAME);
+  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode* c3 = new ASTNode(AST_NAME);
+  fail_unless( c3->setName("x") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#else
 
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(10) == LIBSBML_OPERATION_SUCCESS);
@@ -1226,6 +1271,7 @@ START_TEST (test_MathMLFromAST_log_4)
 
   fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#endif
 
   // log with logbase and more than 1 child
   S = writeMathMLToString(N);
@@ -1250,6 +1296,21 @@ START_TEST (test_MathMLFromAST_root)
 
   // N = SBML_parseFormula("root(3, x)");
   N = new ASTNode(AST_FUNCTION_ROOT);
+#ifndef LIBSBML_USE_LEGACY_MATH
+
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
+  
+  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
+  fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode* c2 = new ASTNode(AST_NAME);
+  fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#else
 
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
@@ -1260,6 +1321,7 @@ START_TEST (test_MathMLFromAST_root)
   fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+#endif
   
   // nicely formed ast
   S = writeMathMLToString(N);
@@ -1345,13 +1407,24 @@ START_TEST (test_MathMLFromAST_root2)
 #endif
 
   N = new ASTNode(AST_FUNCTION_ROOT);
+#ifndef LIBSBML_USE_LEGACY_MATH
 
+  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
+  
+  ASTNode* c2 = new ASTNode(AST_NAME);
+  fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+  
+#else
   
   ASTNode* c2 = new ASTNode(AST_NAME);
   fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
   
+#endif
   // ast with empty degree child
   S = writeMathMLToString(N);
 
@@ -1359,7 +1432,7 @@ START_TEST (test_MathMLFromAST_root2)
 }
 END_TEST
 
-#if (0)
+#ifndef LIBSBML_USE_LEGACY_MATH
 START_TEST (test_MathMLFromAST_root3)
 {
   const char* expected = wrapMathML
@@ -1436,6 +1509,31 @@ START_TEST (test_MathMLFromAST_lambda)
   );
 
   N = new ASTNode(AST_LAMBDA);
+#ifndef LIBSBML_USE_LEGACY_MATH
+
+  ASTNode *c1 = new ASTNode(AST_QUALIFIER_BVAR);
+  ASTNode *c1_1 = new ASTNode(AST_NAME);
+  c1_1->setName("x");
+  c1->addChild(c1_1);
+
+  ASTNode *c2 = new ASTNode(AST_QUALIFIER_BVAR);
+  ASTNode *c2_1 = new ASTNode(AST_NAME);
+  c2_1->setName("y");
+  c2->addChild(c2_1);
+
+  ASTNode *c3 = new ASTNode(AST_PLUS);
+  ASTNode *c3_1 = new ASTNode(AST_NAME);
+  c3_1->setName("x");
+  ASTNode *c3_2 = new ASTNode(AST_NAME);
+  c3_2->setName("y");
+  c3->addChild(c3_1);
+  c3->addChild(c3_2);
+  
+  N->addChild(c1);
+  N->addChild(c2);
+  N->addChild(c3);
+
+#else
 
   ASTNode *c1_1 = new ASTNode(AST_NAME);
   c1_1->setName("x");
@@ -1454,6 +1552,7 @@ START_TEST (test_MathMLFromAST_lambda)
   N->addChild(c1_1);
   N->addChild(c2_1);
   N->addChild(c3);
+#endif
 
 
   // N = SBML_parseFormula("lambda(x, y, root(2, x^2 + y^2))");
@@ -1545,7 +1644,7 @@ START_TEST (test_MathMLFromAST_lambda_no_bvars)
 }
 END_TEST
 
-#if (0)
+#ifndef LIBSBML_USE_LEGACY_MATH
 START_TEST (test_MathMLFromAST_piecewise)
 {
   const char* expected = wrapMathML
@@ -1675,7 +1774,7 @@ START_TEST (test_MathMLFromAST_piecewise1)
 }
 END_TEST
 
-#if (0)
+#ifndef LIBSBML_USE_LEGACY_MATH
 START_TEST (test_MathMLFromAST_piecewise_otherwise)
 {
   const char* expected = wrapMathML
@@ -1777,7 +1876,7 @@ START_TEST (test_MathMLFromAST_piecewise_otherwise1)
 }
 END_TEST
 
-#if (0)
+#ifndef LIBSBML_USE_LEGACY_MATH
 START_TEST (test_MathMLFromAST_piecewise_no_piece)
 {
   const char* expected = wrapMathML
@@ -1832,7 +1931,7 @@ START_TEST (test_MathMLFromAST_piecewise_no_piece1)
 }
 END_TEST
 
-#if (0)
+#ifndef LIBSBML_USE_LEGACY_MATH
 START_TEST (test_MathMLFromAST_semantics)
 {
   const char* expected = wrapMathML
@@ -2282,21 +2381,13 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_root                  );
   tcase_add_test( tcase, test_MathMLFromAST_root1                  );
   tcase_add_test( tcase, test_MathMLFromAST_root2                 );
-//  tcase_add_test( tcase, test_MathMLFromAST_root3                  );
   tcase_add_test( tcase, test_MathMLFromAST_lambda                );
   tcase_add_test( tcase, test_MathMLFromAST_lambda1                );
   tcase_add_test( tcase, test_MathMLFromAST_lambda_no_bvars       );
-//  tcase_add_test( tcase, test_MathMLFromAST_piecewise             );
   tcase_add_test( tcase, test_MathMLFromAST_piecewise1             );
-//  tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise   );
   tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise1   );
-//  tcase_add_test( tcase, test_MathMLFromAST_piecewise_no_piece    );
   tcase_add_test( tcase, test_MathMLFromAST_piecewise_no_piece1    );
 
-//  tcase_add_test( tcase, test_MathMLFromAST_semantics             );
-//  tcase_add_test( tcase, test_MathMLFromAST_semantics_url         );
-//  tcase_add_test( tcase, test_MathMLFromAST_semantics_ann         );
-//  tcase_add_test( tcase, test_MathMLFromAST_semantics_annxml      );
 
   /* L3 additions */
   tcase_add_test( tcase, test_MathMLFromAST_cn_units           );
@@ -2310,6 +2401,18 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_func_style                 );
   tcase_add_test( tcase, test_MathMLFromAST_nested_funcs                 );
   tcase_add_test( tcase, test_MathMLFromAST_replaceIDWithFunction_2    );
+  
+#ifndef LIBSBML_USE_LEGACY_MATH
+  tcase_add_test( tcase, test_MathMLFromAST_root3                  );
+  tcase_add_test( tcase, test_MathMLFromAST_piecewise             );
+  tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise   );
+  tcase_add_test( tcase, test_MathMLFromAST_piecewise_no_piece    );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics             );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_url         );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_ann         );
+  tcase_add_test( tcase, test_MathMLFromAST_semantics_annxml      );
+#endif
+
   suite_add_tcase(suite, tcase);
 
   return suite;

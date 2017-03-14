@@ -253,13 +253,16 @@ START_TEST (test_read_MathML_2)
   //</algebraicRule>
   r = m->getRule(0);
   const ASTNode *r_math = r->getMath();
-
+#ifndef LIBSBML_USE_LEGACY_MATH
   /* the fact that this would be read is a bug */
   fail_unless(r_math == NULL);
-  
-  //fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
-  //fail_unless (r_math->getNumChildren() == 0, NULL);
-  //fail_unless (!strcmp(SBML_formulaToString(r_math), "true"), NULL);
+#else
+  fail_unless (r_math->getType() == AST_CONSTANT_TRUE, NULL);
+  fail_unless (r_math->getNumChildren() == 0, NULL);
+  math = SBML_formulaToString(r_math);
+  fail_unless (!strcmp(math, "true"), NULL);
+  safe_free(math);
+#endif
   //fail_unless (r_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( r_math->containsVariable("c") == false );
   //fail_unless( r_math->containsVariable("x") == false );

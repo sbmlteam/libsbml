@@ -46,7 +46,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_summary_of_string_math_l3
  *
- * @param formula the text-string formula expression to be parsed
+ * @param formula the text-string formula expression to be parsed.
  *
  * @return the root node of an AST representing the mathematical formula, or
  * @c NULL if an error occurred while parsing the formula.  When @c NULL is
@@ -84,9 +84,9 @@ SBML_parseL3Formula (const char *formula);
  * about the parser, please see the definition of L3ParserSettings and
  * the function @sbmlfunction{parseL3Formula, String}.
  *
- * @param formula the mathematical formula expression to be parsed
+ * @param formula the mathematical formula expression to be parsed.
  *
- * @param model the Model object to use for checking identifiers
+ * @param model the Model object to use for checking identifiers.
  *
  * @return the root node of an AST representing the mathematical formula,
  * or @c NULL if an error occurred while parsing the formula.  When @c NULL
@@ -124,9 +124,9 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * L3ParserSettings and @sbmlfunction{parseL3FormulaWithSettings, String\,
  * L3ParserSettings}.
  *
- * @param formula the mathematical formula expression to be parsed
+ * @param formula the mathematical formula expression to be parsed.
  *
- * @param settings the settings to be used for this parser invocation
+ * @param settings the settings to be used for this parser invocation.
  *
  * @return the root node of an AST representing the mathematical formula,
  * or @c NULL if an error occurred while parsing the formula.  When @c NULL

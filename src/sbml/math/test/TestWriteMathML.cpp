@@ -418,6 +418,7 @@ END_TEST
 
 START_TEST (test_MathMLFormatter_constant_infinity_neg)
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   const char* expected = wrapMathML
   (
     "  <apply>\n"
@@ -425,6 +426,12 @@ START_TEST (test_MathMLFormatter_constant_infinity_neg)
     "    <infinity/>\n"
     "  </apply>\n"
   );
+#else
+  const char* expected = wrapMathML
+  (
+    "  <apply> <minus/> <infinity/> </apply>\n"
+  );
+#endif
 
   N = new ASTNode;
   N->setValue( - numeric_limits<double>::infinity() );

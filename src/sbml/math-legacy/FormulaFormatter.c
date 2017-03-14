@@ -430,7 +430,7 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
                               StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
-  unsigned int group       = FormulaFormatter_isGrouped(parent, node);
+  int group       = FormulaFormatter_isGrouped(parent, node);
   unsigned int n;
 
 

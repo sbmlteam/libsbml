@@ -31,6 +31,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
+#include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/Model.h>

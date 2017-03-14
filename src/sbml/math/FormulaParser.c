@@ -42,6 +42,8 @@
 #endif
 
 /** @cond doxygenLibsbmlInternal */
+
+
 /**
  * The FormulaParser is a Simple Left-to-right Rightmost-derivation (SLR)
  * shift-reduce parser.
@@ -296,6 +298,8 @@ static const StateActionPair_t Action[] =
   {20,  -4},  /* TT_END:    150 */
   {24, -11},  /* TT_END:    151 */
 };
+
+
 /** @endcond */
 
 
@@ -386,6 +390,7 @@ SBML_parseFormula (const char *formula)
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /**
  * @return the action for the current state and token.
  *
@@ -730,4 +735,6 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
 
   return result;
 }
+
+
 /** @endcond */

@@ -1006,7 +1006,36 @@ START_TEST (test_SBML_parseL3Formula_modulo)
   fail_unless( !strcmp(s, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
   ASTNode_free(r);
   safe_free(s);
-  // SBML_deleteL3Parser();
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseL3Formula_modulo2)
+{
+  L3ParserSettings l3ps;
+  l3ps.setParseModuloL3v2(L3P_MODULO_IS_REM);
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("x % y", &l3ps);
+  fail_unless(r != NULL);
+  char * s = SBML_formulaToString(r);
+  //Instead of trying to go through everything individually, we'll just test the round-tripping:
+  fail_unless(!strcmp(s, "rem(x, y)"), NULL);
+  ASTNode_free(r);
+  safe_free(s);
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseL3Formula_modulo3)
+{
+  L3ParserSettings l3ps;
+  l3ps.setParseModuloL3v2(L3P_MODULO_IS_PIECEWISE);
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("x % y", &l3ps);
+  fail_unless(r != NULL);
+  char * s = SBML_formulaToString(r);
+  //Instead of trying to go through everything individually, we'll just test the round-tripping:
+  fail_unless(!strcmp(s, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL);
+  ASTNode_free(r);
+  safe_free(s);
 }
 END_TEST
 
@@ -2040,6 +2069,153 @@ START_TEST (test_SBML_parseL3Formula_unitssettings)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_capssettings1)
+{
+  //Default:
+  ASTNode_t *r = SBML_parseL3Formula("SqRt(3)");
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ROOT, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  ASTNode_t *c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  L3ParserSettings settings;
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "SqRt") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ROOT, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_capssettings2)
+{
+  //Default:
+  ASTNode_t *r = SBML_parseL3Formula("PI");
+
+  fail_unless( ASTNode_getType       (r) == AST_CONSTANT_PI, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  L3ParserSettings settings;
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("PI", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "PI") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("PI", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_CONSTANT_PI, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_capssettings3)
+{
+  //Default:
+  ASTNode_t *r = SBML_parseL3Formula("ArcSinH(3)");
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ARCSINH, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  ASTNode_t *c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  L3ParserSettings settings;
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("ArcSinH(3)", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "ArcSinH") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+
+  //Explicit noncaseless
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
+  r = SBML_parseL3FormulaWithSettings("ArcSinH(3)", &settings);
+
+  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ARCSINH, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseL3Formula_power)
 {
   ASTNode_t *r = SBML_parseL3Formula("pow(1.1, 3)");
@@ -2550,67 +2726,6 @@ START_TEST (test_SBML_parseL3Formula_precedence2)
 END_TEST
 
 
-START_TEST (test_SBML_parseL3Formula_capssettings1)
-{
-  //Default:
-  ASTNode_t *r = SBML_parseL3Formula("SqRt(3)");
-
-  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ROOT, NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
-
-  ASTNode_free(r);
-
-  //Explicit noncaseless
-  L3ParserSettings settings;
-  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
-  r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
-
-  fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
-  fail_unless( !strcmp(ASTNode_getName(r), "SqRt") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
-
-  c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
-
-  ASTNode_free(r);
-
-  //Explicit noncaseless
-  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
-  r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
-
-  fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ROOT, NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
-
-  c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
-
-  ASTNode_free(r);
-}
-END_TEST
 
 
 START_TEST (test_SBML_parseL3Formula_combinedRelational_allLT)
@@ -3262,7 +3377,6 @@ START_TEST (test_SBML_parseL3Formula_l3v2_functions)
 END_TEST
 
 
-
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -3314,6 +3428,8 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants11);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants12);
   tcase_add_test( tcase, test_SBML_parseL3Formula_modulo);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML3);
@@ -3339,6 +3455,9 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_unaryPlus);
   tcase_add_test( tcase, test_SBML_parseL3Formula_avogadrosettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_unitssettings);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_capssettings1);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_capssettings2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_capssettings3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_power);
   tcase_add_test( tcase, test_SBML_parseL3Formula_longint);
   tcase_add_test( tcase, test_SBML_parseL3Formula_longdecimal);
@@ -3362,7 +3481,6 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_sqrterr);
   tcase_add_test( tcase, test_SBML_parseL3Formula_precedence1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_precedence2);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_capssettings1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLT);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allGT);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLEQ);
