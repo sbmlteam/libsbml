@@ -229,6 +229,25 @@ START_TEST (test_read_MathML_1)
 }
 END_TEST
 
+START_TEST(test_read_MathML_fromStream)
+{
+  std::string filename(TestDataDirectory);
+  filename += "non_sbml_symbol.xml";
+
+  XMLErrorLog log;
+  XMLInputStream stream(filename.c_str(), true, "", &log);
+  fail_unless(stream.getSBMLNamespaces() == NULL);
+  ASTNode* node = readMathML(stream);
+
+  std::string result = writeMathMLToStdString(node);
+
+  fail_unless(node != NULL);
+  fail_unless(log.getNumErrors() == 0);
+  
+  delete node;
+
+}
+END_TEST
 
 Suite *
 create_suite_TestReadFromFile1 (void)
@@ -238,6 +257,7 @@ create_suite_TestReadFromFile1 (void)
 
 
   tcase_add_test(tcase, test_read_MathML_1);
+  tcase_add_test(tcase, test_read_MathML_fromStream);
 
   suite_add_tcase(suite, tcase);
 

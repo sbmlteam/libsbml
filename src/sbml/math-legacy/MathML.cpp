@@ -404,7 +404,17 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     string url;
     element.getAttributes().readInto("definitionURL", url);
 
-    if (stream.getSBMLNamespaces()->getLevel() < 3)
+    if (stream.getSBMLNamespaces() == NULL)
+    {
+      // non sbml
+      if (url == URL_DELAY) node.setType(AST_FUNCTION_DELAY);
+      else if (url == URL_TIME) node.setType(AST_NAME_TIME);
+      else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
+      else if (url == URL_RATE_OF) node.setType(AST_FUNCTION_RATE_OF);
+      else node.setType(AST_FUNCTION);
+
+    }
+    else if (stream.getSBMLNamespaces()->getLevel() < 3)
     {
       if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
       else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
@@ -760,13 +770,13 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
   elem.getAttributes().readInto( "style"        , style     );
 
   if (!id.empty())
-	  node.setId(id);
+    node.setId(id);
 
   if (!className.empty())
-	  node.setClass(className);
+    node.setClass(className);
 
   if (!style.empty())
-	  node.setStyle(style);
+    node.setStyle(style);
 
   if ( !type.empty() && name != "cn")
   {
@@ -1101,9 +1111,9 @@ static void writeStartEndElement (const string&, const ASTNode&, XMLOutputStream
 static void 
 writeStartEndElement (const string& name, const ASTNode& node, XMLOutputStream& stream)
 {
-	stream.startElement(name);
-	writeAttributes(node, stream);
-	stream.endElement(name);
+  stream.startElement(name);
+  writeAttributes(node, stream);
+  stream.endElement(name);
 }
 /** @endcond */
 
@@ -1117,7 +1127,7 @@ writeAttributes(const ASTNode& node, XMLOutputStream& stream)
   if (node.isSetId())
     stream.writeAttribute("id", node.getId());
   if (node.isSetClass())
-	  stream.writeAttribute("class", node.getClass());
+    stream.writeAttribute("class", node.getClass());
   if (node.isSetStyle())
     stream.writeAttribute("style", node.getStyle());
 }
@@ -1142,7 +1152,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   {
     stream.startElement("ci");
     stream.setAutoIndent(false);
-	  writeAttributes(node, stream);
+    writeAttributes(node, stream);
     if (node.getDefinitionURL() != NULL)
     {
       stream.writeAttribute("definitionURL", 
@@ -1171,12 +1181,12 @@ writeCN (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NU
 
   if ( node.isNaN() )
   {
-	  writeStartEndElement("notanumber", node, stream);
+    writeStartEndElement("notanumber", node, stream);
     //stream.startEndElement("notanumber");
   }
   else if ( !(node.getType() == AST_REAL_E) && node.isInfinity() )
   {
-	  writeStartEndElement("infinity", node, stream);
+    writeStartEndElement("infinity", node, stream);
     //stream.startEndElement("infinity");
   }
   else if ( node.isNegInfinity() )
@@ -1194,7 +1204,7 @@ writeCN (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NU
   else
   {
     stream.startElement("cn");
-  	writeAttributes(node, stream);
+    writeAttributes(node, stream);
     if (!node.getUnits().empty())
     {
       // we only write out the units iff, we don't know what namespace we 
@@ -1246,7 +1256,7 @@ writeConstant (const ASTNode& node, XMLOutputStream& stream)
 
   switch ( node.getType() )
   {
-	case AST_CONSTANT_PI:    writeStartEndElement("pi", node, stream);           break;
+  case AST_CONSTANT_PI:    writeStartEndElement("pi", node, stream);           break;
     case AST_CONSTANT_TRUE:  writeStartEndElement("true", node, stream);         break;
     case AST_CONSTANT_FALSE: writeStartEndElement("false", node, stream);        break;
     case AST_CONSTANT_E:     writeStartEndElement("exponentiale", node, stream); break;
@@ -1478,7 +1488,7 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
         index = type - AST_FUNCTION_ABS - 7;
         
       const char* name = MATHML_FUNCTIONS[index];
-	    writeStartEndElement(name, node, stream);
+      writeStartEndElement(name, node, stream);
       //stream.startEndElement(name);
     }
 
@@ -1627,7 +1637,7 @@ writeOperator (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
     case AST_DIVIDE:  writeStartEndElement( "divide", node, stream );  break;
     case AST_POWER :  writeStartEndElement( "power" , node, stream );  break;
 
-	//case AST_PLUS  :  stream.startEndElement( "plus"   );  break;
+  //case AST_PLUS  :  stream.startEndElement( "plus"   );  break;
     //case AST_TIMES :  stream.startEndElement( "times"  );  break;
     //case AST_MINUS :  stream.startEndElement( "minus"  );  break;
     //case AST_DIVIDE:  stream.startEndElement( "divide" );  break;
@@ -1853,9 +1863,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 
   if (node) 
   {
-	// FIX-ME need to know what level and version
-	if (node->hasUnits())
-	{
+  // FIX-ME need to know what level and version
+  if (node->hasUnits())
+  {
     unsigned int level = SBML_DEFAULT_LEVEL;
     unsigned int version = SBML_DEFAULT_VERSION;
     if (sbmlns != NULL)
@@ -1866,9 +1876,9 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
     
     stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
       SBMLNamespaces::getSBMLNamespaceURI(level, version));
-	}
-	
-	writeNode(*node, stream,sbmlns);
+  }
+  
+  writeNode(*node, stream,sbmlns);
   }
 
   stream.endElement("math");
