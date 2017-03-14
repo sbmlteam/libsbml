@@ -44,6 +44,25 @@
 #include <check.h>
 
 LIBSBML_CPP_NAMESPACE_USE
+#define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+#define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+#define MATHML_FOOTER "</math>"
+
+#define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
+
+
+
+static bool
+equals(const char* expected, const char* actual)
+{
+  if (!strcmp(expected, actual)) return true;
+
+  printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
+
+  return false;
+}
 
 BEGIN_C_DECLS
 
@@ -231,6 +250,17 @@ END_TEST
 
 START_TEST(test_read_MathML_fromStream)
 {
+  const char* expected = wrapMathML
+    (
+      "  <apply>\n"
+      "    <divide/>\n"
+      "    <ci> LacIbNormalized </ci>\n"
+      "    <apply>\n"
+      "      <csymbol encoding=\"text\" definitionURL=\"http://sed-ml.org/#max\"> max </csymbol>\n"
+      "      <ci> LacIbNormalized </ci>\n"
+      "    </apply>\n"
+      "  </apply>\n"
+      );
   std::string filename(TestDataDirectory);
   filename += "non_sbml_symbol.xml";
 
@@ -243,6 +273,9 @@ START_TEST(test_read_MathML_fromStream)
 
   fail_unless(node != NULL);
   fail_unless(log.getNumErrors() == 0);
+
+  fail_unless(equals(expected, result.c_str()));
+
   
   delete node;
 

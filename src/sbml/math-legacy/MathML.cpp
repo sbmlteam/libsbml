@@ -220,7 +220,7 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_UNKNOWN
   , AST_FUNCTION_CEILING
   , AST_NAME
-  , AST_REAL
+  , AST_CSYMBOL_FUNCTION
   , AST_FUNCTION_COS
   , AST_FUNCTION_COSH
   , AST_FUNCTION_COT
@@ -411,7 +411,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       else if (url == URL_TIME) node.setType(AST_NAME_TIME);
       else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
       else if (url == URL_RATE_OF) node.setType(AST_FUNCTION_RATE_OF);
-      else node.setType(AST_NAME_TIME);
+      else node.setType(AST_CSYMBOL_FUNCTION);
       node.setDefinitionURL(url);
 
     }
@@ -1287,6 +1287,7 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbml
   else if (type == AST_NAME_TIME)      url = URL_TIME;
   else if (type == AST_NAME_AVOGADRO)  url = URL_AVOGADRO;
   else if (type == AST_FUNCTION_RATE_OF)  url = URL_RATE_OF;
+  else url = node.getDefinitionURLString();
 
   stream.startElement("csymbol");
   stream.setAutoIndent(false);
@@ -1475,7 +1476,8 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
     {
       writeCI(node, stream,sbmlns);
     }
-    else if (type == AST_FUNCTION_DELAY || type == AST_FUNCTION_RATE_OF)
+    else if (type == AST_FUNCTION_DELAY || type == AST_FUNCTION_RATE_OF 
+      || type == AST_CSYMBOL_FUNCTION)
     {
       writeCSymbol(node, stream,sbmlns);
     }

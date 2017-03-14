@@ -259,6 +259,9 @@ typedef enum
   , AST_FUNCTION_REM
   , AST_LOGICAL_IMPLIES
 
+  /* generic to facilitate non sbml libraries*/
+  , AST_CSYMBOL_FUNCTION = 400
+
 
   , AST_UNKNOWN /*!< Unknown node:  will not produce any MathML */
 } ASTNodeType_t;
