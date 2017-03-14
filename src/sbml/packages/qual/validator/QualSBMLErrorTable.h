@@ -81,11 +81,11 @@ static const packageErrorTableEntry qualErrorTable[] =
 
     // 3010201
   { QualFunctionTermBool, 
-    "FunctionTerm should return boolean",
+    "FunctionTerm should return Boolean",
     LIBSBML_CAT_MATHML_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
     "The MathML <math> element in a <functionTerm> object should "
-    "evaluate to a value of type boolean.", 
+    "evaluate to a value of type Boolean.", 
     { "L3V1 Qual V1 Section 3.6.5"
     }
   },
@@ -272,11 +272,11 @@ static const packageErrorTableEntry qualErrorTable[] =
 
   // 3020304
   { QualConstantMustBeBool, 
-    "Attribute 'constant' on <qualitativeSpecies> must be boolean.",
+    "Attribute 'constant' on <qualitativeSpecies> must be Boolean.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'qual:constant' in <qualitativeSpecies> must be of "
-    "the data type boolean.",
+    "the data type Boolean.",
     { "L3V1 Qual V1 Section 3.5"
     }
   },

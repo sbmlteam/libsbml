@@ -286,12 +286,12 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
 
   // 2020210
   { FbcModelStrictMustBeBoolean, 
-    "'Strict' attribute must be boolean",
+    "'Strict' attribute must be Boolean",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "The attribute 'fbc:strict' on the <model> "
-    "object must have a value of datatype boolean.",
+    "object must have a value of datatype Boolean.",
     { "",
       "L3V1 Fbc V2 Section 3.3"
     }

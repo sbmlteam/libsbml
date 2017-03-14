@@ -122,7 +122,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of attribute 'groups:required' on the <sbml> object must be of "
-    "data type 'boolean'.",
+    "data type Boolean.",
     { "L3V1 Core Section 4.1.2"
     }
   },
