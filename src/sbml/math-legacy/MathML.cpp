@@ -412,6 +412,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
       else if (url == URL_RATE_OF) node.setType(AST_FUNCTION_RATE_OF);
       else node.setType(AST_FUNCTION);
+      node.setDefinitionURL(url);
 
     }
     else if (stream.getSBMLNamespaces()->getLevel() < 3)
@@ -1144,7 +1145,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   ASTNodeType_t type = node.getType();
 
   if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME
-    || type == AST_NAME_AVOGADRO )
+    || type == AST_NAME_AVOGADRO || type == AST_FUNCTION_RATE_OF)
   {
     writeCSymbol(node, stream, sbmlns);
   }
