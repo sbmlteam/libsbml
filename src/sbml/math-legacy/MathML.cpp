@@ -411,7 +411,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       else if (url == URL_TIME) node.setType(AST_NAME_TIME);
       else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
       else if (url == URL_RATE_OF) node.setType(AST_FUNCTION_RATE_OF);
-      else node.setType(AST_FUNCTION);
+      else node.setType(AST_NAME_TIME);
       node.setDefinitionURL(url);
 
     }
