@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The values of all arguments to 'eq' and 'neq' operators should have the "
-    "same type (either all boolean or all numeric). (References: L2V2 "
+    "same type (either all Boolean or all numeric). (References: L2V2 "
     "Section 3.5.8.)";
 
 
@@ -186,7 +186,7 @@ EqualityArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
     }
     break;
   }
-  msg << "uses arguments that should be either both numeric or both boolean.";
+  msg << "uses arguments that should be either both numeric or both Boolean.";
   safe_free(formula);
 
   return msg.str();

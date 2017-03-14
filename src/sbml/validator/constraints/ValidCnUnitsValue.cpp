@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
     "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
-    "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
+    "'not' must have Boolean values. (References: L2V2 Section 3.5.8.)";
 
 
 /**

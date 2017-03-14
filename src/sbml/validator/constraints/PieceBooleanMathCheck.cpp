@@ -55,7 +55,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* PREAMBLE =
-    "The second argument of a MathML 'piece' operator must have a boolean "
+    "The second argument of a MathML 'piece' operator must have a Boolean "
     "value. (References: L2V2 Section 3.5.8.)";
 
 

@@ -296,7 +296,7 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   pre( fd.isSetBody() == true      );
 
   msg = "The <functionDefinition> with id '" + fd.getId() + "' returns "
-    "a value that is neither boolean nor numeric.";
+    "a value that is neither Boolean nor numeric.";
 
   /*
    * need to look at the special case where the body of the lambda function
