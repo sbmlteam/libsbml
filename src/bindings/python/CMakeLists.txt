@@ -278,17 +278,19 @@ else()
   endif()
 endif()
 
-if(APPLE)
+if(APPLE OR UNIX)
   option (PYTHON_USE_DYNAMIC_LOOKUP
-  "Do not actually link against the python library, instead use the undefined lookup mechanism." OFF)
+  "Do not actually link against the python library, instead use the undefined lookup mechanism, that ." OFF)
   mark_as_advanced(PYTHON_USE_DYNAMIC_LOOKUP)
-endif(APPLE)
+endif(APPLE OR UNIX)
 
-if (APPLE AND PYTHON_USE_DYNAMIC_LOOKUP)
-  set_target_properties (binding_python_lib PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
-  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static)
+if (PYTHON_USE_DYNAMIC_LOOKUP)
+  if (APPLE)
+    set_target_properties (binding_python_lib PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+  endif()
+  target_link_libraries(binding_python_lib ${LIBCOMBINE_LIBRARY}-static)
 else()
-  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static ${PYTHON_LIBRARIES})
+  target_link_libraries(binding_python_lib ${LIBCOMBINE_LIBRARY}-static ${PYTHON_LIBRARIES})
 endif()
 
 
