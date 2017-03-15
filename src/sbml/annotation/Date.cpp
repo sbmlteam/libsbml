@@ -418,7 +418,8 @@ Date::setDateAsString (const std::string& date)
 void
 Date::parseDateNumbersToString()
 {
-  char cdate[10];
+  char cdate[11];
+  cdate[10] = '\0';
 
   if (mMonth < 10)
     snprintf(cdate, 10, "%u-0%u-", mYear, mMonth);
