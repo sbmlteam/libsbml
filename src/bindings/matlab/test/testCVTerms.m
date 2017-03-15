@@ -1,8 +1,8 @@
-function y = testCVTerms(outdir, in_installer, fbcEnabled)
+function fail = testCVTerms(outdir, in_installer, fbcEnabled)
 
 % safe for now sice my test includes fbc
 if (fbcEnabled == 0)
-    y = 0;
+    fail = 0;
     return;
 end;
 
