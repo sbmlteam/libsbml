@@ -213,7 +213,7 @@ SBMLFunctionDefinitionConverter::convert()
       if (mModel->getReaction(i)->getProduct(j)->isSetStoichiometryMath())
       {
         if (mModel->getReaction(i)->getProduct(j)->getStoichiometryMath()
-          ->isSetMath(), &idsToSkip)
+          ->isSetMath())
         {
           SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
             ->getReaction(i)->getProduct(j)->getStoichiometryMath()->getMath()), 

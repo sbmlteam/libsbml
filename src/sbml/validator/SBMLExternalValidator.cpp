@@ -193,6 +193,8 @@ void startProgramAndWaitForFinish(std::string& mProgram, std::string& sbmlFile, 
 
 	if (bWait)
 		WaitForSingleObject( pi.hProcess, INFINITE );
+
+  CloseHandle(pi.hThread);
 #else
   int pid = fork();
 
@@ -225,6 +227,7 @@ void startProgramAndWaitForFinish(std::string& mProgram, std::string& sbmlFile, 
 
   }
 #endif
+
 
 }
 

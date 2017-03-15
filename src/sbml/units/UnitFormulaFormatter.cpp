@@ -1964,7 +1964,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     return NULL;
   }
   UnitDefinition * ud = NULL;
-  const UnitDefinition * tempUd;
+  UnitDefinition * tempUd = NULL;
   Unit * unit;
   unsigned int n, p;
 
@@ -1980,7 +1980,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     */
     if (event->getLevel() < 3)
     {
-      tempUd = model->getUnitDefinition("time");
+      tempUd = (UnitDefinition*)(model->getUnitDefinition("time"));
 
       try
       {
@@ -2379,6 +2379,7 @@ UnitFormulaFormatter::getTimeUnitDefinition()
       timeUnits = "second";
   }
 
+  char * charTime = safe_strdup(timeUnits.c_str());
   try
   {
     ud = new UnitDefinition(model->getSBMLNamespaces());
@@ -2389,12 +2390,12 @@ UnitFormulaFormatter::getTimeUnitDefinition()
       SBMLDocument::getDefaultVersion());
   }
 
-  if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
+  if (UnitKind_isValidUnitKindString(charTime,
                                       model->getLevel(), 
                                       model->getVersion()))
   {
     Unit* u = ud->createUnit();
-    u->setKind(UnitKind_forName(timeUnits.c_str()));
+    u->setKind(UnitKind_forName(charTime));
     u->initDefaults();
   }
   else if (model->getUnitDefinition(timeUnits) != NULL)
@@ -2422,6 +2423,7 @@ UnitFormulaFormatter::getTimeUnitDefinition()
     mCanIgnoreUndeclaredUnits = 0;
   }
 
+  safe_free(charTime);
   return ud;
 
 }
@@ -2500,7 +2502,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
       child2 = math->getChild(1)->deepCopy();
     }
 
-    if (child1->containsVariable(id) == true)
+    if (child1 != NULL && child1->containsVariable(id) == true)
     {
       if (child1->getType() == AST_NAME && child1->getName() == id)
       {
@@ -2524,7 +2526,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
         continue;
       }
     }
-    else if (child2->containsVariable(id) == true)
+    else if (child2 != NULL && child2->containsVariable(id) == true)
     {
       if (child2->getType() == AST_NAME && child2->getName() == id)
       {
@@ -2558,8 +2560,10 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
 
   delete math;
   delete tempUD;
-  if (child1 != NULL) delete child1;
-  if (child2 != NULL) delete child2;
+  if (child1 != NULL) 
+    delete child1;
+  if (child2 != NULL) 
+    delete child2;
 
   return resultUD;
 }

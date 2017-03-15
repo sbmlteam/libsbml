@@ -1182,11 +1182,11 @@ ASTNode::getName () const
     }
     else if ( isFunction() )
     {
-      if (mType >= AST_FUNCTION_MAX)
+      if (mType < AST_LOGICAL_IMPLIES && mType >= AST_FUNCTION_MAX)
       {
         result = AST_NEW_FUNCTION_STRINGS[mType - AST_FUNCTION_MAX];
       }
-      else
+      else if (mType <= AST_FUNCTION_TANH && mType >= AST_FUNCTION_ABS)
       {
         result = AST_FUNCTION_STRINGS[ mType - AST_FUNCTION_ABS ];
       }

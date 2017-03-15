@@ -163,26 +163,30 @@ SBMLLocalParameterConverter::convert()
     for (unsigned int j = list->size(); j >= 1; --j)
     {
       Parameter* param = list->remove(j-1);
-      const std::string oldId = param->getId();
-      string newId = getNewId(mModel, current->getId(), oldId);
-      LocalParameter* lParam = dynamic_cast<LocalParameter*>(param);
-
-      if (lParam != NULL)
+      if (param != NULL)
       {
-        Parameter newparam(*lParam);
-        newparam.setId(newId);
-        newparam.setConstant(true);
-        mModel->addParameter(&newparam);
-      }
-      else
-      {
-        param->setId(newId);
-        mModel->addParameter(param);
-      }
-      delete param;
+        const std::string oldId = param->getId();
+        string newId = getNewId(mModel, current->getId(), oldId);
+        LocalParameter* lParam = dynamic_cast<LocalParameter*>(param);
 
-      if (law->isSetMath()) 
-        (const_cast<ASTNode*>(law->getMath()))->renameSIdRefs(oldId, newId);
+        if (lParam != NULL)
+        {
+          Parameter newparam(*lParam);
+          newparam.setId(newId);
+          newparam.setConstant(true);
+          mModel->addParameter(&newparam);
+        }
+        else
+        {
+          param->setId(newId);
+          mModel->addParameter(param);
+        }
+        delete param;
+
+
+        if (law->isSetMath())
+          (const_cast<ASTNode*>(law->getMath()))->renameSIdRefs(oldId, newId);
+      }
     }
 
   }

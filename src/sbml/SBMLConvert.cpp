@@ -580,12 +580,13 @@ Model::addModifiers ()
       // 2. It refers to a Species in this Model, and
       if (id == NULL || getSpecies(id) == NULL) continue;
 
+      std::string sid = std::string(id);
       // 3. It is not a Reactant, Product, or (already) a Modifier
-      if (getReaction(n)->getReactant(id) != NULL) continue;
-      if (getReaction(n)->getProduct (id) != NULL) continue;
-      if (getReaction(n)->getModifier(id) != NULL) continue;
+      if (getReaction(n)->getReactant(sid) != NULL) continue;
+      if (getReaction(n)->getProduct (sid) != NULL) continue;
+      if (getReaction(n)->getModifier(sid) != NULL) continue;
 
-      getReaction(n)->createModifier()->setSpecies(id);
+      getReaction(n)->createModifier()->setSpecies(sid);
     }
 
     delete names;

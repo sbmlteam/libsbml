@@ -614,12 +614,14 @@ SBMLExtensionRegistry_getSBasePluginCreators(const SBaseExtensionPoint_t* extPoi
     SBMLExtensionRegistry::getInstance().getSBasePluginCreators(*extPoint);
 
   *length = (int)list.size();
-  SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)*length));
+  SBasePluginCreatorBase_t** result = 
+    (SBasePluginCreatorBase_t**)safe_malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)(*length)));
   
   std::list<const SBasePluginCreatorBase*>::iterator it;
   int count = 0;
   for (it = list.begin(); it != list.end(); it++)
   {
+    result[count] = (SBasePluginCreatorBase_t*)safe_malloc(sizeof(SBasePluginCreatorBase_t*));
     result[count++] = (*it)->clone();
   }
   
@@ -636,12 +638,14 @@ SBMLExtensionRegistry_getSBasePluginCreatorsByURI(const char* uri, int* length)
      SBMLExtensionRegistry::getInstance().getSBasePluginCreators(sUri);
  
    *length = (int)list.size();
-   SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)*length));
+   SBasePluginCreatorBase_t** result = 
+     (SBasePluginCreatorBase_t**)safe_malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)(*length)));
    
    std::list<const SBasePluginCreatorBase*>::iterator it;
    int count = 0;
    for (it = list.begin(); it != list.end(); it++)
    {
+     result[count] = (SBasePluginCreatorBase_t*)safe_malloc(sizeof(SBasePluginCreatorBase_t*));
      result[count++] = (*it)->clone();
    }
   

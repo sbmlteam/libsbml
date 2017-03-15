@@ -874,10 +874,11 @@ SBMLNamespaces_getSupportedNamespaces(int *length)
    const List* supported = SBMLNamespaces::getSupportedNamespaces();
   
    *length = (int) supported->getSize();
-  SBMLNamespaces_t ** result = (SBMLNamespaces_t**)malloc(sizeof(SBMLNamespaces_t*)*((unsigned long)*length));
-  memset(result, 0, sizeof(SBMLNamespaces_t*)*((unsigned long)*length));
+  SBMLNamespaces_t ** result = (SBMLNamespaces_t**)safe_malloc(sizeof(SBMLNamespaces_t*)*((unsigned long)(*length)));
+  //memset(result, 0, sizeof(SBMLNamespaces_t*)*((unsigned long)*length));
   for (int i = 0; i < *length; i++)
   {
+    result[i] = (SBMLNamespaces_t*)safe_malloc(sizeof(SBMLNamespaces_t*));
     result[i] = ((SBMLNamespaces*)supported->get((unsigned int)i))->clone();
   }
   SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supported));

@@ -689,7 +689,7 @@ SBMLDocument::setModel (const Model* m)
       mModel->connectToParent(this);
     }
 
-    if (getURI() != mModel->getURI()) 
+    if (mModel != NULL && getURI() != mModel->getURI()) 
     {
       mModel->setElementNamespace(getURI());
     }

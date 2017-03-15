@@ -158,10 +158,12 @@ bool
 SBMLTransforms::checkFunctionNodeForIds(ASTNode * node, IdList& ids)
 {
   bool present = false;
+  if (node == NULL) return present;
+
   unsigned int i = 0;
   unsigned int numChildren = node->getNumChildren();
 
-  if (node != NULL && node->getType() == AST_FUNCTION)
+  if (node->getType() == AST_FUNCTION)
   {
     if (ids.contains(node->getName()))
     {
