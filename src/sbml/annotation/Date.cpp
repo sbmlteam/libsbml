@@ -421,58 +421,58 @@ Date::parseDateNumbersToString()
   char cdate[10];
 
   if (mMonth < 10)
-    sprintf(cdate, "%u-0%u-", mYear, mMonth);
+    snprintf(cdate, 10, "%u-0%u-", mYear, mMonth);
   else
-    sprintf(cdate, "%u-%u-", mYear, mMonth);
+    snprintf(cdate, 10, "%u-%u-", mYear, mMonth);
   mDate = cdate;
   
   if (mDay < 10)
-    sprintf(cdate, "0%uT", mDay);
+    snprintf(cdate, 10, "0%uT", mDay);
   else
-    sprintf(cdate, "%uT", mDay);
+    snprintf(cdate, 10, "%uT", mDay);
   mDate.append(cdate);
 
   if (mHour < 10)
-    sprintf(cdate, "0%u:", mHour);
+    snprintf(cdate, 10, "0%u:", mHour);
   else
-    sprintf(cdate, "%u:", mHour);
+    snprintf(cdate, 10, "%u:", mHour);
   mDate.append(cdate);
   
   if (mMinute < 10)
-    sprintf(cdate, "0%u:", mMinute);
+    snprintf(cdate, 10, "0%u:", mMinute);
   else
-    sprintf(cdate, "%u:", mMinute);
+    snprintf(cdate, 10, "%u:", mMinute);
   mDate.append(cdate);
   
   if (mSecond < 10)
-    sprintf(cdate, "0%u", mSecond);
+    snprintf(cdate, 10, "0%u", mSecond);
   else
-    sprintf(cdate, "%u", mSecond);
+    snprintf(cdate, 10, "%u", mSecond);
   mDate.append(cdate);
 
   if (mHoursOffset == 0 && mMinutesOffset == 0)
   {
-    sprintf(cdate, "Z");
+    snprintf(cdate, 10, "Z");
     mDate.append(cdate);
   }
   else
   {
     if (mSignOffset == 0)
-      sprintf(cdate, "-");
+      snprintf(cdate, 10, "-");
     else
-      sprintf(cdate, "+");
+      snprintf(cdate, 10, "+");
     mDate.append(cdate);
 
     if (mHoursOffset < 10)
-      sprintf(cdate, "0%u:", mHoursOffset);
+      snprintf(cdate, 10, "0%u:", mHoursOffset);
     else
-      sprintf(cdate, "%u:", mHoursOffset);
+      snprintf(cdate, 10, "%u:", mHoursOffset);
     mDate.append(cdate);
     
     if (mMinutesOffset < 10)
-      sprintf(cdate, "0%u", mMinutesOffset);
+      snprintf(cdate, 10, "0%u", mMinutesOffset);
     else
-      sprintf(cdate, "%u", mMinutesOffset);
+      snprintf(cdate, 10, "%u", mMinutesOffset);
     mDate.append(cdate);
   }
 
