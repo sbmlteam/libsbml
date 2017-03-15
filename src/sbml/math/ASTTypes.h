@@ -144,8 +144,11 @@ typedef enum
   , AST_FUNCTION_REM /*!< Rem (MathML <code>&lt;rem&gt;</code>) */
   , AST_LOGICAL_IMPLIES /*!< Implies (MathML <code>&lt;implies&gt;</code>) */
 
-  , AST_UNKNOWN /*!< Unknown node:  will not produce any MathML */
-  , AST_ORIGINATES_IN_PACKAGE /*!< This node uses math that is only available in an L3 package */
+  , AST_CSYMBOL_FUNCTION = 400
+
+  , AST_UNKNOWN    /*!< Unknown node:  will not produce any MathML */
+  , AST_ORIGINATES_IN_PACKAGE  /*!< This node uses math that is only available in an L3 package */
+
 } ASTNodeType_t;
 
 

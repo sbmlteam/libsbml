@@ -1669,13 +1669,25 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
         if (read == true && mDelay != NULL)
         {
           std::string name1 = mDelay->getName();
-          mDelay->setType(AST_FUNCTION);
+          if (stream.getSBMLNamespaces() == NULL)
+          {
+            mDelay->setType(AST_CSYMBOL_FUNCTION);
+          }
+          else
+          {
+            mDelay->setType(AST_FUNCTION);
+          }
           mDelay->setName(name1);
           this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
         }
       }
-      logError(stream, element, BadCsymbolDefinitionURLValue, "The <csymbol> definitionURL '" 
-          + url +"' is not allowed for this level and version of SBML.");      
+
+      if (stream.getSBMLNamespaces() != NULL)
+      {
+        // only log error if we are using sbml
+        logError(stream, element, BadCsymbolDefinitionURLValue, "The <csymbol> definitionURL '"
+          + url + "' is not allowed for this level and version of SBML.");
+      }
     }
   }
 

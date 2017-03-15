@@ -730,6 +730,10 @@ ASTBase::isFunction() const
   {
     isFunction = true;
   }
+  else if (type == AST_CSYMBOL_FUNCTION)
+  {
+    isFunction = true;
+  }
   else if (getNumPlugins() > 0)
   {
     unsigned int i = 0;
