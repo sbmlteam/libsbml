@@ -214,7 +214,7 @@ LayoutExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsign
 {
   if (sbmlLevel == 3)
   {
-    if (sbmlVersion == 1)
+    if (sbmlVersion == 1 || sbmlVersion == 2)
     {
       if (pkgVersion == 1)
       {

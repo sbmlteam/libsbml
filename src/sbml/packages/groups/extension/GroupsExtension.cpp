@@ -202,7 +202,7 @@ GroupsExtension::getURI(unsigned int sbmlLevel,
 {
   if (sbmlLevel == 3)
   {
-    if (sbmlVersion == 1)
+    if (sbmlVersion == 1 || sbmlVersion == 2)
     {
       if (pkgVersion == 1)
       {
