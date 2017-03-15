@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+	<apply>
+		<divide />
+		<ci>LacIbNormalized</ci>
+		<apply>
+			<csymbol definitionURL="http://sed-ml.org/#max" encoding="text">max
+			</csymbol>
+			<ci>LacIbNormalized</ci>
+		</apply>
+	</apply>
+</math>
