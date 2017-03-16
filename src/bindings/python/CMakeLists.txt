@@ -288,9 +288,9 @@ if (PYTHON_USE_DYNAMIC_LOOKUP)
   if (APPLE)
     set_target_properties (binding_python_lib PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
   endif()
-  target_link_libraries(binding_python_lib ${LIBCOMBINE_LIBRARY}-static)
-else()
-  target_link_libraries(binding_python_lib ${LIBCOMBINE_LIBRARY}-static ${PYTHON_LIBRARIES})
+  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static)
+else()                                          
+  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static ${PYTHON_LIBRARIES})
 endif()
 
 
