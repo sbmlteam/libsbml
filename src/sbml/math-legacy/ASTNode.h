@@ -165,6 +165,7 @@
 #include <sbml/SyntaxChecker.h>
 
 #include <sbml/common/operationReturnValues.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -289,6 +290,7 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class List;
+class ASTBasePlugin;
 
 class ASTNode
 {
@@ -966,6 +968,17 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    */
   LIBSBML_EXTERN
   bool isConstant () const;
+
+
+
+  /**
+  * Returns @c true (non-zero) if this node represents a MathML
+  * ci element representing a value not a function (e.g., @c true, @c Pi).
+  *
+  * @return @c true if this ASTNode is a MathML ci element, @c false otherwise.
+  */
+  LIBSBML_EXTERN
+  bool isCiNumber() const;
 
 
   /**
@@ -1936,6 +1949,98 @@ setValue(value, 0);
   unsigned int getNumBvars() const;
 
   /** @endcond */
+  // ------------------------------------------------------------------
+  //
+  // public functions for EXTENSION
+  //
+  // ------------------------------------------------------------------
+
+  /** @cond doxygenLibsbmlInternal */
+
+  LIBSBML_EXTERN
+  void addPlugin(ASTBasePlugin* plugin);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  LIBSBML_EXTERN
+  void loadASTPlugins(const SBMLNamespaces * sbmlns);
+
+  /** @endcond */
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension with the given package name or URI.
+   *
+   * @param package the name or URI of the package.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension with the given package name or URI.
+   */
+  LIBSBML_EXTERN
+  ASTBasePlugin* getPlugin(const std::string& package);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension with the given package name or URI.
+   *
+   * @param package the name or URI of the package.
+   *
+   * @return the plug-in object (the libSBML extension interface) of a
+   * package extension with the given package name or URI.
+   */
+  LIBSBML_EXTERN
+  const ASTBasePlugin* getPlugin(const std::string& package) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @param n the index of the plug-in to return.
+   *
+   * @return the plug-in object (the libSBML extension interface) of
+   * a package extension with the given package name or URI.
+   */
+  LIBSBML_EXTERN
+  ASTBasePlugin* getPlugin(unsigned int n);
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @param n the index of the plug-in to return.
+   *
+   * @return the plug-in object (the libSBML extension interface) of a
+   * package extension with the given package name or URI.
+   */
+  LIBSBML_EXTERN
+  const ASTBasePlugin* getPlugin(unsigned int n) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Returns the number of plug-in objects (extenstion interfaces) for SBML
+   * Level&nbsp;3 package extensions known.
+   *
+   * @return the number of plug-in objects (extension interfaces) of
+   * package extensions known by this instance of libSBML.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumPlugins() const;
+
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -1985,11 +2090,25 @@ protected:
 
   bool mIsBvar;
   void *mUserData;
+  std::string mPackageName;
   
   friend class MathMLFormatter;
   friend class MathMLHandler;
 
+  //----------------------------------------------------------------------
+  //
+  // Additional data members for Extension
+  //
+  //----------------------------------------------------------------------
+
+  //
+  // ASTBasePlugin derived classes will be stored in mPlugins.
+  std::vector<ASTBasePlugin*> mPlugins;
+
   /** @endcond */
+
+private:
+  void clearPlugins();
 };
 
 LIBSBML_CPP_NAMESPACE_END

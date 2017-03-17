@@ -73,6 +73,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class FormulaUnitsData;
 
+class ASTNode;
+
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
 public:

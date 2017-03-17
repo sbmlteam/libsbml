@@ -43,6 +43,7 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/Model.h>
 #include <sbml/util/IdList.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
 
 /** @cond doxygenIgnored */
 
@@ -271,6 +272,12 @@ ASTNode::ASTNode (ASTNodeType_t type)
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
+  loadASTPlugins(NULL);
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    getPlugin(i)->connectToParent(this);
+  }
+
 }
 
 
@@ -327,7 +334,24 @@ ASTNode::ASTNode (Token_t* token)
       setCharacter(token->value.ch);
     }
   }
+  loadASTPlugins(NULL);
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    getPlugin(i)->connectToParent(this);
+  }
 }
+
+/*
+* Used by the Copy Constructor to clone each item in mPlugins.
+*/
+struct CloneASTPluginEntity : public unary_function<ASTBasePlugin*, ASTBasePlugin*>
+{
+  ASTBasePlugin* operator() (ASTBasePlugin* ast) {
+    if (!ast) return 0;
+    return ast->clone();
+  }
+};
+
 
 /*
  * 
@@ -368,6 +392,13 @@ ASTNode::ASTNode (const ASTNode& orig) :
   for (unsigned int c = 0; c < orig.getNumSemanticsAnnotations(); ++c)
   {
     addSemanticsAnnotation( orig.getSemanticsAnnotation(c)->clone() );
+  }
+  mPlugins.resize(orig.mPlugins.size());
+  transform(orig.mPlugins.begin(), orig.mPlugins.end(),
+    mPlugins.begin(), CloneASTPluginEntity());
+  for (size_t i = 0; i < mPlugins.size(); i++)
+  {
+    getPlugin((unsigned int)i)->connectToParent(this);
   }
 }
 
@@ -427,6 +458,10 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     
     delete mDefinitionURL;
     mDefinitionURL        = rhs.mDefinitionURL->clone();	
+    clearPlugins();
+    mPlugins.resize(rhs.mPlugins.size());
+    transform(rhs.mPlugins.begin(), rhs.mPlugins.end(),
+      mPlugins.begin(), CloneASTPluginEntity());
   }
   return *this;
 }
@@ -450,6 +485,7 @@ ASTNode::~ASTNode ()
   delete mDefinitionURL;
   
   freeName();
+  clearPlugins();
 }
 
 
@@ -1569,6 +1605,19 @@ ASTNode::isConstant () const
 {
   return ASTNodeType_isConstant(mType);
 }
+
+/*
+* @return true if this ASTNode is a MathML constant number
+*(pi, exponentiale), false otherwise.
+*/
+LIBSBML_EXTERN
+bool
+ASTNode::isCiNumber() const
+{
+  return (mType == AST_NAME);
+}
+
+
 
 
 /*
@@ -3050,6 +3099,171 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
   return number;
 }
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+void
+ASTNode::loadASTPlugins(const SBMLNamespaces * sbmlns)
+{
+  if (sbmlns == NULL)
+  {
+    const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+    unsigned int numPkgs = (unsigned int)names.size();
+
+    for (unsigned int i = 0; i < numPkgs; i++)
+    {
+      const std::string& uri = names[i];
+      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+      if (sbmlext && sbmlext->isEnabled())
+      {
+
+        //const std::string &prefix = xmlns->getPrefix(i);
+        const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+        if (astPlugin != NULL)
+        {
+          ASTBasePlugin* myastPlugin = astPlugin->clone();
+          myastPlugin->setSBMLExtension(sbmlext);
+          //            myastPlugin->setPrefix(xmlns->getPrefix(i));
+          myastPlugin->connectToParent(this);
+          mPlugins.push_back(myastPlugin);
+        }
+
+      }
+    }
+  }
+  else
+  {
+    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+
+    if (xmlns)
+    {
+      int numxmlns = xmlns->getLength();
+      for (int i = 0; i < numxmlns; i++)
+      {
+        const std::string &uri = xmlns->getURI(i);
+        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+        if (sbmlext && sbmlext->isEnabled())
+        {
+          const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+          if (astPlugin != NULL)
+          {
+            ASTBasePlugin* myastPlugin = astPlugin->clone();
+            myastPlugin->setSBMLExtension(sbmlext);
+            myastPlugin->setPrefix(xmlns->getPrefix(i));
+            myastPlugin->connectToParent(this);
+            mPlugins.push_back(myastPlugin);
+          }
+        }
+      }
+    }
+  }
+}
+
+LIBSBML_EXTERN
+void 
+ASTNode::addPlugin(ASTBasePlugin* plugin)
+{
+  mPlugins.push_back(plugin);
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+ASTBasePlugin*
+ASTNode::getPlugin(const std::string& package)
+{
+  ASTBasePlugin* astPlugin = 0;
+
+  // here we need to load a plugin if there are none
+  if (mPlugins.size() == 0)
+  {
+    loadASTPlugins(NULL);
+  }
+  for (size_t i = 0; i < mPlugins.size(); i++)
+  {
+    std::string uri = mPlugins[i]->getURI();
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+    if (uri == package)
+    {
+      astPlugin = mPlugins[i];
+      break;
+    }
+    else if (sbmlext && (sbmlext->getName() == package))
+    {
+      astPlugin = mPlugins[i];
+      break;
+    }
+  }
+
+  return astPlugin;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+const ASTBasePlugin*
+ASTNode::getPlugin(const std::string& package) const
+{
+  return const_cast<ASTNode*>(this)->getPlugin(package);
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+ASTBasePlugin*
+ASTNode::getPlugin(unsigned int n)
+{
+  if (n >= getNumPlugins())
+    return NULL;
+  return mPlugins[n];
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+const ASTBasePlugin*
+ASTNode::getPlugin(unsigned int n) const
+{
+  return const_cast<ASTNode*>(this)->getPlugin(n);
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+unsigned int
+ASTNode::getNumPlugins() const
+{
+  return (unsigned int)mPlugins.size();
+}
+
+
+/** @endcond */
+
+struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
+{
+  void operator() (ASTBasePlugin* ast) { delete ast; }
+};
+
+void ASTNode::clearPlugins()
+{
+  for_each(mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity());
+  mPlugins.clear();
+}
 
 
 #endif /* __cplusplus */

@@ -75,9 +75,9 @@ static const packageErrorTableEntryV2 defaultErrorTableV2[] =
 
 SBMLExtension::SBMLExtension ()
  : mIsEnabled(true)
-#ifndef LIBSBML_USE_LEGACY_MATH
+//#ifndef LIBSBML_USE_LEGACY_MATH
  , mASTBasePlugin (NULL)
-#endif
+//#endif
 {
 }
 
@@ -87,19 +87,19 @@ SBMLExtension::SBMLExtension ()
  */
 SBMLExtension::SBMLExtension(const SBMLExtension& orig)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
+//#ifndef LIBSBML_USE_LEGACY_MATH
     mASTBasePlugin = NULL;
-#endif
+//#endif
 
   mIsEnabled = orig.mIsEnabled;
   mSupportedPackageURI = orig.mSupportedPackageURI;
 
-#ifndef LIBSBML_USE_LEGACY_MATH
+//#ifndef LIBSBML_USE_LEGACY_MATH
   if (orig.mASTBasePlugin != NULL) 
   {
     mASTBasePlugin = orig.mASTBasePlugin->clone();
   }
-#endif
+//#endif
   for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
     mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
 }
@@ -112,10 +112,10 @@ SBMLExtension::~SBMLExtension ()
 {
   for (size_t i=0; i < mSBasePluginCreators.size(); i++)
     delete mSBasePluginCreators[i];
-#ifndef LIBSBML_USE_LEGACY_MATH
+//#ifndef LIBSBML_USE_LEGACY_MATH
   if (mASTBasePlugin != NULL)
     delete mASTBasePlugin;
-#endif
+//#endif
 }
 
 
@@ -130,12 +130,12 @@ SBMLExtension::operator=(const SBMLExtension& orig)
     mIsEnabled = orig.mIsEnabled; 
     mSupportedPackageURI = orig.mSupportedPackageURI; 
 
-  #ifndef LIBSBML_USE_LEGACY_MATH
+//  #ifndef LIBSBML_USE_LEGACY_MATH
     mASTBasePlugin = NULL;
     if (orig.mASTBasePlugin != NULL) {
       mASTBasePlugin = orig.mASTBasePlugin->clone();
     }
-  #endif /* LIBSBML_USE_LEGACY_MATH */
+//  #endif /* LIBSBML_USE_LEGACY_MATH */
 
     for (size_t i=0; i < mSBasePluginCreators.size(); i++)
       delete mSBasePluginCreators[i];
@@ -204,7 +204,7 @@ SBMLExtension::addSBasePluginCreator(const SBasePluginCreatorBase* sbaseExt)
 /** @endcond */
 
 
-#ifndef LIBSBML_USE_LEGACY_MATH
+//#ifndef LIBSBML_USE_LEGACY_MATH
 /** @cond doxygenLibsbmlInternal */
 int 
 SBMLExtension::setASTBasePlugin(const ASTBasePlugin* astPlugin)
@@ -252,7 +252,7 @@ SBMLExtension::getASTBasePlugin() const
 }
 /** @endcond */
 
-#endif /* LIBSBML_USE_LEGACY_MATH */
+//#endif /* LIBSBML_USE_LEGACY_MATH */
 
 /** @cond doxygenLibsbmlInternal */
 SBasePluginCreatorBase*

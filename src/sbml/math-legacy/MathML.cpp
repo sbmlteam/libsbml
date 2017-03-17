@@ -46,6 +46,10 @@
 
 #include <algorithm>
 
+#ifdef USE_MULTI
+#include <sbml/packages/multi/common/MultiExtensionTypes.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;
@@ -456,6 +460,29 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     {
       node.setDefinitionURL(element.getAttributes());
     }
+#ifdef USE_MULTI
+    if (element.getAttributes().hasAttribute("speciesReference", 
+      "http://www.sbml.org/sbml/level3/version1/multi/version1") == true
+      || element.getAttributes().hasAttribute("representationType",
+        "http://www.sbml.org/sbml/level3/version1/multi/version1") == true)
+    {
+      node.loadASTPlugins(stream.getSBMLNamespaces());
+      MultiASTPlugin * plug = static_cast<MultiASTPlugin*>(node.getPlugin("multi"));
+      if (plug != NULL)
+      {
+        std::string sr = element.getAttributes().getValue("speciesReference");
+        std::string rt = element.getAttributes().getValue("representationType");
+
+        if (!sr.empty())
+          plug->setSpeciesReference(sr);
+
+        if (!rt.empty())
+          plug->setRepresentationType(rt);
+      }
+    }
+
+
+#endif
   }
 
   const string name = trim( stream.next().getCharacters() );
@@ -1154,6 +1181,15 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
     stream.startElement("ci");
     stream.setAutoIndent(false);
     writeAttributes(node, stream);
+#ifdef USE_MULTI
+    const_cast<ASTNode&>(node).loadASTPlugins(stream.getSBMLNamespaces());
+    MultiASTPlugin * plug = static_cast<MultiASTPlugin*>(const_cast<ASTNode&>(node).getPlugin("multi"));
+    if (plug != NULL)
+    {
+      plug->writeAttributes(stream, (int)(type));
+    }
+
+#endif
     if (node.getDefinitionURL() != NULL)
     {
       stream.writeAttribute("definitionURL", 
