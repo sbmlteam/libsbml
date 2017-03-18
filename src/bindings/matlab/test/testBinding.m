@@ -57,6 +57,7 @@ try
     Totalfail = Totalfail + testReadFromFileFbc1(install);
     Totalfail = Totalfail + testReadFromFileFbc2(install);
     Totalfail = Totalfail + testReadWriteGeneProductIds(install);
+    Totalfail = Totalfail + testReadWriteGeneProducts(install, 'Out-test1');
   end;
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);
