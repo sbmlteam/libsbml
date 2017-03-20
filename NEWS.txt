@@ -51,7 +51,7 @@ STABLE RELEASE
 * Bug fixes
 
   - Code was failing to recognize the math elements <pi/> and
-    <exponetntiale/> as returning numeric values. This has been
+    <exponentiale/> as returning numeric values. This has been
     corrected.
 
   - A <stoichiometryMath> element with no child <math> was causing
@@ -66,13 +66,14 @@ STABLE RELEASE
     This is now fixed.
 
   - Several fixes have been made to the conversion of SBML documents
-    to lower levels and versions. These include: loss of compartment size;
-    evaluation of functionDefinitions and initialAssignments; conversion of 
-    fast reactions; evaluation of stoichiometry using initialAssignment 
-    and rules and expanding functionDefinitions with no bvar elements.
+    to lower levels and versions. These include: loss of compartment
+    size; evaluation of functionDefinitions and initialAssignments;
+    conversion of fast reactions; evaluation of stoichiometry using
+    initialAssignment and rules and expanding functionDefinitions with
+    no bvar elements.
 
-  - The export of the Avagadro Constant as an exponential number was losing 
-    precision. This has been fixed.
+  - The export of the Avagadro constant as an exponential number was
+    losing precision. This has been fixed.
 
   - Unit checking was failing to correctly associate the model 'timeUnits' 
     with the use of the csymbol for time. This has been corrected. Thanks
