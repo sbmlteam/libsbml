@@ -552,7 +552,7 @@ StructureFields::populateFields()
   mxInput[2] = CreateIntScalar(details->getVersion());
 
   // need to add inputs for any plugins
-  unsigned int numPlugins = pm.size();
+  unsigned int numPlugins = (unsigned int)(pm.size());
   if (numPlugins > 0)
   {
     mwSize dims[1] = {numPlugins};
@@ -614,7 +614,7 @@ const std::string
 StructureFields::getDefaultValue(unsigned int i, const std::string& id)
 {
   mxArray* mxName = mxGetCell(mxDefaultValues, i);
-  unsigned int nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
+  size_t nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
   char * fieldname = (char *) mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxName, (char *) fieldname, (mwSize)(nBuflen)) != 0)
   {
@@ -643,7 +643,7 @@ const FieldType_t
 StructureFields::getValueType(unsigned int i, const std::string& id)
 {
   mxArray* mxName = mxGetCell(mxValueTypes, i);
-  unsigned int nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
+  size_t nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
   char * fieldname = (char *) mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxName, (char *) fieldname, (mwSize)(nBuflen)) != 0)
   {
@@ -707,7 +707,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   }
   mwSize dims[2] = {1, total_no};
 
-  unsigned int n = mxGetNumberOfElements(mxFieldnames);
+  size_t n = mxGetNumberOfElements(mxFieldnames);
   char **field_names = (char**)(safe_malloc(n * sizeof(char*)));
   for (unsigned int i = 0; i < n; i++)
   {
@@ -739,7 +739,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
   std::string fieldname;
   FieldType_t type;
 
-  unsigned int n = mxGetNumberOfElements(mxFieldnames);
+  size_t n = mxGetNumberOfElements(mxFieldnames);
 
   for (unsigned int i = 0; i < n; i++)
   {
@@ -1294,7 +1294,8 @@ StructureFields::GetMatlabFormula(char * pacFormula, std::string object)
 {
   mxArray *mxInput[1];
   mxArray *mxOutput[1];
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   char * formula;
 
   /* convert MathML infix formula to MATLAB */
@@ -1456,7 +1457,7 @@ StructureFields::addAttributes(const std::string& functionId, unsigned int index
   std::string fieldname;
   FieldType_t type;
 
-  unsigned int n = mxGetNumberOfElements(mxFieldnames);
+  size_t n = mxGetNumberOfElements(mxFieldnames);
 
   for (unsigned int i = 0; i < n; i++)
   {
@@ -1565,7 +1566,7 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
   mxArray* mxChild = mxGetField(mxStructure, index, name.c_str());
   SBase *pChild = NULL;
 
-  unsigned int n = mxGetNumberOfElements(mxChild);
+  size_t n = mxGetNumberOfElements(mxChild);
   if (mxChild == NULL) return;
   else if (n == 0) return;
   std::string prefix = getPackagePrefix(name);
@@ -1941,7 +1942,8 @@ StructureFields::convertMathFormula(const std::string& pacFormula)
 {
   mxArray *mxInput[1];
   mxArray *mxOutput[1];
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   char * formula;
 
   /* convert MATLAB formula to MathML infix */
@@ -2795,7 +2797,7 @@ FILE_CHAR validateFilenameForOutput(int nrhs, const mxArray *prhs[])
         "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
     }
 
-    int nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
+    size_t nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
     filename = readUnicodeString(prhs[1], (mwSize)nBuflen);
   }
   else
