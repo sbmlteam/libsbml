@@ -2,12 +2,44 @@
 
 
 ====================================================================
-5.14.1 (Current SVN)
+5.15.0 (2017-04-06)
 ====================================================================
+
+NOTE: This release includes support for the SBML L3V2(RC1)
+Release Candidate specifications.  This specification is not yet
+official and thus it, and the supporting code, may change.
 
 STABLE RELEASE
 
+* Multistate and Multicomponent Species
+
+  - The first official version of the specification of the Multistate
+    and Multicomponent Species package is now available, and thus the 
+    libSBML code for 'multi' is now included in the stable release of 
+    libSBML.  This means that all prebuilt binaries for the stable 
+    release will include the 'multi' package code. The src archive 
+    containing libSBML core code will continue to be available, with
+    additional src archives available in the stable branch: one
+    containing libSBML core plus all stable packages and additional
+    archives of the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
 * New features
+
+  - The MATLAB binding has been updated to support SBML L3V2(RC 1).
+
+  - Additional options are available for the TranslateSBML/OutputSBML
+    functions for the MATLAB binding allowing users to add their own
+    validation and customize the input/output of some fbc elements.
+    (See documentation for more details.)
+
+  - A new structure field 'cvterms' has been added to the MATLAB_SBML
+    structure.  This supports annotations as a set of fields relating
+    to qualifiers and resources rather than relying on annotation
+    in the string format.
 
   - A new function setCharacters has been added to the XMLToken class.
 
@@ -16,15 +48,9 @@ STABLE RELEASE
     between an invalid read and a Level 3 Version 2 document that 
     does not contain a <model> element.
 	
-  - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
-
 * Bug fixes
 
-  - Code was failing to recognize teh math elements <pi/> and
+  - Code was failing to recognize the math elements <pi/> and
     <exponetntiale/> as returning numeric values. This has been
     corrected.
 
@@ -57,6 +83,10 @@ STABLE RELEASE
     - Validation of a model that indirectly referenced a replacedBy element
       was causing a problem. This has been resolved.
 
+    - The flattening routine was failing to correctly adjust the metaid
+      referenced by annotation where necessary.  This has been fixed. 
+      Thanks to Matthias König for reporting it.
+
   - 'fbc' package-specific bug fixes:
 
     - Validation was incorrectly reporting that a lower fluxBound could
@@ -64,10 +94,6 @@ STABLE RELEASE
 
     - The 'unsetActiveObjective' function now returns an OperationReturnValue
       in line with other set/unset functions.
-
-  - 'groups' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
@@ -80,28 +106,24 @@ STABLE RELEASE
 
 * Miscellaneous
 
+ - Beware that Doxygen 1.8.12 and later changed something in the HTML
+   it creates, and as a result, the libSBML documentation-generation
+   currently does not work for Doxygen versions after 1.8.11.  This will
+   be fixed in a later release.  For the time being, use Doxygen 1.8.11.
+
+ - We are aware that the released MATLAB binaries do not appear to work
+   with MATLAB 2017a. At present we are unable to address this issue but
+   will resolve it and issue new binaries as soon as possible.
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
   - 'spatial' package-specific updates:
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
+    - The spatial code has been adjusted for minor changes in the
+      specification and now reflects rel0.91 of the specification.
+      Some, but not all, validation has been added to the code.
 
 
 ====================================================================
