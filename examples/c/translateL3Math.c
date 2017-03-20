@@ -125,7 +125,7 @@ main (int argc, char* argv[])
         }
         else if (line[0] == 'F' && line[1] == 'I' && line[2]=='L' 
           && line[3]=='E' && line[4]==':') {
-		  int len = strlen(line);
+		  size_t len = strlen(line);
 		  char *filename = (char*) malloc(len-5+1);
 		  strncpy(filename, line+5, len-5);
 		  SBMLDocument_free(doc);
