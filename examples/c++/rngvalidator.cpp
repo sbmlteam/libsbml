@@ -135,7 +135,7 @@ public:
     xmlRelaxNGValidCtxtPtr validctxt;
     xmlRelaxNGParserCtxtPtr rngparser;
 
-    doc = xmlParseMemory(sbmlDoc.c_str(), sbmlDoc.length());
+    doc = xmlParseMemory(sbmlDoc.c_str(), (int)(sbmlDoc.length()));
 
     rngparser = xmlRelaxNGNewParserCtxt(mSchema.c_str());
     schema = xmlRelaxNGParse(rngparser);

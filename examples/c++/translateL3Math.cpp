@@ -67,7 +67,7 @@ main (int argc, char* argv[])
   char*           trimmed;
   char*           result;
   char*           str;
-  unsigned int    len;
+  size_t    len;
   SBMLDocument*   doc = NULL;
   StringBuffer_t* sb = StringBuffer_create(1024);
 
