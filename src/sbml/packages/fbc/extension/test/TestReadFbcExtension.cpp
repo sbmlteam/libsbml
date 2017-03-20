@@ -530,6 +530,53 @@ START_TEST(test_FbcExtension_read_and_convert_V1ToV2)
 }
 END_TEST
 
+static bool
+equals(const char* expected, const char* actual)
+{
+  if (!strcmp(expected, actual)) return true;
+
+  printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
+
+  return false;
+}
+
+
+
+START_TEST(test_FbcExtension_read_L3V2V1_check_id)
+{
+  const char* s1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version1\" level=\"3\" version=\"2\" fbc:required=\"false\">\n"
+    "  <model>\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"cytosol\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <listOfSpecies>\n"
+    "      <species id=\"ATPm\" compartment=\"mitochon\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+    "    </listOfSpecies>\n"
+    "    <fbc:listOfFluxBounds>\n"
+    "      <fbc:fluxBound fbc:id=\"bound1\" fbc:reaction=\"J0\" fbc:operation=\"equal\" fbc:value=\"10\"/>\n"
+    "    </fbc:listOfFluxBounds>\n"
+    "    <fbc:listOfObjectives fbc:activeObjective=\"obj1\">\n"
+    "      <fbc:objective fbc:id=\"obj1\" fbc:type=\"maximize\"/>\n"
+    "    </fbc:listOfObjectives>\n"
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+
+  SBMLDocument *document = readSBMLFromString(s1);
+
+  char * output = writeSBMLToString(document);
+
+  fail_unless(equals(s1, output));
+
+  delete document;
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadFbcExtension(void)
 {
@@ -544,6 +591,7 @@ create_suite_ReadFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_read_and_validate_chemicals);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert_V1ToV2);
+  tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_check_id);
   suite_add_tcase(suite, tcase);
 
   return suite;

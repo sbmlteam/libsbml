@@ -3023,12 +3023,9 @@ SBase::getVersion () const
 unsigned int
 SBase::getObjectVersion() const
 {
-  if (mSBMLNamespaces != NULL)
-    return mSBMLNamespaces->getVersion();
-  else if (mSBML != NULL)
-    return mSBML->mVersion;
-  else
-    return SBMLDocument::getDefaultVersion();
+  // FIX_ME: This needs careful thinking through but since for the moment
+  // a package object cannot be more than L3V1
+  return 1;
 }
 
 // ------------------------------------------------------------------
