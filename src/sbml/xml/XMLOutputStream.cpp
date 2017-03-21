@@ -45,6 +45,9 @@
 #include <sbml/common/common.h>
 #include <sbml/common/libsbml-version.h>
 #include <sbml/SBMLNamespaces.h>
+#if defined CYGWIN
+#include <string.h>
+#endif
 
 using namespace std;
 
