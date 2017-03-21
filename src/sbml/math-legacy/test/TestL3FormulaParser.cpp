@@ -1040,6 +1040,91 @@ START_TEST(test_SBML_parseL3Formula_modulo3)
 END_TEST
 
 
+START_TEST(test_SBML_parseL3Formula_l3v2functions)
+{
+  ASTNode_t *r = SBML_parseL3Formula("max(x,y)");
+  fail_unless(r != NULL);
+  ASTNode_t *c;
+
+
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION_MAX, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+
+  c = ASTNode_getChild(r, 0);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "x"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "y"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseL3Formula_l3v2functions2)
+{
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC);
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("max(x,y)", &l3ps);
+  ASTNode_t *c;
+
+  fail_unless(r != NULL);
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION, NULL);
+  fail_unless(!strcmp(ASTNode_getName(r), "max"), NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+
+  c = ASTNode_getChild(r, 0);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "x"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "y"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST(test_SBML_parseL3Formula_l3v2functions3)
+{
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
+  ASTNode_t *r = SBML_parseL3FormulaWithSettings("max(x,y)", &l3ps);
+  fail_unless(r != NULL);
+  ASTNode_t *c;
+
+
+  fail_unless(ASTNode_getType(r) == AST_FUNCTION_MAX, NULL);
+  fail_unless(ASTNode_getNumChildren(r) == 2, NULL);
+
+  c = ASTNode_getChild(r, 0);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "x"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless(ASTNode_getType(c) == AST_NAME, NULL);
+  fail_unless(!strcmp(ASTNode_getName(c), "y"), NULL);
+  fail_unless(ASTNode_getNumChildren(c) == 0, NULL);
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseL3Formula_oddMathML1)
 {
   ASTNode_t *r = SBML_parseL3Formula("sqrt(3)");
@@ -3427,10 +3512,13 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants10);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants11);
   tcase_add_test( tcase, test_SBML_parseL3Formula_constants12);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo2);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_modulo3);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML1);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_modulo);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_modulo2);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_modulo3);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_l3v2functions);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_l3v2functions2);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_l3v2functions3);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_oddMathML1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_oddMathML4);

@@ -132,6 +132,7 @@ public:
   const L3ParserSettings* currentSettings;
   bool strCmpIsCaseSensitive;
   bool modulol3v2;
+  bool l3v2functions;
 
   L3Parser();
   virtual ~L3Parser();
@@ -200,6 +201,11 @@ public:
    * the '%' symbol.
    */
   void setModuloL3v2(bool ml3v2);
+  /**
+   * Sets the member variable 'l3v2functions' to the provided boolean value.  Used in parsing
+   * the functions added to the SBML spec in l3v2.
+   */
+  void setL3v2Functions(bool l3v2functions);
   /**
    * Sets the input string to be parsed, copied to the 'input' stringstream
    * member variable.
@@ -864,6 +870,7 @@ L3Parser::L3Parser()
   , avocsymbol(L3P_AVOGADRO_IS_CSYMBOL)
   , strCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_SENSITIVE)
   , modulol3v2(L3P_MODULO_IS_PIECEWISE)
+  , l3v2functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY)
 {
 }
 
@@ -932,17 +939,12 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "log"))      return AST_FUNCTION_LOG;
   if (l3StrCmp(name, "ln"))       return AST_FUNCTION_LN;
   if (l3StrCmp(name, "log10"))    return AST_FUNCTION_LOG;
-  if (l3StrCmp(name, "max"))      return AST_FUNCTION_MAX;
-  if (l3StrCmp(name, "min"))      return AST_FUNCTION_MIN;
   if (l3StrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
   if (l3StrCmp(name, "power"))    return AST_POWER;
   if (l3StrCmp(name, "pow"))      return AST_POWER;
   if (l3StrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
   if (l3StrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
-  if (l3StrCmp(name, "quotient")) return AST_FUNCTION_QUOTIENT;
   if (l3StrCmp(name, "root"))     return AST_FUNCTION_ROOT;
-  if (l3StrCmp(name, "rem"))      return AST_FUNCTION_REM;
-  if (l3StrCmp(name, "rateOf"))   return AST_FUNCTION_RATE_OF;
   if (l3StrCmp(name, "sec"))      return AST_FUNCTION_SEC;
   if (l3StrCmp(name, "sech"))     return AST_FUNCTION_SECH;
   if (l3StrCmp(name, "sin"))      return AST_FUNCTION_SIN;
@@ -953,7 +955,6 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "not"))      return AST_LOGICAL_NOT;
   if (l3StrCmp(name, "or"))       return AST_LOGICAL_OR;
   if (l3StrCmp(name, "xor"))      return AST_LOGICAL_XOR;
-  if (l3StrCmp(name, "implies"))  return AST_LOGICAL_IMPLIES;
   if (l3StrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
   if (l3StrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
   if (l3StrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
@@ -965,7 +966,15 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "minus"))    return AST_MINUS;
   if (l3StrCmp(name, "plus"))     return AST_PLUS;
   if (l3StrCmp(name, "times"))    return AST_TIMES;
-  
+
+  if (l3p->l3v2functions) {
+    if (l3StrCmp(name, "rateOf"))   return AST_FUNCTION_RATE_OF;
+    if (l3StrCmp(name, "implies"))  return AST_LOGICAL_IMPLIES;
+    if (l3StrCmp(name, "max"))      return AST_FUNCTION_MAX;
+    if (l3StrCmp(name, "min"))      return AST_FUNCTION_MIN;
+    if (l3StrCmp(name, "quotient")) return AST_FUNCTION_QUOTIENT;
+    if (l3StrCmp(name, "rem"))      return AST_FUNCTION_REM;
+  }
   return currentSettings->getPackageFunctionFor(name);
 }
 
@@ -1126,6 +1135,7 @@ void L3Parser::clear()
   avocsymbol = defaultL3ParserSettings.getParseAvogadroCsymbol();
   strCmpIsCaseSensitive = defaultL3ParserSettings.getComparisonCaseSensitivity();
   modulol3v2 = defaultL3ParserSettings.getParseModuloL3v2();
+  l3v2functions = defaultL3ParserSettings.getParseL3v2Functions();
 }
 
 string L3Parser::getError()
@@ -1421,6 +1431,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->currentSettings = settings;
   l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   l3p->modulol3v2 = settings->getParseModuloL3v2();
+  l3p->l3v2functions = settings->getParseL3v2Functions();
   sbml_yyparse();
   return l3p->outputNode;
 }

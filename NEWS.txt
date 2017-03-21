@@ -29,6 +29,14 @@ STABLE RELEASE
 
 * New features
 
+  - A new option has been added to the L3ParserSettings to allow
+    users to turn off the parsing of the new L3 math elements. If 
+    enabled the parser will treat the new functions as generic
+    user defined functions.
+
+
+  - The L3Parser has been updated to parse '%' as rem.
+
   - The MATLAB binding has been updated to support SBML L3V2(RC 1).
 
   - Additional options are available for the TranslateSBML/OutputSBML
