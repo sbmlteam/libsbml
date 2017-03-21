@@ -59,6 +59,7 @@ test_sources =                   \
   TestAlgebraicRule.c            \
   TestAncestor.cpp               \
   TestAssignmentRule.c           \
+  TestAttributeFunctions.cpp     \
   TestCompartment.c              \
   TestCompartmentType.c          \
   TestCompartmentType_newSetters.c   \
