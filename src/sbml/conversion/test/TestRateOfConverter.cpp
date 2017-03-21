@@ -194,9 +194,7 @@ START_TEST (test_conversion_rate_of_converter_ia)
 
   InitialAssignment* ia = model->createInitialAssignment();
   ia->setSymbol("p");
-  L3ParserSettings l3ps;
-  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
-  ASTNode* node = SBML_parseL3FormulaWithSettings("rateOf(s)", &l3ps);
+  ASTNode* node = SBML_parseL3Formula("rateOf(s)");
   ia->setMath(node);
   delete node;
  

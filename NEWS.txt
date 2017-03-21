@@ -31,12 +31,6 @@ STABLE RELEASE
 
   - The MATLAB binding has been updated to support SBML L3V2(RC 1).
 
-  - The L3 Infix parser has been updated to support SBML L3V2(RC 1).
-    This includes the optional parsing of six new functions, 'rateOf',
-    'implies', 'max', 'min', 'quotient', and 'rem', as well as the
-    ability to parse '%' as the 'rem' function.  All new functionality
-    is optional, and is off by default.
-
   - Additional options are available for the TranslateSBML/OutputSBML
     functions for the MATLAB binding allowing users to add their own
     validation and customize the input/output of some fbc elements.

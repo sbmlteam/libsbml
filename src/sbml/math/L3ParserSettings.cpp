@@ -60,7 +60,6 @@ L3ParserSettings::L3ParserSettings()
   , mAvoCsymbol(L3P_AVOGADRO_IS_CSYMBOL)
   , mStrCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE)
   , mModuloL3v2(L3P_MODULO_IS_PIECEWISE)
-  , ml3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC)
 #ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
 #endif
@@ -68,7 +67,7 @@ L3ParserSettings::L3ParserSettings()
   setPlugins(NULL);
 }
 
-L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, bool caseSensitive, SBMLNamespaces* sbmlns, bool modulol3v2, bool l3v2functions)
+L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, bool caseSensitive, SBMLNamespaces* sbmlns, bool modulol3v2)
   : mModel (model)
   , mParselog(parselog)
   , mCollapseminus(collapseminus)
@@ -76,7 +75,6 @@ L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool c
   , mAvoCsymbol(avocsymbol)
   , mStrCmpIsCaseSensitive(caseSensitive)
   , mModuloL3v2(modulol3v2)
-  , ml3v2Functions(l3v2functions)
 #ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
 #endif
@@ -93,7 +91,6 @@ L3ParserSettings::L3ParserSettings(const L3ParserSettings& source)
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
   mModuloL3v2 = source.mModuloL3v2;
-  ml3v2Functions = source.ml3v2Functions;
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
@@ -112,7 +109,6 @@ L3ParserSettings& L3ParserSettings::operator=(const L3ParserSettings& source)
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
   mModuloL3v2 = source.mModuloL3v2;
-  ml3v2Functions = source.ml3v2Functions;
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   deletePlugins();
@@ -348,17 +344,6 @@ void L3ParserSettings::setParseModuloL3v2(bool modulol3v2)
 bool L3ParserSettings::getParseModuloL3v2() const
 {
   return mModuloL3v2;
-}
-
-
-void L3ParserSettings::setParseL3v2Functions(bool l3v2functions)
-{
-  ml3v2Functions = l3v2functions;
-}
-
-bool L3ParserSettings::getParseL3v2Functions() const
-{
-  return ml3v2Functions;
 }
 
 
