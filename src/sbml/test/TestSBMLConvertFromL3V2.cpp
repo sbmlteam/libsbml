@@ -264,8 +264,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertnewMath_strict)
   p->setConstant(false);
   AssignmentRule *ar = m->createAssignmentRule();
   ar->setVariable("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "min(2, 3)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
@@ -310,8 +312,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertnewMath_nonstrict)
   p->setConstant(false);
   AssignmentRule *ar = m->createAssignmentRule();
   ar->setVariable("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "min(2, 3)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
@@ -466,8 +470,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertIAnewMath_strict)
   p->setConstant(false);
   InitialAssignment *ar = m->createInitialAssignment();
   ar->setSymbol("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "min(2, 3)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
@@ -515,8 +521,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertIAnewMath_nonstrict)
   p->setConstant(false);
   InitialAssignment *ar = m->createInitialAssignment();
   ar->setSymbol("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "min(2, 3)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
@@ -568,8 +576,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertIAnewMath1_strict)
   p1->setValue(1);
   InitialAssignment *ar = m->createInitialAssignment();
   ar->setSymbol("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "rateOf(x)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
@@ -620,8 +630,10 @@ START_TEST (test_SBMLConvertFromL3V2_convertIAnewMath1_nonstrict)
   p1->setValue(1);
   InitialAssignment *ar = m->createInitialAssignment();
   ar->setSymbol("p");
+  L3ParserSettings l3ps;
+  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
   std::string math = "rateOf(x)";
-  ASTNode* node = SBML_parseL3Formula(math.c_str());
+  ASTNode* node = SBML_parseL3FormulaWithSettings(math.c_str(), &l3ps);
   ar->setMath(node);
   delete node;
 
