@@ -115,5 +115,5 @@
   %include sbml/math/L3ParserSettings.h
 
 #endif
-  
+  %include <sbml/extension/ASTBasePlugin.h>  
 #endif
