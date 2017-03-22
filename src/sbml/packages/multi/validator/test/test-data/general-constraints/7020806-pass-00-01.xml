@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true"/>
+      <compartment id="cell2" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:id="cr1" multi:compartment="cell1"/>
+          <multi:compartmentReference multi:id="cr2" multi:compartment="cell1"/>
+        </multi:listOfCompartmentReferences>
+      </compartment>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="stX" multi:compartment="cell1"/>
+      <multi:speciesType multi:id="stY" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiY_X" multi:speciesType="stX" multi:compartmentReference="cr1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>

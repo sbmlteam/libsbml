@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+    <model>
+        <multi:listOfSpeciesTypes id="x">
+            <multi:speciesType multi:id="st_recept" multi:name="receptor"/>
+            <multi:speciesType multi:id="st_lig" multi:name="ligand"/>
+        </multi:listOfSpeciesTypes>
+    </model>
+</sbml>

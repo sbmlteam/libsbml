@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+    <model>
+        <listOfCompartments>
+            <compartment id="cell" constant="true" size="1"/>
+        </listOfCompartments>       
+    </model>
+</sbml>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3"
+	version="1" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1"
+	multi:required="true">
+	<model name="m">
+		<listOfCompartments>
+			<compartment id="c_1" multi:isType="true" constant="true" size="1" />
+			<compartment id="c_2" multi:isType="true" constant="true" size="1" />
+			<compartment id="c_12" multi:isType="true"  constant="true" size="1" >
+				<multi:listOfCompartmentReferences>
+					<notes/>
+					<multi:compartmentReference multi:id="cr_1"
+						multi:compartment="c_1" />
+					<multi:compartmentReference multi:id="cr_2"
+						multi:compartment="c_2" />
+				</multi:listOfCompartmentReferences>
+			</compartment>
+		</listOfCompartments>
+	</model>
+</sbml>

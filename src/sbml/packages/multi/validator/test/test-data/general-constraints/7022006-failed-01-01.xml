@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:compartment="cell2"/>
+        </multi:listOfCompartmentReferences>      
+      </compartment>
+      <compartment id="cell2" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:compartment="cell1"/>
+        </multi:listOfCompartmentReferences>
+      </compartment>
+    </listOfCompartments>
+  </model>
+</sbml>

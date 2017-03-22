@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="membrane" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s1" compartment="membrane" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr1" species="s1" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1">
+            <apply>
+              <times/>
+              <ci multi:speciesReference="r1"> s1 </ci>
+              <ci multi:representationType="sum"> s1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

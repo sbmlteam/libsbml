@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3"
+	version="1" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1"
+	multi:required="true">
+	<model name="m">
+		<listOfCompartments>
+			<compartment id="cell" multi:isType="true" constant="true" size="1" />
+		</listOfCompartments>
+		<multi:listOfSpeciesTypes>
+			<multi:speciesType multi:id="spt" multi:compartment="cell" >
+				<annotation/>
+			</multi:speciesType>
+		</multi:listOfSpeciesTypes>
+	</model>
+</sbml>

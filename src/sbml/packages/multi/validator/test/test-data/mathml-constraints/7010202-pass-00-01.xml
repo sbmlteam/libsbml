@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="c1" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="spX1" compartment="c1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="spX2" compartment="c1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="spXX" compartment="c1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="reactant1" species="spX1" constant="false"/>
+          <speciesReference id="reactant2" species="spX2" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="product" species="spXX" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1">
+            <apply>
+              <times/>
+              <ci multi:speciesReference="reactant1"> spX1 </ci>
+              <ci multi:speciesReference="reactant2"> spX2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

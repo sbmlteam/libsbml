@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="stX" multi:compartment="cell1"/>
+      <multi:speciesType multi:id="stY" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiY_X1" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="stiY_X2" multi:speciesType="stX"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfSpeciesTypeComponentIndexes>
+          <multi:speciesTypeComponentIndex multi:id="stci1" multi:component="stiY_X1"/>
+          <multi:speciesTypeComponentIndex multi:id="stci2" multi:component="stiY_X2"/>
+        </multi:listOfSpeciesTypeComponentIndexes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="stZ" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiZ_Y1" multi:speciesType="stY"/>
+          <multi:speciesTypeInstance multi:id="stiZ_Y2" multi:speciesType="stY"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfSpeciesTypeComponentIndexes>
+          <multi:speciesTypeComponentIndex multi:id="stci_Z1" multi:component="stiZ_Y1"/>
+          <multi:speciesTypeComponentIndex multi:id="stci_Z2" multi:component="stiZ_Y2"/>
+          <multi:speciesTypeComponentIndex multi:id="stci_Z1X" multi:component="stci1" multi:identifyingParent="stci_Z1x"/>
+        </multi:listOfSpeciesTypeComponentIndexes>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="stX" multi:compartment="cell1"/>
+      <multi:speciesType multi:id="stY" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiX_X1" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="sti_X2" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="sti_X3" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="sti_X4" multi:speciesType="stX"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:id="istbY_b1" multi:bindingSite1="stiX_X1" multi:bindingSite2="sti_X2"/>
+          <multi:inSpeciesTypeBond multi:id="istb_b2" multi:bindingSite1="sti_X3" multi:bindingSite2="sti_X4"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="stZ" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiY_X1" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="sti_X2" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="stiY_X3" multi:speciesType="stX"/>
+          <multi:speciesTypeInstance multi:id="sti_X4" multi:speciesType="stX"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:id="istb_b2" multi:bindingSite1="stiY_X1" multi:bindingSite2="sti_X2"/>
+          <multi:inSpeciesTypeBond multi:id="istb_b2" multi:bindingSite1="stiY_X3" multi:bindingSite2="sti_X4"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="spY" compartment="cell1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="stY">
+        <multi:listOfSpeciesFeatures>
+          <multi:subListOfSpeciesFeatures multi:id="spYSubSfs" multi:relation="and">
+            <multi:speciesFeature multi:id="spY_f1" multi:speciesFeatureType="sftY_1" multi:occur="1">
+              <multi:listOfSpeciesFeatureValues>
+                <multi:speciesFeatureValue multi:value="psfvY_1_v1"/>
+              </multi:listOfSpeciesFeatureValues>
+            </multi:speciesFeature>
+            <multi:speciesFeature multi:id="spY_f2" multi:speciesFeatureType="sftY_2" multi:occur="1">
+              <multi:listOfSpeciesFeatureValues>
+                <multi:speciesFeatureValue multi:value="psfvY_2_v2"/>
+              </multi:listOfSpeciesFeatureValues>
+            </multi:speciesFeature>
+          </multi:subListOfSpeciesFeatures>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="spZ" compartment="cell1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="stZ">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sp_f1" multi:speciesFeatureType="sftZ_1" multi:occur="1"/>
+          <multi:speciesFeature multi:id="sp_f2" multi:speciesFeatureType="sftZ_2" multi:occur="1"/>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="stY" multi:compartment="cell1">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sftY_1" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvY_1_v1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvY_1_v2"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="sftY_2" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvY_2_v1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvY_2_v2"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="stZ" multi:compartment="cell1">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sftZ_1" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v2"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="sftZ_2" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v2"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>

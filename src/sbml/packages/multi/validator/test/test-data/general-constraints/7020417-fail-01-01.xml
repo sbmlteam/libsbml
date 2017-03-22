@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" multi:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1">
+    <model>
+        <multi:listOfSpeciesTypes>
+            <multi:bindingSiteSpeciesType multi:id="bindingSiteSpeciesType_1" multi:compartment="compartment"/>
+            <multi:speciesType multi:compartment="compartment" multi:id="multiSpeciesType_1" multi:name="someString">
+                <multi:listOfSpeciesFeatureTypes>
+                    <multi:speciesFeatureType multi:id="speciesFeatureType_1" multi:name="someString" multi:occur="0">
+                        <multi:listOfPossibleSpeciesFeatureValues>
+                            <multi:possibleSpeciesFeatureValue multi:id="possibleSpeciesFeatureValue_1" multi:name="someString" multi:numericValue="parameter_1"/>
+                        </multi:listOfPossibleSpeciesFeatureValues>
+                    </multi:speciesFeatureType>
+                </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+            <multi:speciesTypeInstance multi:id="stiX_B1" multi:speciesType="bindingSiteSpeciesType_1"/>
+            <multi:speciesTypeInstance multi:id="stiX_B2" multi:speciesType="bindingSiteSpeciesType_1"/>
+        </multi:listOfSpeciesTypeInstances>
+                
+                
+                
+                <multi:listOfInSpeciesTypeBonds species="foo" metaid="__St" sboTerm="SBO:0000001" >
+                    <multi:inSpeciesTypeBond multi:bindingSite1="stiX_B1"  multi:bindingSite2="stiX_B2" multi:id="inSpeciesTypeBond_1" multi:name="someString"/>
+                </multi:listOfInSpeciesTypeBonds>
+            </multi:speciesType>
+        </multi:listOfSpeciesTypes>
+        <listOfCompartments>
+            <compartment constant="false" id="compartment" multi:compartmentType="compartment_1" multi:isType="false">
+                
+            </compartment>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" multi:speciesType="multiSpeciesType_1">
+                
+            </species>
+        </listOfSpecies>
+        <listOfParameters>
+            <parameter id="parameter_1" constant="true" value="0"/>
+        </listOfParameters>
+    </model>
+</sbml>
+

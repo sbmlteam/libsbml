@@ -1,0 +1,2 @@
+Current multi specification: 1.0.7 
+    available at: https://sourceforge.net/p/sbml/code/HEAD/tree/trunk/specifications/sbml-level-3/version-1/multi/spec/

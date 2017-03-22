@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="testModel">
+    <listOfCompartments>
+      <compartment id="cell1" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="spX" compartment="cell1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="stX">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="stiX_bst3"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+    </listOfSpecies>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="bst1"/>
+      <multi:bindingSiteSpeciesType multi:id="bst2"/>
+      <multi:bindingSiteSpeciesType multi:id="bst3"/>
+      <multi:speciesType multi:id="stX" multi:compartment="cell1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="stiX_bst1" multi:speciesType="bst1"/>
+          <multi:speciesTypeInstance multi:id="stiX_bst2" multi:speciesType="bst2"/>
+          <multi:speciesTypeInstance multi:id="stiX_bst3" multi:speciesType="bst3"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="stiX_bst1" multi:bindingSite2="stiX_bst2"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>
