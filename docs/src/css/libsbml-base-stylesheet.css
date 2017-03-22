@@ -620,8 +620,8 @@ code.language-java .str
     padding-left: auto;
     padding-right: auto;
     display: inline-block;
-    *display: inline;
-    *zoom: 1;
+    display: inline;
+    zoom: 1;
     width: 95%;
 }
 

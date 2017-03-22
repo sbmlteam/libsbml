@@ -255,6 +255,7 @@ SBMLRateOfConverter::convert()
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::isDocumentValid()
 {
@@ -279,8 +280,10 @@ SBMLRateOfConverter::isDocumentValid()
 
   return valid;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::isCSymbolRateOfUsed()
 {
@@ -380,7 +383,9 @@ SBMLRateOfConverter::isCSymbolRateOfUsed()
 
   return used;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::isCSymbolRateOf(ASTNode* math)
 {
@@ -394,7 +399,9 @@ SBMLRateOfConverter::isCSymbolRateOf(ASTNode* math)
 
   return used;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::usesCSymbolRateOf(ASTNode* math)
 {
@@ -410,7 +417,9 @@ SBMLRateOfConverter::usesCSymbolRateOf(ASTNode* math)
 
   return logged;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::isFDRateOfUsed()
 {
@@ -510,7 +519,9 @@ SBMLRateOfConverter::isFDRateOfUsed()
 
   return used;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::isFDRateOf(ASTNode* math)
 {
@@ -524,7 +535,9 @@ SBMLRateOfConverter::isFDRateOf(ASTNode* math)
 
   return used;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::usesFDRateOf(ASTNode* math)
 {
@@ -540,8 +553,10 @@ SBMLRateOfConverter::usesFDRateOf(ASTNode* math)
 
   return logged;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLRateOfConverter::hasFunctionDefinitionForRateOf()
 {
@@ -589,6 +604,9 @@ SBMLRateOfConverter::hasFunctionDefinitionForRateOf()
 
   return functionFound;
 }
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLRateOfConverter::addRateOfFunctionDefinition()
 {
@@ -617,7 +635,9 @@ SBMLRateOfConverter::addRateOfFunctionDefinition()
   fd->setAnnotation(annot);
   delete annot;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void
 SBMLRateOfConverter::removeRateOfFunctionDefinition()
 {
@@ -628,6 +648,7 @@ SBMLRateOfConverter::removeRateOfFunctionDefinition()
   }
   delete fd;
 }
+/** @endcond */
 
 /** @cond doxygenCOnly */
 /** @endcond */

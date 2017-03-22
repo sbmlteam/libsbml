@@ -37,8 +37,6 @@
  * every libSBML plug-in must implement in order to implement an
  * SBML Level&nbsp;3 package.
  *
- * @copydetails doc_what_is_sbmlextension
- *
  * @class GroupsPkgNamespaces
  * @sbmlbrief{groups} SBMLNamespaces extension for the package.
  */

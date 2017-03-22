@@ -318,7 +318,7 @@ public:
   /**
    * Returns the value of the "strict" attribute of this FbcModelPlugin.
    *
-   * @copydetails note_strict_v2_only
+   * @copydetails doc_note_strict_v2_only
    *
    * @return the value of the "strict" attribute of this FbcModelPlugin as a boolean.
    */
@@ -329,7 +329,7 @@ public:
    * Predicate returning @c true if this FbcModelPlugin's "strict" attribute
    * is set.
    *
-   * @copydetails note_strict_v2_only
+   * @copydetails doc_note_strict_v2_only
    *
    * @return @c true if this FbcModelPlugin's "strict" attribute has been set,
    * otherwise @c false is returned.
@@ -340,7 +340,7 @@ public:
   /**
    * Sets the value of the "strict" attribute of this FbcModelPlugin.
    *
-   * @copydetails note_strict_v2_only
+   * @copydetails doc_note_strict_v2_only
    *
    * @param strict bool value of the "strict" attribute to be set.
    *
@@ -353,7 +353,7 @@ public:
   /**
    * Unsets the value of the "strict" attribute of this FbcModelPlugin.
    *
-   * @copydetails note_strict_v2_only
+   * @copydetails doc_note_strict_v2_only
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -364,7 +364,7 @@ public:
   /**
    * Returns the ListOfFluxBounds in this plugin object.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @return ListOfFluxBounds object in this plugin object.
    */
@@ -374,7 +374,7 @@ public:
   /**
    * Returns the ListOfFluxBounds in this plugin object.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @return ListOfFluxBounds object in this plugin object.
    */
@@ -385,7 +385,7 @@ public:
    * Returns the FluxBound object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param n the index number of the FluxBound to get.
    *
@@ -398,7 +398,7 @@ public:
    * Returns the FluxBound object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param n the index number of the FluxBound to get.
    *
@@ -410,7 +410,7 @@ public:
   /**
    * Returns the FluxBound object based on its identifier.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param sid a string representing the identifier 
    * of the FluxBound to get.
@@ -427,7 +427,7 @@ public:
   /**
    * Returns the FluxBound object based on its identifier.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param sid a string representing the identifier 
    * of the FluxBound to get.
@@ -448,7 +448,7 @@ public:
    * with it, returns NULL. @if clike The caller owns the created object
    * and is responsible for its deletion.@endif
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param reaction the id of an reaction to find FluxBound objects for.
    *
@@ -460,7 +460,7 @@ public:
   /**
    * Adds a copy of the given FluxBound object to the list of FluxBounds.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param bound the FluxBound object to be added to the list of FluxBounds.
    *
@@ -479,7 +479,7 @@ public:
    * Creates a new FluxBound object and adds it to the list of FluxBound objects
    * and returns it.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @return a newly created FluxBound object.
    */
@@ -493,7 +493,7 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param n the index of the FluxBound object to remove.
    *
@@ -511,7 +511,7 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @param sid the id attribute of the FluxBound object to remove.
    *
@@ -525,7 +525,7 @@ public:
   /**
    * Returns the number of FluxBound object in this plugin object.
    *
-   * @copydetails note_fluxbound_v1_only
+   * @copydetails doc_note_fluxbound_v1_only
    *
    * @return the number of FluxBound object in this plugin object.
    */
@@ -717,7 +717,7 @@ public:
   /**
    * Returns the "ListOfGeneProducts" in this FbcModelPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
    */
@@ -727,7 +727,7 @@ public:
   /**
    * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
    */
@@ -737,7 +737,7 @@ public:
   /**
    * Get a GeneProduct from the ListOfGeneProducts.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param n the index number of the GeneProduct to get.
    *
@@ -751,7 +751,7 @@ public:
   /**
    * Get a GeneProduct from the ListOfGeneProducts.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param n the index number of the GeneProduct to get.
    *
@@ -766,7 +766,7 @@ public:
    * Get a GeneProduct from the ListOfGeneProducts
    * based on its identifier.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param sid a string representing the identifier
    * of the GeneProduct to get.
@@ -785,7 +785,7 @@ public:
   * Get a GeneProduct from the ListOfGeneProducts
   * based on its label.
   *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
   * @param label a string representing the label
   * of the GeneProduct to get.
@@ -805,7 +805,7 @@ public:
    * Get a GeneProduct from the ListOfGeneProducts
    * based on its identifier.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param sid a string representing the identifier
    * of the GeneProduct to get.
@@ -824,7 +824,7 @@ public:
   /**
    * Adds a copy the given GeneProduct to this FbcModelPlugin.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param gp the GeneProduct object to add.
    *
@@ -842,7 +842,7 @@ public:
   /**
    * Get the number of GeneProduct objects in this FbcModelPlugin.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the number of GeneProduct objects in this FbcModelPlugin.
    */
@@ -853,7 +853,7 @@ public:
    * Creates a new GeneProduct object, adds it to this FbcModelPlugin's
    * ListOfGeneProducts and returns the GeneProduct object created. 
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return a new GeneProduct object instance.
    *
@@ -868,7 +868,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param n the index of the GeneProduct to remove.
    *
@@ -885,7 +885,7 @@ public:
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param sid the identifier of the GeneProduct to remove.
    *
@@ -897,7 +897,7 @@ public:
   /**
    * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
@@ -906,7 +906,7 @@ public:
   /**
    * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
@@ -916,7 +916,7 @@ public:
    * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param n the index number of the GeneAssociation annotation to get.
    *
@@ -928,7 +928,7 @@ public:
    * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param n the index number of the GeneAssociation annotation to get.
    *
@@ -939,7 +939,7 @@ public:
   /**
    * Returns the GeneAssociation annotation object based on its identifier.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param sid a string representing the identifier 
    * of the GeneAssociation annotation to get.
@@ -955,7 +955,7 @@ public:
   /**
    * Returns the GeneAssociation annotation object based on its identifier.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param sid a string representing the identifier 
    * of the GeneAssociation annotation to get.
@@ -973,7 +973,7 @@ public:
    *
    * @param association the GeneAssociation annotation object to be added to the list of GeneAssociations.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1000,7 +1000,7 @@ public:
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param n the index of the GeneAssociation annotation object to remove.
    *
@@ -1017,7 +1017,7 @@ public:
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @param sid the id attribute of the GeneAssociation annotation object to remove.
    *
@@ -1030,7 +1030,7 @@ public:
   /**
    * Returns the number of GeneAssociation annotation object in this plugin object.
    *
-   * @copydetails note_geneassociation_not_fbc
+   * @copydetails doc_note_geneassociation_not_fbc
    *
    * @return the number of GeneAssociation annotation object in this plugin object.
    */
@@ -1631,7 +1631,7 @@ FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fmp);
 /**
  * Takes a FbcModelPlugin_t structure and returns the value of the strict attribute.
  *
- * @copydetails note_strict_v2_only
+ * @copydetails doc_note_strict_v2_only
  *
  * @param fmp the FbcModelPlugin_t whose 'strict' attribute is sought.
  *
@@ -1647,7 +1647,7 @@ FbcModelPlugin_getStrict(SBasePlugin_t * fmp);
 /**
  * Sets the strict attribute of the given FbcModelPlugin_t.
  *
- * @copydetails note_strict_v2_only
+ * @copydetails doc_note_strict_v2_only
  *
  * @param fmp the FbcModelPlugin_t structure to set.
  * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.

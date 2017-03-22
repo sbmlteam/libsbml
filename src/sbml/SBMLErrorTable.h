@@ -809,7 +809,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10222
   {
     CiCannotReference0DCompartment,
-    "A <ci> element cannot reference 0D Compartment",
+    "A <ci> element cannot reference a 0D compartment",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -835,7 +835,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10223
   {
     RateOfTargetMustBeCi,
-    "<csymbol> rateOf must target single <ci> element",
+    "A 'rateOf' <csymbol> must target only a single <ci> element",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -860,7 +860,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10224
   {
     RateOfTargetCannotBeAssigned,
-    "<csymbol> rateOf target cannot be assigned",
+    "The target of a 'rateOf' <csymbol> cannot be assigned",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -887,7 +887,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10225
   {
     RateOfSpeciesTargetCompartmentNot,
-    "<csymbol> rateOf <species> target must not have assigned <compartment>",
+    "Compartments of non-substance <species> referenced by 'rateOf' must not vary",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6007,7 +6007,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20912
   {
     CircularDependencyRateOf,
-    "No circular dependencies in rateRules and kineticLaws",
+    "Circular dependencies are not permitted in RateRule and KineticLaw objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8449,7 +8449,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91018
   {
     GlobalUnitsNotDeclared,
-    "Global units must be refer to unit kind or unitDefinition.",
+    "Global units must be refer to unit kind or unitDefinition",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8476,7 +8476,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91019
   {
     HasOnlySubstanceUnitsNotinL1,
-    "The concept of hasOnlySubstanceUnits was not available in SBML Level 1.",
+    "The concept of hasOnlySubstanceUnits was not available in SBML Level 1",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8504,7 +8504,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91020
   {
     AvogadroNotSupported,
-    "Avogadro not supported in Levels 2 and 1.",
+    "Avogadro not supported in Levels 2 and 1",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -9970,7 +9970,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98002
   {
     MathMLElementNotSupported,
-    "MathML element only valid in L3V2.",
+    "This MathML element is only permitted in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -9996,7 +9996,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98003
   {
     EmptyListOfElementNotSupported,
-    "Empty listOf element only valid in L3V2.",
+    "Empty 'ListOf' element is only permitted in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -10023,7 +10023,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98004
   {
     MissingMathElementNotSupported,
-    "Missing <math> element only valid in L3V2.",
+    "Missing <math> element is only permitted in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -10050,7 +10050,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98005
   {
     MissingTriggerElementNotSupported,
-    "Missing <trigger> element only valid in L3V2.",
+    "missing <trigger> element is only permitted in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -10077,7 +10077,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98006
   {
     BooleanNumericDiscrepancy,
-    "Interchangeable Boolean/numeric only allowed in L3V2.",
+    "Interchange of Boolean and numeric values only permitted in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -10103,7 +10103,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98007
   {
     IdNameSBaseInL3V2,
-    "Interchangeable Boolean/numeric only allowed in L3V2.",
+    "Conversion will lose attributes only available in L3V2 and higher",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -10131,7 +10131,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98008
   {
     MissingParticipantsNotSupported,
-    "Missing both <listOfReactants> and <listOfProducts> only valid in L3V2.",
+    "Omission of both <listOfReactants> and <listOfProducts> is only valid in L3V2",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -10158,7 +10158,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98009
   {
     ConvertibleMathInitialAssignment,
-    "L2V2 MathML element in <initialAssignment>.",
+    "Some L3V2-specific MathML elements are not permitted in InitialAssignment objects",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -10186,7 +10186,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //98010
   {
     FastReactionsNotSupported,
-    "L3V2 does not support fast reactions.",
+    "Conversion of reactions employing the 'fast' attribute is not supported",
     LIBSBML_CAT_SBML_COMPATIBILITY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -10495,19 +10495,19 @@ static const sbmlErrorTableEntry errorTable[] =
   //99131
   {
     StoichiometryMathMissingMath,
-    "StoichiometryMath missing Math",
-      LIBSBML_CAT_GENERAL_CONSISTENCY,
-      LIBSBML_SEV_NOT_APPLICABLE,
-      LIBSBML_SEV_NOT_APPLICABLE,
-      LIBSBML_SEV_ERROR,
-      LIBSBML_SEV_ERROR,
-      LIBSBML_SEV_ERROR,
-      LIBSBML_SEV_ERROR,
-      LIBSBML_SEV_ERROR,
-      LIBSBML_SEV_NOT_APPLICABLE,
-      LIBSBML_SEV_NOT_APPLICABLE,
-      "The <stoichiometryMath> element must contain a <math> element.",
-      { "",
+    "The <stoichiometryMath> element must contain a <math> element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The <stoichiometryMath> element lacks a necessary <math> element.",
+    { "",
       "",
       "",
       "",

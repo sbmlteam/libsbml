@@ -1997,6 +1997,7 @@ Reaction::getObject(const std::string& elementName, unsigned int index)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -2047,8 +2048,10 @@ Reaction::addExpectedAttributes(ExpectedAttributes& attributes)
   }
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your

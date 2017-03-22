@@ -17,6 +17,7 @@ _libsbml.so
 pydoc.i
 pydoc-normal.i
 pydoc-doxygen.i
+libsbml-doxygen.py
 libsbml.py
 libsbml.pyc
 libsbml_wrap.cpp
@@ -28,6 +29,7 @@ test.xml.gz
 .libs
 installed-files.txt
 __pycache__
+local-downcast-astplugins.cpp
 local-downcast-converters.cpp
 local-downcast-extension.cpp
 local-downcast-namespaces.cpp

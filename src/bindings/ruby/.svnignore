@@ -15,6 +15,7 @@ libsbml_wrap.cpp
 libsbml_wrap.h
 .libs
 libSBML.bundle
+local-downcast-astplugins.cpp
 local-downcast-converters.cpp
 local-downcast-extension.cpp
 local-downcast-namespaces.cpp

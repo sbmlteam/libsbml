@@ -506,7 +506,7 @@ public:
    * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,}, symbols are
    * interpreted in a case-sensitive manner.
    *
-   * @param modulol3v2 ("modulo l3v2") a flag that controls how the
+   * @param moduloL3v2 ("modulo L3v2") a flag that controls how the
    * parser will handle the '%' ('modulo') symbol in formulas.  By default, 
    * the parser will convert 'a % b' to a piecewise function that properly
    * calculates the remainder of a with respect to be, but the parser can

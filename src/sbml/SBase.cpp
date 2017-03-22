@@ -3032,20 +3032,25 @@ SBase::getObjectVersion() const
   //
   //  functions to faciliate matlab binding
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, double& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, bool& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, int& value) const
 {
@@ -3056,15 +3061,19 @@ SBase::getAttribute(const std::string& attributeName, int& value) const
   }
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, unsigned int& value) const
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, std::string& value) const
 {
@@ -3092,8 +3101,10 @@ SBase::getAttribute(const std::string& attributeName, std::string& value) const
 
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::getAttribute(const std::string& attributeName, const char * value) const
 {
@@ -3121,8 +3132,10 @@ SBase::getAttribute(const std::string& attributeName, const char * value) const
 
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 SBase::isSetAttribute(const std::string& attributeName) const
 {
@@ -3147,22 +3160,28 @@ SBase::isSetAttribute(const std::string& attributeName) const
 
   return value;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, double value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, bool value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, int value)
 {
@@ -3175,15 +3194,19 @@ SBase::setAttribute(const std::string& attributeName, int value)
 
   return return_value;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, unsigned int value)
 {
   return LIBSBML_OPERATION_FAILED;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, const std::string& value)
 {
@@ -3208,8 +3231,10 @@ SBase::setAttribute(const std::string& attributeName, const std::string& value)
 
   return return_value;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::setAttribute(const std::string& attributeName, const char * value)
 {
@@ -3233,8 +3258,10 @@ SBase::setAttribute(const std::string& attributeName, const char * value)
 
   return return_value;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 int 
 SBase::unsetAttribute(const std::string& attributeName)
 {
@@ -3259,12 +3286,15 @@ SBase::unsetAttribute(const std::string& attributeName)
 
   return value;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 SBase* 
 SBase::createObject(const std::string& objectName)
 {
   return NULL;
 }
+/** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 

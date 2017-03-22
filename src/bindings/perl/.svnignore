@@ -22,6 +22,7 @@ Makefile-perl
 LibSBML_wrap.cxx
 LibSBML_wrap.h
 .libs
+local-downcast-astplugins.cpp
 local-downcast-converters.cpp
 local-downcast-extension.cpp
 local-downcast-namespaces.cpp

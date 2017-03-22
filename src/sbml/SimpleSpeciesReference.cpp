@@ -689,10 +689,7 @@ SimpleSpeciesReference::unsetAttribute(const std::string& attributeName)
 
 /** @endcond */
 
-
-
-
-
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -723,7 +720,9 @@ SimpleSpeciesReference::addExpectedAttributes(ExpectedAttributes& attributes)
 
   }
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -751,8 +750,10 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes,
     break;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 SimpleSpeciesReference::readL1Attributes (const XMLAttributes& attributes)
 {
@@ -765,8 +766,10 @@ SimpleSpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   const string s = (version == 1) ? "specie" : "species";
   attributes.readInto(s , mSpecies, getErrorLog(), true, getLine(), getColumn());
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
 {
@@ -805,8 +808,10 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
   }
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
 {

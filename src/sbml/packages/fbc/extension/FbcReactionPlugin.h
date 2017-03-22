@@ -211,7 +211,7 @@ public:
   /**
    * Returns the GeneProductAssociation from this FbcReactionPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the GeneProductAssociation from object in this FbcReactionPlugin object.
    */
@@ -221,7 +221,7 @@ public:
   /**
    * Returns the GeneProductAssociation from this FbcReactionPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the GeneProductAssociation from object in this FbcReactionPlugin object.
    */
@@ -232,7 +232,7 @@ public:
    * Predicate returning @c true if this FbcReactionPlugin's
    * "GeneProductAssociation" element has been set.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return @c true if the "GeneProductAssociation" element has been set,
    * otherwise @c false is returned.
@@ -243,7 +243,7 @@ public:
   /**
    * Sets the GeneProductAssociation element in this FbcReactionPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @param geneProductAssociation the geneProductAssociation to be set.
    *
@@ -256,7 +256,7 @@ public:
   /**
    * Creates a new GeneProductAssociation object and adds it to the FbcReactionPlugin object.
    *
-   * @copydetails note_geneproduct_v2_only
+   * @copydetails doc_note_geneproduct_v2_only
    *
    * @return the newly created GeneProductAssociation object.
    */
@@ -266,7 +266,7 @@ public:
   /**
    * Returns the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @return the value of the "lowerFluxBound" attribute of this FbcReactionPlugin as a string.
    */
@@ -276,7 +276,7 @@ public:
   /**
    * Returns the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @return the value of the "upperFluxBound" attribute of this FbcReactionPlugin as a string.
    */
@@ -287,7 +287,7 @@ public:
    * Predicate returning @c true if this FbcReactionPlugin's "lowerFluxBound"
    * attribute is set.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @return @c true if this FbcReactionPlugin's "lowerFluxBound" attribute has been set,
    * otherwise @c false is returned.
@@ -299,7 +299,7 @@ public:
    * Predicate returning @c true if this FbcReactionPlugin's "upperFluxBound"
    * attribute is set.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @return @c true if this FbcReactionPlugin's "upperFluxBound" attribute has been set,
    * otherwise @c false is returned.
@@ -310,7 +310,7 @@ public:
   /**
    * Sets the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @param lowerFluxBound the value of the "lowerFluxBound" attribute to be set.
    *
@@ -324,7 +324,7 @@ public:
   /**
    * Sets the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @param upperFluxBound the value of the "upperFluxBound" attribute to be set.
    *
@@ -338,7 +338,7 @@ public:
   /**
    * Unsets the value of the "lowerFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -350,7 +350,7 @@ public:
   /**
    * Unsets the value of the "upperFluxBound" attribute of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -361,7 +361,7 @@ public:
   /**
    * Unsets the the "geneProduct" element of this FbcReactionPlugin.
    *
-   * @copydetails note_fluxbound_v2_only
+   * @copydetails doc_note_fluxbound_v2_only
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

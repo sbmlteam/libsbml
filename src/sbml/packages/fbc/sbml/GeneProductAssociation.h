@@ -296,9 +296,25 @@ public:
   /**
   * Sets the "association" element of this GeneProductAssociation.
   *
+  * This is a helper method that allows a user to set the
+  * GeneProductAssociation via a string such as <code>&quot;a1 AND b1 OR
+  * C2&quot;</code> and have the method work out the correct XML structure.
+  *
   * @param association string representation of the association to be set.
   *
-   * @copydetails doc_returns_success_code
+  * @param usingId, a Boolean.  If @c true, this method assumes that the infix
+  * string @p association uses the identifiers of GeneProduct objects.  If @c
+  * false (the default), the method assumes that the string uses the label
+  * attributes of GeneProduct objects.
+  *
+  * @param addMissingGP, a Boolean.  If @c true (the default), then while
+  * parsing the infix string in @p association, any identifiers or labels
+  * (depending on @p usingId) found in the expression that do not correspond
+  * to an existing GeneProduct object will result in the addition of that
+  * GeneProduct.  If @c false, this method will not add a GeneProduct in
+  * that circumstance.
+  *
+  * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
   */

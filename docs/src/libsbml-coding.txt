@@ -269,7 +269,7 @@ than one class can be described in the header):
  *
  * <!-- ------------------------------------------------------------ -->
  * @class ListOfCompartments
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
+ * @sbmlbrief{core} Implementation of SBML's %ListOfCompartments
  * construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for

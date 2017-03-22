@@ -16,9 +16,12 @@ libsbml_wrap.h
 libsbmlcs.dylib
 libsbmlcs.snk
 libsbmlcsP.dll
+local-downcast-astplugins.i
 local-downcast-converters.i
 local-downcast-extension.i
 local-downcast-namespaces.i
+local-downcast-plugins.i
+local-downcast.i
 local-packages.i
 test.xml
 test.xml.bz2

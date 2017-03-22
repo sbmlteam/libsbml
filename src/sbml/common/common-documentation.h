@@ -3617,43 +3617,38 @@ if (lmp != null)
  * AlgebraicRule.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class note_fluxbound_v1_only
+ * @class doc_note_fluxbound_v1_only
  *
- * @par
  * @note FluxBound objects are only defined for version&nbsp;1
  * of the "Flux Balance Constraints" specification, and are
  * replaced in version&nbsp;2 by the "upperFluxBound" and
  * "lowerFluxBound" attributes of the FbcReactionPlugin.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class note_geneproduct_v2_only
+ * @class doc_note_geneproduct_v2_only
  *
- * @par
  * @note GeneProduct objects are only defined for version&nbsp;2
  * of the "Flux Balance Constraints" specification, and have no
  * equivalent in version&nbsp;1 of the specification.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class note_strict_v2_only
+ * @class doc_note_strict_v2_only
  *
- * @par
  * @note The 'strict' attribute of the FbcModelPlugin is only defined for 
  * version&nbsp;2 of the "Flux Balance Constraints" specification, and has no
  * equivalent in version&nbsp;1 of the specification.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class note_fluxbound_v2_only
+ * @class doc_note_fluxbound_v2_only
  *
- * @par
  * @note The 'upperFluxBound' and 'lowerFluxBound' attributes of the 
  * FbcReactionPlugin are only defined for version&nbsp;2 of the "Flux 
  * Balance Constraints" specification.  In version&nbsp;1, this information
  * was encoded in the FluxBound children of the FbcModelPlugin.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class note_geneassociation_not_fbc
+ * @class doc_note_geneassociation_not_fbc
  *
- * @par
  * @note GeneAssociation objects are not defined in any version of the
  * "Flux Balance Constraints" specification, and can only be used for
  * annotation purposes.  Version&nbsp;2 instead defines the 

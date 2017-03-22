@@ -90,7 +90,7 @@ from libsbml import *
 
 sbml_levels_versions = [[1, 1], [1, 2],
                         [2, 1], [2, 2], [2, 3], [2, 4],
-                        [3, 1]]
+                        [3, 1], [3, 2]]
 
 # Set of error codes that we ignore for purposes of documentation.
 
@@ -102,6 +102,7 @@ ignored_error_codes = {9999, 10599, 20905, 21112, 29999, 90000, 90501, 99502,
 package_codes = [['comp',   1000000],
                  ['fbc',    2000000],
                  ['qual',   3000000],
+                 ['groups', 4000000],
                  ['layout', 6000000]]
 
 # Our approach to finding error codes starts with numbers and then rummages
@@ -151,6 +152,7 @@ doc_table_start_fragment = '''/**
      <th align="center" width="10">L2 V3</th>
      <th align="center" width="10">L2 V4</th>
      <th align="center" width="10">L3 V1</th>
+     <th align="center" width="10">L3 V2</th>
  </tr>
 '''
 
@@ -401,6 +403,7 @@ web_error_table_start_fragment = '''<center>
     <th class="levels">L2 V3</th>
     <th class="levels">L2 V4</th>
     <th class="levels">L3 V1</th>
+    <th class="levels">L3 V2</th>
   </tr>
 '''
 
@@ -561,13 +564,23 @@ def make_doc_row_text(errNum, module):
       pkg_start = package[1]
       pkg_end   = pkg_start + 1000000
       if errNum > pkg_start and errNum < pkg_end:
-        e = SBMLError(errNum, 3, 1, '', 0, 0, 0, 0, pkg_name, 1)
-        if not e.isValid():
+        # Packages are only possible in SBML Level 3.
+        # Check existence in some L/V combination.
+        elist = []
+        for lv in sbml_levels_versions:
+          if lv[0] < 3:
+            continue
+          elist.append(SBMLError(errNum, lv[0], lv[1], '', 0, 0, 0, 0, pkg_name, 1))
+        if all(not e.isValid() for e in elist):
           return ''
-        output += '<td class="meaning">{}</td>\n'.format(to_html(e.getShortMessage()))
-        for lv in range(0, len(sbml_levels_versions) - 1):
-          output += '<td class="{}"></td>\n'.format(get_severity_class(0))
-        output += '<td class="{}"></td>\n'.format(get_severity_class(e.getSeverity()))
+        first_e = next(e for e in elist if e.isValid())
+        output += '<td class="meaning">{}</td>\n'.format(to_html(first_e.getShortMessage()))
+        for lv in sbml_levels_versions:
+          if lv[0] < 3:
+            output += '<td class="{}"></td>\n'.format(get_severity_class(0))
+            continue
+          e = SBMLError(errNum, lv[0], lv[1], '', 0, 0, 0, 0, pkg_name, 1)
+          output += '<td class="{}"></td>\n'.format(get_severity_class(e.getSeverity()))
         break
 
   output += '</tr>\n'
@@ -698,8 +711,8 @@ def write_enum(stream, module):
 # -----------------------------------------------------------------------------
 
 def get_module():
-  m = find_module("libsbml")
-  return load_module('_libsbml', None, m[1], m[2])
+  fp, pathname, description = find_module("libsbml")
+  return load_module('_libsbml', fp, pathname, description)
 
 
 def get_numeric_constants(module, low=0, high=90000000):

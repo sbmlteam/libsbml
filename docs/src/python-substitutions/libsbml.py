@@ -1143,6 +1143,14 @@ InvalidLocalParameterSBOTerm = _libsbml.InvalidLocalParameterSBOTerm
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+InvalidSBMLElementSBOTerm = _libsbml.InvalidSBMLElementSBOTerm
+    ## @var long InvalidSBMLElementSBOTerm
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 NotesNotInXHTMLNamespace = _libsbml.NotesNotInXHTMLNamespace
     ## @var long NotesNotInXHTMLNamespace
     ## 
@@ -3694,9 +3702,145 @@ L3NotSupported = _libsbml.L3NotSupported
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+BooleanNumericDiscrepancy = _libsbml.BooleanNumericDiscrepancy
+    ## @var long BooleanNumericDiscrepancy
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+CannotVerifyUnitsObjectNoMath = _libsbml.CannotVerifyUnitsObjectNoMath
+    ## @var long CannotVerifyUnitsObjectNoMath
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+CircularDependencyRateOf = _libsbml.CircularDependencyRateOf
+    ## @var long CircularDependencyRateOf
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+ConvertibleMathInitialAssignment = _libsbml.ConvertibleMathInitialAssignment
+    ## @var long ConvertibleMathInitialAssignment
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+DoubleExponentNotSupported = _libsbml.DoubleExponentNotSupported
+    ## @var long DoubleExponentNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+EmptyListOfElementNotSupported = _libsbml.EmptyListOfElementNotSupported
+    ## @var long EmptyListOfElementNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+FastReactionsNotSupported = _libsbml.FastReactionsNotSupported
+    ## @var long FastReactionsNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+IdNameSBaseInL3V2 = _libsbml.IdNameSBaseInL3V2
+    ## @var long IdNameSBaseInL3V2
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 SBMLCodesUpperBound = _libsbml.SBMLCodesUpperBound
     ## @var long SBMLCodesUpperBound
     ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+LocalParameterShadowsSpecies = _libsbml.LocalParameterShadowsSpecies
+    ## @var long LocalParameterShadowsSpecies
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+MathMLElementNotSupported = _libsbml.MathMLElementNotSupported
+    ## @var long MathMLElementNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+MissingMathElementNotSupported = _libsbml.MissingMathElementNotSupported
+    ## @var long MissingMathElementNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+MissingParticipantsNotSupported = _libsbml.MissingParticipantsNotSupported
+    ## @var long MissingParticipantsNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+MissingTriggerElementNotSupported = _libsbml.MissingTriggerElementNotSupported
+    ## @var long MissingTriggerElementNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+RateOfSpeciesTargetCompartmentNot = _libsbml.RateOfSpeciesTargetCompartmentNot
+    ## @var long RateOfSpeciesTargetCompartmentNot
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+RateOfTargetCannotBeAssigned = _libsbml.RateOfTargetCannotBeAssigned
+    ## @var long RateOfTargetCannotBeAssigned
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+RateOfTargetMustBeCi = _libsbml.RateOfTargetMustBeCi
+    ## @var long RateOfTargetMustBeCi
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+StoichiometryMathMissingMath = _libsbml.StoichiometryMathMissingMath
+    ## @var long StoichiometryMathMissingMath
+    ##
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
@@ -3845,6 +3989,23 @@ LIBSBML_CAT_SBML_L3V1_COMPAT = _libsbml.LIBSBML_CAT_SBML_L3V1_COMPAT
     ## SBML to another.  This particular category applies to errors
     ## encountered while trying to convert a model to SBML Level&nbsp;3
     ## Version&nbsp;1.
+
+LIBSBML_CAT_SBML_COMPATIBILITY = _libsbml.LIBSBML_CAT_SBML_COMPATIBILITY
+    ## @var long LIBSBML_CAT_SBML_COMPATIBILITY
+    ## Category code for SBMLError diagnostics.
+    ##
+    ## This code has the following meaning: Category of errors that can
+    ## only occur during attempted translation from one Level/Version of
+    ## SBML to another.
+
+LIBSBML_CAT_SBML_L3V2_COMPAT = _libsbml.LIBSBML_CAT_SBML_L3V2_COMPAT
+    ## @var long LIBSBML_CAT_SBML_L3V2_COMPAT
+    ## Category code for SBMLError diagnostics.
+    ##
+    ## This code has the following meaning: Category of errors that can only
+    ## occur during attempted translation from one Level/Version of SBML to
+    ## another.  This particular category applies to errors encountered while
+    ## trying to convert a model to SBML Level&nbsp;3 Version&nbsp;1.
 
 SBML_UNKNOWN = _libsbml.SBML_UNKNOWN
     ## @var long SBML_UNKNOWN
@@ -4501,6 +4662,11 @@ AST_LAMBDA = _libsbml.AST_LAMBDA
     ## One of the possible ASTNode types.  Each ASTNode has
     ## a type whose value is one of the elements of this enumeration.
 
+AST_CSYMBOL_FUNCTION = _libsbml.AST_CSYMBOL_FUNCTION
+    ## @var long AST_CSYMBOL_FUNCTION
+    ##
+    ## Enumeration marker for the possible ASTNode types.
+
 AST_FUNCTION = _libsbml.AST_FUNCTION
     ## @var long AST_FUNCTION
     ##
@@ -4717,6 +4883,42 @@ AST_FUNCTION_TANH = _libsbml.AST_FUNCTION_TANH
     ## One of the possible ASTNode types.  Each ASTNode has
     ## a type whose value is one of the elements of this enumeration.
 
+AST_FUNCTION_MAX = _libsbml.AST_FUNCTION_MAX
+    ## @var long AST_FUNCTION_MAX
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_FUNCTION_MIN = _libsbml.AST_FUNCTION_MIN
+    ## @var long AST_FUNCTION_MIN
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_FUNCTION_QUOTIENT = _libsbml.AST_FUNCTION_QUOTIENT
+    ## @var long AST_FUNCTION_QUOTIENT
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_FUNCTION_RATE_OF = _libsbml.AST_FUNCTION_RATE_OF
+    ## @var long AST_FUNCTION_RATE_OF
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_FUNCTION_REM = _libsbml.AST_FUNCTION_REM
+    ## @var long AST_FUNCTION_REM
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
+AST_LOGICAL_IMPLIES = _libsbml.AST_LOGICAL_IMPLIES
+    ## @var long AST_LOGICAL_IMPLIES
+    ##
+    ## One of the possible ASTNode types.  Each ASTNode has
+    ## a type whose value is one of the elements of this enumeration.
+
 AST_LOGICAL_AND = _libsbml.AST_LOGICAL_AND
     ## @var long AST_LOGICAL_AND
     ##
@@ -4878,6 +5080,12 @@ L3P_COMPARE_BUILTINS_CASE_SENSITIVE = _libsbml.L3P_COMPARE_BUILTINS_CASE_SENSITI
     ## Treat only the all-lower-case form of built-in functions as referencing
     ## that function, and all other forms of capitalization of that string
     ## as referencing user-defined functions or values.
+
+L3P_MODULO_IS_PIECEWISE = _libsbml.L3P_MODULO_IS_PIECEWISE
+    ## @var long L3P_MODULO_IS_PIECEWISE
+
+L3P_MODULO_IS_REM = _libsbml.L3P_MODULO_IS_REM
+    ## @var long L3P_MODULO_IS_REM
 
 INFIX_SYNTAX_NAMED_SQUARE_BRACKETS = _libsbml.INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
     ## @var long INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
@@ -5174,6 +5382,10 @@ LIBSBML_DEPRECATED_ATTRIBUTE = _libsbml.LIBSBML_DEPRECATED_ATTRIBUTE
     ## @brief The attribute that is the subject of this operation has
     ## been deprecated for the combination of SBML Level and Version for
     ## the underlying object.
+
+LIBSBML_USE_ID_ATTRIBUTE_FUNCTION = _libsbml.LIBSBML_USE_ID_ATTRIBUTE_FUNCTION
+    ## @var long LIBSBML_USE_ID_ATTRIBUTE_FUNCTION
+    ## @brief For SBML Level 3 Version 2, use the IdAttribute functions.
 
 
 LIBSBML_PKG_UNKNOWN = _libsbml.LIBSBML_PKG_UNKNOWN

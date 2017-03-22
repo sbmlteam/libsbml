@@ -236,6 +236,15 @@ public interface libsbmlConstants
 
 
     /**
+     * One of the possible libSBML operation return codes.
+     * <p>
+     * This code has the following meaning: For SBML Level 3 Version 2, use
+     * the IdAttribute functions.
+     */
+    public final static int LIBSBML_USE_ID_ATTRIBUTE_FUNCTION = -16;
+
+
+    /**
      * One of the possible libSBML package operation return codes.
      * <p>
      * This code has the following meaning: the Version of the package
@@ -1618,7 +1627,14 @@ public interface libsbmlConstants
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_UNKNOWN = AST_LOGICAL_IMPLIES + 1;
+    public final static int AST_CSYMBOL_FUNCTION = 400;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_UNKNOWN = AST_CSYMBOL_FUNCTION + 1;
 
 
     /**
@@ -1705,6 +1721,37 @@ public interface libsbmlConstants
      * that string as referencing user-defined functions or values.
      */
     public final static boolean L3P_COMPARE_BUILTINS_CASE_SENSITIVE = true;
+
+
+    /**
+     * One of the settings in L3Parser affects whether the <code>%</code>
+     * symbol (modulo) is parsed as a piecewise equation that returns the
+     * modulo value of the entries on either side of the symbol, or whether
+     * it is parsed as the MathML <code>rem</code> function, which was
+     * allowed in SBML Level&nbsp;3 Version&nbsp;2, but not in previous
+     * Level/Versions.  The latter is more succinct, but might not be legal
+     * SBML for the desired target SBML document.
+     *
+     * This value means use the <code>rem</code> MathML function
+     * (@sbmlconstant{AST_FUNCTION_REM,ASTNodeType_t}).
+     */
+    public final static boolean L3P_MODULO_IS_REM = true;
+
+
+    /**
+     * One of the settings in L3Parser affects whether the <code>%</code>
+     * symbol (modulo) is parsed as a piecewise equation that returns the
+     * modulo value of the entries on either side of the symbol, or whether
+     * it is parsed as the MathML <code>rem</code> function, which was
+     * allowed in SBML Level&nbsp;3 Version&nbsp;2, but not in previous
+     * Level/Versions.  The latter is more succinct, but might not be legal
+     * SBML for the desired target SBML document.
+     *
+     * This value means use a piecewise function
+     * (@sbmlconstant{AST_FUNCTION_PIECEWISE,ASTNodeType_t}) to encode the
+     * modulo rule explicitly.
+     */
+    public final static boolean L3P_MODULO_IS_PIECEWISE = false;
 
 
     // L3ParserGrammarLineType_t
@@ -3052,6 +3099,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int InvalidSBMLElementSBOTerm = 10719;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int NotesNotInXHTMLNamespace = 10801;
 
 
@@ -4177,6 +4233,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int CircularDependencyRateOf = 20912;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int ConstraintMathNotBoolean = 21001;
 
 
@@ -4511,6 +4576,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int AllowedAttributesOnLocalParameter = 21172;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int LocalParameterShadowsSpecies = 21173;
 
 
     /**
@@ -5446,6 +5520,96 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int DoubleExponentNotSupported = 98001;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int MathMLElementNotSupported = 98002;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int EmptyListOfElementNotSupported = 98003;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int MissingMathElementNotSupported = 98004;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int MissingTriggerElementNotSupported = 98005;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int BooleanNumericDiscrepancy = 98006;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int IdNameSBaseInL3V2 = 98007;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int MissingParticipantsNotSupported = 98008;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int ConvertibleMathInitialAssignment = 98009;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int FastReactionsNotSupported = 98010;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int InvalidSBMLLevelVersion = 99101;
 
 
@@ -5527,6 +5691,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int L3SubstanceUnitsOnModel = 99130;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int StoichiometryMathMissingMath = 99131;
 
 
     /**
@@ -5752,6 +5925,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int UndeclaredObjectUnitsL3 = 99508;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int CannotVerifyUnitsObjectNoMath = 99509;
 
 
     /**
@@ -6235,6 +6417,18 @@ public interface libsbmlConstants
      * Version&nbsp;1.
      */
     public final static int LIBSBML_CAT_SBML_L3V1_COMPAT = LIBSBML_CAT_SBML_L2V4_COMPAT + 1;
+
+
+    /**
+     * Category code for {@link SBMLError} diagnostics.
+     */
+    public final static int LIBSBML_CAT_SBML_L3V2_COMPAT = LIBSBML_CAT_SBML_L3V1_COMPAT + 1;
+
+
+    /**
+     * Category code for {@link SBMLError} diagnostics.
+     */
+    public final static int LIBSBML_CAT_SBML_COMPATIBILITY = LIBSBML_CAT_SBML_L3V2_COMPAT + 1;
 
 
     // SBMLErrorSeverity_t
