@@ -19,6 +19,12 @@
 		{
 			return new SBasePlugin(cPtr,owner);
 		}
+    
+    
+    if (sb instanceof Model)
+    {
+      return new LayoutModelPlugin(cPtr, owner);
+    }
 		
 		switch( sb.getTypeCode() )
 		{

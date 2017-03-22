@@ -14,7 +14,12 @@
 		
 		SBasePlugin sbp = new SBasePlugin(cPtr, false);
 		SBase sb = sbp.getParentSBMLObject();
-		
+
+    if (sb instanceof Model)
+    {
+      return new QualModelPlugin(cPtr, owner);
+    }
+    
 		switch( sb.getTypeCode() )
 		{
 			case (int) libsbml.SBML_MODEL:

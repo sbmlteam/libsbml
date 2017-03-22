@@ -46,7 +46,12 @@
 		
 		SBasePlugin sbp = new SBasePlugin(cPtr, false);
 		SBase sb = sbp.getParentSBMLObject();
-
+    
+    if (sb is Model)
+    {
+      return new GroupsModelPlugin(cPtr, owner);
+    }
+    
 		switch( sb.getTypeCode() )
 		{
 			case (int) libsbml.SBML_MODEL:

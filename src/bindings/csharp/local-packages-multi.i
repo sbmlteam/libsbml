@@ -46,6 +46,11 @@
     if (sb.getElementName() == "listOfReactions")
       return new MultiListOfReactionsPlugin(cPtr, owner);
 
+    if (sb is Model)
+    {
+      return new MultiModelPlugin(cPtr, owner);
+    }
+    
     switch( sb.getTypeCode() )
     {
       case (int) libsbml.SBML_DOCUMENT:

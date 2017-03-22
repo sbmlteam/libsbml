@@ -42,6 +42,11 @@
 
     SBasePlugin sbp = new SBasePlugin(cPtr, false);
     SBase sb = sbp.getParentSBMLObject();
+    
+    if (sb is Model)
+    {
+      return new FbcModelPlugin(cPtr, owner);
+    }
 
     switch( sb.getTypeCode() )
     {
