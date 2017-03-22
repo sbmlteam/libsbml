@@ -5,7 +5,7 @@ if (pkgName == "fbc")
   {
     return SWIGTYPE_p_FbcSpeciesPlugin;
   }
-  else if (sb->getTypeCode() == SBML_MODEL)
+  else if (sb->getTypeCode() == SBML_MODEL || dynamic_cast<Model*>(sb) != NULL)
   {
     return SWIGTYPE_p_FbcModelPlugin;
   }

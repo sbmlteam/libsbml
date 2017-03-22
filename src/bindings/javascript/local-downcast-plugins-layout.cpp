@@ -2,7 +2,7 @@
 #ifdef USE_LAYOUT
 if (pkgName == "layout")
 {
-    if (sb->getTypeCode() == SBML_MODEL)
+    if (sb->getTypeCode() == SBML_MODEL || dynamic_cast<Model*>(sb) != NULL)
     {
 		return SWIGTYPE_p_LayoutModelPlugin;
     }
