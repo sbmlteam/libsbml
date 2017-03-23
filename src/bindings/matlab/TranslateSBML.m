@@ -1,13 +1,7 @@
-% TranslateSBML('filename' (optional), validateFlag (optional), verboseFlag (optional))
+% [model, (errors), (version)] = TranslateSBML((filename), (validateFlag), (verboseFlag), (fbcGeneProductOptions))
 % reads an SBML document and converts it to a MATLAB_SBML structure.
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% NOTE: This version enables support for SBML L3 FBC package.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% It accepts three optional arguments:
+% It accepts four optional arguments:
 %
 %   * filename: This is the name of the file to be imported. 
 %               If the file is not in the current directory, then the 
@@ -29,12 +23,30 @@
 %                  interaction, and is useful when calling TranslateSBML 
 %                  from within another function/script.
 %
+%   * fbcGeneProductOptions: This is an array of two values that
+%                  allows the user to change the behaviour relating to
+%                  geneProduct elements in the fbc package.
+%                  A value of [0, 1] (the default) indicates that TranslateSBML 
+%                  should display the geneProductAssociation using the label
+%                  attribute to refer to the geneProduct.  A value of [1,0]
+%                  indicates the id attribute should be used.
+%                  Note the second value has no impact on TranslateSBML.
+%
+% There are three possible outputs:
+%
+%   * model: The MATLAB_SBML Structure representing the imported model.
+%
+%   * errors: A structure representing any validation errors within the imported model.
+%
+%   * version: A structure representing version information about libSBML.
+%
+
+
 
 
 % Filename    : TranslateSBML.m
 % Description : MATLAB help file for TranslateSBML
 % Author(s)   : SBML Team <sbml-team@googlegroups.com>
-% Organization: University of Hertfordshire STRC
 % Created     : 2003-09-15
 %
 % This file is part of libSBML.  Please visit http://sbml.org for more

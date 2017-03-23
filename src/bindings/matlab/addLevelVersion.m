@@ -1,11 +1,13 @@
 function structure = addLevelVersion(structure, level, version)
 %  structure = addLevelVersion(structure, level, version)
+% 
+% this function is used internally by TranslateSBML
 %
 % Takes
 %
 % 1. structure - any MATLAB_SBML structure
 % 2. level - an integer for the value of the level field to be added
-% 3. version - an integer for the value of teh version field to be added
+% 3. version - an integer for the value of the version field to be added
 %
 % Returns
 %
@@ -14,7 +16,7 @@ function structure = addLevelVersion(structure, level, version)
 %                           structure
 %
 % Note:
-%             The structure must contain 
+%             The structure must contain a 'typecode' field
 
 %<!---------------------------------------------------------------------------
 % This file is part of libSBML.  Please visit http://sbml.org for more

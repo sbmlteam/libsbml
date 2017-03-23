@@ -7,6 +7,9 @@ function [valid, message] = isSBML_Model(varargin)
 % 2. extensions_allowed (optional) =
 %   - 0, structures should contain ONLY required fields
 %   - 1, structures may contain additional fields (default)
+%3. applyUserValidation (optional) = 
+%   - 0, no further validation (default)
+%   - 1, run the applyUserValidation function as part of validation
 %
 % Returns
 %
@@ -108,7 +111,7 @@ end;
 if (valid == 1)
     [valid, message] = isSBML_Struct('model', SBMLStructure, level, version, packages, pkgVersion, extensions_allowed);
 
-    if (valid == 1 && pkgCount > 0 && strcmp(packages{1}, 'fbc') && userValidation == 1)
+    if (valid == 1 && userValidation == 1)
         [valid, message] = applyUserValidation(SBMLStructure, level, version, packages, pkgVersion);
     end;
 end;

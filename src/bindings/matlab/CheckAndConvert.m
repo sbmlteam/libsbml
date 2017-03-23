@@ -1,5 +1,17 @@
 function Formula = CheckAndConvert(Input)
-% converts from MathML in-fix to MATLAB functions
+%  Formula = CheckAndConvert(Input)
+% 
+% - a script used internally by TranslateSBML to change some mathematical function names
+%   to those used by MATLAB
+%
+% Takes
+%
+% 1. Input - a string representation of the math from an SBML document
+%
+% Returns
+%
+% 1. Formula - the original string adjusted to be MATLAB compatible
+%
 
 % Filename    : CheckAndConvert.m
 % Description : converts from MathML in-fix to MATLAB functions

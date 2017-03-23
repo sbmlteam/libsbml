@@ -1,5 +1,18 @@
 function Formula = ConvertFormulaToMathML(Input)
-% converts from MATLAB to MathML in-fix functions
+%  Formula = ConvertFormulaToMathML(Input)
+% 
+% - a script used internally by OutputSBML to change some mathematical function names
+%   to those recognized by libSBML
+%
+% Takes
+%
+% 1. Input - a string representation of the math from MATLAB
+%
+% Returns
+%
+% 1. Formula - the original string adjusted to be libSBML compatible
+%
+%
 
 % Filename    : ConvertFormulaToMathML.m
 % 
