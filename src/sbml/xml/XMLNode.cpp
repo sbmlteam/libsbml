@@ -516,13 +516,16 @@ XMLNode::write (XMLOutputStream& stream) const
 
     if (!mTriple.isEmpty())
     {
-      // edge case ... we have an element with a couple of elements, and 
-      // one is a text node (ugly!) in this case we can get a hanging
-      // indent ... so we downindent ... 
-      if (children > 1 && haveTextNode)
-      {
-        stream.downIndent();
-      }
+      // I removed this as it was creating un - necessary down indents
+      // no tests failed as a result of removing it
+      // but I'm still a bit dubious
+//      // edge case ... we have an element with a couple of elements, and 
+//      // one is a text node (ugly!) in this case we can get a hanging
+//      // indent ... so we downindent ... 
+//      if (children > 1 && haveTextNode)
+//      {
+////        stream.downIndent();
+//      }
       stream.endElement( mTriple );
     }
   }

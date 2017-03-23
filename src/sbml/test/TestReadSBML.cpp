@@ -45,6 +45,18 @@
 
 /** @cond doxygenIgnored */
 
+static bool
+equals(const char* expected, const char* actual)
+{
+  if (!strcmp(expected, actual)) return true;
+
+  printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
+
+  return false;
+}
+
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
@@ -54,13 +66,13 @@ CK_CPPSTART
 
 //TO DO - add namespace
 
-#define XML_HEADER        "<?xml version='1.0' encoding='UTF-8'?>\n"
+#define XML_HEADER        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define SBML_HEADER_L1v1  "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='1'> <model name='m'>\n"
-#define SBML_HEADER_L1v2  "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='2'> <model name='m'>\n"
-#define SBML_HEADER_L2v1  "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'> <model name='m'>\n"
+#define SBML_HEADER_L1v2  "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" level=\"1\" version=\"2\">\n  <model name=\"m\">\n"
+#define SBML_HEADER_L2v1  "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'>\n  <model name='m'>\n"
 #define SBML_HEADER_L2v2  "<sbml xmlns='http://www.sbml.org/sbml/level2/version2' level='2' version='2'> <model name='m'>\n"
 #define SBML_HEADER_L2v3  "<sbml xmlns='http://www.sbml.org/sbml/level2/version3' level='2' version='3'> <model name='m'>\n"
-#define SBML_FOOTER       "</model> </sbml>"
+#define SBML_FOOTER       "  </model>\n</sbml>\n"
 
 /**
  * Wraps the string s in the appropriate XML or SBML boilerplate.
@@ -80,7 +92,7 @@ static Model_t        *M;
 static void
 ReadSBML_setup ()
 {
-  D = NULL;
+  D=NULL;
 }
 
 
@@ -92,7 +104,7 @@ ReadSBML_teardown ()
 
 START_TEST (test_ReadSBML_prefix)
 {
-  const char* unprefixed = 
+  const char* unprefixed=
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<sbml xmlns='http://www.sbml.org/sbml/level2/version4' level='2' version='4'>"
     "  <model id='Model1' name='New Model'>"
@@ -105,7 +117,7 @@ START_TEST (test_ReadSBML_prefix)
     "  </model>"
     "</sbml>";
   
-  const char* prefixed = 
+  const char* prefixed=
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<sbml:sbml xmlns:sbml='http://www.sbml.org/sbml/level2/version4' sbml:level='2' sbml:version='4'>"
     "  <sbml:model sbml:id='Model1' sbml:name='New Model'>"
@@ -119,11 +131,11 @@ START_TEST (test_ReadSBML_prefix)
     "</sbml:sbml>";
     
 
-  SBMLDocument *doc1 = readSBMLFromString(unprefixed);
-  SBMLDocument *doc2 = readSBMLFromString(prefixed);
+  SBMLDocument *doc1=readSBMLFromString(unprefixed);
+  SBMLDocument *doc2=readSBMLFromString(prefixed);
 
-  Model *model1 = doc1->getModel();
-  Model *model2 = doc2->getModel();
+  Model *model1=doc1->getModel();
+  Model *model2=doc2->getModel();
 
   fail_unless(model1 != NULL);
   fail_unless(model2 != NULL);
@@ -142,10 +154,10 @@ END_TEST
 
 START_TEST (test_ReadSBML_SBML)
 {
-  const char* s = wrapXML("<sbml level='1' version='1'> </sbml>");
+  const char* s=wrapXML("<sbml level='1' version='1'> </sbml>");
   
 
-  D = readSBMLFromString(s);
+  D=readSBMLFromString(s);
 
   fail_unless(SBMLDocument_getLevel  (D) == 1);
   fail_unless(SBMLDocument_getVersion(D) == 1);
@@ -154,11 +166,11 @@ END_TEST
 
 START_TEST (test_ReadSBML_SBML_ONLY)
 {
-  const char* s = wrapXML("<sbml/>");
-  D = readSBMLFromString(s);
+  const char* s=wrapXML("<sbml/>");
+  D=readSBMLFromString(s);
   
   // write SBML to string
-  char * sSBML = D->toSBML();
+  char * sSBML=D->toSBML();
 
   // ensure that we are still there
   fail_unless(sSBML != NULL);
@@ -179,7 +191,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_Model)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
     "<sbml level='1' version='1'>"
     "  <model name='testModel'></model>"
@@ -187,8 +199,8 @@ START_TEST (test_ReadSBML_Model)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( !strcmp(Model_getId(M), "testModel") );
 }
@@ -197,20 +209,20 @@ END_TEST
 START_TEST (test_ReadSBML_Model_withoutEncoding)
 {
   
-  const char* s = 
+  const char* s=
     "<sbml level='2' version='1' xmlns='http://www.sbml.org/sbml/level2'>"
     "  <model id='testModel'></model>"
     "</sbml>";
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( !strcmp(Model_getId(M), "testModel") );
   fail_unless (SBMLDocument_getNumErrors(D) == 0);
 
   /*
-  const char* s2 = 
+  const char* s2=
     "<?xml version='1.0' encoding='UTF-8'?>\n"
     "<sbml level='2' version='1' xmlns='http://www.sbml.org/sbml/level2'>"
     "  <model id='testModel'></model>"
@@ -218,8 +230,8 @@ START_TEST (test_ReadSBML_Model_withoutEncoding)
   */
 
   delete D;
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( !strcmp(Model_getId(M), "testModel") );
   fail_unless (SBMLDocument_getNumErrors(D) == 0);
@@ -229,7 +241,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_Model_L2)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
     "<sbml level='2' version='1'>"
     "  <model id='testModel'> </model>"
@@ -237,8 +249,8 @@ START_TEST (test_ReadSBML_Model_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless(  Model_isSetId  (M) );
   fail_unless( !Model_isSetName(M) );
@@ -254,7 +266,7 @@ START_TEST (test_ReadSBML_FunctionDefinition)
   const ASTNode_t*      math;
   char*                 formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
     "  <functionDefinition id='pow3' name='cubed'>"
@@ -273,12 +285,12 @@ START_TEST (test_ReadSBML_FunctionDefinition)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumFunctionDefinitions(M) == 1 );
 
-  fd = Model_getFunctionDefinition(M, 0);
+  fd=Model_getFunctionDefinition(M, 0);
   fail_unless( fd != NULL );
 
   fail_unless( FunctionDefinition_isSetId  (fd) );
@@ -288,9 +300,9 @@ START_TEST (test_ReadSBML_FunctionDefinition)
   fail_unless( !strcmp( FunctionDefinition_getName(fd), "cubed" ) );
 
   fail_unless( FunctionDefinition_isSetMath(fd) );
-  math = FunctionDefinition_getMath(fd);
+  math=FunctionDefinition_getMath(fd);
 
-  formula = SBML_formulaToString(math);
+  formula=SBML_formulaToString(math);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "lambda(x, pow(x, 3))") );
@@ -305,7 +317,7 @@ START_TEST (test_ReadSBML_FunctionDefinition_MathReturnsCN)
   const ASTNode_t*      math;
   char*                 formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
     "  <functionDefinition id='getNumber'>"
@@ -320,12 +332,12 @@ START_TEST (test_ReadSBML_FunctionDefinition_MathReturnsCN)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumFunctionDefinitions(M) == 1 );
 
-  fd = Model_getFunctionDefinition(M, 0);
+  fd=Model_getFunctionDefinition(M, 0);
   fail_unless( fd != NULL );
 
   fail_unless( FunctionDefinition_isSetId  (fd) );
@@ -334,9 +346,9 @@ START_TEST (test_ReadSBML_FunctionDefinition_MathReturnsCN)
   fail_unless( !strcmp( FunctionDefinition_getId  (fd), "getNumber"  ) );
 
   fail_unless( FunctionDefinition_isSetMath(fd) );
-  math = FunctionDefinition_getMath(fd);
+  math=FunctionDefinition_getMath(fd);
 
-  formula = SBML_formulaToString(math);
+  formula=SBML_formulaToString(math);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "lambda(x, 42)") );
@@ -353,7 +365,7 @@ START_TEST (test_ReadSBML_FunctionDefinition_OnlyBVars)
   const ASTNode_t*      math;
   char*                 formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
     "  <functionDefinition id='invalid'>"
@@ -369,20 +381,20 @@ START_TEST (test_ReadSBML_FunctionDefinition_OnlyBVars)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   SBMLDocument_checkInternalConsistency(D);
   SBMLDocument_checkConsistency(D);
-  numErrors = SBMLDocument_getNumErrors(D);
+  numErrors=SBMLDocument_getNumErrors(D);
   fail_unless(numErrors == 1);
-  error = SBMLDocument_getError(D, 0);
+  error=SBMLDocument_getError(D, 0);
   
   fail_unless(XMLError_getErrorId(error) == NoBodyInFunctionDef);
   
   fail_unless( Model_getNumFunctionDefinitions(M) == 1 );
 
-  fd = Model_getFunctionDefinition(M, 0);
+  fd=Model_getFunctionDefinition(M, 0);
   fail_unless( fd != NULL );
 
   fail_unless( FunctionDefinition_isSetId  (fd) );
@@ -392,9 +404,9 @@ START_TEST (test_ReadSBML_FunctionDefinition_OnlyBVars)
   fail_unless( FunctionDefinition_getBody(fd) == NULL );
 
   fail_unless( FunctionDefinition_isSetMath(fd) );
-  math = FunctionDefinition_getMath(fd);
+  math=FunctionDefinition_getMath(fd);
 
-  formula = SBML_formulaToString(math);
+  formula=SBML_formulaToString(math);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "lambda(x, y, z)") );  
@@ -408,7 +420,7 @@ START_TEST (test_ReadSBML_UnitDefinition)
 {
   UnitDefinition_t* ud;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition name='mmls'/>"
@@ -416,12 +428,12 @@ START_TEST (test_ReadSBML_UnitDefinition)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 1 );
 
-  ud = Model_getUnitDefinition(M, 0);
+  ud=Model_getUnitDefinition(M, 0);
   fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls") );
 }
 END_TEST
@@ -431,7 +443,7 @@ START_TEST (test_ReadSBML_UnitDefinition_L2)
 {
   UnitDefinition_t* ud;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition id='mmls' name='mmol/ls'/>"
@@ -439,12 +451,12 @@ START_TEST (test_ReadSBML_UnitDefinition_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 1 );
 
-  ud = Model_getUnitDefinition(M, 0);
+  ud=Model_getUnitDefinition(M, 0);
 
   fail_unless( UnitDefinition_isSetId  (ud) );
   fail_unless( UnitDefinition_isSetName(ud) );
@@ -461,7 +473,7 @@ START_TEST (test_ReadSBML_Unit)
   UnitDefinition_t* ud;
 
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition name='substance'>"
@@ -471,17 +483,17 @@ START_TEST (test_ReadSBML_Unit)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 1 );
 
-  ud = Model_getUnitDefinition(M, 0);
+  ud=Model_getUnitDefinition(M, 0);
 
   fail_unless( !strcmp(UnitDefinition_getId(ud), "substance") );
   fail_unless( UnitDefinition_getNumUnits(ud) == 1 );
 
-  u = UnitDefinition_getUnit(ud, 0);
+  u=UnitDefinition_getUnit(ud, 0);
 
   fail_unless( Unit_getKind    (u) == UNIT_KIND_MOLE );
   fail_unless( Unit_getExponent(u) ==  1 );
@@ -496,7 +508,7 @@ START_TEST (test_ReadSBML_Unit_L2)
   UnitDefinition_t* ud;
 
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition id='Fahrenheit'>"
@@ -508,19 +520,19 @@ START_TEST (test_ReadSBML_Unit_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 1 );
 
-  ud = Model_getUnitDefinition(M, 0);
+  ud=Model_getUnitDefinition(M, 0);
 
   fail_unless( UnitDefinition_isSetId(ud) );
   fail_unless( !strcmp(UnitDefinition_getId(ud), "Fahrenheit") );
 
   fail_unless( UnitDefinition_getNumUnits(ud) == 1 );
 
-  u = UnitDefinition_getUnit(ud, 0);
+  u=UnitDefinition_getUnit(ud, 0);
 
   fail_unless( Unit_getKind      (u) == UNIT_KIND_CELSIUS );
   fail_unless( Unit_getExponent  (u) ==  1  , NULL );
@@ -537,33 +549,40 @@ START_TEST (test_ReadSBML_Unit_defaults_L1_L2)
   UnitDefinition_t* ud;
 
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
-    "<listOfUnitDefinitions>"
-    "  <unitDefinition name='bogomips'>"
-    "    <listOfUnits> <unit kind='second'/> </listOfUnits>"
-    "  </unitDefinition>"
-    "</listOfUnitDefinitions>"
+    "    <listOfUnitDefinitions>\n"
+    "      <unitDefinition name=\"bogomips\">\n"
+    "        <listOfUnits>\n"
+    "          <unit kind=\"second\"/>\n"
+    "        </listOfUnits>\n"
+    "      </unitDefinition>\n"
+    "    </listOfUnitDefinitions>\n"
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 1 );
 
-  ud = Model_getUnitDefinition(M, 0);
+  ud=Model_getUnitDefinition(M, 0);
 
   fail_unless( !strcmp(UnitDefinition_getId(ud), "bogomips") );
   fail_unless( UnitDefinition_getNumUnits(ud) == 1 );
 
-  u = UnitDefinition_getUnit(ud, 0);
+  u=UnitDefinition_getUnit(ud, 0);
 
   fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND );
   fail_unless( Unit_getExponent  (u) ==  1   );
   fail_unless( Unit_getScale     (u) ==  0   );
   fail_unless( Unit_getMultiplier(u) ==  1.0 );
   fail_unless( Unit_getOffset    (u) ==  0.0 );
+
+  char * output=writeSBMLToString(D);
+
+  fail_unless(equals(s, output));
 }
 END_TEST
 
@@ -572,7 +591,7 @@ START_TEST (test_ReadSBML_Compartment)
 {
   Compartment_t* c;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfCompartments>"
     "  <compartment name='mitochondria' volume='.0001' units='milliliters'"
@@ -581,12 +600,12 @@ START_TEST (test_ReadSBML_Compartment)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
 
-  c = Model_getCompartment(M, 0);
+  c=Model_getCompartment(M, 0);
 
   fail_unless( !strcmp( Compartment_getId     (c), "mitochondria" ) );
   fail_unless( !strcmp( Compartment_getUnits  (c), "milliliters"  ) );
@@ -603,7 +622,7 @@ START_TEST (test_ReadSBML_Compartment_L2)
 {
   Compartment_t* c;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfCompartments>"
     "  <compartment id='membrane' size='.3' spatialDimensions='2'"
@@ -612,12 +631,12 @@ START_TEST (test_ReadSBML_Compartment_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
 
-  c = Model_getCompartment(M, 0);
+  c=Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetId     (c) );
   fail_unless( !Compartment_isSetName   (c) );
@@ -640,18 +659,18 @@ START_TEST (test_ReadSBML_Compartment_defaults)
 {
   Compartment_t* c;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
      "<listOfCompartments> <compartment name='cell'/> </listOfCompartments>"
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
 
-  c = Model_getCompartment(M, 0);
+  c=Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetId     (c) );
   fail_unless(  Compartment_isSetVolume (c) );
@@ -669,18 +688,18 @@ START_TEST (test_ReadSBML_Compartment_defaults_L2)
 {
   Compartment_t* c;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
      "<listOfCompartments> <compartment id='cell'/> </listOfCompartments>"
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
 
-  c = Model_getCompartment(M, 0);
+  c=Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetId     (c) );
   fail_unless( !Compartment_isSetName   (c) );
@@ -700,7 +719,7 @@ START_TEST (test_ReadSBML_Specie)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L1v1
+  const char* s=wrapSBML_L1v1
   (
     "<listOfSpecie>"
     "  <specie name='Glucose' compartment='cell' initialAmount='4.1'"
@@ -709,12 +728,12 @@ START_TEST (test_ReadSBML_Specie)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless( !strcmp( Species_getId         (sp), "Glucose" ) );
   fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ) );
@@ -734,7 +753,7 @@ START_TEST (test_ReadSBML_Specie_defaults)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L1v1
+  const char* s=wrapSBML_L1v1
   (
     "<listOfSpecie>"
     "  <specie name='Glucose' compartment='cell' initialAmount='1.0'/>"
@@ -742,12 +761,12 @@ START_TEST (test_ReadSBML_Specie_defaults)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless( !strcmp( Species_getId         (sp), "Glucose" ) );
   fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ) );
@@ -765,7 +784,7 @@ START_TEST (test_ReadSBML_Species)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfSpecies>"
     "  <species name='Glucose' compartment='cell' initialAmount='4.1'"
@@ -774,12 +793,12 @@ START_TEST (test_ReadSBML_Species)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless( !strcmp( Species_getId         (sp), "Glucose" ) );
   fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ) );
@@ -799,7 +818,7 @@ START_TEST (test_ReadSBML_Species_L2_1)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfSpecies>"
     "  <species id='Glucose' compartment='cell' initialConcentration='4.1'"
@@ -809,12 +828,12 @@ START_TEST (test_ReadSBML_Species_L2_1)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp) );
   fail_unless( !Species_isSetName                (sp) );
@@ -843,7 +862,7 @@ START_TEST (test_ReadSBML_Species_L2_2)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfSpecies>"
     "  <species id='s' compartment='c' hasOnlySubstanceUnits='true'/>"
@@ -851,12 +870,12 @@ START_TEST (test_ReadSBML_Species_L2_2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp) );
   fail_unless( !Species_isSetName                (sp) );
@@ -881,7 +900,7 @@ START_TEST (test_ReadSBML_Species_L2_defaults)
 {
   Species_t* sp;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfSpecies>"
     "  <species id='Glucose_6_P' compartment='cell'/>"
@@ -889,12 +908,12 @@ START_TEST (test_ReadSBML_Species_L2_defaults)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
 
-  sp = Model_getSpecies(M, 0);
+  sp=Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp) );
   fail_unless( !Species_isSetName                (sp) );
@@ -919,7 +938,7 @@ START_TEST (test_ReadSBML_Parameter)
 {
   Parameter_t* p;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfParameters>"
     "  <parameter name='Km1' value='2.3' units='second'/>"
@@ -927,12 +946,12 @@ START_TEST (test_ReadSBML_Parameter)
   );
 
     
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumParameters(M) == 1 );
 
-  p = Model_getParameter(M, 0);
+  p=Model_getParameter(M, 0);
 
   fail_unless( !strcmp( Parameter_getId   (p), "Km1"    ) );
   fail_unless( !strcmp( Parameter_getUnits(p), "second" ) );
@@ -947,7 +966,7 @@ START_TEST (test_ReadSBML_Parameter_L2)
 {
   Parameter_t* p;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfParameters>"
     "  <parameter id='T' value='4.6' units='Celsius' constant='false'/>"
@@ -955,12 +974,12 @@ START_TEST (test_ReadSBML_Parameter_L2)
   );
 
     
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumParameters(M) == 1 );
 
-  p = Model_getParameter(M, 0);
+  p=Model_getParameter(M, 0);
 
   fail_unless(  Parameter_isSetId   (p) );
   fail_unless( !Parameter_isSetName (p) );
@@ -980,18 +999,18 @@ START_TEST (test_ReadSBML_Parameter_L2_defaults)
 {
   Parameter_t* p;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfParameters> <parameter id='x'/> </listOfParameters>"
   );
 
     
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumParameters(M) == 1 );
 
-  p = Model_getParameter(M, 0);
+  p=Model_getParameter(M, 0);
 
   fail_unless(  Parameter_isSetId   (p) );
   fail_unless( !Parameter_isSetName (p) );
@@ -1008,7 +1027,7 @@ START_TEST (test_ReadSBML_Reaction)
 {
   Reaction_t* r;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1' reversible='false'/>"
@@ -1016,12 +1035,12 @@ START_TEST (test_ReadSBML_Reaction)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
   
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible(r) == 0 );
@@ -1033,7 +1052,7 @@ END_TEST
 START_TEST (test_ReadSBML_Reaction_defaults)
 {
   Reaction_t* r;
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1'/>"
@@ -1041,12 +1060,12 @@ START_TEST (test_ReadSBML_Reaction_defaults)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
   
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible(r) != 0 );
@@ -1059,7 +1078,7 @@ START_TEST (test_ReadSBML_Reaction_L2)
 {
   Reaction_t* r;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions>"
     "  <reaction id='r1' reversible='false' fast='false'/>"
@@ -1067,12 +1086,12 @@ START_TEST (test_ReadSBML_Reaction_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
   
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless(  Reaction_isSetId  (r) );
   fail_unless( !Reaction_isSetName(r) );
@@ -1088,18 +1107,18 @@ END_TEST
 START_TEST (test_ReadSBML_Reaction_L2_defaults)
 {
   Reaction_t* r;
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions> <reaction id='r1'/> </listOfReactions>"
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
   
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless(  Reaction_isSetId  (r) );
   fail_unless( !Reaction_isSetName(r) );
@@ -1116,7 +1135,7 @@ START_TEST (test_ReadSBML_SpecieReference_Reactant)
   Reaction_t*         r;
   SpeciesReference_t* sr;
 
-  const char* s = wrapSBML_L1v1
+  const char* s=wrapSBML_L1v1
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1' reversible='false'>"
@@ -1128,18 +1147,18 @@ START_TEST (test_ReadSBML_SpecieReference_Reactant)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible  (r) == 0 );
   fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  sr = Reaction_getReactant(r, 0);
+  sr=Reaction_getReactant(r, 0);
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0") );
   fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
@@ -1153,7 +1172,7 @@ START_TEST (test_ReadSBML_SpecieReference_Product)
   Reaction_t*         r;
   SpeciesReference_t* sr;
 
-  const char* s = wrapSBML_L1v1
+  const char* s=wrapSBML_L1v1
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1' reversible='false'>"
@@ -1165,18 +1184,18 @@ START_TEST (test_ReadSBML_SpecieReference_Product)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible (r) == 0 );
   fail_unless( Reaction_getNumProducts(r) == 1 );
 
-  sr = Reaction_getProduct(r, 0);
+  sr=Reaction_getProduct(r, 0);
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "S1") );
   fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
@@ -1190,7 +1209,7 @@ START_TEST (test_ReadSBML_SpecieReference_defaults)
   Reaction_t*         r;
   SpeciesReference_t* sr;
 
-  const char* s = wrapSBML_L1v1
+  const char* s=wrapSBML_L1v1
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1' reversible='false'>"
@@ -1202,18 +1221,18 @@ START_TEST (test_ReadSBML_SpecieReference_defaults)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible  (r) == 0 );
   fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  sr = Reaction_getReactant(r, 0);
+  sr=Reaction_getReactant(r, 0);
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0") );
   fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
@@ -1227,7 +1246,7 @@ START_TEST (test_ReadSBML_SpeciesReference_defaults)
   Reaction_t*         r;
   SpeciesReference_t* sr;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfReactions>"
     "  <reaction name='reaction_1' reversible='false'>"
@@ -1239,18 +1258,18 @@ START_TEST (test_ReadSBML_SpeciesReference_defaults)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
   
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
 
   fail_unless( !strcmp(Reaction_getId(r), "reaction_1") );
   fail_unless( Reaction_getReversible  (r) == 0 );
   fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  sr = Reaction_getReactant(r, 0);
+  sr=Reaction_getReactant(r, 0);
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0") );
   fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
@@ -1266,7 +1285,7 @@ START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_1)
   const StoichiometryMath_t*    math;
   char*               formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions>"
     "  <reaction name='r1'>"
@@ -1282,23 +1301,23 @@ START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_1)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
   fail_unless( r != NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  sr = Reaction_getReactant(r, 0);
+  sr=Reaction_getReactant(r, 0);
   fail_unless( sr != NULL );
 
   fail_unless( SpeciesReference_isSetStoichiometryMath(sr) );
-  math = SpeciesReference_getStoichiometryMath(sr);
+  math=SpeciesReference_getStoichiometryMath(sr);
 
-  formula = SBML_formulaToString(StoichiometryMath_getMath(math));
+  formula=SBML_formulaToString(StoichiometryMath_getMath(math));
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "x") );
@@ -1313,7 +1332,7 @@ START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_2)
   Reaction_t*         r;
   SpeciesReference_t* sr;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions>"
     "  <reaction name='r1'>"
@@ -1329,17 +1348,17 @@ START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
   fail_unless( r != NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  sr = Reaction_getReactant(r, 0);
+  sr=Reaction_getReactant(r, 0);
   fail_unless( sr != NULL );
 
   fail_unless( !SpeciesReference_isSetStoichiometryMath(sr) );
@@ -1355,7 +1374,7 @@ START_TEST (test_ReadSBML_KineticLaw)
   Reaction_t*   r;
   KineticLaw_t* kl;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfReactions>"
     "  <reaction name='J1'>"
@@ -1365,13 +1384,13 @@ START_TEST (test_ReadSBML_KineticLaw)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 
-  r  = Model_getReaction(M, 0);
-  kl = Reaction_getKineticLaw(r);
+  r =Model_getReaction(M, 0);
+  kl=Reaction_getKineticLaw(r);
 
   fail_unless( !strcmp(KineticLaw_getFormula(kl), "k1*X0") );
 }
@@ -1385,7 +1404,7 @@ START_TEST (test_ReadSBML_KineticLaw_L2)
   const ASTNode_t* math;
   const char*      formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions>"
     "  <reaction id='J1'>"
@@ -1404,22 +1423,22 @@ START_TEST (test_ReadSBML_KineticLaw_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 
-  r = Model_getReaction(M, 0);
+  r=Model_getReaction(M, 0);
   fail_unless( r != NULL );
 
-  kl = Reaction_getKineticLaw(r);
+  kl=Reaction_getKineticLaw(r);
   fail_unless( kl != NULL );
 
   fail_unless( KineticLaw_isSetMath(kl) );
-  math = KineticLaw_getMath(kl);
+  math=KineticLaw_getMath(kl);
   fail_unless( math != NULL );
 
-  formula = KineticLaw_getFormula(kl);
+  formula=KineticLaw_getFormula(kl);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "k * S2 * X0") );
@@ -1433,7 +1452,7 @@ START_TEST (test_ReadSBML_KineticLaw_Parameter)
   KineticLaw_t* kl;
   Parameter_t*  p;
 
-  const char* s = wrapSBML_L1v2
+  const char* s=wrapSBML_L1v2
   (
     "<listOfReactions>"
     "  <reaction name='J1'>"
@@ -1447,18 +1466,18 @@ START_TEST (test_ReadSBML_KineticLaw_Parameter)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumReactions(M) == 1 );
 
-  r  = Model_getReaction(M, 0);
-  kl = Reaction_getKineticLaw(r);
+  r =Model_getReaction(M, 0);
+  kl=Reaction_getKineticLaw(r);
 
   fail_unless( !strcmp(KineticLaw_getFormula(kl), "k1*X0") );
   fail_unless( KineticLaw_getNumParameters(kl) == 1 );
 
-  p = KineticLaw_getParameter(kl, 0);
+  p=KineticLaw_getParameter(kl, 0);
 
   fail_unless( !strcmp(Parameter_getId(p), "k1") );
   fail_unless( Parameter_getValue(p) == 0 );
@@ -1472,7 +1491,7 @@ START_TEST (test_ReadSBML_AssignmentRule)
   const ASTNode_t*  math;
   const char*       formula;
 
-  const char *s = wrapSBML_L2v1
+  const char *s=wrapSBML_L2v1
   (
     "<listOfRules>"
     "  <assignmentRule variable='k'>"
@@ -1488,19 +1507,19 @@ START_TEST (test_ReadSBML_AssignmentRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  ar = Model_getRule(M, 0);
+  ar=Model_getRule(M, 0);
   fail_unless( ar != NULL );
 
   fail_unless( Rule_isSetMath(ar) );
-  math = Rule_getMath(ar);
+  math=Rule_getMath(ar);
   fail_unless( math != NULL );
 
-  formula = Rule_getFormula(ar);
+  formula=Rule_getFormula(ar);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "k3 / k2") );
@@ -1514,7 +1533,7 @@ START_TEST (test_ReadSBML_RateRule)
   const ASTNode_t* math;
   const char*      formula;
 
-  const char *s = wrapSBML_L2v1
+  const char *s=wrapSBML_L2v1
   (
     "<listOfRules>"
     "  <rateRule variable='x'>"
@@ -1537,19 +1556,19 @@ START_TEST (test_ReadSBML_RateRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  rr = Model_getRule(M, 0);
+  rr=Model_getRule(M, 0);
   fail_unless( rr != NULL );
 
   fail_unless( Rule_isSetMath(rr) );
-  math = Rule_getMath(rr);
+  math=Rule_getMath(rr);
   fail_unless( math != NULL );
 
-  formula = Rule_getFormula(rr);
+  formula=Rule_getFormula(rr);
   fail_unless( formula != NULL );
 
   /**
@@ -1564,7 +1583,7 @@ START_TEST (test_ReadSBML_AlgebraicRule)
 {
   Rule_t *ar;
 
-  const char *s = wrapSBML_L1v2
+  const char *s=wrapSBML_L1v2
   (
     "<listOfRules>"
     "  <algebraicRule formula='x + 1'/>"
@@ -1572,12 +1591,12 @@ START_TEST (test_ReadSBML_AlgebraicRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  ar = Model_getRule(M, 0);
+  ar=Model_getRule(M, 0);
 
   fail_unless( !strcmp(Rule_getFormula(ar), "x + 1") );
 }
@@ -1590,7 +1609,7 @@ START_TEST (test_ReadSBML_AlgebraicRule_L2)
   const ASTNode_t* math;
   const char*      formula;
 
-  const char *s = wrapSBML_L2v1
+  const char *s=wrapSBML_L2v1
   (
     "<listOfRules>"
     "  <algebraicRule>"
@@ -1610,19 +1629,19 @@ START_TEST (test_ReadSBML_AlgebraicRule_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  ar = Model_getRule(M, 0);
+  ar=Model_getRule(M, 0);
   fail_unless( ar != NULL );
 
   fail_unless( Rule_isSetMath(ar) );
-  math = Rule_getMath(ar);
+  math=Rule_getMath(ar);
   fail_unless( math != NULL );
 
-  formula = Rule_getFormula(ar);
+  formula=Rule_getFormula(ar);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "S1 + S2 - T") );
@@ -1635,7 +1654,7 @@ START_TEST (test_ReadSBML_CompartmentVolumeRule)
 {
   Rule_t *cvr;
 
-  const char *s = wrapSBML_L1v2
+  const char *s=wrapSBML_L1v2
   (
     "<listOfRules>"
     "  <compartmentVolumeRule compartment='A' formula='0.10 * t'/>"
@@ -1643,12 +1662,12 @@ START_TEST (test_ReadSBML_CompartmentVolumeRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  cvr = Model_getRule(M, 0);
+  cvr=Model_getRule(M, 0);
 
   fail_unless( Rule_isCompartmentVolume(cvr) );
 
@@ -1664,7 +1683,7 @@ START_TEST (test_ReadSBML_ParameterRule)
 {
   Rule_t *pr;
 
-  const char *s = wrapSBML_L1v2
+  const char *s=wrapSBML_L1v2
   (
     "<listOfRules>"
     "  <parameterRule name='k' formula='k3/k2'/>"
@@ -1672,12 +1691,12 @@ START_TEST (test_ReadSBML_ParameterRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  pr = Model_getRule(M, 0);
+  pr=Model_getRule(M, 0);
 
   fail_unless( Rule_isParameter(pr) );
 
@@ -1693,7 +1712,7 @@ START_TEST (test_ReadSBML_SpecieConcentrationRule)
 {
   Rule_t *scr;
 
-  const char *s = wrapSBML_L1v1
+  const char *s=wrapSBML_L1v1
   (
     "<listOfRules>"
     "  <specieConcentrationRule specie='s2' formula='k * t/(1 + k)'/>"
@@ -1701,12 +1720,12 @@ START_TEST (test_ReadSBML_SpecieConcentrationRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  scr = Model_getRule(M, 0);
+  scr=Model_getRule(M, 0);
 
   fail_unless( Rule_isSpeciesConcentration(scr) );
 
@@ -1722,7 +1741,7 @@ START_TEST (test_ReadSBML_SpecieConcentrationRule_rate)
 {
   Rule_t *scr;
 
-  const char *s = wrapSBML_L1v1
+  const char *s=wrapSBML_L1v1
   (
     "<listOfRules>"
     "  <specieConcentrationRule specie='s2' formula='k * t/(1 + k)' "
@@ -1731,12 +1750,12 @@ START_TEST (test_ReadSBML_SpecieConcentrationRule_rate)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  scr = Model_getRule(M, 0);
+  scr=Model_getRule(M, 0);
 
   fail_unless( Rule_isSpeciesConcentration(scr) );
 
@@ -1752,7 +1771,7 @@ START_TEST (test_ReadSBML_SpeciesConcentrationRule)
 {
   Rule_t *scr;
 
-  const char *s = wrapSBML_L1v2
+  const char *s=wrapSBML_L1v2
   (
     "<listOfRules>"
     "  <speciesConcentrationRule species='s2' formula='k * t/(1 + k)'/>"
@@ -1760,12 +1779,12 @@ START_TEST (test_ReadSBML_SpeciesConcentrationRule)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumRules(M) == 1 );
 
-  scr = Model_getRule(M, 0);
+  scr=Model_getRule(M, 0);
 
   fail_unless( Rule_isSpeciesConcentration(scr) );
 
@@ -1781,7 +1800,7 @@ START_TEST (test_ReadSBML_Event)
 {
   Event_t* e;
 
-  const char* s = wrapSBML_L2v2
+  const char* s=wrapSBML_L2v2
   (
     "<listOfEvents>"
     "  <event id='e1' name='MyEvent' timeUnits='time'/>"
@@ -1789,12 +1808,12 @@ START_TEST (test_ReadSBML_Event)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumEvents(M) == 1 );
 
-  e = Model_getEvent(M, 0);
+  e=Model_getEvent(M, 0);
   fail_unless( e != NULL );
 
   fail_unless(  Event_isSetId       (e) );
@@ -1816,7 +1835,7 @@ START_TEST (test_ReadSBML_Event_trigger)
   const Trigger_t* trigger;
   char*            formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfEvents>"
     "  <event>"
@@ -1834,20 +1853,20 @@ START_TEST (test_ReadSBML_Event_trigger)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumEvents(M) == 1 );
 
-  e = Model_getEvent(M, 0);
+  e=Model_getEvent(M, 0);
   fail_unless( e != NULL );
 
   fail_unless( !Event_isSetDelay  (e) );
   fail_unless(  Event_isSetTrigger(e) );
 
-  trigger = Event_getTrigger(e);
+  trigger=Event_getTrigger(e);
 
-  formula = SBML_formulaToString(Trigger_getMath(trigger));
+  formula=SBML_formulaToString(Trigger_getMath(trigger));
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "leq(P1, t)") );
@@ -1863,7 +1882,7 @@ START_TEST (test_ReadSBML_Event_delay)
   const Delay_t*   delay;
   char*            formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfEvents>"
     "  <event> <delay> <math> <cn> 5 </cn> </math> </delay> </event>"
@@ -1871,20 +1890,20 @@ START_TEST (test_ReadSBML_Event_delay)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumEvents(M) == 1 );
 
-  e = Model_getEvent(M, 0);
+  e=Model_getEvent(M, 0);
   fail_unless( e != NULL );
 
   fail_unless(  Event_isSetDelay  (e) );
   fail_unless( !Event_isSetTrigger(e) );
 
-  delay = Event_getDelay(e);
+  delay=Event_getDelay(e);
 
-  formula = SBML_formulaToString(Delay_getMath(delay));
+  formula=SBML_formulaToString(Delay_getMath(delay));
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "5") );
@@ -1901,7 +1920,7 @@ START_TEST (test_ReadSBML_EventAssignment)
   const ASTNode_t*   math;
   char*              formula;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfEvents>"
     "  <event>"
@@ -1915,26 +1934,26 @@ START_TEST (test_ReadSBML_EventAssignment)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( Model_getNumEvents(M) == 1 );
 
-  e = Model_getEvent(M, 0);
+  e=Model_getEvent(M, 0);
   fail_unless( e != NULL );
 
   fail_unless( Event_getNumEventAssignments(e) == 1 );
 
-  ea = Event_getEventAssignment(e, 0);
+  ea=Event_getEventAssignment(e, 0);
   fail_unless( ea != NULL );
 
   fail_unless( EventAssignment_isSetVariable(ea) );
   fail_unless( !strcmp(EventAssignment_getVariable(ea), "k2") );
 
   fail_unless( EventAssignment_isSetMath(ea) );
-  math = EventAssignment_getMath(ea);
+  math=EventAssignment_getMath(ea);
 
-  formula = SBML_formulaToString(math);
+  formula=SBML_formulaToString(math);
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp( formula, "0") );
@@ -1948,7 +1967,7 @@ START_TEST (test_ReadSBML_metaid)
 {
   SBase_t*  sb;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
     "  <functionDefinition metaid='fd'/>"
@@ -1977,54 +1996,54 @@ START_TEST (test_ReadSBML_metaid)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  sb = (SBase_t *) Model_getFunctionDefinition(M, 0);
+  sb=(SBase_t *) Model_getFunctionDefinition(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "fd") );
 
 
-  sb = (SBase_t *) Model_getUnitDefinition(M, 0);
+  sb=(SBase_t *) Model_getUnitDefinition(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "ud") );
 
 
-  sb = (SBase_t *) Model_getCompartment(M, 0);
+  sb=(SBase_t *) Model_getCompartment(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "c") );
 
 
-  sb = (SBase_t *) Model_getSpecies(M, 0);
+  sb=(SBase_t *) Model_getSpecies(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "s") );
 
 
-  sb = (SBase_t *) Model_getParameter(M, 0);
+  sb=(SBase_t *) Model_getParameter(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "p") );
 
 
-  sb = (SBase_t *) Model_getRule(M, 0);
+  sb=(SBase_t *) Model_getRule(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "rr") );
 
 
-  sb = (SBase_t *) Model_getReaction(M, 0);
+  sb=(SBase_t *) Model_getReaction(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "rx") );
 
 
-  sb = (SBase_t *) Model_getEvent(M, 0);
+  sb=(SBase_t *) Model_getEvent(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "e") );
@@ -2037,7 +2056,7 @@ START_TEST (test_ReadSBML_metaid_Unit)
   SBase_t*          sb;
   UnitDefinition_t* ud;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition metaid='ud'>"
@@ -2049,25 +2068,25 @@ START_TEST (test_ReadSBML_metaid_Unit)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  ud = Model_getUnitDefinition(M, 0);
-  sb = (SBase_t *) ud;
+  ud=Model_getUnitDefinition(M, 0);
+  sb=(SBase_t *) ud;
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "ud") );
 
 
-  sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
+  sb=(SBase_t *) UnitDefinition_getListOfUnits(ud);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lou") );
 
 
-  sb = (SBase_t *) UnitDefinition_getUnit(ud, 0);
+  sb=(SBase_t *) UnitDefinition_getUnit(ud, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "u") );
@@ -2080,7 +2099,7 @@ START_TEST (test_ReadSBML_metaid_Reaction)
   SBase_t*    sb;
   Reaction_t* r;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfReactions>"
     "  <reaction metaid='r'>"
@@ -2099,55 +2118,55 @@ START_TEST (test_ReadSBML_metaid_Reaction)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  r  = Model_getReaction(M, 0);
-  sb = (SBase_t *) r;
+  r =Model_getReaction(M, 0);
+  sb=(SBase_t *) r;
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "r") );
 
 
-  sb = (SBase_t *) Reaction_getListOfReactants(r);
+  sb=(SBase_t *) Reaction_getListOfReactants(r);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lor") );
 
 
-  sb = (SBase_t *) Reaction_getReactant(r, 0);
+  sb=(SBase_t *) Reaction_getReactant(r, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "sr1") );
 
 
-  sb = (SBase_t *) Reaction_getListOfProducts(r);
+  sb=(SBase_t *) Reaction_getListOfProducts(r);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lop") );
 
 
-  sb = (SBase_t *) Reaction_getProduct(r, 0);
+  sb=(SBase_t *) Reaction_getProduct(r, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "sr2") );
 
 
-  sb = (SBase_t *) Reaction_getListOfModifiers(r);
+  sb=(SBase_t *) Reaction_getListOfModifiers(r);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lom") );
 
 
-  sb = (SBase_t *) Reaction_getModifier(r, 0);
+  sb=(SBase_t *) Reaction_getModifier(r, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "msr") );
 
 
-  sb = (SBase_t *) Reaction_getKineticLaw(r);
+  sb=(SBase_t *) Reaction_getKineticLaw(r);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "kl") );
@@ -2160,7 +2179,7 @@ START_TEST (test_ReadSBML_metaid_Event)
   SBase_t* sb;
   Event_t* e;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfEvents>"
     "  <event metaid='e'>"
@@ -2172,26 +2191,26 @@ START_TEST (test_ReadSBML_metaid_Event)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
 
-  e  = Model_getEvent(M, 0);
-  sb = (SBase_t *) e;
+  e =Model_getEvent(M, 0);
+  sb=(SBase_t *) e;
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "e") );
 
 
-  sb = (SBase_t *) Event_getListOfEventAssignments(e);
+  sb=(SBase_t *) Event_getListOfEventAssignments(e);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loea") );
 
 
-  sb = (SBase_t *) Event_getEventAssignment(e, 0);
+  sb=(SBase_t *) Event_getEventAssignment(e, 0);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "ea") );
@@ -2203,7 +2222,7 @@ START_TEST (test_ReadSBML_metaid_ListOf)
 {
   SBase_t*  sb;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions metaid='lofd'/>"
     "<listOfUnitDefinitions     metaid='loud'/>"
@@ -2216,54 +2235,54 @@ START_TEST (test_ReadSBML_metaid_ListOf)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
+  sb=(SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lofd") );
 
 
-  sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
+  sb=(SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loud") );
 
 
-  sb = (SBase_t *) Model_getListOfCompartments(M);
+  sb=(SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loc") );
 
 
-  sb = (SBase_t *) Model_getListOfSpecies(M);
+  sb=(SBase_t *) Model_getListOfSpecies(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "los") );
 
 
-  sb = (SBase_t *) Model_getListOfParameters(M);
+  sb=(SBase_t *) Model_getListOfParameters(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lop") );
 
 
-  sb = (SBase_t *) Model_getListOfRules(M);
+  sb=(SBase_t *) Model_getListOfRules(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lor") );
 
 
-  sb = (SBase_t *) Model_getListOfReactions(M);
+  sb=(SBase_t *) Model_getListOfReactions(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lorx") );
 
 
-  sb = (SBase_t *) Model_getListOfEvents(M);
+  sb=(SBase_t *) Model_getListOfEvents(M);
 
   fail_unless( SBase_isSetMetaId(sb) );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loe") );
@@ -2276,7 +2295,7 @@ START_TEST (test_ReadSBML_notes)
   Reaction_t*   r;
   KineticLaw_t* kl;
 
-  const char* s = wrapSBML_L2v3
+  const char* s=wrapSBML_L2v3
   (
   "<listOfReactions>"
     "<reaction name='J1'>"
@@ -2291,15 +2310,15 @@ START_TEST (test_ReadSBML_notes)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
-  r  = Model_getReaction(M, 0);
-  kl = Reaction_getKineticLaw(r);
+  r =Model_getReaction(M, 0);
+  kl=Reaction_getKineticLaw(r);
 
   fail_unless( SBase_getNotes(kl) != NULL );
 
-  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(kl), 0));
+  const char * notes=XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(kl), 0));
   fail_unless( strcmp(notes, "This is a test note.") == 0 );
 }
 END_TEST
@@ -2309,7 +2328,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_notes_xmlns)
 {
-  const char* s = wrapSBML_L2v3
+  const char* s=wrapSBML_L2v3
   (
     "<notes>"
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</body>"
@@ -2317,19 +2336,19 @@ START_TEST (test_ReadSBML_notes_xmlns)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( SBase_getNotes(M) != NULL );
 
-  const XMLNamespaces_t * ns = XMLNode_getNamespaces(XMLNode_getChild(SBase_getNotes(M), 0));
+  const XMLNamespaces_t * ns=XMLNode_getNamespaces(XMLNode_getChild(SBase_getNotes(M), 0));
 
   fail_unless(XMLNamespaces_getLength(ns) == 1);
-  char* uri = XMLNamespaces_getURI(ns, 0);
+  char* uri=XMLNamespaces_getURI(ns, 0);
   fail_unless(!strcmp(uri, "http://www.w3.org/1999/xhtml"));
   safe_free(uri);
 
-  const char * notes = XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(SBase_getNotes(M), 0), 0));
+  const char * notes=XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(SBase_getNotes(M), 0), 0));
   fail_unless( strcmp(notes, "Some text.") == 0 );
 }
 END_TEST
@@ -2337,7 +2356,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_notes_sbml)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
     "<sbml level='1' version='1'>"
     "  <notes>Notes are not allowed as part of the SBML element.</notes>"
@@ -2345,11 +2364,11 @@ START_TEST (test_ReadSBML_notes_sbml)
   );
 
 
-  D = readSBMLFromString(s);
+  D=readSBMLFromString(s);
 
   fail_unless( SBase_getNotes(D) != NULL );
 
-  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(D), 0));
+  const char * notes=XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(D), 0));
   fail_unless( strcmp(notes, "Notes are not allowed as part of the SBML element.") == 0 );
 
   fail_unless( SBMLDocument_getNumErrors(D) > 0 );
@@ -2359,7 +2378,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_notes_sbml_L2)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
   "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\"> "
   "  <notes>"
@@ -2372,7 +2391,7 @@ START_TEST (test_ReadSBML_notes_sbml_L2)
   );
 
 
-  D = readSBMLFromString(s);
+  D=readSBMLFromString(s);
   fail_unless( SBase_getNotes(D) != NULL );
 
   fail_unless( SBMLDocument_getNumErrors(D) == 0 );
@@ -2384,7 +2403,7 @@ START_TEST (test_ReadSBML_notes_ListOf)
 {
   SBase_t*  sb;
 
-  const char* s = wrapSBML_L2v1
+  const char* s=wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
     "  <notes>My Functions</notes>"
@@ -2403,29 +2422,29 @@ START_TEST (test_ReadSBML_notes_ListOf)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
+  sb=(SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  const char * notes=XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
   fail_unless( strcmp(notes, "My Functions") == 0 );
 
 
-  sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
+  sb=(SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  notes=XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
   fail_unless( strcmp(notes, "My Units") == 0 );
 
 
-  sb = (SBase_t *) Model_getListOfCompartments(M);
+  sb=(SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  notes=XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
   fail_unless( strcmp(notes, "My Compartments") == 0 );
 
 
@@ -2435,7 +2454,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_annotation)
 {
-  const char* s = wrapSBML_L2v3
+  const char* s=wrapSBML_L2v3
   (
     "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
     "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
@@ -2445,11 +2464,11 @@ START_TEST (test_ReadSBML_annotation)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( SBase_getAnnotation(M) != NULL );
-  XMLNode_t * ann = SBase_getAnnotation(M);
+  XMLNode_t * ann=SBase_getAnnotation(M);
 
   fail_unless(XMLNode_getNumChildren(ann) == 2);
 
@@ -2459,22 +2478,22 @@ END_TEST
 
 START_TEST (test_ReadSBML_annotation_sbml)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
     "<sbml level=\"1\" version=\"1\">"
-    "  <annotation xmlns:jd = \"http://www.sys-bio.org/sbml\">"
+    "  <annotation xmlns:jd=\"http://www.sys-bio.org/sbml\">"
     "    <jd:header>"
-    "      <VersionHeader SBMLVersion = \"1.0\"/>"
+    "      <VersionHeader SBMLVersion=\"1.0\"/>"
     "    </jd:header>"
     "    <jd:display>"
-    "      <SBMLGraphicsHeader BackGroundColor = \"15728639\"/>"
+    "      <SBMLGraphicsHeader BackGroundColor=\"15728639\"/>"
     "    </jd:display>"
     "  </annotation>"
     "</sbml>"
   );
 
 
-  D = readSBMLFromString(s);
+  D=readSBMLFromString(s);
 
   fail_unless( SBMLDocument_getNumErrors(D) > 0 );
 }
@@ -2483,7 +2502,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_annotation_sbml_L2)
 {
-  const char* s = wrapXML
+  const char* s=wrapXML
   (
   "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\"> "
   "  <annotation>"
@@ -2496,8 +2515,8 @@ START_TEST (test_ReadSBML_annotation_sbml_L2)
   );
 
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( SBMLDocument_getNumErrors(D) == 0 );
 }
@@ -2520,8 +2539,8 @@ START_TEST (test_ReadSBML_line_col_numbers)
      123456789012345678901234567890123456789012345678901234567890 
 */
 
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(s);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
@@ -2539,7 +2558,7 @@ START_TEST (test_ReadSBML_line_col_numbers)
    * but it has no effect.  Perhaps I misunderstood its meaning. :(
    */
 
-  sb = (SBase_t *) M;
+  sb=(SBase_t *) M;
 
 #ifdef USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 3 );
@@ -2555,7 +2574,7 @@ START_TEST (test_ReadSBML_line_col_numbers)
 #endif
 
 
-  sb = (SBase_t *) Model_getListOfReactions(M);
+  sb=(SBase_t *) Model_getListOfReactions(M);
 
 #ifdef USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 4 );
@@ -2571,7 +2590,7 @@ START_TEST (test_ReadSBML_line_col_numbers)
 #endif
 
 
-  sb = (SBase_t *) Model_getReaction(M, 0);
+  sb=(SBase_t *) Model_getReaction(M, 0);
 
 #ifdef USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 4 );
@@ -2587,7 +2606,7 @@ START_TEST (test_ReadSBML_line_col_numbers)
 #endif
 
   /* NULL test */
-  sb = NULL;
+  sb=NULL;
 #ifdef USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 0 );
   fail_unless ( SBase_getColumn(sb) == 0 );
@@ -2605,13 +2624,13 @@ END_TEST
 
 START_TEST (test_ReadSBML_no_sbml )
 {
-  const char* invalid1 = wrapXML
+  const char* invalid1=wrapXML
   (
   "<html/>"
   );
   
-  D = readSBMLFromString(invalid1);
-  M = SBMLDocument_getModel(D);
+  D=readSBMLFromString(invalid1);
+  M=SBMLDocument_getModel(D);
 
   fail_unless( M == NULL );
   fail_unless( D->getErrorLog()->contains(NotSchemaConformant) );
@@ -2620,7 +2639,7 @@ END_TEST
 
 START_TEST (test_ReadSBML_invalid_default_namespace )
 {
-  const char* valid = wrapXML
+  const char* valid=wrapXML
   (
   "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\"> "
   "   <model>"
@@ -2638,7 +2657,7 @@ START_TEST (test_ReadSBML_invalid_default_namespace )
   "       <species id=\"S2\" initialConcentration=\"0\" compartment=\"compartmentOne\"/>"
   "     </listOfSpecies>"
   "     <listOfParameters>"
-  "       <parameter id=\"t\" value = \"1\" units=\"second\"/>"
+  "       <parameter id=\"t\" value=\"1\" units=\"second\"/>"
   "     </listOfParameters>"
   "     <listOfConstraints>"
   "       <constraint sboTerm=\"SBO:0000064\">"
@@ -2669,7 +2688,7 @@ START_TEST (test_ReadSBML_invalid_default_namespace )
   " </sbml>"
   );
 
-  const char* invalid = wrapXML
+  const char* invalid=wrapXML
   (
   "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\"> "
   "   <model xmlns=\"http://invalid/custom/default/uri\">"
@@ -2693,7 +2712,7 @@ START_TEST (test_ReadSBML_invalid_default_namespace )
   "       <species id=\"S2\" initialConcentration=\"0\" compartment=\"compartmentOne\"/>"
   "     </listOfSpecies>"
   "     <listOfParameters>"
-  "       <parameter id=\"t\" value = \"1\" units=\"second\"/>"
+  "       <parameter id=\"t\" value=\"1\" units=\"second\"/>"
   "     </listOfParameters>"
   "     <listOfConstraints>"
   "       <constraint sboTerm=\"SBO:0000064\">"
@@ -2730,13 +2749,58 @@ START_TEST (test_ReadSBML_invalid_default_namespace )
   " </sbml>"
   );
 
-  D = readSBMLFromString(valid);
+  D=readSBMLFromString(valid);
   fail_unless( SBMLDocument_getNumErrors(D) == 0 );
 
   SBMLDocument_free(D);
 
-  D = readSBMLFromString(invalid);
+  D=readSBMLFromString(invalid);
   fail_unless( SBMLDocument_getNumErrors(D) == 9 );
+}
+END_TEST
+
+
+START_TEST(test_ReadSBML_bad_indents)
+{
+  const char* valid=wrapXML
+    (
+      "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\">\n"
+      "  <model>\n"
+      "    <notes>\n"
+      "      <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+      "        <div class=\"dc:publisher\">This file has been produced by\n"
+      "          <a href=\"https://livermetabolism.com/contact.html\" title=\"Matthias Koenig\" target=\"_blank\">Matthias Koenig</a>.\n"
+      "        </div>\n"
+      "        <div class=\"dc:license\">\n"
+      "          <p>Redistribution and use of any part of this model, with or without modification, are permitted provided that "
+      "the following conditions are met :\n"
+      "            <ol>\n"
+      "            <li>Redistributions of this SBML file must retain the above copyright notice, this list of conditions "
+      "and the following disclaimer.</li>\n"
+      "          </ol>\n"
+      "            This model is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even "
+      "the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>\n"
+      "        </div>\n"
+      "      </body>\n"
+      "    </notes>\n"
+      "    <listOfCompartments>\n"
+      "      <compartment id=\"compartmentOne\" size=\"1\"/>\n"
+      "    </listOfCompartments>\n"
+      "    <listOfSpecies>\n"
+      "      <species id=\"S1\" compartment=\"compartmentOne\" initialConcentration=\"1\"/>\n"
+      "      <species id=\"S2\" compartment=\"compartmentOne\" initialConcentration=\"0\"/>\n"
+      "    </listOfSpecies>\n"
+      "  </model>\n"
+      "</sbml>\n"
+      );
+
+  D=readSBMLFromString(valid);
+  fail_unless(SBMLDocument_getNumErrors(D) == 0);
+
+  char * output=writeSBMLToString(D);
+
+  fail_unless(equals(valid, output));
+
 }
 END_TEST
 
@@ -2744,8 +2808,8 @@ END_TEST
 Suite *
 create_suite_ReadSBML (void)
 {
-  Suite *suite = suite_create("ReadSBML");
-  TCase *tcase = tcase_create("ReadSBML");
+  Suite *suite=suite_create("ReadSBML");
+  TCase *tcase=tcase_create("ReadSBML");
 
 
   tcase_add_checked_fixture(tcase, ReadSBML_setup, ReadSBML_teardown);
@@ -2835,6 +2899,8 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_no_sbml );
 
   tcase_add_test( tcase, test_ReadSBML_invalid_default_namespace );
+
+  tcase_add_test(tcase, test_ReadSBML_bad_indents);
   
   suite_add_tcase(suite, tcase);
 
