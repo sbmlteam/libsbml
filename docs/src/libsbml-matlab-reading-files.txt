@@ -55,7 +55,7 @@ TranslateSBML is to create this in-memory structure from an SBML file.
 
 @subsection rf-translate-input-args  Input arguments
 
-@c TranslateSBML accepts up to three possible arguments.  They are, in
+@c TranslateSBML accepts up to four possible arguments.  They are, in
 order, as follows:
 
 @li @em filename:
@@ -75,6 +75,17 @@ perform the validation process interactively, displaying errors and
 prompting the user for feedback if the model is invalid.  A value of @c 0
 will suppress user interaction, and is useful when calling @c TranslateSBML
 from within another MATLAB function/script.
+@li @em fbcGeneProductOptions:
+This optional argument is an array of two values that allows 
+the user to change the behavior relating to geneProduct elements in the 
+fbc package.  
+The first value in the array impacts of the infix respresentation of a 
+GeneProductAssociation. A value of @c [0, 1] (the default) indicates that 
+@c TranslateSBML 
+should interpret the geneProductAssociation using the label attribute to 
+refer to the geneProduct.  A value of @c [1,n] indicates the id 
+attribute should be used.
+Note the second value in the array has no impact on @c TranslateSBML.
 
 The following example illustrates the behavior of @c TranslateSBML when it
 is given the additional arguments for validation and verbosity:
@@ -146,6 +157,64 @@ model =
            time_symbol: ''
           delay_symbol: ''
             namespaces: [1x1 struct]
+
+>>
+@endverbatim
+
+The following example illustrates the behavior of @c TranslateSBML when it
+is given the additional fbc argument:
+
+@verbatim
+>> m = TranslateSBML('fbc.xml', 0, 0, [0,1])
+
+>> m.fbc_geneProduct(1).fbc_id = g_1
+
+>> m.fbc_geneProduct(1).fbc_label = g1-hh
+
+>> m.fbc_geneProduct(2).fbc_id = g_2
+
+>> m.fbc_geneProduct(2).fbc_label = g2-23
+
+>> m.reaction(2).fbc_geneProductAssociation(1).fbc_association
+
+ans = 
+
+           typecode: 'SBML_FBC_OR'
+             metaid: 'ss'
+              notes: ''
+         annotation: ''
+            cvterms: []
+            sboTerm: -1
+    fbc_association: '(g1-hh or g2-23)'
+              level: 3
+            version: 1
+        fbc_version: 2
+
+
+>> m2 = TranslateSBML('fbc.xml', 0, 0, [1,1])
+
+>> m2.fbc_geneProduct(1).fbc_id = g_1
+
+>> m2.fbc_geneProduct(1).fbc_label = g1-hh
+
+>> m2.fbc_geneProduct(2).fbc_id = g_2
+
+>> m2.fbc_geneProduct(2).fbc_label = g2-23
+
+>> m2.reaction(2).fbc_geneProductAssociation(1).fbc_association
+
+ans = 
+
+           typecode: 'SBML_FBC_OR'
+             metaid: 'ss'
+              notes: ''
+         annotation: ''
+            cvterms: []
+            sboTerm: -1
+    fbc_association: '(g_1 or g_2)'
+              level: 3
+            version: 1
+        fbc_version: 2
 
 >>
 @endverbatim
@@ -233,28 +302,77 @@ occurred; @em errorId, the libSBML error/warning identification code; @em
 severity, indicating how serious the issue is; and @em message, the text of
 the error or warning for the issue reported by libSBML.  
 
+@li @em version:
+This returns a structure that gives the version information for libSBML.
+
+The following illustrates the structure:
+@verbatim
+>> [model, errors, version] = TranslateSBML('test.xml')
+
+version = 
+
+           libSBML_version: 51500
+    libSBML_version_string: '5.15.0'
+                XML_parser: 'libxml2'
+        XML_parser_version: '2.7.8'
+              isFBCEnabled: 'enabled'
+
+>>
+@endverbatim
+
 
 @section rf-writing OutputSBML
 
 The function @c OutputSBML is the converse of @c TranslateSBML: it writes
-an @em MATLAB_SBML structure to an XML file.  It accepts three arguments:
+an @em MATLAB_SBML structure to an XML file.  It accepts five arguments:
 
-@li @em model: This argument must be a @em MATLAB_SBML structure
+@li @em model: 
+This argument must be a @em MATLAB_SBML structure
 representing the model to be written out to a file.  Note that the
 structure will <em>not be validated</em> to check if it is fully correct
 SBML; @c OutputSBML will only verify the basic integrity of the structure
 (i.e., to make sure it has the form expected of a @em MATLAB_SBML
 structure), but nothing more.
-@li @em filename: An optional argument giving the name of the file where
+
+@li @em filename: 
+An optional argument giving the name of the file where
 the SBML content should be written.  If this argument is omitted, @c
 OutputSBML will open a file browser window (in environments that permit it)
 allowing you to indicate the location and name of the file to be written.
-@li @em extensions_allowed: An optional argument indicating that when 
+
+@li @em extensionsAllowed: 
+An optional argument indicating that when 
 determining whether the @em MATLAB_SBML structure represents a valid 
 structure any additional fields are ignored. The default value is @c 1.
 If this argument is set to @c 0, a structure will be considered 
 valid if it contains only the expected fields and no additional fields.
- 
+
+@li @em applyUserValidation: 
+An optional argument indicating that when 
+determining whether the @em MATLAB_SBML structure represents a valid 
+structure user defined validation is applied. The default value is @c 0 
+which disables custom validation. A value of @c 1 indicates that when 
+using the function <code>isSBML_Model</code> to assess whether the 
+@em MATLAB_SBML structure is correct the <code>applyUserValidation</code> 
+function should be invoked. This allows a user to add their own custom 
+validation criteria to the export of SBML from MATLAB.
+
+@li @em fbcGeneProductOptions: 
+This optional argument is an array of two values that allows 
+the user to change the behavior relating to geneProduct elements in the 
+fbc package.  
+The first value in the array impacts of the infix respresentation of a 
+GeneProductAssociation. A value of @c [0, 1] (the default) indicates that @c OutputSBML 
+should interpret the geneProductAssociation using the label attribute to 
+refer to the geneProduct.  A value of @c [1,n] indicates the id 
+attribute should be used.
+The second entry in the array indicates whether @c OutputSBML should 
+add geneProduct elements if it encounters a label/id in an association 
+element that does not correspond to an existing geneProduct. A value of 
+@c [0, 1] (the default) will add missing geneProducts. A value of
+@c [n, 0] turns off this behavior.
+
+
 
 
 
@@ -266,6 +384,19 @@ manipulated within MATLAB.  The structure contains many fields, and many of
 these fields are arrays of other structures that correspond to SBML
 components.  Indexing into the array allows the user to access specific
 model elements and attributes.
+
+Additional functions are included with the interface to allow a user to query
+the expected fields of the @em MATLAB_SBML structure.
+
+@li <code>getStructureFieldnames(typecode, level, version, packageVersion(optional))</code>
+returns an array of the structure fieldnames for the specified SBML type 
+and the given SBML level and version.
+@li <code>getValueTypes(typecode, level, version, packageVersion(optional))</code>
+returns an array of the data types of the fields in the structure for the 
+specified SBML type and the given SBML level and version.
+@li <code>getDefaultValues(typecode, level, version, packageVersion(optional))</code>
+returns an array of the default values of the fields in the structure for the 
+specified SBML type and the given SBML level and version.
 
 The following is an example of accessing the first species in a model:
 @verbatim
@@ -295,6 +426,48 @@ ans =
 >>
 @endverbatim
 
+The following is an example of using the query functions to establish the 
+expected fieldnames, types and values:
+@verbatim
+>> getStructureFieldnames('compartment', 3, 1)
+
+ans = 
+
+  Columns 1 through 8
+
+    'typecode'    'metaid'    'notes'    'annotation'    'cvterms'    'sboTerm'    'name'    'id'
+
+  Columns 9 through 14
+
+    'spatialDimensions'    'size'    'units'    'constant'    'isSetSize'    'isSetSpatialDime...'
+
+>> getValueType('compartment', 3, 1)
+
+ans = 
+
+  Columns 1 through 8
+
+    'SBML_COMPARTMENT'    'char'    'char'    'char'    'structure'    'int'    'char'    'char'
+
+  Columns 9 through 14
+
+    'double'    'double'    'char'    'bool'    'bool'    'bool'
+
+>> getDefaultValues('compartment', 3, 1)
+
+ans = 
+
+  Columns 1 through 13
+
+    'SBML_COMPARTMENT'    ''    ''    ''    []    [-1]    ''    ''    [NaN]    [NaN]    ''    [0]    [0]
+
+  Column 14
+
+    [0]
+
+>> 
+@endverbatim
+
 
 
 @section rf-misc Other functions provided by the libSBML MATLAB interface
@@ -303,15 +476,23 @@ LibSBML's MATLAB interface comes with a few other scripts that are called
 internally by @c TranslateSBML and @c OutputSBML, but may also be useful
 independently:
 
-@li <code>isSBML_Model(model, extensions_allowed)</code> returns true 
+@li <code>isSBML_Model(model, extensionsAllowed, applyUserValidation)</code> returns true 
 (@c 1) or false (@c 0), depending on whether the @em model supplied as 
 argument matches the expected form of a @em MATLAB_SBML structure. The
-optional argument @em extensions_allowed (default = @c 1) determines
-whether additional fields are ignored. This argument is described in more
-detail in teh text on OutputSBML above. 
+optional argument @em extensionsAllowed (default = @c 1) determines
+whether additional fields are ignored. A second optional argument 
+@em applyUserValidation determines whether the additional script 
+<code>applyUserValidation</code> 
+is invoked from the isSBML_Model function. These argument is described in more
+detail in the text on OutputSBML above. 
 (@c OutputSBML uses this function to determine whether it can proceed 
 with writing out a given structure.)
+@li <code>applyUserValidation(SBMLStructure, level, version, packages, pkgVersion)</code> 
+is invoked from <code>isSBML_Model</code> and allows user to add custom validation
+to their export of SBML. The function included contains an 
+example of how it might be used. 
 @li <code>isoctave()</code> returns true (@c 1) or false (@c 0), depending
 on whether the run-time environment is Octave or MATLAB.
-
+@li <code>iaEnables(package)</code> returns true (@c 1) or false (@c 0), depending
+on whether the libSBML instance supports the package.
 */
