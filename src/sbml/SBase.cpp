@@ -3706,6 +3706,15 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
       {
         SBaseExtensionPoint extPoint(getPackageName(), getTypeCode(), getElementName());
         const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+        // trully awful hack for the case where we are adding a plugin to a modelDefinition
+        // since these do not have plugins the plugin creator is NULL
+        // we have to force it to realise it is also a core model
+        if (sbPluginCreator == NULL && getPackageName() == "comp" && getElementName() == "modelDefinition")
+        {
+          SBaseExtensionPoint extPoint("core", SBML_MODEL, "model");
+          sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+
+        }
         if (sbPluginCreator)
         {
           SBasePlugin* entity = sbPluginCreator->createPlugin(pkgURI, pkgPrefix, getNamespaces());
