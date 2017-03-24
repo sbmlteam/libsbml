@@ -944,7 +944,7 @@ FbcReactionPlugin::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this FbcReactionPlugin.
  */
 SBase*
-FbcReactionPlugin::createObject(const std::string& elementName)
+FbcReactionPlugin::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

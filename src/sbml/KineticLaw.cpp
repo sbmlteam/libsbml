@@ -1461,7 +1461,7 @@ KineticLaw::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this KineticLaw.
  */
 SBase*
-KineticLaw::createObject(const std::string& elementName)
+KineticLaw::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

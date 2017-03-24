@@ -796,7 +796,7 @@ FbcAnd::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this FbcAnd.
  */
 SBase*
-FbcAnd::createObject(const std::string& elementName)
+FbcAnd::createChildObject(const std::string& elementName)
 {
   FbcAssociation* obj = NULL;
 

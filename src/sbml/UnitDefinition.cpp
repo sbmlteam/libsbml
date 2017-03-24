@@ -1822,7 +1822,7 @@ UnitDefinition::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this UnitDefinition.
  */
 SBase*
-UnitDefinition::createObject(const std::string& elementName)
+UnitDefinition::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

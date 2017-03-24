@@ -916,7 +916,7 @@ SpeciesReference::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this SpeciesReference.
  */
 SBase*
-SpeciesReference::createObject(const std::string& elementName)
+SpeciesReference::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

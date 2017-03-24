@@ -1216,7 +1216,7 @@ public:
    *
    * pointer to the element created.
    */
-  virtual SBase* createObject(const std::string& elementName);
+  virtual SBase* createChildObject(const std::string& elementName);
 
   /** @endcond */
 

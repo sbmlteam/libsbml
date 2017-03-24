@@ -4193,7 +4193,7 @@ Model::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this Model.
  */
 SBase*
-Model::createObject(const std::string& elementName)
+Model::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

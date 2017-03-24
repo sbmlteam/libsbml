@@ -921,7 +921,7 @@ SBasePlugin::unsetAttribute(const std::string& attributeName)
 }
 
 SBase* 
-SBasePlugin::createObject(const std::string& objectName)
+SBasePlugin::createChildObject(const std::string& elementName)
 {
   return NULL;
 }

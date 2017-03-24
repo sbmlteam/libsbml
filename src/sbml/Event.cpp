@@ -1664,7 +1664,7 @@ Event::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this Event.
  */
 SBase*
-Event::createObject(const std::string& elementName)
+Event::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

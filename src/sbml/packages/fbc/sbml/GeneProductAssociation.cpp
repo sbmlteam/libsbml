@@ -896,7 +896,7 @@ GeneProductAssociation::unsetAttribute(const std::string& attributeName)
  * GeneProductAssociation.
  */
 SBase*
-GeneProductAssociation::createObject(const std::string& elementName)
+GeneProductAssociation::createChildObject(const std::string& elementName)
 {
   FbcAssociation* obj = NULL;
 

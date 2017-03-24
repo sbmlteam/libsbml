@@ -1943,7 +1943,7 @@ FbcModelPlugin::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this FbcModelPlugin.
  */
 SBase*
-FbcModelPlugin::createObject(const std::string& elementName)
+FbcModelPlugin::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

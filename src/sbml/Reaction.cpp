@@ -1899,7 +1899,7 @@ Reaction::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this Reaction.
  */
 SBase*
-Reaction::createObject(const std::string& elementName)
+Reaction::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

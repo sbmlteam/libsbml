@@ -786,7 +786,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual SBase* createObject(const std::string& objectName);
+   virtual SBase* createChildObject(const std::string& elementName);
 
   /** @endcond */
 

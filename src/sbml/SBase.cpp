@@ -3290,7 +3290,7 @@ SBase::unsetAttribute(const std::string& attributeName)
 
 /** @cond doxygenLibsbmlInternal */
 SBase* 
-SBase::createObject(const std::string& objectName)
+SBase::createChildObject(const std::string& elementName)
 {
   return NULL;
 }

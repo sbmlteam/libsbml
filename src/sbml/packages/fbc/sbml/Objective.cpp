@@ -1001,7 +1001,7 @@ Objective::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this Objective.
  */
 SBase*
-Objective::createObject(const std::string& elementName)
+Objective::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 

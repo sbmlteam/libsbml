@@ -1581,17 +1581,17 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
     // hack for rules - since a list of rules contains assignmentRule etc..
     if (name == "rule")
     {
-      pChild = mSBase->createObject(getRuleType(mxChild, i));
+      pChild = mSBase->createChildObject(getRuleType(mxChild, i));
     }
     else 
     {
       if (usePlugin)
       {
-        pChild = mSBase->getPlugin(prefix)->createObject(attName);
+        pChild = mSBase->getPlugin(prefix)->createChildObject(attName);
       }
       else
       {
-        pChild = mSBase->createObject(attName);
+        pChild = mSBase->createChildObject(attName);
       }
     }
 
@@ -1633,7 +1633,7 @@ StructureFields::addAnomalousChild(const std::string& fieldname, unsigned int in
 
   if (!value.empty())
   {
-    SBase *pChild = mSBase->createObject(fieldname);
+    SBase *pChild = mSBase->createChildObject(fieldname);
     if (pChild != NULL)
     {
       std::string value = readString(fieldname, 0, 0);

@@ -2486,7 +2486,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual SBase* createObject(const std::string& objectName);
+   virtual SBase* createChildObject(const std::string& elementName);
 
   /** @endcond */
 
