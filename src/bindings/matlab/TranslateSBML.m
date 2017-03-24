@@ -11,26 +11,29 @@
 %        NOTE: In Octave the filename is a required argument.
 %
 %   * validateFlag: This flag tells libSBML whether to perform full 
-%                   validation of the SBML file being read. The default 
-%                   value is 0, which signifies not to perform validation. 
-%                   (Note libSBML will still check for and report basic 
-%                   XML parsing errors regardless of the value of this flag.)
+%               validation of the SBML file being read. The default 
+%               value is 0, which signifies not to perform validation. 
+%               (Note libSBML will still check for and report basic 
+%               XML parsing errors regardless of the value of this flag.)
 %
 %   * verboseFlag: A value of 1 (the default) indicates that TranslateSBML 
-%                  should perform the validation process interactively, 
-%                  displaying errors and prompting the user for feedback 
-%                  if the model is invalid. A value of 0 will suppress user 
-%                  interaction, and is useful when calling TranslateSBML 
-%                  from within another function/script.
+%               should perform the validation process interactively, 
+%               displaying errors and prompting the user for feedback 
+%               if the model is invalid. A value of 0 will suppress user 
+%               interaction, and is useful when calling TranslateSBML 
+%               from within another function/script.
 %
-%   * fbcGeneProductOptions: This is an array of two values that
-%                  allows the user to change the behaviour relating to
-%                  geneProduct elements in the fbc package.
-%                  A value of [0, 1] (the default) indicates that TranslateSBML 
-%                  should display the geneProductAssociation using the label
-%                  attribute to refer to the geneProduct.  A value of [1,0]
-%                  indicates the id attribute should be used.
-%                  Note the second value has no impact on TranslateSBML.
+%   * fbcGeneProductOptions: This optional argument is an array of two values that
+%               allows the user to change the behavior relating to
+%               geneProduct elements in the fbc package.
+%                  - The first value in the array impacts of the infix respresentation of a 
+%                     GeneProductAssociation.
+%                     A value of [0, 1] (the default) indicates that TranslateSBML 
+%                     should display the geneProductAssociation using the label
+%                     attribute to refer to the geneProduct.  A value of [1,1]
+%                     indicates the id attribute should be used.
+%        
+%                  - NOTE: the second value has no impact on TranslateSBML.
 %
 % There are three possible outputs:
 %

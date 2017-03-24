@@ -6,7 +6,7 @@ function [valid, message] = applyUserValidation(SBMLStructure, level, version, p
 %
 % Takes
 %
-% 1. SBMLstructure - aMATLAB_SBML structure
+% 1. SBMLstructure - a MATLAB_SBML structure
 % 2. level - an integer representing the SBML level
 % 3. version - an integer representing the SBML version
 % 4. packages - a cell array of the package prefixes used 
@@ -53,24 +53,25 @@ function [valid, message] = applyUserValidation(SBMLStructure, level, version, p
 valid = 1;
 message = '';
 
-%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % example check that all GeneProducts listed have an id value
 
-if isempty(packages{1})
-    present = 0;
-else
-    [present, index] = ismember('fbc', packages);
-end;
-
-if (present)
-    if (pkgVersion(index) == 2)
-        gp = SBMLStructure.fbc_geneProduct;
-        [a, num] = size(gp);
-        for i=1:num
-            if (isempty(gp(num).fbc_id))
-                valid = 0;
-                message = 'geneProduct is missing the id attribute';
-            end;
-        end;
-    end;
-end;
+% if isempty(packages{1})
+%     present = 0;
+% else
+%     [present, index] = ismember('fbc', packages);
+% end;
+% 
+% if (present)
+%     if (pkgVersion(index) == 2)
+%         gp = SBMLStructure.fbc_geneProduct;
+%         [a, num] = size(gp);
+%         for i=1:num
+%             if (isempty(gp(num).fbc_id))
+%                 valid = 0;
+%                 message = 'geneProduct is missing the id attribute';
+%             end;
+%         end;
+%     end;
+% end;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
