@@ -34,7 +34,6 @@ STABLE RELEASE
     enabled the parser will treat the new functions as generic
     user defined functions.
 
-
   - The L3Parser has been updated to parse '%' as rem.
 
   - The MATLAB binding has been updated to support SBML L3V2(RC 1).
@@ -121,8 +120,8 @@ STABLE RELEASE
    be fixed in a later release.  For the time being, use Doxygen 1.8.11.
 
  - We are aware that the released MATLAB binaries do not appear to work
-   with MATLAB 2017a. At present we are unable to address this issue but
-   will resolve it and issue new binaries as soon as possible.
+   with MATLAB 2017a on Mac OSX. At present we are unable to address this 
+   issue but will resolve it and issue new binaries as soon as possible.
 
 EXPERIMENTAL RELEASE
 
