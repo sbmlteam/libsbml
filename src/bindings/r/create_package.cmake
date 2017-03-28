@@ -107,6 +107,12 @@ set(DIRECTORIES
   sbml/packages/qual/validator
   sbml/packages/qual/validator/constraints
   
+  sbml/packages/multi/common
+  sbml/packages/multi/extension
+  sbml/packages/multi/sbml
+  sbml/packages/multi/validator
+  sbml/packages/multi/validator/constraints  
+
   sbml/packages/groups/common
   sbml/packages/groups/extension
   sbml/packages/groups/sbml
