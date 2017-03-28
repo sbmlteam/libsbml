@@ -1166,7 +1166,7 @@ ListOfSpeciesFeatures::remove(const std::string& sid)
 unsigned int
 ListOfSpeciesFeatures::getNumSpeciesFeatures() const
 {
-  return mItems.size();
+  return static_cast<unsigned int>( mItems.size() );
 }
 
 unsigned int

@@ -704,7 +704,7 @@ SubListOfSpeciesFeatures::connectToChild()
 unsigned int
 SubListOfSpeciesFeatures::getNumSpeciesFeatures() const
 {
-  return mItems.size();
+  return static_cast<unsigned int>( mItems.size() );
 }
 
 
