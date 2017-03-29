@@ -20,7 +20,7 @@
             </multi:speciesFeature>
             <multi:speciesFeature multi:speciesFeatureType="sftYP2" multi:occur="1">
               <multi:listOfSpeciesFeatureValues>
-                <multi:speciesFeatureValue multi:value="yp1v1"/>
+                <multi:speciesFeatureValue multi:value="yp1v1b"/>
               </multi:listOfSpeciesFeatureValues>
             </multi:speciesFeature>
           </multi:subListOfSpeciesFeatures>
@@ -53,8 +53,8 @@
           </multi:speciesFeatureType>
           <multi:speciesFeatureType multi:id="sftYP2" multi:occur="2">
             <multi:listOfPossibleSpeciesFeatureValues>
-              <multi:possibleSpeciesFeatureValue multi:id="yp1v1"/>
-              <multi:possibleSpeciesFeatureValue multi:id="yp2v2"/>
+              <multi:possibleSpeciesFeatureValue multi:id="yp1v1b"/>
+              <multi:possibleSpeciesFeatureValue multi:id="yp2v2b"/>
             </multi:listOfPossibleSpeciesFeatureValues>
           </multi:speciesFeatureType>
         </multi:listOfSpeciesFeatureTypes>

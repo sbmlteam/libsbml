@@ -6,8 +6,8 @@
             <multi:speciesType multi:id="st_lig" multi:name="ligand"/>
         </multi:listOfSpeciesTypes>
         <multi:listOfSpeciesTypes>
-            <multi:speciesType multi:id="st_recept" multi:name="receptor"/>
-            <multi:speciesType multi:id="st_lig" multi:name="ligand"/>
+            <multi:speciesType multi:id="st_recept2" multi:name="receptor"/>
+            <multi:speciesType multi:id="st_lig2" multi:name="ligand"/>
         </multi:listOfSpeciesTypes>
     </model>
 </sbml>
