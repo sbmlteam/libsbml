@@ -759,7 +759,12 @@ SpeciesFeature::createObject(XMLInputStream& stream)
     if (mSpeciesFeatureValues.size() != 0)
     {
       getErrorLog()->logPackageError("multi", MultiSpeFtr_RestrictElts,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), 
+        "<" + getPrefix() + "speciesType> may only have one <" + getPrefix()
+        + "listOfSpeciesFeatureTypes>",
+        stream.peek().getLine(),
+        stream.peek().getColumn());
+
     }
 
     object = &mSpeciesFeatureValues;

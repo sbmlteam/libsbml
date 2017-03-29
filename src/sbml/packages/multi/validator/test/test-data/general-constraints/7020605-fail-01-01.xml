@@ -7,7 +7,14 @@
     <multi:listOfSpeciesTypes>
       <multi:speciesType multi:id="stX" multi:compartment="cell1">
         <multi:listOfSpeciesFeatureTypes>
-          <multi:speciesFeatureType multi:id="sft1" multi:occur="1"/>
+          <multi:speciesFeatureType multi:id="sft1" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="p1"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="p1"/>
+            </multi:listOfPossibleSpeciesFeatureValues>           
+          </multi:speciesFeatureType>
         </multi:listOfSpeciesFeatureTypes>
       </multi:speciesType>
     </multi:listOfSpeciesTypes>

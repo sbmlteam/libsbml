@@ -583,7 +583,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiSpeFtrTyp_RestrictElt, SpeciesFeatureType, speciesFeatureType)
 {
-  inv(speciesFeatureType.getNumPossibleSpeciesFeatureValues() > 0);
+//  inv(speciesFeatureType.getNumPossibleSpeciesFeatureValues() > 0);
 }
 END_CONSTRAINT
 
