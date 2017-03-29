@@ -756,6 +756,12 @@ SpeciesFeature::createObject(XMLInputStream& stream)
 
   if (name == "listOfSpeciesFeatureValues")
   {
+    if (mSpeciesFeatureValues.size() != 0)
+    {
+      getErrorLog()->logPackageError("multi", MultiSpeFtr_RestrictElts,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
     object = &mSpeciesFeatureValues;
   }
 
@@ -1222,10 +1228,10 @@ ListOfSpeciesFeatures::getSubListOfSpeciesFeatures(const std::string& sid) const
 
   if (!sid.empty() && mSubListOfSpeciesFeatures != NULL) {
       for (unsigned int i = 0; result != NULL  && i < mSubListOfSpeciesFeatures->getSize(); i++) {
-	const SubListOfSpeciesFeatures * item = static_cast <SubListOfSpeciesFeatures*> (mSubListOfSpeciesFeatures->get(i));
-	if (item->getId() == sid) {
-	    result = item;
-	}
+  const SubListOfSpeciesFeatures * item = static_cast <SubListOfSpeciesFeatures*> (mSubListOfSpeciesFeatures->get(i));
+  if (item->getId() == sid) {
+      result = item;
+  }
       }
   }
 
@@ -1270,14 +1276,14 @@ ListOfSpeciesFeatures::removeSubListOfSpeciesFeatures(const std::string& sid)
   if (!sid.empty() && mSubListOfSpeciesFeatures != NULL) {
       unsigned int i;
       for (i = 0; result != NULL && i < mSubListOfSpeciesFeatures->getSize(); i++) {
-	SubListOfSpeciesFeatures * item = static_cast <SubListOfSpeciesFeatures*> (mSubListOfSpeciesFeatures->get(i));
-	if (item->getId() == sid) {
-	    result = item;
-	}
+  SubListOfSpeciesFeatures * item = static_cast <SubListOfSpeciesFeatures*> (mSubListOfSpeciesFeatures->get(i));
+  if (item->getId() == sid) {
+      result = item;
+  }
       }
 
       if (result != NULL) {
-	  mSubListOfSpeciesFeatures->remove(i);
+    mSubListOfSpeciesFeatures->remove(i);
       }
   }
 

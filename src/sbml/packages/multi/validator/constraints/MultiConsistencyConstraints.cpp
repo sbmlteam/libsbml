@@ -1056,7 +1056,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiSpeFtr_RestrictElts, SpeciesFeature, speciesFeature)
 {
-  inv (speciesFeature.getNumSpeciesFeatureValues() > 0);
+ // pre(m.getLevel() == 2);
+ // inv (speciesFeature.getNumSpeciesFeatureValues() > 0);
 }
 END_CONSTRAINT
 
