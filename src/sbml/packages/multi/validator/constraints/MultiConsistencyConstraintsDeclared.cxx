@@ -122,7 +122,7 @@ addConstraint(new VConstraintSpeciesFeatureMultiSpeFtr_RestrictElts(*this));
 addConstraint(new VConstraintSpeciesFeatureValueMultiSpeFtrVal_ValAtt_Ref(*this));
 
 // MultiExSplSpeRef_CpaRefAtt_Ref        = 7021702
-addConstraint(new VConstraintSimpleSpeciesReferenceMultiExSplSpeRef_CpaRefAtt_Ref(*this));
+addConstraint(new VConstraintSpeciesReferenceMultiExSplSpeRef_CpaRefAtt_Ref(*this));
 
 // MultiSptCpoMapInPro_RctAtt_Ref        = 7021904
 addConstraint(new VConstraintSpeciesTypeComponentMapInProductMultiSptCpoMapInPro_RctAtt_Ref(*this));

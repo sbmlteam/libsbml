@@ -152,6 +152,7 @@ struct MultiValidatorConstraints
   ConstraintSet<Compartment>           mCompartment;
   ConstraintSet<Species>           	   mSpecies;
   ConstraintSet<SubListOfSpeciesFeatures> mSubListOfSpeciesFeatures;
+  ConstraintSet<SpeciesReference>      mSpeciesReference;
   map<VConstraint*, bool> ptrMap;
 
   ~MultiValidatorConstraints();
@@ -282,6 +283,12 @@ MultiValidatorConstraints::add(VConstraint* c)
     return;
   }
 
+  if (dynamic_cast<TConstraint<SpeciesReference>*>(c) != NULL)
+  {
+    mSpeciesReference.add(static_cast<TConstraint<SpeciesReference>*>(c));
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -397,6 +404,12 @@ public:
   {
     v.mMultiConstraints->mSubListOfSpeciesFeatures.applyTo(m, x);
     return !v.mMultiConstraints->mSubListOfSpeciesFeatures.empty();
+  }
+
+  bool visit(const SpeciesReference &x)
+  {
+    v.mMultiConstraints->mSpeciesReference.applyTo(m, x);
+    return !v.mMultiConstraints->mSpeciesReference.empty();
   }
   //  bool visit (const Reaction &x)
   //  {

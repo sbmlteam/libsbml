@@ -1149,11 +1149,11 @@ END_CONSTRAINT
 // MultiExSplSpeRef_CpaRefAtt_Ref        = 7021702
 /* !< Extended SimpleSpeciesReference: 'compartmentReference' must be the 'id' of a compartmentReference */
 
-START_CONSTRAINT (MultiExSplSpeRef_CpaRefAtt_Ref, SimpleSpeciesReference, simpleSpeciesReference)
+START_CONSTRAINT (MultiExSplSpeRef_CpaRefAtt_Ref, SpeciesReference, simpleSpeciesReference)
 {
 
   const MultiSimpleSpeciesReferencePlugin * simpleSpeciesRefPlugin =
-      dynamic_cast<const MultiSimpleSpeciesReferencePlugin*>(m.getPlugin("multi"));
+      dynamic_cast<const MultiSimpleSpeciesReferencePlugin*>(simpleSpeciesReference.getPlugin("multi"));
 
   pre (simpleSpeciesRefPlugin != 0);
 
