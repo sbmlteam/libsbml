@@ -1477,7 +1477,7 @@ START_TEST (test_Attributes_Unit_exponent)
 
   result = obj->getAttribute("exponent", value);
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(value == SBML_INT_MIN);
+  fail_unless(value == static_cast<int>(std::numeric_limits<double>::quiet_NaN()));
   delete obj;
 }
 END_TEST
