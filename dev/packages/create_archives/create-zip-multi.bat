@@ -109,6 +109,8 @@ mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
 mkdir examples\csharp
 mkdir examples\csharp\%PACKAGE_NAME%
+mkdir examples\java
+mkdir examples\java\%PACKAGE_NAME%
 
 copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake       examples\
 
@@ -116,6 +118,8 @@ copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.cpp"       "examples\cpp\%P
 copy /y "%PACKAGE_DIR%\examples\c++\%PACKAGE_NAME%\*.txt"       "examples\cpp\%PACKAGE_NAME%\*.txt"
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.cs       examples\csharp\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.txt      examples\csharp\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.java       examples\java\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.txt        examples\java\%PACKAGE_NAME%\
 
 cd examples
 rename cpp "c++"
