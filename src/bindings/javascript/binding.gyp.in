@@ -26,11 +26,14 @@
     
     "cflags!": [ "-fno-exceptions" ],
     "cflags_cc!": [ "-fno-exceptions" ],
-    
+    "cflags_cc!": [ "-fno-exceptions" ],
+    'cflags_cc!': ['-fno-rtti'],
+    'cflags_cc+': ['-frtti'],
     "conditions": [
         ['OS=="mac"', {
           "xcode_settings": {
             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+            'GCC_ENABLE_CPP_RTTI': 'YES',
             "MACOSX_DEPLOYMENT_TARGET": "10.7",
             "OTHER_CPLUSPLUSFLAGS" : ["-std=c++11","-stdlib=libstdc++"],
             "OTHER_LDFLAGS": ["-stdlib=libstdc++"],
