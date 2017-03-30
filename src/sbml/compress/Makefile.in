@@ -73,6 +73,7 @@ zlib_sources = \
           zip.c \
           unzip.c \
           ioapi.c \
+          ioapi_mem.c \
           iowin32.c \
           zfstream.cpp \
           zipfstream.cpp \
@@ -82,6 +83,7 @@ zlib_headers = \
           zip.h \
           unzip.h \
           ioapi.h \
+          ioapi_mem.h \
           iowin32.h \
           zfstream.h \
           zipfstream.h 
