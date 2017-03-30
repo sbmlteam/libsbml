@@ -123,6 +123,10 @@ STABLE RELEASE
    with MATLAB 2017a on Mac OSX. At present we are unable to address this 
    issue but will resolve it and issue new binaries as soon as possible.
 
+ - We are aware that the octave binding is not functioning as expected.  
+   We would be very interested to know of any users of the libsbml
+   octave interface that are affected by this. 
+
 EXPERIMENTAL RELEASE
 
 * New features
