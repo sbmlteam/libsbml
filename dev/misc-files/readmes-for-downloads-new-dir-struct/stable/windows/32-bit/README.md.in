@@ -3,7 +3,7 @@
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, MATLAB, Octave, Perl, and Python installers_**
+### **_C, C++, C#, Java, Javascript, MATLAB, Perl, and Python installers_**
 
 This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 32-bit Microsoft Windows systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level&nbsp;3 packages plus interfaces for the following programming languages:
 
@@ -13,7 +13,6 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * Java
 * Javascript
 * MATLAB (but see below for better option)
-* Octave
 * Perl
 * Python (but see below for better option)
 	

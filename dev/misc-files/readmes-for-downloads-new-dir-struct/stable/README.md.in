@@ -25,6 +25,7 @@ Source code for individual, accepted SBML Level&nbsp;3 packages *only*:
 *  [libSBML-@PACKAGE_VERSION@-comp-src.zip](libSBML-@PACKAGE_VERSION@-comp-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-fbc-src.zip](libSBML-@PACKAGE_VERSION@-fbc-src.zip)      -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-groups-src.zip](libSBML-@PACKAGE_VERSION@-groups-src.zip)     -- source code (only), zip archive
+*  [libSBML-@PACKAGE_VERSION@-multi-src.zip](libSBML-@PACKAGE_VERSION@-multi-src.zip)      -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-qual-src.zip](libSBML-@PACKAGE_VERSION@-qual-src.zip)     -- source code (only), zip archive
 
 (Note: for historical reasons, the code for the SBML Layout package is included in the core libSBML distribution.)

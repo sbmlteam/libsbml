@@ -39,11 +39,6 @@ sudo pip install python-libsbml
 After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
 
 
-### **_Octave_**
-
-If you need the Octave language interfaces, or need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/5.11.4](http://sourceforge.net/projects/sbml/files/libsbml/5.11.4).
-
-
 ### **_How to uninstall libSBML_**
 
 To uninstall libSBML, please run the following command in your terminal:
@@ -56,6 +51,8 @@ sudo /usr/local/bin/uninstall-libsbml-pkg.sh
 
 
 ### **_Additional information_**
+
+If you need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
 
 For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
 

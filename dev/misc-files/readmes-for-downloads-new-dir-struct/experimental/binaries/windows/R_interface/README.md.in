@@ -4,7 +4,7 @@
 This directory contains the experimental R interface of libSBML @PACKAGE_VERSION@
 generated for R 3.1.1 on Microsoft Windows operating systems. 
 
-It has been tested and seems to work with R 2.15.3; R 3.0.0; R 3.1.2 and R 3.2.2. Please let us know if you find this is not the case.
+It has been tested and seems to work with R 2.15.3; R 3.0.0; R 3.1.2; R 3.2.2 and R 3.3.3. Please let us know if you find this is not the case.
 
 Install with the following command:
 
