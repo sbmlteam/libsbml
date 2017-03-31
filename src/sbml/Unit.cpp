@@ -271,12 +271,19 @@ Unit::getExponent () const
       }
       else
       {
-        return numeric_limits<int>::quiet_NaN();
+        return 0;// numeric_limits<int>::quiet_NaN();
       }
     }
     else
     {
-      return static_cast<int>(mExponentDouble);
+      if (util_isNaN(mExponentDouble))
+      {
+        return 0;
+      }
+      else
+      {
+        return static_cast<int>(mExponentDouble);
+      }
     }
   }
 }
