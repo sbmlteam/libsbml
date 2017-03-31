@@ -67,13 +67,19 @@ copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
 copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
 copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.m OutputSBML.m
 copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.c OutputSBML.c
-copy ..\..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
+copy ..\..\..\..\..\..\src\bindings\matlab\addLevelVersion.m addLevelVersion.m
+copy ..\..\..\..\..\..\src\bindings\matlab\applyUserValidation.m applyUserValidation.m
 copy ..\..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
-copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
+copy ..\..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\..\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
-copy ..\..\..\..\..\..\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
-copy ..\..\..\..\..\..\src\bindings\matlab\buildSBML.m  buildSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\getDefaultValues.m  getDefaultValues.m
+copy ..\..\..\..\..\..\src\bindings\matlab\getStructureFieldnames.m  getStructureFieldnames.m
+copy ..\..\..\..\..\..\src\bindings\matlab\getValueType.m  getValueType.m
 copy ..\..\..\..\..\..\src\bindings\matlab\installSBML.m  installSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isEnabled.m  isEnabled.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isFbcEnabled.m  isFbcEnabled.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
 copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 
 REM these need to find the static matlab builds
