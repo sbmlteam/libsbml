@@ -84,7 +84,7 @@ STABLE RELEASE
 
   - Unit checking was failing to correctly associate the model 'timeUnits' 
     with the use of the csymbol for time. This has been corrected. Thanks
-    to Matthias König for reporting it.
+    to Matthias KÃ¶nig for reporting it.
 
   - 'comp' package-specific bug fixes:
 
@@ -93,7 +93,7 @@ STABLE RELEASE
 
     - The flattening routine was failing to correctly adjust the metaid
       referenced by annotation where necessary.  This has been fixed. 
-      Thanks to Matthias König for reporting it.
+      Thanks to Matthias KÃ¶nig for reporting it.
 
   - 'fbc' package-specific bug fixes:
 
@@ -170,7 +170,7 @@ STABLE RELEASE
 
   - The functions for parsing a string to an ASTNode would cause a
     crash if passed a NULL pointer.  This has been fixed.  Thanks to
-    Matthias König for reporting it.
+    Matthias KÃ¶nig for reporting it.
 
   - The L3Parser has been improved to catch a case when a NULL input 
     has been provided and return an error to the user.
@@ -247,7 +247,7 @@ STABLE RELEASE
     language bindings. This has been corrected.
 
   - Unit consistency checking was failing to correctly handle non-integer
-    power expressions. This has been corrected. Thanks to Matthias König
+    power expressions. This has been corrected. Thanks to Matthias KÃ¶nig
     for reporting this.
 
   - The StrictUnitConsistencyValidator has been corrected to identify
@@ -268,7 +268,7 @@ STABLE RELEASE
 
   - The functions that convert an enumeration value to a string had
     not been ported to language bindings.  This has now been sorted.
-    Thanks to Matthias König for letting us know.
+    Thanks to Matthias KÃ¶nig for letting us know.
 
   - The new ASTNode class instances were failing to deal correctly with 
     semantic annotations.  This has been fixed.
@@ -454,7 +454,7 @@ STABLE RELEASE
 
   - The static function UnitDefinition::reorder failed to correctly deal
     with situations where the same unit kind appeared multiple times. This
-    has been fixed. Thanks to Matthias König for reporting the problem.
+    has been fixed. Thanks to Matthias KÃ¶nig for reporting the problem.
 	
   - There were some discrepancies between math and math-legacy code reporting
     the incorrect use of the MathML <apply> tag. This has been standardized 
@@ -550,7 +550,7 @@ STABLE RELEASE
 
   - Conversion from SBML Level 3 to Level 2 was losing some 
     LocalParameters. This has been sorted.  Thanks to Matthias 
-    König for spotting and reporting the problem.
+    KÃ¶nig for spotting and reporting the problem.
 
   - Fixed a bug where using the expat parser failed to correctly
     report the presence of invalid XML namespaces.
@@ -580,7 +580,7 @@ STABLE RELEASE
 
     - A bug in the code that reads GeneAssociations as an annotation
       meant information was being lost.  This has been corrected.
-      Thanks to Matthias König for reporting the problem.
+      Thanks to Matthias KÃ¶nig for reporting the problem.
 
 
   - 'layout' package-specific bug fixes:
@@ -741,7 +741,7 @@ EXPERIMENTAL RELEASE
 
     - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
       were not working as expected. These have been fixed. Thanks to 
-      Harold Gómez for reporting this.
+      Harold GÃ³mez for reporting this.
 
 		   
 ====================================================================
@@ -983,7 +983,7 @@ STABLE RELEASE
     
   - LibSBML incorrectly reported the units of 'pi' as radians. This
     has been corrected to report 'dimensionless'.  Thanks to Matthias
-    König for reporting this.
+    KÃ¶nig for reporting this.
 
   - The L3 parser did not recognize 'arcsinh' or 'asinh' as valid
     built-in functions.  This has been fixed.
@@ -2380,16 +2380,16 @@ STABLE RELEASE
     Line numbers were not being reported as accurately for L2 models 
     as for L3 models. We have overviewed all the code relating
     to line numbers and improved the accuracy and consistency
-    of line numbers reported. Thanks to Raimund Rönn for the report.  
+    of line numbers reported. Thanks to Raimund RÃ¶nn for the report.  
 
   - Tracker issue #3471902
     The documentation for the readSBMLFromString function claimed it
     prepend the xml encoding if it was not present. In fact, the 
     function did not do this. This has been corrected. Thanks to
-    Raimund Rönn for reporting it.  
+    Raimund RÃ¶nn for reporting it.  
     
   - Tracker issue #3466104
-    Fixed inaccuracies in the documentation. Thanks to Raimund Rönn
+    Fixed inaccuracies in the documentation. Thanks to Raimund RÃ¶nn
     for his careful reading and taking the time to report the errors.
     
   - Validation failed to notice that csymbol avogadro was not valid
@@ -2566,10 +2566,10 @@ STABLE RELEASE
   - Tracker issue #3461400
     Writing out an L2 model with Layout annotation caused duplicate
     annotations to be written out.  This has been fixed.  Thanks to
-    Raimund Rönn for reporting the problem.
+    Raimund RÃ¶nn for reporting the problem.
 
   - Tracker issue #3462055  
-    A couple of typos have been corrected.  Thanks to Raimund Rönn 
+    A couple of typos have been corrected.  Thanks to Raimund RÃ¶nn 
     for taking the time to report these.
        
   - The documentation for Python did not omit internal libSBML
