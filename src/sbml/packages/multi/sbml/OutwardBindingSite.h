@@ -24,6 +24,51 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class OutwardBindingSite
+ * @sbmlbrief{multi} Defines a outward-facing binding site for a MultiSpeciesType.
+ *
+ * The OutwardBindingSite object is a child of a Species (via the
+ * MultiSpeciesPlugin).  It has two optional attributes, "id" and "name", and
+ * two required attributes, "bindingStatus" and "component". A binding site
+ * not involved in any InSpeciesTypeBond object in the MultiSpeciesType
+ * referenced by a Species is an OutwardBindingSite. The bindingStatus
+ * attribute is of type @if java {@link BindingStatus_t} @else @link
+ * BindingStatus_t BindingStatus_t@endlink@endif.  The component attribute,
+ * of type SIdRef, references a component which ultimately references a
+ * BindingSiteSpeciesType object. The attribute value must be the identifier
+ * of a SpeciesTypeInstance, SpeciesTypeComponentIndex or MultiSpeciesType
+ * object. An OutwardBindingSite cannot be a binding site referenced by any
+ * InSpeciesTypeBond in the species. There are three scenarios for the
+ * component attribute to have the value of an identifier of
+ * MultiSpeciesType, SpeciesTypeInstance, or SpeciesTypeComponentIndex
+ * respectively:
+ * <ul>
+ * <li> When a Species references a simple BindingSiteSpeciesType, the value
+ * of the component attribute of the OutwardBindingSite of the Species can
+ * only be the id of the referenced MultiSpeciesType.
+ * <li> When a Species references a MultiSpeciesType with a
+ * SpeciesTypeInstance being a binding site (have an id of
+ * BindingSiteSpeciesType as its "speciesType" attribute) and the id of the
+ * SpeciesTypeInstance can identify the binding site within the
+ * MultiSpeciesType (referenced by the Species) unambiguously, and therefore,
+ * the value of the component attribute of an OutwardBindingSite of the
+ * species can be the id of the SpeciesTypeInstance.
+ * <li> When a Species references a MultiSpeciesType with a
+ * SpeciesTypeInstance being a binding site (directly or indirectly) and id of
+ * the SpeciesTypeInstance can NOT identify the binding site without
+ * ambiguity, an id of SpeciesTypeComponentIndex can be used as the value of
+ * the component attribute of an OutwardBindingSite of the Species.
+ * </ul>
+ *
+ * @class ListOfOutwardBindingSites
+ * @sbmlbrief{multi} A list of OutwardBindingSite objects.
+ *
+ * The ListOfOutwardBindingSites is a container for OutwardBindingSite objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see OutwardBindingSite
  */
 
 
@@ -35,12 +80,21 @@
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/multi/common/multifwd.h>
 
+/**
+ * @enum  BindingStatus_t
+ * @brief Enumeration of possible binding status of a OutwardBindingSite in
+ * the libSBML "multi" package implementation.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @copydetails doc_additional_typecode_details
+ */
 typedef enum
 {
-    MULTI_BINDING_STATUS_BOUND
-  , MULTI_BINDING_STATUS_UNBOUND
-  , MULTI_BINDING_STATUS_EITHER
-  , MULTI_BINDING_STATUS_UNKNOWN
+    MULTI_BINDING_STATUS_BOUND /** The status of the OutwardBindingSite is 'bound'. */
+  , MULTI_BINDING_STATUS_UNBOUND /** The status of the OutwardBindingSite is 'unbound'. */
+  , MULTI_BINDING_STATUS_EITHER /** The status of the OutwardBindingSite is either 'bound' or 'unbound'. */
+  , MULTI_BINDING_STATUS_UNKNOWN /** The status of the OutwardBindingSite is unknown.  This value is not permitted for valid SBML models. */
 } BindingStatus_t;
 
 
@@ -63,20 +117,24 @@ class LIBSBML_EXTERN OutwardBindingSite : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
+
   BindingStatus_t   mBindingStatus;
   std::string   mComponent;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new OutwardBindingSite with the given level, version, and package version.
+   * Creates a new OutwardBindingSite object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this OutwardBindingSite
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this OutwardBindingSite
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this OutwardBindingSite
+   * @copydetails doc_note_setting_lv_pkg
    */
   OutwardBindingSite(unsigned int level      = MultiExtension::getDefaultLevel(),
                      unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -84,31 +142,32 @@ public:
 
 
   /**
-   * Creates a new OutwardBindingSite with the given MultiPkgNamespaces object.
+   * Creates a new OutwardBindingSite with the given MultiPkgNamespaces
+   * object.
    *
    * @param multins the MultiPkgNamespaces object
    */
   OutwardBindingSite(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for OutwardBindingSite.
    *
-   * @param orig; the OutwardBindingSite instance to copy.
+   * @param orig the OutwardBindingSite instance to copy.
    */
   OutwardBindingSite(const OutwardBindingSite& orig);
 
 
-   /**
+  /**
    * Assignment operator for OutwardBindingSite.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   OutwardBindingSite& operator=(const OutwardBindingSite& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this OutwardBindingSite object.
    *
    * @return a (deep) copy of this OutwardBindingSite object.
@@ -116,13 +175,13 @@ public:
   virtual OutwardBindingSite* clone () const;
 
 
-   /**
+  /**
    * Destructor for OutwardBindingSite.
    */
   virtual ~OutwardBindingSite();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this OutwardBindingSite.
    *
    * @return the value of the "id" attribute of this OutwardBindingSite as a string.
@@ -131,11 +190,11 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * OutwardBindingSite's "id" attribute has been set.
+   * Returns @c true if this OutwardBindingSite's "id" attribute has been
+   * set.
    *
-   * @return @c true if this OutwardBindingSite's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this OutwardBindingSite's "id" attribute has been
+   * set, otherwise @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -143,14 +202,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this OutwardBindingSite.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -158,12 +214,9 @@ public:
   /**
    * Unsets the value of the "id" attribute of this OutwardBindingSite.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -171,14 +224,15 @@ public:
   /**
    * Returns the value of the "name" attribute of this OutwardBindingSite.
    *
-   * @return the value of the "name" attribute of this OutwardBindingSite as a string.
+   * @return the value of the "name" attribute of this OutwardBindingSite as
+   * a string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * OutwardBindingSite's "name" attribute has been set.
+   * Returns @c true if this OutwardBindingSite's "name" attribute has been
+   * set.
    *
    * @return @c true if this OutwardBindingSite's "name" attribute has been set,
    * otherwise @c false is returned.
@@ -189,14 +243,11 @@ public:
   /**
    * Sets the value of the "name" attribute of this OutwardBindingSite.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -204,76 +255,73 @@ public:
   /**
    * Unsets the value of the "name" attribute of this OutwardBindingSite.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
    /**
-   * Returns the value of the "bindingStatus" attribute of this OutwardBindingSite.
+   * Returns the value of the "bindingStatus" attribute of this
+   * OutwardBindingSite.
    *
-   * @return the value of the "bindingStatus" attribute of this OutwardBindingSite as a FIX ME.
+   * @return the value of the "bindingStatus" attribute of this
+   * OutwardBindingSite.
    */
   virtual BindingStatus_t getBindingStatus() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * OutwardBindingSite's "bindingStatus" attribute has been set.
+   * Returns @c true if this OutwardBindingSite's "bindingStatus" attribute
+   * has been set.
    *
-   * @return @c true if this OutwardBindingSite's "bindingStatus" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this OutwardBindingSite's "bindingStatus" attribute
+   * has been set, otherwise @c false is returned.
    */
   virtual bool isSetBindingStatus() const;
 
 
   /**
-   * Sets the value of the "bindingStatus" attribute of this OutwardBindingSite.
+   * Sets the value of the "bindingStatus" attribute of this
+   * OutwardBindingSite.
    *
-   * @param bindingStatus; FIX ME value of the "bindingStatus" attribute to be set
+   * @param bindingStatus the new value of the "bindingStatus" attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setBindingStatus(BindingStatus_t bindingStatus);
 
 
   /**
-   * Unsets the value of the "bindingStatus" attribute of this OutwardBindingSite.
+   * Unsets the value of the "bindingStatus" attribute of this
+   * OutwardBindingSite.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetBindingStatus();
 
 
   /**
-   * Returns the value of the "component" attribute of this OutwardBindingSite.
+   * Returns the value of the "component" attribute of this
+   * OutwardBindingSite.
    *
-   * @return the value of the "component" attribute of this OutwardBindingSite as a string.
+   * @return the value of the "component" attribute of this
+   * OutwardBindingSite as a string.
    */
   virtual const std::string& getComponent() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * OutwardBindingSite's "component" attribute has been set.
+   * Returns @c true if this OutwardBindingSite's "component" attribute has
+   * been set.
    *
-   * @return @c true if this OutwardBindingSite's "component" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this OutwardBindingSite's "component" attribute has
+   * been set; otherwise, @c false is returned.
    */
   virtual bool isSetComponent() const;
 
@@ -281,14 +329,11 @@ public:
   /**
    * Sets the value of the "component" attribute of this OutwardBindingSite.
    *
-   * @param component; const std::string& value of the "component" attribute to be set
+   * @param component const std::string& value of the "component" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setComponent(const std::string& component);
 
@@ -296,12 +341,9 @@ public:
   /**
    * Unsets the value of the "component" attribute of this OutwardBindingSite.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetComponent();
 
@@ -322,8 +364,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for OutwardBindingSite, is
-   * always @c "outwardBindingSite".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "outwardBindingSite".
    */
@@ -332,33 +373,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -378,50 +402,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -434,7 +446,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -446,7 +458,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -457,7 +469,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -483,15 +495,21 @@ public:
 
 
   /**
-   * Creates a new ListOfOutwardBindingSites with the given MultiPkgNamespaces object.
+   * Creates a new ListOfOutwardBindingSites with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfOutwardBindingSites(MultiPkgNamespaces* multins);
 
 
    /**
-   * Creates and returns a deep copy of this ListOfOutwardBindingSites object.
+   * Creates and returns a deep copy of this ListOfOutwardBindingSites
+   * object.
    *
    * @return a (deep) copy of this ListOfOutwardBindingSites object.
    */
@@ -671,7 +689,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -682,7 +700,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

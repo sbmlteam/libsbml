@@ -16,3 +16,6 @@
 #ifdef USE_QUAL
 #include "qual-package.h"
 #endif
+#ifdef USE_MULTI
+#include "multi-package.h"
+#endif

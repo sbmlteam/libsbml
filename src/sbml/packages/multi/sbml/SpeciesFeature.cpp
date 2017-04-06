@@ -665,7 +665,7 @@ SpeciesFeature::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -690,7 +690,7 @@ SpeciesFeature::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -706,7 +706,7 @@ SpeciesFeature::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -721,7 +721,7 @@ SpeciesFeature::connectToChild()
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -738,7 +738,7 @@ SpeciesFeature::enablePackageInternal(const std::string& pkgURI,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -775,7 +775,7 @@ SpeciesFeature::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -796,7 +796,7 @@ SpeciesFeature::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -997,7 +997,7 @@ SpeciesFeature::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1027,7 +1027,7 @@ SpeciesFeature::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -1389,7 +1389,7 @@ ListOfSpeciesFeatures::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1417,7 +1417,7 @@ ListOfSpeciesFeatures::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -1445,6 +1445,7 @@ ListOfSpeciesFeatures::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -1459,8 +1460,10 @@ ListOfSpeciesFeatures::writeElements (XMLOutputStream& stream) const
   }
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 ListOfSpeciesFeatures::connectToChild()
 {
@@ -1472,6 +1475,7 @@ ListOfSpeciesFeatures::connectToChild()
       ->connectToParent(this);
   }
 }
+/** @endcond */
 
 
 /**

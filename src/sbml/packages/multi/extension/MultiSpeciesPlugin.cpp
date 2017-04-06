@@ -112,6 +112,7 @@ MultiSpeciesPlugin::~MultiSpeciesPlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -152,8 +153,10 @@ MultiSpeciesPlugin::createObject (XMLInputStream& stream)
 
   return object; 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -169,6 +172,7 @@ MultiSpeciesPlugin::writeElements (XMLOutputStream& stream) const
     mSpeciesFeatures.write(stream);
   } 
 }
+/** @endcond */
 
 
 /*
@@ -196,7 +200,7 @@ MultiSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -268,7 +272,7 @@ MultiSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -284,7 +288,7 @@ MultiSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -786,6 +790,7 @@ MultiSpeciesPlugin::getNumSubListOfSpeciesFeatures () const
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -797,8 +802,10 @@ MultiSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
   mOutwardBindingSites.setSBMLDocument(d);
   mSpeciesFeatures.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -810,8 +817,10 @@ MultiSpeciesPlugin::connectToParent(SBase* sbase)
   mOutwardBindingSites.connectToParent(sbase);
   mSpeciesFeatures.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -822,9 +831,10 @@ MultiSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
   mOutwardBindingSites.enablePackageInternal(pkgURI, pkgPrefix, flag);
   mSpeciesFeatures.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Connects to child elements
  */
@@ -833,11 +843,11 @@ MultiSpeciesPlugin::connectToChild()
 {
   connectToParent(getParentSBMLObject());
 }
-
 /** @endcond */
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -864,6 +874,7 @@ MultiSpeciesPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

@@ -24,8 +24,32 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiExtension
+ * @sbmlbrief{multi}  Base extension class for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * This is the Multistate, Multicomponent and Multicompartment Species
+ * package extension of the SBMLExtension class.  This is a class that every
+ * libSBML plug-in must implement in order to implement an SBML Level&nbsp;3
+ * package.
+ *
+ * @class MultiPkgNamespaces
+ * @sbmlbrief{multi} SBMLNamespaces extension for the "multi" package.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * There is currently exactly one namespace defined for the Multistate,
+ * Multicomponent and Multicompartment Species package: @c
+ * "http://www.sbml.org/sbml/level3/version1/multi/version1".  Despite
+ * referencing SBML Level&nbsp;3 Version&nbsp;1 explicitly, this package (and
+ * all such packages) can be used without change in SBML Level&nbsp;3
+ * Version&nbsp;2 documents.  The only caveat is that features of the SBML
+ * Level&nbsp;3 Version&nbsp;2 specification that were not present in
+ * Level&nbsp;1 may not be used by constructs from Level&nbsp;1 packages.
+ * However, this restriction should not affect the 'multi' package.
  */
-
 
 #ifndef MultiExtension_H__
 #define MultiExtension_H__
@@ -66,31 +90,55 @@ public:
   //---------------------------------------------------------------
 
   /**
-   * Returns the package name of this extension.
+   * Returns the nickname of the SBML Level&nbsp;3 package implemented by
+   * this libSBML extension.
+   *
+   * @return the package nickname, as a string.
+   *
+   * @copydetails doc_note_static_methods
    */
   static const std::string& getPackageName ();
 
 
   /**
-   * Returns the default SBML Level this extension.
+   * Returns the default SBML Level used by this libSBML package extension.
+   *
+   * @return the SBML Level.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultLevel();
 
 
   /**
-   * Returns the default SBML Version this extension.
+   * Returns the default SBML Version used by this libSBML package extension.
+   *
+   * @return the Version within the default SBML Level.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultVersion();
 
 
   /**
-   * Returns the default SBML version this extension.
+   * Returns the default version of the SBML Level&nbsp;3 package implemented
+   * by this libSBML extension.
+   *
+   * @return the default version number of the SBML Level&nbsp;3 package
+   * definition.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultPackageVersion();
 
 
   /**
-   * Returns URI of supported versions of this package.
+   * Returns the XML namespace URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML extension.
+   *
+   * @return the XML namespace as a string.
+   *
+   * @copydetails doc_note_static_methods
    */
   static const std::string&  getXmlnsL3V1V1();
 
@@ -102,28 +150,29 @@ public:
 
 
   /**
-   * Creates a new MultiExtension   */
+   * Creates a new MultiExtension instance.
+   */
   MultiExtension();
 
 
   /**
    * Copy constructor for MultiExtension.
    *
-   * @param orig; the MultiExtension instance to copy.
+   * @param orig the instance to copy.
    */
   MultiExtension(const MultiExtension& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiExtension.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiExtension& operator=(const MultiExtension& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiExtension object.
    *
    * @return a (deep) copy of this MultiExtension object.
@@ -131,13 +180,13 @@ public:
   virtual MultiExtension* clone () const;
 
 
-   /**
+  /**
    * Destructor for MultiExtension.
    */
   virtual ~MultiExtension();
 
 
-   /**
+  /**
    * Returns the name of this package ("multi")
    *
    * @return a string representing the name of this package ("multi")
@@ -146,15 +195,21 @@ public:
 
 
   /**
-   * Returns the URI (namespace) of the package corresponding to the combination of 
-   * the given sbml level, sbml version, and package version.
-   * Empty string will be returned if no corresponding URI exists.
+   * Returns a string representing the SBML XML namespace of this SBML
+   * Level&nbsp;3 package.
    *
-   * @param sbmlLevel the level of SBML
-   * @param sbmlVersion the version of SBML
-   * @param pkgVersion the version of package
+   * The namespace URI constructed by this method corresponds to the
+   * combination of the Level and Version of SBML, and the Version of the SBML
+   * Level&nbsp;3 package. (At the time of this writing, the only SBML Level
+   * that supports packages is Level&nbsp;3, so the value of @p sbmlLevel must
+   * necessarily always be <code>3</code>.)
    *
-   * @return a string of the package URI
+   * @param sbmlLevel the level of SBML.
+   * @param sbmlVersion the version of SBML.
+   * @param pkgVersion the version of package.
+   *
+   * @return a string of the package URI, or an empty string if no
+   * corresponding URI exists.
    */
   virtual const std::string& getURI(unsigned int sbmlLevel,
                                     unsigned int sbmlVersion,
@@ -162,63 +217,69 @@ public:
 
 
   /**
-   * Returns the SBML level with the given URI of this package.
+   * Returns the SBML Level for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of multi package
+   * @param uri a URI that represents a version of this package.
    *
-   * @return the SBML level with the given URI of this package. 0 will be returned
-   * if the given URI is invalid.
-   *
+   * @return the SBML Level for the given URI of this package, or @c 0 if the
+   * given URI is invalid, or for a different package.
    */
   virtual unsigned int getLevel(const std::string &uri) const;
 
 
   /**
-   * Returns the SBML version with the given URI of this package.
+   * Returns the Version within the SBML Level for the given URI of this
+   * package.
    *
-   * @param uri the string of URI that represents one of versions of multi package
+   * @param uri a URI that represents a version of this package.
    *
-   * @return the SBML version with the given URI of this package. 0 will be returned
-   * if the given URI is invalid.
-   *
+   * @return the SBML Version within the SBML Level for the given URI of this
+   * package, or @c 0 if the given URI is invalid, or for a different package.
    */
   virtual unsigned int getVersion(const std::string &uri) const;
 
 
   /**
-   * Returns the package version with the given URI of this package.
+   * Returns the SBML Level&nbsp;3 package version for the given URI of this
+   * package.
    *
-   * @param uri the string of URI that represents one of versions of multi package
+   * @param uri a URI that represents one of the valid versions of this
+   * package.
    *
-   * @return the package version with the given URI of this package. 0 will be returned
-   * if the given URI is invalid.
-   *
+   * @return the version of the SBML Level&nbsp;3 package with the given URI,
+   * or @c 0 if the given URI is invalid, or for a different package.
    */
   virtual unsigned int getPackageVersion(const std::string &uri) const;
 
 
   /**
-   * Returns an SBMLExtensionNamespaces<MultiExtension> object whose alias type is 
-   * MultiPkgNamespace.
-   * Null will be returned if the given uri is not defined in the multi package.
+   * Returns an MultiPkgNamespaces object.
    *
-   * @param uri the string of URI that represents one of versions of multi package
+   * @param uri a URI that represents one of the valid versions of the
+   * "multi" package.
    *
-   * @return an MultiPkgNamespace object corresponding to the given uri. NULL will
-   * be returned if the given URI is not defined in multi package.
+   * @return an MultiPkgNamespace object corresponding to the given @p uri,
+   * or @c NULL if the URI is not defined in the Multi package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
 
   /**
-   * This method takes a type code from the Multi package and returns a string representing 
-   * the code.
+   * Takes a type code of the "multi" package and returns a string
+   * describing the code.
+   *
+   * @param typeCode a libSBML type code defined by the libSBML extension.
+   * implementing support for the SBML Level&nbsp;3 "multi" package.
+   *
+   * @return a text string representing the type code given by @p typeCode.
+   * If the type code is unrecognized for this implementation of the libSBML
+   * "multi" package, the string returned will be
+   * <code>"(Unknown SBML Multi Type)"</code>.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Initializes multi extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -231,52 +292,45 @@ public:
    *
    */
   static void init();
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the entry in the error table at this index. 
    *
-   * @param index an unsigned intgere representing the index of the error in the MultiSBMLErrorTable
+   * @param index an unsigned intgere representing the index of the error in
+   * the MultiSBMLErrorTable
    *
-   * @return packageErrorTableEntry object in the MultiSBMLErrorTable corresponding to the index given.
+   * @return packageErrorTableEntry object in the MultiSBMLErrorTable
+   * corresponding to the index given.
    */
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the index in the error table with the given errorId. 
    *
-   * @param errorId an unsigned intgere representing the errorId of the error in the MultiSBMLErrorTable
+   * @param errorId an unsigned intgere representing the errorId of the error
+   * in the MultiSBMLErrorTable
    *
-   * @return unsigned integer representing the index in the MultiSBMLErrorTable corresponding to the errorId given.
+   * @return unsigned integer representing the index in the
+   * MultiSBMLErrorTable corresponding to the errorId given.
    */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the offset for the errorId range for the multi L3 package. 
    *
    * @return unsigned intege representing the  offset for errors MultiSBMLErrorTable.
    */
   virtual unsigned int getErrorIdOffset() const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
@@ -301,20 +355,20 @@ typedef SBMLExtensionNamespaces<MultiExtension> MultiPkgNamespaces;
 
 typedef enum
 {
-    SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE  = 1400
-  , SBML_MULTI_SPECIES_FEATURE_VALUE = 1401
-  , SBML_MULTI_COMPARTMENT_REFERENCE = 1402
-  , SBML_MULTI_SPECIES_TYPE_INSTANCE = 1403
-  , SBML_MULTI_IN_SPECIES_TYPE_BOND = 1404
-  , SBML_MULTI_OUTWARD_BINDING_SITE = 1405
-  , SBML_MULTI_SPECIES_FEATURE_TYPE = 1406
-  , SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX = 1407
-  , SBML_MULTI_SPECIES_FEATURE     = 1408
+    SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE        = 1400
+  , SBML_MULTI_SPECIES_FEATURE_VALUE                 = 1401
+  , SBML_MULTI_COMPARTMENT_REFERENCE                 = 1402
+  , SBML_MULTI_SPECIES_TYPE_INSTANCE                 = 1403
+  , SBML_MULTI_IN_SPECIES_TYPE_BOND                  = 1404
+  , SBML_MULTI_OUTWARD_BINDING_SITE                  = 1405
+  , SBML_MULTI_SPECIES_FEATURE_TYPE                  = 1406
+  , SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX          = 1407
+  , SBML_MULTI_SPECIES_FEATURE                       = 1408
   , SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT = 1409
-  , SBML_MULTI_SPECIES_TYPE        = 1410
-  , SBML_MULTI_BINDING_SITE_SPECIES_TYPE        = 1411
-  , SBML_MULTI_INTRA_SPECIES_REACTION = 1412
-  , SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES = 1413
+  , SBML_MULTI_SPECIES_TYPE                          = 1410
+  , SBML_MULTI_BINDING_SITE_SPECIES_TYPE             = 1411
+  , SBML_MULTI_INTRA_SPECIES_REACTION                = 1412
+  , SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES           = 1413
 } SBMLMultiTypeCode_t;
 
 

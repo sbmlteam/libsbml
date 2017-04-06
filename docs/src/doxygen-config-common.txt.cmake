@@ -567,6 +567,10 @@ INPUT =                                    \
   ../../src/sbml/packages/layout/sbml      \
   ../../src/sbml/packages/layout/util      \ 
   ../../src/sbml/packages/layout/validator \
+  ../../src/sbml/packages/multi/common    \
+  ../../src/sbml/packages/multi/extension \
+  ../../src/sbml/packages/multi/sbml      \
+  ../../src/sbml/packages/multi/validator \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \

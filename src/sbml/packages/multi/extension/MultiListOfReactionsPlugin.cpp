@@ -89,6 +89,7 @@ MultiListOfReactionsPlugin::clone () const
 
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -104,14 +105,18 @@ MultiListOfReactionsPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 MultiListOfReactionsPlugin::isValidTypeForList(SBase* item) const
 {
   return item->getTypeCode() == SBML_REACTION ||
       item->getTypeCode() == SBML_MULTI_INTRA_SPECIES_REACTION;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 SBase*
 MultiListOfReactionsPlugin::createObject (XMLInputStream& stream)
 {
@@ -148,7 +153,7 @@ MultiListOfReactionsPlugin::createObject (XMLInputStream& stream)
 
   return object;
 }
-
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

@@ -24,8 +24,18 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiSpeciesPlugin
+ * @sbmlbrief{multi} Extension of Species for the "multi" package.
+ *
+ * The MultiSpeciesPlugin class extends the Species class to have a new
+ * attribute "speciesType", and two extra optional ListOfOutwardBindingSites
+ * and ListOfSpeciesFeatures children. A species may have a
+ * ListOfOutwardBindingSites child and/or a ListOfSpeciesFeatures child only
+ * when its speciesType attribute has been defined.  The relationship among
+ * the elements of a ListOfOutwardBindingSites or a ListOfSpeciesFeatures is
+ * "and".
  */
-
 
 #ifndef MultiSpeciesPlugin_H__
 #define MultiSpeciesPlugin_H__
@@ -53,30 +63,41 @@ class LIBSBML_EXTERN MultiSpeciesPlugin : public SBasePlugin
 public:
 
   /**
-   * Creates a new MultiSpeciesPlugin
+   * Creates a new MultiSpeciesPlugin object.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
   MultiSpeciesPlugin(const std::string& uri, const std::string& prefix, 
-                                 MultiPkgNamespaces* multins);
+                     MultiPkgNamespaces* multins);
 
 
   /**
    * Copy constructor for MultiSpeciesPlugin.
    *
-   * @param orig; the MultiSpeciesPlugin instance to copy.
+   * @param orig the MultiSpeciesPlugin instance to copy.
    */
   MultiSpeciesPlugin(const MultiSpeciesPlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiSpeciesPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiSpeciesPlugin& operator=(const MultiSpeciesPlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiSpeciesPlugin object.
    *
    * @return a (deep) copy of this MultiSpeciesPlugin object.
@@ -84,7 +105,7 @@ public:
   virtual MultiSpeciesPlugin* clone () const;
 
 
-   /**
+  /**
    * Destructor for MultiSpeciesPlugin.
    */
   virtual ~MultiSpeciesPlugin();
@@ -97,7 +118,6 @@ public:
   //---------------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -107,31 +127,23 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**
-   * Checks if this plugin object has all the required elements.
+   * Returns @c true if this object has all the required elements.
    *
-   * Subclasses must override this method 
-   * if they have their specific elements.
-   *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredElements () const;
 
@@ -146,17 +158,17 @@ public:
   //---------------------------------------------------------------
 
 
-   /**
-   * Returns the value of the "speciesType" attribute of this SpeciesPlugin.
+  /**
+   * Returns the value of the "speciesType" attribute of this "multi" Species.
    *
-   * @return the value of the "speciesType" attribute of this SpeciesPlugin as a string.
+   * @return the value of the "speciesType" attribute.
    */
   virtual const std::string& getSpeciesType() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesPlugin's "speciesType" attribute has been set.
+   * Returns @c true if the "speciesType" attribute of this "multi" Species
+   * has been set.
    *
    * @return @c true if this SpeciesPlugin's "speciesType" attribute has been set,
    * otherwise @c false is returned.
@@ -165,29 +177,23 @@ public:
 
 
   /**
-   * Sets the value of the "speciesType" attribute of this SpeciesPlugin.
+   * Sets the value of the "speciesType" attribute on this "multi" Species.
    *
-   * @param speciesType; const std::string& value of the "speciesType" attribute to be set
+   * @param speciesType the new value for the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setSpeciesType(const std::string& speciesType);
 
 
   /**
-   * Unsets the value of the "speciesType" attribute of this SpeciesPlugin.
+   * Unsets the value of the "speciesType" attribute on this "multi" Species.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetSpeciesType();
 
@@ -197,93 +203,90 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function
+   * to return only elements that match a particular set of constraints.
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List* of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
-   * Returns the ListOfOutwardBindingSites in this plugin object.
+   * Returns the ListOfOutwardBindingSites of this "multi" Species.
    *
-   * @return ListOfOutwardBindingSites object in this plugin object.
+   * @return the ListOfOutwardBindingSites object.
    */
   const ListOfOutwardBindingSites* getListOfOutwardBindingSites () const;
 
 
   /**
-   * Returns the ListOfOutwardBindingSites in this plugin object.
+   * Returns the ListOfOutwardBindingSites of this "multi" Species.
    *
-   * @return ListOfOutwardBindingSites object in this plugin object.
+   * @return the ListOfOutwardBindingSites object.
    */
   ListOfOutwardBindingSites* getListOfOutwardBindingSites ();
 
 
   /**
-   * Returns the OutwardBindingSite object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
+   * Returns the nth OutwardBindingSite object.
    *
    * @param n the index number of the OutwardBindingSite to get
    *
-   * @return the nth OutwardBindingSite in the ListOfOutwardBindingSites
+   * @return the nth OutwardBindingSite in the ListOfOutwardBindingSites.  If
+   * the index is invalid, NULL is returned.
    */
   const OutwardBindingSite* getOutwardBindingSite(unsigned int n) const;
 
 
   /**
-   * Returns the OutwardBindingSite object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
+   * Returns the nth OutwardBindingSite object.
    *
    * @param n the index number of the OutwardBindingSite to get
    *
-   * @return the nth OutwardBindingSite in the ListOfOutwardBindingSites
+   * @return the nth OutwardBindingSite in the ListOfOutwardBindingSites.  If
+   * the index is invalid, NULL is returned.
    */
   OutwardBindingSite* getOutwardBindingSite(unsigned int n);
 
 
   /**
-   * Returns the OutwardBindingSite object based on its identifier.
+   * Returns the OutwardBindingSite object with the given identifier @p sid.
    *
-   * @param sid a string representing the id of the OutwardBindingSite to get
+   * @param sid a string representing the id of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in the ListOfOutwardBindingSites with the given id
    * or NULL if no such OutwardBindingSite exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
    */
   const OutwardBindingSite* getOutwardBindingSite(const std::string& sid) const;
 
 
   /**
-   * Returns the OutwardBindingSite object based on its identifier.
+   * Returns the OutwardBindingSite object with the given identifier @p sid.
    *
-   * @param sid a string representing the id of the OutwardBindingSite to get
+   * @param sid a string representing the id of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in the ListOfOutwardBindingSites with the given id
    * or NULL if no such OutwardBindingSite exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
    */
   OutwardBindingSite* getOutwardBindingSite(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given OutwardBindingSite to the ListOfOutwardBindingSites in this plugin object.
+   * Adds a copy of the given OutwardBindingSite to the
+   * ListOfOutwardBindingSites.
    *
    * @param outwardBindingSite the outwardBindingSite to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addOutwardBindingSite (const OutwardBindingSite* outwardBindingSite);
 
 
   /**
-   * Creates a new OutwardBindingSite object and adds it to the ListOfOutwardBindingSites in this plugin object.
+   * Creates a new OutwardBindingSite object and adds it to the
+   * ListOfOutwardBindingSites.
    *
    * @return the newly created OutwardBindingSite object.
    */
@@ -291,37 +294,32 @@ public:
 
 
   /**
-   * Removes the nth OutwardBindingSite object from this plugin object
-   * and returns a pointer to it.
+   * Removes the nth OutwardBindingSite object and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param n the index of the OutwardBindingSite to remove.
    *
-   * @param n the index of the OutwardBindingSite to remove
-   *
-   * @return the OutwardBindingSite object removed 
-   * or NULL index was out of range.
+   * @return the OutwardBindingSite object removed or NULL index was out of
+   * range.  Note that the caller owns the returned object and is responsible
+   * for deleting it.
    */
   OutwardBindingSite* removeOutwardBindingSite(unsigned int n);
 
 
   /**
-   * Removes the OutwardBindingSite object with the given id from this plugin object
-   * and returns a pointer to it.
+   * Removes the OutwardBindingSite object with the given id @p sid and
+   * returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param sid a string representing the id of the OutwardBindingSite to remove.
    *
-   * @param sid a string representing the id of the OutwardBindingSite to remove
-   *
-   * @return the OutwardBindingSite object removed 
-   * or NULL if no such OutwardBindingSite exists.
+   * @return the OutwardBindingSite object removed or NULL index was out of
+   * range.  Note that the caller owns the returned object and is responsible
+   * for deleting it.
    */
   OutwardBindingSite* removeOutwardBindingSite(const std::string& sid);
 
 
   /**
-   * Returns the number of OutwardBindingSite objects in this plugin object.
+   * Returns the number of OutwardBindingSite objects of this "multi" Species.
    *
    * @return the number of OutwardBindingSite objects in this plugin object.
    */
@@ -329,7 +327,7 @@ public:
 
 
   /**
-   * Returns the ListOfSpeciesFeatures in this plugin object.
+   * Returns the ListOfSpeciesFeatures of this "multi" Species.
    *
    * @return ListOfSpeciesFeatures object in this plugin object.
    */
@@ -337,7 +335,7 @@ public:
 
 
   /**
-   * Returns the ListOfSpeciesFeatures in this plugin object.
+   * Returns the ListOfSpeciesFeatures of this "multi" Species.
    *
    * @return ListOfSpeciesFeatures object in this plugin object.
    */
@@ -345,71 +343,64 @@ public:
 
 
   /**
-   * Returns the SpeciesFeature object that belongs to the given index. If the 
+   * Returns the nth SpeciesFeature object.
+   *
+   * @param n the index number of the SpeciesFeature to get.
+   *
+   * @return the nth SpeciesFeature in the ListOfSpeciesFeatures.  If the
    * index is invalid, NULL is returned.
-   *
-   * @param n the index number of the SpeciesFeature to get
-   *
-   * @return the nth SpeciesFeature in the ListOfSpeciesFeatures
    */
   const SpeciesFeature* getSpeciesFeature(unsigned int n) const;
 
 
   /**
-   * Returns the SpeciesFeature object that belongs to the given index. If the 
+   * Returns the nth SpeciesFeature object.
+   *
+   * @param n the index number of the SpeciesFeature to get.
+   *
+   * @return the nth SpeciesFeature in the ListOfSpeciesFeatures.  If the
    * index is invalid, NULL is returned.
-   *
-   * @param n the index number of the SpeciesFeature to get
-   *
-   * @return the nth SpeciesFeature in the ListOfSpeciesFeatures
    */
   SpeciesFeature* getSpeciesFeature(unsigned int n);
 
 
   /**
-   * Returns the SpeciesFeature object based on its identifier.
+   * Returns the SpeciesFeature object with the given identifier @p sid.
    *
    * @param sid a string representing the id of the SpeciesFeature to get
    *
-   * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id
-   * or NULL if no such SpeciesFeature exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id @p
+   * sid, or NULL if no such SpeciesFeature exists.
    */
   const SpeciesFeature* getSpeciesFeature(const std::string& sid) const;
 
 
   /**
-   * Returns the SpeciesFeature object based on its identifier.
+   * Returns the SpeciesFeature object with the given identifier @p sid.
    *
    * @param sid a string representing the id of the SpeciesFeature to get
    *
-   * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id
-   * or NULL if no such SpeciesFeature exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id @p
+   * sid, or NULL if no such SpeciesFeature exists.
    */
   SpeciesFeature* getSpeciesFeature(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given SpeciesFeature to the ListOfSpeciesFeatures in this plugin object.
+   * Adds a copy of the given SpeciesFeature to the ListOfSpeciesFeatures of
+   * this "multi" Species.
    *
-   * @param speciesFeature the speciesFeature to be added.
+   * @param speciesFeature the SpeciesFeature to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addSpeciesFeature (const SpeciesFeature* speciesFeature);
 
 
   /**
-   * Creates a new SpeciesFeature object and adds it to the ListOfSpeciesFeatures in this plugin object.
+   * Creates a new SpeciesFeature object and adds it to the
+   * ListOfSpeciesFeatures of this "multi" Species.
    *
    * @return the newly created SpeciesFeature object.
    */
@@ -417,72 +408,64 @@ public:
 
 
   /**
-   * Returns the SubListOfSpeciesFeatures object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * Returns the nth SubListOfSpeciesFeatures object.
    *
    * @param n the index number of the SubListOfSpeciesFeatures to get
    *
-   * @return the nth SubListOfSpeciesFeatures in the ListOfSpeciesFeatures
+   * @return the nth SubListOfSpeciesFeatures in the ListOfSpeciesFeatures.
+   * If the index is invalid, NULL is returned.
    */
   const SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(unsigned int n) const;
 
 
   /**
-   * Returns the SubListOfSpeciesFeatures object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * Returns the nth SubListOfSpeciesFeatures object.
    *
    * @param n the index number of the SubListOfSpeciesFeatures to get
    *
-   * @return the nth SubListOfSpeciesFeatures in the ListOfSpeciesFeatures
+   * @return the nth SubListOfSpeciesFeatures in the ListOfSpeciesFeatures.
+   * If the index is invalid, NULL is returned.
    */
   SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(unsigned int n);
 
 
   /**
-   * Returns the SubListOfSpeciesFeatures object based on its identifier.
+   * Returns the SubListOfSpeciesFeatures object with the given identifier @p sid.
    *
-   * @param sid a string representing the id of the SubListOfSpeciesFeatures to get
+   * @param sid the id of the SubListOfSpeciesFeatures to get.
    *
-   * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the given id
-   * or NULL if no such SubListOfSpeciesFeatures exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the
+   * given id @p sid, or NULL if no such SubListOfSpeciesFeatures exists.
    */
   const SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(const std::string& sid) const;
 
 
   /**
-   * Returns the SubListOfSpeciesFeatures object based on its identifier.
+   * Returns the SubListOfSpeciesFeatures object with the given identifier @p sid.
    *
-   * @param sid a string representing the id of the SubListOfSpeciesFeatures to get
+   * @param sid the id of the SubListOfSpeciesFeatures to get.
    *
-   * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the given id
-   * or NULL if no such SubListOfSpeciesFeatures exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the
+   * given id @p sid, or NULL if no such SubListOfSpeciesFeatures exists.
    */
   SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given SubListOfSpeciesFeatures to the ListOfSpeciesFeatures in this plugin object.
+   * Adds a copy of the given SubListOfSpeciesFeatures to the
+   * ListOfSpeciesFeatures.
    *
-   * @param SubListOfSpeciesFeatures the SubListOfSpeciesFeatures to be added.
+   * @param subListOfSpeciesFeatures the SubListOfSpeciesFeatures to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addSubListOfSpeciesFeatures (SubListOfSpeciesFeatures* subListOfSpeciesFeatures);
 
 
   /**
-   * Creates a new SubListOfSpeciesFeatures object and
-   * adds it to the SubListOfSpeciesFeatures in this plugin object.
+   * Creates a new SubListOfSpeciesFeatures object and adds it to the
+   * SubListOfSpeciesFeatures.
    *
    * @return the newly created SubListOfSpeciesFeatures object.
    */
@@ -490,44 +473,39 @@ public:
 
 
   /**
-   * Removes the nth SpeciesFeature object from this plugin object
-   * and returns a pointer to it.
+   * Removes the nth SpeciesFeature object and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param n the index of the SpeciesFeature to remove.
    *
-   * @param n the index of the SpeciesFeature to remove
-   *
-   * @return the SpeciesFeature object removed 
-   * or NULL index was out of range.
+   * @return the SpeciesFeature object removed or NULL index was out of
+   * range.  Note that the caller owns the returned object and is responsible
+   * for deleting it.
    */
   SpeciesFeature* removeSpeciesFeature(unsigned int n);
 
 
   /**
-   * Removes the SpeciesFeature object with the given id from this plugin object
-   * and returns a pointer to it.
+   * Removes the SpeciesFeature object with the given identifier @p sid.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param sid a string representing the id of the SpeciesFeature to get.
    *
-   * @param sid a string representing the id of the SpeciesFeature to remove
-   *
-   * @return the SpeciesFeature object removed 
-   * or NULL if no such SpeciesFeature exists.
+   * @return the SpeciesFeature object removed or NULL index was out of
+   * range.  Note that the caller owns the returned object and is responsible
+   * for deleting it.
    */
   SpeciesFeature* removeSpeciesFeature(const std::string& sid);
 
 
   /**
-   * Returns the number of SpeciesFeature objects in this plugin object.
+   * Returns the number of SpeciesFeature objects of this "multi" Species.
    *
    * @return the number of SpeciesFeature objects in this plugin object.
    */
   unsigned int getNumSpeciesFeatures () const;
 
+
   /**
-   * Returns the number of SubListOfSpeciesFeatures objects in this plugin object.
+   * Returns the number of SubListOfSpeciesFeatures objects of this "multi" Species.
    *
    * @return the number of SubListOfSpeciesFeatures objects in this plugin object.
    */
@@ -535,86 +513,65 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void connectToParent (SBase* sbase);
 
   virtual void connectToChild();
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
 
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Read values from the given XMLAttributes set into their specific fields.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   ListOfOutwardBindingSites mOutwardBindingSites;
   ListOfSpeciesFeatures mSpeciesFeatures;
 
   std::string   mSpeciesType;
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 };
 

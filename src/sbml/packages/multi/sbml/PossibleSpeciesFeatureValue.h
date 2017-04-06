@@ -24,6 +24,23 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class PossibleSpeciesFeatureValue
+ * @sbmlbrief{multi} Defines one value of a SpeciesFeature.
+ *
+ * The PossibleSpeciesFeatureValue object is a child of a SpeciesFeatureType,
+ * and defines one value (though its optional "numericValue" attribute) which
+ * the parent SpeciesFeatureType can hold.
+ *
+ * @class ListOfPossibleSpeciesFeatureValues
+ * @sbmlbrief{multi} A list of PossibleSpeciesFeatureValue objects.
+ *
+ * The ListOfPossibleSpeciesFeatureValues is a container for
+ * PossibleSpeciesFeatureValue objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see PossibleSpeciesFeatureValue
  */
 
 
@@ -55,21 +72,25 @@ class LIBSBML_EXTERN PossibleSpeciesFeatureValue : public SBase
 
 protected:
 
-////  std::string   mId;
-////  std::string   mName;
+  /** @cond doxygenLibsbmlInternal */
+
+  ////  std::string   mId;
+  ////  std::string   mName;
   std::string   mNumericValue;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new PossibleSpeciesFeatureValue with the given level, version, and package version.
+   * Creates a new PossibleSpeciesFeatureValue object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this PossibleSpeciesFeatureValue
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this PossibleSpeciesFeatureValue
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this PossibleSpeciesFeatureValue
+   * @copydetails doc_note_setting_lv_pkg
    */
   PossibleSpeciesFeatureValue(unsigned int level      = MultiExtension::getDefaultLevel(),
                               unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -77,31 +98,36 @@ public:
 
 
   /**
-   * Creates a new PossibleSpeciesFeatureValue with the given MultiPkgNamespaces object.
+   * Creates a new PossibleSpeciesFeatureValue with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   PossibleSpeciesFeatureValue(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for PossibleSpeciesFeatureValue.
    *
-   * @param orig; the PossibleSpeciesFeatureValue instance to copy.
+   * @param orig the PossibleSpeciesFeatureValue instance to copy.
    */
   PossibleSpeciesFeatureValue(const PossibleSpeciesFeatureValue& orig);
 
 
-   /**
+  /**
    * Assignment operator for PossibleSpeciesFeatureValue.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   PossibleSpeciesFeatureValue& operator=(const PossibleSpeciesFeatureValue& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this PossibleSpeciesFeatureValue object.
    *
    * @return a (deep) copy of this PossibleSpeciesFeatureValue object.
@@ -109,26 +135,28 @@ public:
   virtual PossibleSpeciesFeatureValue* clone () const;
 
 
-   /**
+  /**
    * Destructor for PossibleSpeciesFeatureValue.
    */
   virtual ~PossibleSpeciesFeatureValue();
 
 
    /**
-   * Returns the value of the "id" attribute of this PossibleSpeciesFeatureValue.
+   * Returns the value of the "id" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @return the value of the "id" attribute of this PossibleSpeciesFeatureValue as a string.
+   * @return the value of the "id" attribute of this
+   * PossibleSpeciesFeatureValue as a string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * PossibleSpeciesFeatureValue's "id" attribute has been set.
+   * Returns @c true if this PossibleSpeciesFeatureValue's "id" attribute has
+   * been set.
    *
-   * @return @c true if this PossibleSpeciesFeatureValue's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this PossibleSpeciesFeatureValue's "id" attribute has
+   * been set; otherwise, @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -136,14 +164,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this PossibleSpeciesFeatureValue.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -151,30 +176,29 @@ public:
   /**
    * Unsets the value of the "id" attribute of this PossibleSpeciesFeatureValue.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
 
   /**
-   * Returns the value of the "name" attribute of this PossibleSpeciesFeatureValue.
+   * Returns the value of the "name" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @return the value of the "name" attribute of this PossibleSpeciesFeatureValue as a string.
+   * @return the value of the "name" attribute of this
+   * PossibleSpeciesFeatureValue as a string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * PossibleSpeciesFeatureValue's "name" attribute has been set.
+   * Returns @c true if this PossibleSpeciesFeatureValue's "name" attribute
+   * has been set.
    *
-   * @return @c true if this PossibleSpeciesFeatureValue's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this PossibleSpeciesFeatureValue's "name" attribute
+   * has been set; otherwise, @c false is returned.
    */
   virtual bool isSetName() const;
 
@@ -182,73 +206,66 @@ public:
   /**
    * Sets the value of the "name" attribute of this PossibleSpeciesFeatureValue.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name the new "name" attribute value.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
 
   /**
-   * Unsets the value of the "name" attribute of this PossibleSpeciesFeatureValue.
+   * Unsets the value of the "name" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
   /**
-   * Returns the value of the "numericValue" attribute of this PossibleSpeciesFeatureValue.
+   * Returns the value of the "numericValue" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @return the value of the "numericValue" attribute of this PossibleSpeciesFeatureValue as a string.
+   * @return the value of the "numericValue" attribute of this
+   * PossibleSpeciesFeatureValue as a string.
    */
   virtual const std::string& getNumericValue() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * PossibleSpeciesFeatureValue's "numericValue" attribute has been set.
+   * Returns @c true if this PossibleSpeciesFeatureValue's "numericValue"
+   * attribute has been set.
    *
-   * @return @c true if this PossibleSpeciesFeatureValue's "numericValue" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this PossibleSpeciesFeatureValue's "numericValue"
+   * attribute has been set; otherwise, @c false is returned.
    */
   virtual bool isSetNumericValue() const;
 
 
   /**
-   * Sets the value of the "numericValue" attribute of this PossibleSpeciesFeatureValue.
+   * Sets the value of the "numericValue" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @param numericValue; const std::string& value of the "numericValue" attribute to be set
+   * @param numericValue the new "numericValue" attribute value.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setNumericValue(const std::string& numericValue);
 
 
   /**
-   * Unsets the value of the "numericValue" attribute of this PossibleSpeciesFeatureValue.
+   * Unsets the value of the "numericValue" attribute of this
+   * PossibleSpeciesFeatureValue.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetNumericValue();
 
@@ -269,8 +286,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for PossibleSpeciesFeatureValue, is
-   * always @c "possibleSpeciesFeatureValue".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "possibleSpeciesFeatureValue".
    */
@@ -279,33 +295,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -324,50 +323,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -380,7 +367,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -392,7 +379,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -403,7 +390,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -415,13 +402,13 @@ class LIBSBML_EXTERN ListOfPossibleSpeciesFeatureValues : public ListOf
 public:
 
   /**
-   * Creates a new ListOfPossibleSpeciesFeatureValues with the given level, version, and package version.
+   * Creates a new ListOfPossibleSpeciesFeatureValues object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfPossibleSpeciesFeatureValues
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfPossibleSpeciesFeatureValues
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this ListOfPossibleSpeciesFeatureValues
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfPossibleSpeciesFeatureValues(unsigned int level      = MultiExtension::getDefaultLevel(),
                                      unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -429,27 +416,34 @@ public:
 
 
   /**
-   * Creates a new ListOfPossibleSpeciesFeatureValues with the given MultiPkgNamespaces object.
+   * Creates a new ListOfPossibleSpeciesFeatureValues with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfPossibleSpeciesFeatureValues(MultiPkgNamespaces* multins);
 
 
-   /**
-   * Creates and returns a deep copy of this ListOfPossibleSpeciesFeatureValues object.
+  /**
+   * Creates and returns a deep copy of this
+   * ListOfPossibleSpeciesFeatureValues object.
    *
    * @return a (deep) copy of this ListOfPossibleSpeciesFeatureValues object.
    */
   virtual ListOfPossibleSpeciesFeatureValues* clone () const;
 
 
-   /**
-   * Get a PossibleSpeciesFeatureValue from the ListOfPossibleSpeciesFeatureValues.
+  /**
+   * Get the nth PossibleSpeciesFeatureValue object from the
+   * ListOfPossibleSpeciesFeatureValues.
    *
    * @param n the index number of the PossibleSpeciesFeatureValue to get.
    *
-   * @return the nth PossibleSpeciesFeatureValue in this ListOfPossibleSpeciesFeatureValues.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -457,11 +451,12 @@ public:
 
 
   /**
-   * Get a PossibleSpeciesFeatureValue from the ListOfPossibleSpeciesFeatureValues.
+   * Get the nth PossibleSpeciesFeatureValue object from the
+   * ListOfPossibleSpeciesFeatureValues.
    *
    * @param n the index number of the PossibleSpeciesFeatureValue to get.
    *
-   * @return the nth PossibleSpeciesFeatureValue in this ListOfPossibleSpeciesFeatureValues.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -469,15 +464,12 @@ public:
 
 
   /**
-   * Get a PossibleSpeciesFeatureValue from the ListOfPossibleSpeciesFeatureValues
-   * based on its identifier.
+   * Get the PossibleSpeciesFeatureValue with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the PossibleSpeciesFeatureValue to get.
+   * @param sid a string representing the identifier of the
+   * PossibleSpeciesFeatureValue to get.
    *
-   * @return PossibleSpeciesFeatureValue in this ListOfPossibleSpeciesFeatureValues
-   * with the given id or NULL if no such
-   * PossibleSpeciesFeatureValue exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -486,15 +478,12 @@ public:
 
 
   /**
-   * Get a PossibleSpeciesFeatureValue from the ListOfPossibleSpeciesFeatureValues
-   * based on its identifier.
+   * Get the PossibleSpeciesFeatureValue with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the PossibleSpeciesFeatureValue to get.
+   * @param sid a string representing the identifier of the
+   * PossibleSpeciesFeatureValue to get.
    *
-   * @return PossibleSpeciesFeatureValue in this ListOfPossibleSpeciesFeatureValues
-   * with the given id or NULL if no such
-   * PossibleSpeciesFeatureValue exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -503,12 +492,13 @@ public:
 
 
   /**
-   * Removes the nth PossibleSpeciesFeatureValue from this ListOfPossibleSpeciesFeatureValues
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth PossibleSpeciesFeatureValue object from the
+   * ListOfPossibleSpeciesFeatureValues.
    *
    * @param n the index of the PossibleSpeciesFeatureValue to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -516,24 +506,18 @@ public:
 
 
   /**
-   * Removes the PossibleSpeciesFeatureValue from this ListOfPossibleSpeciesFeatureValues with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the PossibleSpeciesFeatureValue with the given identifier @p sid.
    *
    * @param sid the identifier of the PossibleSpeciesFeatureValue to remove.
    *
-   * @return the PossibleSpeciesFeatureValue removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual PossibleSpeciesFeatureValue* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfPossibleSpeciesFeatureValues, is
-   * always @c "listOfPossibleSpeciesFeatureValues".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "listOfPossibleSpeciesFeatureValues".
    */
@@ -542,67 +526,31 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -617,7 +565,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -628,7 +576,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

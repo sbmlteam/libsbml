@@ -5087,6 +5087,12 @@ L3P_MODULO_IS_PIECEWISE = _libsbml.L3P_MODULO_IS_PIECEWISE
 L3P_MODULO_IS_REM = _libsbml.L3P_MODULO_IS_REM
     ## @var long L3P_MODULO_IS_REM
 
+L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC = _libsbml.L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC
+    ## @var long L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC
+
+L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY = _libsbml.L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY
+    ## @var long L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY
+
 INFIX_SYNTAX_NAMED_SQUARE_BRACKETS = _libsbml.INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
     ## @var long INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
     ##
@@ -12371,6 +12377,204 @@ QualFuncTermResultMustBeNonNeg = _libsbml.QualFuncTermResultMustBeNonNeg
     ## libSBML &ldquo;qual&rdquo; extension for objects of class 
     ## SBMLError.  Please consult the documentation for  SBMLError
     ## for an explanation of the meaning of this particular error code.
+
+
+MULTI_BINDING_STATUS_BOUND = _libsbml.MULTI_BINDING_STATUS_BOUND
+    ## @var long MULTI_BINDING_STATUS_BOUND
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_BINDING_STATUS_EITHER = _libsbml.MULTI_BINDING_STATUS_EITHER
+    ## @var long MULTI_BINDING_STATUS_EITHER
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_BINDING_STATUS_UNBOUND = _libsbml.MULTI_BINDING_STATUS_UNBOUND
+    ## @var long MULTI_BINDING_STATUS_UNBOUND
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_BINDING_STATUS_UNKNOWN = _libsbml.MULTI_BINDING_STATUS_UNKNOWN
+    ## @var long MULTI_BINDING_STATUS_UNKNOWN
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_RELATION_AND = _libsbml.MULTI_RELATION_AND
+    ## @var long MULTI_RELATION_AND
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_RELATION_NOT = _libsbml.MULTI_RELATION_NOT
+    ## @var long MULTI_RELATION_NOT
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_RELATION_OR = _libsbml.MULTI_RELATION_OR
+    ## @var long MULTI_RELATION_OR
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+MULTI_RELATION_UNKNOWN = _libsbml.MULTI_RELATION_UNKNOWN
+    ## @var long MULTI_RELATION_UNKNOWN
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_BINDING_SITE_SPECIES_TYPE = _libsbml.SBML_MULTI_BINDING_SITE_SPECIES_TYPE
+    ## @var long SBML_MULTI_BINDING_SITE_SPECIES_TYPE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_COMPARTMENT_REFERENCE = _libsbml.SBML_MULTI_COMPARTMENT_REFERENCE
+    ## @var long SBML_MULTI_COMPARTMENT_REFERENCE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_INTRA_SPECIES_REACTION = _libsbml.SBML_MULTI_INTRA_SPECIES_REACTION
+    ## @var long SBML_MULTI_INTRA_SPECIES_REACTION
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_IN_SPECIES_TYPE_BOND = _libsbml.SBML_MULTI_IN_SPECIES_TYPE_BOND
+    ## @var long SBML_MULTI_IN_SPECIES_TYPE_BOND
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_OUTWARD_BINDING_SITE = _libsbml.SBML_MULTI_OUTWARD_BINDING_SITE
+    ## @var long SBML_MULTI_OUTWARD_BINDING_SITE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE = _libsbml.SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE
+    ## @var long SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_FEATURE = _libsbml.SBML_MULTI_SPECIES_FEATURE
+    ## @var long SBML_MULTI_SPECIES_FEATURE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_FEATURE_TYPE = _libsbml.SBML_MULTI_SPECIES_FEATURE_TYPE
+    ## @var long SBML_MULTI_SPECIES_FEATURE_TYPE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_FEATURE_VALUE = _libsbml.SBML_MULTI_SPECIES_FEATURE_VALUE
+    ## @var long SBML_MULTI_SPECIES_FEATURE_VALUE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_TYPE = _libsbml.SBML_MULTI_SPECIES_TYPE
+    ## @var long SBML_MULTI_SPECIES_TYPE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX = _libsbml.SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX
+    ## @var long SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT = _libsbml.SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT
+    ## @var long SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SPECIES_TYPE_INSTANCE = _libsbml.SBML_MULTI_SPECIES_TYPE_INSTANCE
+    ## @var long SBML_MULTI_SPECIES_TYPE_INSTANCE
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
+
+
+SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES = _libsbml.SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES
+    ## @var long SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES
+    ##
+    ## <span class="pkg-marker pkg-color-multi">multi</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Multistate,
+    ## Multicomponent and Multicompartment %Species package.
 
 
 LIBSBML_OVERRIDE_DISABLED = _libsbml.LIBSBML_OVERRIDE_DISABLED    

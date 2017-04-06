@@ -38,21 +38,25 @@
 
 using namespace std;
 
-/** @endcond doxygenLibsbmlInternal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond doxygenLibsbmlInternal */
 MultiSBMLDocumentPlugin::MultiSBMLDocumentPlugin (const string &uri, 
                               const string &prefix, MultiPkgNamespaces *multins)
   : SBMLDocumentPlugin(uri,prefix, multins)
 {
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 MultiSBMLDocumentPlugin::MultiSBMLDocumentPlugin(const MultiSBMLDocumentPlugin& orig)
   : SBMLDocumentPlugin(orig)
 {
 }
+/** @endcond */
 
 
 MultiSBMLDocumentPlugin& 
@@ -122,16 +126,19 @@ MultiSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   }
 }
 
-/** @endcond doxygenLibsbmlInternal*/
+/** @endcond*/
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 MultiSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return false;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 MultiSBMLDocumentPlugin::checkConsistency()
 {
@@ -207,6 +214,7 @@ MultiSBMLDocumentPlugin::checkConsistency()
 
   return total_errors;  
 }
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

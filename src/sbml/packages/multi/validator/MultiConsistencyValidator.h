@@ -57,6 +57,6 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* MultiConsistencyValidator_H__ */
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 

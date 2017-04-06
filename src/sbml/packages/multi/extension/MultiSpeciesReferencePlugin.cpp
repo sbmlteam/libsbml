@@ -103,6 +103,7 @@ MultiSpeciesReferencePlugin::~MultiSpeciesReferencePlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -134,8 +135,10 @@ MultiSpeciesReferencePlugin::createObject (XMLInputStream& stream)
 
   return object; 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -147,6 +150,7 @@ MultiSpeciesReferencePlugin::writeElements (XMLOutputStream& stream) const
     mSpeciesTypeComponentMapInProducts.write(stream);
   } 
 }
+/** @endcond */
 
 
 /*
@@ -337,6 +341,7 @@ MultiSpeciesReferencePlugin::getNumSpeciesTypeComponentMapInProducts () const
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -347,8 +352,10 @@ MultiSpeciesReferencePlugin::setSBMLDocument(SBMLDocument* d)
 
   mSpeciesTypeComponentMapInProducts.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -359,8 +366,10 @@ MultiSpeciesReferencePlugin::connectToParent(SBase* sbase)
 
   mSpeciesTypeComponentMapInProducts.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -370,8 +379,10 @@ MultiSpeciesReferencePlugin::enablePackageInternal(const std::string& pkgURI,
 {
   mSpeciesTypeComponentMapInProducts.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -388,6 +399,7 @@ MultiSpeciesReferencePlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

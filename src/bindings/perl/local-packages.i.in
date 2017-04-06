@@ -15,3 +15,6 @@
 #ifdef USE_QUAL
 %include "local-qual.i"
 #endif
+#ifdef USE_MULTI
+%include "local-multi.i"
+#endif

@@ -104,6 +104,7 @@ MultiSimpleSpeciesReferencePlugin::~MultiSimpleSpeciesReferencePlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -126,8 +127,10 @@ MultiSimpleSpeciesReferencePlugin::createObject (XMLInputStream& stream)
 
   return object; 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -135,6 +138,7 @@ void
 MultiSimpleSpeciesReferencePlugin::writeElements (XMLOutputStream& stream) const
 {
 }
+/** @endcond */
 
 
 /*
@@ -162,7 +166,7 @@ MultiSimpleSpeciesReferencePlugin::addExpectedAttributes(ExpectedAttributes& att
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -233,7 +237,7 @@ MultiSimpleSpeciesReferencePlugin::readAttributes (const XMLAttributes& attribut
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -249,7 +253,7 @@ MultiSimpleSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) con
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -331,6 +335,7 @@ MultiSimpleSpeciesReferencePlugin::getAllElements(ElementFilter* filter)
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -340,8 +345,10 @@ MultiSimpleSpeciesReferencePlugin::setSBMLDocument(SBMLDocument* d)
   SBasePlugin::setSBMLDocument(d);
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -351,8 +358,10 @@ MultiSimpleSpeciesReferencePlugin::connectToParent(SBase* sbase)
   SBasePlugin::connectToParent(sbase);
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -361,8 +370,10 @@ MultiSimpleSpeciesReferencePlugin::enablePackageInternal(const std::string& pkgU
                                    const std::string& pkgPrefix, bool flag)
 {
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -374,6 +385,7 @@ MultiSimpleSpeciesReferencePlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

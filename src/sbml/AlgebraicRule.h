@@ -72,6 +72,15 @@
  * reactions lacking kinetic laws are simply undefined, and not determined by
  * the algebraic rule.)
  *
+ * In SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1, the "math"
+ * subelement of the AlgebraicRule is required.  In SBML Level&nbsp;3
+ * Version&nbsp;2, this rule is relaxed, and the subelement is
+ * optional.  If an AlgebraicRule with no "math" child is present
+ * in the model, no additional mathematical constraints on the model are
+ * added by the rule.  This may represent a situation where the model itself
+ * is unfinished, or the missing information may be provided by an
+ * SBML Level&nbsp;3 package.
+ *
  * Finally, any symbol that appears as the target of a rateOf csymbol 
  * (@sbmlconstant{AST_FUNCTION_RATE_OF, ASTNodeType_t}, introduced in 
  * SBML Level&nbsp;3 Version&nbsp;2) may 

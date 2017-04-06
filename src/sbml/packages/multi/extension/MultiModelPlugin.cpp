@@ -106,6 +106,7 @@ MultiModelPlugin::~MultiModelPlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -160,8 +161,10 @@ MultiModelPlugin::createObject(XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -173,6 +176,7 @@ MultiModelPlugin::writeElements (XMLOutputStream& stream) const
     mListOfMultiSpeciesTypes.write(stream);
   } 
 }
+/** @endcond */
 
 
 /*
@@ -417,6 +421,7 @@ MultiModelPlugin::createIntraSpeciesReaction ()
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -427,8 +432,10 @@ MultiModelPlugin::setSBMLDocument(SBMLDocument* d)
 
   mListOfMultiSpeciesTypes.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -439,8 +446,10 @@ MultiModelPlugin::connectToParent(SBase* sbase)
 
   mListOfMultiSpeciesTypes.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -450,8 +459,10 @@ MultiModelPlugin::enablePackageInternal(const std::string& pkgURI,
 {
   mListOfMultiSpeciesTypes.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -468,7 +479,7 @@ MultiModelPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
+/** @endcond */
 
 
 

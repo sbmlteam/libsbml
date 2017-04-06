@@ -23,6 +23,9 @@ that is itself composed of submodels; (right) a model composed of submodels,
 one of which is defined in an external file.</figcaption>
 </figure>
 
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Hierarchical Model Composition specification are Lucian P. Smith, Michael Hucka, Stefan Hoops, Andrew Finney, Martin Ginkel, Chris J. Myers, Ion Moraru and Wolfram Liebermeister.
 
 <h2>The specification for this SBML package</h2>
 

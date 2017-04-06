@@ -58,15 +58,14 @@ color_table = [
     # Name,   red,   green,   blue
     ['comp',    '205',  '200',  '230'],
     ['fbc',     '190',  '230',  '215'],
-    ['layout',  '250',  '220',  '170'],
+    ['layout',  '250',  '230',  '170'],
     ['qual',    '160',  '185',  '235'],
-    ['multi',   '223',  '189',  '30'],
+    ['multi',   '120',  '120',  '120'],
     ['groups',  '250',  '170',  '210'],
-    ['arrays',  '55',   '221',  '177'],
+    ['arrays',  '0',    '150',  '132'],
     ['distrib', '243',  '250',  '134'],
-    ['spatial', '0',    '150',  '132'],
-    ['req',     '100',  '100',  '100'],
-    ['render',  '225',  '225',  '225']
+    ['spatial', '223',  '170',  '20'],
+    ['render',  '55',   '221',  '177'],
 ]
 
 
@@ -132,7 +131,7 @@ after_template = '''{{
     font-weight: normal;
     line-height: 100%;
     text-align: center;
-    color: #333 !important;
+    color: #000 !important;
     background-color: rgba({1}, {2}, {3}, 0.35);
     border: 1px solid rgb({1}, {2}, {3});
     border-radius: 5px;
@@ -190,27 +189,27 @@ def main(args):
         # benign bit of CSS that doesn't change anything.  See
         # http://stackoverflow.com/a/8988418/743730
         for c in classes:
-            comma = (',' if c != last else '')
             # This next format works for Javadoc version 1.6:
-            print ('.FrameItemFont a[href$="{}.html"]{}'.format(c, comma))
+            print ('.FrameItemFont a[href$="{}.html"],'.format(c))
             # This next format works for Javadoc versions after version 1.6:
+            comma = (',' if c != last else '')
             print ('.indexContainer a[href$="{}.html"]{}'.format(c, comma))
         print (safari_bugfix_template)
 
         # With that out of the way, we can write the real CSS.
         for c in classes:
-            comma = (',' if c != last else '')
             # This next format works for Javadoc version 1.6:
-            print ('.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma))
+            print ('.FrameItemFont a[href$="{}.html"]:before,'.format(c))
             # This next format works for Javadoc versions after version 1.6:
+            comma = (',' if c != last else '')
             print ('.indexContainer a[href$="{}.html"]:before{}'.format(c, comma))
         print (before_template.format(pkg, color[1], color[2], color[3]))
 
         for c in classes:
-            comma = (',' if c != last else '')
             # This next format works for Javadoc version 1.6:
-            print ('.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma))
+            print ('.FrameItemFont a[href$="{}.html"]:after,'.format(c))
             # This next format works for Javadoc versions after version 1.6:
+            comma = (',' if c != last else '')
             print ('.indexContainer a[href$="{}.html"]:after{}'.format(c, comma))
         print (after_template.format(pkg, color[1], color[2], color[3]))
 

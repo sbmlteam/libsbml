@@ -218,6 +218,11 @@ ifdef USE_QUAL
                 packages/qual/common \
                 packages/qual/validator packages/qual/validator/constraints
 endif
+ifdef USE_MULTI
+  otherdirs +=  packages/multi/extension packages/multi/sbml  \
+                packages/multi/common \
+                packages/multi/validator packages/multi/validator/constraints
+endif
 
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 

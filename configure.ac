@@ -175,6 +175,19 @@ if test "$enable_groups" != no; then
   AC_SUBST(LIBSBML_HAS_PACKAGE_GROUPS, 1)
 fi
 
+AC_ARG_ENABLE([multi],
+  AS_HELP_STRING([--enable-multi@<:@=ARG@:>@],
+                 [build support for SBML 'multi' @<:@default=no@:>@]),
+  [enable_multi=$enableval],
+  [enable_multi=no])
+
+if test "$enable_multi" != no; then
+  AC_DEFINE([USE_MULTI], 1, [Define to 1 to build support for SBML 'multi'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_MULTI], 1, [Define to 1 to build support for SBML 'multi'.])
+  AC_SUBST(USE_MULTI, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_MULTI, 1)
+fi
+
 dnl -------------------------------------------------------
 dnl Other SBML L3 package variables
 dnl -------------------------------------------------------
@@ -548,6 +561,20 @@ if test "$enable_qual" != "no" ; then
 fi
 fi
 
+if test -d src/sbml/packages/multi; then
+if test "$enable_multi" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/multi/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/sbml/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/multi/validator/test/Makefile])
+  AC_CONFIG_FILES([examples/c++/multi/Makefile])
+fi
+fi
+
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/index.html])
 AC_CONFIG_FILES([docs/src/Makefile])
@@ -563,6 +590,7 @@ AC_CONFIG_FILES([docs/src/common-text/libsbml-group-comp-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-fbc-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-groups-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-layout-intro.html])
+AC_CONFIG_FILES([docs/src/common-text/libsbml-group-multi-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-qual-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-installation.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
@@ -823,6 +851,9 @@ if test "$enable_fbc" != "no" ; then
 fi
 if test "$enable_groups" != "no" ; then
   echo "  SBML 'groups'                 = $enable_groups"
+fi
+if test "$enable_multi" != "no" ; then
+  echo "  SBML 'multi'                  = $enable_multi"
 fi
 if test "$enable_layout" != "no" ; then
   echo "  SBML 'layout'                 = $enable_layout"

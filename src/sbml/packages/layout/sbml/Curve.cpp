@@ -247,13 +247,15 @@ ListOfLineSegments::remove (unsigned int n)
 }
 
 
-bool 
+/** @cond doxygenLibsbmlInternal */
+bool
 ListOfLineSegments::isValidTypeForList(SBase * item)
 {
   int tc = item->getTypeCode();
   return ((tc == SBML_LAYOUT_CUBICBEZIER )
     ||    (tc == SBML_LAYOUT_LINESEGMENT ) );
 }
+/** @endcond */
 
 
 /*

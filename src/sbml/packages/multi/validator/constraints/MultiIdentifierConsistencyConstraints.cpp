@@ -141,6 +141,6 @@ EXTERN_CONSTRAINT( MultiUnqId_CpaRef, UniqueCompartmentReferenceIdsWithinCompart
 
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 

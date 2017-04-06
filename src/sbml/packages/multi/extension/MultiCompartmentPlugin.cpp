@@ -114,6 +114,7 @@ MultiCompartmentPlugin::~MultiCompartmentPlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -163,8 +164,10 @@ MultiCompartmentPlugin::createObject(XMLInputStream& stream)
 
   return object;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -176,6 +179,7 @@ MultiCompartmentPlugin::writeElements (XMLOutputStream& stream) const
     mListOfCompartmentReferences.write(stream);
   } 
 }
+/** @endcond */
 
 
 /*
@@ -204,7 +208,7 @@ MultiCompartmentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -323,7 +327,7 @@ MultiCompartmentPlugin::readAttributes (const XMLAttributes& attributes,
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -342,7 +346,7 @@ MultiCompartmentPlugin::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -623,6 +627,7 @@ MultiCompartmentPlugin::getNumCompartmentReferences () const
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -633,8 +638,10 @@ MultiCompartmentPlugin::setSBMLDocument(SBMLDocument* d)
 
   mListOfCompartmentReferences.setSBMLDocument(d);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -645,8 +652,10 @@ MultiCompartmentPlugin::connectToParent(SBase* sbase)
 
   mListOfCompartmentReferences.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -656,8 +665,10 @@ MultiCompartmentPlugin::enablePackageInternal(const std::string& pkgURI,
 {
   mListOfCompartmentReferences.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -674,6 +685,7 @@ MultiCompartmentPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

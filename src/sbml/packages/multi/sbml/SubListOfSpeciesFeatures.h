@@ -1,8 +1,46 @@
-/*
- * SubListOfSpeciesFeatures.h
+/**
+ * @file:   SubListOfSpeciesFeatures.h
+ * @brief:  Implementation of the SubListOfSpeciesFeatures class
+ * @author: Fengkai Zhang
  *
- *  Created on: Apr 1, 2016
- *      Author: Fengkai Zhang
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2009-2017 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ *
+ * @class SubListOfSpeciesFeatures
+ * @sbmlbrief{multi} Defines a set of SpeciesFeature objects.
+ *
+ * The SubListOfSpeciesFeatures object is an optional child of the
+ * ListOfSpeciesFeatures list child of the extended Species (via the
+ * MultiSpeciesPlugin object).  Listed alongside its sibling SpeciesFeature
+ * objects, it allows the user to define a set of two or more SpeciesFeature
+ * elements that have a logical relationship with each other.  This
+ * relationship is defined by the "relation" attribute, which is of type
+ * @if java {@link Relation_t} @else@link Relation_t Relation_t@endlink@endif,
+ * and can be "and", "or", "not".  (An "unknown" option is provided here for
+ * incomplete models, but cannot be used in a valid SBML document.)  If any
+ * SpeciesFeature involved in a SubListOfSpeciesFeatures references a
+ * SpeciesFeatureType with an "occur" attribute greater than 1, the
+ * SubListOfSpeciesFeatures can only have the value "and" for its relation
+ * attribute.
  */
 
 #ifndef SubListOfSpeciesFeatures_H__
@@ -12,12 +50,21 @@
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/multi/common/multifwd.h>
 
+ /**
+ * @enum  Relation_t
+ * @brief Enumeration of possible relations between the children of a
+ * SubListOfSpeciesFeatures in the libSBML "multi" package implementation.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @copydetails doc_additional_typecode_details
+ */
 typedef enum
 {
-    MULTI_RELATION_AND
-  , MULTI_RELATION_OR
-  , MULTI_RELATION_NOT
-  , MULTI_RELATION_UNKNOWN
+    MULTI_RELATION_AND     /** The SpeciesFeature children of the SubListOfSpeciesFeatures share an 'and' relationship. */
+  , MULTI_RELATION_OR      /** The SpeciesFeature children of the SubListOfSpeciesFeatures share an 'or' relationship. */
+  , MULTI_RELATION_NOT     /** The SpeciesFeature children of the SubListOfSpeciesFeatures share a 'not' relationship. */
+  , MULTI_RELATION_UNKNOWN /** The SpeciesFeature children of the SubListOfSpeciesFeatures share an unknown relationship.  This value is not permitted for valid SBML models. */
 } Relation_t;
 
 
@@ -39,20 +86,25 @@ class LIBSBML_EXTERN SubListOfSpeciesFeatures : public ListOf
 
 protected:
 
-////  std::string   mId;
+  /** @cond doxygenLibsbmlInternal */
+
+  ////  std::string   mId;
   Relation_t mRelation;
   std::string   mComponent;
+
+  /** @endcond */
+
 
 public:
 
   /**
-   * Creates a new SubListOfSpeciesFeatures with the given level, version, and package version.
+   * Creates a new SubListOfSpeciesFeatures object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SubListOfSpeciesFeatures
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this SubListOfSpeciesFeatures
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this SubListOfSpeciesFeatures
+   * @copydetails doc_note_setting_lv_pkg
    */
   SubListOfSpeciesFeatures(unsigned int level      = MultiExtension::getDefaultLevel(),
                         unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -60,9 +112,14 @@ public:
 
 
   /**
-   * Creates a new SubListOfSpeciesFeatures with the given MultiPkgNamespaces object.
+   * Creates a new SubListOfSpeciesFeatures with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   SubListOfSpeciesFeatures(MultiPkgNamespaces* multins);
 
@@ -70,12 +127,12 @@ public:
   /**
    * Creates and return a copy of SubListOfSpeciesFeatures.
    *
-   * @param subListOfSpeciesFeatures this SubListOfSpeciesFeatures object
+   * @param orig this SubListOfSpeciesFeatures object
    */
-  SubListOfSpeciesFeatures(const SubListOfSpeciesFeatures & multins);
+  SubListOfSpeciesFeatures(const SubListOfSpeciesFeatures &orig);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this SubListOfSpeciesFeatures object.
    *
    * @return a (deep) copy of this SubListOfSpeciesFeatures object.
@@ -83,162 +140,153 @@ public:
   virtual SubListOfSpeciesFeatures* clone () const;
 
 
-   /**
+  /**
    * Destroys this SubListOfSpeciesFeatures object.
    */
   virtual ~SubListOfSpeciesFeatures();
 
   /**
-  * Returns the value of the "id" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return the value of the "id" attribute of this SubListOfSpeciesFeatures as a string.
-  */
- virtual const std::string& getId() const;
+   * Returns the value of the "id" attribute of this SubListOfSpeciesFeatures.
+   *
+   * @return the value of the "id" attribute of this SubListOfSpeciesFeatures as a string.
+   */
+  virtual const std::string& getId() const;
 
 
- /**
-  * Predicate returning @c true or @c false depending on whether this
-  * SubListOfSpeciesFeatures's "id" attribute has been set.
-  *
-  * @return @c true if this SubListOfSpeciesFeatures's "id" attribute has been set,
-  * otherwise @c false is returned.
-  */
- virtual bool isSetId() const;
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SubListOfSpeciesFeatures's "id" attribute has been set.
+   *
+   * @return @c true if this SubListOfSpeciesFeatures's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
 
 
- /**
-  * Sets the value of the "id" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @param id; const std::string& value of the "id" attribute to be set
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-  */
- virtual int setId(const std::string& id);
+  /**
+   * Sets the value of the "id" attribute of this SubListOfSpeciesFeatures.
+   *
+   * @param id const std::string& value of the "id" attribute to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setId(const std::string& id);
 
 
- /**
-  * Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_OPERATION_FAILED
-  */
- virtual int unsetId();
+  /**
+   * Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
 
 
- /**
-  * Returns the value of the "name" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return the value of the "name" attribute of this SubListOfSpeciesFeatures as a string.
-  */
- virtual const std::string& getName() const;
+  /**
+   * Returns the value of the "name" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @return the value of the "name" attribute of this
+   * SubListOfSpeciesFeatures as a string.
+   */
+  virtual const std::string& getName() const;
 
 
- /**
-  * Predicate returning @c true or @c false depending on whether this
-  * SubListOfSpeciesFeatures's "name" attribute has been set.
-  *
-  * @return @c true if this SubListOfSpeciesFeatures' "name" attribute has been set,
-  * otherwise @c false is returned.
-  */
- virtual bool isSetName() const;
+  /**
+   * Returns @c true if this SubListOfSpeciesFeatures's "name" attribute has
+   * been set.
+   *
+   * @return @c true if this SubListOfSpeciesFeatures' "name" attribute has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
- /**
-  * Sets the value of the "name" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @param name; const std::string& value of the "name" attribute to be set
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-  */
- virtual int setName(const std::string& name);
+  /**
+   * Sets the value of the "name" attribute of this SubListOfSpeciesFeatures.
+   *
+   * @param name the new value for the attribute.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setName(const std::string& name);
 
 
- /**
-  * Unsets the value of the "name" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_OPERATION_FAILED
-  */
- virtual int unsetName();
+  /**
+   * Unsets the value of the "name" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
 
 
-/**
-  * Returns the value of the "component" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return the value of the "component" attribute of this SubListOfSpeciesFeatures as a string.
-  */
- virtual const std::string& getComponent() const;
+  /**
+   * Returns the value of the "component" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @return the value of the "component" attribute of this
+   * SubListOfSpeciesFeatures as a string.
+   */
+  virtual const std::string& getComponent() const;
 
 
- /**
-  * Predicate returning @c true or @c false depending on whether this
-  * SubListOfSpeciesFeatures's "component" attribute has been set.
-  *
-  * @return @c true if this SubListOfSpeciesFeatures's "component" attribute has been set,
-  * otherwise @c false is returned.
-  */
- virtual bool isSetComponent() const;
+  /**
+   * Returns @c true if this SubListOfSpeciesFeatures's "component" attribute
+   * has been set.
+   *
+   * @return @c true if this SubListOfSpeciesFeatures's "component" attribute
+   * has been set; otherwise, @c false is returned.
+   */
+  virtual bool isSetComponent() const;
 
 
- /**
-  * Sets the value of the "component" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @param component; const std::string& value of the "component" attribute to be set
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-  */
- virtual int setComponent(const std::string& component);
+  /**
+   * Sets the value of the "component" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @param component the new value for the attribute.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setComponent(const std::string& component);
 
 
- /**
-  * Unsets the value of the "component" attribute of this SubListOfSpeciesFeatures.
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_OPERATION_FAILED
-  */
- virtual int unsetComponent();
-
- /**
-  * Creates a new SpeciesFeature object and adds it to this SubListOfSpeciesFeatures object.
-  *
-  * @return the newly created SpeciesFeature object.
-  */
- SpeciesFeature* createSpeciesFeature ();
+  /**
+   * Unsets the value of the "component" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetComponent();
 
 
-   /**
-   * Get a SpeciesFeature from the SubListOfSpeciesFeatures.
+  /**
+   * Creates a new SpeciesFeature object and adds it to this
+   * SubListOfSpeciesFeatures object.
+   *
+   * @return the newly created SpeciesFeature object.
+   */
+  SpeciesFeature* createSpeciesFeature ();
+
+
+  /**
+   * Get the nth SpeciesFeature object from the SubListOfSpeciesFeatures.
    *
    * @param n the index number of the SpeciesFeature to get.
    *
-   * @return the nth SpeciesFeature in this SubListOfSpeciesFeatures.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -246,11 +294,11 @@ public:
 
 
   /**
-   * Get a SpeciesFeature from the SubListOfSpeciesFeatures.
+   * Get the nth SpeciesFeature object from the SubListOfSpeciesFeatures.
    *
    * @param n the index number of the SpeciesFeature to get.
    *
-   * @return the nth SpeciesFeature in this SubListOfSpeciesFeatures.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -258,15 +306,12 @@ public:
 
 
   /**
-   * Get a SpeciesFeature from the SubListOfSpeciesFeatures
-   * based on its identifier.
+   * Get the SpeciesFeature object with the given identifier @p sid.
    *
    * @param sid a string representing the identifier
    * of the SpeciesFeature to get.
    *
-   * @return SpeciesFeature in this SubListOfSpeciesFeatures
-   * with the given id or NULL if no such
-   * SpeciesFeature exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -275,15 +320,12 @@ public:
 
 
   /**
-   * Get a SpeciesFeature from the SubListOfSpeciesFeatures
-   * based on its identifier.
+   * Get the SpeciesFeature object with the given identifier @p sid.
    *
    * @param sid a string representing the identifier
    * of the SpeciesFeature to get.
    *
-   * @return SpeciesFeature in this SubListOfSpeciesFeatures
-   * with the given id or NULL if no such
-   * SpeciesFeature exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -292,12 +334,13 @@ public:
 
 
   /**
-   * Removes the nth SpeciesFeature from this SubListOfSpeciesFeatures
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesFeature object from this
+   * SubListOfSpeciesFeatures.
    *
    * @param n the index of the SpeciesFeature to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -305,35 +348,32 @@ public:
 
 
   /**
-   * Removes the SpeciesFeature from this SubListOfSpeciesFeatures with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesFeature object with the given identifier @p sid.
    *
    * @param sid the identifier of the SpeciesFeature to remove.
    *
-   * @return the SpeciesFeature removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual SpeciesFeature* remove(const std::string& sid);
 
 
-   /**
-   * Returns the value of the "relation" attribute of this SubListOfSpeciesFeatures.
+  /**
+   * Returns the value of the "relation" attribute of this
+   * SubListOfSpeciesFeatures.
    *
-   * @return the value of the "relation" attribute of this SubListOfSpeciesFeatures as a FIX ME.
+   * @return the value of the "relation" attribute of this
+   * SubListOfSpeciesFeatures as a FIX ME.
    */
   Relation_t getRelation() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SubListOfSpeciesFeatures's "relation" attribute has been set.
+   * Returns @c true if this SubListOfSpeciesFeatures's "relation" attribute
+   * has been set.
    *
-   * @return @c true if this SubListOfSpeciesFeatures's "relation" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SubListOfSpeciesFeatures's "relation" attribute
+   * has been set; otherwise, @c false is returned.
    */
   virtual bool isSetRelation() const;
 
@@ -341,14 +381,11 @@ public:
   /**
    * Sets the value of the "relation" attribute of this SubListOfSpeciesFeatures.
    *
-   * @param relation; FIX ME value of the "relation" attribute to be set
+   * @param relation FIX ME value of the "relation" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setRelation(Relation_t relation);
 
@@ -356,19 +393,15 @@ public:
   /**
    * Unsets the value of the "relation" attribute of this SubListOfSpeciesFeatures.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetRelation();
 
 
   /**
-   * Returns the XML element name of this object, which for SubListOfSpeciesFeatures, is
-   * always @c "subListOfSpeciesFeatures".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "subListOfSpeciesFeatures".
    */
@@ -378,79 +411,72 @@ public:
   /**
    * Returns the libSBML type code for this SBML object.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * @copydetails doc_what_are_typecodes
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
-  /** @cond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Connects to child elements.
    */
   virtual void connectToChild ();
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
-
+  /**
+   * Returns the number of SpeciesFeature objects contained in this
+   * SubListOfSpeciesFeatures.
+   *
+   * A ListOfSpeciesFeature can contain either speciesFeature elements or a
+   * SubListOfSpeciesFeatures (which is derived from ListOf), which itself
+   * contains SpeciesFeature elements. The sublist also has a couple of
+   * attributes which describe the relationship of the members of the sublist
+   * to each other and their parent ListOfSpeciesFeatures.  Here is a sample
+   * of the XML:
+   * @verbatim
+<multi:listOfSpeciesFeatures>
+  <multi:speciesFeature multi:speciesFeatureType="sftP" multi:occur="1">
+    <snip/>
+  </multi:speciesFeature>
+  <multi:subListOfSpeciesFeatures multi:component="stY1" multi:relation="not">
+    <multi:speciesFeature multi:speciesFeatureType="sftYP1" multi:occur="1">
+      <snip/>
+    </multi:speciesFeature>
+    <multi:speciesFeature multi:speciesFeatureType="sftYP2" multi:occur="1">
+      <multi:listOfSpeciesFeatureValues>
+        <multi:speciesFeatureValue multi:value="yp1v1b"/>
+      </multi:listOfSpeciesFeatureValues>
+    </multi:speciesFeature>
+  </multi:subListOfSpeciesFeatures>
+</multi:listOfSpeciesFeatures>
+@endverbatim
+   *
+   * @return a count of the SpeciesFeature objects.
+   */
   unsigned int getNumSpeciesFeatures() const;
 
 
@@ -475,7 +501,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -486,7 +512,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
   /**

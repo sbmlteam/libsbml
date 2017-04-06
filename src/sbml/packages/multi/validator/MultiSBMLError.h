@@ -38,6 +38,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
+/**
+* @enum MultiSBMLErrorCode_t
+* Codes for all SBML-level errors and warnings from the 'multi' package.
+*
+* These are distinguished from other SBML error codes
+* by having a number between 7000000 and 7099999.
+*
+* @copydetails doc_sbml_error_code_ranges
+*/
 typedef enum
 {
   MultiUnknownError                 	= 7010100 /*!< Unknown error from multi */
@@ -144,16 +153,16 @@ typedef enum
 , MultiSpt_AllowedMultiAtts 		= 7020403 /*!< SpeciesType: Allowed Multi attributes */
 , MultiSpt_CompartmentAtt_Ref 		= 7020404 /*!< SpeciesType: 'compartment' must be the 'id' of a compartment */
 , MultiSpt_ListOfDefs_NoEmpty 		= 7020405 /*!< SpeciesType: ListOf- subobjects must not be empty */
-, MultiLofSpeFtrTyps_onlyOne            = 7020406 /*!< ListOfSpeciesFeatureTypes: Only one <listOfSpeciesFeatureTypes> is allowed in a <speciesType> */
+, MultiLofSpeFtrTyps_onlyOne            = 7020406 /*!< ListOfSpeciesFeatureTypes: Only one &lt;listOfSpeciesFeatureTypes&gt; is allowed in a &lt;speciesType&gt; */
 , MultiLofSpeFtrTyps_Elts               = 7020407 /*!< ListOfSpeciesFeatureTypes: Only allow speciesFeatureType elements */
 , MultiLofSpeFtrTyps_AllowedAtts 	= 7020408 /*!< ListOfSpeciesFeatureTypes: Allowed attributes */
-, MultiLofSptInss_onlyOne               = 7020409 /*!< ListOfSpeciesTypeInstances: Only one <listOfSpeciesTypeInstances> is allowed in a <speciesType> */
+, MultiLofSptInss_onlyOne               = 7020409 /*!< ListOfSpeciesTypeInstances: Only one &lt;listOfSpeciesTypeInstances&gt; is allowed in a &lt;speciesType&gt; */
 , MultiLofSptInss_Elts       		= 7020410 /*!< ListOfSpeciesTypeInstances: Only allow speciesTypeInstance elements */
 , MultiLofSptInss_AllowedAtts 	        = 7020411 /*!< ListOfSpeciesTypeInstances: Allowed attributes */
-, MultiLofSptCpoInds_onlyOne            = 7020412 /*!< ListOfSpeciesTypeComponentIndexes: Only one <listOfSpeciesTypeComponentIndexes> is allowed in a <speciesType> */
+, MultiLofSptCpoInds_onlyOne            = 7020412 /*!< ListOfSpeciesTypeComponentIndexes: Only one &lt;listOfSpeciesTypeComponentIndexes&gt; is allowed in a &lt;speciesType&gt; */
 , MultiLofSptCpoInds_Elts	        = 7020413 /*!< ListOfSpeciesTypeComponentIndexes: Only allow speciesTypeComponentIndex elements */
 , MultiLofSptCpoInds_AllowedAtts	= 7020414 /*!< ListOfSpeciesTypeComponentIndexes: Allowed attributes */
-, MultiLofInSptBnds_onlyOne             = 7020415 /*!< ListOfInSpeciesTypeBonds: Only one <listOfInSpeciesTypeBonds> is allowed in a <speciesType> */
+, MultiLofInSptBnds_onlyOne             = 7020415 /*!< ListOfInSpeciesTypeBonds: Only one &lt;listOfInSpeciesTypeBonds&gt; is allowed in a &lt;speciesType&gt; */
 , MultiLofInSptBnds_Elts   		= 7020416 /*!< ListOfInSpeciesTypeBonds: Only allow inSpeciesTypeBond elements */
 , MultiLofInSptBnds_AllowedAtts         = 7020417 /*!< ListOfInSpeciesTypeBonds: Allowed attributes */
 

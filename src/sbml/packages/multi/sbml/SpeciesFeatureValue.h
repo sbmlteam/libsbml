@@ -24,6 +24,23 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SpeciesFeatureValue
+ * @sbmlbrief{multi} Defines a particular value for a SpeciesFeature.
+ *
+ * The SpeciesFeatureValue object is a child of a SpeciesFeature, and serves
+ * to specify a value for a SpeciesFeature to select from the
+ * ListOfPossibleSpeciesFeatureValues defined in the SpeciesFeatureType
+ * referenced by the parent SpeciesFeature.
+ *
+ * @class ListOfSpeciesFeatureValues
+ * @sbmlbrief{multi} A list of SpeciesFeatureValue objects.
+ *
+ * The ListOfSpeciesFeatureValues is a container for SpeciesFeatureValue objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see SpeciesFeatureValue
  */
 
 
@@ -55,19 +72,23 @@ class LIBSBML_EXTERN SpeciesFeatureValue : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
+
   std::string   mValue;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new SpeciesFeatureValue with the given level, version, and package version.
+   * Creates a new SpeciesFeatureValue object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SpeciesFeatureValue
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this SpeciesFeatureValue
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this SpeciesFeatureValue
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesFeatureValue(unsigned int level      = MultiExtension::getDefaultLevel(),
                       unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -75,31 +96,36 @@ public:
 
 
   /**
-   * Creates a new SpeciesFeatureValue with the given MultiPkgNamespaces object.
+   * Creates a new SpeciesFeatureValue with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesFeatureValue(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for SpeciesFeatureValue.
    *
-   * @param orig; the SpeciesFeatureValue instance to copy.
+   * @param orig the SpeciesFeatureValue instance to copy.
    */
   SpeciesFeatureValue(const SpeciesFeatureValue& orig);
 
 
-   /**
+  /**
    * Assignment operator for SpeciesFeatureValue.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   SpeciesFeatureValue& operator=(const SpeciesFeatureValue& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this SpeciesFeatureValue object.
    *
    * @return a (deep) copy of this SpeciesFeatureValue object.
@@ -107,13 +133,13 @@ public:
   virtual SpeciesFeatureValue* clone () const;
 
 
-   /**
+  /**
    * Destructor for SpeciesFeatureValue.
    */
   virtual ~SpeciesFeatureValue();
 
 
-   /**
+  /**
    * Returns the value of the "value" attribute of this SpeciesFeatureValue.
    *
    * @return the value of the "value" attribute of this SpeciesFeatureValue as a string.
@@ -122,11 +148,11 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesFeatureValue's "value" attribute has been set.
+   * Returns @c true if this SpeciesFeatureValue's "value" attribute has been
+   * set.
    *
-   * @return @c true if this SpeciesFeatureValue's "value" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesFeatureValue's "value" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetValue() const;
 
@@ -134,14 +160,11 @@ public:
   /**
    * Sets the value of the "value" attribute of this SpeciesFeatureValue.
    *
-   * @param value; const std::string& value of the "value" attribute to be set
+   * @param value const std::string& value of the "value" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setValue(const std::string& value);
 
@@ -149,12 +172,9 @@ public:
   /**
    * Unsets the value of the "value" attribute of this SpeciesFeatureValue.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetValue();
 
@@ -175,8 +195,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for SpeciesFeatureValue, is
-   * always @c "speciesFeatureValue".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "speciesFeatureValue".
    */
@@ -185,33 +204,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -230,50 +232,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -286,7 +276,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -298,7 +288,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -309,7 +299,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -321,13 +311,13 @@ class LIBSBML_EXTERN ListOfSpeciesFeatureValues : public ListOf
 public:
 
   /**
-   * Creates a new ListOfSpeciesFeatureValues with the given level, version, and package version.
+   * Creates a new ListOfSpeciesFeatureValues object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfSpeciesFeatureValues
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfSpeciesFeatureValues
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this ListOfSpeciesFeatureValues
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesFeatureValues(unsigned int level      = MultiExtension::getDefaultLevel(),
                              unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -335,15 +325,21 @@ public:
 
 
   /**
-   * Creates a new ListOfSpeciesFeatureValues with the given MultiPkgNamespaces object.
+   * Creates a new ListOfSpeciesFeatureValues with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesFeatureValues(MultiPkgNamespaces* multins);
 
 
    /**
-   * Creates and returns a deep copy of this ListOfSpeciesFeatureValues object.
+   * Creates and returns a deep copy of this ListOfSpeciesFeatureValues
+   * object.
    *
    * @return a (deep) copy of this ListOfSpeciesFeatureValues object.
    */
@@ -351,11 +347,12 @@ public:
 
 
    /**
-   * Get a SpeciesFeatureValue from the ListOfSpeciesFeatureValues.
+   * Get the nth SpeciesFeatureValue object from the
+   * ListOfSpeciesFeatureValues.
    *
    * @param n the index number of the SpeciesFeatureValue to get.
    *
-   * @return the nth SpeciesFeatureValue in this ListOfSpeciesFeatureValues.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -363,11 +360,12 @@ public:
 
 
   /**
-   * Get a SpeciesFeatureValue from the ListOfSpeciesFeatureValues.
+   * Get the nth SpeciesFeatureValue object from the
+   * ListOfSpeciesFeatureValues.
    *
    * @param n the index number of the SpeciesFeatureValue to get.
    *
-   * @return the nth SpeciesFeatureValue in this ListOfSpeciesFeatureValues.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -375,46 +373,41 @@ public:
 
 
   /**
-   * Get a SpeciesFeatureValue from the ListOfSpeciesFeatureValues
-   * based on its identifier.
+   * Get the SpeciesFeatureValue object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesFeatureValue to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesFeatureValue to get.
    *
-   * @return SpeciesFeatureValue in this ListOfSpeciesFeatureValues
-   * with the given id or NULL if no such
-   * SpeciesFeatureValue exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual SpeciesFeatureValue* get(const std::string& sid);
 
 
   /**
-   * Get a SpeciesFeatureValue from the ListOfSpeciesFeatureValues
-   * based on its identifier.
+   * Get the SpeciesFeatureValue object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesFeatureValue to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesFeatureValue to get.
    *
-   * @return SpeciesFeatureValue in this ListOfSpeciesFeatureValues
-   * with the given id or NULL if no such
-   * SpeciesFeatureValue exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual const SpeciesFeatureValue* get(const std::string& sid) const;
 
 
   /**
-   * Removes the nth SpeciesFeatureValue from this ListOfSpeciesFeatureValues
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
+   * Removes the nth SpeciesFeatureValue object from this
+   * ListOfSpeciesFeatureValues.
+
    * @param n the index of the SpeciesFeatureValue to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -422,24 +415,18 @@ public:
 
 
   /**
-   * Removes the SpeciesFeatureValue from this ListOfSpeciesFeatureValues with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesFeatureValue object with the given identifier @p sid.
    *
    * @param sid the identifier of the SpeciesFeatureValue to remove.
    *
-   * @return the SpeciesFeatureValue removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual SpeciesFeatureValue* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfSpeciesFeatureValues, is
-   * always @c "listOfSpeciesFeatureValues".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "listOfSpeciesFeatureValues".
    */
@@ -448,67 +435,31 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -523,7 +474,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -534,7 +485,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

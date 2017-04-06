@@ -1,0 +1,33 @@
+<p> The libSBML &ldquo;multi&rdquo; extension implements support for the SBML Level&nbsp;3 <em>Multistate, Multicomponent and Multicompartment Species</em> package.
+
+<h2>Introduction</h2>
+
+The SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species (multi) package provides an extension of SBML Level&nbsp;3 that supports encoding models with molecular complexes that have multiple components and can exist in multiple states and in multiple compartments. One of its goals also is to provide a platform for sharing models based on the specifications of bimolecular interactions and the rules governing such interactions.  In addition, this specification includes features to support multicompartment species (species that are described as residing in more than one compartment).
+
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species specification are Fenkgai Zhang and Martin Meier-Schellersheim.
+
+<h2>The specification for this SBML package</h2>
+
+<p style="color: #880000"> This API documentation for libSBML does not provide a complete explanation of the SBML Level&nbsp;3 Multistate, Multicomponent and Multicompartment Species package (whose nickname is &ldquo;multi&rdquo;).  If you are developing software that uses &ldquo;multi&rdquo;, you are strongly urged to read the actual specification for the package.  A link to the specification document current is provided below, along with a link to the page of known issues (if any).
+
+<table border="0" class="centered text-table width80 normal-font alt-row-colors" style="padding-bottom: 0.5em">
+  <caption class="top-caption">Specification for the SBML Level&nbsp;3 
+    Multistate, Multicomponent and Multicompartment Species package,
+    current at the time of
+    this libSBML release (@PACKAGE_VERSION@).  Note: an Internet
+    connection is required to access these documents.</caption>
+<tr>
+<th style="text-align: left">Specification (in PDF format)</th>
+<th style="text-align: left">Known issues</th>
+</tr>
+
+<tr><td>
+
+<a class="spec-link" target="_blank" href="@PACKAGE_MULTI_V1_SPEC_URL@"> <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Multistate, Multicomponent and Multicompartment Species package, Version&nbsp;@PACKAGE_MULTI_V1_VERSION@ Release&nbsp;@PACKAGE_MULTI_V1_RELEASE@</a> </td><td>
+
+<a class="spec-link" target="_blank" href="@PACKAGE_MULTI_V1_ERRATA_URL@"> <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+
+</td></tr>
+</table>

@@ -24,8 +24,18 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiSBMLDocumentPlugin
+ * @sbmlbrief{multi} Extension of SBMLDocument for the "multi" package.
+ *
+ * The MultiSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extensions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref multi ("multi") package.  This extension
+ * defines a required flag named "required", which indicates whether "multi"
+ * constructs can be used to change the core mathematical interpretation of
+ * the Model defined in the SBML input.  Since "multi" constructs can, this
+ * attribute must be set to the value @c "true".
  */
-
 
 #ifndef MultiSBMLDocumentPlugin_H__
 #define MultiSBMLDocumentPlugin_H__
@@ -49,30 +59,41 @@ class LIBSBML_EXTERN MultiSBMLDocumentPlugin : public SBMLDocumentPlugin
 public:
 
   /**
-   * Creates a new MultiSBMLDocumentPlugin
+   * Creates a new MultiSBMLDocumentPlugin object.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
-  MultiSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
-                                 MultiPkgNamespaces* multins);
+  MultiSBMLDocumentPlugin(const std::string& uri, const std::string& prefix,
+                          MultiPkgNamespaces* multins);
 
 
   /**
    * Copy constructor for MultiSBMLDocumentPlugin.
    *
-   * @param orig; the MultiSBMLDocumentPlugin instance to copy.
+   * @param orig the MultiSBMLDocumentPlugin instance to copy.
    */
   MultiSBMLDocumentPlugin(const MultiSBMLDocumentPlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiSBMLDocumentPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   MultiSBMLDocumentPlugin& operator=(const MultiSBMLDocumentPlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiSBMLDocumentPlugin object.
    *
    * @return a (deep) copy of this MultiSBMLDocumentPlugin object.
@@ -89,21 +110,17 @@ public:
  #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Reads the attributes of corresponding package in SBMLDocument element
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 #endif // SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Returns boolean based on whether flattening of a comp model has been implemented.
    *
@@ -111,38 +128,30 @@ public:
    * false otherwise.
    */
   virtual bool isCompFlatteningImplemented() const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Check consistency function.
    */
   virtual unsigned int checkConsistency();
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the SBMLVisitor.
    */
 //  virtual bool accept(SBMLVisitor& v) const;
-
-
-   /** @endcond doxygenLibsbmlInternal */
+   /** @endcond */
 
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

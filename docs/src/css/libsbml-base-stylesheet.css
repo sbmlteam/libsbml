@@ -732,3 +732,19 @@ td.meaning code {
 .highlight .s { color: #2aa198; font-weight: normal } /* Literal.String */
 .highlight .na { color: black } /* Name.Attribute */
 .highlight .nt { color: #0040a0; font-weight: bold } /* Name.Tag */
+
+/* Combining characters display differently in different browsers. */
+
+.combining-char {
+  position: relative;
+  top: -1.5ex; 
+  left: 0.1ex;
+  margin: 0;
+  padding: 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  /* Safari and Chrome */
+  .combining-char {
+    left: -0.7ex;
+  }
+}

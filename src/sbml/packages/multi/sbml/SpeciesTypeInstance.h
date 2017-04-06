@@ -24,6 +24,33 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SpeciesTypeInstance
+ * @sbmlbrief{multi} Allows construction of structured MultiSpeciesType objects.
+ *
+ * The SpeciesTypeInstance object is a child of MultiSpeciesType, and
+ * provides a way to construct MultiSpeciesType objects and Species with
+ * multiple components. A MultiSpeciesType can contain a list of instances of
+ * other MultiSpeciesType objects which can also have their own
+ * SpeciesTypeInstance objects, so the complete construct of a
+ * MultiSpeciesType has a tree structure. A MultiSpeciesType cannot contain
+ * an instance of any other MultiSpeciesType that already contains the
+ * instance of it. In other words, circular references are not allowed when
+ * constructing MultiSpeciesType objects. For example, if a MultiSpeciesType
+ * "A" contains the instance of another MultiSpeciesType "B", "B" must not
+ * contain the instance of "A" anywhere in the complete structure of "B".
+ * The optional attribute compartmentReference, of type SIdRef, can be used
+ * to indicate which sub-compartment in a composite compartment the
+ * SpeciesTypeInstance is located in.
+ *
+ * @class ListOfSpeciesTypeInstances
+ * @sbmlbrief{multi} A list of SpeciesTypeInstance objects.
+ *
+ * The ListOfSpeciesTypeInstances is a container for SpeciesTypeInstance objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see SpeciesTypeInstance
  */
 
 
@@ -55,22 +82,26 @@ class LIBSBML_EXTERN SpeciesTypeInstance : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
+
 ////  std::string   mId;
 ////  std::string   mName;
   std::string   mSpeciesType;
   std::string   mCompartmentReference;
 
+  /** @endcond */
+
 
 public:
 
   /**
-   * Creates a new SpeciesTypeInstance with the given level, version, and package version.
+   * Creates a new SpeciesTypeInstance object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SpeciesTypeInstance
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this SpeciesTypeInstance
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this SpeciesTypeInstance
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesTypeInstance(unsigned int level      = MultiExtension::getDefaultLevel(),
                       unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -78,31 +109,36 @@ public:
 
 
   /**
-   * Creates a new SpeciesTypeInstance with the given MultiPkgNamespaces object.
+   * Creates a new SpeciesTypeInstance with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesTypeInstance(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for SpeciesTypeInstance.
    *
-   * @param orig; the SpeciesTypeInstance instance to copy.
+   * @param orig the SpeciesTypeInstance instance to copy.
    */
   SpeciesTypeInstance(const SpeciesTypeInstance& orig);
 
 
-   /**
+  /**
    * Assignment operator for SpeciesTypeInstance.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   SpeciesTypeInstance& operator=(const SpeciesTypeInstance& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this SpeciesTypeInstance object.
    *
    * @return a (deep) copy of this SpeciesTypeInstance object.
@@ -110,13 +146,13 @@ public:
   virtual SpeciesTypeInstance* clone () const;
 
 
-   /**
+  /**
    * Destructor for SpeciesTypeInstance.
    */
   virtual ~SpeciesTypeInstance();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this SpeciesTypeInstance.
    *
    * @return the value of the "id" attribute of this SpeciesTypeInstance as a string.
@@ -125,11 +161,11 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeInstance's "id" attribute has been set.
+   * Returns @c true if this SpeciesTypeInstance's "id" attribute has been
+   * set.
    *
-   * @return @c true if this SpeciesTypeInstance's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeInstance's "id" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -137,14 +173,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this SpeciesTypeInstance.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -152,12 +185,9 @@ public:
   /**
    * Unsets the value of the "id" attribute of this SpeciesTypeInstance.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -171,11 +201,11 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeInstance's "name" attribute has been set.
+   * Returns @c true if this SpeciesTypeInstance's "name" attribute has been
+   * set.
    *
-   * @return @c true if this SpeciesTypeInstance's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeInstance's "name" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetName() const;
 
@@ -183,14 +213,11 @@ public:
   /**
    * Sets the value of the "name" attribute of this SpeciesTypeInstance.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name the new value for the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -198,12 +225,9 @@ public:
   /**
    * Unsets the value of the "name" attribute of this SpeciesTypeInstance.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
@@ -217,85 +241,79 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeInstance's "speciesType" attribute has been set.
+   * Returns @c true if this SpeciesTypeInstance's "speciesType" attribute
+   * has been set.
    *
-   * @return @c true if this SpeciesTypeInstance's "speciesType" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeInstance's "speciesType" attribute
+   * has been set; otherwise, @c false is returned.
    */
   virtual bool isSetSpeciesType() const;
 
 
   /**
-   * Sets the value of the "speciesType" attribute of this SpeciesTypeInstance.
+   * Sets the value of the "speciesType" attribute of this
+   * SpeciesTypeInstance.
    *
-   * @param speciesType; const std::string& value of the "speciesType" attribute to be set
+   * @param speciesType the new value for the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setSpeciesType(const std::string& speciesType);
 
 
   /**
-   * Unsets the value of the "speciesType" attribute of this SpeciesTypeInstance.
+   * Unsets the value of the "speciesType" attribute of this
+   * SpeciesTypeInstance.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetSpeciesType();
 
 
   /**
-   * Returns the value of the "compartmentReference" attribute of this SpeciesTypeInstance.
+   * Returns the value of the "compartmentReference" attribute of this
+   * SpeciesTypeInstance.
    *
-   * @return the value of the "compartmentReference" attribute of this SpeciesTypeInstance as a string.
+   * @return the value of the "compartmentReference" attribute of this
+   * SpeciesTypeInstance as a string.
    */
   virtual const std::string& getCompartmentReference() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeInstance's "compartmentReference" attribute has been set.
+   * Returns @c true if this SpeciesTypeInstance's "compartmentReference"
+   * attribute has been set.
    *
-   * @return @c true if this SpeciesTypeInstance's "compartmentReference" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeInstance's "compartmentReference"
+   * attribute has been set; otherwise, @c false is returned.
    */
   virtual bool isSetCompartmentReference() const;
 
 
   /**
-   * Sets the value of the "compartmentReference" attribute of this SpeciesTypeInstance.
+   * Sets the value of the "compartmentReference" attribute of this
+   * SpeciesTypeInstance.
    *
-   * @param compartmentReference; const std::string& value of the "compartmentReference" attribute to be set
+   * @param compartmentReference the new value for the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCompartmentReference(const std::string& compartmentReference);
 
 
   /**
-   * Unsets the value of the "compartmentReference" attribute of this SpeciesTypeInstance.
+   * Unsets the value of the "compartmentReference" attribute of this
+   * SpeciesTypeInstance.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCompartmentReference();
 
@@ -316,8 +334,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for SpeciesTypeInstance, is
-   * always @c "speciesTypeInstance".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "speciesTypeInstance".
    */
@@ -326,33 +343,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -382,7 +382,7 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -393,7 +393,7 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -404,7 +404,7 @@ public:
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -416,7 +416,7 @@ public:
                const std::string& pkgPrefix, bool flag);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -429,7 +429,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -441,7 +441,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -452,7 +452,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -464,13 +464,13 @@ class LIBSBML_EXTERN ListOfSpeciesTypeInstances : public ListOf
 public:
 
   /**
-   * Creates a new ListOfSpeciesTypeInstances with the given level, version, and package version.
+   * Creates a new ListOfSpeciesTypeInstances object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfSpeciesTypeInstances
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfSpeciesTypeInstances
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this ListOfSpeciesTypeInstances
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesTypeInstances(unsigned int level      = MultiExtension::getDefaultLevel(),
                              unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -478,14 +478,19 @@ public:
 
 
   /**
-   * Creates a new ListOfSpeciesTypeInstances with the given MultiPkgNamespaces object.
+   * Creates a new ListOfSpeciesTypeInstances with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesTypeInstances(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this ListOfSpeciesTypeInstances object.
    *
    * @return a (deep) copy of this ListOfSpeciesTypeInstances object.
@@ -493,12 +498,13 @@ public:
   virtual ListOfSpeciesTypeInstances* clone () const;
 
 
-   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances.
+  /**
+   * Get the nth SpeciesTypeInstance object from the
+   * ListOfSpeciesTypeInstances.
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth SpeciesTypeInstance in this ListOfSpeciesTypeInstances.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -506,11 +512,12 @@ public:
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances.
+   * Get the nth SpeciesTypeInstance object from the
+   * ListOfSpeciesTypeInstances.
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth SpeciesTypeInstance in this ListOfSpeciesTypeInstances.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -518,15 +525,12 @@ public:
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances
-   * based on its identifier.
+   * Get the SpeciesTypeInstance object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesTypeInstance to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesTypeInstance to get.
    *
-   * @return SpeciesTypeInstance in this ListOfSpeciesTypeInstances
-   * with the given id or NULL if no such
-   * SpeciesTypeInstance exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -535,15 +539,12 @@ public:
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances
-   * based on its identifier.
+   * Get the SpeciesTypeInstance object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesTypeInstance to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesTypeInstance to get.
    *
-   * @return SpeciesTypeInstance in this ListOfSpeciesTypeInstances
-   * with the given id or NULL if no such
-   * SpeciesTypeInstance exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -552,12 +553,13 @@ public:
 
 
   /**
-   * Removes the nth SpeciesTypeInstance from this ListOfSpeciesTypeInstances
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesTypeInstance object from this
+   * ListOfSpeciesTypeInstances.
    *
    * @param n the index of the SpeciesTypeInstance to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -565,24 +567,18 @@ public:
 
 
   /**
-   * Removes the SpeciesTypeInstance from this ListOfSpeciesTypeInstances with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesTypeInstance object with the given identifier @p sid.
    *
    * @param sid the identifier of the SpeciesTypeInstance to remove.
    *
-   * @return the SpeciesTypeInstance removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual SpeciesTypeInstance* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfSpeciesTypeInstances, is
-   * always @c "listOfSpeciesTypeInstances".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "listOfSpeciesTypeInstances".
    */
@@ -591,67 +587,31 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -666,7 +626,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -677,7 +637,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

@@ -24,6 +24,30 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ * @class InSpeciesTypeBond
+ * @sbmlbrief{multi} Defines a bond within a MultiSpeciesType.
+ *
+ * The InSpeciesTypeBond object is a child of MultiSpeciesType, and defines a
+ * bond existing within that MultiSpeciesType. The bond therefore exists in
+ * every species that references the MultiSpeciesType.  The binding
+ * relationship in an InSpeciesTypeBond is one-to-one. The uniqueness of an
+ * InSpeciesTypeBond is ensured by the pair of referenced attributes
+ * "bindingSite1" and "bindingSite2", both of type SBaseRef.  The referenced
+ * identifiers of the binding sites can be the ids of SpeciesTypeInstance
+ * objects (binding sites), or the ids of the SpeciesTypeComponentIndex
+ * objects indexing the binding sites and the ultimately referenced
+ * components must be the BindingSiteSpeciesType objects. Obviously,
+ * attributes "bindingSite1" and "bindingSite2" must not reference the same
+ * BindingSiteSpeciesType object.
+ *
+ * @class ListOfInSpeciesTypeBonds
+ * @sbmlbrief{multi} A list of InSpeciesTypeBond objects.
+ *
+ * The ListOfInSpeciesTypeBonds is a container for InSpeciesTypeBond objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see InSpeciesTypeBond
  */
 
 
@@ -54,23 +78,26 @@ class LIBSBML_EXTERN InSpeciesTypeBond : public SBase
 {
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
 
-////  std::string   mId;
-////  std::string   mName;
+  ////  std::string   mId;
+  ////  std::string   mName;
   std::string   mBindingSite1;
   std::string   mBindingSite2;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new InSpeciesTypeBond with the given level, version, and package version.
+   * Creates a new InSpeciesTypeBond object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this InSpeciesTypeBond
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this InSpeciesTypeBond
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this InSpeciesTypeBond
+   * @copydetails doc_note_setting_lv_pkg
    */
   InSpeciesTypeBond(unsigned int level      = MultiExtension::getDefaultLevel(),
                     unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -78,31 +105,32 @@ public:
 
 
   /**
-   * Creates a new InSpeciesTypeBond with the given MultiPkgNamespaces object.
+   * Creates a new InSpeciesTypeBond with the given MultiPkgNamespaces
+   * object.
    *
    * @param multins the MultiPkgNamespaces object
    */
   InSpeciesTypeBond(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for InSpeciesTypeBond.
    *
-   * @param orig; the InSpeciesTypeBond instance to copy.
+   * @param orig the InSpeciesTypeBond instance to copy.
    */
   InSpeciesTypeBond(const InSpeciesTypeBond& orig);
 
 
-   /**
+  /**
    * Assignment operator for InSpeciesTypeBond.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   InSpeciesTypeBond& operator=(const InSpeciesTypeBond& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this InSpeciesTypeBond object.
    *
    * @return a (deep) copy of this InSpeciesTypeBond object.
@@ -110,26 +138,26 @@ public:
   virtual InSpeciesTypeBond* clone () const;
 
 
-   /**
+  /**
    * Destructor for InSpeciesTypeBond.
    */
   virtual ~InSpeciesTypeBond();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this InSpeciesTypeBond.
    *
-   * @return the value of the "id" attribute of this InSpeciesTypeBond as a string.
+   * @return the value of the "id" attribute of this InSpeciesTypeBond as a
+   * string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * InSpeciesTypeBond's "id" attribute has been set.
+   * Returns @c true if this InSpeciesTypeBond's "id" attribute has been set.
    *
-   * @return @c true if this InSpeciesTypeBond's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this InSpeciesTypeBond's "id" attribute has been set;
+   * otherwise, @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -137,14 +165,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this InSpeciesTypeBond.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -152,12 +177,9 @@ public:
   /**
    * Unsets the value of the "id" attribute of this InSpeciesTypeBond.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -165,17 +187,18 @@ public:
   /**
    * Returns the value of the "name" attribute of this InSpeciesTypeBond.
    *
-   * @return the value of the "name" attribute of this InSpeciesTypeBond as a string.
+   * @return the value of the "name" attribute of this InSpeciesTypeBond as a
+   * string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * InSpeciesTypeBond's "name" attribute has been set.
+   * Returns @c true if this InSpeciesTypeBond's "name" attribute has been
+   * set.
    *
-   * @return @c true if this InSpeciesTypeBond's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this InSpeciesTypeBond's "name" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetName() const;
 
@@ -183,14 +206,11 @@ public:
   /**
    * Sets the value of the "name" attribute of this InSpeciesTypeBond.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -198,30 +218,29 @@ public:
   /**
    * Unsets the value of the "name" attribute of this InSpeciesTypeBond.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
   /**
-   * Returns the value of the "bindingSite1" attribute of this InSpeciesTypeBond.
+   * Returns the value of the "bindingSite1" attribute of this
+   * InSpeciesTypeBond.
    *
-   * @return the value of the "bindingSite1" attribute of this InSpeciesTypeBond as a string.
+   * @return the value of the "bindingSite1" attribute of this
+   * InSpeciesTypeBond as a string.
    */
   virtual const std::string& getBindingSite1() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * InSpeciesTypeBond's "bindingSite1" attribute has been set.
+   * Returns @c true if this InSpeciesTypeBond's "bindingSite1" attribute has
+   * been set.
    *
-   * @return @c true if this InSpeciesTypeBond's "bindingSite1" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this InSpeciesTypeBond's "bindingSite1" attribute has
+   * been set; otherwise, @c false is returned.
    */
   virtual bool isSetBindingSite1() const;
 
@@ -229,60 +248,55 @@ public:
   /**
    * Sets the value of the "bindingSite1" attribute of this InSpeciesTypeBond.
    *
-   * @param bindingSite1; const std::string& value of the "bindingSite1" attribute to be set
+   * @param bindingSite1 the new value for the "bindingSite1" attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setBindingSite1(const std::string& bindingSite1);
 
 
   /**
-   * Unsets the value of the "bindingSite1" attribute of this InSpeciesTypeBond.
+   * Unsets the value of the "bindingSite1" attribute of this
+   * InSpeciesTypeBond.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetBindingSite1();
 
 
   /**
-   * Returns the value of the "bindingSite2" attribute of this InSpeciesTypeBond.
+   * Returns the value of the "bindingSite2" attribute of this
+   * InSpeciesTypeBond.
    *
-   * @return the value of the "bindingSite2" attribute of this InSpeciesTypeBond as a string.
+   * @return the value of the "bindingSite2" attribute of this
+   * InSpeciesTypeBond as a string.
    */
   virtual const std::string& getBindingSite2() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * InSpeciesTypeBond's "bindingSite2" attribute has been set.
+   * Returns @c true if this InSpeciesTypeBond's "bindingSite2" attribute has
+   * been set.
    *
-   * @return @c true if this InSpeciesTypeBond's "bindingSite2" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this InSpeciesTypeBond's "bindingSite2" attribute has
+   * been set; otherwise, @c false is returned.
    */
   virtual bool isSetBindingSite2() const;
 
 
   /**
-   * Sets the value of the "bindingSite2" attribute of this InSpeciesTypeBond.
+   * Sets the value of the "bindingSite2" attribute of this
+   * InSpeciesTypeBond.
    *
-   * @param bindingSite2; const std::string& value of the "bindingSite2" attribute to be set
+   * @param bindingSite2 the new value of the "bindingSite2" attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setBindingSite2(const std::string& bindingSite2);
 
@@ -290,12 +304,9 @@ public:
   /**
    * Unsets the value of the "bindingSite2" attribute of this InSpeciesTypeBond.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetBindingSite2();
 
@@ -316,8 +327,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for InSpeciesTypeBond, is
-   * always @c "inSpeciesTypeBond".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "inSpeciesTypeBond".
    */
@@ -326,33 +336,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -372,50 +365,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -428,7 +409,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -440,7 +421,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -451,7 +432,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -665,7 +646,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -676,7 +657,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

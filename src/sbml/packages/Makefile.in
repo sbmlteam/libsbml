@@ -66,6 +66,9 @@ ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_QUAL
     subdirs += qual
   endif
+  ifdef USE_MULTI
+    subdirs += multi
+  endif
 else
   # If `make dist' was given, include all subdirectories.
   # subdirs = comp fbc layout qual

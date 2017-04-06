@@ -24,8 +24,14 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiListOfReactionsPlugin
+ * @sbmlbrief{multi} Extension of ListOfReactions for the "multi" package.
+ *
+ * The MultiListOfReactionsPlugin class extends the ListOfReactions class to
+ * allow a ListOfReactions to contain IntraSpeciesReaction objects as well as
+ * Reaction objects.
  */
-
 
 #ifndef MultiListOfReactionsPlugin_H__
 #define MultiListOfReactionsPlugin_H__
@@ -51,29 +57,40 @@ public:
 
   /**
    * Creates a new MultiListOfReactionsPlugin
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
   MultiListOfReactionsPlugin(const std::string& uri, const std::string& prefix,
-                                 MultiPkgNamespaces* multins);
+                             MultiPkgNamespaces* multins);
 
 
   /**
    * Copy constructor for MultiListOfReactionsPlugin.
    *
-   * @param orig; the MultiListOfReactionsPlugin instance to copy.
+   * @param orig the MultiListOfReactionsPlugin instance to copy.
    */
   MultiListOfReactionsPlugin(const MultiListOfReactionsPlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiListOfReactionsPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiListOfReactionsPlugin& operator=(const MultiListOfReactionsPlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiListOfReactionsPlugin object.
    *
    * @return a (deep) copy of this MultiListOfReactionsPlugin object.
@@ -81,7 +98,7 @@ public:
   virtual MultiListOfReactionsPlugin* clone () const;
 
 
-   /**
+  /**
    * Destructor for MultiListOfReactionsPlugin.
    */
   virtual ~MultiListOfReactionsPlugin();
@@ -95,17 +112,19 @@ public:
   //
   //---------------------------------------------------------------
 
+  /** @cond doxygenLibsbmlInternal */
   SBase* createObject (XMLInputStream& stream);
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
   virtual bool isValidTypeForList(SBase* item) const;
-
+  /** @endcond */
 
 };
 

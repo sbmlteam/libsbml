@@ -188,6 +188,10 @@ the presence of layout data in a Level&nbsp;2 model.
 </ul>
 
 
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp;3 Layout specification are Ralph Gauges, Ursula Rost, Sven Sahle, Katja Wengler and Frank T. Bergmann.
+
 <h2>The specification for this SBML package</h2>
 
 <p style="color: #880000"> This API documentation for libSBML does not

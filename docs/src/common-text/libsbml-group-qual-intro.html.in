@@ -31,6 +31,10 @@ bring these classes of models under a common format scheme. The purpose of
 this Qualitative Models package for SBML Level&nbsp;3 is to support encoding
 qualitative models in SBML.
 
+<h2>Authors</h2>
+
+The primary authors of the SBML Level&nbsp3; Qualitative Models specification are Claudine Chaouiya, Sarah M. Keating, Duncan Berenguier, Aur&eacute;lien Naldi, Denis Thieffry, Martijn P. van&nbsp;Iersel and Tom&aacute;s<span class="combining-char">&#814;</span>Helikar.
+
 
 <h2>The specification for this SBML package</h2>
 

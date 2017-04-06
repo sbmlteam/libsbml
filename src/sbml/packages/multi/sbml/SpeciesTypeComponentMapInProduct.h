@@ -24,6 +24,29 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SpeciesTypeComponentMapInProduct
+ * @sbmlbrief{multi} Distinguishes between components in reactants versus products.
+ *
+ * The SpeciesTypeComponentMapInProduct object is a child of a
+ * SpeciesReference (via the MultiSpeciesReferencePlugin) in a Reaction, and
+ * defines the mapping between a component in a reactant and a component in a
+ * product. The identifications of a component and the SpeciesReference
+ * should be sufficient to identify the component in the context of a
+ * reaction. The attributes "reactant" and "reactantComponent" can identify
+ * the component in a reactant, and the "productComponent" attribute and the
+ * product storing the mapping information can identify the component in a
+ * product.
+ *
+ * @class ListOfSpeciesTypeComponentMapInProducts
+ * @sbmlbrief{multi} A list of SpeciesTypeComponentMapInProduct objects.
+ *
+ * The ListOfSpeciesTypeComponentMapInProducts is a container for
+ * SpeciesTypeComponentMapInProduct objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see SpeciesTypeComponentMapInProduct
  */
 
 
@@ -54,21 +77,25 @@ class LIBSBML_EXTERN SpeciesTypeComponentMapInProduct : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
+
   std::string   mReactant;
   std::string   mReactantComponent;
   std::string   mProductComponent;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new SpeciesTypeComponentMapInProduct with the given level, version, and package version.
+   * Creates a new SpeciesTypeComponentMapInProduct object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this SpeciesTypeComponentMapInProduct
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this SpeciesTypeComponentMapInProduct
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this SpeciesTypeComponentMapInProduct
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesTypeComponentMapInProduct(unsigned int level      = MultiExtension::getDefaultLevel(),
                                    unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -76,270 +103,269 @@ public:
 
 
   /**
-   * Creates a new SpeciesTypeComponentMapInProduct with the given MultiPkgNamespaces object.
+   * Creates a new SpeciesTypeComponentMapInProduct with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   SpeciesTypeComponentMapInProduct(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for SpeciesTypeComponentMapInProduct.
    *
-   * @param orig; the SpeciesTypeComponentMapInProduct instance to copy.
+   * @param orig the SpeciesTypeComponentMapInProduct instance to copy.
    */
   SpeciesTypeComponentMapInProduct(const SpeciesTypeComponentMapInProduct& orig);
 
 
-   /**
+  /**
    * Assignment operator for SpeciesTypeComponentMapInProduct.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   SpeciesTypeComponentMapInProduct& operator=(const SpeciesTypeComponentMapInProduct& rhs);
 
 
-   /**
-   * Creates and returns a deep copy of this SpeciesTypeComponentMapInProduct object.
+  /**
+   * Creates and returns a deep copy of this SpeciesTypeComponentMapInProduct
+   * object.
    *
    * @return a (deep) copy of this SpeciesTypeComponentMapInProduct object.
    */
   virtual SpeciesTypeComponentMapInProduct* clone () const;
 
 
-   /**
+  /**
    * Destructor for SpeciesTypeComponentMapInProduct.
    */
   virtual ~SpeciesTypeComponentMapInProduct();
 
 
   /**
-  * Returns the value of the "id" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @return the value of the "id" attribute of this SpeciesTypeComponentMapInProduct as a string.
-  */
- virtual const std::string& getId() const;
-
-
- /**
-  * Predicate returning @c true or @c false depending on whether this
-  * SpeciesTypeComponentMapInProduct's "id" attribute has been set.
-  *
-  * @return @c true if this SpeciesTypeComponentMapInProduct's "id" attribute has been set,
-  * otherwise @c false is returned.
-  */
- virtual bool isSetId() const;
-
-
- /**
-  * Sets the value of the "id" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @param id; const std::string& value of the "id" attribute to be set
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-  */
- virtual int setId(const std::string& id);
-
-
- /**
-  * Unsets the value of the "id" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_OPERATION_FAILED
-  */
- virtual int unsetId();
-
-
- /**
-  * Returns the value of the "name" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @return the value of the "name" attribute of this SpeciesTypeComponentMapInProduct as a string.
-  */
- virtual const std::string& getName() const;
-
-
- /**
-  * Predicate returning @c true or @c false depending on whether this
-  * SpeciesTypeComponentMapInProduct's "name" attribute has been set.
-  *
-  * @return @c true if this SpeciesTypeComponentMapInProduct's "name" attribute has been set,
-  * otherwise @c false is returned.
-  */
- virtual bool isSetName() const;
-
-
- /**
-  * Sets the value of the "name" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @param name; const std::string& value of the "name" attribute to be set
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-  */
- virtual int setName(const std::string& name);
-
-
- /**
-  * Unsets the value of the "name" attribute of this SpeciesTypeComponentMapInProduct.
-  *
-  * @return integer value indicating success/failure of the
-  * function.  @if clike The value is drawn from the
-  * enumeration #OperationReturnValues_t. @endif The possible values
-  * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_OPERATION_FAILED
-  */
- virtual int unsetName();
-
-
-   /**
-   * Returns the value of the "reactant" attribute of this SpeciesTypeComponentMapInProduct.
+   * Returns the value of the "id" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return the value of the "reactant" attribute of this SpeciesTypeComponentMapInProduct as a string.
+   * @return the value of the "id" attribute of this
+   * SpeciesTypeComponentMapInProduct as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns @c true if this SpeciesTypeComponentMapInProduct's "id" attribute
+   * has been set.
+   *
+   * @return @c true if this SpeciesTypeComponentMapInProduct's "id" attribute
+   * has been set, otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @param id const std::string& value of the "id" attribute to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Returns the value of the "name" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @return the value of the "name" attribute of this
+   * SpeciesTypeComponentMapInProduct as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Returns @c true if this SpeciesTypeComponentMapInProduct's "name"
+   * attribute has been set.
+   *
+   * @return @c true if this SpeciesTypeComponentMapInProduct's "name"
+   * attribute has been set, otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Sets the value of the "name" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @param name const std::string& value of the "name" attribute to be set
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  virtual int setName(const std::string& name);
+
+
+  /**
+   * Unsets the value of the "name" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetName();
+
+
+  /**
+   * Returns the value of the "reactant" attribute of this
+   * SpeciesTypeComponentMapInProduct.
+   *
+   * @return the value of the "reactant" attribute of this
+   * SpeciesTypeComponentMapInProduct as a string.
    */
   virtual const std::string& getReactant() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeComponentMapInProduct's "reactant" attribute has been set.
+   * Returns @c true if this SpeciesTypeComponentMapInProduct's "reactant"
+   * attribute has been set.
    *
-   * @return @c true if this SpeciesTypeComponentMapInProduct's "reactant" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeComponentMapInProduct's "reactant"
+   * attribute has been set; otherwise, @c false is returned.
    */
   virtual bool isSetReactant() const;
 
 
   /**
-   * Sets the value of the "reactant" attribute of this SpeciesTypeComponentMapInProduct.
+   * Sets the value of the "reactant" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @param reactant; const std::string& value of the "reactant" attribute to be set
+   * @param reactant const std::string& value of the "reactant" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setReactant(const std::string& reactant);
 
 
   /**
-   * Unsets the value of the "reactant" attribute of this SpeciesTypeComponentMapInProduct.
+   * Unsets the value of the "reactant" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetReactant();
 
 
   /**
-   * Returns the value of the "reactantComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Returns the value of the "reactantComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return the value of the "reactantComponent" attribute of this SpeciesTypeComponentMapInProduct as a string.
+   * @return the value of the "reactantComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct as a string.
    */
   virtual const std::string& getReactantComponent() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeComponentMapInProduct's "reactantComponent" attribute has been set.
+   * Returns @c true if this SpeciesTypeComponentMapInProduct's
+   * "reactantComponent" attribute has been set.
    *
-   * @return @c true if this SpeciesTypeComponentMapInProduct's "reactantComponent" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeComponentMapInProduct's
+   * "reactantComponent" attribute has been set; otherwise, @c false is
+   * returned.
    */
   virtual bool isSetReactantComponent() const;
 
 
   /**
-   * Sets the value of the "reactantComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Sets the value of the "reactantComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @param reactantComponent; const std::string& value of the "reactantComponent" attribute to be set
+   * @param reactantComponent const std::string& value of the
+   * "reactantComponent" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setReactantComponent(const std::string& reactantComponent);
 
 
   /**
-   * Unsets the value of the "reactantComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Unsets the value of the "reactantComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetReactantComponent();
 
 
   /**
-   * Returns the value of the "productComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Returns the value of the "productComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return the value of the "productComponent" attribute of this SpeciesTypeComponentMapInProduct as a string.
+   * @return the value of the "productComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct as a string.
    */
   virtual const std::string& getProductComponent() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SpeciesTypeComponentMapInProduct's "productComponent" attribute has been set.
+   * Returns @c true if this SpeciesTypeComponentMapInProduct's
+   * "productComponent" attribute has been set.
    *
-   * @return @c true if this SpeciesTypeComponentMapInProduct's "productComponent" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SpeciesTypeComponentMapInProduct's
+   * "productComponent" attribute has been set, otherwise @c false is
+   * returned.
    */
   virtual bool isSetProductComponent() const;
 
 
   /**
-   * Sets the value of the "productComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Sets the value of the "productComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @param productComponent; const std::string& value of the "productComponent" attribute to be set
+   * @param productComponent the new value of the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setProductComponent(const std::string& productComponent);
 
 
   /**
-   * Unsets the value of the "productComponent" attribute of this SpeciesTypeComponentMapInProduct.
+   * Unsets the value of the "productComponent" attribute of this
+   * SpeciesTypeComponentMapInProduct.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetProductComponent();
 
@@ -359,45 +385,27 @@ public:
    virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
-
   /**
-   * Returns the XML element name of this object, which for SpeciesTypeComponentMapInProduct, is
-   * always @c "speciesTypeComponentMapInProduct".
+   * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c "speciesTypeComponentMapInProduct".
+   * @return the name of this element, i.e. @c
+   * "speciesTypeComponentMapInProduct".
    */
   virtual const std::string& getElementName () const;
 
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -419,50 +427,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -475,7 +471,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -487,7 +483,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -498,7 +494,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -510,13 +506,13 @@ class LIBSBML_EXTERN ListOfSpeciesTypeComponentMapInProducts : public ListOf
 public:
 
   /**
-   * Creates a new ListOfSpeciesTypeComponentMapInProducts with the given level, version, and package version.
+   * Creates a new ListOfSpeciesTypeComponentMapInProducts object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfSpeciesTypeComponentMapInProducts
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfSpeciesTypeComponentMapInProducts
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this ListOfSpeciesTypeComponentMapInProducts
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesTypeComponentMapInProducts(unsigned int level      = MultiExtension::getDefaultLevel(),
                                           unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -524,27 +520,34 @@ public:
 
 
   /**
-   * Creates a new ListOfSpeciesTypeComponentMapInProducts with the given MultiPkgNamespaces object.
+   * Creates a new ListOfSpeciesTypeComponentMapInProducts with the given
+   * MultiPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfSpeciesTypeComponentMapInProducts(MultiPkgNamespaces* multins);
 
 
-   /**
-   * Creates and returns a deep copy of this ListOfSpeciesTypeComponentMapInProducts object.
+  /**
+   * Creates and returns a deep copy of this
+   * ListOfSpeciesTypeComponentMapInProducts object.
    *
    * @return a (deep) copy of this ListOfSpeciesTypeComponentMapInProducts object.
    */
   virtual ListOfSpeciesTypeComponentMapInProducts* clone () const;
 
 
-   /**
-   * Get a SpeciesTypeComponentMapInProduct from the ListOfSpeciesTypeComponentMapInProducts.
+  /**
+   * Get the nth SpeciesTypeComponentMapInProduct object from the
+   * ListOfSpeciesTypeComponentMapInProducts.
    *
    * @param n the index number of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return the nth SpeciesTypeComponentMapInProduct in this ListOfSpeciesTypeComponentMapInProducts.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -552,11 +555,12 @@ public:
 
 
   /**
-   * Get a SpeciesTypeComponentMapInProduct from the ListOfSpeciesTypeComponentMapInProducts.
+   * Get the nth SpeciesTypeComponentMapInProduct object from the
+   * ListOfSpeciesTypeComponentMapInProducts.
    *
    * @param n the index number of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return the nth SpeciesTypeComponentMapInProduct in this ListOfSpeciesTypeComponentMapInProducts.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -564,46 +568,43 @@ public:
 
 
   /**
-   * Get a SpeciesTypeComponentMapInProduct from the ListOfSpeciesTypeComponentMapInProducts
-   * based on its identifier.
+   * Get the SpeciesTypeComponentMapInProduct object with the given
+   * identifier @p sid.
    *
    * @param sid a string representing the identifier
    * of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return SpeciesTypeComponentMapInProduct in this ListOfSpeciesTypeComponentMapInProducts
-   * with the given id or NULL if no such
-   * SpeciesTypeComponentMapInProduct exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual SpeciesTypeComponentMapInProduct* get(const std::string& sid);
 
 
   /**
-   * Get a SpeciesTypeComponentMapInProduct from the ListOfSpeciesTypeComponentMapInProducts
-   * based on its identifier.
+   * Get the SpeciesTypeComponentMapInProduct object with the given
+   * identifier @p sid.
    *
    * @param sid a string representing the identifier
    * of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return SpeciesTypeComponentMapInProduct in this ListOfSpeciesTypeComponentMapInProducts
-   * with the given id or NULL if no such
-   * SpeciesTypeComponentMapInProduct exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual const SpeciesTypeComponentMapInProduct* get(const std::string& sid) const;
 
 
   /**
-   * Removes the nth SpeciesTypeComponentMapInProduct from this ListOfSpeciesTypeComponentMapInProducts
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesTypeComponentMapInProduct object from this
+   * ListOfSpeciesTypeComponentMapInProducts.
    *
    * @param n the index of the SpeciesTypeComponentMapInProduct to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -611,93 +612,53 @@ public:
 
 
   /**
-   * Removes the SpeciesTypeComponentMapInProduct from this ListOfSpeciesTypeComponentMapInProducts with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesTypeComponentMapInProduct object with the given
+   * identifier @p sid.
    *
    * @param sid the identifier of the SpeciesTypeComponentMapInProduct to remove.
    *
-   * @return the SpeciesTypeComponentMapInProduct removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual SpeciesTypeComponentMapInProduct* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfSpeciesTypeComponentMapInProducts, is
-   * always @c "listOfSpeciesTypeComponentMapInProducts".
+   * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfSpeciesTypeComponentMapInProducts".
+   * @return the name of this element, i.e. @c
+   * "listOfSpeciesTypeComponentMapInProducts".
    */
   virtual const std::string& getElementName () const;
 
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -712,7 +673,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -723,7 +684,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

@@ -12,3 +12,6 @@
 #ifdef USE_QUAL
 %include "local-downcast-namespaces-qual.i"
 #endif
+#ifdef USE_MULTI
+%include "local-downcast-namespaces-multi.i"
+#endif

@@ -41,6 +41,9 @@ and future constraint-based models.
 gene product references was added, and the encoding of flux bounds was modified
 to reference parameters, instead of holding directly-encoded values.
 
+<h2>Authors</h2>
+
+The primary authors of the SBML Level,&nbsp;3 Flux Balance Constraints package are Brett G. Olivier and Frank T. Bergmann.
 
 <h2>The specification for this SBML package</h2>
 

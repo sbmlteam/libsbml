@@ -1907,7 +1907,7 @@ static const packageErrorTableEntry multiErrorTable[] =
 
 LIBSBML_CPP_NAMESPACE_END
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 #endif  /*  MultiSBMLErrorTable_h__  */

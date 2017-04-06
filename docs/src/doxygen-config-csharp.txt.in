@@ -128,4 +128,4 @@ EXCLUDE +=  \
 EXAMPLE_PATH           = common-text . ../.. ../../examples/csharp \
                          ../../examples/csharp/comp ../../examples/csharp/layout \
                          ../../examples/csharp/fbc ../../examples/csharp/groups \
-                         ../../examples/csharp/qual 
+                         ../../examples/csharp/qual ../../examples/csharp/multi

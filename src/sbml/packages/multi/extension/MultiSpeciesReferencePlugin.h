@@ -24,8 +24,19 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiSpeciesReferencePlugin
+ * @sbmlbrief{multi} Extension of SpeciesReference for the "multi" package.
+ *
+ * The MultiSpeciesReferencePlugin class inherits from the
+ * MultiSimpleSpeciesReferencePlugin class, and extends the SpeciesReference
+ * class to establish component mappings between the reactant species and the
+ * product species when the mappings cannot be inferred from the ids of the
+ * SpeciesTypeInstance objects. A MultiSpeciesReferencePlugin object defines
+ * an optional ListOfSpeciesTypeComponentMapInProducts child. Only a reaction
+ * product can contain the ListOfSpeciesTypeComponentMapInProducts child and
+ * it is not necessary to store the mappings again in the reactants.
  */
-
 
 #ifndef MultiSpeciesReferencePlugin_H__
 #define MultiSpeciesReferencePlugin_H__
@@ -49,30 +60,41 @@ class LIBSBML_EXTERN MultiSpeciesReferencePlugin : public MultiSimpleSpeciesRefe
 public:
 
   /**
-   * Creates a new MultiSpeciesReferencePlugin
+   * Creates a new MultiSpeciesReferencePlugin object.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
-  MultiSpeciesReferencePlugin(const std::string& uri, const std::string& prefix, 
-                                 MultiPkgNamespaces* multins);
+  MultiSpeciesReferencePlugin(const std::string& uri, const std::string& prefix,
+                              MultiPkgNamespaces* multins);
 
 
   /**
    * Copy constructor for MultiSpeciesReferencePlugin.
    *
-   * @param orig; the MultiSpeciesReferencePlugin instance to copy.
+   * @param orig the MultiSpeciesReferencePlugin instance to copy.
    */
   MultiSpeciesReferencePlugin(const MultiSpeciesReferencePlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiSpeciesReferencePlugin.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiSpeciesReferencePlugin& operator=(const MultiSpeciesReferencePlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiSpeciesReferencePlugin object.
    *
    * @return a (deep) copy of this MultiSpeciesReferencePlugin object.
@@ -80,20 +102,19 @@ public:
   virtual MultiSpeciesReferencePlugin* clone () const;
 
 
-   /**
+  /**
    * Destructor for MultiSpeciesReferencePlugin.
    */
   virtual ~MultiSpeciesReferencePlugin();
 
 
-   //---------------------------------------------------------------
+  //---------------------------------------------------------------
   //
   // overridden virtual functions for read/write/check
   //
   //---------------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -103,31 +124,23 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**
-   * Checks if this plugin object has all the required elements.
+   * Returns @c true if this object has all the required elements.
    *
-   * Subclasses must override this method 
-   * if they have their specific elements.
-   *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredElements () const;
 
@@ -145,170 +158,166 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function
+   * to return only elements that match a particular set of constraints.
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List* of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
-   * Returns the ListOfSpeciesTypeComponentMapInProducts in this plugin object.
+   * Returns the ListOfSpeciesTypeComponentMapInProducts object.
    *
-   * @return ListOfSpeciesTypeComponentMapInProducts object in this plugin object.
+   * @return ListOfSpeciesTypeComponentMapInProducts object within this
+   * "multi" SpeciesReference object.
    */
   const ListOfSpeciesTypeComponentMapInProducts* getListOfSpeciesTypeComponentMapInProducts () const;
 
 
   /**
-   * Returns the ListOfSpeciesTypeComponentMapInProducts in this plugin object.
+   * Returns the ListOfSpeciesTypeComponentMapInProducts object.
    *
-   * @return ListOfSpeciesTypeComponentMapInProducts object in this plugin object.
+   * @return ListOfSpeciesTypeComponentMapInProducts object within this
+   * "multi" SpeciesReference object.
    */
   ListOfSpeciesTypeComponentMapInProducts* getListOfSpeciesTypeComponentMapInProducts ();
 
 
   /**
-   * Returns the SpeciesTypeComponentMapInProduct object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
+   * Returns the nth SpeciesTypeComponentMapInProduct object.
    *
-   * @param n the index number of the SpeciesTypeComponentMapInProduct to get
+   * @param n the index number of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return the nth SpeciesTypeComponentMapInProduct in the ListOfSpeciesTypeComponentMapInProducts
+   * @return the nth SpeciesTypeComponentMapInProduct in the
+   * ListOfSpeciesTypeComponentMapInProducts.  If the index is invalid, NULL
+   * is returned.
    */
   const SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(unsigned int n) const;
 
 
   /**
-   * Returns the SpeciesTypeComponentMapInProduct object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
+   * Returns the nth SpeciesTypeComponentMapInProduct object.
    *
-   * @param n the index number of the SpeciesTypeComponentMapInProduct to get
+   * @param n the index number of the SpeciesTypeComponentMapInProduct to get.
    *
-   * @return the nth SpeciesTypeComponentMapInProduct in the ListOfSpeciesTypeComponentMapInProducts
+   * @return the nth SpeciesTypeComponentMapInProduct in the
+   * ListOfSpeciesTypeComponentMapInProducts. If the index is invalid, NULL
+   * is returned.
    */
   SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(unsigned int n);
 
 
   /**
-   * Returns the SpeciesTypeComponentMapInProduct object based on its identifier.
+   * Returns the SpeciesTypeComponentMapInProduct object with the given
+   * identifier @p sid.
    *
-   * @param sid a string representing the id of the SpeciesTypeComponentMapInProduct to get
+   * @param sid a string representing the id of the
+   * SpeciesTypeComponentMapInProduct to get.
    *
-   * @return SpeciesTypeComponentMapInProduct in the ListOfSpeciesTypeComponentMapInProducts with the given id
-   * or NULL if no such SpeciesTypeComponentMapInProduct exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return the SpeciesTypeComponentMapInProduct object within the
+   * ListOfSpeciesTypeComponentMapInProducts with the given id, or NULL if no
+   * such SpeciesTypeComponentMapInProduct exists.
    */
   const SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(const std::string& sid) const;
 
 
   /**
-   * Returns the SpeciesTypeComponentMapInProduct object based on its identifier.
+   * Returns the SpeciesTypeComponentMapInProduct object with the given
+   * identifier @p sid.
    *
-   * @param sid a string representing the id of the SpeciesTypeComponentMapInProduct to get
+   * @param sid a string representing the id of the
+   * SpeciesTypeComponentMapInProduct to get.
    *
-   * @return SpeciesTypeComponentMapInProduct in the ListOfSpeciesTypeComponentMapInProducts with the given id
-   * or NULL if no such SpeciesTypeComponentMapInProduct exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
+   * @return the SpeciesTypeComponentMapInProduct object within the
+   * ListOfSpeciesTypeComponentMapInProducts with the given id, or NULL if no
+   * such SpeciesTypeComponentMapInProduct exists.
    */
   SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given SpeciesTypeComponentMapInProduct to the ListOfSpeciesTypeComponentMapInProducts in this plugin object.
+   * Adds a copy of the given SpeciesTypeComponentMapInProduct to the
+   * ListOfSpeciesTypeComponentMapInProducts.
    *
-   * @param speciesTypeComponentMapInProduct the speciesTypeComponentMapInProduct to be added.
+   * @param speciesTypeComponentMapInProduct the
+   * speciesTypeComponentMapInProduct to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addSpeciesTypeComponentMapInProduct (const SpeciesTypeComponentMapInProduct* speciesTypeComponentMapInProduct);
 
 
   /**
-   * Creates a new SpeciesTypeComponentMapInProduct object and adds it to the ListOfSpeciesTypeComponentMapInProducts in this plugin object.
+   * Creates a new SpeciesTypeComponentMapInProduct object and adds it to the
+   * ListOfSpeciesTypeComponentMapInProducts.
    *
-   * @return the newly created SpeciesTypeComponentMapInProduct object.
+   * @return the newly created SpeciesTypeComponentMapInProduct object.  Note
+   * that the caller owns the returned object and is responsible for deleting
+   * it.
    */
   SpeciesTypeComponentMapInProduct* createSpeciesTypeComponentMapInProduct ();
 
 
   /**
-   * Removes the nth SpeciesTypeComponentMapInProduct object from this plugin object
-   * and returns a pointer to it.
+   * Removes the nth SpeciesTypeComponentMapInProduct object and returns a
+   * pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param n the index of the SpeciesTypeComponentMapInProduct to remove.
    *
-   * @param n the index of the SpeciesTypeComponentMapInProduct to remove
-   *
-   * @return the SpeciesTypeComponentMapInProduct object removed 
-   * or NULL index was out of range.
+   * @return the SpeciesTypeComponentMapInProduct object removed or NULL
+   * index was out of range.  Note that the caller owns the returned object
+   * and is responsible for deleting it.
    */
   SpeciesTypeComponentMapInProduct* removeSpeciesTypeComponentMapInProduct(unsigned int n);
 
 
   /**
-   * Removes the SpeciesTypeComponentMapInProduct object with the given id from this plugin object
+   * Removes the SpeciesTypeComponentMapInProduct object with the given id
    * and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param sid a string representing the id of the
+   * SpeciesTypeComponentMapInProduct to remove.
    *
-   * @param sid a string representing the id of the SpeciesTypeComponentMapInProduct to remove
-   *
-   * @return the SpeciesTypeComponentMapInProduct object removed 
-   * or NULL if no such SpeciesTypeComponentMapInProduct exists.
+   * @return the SpeciesTypeComponentMapInProduct object removed or NULL if
+   * no such SpeciesTypeComponentMapInProduct exists.  Note that the caller
+   * owns the returned object and is responsible for deleting it.
    */
   SpeciesTypeComponentMapInProduct* removeSpeciesTypeComponentMapInProduct(const std::string& sid);
 
 
   /**
-   * Returns the number of SpeciesTypeComponentMapInProduct objects in this plugin object.
+   * Returns the number of SpeciesTypeComponentMapInProduct objects.
    *
-   * @return the number of SpeciesTypeComponentMapInProduct objects in this plugin object.
+   * @return the number of SpeciesTypeComponentMapInProduct objects.
    */
   unsigned int getNumSpeciesTypeComponentMapInProducts () const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void connectToParent (SBase* sbase);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -317,8 +326,7 @@ protected:
 
   ListOfSpeciesTypeComponentMapInProducts mSpeciesTypeComponentMapInProducts;
 
-  /** @endcond doxygenLibsbmlInternal */
-
+  /** @endcond */
 
 };
 

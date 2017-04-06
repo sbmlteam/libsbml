@@ -24,8 +24,26 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class CompartmentReference
+ * @sbmlbrief{multi} Child of a Compartment that references a different Compartment.
+ *
+ * A CompartmentReference object is a child of an extended Compartment (via
+ * the MultiCompartmentPlugin), and provides a way for that Compartment to
+ * reference another Compartment, and indicates that the referenced
+ * Compartment is a sub-compartment in a composite parent compartment.
+ * Compartments may be arbitrarily nested in this way, but this nesting
+ * cannot be circular.
+ *
+ * @class ListOfCompartmentReferences
+ * @sbmlbrief{multi} A list of CompartmentReference objects.
+ *
+ * The ListOfCompartmentReferences is a container for CompartmentReference objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see CompartmentReference
  */
-
 
 #ifndef CompartmentReference_H__
 #define CompartmentReference_H__
@@ -54,22 +72,25 @@ class LIBSBML_EXTERN CompartmentReference : public SBase
 {
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
 
-////  std::string   mId;
-////  std::string   mName;
+  ////  std::string   mId;
+  ////  std::string   mName;
   std::string   mCompartment;
+
+  /** @endcond */
 
 
 public:
 
   /**
-   * Creates a new CompartmentReference with the given level, version, and package version.
+   * Creates a new CompartmentReference.
    *
-   * @param level an unsigned int, the SBML Level to assign to this CompartmentReference
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this CompartmentReference
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this CompartmentReference
+   * @copydetails doc_note_setting_lv_pkg
    */
   CompartmentReference(unsigned int level      = MultiExtension::getDefaultLevel(),
                        unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -79,29 +100,33 @@ public:
   /**
    * Creates a new CompartmentReference with the given MultiPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   CompartmentReference(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for CompartmentReference.
    *
-   * @param orig; the CompartmentReference instance to copy.
+   * @param orig the CompartmentReference instance to copy.
    */
   CompartmentReference(const CompartmentReference& orig);
 
 
-   /**
+  /**
    * Assignment operator for CompartmentReference.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   CompartmentReference& operator=(const CompartmentReference& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this CompartmentReference object.
    *
    * @return a (deep) copy of this CompartmentReference object.
@@ -109,26 +134,27 @@ public:
   virtual CompartmentReference* clone () const;
 
 
-   /**
+  /**
    * Destructor for CompartmentReference.
    */
   virtual ~CompartmentReference();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this CompartmentReference.
    *
-   * @return the value of the "id" attribute of this CompartmentReference as a string.
+   * @return the value of the "id" attribute of this CompartmentReference as
+   * a string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CompartmentReference's "id" attribute has been set.
+   * Returns @c true if this CompartmentReference's "id" attribute has been
+   * set.
    *
-   * @return @c true if this CompartmentReference's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CompartmentReference's "id" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -136,14 +162,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this CompartmentReference.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -151,12 +174,9 @@ public:
   /**
    * Unsets the value of the "id" attribute of this CompartmentReference.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -164,17 +184,18 @@ public:
   /**
    * Returns the value of the "name" attribute of this CompartmentReference.
    *
-   * @return the value of the "name" attribute of this CompartmentReference as a string.
+   * @return the value of the "name" attribute of this CompartmentReference
+   * as a string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CompartmentReference's "name" attribute has been set.
+   * Returns @c true if this CompartmentReference's "name" attribute has been
+   * set.
    *
-   * @return @c true if this CompartmentReference's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CompartmentReference's "name" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetName() const;
 
@@ -182,14 +203,11 @@ public:
   /**
    * Sets the value of the "name" attribute of this CompartmentReference.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -197,58 +215,53 @@ public:
   /**
    * Unsets the value of the "name" attribute of this CompartmentReference.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
   /**
-   * Returns the value of the "compartment" attribute of this CompartmentReference.
+   * Returns the value of the "compartment" attribute of this
+   * CompartmentReference.
    *
-   * @return the value of the "compartment" attribute of this CompartmentReference as a string.
+   * @return the value of the "compartment" attribute of this
+   * CompartmentReference as a string.
    */
   virtual const std::string& getCompartment() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CompartmentReference's "compartment" attribute has been set.
+   * Returns @c true if this CompartmentReference's "compartment" attribute
+   * has been set.
    *
-   * @return @c true if this CompartmentReference's "compartment" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this CompartmentReference's "compartment" attribute
+   * has been set; otherwise, @c false is returned.
    */
   virtual bool isSetCompartment() const;
 
 
   /**
-   * Sets the value of the "compartment" attribute of this CompartmentReference.
+   * Sets the value of the "compartment" attribute of this
+   * CompartmentReference.
    *
-   * @param compartment; const std::string& value of the "compartment" attribute to be set
+   * @param compartment the new attribute value.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCompartment(const std::string& compartment);
 
 
   /**
-   * Unsets the value of the "compartment" attribute of this CompartmentReference.
+   * Unsets the value of the "compartment" attribute of this
+   * CompartmentReference.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCompartment();
 
@@ -269,8 +282,7 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for CompartmentReference, is
-   * always @c "compartmentReference".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "compartmentReference".
    */
@@ -279,43 +291,23 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this CompartmentReference object have been set.
-   *
-   * @note The required attributes for a CompartmentReference object are:
-   * @li "compartment"
+   * Returns @c true if all the required attributes for this
+   * CompartmentReference object have been set.
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -324,50 +316,38 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -380,7 +360,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -392,7 +372,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -403,7 +383,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
@@ -616,7 +596,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -627,7 +607,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

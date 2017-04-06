@@ -24,6 +24,36 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiSpeciesType
+ * @sbmlbrief{multi} A type of Species in SBML Level&nbsp;3 "multi"
+ *
+ * The MultiSpeciesType class (defined simply as @c SpeciesType in the SBML
+ * Level&nbsp;3 "multi" specification, but called MultiSpeciesType here to
+ * distinguish it from the SpeciesType class defined in SBML Level&nbsp;2),
+ * is a child of the extended Model object (via the MultiModelPlugin class).
+ * It defines "id" and "name" attributes, an optional "compartment" attribute
+ * for indicating which Compartment the referencing Species is in, and four
+ * optional lists for child SpeciesFeatureType, SpeciesTypeInstance,
+ * SpeciesTypeComponentIndex, and InSpeciesTypeBond objects.  Together those
+ * children define the species type.  The ListOfSpeciesTypeInstances
+ * subobject provides a way to define multicomponents which are instances of
+ * other MultiSpeciesType objects. The ListOfSpeciesFeatureTypes subobject
+ * and its SpeciesFeatureType children set up a framework for the referencing
+ * species or the instances of MultiSpeciesType objects to be able to have
+ * multistates. The ListOfSpeciesTypeComponentIndexes subobject provides a
+ * flexible way to reference any component in a MultiSpeciesType.  The
+ * ListOfInSpeciesTypeBonds subobject and its InSpeciesTypeBond children
+ * provides a way to define bonds within a MultiSpeciesType.
+ *
+ * @class ListOfMultiSpeciesTypes
+ * @sbmlbrief{multi} A list of MultiSpeciesType objects.
+ *
+ * The ListOfMultiSpeciesTypes is a container for MultiSpeciesType objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see MultiSpeciesType
  */
 
 
@@ -58,26 +88,29 @@ class LIBSBML_EXTERN MultiSpeciesType : public SBase
 {
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
 
-////  std::string                           mId;
-////  std::string                           mName;
+  ////  std::string                           mId;
+  ////  std::string                           mName;
   std::string                           mCompartment;
   ListOfSpeciesFeatureTypes             mListOfSpeciesFeatureTypes;
   ListOfSpeciesTypeInstances            mListOfSpeciesTypeInstances;
   ListOfSpeciesTypeComponentIndexes     mListOfSpeciesTypeComponentIndexes;
   ListOfInSpeciesTypeBonds              mListOfInSpeciesTypeBonds;
 
+  /** @endcond */
+
 
 public:
 
   /**
-   * Creates a new MultiSpeciesType with the given level, version, and package version.
+   * Creates a new MultiSpeciesType object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this MultiSpeciesType
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this MultiSpeciesType
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this MultiSpeciesType
+   * @copydetails doc_note_setting_lv_pkg
    */
   MultiSpeciesType(unsigned int level      = MultiExtension::getDefaultLevel(),
                    unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -87,7 +120,11 @@ public:
   /**
    * Creates a new MultiSpeciesType with the given MultiPkgNamespaces object.
    *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   MultiSpeciesType(MultiPkgNamespaces* multins);
 
@@ -95,7 +132,7 @@ public:
    /**
    * Copy constructor for MultiSpeciesType.
    *
-   * @param orig; the MultiSpeciesType instance to copy.
+   * @param orig the MultiSpeciesType instance to copy.
    */
   MultiSpeciesType(const MultiSpeciesType& orig);
 
@@ -103,7 +140,7 @@ public:
    /**
    * Assignment operator for MultiSpeciesType.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiSpeciesType& operator=(const MultiSpeciesType& rhs);
@@ -126,17 +163,18 @@ public:
    /**
    * Returns the value of the "id" attribute of this MultiSpeciesType.
    *
-   * @return the value of the "id" attribute of this MultiSpeciesType as a string.
+   * @return the value of the "id" attribute of this MultiSpeciesType as a
+   * string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * MultiSpeciesType's "id" attribute has been set.
+   * Returns @c true if whether this MultiSpeciesType's "id" attribute has
+   * been set.
    *
-   * @return @c true if this MultiSpeciesType's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this MultiSpeciesType's "id" attribute has been set;
+   * otherwise, @c false is returned.
    */
   virtual bool isSetId() const;
 
@@ -144,14 +182,11 @@ public:
   /**
    * Sets the value of the "id" attribute of this MultiSpeciesType.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id const std::string& value of the "id" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -159,12 +194,9 @@ public:
   /**
    * Unsets the value of the "id" attribute of this MultiSpeciesType.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -172,17 +204,18 @@ public:
   /**
    * Returns the value of the "name" attribute of this MultiSpeciesType.
    *
-   * @return the value of the "name" attribute of this MultiSpeciesType as a string.
+   * @return the value of the "name" attribute of this MultiSpeciesType as a
+   * string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * MultiSpeciesType's "name" attribute has been set.
+   * Returns @c true if this MultiSpeciesType's "name" attribute has been
+   * set.
    *
-   * @return @c true if this MultiSpeciesType's "name" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this MultiSpeciesType's "name" attribute has been
+   * set; otherwise, @c false is returned.
    */
   virtual bool isSetName() const;
 
@@ -190,14 +223,11 @@ public:
   /**
    * Sets the value of the "name" attribute of this MultiSpeciesType.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name const std::string& value of the "name" attribute to be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -205,32 +235,29 @@ public:
   /**
    * Unsets the value of the "name" attribute of this MultiSpeciesType.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
-
-
   /**
-   * Returns the value of the "compartment" attribute of this MultiSpeciesType.
+   * Returns the value of the "compartment" attribute of this
+   * MultiSpeciesType.
    *
-   * @return the value of the "compartment" attribute of this MultiSpeciesType as a string.
+   * @return the value of the "compartment" attribute of this
+   * MultiSpeciesType as a string.
    */
   virtual const std::string& getCompartment() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * MultiSpeciesType's "compartment" attribute has been set.
+   * Returns @c true if this MultiSpeciesType's "compartment" attribute has
+   * been set.
    *
-   * @return @c true if this MultiSpeciesType's "compartment" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this MultiSpeciesType's "compartment" attribute has
+   * been set; otherwise, @c false is returned.
    */
   virtual bool isSetCompartment() const;
 
@@ -238,14 +265,11 @@ public:
   /**
    * Sets the value of the "compartment" attribute of this MultiSpeciesType.
    *
-   * @param compartment; const std::string& value of the "compartment" attribute to be set
+   * @param compartment the new value for the attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCompartment(const std::string& compartment);
 
@@ -253,38 +277,39 @@ public:
   /**
    * Unsets the value of the "compartment" attribute of this MultiSpeciesType.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCompartment();
 
 
   /**
-   * Returns the  "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
+   * Returns the "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
    *
-   * @return the "ListOfSpeciesFeatureTypes" attribute of this MultiSpeciesType.
+   * @return the "ListOfSpeciesFeatureTypes" attribute of this
+   * MultiSpeciesType.
    */
   const ListOfSpeciesFeatureTypes* getListOfSpeciesFeatureTypes() const;
 
 
   /**
-   * Returns the  "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
+   * Returns the "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
    *
-   * @return the "ListOfSpeciesFeatureTypes" attribute of this MultiSpeciesType.
+   * @return the "ListOfSpeciesFeatureTypes" attribute of this
+   * MultiSpeciesType.
    */
   ListOfSpeciesFeatureTypes* getListOfSpeciesFeatureTypes();
 
 
   /**
-   * Get a SpeciesFeatureType from the ListOfSpeciesFeatureTypes.
+   * Returns the nth SpeciesFeatureType object from the
+   * ListOfSpeciesFeatureTypes.
    *
    * @param n the index number of the SpeciesFeatureType to get.
    *
-   * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes within this MultiSpeciesType.
+   * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes
+   * within this MultiSpeciesType.
    *
    * @see getNumSpeciesFeatureTypes()
    */
@@ -292,11 +317,13 @@ public:
 
 
   /**
-   * Get a SpeciesFeatureType from the ListOfSpeciesFeatureTypes.
+   * Returns the nth SpeciesFeatureType object from the
+   * ListOfSpeciesFeatureTypes.
    *
    * @param n the index number of the SpeciesFeatureType to get.
    *
-   * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes within this MultiSpeciesType.
+   * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes
+   * within this MultiSpeciesType.
    *
    * @see getNumSpeciesFeatureTypes()
    */
@@ -310,12 +337,10 @@ public:
    * @param sid a string representing the identifier
    * of the SpeciesFeatureType to get.
    *
-   * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes
-   * with the given id or NULL if no such
-   * SpeciesFeatureType exists.
+   * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes with the
+   * given id, or NULL if no such SpeciesFeatureType exists.
    *
    * @see getSpeciesFeatureType(unsigned int n)
-   *
    * @see getNumSpeciesFeatureTypes()
    */
   SpeciesFeatureType* getSpeciesFeatureType(const std::string& sid);
@@ -328,12 +353,10 @@ public:
    * @param sid a string representing the identifier
    * of the SpeciesFeatureType to get.
    *
-   * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes
-   * with the given id or NULL if no such
-   * SpeciesFeatureType exists.
+   * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes with the
+   * given id, or NULL if no such SpeciesFeatureType exists.
    *
    * @see getSpeciesFeatureType(unsigned int n)
-   *
    * @see getNumSpeciesFeatureTypes()
    */
   const SpeciesFeatureType* getSpeciesFeatureType(const std::string& sid) const;
@@ -342,14 +365,11 @@ public:
   /**
    * Adds a copy the given "SpeciesFeatureType" to this MultiSpeciesType.
    *
-   * @param sft; the SpeciesFeatureType object to add
+   * @param sft the SpeciesFeatureType object to add
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addSpeciesFeatureType(const SpeciesFeatureType* sft);
 
@@ -357,16 +377,17 @@ public:
   /**
    * Get the number of SpeciesFeatureType objects in this MultiSpeciesType.
    *
-   * @return the number of SpeciesFeatureType objects in this MultiSpeciesType
+   * @return the number of SpeciesFeatureType objects in this
+   * MultiSpeciesType
    */
   unsigned int getNumSpeciesFeatureTypes() const;
 
 
   /**
-   * Creates a new SpeciesFeatureType object, adds it to this MultiSpeciesTypes
-   * ListOfSpeciesFeatureTypes and returns the SpeciesFeatureType object created. 
+   * Creates a new SpeciesFeatureType object and adds it to this
+   * MultiSpeciesTypes ListOfSpeciesFeatureTypes.
    *
-   * @return a new SpeciesFeatureType object instance
+   * @return the newly created SpeciesFeatureType object instance.
    *
    * @see addSpeciesFeatureType(const SpeciesFeatureType* sft)
    */
@@ -374,12 +395,14 @@ public:
 
 
   /**
-   * Removes the nth SpeciesFeatureType from the ListOfSpeciesFeatureTypes within this MultiSpeciesType.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesFeatureType from the ListOfSpeciesFeatureTypes
+   * within this MultiSpeciesType object.
    *
    * @param n the index of the SpeciesFeatureType to remove.
+   *
+   * @return the SpeciesFeatureType object removed, or NULL if the given
+   * index @p n is out of range.  Note that the caller owns the returned
+   * object and is responsible for deleting it.
    *
    * @see getNumSpeciesFeatureTypes()
    */
@@ -387,43 +410,46 @@ public:
 
 
   /**
-   * Removes the SpeciesFeatureType with the given identifier from the ListOfSpeciesFeatureTypes within this MultiSpeciesType
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesFeatureType with the given identifier from the
+   * ListOfSpeciesFeatureTypes object.
    *
    * @param sid the identifier of the SpeciesFeatureType to remove.
    *
-   * @return the SpeciesFeatureType removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the SpeciesFeatureType removed, or NULL if none have the
+   * identifier @p sid.  Note that the caller owns the returned item and is
+   * responsible for deleting it.
    */
   SpeciesFeatureType* removeSpeciesFeatureType(const std::string& sid);
 
 
   /**
-   * Returns the  "ListOfSpeciesTypeInstances" in this MultiSpeciesType object.
+   * Returns the "ListOfSpeciesTypeInstances" in this MultiSpeciesType
+   * object.
    *
-   * @return the "ListOfSpeciesTypeInstances" attribute of this MultiSpeciesType.
+   * @return the "ListOfSpeciesTypeInstances" attribute of this
+   * MultiSpeciesType.
    */
   const ListOfSpeciesTypeInstances* getListOfSpeciesTypeInstances() const;
 
 
   /**
-   * Returns the  "ListOfSpeciesTypeInstances" in this MultiSpeciesType object.
+   * Returns the "ListOfSpeciesTypeInstances" in this MultiSpeciesType
+   * object.
    *
-   * @return the "ListOfSpeciesTypeInstances" attribute of this MultiSpeciesType.
+   * @return the "ListOfSpeciesTypeInstances" attribute of this
+   * MultiSpeciesType.
    */
   ListOfSpeciesTypeInstances* getListOfSpeciesTypeInstances();
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances.
+   * Get the nth SpeciesTypeInstance object from the
+   * ListOfSpeciesTypeInstances.
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth SpeciesTypeInstance in the ListOfSpeciesTypeInstances within this MultiSpeciesType.
+   * @return the nth SpeciesTypeInstance object in the
+   * ListOfSpeciesTypeInstances, or NULL if the given index is out of range.
    *
    * @see getNumSpeciesTypeInstances()
    */
@@ -431,11 +457,13 @@ public:
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances.
+   * Get the nth SpeciesTypeInstance object from the
+   * ListOfSpeciesTypeInstances.
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth SpeciesTypeInstance in the ListOfSpeciesTypeInstances within this MultiSpeciesType.
+   * @return the nth SpeciesTypeInstance object in the
+   * ListOfSpeciesTypeInstances, or NULL if the given index is out of range.
    *
    * @see getNumSpeciesTypeInstances()
    */
@@ -449,30 +477,26 @@ public:
    * @param sid a string representing the identifier
    * of the SpeciesTypeInstance to get.
    *
-   * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances
-   * with the given id or NULL if no such
-   * SpeciesTypeInstance exists.
+   * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances with
+   * the given id, or NULL if no such SpeciesTypeInstance exists.
    *
    * @see getSpeciesTypeInstance(unsigned int n)
-   *
    * @see getNumSpeciesTypeInstances()
    */
   SpeciesTypeInstance* getSpeciesTypeInstance(const std::string& sid);
 
 
   /**
-   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances
-   * based on its identifier.
+   * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances based on
+   * its identifier.
    *
    * @param sid a string representing the identifier
    * of the SpeciesTypeInstance to get.
    *
-   * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances
-   * with the given id or NULL if no such
-   * SpeciesTypeInstance exists.
+   * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances with
+   * the given id, or NULL if no such SpeciesTypeInstance exists.
    *
    * @see getSpeciesTypeInstance(unsigned int n)
-   *
    * @see getNumSpeciesTypeInstances()
    */
   const SpeciesTypeInstance* getSpeciesTypeInstance(const std::string& sid) const;
@@ -481,14 +505,11 @@ public:
   /**
    * Adds a copy the given "SpeciesTypeInstance" to this MultiSpeciesType.
    *
-   * @param sti; the SpeciesTypeInstance object to add
+   * @param sti the SpeciesTypeInstance object to add
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addSpeciesTypeInstance(const SpeciesTypeInstance* sti);
 
@@ -502,10 +523,10 @@ public:
 
 
   /**
-   * Creates a new SpeciesTypeInstance object, adds it to this MultiSpeciesTypes
-   * ListOfSpeciesTypeInstances and returns the SpeciesTypeInstance object created. 
+   * Creates a new SpeciesTypeInstance object and adds it to this
+   * MultiSpeciesTypes ListOfSpeciesTypeInstances.
    *
-   * @return a new SpeciesTypeInstance object instance
+   * @return a new SpeciesTypeInstance object instance.
    *
    * @see addSpeciesTypeInstance(const SpeciesTypeInstance* sti)
    */
@@ -513,12 +534,13 @@ public:
 
 
   /**
-   * Removes the nth SpeciesTypeInstance from the ListOfSpeciesTypeInstances within this MultiSpeciesType.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesTypeInstance from the ListOfSpeciesTypeInstances
+   * within this MultiSpeciesType.
    *
    * @param n the index of the SpeciesTypeInstance to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getNumSpeciesTypeInstances()
    */
@@ -526,43 +548,44 @@ public:
 
 
   /**
-   * Removes the SpeciesTypeInstance with the given identifier from the ListOfSpeciesTypeInstances within this MultiSpeciesType
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the SpeciesTypeInstance with the given identifier from the
+   * ListOfSpeciesTypeInstances within this MultiSpeciesType.
    *
    * @param sid the identifier of the SpeciesTypeInstance to remove.
    *
-   * @return the SpeciesTypeInstance removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   SpeciesTypeInstance* removeSpeciesTypeInstance(const std::string& sid);
 
 
   /**
-   * Returns the  "ListOfSpeciesTypeComponentIndexes" in this MultiSpeciesType object.
+   * Returns the ListOfSpeciesTypeComponentIndexes object.
    *
-   * @return the "ListOfSpeciesTypeComponentIndexes" attribute of this MultiSpeciesType.
+   * @return the ListOfSpeciesTypeComponentIndexes object in this
+   * MultiSpeciesType object.
    */
   const ListOfSpeciesTypeComponentIndexes* getListOfSpeciesTypeComponentIndexes() const;
 
 
   /**
-   * Returns the  "ListOfSpeciesTypeComponentIndexes" in this MultiSpeciesType object.
+   * Returns the ListOfSpeciesTypeComponentIndexes object.
    *
-   * @return the "ListOfSpeciesTypeComponentIndexes" attribute of this MultiSpeciesType.
+   * @return the ListOfSpeciesTypeComponentIndexes object in this
+   * MultiSpeciesType object.
    */
   ListOfSpeciesTypeComponentIndexes* getListOfSpeciesTypeComponentIndexes();
 
 
   /**
-   * Get a SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes.
+   * Get the nth SpeciesTypeComponentIndex object from the
+   * ListOfSpeciesTypeComponentIndexes.
    *
-   * @param n the index number of the SpeciesTypeComponentIndex to get.
+   * @param n the index number of the SpeciesTypeComponentIndex to get from
+   * the ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the nth SpeciesTypeComponentIndex in the ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType.
+   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or NULL
+   * if the index @p n is out of range.
    *
    * @see getNumSpeciesTypeComponentIndexes()
    */
@@ -570,11 +593,14 @@ public:
 
 
   /**
-   * Get a SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes.
+   * Get the nth SpeciesTypeComponentIndex object from the
+   * ListOfSpeciesTypeComponentIndexes.
    *
-   * @param n the index number of the SpeciesTypeComponentIndex to get.
+   * @param n the index number of the SpeciesTypeComponentIndex to get from
+   * the ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the nth SpeciesTypeComponentIndex in the ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType.
+   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or NULL
+   * if the index @p n is out of range.
    *
    * @see getNumSpeciesTypeComponentIndexes()
    */
@@ -582,69 +608,66 @@ public:
 
 
   /**
-   * Get a SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes
-   * based on its identifier.
+   * Get a SpeciesTypeComponentIndex object based on its identifier.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesTypeComponentIndex to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesTypeComponentIndex to get from the
+   * ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the SpeciesTypeComponentIndex in the ListOfSpeciesTypeComponentIndexes
-   * with the given id or NULL if no such
-   * SpeciesTypeComponentIndex exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see getSpeciesTypeComponentIndex(unsigned int n)
-   *
    * @see getNumSpeciesTypeComponentIndexes()
    */
   SpeciesTypeComponentIndex* getSpeciesTypeComponentIndex(const std::string& sid);
 
 
   /**
-   * Get a SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes
-   * based on its identifier.
+   * Get a SpeciesTypeComponentIndex object based on its identifier.
    *
-   * @param sid a string representing the identifier
-   * of the SpeciesTypeComponentIndex to get.
+   * @param sid a string representing the identifier of the
+   * SpeciesTypeComponentIndex to get from the
+   * ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the SpeciesTypeComponentIndex in the ListOfSpeciesTypeComponentIndexes
-   * with the given id or NULL if no such
-   * SpeciesTypeComponentIndex exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see getSpeciesTypeComponentIndex(unsigned int n)
-   *
    * @see getNumSpeciesTypeComponentIndexes()
    */
   const SpeciesTypeComponentIndex* getSpeciesTypeComponentIndex(const std::string& sid) const;
 
 
   /**
-   * Adds a copy the given "SpeciesTypeComponentIndex" to this MultiSpeciesType.
+   * Adds a copy of the given SpeciesTypeComponentIndex object to this
+   * MultiSpeciesType.
    *
-   * @param stci; the SpeciesTypeComponentIndex object to add
+   * @param stci the SpeciesTypeComponentIndex object to add
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addSpeciesTypeComponentIndex(const SpeciesTypeComponentIndex* stci);
 
 
   /**
-   * Get the number of SpeciesTypeComponentIndex objects in this MultiSpeciesType.
+   * Get the number of SpeciesTypeComponentIndex objects in this
+   * MultiSpeciesType.
    *
-   * @return the number of SpeciesTypeComponentIndex objects in this MultiSpeciesType
+   * @return the number of SpeciesTypeComponentIndex objects in the
+   * ListOfSpeciesTypeComponentIndexes object within this MultiSpeciesType
+   * object.
    */
   unsigned int getNumSpeciesTypeComponentIndexes() const;
 
 
   /**
-   * Creates a new SpeciesTypeComponentIndex object, adds it to this MultiSpeciesTypes
-   * ListOfSpeciesTypeComponentIndexes and returns the SpeciesTypeComponentIndex object created. 
+   * Creates a new SpeciesTypeComponentIndex object and adds it to the
+   * ListOfSpeciesTypeComponentIndexes.
    *
-   * @return a new SpeciesTypeComponentIndex object instance
+   * @return a new SpeciesTypeComponentIndex object instance to add to the
+   * ListOfSpeciesTypeComponentIndexes object within this MultiSpeciesType
+   * object.
    *
    * @see addSpeciesTypeComponentIndex(const SpeciesTypeComponentIndex* stci)
    */
@@ -652,12 +675,13 @@ public:
 
 
   /**
-   * Removes the nth SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth SpeciesTypeComponentIndex object from the
+   * ListOfSpeciesTypeComponentIndexes.
    *
    * @param n the index of the SpeciesTypeComponentIndex to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getNumSpeciesTypeComponentIndexes()
    */
@@ -665,43 +689,41 @@ public:
 
 
   /**
-   * Removes the SpeciesTypeComponentIndex with the given identifier from the ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType
-   * and returns a pointer to it.
+   * Removes the SpeciesTypeComponentIndex object with the given identifier
+   * @p sid.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * @param sid the identifier to search for.
    *
-   * @param sid the identifier of the SpeciesTypeComponentIndex to remove.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
-   * @return the SpeciesTypeComponentIndex removed. As mentioned above, the caller owns the
-   * returned item.
+   * @see getNumSpeciesTypeComponentIndexes()
    */
   SpeciesTypeComponentIndex* removeSpeciesTypeComponentIndex(const std::string& sid);
 
 
   /**
-   * Returns the  "ListOfInSpeciesTypeBonds" in this MultiSpeciesType object.
+   * Returns the ListOfInSpeciesTypeBonds object.
    *
-   * @return the "ListOfInSpeciesTypeBonds" attribute of this MultiSpeciesType.
+   * @return the ListOfInSpeciesTypeBonds attribute of this MultiSpeciesType.
    */
   const ListOfInSpeciesTypeBonds* getListOfInSpeciesTypeBonds() const;
 
 
   /**
-   * Returns the  "ListOfInSpeciesTypeBonds" in this MultiSpeciesType object.
+   * Returns the ListOfInSpeciesTypeBonds object.
    *
-   * @return the "ListOfInSpeciesTypeBonds" attribute of this MultiSpeciesType.
+   * @return the ListOfInSpeciesTypeBonds attribute of this MultiSpeciesType.
    */
   ListOfInSpeciesTypeBonds* getListOfInSpeciesTypeBonds();
 
 
   /**
-   * Get a InSpeciesTypeBond from the ListOfInSpeciesTypeBonds.
+   * Get the nth InSpeciesTypeBond object from the ListOfInSpeciesTypeBonds.
    *
    * @param n the index number of the InSpeciesTypeBond to get.
    *
-   * @return the nth InSpeciesTypeBond in the ListOfInSpeciesTypeBonds within this MultiSpeciesType.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -709,11 +731,11 @@ public:
 
 
   /**
-   * Get a InSpeciesTypeBond from the ListOfInSpeciesTypeBonds.
+   * Get the nth InSpeciesTypeBond object from the ListOfInSpeciesTypeBonds.
    *
    * @param n the index number of the InSpeciesTypeBond to get.
    *
-   * @return the nth InSpeciesTypeBond in the ListOfInSpeciesTypeBonds within this MultiSpeciesType.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -721,69 +743,62 @@ public:
 
 
   /**
-   * Get a InSpeciesTypeBond from the ListOfInSpeciesTypeBonds
-   * based on its identifier.
+   * Get the InSpeciesTypeBond object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the InSpeciesTypeBond to get.
+   * @param sid a string representing the identifier of the InSpeciesTypeBond
+   * to get from this ListOfInSpeciesTypeBonds.
    *
-   * @return the InSpeciesTypeBond in the ListOfInSpeciesTypeBonds
-   * with the given id or NULL if no such
-   * InSpeciesTypeBond exists.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getInSpeciesTypeBond(unsigned int n)
-   *
    * @see getNumInSpeciesTypeBonds()
    */
   InSpeciesTypeBond* getInSpeciesTypeBond(const std::string& sid);
 
 
   /**
-   * Get a InSpeciesTypeBond from the ListOfInSpeciesTypeBonds
-   * based on its identifier.
+   * Get the InSpeciesTypeBond object with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the InSpeciesTypeBond to get.
+   * @param sid a string representing the identifier of the InSpeciesTypeBond
+   * to get from this ListOfInSpeciesTypeBonds.
    *
-   * @return the InSpeciesTypeBond in the ListOfInSpeciesTypeBonds
-   * with the given id or NULL if no such
-   * InSpeciesTypeBond exists.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getInSpeciesTypeBond(unsigned int n)
-   *
    * @see getNumInSpeciesTypeBonds()
    */
   const InSpeciesTypeBond* getInSpeciesTypeBond(const std::string& sid) const;
 
 
   /**
-   * Adds a copy the given "InSpeciesTypeBond" to this MultiSpeciesType.
+   * Adds a copy the given InSpeciesTypeBond object to this MultiSpeciesType.
    *
-   * @param istb; the InSpeciesTypeBond object to add
+   * @param istb the InSpeciesTypeBond object to add
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addInSpeciesTypeBond(const InSpeciesTypeBond* istb);
 
 
   /**
-   * Get the number of InSpeciesTypeBond objects in this MultiSpeciesType.
+   * Get the number of InSpeciesTypeBond objects in the
+   * ListOfInSpeciesTypeBonds.
    *
-   * @return the number of InSpeciesTypeBond objects in this MultiSpeciesType
+   * @return the number of InSpeciesTypeBond objects in the
+   * ListOfInSpeciesTypeBonds within this MultiSpeciesType object.
    */
   unsigned int getNumInSpeciesTypeBonds() const;
 
 
   /**
-   * Creates a new InSpeciesTypeBond object, adds it to this MultiSpeciesTypes
-   * ListOfInSpeciesTypeBonds and returns the InSpeciesTypeBond object created. 
+   * Creates a new InSpeciesTypeBond object and adds it to the
+   * ListOfInSpeciesTypeBonds.
    *
-   * @return a new InSpeciesTypeBond object instance
+   * @return a new InSpeciesTypeBond object instance.
    *
    * @see addInSpeciesTypeBond(const InSpeciesTypeBond* istb)
    */
@@ -791,12 +806,12 @@ public:
 
 
   /**
-   * Removes the nth InSpeciesTypeBond from the ListOfInSpeciesTypeBonds within this MultiSpeciesType.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth InSpeciesTypeBond object from the
+   * ListOfInSpeciesTypeBonds.  and returns a pointer to it.
    *
    * @param n the index of the InSpeciesTypeBond to remove.
+   *
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -804,17 +819,13 @@ public:
 
 
   /**
-   * Removes the InSpeciesTypeBond with the given identifier from the ListOfInSpeciesTypeBonds within this MultiSpeciesType
-   * and returns a pointer to it.
+   * Removes the InSpeciesTypeBond with the given identifier @p sid.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * @param sid the identifier of the InSpeciesTypeBond to remove from
+   * the ListOfInSpeciesTypeBonds within this MultiSpeciesType object.
    *
-   * @param sid the identifier of the InSpeciesTypeBond to remove.
-   *
-   * @return the InSpeciesTypeBond removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   InSpeciesTypeBond* removeInSpeciesTypeBond(const std::string& sid);
 
@@ -838,6 +849,10 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function
+   * to return only elements that match a particular set of constraints.
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List* of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -854,118 +869,83 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this MultiSpeciesType object have been set.
+   * Returns @c true if this object has all the required attributes.
    *
    * @note The required attributes for a MultiSpeciesType object are:
    * @li "id"
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredAttributes() const;
 
 
   /**
-   * Predicate returning @c true if all the required elements
-   * for this MultiSpeciesType object have been set.
+   * Returns @c true if this object has all the required elements.
    *
-   * @note The required elements for a MultiSpeciesType object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredElements() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Connects to child elements.
    */
   virtual void connectToChild ();
 
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -978,7 +958,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -989,7 +969,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1001,7 +981,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1012,7 +992,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 
@@ -1024,13 +1004,13 @@ class LIBSBML_EXTERN ListOfMultiSpeciesTypes : public ListOf
 public:
 
   /**
-   * Creates a new ListOfMultiSpeciesTypes with the given level, version, and package version.
+   * Creates a new ListOfMultiSpeciesTypes object
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfMultiSpeciesTypes
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfMultiSpeciesTypes
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this ListOfMultiSpeciesTypes
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfMultiSpeciesTypes(unsigned int level      = MultiExtension::getDefaultLevel(),
                           unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -1038,14 +1018,19 @@ public:
 
 
   /**
-   * Creates a new ListOfMultiSpeciesTypes with the given MultiPkgNamespaces object.
+   * Creates a new ListOfMultiSpeciesTypes with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   ListOfMultiSpeciesTypes(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this ListOfMultiSpeciesTypes object.
    *
    * @return a (deep) copy of this ListOfMultiSpeciesTypes object.
@@ -1053,12 +1038,12 @@ public:
   virtual ListOfMultiSpeciesTypes* clone () const;
 
 
-   /**
-   * Get a MultiSpeciesType from the ListOfMultiSpeciesTypes.
+  /**
+   * Get the nth MultiSpeciesType from the ListOfMultiSpeciesTypes.
    *
    * @param n the index number of the MultiSpeciesType to get.
    *
-   * @return the nth MultiSpeciesType in this ListOfMultiSpeciesTypes.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -1066,11 +1051,11 @@ public:
 
 
   /**
-   * Get a MultiSpeciesType from the ListOfMultiSpeciesTypes.
+   * Get the nth MultiSpeciesType from the ListOfMultiSpeciesTypes.
    *
    * @param n the index number of the MultiSpeciesType to get.
    *
-   * @return the nth MultiSpeciesType in this ListOfMultiSpeciesTypes.
+   * @return the nth object, or NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -1078,15 +1063,12 @@ public:
 
 
   /**
-   * Get a MultiSpeciesType from the ListOfMultiSpeciesTypes
-   * based on its identifier.
+   * Get the MultiSpeciesType with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the MultiSpeciesType to get.
+   * @param sid a string representing the identifier of the MultiSpeciesType
+   * to get from this ListOfMultiSpeciesTypes.
    *
-   * @return MultiSpeciesType in this ListOfMultiSpeciesTypes
-   * with the given id or NULL if no such
-   * MultiSpeciesType exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -1095,15 +1077,12 @@ public:
 
 
   /**
-   * Get a MultiSpeciesType from the ListOfMultiSpeciesTypes
-   * based on its identifier.
+   * Get the MultiSpeciesType with the given identifier @p sid.
    *
-   * @param sid a string representing the identifier
-   * of the MultiSpeciesType to get.
+   * @param sid a string representing the identifier of the MultiSpeciesType
+   * to get from this ListOfMultiSpeciesTypes.
    *
-   * @return MultiSpeciesType in this ListOfMultiSpeciesTypes
-   * with the given id or NULL if no such
-   * MultiSpeciesType exists.
+   * @return the object with the given id, or NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -1112,12 +1091,12 @@ public:
 
 
   /**
-   * Removes the nth MultiSpeciesType from this ListOfMultiSpeciesTypes
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth MultiSpeciesType from this ListOfMultiSpeciesTypes.
    *
    * @param n the index of the MultiSpeciesType to remove.
+   *
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
    */
@@ -1125,24 +1104,18 @@ public:
 
 
   /**
-   * Removes the MultiSpeciesType from this ListOfMultiSpeciesTypes with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * Removes the MultiSpeciesType with the given identifier @p sid.
    *
    * @param sid the identifier of the MultiSpeciesType to remove.
    *
-   * @return the MultiSpeciesType removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the object removed, or NULL if no such object exists.  Note that
+   * the caller owns the returned object and is responsible for deleting it.
    */
   virtual MultiSpeciesType* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfMultiSpeciesTypes, is
-   * always @c "listOfMultiSpeciesTypes".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "listOfMultiSpeciesTypes".
    */
@@ -1151,67 +1124,31 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_COMPARTMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -1226,7 +1163,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1237,7 +1174,7 @@ protected:
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**

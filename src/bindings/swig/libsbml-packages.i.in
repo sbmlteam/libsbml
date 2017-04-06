@@ -15,3 +15,6 @@
 #ifdef USE_QUAL
 %include "qual-package.i"
 #endif
+#ifdef USE_MULTI
+%include "multi-package.i"
+#endif

@@ -135,6 +135,11 @@ ifdef USE_QUAL
   SWIGDOCDEFINES += --define USE_QUAL
 endif # USE_QUAL  
 
+ifdef USE_MULTI
+  SWIGFLAGS      += -DUSE_MULTI
+  SWIGDOCDEFINES += --define USE_MULTI
+endif # USE_MULTI  
+
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.  As
 # written in the SWIG Manual (section 20.2.4), SWIG generated code could
 # cause crash problems when compiled by GCC with -fstrict-aliasing option
@@ -217,6 +222,13 @@ ifdef USE_QUAL
                ../../sbml/packages/qual/sbml \
                ../../sbml/packages/qual/validator \
                ../../sbml/packages/qual/validator/constraints 
+endif
+ifdef USE_MULTI
+  otherdirs += ../../sbml/packages/multi/common \
+               ../../sbml/packages/multi/extension \
+               ../../sbml/packages/multi/sbml \
+               ../../sbml/packages/multi/validator \
+               ../../sbml/packages/multi/validator/constraints 
 endif
 
 objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -411,7 +423,7 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
     $(shell $(call check_comp)) $(shell $(call check_fbc)) \
     $(shell $(call check_layout)) $(shell $(call check_qual)) \
-    $(shell $(call check_groups))
+    $(shell $(call check_groups)) $(shell $(call check_multi))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) clean-swigfiles
@@ -482,7 +494,8 @@ endif
 
 check: $(check_classes) $(shell $(call check_layout)) \
   $(shell $(call check_comp))  $(shell $(call check_fbc)) \
-  $(shell $(call check_qual)) $(shell $(call check_groups))
+  $(shell $(call check_qual)) $(shell $(call check_groups)) \
+   $(shell $(call check_multi))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)

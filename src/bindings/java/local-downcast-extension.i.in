@@ -12,3 +12,9 @@
 #ifdef USE_QUAL
 %include "local-downcast-extension-qual.i"
 #endif
+#ifdef USE_GROUPS
+%include "local-downcast-extension-groups.i"
+#endif
+#ifdef USE_MULTI
+%include "local-downcast-extension-multi.i"
+#endif

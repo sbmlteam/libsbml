@@ -201,7 +201,7 @@ public:
 
   /**
    * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
+   * arbitrary depth.
    *
    * @param filter a pointer to an ElementFilter, which causes the function 
    * to return only elements that match a particular set of constraints.  

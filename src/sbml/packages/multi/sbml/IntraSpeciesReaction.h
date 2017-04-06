@@ -29,8 +29,28 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ * @class IntraSpeciesReaction
+ * @sbmlbrief{multi} A subclass of Reaction for changes of an internal species bond.
+ *
+ * An IntraSpeciesReaction is derived from Reaction for the reactions
+ * happening within a Species. A particular Reaction may happen within a
+ * Species as an IntraSpeciesReaction if the following conditions are
+ * fulfilled:
+ *
+ * @li The Reaction is either an association reaction or a dissociation
+ * reaction.
+ *
+ * @li If it is an association reaction, each of the two reactant Species has
+ * at least one OutwardBindingSite free ("unbound").
+ *
+ * @li If it is a dissociation reaction, each of the two product Species has
+ * at least one OutwardBindingSite free ("unbound").
+ *
+ * Note: Technically, transformations are also reactions happening with one
+ * Species, but they do not have the ambiguity of association and
+ * dissociation reactions. Therefore, a transformation reaction does not have
+ * to be defined as an IntraSpeciesReaction.
  */
-
 
 #ifndef IntraSpeciesReaction_H__
 #define IntraSpeciesReaction_H__
@@ -69,11 +89,11 @@ public:
   /**
    * Creates a new IntraSpeciesReaction with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this IntraSpeciesReaction
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this IntraSpeciesReaction
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this IntraSpeciesReaction
+   * @copydetails doc_note_setting_lv_pkg
    */
   IntraSpeciesReaction(unsigned int level      = MultiExtension::getDefaultLevel(),
                        unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -81,31 +101,36 @@ public:
 
 
   /**
-   * Creates a new IntraSpeciesReaction with the given MultiPkgNamespaces object.
+   * Creates a new IntraSpeciesReaction with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   IntraSpeciesReaction(MultiPkgNamespaces* multins);
 
 
-   /**
+  /**
    * Copy constructor for IntraSpeciesReaction.
    *
-   * @param orig; the IntraSpeciesReaction instance to copy.
+   * @param orig the IntraSpeciesReaction instance to copy.
    */
   IntraSpeciesReaction(const IntraSpeciesReaction& orig);
 
 
-   /**
+  /**
    * Assignment operator for IntraSpeciesReaction.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   IntraSpeciesReaction& operator=(const IntraSpeciesReaction& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this IntraSpeciesReaction object.
    *
    * @return a (deep) copy of this IntraSpeciesReaction object.
@@ -113,15 +138,14 @@ public:
   virtual IntraSpeciesReaction* clone () const;
 
 
-   /**
+  /**
    * Destructor for IntraSpeciesReaction.
    */
   virtual ~IntraSpeciesReaction();
 
 
-   /**
-   * Returns the XML element name of this object, which for IntraSpeciesReaction, is
-   * always @c "intraSpeciesReaction".
+  /**
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "intraSpeciesReaction".
    */
@@ -130,94 +154,62 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this IntraSpeciesReaction object have been set.
+   * Returns @c true if this object has all the required elements.
    *
-   * @note The required attributes for a IntraSpeciesReaction object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredAttributes() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -230,7 +222,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -241,7 +233,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -253,7 +245,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -264,7 +256,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

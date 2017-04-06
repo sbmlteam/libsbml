@@ -62,4 +62,3 @@
 
 
 #endif  /* MultiExtensionTypes_H */
-

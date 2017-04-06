@@ -24,8 +24,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiSimpleSpeciesReferencePlugin
+ * @sbmlbrief{multi} Extension of SimpleSpeciesReference for the "multi" package.
+ *
+ * The MultiSpeciesPlugin class extends the SimpleSpeciesReference class with
+ * a new optional attribute "compartmentReference", of type SIdRef, that
+ * points to a CompartmentReference.  The compartmentReference attribute can
+ * serve to indicate in which subcompartment the SpeciesReference or
+ * ModifierSpeciesReference (which inherit from SimpleSpeciesReference) is
+ * located.
  */
-
 
 #ifndef MultiSimpleSpeciesReferencePlugin_H__
 #define MultiSimpleSpeciesReferencePlugin_H__
@@ -49,16 +58,27 @@ class LIBSBML_EXTERN MultiSimpleSpeciesReferencePlugin : public SBasePlugin
 public:
 
   /**
-   * Creates a new MultiSimpleSpeciesReferencePlugin
+   * Creates a new MultiSimpleSpeciesReferencePlugin object.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
-  MultiSimpleSpeciesReferencePlugin(const std::string& uri, const std::string& prefix, 
-                                 MultiPkgNamespaces* multins);
+  MultiSimpleSpeciesReferencePlugin(const std::string& uri, const std::string& prefix,
+                                    MultiPkgNamespaces* multins);
 
 
   /**
    * Copy constructor for MultiSimpleSpeciesReferencePlugin.
    *
-   * @param orig; the MultiSimpleSpeciesReferencePlugin instance to copy.
+   * @param orig the MultiSimpleSpeciesReferencePlugin instance to copy.
    */
   MultiSimpleSpeciesReferencePlugin(const MultiSimpleSpeciesReferencePlugin& orig);
 
@@ -66,7 +86,7 @@ public:
    /**
    * Assignment operator for MultiSimpleSpeciesReferencePlugin.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   MultiSimpleSpeciesReferencePlugin& operator=(const MultiSimpleSpeciesReferencePlugin& rhs);
@@ -93,7 +113,6 @@ public:
   //---------------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -103,31 +122,23 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**
-   * Checks if this plugin object has all the required elements.
+   * Returns @c true if this object has all the required elements.
    *
-   * Subclasses must override this method 
-   * if they have their specific elements.
-   *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredElements () const;
 
@@ -143,47 +154,46 @@ public:
 
 
    /**
-   * Returns the value of the "compartmentReference" attribute of this CompPlugin.
+   * Returns the value of the "compartmentReference" attribute of this
+   * SimpleSpeciesReference.
    *
-   * @return the value of the "compartmentReference" attribute of this CompPlugin as a string.
+   * @return the value of the "compartmentReference" attribute of this
+   * SimpleSpeciesReference, as a string.
    */
   virtual const std::string& getCompartmentReference() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CompPlugin's "compartmentReference" attribute has been set.
+   * Returns @c true if this SimpleSpeciesReference's "compartmentReference"
+   * attribute has been set.
    *
-   * @return @c true if this CompPlugin's "compartmentReference" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this SimpleSpeciesReference's "compartmentReference"
+   * attribute has been set; otherwise, @c false is returned.
    */
   virtual bool isSetCompartmentReference() const;
 
 
   /**
-   * Sets the value of the "compartmentReference" attribute of this CompPlugin.
+   * Sets the value of the "compartmentReference" attribute of this
+   * SimpleSpeciesReference.
    *
-   * @param compartmentReference; const std::string& value of the "compartmentReference" attribute to be set
+   * @param compartmentReference the new value of the "compartmentReference"
+   * attribute.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCompartmentReference(const std::string& compartmentReference);
 
 
   /**
-   * Unsets the value of the "compartmentReference" attribute of this CompPlugin.
+   * Unsets the value of the "compartmentReference" attribute of this
+   * SimpleSpeciesReference.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCompartmentReference();
 
@@ -192,44 +202,37 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
    *
+   * @param filter a pointer to an ElementFilter, which causes the function
+   * to return only elements that match a particular set of constraints.
+   * If NULL (the default), the function will return all child objects.
+   *
    * @return a List* of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void connectToParent (SBase* sbase);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -242,7 +245,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -254,7 +257,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -265,13 +268,13 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
 
   std::string   mCompartmentReference;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

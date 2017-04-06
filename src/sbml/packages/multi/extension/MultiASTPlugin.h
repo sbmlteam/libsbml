@@ -25,6 +25,27 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiASTPlugin
+ * @sbmlbrief{multi} Extension of ASTBasePlugin.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * The MultiASTPlugin object is used to extend the standard SBML AST
+ * (abstract syntax tree) base object (ASTBase) to allow a "ci" element
+ * (@sbmlconstant{AST_NAME,ASTNodeType_t}) to have an optional
+ * "speciesReference" attribute.  This attribute is used to distinguish which
+ * version of a Species should be used in the mathematics.  If a "template"
+ * type Species appears as both a reactant and a product in the same
+ * Reaction, for example, it may have one amount as a reactant and a
+ * different amount as a product, since the same template is being used to
+ * match slightly different pools of elements in each case.  By defining the
+ * "speciesReference" attribute on an @sbmlconstant{AST_NAME,ASTNodeType_t}
+ * that references that Species, the modeler may determine which amount is
+ * being referenced.  Similarly, an @sbmlconstant{AST_NAME,ASTNodeType_t}
+ * node may reference a SpeciesFeature that appears in multiple Species in
+ * the Reaction, and this attribute can be used to specify which one should
+ * be used.
  */
 
 #ifndef MultiASTPlugin_h
@@ -53,38 +74,48 @@ class LIBSBML_EXTERN MultiASTPlugin : public ASTBasePlugin
 public:
 
   /**
-   * Constructor
+   * Creates a new MultiModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
    */
   MultiASTPlugin (const std::string &uri);
 
 
   /**
-   * Copy constructor. Creates a copy of this SBase object.
+   * Copy constructor.
+   *
+   * @param orig the MultiASTPlugin instance to copy.
    */
   MultiASTPlugin(const MultiASTPlugin& orig);
 
 
   /**
-   * Destroy this object.
+   * Destructor for MultiASTPlugin.
    */
   virtual ~MultiASTPlugin ();
 
 
   /**
-   * Assignment operator for MultiASTPlugin.
+   * Assignment operator for MultiModelPlugin.
+   *
+   * @param orig the object whose values are used as the basis
+   * of the assignment.
    */
   MultiASTPlugin& operator=(const MultiASTPlugin& orig);
 
 
   /**
    * Creates and returns a deep copy of this MultiASTPlugin object.
-   * 
+   *
    * @return a (deep) copy of this SBase object
    */
   virtual MultiASTPlugin* clone () const;
 
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -94,14 +125,16 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual MultiASTPlugin* createObject (XMLInputStream& stream);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
+  /** @endcond */
 
 
   // ---------------------------------------------------------
@@ -112,7 +145,6 @@ public:
   // ---------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
 
   /**
    * Returns the prefix of the package extension of this plugin object.

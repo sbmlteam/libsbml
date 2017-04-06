@@ -25,6 +25,23 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiValidator
+ * @sbmlbrief{multi} Entry point for package validation.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * @copydetails doc_common_intro_package_validators
+ *
+ * The MultiValidator class extends the Validator class from core libSBML to
+ * apply validation to the constructs introduced by the SBML Level&nbsp;3
+ * @ref multi (&ldquo;multi&rdquo;) package.  This class then acts as a base
+ * class for any validators that apply rules to the &ldquo;fbc&rdquo; package
+ * specification constructs or to entire models that use the
+ * &ldquo;multi&rdquo; package, and may therefore be subject to other global
+ * restrictions introduced.
+ *
+ * @copydetails doc_section_package_validators_general_info
  */
 
 #ifndef MultiValidator__H
@@ -38,7 +55,8 @@
 
 #include <list>
 #include <string>
-  /** @endcond doxygenLibsbmlInternal */
+
+  /** @endcond */
 
 
 #include <sbml/SBMLError.h>

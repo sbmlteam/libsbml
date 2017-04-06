@@ -183,7 +183,7 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
     * Creates an XMLNode object from this.
     */
     XMLNode toXML() const;
-    
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -195,11 +195,13 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
-  
-  
+
+
+  /** @cond doxygenLibsbmlInternal */
   virtual bool isValidTypeForList(SBase * item);
+  /** @endcond */
 };
-  
+
 class LIBSBML_EXTERN Curve : public SBase
 {
 protected:

@@ -33,8 +33,12 @@
  * @class LayoutExtension
  * @sbmlbrief{layout} Base extension class for the package.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * @class LayoutPkgNamespaces
  * @sbmlbrief{layout} SBMLNamespaces extension for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
  *
  * There is currently one possible namespace defined for the Layout
  * package: 
@@ -306,10 +310,10 @@ public:
    *
    */
   static void init();
-
   /** @endcond */
 
-    /**
+
+  /**
    * Removes the L2 Namespace from a document. 
    *
    * This method should be overridden by all extensions that want to serialize
@@ -317,7 +321,7 @@ public:
    */
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
 
-  
+
   /**
    * adds all L2 Extension namespaces to the namespace list. 
    * 
@@ -325,6 +329,7 @@ public:
    * to an L2 annotation.
    */
   virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
+
 
   /**
    * Adds the L2 Namespace to the document and enables the extension.
@@ -334,7 +339,8 @@ public:
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 
-  /** 
+
+  /**
    * Determines whether this extension is being used by the given SBMLDocument
    *
    * The implementation returns true if the model object contains one 
@@ -347,17 +353,18 @@ public:
    */
   virtual bool isInUse(SBMLDocument *doc) const;
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Return the entry in the error table at this index. 
+   * Return the entry in the error table at this index.
    *
-   * @param index an unsigned intgere representing the index of the error in the LayoutSBMLErrorTable.
+   * @param index an unsigned intgere representing the index of the error in
+   * the LayoutSBMLErrorTable.
    *
-   * @return packageErrorTableEntry object in the LayoutSBMLErrorTable corresponding to the index given.
+   * @return packageErrorTableEntry object in the LayoutSBMLErrorTable
+   * corresponding to the index given.
    */
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
-
-
   /** @endcond */
 
 
@@ -365,13 +372,13 @@ public:
   /**
    * Return the index in the error table with the given errorId. 
    *
-   * @param errorId an unsigned intgere representing the errorId of the error in the LayoutSBMLErrorTable.
+   * @param errorId an unsigned intgere representing the errorId of the error
+   * in the LayoutSBMLErrorTable.
    *
-   * @return unsigned integer representing the index in the LayoutSBMLErrorTable corresponding to the errorId given.
+   * @return unsigned integer representing the index in the
+   * LayoutSBMLErrorTable corresponding to the errorId given.
    */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
-
-
   /** @endcond */
 
 
@@ -382,8 +389,6 @@ public:
    * @return unsigned intege representing the  offset for errors LayoutSBMLErrorTable.
    */
   virtual unsigned int getErrorIdOffset() const;
-
-
   /** @endcond */
 
 };

@@ -470,7 +470,7 @@ SpeciesTypeComponentMapInProduct::writeElements (XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -485,7 +485,7 @@ SpeciesTypeComponentMapInProduct::accept (SBMLVisitor& v) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -500,7 +500,7 @@ SpeciesTypeComponentMapInProduct::setSBMLDocument (SBMLDocument* d)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -516,7 +516,7 @@ SpeciesTypeComponentMapInProduct::enablePackageInternal(const std::string& pkgUR
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -535,7 +535,7 @@ SpeciesTypeComponentMapInProduct::addExpectedAttributes(ExpectedAttributes& attr
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -743,7 +743,7 @@ SpeciesTypeComponentMapInProduct::readAttributes (const XMLAttributes& attribute
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -770,7 +770,7 @@ SpeciesTypeComponentMapInProduct::writeAttributes (XMLOutputStream& stream) cons
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /*
@@ -934,7 +934,7 @@ ListOfSpeciesTypeComponentMapInProducts::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -962,7 +962,7 @@ ListOfSpeciesTypeComponentMapInProducts::writeXMLNS(XMLOutputStream& stream) con
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 /**

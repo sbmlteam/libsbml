@@ -33,12 +33,16 @@
  * @class GroupsExtension
  * @sbmlbrief{groups} Base extension class for the package.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * This is the Groups package extension of the SBMLExtension class that
  * every libSBML plug-in must implement in order to implement an
  * SBML Level&nbsp;3 package.
  *
  * @class GroupsPkgNamespaces
  * @sbmlbrief{groups} SBMLNamespaces extension for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
  */
 
 

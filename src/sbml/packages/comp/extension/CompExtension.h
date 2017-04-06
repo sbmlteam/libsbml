@@ -34,7 +34,7 @@
  * @htmlinclude not-sbml-warning.html
  *
  * There is currently exactly one namespace defined for the Hierarchical 
- * %Model Composition package: 
+ * %Model Composition package: @c
  * "http://www.sbml.org/sbml/level3/version1/comp/version1".  Despite 
  * referencing SBML Level&nbsp;3 Version&nbsp;1 explicitly, this package 
  * (and all such packages) can be used without change in SBML Level&nbsp;3
@@ -45,7 +45,7 @@
  * if a Level&nbsp;2 SBML element has an "id" attribute that was newly added 
  * in Level&nbsp;2 (when "id" was added to SBase itself), an SBaseRef "idRef" 
  * attribute may not reference it, and it must continue to use the "metaIdRef" 
- * atttribute instead.
+ * attribute instead.
  */
 
 #ifndef CompExtension_h

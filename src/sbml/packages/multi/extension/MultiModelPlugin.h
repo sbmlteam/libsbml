@@ -24,6 +24,14 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class MultiModelPlugin
+ * @sbmlbrief{multi} Extension of Model.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * The MultiModelPlugin object is used to extend the standard SBML Model
+ * object to allow a ListOfSpeciesTypes child.
  */
 
 
@@ -50,7 +58,18 @@ class LIBSBML_EXTERN MultiModelPlugin : public SBasePlugin
 public:
 
   /**
-   * Creates a new MultiModelPlugin
+   * Creates a new MultiModelPlugin object using the given parameters.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param multins the namespaces object for the package.
    */
   MultiModelPlugin(const std::string& uri, const std::string& prefix, 
                                  MultiPkgNamespaces* multins);
@@ -59,21 +78,21 @@ public:
   /**
    * Copy constructor for MultiModelPlugin.
    *
-   * @param orig; the MultiModelPlugin instance to copy.
+   * @param orig the MultiModelPlugin instance to copy.
    */
   MultiModelPlugin(const MultiModelPlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for MultiModelPlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the object whose values are used as the basis
+   * of the assignment.
    */
   MultiModelPlugin& operator=(const MultiModelPlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this MultiModelPlugin object.
    *
    * @return a (deep) copy of this MultiModelPlugin object.
@@ -81,20 +100,19 @@ public:
   virtual MultiModelPlugin* clone () const;
 
 
-   /**
+  /**
    * Destructor for MultiModelPlugin.
    */
   virtual ~MultiModelPlugin();
 
 
-   //---------------------------------------------------------------
+  //---------------------------------------------------------------
   //
   // overridden virtual functions for read/write/check
   //
   //---------------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -104,31 +122,23 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /**
-   * Checks if this plugin object has all the required elements.
+   * Returns @c true if this object has all the required elements.
    *
-   * Subclasses must override this method 
-   * if they have their specific elements.
-   *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredElements () const;
 
@@ -145,6 +155,10 @@ public:
   /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitary depth.
+   *
+   * @param filter a pointer to an ElementFilter, which causes the function 
+   * to return only elements that match a particular set of constraints.  
+   * If NULL (the default), the function will return all child objects.
    *
    * @return a List* of pointers to all child objects.
    */
@@ -196,9 +210,6 @@ public:
    *
    * @return MultiSpeciesType in the ListOfMultiSpeciesTypes with the given id
    * or NULL if no such MultiSpeciesType exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
    */
   const MultiSpeciesType* getMultiSpeciesType(const std::string& sid) const;
 
@@ -210,9 +221,6 @@ public:
    *
    * @return MultiSpeciesType in the ListOfMultiSpeciesTypes with the given id
    * or NULL if no such MultiSpeciesType exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
    */
   MultiSpeciesType* getMultiSpeciesType(const std::string& sid);
 
@@ -222,11 +230,8 @@ public:
    *
    * @param multiSpeciesType the multiSpeciesType to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addMultiSpeciesType (const MultiSpeciesType* multiSpeciesType);
 
@@ -300,7 +305,7 @@ public:
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -308,7 +313,7 @@ public:
   virtual void connectToParent (SBase* sbase);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -317,14 +322,14 @@ public:
                                      const std::string& pkgPrefix, bool flag);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   virtual bool accept (SBMLVisitor& v) const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -333,7 +338,7 @@ protected:
 
   ListOfMultiSpeciesTypes mListOfMultiSpeciesTypes;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };

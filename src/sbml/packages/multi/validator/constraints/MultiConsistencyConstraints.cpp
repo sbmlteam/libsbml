@@ -1389,6 +1389,6 @@ END_CONSTRAINT
 ///*!< Math ci element: 'representationType' must be a value of the Multi data type 'RepresentationType' */
 //EXTERN_CONSTRAINT (MultiMathCi_RepTypAtt_Ref, MultiMathCiCheckRepresentationType)
 //
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 

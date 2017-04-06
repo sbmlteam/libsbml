@@ -116,6 +116,11 @@ ifeq ("@USE_QUAL@", "1")
 	SWIGDOCDEFINES += --define USE_QUAL
 endif
 
+ifeq ("@USE_MULTI@", "1")
+	PACKAGE_ARGS += -DUSE_MULTI
+	SWIGDOCDEFINES += --define USE_MULTI
+endif
+
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' \
     | cut -f2- -d'/' | sed -e 's,^,../../sbml/,g')

@@ -206,8 +206,9 @@ distfiles =                                                  \
         common-text/libsbml-group-comp-intro.html.in         \
         common-text/libsbml-group-core-intro.html            \
         common-text/libsbml-group-fbc-intro.html.in          \
-        common-text/libsbml-group-groups-intro.html.in        \
+        common-text/libsbml-group-groups-intro.html.in       \
         common-text/libsbml-group-layout-intro.html.in       \
+        common-text/libsbml-group-multi-intro.html.in        \
         common-text/libsbml-group-qual-intro.html.in         \
         common-text/libsbml-import-for-c-cpp.html	     \
         common-text/libsbml-import-for-csharp.html	     \
@@ -236,8 +237,10 @@ distfiles =                                                  \
         common-text/pkg-marker-core.txt                      \
         common-text/pkg-marker-fbc.html                      \
         common-text/pkg-marker-fbc.txt                       \
-        common-text/pkg-marker-groups.html                    \
-        common-text/pkg-marker-groups.txt                     \
+        common-text/pkg-marker-groups.html                   \
+        common-text/pkg-marker-groups.txt                    \
+        common-text/pkg-marker-multi.html                    \
+        common-text/pkg-marker-multi.txt                     \
         common-text/pkg-marker-layout.html                   \
         common-text/pkg-marker-layout.txt                    \
         common-text/pkg-marker-qual.html                     \
@@ -479,8 +482,9 @@ expanded-html-files = \
   common-text/libsbml-downloading.html        \
   common-text/libsbml-group-comp-intro.html   \
   common-text/libsbml-group-fbc-intro.html    \
-  common-text/libsbml-group-groups-intro.html  \
+  common-text/libsbml-group-groups-intro.html \
   common-text/libsbml-group-layout-intro.html \
+  common-text/libsbml-group-multi-intro.html  \
   common-text/libsbml-group-qual-intro.html   \
   common-text/libsbml-installation.html
 

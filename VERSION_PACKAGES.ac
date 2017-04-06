@@ -77,6 +77,15 @@ AC_SUBST(PACKAGE_GROUPS_V1_SPEC_URL, [http://identifiers.org/combine.specificati
 AC_SUBST(PACKAGE_GROUPS_V1_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Groups/Confirmed_issues_in_the_Groups_package_specification])
 
 # -----------------------------------------------------------------------------
+# 'multi' package, v1
+# -----------------------------------------------------------------------------
+
+AC_SUBST(PACKAGE_MULTI_V1_VERSION, 1)
+AC_SUBST(PACKAGE_MULTI_V1_RELEASE, 1)
+AC_SUBST(PACKAGE_MULTI_V1_SPEC_URL, [http://identifiers.org/combine.specifications/sbml.level-3.version-1.multi.version-1.release-1])
+AC_SUBST(PACKAGE_MULTI_V1_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Multi/Confirmed_issues_in_the_Multi_package_specification])
+
+# -----------------------------------------------------------------------------
 # 'layout' package
 # -----------------------------------------------------------------------------
 

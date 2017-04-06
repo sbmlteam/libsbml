@@ -452,7 +452,7 @@ public:
    *
    * @param reaction the id of an reaction to find FluxBound objects for.
    *
-   * @return a listOfFluxBounds for the given reaction id.
+   * @return a ListOfFluxBounds for the given reaction id.
    */
   ListOfFluxBounds *  getFluxBoundsForReaction(const std::string& reaction) const;
 

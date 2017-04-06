@@ -12,23 +12,36 @@ these documents.</caption>
 <th style="text-align: left">Special notes</th>
 </tr>
 
-<tr class="align-text-bottom" style="border-bottom: 1px solid #aaa">
+<tr class="align-text-bottom">
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%203%20Ver.%201/sbml-level-3-version-1-core-rel-1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;1 Release&nbsp;1</a>
+      <a class="spec-link" target="_blank" href="http://sbml.org/Special/specifications/sbml-level-3/version-2/core/release-1-rc2/sbml-level-3-version-2-core.pdf">
+        <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;2 Core (<em>RC&nbsp;2 &ndash; <strong>not final</strong></em>)</a>
     </td>
     <td>
-        <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Version_1/Core/Confirmed_issues_in_the_Level_3_Version_1_Core_Specification">
+      <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Version_2/Core/Confirmed_issues_in_the_Level_3_Version_2_Core_Specification">
             <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
     </td>
     <td>
     </td>
 </tr>
 
+<tr class="align-text-bottom" style="border-bottom: 1px solid #aaa">
+  <td style="white-space: nowrap">
+    <a class="spec-link" target="_blank" href="http://co.mbine.org/specifications/sbml.level-3.version-1">
+      <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;1 Core (Release&nbsp;2)</a>
+  </td>
+  <td>
+    <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Version_1/Core/Confirmed_issues_in_the_Level_3_Version_1_Core_Specification">
+      <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+  </td>
+  <td>
+  </td>
+</tr>
+
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="https://sourceforge.net/projects/sbml/files/specifications/Level%202%20Ver.%205/sbml-level-2-version-5-rel-1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;5 Release&nbsp;1</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;5 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_5/Errata">
@@ -41,7 +54,7 @@ these documents.</caption>
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%204/sbml-level-2-version-4-rel-1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;4 Release&nbsp;1</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;4 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_4/Errata">
@@ -54,7 +67,7 @@ these documents.</caption>
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%203/sbml-level-2-version-3-rel-2.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;3 Release&nbsp;2</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;3 (Release&nbsp;2)</a>
     </td>
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_3/Errata">
@@ -67,7 +80,7 @@ these documents.</caption>
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%202/sbml-level-2-version-2-rev1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;2 Release&nbsp;1</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;2 (Release&nbsp;1)</a>
     </td>
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_2/Errata">
@@ -80,7 +93,7 @@ these documents.</caption>
 <tr class="align-text-bottom">
     <td class="align-bottom" style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%202%20Ver.%201/sbml-level-2-v1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;1 Release&nbsp;1</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;2 Version&nbsp;1 (Release&nbsp;1)</a>
     </td>
     <td class="align-bottom" style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_2/Version_1/Errata">
@@ -93,7 +106,7 @@ Has significant limitations; use later L2 versions instead.
 
 <tr class="align-text-bottom" style="border-top: 1px solid #aaa"><td>
     <a class="spec-link" target="_blank" href="http://iweb.dl.sourceforge.net/project/sbml/specifications/Level%201%20Ver.%202/sbml-level-1-v2.pdf">
-        <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;2 Release&nbsp;1</a>
+        <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;2 (Release&nbsp;1)</a>
 </td>
 <td>
     <a class="spec-link" target="_blank" href="http://sbml.org/Specifications/SBML_Level_1/Errata">
@@ -106,12 +119,12 @@ Has significant limitations; use later L2 versions instead.
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
         <a class="spec-link" target="_blank" href="http://www.sbml.org/specifications/sbml-level-1/version-1/sbml-level-1.pdf">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;1 Release&nbsp;1</a>
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;1 Version&nbsp;1 (Release&nbsp;1)</a>
     </td><td style="text-align: center">
 (No errata list)
     </td>
     <td>
-Obsolete; do not use for new models&mdash;use L1V2 instead.
+Obsolete; do not use for new models.
     </td>
 </tr>
 
@@ -193,6 +206,20 @@ See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Spe
     <td>
 See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/layout">activity page for 'layout'</a> for more information
     </td>
+</tr>
+
+<tr class="align-text-bottom">
+  <td style="white-space: nowrap">
+    <a class="spec-link" target="_blank" href="@PACKAGE_MULTI_SPEC_URL@"">
+      <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Multistate, Multicomponent and Multicompartment Species</a>
+  </td>
+  <td style="white-space: nowrap">
+    <a class="spec-link" target="_blank" href="@PACKAGE_MULTI_ERRATA_URL@"">
+      <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+  </td>
+  <td>
+    See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/multi">activity page for 'multi'</a> for more information
+  </td>
 </tr>
 
 <tr class="align-text-bottom">

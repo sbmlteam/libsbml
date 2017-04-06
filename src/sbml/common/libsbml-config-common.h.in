@@ -112,6 +112,12 @@
 /* Define to 1 to build the SBML comp extension. */
 #undef LIBSBML_HAS_PACKAGE_COMP
 
+/* Define to 1 to build the SBML multi extension. */
+#undef USE_MULTI
+
+/* Define to 1 to build the SBML multi extension. */
+#undef LIBSBML_HAS_PACKAGE_MULTI
+
 
 /* Define to 1 to build the SBML groups extension. */
 #undef USE_GROUPS

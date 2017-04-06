@@ -216,24 +216,28 @@
  *
  * @par
  * This setting affects whether the names of functions added in SBML
- * Level&nbsp;3 Version&nbsp;2 are parsed as those added MathML functions, 
+ * Level&nbsp;3 Version&nbsp;2 are parsed as those added MathML functions,
  * or whether they are added as generic functions with those names (to
  * be used in SBML as function definitions).
  *
  * @class doc_l3v2_function_values
  *
  * <ul>
- * <li> @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY,} (value = @c true): parse the 
- * strings 'rateOf', 'implies', 'max', 'min', 'quotient', and 'rem' as
+ * <li> @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY,} (value = @c true):
+ * parse the strings <code>rateOf</code>, <code>implies</code>,
+ * <code>max</code>, <code>min</code>, <code>quotient</code>, and
+ * <code>rem</code> as
  * @sbmlconstant{AST_FUNCTION_RATE_OF,ASTNodeType_t},
  * @sbmlconstant{AST_LOGICAL_IMPLIES,ASTNodeType_t},
  * @sbmlconstant{AST_FUNCTION_MAX,ASTNodeType_t},
  * @sbmlconstant{AST_FUNCTION_MIN,ASTNodeType_t},
  * @sbmlconstant{AST_FUNCTION_QUOTIENT,ASTNodeType_t}, and
  * @sbmlconstant{AST_FUNCTION_REM,ASTNodeType_t}, respectively.
- * <li> @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC,} (value = @c false): 
- * parse the strings 'rateOf', 'implies', 'max', 'min', 'quotient', and 
- * 'rem' all as @sbmlconstant{AST_FUNCTION,ASTNodeType_t} with the appropriate
+ * <li> @sbmlconstant{L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC,} (value = @c false):
+ * parse the strings <code>rateOf</code>, <code>implies</code>,
+ * <code>max</code>, <code>min</code>, <code>quotient</code>, and
+ * <code>rem</code> all as
+ * @sbmlconstant{AST_FUNCTION,ASTNodeType_t} with the appropriate
  * name set.
  * </ul>
  */
@@ -523,6 +527,13 @@ public:
    * will interpret additional syntax defined by the packages; for example,
    * it may understand vector/array extensions introduced by the SBML
    * Level&nbsp;3 @em Arrays package.
+   *
+   * @param l3v2functions ("parse L3v2 functions directly") is a Boolean flag
+   * that controls how to translate certain mathematical functions added in SBML
+   * Level&nbsp;3 Version&nbsp;2 Core.  The parser can either turn them into
+   * specific AST node types, or turn them all into
+   * @sbmlconstant{AST_FUNCTION,ASTNodeType_t} with the name set to the
+   * function name in question.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    *

@@ -9,6 +9,7 @@
       <tab type="user" url="@ref comp"   title="Hierarchical Model Composition"/>
       <tab type="user" url="@ref fbc"    title="Flux Balance Constraints"/>
       <tab type="user" url="@ref groups" title="Groups"/>
+      <tab type="user" url="@ref multi"  title="Multistate/Multicomp. Species"/>
       <tab type="user" url="@ref layout" title="Layout"/>
       <tab type="user" url="@ref qual"   title="Qualitative Models"/>
     </tab>

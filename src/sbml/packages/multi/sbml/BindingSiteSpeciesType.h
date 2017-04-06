@@ -29,8 +29,22 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class BindingSiteSpeciesType
+ * @sbmlbrief{multi} Extension of MultiSpeciesType to define a binding site.
+ *
+ * A BindingSiteSpeciesType inherits from MultiSpeciesType, and also is a
+ * child of the extended Model (via the MultiModelPlugin). A
+ * BindingSiteSpeciesType object defines a binding site, and therefore its
+ * instance can further define the bindingStatus attribute and can
+ * participate a binding internally and explicitly in an InSpeciesTypeBond
+ * object, or externally and implicitly defined by an OutwardBindingSite
+ * object. A binding site must be an atomic component which means that a
+ * BindingSiteSpeciesType object cannot contain a ListOfSpeciesTypeInstances
+ * subobject. Note: In the Multi package, a binding site can only participate
+ * in one binding at a time. That means a binding site cannot bind two
+ * partners at the same time. The binding relationship is one-to-one.
  */
-
 
 #ifndef BindingSiteSpeciesType_H__
 #define BindingSiteSpeciesType_H__
@@ -67,13 +81,13 @@ protected:
 public:
 
   /**
-   * Creates a new BindingSiteSpeciesType with the given level, version, and package version.
+   * Creates a new BindingSiteSpeciesType object.
    *
-   * @param level an unsigned int, the SBML Level to assign to this BindingSiteSpeciesType
+   * @param level the SBML Level.
+   * @param version the Version within the SBML Level.
+   * @param pkgVersion the version of the package.
    *
-   * @param version an unsigned int, the SBML Version to assign to this BindingSiteSpeciesType
-   *
-   * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this BindingSiteSpeciesType
+   * @copydetails doc_note_setting_lv_pkg
    */
   BindingSiteSpeciesType(unsigned int level      = MultiExtension::getDefaultLevel(),
                          unsigned int version    = MultiExtension::getDefaultVersion(),
@@ -81,9 +95,14 @@ public:
 
 
   /**
-   * Creates a new BindingSiteSpeciesType with the given MultiPkgNamespaces object.
+   * Creates a new BindingSiteSpeciesType with the given MultiPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param multins the MultiPkgNamespaces object
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
   BindingSiteSpeciesType(MultiPkgNamespaces* multins);
 
@@ -91,7 +110,7 @@ public:
    /**
    * Copy constructor for BindingSiteSpeciesType.
    *
-   * @param orig; the BindingSiteSpeciesType instance to copy.
+   * @param orig the BindingSiteSpeciesType instance to copy.
    */
   BindingSiteSpeciesType(const BindingSiteSpeciesType& orig);
 
@@ -99,7 +118,7 @@ public:
    /**
    * Assignment operator for BindingSiteSpeciesType.
    *
-   * @param rhs; the object whose values are used as the basis
+   * @param rhs the object whose values are used as the basis
    * of the assignment
    */
   BindingSiteSpeciesType& operator=(const BindingSiteSpeciesType& rhs);
@@ -120,8 +139,7 @@ public:
 
 
    /**
-   * Returns the XML element name of this object, which for BindingSiteSpeciesType, is
-   * always @c "bindingSiteSpeciesType".
+   * Returns the XML element name of this object.
    *
    * @return the name of this element, i.e. @c "bindingSiteSpeciesType".
    */
@@ -130,94 +148,62 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_MULTI_BINDING_SITE_SPECIES_TYPE, SBMLMultiTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this BindingSiteSpeciesType object have been set.
+   * Returns @c true if this object has all the required elements.
    *
-   * @note The required attributes for a BindingSiteSpeciesType object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if this object has all the elements required by the
+   * package specification; otherwise, @c false will be returned.
    */
   virtual bool hasRequiredAttributes() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 protected:
@@ -230,7 +216,7 @@ protected:
   virtual SBase* createObject(XMLInputStream& stream);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -241,7 +227,7 @@ protected:
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -253,7 +239,7 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -264,7 +250,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 

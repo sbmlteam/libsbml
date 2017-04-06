@@ -35,6 +35,8 @@ class QualPkgNamespaces(SBMLNamespaces):
     @see CompPkgNamespaces
     @see FbcPkgNamespaces
     @see LayoutPkgNamespaces
+    @see GroupsPkgNamespaces
+    @see MultiPkgNamespaces
     """
     def clone(self):
         """

@@ -461,7 +461,7 @@ SubListOfSpeciesFeatures::createObject(XMLInputStream& stream)
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -489,7 +489,7 @@ SubListOfSpeciesFeatures::writeXMLNS(XMLOutputStream& stream) const
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -659,6 +659,7 @@ SubListOfSpeciesFeatures::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -667,9 +668,10 @@ SubListOfSpeciesFeatures::writeElements (XMLOutputStream& stream) const
 {
   ListOf::writeElements(stream);
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
 * Accepts the given SBMLVisitor.
 */
@@ -688,18 +690,16 @@ SubListOfSpeciesFeatures::accept (SBMLVisitor& v) const
 
 	return true;
 }
+/** @endcond */
 
-
-/** @endcond doxygenLibsbmlInternal */
-
-
-
-
+/** @cond doxygenLibsbmlInternal */
 void
 SubListOfSpeciesFeatures::connectToChild()
 {
 
 }
+/** @endcond */
+
 
 unsigned int
 SubListOfSpeciesFeatures::getNumSpeciesFeatures() const

@@ -22,6 +22,12 @@
 
 */
 
+/** @defgroup multi Multistate, Multicomponent and Multicompartment Species
+
+@htmlinclude libsbml-group-multi-intro.html
+
+*/
+
 /** @defgroup layout Layout
 
 @htmlinclude libsbml-group-layout-intro.html

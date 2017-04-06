@@ -23,7 +23,8 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- * ---------------------------------------------------------------------- -->*/
+ * ---------------------------------------------------------------------- -->
+ */
 
 #ifndef UniqueSpeciesFeatureTypeIdsWithinMultiSpeciesType_h
 #define UniqueSpeciesFeatureTypeIdsWithinMultiSpeciesType_h

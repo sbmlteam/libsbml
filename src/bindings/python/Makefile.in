@@ -145,6 +145,11 @@ ifdef USE_QUAL
   SWIGDOCDEFINES += --define USE_QUAL
 endif # USE_QUAL  
 
+ifdef USE_MULTI
+  SWIGFLAGS      += -DUSE_MULTI
+  SWIGDOCDEFINES += --define USE_MULTI
+endif # USE_MULTI  
+
 
 # On MacOS X, compilation generates a warning about `long double'.
 
@@ -287,6 +292,13 @@ ifdef USE_QUAL
                ../../sbml/packages/qual/sbml \
                ../../sbml/packages/qual/validator \
                ../../sbml/packages/qual/validator/constraints 
+endif
+ifdef USE_MULTI
+  otherdirs += ../../sbml/packages/multi/common \
+               ../../sbml/packages/multi/extension \
+               ../../sbml/packages/multi/sbml \
+               ../../sbml/packages/multi/validator \
+               ../../sbml/packages/multi/validator/constraints 
 endif
 
 objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -432,6 +444,18 @@ else
   endef
 endif
 
+ifdef USE_MULTI
+  define check_multi
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfSpeciesFeatures libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_multi
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfSpeciesFeatures libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+
 libsbml.py: libsbml_wrap.cpp
 
 # Generate the documentation files.  pydoc-normal.i is used to create the
@@ -455,7 +479,8 @@ pydoc-normal.i: pydoc-doxygen.i
 
 libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) \
   $(main_sources) $(shell $(call check_layout)) $(shell $(call check_comp)) \
-  $(shell $(call check_fbc)) $(shell $(call check_qual)) $(shell $(call check_groups))
+  $(shell $(call check_fbc)) $(shell $(call check_qual)) \
+  $(shell $(call check_groups)) $(shell $(call check_multi))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	mv pydoc-doxygen.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
@@ -485,7 +510,8 @@ test_subdir_path = test/sbml:test/xml:test/annotation:test/math:test/layout
 
 check: $(libraries) $(shell $(call check_layout)) \
   $(shell $(call check_fbc)) $(shell $(call check_comp)) \
-  $(shell $(call check_qual)) $(shell $(call check_groups))
+  $(shell $(call check_qual)) $(shell $(call check_groups)) \
+  $(shell $(call check_multi))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
