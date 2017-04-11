@@ -32,14 +32,14 @@
         <multi:listOfSpeciesFeatureTypes>
           <multi:speciesFeatureType multi:id="sftZ_1" multi:occur="1">
             <multi:listOfPossibleSpeciesFeatureValues>
-              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v1"/>
-              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v2"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v1b"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_1_v2b"/>
             </multi:listOfPossibleSpeciesFeatureValues>
           </multi:speciesFeatureType>
           <multi:speciesFeatureType multi:id="sftZ_2" multi:occur="1">
             <multi:listOfPossibleSpeciesFeatureValues>
-              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v1"/>
-              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v2"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v1c"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psfvZ_2_v2c"/>
             </multi:listOfPossibleSpeciesFeatureValues>
           </multi:speciesFeatureType>
         </multi:listOfSpeciesFeatureTypes>

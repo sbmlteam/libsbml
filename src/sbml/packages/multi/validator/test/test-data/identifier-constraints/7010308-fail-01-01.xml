@@ -20,12 +20,12 @@
             </multi:speciesFeature>
           </multi:subListOfSpeciesFeatures>
           <multi:subListOfSpeciesFeatures multi:id="spYSubSfs" multi:relation="and">
-            <multi:speciesFeature multi:id="spY_f1" multi:speciesFeatureType="sftY_1" multi:occur="1">
+            <multi:speciesFeature multi:id="spY_f12" multi:speciesFeatureType="sftY_1" multi:occur="1">
               <multi:listOfSpeciesFeatureValues>
                 <multi:speciesFeatureValue multi:value="psfvY_1_v1"/>
               </multi:listOfSpeciesFeatureValues>
             </multi:speciesFeature>
-            <multi:speciesFeature multi:id="spY_f2" multi:speciesFeatureType="sftY_2" multi:occur="1">
+            <multi:speciesFeature multi:id="spY_f22" multi:speciesFeatureType="sftY_2" multi:occur="1">
               <multi:listOfSpeciesFeatureValues>
                 <multi:speciesFeatureValue multi:value="psfvY_2_v2"/>
               </multi:listOfSpeciesFeatureValues>
