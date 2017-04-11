@@ -12,7 +12,7 @@
               <multi:possibleSpeciesFeatureValue multi:id="p1"/>
             </multi:listOfPossibleSpeciesFeatureValues>
             <multi:listOfPossibleSpeciesFeatureValues>
-              <multi:possibleSpeciesFeatureValue multi:id="p1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="p1b"/>
             </multi:listOfPossibleSpeciesFeatureValues>           
           </multi:speciesFeatureType>
         </multi:listOfSpeciesFeatureTypes>

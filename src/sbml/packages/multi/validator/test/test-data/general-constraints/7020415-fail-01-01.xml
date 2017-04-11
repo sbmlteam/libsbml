@@ -11,29 +11,23 @@
                         </multi:listOfPossibleSpeciesFeatureValues>
                     </multi:speciesFeatureType>
                 </multi:listOfSpeciesFeatureTypes>
-        <multi:listOfSpeciesTypeInstances>
-            <multi:speciesTypeInstance multi:id="stiX_B1" multi:speciesType="bindingSiteSpeciesType_1"/>
-            <multi:speciesTypeInstance multi:id="stiX_B2" multi:speciesType="bindingSiteSpeciesType_1"/>
-        </multi:listOfSpeciesTypeInstances>
-                
-                
-                
+                <multi:listOfSpeciesTypeInstances>
+                    <multi:speciesTypeInstance multi:id="stiX_B1" multi:speciesType="bindingSiteSpeciesType_1"/>
+                    <multi:speciesTypeInstance multi:id="stiX_B2" multi:speciesType="bindingSiteSpeciesType_1"/>
+                </multi:listOfSpeciesTypeInstances>
                 <multi:listOfInSpeciesTypeBonds>
                     <multi:inSpeciesTypeBond multi:bindingSite1="stiX_B1"  multi:bindingSite2="stiX_B2" multi:id="inSpeciesTypeBond_1" multi:name="someString"/>
                 </multi:listOfInSpeciesTypeBonds>
                 <multi:listOfInSpeciesTypeBonds>
-                    <multi:inSpeciesTypeBond multi:bindingSite1="stiX_B1"  multi:bindingSite2="stiX_B2" multi:id="inSpeciesTypeBond_1" multi:name="someString"/>
-                </multi:listOfInSpeciesTypeBonds>           </multi:speciesType>
+                    <multi:inSpeciesTypeBond multi:bindingSite1="stiX_B1"  multi:bindingSite2="stiX_B2" multi:id="inSpeciesTypeBond_1b" multi:name="someString"/>
+                </multi:listOfInSpeciesTypeBonds>
+            </multi:speciesType>
         </multi:listOfSpeciesTypes>
         <listOfCompartments>
-            <compartment constant="false" id="compartment" multi:compartmentType="compartment_1" multi:isType="false">
-                
-            </compartment>
+            <compartment constant="false" id="compartment" multi:compartmentType="compartment_1" multi:isType="false"/>
         </listOfCompartments>
         <listOfSpecies>
-            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" multi:speciesType="multiSpeciesType_1">
-                
-            </species>
+            <species boundaryCondition="false" compartment="compartment" constant="false" hasOnlySubstanceUnits="false" id="id_2" multi:speciesType="multiSpeciesType_1"/>
         </listOfSpecies>
         <listOfParameters>
             <parameter id="parameter_1" constant="true" value="0"/>
