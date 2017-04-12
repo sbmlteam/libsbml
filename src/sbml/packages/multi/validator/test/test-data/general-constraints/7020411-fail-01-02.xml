@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="3" multi:required="true" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1">
+    <model>
+        <multi:listOfSpeciesTypes>
+            <multi:speciesType multi:compartment="compartment" multi:id="multiSpeciesType_1" multi:name="someString">
+                <multi:listOfSpeciesTypeInstances metaid="_g" sboTerm="SBO:0000001" multi:compartment="c">
+                    <multi:speciesTypeInstance multi:compartmentReference="compartmentReference_1" multi:id="speciesTypeInstance_1" multi:name="someString" multi:speciesType="multiSpeciesType_1"/>
+                </multi:listOfSpeciesTypeInstances>
+                <multi:listOfSpeciesTypeComponentIndexes>
+                    <multi:speciesTypeComponentIndex multi:component="speciesTypeInstance_1" multi:id="speciesTypeComponentIndex_1" multi:identifyingParent="multiSpeciesType_1" multi:name="someString"/>
+                </multi:listOfSpeciesTypeComponentIndexes>
+             </multi:speciesType>
+        </multi:listOfSpeciesTypes>
+        <listOfCompartments>
+            <compartment constant="false" id="compartment" multi:compartmentType="compartment_1" multi:isType="false">
+                <multi:listOfCompartmentReferences>
+                    <multi:compartmentReference multi:compartment="compartment1" multi:id="compartmentReference_1" multi:name="someString"/>
+                </multi:listOfCompartmentReferences>
+            </compartment>
+            <compartment constant="false" id="compartment1" multi:compartmentType="compartment_1" multi:isType="false"/>
+        </listOfCompartments>
+        
+        
+    </model>
+</sbml>
+

@@ -793,9 +793,9 @@ SpeciesFeatureType::readAttributes (const XMLAttributes& attributes,
     if (getErrorLog() != NULL)
     {
       if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(numErrs))
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
-        std::string details = getErrorLog()->getError(XMLAttributeTypeMismatch)->getMessage();
+        std::string details = getErrorLog()->getError(numErrs)->getMessage();
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("multi", MultiSpeFtrTyp_OccAtt_Ref,
                      getPackageVersion(), sbmlLevel, sbmlVersion, details,
