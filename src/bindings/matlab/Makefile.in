@@ -70,10 +70,16 @@ distfiles =                      \
         README.txt               \
         TranslateSBML.cpp        \
         TranslateSBML.m          \
+		addLevelVersion.m        \
+		applyUserValidation.m    \
         buildSBML.m              \
+		getDefaultValues.m       \
+		getStructureFields.m     \
+		getValueType.m           \
         isSBML_Model.m           \
         installSBML.m            \
         isoctave.m               \
+		isEnabled.m              \
         isFbcEnabled.m           \
         matlab-tags-regexp.txt   \
         mexopts-R2007.sh         \
