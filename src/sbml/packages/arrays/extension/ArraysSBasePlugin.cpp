@@ -134,7 +134,7 @@ ArraysSBasePlugin::createObject (XMLInputStream& stream)
     { 
       object = &mIndexs;
 
-      if (targetPrefix.empty() == true) 
+      if (targetPrefix.empty() == true && mIndexs.getSBMLDocument() != NULL)
       { 
         mIndexs.getSBMLDocument()->enableDefaultNS(mURI, true); 
       } 
@@ -143,7 +143,7 @@ ArraysSBasePlugin::createObject (XMLInputStream& stream)
     { 
       object = &mDimensions;
 
-      if (targetPrefix.empty() == true) 
+      if (targetPrefix.empty() == true && mDimensions.getSBMLDocument() != NULL) 
       { 
         mDimensions.getSBMLDocument()->enableDefaultNS(mURI, true); 
       } 

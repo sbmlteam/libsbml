@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment metaid="dd" id="s" constant="true">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="s" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </species>
+      <species id="B" compartment="s" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </species>
+      <species id="C" compartment="s" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="n" value="100" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" constant="false">
+            <arrays:listOfIndices>
+              <arrays:index  arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> i </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" constant="false">
+            <arrays:listOfIndices>
+              <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> i </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfProducts>
+        <arrays:listOfDimensions>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
