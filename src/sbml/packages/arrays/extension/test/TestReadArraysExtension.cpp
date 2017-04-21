@@ -14,7 +14,7 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/conversion/ConversionProperties.h>
-#include <sbml/packages/Arrays/common/ArraysExtensionTypes.h>
+#include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <string>
 
