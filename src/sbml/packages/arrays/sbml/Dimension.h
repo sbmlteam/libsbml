@@ -1,34 +1,37 @@
 /**
- * @file:   Dimension.h
- * @brief:  Implementation of the Dimension class
- * @author: SBMLTeam
+ * @file Dimension.h
+ * @brief Definition of the Dimension class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2017 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class Dimension
+ * @sbmlbrief{arrays} TODO:Definition of the Dimension class.
  */
 
 
@@ -48,7 +51,6 @@
 
 
 #include <sbml/SBase.h>
-#include <sbml/ListOf.h>
 #include <sbml/packages/arrays/extension/ArraysExtension.h>
 
 
@@ -57,72 +59,88 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Dimension : public SBase
 {
-
 protected:
 
-//  std::string   mId;
-//  std::string   mName;
-  std::string   mSize;
-  unsigned int  mArrayDimension;
-  bool          mIsSetArrayDimension;
+  /** @cond doxygenLibsbmlInternal */
 
+  std::string mSize;
+  unsigned int mArrayDimension;
+  bool mIsSetArrayDimension;
+
+  /** @endcond */
 
 public:
 
   /**
-   * Creates a new Dimension with the given level, version, and package version.
+   * Creates a new Dimension using the given SBML Level, Version and
+   * &ldquo;arrays&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Dimension
+   * @param level an unsigned int, the SBML Level to assign to this Dimension.
    *
-   * @param version an unsigned int, the SBML Version to assign to this Dimension
+   * @param version an unsigned int, the SBML Version to assign to this
+   * Dimension.
    *
-   * @param pkgVersion an unsigned int, the SBML Arrays Version to assign to this Dimension
+   * @param pkgVersion an unsigned int, the SBML Arrays Version to assign to
+   * this Dimension.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  Dimension(unsigned int level      = ArraysExtension::getDefaultLevel(),
-            unsigned int version    = ArraysExtension::getDefaultVersion(),
-            unsigned int pkgVersion = ArraysExtension::getDefaultPackageVersion());
+  Dimension(unsigned int level = ArraysExtension::getDefaultLevel(),
+            unsigned int version = ArraysExtension::getDefaultVersion(),
+            unsigned int pkgVersion =
+              ArraysExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new Dimension with the given ArraysPkgNamespaces object.
+   * Creates a new Dimension using the given ArraysPkgNamespaces object.
    *
-   * @param arraysns the ArraysPkgNamespaces object
+   * @param arraysns the ArraysPkgNamespaces object.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the given @p level and @p version combination, or this kind of
+   * SBML object, are either invalid or mismatched with respect to the parent
+   * SBMLDocument object.
+   * @copydetails doc_note_setting_lv
    */
-  Dimension(ArraysPkgNamespaces* arraysns);
+  Dimension(ArraysPkgNamespaces *arraysns);
 
 
-   /**
+  /**
    * Copy constructor for Dimension.
    *
-   * @param orig; the Dimension instance to copy.
+   * @param orig the Dimension instance to copy.
    */
   Dimension(const Dimension& orig);
 
 
-   /**
+  /**
    * Assignment operator for Dimension.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the Dimension object whose values are to be used as the basis
+   * of the assignment.
    */
   Dimension& operator=(const Dimension& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this Dimension object.
    *
    * @return a (deep) copy of this Dimension object.
    */
-  virtual Dimension* clone () const;
+  virtual Dimension* clone() const;
 
 
-   /**
+  /**
    * Destructor for Dimension.
    */
   virtual ~Dimension();
 
 
-   /**
+  /**
    * Returns the value of the "id" attribute of this Dimension.
    *
    * @return the value of the "id" attribute of this Dimension as a string.
@@ -143,30 +161,29 @@ public:
    *
    * @return the value of the "size" attribute of this Dimension as a string.
    */
-  virtual const std::string& getSize() const;
+  const std::string& getSize() const;
 
 
   /**
    * Returns the value of the "arrayDimension" attribute of this Dimension.
    *
-   * @return the value of the "arrayDimension" attribute of this Dimension as a unsigned integer.
+   * @return the value of the "arrayDimension" attribute of this Dimension as a
+   * unsigned integer.
    */
-  virtual unsigned int getArrayDimension() const;
+  unsigned int getArrayDimension() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Dimension's "id" attribute has been set.
+   * Predicate returning @c true if this Dimension's "id" attribute is set.
    *
-   * @return @c true if this Dimension's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this Dimension's "id" attribute has been set, otherwise
+   * @c false is returned.
    */
   virtual bool isSetId() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Dimension's "name" attribute has been set.
+   * Predicate returning @c true if this Dimension's "name" attribute is set.
    *
    * @return @c true if this Dimension's "name" attribute has been set,
    * otherwise @c false is returned.
@@ -175,36 +192,33 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Dimension's "size" attribute has been set.
+   * Predicate returning @c true if this Dimension's "size" attribute is set.
    *
    * @return @c true if this Dimension's "size" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSize() const;
+  bool isSetSize() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Dimension's "arrayDimension" attribute has been set.
+   * Predicate returning @c true if this Dimension's "arrayDimension" attribute
+   * is set.
    *
-   * @return @c true if this Dimension's "arrayDimension" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this Dimension's "arrayDimension" attribute has been
+   * set, otherwise @c false is returned.
    */
-  virtual bool isSetArrayDimension() const;
+  bool isSetArrayDimension() const;
 
 
   /**
    * Sets the value of the "id" attribute of this Dimension.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param id std::string& value of the "id" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -212,14 +226,12 @@ public:
   /**
    * Sets the value of the "name" attribute of this Dimension.
    *
-   * @param name; const std::string& value of the "name" attribute to be set
+   * @param name std::string& value of the "name" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -227,42 +239,36 @@ public:
   /**
    * Sets the value of the "size" attribute of this Dimension.
    *
-   * @param size; const std::string& value of the "size" attribute to be set
+   * @param size std::string& value of the "size" attribute to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setSize(const std::string& size);
+  int setSize(const std::string& size);
 
 
   /**
    * Sets the value of the "arrayDimension" attribute of this Dimension.
    *
-   * @param arrayDimension; unsigned int value of the "arrayDimension" attribute to be set
+   * @param arrayDimension unsigned int value of the "arrayDimension" attribute
+   * to be set.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  virtual int setArrayDimension(unsigned int arrayDimension);
+  int setArrayDimension(unsigned int arrayDimension);
 
 
   /**
    * Unsets the value of the "id" attribute of this Dimension.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -270,12 +276,9 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Dimension.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
@@ -283,407 +286,432 @@ public:
   /**
    * Unsets the value of the "size" attribute of this Dimension.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetSize();
+  int unsetSize();
 
 
   /**
    * Unsets the value of the "arrayDimension" attribute of this Dimension.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  virtual int unsetArrayDimension();
+  int unsetArrayDimension();
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
-   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
 
 
   /**
-   * Returns the XML element name of this object, which for Dimension, is
-   * always @c "dimension".
+   * Returns the XML element name of this Dimension object.
+   *
+   * For Dimension, the XML element name is always @c "dimension".
    *
    * @return the name of this element, i.e. @c "dimension".
    */
-  virtual const std::string& getElementName () const;
+  virtual const std::string& getElementName() const;
 
 
   /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for this Dimension object.
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   *
+   * @sbmlconstant{SBML_ARRAYS_DIMENSION, SBMLArraysTypeCode_t}
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  virtual int getTypeCode () const;
+  virtual int getTypeCode() const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this Dimension object have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * Dimension object have been set.
    *
-   * @note The required attributes for a Dimension object are:
+   * @return @c true to indicate that all the required attributes of this
+   * Dimension have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the Dimension object are:
    * @li "size"
    * @li "arrayDimension"
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
    */
   virtual bool hasRequiredAttributes() const;
 
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
+   * Write any contained elements
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
+  virtual void writeElements(XMLOutputStream& stream) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual bool accept(SBMLVisitor& v) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the parent SBMLDocument.
+   * Sets the parent SBMLDocument
    */
-  virtual void setSBMLDocument (SBMLDocument* d);
+  virtual void setSBMLDocument(SBMLDocument* d);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Enables/Disables the given package with this element.
+   * Enables/disables the given package with this element
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
-               const std::string& pkgPrefix, bool flag);
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this Dimension's attribute "attributeName"
+   * is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this Dimension's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this Dimension.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Get the list of expected attributes for this element.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Read values from the given XMLAttributes set into their specific fields.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write values of XMLAttributes to the output stream.
+   * Writes the attributes to the stream
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void writeAttributes(XMLOutputStream& stream) const;
 
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-
-};
-
-class LIBSBML_EXTERN ListOfDimensions : public ListOf
-{
-
-public:
-
-  /**
-   * Creates a new ListOfDimensions with the given level, version, and package version.
-   *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfDimensions
-   *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfDimensions
-   *
-   * @param pkgVersion an unsigned int, the SBML Arrays Version to assign to this ListOfDimensions
-   */
-  ListOfDimensions(unsigned int level      = ArraysExtension::getDefaultLevel(),
-                   unsigned int version    = ArraysExtension::getDefaultVersion(),
-                   unsigned int pkgVersion = ArraysExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new ListOfDimensions with the given ArraysPkgNamespaces object.
-   *
-   * @param arraysns the ArraysPkgNamespaces object
-   */
-  ListOfDimensions(ArraysPkgNamespaces* arraysns);
-
-
-   /**
-   * Creates and returns a deep copy of this ListOfDimensions object.
-   *
-   * @return a (deep) copy of this ListOfDimensions object.
-   */
-  virtual ListOfDimensions* clone () const;
-
-
-   /**
-   * Get a Dimension from the ListOfDimensions.
-   *
-   * @param n the index number of the Dimension to get.
-   *
-   * @return the nth Dimension in this ListOfDimensions.
-   *
-   * @see size()
-   */
-  virtual Dimension* get(unsigned int n);
-
-
-  /**
-   * Get a Dimension from the ListOfDimensions.
-   *
-   * @param n the index number of the Dimension to get.
-   *
-   * @return the nth Dimension in this ListOfDimensions.
-   *
-   * @see size()
-   */
-  virtual const Dimension* get(unsigned int n) const;
-
-
-  /**
-   * Get a Dimension from the ListOfDimensions
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier
-   * of the Dimension to get.
-   *
-   * @return Dimension in this ListOfDimensions
-   * with the given id or NULL if no such
-   * Dimension exists.
-   *
-   * @see get(unsigned int n)   *
-   * @see size()
-   */
-  virtual Dimension* get(const std::string& sid);
-
-
-  /**
-   * Get a Dimension from the ListOfDimensions
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier
-   * of the Dimension to get.
-   *
-   * @return Dimension in this ListOfDimensions
-   * with the given id or NULL if no such
-   * Dimension exists.
-   *
-   * @see get(unsigned int n)   *
-   * @see size()
-   */
-  virtual const Dimension* get(const std::string& sid) const;
-
-
-  /**
-   * Removes the nth Dimension from this ListOfDimensions
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
-   * @param n the index of the Dimension to remove.
-   *
-   * @see size()
-   */
-  virtual Dimension* remove(unsigned int n);
-
-
-  /**
-   * Removes the Dimension from this ListOfDimensions with the given identifier
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
-   *
-   * @param sid the identifier of the Dimension to remove.
-   *
-   * @return the Dimension removed. As mentioned above, the caller owns the
-   * returned item.
-   */
-  virtual Dimension* remove(const std::string& sid);
-
-
-  /**
-   * Returns the XML element name of this object, which for ListOfDimensions, is
-   * always @c "listOfDimensions".
-   *
-   * @return the name of this element, i.e. @c "listOfDimensions".
-   */
-  virtual const std::string& getElementName () const;
-
-
-  /**
-   * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode () const;
-
-
-  /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getItemTypeCode () const;
-
-
-protected:
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Creates a new Dimension in this ListOfDimensions
-   */
-  virtual SBase* createObject(XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Write the namespace for the Arrays package.
-   */
-  virtual void writeXMLNS(XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
+  /** @endcond */
 
 
 };
@@ -692,130 +720,377 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+
+
+
+#endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
+/**
+ * Creates a new Dimension_t using the given SBML Level, Version and
+ * &ldquo;arrays&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this Dimension_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Dimension_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Arrays Version to assign to this
+ * Dimension_t.
+ *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination, or this kind of
+ * SBML object, are either invalid or mismatched with respect to the parent
+ * SBMLDocument object.
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 Dimension_t *
-Dimension_create(unsigned int level, unsigned int version,
-                 unsigned int pkgVersion);
+Dimension_create(unsigned int level = ArraysExtension::getDefaultLevel(),
+                 unsigned int version = ArraysExtension::getDefaultVersion(),
+                 unsigned int pkgVersion =
+                   ArraysExtension::getDefaultPackageVersion());
 
 
+/**
+ * Creates and returns a deep copy of this Dimension_t object.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return a (deep) copy of this Dimension_t object.
+ *
+ * @memberof Dimension_t
+ */
+LIBSBML_EXTERN
+Dimension_t*
+Dimension_clone(const Dimension_t* d);
+
+
+/**
+ * Frees this Dimension_t object.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 void
-Dimension_free(Dimension_t * d);
+Dimension_free(Dimension_t* d);
 
 
+/**
+ * Returns the value of the "id" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this Dimension_t as a pointer to
+ * a string.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
-Dimension_t *
-Dimension_clone(Dimension_t * d);
+const char *
+Dimension_getId(const Dimension_t * d);
 
 
+/**
+ * Returns the value of the "name" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this Dimension_t as a pointer
+ * to a string.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
-char *
-Dimension_getId(Dimension_t * d);
+const char *
+Dimension_getName(const Dimension_t * d);
 
 
+/**
+ * Returns the value of the "size" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure whose size is sought.
+ *
+ * @return the value of the "size" attribute of this Dimension_t as a pointer
+ * to a string.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
-char *
-Dimension_getName(Dimension_t * d);
+const char *
+Dimension_getSize(const Dimension_t * d);
 
 
-LIBSBML_EXTERN
-char *
-Dimension_getSize(Dimension_t * d);
-
-
+/**
+ * Returns the value of the "arrayDimension" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure whose arrayDimension is sought.
+ *
+ * @return the value of the "arrayDimension" attribute of this Dimension_t as a
+ * unsigned integer.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 unsigned int
-Dimension_getArrayDimension(Dimension_t * d);
+Dimension_getArrayDimension(const Dimension_t * d);
 
 
+/**
+ * Predicate returning @c 1 if this Dimension_t's "id" attribute is set.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return @c 1 if this Dimension_t's "id" attribute has been set, otherwise @c
+ * 0 is returned.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
-Dimension_isSetId(Dimension_t * d);
+Dimension_isSetId(const Dimension_t * d);
 
 
+/**
+ * Predicate returning @c 1 if this Dimension_t's "name" attribute is set.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return @c 1 if this Dimension_t's "name" attribute has been set, otherwise
+ * @c 0 is returned.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
-Dimension_isSetName(Dimension_t * d);
+Dimension_isSetName(const Dimension_t * d);
 
 
+/**
+ * Predicate returning @c 1 if this Dimension_t's "size" attribute is set.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return @c 1 if this Dimension_t's "size" attribute has been set, otherwise
+ * @c 0 is returned.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
-Dimension_isSetSize(Dimension_t * d);
+Dimension_isSetSize(const Dimension_t * d);
 
 
+/**
+ * Predicate returning @c 1 if this Dimension_t's "arrayDimension" attribute is
+ * set.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return @c 1 if this Dimension_t's "arrayDimension" attribute has been set,
+ * otherwise @c 0 is returned.
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
-Dimension_isSetArrayDimension(Dimension_t * d);
+Dimension_isSetArrayDimension(const Dimension_t * d);
 
 
+/**
+ * Sets the value of the "id" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_setId(Dimension_t * d, const char * id);
 
 
+/**
+ * Sets the value of the "name" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_setName(Dimension_t * d, const char * name);
 
 
+/**
+ * Sets the value of the "size" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @param size const char * value of the "size" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_setSize(Dimension_t * d, const char * size);
 
 
+/**
+ * Sets the value of the "arrayDimension" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @param arrayDimension unsigned int value of the "arrayDimension" attribute
+ * to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_setArrayDimension(Dimension_t * d, unsigned int arrayDimension);
 
 
+/**
+ * Unsets the value of the "id" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_unsetId(Dimension_t * d);
 
 
+/**
+ * Unsets the value of the "name" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_unsetName(Dimension_t * d);
 
 
+/**
+ * Unsets the value of the "size" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_unsetSize(Dimension_t * d);
 
 
+/**
+ * Unsets the value of the "arrayDimension" attribute of this Dimension_t.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
 Dimension_unsetArrayDimension(Dimension_t * d);
 
 
+/**
+ * Predicate returning @c 1 if all the required attributes for this Dimension_t
+ * object have been set.
+ *
+ * @param d the Dimension_t structure.
+ *
+ * @return @c 1 to indicate that all the required attributes of this
+ * Dimension_t have been set, otherwise @c 0 is returned.
+ *
+ *
+ * @note The required attributes for the Dimension_t object are:
+ * @li "size"
+ * @li "arrayDimension"
+ *
+ * @memberof Dimension_t
+ */
 LIBSBML_EXTERN
 int
-Dimension_hasRequiredAttributes(Dimension_t * d);
-
-
-LIBSBML_EXTERN
-Dimension_t *
-ListOfDimensions_getById(ListOf_t * lo, const char * sid);
-
-
-LIBSBML_EXTERN
-Dimension_t *
-ListOfDimensions_removeById(ListOf_t * lo, const char * sid);
+Dimension_hasRequiredAttributes(const Dimension_t * d);
 
 
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
 
-#endif /*  Dimension_H__  */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !Dimension_H__ */
+
 

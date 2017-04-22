@@ -1,80 +1,82 @@
 /**
- * @file:   Index.cpp
- * @brief:  Implementation of the Index class
- * @author: SBMLTeam
+ * @file Index.cpp
+ * @brief Implementation of the Index class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2017 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/arrays/sbml/Index.h>
+#include <sbml/packages/arrays/sbml/ListOfIndices.h>
 #include <sbml/packages/arrays/validator/ArraysSBMLError.h>
-#include <sbml/math/MathML.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/*
- * Creates a new Index with the given level, version, and package version.
- */
-Index::Index (unsigned int level, unsigned int version, unsigned int pkgVersion)
-  : SBase(level, version)
-   ,mReferencedAttribute ("")
-   ,mArrayDimension (SBML_INT_MAX)
-   ,mIsSetArrayDimension (false)
-   ,mMath (NULL)
-{
-  // set an SBMLNamespaces derived object of this package
-  setSBMLNamespacesAndOwn(new ArraysPkgNamespaces(level, version, pkgVersion));
 
-  // connect to child objects
+
+#ifdef __cplusplus
+
+
+/*
+ * Creates a new Index using the given SBML Level, Version and
+ * &ldquo;arrays&rdquo; package version.
+ */
+Index::Index(unsigned int level,
+             unsigned int version,
+             unsigned int pkgVersion)
+  : SBase(level, version)
+  , mReferencedAttribute ("")
+  , mArrayDimension (SBML_INT_MAX)
+  , mIsSetArrayDimension (false)
+  , mMath (NULL)
+{
+  setSBMLNamespacesAndOwn(new ArraysPkgNamespaces(level, version, pkgVersion));
   connectToChild();
 }
 
 
 /*
- * Creates a new Index with the given ArraysPkgNamespaces object.
+ * Creates a new Index using the given ArraysPkgNamespaces object.
  */
-Index::Index (ArraysPkgNamespaces* arraysns)
+Index::Index(ArraysPkgNamespaces *arraysns)
   : SBase(arraysns)
-   ,mReferencedAttribute ("")
-   ,mArrayDimension (SBML_INT_MAX)
-   ,mIsSetArrayDimension (false)
-   ,mMath (NULL)
+  , mReferencedAttribute ("")
+  , mArrayDimension (SBML_INT_MAX)
+  , mIsSetArrayDimension (false)
+  , mMath (NULL)
 {
-  // set the element namespace of this object
   setElementNamespace(arraysns->getURI());
-
-  // load package extensions bound with this object (if any) 
+  connectToChild();
   loadPlugins(arraysns);
 }
 
@@ -82,22 +84,24 @@ Index::Index (ArraysPkgNamespaces* arraysns)
 /*
  * Copy constructor for Index.
  */
-Index::Index (const Index& orig)
-  : SBase(orig)
-  , mReferencedAttribute  ( orig.mReferencedAttribute)
-  , mArrayDimension  ( orig.mArrayDimension)
-  , mIsSetArrayDimension  ( orig.mIsSetArrayDimension)
-  , mMath(NULL)
+Index::Index(const Index& orig)
+  : SBase( orig )
+  , mReferencedAttribute ( orig.mReferencedAttribute )
+  , mArrayDimension ( orig.mArrayDimension )
+  , mIsSetArrayDimension ( orig.mIsSetArrayDimension )
+  , mMath ( NULL )
 {
   if (orig.mMath != NULL)
   {
     mMath = orig.mMath->deepCopy();
   }
+
+  connectToChild();
 }
 
 
 /*
- * Assignment for Index.
+ * Assignment operator for Index.
  */
 Index&
 Index::operator=(const Index& rhs)
@@ -105,9 +109,10 @@ Index::operator=(const Index& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mReferencedAttribute  = rhs.mReferencedAttribute;
-    mArrayDimension  = rhs.mArrayDimension;
-    mIsSetArrayDimension  = rhs.mIsSetArrayDimension;
+    mReferencedAttribute = rhs.mReferencedAttribute;
+    mArrayDimension = rhs.mArrayDimension;
+    mIsSetArrayDimension = rhs.mIsSetArrayDimension;
+    delete mMath;
     if (rhs.mMath != NULL)
     {
       mMath = rhs.mMath->deepCopy();
@@ -116,16 +121,19 @@ Index::operator=(const Index& rhs)
     {
       mMath = NULL;
     }
+
+    connectToChild();
   }
+
   return *this;
 }
 
 
 /*
- * Clone for Index.
+ * Creates and returns a deep copy of this Index object.
  */
 Index*
-Index::clone () const
+Index::clone() const
 {
   return new Index(*this);
 }
@@ -134,9 +142,10 @@ Index::clone () const
 /*
  * Destructor for Index.
  */
-Index::~Index ()
+Index::~Index()
 {
   delete mMath;
+  mMath = NULL;
 }
 
 
@@ -161,24 +170,8 @@ Index::getArrayDimension() const
 
 
 /*
- * Returns the value of the "math" attribute of this Index.
- */
-const ASTNode*
-Index::getMath() const
-{
-  return mMath;
-}
-
-ASTNode*
-Index::getMath()
-{
-  return mMath;
-}
-
-
-
-/*
- * Returns true/false if referencedAttribute is set.
+ * Predicate returning @c true if this Index's "referencedAttribute" attribute
+ * is set.
  */
 bool
 Index::isSetReferencedAttribute() const
@@ -188,7 +181,8 @@ Index::isSetReferencedAttribute() const
 
 
 /*
- * Returns true/false if arrayDimension is set.
+ * Predicate returning @c true if this Index's "arrayDimension" attribute is
+ * set.
  */
 bool
 Index::isSetArrayDimension() const
@@ -198,17 +192,7 @@ Index::isSetArrayDimension() const
 
 
 /*
- * Returns true/false if math is set.
- */
-bool
-Index::isSetMath() const
-{
-  return (mMath != NULL);
-}
-
-
-/*
- * Sets referencedAttribute and returns value indicating success.
+ * Sets the value of the "referencedAttribute" attribute of this Index.
  */
 int
 Index::setReferencedAttribute(const std::string& referencedAttribute)
@@ -219,7 +203,7 @@ Index::setReferencedAttribute(const std::string& referencedAttribute)
 
 
 /*
- * Sets arrayDimension and returns value indicating success.
+ * Sets the value of the "arrayDimension" attribute of this Index.
  */
 int
 Index::setArrayDimension(unsigned int arrayDimension)
@@ -231,41 +215,7 @@ Index::setArrayDimension(unsigned int arrayDimension)
 
 
 /*
- * Sets math and returns value indicating success.
- */
-int
-Index::setMath(ASTNode* math)
-{
-  if (mMath == math)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (math == NULL)
-  {
-    delete mMath;
-    mMath = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (!(math->isWellFormedASTNode()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    delete mMath;
-    mMath = (math != NULL) ?
-      math->deepCopy() : NULL;
-    if (mMath != NULL)
-    {
-      mMath->setParentSBMLObject(this);
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets referencedAttribute and returns value indicating success.
+ * Unsets the value of the "referencedAttribute" attribute of this Index.
  */
 int
 Index::unsetReferencedAttribute()
@@ -284,7 +234,7 @@ Index::unsetReferencedAttribute()
 
 
 /*
- * Unsets arrayDimension and returns value indicating success.
+ * Unsets the value of the "arrayDimension" attribute of this Index.
  */
 int
 Index::unsetArrayDimension()
@@ -304,7 +254,71 @@ Index::unsetArrayDimension()
 
 
 /*
- * Unsets math and returns value indicating success.
+ * Returns the value of the "math" element of this Index.
+ */
+const ASTNode*
+Index::getMath() const
+{
+  return mMath;
+}
+
+
+/*
+ * Returns the value of the "math" element of this Index.
+ */
+ASTNode*
+Index::getMath()
+{
+  return mMath;
+}
+
+
+/*
+ * Predicate returning @c true if this Index's "math" element is set.
+ */
+bool
+Index::isSetMath() const
+{
+  return (mMath != NULL);
+}
+
+
+/*
+ * Sets the value of the "math" element of this Index.
+ */
+int
+Index::setMath(const ASTNode* math)
+{
+  if (mMath == math)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (math == NULL)
+  {
+    delete mMath;
+    mMath = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(math->isWellFormedASTNode()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mMath;
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL)
+    {
+      mMath->setParentSBMLObject(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the value of the "math" element of this Index.
  */
 int
 Index::unsetMath()
@@ -316,25 +330,10 @@ Index::unsetMath()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
- */
-void
-Index::renameSIdRefs(const std::string& oldid, const std::string& newid)
-{
-  SBase::renameSIdRefs(oldid, newid);
-  if (isSetMath() == true)
-  {
-    getMath()->renameSIdRefs(oldid, newid);
-  }
-
-}
-
-
-/*
- * Returns the XML element name of this object
+ * Returns the XML element name of this Index object.
  */
 const std::string&
-Index::getElementName () const
+Index::getElementName() const
 {
   static const string name = "index";
   return name;
@@ -342,55 +341,64 @@ Index::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this Index object.
  */
 int
-Index::getTypeCode () const
+Index::getTypeCode() const
 {
   return SBML_ARRAYS_INDEX;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this Index
+ * object have been set.
  */
 bool
-Index::hasRequiredAttributes () const
+Index::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetReferencedAttribute() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetArrayDimension() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
 /*
- * check if all the required elements are set
+ * Predicate returning @c true if all the required elements for this Index
+ * object have been set.
  */
 bool
-Index::hasRequiredElements () const
+Index::hasRequiredElements() const
 {
   bool allPresent = true;
 
   if (isSetMath() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-Index::writeElements (XMLOutputStream& stream) const
+Index::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
@@ -402,60 +410,384 @@ Index::writeElements (XMLOutputStream& stream) const
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-Index::accept (SBMLVisitor& v) const
+Index::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-Index::setSBMLDocument (SBMLDocument* d)
+Index::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Connects to child elements
+ */
+void
+Index::connectToChild()
+{
+  SBase::connectToChild();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
  */
 void
 Index::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                             const std::string& pkgPrefix,
+                             bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName,
+                    unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "arrayDimension")
+  {
+    value = getArrayDimension();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName,
+                    std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "referencedAttribute")
+  {
+    value = getReferencedAttribute();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::getAttribute(const std::string& attributeName, const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "referencedAttribute")
+  {
+    value = getReferencedAttribute().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Index's attribute "attributeName" is
+ * set.
+ */
+bool
+Index::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "referencedAttribute")
+  {
+    value = isSetReferencedAttribute();
+  }
+  else if (attributeName == "arrayDimension")
+  {
+    value = isSetArrayDimension();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "arrayDimension")
+  {
+    return_value = setArrayDimension(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName,
+                    const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "referencedAttribute")
+  {
+    return_value = setReferencedAttribute(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "referencedAttribute")
+  {
+    return_value = setReferencedAttribute(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Index.
+ */
+int
+Index::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "referencedAttribute")
+  {
+    value = unsetReferencedAttribute();
+  }
+  else if (attributeName == "arrayDimension")
+  {
+    value = unsetArrayDimension();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 Index::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -463,152 +795,143 @@ Index::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("referencedAttribute");
+
   attributes.add("arrayDimension");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-Index::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+Index::readAttributes(const XMLAttributes& attributes,
+                      const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfIndices - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfIndices*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfIndices*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("arrays", ArraysIndexAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("arrays",
+          ArraysSBaseLOIndicesAllowedCoreAttributes, pkgVersion, level, version,
+            details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("arrays", ArraysIndexAllowedAttributes, pkgVersion,
+        level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("arrays", ArraysIndexAllowedCoreAttributes,
+        pkgVersion, level, version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // referencedAttribute string (use = "required" )
+  // 
 
-  //
-  // referencedAttribute string   ( use = "required" )
-  //
   assigned = attributes.readInto("referencedAttribute", mReferencedAttribute);
 
   if (assigned == true)
   {
-    // check string is not empty
-
     if (mReferencedAttribute.empty() == true)
     {
-      logEmptyString(mReferencedAttribute, getLevel(), getVersion(), "<Index>");
+      logEmptyString(mReferencedAttribute, level, version, "<Index>");
     }
   }
   else
   {
-    std::string message = "Arrays attribute 'referencedAttribute' is missing.";
-    getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+    std::string message = "Arrays attribute 'referencedAttribute' is missing "
+      "from the <Index> element.";
+    log->logPackageError("arrays", ArraysIndexAllowedAttributes, pkgVersion,
+      level, version, message);
   }
 
-  //
-  // arrayDimension unsigned int   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
-  mIsSetArrayDimension = attributes.readInto("arrayDimension", mArrayDimension);
+  // 
+  // arrayDimension uint (use = "required" )
+  // 
 
-  if (mIsSetArrayDimension == false)
+  numErrs = log->getNumErrors();
+  mIsSetArrayDimension = attributes.readInto("arrayDimension",
+    mArrayDimension);
+
+  if ( mIsSetArrayDimension == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
-      }
-      else
-      {
-        std::string message = "Arrays attribute 'arrayDimension' is missing.";
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Arrays attribute 'arrayDimension' from the <Index> "
+        "element must be an integer.";
+      log->logPackageError("arrays", ArraysIndexArrayDimensionMustBeUnInteger,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      std::string message = "Arrays attribute 'arrayDimension' is missing from "
+        "the <Index> element.";
+      log->logPackageError("arrays", ArraysIndexAllowedAttributes, pkgVersion,
+        level, version, message);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
+/*
+ * Reads other XML such as math/notes etc.
+ */
 bool
-Index::readOtherXML (XMLInputStream& stream)
+Index::readOtherXML(XMLInputStream& stream)
 {
-  bool          read = false;
+  bool read = false;
   const string& name = stream.peek().getName();
 
   if (name == "math")
   {
     const XMLToken elem = stream.peek();
     const std::string prefix = checkMathMLNamespace(elem);
-
     if (stream.getSBMLNamespaces() == NULL)
     {
       stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
@@ -616,10 +939,6 @@ Index::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath != NULL)
-    {
-      mMath->setParentSBMLObject(this);
-    }
     read = true;
   }
 
@@ -627,235 +946,54 @@ Index::readOtherXML (XMLInputStream& stream)
   {
     read = true;
   }
+
   return read;
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-Index::writeAttributes (XMLOutputStream& stream) const
+void
+Index::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetReferencedAttribute() == true)
-    stream.writeAttribute("referencedAttribute", getPrefix(), mReferencedAttribute);
+  {
+    stream.writeAttribute("referencedAttribute", getPrefix(),
+      mReferencedAttribute);
+  }
 
   if (isSetArrayDimension() == true)
+  {
     stream.writeAttribute("arrayDimension", getPrefix(), mArrayDimension);
+  }
 
   SBase::writeExtensionAttributes(stream);
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Constructor 
- */
-ListOfIndices::ListOfIndices(unsigned int level, 
-               unsigned int version, 
-               unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new ArraysPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfIndices::ListOfIndices(ArraysPkgNamespaces* arraysns)
-  : ListOf(arraysns)
-{
-  setElementNamespace(arraysns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfIndices 
- */
-ListOfIndices* 
-ListOfIndices::clone () const
- {
-  return new ListOfIndices(*this);
-}
-
-
-/*
- * Get a Index from the ListOfIndices by index.
-*/
-Index*
-ListOfIndices::get(unsigned int n)
-{
-  return static_cast<Index*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Index from the ListOfIndices by index.
- */
-const Index*
-ListOfIndices::get(unsigned int n) const
-{
-  return static_cast<const Index*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Index from the ListOfIndices by id.
- */
-Index*
-ListOfIndices::get(const std::string& sid)
-{
-  return const_cast<Index*>(
-    static_cast<const ListOfIndices&>(*this).get(sid));
-}
-
-
-/*
- * Get a Index from the ListOfIndices by id.
- */
-const Index*
-ListOfIndices::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Index>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Index*> (*result);
-}
-
-
-/*
- * Removes the nth Index from this ListOfIndices
- */
-Index*
-ListOfIndices::remove(unsigned int n)
-{
-  return static_cast<Index*>(ListOf::remove(n));
-}
-
-
-/*
- * Removes the Index from this ListOfIndices with the given identifier
- */
-Index*
-ListOfIndices::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Index>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-  return static_cast <Index*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfIndices::getElementName () const
-{
-  static const string name = "listOfIndices";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfIndices::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfIndices::getItemTypeCode () const
-{
-  return SBML_ARRAYS_INDEX;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new Index in this ListOfIndices
- */
-SBase*
-ListOfIndices::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "index")
-  {
-    ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
-    object = new Index(arraysns);
-    appendAndOwn(object);
-    delete arraysns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Arrays package.
- */
-void
-ListOfIndices::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(ArraysExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(ArraysExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * 
+ * Creates a new Index_t using the given SBML Level, Version and
+ * &ldquo;arrays&rdquo; package version.
  */
 LIBSBML_EXTERN
 Index_t *
-Index_create(unsigned int level, unsigned int version,
+Index_create(unsigned int level,
+             unsigned int version,
              unsigned int pkgVersion)
 {
   return new Index(level, version, pkgVersion);
@@ -863,23 +1001,11 @@ Index_create(unsigned int level, unsigned int version,
 
 
 /*
- * 
+ * Creates and returns a deep copy of this Index_t object.
  */
 LIBSBML_EXTERN
-void
-Index_free(Index_t * i)
-{
-  if (i != NULL)
-    delete i;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Index_t *
-Index_clone(Index_t * i)
+Index_t*
+Index_clone(const Index_t* i)
 {
   if (i != NULL)
   {
@@ -893,76 +1019,97 @@ Index_clone(Index_t * i)
 
 
 /*
- *
+ * Frees this Index_t object.
  */
 LIBSBML_EXTERN
-char *
-Index_getReferencedAttribute(Index_t * i)
+void
+Index_free(Index_t* i)
 {
-  if (i == NULL)
-    return NULL;
-
-  return i->getReferencedAttribute().empty() ? NULL : safe_strdup(i->getReferencedAttribute().c_str());
+  if (i != NULL)
+  {
+    delete i;
+  }
 }
 
 
 /*
- *
+ * Returns the value of the "referencedAttribute" attribute of this Index_t.
+ */
+LIBSBML_EXTERN
+const char *
+Index_getReferencedAttribute(const Index_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return i->getReferencedAttribute().empty() ? NULL :
+    safe_strdup(i->getReferencedAttribute().c_str());
+}
+
+
+/*
+ * Returns the value of the "arrayDimension" attribute of this Index_t.
  */
 LIBSBML_EXTERN
 unsigned int
-Index_getArrayDimension(Index_t * i)
+Index_getArrayDimension(const Index_t * i)
 {
   return (i != NULL) ? i->getArrayDimension() : SBML_INT_MAX;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Index_t's "referencedAttribute" attribute
+ * is set.
  */
 LIBSBML_EXTERN
 int
-Index_isSetReferencedAttribute(Index_t * i)
+Index_isSetReferencedAttribute(const Index_t * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetReferencedAttribute()) : 0;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Index_t's "arrayDimension" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
-Index_isSetArrayDimension(Index_t * i)
+Index_isSetArrayDimension(const Index_t * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetArrayDimension()) : 0;
 }
 
 
 /*
- *
+ * Sets the value of the "referencedAttribute" attribute of this Index_t.
  */
 LIBSBML_EXTERN
 int
 Index_setReferencedAttribute(Index_t * i, const char * referencedAttribute)
 {
-  return (i != NULL) ? i->setReferencedAttribute(referencedAttribute) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setReferencedAttribute(referencedAttribute) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- *
+ * Sets the value of the "arrayDimension" attribute of this Index_t.
  */
 LIBSBML_EXTERN
 int
 Index_setArrayDimension(Index_t * i, unsigned int arrayDimension)
 {
-  return (i != NULL) ? i->setArrayDimension(arrayDimension) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setArrayDimension(arrayDimension) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- *
+ * Unsets the value of the "referencedAttribute" attribute of this Index_t.
  */
 LIBSBML_EXTERN
 int
@@ -973,7 +1120,7 @@ Index_unsetReferencedAttribute(Index_t * i)
 
 
 /*
- *
+ * Unsets the value of the "arrayDimension" attribute of this Index_t.
  */
 LIBSBML_EXTERN
 int
@@ -984,41 +1131,75 @@ Index_unsetArrayDimension(Index_t * i)
 
 
 /*
- *
+ * Returns the value of the "math" element of this Index_t.
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+Index_getMath(const Index_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (ASTNode_t*)(i->getMath());
+}
+
+
+/*
+ * Predicate returning @c 1 if this Index_t's "math" element is set.
  */
 LIBSBML_EXTERN
 int
-Index_hasRequiredAttributes(Index_t * i)
+Index_isSetMath(const Index_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetMath()) : 0;
+}
+
+
+/*
+ * Sets the value of the "math" element of this Index_t.
+ */
+LIBSBML_EXTERN
+int
+Index_setMath(Index_t * i, const ASTNode_t* math)
+{
+  return (i != NULL) ? i->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "math" element of this Index_t.
+ */
+LIBSBML_EXTERN
+int
+Index_unsetMath(Index_t * i)
+{
+  return (i != NULL) ? i->unsetMath() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if all the required attributes for this Index_t
+ * object have been set.
+ */
+LIBSBML_EXTERN
+int
+Index_hasRequiredAttributes(const Index_t * i)
 {
   return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if all the required elements for this Index_t
+ * object have been set.
  */
 LIBSBML_EXTERN
-Index_t *
-ListOfIndices_getById(ListOf_t * lo, const char * sid)
+int
+Index_hasRequiredElements(const Index_t * i)
 {
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfIndices *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Index_t *
-ListOfIndices_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfIndices *>(lo)->remove(sid) : NULL;
+  return (i != NULL) ? static_cast<int>(i->hasRequiredElements()) : 0;
 }
 
 

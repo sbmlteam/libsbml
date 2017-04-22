@@ -1,88 +1,92 @@
 /**
- * @file:   ArraysSBasePlugin.cpp
- * @brief:  Implementation of the ArraysSBasePlugin class
- * @author: SBMLTeam
+ * @file ArraysSBasePlugin.cpp
+ * @brief Implementation of the ArraysSBasePlugin class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2017 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
-
+#include <sbml/packages/arrays/validator/ArraysSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 #include <sbml/Model.h>
-
 
 
 using namespace std;
 
 
-#ifdef __cplusplus
-
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new ArraysSBasePlugin
+ * Creates a new ArraysSBasePlugin using the given uri, prefix and package
+ * namespace.
  */
-ArraysSBasePlugin::ArraysSBasePlugin(const std::string& uri,  
-                                 const std::string& prefix, 
-                               ArraysPkgNamespaces* arraysns) :
-    SBasePlugin(uri, prefix, arraysns)
-  , mIndexs (arraysns)
+ArraysSBasePlugin::ArraysSBasePlugin(const std::string& uri,
+                                     const std::string& prefix,
+                                     ArraysPkgNamespaces* arraysns)
+  : SBasePlugin(uri, prefix, arraysns)
+  , mIndices (arraysns)
   , mDimensions (arraysns)
 {
+  connectToChild();
 }
 
 
 /*
  * Copy constructor for ArraysSBasePlugin.
  */
-ArraysSBasePlugin::ArraysSBasePlugin(const ArraysSBasePlugin& orig) :
-    SBasePlugin(orig)
-  , mIndexs ( orig.mIndexs)
-  , mDimensions ( orig.mDimensions)
+ArraysSBasePlugin::ArraysSBasePlugin(const ArraysSBasePlugin& orig)
+  : SBasePlugin( orig )
+  , mIndices ( orig.mIndices )
+  , mDimensions ( orig.mDimensions )
 {
+  connectToChild();
 }
 
 
 /*
  * Assignment operator for ArraysSBasePlugin.
  */
-ArraysSBasePlugin& 
+ArraysSBasePlugin&
 ArraysSBasePlugin::operator=(const ArraysSBasePlugin& rhs)
 {
   if (&rhs != this)
   {
-    this->SBasePlugin::operator=(rhs);
-    mIndexs = rhs.mIndexs;
+    SBasePlugin::operator=(rhs);
+    mIndices = rhs.mIndices;
     mDimensions = rhs.mDimensions;
+    connectToChild();
   }
 
   return *this;
@@ -92,8 +96,8 @@ ArraysSBasePlugin::operator=(const ArraysSBasePlugin& rhs)
 /*
  * Creates and returns a deep copy of this ArraysSBasePlugin object.
  */
-ArraysSBasePlugin* 
-ArraysSBasePlugin::clone () const
+ArraysSBasePlugin*
+ArraysSBasePlugin::clone() const
 {
   return new ArraysSBasePlugin(*this);
 }
@@ -107,208 +111,97 @@ ArraysSBasePlugin::~ArraysSBasePlugin()
 }
 
 
-//---------------------------------------------------------------
-//
-// overridden virtual functions for read/write/check
-//
-//---------------------------------------------------------------
-
 /*
- * create object
+ * Returns the ListOfIndices from this ArraysSBasePlugin.
  */
-SBase*
-ArraysSBasePlugin::createObject (XMLInputStream& stream)
+const ListOfIndices*
+ArraysSBasePlugin::getListOfIndices() const
 {
-  SBase* object = NULL; 
-
-  const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-  const std::string&      prefix = stream.peek().getPrefix(); 
-
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
-
-  if (prefix == targetPrefix) 
-  { 
-    ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
-    if (name == "listOfIndices" ) 
-    { 
-      object = &mIndexs;
-
-      if (targetPrefix.empty() == true && mIndexs.getSBMLDocument() != NULL)
-      { 
-        mIndexs.getSBMLDocument()->enableDefaultNS(mURI, true); 
-      } 
-    } 
-    else if (name == "listOfDimensions" ) 
-    { 
-      object = &mDimensions;
-
-      if (targetPrefix.empty() == true && mDimensions.getSBMLDocument() != NULL) 
-      { 
-        mDimensions.getSBMLDocument()->enableDefaultNS(mURI, true); 
-      } 
-    } 
-  
-    delete arraysns;
-  } 
-
-  return object; 
+  return &mIndices;
 }
 
 
 /*
- * write elements
+ * Returns the ListOfIndices from this ArraysSBasePlugin.
  */
-void
-ArraysSBasePlugin::writeElements (XMLOutputStream& stream) const
+ListOfIndices*
+ArraysSBasePlugin::getListOfIndices()
 {
-  if (getNumIndexs() > 0) 
-  { 
-    mIndexs.write(stream);
-  } 
-  if (getNumDimensions() > 0) 
-  { 
-    mDimensions.write(stream);
-  } 
+  return &mIndices;
 }
 
 
 /*
- * Checks if this plugin object has all the required elements.
- */
-bool
-ArraysSBasePlugin::hasRequiredElements () const
-{
-  bool allPresent = true; 
-
-  // TO DO 
-
-  return allPresent; 
-}
-
-
-//---------------------------------------------------------------
-//
-// Functions for interacting with the members of the plugin
-//
-//---------------------------------------------------------------
-
-List*
-ArraysSBasePlugin::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mIndexs, filter);
-  ADD_FILTERED_LIST(ret, sublist, mDimensions, filter);
-
-  return ret;
-}
-
-
-/*
- * Returns the ListOfIndices in this plugin object.
- */
-const ListOfIndices* 
-ArraysSBasePlugin::getListOfIndices () const
-{
-  return &this->mIndexs;
-}
-
-
-/*
- * Returns the ListOfIndices in this plugin object.
- */
-ListOfIndices* 
-ArraysSBasePlugin::getListOfIndices ()
-{
-  return &this->mIndexs;
-}
-
-
-/*
- * Returns the Index object that belongs to the given index.
- */
-const Index*
-ArraysSBasePlugin::getIndex(unsigned int n) const
-{
-  return static_cast<const Index*>(mIndexs.get(n));
-}
-
-
-/*
- * Returns the Index object that belongs to the given index.
+ * Get an Index from the ArraysSBasePlugin.
  */
 Index*
 ArraysSBasePlugin::getIndex(unsigned int n)
 {
-  return static_cast<Index*>(mIndexs.get(n));
+  return static_cast< Index*>(mIndices.get(n));
 }
 
 
 /*
- * Returns the Index object based on its identifier.
+ * Get an Index from the ArraysSBasePlugin.
  */
 const Index*
-ArraysSBasePlugin::getIndex(const std::string& sid) const
+ArraysSBasePlugin::getIndex(unsigned int n) const
 {
-  return static_cast<const Index*>(mIndexs.get(sid));
+  return static_cast<const Index*>(mIndices.get(n));
 }
 
 
 /*
- * Returns the Index object based on its identifier.
- */
-Index*
-ArraysSBasePlugin::getIndex(const std::string& sid)
-{
-  return static_cast<Index*>(mIndexs.get(sid));
-}
-
-
-/*
- * Adds a copy of the given Index to the ListOfIndices in this plugin object.
+ * Adds a copy of the given Index to this ArraysSBasePlugin.
  */
 int
-ArraysSBasePlugin::addIndex (const Index* index)
+ArraysSBasePlugin::addIndex(const Index* i)
 {
-  if (index == NULL)
+  if (i == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (index->hasRequiredElements() == false)
+  else if (i->hasRequiredAttributes() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getLevel() != index->getLevel())
+  else if (getLevel() != i->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != index->getVersion())
+  else if (getVersion() != i->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (getPackageVersion() != index->getPackageVersion())
+  else if (getPackageVersion() != i->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
   }
   else
   {
-    mIndexs.append(index);
+    return mIndices.append(i);
   }
-
-  return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 
 /*
- * Creates a new Index object and adds it to the ListOfIndices in this plugin object.
+ * Get the number of Index objects in this ArraysSBasePlugin.
  */
-Index* 
-ArraysSBasePlugin::createIndex ()
+unsigned int
+ArraysSBasePlugin::getNumIndices() const
 {
-   Index* i = NULL;
+  return mIndices.size();
+}
+
+
+/*
+ * Creates a new Index object, adds it to this ArraysSBasePlugin object and
+ * returns the Index object created.
+ */
+Index*
+ArraysSBasePlugin::createIndex()
+{
+  Index* i = NULL;
 
   try
   {
@@ -316,13 +209,13 @@ ArraysSBasePlugin::createIndex ()
     i = new Index(arraysns);
     delete arraysns;
   }
-  catch(...)
+  catch (...)
   {
   }
 
   if (i != NULL)
   {
-    mIndexs.appendAndOwn(i);
+    mIndices.appendAndOwn(i);
   }
 
   return i;
@@ -330,57 +223,48 @@ ArraysSBasePlugin::createIndex ()
 
 
 /*
- * Removes the nth Index object from this plugin object
+ * Removes the nth Index from this ArraysSBasePlugin and returns a pointer to
+ * it.
  */
-Index* 
+Index*
 ArraysSBasePlugin::removeIndex(unsigned int n)
 {
-  return static_cast<Index*>(mIndexs.remove(n));
+  return static_cast<Index*>(mIndices.remove(n));
 }
 
 
 /*
- * Removes the Index object with the given id from this plugin object
+ * Returns the ListOfDimensions from this ArraysSBasePlugin.
  */
-Index* 
-ArraysSBasePlugin::removeIndex(const std::string& sid)
+const ListOfDimensions*
+ArraysSBasePlugin::getListOfDimensions() const
 {
-  return static_cast<Index*>(mIndexs.remove(sid));
+  return &mDimensions;
 }
 
 
 /*
- * Returns the number of Index objects in this plugin object.
+ * Returns the ListOfDimensions from this ArraysSBasePlugin.
  */
-unsigned int 
-ArraysSBasePlugin::getNumIndexs () const
+ListOfDimensions*
+ArraysSBasePlugin::getListOfDimensions()
 {
-  return mIndexs.size();
+  return &mDimensions;
 }
 
 
 /*
- * Returns the ListOfDimensions in this plugin object.
+ * Get a Dimension from the ArraysSBasePlugin.
  */
-const ListOfDimensions* 
-ArraysSBasePlugin::getListOfDimensions () const
+Dimension*
+ArraysSBasePlugin::getDimension(unsigned int n)
 {
-  return &this->mDimensions;
+  return static_cast< Dimension*>(mDimensions.get(n));
 }
 
 
 /*
- * Returns the ListOfDimensions in this plugin object.
- */
-ListOfDimensions* 
-ArraysSBasePlugin::getListOfDimensions ()
-{
-  return &this->mDimensions;
-}
-
-
-/*
- * Returns the Dimension object that belongs to the given index.
+ * Get a Dimension from the ArraysSBasePlugin.
  */
 const Dimension*
 ArraysSBasePlugin::getDimension(unsigned int n) const
@@ -390,17 +274,17 @@ ArraysSBasePlugin::getDimension(unsigned int n) const
 
 
 /*
- * Returns the Dimension object that belongs to the given index.
+ * Get a Dimension from the ArraysSBasePlugin based on its identifier.
  */
 Dimension*
-ArraysSBasePlugin::getDimension(unsigned int n)
+ArraysSBasePlugin::getDimension(const std::string& sid)
 {
-  return static_cast<Dimension*>(mDimensions.get(n));
+  return static_cast< Dimension*>(mDimensions.get(sid));
 }
 
 
 /*
- * Returns the Dimension object based on its identifier.
+ * Get a Dimension from the ArraysSBasePlugin based on its identifier.
  */
 const Dimension*
 ArraysSBasePlugin::getDimension(const std::string& sid) const
@@ -410,58 +294,82 @@ ArraysSBasePlugin::getDimension(const std::string& sid) const
 
 
 /*
- * Returns the Dimension object based on its identifier.
+ * Get a Dimension from the ArraysSBasePlugin based on the Size to which it
+ * refers.
  */
-Dimension*
-ArraysSBasePlugin::getDimension(const std::string& sid)
+const Dimension*
+ArraysSBasePlugin::getDimensionBySize(const std::string& sid) const
 {
-  return static_cast<Dimension*>(mDimensions.get(sid));
+  return mDimensions.getBySize(sid);
 }
 
 
 /*
- * Adds a copy of the given Dimension to the ListOfDimensions in this plugin object.
+ * Get a Dimension from the ArraysSBasePlugin based on the Size to which it
+ * refers.
+ */
+Dimension*
+ArraysSBasePlugin::getDimensionBySize(const std::string& sid)
+{
+  return mDimensions.getBySize(sid);
+}
+
+
+/*
+ * Adds a copy of the given Dimension to this ArraysSBasePlugin.
  */
 int
-ArraysSBasePlugin::addDimension (const Dimension* dimension)
+ArraysSBasePlugin::addDimension(const Dimension* d)
 {
-  if (dimension == NULL)
+  if (d == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (dimension->hasRequiredElements() == false)
+  else if (d->hasRequiredAttributes() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getLevel() != dimension->getLevel())
+  else if (getLevel() != d->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != dimension->getVersion())
+  else if (getVersion() != d->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (getPackageVersion() != dimension->getPackageVersion())
+  else if (getPackageVersion() != d->getPackageVersion())
   {
     return LIBSBML_PKG_VERSION_MISMATCH;
   }
+  else if (d->isSetId() && (mDimensions.get(d->getId())) != NULL)
+  {
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
   else
   {
-    mDimensions.append(dimension);
+    return mDimensions.append(d);
   }
-
-  return LIBSBML_OPERATION_SUCCESS;
-
 }
 
 
 /*
- * Creates a new Dimension object and adds it to the ListOfDimensions in this plugin object.
+ * Get the number of Dimension objects in this ArraysSBasePlugin.
  */
-Dimension* 
-ArraysSBasePlugin::createDimension ()
+unsigned int
+ArraysSBasePlugin::getNumDimensions() const
 {
-   Dimension* d = NULL;
+  return mDimensions.size();
+}
+
+
+/*
+ * Creates a new Dimension object, adds it to this ArraysSBasePlugin object and
+ * returns the Dimension object created.
+ */
+Dimension*
+ArraysSBasePlugin::createDimension()
+{
+  Dimension* d = NULL;
 
   try
   {
@@ -469,7 +377,7 @@ ArraysSBasePlugin::createDimension ()
     d = new Dimension(arraysns);
     delete arraysns;
   }
-  catch(...)
+  catch (...)
   {
   }
 
@@ -483,9 +391,10 @@ ArraysSBasePlugin::createDimension ()
 
 
 /*
- * Removes the nth Dimension object from this plugin object
+ * Removes the nth Dimension from this ArraysSBasePlugin and returns a pointer
+ * to it.
  */
-Dimension* 
+Dimension*
 ArraysSBasePlugin::removeDimension(unsigned int n)
 {
   return static_cast<Dimension*>(mDimensions.remove(n));
@@ -493,9 +402,10 @@ ArraysSBasePlugin::removeDimension(unsigned int n)
 
 
 /*
- * Removes the Dimension object with the given id from this plugin object
+ * Removes the Dimension from this ArraysSBasePlugin based on its identifier
+ * and returns a pointer to it.
  */
-Dimension* 
+Dimension*
 ArraysSBasePlugin::removeDimension(const std::string& sid)
 {
   return static_cast<Dimension*>(mDimensions.remove(sid));
@@ -503,104 +413,672 @@ ArraysSBasePlugin::removeDimension(const std::string& sid)
 
 
 /*
- * Returns the number of Dimension objects in this plugin object.
+ * Predicate returning @c true if all the required elements for this
+ * ArraysSBasePlugin object have been set.
  */
-unsigned int 
-ArraysSBasePlugin::getNumDimensions () const
+bool
+ArraysSBasePlugin::hasRequiredElements() const
 {
-  return mDimensions.size();
+  bool allPresent = true;
+
+  return allPresent;
 }
 
 
-//---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Set the SBMLDocument.
+ * Write any contained elements
+ */
+void
+ArraysSBasePlugin::writeElements(XMLOutputStream& stream) const
+{
+  if (getNumIndices() > 0)
+  {
+    mIndices.write(stream);
+  }
+
+  if (getNumDimensions() > 0)
+  {
+    mDimensions.write(stream);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+ArraysSBasePlugin::accept(SBMLVisitor& v) const
+{
+  const SBase* sb = static_cast<const SBase*>(this->getParentSBMLObject());
+  v.visit(*sb);
+  v.leave(*sb);
+
+  mIndices.accept(v);
+
+  mDimensions.accept(v);
+
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
  */
 void
 ArraysSBasePlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
 
-  if (getNumIndexs() > 0) 
-  { 
-    mIndexs.setSBMLDocument(d);
-  }
-  if (getNumDimensions() > 0) 
-  {
-    mDimensions.setSBMLDocument(d);
-  }
+  mIndices.setSBMLDocument(d);
+
+  mDimensions.setSBMLDocument(d);
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Connect to parent.
+ * Connects to child elements
  */
 void
-ArraysSBasePlugin::connectToParent(SBase* sbase)
+ArraysSBasePlugin::connectToChild()
 {
-  SBasePlugin::connectToParent(sbase);
-
-  if (getNumIndexs() > 0) 
-  { 
-    mIndexs.connectToParent(sbase);
-  }
-  if (getNumDimensions() > 0) 
-  {
-    mDimensions.connectToParent(sbase);
-  }
+  connectToParent(getParentSBMLObject());
 }
 
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables the given package.
+ * Connects to parent element
+ */
+void
+ArraysSBasePlugin::connectToParent(SBase* base)
+{
+  SBasePlugin::connectToParent(base);
+
+  mIndices.connectToParent(base);
+
+  mDimensions.connectToParent(base);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
  */
 void
 ArraysSBasePlugin::enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix, bool flag)
+                                         const std::string& pkgPrefix,
+                                         bool flag)
 {
-  if (getNumIndexs() > 0) 
-  { 
-    mIndexs.enablePackageInternal(pkgURI, pkgPrefix, flag);
-  } 
-  if (getNumDimensions() > 0) 
+  mIndices.enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                bool& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                double& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                unsigned int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                std::string& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::getAttribute(const std::string& attributeName,
+                                const char* value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this ArraysSBasePlugin's attribute
+ * "attributeName" is set.
+ */
+bool
+ArraysSBasePlugin::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBasePlugin::isSetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName,
+                                double value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName,
+                                unsigned int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName,
+                                const std::string& value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::setAttribute(const std::string& attributeName,
+                                const char* value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+ */
+int
+ArraysSBasePlugin::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBasePlugin::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this ArraysSBasePlugin.
+ */
+SBase*
+ArraysSBasePlugin::createChildObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "index")
   {
-    mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+    return createIndex();
   }
+  else if (elementName == "dimension")
+  {
+    return createDimension();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this ArraysSBasePlugin.
+ */
+unsigned int
+ArraysSBasePlugin::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "index")
+  {
+    return getNumIndices();
+  }
+  else if (elementName == "dimension")
+  {
+    return getNumDimensions();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this ArraysSBasePlugin.
+ */
+SBase*
+ArraysSBasePlugin::getObject(const std::string& elementName,
+                             unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "index")
+  {
+    return getIndex(index);
+  }
+  else if (elementName == "dimension")
+  {
+    return getDimension(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+ArraysSBasePlugin::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mIndices.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mDimensions.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
 }
 
 
 /*
- * Accept the SBMLVisitor.
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
  */
-bool
-ArraysSBasePlugin::accept(SBMLVisitor& v) const
+SBase*
+ArraysSBasePlugin::getElementByMetaId(const std::string& metaid)
 {
-  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
-
-  v.visit(*model);
-  v.leave(*model);
-
-  for(unsigned int i = 0; i < getNumIndexs(); i++)
+  if (metaid.empty())
   {
-    getIndex(i)->accept(v);
+    return NULL;
   }
 
-  for(unsigned int i = 0; i < getNumDimensions(); i++)
+  SBase* obj = NULL;
+
+  if (mIndices.getMetaId() == metaid)
   {
-    getDimension(i)->accept(v);
+    return &mIndices;
   }
 
-  return true;
+  if (mDimensions.getMetaId() == metaid)
+  {
+    return &mDimensions;
+  }
+
+  obj = mIndices.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mDimensions.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
 }
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+ArraysSBasePlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_LIST(ret, sublist, mIndices, filter);
+  ADD_FILTERED_LIST(ret, sublist, mDimensions, filter);
+
+  return ret;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Append items from model (used in comp flattening)
+ */
+int
+ArraysSBasePlugin::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+
+  if (model == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const ArraysSBasePlugin* plug = static_cast<const
+    ArraysSBasePlugin*>(model->getPlugin(getPrefix()));
+
+  if (plug == NULL)
+  {
+    return ret;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  ret = mIndices.appendFrom(plug->getListOfIndices());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mDimensions.appendFrom(plug->getListOfDimensions());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  return ret;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+ArraysSBasePlugin::createObject(XMLInputStream& stream)
+{
+  SBase* obj = NULL;
+
+  const std::string& name = stream.peek().getName();
+  const XMLNamespaces& xmlns = stream.peek().getNamespaces();
+  const std::string& prefix = stream.peek().getPrefix();
+
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ?
+    xmlns.getPrefix(mURI) : mPrefix;
+
+  if (prefix == targetPrefix)
+  {
+    if (name == "listOfIndices")
+    {
+      if (mIndices.size() != 0)
+      {
+        getErrorLog()->logPackageError("arrays", ArraysSBaseAllowedElements,
+          getPackageVersion(), getLevel(), getVersion());
+      }
+
+      obj = &mIndices;
+      if (targetPrefix.empty())
+      {
+        mIndices.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+    else if (name == "listOfDimensions")
+    {
+      if (mDimensions.size() != 0)
+      {
+        getErrorLog()->logPackageError("arrays", ArraysSBaseAllowedElements,
+          getPackageVersion(), getLevel(), getVersion());
+      }
+
+      obj = &mDimensions;
+      if (targetPrefix.empty())
+      {
+        mDimensions.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
+  }
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
 
 
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
-#endif /* __cplusplus */
 
 

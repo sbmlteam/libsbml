@@ -1,34 +1,37 @@
 /**
- * @file:   ArraysSBasePlugin.h
- * @brief:  Implementation of the ArraysSBasePlugin class
- * @author: SBMLTeam
+ * @file ArraysSBasePlugin.h
+ * @brief Definition of the ArraysSBasePlugin class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2017 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class ArraysSBasePlugin
+ * @sbmlbrief{arrays} Extension of SBase.
  */
 
 
@@ -43,7 +46,9 @@
 
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/arrays/sbml/ListOfIndices.h>
 #include <sbml/packages/arrays/sbml/Index.h>
+#include <sbml/packages/arrays/sbml/ListOfDimensions.h>
 #include <sbml/packages/arrays/sbml/Dimension.h>
 
 
@@ -52,416 +57,809 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN ArraysSBasePlugin : public SBasePlugin
 {
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  ListOfIndices mIndices;
+  ListOfDimensions mDimensions;
+
+  /** @endcond */
+
 public:
 
   /**
-   * Creates a new ArraysSBasePlugin
+   * Creates a new ArraysSBasePlugin using the given uri, prefix and package
+   * namespace.
+   *
+   * @param uri a string, representing the uri of the package.
+   *
+   * @param prefix a string, the prefix to be used.
+   *
+   * @param arraysns a pointer to the ArraysPkgNamespaces object to be used.
    */
-  ArraysSBasePlugin(const std::string& uri, const std::string& prefix, 
-                                 ArraysPkgNamespaces* arraysns);
+  ArraysSBasePlugin(const std::string& uri,
+                    const std::string& prefix,
+                    ArraysPkgNamespaces* arraysns);
 
 
   /**
    * Copy constructor for ArraysSBasePlugin.
    *
-   * @param orig; the ArraysSBasePlugin instance to copy.
+   * @param orig the ArraysSBasePlugin instance to copy.
    */
   ArraysSBasePlugin(const ArraysSBasePlugin& orig);
 
 
-   /**
+  /**
    * Assignment operator for ArraysSBasePlugin.
    *
-   * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * @param rhs the ArraysSBasePlugin object whose values are to be used as the
+   * basis of the assignment.
    */
   ArraysSBasePlugin& operator=(const ArraysSBasePlugin& rhs);
 
 
-   /**
+  /**
    * Creates and returns a deep copy of this ArraysSBasePlugin object.
    *
    * @return a (deep) copy of this ArraysSBasePlugin object.
    */
-  virtual ArraysSBasePlugin* clone () const;
+  virtual ArraysSBasePlugin* clone() const;
 
 
-   /**
+  /**
    * Destructor for ArraysSBasePlugin.
    */
   virtual ~ArraysSBasePlugin();
 
 
-   //---------------------------------------------------------------
-  //
-  // overridden virtual functions for read/write/check
-  //
-  //---------------------------------------------------------------
-
-  /** @cond doxygenLibsbmlInternal */
-
   /**
-   * Subclasses must override this method to create, store, and then
-   * return an SBML object corresponding to the next XMLToken in the
-   * XMLInputStream if they have their specific elements.
+   * Returns the ListOfIndices from this ArraysSBasePlugin.
    *
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * @return the ListOfIndices from this ArraysSBasePlugin.
    */
-  virtual SBase* createObject (XMLInputStream& stream);
+  const ListOfIndices* getListOfIndices() const;
 
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses must override this method to write out their contained
-   * SBML objects as XML elements if they have their specific elements.
+   * Returns the ListOfIndices from this ArraysSBasePlugin.
+   *
+   * @return the ListOfIndices from this ArraysSBasePlugin.
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  ListOfIndices* getListOfIndices();
 
 
   /**
-   * Checks if this plugin object has all the required elements.
+   * Get an Index from the ArraysSBasePlugin.
    *
-   * Subclasses must override this method 
-   * if they have their specific elements.
+   * @param n an unsigned int representing the index of the Index to retrieve.
    *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
-   */
-  virtual bool hasRequiredElements () const;
-
-
-  //---------------------------------------------------------------
-
-
-  //---------------------------------------------------------------
-  //
-  // Functions for interacting with the members of the plugin
-  //
-  //---------------------------------------------------------------
-
-  /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitary depth.
+   * @return the nth Index in the ListOfIndices within this ArraysSBasePlugin.
    *
-   * @return a List* of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
-
-  /**
-   * Returns the ListOfIndices in this plugin object.
-   *
-   * @return ListOfIndices object in this plugin object.
-   */
-  const ListOfIndices* getListOfIndices () const;
-
-
-  /**
-   * Returns the ListOfIndices in this plugin object.
-   *
-   * @return ListOfIndices object in this plugin object.
-   */
-  ListOfIndices* getListOfIndices ();
-
-
-  /**
-   * Returns the Index object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
-   *
-   * @param n the index number of the Index to get
-   *
-   * @return the nth Index in the ListOfIndices
-   */
-  const Index* getIndex(unsigned int n) const;
-
-
-  /**
-   * Returns the Index object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
-   *
-   * @param n the index number of the Index to get
-   *
-   * @return the nth Index in the ListOfIndices
+   * @see getNumIndices()
    */
   Index* getIndex(unsigned int n);
 
 
   /**
-   * Returns the Index object based on its identifier.
+   * Get an Index from the ArraysSBasePlugin.
    *
-   * @param sid a string representing the id of the Index to get
+   * @param n an unsigned int representing the index of the Index to retrieve.
    *
-   * @return Index in the ListOfIndices with the given id
-   * or NULL if no such Index exists.
+   * @return the nth Index in the ListOfIndices within this ArraysSBasePlugin.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getNumIndices()
    */
-  const Index* getIndex(const std::string& sid) const;
+  const Index* getIndex(unsigned int n) const;
 
 
   /**
-   * Returns the Index object based on its identifier.
+   * Adds a copy of the given Index to this ArraysSBasePlugin.
    *
-   * @param sid a string representing the id of the Index to get
+   * @param i the Index object to add.
    *
-   * @return Index in the ListOfIndices with the given id
-   * or NULL if no such Index exists.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createIndex()
    */
-  Index* getIndex(const std::string& sid);
+  int addIndex(const Index* i);
 
 
   /**
-   * Adds a copy of the given Index to the ListOfIndices in this plugin object.
+   * Get the number of Index objects in this ArraysSBasePlugin.
    *
-   * @param index the index to be added.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @return the number of Index objects in this ArraysSBasePlugin.
    */
-  int addIndex (const Index* index);
+  unsigned int getNumIndices() const;
 
 
   /**
-   * Creates a new Index object and adds it to the ListOfIndices in this plugin object.
+   * Creates a new Index object, adds it to this ArraysSBasePlugin object and
+   * returns the Index object created.
    *
-   * @return the newly created Index object.
+   * @return a new Index object instance.
+   *
+   * @see addIndex(const Index* i)
    */
-  Index* createIndex ();
+  Index* createIndex();
 
 
   /**
-   * Removes the nth Index object from this plugin object
-   * and returns a pointer to it.
+   * Removes the nth Index from this ArraysSBasePlugin and returns a pointer to
+   * it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param n an unsigned int representing the index of the Index to remove.
    *
-   * @param n the index of the Index to remove
+   * @return a pointer to the nth Index in this ArraysSBasePlugin.
    *
-   * @return the Index object removed 
-   * or NULL index was out of range.
+   * @see getNumIndices
+   *
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
   Index* removeIndex(unsigned int n);
 
 
   /**
-   * Removes the Index object with the given id from this plugin object
-   * and returns a pointer to it.
+   * Returns the ListOfDimensions from this ArraysSBasePlugin.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
-   *
-   * @param sid a string representing the id of the Index to remove
-   *
-   * @return the Index object removed 
-   * or NULL if no such Index exists.
+   * @return the ListOfDimensions from this ArraysSBasePlugin.
    */
-  Index* removeIndex(const std::string& sid);
+  const ListOfDimensions* getListOfDimensions() const;
 
 
   /**
-   * Returns the number of Index objects in this plugin object.
+   * Returns the ListOfDimensions from this ArraysSBasePlugin.
    *
-   * @return the number of Index objects in this plugin object.
+   * @return the ListOfDimensions from this ArraysSBasePlugin.
    */
-  unsigned int getNumIndexs () const;
+  ListOfDimensions* getListOfDimensions();
 
 
   /**
-   * Returns the ListOfDimensions in this plugin object.
+   * Get a Dimension from the ArraysSBasePlugin.
    *
-   * @return ListOfDimensions object in this plugin object.
-   */
-  const ListOfDimensions* getListOfDimensions () const;
-
-
-  /**
-   * Returns the ListOfDimensions in this plugin object.
+   * @param n an unsigned int representing the index of the Dimension to
+   * retrieve.
    *
-   * @return ListOfDimensions object in this plugin object.
-   */
-  ListOfDimensions* getListOfDimensions ();
-
-
-  /**
-   * Returns the Dimension object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
+   * @return the nth Dimension in the ListOfDimensions within this
+   * ArraysSBasePlugin.
    *
-   * @param n the index number of the Dimension to get
-   *
-   * @return the nth Dimension in the ListOfDimensions
-   */
-  const Dimension* getDimension(unsigned int n) const;
-
-
-  /**
-   * Returns the Dimension object that belongs to the given index. If the 
-   * index is invalid, NULL is returned.
-   *
-   * @param n the index number of the Dimension to get
-   *
-   * @return the nth Dimension in the ListOfDimensions
+   * @see getNumDimensions()
    */
   Dimension* getDimension(unsigned int n);
 
 
   /**
-   * Returns the Dimension object based on its identifier.
+   * Get a Dimension from the ArraysSBasePlugin.
    *
-   * @param sid a string representing the id of the Dimension to get
+   * @param n an unsigned int representing the index of the Dimension to
+   * retrieve.
    *
-   * @return Dimension in the ListOfDimensions with the given id
-   * or NULL if no such Dimension exists.
+   * @return the nth Dimension in the ListOfDimensions within this
+   * ArraysSBasePlugin.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getNumDimensions()
    */
-  const Dimension* getDimension(const std::string& sid) const;
+  const Dimension* getDimension(unsigned int n) const;
 
 
   /**
-   * Returns the Dimension object based on its identifier.
+   * Get a Dimension from the ArraysSBasePlugin based on its identifier.
    *
-   * @param sid a string representing the id of the Dimension to get
+   * @param sid a string representing the identifier of the Dimension to
+   * retrieve.
    *
-   * @return Dimension in the ListOfDimensions with the given id
-   * or NULL if no such Dimension exists.
+   * @return the Dimension in the ListOfDimensions within this
+   * ArraysSBasePlugin with the given id or NULL if no such Dimension exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getDimension(unsigned int n)
+   * @see getNumDimensions()
    */
   Dimension* getDimension(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given Dimension to the ListOfDimensions in this plugin object.
+   * Get a Dimension from the ArraysSBasePlugin based on its identifier.
    *
-   * @param dimension the dimension to be added.
+   * @param sid a string representing the identifier of the Dimension to
+   * retrieve.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @return the Dimension in the ListOfDimensions within this
+   * ArraysSBasePlugin with the given id or NULL if no such Dimension exists.
+   *
+   * @see getDimension(unsigned int n)
+   * @see getNumDimensions()
    */
-  int addDimension (const Dimension* dimension);
+  const Dimension* getDimension(const std::string& sid) const;
 
 
   /**
-   * Creates a new Dimension object and adds it to the ListOfDimensions in this plugin object.
+   * Get a Dimension from the ArraysSBasePlugin based on the Size to which it
+   * refers.
    *
-   * @return the newly created Dimension object.
+   * @param sid a string representing the size attribute of the Dimension
+   * object to retrieve.
+   *
+   * @return the first Dimension in this ArraysSBasePlugin based on the given
+   * size attribute or NULL if no such Dimension exists.
    */
-  Dimension* createDimension ();
+  const Dimension* getDimensionBySize(const std::string& sid) const;
 
 
   /**
-   * Removes the nth Dimension object from this plugin object
-   * and returns a pointer to it.
+   * Get a Dimension from the ArraysSBasePlugin based on the Size to which it
+   * refers.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param sid a string representing the size attribute of the Dimension
+   * object to retrieve.
    *
-   * @param n the index of the Dimension to remove
+   * @return the first Dimension in this ArraysSBasePlugin based on the given
+   * size attribute or NULL if no such Dimension exists.
+   */
+  Dimension* getDimensionBySize(const std::string& sid);
+
+
+  /**
+   * Adds a copy of the given Dimension to this ArraysSBasePlugin.
    *
-   * @return the Dimension object removed 
-   * or NULL index was out of range.
+   * @param d the Dimension object to add.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createDimension()
+   */
+  int addDimension(const Dimension* d);
+
+
+  /**
+   * Get the number of Dimension objects in this ArraysSBasePlugin.
+   *
+   * @return the number of Dimension objects in this ArraysSBasePlugin.
+   */
+  unsigned int getNumDimensions() const;
+
+
+  /**
+   * Creates a new Dimension object, adds it to this ArraysSBasePlugin object
+   * and returns the Dimension object created.
+   *
+   * @return a new Dimension object instance.
+   *
+   * @see addDimension(const Dimension* d)
+   */
+  Dimension* createDimension();
+
+
+  /**
+   * Removes the nth Dimension from this ArraysSBasePlugin and returns a
+   * pointer to it.
+   *
+   * @param n an unsigned int representing the index of the Dimension to
+   * remove.
+   *
+   * @return a pointer to the nth Dimension in this ArraysSBasePlugin.
+   *
+   * @see getNumDimensions
+   *
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
   Dimension* removeDimension(unsigned int n);
 
 
   /**
-   * Removes the Dimension object with the given id from this plugin object
+   * Removes the Dimension from this ArraysSBasePlugin based on its identifier
    * and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * @param sid a string representing the identifier of the Dimension to
+   * remove.
    *
-   * @param sid a string representing the id of the Dimension to remove
+   * @return the Dimension in this ArraysSBasePlugin based on the identifier or
+   * NULL if no such Dimension exists.
    *
-   * @return the Dimension object removed 
-   * or NULL if no such Dimension exists.
+   * @note the caller owns the returned object and is responsible for deleting
+   * it.
    */
   Dimension* removeDimension(const std::string& sid);
 
 
   /**
-   * Returns the number of Dimension objects in this plugin object.
+   * Predicate returning @c true if all the required elements for this
+   * ArraysSBasePlugin object have been set.
    *
-   * @return the number of Dimension objects in this plugin object.
+   * @return @c true to indicate that all the required elements of this
+   * ArraysSBasePlugin have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the ArraysSBasePlugin object are:
    */
-  unsigned int getNumDimensions () const;
+  virtual bool hasRequiredElements() const;
+
 
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the parent SBMLDocument.
+   * Write any contained elements
    */
-  virtual void setSBMLDocument (SBMLDocument* d);
+  virtual void writeElements(XMLOutputStream& stream) const;
 
+  /** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  virtual void connectToParent (SBase* sbase);
-
-
-  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
 
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to parent element
+   */
+  virtual void connectToParent(SBase* base);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
   virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
 
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+  #ifndef SWIG
+
 
 
   /** @cond doxygenLibsbmlInternal */
 
-  virtual bool accept (SBMLVisitor& v) const;
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this ArraysSBasePlugin's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this ArraysSBasePlugin's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this
+   * ArraysSBasePlugin.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this ArraysSBasePlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * pointer to the element created.
+   */
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this ArraysSBasePlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this ArraysSBasePlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * filter, an ElementFilter that may impose restrictions on the objects to be
+   * retrieved.
+   *
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
+   */
+  virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Append items from model (used in comp flattening)
+   *
+   * @param model a pointer to a model object.
+   *
+   */
+  int appendFrom(const Model* model);
+
+  /** @endcond */
 
 
 protected:
 
+
   /** @cond doxygenLibsbmlInternal */
 
-  ListOfIndices mIndexs;
-  ListOfDimensions mDimensions;
+  /**
+   * Creates a new object from the next XMLToken on the XMLInputStream
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
 
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
 
 
 
-
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
-#endif /* ArraysSBasePlugin_H__ */
+
+
+
+
+#endif /* !ArraysSBasePlugin_H__ */
 
 

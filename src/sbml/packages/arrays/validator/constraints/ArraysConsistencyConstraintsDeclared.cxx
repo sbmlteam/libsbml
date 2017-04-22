@@ -2,8 +2,8 @@
 /** @cond doxygenLibsbmlInternal */
 
 /**
- * @file ArraysIdentifierConsistencyValidator.cpp
- * @brief Definition of ArraysIdentifierConsistencyValidator.
+ * @file ArraysConsistencyConstraintsDeclared.cxx
+ * @brief Definition of ArraysConsistencyConstraintsDeclared.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -33,39 +33,6 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-#ifndef doxygen_ignore
-
-#include <sbml/packages/arrays/validator/ArraysIdentifierConsistencyValidator.h>
-
-/**
- * Compile IdentifierConsistencyConstraints
- */
-#include "constraints/ArraysIdentifierConsistencyConstraints.cpp"
-
-
-LIBSBML_CPP_NAMESPACE_BEGIN
-
-
-/**
- * Initializes this Validator with a set of Constraints
- */
-void
-ArraysIdentifierConsistencyValidator::init()
-{
-#define  AddingConstraintsToValidator 1
-#include "constraints/ArraysIdentifierConsistencyConstraintsDeclared.cxx"
-}
-
-
-
-
-LIBSBML_CPP_NAMESPACE_END
-
-
-
-#endif /* doxygen_ignore */
-
 
 /** @endcond */
 

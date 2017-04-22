@@ -1,78 +1,78 @@
 /**
- * @file:   Dimension.cpp
- * @brief:  Implementation of the Dimension class
- * @author: SBMLTeam
+ * @file Dimension.cpp
+ * @brief Implementation of the Dimension class.
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
- * This file is part of libSBML.  Please visit http://sbml.org for more
+ * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
  * Copyright (C) 2013-2017 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *     3. University of Heidelberg, Heidelberg, Germany
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 3. University of Heidelberg, Heidelberg, Germany
  *
  * Copyright (C) 2009-2013 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
+ * Pasadena, CA, USA
  *
  * Copyright (C) 2002-2005 jointly by the following organizations:
- *     1. California Institute of Technology, Pasadena, CA, USA
- *     2. Japan Science and Technology Agency, Japan
+ * 1. California Institute of Technology, Pasadena, CA, USA
+ * 2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
-
 #include <sbml/packages/arrays/sbml/Dimension.h>
+#include <sbml/packages/arrays/sbml/ListOfDimensions.h>
 #include <sbml/packages/arrays/validator/ArraysSBMLError.h>
 
 
 using namespace std;
 
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Dimension with the given level, version, and package version.
+ * Creates a new Dimension using the given SBML Level, Version and
+ * &ldquo;arrays&rdquo; package version.
  */
-Dimension::Dimension (unsigned int level, unsigned int version, unsigned int pkgVersion)
+Dimension::Dimension(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
   : SBase(level, version)
-//   ,mId ("")
-//   ,mName ("")
-   ,mSize ("")
-   ,mArrayDimension (SBML_INT_MAX)
-   ,mIsSetArrayDimension (false)
+  , mSize ("")
+  , mArrayDimension (SBML_INT_MAX)
+  , mIsSetArrayDimension (false)
 {
-  // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new ArraysPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
- * Creates a new Dimension with the given ArraysPkgNamespaces object.
+ * Creates a new Dimension using the given ArraysPkgNamespaces object.
  */
-Dimension::Dimension (ArraysPkgNamespaces* arraysns)
+Dimension::Dimension(ArraysPkgNamespaces *arraysns)
   : SBase(arraysns)
-//   ,mId ("")
-//   ,mName ("")
-   ,mSize ("")
-   ,mArrayDimension (SBML_INT_MAX)
-   ,mIsSetArrayDimension (false)
+  , mSize ("")
+  , mArrayDimension (SBML_INT_MAX)
+  , mIsSetArrayDimension (false)
 {
-  // set the element namespace of this object
   setElementNamespace(arraysns->getURI());
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(arraysns);
 }
 
@@ -80,19 +80,17 @@ Dimension::Dimension (ArraysPkgNamespaces* arraysns)
 /*
  * Copy constructor for Dimension.
  */
-Dimension::Dimension (const Dimension& orig)
-  : SBase(orig)
-//  , mId  ( orig.mId)
-//  , mName  ( orig.mName)
-  , mSize  ( orig.mSize)
-  , mArrayDimension  ( orig.mArrayDimension)
-  , mIsSetArrayDimension  ( orig.mIsSetArrayDimension)
+Dimension::Dimension(const Dimension& orig)
+  : SBase( orig )
+  , mSize ( orig.mSize )
+  , mArrayDimension ( orig.mArrayDimension )
+  , mIsSetArrayDimension ( orig.mIsSetArrayDimension )
 {
 }
 
 
 /*
- * Assignment for Dimension.
+ * Assignment operator for Dimension.
  */
 Dimension&
 Dimension::operator=(const Dimension& rhs)
@@ -100,21 +98,20 @@ Dimension::operator=(const Dimension& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mName  = rhs.mName;
-    mSize  = rhs.mSize;
-    mArrayDimension  = rhs.mArrayDimension;
-    mIsSetArrayDimension  = rhs.mIsSetArrayDimension;
+    mSize = rhs.mSize;
+    mArrayDimension = rhs.mArrayDimension;
+    mIsSetArrayDimension = rhs.mIsSetArrayDimension;
   }
+
   return *this;
 }
 
 
 /*
- * Clone for Dimension.
+ * Creates and returns a deep copy of this Dimension object.
  */
 Dimension*
-Dimension::clone () const
+Dimension::clone() const
 {
   return new Dimension(*this);
 }
@@ -123,7 +120,7 @@ Dimension::clone () const
 /*
  * Destructor for Dimension.
  */
-Dimension::~Dimension ()
+Dimension::~Dimension()
 {
 }
 
@@ -169,7 +166,7 @@ Dimension::getArrayDimension() const
 
 
 /*
- * Returns true/false if id is set.
+ * Predicate returning @c true if this Dimension's "id" attribute is set.
  */
 bool
 Dimension::isSetId() const
@@ -179,7 +176,7 @@ Dimension::isSetId() const
 
 
 /*
- * Returns true/false if name is set.
+ * Predicate returning @c true if this Dimension's "name" attribute is set.
  */
 bool
 Dimension::isSetName() const
@@ -189,7 +186,7 @@ Dimension::isSetName() const
 
 
 /*
- * Returns true/false if size is set.
+ * Predicate returning @c true if this Dimension's "size" attribute is set.
  */
 bool
 Dimension::isSetSize() const
@@ -199,7 +196,8 @@ Dimension::isSetSize() const
 
 
 /*
- * Returns true/false if arrayDimension is set.
+ * Predicate returning @c true if this Dimension's "arrayDimension" attribute
+ * is set.
  */
 bool
 Dimension::isSetArrayDimension() const
@@ -209,7 +207,7 @@ Dimension::isSetArrayDimension() const
 
 
 /*
- * Sets id and returns value indicating success.
+ * Sets the value of the "id" attribute of this Dimension.
  */
 int
 Dimension::setId(const std::string& id)
@@ -219,7 +217,7 @@ Dimension::setId(const std::string& id)
 
 
 /*
- * Sets name and returns value indicating success.
+ * Sets the value of the "name" attribute of this Dimension.
  */
 int
 Dimension::setName(const std::string& name)
@@ -230,7 +228,7 @@ Dimension::setName(const std::string& name)
 
 
 /*
- * Sets size and returns value indicating success.
+ * Sets the value of the "size" attribute of this Dimension.
  */
 int
 Dimension::setSize(const std::string& size)
@@ -248,7 +246,7 @@ Dimension::setSize(const std::string& size)
 
 
 /*
- * Sets arrayDimension and returns value indicating success.
+ * Sets the value of the "arrayDimension" attribute of this Dimension.
  */
 int
 Dimension::setArrayDimension(unsigned int arrayDimension)
@@ -260,7 +258,7 @@ Dimension::setArrayDimension(unsigned int arrayDimension)
 
 
 /*
- * Unsets id and returns value indicating success.
+ * Unsets the value of the "id" attribute of this Dimension.
  */
 int
 Dimension::unsetId()
@@ -279,7 +277,7 @@ Dimension::unsetId()
 
 
 /*
- * Unsets name and returns value indicating success.
+ * Unsets the value of the "name" attribute of this Dimension.
  */
 int
 Dimension::unsetName()
@@ -298,7 +296,7 @@ Dimension::unsetName()
 
 
 /*
- * Unsets size and returns value indicating success.
+ * Unsets the value of the "size" attribute of this Dimension.
  */
 int
 Dimension::unsetSize()
@@ -317,7 +315,7 @@ Dimension::unsetSize()
 
 
 /*
- * Unsets arrayDimension and returns value indicating success.
+ * Unsets the value of the "arrayDimension" attribute of this Dimension.
  */
 int
 Dimension::unsetArrayDimension()
@@ -337,24 +335,23 @@ Dimension::unsetArrayDimension()
 
 
 /*
- * rename attributes that are SIdRefs or instances in math
+ * @copydoc doc_renamesidref_common
  */
 void
 Dimension::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  if (isSetSize() == true && mSize == oldid)
+  if (isSetSize() && mSize == oldid)
   {
     setSize(newid);
   }
-
 }
 
 
 /*
- * Returns the XML element name of this object
+ * Returns the XML element name of this Dimension object.
  */
 const std::string&
-Dimension::getElementName () const
+Dimension::getElementName() const
 {
   static const string name = "dimension";
   return name;
@@ -362,100 +359,468 @@ Dimension::getElementName () const
 
 
 /*
- * Returns the libSBML type code for this SBML object.
+ * Returns the libSBML type code for this Dimension object.
  */
 int
-Dimension::getTypeCode () const
+Dimension::getTypeCode() const
 {
   return SBML_ARRAYS_DIMENSION;
 }
 
 
 /*
- * check if all the required attributes are set
+ * Predicate returning @c true if all the required attributes for this
+ * Dimension object have been set.
  */
 bool
-Dimension::hasRequiredAttributes () const
+Dimension::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
   if (isSetSize() == false)
+  {
     allPresent = false;
+  }
 
   if (isSetArrayDimension() == false)
+  {
     allPresent = false;
+  }
 
   return allPresent;
 }
 
 
-  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * write contained elements
+ * Write any contained elements
  */
 void
-Dimension::writeElements (XMLOutputStream& stream) const
+Dimension::writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
   SBase::writeExtensionElements(stream);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Accepts the given SBMLVisitor.
+ * Accepts the given SBMLVisitor
  */
 bool
-Dimension::accept (SBMLVisitor& v) const
+Dimension::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the parent SBMLDocument.
+ * Sets the parent SBMLDocument
  */
 void
-Dimension::setSBMLDocument (SBMLDocument* d)
+Dimension::setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element.
+ * Enables/disables the given package with this element
  */
 void
 Dimension::enablePackageInternal(const std::string& pkgURI,
-             const std::string& pkgPrefix, bool flag)
+                                 const std::string& pkgPrefix,
+                                 bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Get the list of expected attributes for this element.
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName,
+                        unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "arrayDimension")
+  {
+    value = getArrayDimension();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName,
+                        std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "size")
+  {
+    value = getSize();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::getAttribute(const std::string& attributeName,
+                        const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "size")
+  {
+    value = getSize().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Dimension's attribute "attributeName" is
+ * set.
+ */
+bool
+Dimension::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
+  }
+  else if (attributeName == "size")
+  {
+    value = isSetSize();
+  }
+  else if (attributeName == "arrayDimension")
+  {
+    value = isSetArrayDimension();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "arrayDimension")
+  {
+    return_value = setArrayDimension(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName,
+                        const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "size")
+  {
+    return_value = setSize(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "size")
+  {
+    return_value = setSize(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Dimension.
+ */
+int
+Dimension::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
+  else if (attributeName == "size")
+  {
+    value = unsetSize();
+  }
+  else if (attributeName == "arrayDimension")
+  {
+    value = unsetArrayDimension();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
  */
 void
 Dimension::addExpectedAttributes(ExpectedAttributes& attributes)
@@ -463,409 +828,220 @@ Dimension::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("name");
+
   attributes.add("size");
+
   attributes.add("arrayDimension");
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Read values from the given XMLAttributes set into their specific fields.
+ * Reads the expected attributes into the member data variables
  */
 void
-Dimension::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+Dimension::readAttributes(const XMLAttributes& attributes,
+                          const ExpectedAttributes& expectedAttributes)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-  /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfDimensions - which will have
-   * happened immediately prior to this read
-  */
-
-  if (getErrorLog() != NULL &&
-      static_cast<ListOfDimensions*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfDimensions*>(getParentSBMLObject())->size() < 2)
   {
-    numErrs = getErrorLog()->getNumErrors();
+    numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details =
-              getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("arrays", ArraysDimensionAllowedAttributes,
+          pkgVersion, level, version, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("arrays",
+          ArraysSBaseLODimensionsAllowedCoreAttributes, pkgVersion, level,
+            version, details);
       }
     }
   }
 
   SBase::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
 
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  for (int n = numErrs-1; n >= 0; n--)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("arrays", ArraysDimensionAllowedAttributes,
+        pkgVersion, level, version, details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("arrays", ArraysDimensionAllowedCoreAttributes,
+        pkgVersion, level, version, details);
     }
   }
 
-  bool assigned = false;
+  // 
+  // id SId (use = "optional" )
+  // 
 
-  //
-  // id SId  ( use = "optional" )
-  //
   assigned = attributes.readInto("id", mId);
 
-   if (assigned == true)
+  if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<Dimension>");
+      logEmptyString(mId, level, version, "<Dimension>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+      logError(ArraysIdSyntaxRule, level, version, "The id '" + mId + "' does "
+        "not conform to the syntax.");
     }
   }
 
-  //
-  // name string   ( use = "optional" )
-  //
+  // 
+  // name string (use = "optional" )
+  // 
+
   assigned = attributes.readInto("name", mName);
 
   if (assigned == true)
   {
-    // check string is not empty
-
     if (mName.empty() == true)
     {
-      logEmptyString(mName, getLevel(), getVersion(), "<Dimension>");
+      logEmptyString(mName, level, version, "<Dimension>");
     }
   }
 
-  //
-  // size SIdRef   ( use = "required" )
-  //
+  // 
+  // size SIdRef (use = "required" )
+  // 
+
   assigned = attributes.readInto("size", mSize);
 
   if (assigned == true)
   {
-    // check string is not empty and correct syntax
-
     if (mSize.empty() == true)
     {
-      logEmptyString(mSize, getLevel(), getVersion(), "<Dimension>");
+      logEmptyString(mSize, level, version, "<Dimension>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mSize) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mSize) == false)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute size='" + mSize + "' does not conform.");
+      logError(ArraysDimensionSizeMustBeSBase, level, version, "The attribute "
+        "size='" + mSize + "' does not conform to the syntax.");
     }
   }
   else
   {
-    std::string message = "Arrays attribute 'size' is missing.";
-    getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+    std::string message = "Arrays attribute 'size' is missing from the "
+      "<Dimension> element.";
+    log->logPackageError("arrays", ArraysDimensionAllowedAttributes,
+      pkgVersion, level, version, message);
   }
 
-  //
-  // arrayDimension unsigned int   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
-  mIsSetArrayDimension = attributes.readInto("arrayDimension", mArrayDimension);
+  // 
+  // arrayDimension uint (use = "required" )
+  // 
 
-  if (mIsSetArrayDimension == false)
+  numErrs = log->getNumErrors();
+  mIsSetArrayDimension = attributes.readInto("arrayDimension",
+    mArrayDimension);
+
+  if ( mIsSetArrayDimension == false)
   {
-    if (getErrorLog() != NULL)
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
-      }
-      else
-      {
-        std::string message = "Arrays attribute 'arrayDimension' is missing.";
-        getErrorLog()->logPackageError("arrays", ArraysUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
-      }
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Arrays attribute 'arrayDimension' from the "
+        "<Dimension> element must be an integer.";
+      log->logPackageError("arrays",
+        ArraysDimensionArrayDimensionMustBeUnInteger, pkgVersion, level, version,
+          message);
+    }
+    else
+    {
+      std::string message = "Arrays attribute 'arrayDimension' is missing from "
+        "the <Dimension> element.";
+      log->logPackageError("arrays", ArraysDimensionAllowedAttributes,
+        pkgVersion, level, version, message);
     }
   }
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Write values of XMLAttributes to the output stream.
+ * Writes the attributes to the stream
  */
-  void
-Dimension::writeAttributes (XMLOutputStream& stream) const
+void
+Dimension::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   if (isSetId() == true)
+  {
     stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetName() == true)
+  {
     stream.writeAttribute("name", getPrefix(), mName);
+  }
 
   if (isSetSize() == true)
+  {
     stream.writeAttribute("size", getPrefix(), mSize);
+  }
 
   if (isSetArrayDimension() == true)
+  {
     stream.writeAttribute("arrayDimension", getPrefix(), mArrayDimension);
+  }
 
   SBase::writeExtensionAttributes(stream);
-
 }
 
+/** @endcond */
 
-  /** @endcond doxygenLibsbmlInternal */
+
+
+
+#endif /* __cplusplus */
 
 
 /*
- * Constructor 
- */
-ListOfDimensions::ListOfDimensions(unsigned int level, 
-                   unsigned int version, 
-                   unsigned int pkgVersion)
- : ListOf(level, version)
-{
-  setSBMLNamespacesAndOwn(new ArraysPkgNamespaces(level, version, pkgVersion)); 
-}
-
-
-/*
- * Constructor 
- */
-ListOfDimensions::ListOfDimensions(ArraysPkgNamespaces* arraysns)
-  : ListOf(arraysns)
-{
-  setElementNamespace(arraysns->getURI());
-}
-
-
-/*
- * Returns a deep copy of this ListOfDimensions 
- */
-ListOfDimensions* 
-ListOfDimensions::clone () const
- {
-  return new ListOfDimensions(*this);
-}
-
-
-/*
- * Get a Dimension from the ListOfDimensions by index.
-*/
-Dimension*
-ListOfDimensions::get(unsigned int n)
-{
-  return static_cast<Dimension*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Dimension from the ListOfDimensions by index.
- */
-const Dimension*
-ListOfDimensions::get(unsigned int n) const
-{
-  return static_cast<const Dimension*>(ListOf::get(n));
-}
-
-
-/*
- * Get a Dimension from the ListOfDimensions by id.
- */
-Dimension*
-ListOfDimensions::get(const std::string& sid)
-{
-  return const_cast<Dimension*>(
-    static_cast<const ListOfDimensions&>(*this).get(sid));
-}
-
-
-/*
- * Get a Dimension from the ListOfDimensions by id.
- */
-const Dimension*
-ListOfDimensions::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Dimension>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Dimension*> (*result);
-}
-
-
-/*
- * Removes the nth Dimension from this ListOfDimensions
- */
-Dimension*
-ListOfDimensions::remove(unsigned int n)
-{
-  return static_cast<Dimension*>(ListOf::remove(n));
-}
-
-
-/*
- * Removes the Dimension from this ListOfDimensions with the given identifier
- */
-Dimension*
-ListOfDimensions::remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Dimension>(sid) );
-
-  if (result != mItems.end())
-  {
-    item = *result;
-    mItems.erase(result);
-  }
-
-  return static_cast <Dimension*> (item);
-}
-
-
-/*
- * Returns the XML element name of this object
- */
-const std::string&
-ListOfDimensions::getElementName () const
-{
-  static const string name = "listOfDimensions";
-  return name;
-}
-
-
-/*
- * Returns the libSBML type code for this SBML object.
- */
-int
-ListOfDimensions::getTypeCode () const
-{
-  return SBML_LIST_OF;
-}
-
-
-/*
- * Returns the libSBML type code for the objects in this LIST_OF.
- */
-int
-ListOfDimensions::getItemTypeCode () const
-{
-  return SBML_ARRAYS_DIMENSION;
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Creates a new Dimension in this ListOfDimensions
- */
-SBase*
-ListOfDimensions::createObject(XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase* object = NULL;
-
-  if (name == "dimension")
-  {
-    ARRAYS_CREATE_NS(arraysns, getSBMLNamespaces());
-    object = new Dimension(arraysns);
-    appendAndOwn(object);
-    delete arraysns;
-  }
-
-  return object;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write the namespace for the Arrays package.
- */
-void
-ListOfDimensions::writeXMLNS(XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(ArraysExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(ArraysExtension::getXmlnsL3V1V1(),prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-/*
- * 
+ * Creates a new Dimension_t using the given SBML Level, Version and
+ * &ldquo;arrays&rdquo; package version.
  */
 LIBSBML_EXTERN
 Dimension_t *
-Dimension_create(unsigned int level, unsigned int version,
+Dimension_create(unsigned int level,
+                 unsigned int version,
                  unsigned int pkgVersion)
 {
   return new Dimension(level, version, pkgVersion);
@@ -873,23 +1049,11 @@ Dimension_create(unsigned int level, unsigned int version,
 
 
 /*
- * 
+ * Creates and returns a deep copy of this Dimension_t object.
  */
 LIBSBML_EXTERN
-void
-Dimension_free(Dimension_t * d)
-{
-  if (d != NULL)
-    delete d;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Dimension_t *
-Dimension_clone(Dimension_t * d)
+Dimension_t*
+Dimension_clone(const Dimension_t* d)
 {
   if (d != NULL)
   {
@@ -903,104 +1067,125 @@ Dimension_clone(Dimension_t * d)
 
 
 /*
- *
+ * Frees this Dimension_t object.
  */
 LIBSBML_EXTERN
-char *
-Dimension_getId(Dimension_t * d)
+void
+Dimension_free(Dimension_t* d)
+{
+  if (d != NULL)
+  {
+    delete d;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this Dimension_t.
+ */
+LIBSBML_EXTERN
+const char *
+Dimension_getId(const Dimension_t * d)
 {
   if (d == NULL)
+  {
     return NULL;
+  }
 
   return d->getId().empty() ? NULL : safe_strdup(d->getId().c_str());
 }
 
 
 /*
- *
+ * Returns the value of the "name" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
-char *
-Dimension_getName(Dimension_t * d)
+const char *
+Dimension_getName(const Dimension_t * d)
 {
   if (d == NULL)
+  {
     return NULL;
+  }
 
   return d->getName().empty() ? NULL : safe_strdup(d->getName().c_str());
 }
 
 
 /*
- *
+ * Returns the value of the "size" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
-char *
-Dimension_getSize(Dimension_t * d)
+const char *
+Dimension_getSize(const Dimension_t * d)
 {
   if (d == NULL)
+  {
     return NULL;
+  }
 
   return d->getSize().empty() ? NULL : safe_strdup(d->getSize().c_str());
 }
 
 
 /*
- *
+ * Returns the value of the "arrayDimension" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 unsigned int
-Dimension_getArrayDimension(Dimension_t * d)
+Dimension_getArrayDimension(const Dimension_t * d)
 {
   return (d != NULL) ? d->getArrayDimension() : SBML_INT_MAX;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Dimension_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Dimension_isSetId(Dimension_t * d)
+Dimension_isSetId(const Dimension_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->isSetId()) : 0;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Dimension_t's "name" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Dimension_isSetName(Dimension_t * d)
+Dimension_isSetName(const Dimension_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->isSetName()) : 0;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Dimension_t's "size" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Dimension_isSetSize(Dimension_t * d)
+Dimension_isSetSize(const Dimension_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->isSetSize()) : 0;
 }
 
 
 /*
- *
+ * Predicate returning @c 1 if this Dimension_t's "arrayDimension" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
-Dimension_isSetArrayDimension(Dimension_t * d)
+Dimension_isSetArrayDimension(const Dimension_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->isSetArrayDimension()) : 0;
 }
 
 
 /*
- *
+ * Sets the value of the "id" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1011,7 +1196,7 @@ Dimension_setId(Dimension_t * d, const char * id)
 
 
 /*
- *
+ * Sets the value of the "name" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1022,7 +1207,7 @@ Dimension_setName(Dimension_t * d, const char * name)
 
 
 /*
- *
+ * Sets the value of the "size" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1033,18 +1218,19 @@ Dimension_setSize(Dimension_t * d, const char * size)
 
 
 /*
- *
+ * Sets the value of the "arrayDimension" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
 Dimension_setArrayDimension(Dimension_t * d, unsigned int arrayDimension)
 {
-  return (d != NULL) ? d->setArrayDimension(arrayDimension) : LIBSBML_INVALID_OBJECT;
+  return (d != NULL) ? d->setArrayDimension(arrayDimension) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- *
+ * Unsets the value of the "id" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1055,7 +1241,7 @@ Dimension_unsetId(Dimension_t * d)
 
 
 /*
- *
+ * Unsets the value of the "name" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1066,7 +1252,7 @@ Dimension_unsetName(Dimension_t * d)
 
 
 /*
- *
+ * Unsets the value of the "size" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1077,7 +1263,7 @@ Dimension_unsetSize(Dimension_t * d)
 
 
 /*
- *
+ * Unsets the value of the "arrayDimension" attribute of this Dimension_t.
  */
 LIBSBML_EXTERN
 int
@@ -1088,41 +1274,14 @@ Dimension_unsetArrayDimension(Dimension_t * d)
 
 
 /*
- *
+ * Predicate returning @c 1 if all the required attributes for this Dimension_t
+ * object have been set.
  */
 LIBSBML_EXTERN
 int
-Dimension_hasRequiredAttributes(Dimension_t * d)
+Dimension_hasRequiredAttributes(const Dimension_t * d)
 {
   return (d != NULL) ? static_cast<int>(d->hasRequiredAttributes()) : 0;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Dimension_t *
-ListOfDimensions_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDimensions *>(lo)->get(sid) : NULL;
-}
-
-
-/*
- *
- */
-LIBSBML_EXTERN
-Dimension_t *
-ListOfDimensions_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDimensions *>(lo)->remove(sid) : NULL;
 }
 
 
