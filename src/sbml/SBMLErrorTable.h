@@ -656,7 +656,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
+    "The 'id' value of a <parameter> or <localParameter> defined within a <kineticLaw> can only "
     "be used in <ci> elements within the MathML content of that same "
     "<kineticLaw>; the identifier is not visible to other parts of the "
     "model. ",

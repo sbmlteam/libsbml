@@ -139,6 +139,24 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
       m.getParameter(name)   == NULL &&
       m.getReaction(name)    == NULL)
   {
+    for (unsigned long rxn = 0; rxn < m.getNumReactions(); rxn++)
+    {
+      const Reaction* reaction = m.getReaction(rxn);
+      for (unsigned long reactant = 0; reactant < reaction->getNumReactants(); reactant++)
+      {
+        if (reaction->getReactant(reactant)->getIdAttribute() == name)
+        {
+          return;
+        }
+      }
+      for (unsigned long product = 0; product < reaction->getNumProducts(); product++)
+      {
+        if (reaction->getProduct(product)->getIdAttribute() == name)
+        {
+          return;
+        }
+      }
+    }
 
     /* check whether we are in a kinetic law since there
      * may be local parameters to this law that are allowed
