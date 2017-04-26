@@ -139,21 +139,24 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
       m.getParameter(name)   == NULL &&
       m.getReaction(name)    == NULL)
   {
-    for (unsigned long rxn = 0; rxn < m.getNumReactions(); rxn++)
+    if (m.getLevel() >= 3)
     {
-      const Reaction* reaction = m.getReaction(rxn);
-      for (unsigned long reactant = 0; reactant < reaction->getNumReactants(); reactant++)
+      for (unsigned long rxn = 0; rxn < m.getNumReactions(); rxn++)
       {
-        if (reaction->getReactant(reactant)->getIdAttribute() == name)
+        const Reaction* reaction = m.getReaction(rxn);
+        for (unsigned long reactant = 0; reactant < reaction->getNumReactants(); reactant++)
         {
-          return;
+          if (reaction->getReactant(reactant)->getIdAttribute() == name)
+          {
+            return;
+          }
         }
-      }
-      for (unsigned long product = 0; product < reaction->getNumProducts(); product++)
-      {
-        if (reaction->getProduct(product)->getIdAttribute() == name)
+        for (unsigned long product = 0; product < reaction->getNumProducts(); product++)
         {
-          return;
+          if (reaction->getProduct(product)->getIdAttribute() == name)
+          {
+            return;
+          }
         }
       }
     }
