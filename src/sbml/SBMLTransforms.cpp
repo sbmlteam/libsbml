@@ -427,7 +427,8 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       * or specified
       * - if none then the model is incomplete
       */
-      if (shouldUseInitialValue(sr->getId(), m, isL3V2))
+      if (shouldUseInitialValue(sr->getId(), m, isL3V2) &&
+          !( sr->isSetStoichiometryMath() && sr->getStoichiometryMath()->isSetMath() ) )
       {
         /* not set by assignment */
         if (!(sr->isSetStoichiometry()))
@@ -444,9 +445,19 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       }
       else
       {
-        /* is set by assignment - need to work it out */
-        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        if (sr->isSetStoichiometryMath())
+        {
+          ValueSet v = make_pair(
+            evaluateASTNode(sr->getStoichiometryMath()->getMath(), values, m), 
+            true);
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        }
+        else
+        {
+          /* is set by assignment - need to work it out */
+          ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        }
       }
     }
 
@@ -458,7 +469,8 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       * or specified
       * - if none then the model is incomplete
       */
-      if (shouldUseInitialValue(sr->getId(), m, isL3V2))
+      if (shouldUseInitialValue(sr->getId(), m, isL3V2) &&
+         !sr->isSetStoichiometryMath())
       {
         /* not set by assignment */
         if (!(sr->isSetStoichiometry()))
@@ -475,9 +487,19 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       }
       else
       {
-        /* is set by assignment - need to work it out */
-        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
-        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        if (sr->isSetStoichiometryMath())
+        {
+          ValueSet v = make_pair(
+            evaluateASTNode(sr->getStoichiometryMath()->getMath(), values, m),
+            true);
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        }
+        else
+        {
+          /* is set by assignment - need to work it out */
+          ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
+          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        }
       }
     }
 

@@ -845,8 +845,28 @@ START_TEST(test_SBMLTransforms_L3V2AssignmentNoMath)
 
   fail_unless(values["S1_stoich"].first == 2);
 
+  
   delete d;
 
+}
+END_TEST
+
+START_TEST(test_SBMLTransforms_StoichiometryMath)
+{
+  std::string filename(TestDataDirectory);
+  filename += "l2v5-stoichiometrymath.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  SBMLTransforms::clearComponentValues();
+  fail_unless(d->getModel() != NULL);
+  SBMLTransforms::IdValueMap values;
+  SBMLTransforms::getComponentValuesForModel(d->getModel(), values);
+
+  fail_unless(values["generatedId_0"].first == 2);
+
+
+  delete d;
 }
 END_TEST
 
@@ -865,6 +885,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2AST);
   tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
+  tcase_add_test(tcase, test_SBMLTransforms_StoichiometryMath);
 
 
   suite_add_tcase(suite, tcase);
