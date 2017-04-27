@@ -241,7 +241,27 @@ SBMLTransforms::mapComponentValues(const Model * m)
   return getComponentValuesForModel(m, mValues);
 }
 
-IdList 
+/**
+ * this function checks whether for the given id there exists an initial 
+ * assignment and whether it needs to be evaluated or whether the objects
+ * initial value can be taken
+ * 
+ * 
+ */
+bool shouldUseInitialValue(const std::string& id, const Model * m, bool isL3V2)
+{
+  const Rule * r = m->getRule(id);
+  bool dontHaveUsableRule = (r == NULL) || (r->getType() == RULE_TYPE_RATE);
+  if (r != NULL && isL3V2 && !r->isSetMath()) dontHaveUsableRule = true;
+
+  const InitialAssignment* ia = m->getInitialAssignment(id);
+  bool dontHaveUsableAssignmentRule = (ia == NULL);
+  if (ia != NULL && isL3V2 && !ia->isSetMath()) dontHaveUsableAssignmentRule = true;
+
+  return dontHaveUsableRule && dontHaveUsableAssignmentRule;
+}
+
+IdList
 SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
 {
   values.clear();
@@ -251,6 +271,11 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
    * keep a list so we can check
    */
   IdList ids;
+
+  if (m == NULL)
+    return ids;
+
+  bool isL3V2 = m->getLevel() == 3 && m->getVersion() == 2;
 
   unsigned int i, j;
   for (i = 0; i < m->getNumCompartments(); i++)
@@ -262,9 +287,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
      * or specified
      * - if none then the model is incomplete
      */
-    const Rule * r = m->getRule(c->getId());
-    if (((r == NULL) || (r->getType() == RULE_TYPE_RATE))
-      && (m->getInitialAssignment(c->getId()) == NULL))
+    if (shouldUseInitialValue(c->getId(), m, isL3V2))
     {
       /* not set by assignment */
       if (!(c->isSetSize()))
@@ -295,9 +318,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
      * or specified
      * - if none then the model is incomplete
      */
-    const Rule * r = m->getRule(s->getId());
-    if (((r == NULL) || (r->getType() == RULE_TYPE_RATE))
-      && (m->getInitialAssignment(s->getId()) == NULL))
+    if (shouldUseInitialValue(s->getId(), m, isL3V2))
     {
       if (!(s->isSetInitialAmount()) && !(s->isSetInitialConcentration()))
       {
@@ -371,9 +392,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
      * or specified
      * - if none then the model is incomplete
      */
-    const Rule * r = m->getRule(p->getId());
-    if (((r == NULL) || (r->getType() == RULE_TYPE_RATE))
-      && (m->getInitialAssignment(p->getId()) == NULL))
+    if (shouldUseInitialValue(p->getId(), m, isL3V2))
     {
       if (!(p->isSetValue()))
       {
@@ -408,9 +427,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       * or specified
       * - if none then the model is incomplete
       */
-      const Rule * r = m->getRule(sr->getId());
-      if (((r == NULL) || (r->getType() == RULE_TYPE_RATE))
-        && (m->getInitialAssignment(sr->getId()) == NULL))
+      if (shouldUseInitialValue(sr->getId(), m, isL3V2))
       {
         /* not set by assignment */
         if (!(sr->isSetStoichiometry()))
@@ -441,9 +458,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
       * or specified
       * - if none then the model is incomplete
       */
-      const Rule * r = m->getRule(sr->getId());
-      if (((r == NULL) || (r->getType() == RULE_TYPE_RATE))
-        && (m->getInitialAssignment(sr->getId()) == NULL))
+      if (shouldUseInitialValue(sr->getId(), m, isL3V2))
       {
         /* not set by assignment */
         if (!(sr->isSetStoichiometry()))

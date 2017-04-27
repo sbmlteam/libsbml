@@ -831,6 +831,24 @@ START_TEST(test_SBMLTransforms_replaceIAWithFD)
 END_TEST
 
 
+START_TEST(test_SBMLTransforms_L3V2AssignmentNoMath)
+{
+  std::string filename(TestDataDirectory);
+  filename += "l3v2-assignment-nomath.xml";
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  SBMLTransforms::clearComponentValues();
+  fail_unless(d->getModel() != NULL);
+  SBMLTransforms::IdValueMap values;
+  SBMLTransforms::getComponentValuesForModel(d->getModel(), values);
+
+  fail_unless(values["S1_stoich"].first == 2);
+
+  delete d;
+
+}
+END_TEST
 
 Suite *
 create_suite_SBMLTransforms (void)
@@ -846,6 +864,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2AST);
+  tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
 
 
   suite_add_tcase(suite, tcase);
