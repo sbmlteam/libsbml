@@ -272,11 +272,11 @@ ASTNode::ASTNode (ASTNodeType_t type)
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
-  loadASTPlugins(NULL);
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    getPlugin(i)->connectToParent(this);
-  }
+  //loadASTPlugins(NULL);
+  //for (unsigned int i = 0; i < getNumPlugins(); i++)
+  //{
+  //  getPlugin(i)->connectToParent(this);
+  //}
 
 }
 
@@ -334,11 +334,11 @@ ASTNode::ASTNode (Token_t* token)
       setCharacter(token->value.ch);
     }
   }
-  loadASTPlugins(NULL);
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    getPlugin(i)->connectToParent(this);
-  }
+  //loadASTPlugins(NULL);
+  //for (unsigned int i = 0; i < getNumPlugins(); i++)
+  //{
+  //  getPlugin(i)->connectToParent(this);
+  //}
 }
 
 /*
