@@ -26,6 +26,7 @@ STABLE RELEASE
   - 'fbc' package-specific updates:
   - 'groups' package-specific updates:
   - 'layout' package-specific updates:
+  - 'multi' package-specific updates:
   - 'qual' package-specific updates:
 
 * Bug fixes
@@ -34,6 +35,7 @@ STABLE RELEASE
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
@@ -49,7 +51,6 @@ EXPERIMENTAL RELEASE
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
-  - 'multi' package-specific updates:
   - 'render' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
@@ -59,7 +60,6 @@ EXPERIMENTAL RELEASE
   - 'arrays' package-specific bug fixes:
   - 'distrib' package-specific bug fixes:
   - 'dyn' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
   - 'render' package-specific bug fixes:
   - 'req' package-specific bug fixes:
   - 'spatial' package-specific bug fixes:
