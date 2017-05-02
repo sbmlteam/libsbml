@@ -203,7 +203,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
-  virtual int setMath(ASTNode* math);
+  virtual int setMath(const ASTNode* math);
 
 
   /**

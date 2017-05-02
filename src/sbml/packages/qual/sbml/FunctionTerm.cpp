@@ -194,7 +194,7 @@ FunctionTerm::setResultLevel(int resultLevel)
  * Sets math and returns value indicating success.
  */
 int
-FunctionTerm::setMath(ASTNode* math)
+FunctionTerm::setMath(const ASTNode* math)
 {
   if (mMath == math)
   {
