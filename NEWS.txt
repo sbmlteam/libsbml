@@ -2,6 +2,69 @@
 
 
 ====================================================================
+5.15.1 (Current SVN)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+  
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - The check that reports <localParameters> shadowing other identifiers
+    was not noticing when it shadowed a speciesReference.  This has 
+    been corrected.
+
+  - The evaluateAST function was not correctly dealing with a 
+    missing math element.
+
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+
+    - The 'arrays' code was not always correctly reading and writing the 
+      namespace. This has been fixed.
+
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+
+====================================================================
 5.15.0 (2017-04-06)
 ====================================================================
 
@@ -54,7 +117,7 @@ STABLE RELEASE
     report level and version as '0'. This facilitates distinguishing
     between an invalid read and a Level 3 Version 2 document that 
     does not contain a <model> element.
-	
+  
 * Bug fixes
 
   - Code was failing to recognize the math elements <pi/> and
@@ -162,7 +225,7 @@ STABLE RELEASE
 * New features
 
   - An Iterator class has been added to the List utility.
-	
+  
 * Bug fixes
 
   - Validation was not being correctly invoked on <localParameter>
@@ -213,7 +276,7 @@ STABLE RELEASE
     optional XML comment to be further customized. 
 
   - The Python binding now includes a __version__ field.
-	
+  
   - 'comp' package-specific updates:
 
     - The SBMLResolver interface has been exposed within language bindings.
@@ -351,16 +414,16 @@ STABLE RELEASE
     created. This is a slight divergence from the direction libSBML
     usually takes and we would be grateful for any feedback
     on these functions. 
-	
+  
   - Validation speed has been dramatically improved for models that
     make use of FunctionDefinitions and in particular nested 
     FunctionDefinitions.	
-	
+  
   - 'comp' package-specific updates:
   
     - The 'flattening' routines have been expanded to correctly deal
-	  with FBC V2.
-	
+    with FBC V2.
+  
   - 'fbc' package-specific updates:
 
     - The FBC Version 2 package has been accepted by the SBML Editors.
@@ -431,34 +494,34 @@ STABLE RELEASE
 
   - There is a new function on SBMLDocument, checkConsistencyWithStrictUnits(),
     which applies the same validation as the checkConsistency() function with
-	one difference being that it will always apply unit validation using 
-	exact identity comparison between units and it logs all unit
-	violations as Error regardless of the SBML Level and Version.
+  one difference being that it will always apply unit validation using 
+  exact identity comparison between units and it logs all unit
+  violations as Error regardless of the SBML Level and Version.
 
   - There is a new converter that will convert to SBML L1V1. The 'regular'
     SBMLLevelVersionConverter does not support this level and version
     as we generally discourage the use of it. However users have requested
     the facility and thus we have included a separate converter to meet
     that need.
-	
+  
   - 'const' versions of the getElementBySId() and getElementByMetaId()
     functions have been added.
   
   - 'fbc' package-specific updates:
   
     -  Code has been updated to use support the FBC V2 format that is currently
-	   available as a Release Candidate document. Full validation for this
-	   format has been included.
-	   
+     available as a Release Candidate document. Full validation for this
+     format has been included.
+     
 * Bug fixes
 
   - The static function UnitDefinition::reorder failed to correctly deal
     with situations where the same unit kind appeared multiple times. This
     has been fixed. Thanks to Matthias König for reporting the problem.
-	
+  
   - There were some discrepancies between math and math-legacy code reporting
     the incorrect use of the MathML <apply> tag. This has been standardized 
-	and more rigorously tested.
+  and more rigorously tested.
 
 * Miscellaneous
 
@@ -476,19 +539,19 @@ EXPERIMENTAL RELEASE
   - L2V5 specific updates:
   
     - A new validation rule was identified during the review of the SBML
-	  Level 2 Version 5 specification. Support for this has been added.
+    Level 2 Version 5 specification. Support for this has been added.
 
   - 'arrays' package-specific updates:
   
     - The MathML elements included in the 'arrays' package has been 
-	  reduced. The code now reflects this.
-	  
+    reduced. The code now reflects this.
+    
   - 'multi' package-specific updates:
   
     - The code has been updated to reflect v 1.0.4 of the specification.
-	  This includes full validation. Thanks to Fengkai Zhang for 
-	  contributing the code.
-	  
+    This includes full validation. Thanks to Fengkai Zhang for 
+    contributing the code.
+    
 ====================================================================
 5.11.4 (2015-04-09)
 ====================================================================
@@ -743,7 +806,7 @@ EXPERIMENTAL RELEASE
       were not working as expected. These have been fixed. Thanks to 
       Harold Gómez for reporting this.
 
-		   
+       
 ====================================================================
 5.11.0 (2014-11-27)
 ====================================================================
@@ -756,7 +819,7 @@ STABLE RELEASE
     on all platforms.  Building requires SWIG version 3.0.2 or greater 
     and depends on node-gyp.  Feedback on this would be greatly
     appreciated.
-	
+  
   - We have made a source package for the libSBML R interface
     available for Linux and OSX users.    
 
@@ -917,7 +980,7 @@ EXPERIMENTAL RELEASE
       lead to incorrect namespaces being used.  This is now sorted.
       Thanks to Gerard Weatherby for reporting it.
 
-	   
+     
 ====================================================================
 5.10.2 (2014-07-17)
 ====================================================================
@@ -932,7 +995,7 @@ STABLE RELEASE
     bindings.  These are: replaceFD, expandInitialAssignments 
     and evaluateASTNode.  Examples of using these functions 
     are also provided.
-	
+  
   - The L3ParserSettings object can now be configured to compare
     built-in functions and constants caselessly (as it did in the
     past; the default), or to only accept the lower-case forms.
@@ -1146,14 +1209,14 @@ STABLE RELEASE
   
     - Unit tests have been added for the C API, and this exposed some
       missing functions. The missing functions have now been added.
-	  
+    
 
 * Bug fixes
 
   - There were issues with propagating the package-enabling
     functionality through the children of an element.  These issues
     have been resolved.
-	  
+    
   - The converters that apply structural changes to the SBML document
     used a setDocument function that expected a const SBMLDocument
     object. Since the converters change the document, and in fact
@@ -1317,20 +1380,20 @@ STABLE RELEASE
     this option when using the helper 'setLevelAndVersion' 
     function.  This function has no been given a default argument
     to allow users to specify the ignore packages option.
-	
+  
   - A new version of the SBMLTransforms::evaluateASTNode function
     is available; allowing the user to pass a map of ids and values
-	to the function rather than needing a whole model.
-	
+  to the function rather than needing a whole model.
+  
   - Two new functions are available to allow users to determine
     the compiled dependencies for the given instance of libSBML.
-	int isLibSBMLCompiledWith(const char* option) will take the name
-	of a dependency library e.g. 'expat' as argument and return a
-	positive integer this library was used to compile libSBML, 0 
-	otherwise.  
-	const char* getLibSBMLDependencyVersionOf(const char* option)
-	takes the name of the library and returns the version number
-	of this library.
+  int isLibSBMLCompiledWith(const char* option) will take the name
+  of a dependency library e.g. 'expat' as argument and return a
+  positive integer this library was used to compile libSBML, 0 
+  otherwise.  
+  const char* getLibSBMLDependencyVersionOf(const char* option)
+  takes the name of the library and returns the version number
+  of this library.
 
 * Bug fixes
 
@@ -1351,10 +1414,10 @@ STABLE RELEASE
     
   - A memory leak in SBasePluginCreator has been plugged. Thanks to 
     Andy Somogyi for reporting it. 
-	
+  
   - The instances of the extensions loaded into the ExtensionRegistry
     to facilitate plugins were not being correctly deleted. This 
-	has been corrected.
+  has been corrected.
 
   - 'fbc' package-specific updates:
     
@@ -1374,11 +1437,11 @@ EXPERIMENTAL RELEASE
 
   - 'req' package-specific updates:
     
-	- The attributes in the req package are mandatory on all
-	  elements.  This caused huge numbers of errors when reading
-	  files which used the req package but did not actually
-	  need to attributes on many elements.  Thus the error has been
-	  suppressed.
+  - The attributes in the req package are mandatory on all
+    elements.  This caused huge numbers of errors when reading
+    files which used the req package but did not actually
+    need to attributes on many elements.  Thus the error has been
+    suppressed.
 
   - 'spatial' package-specific updates:
   
