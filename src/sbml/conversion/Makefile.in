@@ -61,6 +61,7 @@ common_headers = \
   SBMLConverter.h     \
   SBMLConverterRegister.h     \
   SBMLConverterRegistry.h     \
+  SBMLConverterTypes.h        \
   SBMLFunctionDefinitionConverter.h \
   SBMLIdConverter.h \
   SBMLInferUnitsConverter.h \
