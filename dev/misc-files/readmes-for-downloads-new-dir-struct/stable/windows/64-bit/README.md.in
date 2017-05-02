@@ -5,7 +5,7 @@
 
 ### **_C, C++, C#, Java, Javascript, MATLAB, Perl, and Python installers_**
 
-This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Microsoft Windows systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level&nbsp;3 packages plus interfaces for the following programming languages:
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Microsoft Windows systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 
 * C
 * C++
@@ -20,13 +20,13 @@ Here you will find the following files:
 
 * [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe) -- Complete libSBML binary distribution.
 
-* [libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe](libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe) -- Installer for the MATLAB libSBML interface **only**.  Download this if you **only** need to use libSBML from MATLAB.  (This installer is also contained within [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe), so if you downloaded that one, you do _not_ need this one too.) This MATLAB interface supports SBML core and the SBML Level&nbsp;3 FBC package only.
+* [libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe](libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe) -- Installer for the MATLAB libSBML interface **only**.  Download this if you **only** need to use libSBML from MATLAB.  (This installer is also contained within [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe), so if you downloaded that one, you do _not_ need this one too.) This MATLAB interface supports SBML core and the SBML Level 3 FBC package only.
 
 To use these installers, download the appropriate file to your computer, then run the file, and follow the instructions displayed by the installer program on your screen.
 
 ### **_MATLAB installer_**
 
-The [MATLAB interface](MATLAB%20interface) folder contains an installer for the MATLAB libSBML interface **only**.  Download this if you **only** need to use libSBML from MATLAB.  (The installer is also contained within [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe), so if you downloaded that one, you do _not_ need this one too.)  This MATLAB interface supports SBML core and the SBML Level&nbsp;3 FBC package only.
+The [MATLAB interface](MATLAB%20interface) folder contains an installer for the MATLAB libSBML interface **only**.  Download this if you **only** need to use libSBML from MATLAB.  (The installer is also contained within [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe), so if you downloaded that one, you do _not_ need this one too.)  This MATLAB interface supports SBML core and the SBML Level 3 FBC package only.
 
 **Note:** The installers in the current directory and that in the MATLAB interface directory are identical and duplicated purely to preserve continuity with the download URL and consistency with other OS directories.
 

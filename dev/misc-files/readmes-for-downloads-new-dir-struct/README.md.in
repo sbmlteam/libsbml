@@ -4,7 +4,7 @@
 
 This is the top-level directory of **release @PACKAGE_VERSION@** of libSBML. Here you will find the following:
 
-*  **[stable](stable)**       -- subdirectory for the stable release of libSBML-@PACKAGE_VERSION@.  This contains the fully tested source, documentation and binary installers that reflect the current stable libSBML core and any accepted SBML Level&nbsp;3 packages.
+*  **[stable](stable)**       -- subdirectory for the stable release of libSBML-@PACKAGE_VERSION@.  This contains the fully tested source, documentation and binary installers that reflect the current stable libSBML core and any accepted SBML Level 3 packages.
   
 *  **[experimental](experimental)** -- subdirectory for libSBML-@PACKAGE_VERSION@ with beta package code. This contains source code for packages still in development, as well as binaries containing libSBML core together with all the packages included. Items in the [experimental](experimental) directory may be untested and undocumented, and are supplied as-is.
 

@@ -1,6 +1,6 @@
-## **libSBML @PACKAGE_VERSION@ installers for R for 32-bit Microsoft Windows operating systems**
+## **libSBML @PACKAGE_VERSION@ installers for R for 32/64 bit Microsoft Windows operating systems**
 
-This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3.1.1 on a 32-bit Microsoft Windows operating system.  
+This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3.1.1 on a Microsoft Windows operating system.  
 
 It has been tested and seems to work with R 2.15.3; R 3.0.0; R 3.1.2; R 3.2.2 and R 3.3.3. Please let us know if you find this is not the case.
 
@@ -12,7 +12,7 @@ After downloading the installer archive file, you can use one of two approaches 
 
 * **_Using a terminal/shell command_**: Suppose that the path to the libSBML R archive on your computer is _path_to_archive_. Execute the following command in a terminal/shell window (note: _not_ in the R command line interpreter!): **`R CMD INSTALL path_to_archive`**.  Here, **`R`** is the executable for the command-line version of R; we assume it is accessible from your shell's command line, but if it is not accessible by simply typing `R`, you may need to supply the full path to the R executable on your computer.
 
-Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
+Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-accessing.html).
 
 
 ### **_Additional information_**

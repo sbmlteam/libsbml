@@ -2,7 +2,7 @@
 ### Installers for experimental code
 
 This directory contains binary versions of libSBML compiled with plug-ins
-supporting draft SBML Level&nbsp;3 package specifications.
+supporting draft SBML Level 3 package specifications.
 
 Here you will find the following:
 
@@ -10,7 +10,7 @@ Here you will find the following:
 *  [Windows](Windows)  -- folder of binary installers for Microsoft Windows systems
 *  [Linux](Linux)    -- folder of binary installers for Linux systems
 
-Please note: the code in these directories reflects the current state of development of SBML Level&nbsp;3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level&nbsp;3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
+Please note: the code in these directories reflects the current state of development of SBML Level 3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level 3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
 
 We would greatly appreciate any feedback you have about any aspects of this software.
 

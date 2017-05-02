@@ -1,7 +1,7 @@
 ## libSBML @PACKAGE_VERSION@
 ###R Source package for experimental code
 
-This directory contains the R Source Package for libSBML plug-ins supporting draft SBML Level&nbsp;3 package specifications.
+This directory contains the R Source Package for libSBML plug-ins supporting draft SBML Level 3 package specifications.
 Binary installers are provided for [Windows](../../binaries/Windows/R%20interface).
 
 ### **_How to install libSBML for R_**
@@ -12,12 +12,12 @@ After downloading the package archive file, you can use one of two approaches to
 
 * **_Using a terminal/shell command_**: Suppose that the path to the libSBML R archive on your computer is _path_to_archive_. Execute the following command in a terminal/shell window (note: _not_ in the R command line interpreter!): **`R CMD INSTALL path_to_archive`**.  Here, **`R`** is the executable for the command-line version of R; we assume it is accessible from your shell's command line, but if it is not accessible by simply typing `R`, you may need to supply the full path to the R executable on your computer.
 
-Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
+Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-accessing.html).
 
 
 ---
 
-Please note: the code in these directories reflects the current state of development of SBML Level&nbsp;3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level&nbsp;3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
+Please note: the code in these directories reflects the current state of development of SBML Level 3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level 3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
 
 We would greatly appreciate any feedback you have about any aspects of this software.
 

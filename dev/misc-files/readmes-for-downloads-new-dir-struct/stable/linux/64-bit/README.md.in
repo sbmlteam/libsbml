@@ -5,7 +5,7 @@
 
 ### **_C, C++, C#, Java, Javascript, Perl and Ruby installers_**
 
-This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Linux systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level&nbsp;3 packages plus interfaces for the following programming languages:
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Linux systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 
 * C
 * C++
@@ -22,7 +22,7 @@ Files include:
 * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
 * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
 
-By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
+By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-accessing.html).
 
 ### **_MATLAB interface_**
 
@@ -40,12 +40,12 @@ If you are primarily interested in Python, we provide two options for installing
 
 * **_Using `apt-get` or `yum`_**: Python installers for use with `apt-get` or `yum` for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml "Open Build Service").
 
-After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
+After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/python-api/libsbml-accessing.html).
 
 
 ### **_Additional information_**
 
-If you need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
+If you need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
 
 For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
 

@@ -1,9 +1,9 @@
 ## libSBML @PACKAGE_VERSION@
 ### Experimental installers for Python
 
-This directory contains the Python-only installers for libSBML compiled with plug-ins supporting draft SBML Level&nbsp;3 package specifications.  Each file contains ONLY the precompiled Python interface plus the core libSBML native library.  Download this if you only need to use libSBML from Python and do not need the rest of the libSBML distribution.
+This directory contains the Python-only installers for libSBML compiled with plug-ins supporting draft SBML Level 3 package specifications.  Each file contains ONLY the precompiled Python interface plus the core libSBML native library.  Download this if you only need to use libSBML from Python and do not need the rest of the libSBML distribution.
 
-Please note: the code in these directories reflects the current state of development of SBML Level&nbsp;3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level&nbsp;3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
+Please note: the code in these directories reflects the current state of development of SBML Level 3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level 3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
 
 We would greatly appreciate any feedback you have about any aspects of this software.
 

@@ -44,6 +44,7 @@ mkdir "stable\Windows\64-bit"
 mkdir "stable\Windows\64-bit\R interface"
 mkdir "stable\Windows\64-bit\MATLAB interface"
 mkdir "stable\Windows\64-bit\python"
+mkdir "stable\Windows\R interface"
 mkdir "stable\MATLAB interface"
 mkdir "stable\R interface"
 
@@ -78,6 +79,7 @@ copy /y %THIS_DIR%\stable\windows\64-bit\README.md "%DIST_DIR%\stable\Windows\64
 copy /y %THIS_DIR%\stable\windows\64-bit\R_interface\README.md "%DIST_DIR%\stable\Windows\64-bit\R interface\."
 copy /y %THIS_DIR%\stable\windows\64-bit\python\README.md "%DIST_DIR%\stable\Windows\64-bit\python\."
 copy /y %THIS_DIR%\stable\windows\64-bit\MATLAB_interface\README.md "%DIST_DIR%\stable\Windows\64-bit\MATLAB interface\."
+copy /y %THIS_DIR%\stable\windows\64-bit\R_interface\README.md "%DIST_DIR%\stable\Windows\R interface\."
 copy /y %THIS_DIR%\stable\MATLAB_interface\README.md "%DIST_DIR%\stable\MATLAB interface\."
 copy /y %THIS_DIR%\stable\R_interface\README.md "%DIST_DIR%\stable\R interface\."
 

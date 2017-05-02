@@ -12,7 +12,7 @@ After downloading the package archive file, you can use one of two approaches to
 
 * **_Using a terminal/shell command_**: Suppose that the path to the libSBML R archive on your computer is _path_to_archive_. Execute the following command in a terminal/shell window (note: _not_ in the R command line interpreter!): **`R CMD INSTALL path_to_archive`**.  Here, **`R`** is the executable for the command-line version of R; we assume it is accessible from your shell's command line, but if it is not accessible by simply typing `R`, you may need to supply the full path to the R executable on your computer.
 
-Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
+Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-accessing.html).
 
 
 ---
