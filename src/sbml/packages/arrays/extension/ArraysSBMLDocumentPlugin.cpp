@@ -156,8 +156,9 @@ ArraysSBMLDocumentPlugin::checkConsistency()
   SBMLErrorLog* log = doc->getErrorLog();
 
   unsigned char applicableValidators = doc->getApplicableValidators();
-  bool id = ((applicableValidators & 0x01) ==0x01);
-  bool core = ((applicableValidators & 0x02) ==0x02);
+  // disable for now
+  bool id = false;//((applicableValidators & 0x01) ==0x01);
+  bool core = false;//((applicableValidators & 0x02) ==0x02);
 
   ArraysIdentifierConsistencyValidator id_validator;
   ArraysConsistencyValidator core_validator;
