@@ -50,6 +50,8 @@
 
 #include <sbml/packages/arrays/sbml/Index.h>
 #include <sbml/packages/arrays/sbml/Dimension.h>
+#include <sbml/packages/arrays/sbml/ListOfDimensions.h>
+#include <sbml/packages/arrays/sbml/ListOfIndices.h>
 
 
 #endif /* !ArraysExtensionTypes_H__ */
