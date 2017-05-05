@@ -29,6 +29,7 @@
       <parameter id="p2" value="2" units="dimensionless" constant="false"/>
       <parameter id="p3" value="2" units="dimensionless" constant="false"/>
       <parameter id="x1" value="2" units="dimensionless" constant="false"/>
+      <parameter id="x2" value="2" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="p1">
@@ -36,6 +37,26 @@
           <apply>
             <arccosh/>
             <ci> x1 </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="x2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <floor/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn type="integer"> 28 </cn>
+                </apply>
+                <cn type="integer"> 24 </cn>
+              </apply>
+            </apply>
+            <cn type="integer"> 24 </cn>
           </apply>
         </math>
       </initialAssignment>
