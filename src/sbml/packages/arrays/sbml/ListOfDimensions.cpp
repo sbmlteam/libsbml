@@ -263,7 +263,7 @@ ListOfDimensions::createDimension()
 /*
  * Used by ListOfDimensions::get() to lookup a Dimension based on its Size.
  */
-struct IdEqS : public std::unary_function<SBase*, bool>
+struct IdEqSDimension : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
@@ -283,7 +283,7 @@ const Dimension*
 ListOfDimensions::getBySize(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEqS(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqSDimension(sid));
   return (result == mItems.end()) ? 0 : static_cast <const Dimension*>
     (*result);
 }
