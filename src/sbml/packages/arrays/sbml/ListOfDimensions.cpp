@@ -267,7 +267,7 @@ struct IdEqSDimension : public std::unary_function<SBase*, bool>
 {
   const string& id;
    
-  IdEqS (const string& id) : id(id) { }
+  IdEqSDimension (const string& id) : id(id) { }
   bool operator() (SBase* sb)
   {
   return (static_cast<Dimension*>(sb)->getSize() == id);
