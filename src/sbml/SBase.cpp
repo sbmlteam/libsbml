@@ -3343,7 +3343,14 @@ SBase::getMath() const
 }
 
 
-  /** @endcond */
+bool
+SBase::isSetMath() const
+{
+  return getMath() != NULL;
+}
+
+
+/** @endcond */
 
 /*
  * @return the version of package to which this SBML object

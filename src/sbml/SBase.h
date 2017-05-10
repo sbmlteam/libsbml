@@ -2520,7 +2520,17 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @endcond */
 
-  virtual std::string getMessageString () const;
+  /** @cond doxygenLibsbmlInternal */
+
+   virtual bool isSetMath() const;
+
+   /** @endcond */
+
+   /** @cond doxygenLibsbmlInternal */
+   virtual std::string getMessageString () const;
+
+   /** @endcond */
+
 #endif
 
   /** @cond doxygenLibsbmlInternal */

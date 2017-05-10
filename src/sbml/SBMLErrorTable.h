@@ -10208,7 +10208,33 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
-  /* --------------------------------------------------------------------------
+   //98011
+   {
+     SpeciesRefIdInMathMLNotSupported,
+     "SpeciesReference Id not supported in MathML",
+      LIBSBML_CAT_SBML_COMPATIBILITY,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+     LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_NOT_APPLICABLE,
+      "The use of the <speciesReference> id attribute in MathML is not "
+     "supported prior to L3.",
+      { "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "" }
+   },
+
+      /* --------------------------------------------------------------------------
    * These are errors checked by libSBML that were never published in a spec.
    * ----------------------------------------------------------------------- */
 

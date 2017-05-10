@@ -277,8 +277,39 @@ private:
 
   bool has_fatal_errors(unsigned int level, unsigned int version);
 
+  // functions to check we have not used a speciesReference id in math when converting
+  // to levels/versions that have no speciesReference ids
+  bool speciesReferenceIdUsed();
+
+  IdList* collectSpeciesReferenceIds();
+
   /** @endcond */
 };
+
+/** @cond doxygenLibsbmlInternal */
+class LIBSBML_EXTERN MathFilter : public ElementFilter
+{
+public:
+  MathFilter() {};
+
+  virtual ~MathFilter() {};
+
+  virtual bool filter(const SBase* element)
+  {
+    // get elements with math set
+    if (element == NULL || element->isSetMath() == false)
+    {
+      return false;
+    }
+
+    return true;
+  };
+
+
+};
+
+
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

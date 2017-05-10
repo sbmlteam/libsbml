@@ -2224,6 +2224,52 @@ START_TEST(test_SBMLConvertStrict_convertFromL3_fast)
 END_TEST
 
 
+START_TEST(test_SBMLConvertStrict_convertSpeciesReferenceIdsUsedInMath)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 1.0);
+  InitialAssignment_t *ia = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia, "c");
+  ASTNode_t* math = SBML_parseFormula("XREF*2");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
+
+
+  // should not convert to l1 or l2
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 5) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -2289,6 +2335,8 @@ create_suite_SBMLConvertStrict (void)
 
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFrom_L3V2_fast);
   tcase_add_test(tcase, test_SBMLConvertStrict_convertFromL3_fast);
+
+  tcase_add_test(tcase, test_SBMLConvertStrict_convertSpeciesReferenceIdsUsedInMath);
 
   suite_add_tcase(suite, tcase);
 

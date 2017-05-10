@@ -837,6 +837,7 @@ typedef enum
 , MissingParticipantsNotSupported       = 98008 /*!< Omission of both <code>&lt;listOfReactants&gt;</code> and <code>&lt;listOfProducts&gt;</code> is only valid in L3V2. */
 , ConvertibleMathInitialAssignment      = 98009 /*!< Some L3V2-specific MathML elements are not permitted in InitialAssignment objects. */
 , FastReactionsNotSupported             = 98010 /*!< Conversion of reactions employing the 'fast' attribute is not supported. */
+, SpeciesRefIdInMathMLNotSupported      = 98011 /*!< This MathML element is only permitted in L3V2. */
 , InvalidSBMLLevelVersion               = 99101 /*!< Unknown Level+Version combination of SBML. */
 , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation objects on the SBML container element are not permitted in SBML Level 1. */
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
