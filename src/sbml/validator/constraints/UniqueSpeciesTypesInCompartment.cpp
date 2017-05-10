@@ -99,7 +99,7 @@ UniqueSpeciesTypesInCompartment::check_ (const Model& m, const Model& object)
     for (IdList::const_iterator the_iterator = mSpecies.begin();
       the_iterator != mSpecies.end(); the_iterator++)
     {
-      if (m.getSpecies(*the_iterator)->isSetSpeciesType()) 
+      if (m.getSpecies(*the_iterator) != NULL && m.getSpecies(*the_iterator)->isSetSpeciesType()) 
       {
         const string & type = m.getSpecies(*the_iterator)->getSpeciesType();
 
