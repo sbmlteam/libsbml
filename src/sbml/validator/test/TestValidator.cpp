@@ -188,6 +188,18 @@ TestValidator::test (const TestFile& file)
         id = 91001;
     }
   }
+  if (id == 98006)
+  {
+    if (num > 1 && ((mValidator.getConsistencyLevel() == 2
+      && mValidator.getConsistencyVersion() == 1)
+      || (mValidator.getConsistencyLevel() == 1)))
+    {
+      others = 92002;
+      if (mValidator.getConsistencyLevel() == 1)
+        others = 91004;
+      expected = expected + 1;
+    }
+  }
   if (id == 98007)
   {
     if (num < 3 && ((mValidator.getConsistencyLevel() == 2 

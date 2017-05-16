@@ -152,6 +152,11 @@ addConstraint(new VConstraintEvent98005(*this));
 
 addConstraint(new NumericArgsMathCheck(98006, *this));
 
+addConstraint(new LogicalArgsMathCheck(98006, *this));
+
+addConstraint(new PieceBooleanMathCheck(98006, *this));
+
+
 addConstraint(new IdNameNewOnSBase(98007, *this));
 
 addConstraint(new VConstraintReaction98008(*this));

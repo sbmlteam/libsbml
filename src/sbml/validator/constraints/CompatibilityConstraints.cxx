@@ -38,6 +38,8 @@
 #include "ReportEmptyListOf.h"
 #include "IdNameNewOnSBase.h"
 #include "NumericArgsMathCheck.h"
+#include "LogicalArgsMathCheck.h"
+#include "PieceBooleanMathCheck.h"
 #endif
 
 #include <sbml/SBMLTypes.h>
@@ -366,6 +368,10 @@ START_CONSTRAINT (98005, Event, obj)
 END_CONSTRAINT
 
 EXTERN_CONSTRAINT( 98006, NumericArgsMathCheck   )
+
+EXTERN_CONSTRAINT(98006, LogicalArgsMathCheck)
+
+EXTERN_CONSTRAINT(98006, PieceBooleanMathCheck)
 
 EXTERN_CONSTRAINT( 98007, IdNameNewOnSBase )
 
