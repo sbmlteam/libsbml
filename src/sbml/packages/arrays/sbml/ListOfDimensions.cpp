@@ -302,6 +302,38 @@ ListOfDimensions::getBySize(const std::string& sid)
 
 
 /*
+* Get a Dimension from the ListOfDimensions based on the ArrayDimension to which it
+* refers.
+*/
+const Dimension*
+ListOfDimensions::getByArrayDimension(unsigned int arrayDimension) const
+{
+  vector<SBase*>::const_iterator result;
+  for (result = mItems.begin(); result != mItems.end(); result++)
+  {
+    if (static_cast <const Dimension*>(*result)->getArrayDimension() == arrayDimension)
+    {
+      return static_cast <const Dimension*>(*result);
+    }
+  }
+
+  return NULL;
+}
+
+
+/*
+* Get a Dimension from the ListOfDimensions based on the ArrayDimension to which it
+* refers.
+*/
+Dimension*
+ListOfDimensions::getByArrayDimension(unsigned int arrayDimension)
+{
+  return const_cast<Dimension*>(static_cast<const
+    ListOfDimensions&>(*this).getByArrayDimension(arrayDimension));
+}
+
+
+/*
  * Returns the XML element name of this ListOfDimensions object.
  */
 const std::string&

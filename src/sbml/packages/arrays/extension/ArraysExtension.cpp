@@ -41,6 +41,8 @@
 #include <sbml/packages/arrays/validator/ArraysSBMLErrorTable.h>
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
 
+#include <sbml/packages/arrays/util/ArraysFlatteningConverter.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
 
 using namespace std;
 
@@ -394,6 +396,12 @@ ArraysExtension::init()
 
   int result =
     SBMLExtensionRegistry::getInstance().addExtension(&arraysExtension);
+
+  // 6. Register the flattening converter
+
+  ArraysFlatteningConverter c1;
+  SBMLConverterRegistry::getInstance().addConverter(&c1);
+
 }
 
 /** @endcond */

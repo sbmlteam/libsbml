@@ -316,6 +316,28 @@ ArraysSBasePlugin::getDimensionBySize(const std::string& sid)
 
 
 /*
+* Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
+* refers.
+*/
+const Dimension*
+ArraysSBasePlugin::getDimensionByArrayDimension(unsigned int arrayDimension) const
+{
+  return mDimensions.getByArrayDimension(arrayDimension);
+}
+
+
+/*
+* Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
+* refers.
+*/
+Dimension*
+ArraysSBasePlugin::getDimensionByArrayDimension(unsigned int arrayDimension)
+{
+  return mDimensions.getByArrayDimension(arrayDimension);
+}
+
+
+/*
  * Adds a copy of the given Dimension to this ArraysSBasePlugin.
  */
 int
@@ -542,6 +564,50 @@ ArraysSBasePlugin::enablePackageInternal(const std::string& pkgURI,
 
 /** @endcond */
 
+std::vector<unsigned int> 
+ArraysSBasePlugin::getNumArrayElements() const
+{
+  std::vector<unsigned int> arraySize;
+  const Model * model = (const Model*)(getParentSBMLObject()->getAncestorOfType(SBML_MODEL));
+  if (model == NULL)
+  {
+    return arraySize;
+  }
+
+  for (unsigned int i = 0; i < getNumDimensions(); i++)
+  {
+    unsigned int thisDim = getNumElementsInDimension(i);
+    arraySize.push_back(thisDim);
+  }
+
+  return arraySize;
+
+}
+
+
+
+unsigned int 
+ArraysSBasePlugin::getNumElementsInDimension(unsigned int arrayDimension) const
+{
+  const Dimension* dim = getDimensionByArrayDimension(arrayDimension);
+  const Model * model = (const Model*)(getParentSBMLObject()->getAncestorOfType(SBML_MODEL));
+  unsigned int num = 0;
+  if (dim == NULL || model == NULL)
+  {
+    return num;
+  }
+
+  if (dim->isSetSize())
+  {
+    const Parameter* p = model->getParameter(dim->getSize());
+    if (p != NULL && p->isSetValue())
+    {
+      num = (unsigned int)(p->getValue());
+    }
+  }
+
+  return num;
+}
 
 
 /** @cond doxygenLibsbmlInternal */

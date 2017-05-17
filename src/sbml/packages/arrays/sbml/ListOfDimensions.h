@@ -282,6 +282,32 @@ public:
 
 
   /**
+  * Get a Dimension from the ListOfDimensions based on the ArrayDimension to which it
+  * refers.
+  *
+  * @param sid a string representing the arrayDimension attribute of the Dimension
+  * object to retrieve.
+  *
+  * @return the first Dimension in this ListOfDimensions based on the given
+  * arrayDimension attribute or NULL if no such Dimension exists.
+  */
+  const Dimension* getByArrayDimension(unsigned int arrayDimension) const;
+
+
+  /**
+  * Get a Dimension from the ListOfDimensions based on the ArrayDimension to which it
+  * refers.
+  *
+  * @param sid a string representing the arrayDimension attribute of the Dimension
+  * object to retrieve.
+  *
+  * @return the first Dimension in this ListOfDimensions based on the given
+  * arrayDimension attribute or NULL if no such Dimension exists.
+  */
+  Dimension* getByArrayDimension(unsigned int arrayDimension);
+
+
+  /**
    * Returns the XML element name of this ListOfDimensions object.
    *
    * For ListOfDimensions, the XML element name is always @c

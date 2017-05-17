@@ -306,6 +306,32 @@ public:
 
 
   /**
+  * Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
+  * refers.
+  *
+  * @param dimsionArray an unsigned int representing the arrayDimension attribute of the Dimension
+  * object to retrieve.
+  *
+  * @return the first Dimension in this ArraysSBasePlugin based on the given
+  * arrayDimension attribute or NULL if no such Dimension exists.
+  */
+  const Dimension* getDimensionByArrayDimension(unsigned int arrayDimension) const;
+
+
+  /**
+  * Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
+  * refers.
+  *
+  * @param dimsionArray an unsigned int representing the arrayDimension attribute of the Dimension
+  * object to retrieve.
+  *
+  * @return the first Dimension in this ArraysSBasePlugin based on the given
+  * arrayDimension attribute or NULL if no such Dimension exists.
+  */
+  Dimension* getDimensionByArrayDimension(unsigned int arrayDimension);
+
+
+  /**
    * Adds a copy of the given Dimension to this ArraysSBasePlugin.
    *
    * @param d the Dimension object to add.
@@ -454,6 +480,23 @@ public:
   /** @endcond */
 
 
+  /**
+   * Get the total number of elements from the ArraysSBasePlugin.
+   *
+   * @return the total number of elements in this array.
+   */
+  std::vector<unsigned int> getNumArrayElements() const;
+
+
+  /**
+  * Get the number of elements from the ArraysSBasePlugin for the given
+  * arrayDimension.
+  *
+  * @param arrayDimension an unsigned int specifying the arrayDimension to be queried.
+  *
+  * @return the number of elements in this array in the given dimension.
+  */
+  unsigned int getNumElementsInDimension(unsigned int arrayDimension) const;
 
 
   #ifndef SWIG
