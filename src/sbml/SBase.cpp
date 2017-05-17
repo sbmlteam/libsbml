@@ -3296,7 +3296,23 @@ SBase::createChildObject(const std::string& elementName)
 }
 /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
+int
+SBase::addChildObject(const std::string& elementName, const SBase* element)
+{
+  return LIBSBML_OPERATION_FAILED;
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+SBase*
+SBase::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  return NULL;
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 
 unsigned int
   SBase::getNumObjects(const std::string& objectName)

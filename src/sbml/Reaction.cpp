@@ -1925,6 +1925,71 @@ Reaction::createChildObject(const std::string& elementName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this Reaction.
+*/
+int
+Reaction::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "kineticLaw" && element->getTypeCode() == SBML_KINETIC_LAW)
+  {
+    return setKineticLaw((const KineticLaw*)(element));
+  }
+  else if (elementName == "reactant" && element->getTypeCode() == SBML_SPECIES_REFERENCE)
+  {
+    return addReactant((const SpeciesReference*)(element));
+  }
+  else if (elementName == "product" && element->getTypeCode() == SBML_SPECIES_REFERENCE)
+  {
+    return addProduct((const SpeciesReference*)(element));
+  }
+  else if (elementName == "modifier" && element->getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE)
+  {
+    return addModifier((const ModifierSpeciesReference*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this Reaction.
+*/
+SBase*
+Reaction::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "kineticLaw")
+  {
+    KineticLaw* t = getKineticLaw();
+    if (unsetKineticLaw() == LIBSBML_OPERATION_SUCCESS)
+      return t;
+  }
+  else if (elementName == "reactant")
+  {
+    return removeReactant(id);
+  }
+  else if (elementName == "product")
+  {
+    return removeProduct(id);
+  }
+  else if (elementName == "modifier")
+  {
+    return removeModifier(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */

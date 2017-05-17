@@ -1517,6 +1517,82 @@ START_TEST (test_Attributes_Unit_exponent_double)
 END_TEST
 
 
+START_TEST(test_Elements_Model)
+{
+  Model *m = new Model(3, 1);
+  fail_unless(m->getNumSpecies() == 0);
+  fail_unless(m->getNumObjects("species") == 0);
+
+  Species * s = (Species *)(m->createChildObject("species"));
+  s->setId("s1");
+
+  fail_unless(m->getNumSpecies() == 1);
+  fail_unless(m->getNumObjects("species") == 1);
+
+  Species * s2 = s->clone();
+  s2->setId("s2");
+  s2->setCompartment("c");
+  s2->setHasOnlySubstanceUnits(false);
+  s2->setConstant(false);
+  s2->setBoundaryCondition(true);
+  fail_unless(m->addChildObject("species", s2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(m->getNumSpecies() == 2);
+  fail_unless(m->getNumObjects("species") == 2);
+
+  Species *ss = (Species *)(m->removeChildObject("species", "s1"));
+
+  fail_unless(ss != NULL);
+  fail_unless(ss->getId() == "s1");
+
+  fail_unless(m->getNumSpecies() == 1);
+  fail_unless(m->getNumObjects("species") == 1);
+
+  delete ss;
+  delete m;
+}
+END_TEST
+
+START_TEST(test_Elements_Event)
+{
+  Model *m = new Model(3, 1);
+  Event * e = (Event *)(m->createChildObject("event"));
+
+  fail_unless(e->getNumEventAssignments() == 0);
+  fail_unless(e->getNumObjects("eventAssignments") == 0);
+  fail_unless(e->isSetTrigger() == false);
+  fail_unless(e->getNumObjects("trigger") == 0);
+
+  Trigger * t = (Trigger*)(e->createChildObject("trigger"));
+  fail_unless(e->isSetTrigger() == true);
+  fail_unless(e->getNumObjects("trigger") == 1);
+
+  Trigger *t1 = t->clone();
+  t1->setPersistent(true);
+  t1->setInitialValue(false);
+  ASTNode * math = SBML_parseFormula("true");
+  t1->setMath(math);
+  delete math;
+
+  e->unsetTrigger();
+  fail_unless(e->isSetTrigger() == false);
+  fail_unless(e->getNumObjects("trigger") == 0);
+
+  fail_unless(e->addChildObject("trigger", t1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(e->isSetTrigger() == true);
+  fail_unless(e->getNumObjects("trigger") == 1);
+
+  Trigger *t2 = (Trigger*)(e->removeChildObject("trigger", ""));
+
+  fail_unless(t2 != NULL);
+  fail_unless(e->isSetTrigger() == false);
+  fail_unless(e->getNumObjects("trigger") == 0);
+
+  delete m;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_Attributes (void)
 {
@@ -1566,6 +1642,9 @@ create_suite_Attributes (void)
   tcase_add_test(tcase, test_Attributes_Unit_multiplier);
   tcase_add_test(tcase, test_Attributes_Unit_exponent);
   tcase_add_test(tcase, test_Attributes_Unit_exponent_double);
+
+  tcase_add_test(tcase, test_Elements_Model);
+  tcase_add_test(tcase, test_Elements_Event);
 
   suite_add_tcase(suite, tcase);
 

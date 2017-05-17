@@ -1520,7 +1520,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
     {
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
-	      UnitKind_t kind = ud->getUnit(p)->getKind();
+        UnitKind_t kind = ud->getUnit(p)->getKind();
         double exp = 0;
         if (ud->getUnit(p)->isUnitChecking())
         {
@@ -1528,7 +1528,7 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
         }
         else
         {
-	        exp = ud->getUnit(p)->getExponentAsDouble();
+          exp = ud->getUnit(p)->getExponentAsDouble();
         }
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
@@ -1538,18 +1538,18 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
           UnitKind_toString(kind), exp, mult, scale);
         unitDef += unit;
 
-	      if (p + 1 < ud->getNumUnits())
-	      {
-	        unitDef += ", ";
-	      }	  
+        if (p + 1 < ud->getNumUnits())
+        {
+          unitDef += ", ";
+        }	  
       }
     }
     else
     {
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
-	      UnitKind_t kind = ud->getUnit(p)->getKind();
-	      double exp = ud->getUnit(p)->getExponentAsDouble();
+        UnitKind_t kind = ud->getUnit(p)->getKind();
+        double exp = ud->getUnit(p)->getExponentAsDouble();
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
         mult = mult * pow(10.0, scale);
@@ -1559,10 +1559,10 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
           UnitKind_toString(kind), exp);
         unitDef += unit;
 
-	      if (p + 1 < ud->getNumUnits())
-	      {
-	        unitDef += ", ";
-	      }	  
+        if (p + 1 < ud->getNumUnits())
+        {
+          unitDef += ", ";
+        }	  
       }
     }
   }
@@ -1836,6 +1836,44 @@ UnitDefinition::createChildObject(const std::string& elementName)
 
 /** @endcond */
 
+/*
+* Adds an new "elementName" object in this UnitDefinition.
+*/
+int
+UnitDefinition::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "unit" && element->getTypeCode() == SBML_UNIT)
+  {
+    return addUnit((const Unit*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this UnitDefinition.
+*/
+SBase*
+UnitDefinition::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "unit")
+  {
+ //   return removeUnit(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1900,8 +1938,8 @@ UnitDefinition::createObject (XMLInputStream& stream)
       if (getLevel() < 3)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <listOfUnits> elements is permitted in a "
-	       "given <unitDefinition>.");
+         "Only one <listOfUnits> elements is permitted in a "
+         "given <unitDefinition>.");
       }
       else
       {

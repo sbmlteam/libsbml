@@ -409,7 +409,7 @@ int
 Model::renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter)
 {
   if (idTransformer == NULL) 
-	return LIBSBML_OPERATION_SUCCESS;
+  return LIBSBML_OPERATION_SUCCESS;
   
   //get all elements
   List* allElements = getAllElements(filter);
@@ -444,32 +444,32 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
     element->transformIdentifiers(idTransformer);
 
     if (element->getTypeCode() == SBML_LOCAL_PARAMETER) 
-	{
+  {
       element->setId(id); //Change it back.  This would perhaps be better served by overriding 'prependStringToAllIdentifiers' but hey.
     }
     string newid = element->getId();
     string newmetaid = element->getMetaId();
     if (id != newid) 
-	{
+  {
       int type = element->getTypeCode();
       if (type==SBML_UNIT_DEFINITION) 
-	  {
+    {
         renamedUnitSIds.push_back(make_pair(id, newid));
       }
       //else if (type==SBML_COMP_PORT) 
-	  //{
+    //{
       //  //Do nothing--these can only be referenced from outside the Model, so they need to be handled specially.
       //  // (In the default case, we throw them away).
       //}
       else 
-	  {
+    {
         //This is a little dangerous, but hey!  What's a little danger between friends!
         //(What we are assuming is that any attribute you can get with 'getId' is of the type 'SId')
         renamedSIds.push_back(make_pair(id, newid));
       }
     }
     if (metaid != newmetaid) 
-	{
+  {
       renamedMetaIds.push_back(make_pair(metaid, newmetaid));
     }
   }
@@ -477,19 +477,19 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
   for (unsigned long el = 0; el< elements->getSize(); ++el) 
   {
     SBase* element = static_cast<SBase*>(elements->get((unsigned int)el));
-	
+  
     for (it = renamedSIds.begin(); it != renamedSIds.end(); ++it) 
-	{
+  {
       element->renameSIdRefs((*it).first, (*it).second);
     }
-	
+  
     for (it = renamedUnitSIds.begin(); it != renamedUnitSIds.end(); ++it) 
-	{
+  {
       element->renameUnitSIdRefs((*it).first, (*it).second);
     }
-	
+  
     for (it = renamedMetaIds.begin(); it != renamedMetaIds.end(); ++it) 
-	{
+  {
       element->renameMetaIdRefs((*it).first, (*it).second);
     }
   }
@@ -3387,18 +3387,18 @@ void
 Model::connectToChild()
 {
       SBase::connectToChild();
-	  mFunctionDefinitions.connectToParent(this);
-	  mUnitDefinitions    .connectToParent(this);
-	  mCompartmentTypes   .connectToParent(this);
-	  mSpeciesTypes       .connectToParent(this);
-	  mCompartments       .connectToParent(this);
-	  mSpecies            .connectToParent(this);
-	  mParameters         .connectToParent(this);
-	  mInitialAssignments .connectToParent(this);
-	  mRules              .connectToParent(this);
-	  mConstraints        .connectToParent(this);
-	  mReactions          .connectToParent(this);
-	  mEvents             .connectToParent(this);
+    mFunctionDefinitions.connectToParent(this);
+    mUnitDefinitions    .connectToParent(this);
+    mCompartmentTypes   .connectToParent(this);
+    mSpeciesTypes       .connectToParent(this);
+    mCompartments       .connectToParent(this);
+    mSpecies            .connectToParent(this);
+    mParameters         .connectToParent(this);
+    mInitialAssignments .connectToParent(this);
+    mRules              .connectToParent(this);
+    mConstraints        .connectToParent(this);
+    mReactions          .connectToParent(this);
+    mEvents             .connectToParent(this);
 }
 
 
@@ -4300,6 +4300,149 @@ Model::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
+* Adds an new "elementName" object in this Model.
+*/
+int
+Model::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "functionDefinition" && element->getTypeCode() == SBML_FUNCTION_DEFINITION)
+  {
+    return addFunctionDefinition((const FunctionDefinition*)(element));
+  }
+  else if (elementName == "unitDefinition"  && element->getTypeCode() == SBML_UNIT_DEFINITION)
+  {
+    return addUnitDefinition((const UnitDefinition*)(element));
+  }
+  else if (elementName == "compartment"  && element->getTypeCode() == SBML_COMPARTMENT)
+  {
+    return addCompartment((const Compartment*)(element));
+  }
+  else if (elementName == "species"  && element->getTypeCode() == SBML_SPECIES)
+  {
+    return addSpecies((const Species*)(element));
+  }
+  else if (elementName == "parameter"  && element->getTypeCode() == SBML_PARAMETER)
+  {
+    return addParameter((const Parameter*)(element));
+  }
+  else if (elementName == "initialAssignment"  && element->getTypeCode() == SBML_INITIAL_ASSIGNMENT)
+  {
+    return addInitialAssignment((const InitialAssignment*)(element));
+  }
+  else if (elementName == "constraint"  && element->getTypeCode() == SBML_CONSTRAINT)
+  {
+    return addConstraint((const Constraint*)(element));
+  }
+  else if (elementName == "reaction"  && element->getTypeCode() == SBML_REACTION)
+  {
+    return addReaction((const Reaction*)(element));
+  }
+  else if (elementName == "event"  && element->getTypeCode() == SBML_EVENT)
+  {
+    return addEvent((const Event*)(element));
+  }
+  else if (elementName == "assignmentRule"  && element->getTypeCode() == SBML_ASSIGNMENT_RULE)
+  {
+    return addRule((const Rule*)(element));
+  }
+  else if (elementName == "rateRule"  && element->getTypeCode() == SBML_RATE_RULE)
+  {
+    return addRule((const Rule*)(element));
+  }
+  else if (elementName == "algebraicRule"  && element->getTypeCode() == SBML_ALGEBRAIC_RULE)
+  {
+    return addRule((const Rule*)(element));
+  }
+  else if (elementName == "compartmentType"  && element->getTypeCode() == SBML_COMPARTMENT_TYPE)
+  {
+    return addCompartmentType((const CompartmentType*)(element));
+  }
+  else if (elementName == "speciesType"  && element->getTypeCode() == SBML_SPECIES_TYPE)
+  {
+    return addSpeciesType((const SpeciesType*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this Model.
+*/
+SBase*
+Model::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  if (elementName == "functionDefinition")
+  {
+    return removeFunctionDefinition(id);
+  }
+  else if (elementName == "unitDefinition")
+  {
+    return removeUnitDefinition(id);
+  }
+  else if (elementName == "compartment")
+  {
+    return removeCompartment(id);
+  }
+  else if (elementName == "species")
+  {
+    return removeSpecies(id);
+  }
+  else if (elementName == "parameter")
+  {
+    return removeParameter(id);
+  }
+  else if (elementName == "initialAssignment")
+  {
+    return removeInitialAssignment(id);
+  }
+  else if (elementName == "constraint")
+  {
+ //   return removeConstraint(id);
+  }
+  else if (elementName == "reaction")
+  {
+    return removeReaction(id);
+  }
+  else if (elementName == "event")
+  {
+    return removeEvent(id);
+  }
+  else if (elementName == "assignmentRule")
+  {
+    return removeRule(id);
+  }
+  else if (elementName == "rateRule")
+  {
+    return removeRule(id);
+  }
+  else if (elementName == "algebraicRule")
+  {
+    return removeRule(id);
+  }
+  else if (elementName == "compartmentType")
+  {
+    return removeCompartmentType(id);
+  }
+  else if (elementName == "speciesType")
+  {
+    return removeSpeciesType(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Returns the number of "elementName" in this Model.
  */
 unsigned int
@@ -4586,8 +4729,8 @@ Model::readOtherXML (XMLInputStream& stream)
       if (getLevel() < 3) 
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <annotation> element is permitted inside a "
-	        "particular containing element.");
+          "Only one <annotation> element is permitted inside a "
+          "particular containing element.");
       }
       else
       {
@@ -4633,7 +4776,7 @@ Model::readOtherXML (XMLInputStream& stream)
     {
       mPlugins[i]->parseAnnotation(this, mAnnotation);
     }
-	
+  
     read = true;
   }
 
@@ -5034,7 +5177,7 @@ Model::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version == 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
   
 }
 /** @endcond */

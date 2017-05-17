@@ -1481,6 +1481,50 @@ KineticLaw::createChildObject(const std::string& elementName)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this KineticLaw.
+*/
+int
+KineticLaw::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "localParameter" && element->getTypeCode() == SBML_LOCAL_PARAMETER)
+  {
+    return addLocalParameter((const LocalParameter*)(element));
+  }
+  else if (elementName == "parameter" && element->getTypeCode() == SBML_PARAMETER)
+  {
+    return addParameter((const Parameter*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this KineticLaw.
+*/
+SBase*
+KineticLaw::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  if (elementName == "localParameter")
+  {
+    return removeLocalParameter(id);
+  }
+  else if (elementName == "parameter")
+  {
+    return removeParameter(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -1679,8 +1723,8 @@ KineticLaw::createObject (XMLInputStream& stream)
     if (mParameters.size() != 0)
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <listOfParameters> elements is permitted "
-	       "in a given <kineticLaw> element.");
+         "Only one <listOfParameters> elements is permitted "
+         "in a given <kineticLaw> element.");
     }
     object = &mParameters;
   }
@@ -1718,7 +1762,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     if (getLevel() == 1) 
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "SBML Level 1 does not support MathML.");
+         "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
@@ -1727,8 +1771,8 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
       if (getLevel() < 3) 
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <math> element is permitted inside a "
-	        "particular containing element.");
+          "Only one <math> element is permitted inside a "
+          "particular containing element.");
       }
       else
       {
@@ -1899,7 +1943,7 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version == 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
 }
 /** @endcond */
 

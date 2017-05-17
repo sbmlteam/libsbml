@@ -1242,8 +1242,8 @@ Event::createObject (XMLInputStream& stream)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <listOfEventAssignments> elements is permitted "
-	       "in a single <event> element.");
+         "Only one <listOfEventAssignments> elements is permitted "
+         "in a single <event> element.");
       else
         logError(OneListOfEventAssignmentsPerEvent, getLevel(), getVersion());
     }
@@ -1256,8 +1256,8 @@ Event::createObject (XMLInputStream& stream)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <trigger> elements is permitted "
-	       "in a single <event> element.");
+         "Only one <trigger> elements is permitted "
+         "in a single <event> element.");
       else
         logError(MissingTriggerInEvent, getLevel(), getVersion());
     }
@@ -1286,8 +1286,8 @@ Event::createObject (XMLInputStream& stream)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <delay> element is permitted in a single "
-	       "<event> element.");
+         "Only one <delay> element is permitted in a single "
+         "<event> element.");
       else
         logError(OnlyOneDelayPerEvent, getLevel(), getVersion());
     }
@@ -1315,7 +1315,7 @@ Event::createObject (XMLInputStream& stream)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Priority is not a valid component for this level/version.");
+         "Priority is not a valid component for this level/version.");
       else 
       {
         logError(OnlyOnePriorityPerEvent, getLevel(), getVersion());
@@ -1690,6 +1690,75 @@ Event::createChildObject(const std::string& elementName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this Event.
+*/
+int
+Event::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "trigger" && element->getTypeCode() == SBML_TRIGGER)
+  {
+    return setTrigger((const Trigger*)(element));
+  }
+  else if (elementName == "priority" && element->getTypeCode() == SBML_PRIORITY)
+  {
+    return setPriority((const Priority*)(element));
+  }
+  else if (elementName == "delay" && element->getTypeCode() == SBML_DELAY)
+  {
+    return setDelay((const Delay*)(element));
+  }
+  else if (elementName == "eventAssignment" && element->getTypeCode() == SBML_EVENT_ASSIGNMENT)
+  {
+    return addEventAssignment((const EventAssignment*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+* Adds an new "elementName" object in this Event.
+*/
+SBase*
+Event::removeChildObject(const std::string& elementName, const std::string& id)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "trigger")
+  {
+    Trigger* t = getTrigger();
+    if(unsetTrigger() == LIBSBML_OPERATION_SUCCESS)
+      return t;
+  }
+  else if (elementName == "priority")
+  {
+    Priority* t = getPriority();
+    if (unsetPriority() == LIBSBML_OPERATION_SUCCESS)
+      return t;
+  }
+  else if (elementName == "delay")
+  {
+    Delay* t = getDelay();
+    if (unsetDelay() == LIBSBML_OPERATION_SUCCESS)
+      return t;
+  }
+  else if (elementName == "eventAssignment")
+  {
+    return removeEventAssignment(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1832,7 +1901,7 @@ Event::readAttributes (const XMLAttributes& attributes,
   {
   case 1:
     logError(NotSchemaConformant, level, version,
-	      "Event is not a valid component for this level/version.");
+        "Event is not a valid component for this level/version.");
     break;
   case 2:
     readL2Attributes(attributes);
@@ -1894,7 +1963,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version == 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
 
   //
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
