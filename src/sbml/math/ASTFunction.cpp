@@ -3656,6 +3656,52 @@ ASTFunction::getPlugin(unsigned int n)
 }
 
 
+unsigned int
+ASTFunction::getNumPlugins() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->getNumPlugins();
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->getNumPlugins();
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->getNumPlugins();
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->getNumPlugins();
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->getNumPlugins();
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->getNumPlugins();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->getNumPlugins();
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->getNumPlugins();
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->getNumPlugins();
+  }
+  else
+  {
+    return ASTBase::getNumPlugins();
+  }
+}
+
+
 const ASTBasePlugin*
 ASTFunction::getPlugin(unsigned int n) const
 {
