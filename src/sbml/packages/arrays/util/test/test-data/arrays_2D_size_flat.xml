@@ -7,10 +7,10 @@
     <listOfSpecies>
       <species id="s_0_0" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="s_0_1" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="s_0_2" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="s_1_0" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="s_1_1" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="s_1_2" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="s_2_0" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="s_2_1" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="n" value="2" constant="true"/>

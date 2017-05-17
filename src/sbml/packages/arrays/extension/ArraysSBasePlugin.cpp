@@ -574,9 +574,9 @@ ArraysSBasePlugin::getNumArrayElements() const
     return arraySize;
   }
 
-  for (unsigned int i = 0; i < getNumDimensions(); i++)
+  for (unsigned int i = getNumDimensions(); i > 0; i--)
   {
-    unsigned int thisDim = getNumElementsInDimension(i);
+    unsigned int thisDim = getNumElementsInDimension(i-1);
     arraySize.push_back(thisDim);
   }
 
