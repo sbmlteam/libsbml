@@ -102,7 +102,7 @@ ASTBase::ASTBase (int type) :
 {
   setType(type);
 
- // loadASTPlugins(NULL);
+  loadASTPlugins(NULL);
 
   // need to set the package name
 
@@ -128,7 +128,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
 {
   setType(type);
 
-//  loadASTPlugins(sbmlns);
+  loadASTPlugins(sbmlns);
   
   // need to set the package name
 
@@ -1489,29 +1489,6 @@ ASTBase::getPlugin(const std::string& package)
     }
   }
 
-  if (astPlugin == 0)
-  {
-    // we havent needed a plugin yet
-    addPlugin(package);
-
-  }
-
-  for (size_t i = 0; i < mPlugins.size(); i++)
-  {
-    std::string uri = mPlugins[i]->getURI();
-    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-    if (uri == package)
-    {
-      astPlugin = mPlugins[i];
-      break;
-    }
-    else if (sbmlext && (sbmlext->getName() == package))
-    {
-      astPlugin = mPlugins[i];
-      break;
-    }
-  }
-
   return astPlugin;
 }
 
@@ -1722,37 +1699,6 @@ ASTBase::getNameFromType(int type) const
 
   return name;
 }
-
-void
-ASTBase::addPlugin(const std::string& package)
-{
-  const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
-  unsigned int numPkgs = (unsigned int)names.size();
-
-  for (unsigned int i = 0; i < numPkgs; i++)
-  {
-    const std::string& uri = names[i];
-    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
-
-    if (sbmlext && sbmlext->isEnabled() && uri == package)
-    {
-
-      //const std::string &prefix = xmlns->getPrefix(i);
-      const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
-      if (astPlugin != NULL)
-      {
-        ASTBasePlugin* myastPlugin = astPlugin->clone();
-        myastPlugin->setSBMLExtension(sbmlext);
-        //            myastPlugin->setPrefix(xmlns->getPrefix(i));
-        myastPlugin->connectToParent(this);
-        mPlugins.push_back(myastPlugin);
-      }
-
-    }
-  }
-}
-
-
 
 void
 ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)

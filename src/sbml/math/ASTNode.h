@@ -2009,7 +2009,6 @@ setValue(value, 0);
   virtual const ASTBasePlugin* getPlugin(const std::string& package) const;
   virtual ASTBasePlugin* getPlugin(unsigned int n);
   virtual const ASTBasePlugin* getPlugin(unsigned int n) const;
-  virtual unsigned int getNumPlugins() const;
 
   /** @endcond */
 

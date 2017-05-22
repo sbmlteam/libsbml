@@ -257,8 +257,6 @@ public:
 
   virtual void addPlugin(ASTBasePlugin* plugin);
 
-  virtual void addPlugin(const std::string& package);
- 
   /**
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.

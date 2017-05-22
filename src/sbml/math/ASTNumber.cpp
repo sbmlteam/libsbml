@@ -2535,44 +2535,6 @@ ASTNumber::getPlugin(unsigned int n) const
 }
 
 
-unsigned int
-ASTNumber::getNumPlugins() const
-{
-  if (mExponential != NULL)
-  {
-    return mExponential->getNumPlugins();
-  }
-  else if (mInteger != NULL)
-  {
-    return mInteger->getNumPlugins();
-  }
-  else if (mRational != NULL)
-  {
-    return mRational->getNumPlugins();
-  }
-  else if (mReal != NULL)
-  {
-    return mReal->getNumPlugins();
-  }
-  else if (mCiNumber != NULL)
-  {
-    return mCiNumber->getNumPlugins();
-  }
-  else if (mConstant != NULL)
-  {
-    return mConstant->getNumPlugins();
-  }
-  else if (mCSymbol != NULL)
-  {
-    return mCSymbol->getNumPlugins();
-  }
-  else
-  {
-    return ASTBase::getNumPlugins();
-  }
-}
-
-
 void 
 ASTNumber::write(XMLOutputStream& stream) const
 {
