@@ -232,7 +232,7 @@ private:
 
   bool expandDimension(const SBase* element, unsigned int arrayDim);
 
-  bool adjustMath(ASTNode* math, unsigned int i, const Index* index);
+  bool adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arryDim = 0);
 
   bool adjustIdentifiers(SBase* newElement, const std::string& attributeName);
 

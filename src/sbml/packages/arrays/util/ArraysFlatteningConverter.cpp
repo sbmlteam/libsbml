@@ -353,18 +353,48 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 }
 
 bool
-ArraysFlatteningConverter::adjustMath(ASTNode* math, unsigned int i, const Index* index)
+ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arrayDim)
 {
+  bool adjusted = false;
   std::map<std::string, double> values;
 
   values.clear();
   values.insert(std::pair<const std::string, double>(mDimensionIndex.at(0), i));
-  double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
-  ASTNode * newAST = new ASTNode(AST_INTEGER);
-  newAST->setValue((int)(calc));
-  math->replaceArgument(mDimensionIndex.at(0), newAST);
+  
+  // if the dimension is used in the math of the element we just want to replace it
+  // but if the math of the element is a vector we need to work it out
+  
+  ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
 
-  return true;
+  if (math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && math->getNumChildren() == 2)
+  {
+    ASTNode* child = math->getChild(0);
+    if (child->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+    {
+      const ASTArraysVectorFunctionNode *vector = dynamic_cast<const ASTArraysVectorFunctionNode *>(child->getPlugin("arrays")->getMath());
+      unsigned int n = vector->getNumChildren();
+      if (i < n)
+      {
+        ASTNode* value = (ASTNode*)(vector->getChild(i));
+        double calc = SBMLTransforms::evaluateASTNode(value);
+        ASTNode* newAST = new ASTNode(AST_REAL);
+        newAST->setValue(calc);
+        newElement->setMath(newAST);
+      }
+      adjusted = true;
+    }
+  }
+  
+  if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
+  {
+    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
+    ASTNode * newAST = new ASTNode(AST_INTEGER);
+    newAST->setValue((int)(calc));
+    math->replaceArgument(mDimensionIndex.at(0), newAST);
+    adjusted = true;
+  }
+
+  return adjusted;
 }
 
 bool
@@ -381,8 +411,8 @@ ArraysFlatteningConverter::expandDimension(const SBase* element, unsigned int ar
   for (unsigned int i = 0; i < numEntries; i++)
   {
     SBase* newElement = element->clone();
-    ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
-    if (!adjustMath(math, i, index))
+//    ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
+    if (!adjustMath(newElement, i, index))
     {
       return false;
     }
