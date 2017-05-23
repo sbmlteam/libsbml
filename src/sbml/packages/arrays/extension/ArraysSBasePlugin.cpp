@@ -152,6 +152,28 @@ ArraysSBasePlugin::getIndex(unsigned int n) const
 
 
 /*
+* Get a Index from the ArraysSBasePlugin based on the arrayDimension to which it
+* refers.
+*/
+const Index*
+ArraysSBasePlugin::getIndexByArrayDimension(unsigned int arrayDimension) const
+{
+  return mIndices.getByArrayDimension(arrayDimension);
+}
+
+
+/*
+* Get a Index from the ArraysSBasePlugin based on the arrayDimension to which it
+* refers.
+*/
+Index*
+ArraysSBasePlugin::getIndexByArrayDimension(unsigned int arrayDimension)
+{
+  return mIndices.getByArrayDimension(arrayDimension);
+}
+
+
+/*
  * Adds a copy of the given Index to this ArraysSBasePlugin.
  */
 int

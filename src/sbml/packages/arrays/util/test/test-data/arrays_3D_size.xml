@@ -5,7 +5,7 @@
       <compartment id="c" size="1" spatialDimensions="3" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false" compartment="c" id="s">
+      <species boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false" compartment="c" id="s" metaid="species">
         <arrays:listOfDimensions>
           <arrays:dimension arrays:size="n" arrays:arrayDimension="0"/>
           <arrays:dimension arrays:size="m" arrays:arrayDimension="1"/>

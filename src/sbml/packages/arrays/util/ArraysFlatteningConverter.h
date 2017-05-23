@@ -76,12 +76,12 @@ public:
   };
 };
 
-class MathFilter : public ElementFilter
+class ArraysMathFilter : public ElementFilter
 {
 public:
-  MathFilter() { };
+  ArraysMathFilter() { };
 
-  virtual ~MathFilter() { };
+  virtual ~ArraysMathFilter() { };
 
   virtual bool filter(const SBase* element)
   {
@@ -227,6 +227,14 @@ private:
 
   bool expandElement(const SBase* element);
 
+  bool expandMathElement(const SBase* element);
+
+  bool expandMElement(const SBase* element);
+
+  bool adjustMath(ASTNode* math);
+
+  bool adjustIdentifiers(SBase* newElement, const std::string& attributeName);
+
   unsigned int getNumElements(const Dimension* dim);
 
   int validateOriginalDocument();
@@ -242,6 +250,7 @@ private:
   unsigned int mNoDimensions;
   std::vector<unsigned int> mArrayEntry;
 
+  IdList mDimensionIndex;
   /** @endcond */
 
 };

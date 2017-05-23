@@ -155,6 +155,32 @@ public:
 
 
   /**
+  * Get a Index from the ArraysSBasePlugin based on the arrayDimension to which it
+  * refers.
+  *
+  * @param arrayDimension an unsigned int representing the arrayDimension attribute of the Index
+  * object to retrieve.
+  *
+  * @return the first Index in this ArraysSBasePlugin based on the given
+  * arrayDimension attribute or NULL if no such Index exists.
+  */
+  const Index* getIndexByArrayDimension(unsigned int arrayDimension) const;
+
+
+  /**
+  * Get a Index from the ArraysSBasePlugin based on the arrayIndex to which it
+  * refers.
+  *
+  * @param arrayDimension an unsigned int representing the arrayDimension attribute of the Index
+  * object to retrieve.
+  *
+  * @return the first Index in this ArraysSBasePlugin based on the given
+  * arrayDimension attribute or NULL if no such Index exists.
+  */
+  Index* getIndexByArrayDimension(unsigned int arrayDimension);
+
+
+  /**
    * Adds a copy of the given Index to this ArraysSBasePlugin.
    *
    * @param i the Index object to add.
@@ -309,7 +335,7 @@ public:
   * Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
   * refers.
   *
-  * @param dimsionArray an unsigned int representing the arrayDimension attribute of the Dimension
+  * @param arrayDimension an unsigned int representing the arrayDimension attribute of the Dimension
   * object to retrieve.
   *
   * @return the first Dimension in this ArraysSBasePlugin based on the given
@@ -322,7 +348,7 @@ public:
   * Get a Dimension from the ArraysSBasePlugin based on the arrayDimension to which it
   * refers.
   *
-  * @param dimsionArray an unsigned int representing the arrayDimension attribute of the Dimension
+  * @param arrayDimension an unsigned int representing the arrayDimension attribute of the Dimension
   * object to retrieve.
   *
   * @return the first Dimension in this ArraysSBasePlugin based on the given

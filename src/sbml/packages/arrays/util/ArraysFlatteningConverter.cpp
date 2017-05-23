@@ -122,7 +122,7 @@ ArraysFlatteningConverter::performConversion()
     return LIBSBML_INVALID_OBJECT;
   }
 
-  // check that we have a parameter bcause without one we have no dimensions
+  // check that we have a parameter because without one we have no dimensions
   if (mDocument->getModel()->getNumParameters() == 0)
   {
     return LIBSBML_INVALID_OBJECT;
@@ -138,8 +138,21 @@ ArraysFlatteningConverter::performConversion()
       break;
   }
 
+  // go through the model and expand all math type objects
+  ArraysMathFilter* m_filter = new ArraysMathFilter();
+  List * mathchildren = mDocument->getAllElements(m_filter);
+  for (ListIterator it = mathchildren->begin(); it != mathchildren->end(); ++it)
+  {
+    success = expandMathElement((const SBase*)(*(it)));
+    if (!success)
+      break;
+  }
+
   // check we are done and remove arrays ns
   mDocument->disablePackage("http://www.sbml.org/sbml/level3/version1/arrays/version1", "arrays");
+  delete filter;
+  delete m_filter;
+
   if (success)
     return LIBSBML_OPERATION_SUCCESS;
   else
@@ -189,9 +202,7 @@ ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
   else
   {
     updateArrayEntry(index - 1);
-
   }
-
 }
 
 
@@ -212,6 +223,25 @@ ArraysFlatteningConverter::getNumElements(const Dimension* dim)
 }
 
 bool
+ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement, 
+                                             const std::string& attributeName)
+{
+  std::string id;
+  newElement->getAttribute(attributeName, id);
+  std::string metaid = newElement->getMetaId();
+  int success = newElement->setAttribute(attributeName, getNewId(mArrayEntry, id));
+  if (success == LIBSBML_OPERATION_SUCCESS && !metaid.empty())
+  {
+    success = newElement->setMetaId(getNewId(mArrayEntry, metaid));
+  }
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+    return true;
+  else
+    return false;
+
+}
+bool
 ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 {
   bool success = true;
@@ -224,7 +254,7 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   mArraySize.clear();
   mArraySize = plugin->getNumArrayElements();
   mNoDimensions = mArraySize.size();
-  if (mArraySize.size() > 1 || mArraySize.at(0) > 1)
+  if (mArraySize.size() >= 1)
   {
 
       success = expandElement(element);
@@ -243,6 +273,7 @@ ArraysFlatteningConverter::expandElement(const SBase* element)
 {
   std::string elementName = element->getElementName();
   std::string id = element->getIdAttribute();
+  std::string metaid = element->getMetaId();
 
   mArrayEntry.clear();
   unsigned int numEntries = 1;
@@ -252,21 +283,99 @@ ArraysFlatteningConverter::expandElement(const SBase* element)
     numEntries *= mArraySize.at(i);
   }
 
-  std::vector<unsigned int>::iterator it;
-
-  //cout << "arraySize\n";
-  //for (it = mArraySize.begin(); it<mArraySize.end(); it++)
-  //  std::cout << ' ' << *it;
-  //std::cout << "\n\nArray entries added\n";
   for (unsigned int i = 0; i < numEntries; i++)
   {
     SBase* newElement = element->clone();
-    std::vector<unsigned int>::iterator it;
+    if (!adjustIdentifiers(newElement, "id"))
+    {
+      return false;
+    }
+    if (!mDocument->getModel()->addChildObject(elementName, newElement)
+      == LIBSBML_OPERATION_SUCCESS)
+    {
+      return false;
+    }
+    updateArrayEntry(mNoDimensions);
+  }
 
-    //for (it = mArrayEntry.begin(); it<mArrayEntry.end(); it++)
-    //  std::cout << ' ' << *it;
-    //std::cout << '\n';
-    newElement->setIdAttribute(getNewId(mArrayEntry, id));
+  return true;
+
+}
+
+
+bool
+ArraysFlatteningConverter::expandMathElement(const SBase* element)
+{
+  bool success = true;
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+
+  std::string elementName = element->getElementName();
+  std::string id = element->getIdAttribute();
+  if (id.empty()) id = element->getId();
+
+  // get number of elements that need to be created
+  mArraySize.clear();
+  mArraySize = plugin->getNumArrayElements();
+  mNoDimensions = mArraySize.size();
+  if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
+  {
+
+    success = expandMElement(element);
+  }
+
+  SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+  if (obj != NULL)  delete obj;
+
+
+
+  return success;
+
+}
+
+bool
+ArraysFlatteningConverter::adjustMath(ASTNode* math)
+{
+  return true;
+}
+
+bool
+ArraysFlatteningConverter::expandMElement(const SBase* element)
+{
+  std::string metaid = element->getMetaId();
+  std::string elementName = element->getElementName();
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+  const Index* index = plugin->getIndexByArrayDimension(0);
+  std::string refAtt = index->getReferencedAttribute();
+
+  std::string attName;
+  element->getAttribute(refAtt, attName);
+  mArrayEntry.clear();
+  unsigned int numEntries = 1;
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    mArrayEntry.push_back(0);
+    numEntries *= mArraySize.at(i);
+    mDimensionIndex.append(plugin->getDimensionByArrayDimension(0)->getId());
+  }
+
+  std::map<std::string, double> values;
+
+  for (unsigned int i = 0; i < numEntries; i++)
+  {
+    values.clear();
+    values.insert(std::pair<const std::string, double>(mDimensionIndex.at(0), i));
+    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
+    ASTNode * newAST = new ASTNode(AST_INTEGER);
+    newAST->setValue((int)(calc));
+    SBase* newElement = element->clone();
+    ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
+    math->replaceArgument(mDimensionIndex.at(0), newAST);
+    if (!adjustIdentifiers(newElement, refAtt))
+    {
+      return false;
+    }
     if (!mDocument->getModel()->addChildObject(elementName, newElement)
       == LIBSBML_OPERATION_SUCCESS)
     {

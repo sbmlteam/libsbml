@@ -249,6 +249,32 @@ public:
 
 
   /**
+  * Get a Index from the ListOfIndices based on the ArrayDimension to which it
+  * refers.
+  *
+  * @param sid a string representing the arrayDimension attribute of the Index
+  * object to retrieve.
+  *
+  * @return the first Index in this ListOfIndices based on the given
+  * arrayDimension attribute or NULL if no such Index exists.
+  */
+  const Index* getByArrayDimension(unsigned int arrayDimension) const;
+
+
+  /**
+  * Get a Index from the ListOfIndices based on the ArrayDimension to which it
+  * refers.
+  *
+  * @param sid a string representing the arrayDimension attribute of the Index
+  * object to retrieve.
+  *
+  * @return the first Index in this ListOfIndices based on the given
+  * arrayDimension attribute or NULL if no such Index exists.
+  */
+  Index* getByArrayDimension(unsigned int arrayDimension);
+
+
+  /**
    * Returns the XML element name of this ListOfIndices object.
    *
    * For ListOfIndices, the XML element name is always @c "listOfIndices".
