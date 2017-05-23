@@ -39,6 +39,7 @@
 #include <sbml/conversion/SBMLConverterRegister.h>
 
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#include <sbml/SBMLTransforms.h>
 
 
 #ifdef __cplusplus
@@ -231,7 +232,7 @@ private:
 
   bool expandMElement(const SBase* element);
 
-  bool adjustMath(ASTNode* math);
+  bool adjustMath(ASTNode* math, unsigned int i, const Index* index);
 
   bool adjustIdentifiers(SBase* newElement, const std::string& attributeName);
 
@@ -251,6 +252,9 @@ private:
   std::vector<unsigned int> mArrayEntry;
 
   IdList mDimensionIndex;
+
+  SBMLTransforms::IdValueMap mValues;
+
   /** @endcond */
 
 };

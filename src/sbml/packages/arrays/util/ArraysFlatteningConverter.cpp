@@ -141,6 +141,10 @@ ArraysFlatteningConverter::performConversion()
   // go through the model and expand all math type objects
   ArraysMathFilter* m_filter = new ArraysMathFilter();
   List * mathchildren = mDocument->getAllElements(m_filter);
+  if (mathchildren->getSize() > 0)
+  {
+    SBMLTransforms::getComponentValuesForModel(mDocument->getModel(), mValues);
+  }
   for (ListIterator it = mathchildren->begin(); it != mathchildren->end(); ++it)
   {
     success = expandMathElement((const SBase*)(*(it)));
@@ -334,8 +338,17 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 }
 
 bool
-ArraysFlatteningConverter::adjustMath(ASTNode* math)
+ArraysFlatteningConverter::adjustMath(ASTNode* math, unsigned int i, const Index* index)
 {
+  std::map<std::string, double> values;
+
+  values.clear();
+  values.insert(std::pair<const std::string, double>(mDimensionIndex.at(0), i));
+  double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
+  ASTNode * newAST = new ASTNode(AST_INTEGER);
+  newAST->setValue((int)(calc));
+  math->replaceArgument(mDimensionIndex.at(0), newAST);
+
   return true;
 }
 
@@ -360,18 +373,15 @@ ArraysFlatteningConverter::expandMElement(const SBase* element)
     mDimensionIndex.append(plugin->getDimensionByArrayDimension(0)->getId());
   }
 
-  std::map<std::string, double> values;
 
   for (unsigned int i = 0; i < numEntries; i++)
   {
-    values.clear();
-    values.insert(std::pair<const std::string, double>(mDimensionIndex.at(0), i));
-    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
-    ASTNode * newAST = new ASTNode(AST_INTEGER);
-    newAST->setValue((int)(calc));
     SBase* newElement = element->clone();
     ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
-    math->replaceArgument(mDimensionIndex.at(0), newAST);
+    if (!adjustMath(math, i, index))
+    {
+      return false;
+    }
     if (!adjustIdentifiers(newElement, refAtt))
     {
       return false;
