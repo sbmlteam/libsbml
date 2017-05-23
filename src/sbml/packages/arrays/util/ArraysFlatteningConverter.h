@@ -230,7 +230,7 @@ private:
 
   bool expandMathElement(const SBase* element);
 
-  bool expandMElement(const SBase* element);
+  bool expandDimension(const SBase* element, unsigned int arrayDim);
 
   bool adjustMath(ASTNode* math, unsigned int i, const Index* index);
 

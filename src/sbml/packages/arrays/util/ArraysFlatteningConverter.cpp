@@ -325,16 +325,31 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
   if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
   {
 
-    success = expandMElement(element);
+    mArrayEntry.clear();
+    unsigned int numEntries = 1;
+    for (unsigned int i = 0; i < mNoDimensions; i++)
+    {
+      mArrayEntry.push_back(0);
+      numEntries *= mArraySize.at(i);
+      mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
+    }
+
+    unsigned int i = 0, j = 0;
+
+    while (success && j < mNoDimensions)
+    {
+      success = expandDimension(element, j);
+      j++;
+    }
   }
 
-  SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
-  if (obj != NULL)  delete obj;
-
-
+  if (success)
+  {
+    SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+    if (obj != NULL)  delete obj;
+  }
 
   return success;
-
 }
 
 bool
@@ -353,26 +368,15 @@ ArraysFlatteningConverter::adjustMath(ASTNode* math, unsigned int i, const Index
 }
 
 bool
-ArraysFlatteningConverter::expandMElement(const SBase* element)
+ArraysFlatteningConverter::expandDimension(const SBase* element, unsigned int arrayDim)
 {
-  std::string metaid = element->getMetaId();
   std::string elementName = element->getElementName();
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-  const Index* index = plugin->getIndexByArrayDimension(0);
+  const Index* index = plugin->getIndexByArrayDimension(arrayDim);
   std::string refAtt = index->getReferencedAttribute();
 
-  std::string attName;
-  element->getAttribute(refAtt, attName);
-  mArrayEntry.clear();
-  unsigned int numEntries = 1;
-  for (unsigned int i = 0; i < mNoDimensions; i++)
-  {
-    mArrayEntry.push_back(0);
-    numEntries *= mArraySize.at(i);
-    mDimensionIndex.append(plugin->getDimensionByArrayDimension(0)->getId());
-  }
-
+  unsigned int numEntries = mArraySize.at(arrayDim);
 
   for (unsigned int i = 0; i < numEntries; i++)
   {
