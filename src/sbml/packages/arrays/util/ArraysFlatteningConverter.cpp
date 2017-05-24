@@ -368,6 +368,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
 
   if (math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && math->getNumChildren() == 2)
   {
+    // SK TODO check that the second child is the dimension id
     ASTNode* child = math->getChild(0);
     if (child->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
     {
@@ -381,6 +382,17 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
         newAST->setValue(calc);
         newElement->setMath(newAST);
       }
+      adjusted = true;
+    }
+    else if (child->getType() == AST_NAME)
+    {
+      std::string varName = child->getName();
+      unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), values));
+      std::vector<unsigned int> indexArray;
+      indexArray.push_back(calc);
+      ASTNode* newAST = new ASTNode(AST_NAME);
+      newAST->setName(getNewId(indexArray, varName).c_str());;
+      newElement->setMath(newAST);
       adjusted = true;
     }
   }
