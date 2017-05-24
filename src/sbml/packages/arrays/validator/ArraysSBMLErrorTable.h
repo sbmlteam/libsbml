@@ -341,6 +341,308 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
+  // New
+  // 8010204
+  { arrays_8010204,
+    "MathML elements must be in MathML namespace",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Wherever MathML content appears in an SBML document, the MathML "
+    "content must be placed within a math element, and that math element must "
+    "be either explicitly or implicitly declared to be in the XML namespace "
+    "http://www.w3.org/1998/Math/MathML",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8010205
+  { arrays_8010205,
+    "Only additional MathML elements permitted in arrays are vector and selector.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The following is a list of the additional MathML 2.0 elements permitted in "
+    "the Arrays package: vector and selector.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010206
+  { arrays_8010206,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The first argument of aMathML selector must be aMathML vector object or a "
+    "valid identifier to an SBase object extended with a list of Dimension objects.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010207
+  { arrays_8010207,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The first argument of a MathML selector must have a number of dimensions equal to "
+    "the number of arguments to the selector minus 1.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010208
+  { arrays_8010208,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The arguments of a MathML selector other than the first argument must be "
+    "statically computable. In other words, any identifier that appears in an "
+    "argument, other than a Dimension id for the corresponding object, must be a "
+    "constant.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010209
+  { arrays_8010209,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The arguments of a MathML selector other than the first argument must be "
+    " evaluated to a scalar value.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010210
+  { arrays_8010210,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "For each possible value of each Dimension id (i.e., 0 to size-1 of the "
+    "Dimension referred to) that appears in the second and later arguments of "
+    "the selector, there should be no array out - of - bounds problems.Namely, "
+    "it must evaluate to a non - negative integer that is less than the size of "
+    "the corresponding Dimension for the object being indexed where the last "
+    "argument refers to dimension 0, next to last to dimension 1",
+    { "L3V1 Arrays V1 Section 3.5"
+        }
+  },
+
+  // 8010211
+  { arrays_8010211,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "All mathematical operations must be performed on scalar values rather "
+    "than vectors.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010212
+  { arrays_8010212,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "For MathML operations with two or more operands involving MathML "
+    "vectors or SBase objects with a list of Dimension objects, the number "
+    "of dimensions and their sizemust agree for all operands unless the "
+    "operand is a scalar type(i.e., it does not have a list of Dimension "
+    "objects).",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8010213
+  { arrays_8010213,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "No SBase is allowed to have value of type vector.",
+    { "L3V1 Arrays V1 Section 3.5"
+    }
+  },
+
+  // 8020103
+  { arrays_8020103,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The ListOfDimensions associated with an SBase object must have a "
+    "Dimension object with arrays:arrayDimension attribute set to 0 ... n-1 "
+    "before adding a Dimension object with arrays : arrayDimension attribute "
+    "set to n.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020104
+  { arrays_8020104,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The ListOfDimensions associated with an SBase object must not have "
+    "multiple Dimension objects with the same arrays:arrayDimension "
+    "attribute.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020106
+  { arrays_8020106,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "ListOf objects are not permitted to have a ListOfDimensions.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020107
+  { arrays_8020107,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "InSBML Level 3 Core, Models, FunctionDefinitions, Units, "
+    "UnitDefinitions, KineticLaws, LocalParameters, Triggers, Priorities, "
+    "and Delays are not permitted to have a ListOfDimensions. All other "
+    "SBML Level 3 Core objects are permitted to have a ListOfDimensions "
+    "including: Compartments, Species, Parameters, Initial assignments, "
+    "Rules, Constraints, Reactions, Species references, Events, and Event "
+    "assignments.All SBML objects defined by packages that inherit from "
+    "SBase are permitted to have a ListOfDimensions unless it is explicitly "
+    "disallowed in the corresponding package specification.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020108
+  { arrays_8020108,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The Dimension and Index objects are not permitted to have a "
+    "ListOfDimensions.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020111
+  { arrays_8020111,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The ListOfIndices associated with an SBase object must have a Index "
+    "object with arrays:arrayDimension attribute set to 0, 1, . ,n-1 before "
+    "adding a Index object with arrays : arrayDimension attribute set to n "
+    "for every arrays : referencedAttribute that are being indexed.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020112
+  { arrays_8020112,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The ListOfIndices in an SBase object must not have multiple Index "
+    "objects with the same pair of values arrays:arrayDimension and "
+    "arrays:referencedAttribute attributes.",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020114
+  { arrays_8020114,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "Only SBML objects that include defined attributes of type SIdRef "
+    "are permitted to have a ListOfIndices. For SBML Level 3 Core, this "
+    "includes Model to reference a conversionFactor	element, Species to "
+    "reference a compartment or a conversionFactor element, Reactions "
+    "to reference a compartment, Initial assignments to reference a symbol, "
+    "Rules to reference a variable, Species references to reference a "
+    "species, and Events assignments to reference a variable. In addition "
+    "to these, any SBML object in a package with a defined attribute of "
+    "type SIdRef may also have a ListOfIndices.",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020115
+  { arrays_8020115,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "SBase objects containg SIdRef must have a ListOfIndices if the "
+    "referenced SBase is an array. ",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020116
+  { arrays_8020116,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "SBase objects containg SIdRef with a ListOfDimensions should have a "
+    "ListOfIndices containing as many Index objects for this particular "
+    "arrays:referencedAttribute as the number of Dimension objects the "
+    "referenced object contains.",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020205
+  { arrays_8020205,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The value of the Parameter referenced by the arrays:size attribute "
+    "must be a non-negative scalar constant integer.",
+    { "L3V1 Arrays V1 Section 3.3"
+    }
+  },
+
+  // 8020305
+  { arrays_8020305,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The object referenced by the SIdRef indicated by the "
+    "arrays:referencedAttribute attribute must include an "
+    "arrays:arrayDimension matching the arrays:arrayDimension for the Index",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020307
+  { arrays_8020307,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The MathML math element in an Index object must be statically "
+    "computable. In other words, any identifier that appears in the "
+    "math element, other than a Dimension id for the object with this "
+    "Index, must be a constant.",
+    { "L3V1 Arrays V1 Section 3.4"
+    }
+  },
+
+  // 8020308
+  { arrays_8020308,
+    "Short description",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "For each possible value of each Dimension id (i.e., 0 to size-1 of "
+    "the Dimension referred to) that appears in theMathML math element, "
+    "there should be no array out of bounds problems. Namely, it must "
+    "evaluate to a non-negative integer that is less than the size of "
+    "the corresponding Dimension for the object being indexed.",
+    { "L3V1 Arrays V1"
+    }
+  },
+
 };
 
 /** @endcond */
