@@ -143,7 +143,7 @@ ArraysFlatteningConverter::performConversion()
   List * mathchildren = mDocument->getAllElements(m_filter);
   if (mathchildren->getSize() > 0)
   {
-    SBMLTransforms::getComponentValuesForModel(mDocument->getModel(), mValues);
+    populateValueMap();
   }
   for (ListIterator it = mathchildren->begin(); it != mathchildren->end(); ++it)
   {
@@ -356,11 +356,15 @@ bool
 ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arrayDim)
 {
   bool adjusted = false;
-  std::map<std::string, double> values;
-
-  values.clear();
-  values.insert(std::pair<const std::string, double>(mDimensionIndex.at(0), i));
+  if (!isPopulatedValueMap())
+  {
+    if (!populateValueMap())
+      cout << "PROBLEM!";
+  }
   
+  SBMLTransforms::ValueSet v = make_pair(i, true);
+  mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(0), v));
+
   // if the dimension is used in the math of the element we just want to replace it
   // but if the math of the element is a vector we need to work it out
   
@@ -377,7 +381,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
       if (i < n)
       {
         ASTNode* value = (ASTNode*)(vector->getChild(i));
-        double calc = SBMLTransforms::evaluateASTNode(value);
+        double calc = SBMLTransforms::evaluateASTNode(value, mValues);
         ASTNode* newAST = new ASTNode(AST_REAL);
         newAST->setValue(calc);
         newElement->setMath(newAST);
@@ -387,7 +391,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
     else if (child->getType() == AST_NAME)
     {
       std::string varName = child->getName();
-      unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), values));
+      unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
       std::vector<unsigned int> indexArray;
       indexArray.push_back(calc);
       ASTNode* newAST = new ASTNode(AST_NAME);
@@ -399,12 +403,15 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
   
   if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
   {
-    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), values);
+    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), mValues);
     ASTNode * newAST = new ASTNode(AST_INTEGER);
     newAST->setValue((int)(calc));
     math->replaceArgument(mDimensionIndex.at(0), newAST);
     adjusted = true;
   }
+
+  SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(0));
+  mValues.erase(it);
 
   return adjusted;
 }
@@ -444,6 +451,39 @@ ArraysFlatteningConverter::expandDimension(const SBase* element, unsigned int ar
 
 }
 
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+
+bool 
+ArraysFlatteningConverter::isPopulatedValueMap()
+{
+  return (getValueMap().size() != 0);
+}
+
+SBMLTransforms::IdValueMap 
+ArraysFlatteningConverter::getValueMap()
+{
+  return mValues;
+}
+
+void 
+ArraysFlatteningConverter::clearValueMap()
+{
+  mValues.clear();
+}
+
+bool 
+ArraysFlatteningConverter::populateValueMap()
+{
+  clearValueMap();
+  SBMLTransforms::getComponentValuesForModel(mDocument->getModel(), mValues);
+  mValuesSize = mValues.size();
+  
+  return isPopulatedValueMap();
+}
 
 /** @endcond */
 

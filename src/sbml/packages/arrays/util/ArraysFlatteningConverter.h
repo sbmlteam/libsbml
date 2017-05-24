@@ -254,6 +254,15 @@ private:
   IdList mDimensionIndex;
 
   SBMLTransforms::IdValueMap mValues;
+  unsigned int mValuesSize;
+
+  bool isPopulatedValueMap();
+
+  SBMLTransforms::IdValueMap getValueMap();
+
+  void clearValueMap();
+
+  bool populateValueMap();
 
   /** @endcond */
 
