@@ -145,13 +145,14 @@ public:
 
   static void clearComponentValues();
 
+  static bool nodeContainsId(const ASTNode * node, IdList& ids);
+
 
 protected:  
   static void replaceBvars(ASTNode * math, const FunctionDefinition * fd);
   
   static bool checkFunctionNodeForIds(ASTNode * node, IdList& ids);
   
-  static bool nodeContainsId(const ASTNode * node, IdList& ids);
   
   static bool nodeContainsNameNotInList(const ASTNode * node, IdList& ids);
   
