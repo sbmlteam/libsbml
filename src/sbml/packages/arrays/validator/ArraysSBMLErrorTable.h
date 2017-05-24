@@ -47,7 +47,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const packageErrorTableEntry arraysErrorTable[] =
 {
-  // 8010100
+  // 8010100 != does not exist
   { ArraysUnknown,
     "Unknown error from Arrays",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -57,7 +57,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8010101
+  // 8010101 == 8010101
   { ArraysNSUndeclared,
     "The Arrays namespace is not correctly declared.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -70,7 +70,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8010102
+  // 8010102 == 8010102
   { ArraysElementNotInNs,
     "Element not in Arrays namespace",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -83,7 +83,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8010301
+  // 8010301 libsbml only
   { ArraysDuplicateComponentId,
     "Duplicate 'id' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -94,7 +94,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8010302
+  // 8010302 libsbml only
   { ArraysIdSyntaxRule,
     "Invalid SId syntax",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -105,7 +105,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020101
+  // 8020101 -> 8010201
   { ArraysAttributeRequiredMissing,
     "Required arrays:required attribute on <sbml>",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -116,7 +116,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020102
+  // 8020102 -> 8010202
   { ArraysAttributeRequiredMustBeBoolean,
     "The arrays:required attribute must be Boolean",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -127,7 +127,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020103
+  // 8020103 -> 8010203
   { ArraysAttributeRequiredMustHaveValue,
     "The arrays:required attribute must be 'true'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -138,7 +138,8 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020201
+  // 8020201 -> 8020206 libsbml only
+  // spec splits this into 8020101 (LoD) + 8020109 (LoI) 
   { ArraysSBaseAllowedElements,
     "Elements allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -150,7 +151,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020202
+  // 8020202 -> 8020110
   { ArraysSBaseLOIndicesAllowedCoreElements,
     "Core elements allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -162,7 +163,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020203
+  // 8020203 -> 8020102
   { ArraysSBaseLODimensionsAllowedCoreElements,
     "Core elements allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -174,7 +175,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020204
+  // 8020204 -> 8020113
   { ArraysSBaseLOIndicesAllowedCoreAttributes,
     "Core attributes allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -186,7 +187,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020205
+  // 8020205 -> 8020105
   { ArraysSBaseLODimensionsAllowedCoreAttributes,
     "Core attributes allowed on <sBase>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -198,7 +199,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020301
+  // 8020301 == 8020301
   { ArraysIndexAllowedCoreAttributes,
     "Core attributes allowed on <index>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -210,7 +211,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020302
+  // 8020302 -> 8020309 libsbml only
   { ArraysIndexAllowedCoreElements,
     "Core elements allowed on <index>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -222,7 +223,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020303
+  // 8020303 -> 8020302
   { ArraysIndexAllowedAttributes,
     "Attributes allowed on <index>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -235,7 +236,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020304
+  // 8020304 -> 8020306
   { ArraysIndexAllowedElements,
     "Elements allowed on <index>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -247,7 +248,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020305
+  // 8020305 -> 8020303
   { ArraysIndexReferencedAttributeMustBeString,
     "ReferencedAttribute attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -258,7 +259,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020306
+  // 8020306 -> 8020304
   { ArraysIndexArrayDimensionMustBeUnInteger,
     "ArrayDimension attribute must be UnInteger.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -269,7 +270,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020401
+  // 8020401 -> 8020201
   { ArraysDimensionAllowedCoreAttributes,
     "Core attributes allowed on <dimension>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -281,7 +282,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020402
+  // 8020402 libsbml only
   { ArraysDimensionAllowedCoreElements,
     "Core elements allowed on <dimension>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -293,7 +294,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020403
+  // 8020403 -> 8020202
   { ArraysDimensionAllowedAttributes,
     "Attributes allowed on <dimension>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -306,7 +307,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020404
+  // 8020404 != equivalent to 8020204 except that states it must be a Parameter SIdRef
   { ArraysDimensionSizeMustBeSBase,
     "Size attribute must be SBase.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -318,7 +319,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020405
+  // 8020405 -> 8020203
   { ArraysDimensionArrayDimensionMustBeUnInteger,
     "ArrayDimension attribute must be UnInteger.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -329,7 +330,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020406
+  // 8020406 libsbml only
   { ArraysDimensionNameMustBeString,
     "Name attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
