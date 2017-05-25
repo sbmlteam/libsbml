@@ -202,12 +202,10 @@ ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
       returnArray.push_back(0);
 
     mArrayEntry.swap(returnArray);
-//    mCurrentDimension++;
   }
   else
   {
     updateArrayEntry(index - 1);
-    mCurrentDimension = 0;
   }
 }
 
@@ -229,7 +227,7 @@ ArraysFlatteningConverter::getNumElements(const Dimension* dim)
 }
 
 bool
-ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arrayDim)
+ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
 {
   bool adjusted = false;
   if (!isPopulatedValueMap())
@@ -273,6 +271,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
     else if (child->getType() == AST_NAME)
     {
       std::string varName = child->getName();
+      // SK what if index is null
       unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
       std::vector<unsigned int> indexArray;
       indexArray.push_back(calc);
@@ -285,6 +284,8 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
 
   if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
   {
+    // SK TO DO expand for all dimensions
+    // what if index is null
     double calc = SBMLTransforms::evaluateASTNode(index->getMath(), mValues);
     ASTNode * newAST = new ASTNode(AST_INTEGER);
     newAST->setValue((int)(calc));
@@ -350,13 +351,14 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
     unsigned int j = 0;
     while (success && j < numEntries)
     {
-      success = expandVariableDimension(element, j);
+      success = expandVariable(element);
       j++;
     }
   }
 
   if (success)
   {
+    // SK nested elements where model is not parent
     SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
     delete obj;
   }
@@ -366,39 +368,36 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 }
 
 bool
-ArraysFlatteningConverter::expandVariableDimension(const SBase* element, unsigned int arrayDim)
+ArraysFlatteningConverter::expandVariable(const SBase* element)
 {
   std::string elementName = element->getElementName();
   std::string refAtt = "";
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+  // SK current dimension is never updated
   const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
   if (index != NULL)
   {
     refAtt = index->getReferencedAttribute();
   }
 
-  //unsigned int numEntries = mArraySize.at(arrayDim);
+  SBase* newElement = element->clone();
+  if (!adjustIdentifiers(newElement, "id"))
+  {
+    return false;
+  }
+  if (!refAtt.empty() && !adjustIdentifiers(newElement, refAtt, false))
+  {
+    return false;
+  }
+  // SK nested elements where model is not parent
+  if (!mDocument->getModel()->addChildObject(elementName, newElement)
+    == LIBSBML_OPERATION_SUCCESS)
+  {
+    return false;
+  }
+  updateArrayEntry(mNoDimensions);
 
-
-  // for (unsigned int i = 0; i < numEntries; i++)
-  //{
-    SBase* newElement = element->clone();
-    if (!adjustIdentifiers(newElement, "id"))
-    {
-      return false;
-    }
-    if (!refAtt.empty() && !adjustIdentifiers(newElement, refAtt, false))
-    {
-      return false;
-    }
-    if (!mDocument->getModel()->addChildObject(elementName, newElement)
-      == LIBSBML_OPERATION_SUCCESS)
-    {
-      return false;
-    }
-    updateArrayEntry(mNoDimensions);
-  //}
   return true;
 }
 
@@ -435,13 +434,14 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 
     while (success && j < numEntries)
     {
-      success = expandMathDimension(element, j);
+      success = expandMath(element);
       j++;
     }
   }
 
   if (success)
   {
+    // SK nested elements where model is not parent
     SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
     if (obj != NULL)  delete obj;
   }
@@ -450,40 +450,36 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 }
 
 bool
-ArraysFlatteningConverter::expandMathDimension(const SBase* element, unsigned int arrayDim)
+ArraysFlatteningConverter::expandMath(const SBase* element)
 {
   std::string elementName = element->getElementName();
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
   std::string refAtt = "";
+  // SK current dimension is never updated
   const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
   if (index != NULL)
   {
     refAtt = index->getReferencedAttribute();
   }
 
-  //unsigned int numEntries = mArraySize.at(arrayDim);
+  SBase* newElement = element->clone();
 
-  //for (unsigned int i = 0; i < numEntries; i++)
-  //{
-    SBase* newElement = element->clone();
-    unsigned int i = 0;
-//    ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
-    if (!adjustMath(newElement, i, index))
-    {
-      return false;
-    }
-    if (!adjustIdentifiers(newElement, refAtt))
-    {
-      return false;
-    }
-    if (!mDocument->getModel()->addChildObject(elementName, newElement)
-      == LIBSBML_OPERATION_SUCCESS)
-    {
-      return false;
-    }
-    updateArrayEntry(mNoDimensions);
-  //}
+  if (!adjustMath(newElement, index))
+  {
+    return false;
+  }
+  if (!adjustIdentifiers(newElement, refAtt))
+  {
+    return false;
+  }
+  // SK nested elements where model is not parent
+  if (!mDocument->getModel()->addChildObject(elementName, newElement)
+    == LIBSBML_OPERATION_SUCCESS)
+  {
+    return false;
+  }
+  updateArrayEntry(mNoDimensions);
 
   return true;
 

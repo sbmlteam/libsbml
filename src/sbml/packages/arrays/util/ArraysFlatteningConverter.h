@@ -232,13 +232,13 @@ private:
   /** @cond doxygenLibsbmlInternal */
   bool expandVariableElement(const SBase* element);
 
-  bool expandVariableDimension(const SBase* element, unsigned int arrayDim);
+  bool expandVariable(const SBase* element);
 
   bool expandMathElement(const SBase* element);
 
-  bool expandMathDimension(const SBase* element, unsigned int arrayDim);
+  bool expandMath(const SBase* element);
 
-  bool adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arryDim = 0);
+  bool adjustMath(SBase* newElement, const Index* index);
 
   bool adjustIdentifiers(SBase* newElement, const std::string& attributeName,
                          bool adjustMetaid=true);
