@@ -202,10 +202,12 @@ ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
       returnArray.push_back(0);
 
     mArrayEntry.swap(returnArray);
+//    mCurrentDimension++;
   }
   else
   {
     updateArrayEntry(index - 1);
+    mCurrentDimension = 0;
   }
 }
 
@@ -227,14 +229,81 @@ ArraysFlatteningConverter::getNumElements(const Dimension* dim)
 }
 
 bool
+ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arrayDim)
+{
+  bool adjusted = false;
+  if (!isPopulatedValueMap())
+  {
+    if (!populateValueMap())
+      cout << "PROBLEM!";
+  }
+
+  unsigned int count = mArrayEntry.at(mCurrentDimension);
+
+  SBMLTransforms::ValueSet v = make_pair(count, true);
+  mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(0), v));
+
+  // if the dimension is used in the math of the element we just want to replace it
+  // but if the math of the element is a vector we need to work it out
+
+  ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
+
+  if (math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && math->getNumChildren() == 2)
+  {
+    // SK TODO check that the second child is the dimension id
+    ASTNode* child = math->getChild(0);
+    if (child->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+    {
+      const ASTArraysVectorFunctionNode *vector = dynamic_cast<const ASTArraysVectorFunctionNode *>(child->getPlugin("arrays")->getMath());
+      unsigned int n = vector->getNumChildren();
+      if (count < n)
+      {
+        ASTNode* value = (ASTNode*)(vector->getChild(count));
+        double calc = SBMLTransforms::evaluateASTNode(value, mValues);
+        ASTNode* newAST = new ASTNode(AST_REAL);
+        newAST->setValue(calc);
+        newElement->setMath(newAST);
+      }
+      adjusted = true;
+    }
+    else if (child->getType() == AST_NAME)
+    {
+      std::string varName = child->getName();
+      unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
+      std::vector<unsigned int> indexArray;
+      indexArray.push_back(calc);
+      ASTNode* newAST = new ASTNode(AST_NAME);
+      newAST->setName(getNewId(indexArray, varName).c_str());;
+      newElement->setMath(newAST);
+      adjusted = true;
+    }
+  }
+
+  if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
+  {
+    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), mValues);
+    ASTNode * newAST = new ASTNode(AST_INTEGER);
+    newAST->setValue((int)(calc));
+    math->replaceArgument(mDimensionIndex.at(0), newAST);
+    adjusted = true;
+  }
+
+  SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(0));
+  mValues.erase(it);
+
+  return adjusted;
+}
+
+bool
 ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement, 
-                                             const std::string& attributeName)
+                                             const std::string& attributeName,
+                                             bool adjustMetaid)
 {
   std::string id;
   newElement->getAttribute(attributeName, id);
   std::string metaid = newElement->getMetaId();
   int success = newElement->setAttribute(attributeName, getNewId(mArrayEntry, id));
-  if (success == LIBSBML_OPERATION_SUCCESS && !metaid.empty())
+  if (adjustMetaid && success == LIBSBML_OPERATION_SUCCESS && !metaid.empty())
   {
     success = newElement->setMetaId(getNewId(mArrayEntry, metaid));
   }
@@ -245,6 +314,8 @@ ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement,
     return false;
 
 }
+
+
 bool
 ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 {
@@ -260,37 +331,57 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   mNoDimensions = mArraySize.size();
   if (mArraySize.size() >= 1)
   {
+    mArrayEntry.clear();
+    mCurrentDimension = 0;
+    unsigned int numEntries = 1;
+    for (unsigned int i = 0; i < mNoDimensions; i++)
+    {
+      mArrayEntry.push_back(0);
+      numEntries *= mArraySize.at(i);
+    }
 
-      success = expandElement(element);
+    unsigned int j = 0;
+    while (success && j < numEntries)
+    {
+      success = expandVariableDimension(element, j);
+      j++;
+    }
   }
 
-  SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
-  delete obj;
-  
+  if (success)
+  {
+    SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+    delete obj;
+  }
 
   return success;
 
 }
 
 bool
-ArraysFlatteningConverter::expandElement(const SBase* element)
+ArraysFlatteningConverter::expandVariableDimension(const SBase* element, unsigned int arrayDim)
 {
   std::string elementName = element->getElementName();
-  std::string id = element->getIdAttribute();
-  std::string metaid = element->getMetaId();
-
-  mArrayEntry.clear();
-  unsigned int numEntries = 1;
-  for (unsigned int i = 0; i < mNoDimensions; i++)
+  std::string refAtt = "";
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+  const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
+  if (index != NULL)
   {
-    mArrayEntry.push_back(0);
-    numEntries *= mArraySize.at(i);
+    refAtt = index->getReferencedAttribute();
   }
 
-  for (unsigned int i = 0; i < numEntries; i++)
-  {
+  //unsigned int numEntries = mArraySize.at(arrayDim);
+
+
+  // for (unsigned int i = 0; i < numEntries; i++)
+  //{
     SBase* newElement = element->clone();
     if (!adjustIdentifiers(newElement, "id"))
+    {
+      return false;
+    }
+    if (!refAtt.empty() && !adjustIdentifiers(newElement, refAtt, false))
     {
       return false;
     }
@@ -300,10 +391,8 @@ ArraysFlatteningConverter::expandElement(const SBase* element)
       return false;
     }
     updateArrayEntry(mNoDimensions);
-  }
-
+  //}
   return true;
-
 }
 
 
@@ -326,6 +415,7 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
   {
 
     mArrayEntry.clear();
+    mCurrentDimension = 0;
     unsigned int numEntries = 1;
     for (unsigned int i = 0; i < mNoDimensions; i++)
     {
@@ -336,9 +426,9 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 
     unsigned int i = 0, j = 0;
 
-    while (success && j < mNoDimensions)
+    while (success && j < numEntries)
     {
-      success = expandDimension(element, j);
+      success = expandMathDimension(element, j);
       j++;
     }
   }
@@ -353,83 +443,24 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 }
 
 bool
-ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arrayDim)
-{
-  bool adjusted = false;
-  if (!isPopulatedValueMap())
-  {
-    if (!populateValueMap())
-      cout << "PROBLEM!";
-  }
-  
-  SBMLTransforms::ValueSet v = make_pair(i, true);
-  mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(0), v));
-
-  // if the dimension is used in the math of the element we just want to replace it
-  // but if the math of the element is a vector we need to work it out
-  
-  ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
-
-  if (math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && math->getNumChildren() == 2)
-  {
-    // SK TODO check that the second child is the dimension id
-    ASTNode* child = math->getChild(0);
-    if (child->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
-    {
-      const ASTArraysVectorFunctionNode *vector = dynamic_cast<const ASTArraysVectorFunctionNode *>(child->getPlugin("arrays")->getMath());
-      unsigned int n = vector->getNumChildren();
-      if (i < n)
-      {
-        ASTNode* value = (ASTNode*)(vector->getChild(i));
-        double calc = SBMLTransforms::evaluateASTNode(value, mValues);
-        ASTNode* newAST = new ASTNode(AST_REAL);
-        newAST->setValue(calc);
-        newElement->setMath(newAST);
-      }
-      adjusted = true;
-    }
-    else if (child->getType() == AST_NAME)
-    {
-      std::string varName = child->getName();
-      unsigned int calc = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
-      std::vector<unsigned int> indexArray;
-      indexArray.push_back(calc);
-      ASTNode* newAST = new ASTNode(AST_NAME);
-      newAST->setName(getNewId(indexArray, varName).c_str());;
-      newElement->setMath(newAST);
-      adjusted = true;
-    }
-  }
-  
-  if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
-  {
-    double calc = SBMLTransforms::evaluateASTNode(index->getMath(), mValues);
-    ASTNode * newAST = new ASTNode(AST_INTEGER);
-    newAST->setValue((int)(calc));
-    math->replaceArgument(mDimensionIndex.at(0), newAST);
-    adjusted = true;
-  }
-
-  SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(0));
-  mValues.erase(it);
-
-  return adjusted;
-}
-
-bool
-ArraysFlatteningConverter::expandDimension(const SBase* element, unsigned int arrayDim)
+ArraysFlatteningConverter::expandMathDimension(const SBase* element, unsigned int arrayDim)
 {
   std::string elementName = element->getElementName();
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-  const Index* index = plugin->getIndexByArrayDimension(arrayDim);
-  std::string refAtt = index->getReferencedAttribute();
-
-  unsigned int numEntries = mArraySize.at(arrayDim);
-
-  for (unsigned int i = 0; i < numEntries; i++)
+  std::string refAtt = "";
+  const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
+  if (index != NULL)
   {
+    refAtt = index->getReferencedAttribute();
+  }
+
+  //unsigned int numEntries = mArraySize.at(arrayDim);
+
+  //for (unsigned int i = 0; i < numEntries; i++)
+  //{
     SBase* newElement = element->clone();
+    unsigned int i = 0;
 //    ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
     if (!adjustMath(newElement, i, index))
     {
@@ -445,7 +476,7 @@ ArraysFlatteningConverter::expandDimension(const SBase* element, unsigned int ar
       return false;
     }
     updateArrayEntry(mNoDimensions);
-  }
+  //}
 
   return true;
 

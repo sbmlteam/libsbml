@@ -58,19 +58,25 @@ public:
   {
     bool isVariable = false;
     // for the variable filter we want elements that have 
-    // dimensions but no indices
-    const ArraysSBasePlugin * plugin = 
-      static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+    // dimensions but no math
+ 
+    if (element->getMath() != NULL)
+    {
+      return isVariable;
+    }
+
+    const ArraysSBasePlugin * plugin =
+          static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
 
     if (plugin != NULL)
     {
-      if (plugin->getNumIndices() == 0)
-      {
+      //if (plugin->getNumIndices() == 0)
+      //{
         if (plugin->getNumDimensions() > 0)
         {
           isVariable = true;
         }
-      }
+      //}
     }
 
     return isVariable;
@@ -226,15 +232,16 @@ private:
   /** @cond doxygenLibsbmlInternal */
   bool expandVariableElement(const SBase* element);
 
-  bool expandElement(const SBase* element);
+  bool expandVariableDimension(const SBase* element, unsigned int arrayDim);
 
   bool expandMathElement(const SBase* element);
 
-  bool expandDimension(const SBase* element, unsigned int arrayDim);
+  bool expandMathDimension(const SBase* element, unsigned int arrayDim);
 
   bool adjustMath(SBase* newElement, unsigned int i, const Index* index, unsigned int arryDim = 0);
 
-  bool adjustIdentifiers(SBase* newElement, const std::string& attributeName);
+  bool adjustIdentifiers(SBase* newElement, const std::string& attributeName,
+                         bool adjustMetaid=true);
 
   unsigned int getNumElements(const Dimension* dim);
 
@@ -249,6 +256,7 @@ private:
 
   std::vector<unsigned int> mArraySize;
   unsigned int mNoDimensions;
+  unsigned int mCurrentDimension;
   std::vector<unsigned int> mArrayEntry;
 
   IdList mDimensionIndex;
