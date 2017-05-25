@@ -238,10 +238,14 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
       cout << "PROBLEM!";
   }
 
-  unsigned int count = mArrayEntry.at(mCurrentDimension);
+  unsigned int count = mArrayEntry.at(0);
 
-  SBMLTransforms::ValueSet v = make_pair(count, true);
-  mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(0), v));
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
+    SBMLTransforms::ValueSet v = make_pair(value, true);
+    mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
+  }
 
   // if the dimension is used in the math of the element we just want to replace it
   // but if the math of the element is a vector we need to work it out
@@ -288,8 +292,11 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, unsigned int i, const I
     adjusted = true;
   }
 
-  SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(0));
-  mValues.erase(it);
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
+    mValues.erase(it);
+  }
 
   return adjusted;
 }

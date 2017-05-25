@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfParameters>
+      <parameter id="n" value="2" constant="true"/>
+      <parameter id="m" value="3" constant="true"/>
+      <parameter id="p" value="4" constant="true"/>
+      <parameter id="X_0_0_0" value="0" constant="false"/>
+      <parameter id="X_0_0_1" value="0" constant="false"/>
+      <parameter id="X_0_1_0" value="0" constant="false"/>
+      <parameter id="X_0_1_1" value="0" constant="false"/>
+      <parameter id="X_0_2_0" value="0" constant="false"/>
+      <parameter id="X_0_2_1" value="0" constant="false"/>
+      <parameter id="X_1_0_0" value="0" constant="false"/>
+      <parameter id="X_1_0_1" value="0" constant="false"/>
+      <parameter id="X_1_1_0" value="0" constant="false"/>
+      <parameter id="X_1_1_1" value="0" constant="false"/>
+      <parameter id="X_1_2_0" value="0" constant="false"/>
+      <parameter id="X_1_2_1" value="0" constant="false"/>
+      <parameter id="X_2_0_0" value="0" constant="false"/>
+      <parameter id="X_2_0_1" value="0" constant="false"/>
+      <parameter id="X_2_1_0" value="0" constant="false"/>
+      <parameter id="X_2_1_1" value="0" constant="false"/>
+      <parameter id="X_2_2_0" value="0" constant="false"/>
+      <parameter id="X_2_2_1" value="0" constant="false"/>
+      <parameter id="X_3_0_0" value="0" constant="false"/>
+      <parameter id="X_3_0_1" value="0" constant="false"/>
+      <parameter id="X_3_1_0" value="0" constant="false"/>
+      <parameter id="X_3_1_1" value="0" constant="false"/>
+      <parameter id="X_3_2_0" value="0" constant="false"/>
+      <parameter id="X_3_2_1" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="X_0_0_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_0_0_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_0_1_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_0_1_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_0_2_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_0_2_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_0_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_0_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_1_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_1_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_2_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_1_2_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_0_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_0_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_1_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_1_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_2_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_2_2_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_0_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_0_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_1_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_1_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_2_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 0 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="X_3_2_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn> 5.7 </cn>
+              <apply>
+                <lt/>
+                <cn type="integer"> 1 </cn>
+                <cn type="integer"> 5 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn> 3.2 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>
