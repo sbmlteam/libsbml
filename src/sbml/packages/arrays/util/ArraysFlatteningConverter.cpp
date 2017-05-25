@@ -133,11 +133,15 @@ ArraysFlatteningConverter::performConversion()
   List * variables = mDocument->getAllElements(filter);
   for (ListIterator it = variables->begin(); it != variables->end(); ++it)
   {
-    success = expandVariableElement((const SBase*)(*(it)));
+    const SBase* obj = (const SBase*)(*it);
+
+ //   cout << "Obj is " << obj->getElementName() << endl;
+    success = expandVariableElement(obj);
     if (!success)
       break;
   }
 
+  //SK could probably move these together
   // go through the model and expand all math type objects
   ArraysMathFilter* m_filter = new ArraysMathFilter();
   List * mathchildren = mDocument->getAllElements(m_filter);
@@ -147,7 +151,10 @@ ArraysFlatteningConverter::performConversion()
   }
   for (ListIterator it = mathchildren->begin(); it != mathchildren->end(); ++it)
   {
-    success = expandMathElement((const SBase*)(*(it)));
+    const SBase* obj = (const SBase*)(*it);
+
+ //   cout << "Obj is " << obj->getElementName() << endl;
+    success = expandMathElement(obj);
     if (!success)
       break;
   }
@@ -179,11 +186,23 @@ getNewId(std::vector<unsigned int> arrayEntry, const std::string& id)
 }
 
 
+// we use an array of integers to keep record of the index values
+// for the arrays
+// So an array with 0D size 2 and 1D size 3 will have
+// a fixed array mArraySize = [3, 2]
+// and an updating array
+// mArrayEntry that will go from [0, 0] -> [0, 1] ->
+// [1, 0] -> [1, 1] -> [2, 0] -> [2, 1]
+// 
+// slightly confusing as the indexing of the vectors does not correspond to arrayDimension
+
 void
 ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
 {
   if (index == 0)
     return;
+ // viewArray(mArrayEntry);
+  //viewArray(mArraySize);
   unsigned int current = mArrayEntry.at(index - 1) + 1;
   unsigned int columnSize = mArraySize.at(index - 1);
   std::vector<unsigned int> returnArray;
@@ -223,6 +242,8 @@ ArraysFlatteningConverter::getNumElements(const Dimension* dim)
     }
   }
 
+  // SK if we have no dimensions we might have inherited some
+
   return num;
 }
 
@@ -236,8 +257,11 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
       cout << "PROBLEM!";
   }
 
-  unsigned int count = mArrayEntry.at(0);
+  unsigned int count = mArrayEntry.at(0); 
+  // SK this is used to index a vector but may not be teh correct value
 
+  // we need to add the current value for the dimension id to the global model
+  // values that might be needed in calculating 
   for (unsigned int i = 0; i < mNoDimensions; i++)
   {
     unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
@@ -293,6 +317,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
     adjusted = true;
   }
 
+  // remove the dimension id values as these are changing for each instance
   for (unsigned int i = 0; i < mNoDimensions; i++)
   {
     SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
@@ -302,6 +327,8 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
   return adjusted;
 }
 
+// this takes the existing id and metaid and appends the values from the array entry
+// SK streamline this for id/metaid and other sidrefs
 bool
 ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement, 
                                              const std::string& attributeName,
@@ -358,9 +385,12 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 
   if (success)
   {
-    // SK nested elements where model is not parent
-    SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
-    delete obj;
+    SBase* parent = getParentObject(element);
+    if (parent != NULL)
+    {
+      SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+      if (obj != NULL)  delete obj;
+    }
   }
 
   return success;
@@ -374,7 +404,8 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   std::string refAtt = "";
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-  // SK current dimension is never updated
+  // SK current dimension is never updated; 
+  // also may need to looking there being two reference attribs
   const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
   if (index != NULL)
   {
@@ -391,7 +422,8 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
     return false;
   }
   // SK nested elements where model is not parent
-  if (!mDocument->getModel()->addChildObject(elementName, newElement)
+  SBase* parent = getParentObject(element);
+  if (parent == NULL || !parent->addChildObject(elementName, newElement)
     == LIBSBML_OPERATION_SUCCESS)
   {
     return false;
@@ -415,6 +447,9 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 
   // get number of elements that need to be created
   mArraySize.clear();
+
+  // SK here we might have a case were there are no dimensions on the element but it 
+  // inherits dimensions (see event example)
   mArraySize = plugin->getNumArrayElements();
   mNoDimensions = mArraySize.size();
   if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
@@ -441,9 +476,12 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
 
   if (success)
   {
-    // SK nested elements where model is not parent
-    SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
-    if (obj != NULL)  delete obj;
+    SBase* parent = getParentObject(element);
+    if (parent != NULL)
+    {
+      SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+      if (obj != NULL)  delete obj;
+    }
   }
 
   return success;
@@ -473,8 +511,9 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   {
     return false;
   }
-  // SK nested elements where model is not parent
-  if (!mDocument->getModel()->addChildObject(elementName, newElement)
+
+  SBase* parent = getParentObject(element);
+  if (parent == NULL || !parent->addChildObject(elementName, newElement)
     == LIBSBML_OPERATION_SUCCESS)
   {
     return false;
@@ -523,6 +562,28 @@ ArraysFlatteningConverter::populateValueMap()
 
 
 /** @cond doxygenLibsbmlInternal */
+
+SBase*
+ArraysFlatteningConverter::getParentObject(const SBase* element)
+{
+  SBase* parent = const_cast<SBase*>(element->getParentSBMLObject());
+  if (parent->getTypeCode() == SBML_LIST_OF)
+  {
+    return parent->getParentSBMLObject();
+  }
+  else
+  {
+    return parent;
+  }
+
+}
+
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
 int
 ArraysFlatteningConverter::validateOriginalDocument()
 {

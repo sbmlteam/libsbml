@@ -72,7 +72,7 @@ public:
     {
       //if (plugin->getNumIndices() == 0)
       //{
-        if (plugin->getNumDimensions() > 0)
+        if (plugin->getNumDimensions() > 0 || plugin->getNumIndices() > 0)
         {
           isVariable = true;
         }
@@ -102,7 +102,7 @@ public:
 
       if (plugin != NULL)
       {
-        if (plugin->getNumIndices() > 0 && plugin->getNumDimensions() > 0)
+        if (plugin->getNumIndices() > 0 || plugin->getNumDimensions() > 0)
         {
           hasMath = true;
         }
@@ -245,6 +245,8 @@ private:
 
   unsigned int getNumElements(const Dimension* dim);
 
+  SBase* getParentObject(const SBase* element);
+
   int validateOriginalDocument();
 
   int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion,
@@ -271,6 +273,15 @@ private:
   void clearValueMap();
 
   bool populateValueMap();
+
+  void viewArray(std::vector<unsigned int> arrayE)
+  {
+    for (unsigned int i = 0; i < arrayE.size(); ++i)
+    {
+      std::cout << i << ": " << arrayE.at(i) << " ";
+    }
+    std::cout << "\n";
+  };
 
   /** @endcond */
 
