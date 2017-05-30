@@ -135,7 +135,7 @@ ArraysFlatteningConverter::performConversion()
   {
     const SBase* obj = (const SBase*)(*it);
 
- //   cout << "Obj is " << obj->getElementName() << endl;
+    cout << "Obj is " << obj->getElementName() << endl;
     success = expandVariableElement(obj);
     if (!success)
       break;
@@ -274,7 +274,9 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
 
   ASTNode * math = const_cast<ASTNode*>(newElement->getMath());
 
-  if (math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && math->getNumChildren() == 2)
+  if (math != NULL && 
+      math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && 
+      math->getNumChildren() == 2)
   {
     // SK TODO check that the second child is the dimension id
     ASTNode* child = math->getChild(0);
@@ -367,11 +369,13 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   if (mArraySize.size() >= 1)
   {
     mArrayEntry.clear();
+    mDimensionIndex.clear();
     mCurrentDimension = 0;
     unsigned int numEntries = 1;
     for (unsigned int i = 0; i < mNoDimensions; i++)
     {
       mArrayEntry.push_back(0);
+      mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
       numEntries *= mArraySize.at(i);
     }
 
@@ -382,6 +386,7 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
       j++;
     }
   }
+
 
   if (success)
   {
@@ -421,7 +426,13 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   {
     return false;
   }
+  if (elementName == "reaction")
+  {
+    if (!dealWithReaction((Reaction*)(newElement)))
+      return false;
+  }
   // SK nested elements where model is not parent
+
   SBase* parent = getParentObject(element);
   if (parent == NULL || !parent->addChildObject(elementName, newElement)
     == LIBSBML_OPERATION_SUCCESS)
@@ -455,6 +466,7 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
   if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
   {
 
+    mDimensionIndex.clear();
     mArrayEntry.clear();
     mCurrentDimension = 0;
     unsigned int numEntries = 1;
@@ -524,6 +536,159 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
 
 }
 
+unsigned int
+ArraysFlatteningConverter::evaluateIndex(const Index* index)
+{
+  unsigned int value = 0;
+  if (!isPopulatedValueMap())
+  {
+    if (!populateValueMap())
+      cout << "PROBLEM!";
+  }
+
+  // we need to add the current value for the dimension id to the global model
+  // values that might be needed in calculating 
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
+    SBMLTransforms::ValueSet v = make_pair(value, true);
+    mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
+  }
+
+  value = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
+
+  // remove the dimension id values as these are changing for each instance
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
+    mValues.erase(it);
+  }
+
+  return value;
+}
+
+bool
+ArraysFlatteningConverter::dealWithSpeciesReference(SimpleSpeciesReference* sr)
+{
+  std::vector<unsigned int> arrayIndex;
+  const ArraysSBasePlugin* plugin = static_cast<const ArraysSBasePlugin*>(sr->getPlugin("arrays"));
+  if (plugin != NULL)
+  {
+    // assume no dimensions for now
+    
+    for (unsigned int j = 0; j < plugin->getNumIndices(); j++)
+    {
+      unsigned int value = evaluateIndex(plugin->getIndex(j));
+      arrayIndex.push_back(value);
+    }
+    sr->setSpecies(getNewId(arrayIndex, sr->getSpecies()));
+  }
+  return true;
+}
+
+bool
+ArraysFlatteningConverter::dealWithKineticLaw(KineticLaw* kl)
+{
+  bool success = true;
+  if (kl->isSetMath() && SBMLTransforms::nodeContainsId(kl->getMath(), mDimensionIndex))
+  {
+    if (!isPopulatedValueMap())
+    {
+      if (!populateValueMap())
+        cout << "PROBLEM!";
+    }
+
+    // we need to add the current value for the dimension id to the global model
+    // values that might be needed in calculating 
+    for (unsigned int i = 0; i < mNoDimensions; i++)
+    {
+      unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
+      SBMLTransforms::ValueSet v = make_pair(value, true);
+      mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
+    }
+    ASTNode* math = (ASTNode*)(kl->getMath());
+    success = replaceSelector(math);
+
+    // remove the dimension id values as these are changing for each instance
+    for (unsigned int i = 0; i < mNoDimensions; i++)
+    {
+      SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
+      mValues.erase(it);
+    }
+  }
+  return success;
+}
+
+
+bool
+ArraysFlatteningConverter::replaceSelector(ASTNode* math)
+{
+  bool success = true;
+
+  if (math->getType() == AST_ORIGINATES_IN_PACKAGE && math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+  {
+    // sort this case
+  }
+  
+  for (unsigned int i = 0; i < math->getNumChildren(); i++)
+  {
+    ASTNode *child = math->getChild(i);
+    ASTNode * newAST = NULL;
+    if (child->getType() == AST_ORIGINATES_IN_PACKAGE && child->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+    {
+      // assume we have selector A d for now
+      std::string var_name = child->getChild(0)->getName();
+      unsigned int var_index = (unsigned int)(SBMLTransforms::evaluateASTNode(child->getChild(1), mValues));
+      newAST = new ASTNode(AST_NAME);
+      ostringstream out;
+      out << var_name << "_" << var_index;
+      newAST->setName(out.str().c_str());
+    }
+    if (newAST != NULL)
+    {
+      if (math->replaceChild(i, newAST) != LIBSBML_OPERATION_SUCCESS)
+        success = false;
+    }
+    else
+    {
+      success = replaceSelector(child);
+    }
+  }
+
+
+  return success;
+}
+
+
+
+bool
+ArraysFlatteningConverter::dealWithReaction(Reaction* reaction)
+{
+  bool success = true;
+  unsigned int i = 0;
+  while (success && i < reaction->getNumReactants())
+  {
+    success =  dealWithSpeciesReference(reaction->getReactant(i));
+    i++;
+  }
+  i = 0;
+  while (success && i < reaction->getNumProducts())
+  {
+    success = dealWithSpeciesReference(reaction->getProduct(i));
+    i++;
+  }
+  i = 0;
+  while (success && i < reaction->getNumModifiers())
+  {
+    success = dealWithSpeciesReference(reaction->getModifier(i));
+    i++;
+  }
+  if (reaction->isSetKineticLaw())
+  {
+    success = dealWithKineticLaw(reaction->getKineticLaw());
+  }
+  return success;
+}
 
 /** @endcond */
 

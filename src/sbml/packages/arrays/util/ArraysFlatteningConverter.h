@@ -72,7 +72,7 @@ public:
     {
       //if (plugin->getNumIndices() == 0)
       //{
-        if (plugin->getNumDimensions() > 0 || plugin->getNumIndices() > 0)
+        if (plugin->getNumDimensions() > 0)
         {
           isVariable = true;
         }
@@ -102,7 +102,7 @@ public:
 
       if (plugin != NULL)
       {
-        if (plugin->getNumIndices() > 0 || plugin->getNumDimensions() > 0)
+        if (plugin->getNumDimensions() > 0)
         {
           hasMath = true;
         }
@@ -237,6 +237,16 @@ private:
   bool expandMathElement(const SBase* element);
 
   bool expandMath(const SBase* element);
+
+  bool dealWithReaction(Reaction* reaction);
+
+  bool dealWithSpeciesReference(SimpleSpeciesReference* sr);
+
+  bool dealWithKineticLaw(KineticLaw* kl);
+
+  bool replaceSelector(ASTNode* math);
+
+  unsigned int evaluateIndex(const Index* index);
 
   bool adjustMath(SBase* newElement, const Index* index);
 
