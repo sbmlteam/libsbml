@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="Cell_0_0" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="Cell_0_1" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="Cell_1_0" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="Cell_1_1" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A_0_0" compartment="Cell_0_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="A_0_1" compartment="Cell_1_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="A_1_0" compartment="Cell_0_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="A_1_1" compartment="Cell_1_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="n" value="2" constant="true"/>
+      <parameter id="m" value="2" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

@@ -670,6 +670,44 @@ START_TEST(test_arrays_flattening_converter_1D_event)
 END_TEST
 
 
+START_TEST(test_arrays_flattening_converter_2D_species_compartment_from_file)
+{
+  string filename(TestDataDirectory);
+
+  ConversionProperties props;
+
+  props.addOption("flatten arrays");
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  // load document
+  string cfile = filename + "arrays_2D_species_compartment.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // fail if conversion was not valid
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToStdString(doc);
+
+  string ffile = filename + "arrays_2D_species_compartment_flat.xml";
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToStdString(fdoc);
+
+  fail_unless(flatModel == newModel);
+
+  delete doc;
+  delete fdoc;
+  delete converter;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
@@ -693,6 +731,7 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction_noKL);
   tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction);
   tcase_add_test(tcase, test_arrays_flattening_converter_1D_event);
+  tcase_add_test(tcase, test_arrays_flattening_converter_2D_species_compartment_from_file);
 
   suite_add_tcase(suite, tcase);
 

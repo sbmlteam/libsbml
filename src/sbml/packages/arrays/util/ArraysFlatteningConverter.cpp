@@ -311,18 +311,64 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
   return adjusted;
 }
 
+bool
+ArraysFlatteningConverter::adjustReferencedAttribute(SBase* newElement, bool calcIndex)
+{
+  std::string refAtt = "";
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(newElement->getPlugin("arrays"));
+  // SK current dimension is never updated; 
+  // also may need to looking there being two reference attribs
+  const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
+  if (index != NULL)
+  {
+    refAtt = index->getReferencedAttribute();
+  }
+  std::string id;
+  newElement->getAttribute(refAtt, id);
+  std::vector<unsigned int> arrayIndex;
+  if (plugin != NULL)
+  {
+    for (int j = mNoDimensions - 1; j >= 0; j--)
+    {
+      unsigned int value = evaluateIndex(plugin->getIndexByArrayDimension(j));
+      arrayIndex.push_back(value);
+    }
+
+  }
+  int success = LIBSBML_OPERATION_SUCCESS;
+  if (!refAtt.empty())
+  {
+    // for some things we need to use the index to calculate the new array
+    // however if the attribute being changed relates to an element with math
+    // this will be left to the resulting flat model and the referenced attribute
+    // should follow the automatic indexing
+    if (calcIndex)
+      success = newElement->setAttribute(refAtt, getNewId(arrayIndex, id));
+    else
+      success = newElement->setAttribute(refAtt, getNewId(mArrayEntry, id));
+
+  }
+
+  if (success == LIBSBML_OPERATION_SUCCESS)
+    return true;
+  else
+    return false;
+}
 // this takes the existing id and metaid and appends the values from the array entry
 // SK streamline this for id/metaid and other sidrefs
 bool
-ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement, 
-                                             const std::string& attributeName,
-                                             bool adjustMetaid)
+ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement)
 {
   std::string id;
-  newElement->getAttribute(attributeName, id);
+  newElement->getAttribute("id", id);
   std::string metaid = newElement->getMetaId();
-  int success = newElement->setAttribute(attributeName, getNewId(mArrayEntry, id));
-  if (adjustMetaid && success == LIBSBML_OPERATION_SUCCESS && !metaid.empty())
+  int success = LIBSBML_OPERATION_SUCCESS;
+  if (!id.empty())
+  {
+    success = newElement->setAttribute("id", getNewId(mArrayEntry, id));
+  }
+  if (success == LIBSBML_OPERATION_SUCCESS && !metaid.empty())
   {
     success = newElement->setMetaId(getNewId(mArrayEntry, metaid));
   }
@@ -331,7 +377,6 @@ ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement,
     return true;
   else
     return false;
-
 }
 
 
@@ -357,6 +402,7 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
     for (unsigned int i = 0; i < mNoDimensions; i++)
     {
       mArrayEntry.push_back(0);
+
       mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
       numEntries *= mArraySize.at(i);
     }
@@ -400,11 +446,11 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   }
 
   SBase* newElement = element->clone();
-  if (!adjustIdentifiers(newElement, "id"))
+  if (!adjustIdentifiers(newElement))
   {
     return false;
   }
-  if (!refAtt.empty() && !adjustIdentifiers(newElement, refAtt, false))
+  if (!refAtt.empty() && !adjustReferencedAttribute(newElement))
   {
     return false;
   }
@@ -507,7 +553,12 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   {
     return false;
   }
-  if (!adjustIdentifiers(newElement, refAtt))
+  if (!adjustIdentifiers(newElement))
+  {
+    return false;
+  }
+
+  if (!adjustReferencedAttribute(newElement, false))
   {
     return false;
   }
@@ -599,6 +650,10 @@ ArraysFlatteningConverter::dealWithSpeciesReference(SimpleSpeciesReference* sr)
     {
       unsigned int value = evaluateIndex(plugin->getIndex(j));
       arrayIndex.push_back(value);
+    }
+    if (!adjustIdentifiers(sr))
+    {
+      return false;
     }
     sr->setSpecies(getNewId(arrayIndex, sr->getSpecies()));
   }

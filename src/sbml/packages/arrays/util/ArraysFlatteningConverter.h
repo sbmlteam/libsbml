@@ -260,8 +260,9 @@ private:
 
   bool adjustMath(SBase* newElement, const Index* index);
 
-  bool adjustIdentifiers(SBase* newElement, const std::string& attributeName,
-                         bool adjustMetaid=true);
+  bool adjustIdentifiers(SBase* newElement);
+
+  bool adjustReferencedAttribute(SBase* newElement, bool calcIndex=true);
 
   unsigned int getNumElements(const Dimension* dim);
 
