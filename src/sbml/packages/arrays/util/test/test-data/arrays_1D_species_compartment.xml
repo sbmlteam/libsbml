@@ -6,7 +6,6 @@
         <arrays:listOfDimensions
           xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
           <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
-          <arrays:dimension arrays:id="d1" arrays:size="m" arrays:arrayDimension="1"/>
         </arrays:listOfDimensions>
       </compartment>
     </listOfCompartments>
@@ -16,16 +15,10 @@
         <arrays:listOfDimensions
           xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
           <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
-          <arrays:dimension arrays:id="d1" arrays:size="m" arrays:arrayDimension="1"/>
         </arrays:listOfDimensions>
         <arrays:listOfIndices
           xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
           <arrays:index arrays:referencedAttribute="compartment" arrays:arrayDimension="0">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">
-              <ci> d1 </ci>
-            </math>
-          </arrays:index>
-          <arrays:index arrays:referencedAttribute="compartment" arrays:arrayDimension="1">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <ci> d0 </ci>
             </math>
@@ -35,7 +28,6 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="n" constant="true" value="2"/>
-      <parameter id="m" constant="true" value="2"/>
     </listOfParameters>
   </model>
 </sbml>
