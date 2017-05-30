@@ -138,19 +138,6 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020201 -> 8020206 libsbml only
-  // spec splits this into 8020101 (LoD) + 8020109 (LoI) 
-  { ArraysSBaseAllowedElements,
-    "Elements allowed on <sBase>.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
-    LIBSBML_SEV_ERROR,
-    "A <sBase> object may contain one and only one instance of each of the "
-    "<listOfIndices> and <listOfDimensions> elements. No other elements from "
-    "the SBML Level 3 arrays namespaces are permitted on a <sBase> object. ",
-    { "L3V1 Arrays V1 Section"
-    }
-  },
-
   // 8020202 -> 8020110
   { ArraysSBaseLOIndicesAllowedCoreElements,
     "Core elements allowed on <sBase>.",
@@ -462,6 +449,17 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
+  //8020101
+  { arrays_8020101,
+    "Elements allowed on <sBase>.",
+	LIBSBML_CAT_GENERAL_CONSISTENCY,
+	LIBSBML_SEV_ERROR,
+	"Any object derived from the extended SBase class (defined in the Arrays "
+	"package) may contain	at most one instance of a ListOfDimensions.",
+	{ "L3V1 Arrays V1 Section 3.3"
+	}
+  },
+
   // 8020103
   { arrays_8020103,
     "Short description",
@@ -524,6 +522,17 @@ static const packageErrorTableEntry arraysErrorTable[] =
     "ListOfDimensions.",
     { "L3V1 Arrays V1 Section 3.3"
     }
+  },
+
+  //8020109
+  { arrays_8020109,
+    "Elements allowed on <sBase>.",
+	LIBSBML_CAT_GENERAL_CONSISTENCY,
+	LIBSBML_SEV_ERROR,
+	"Any object derived from the extended SBase class (defined in the Arrays "
+	"package) may contain at most one instance of a ListOfIndices.",
+	{ "L3V1 Arrays V1 Section 3.4"
+	}
   },
 
   // 8020111

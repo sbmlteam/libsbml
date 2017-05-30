@@ -66,6 +66,7 @@ typedef enum
 , arrays_8010213  = 8010213
 , ArraysDuplicateComponentId								  = 8010301
 , ArraysIdSyntaxRule										  = 8010302
+, arrays_8020101 = 8020101
 , ArraysSBaseLODimensionsAllowedCoreElements                  = 8020102
 , arrays_8020103 = 8020103
 , arrays_8020104 = 8020104
@@ -73,6 +74,7 @@ typedef enum
 , arrays_8020106 = 8020106
 , arrays_8020107 = 8020107
 , arrays_8020108 = 8020108
+, arrays_8020109 = 8020109
 , ArraysSBaseLOIndicesAllowedCoreElements					  = 8020110
 , arrays_8020111 = 8020111
 , arrays_8020112 = 8020112
@@ -85,7 +87,6 @@ typedef enum
 , ArraysDimensionArrayDimensionMustBeUnInteger				  = 8020203
 , ArraysDimensionSizeMustBeSBase							  = 8020204
 , arrays_8020205 = 8020205
-, ArraysSBaseAllowedElements								  = 8020206
 , ArraysIndexAllowedCoreAttributes                            = 8020301
 , ArraysIndexAllowedAttributes								  = 8020302
 , ArraysIndexReferencedAttributeMustBeString				  = 8020303
