@@ -81,7 +81,7 @@
           </arrays:index>
         </arrays:listOfIndices>
         <listOfReactants>
-          <speciesReference constant="true" species="B" stoichiometry="1">
+          <speciesReference constant="true" species="B" stoichiometry="1" id="sr1">
             <arrays:listOfIndices
               xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
               <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
@@ -91,7 +91,7 @@
               </arrays:index>
             </arrays:listOfIndices>
           </speciesReference>
-          <speciesReference constant="true" species="A" stoichiometry="1">
+          <speciesReference constant="true" species="A" stoichiometry="1" id="sr2">
             <arrays:listOfIndices
               xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
               <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
@@ -103,7 +103,7 @@
           </speciesReference>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference constant="true" species="C" stoichiometry="1">
+          <speciesReference constant="true" species="C" stoichiometry="1" id="sr3">
             <arrays:listOfIndices
               xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
               <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">

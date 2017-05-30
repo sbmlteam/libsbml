@@ -230,6 +230,10 @@ public:
 private:
 
   /** @cond doxygenLibsbmlInternal */
+  void addDimensionToModelValues();
+
+  void removeDimensionFromModelValues();
+
   bool expandVariableElement(const SBase* element);
 
   bool expandVariable(const SBase* element);
@@ -237,6 +241,12 @@ private:
   bool expandMathElement(const SBase* element);
 
   bool expandMath(const SBase* element);
+
+  bool dealWithMathChild(SBase* element);
+  
+  bool dealWithEvent(Event* event);
+
+  bool dealWithEventAssignment(EventAssignment* event);
 
   bool dealWithReaction(Reaction* reaction);
 

@@ -135,7 +135,7 @@ ArraysFlatteningConverter::performConversion()
   {
     const SBase* obj = (const SBase*)(*it);
 
-    cout << "Obj is " << obj->getElementName() << endl;
+    //cout << "Obj is " << obj->getElementName() << endl;
     success = expandVariableElement(obj);
     if (!success)
       break;
@@ -251,23 +251,10 @@ bool
 ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
 {
   bool adjusted = false;
-  if (!isPopulatedValueMap())
-  {
-    if (!populateValueMap())
-      cout << "PROBLEM!";
-  }
+  addDimensionToModelValues();
 
   unsigned int count = mArrayEntry.at(0); 
   // SK this is used to index a vector but may not be teh correct value
-
-  // we need to add the current value for the dimension id to the global model
-  // values that might be needed in calculating 
-  for (unsigned int i = 0; i < mNoDimensions; i++)
-  {
-    unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
-    SBMLTransforms::ValueSet v = make_pair(value, true);
-    mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
-  }
 
   // if the dimension is used in the math of the element we just want to replace it
   // but if the math of the element is a vector we need to work it out
@@ -319,12 +306,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
     adjusted = true;
   }
 
-  // remove the dimension id values as these are changing for each instance
-  for (unsigned int i = 0; i < mNoDimensions; i++)
-  {
-    SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
-    mValues.erase(it);
-  }
+  removeDimensionFromModelValues();
 
   return adjusted;
 }
@@ -431,6 +413,12 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
     if (!dealWithReaction((Reaction*)(newElement)))
       return false;
   }
+  else if (elementName == "event")
+  {
+    if (!dealWithEvent((Event*)(newElement)))
+      return false;
+
+  }
   // SK nested elements where model is not parent
 
   SBase* parent = getParentObject(element);
@@ -536,33 +524,64 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
 
 }
 
+bool
+ArraysFlatteningConverter::dealWithEvent(Event* event)
+{
+  bool success = true;
+  unsigned int i = 0;
+  while (success && i < event->getNumEventAssignments())
+  {
+    success = dealWithEventAssignment(event->getEventAssignment(i));
+    i++;
+  }
+  if (event->isSetTrigger())
+  {
+    success = dealWithMathChild(event->getTrigger());
+  }
+  if (event->isSetDelay())
+  {
+    success = dealWithMathChild(event->getDelay());
+  }
+  if (event->isSetPriority())
+  {
+    success = dealWithMathChild(event->getPriority());
+  }
+  return success;
+}
+
+bool
+ArraysFlatteningConverter::dealWithEventAssignment(EventAssignment* ea)
+{
+  std::vector<unsigned int> arrayIndex;
+  const ArraysSBasePlugin* plugin = static_cast<const ArraysSBasePlugin*>(ea->getPlugin("arrays"));
+  if (plugin != NULL)
+  {
+    // assume no dimensions for now
+
+    for (unsigned int j = 0; j < plugin->getNumIndices(); j++)
+    {
+      unsigned int value = evaluateIndex(plugin->getIndex(j));
+      arrayIndex.push_back(value);
+      adjustMath(ea, plugin->getIndex(j));
+    }
+    ea->setVariable(getNewId(arrayIndex, ea->getVariable()));
+
+
+  }
+  return true;
+}
+
+
+
 unsigned int
 ArraysFlatteningConverter::evaluateIndex(const Index* index)
 {
   unsigned int value = 0;
-  if (!isPopulatedValueMap())
-  {
-    if (!populateValueMap())
-      cout << "PROBLEM!";
-  }
-
-  // we need to add the current value for the dimension id to the global model
-  // values that might be needed in calculating 
-  for (unsigned int i = 0; i < mNoDimensions; i++)
-  {
-    unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
-    SBMLTransforms::ValueSet v = make_pair(value, true);
-    mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
-  }
+  addDimensionToModelValues();
 
   value = (unsigned int)(SBMLTransforms::evaluateASTNode(index->getMath(), mValues));
 
-  // remove the dimension id values as these are changing for each instance
-  for (unsigned int i = 0; i < mNoDimensions; i++)
-  {
-    SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
-    mValues.erase(it);
-  }
+  removeDimensionFromModelValues();
 
   return value;
 }
@@ -587,34 +606,33 @@ ArraysFlatteningConverter::dealWithSpeciesReference(SimpleSpeciesReference* sr)
 }
 
 bool
+ArraysFlatteningConverter::dealWithMathChild(SBase* element)
+{
+  bool success = true;
+  if (element->isSetMath() && SBMLTransforms::nodeContainsId(element->getMath(), mDimensionIndex))
+  {
+    addDimensionToModelValues();
+    ASTNode* math = (ASTNode*)(element->getMath());
+    success = replaceSelector(math);
+
+    removeDimensionFromModelValues();
+  }
+  return success;
+}
+
+
+
+bool
 ArraysFlatteningConverter::dealWithKineticLaw(KineticLaw* kl)
 {
   bool success = true;
   if (kl->isSetMath() && SBMLTransforms::nodeContainsId(kl->getMath(), mDimensionIndex))
   {
-    if (!isPopulatedValueMap())
-    {
-      if (!populateValueMap())
-        cout << "PROBLEM!";
-    }
-
-    // we need to add the current value for the dimension id to the global model
-    // values that might be needed in calculating 
-    for (unsigned int i = 0; i < mNoDimensions; i++)
-    {
-      unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
-      SBMLTransforms::ValueSet v = make_pair(value, true);
-      mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
-    }
+    addDimensionToModelValues();
     ASTNode* math = (ASTNode*)(kl->getMath());
     success = replaceSelector(math);
 
-    // remove the dimension id values as these are changing for each instance
-    for (unsigned int i = 0; i < mNoDimensions; i++)
-    {
-      SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
-      mValues.erase(it);
-    }
+    removeDimensionFromModelValues();
   }
   return success;
 }
@@ -685,7 +703,7 @@ ArraysFlatteningConverter::dealWithReaction(Reaction* reaction)
   }
   if (reaction->isSetKineticLaw())
   {
-    success = dealWithKineticLaw(reaction->getKineticLaw());
+    success = dealWithMathChild(reaction->getKineticLaw());
   }
   return success;
 }
@@ -694,8 +712,37 @@ ArraysFlatteningConverter::dealWithReaction(Reaction* reaction)
 
 /** @cond doxygenLibsbmlInternal */
 
+void
+ArraysFlatteningConverter::addDimensionToModelValues()
+{
+  if (!isPopulatedValueMap())
+  {
+    if (!populateValueMap())
+      cout << "PROBLEM!";
+  }
 
-bool 
+  // we need to add the current value for the dimension id to the global model
+  // values that might be needed in calculating 
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    unsigned int value = mArrayEntry.at(mNoDimensions - 1 - i);
+    SBMLTransforms::ValueSet v = make_pair(value, true);
+    mValues.insert(pair<const std::string, SBMLTransforms::ValueSet>(mDimensionIndex.at(i), v));
+  }
+}
+
+void
+ArraysFlatteningConverter::removeDimensionFromModelValues()
+{
+  // remove the dimension id values as these are changing for each instance
+  for (unsigned int i = 0; i < mNoDimensions; i++)
+  {
+    SBMLTransforms::IdValueIter it = mValues.find(mDimensionIndex.at(i));
+    mValues.erase(it);
+  }
+}
+
+bool
 ArraysFlatteningConverter::isPopulatedValueMap()
 {
   return (getValueMap().size() != 0);
