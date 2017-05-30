@@ -8,33 +8,20 @@
     <listOfSpecies>
       <species id="A_0" compartment="Cell_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="A_1" compartment="Cell_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="B_0" compartment="Cell_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="B_1" compartment="Cell_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="C_0" compartment="Cell_0" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="C_1" compartment="Cell_1" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="k" value="1" constant="false"/>
       <parameter id="n" value="2" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="r_0" reversible="false" fast="false" compartment="Cell_0">
         <listOfReactants>
-          <speciesReference species="B_0" stoichiometry="1" constant="true"/>
-          <speciesReference species="A_0" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr1_0" species="A_0" stoichiometry="1" constant="true"/>
         </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="C_0" stoichiometry="1" constant="true"/>
-        </listOfProducts>
       </reaction>
       <reaction id="r_1" reversible="false" fast="false" compartment="Cell_1">
         <listOfReactants>
-          <speciesReference species="B_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="A_1" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr1_1" species="A_1" stoichiometry="1" constant="true"/>
         </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="C_1" stoichiometry="1" constant="true"/>
-        </listOfProducts>
       </reaction>
     </listOfReactions>
   </model>
