@@ -317,7 +317,7 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020406 libsbml only
+  // 8020403 libsbml only
   { ArraysDimensionNameMustBeString,
     "Name attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

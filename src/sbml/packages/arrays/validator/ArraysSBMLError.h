@@ -97,7 +97,7 @@ typedef enum
 , arrays_8020308 = 8020308
 , ArraysIndexAllowedCoreElements                              = 8020309
 , ArraysDimensionAllowedCoreElements                          = 8020402
-, ArraysDimensionNameMustBeString                             = 8020406
+, ArraysDimensionNameMustBeString                             = 8020403
 } ArraysSBMLErrorCode_t;
 
 
