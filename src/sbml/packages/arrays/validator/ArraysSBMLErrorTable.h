@@ -602,7 +602,17 @@ static const packageErrorTableEntry arraysErrorTable[] =
     }
   },
 
-  // 8020205
+      // 8020117
+  { ArraysSBaseAllowedElements,
+      "Short description",
+      LIBSBML_CAT_GENERAL_CONSISTENCY,
+      LIBSBML_SEV_ERROR,
+      "",
+      { "L3V1 Arrays V1"
+      }
+  },
+
+      // 8020205
   { arrays_8020205,
     "Short description",
     LIBSBML_CAT_GENERAL_CONSISTENCY,

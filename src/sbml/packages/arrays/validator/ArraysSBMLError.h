@@ -82,6 +82,7 @@ typedef enum
 , arrays_8020114 = 8020114
 , arrays_8020115 = 8020115
 , arrays_8020116 = 8020116
+, ArraysSBaseAllowedElements = 8020117 // SK need to look at this
 , ArraysDimensionAllowedCoreAttributes						  = 8020201
 , ArraysDimensionAllowedAttributes							  = 8020202
 , ArraysDimensionArrayDimensionMustBeUnInteger				  = 8020203
