@@ -266,6 +266,7 @@ ASTNode::ASTNode (int type) :
   else
   {
     bool found = false;
+    if (getNumPlugins() == 0) loadASTPlugins(NULL);
     for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
     {
       if (found == false 
@@ -1299,6 +1300,7 @@ ASTNode::setType (int type)
   else
   {
     bool found = false;
+    if (getNumPlugins() == 0) loadASTPlugins(NULL);
     for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
     {
       if (found == false)
@@ -2827,6 +2829,8 @@ ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
   const string&  name = element.getName();
   if (name == "math")
   {
+    // for attributes we should have the namespace here 
+    
     ASTBase::checkPrefix(stream, reqd_prefix, element);
 
     const XMLToken elem = stream.next();
@@ -2837,7 +2841,9 @@ ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
       return read;
     }
 
+    // for attributes we should have the namespace here 
     stream.skipText();
+ //   ASTBase::loadASTPlugins(NULL);
     read = ASTNode::read(stream, reqd_prefix);
     // we may have a legitimate read but the next token is not the end of math
     // we want to tell the user but allow the astnode as-is
@@ -3464,6 +3470,7 @@ ASTNode::unsetUserData()
 ASTBasePlugin* 
 ASTNode::getPlugin(const std::string& package)
 {
+
   if (mNumber != NULL)
   {
     return mNumber->getPlugin(package);
@@ -3508,6 +3515,24 @@ const ASTBasePlugin*
 {
   return const_cast<ASTNode*>(this)->getPlugin(n);
 }
+
+unsigned int
+ASTNode::getNumPlugins() const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getNumPlugins();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getNumPlugins();
+  }
+  else
+  {
+    return ASTBase::getNumPlugins();
+  }
+}
+
 
 unsigned int
 ASTNode::getNumPiece() const
@@ -3777,12 +3802,14 @@ ASTNode::reset()
 {
   if (mNumber != NULL)
   {
+    this->syncMembersOnlyFrom(mNumber);
     delete mNumber;
     mNumber = NULL;
   }
 
   if (mFunction != NULL)
   {
+    this->syncMembersOnlyFrom(mFunction);
     delete mFunction;
     mFunction = NULL;
   }

@@ -89,6 +89,10 @@ START_TEST (test_multi_write_ci)
 
   SBMLDocument* docfromString = readSBMLFromString(docStr.c_str());
 
+  // check read and write produced same string
+  string secondDocStr = writeSBMLToStdString(docfromString);
+  fail_unless(docStr == secondDocStr);
+
   fail_unless(docfromString != NULL);
   Model* model = docfromString->getModel();
   fail_unless(model != NULL);
@@ -213,6 +217,122 @@ START_TEST (test_multi_create_ci)
 }
 END_TEST
 
+START_TEST(test_multi_ast_plugin)
+{
+  SBMLNamespaces sbmlns(3, 1, "multi", 1);
+
+  // create the document
+
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+
+  // set the required attribute to true
+  MultiSBMLDocumentPlugin * docPlug =
+    static_cast<MultiSBMLDocumentPlugin*>(document->getPlugin("multi"));
+  docPlug->setRequired(true);
+
+
+  // create the Model
+
+  Model* model = document->createModel();
+
+  // create a  compartment
+
+  Compartment * c = model->createCompartment();
+  c->setId("membrane");
+  c->setConstant(true);
+
+  // set the multi attribute isType via the compartmentPlugin
+  MultiCompartmentPlugin * compPlug =
+    static_cast<MultiCompartmentPlugin*>(c->getPlugin("multi"));
+  compPlug->setIsType(true);
+
+  // create species
+  Species *s = model->createSpecies();
+  s->setId("s1");
+  s->setCompartment("membrane");
+  s->setBoundaryCondition(false);
+  s->setHasOnlySubstanceUnits(false);
+  s->setConstant(false);
+
+  // create reaction
+  Reaction *r = model->createReaction();
+  r->setId("r1");
+  r->setFast(false);
+  r->setReversible(false);
+
+  // createReactant
+  SpeciesReference *sr = r->createReactant();
+  sr->setId("sr1");
+  sr->setSpecies("s1");
+  sr->setConstant(false);
+
+  KineticLaw *kl = r->createKineticLaw();
+
+  ASTNode * ci = new ASTNode(AST_NAME);
+  ci->setName("s1");
+  MultiASTPlugin * astPlugin = static_cast<MultiASTPlugin*>(ci->getPlugin("multi"));
+  astPlugin->setSpeciesReference("r1");
+
+    fail_unless(ci->getNumPlugins() == 1);
+
+
+  ASTNode * ci1 = new ASTNode(AST_NAME);
+  MultiASTPlugin * astPlugin1 = static_cast<MultiASTPlugin*>(ci1->getPlugin("multi"));
+  astPlugin1->setRepresentationType("sum");
+  ci1->setName("s1");
+
+  fail_unless(ci1->getNumPlugins() == 1);
+
+
+  ASTNode *math = new ASTNode(AST_TIMES);
+  math->addChild(ci);
+  math->addChild(ci1);
+
+  fail_unless(math->getNumPlugins() == 0);
+
+  kl->setMath(math);
+  delete math;
+
+  AssignmentRule *ar = model->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode * ci2 = new ASTNode(AST_NAME);
+  ci2->setName("s1");
+ 
+  fail_unless(ci2->getNumPlugins() == 0);
+
+  ASTNode * ci3 = new ASTNode(AST_NAME);
+  ci3->setName("s1");
+
+  fail_unless(ci3->getNumPlugins() == 0);
+
+  ASTNode *math1 = new ASTNode(AST_TIMES);
+  math1->addChild(ci2);
+  math1->addChild(ci3);
+
+  fail_unless(math1->getNumPlugins() == 0);
+
+  ar->setMath(math1);
+  delete math1;
+
+  // check plugins when we retrieve the math
+
+  const ASTNode* node = model->getRule(0)->getMath();
+  fail_unless(node->getNumPlugins() == 0);
+  fail_unless(node->getNumChildren() == 2);
+  fail_unless(node->getChild(0)->getNumPlugins() == 0);
+  fail_unless(node->getChild(1)->getNumPlugins() == 0);
+
+  const ASTNode* node1 = model->getReaction(0)->getKineticLaw()->getMath();
+  fail_unless(node1->getNumPlugins() == 0);
+  fail_unless(node1->getNumChildren() == 2);
+  fail_unless(node1->getChild(0)->getNumPlugins() == 1);
+  fail_unless(node1->getChild(1)->getNumPlugins() == 1);
+
+  delete document;
+}
+END_TEST
+
 
 Suite *
 create_suite_MultiAST(void)
@@ -223,6 +343,7 @@ create_suite_MultiAST(void)
   tcase_add_test(tcase, test_multi_read_ci);
   tcase_add_test(tcase, test_multi_write_ci);
   tcase_add_test(tcase, test_multi_create_ci);
+  tcase_add_test(tcase, test_multi_ast_plugin);
 
   suite_add_tcase(suite, tcase);
 

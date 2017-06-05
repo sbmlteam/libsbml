@@ -2535,6 +2535,44 @@ ASTNumber::getPlugin(unsigned int n) const
 }
 
 
+unsigned int
+ASTNumber::getNumPlugins() const
+{
+  if (mExponential != NULL)
+  {
+    return mExponential->getNumPlugins();
+  }
+  else if (mInteger != NULL)
+  {
+    return mInteger->getNumPlugins();
+  }
+  else if (mRational != NULL)
+  {
+    return mRational->getNumPlugins();
+  }
+  else if (mReal != NULL)
+  {
+    return mReal->getNumPlugins();
+  }
+  else if (mCiNumber != NULL)
+  {
+    return mCiNumber->getNumPlugins();
+  }
+  else if (mConstant != NULL)
+  {
+    return mConstant->getNumPlugins();
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->getNumPlugins();
+  }
+  else
+  {
+    return ASTBase::getNumPlugins();
+  }
+}
+
+
 void 
 ASTNumber::write(XMLOutputStream& stream) const
 {
@@ -2903,42 +2941,49 @@ ASTNumber::reset()
 {
   if (mExponential != NULL)
   {
+    this->syncMembersOnlyFrom(mExponential);
     delete mExponential;
     mExponential = NULL;
   }
 
   if (mInteger != NULL)
   {
+    this->syncMembersOnlyFrom(mInteger);
     delete mInteger;
     mInteger = NULL;
   }
 
   if (mRational != NULL)
   {
+    this->syncMembersOnlyFrom(mRational);
     delete mRational;
     mRational = NULL;
   }
 
   if (mReal != NULL)
   {
+    this->syncMembersOnlyFrom(mReal);
     delete mReal;
     mReal = NULL;
   }
 
   if (mCiNumber != NULL)
   {
+    this->syncMembersOnlyFrom(mCiNumber);
     delete mCiNumber;
     mCiNumber = NULL;
   }
 
   if (mConstant != NULL)
   {
+    this->syncMembersOnlyFrom(mConstant);
     delete mConstant;
     mConstant = NULL;
   }
 
   if (mCSymbol != NULL)
   {
+    this->syncMembersOnlyFrom(mCSymbol);
     delete mCSymbol;
     mCSymbol = NULL;
   }

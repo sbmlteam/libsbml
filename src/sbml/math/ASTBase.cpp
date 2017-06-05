@@ -102,7 +102,7 @@ ASTBase::ASTBase (int type) :
 {
   setType(type);
 
-  loadASTPlugins(NULL);
+ // loadASTPlugins(NULL);
 
   // need to set the package name
 
@@ -128,7 +128,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
 {
   setType(type);
 
-  loadASTPlugins(sbmlns);
+//  loadASTPlugins(sbmlns);
   
   // need to set the package name
 
@@ -472,7 +472,13 @@ ASTBase::isPackageInfixFunction() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin((unsigned int)i)->isPackageInfixFunction()) return true;
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      if (getPlugin((unsigned int)i)->isPackageInfixFunction()) return true;
+    }
   }
   return false;
 }
@@ -483,7 +489,13 @@ ASTBase::hasPackageOnlyInfixSyntax() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin((unsigned int)i)->hasPackageOnlyInfixSyntax()) return true;
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      if (getPlugin((unsigned int)i)->hasPackageOnlyInfixSyntax()) return true;
+    }
   }
   return false;
 }
@@ -494,8 +506,14 @@ ASTBase::getL3PackageInfixPrecedence() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return 8;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    int ret = getPlugin((unsigned int)i)->getL3PackageInfixPrecedence();
-    if (ret != -1) return ret;
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      int ret = getPlugin((unsigned int)i)->getL3PackageInfixPrecedence();
+      if (ret != -1) return ret;
+    }
   }
   return 8;
 }
@@ -506,7 +524,13 @@ ASTBase::hasUnambiguousPackageInfixGrammar(const ASTNode *child) const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin((unsigned int)i)->hasUnambiguousPackageInfixGrammar(child)) return true;
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      if (getPlugin((unsigned int)i)->hasUnambiguousPackageInfixGrammar(child)) return true;
+    }
   }
   return false;
 }
@@ -536,10 +560,34 @@ ASTBase::isBoolean() const
     unsigned int i = 0;
     while(boolean == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isLogical(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        boolean = true;
+        if (plugin->isLogical(getExtendedType()) == true)
+        {
+          boolean = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (boolean == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isLogical(getExtendedType()) == true)
+        {
+          boolean = true;
+        }
       }
       i++;
     }
@@ -565,10 +613,34 @@ ASTBase::isBinaryFunction() const
     unsigned int i = 0;
     while(isFunction == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsBinaryFunction(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isFunction = true;
+        if (plugin->representsBinaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isFunction == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->representsBinaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
       }
       i++;
     }
@@ -641,10 +713,34 @@ ASTBase::isConstantNumber() const
     unsigned int i = 0;
     while(isNumber == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isConstantNumber(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNumber = true;
+        if (plugin->isConstantNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNumber == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isConstantNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
       }
       i++;
     }
@@ -674,15 +770,39 @@ ASTBase::isCSymbolFunction() const
     unsigned int i = 0;
     while(isCsymbolFunc == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolFunction(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isCsymbolFunc = true;
+        if (plugin->isCSymbolFunction(getExtendedType()) == true)
+        {
+          isCsymbolFunc = true;
+        }
       }
       i++;
     }
   }
-  
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isCsymbolFunc == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isCSymbolFunction(getExtendedType()) == true)
+        {
+          isCsymbolFunc = true;
+        }
+      }
+      i++;
+    }
+  }
+
   return isCsymbolFunc;
 }
 
@@ -707,10 +827,34 @@ ASTBase::isCSymbolNumber() const
     unsigned int i = 0;
     while(isNumber == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isCSymbolNumber(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNumber = true;
+        if (plugin->isCSymbolNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNumber == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isCSymbolNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
       }
       i++;
     }
@@ -739,10 +883,34 @@ ASTBase::isFunction() const
     unsigned int i = 0;
     while(isFunction == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunction(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isFunction = true;
+        if (plugin->isFunction(getExtendedType()) == true)
+        {
+          isFunction = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isFunction == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isFunction(getExtendedType()) == true)
+        {
+          isFunction = true;
+        }
       }
       i++;
     }
@@ -785,10 +953,34 @@ ASTBase::isLogical() const
     unsigned int i = 0;
     while(isLogical == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isLogical(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isLogical = true;
+        if (plugin->isLogical(type) == true)
+        {
+          isLogical = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isLogical == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isLogical(type) == true)
+        {
+          isLogical = true;
+        }
       }
       i++;
     }
@@ -819,10 +1011,34 @@ ASTBase::isName() const
     unsigned int i = 0;
     while(isName == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isName(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isName = true;
+        if (plugin->isName(getExtendedType()) == true)
+        {
+          isName = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isName == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isName(getExtendedType()) == true)
+        {
+          isName = true;
+        }
       }
       i++;
     }
@@ -852,10 +1068,34 @@ ASTBase::isNaryFunction() const
     unsigned int i = 0;
     while(isFunction == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsNaryFunction(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isFunction = true;
+        if (plugin->representsNaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isFunction == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->representsNaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
       }
       i++;
     }
@@ -886,10 +1126,34 @@ ASTBase::isNumber() const
     unsigned int i = 0;
     while(isNumber == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumber(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNumber = true;
+        if (plugin->isNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNumber == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isNumber(getExtendedType()) == true)
+        {
+          isNumber = true;
+        }
       }
       i++;
     }
@@ -915,10 +1179,34 @@ ASTBase::isOperator() const
     unsigned int i = 0;
     while(isOperator == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isOperator(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isOperator = true;
+        if (plugin->isOperator(type) == true)
+        {
+          isOperator = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isOperator == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isOperator(type) == true)
+        {
+          isOperator = true;
+        }
       }
       i++;
     }
@@ -949,10 +1237,34 @@ ASTBase::isQualifier() const
     unsigned int i = 0;
     while(isQualifier == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsQualifier(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isQualifier = true;
+        if (plugin->representsQualifier(getExtendedType()) == true)
+        {
+          isQualifier = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isQualifier == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->representsQualifier(getExtendedType()) == true)
+        {
+          isQualifier = true;
+        }
       }
       i++;
     }
@@ -990,10 +1302,34 @@ ASTBase::isRelational() const
     unsigned int i = 0;
     while(relational == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isRelational(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        relational = true;
+        if (plugin->isRelational(type) == true)
+        {
+          relational = true;
+        }
+      }
+      i++;
+    }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (relational == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isRelational(type) == true)
+        {
+          relational = true;
+        }
       }
       i++;
     }
@@ -1033,14 +1369,39 @@ ASTBase::isUnaryFunction() const
     unsigned int i = 0;
     while(isFunction == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsUnaryFunction(type) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isFunction = true;
+        if (plugin->representsUnaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
       }
       i++;
     }
   }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isFunction == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->representsUnaryFunction(type) == true)
+        {
+          isFunction = true;
+        }
+      }
+      i++;
+    }
+  }
+
   return isFunction;
 }
 
@@ -1084,13 +1445,38 @@ ASTBase::isNumberNode() const
     unsigned int i = 0;
     while(isNumberNode == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isNumberNode(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNumberNode = true;
+        if (plugin->isNumberNode(getExtendedType()) == true)
+        {
+          isNumberNode = true;
+        }
       }
       i++;
     }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNumberNode == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isNumberNode(getExtendedType()) == true)
+        {
+          isNumberNode = true;
+        }
+      }
+      i++;
+    }
+
   }
 
   return isNumberNode;
@@ -1119,13 +1505,38 @@ ASTBase::isFunctionNode() const
     unsigned int i = 0;
     while(isFunctionNode == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isFunctionNode(getExtendedType()) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isFunctionNode = true;
+        if (plugin->isFunctionNode(getExtendedType()) == true)
+        {
+          isFunctionNode = true;
+        }
       }
       i++;
     }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isFunctionNode == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isFunctionNode(getExtendedType()) == true)
+        {
+          isFunctionNode = true;
+        }
+      }
+      i++;
+    }
+
   }
 
   return isFunctionNode;
@@ -1146,13 +1557,38 @@ ASTBase::isTopLevelMathMLFunctionNodeTag(const std::string& name) const
     unsigned int i = 0;
     while(isNode == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isTopLevelMathMLFunctionNodeTag(name) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNode = true;
+        if (plugin->isTopLevelMathMLFunctionNodeTag(name) == true)
+        {
+          isNode = true;
+        }
       }
       i++;
     }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNode == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isTopLevelMathMLFunctionNodeTag(name) == true)
+        {
+          isNode = true;
+        }
+      }
+      i++;
+    }
+
   }
 
   return isNode;
@@ -1173,13 +1609,38 @@ ASTBase::isTopLevelMathMLNumberNodeTag(const std::string& name) const
     unsigned int i = 0;
     while(isNode == false && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->isTopLevelMathMLNumberNodeTag(name) == true)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        isNode = true;
+        if (plugin->isTopLevelMathMLNumberNodeTag(name) == true)
+        {
+          isNode = true;
+        }
       }
       i++;
     }
+  }
+  else
+  {
+    if (getNumPlugins() == 0)  const_cast<ASTBase*>(this)->loadASTPlugins(NULL);
+    unsigned int i = 0;
+    while (isNode == false && i < getNumPlugins())
+    {
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i));
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        if (plugin->isTopLevelMathMLNumberNodeTag(name) == true)
+        {
+          isNode = true;
+        }
+      }
+      i++;
+    }
+
   }
 
   return isNode;
@@ -1215,7 +1676,7 @@ ASTBase::setUserData(void *userData)
 void *
 ASTBase::getUserData() const
 {
-	return mUserData;
+  return mUserData;
 }
 
 
@@ -1311,7 +1772,13 @@ ASTBase::addExpectedAttributes(ExpectedAttributes& attributes,
   
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->addExpectedAttributes(attributes, stream, getExtendedType());
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      getPlugin(i)->addExpectedAttributes(attributes, stream, getExtendedType());
+    }
   }
 }
 
@@ -1394,7 +1861,7 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
 
   if (!id.empty())
   {
-	  if (setId(id) != LIBSBML_OPERATION_SUCCESS)
+    if (setId(id) != LIBSBML_OPERATION_SUCCESS)
     {
       read = false;
     }
@@ -1402,7 +1869,7 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
 
   if (!className.empty())
   {
-	  if (setClass(className) != LIBSBML_OPERATION_SUCCESS)
+    if (setClass(className) != LIBSBML_OPERATION_SUCCESS)
     {
       read = false;
     }
@@ -1410,7 +1877,7 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
 
   if (!style.empty())
   {
-	  if (setStyle(style) != LIBSBML_OPERATION_SUCCESS)
+    if (setStyle(style) != LIBSBML_OPERATION_SUCCESS)
     {
       read = false;
     }
@@ -1419,8 +1886,14 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
   unsigned int i = 0;
   while (read == true && i < getNumPlugins())
   {
-    read = getPlugin(i)->readAttributes(attributes, expectedAttributes, 
-                                        stream, element, getExtendedType());
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      read = getPlugin(i)->readAttributes(attributes, expectedAttributes,
+        stream, element, getExtendedType());
+    }
     i++;
   }
 
@@ -1458,6 +1931,37 @@ ASTBase::addPlugin(ASTBasePlugin* plugin)
   mPlugins.push_back(plugin);
 }
 
+void
+ASTBase::addPlugin(const std::string& package)
+{
+  const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+  unsigned int numPkgs = (unsigned int)names.size();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const std::string& uri = names[i];
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+    if (sbmlext && sbmlext->isEnabled() && uri == package)
+    {
+
+      //const std::string &prefix = xmlns->getPrefix(i);
+      const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+      if (astPlugin != NULL)
+      {
+        ASTBasePlugin* myastPlugin = astPlugin->clone();
+        myastPlugin->setSBMLExtension(sbmlext);
+        //            myastPlugin->setPrefix(xmlns->getPrefix(i));
+        myastPlugin->connectToParent(this);
+        mPlugins.push_back(myastPlugin);
+      }
+
+    }
+  }
+}
+
+
+
 
 /*
  * Returns a plugin object (extenstion interface) of package extension
@@ -1486,6 +1990,28 @@ ASTBase::getPlugin(const std::string& package)
     {
       astPlugin = mPlugins[i];
       break;
+    }
+  }
+
+  if (astPlugin == 0)
+  {
+    // we havent needed a plugin yet
+    addPlugin(package);
+    
+    for (size_t i = 0; i < mPlugins.size(); i++)
+    {
+      std::string uri = mPlugins[i]->getURI();
+      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+      if (uri == package)
+      {
+        astPlugin = mPlugins[i];
+        break;
+      }
+      else if (sbmlext && (sbmlext->getName() == package))
+      {
+        astPlugin = mPlugins[i];
+        break;
+      }
     }
   }
 
@@ -1530,7 +2056,7 @@ ASTBase::getPlugin(unsigned int n)
 const ASTBasePlugin* 
 ASTBase::getPlugin(unsigned int n) const
 {
-  return const_cast<ASTBase*>(this)->getPlugin(n);
+  return const_cast<ASTBase*>(this)->ASTBase::getPlugin(n);
 }
 
 
@@ -1604,9 +2130,9 @@ void
 ASTBase::writeConstant(XMLOutputStream& stream, const std::string & name) const
 {
 
-	stream.startElement(name);
+  stream.startElement(name);
   writeAttributes(stream);
-	stream.endElement(name);
+  stream.endElement(name);
 }
 
 void 
@@ -1614,9 +2140,9 @@ ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 {
 
   const char * name = getNameFromType(getExtendedType());
-	stream.startElement(name);
+  stream.startElement(name);
   writeAttributes(stream);
-	stream.endElement(name);
+  stream.endElement(name);
   
 }
 
@@ -1625,7 +2151,7 @@ void
 ASTBase::writeStartElement (XMLOutputStream& stream) const
 {
   std::string name = getNameFromType(getExtendedType());
-	stream.startElement(name);
+  stream.startElement(name);
   writeAttributes(stream);
 }
 
@@ -1637,13 +2163,19 @@ ASTBase::writeAttributes (XMLOutputStream& stream) const
   if (isSetId())
     stream.writeAttribute("id", getId());
   if (isSetClass())
-	  stream.writeAttribute("class", getClass());
+    stream.writeAttribute("class", getClass());
   if (isSetStyle())
     stream.writeAttribute("style", getStyle());
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->writeAttributes(stream, getExtendedType());
+    // now that I'm only loading required plugins there may on occasion
+    // be null plugins - need to check
+    const ASTBasePlugin * plugin = getPlugin((unsigned int)(i));
+    if (plugin != NULL)
+    {
+      plugin->writeAttributes(stream, getExtendedType());
+    }
   }
 }
 
@@ -1665,8 +2197,13 @@ ASTBase::getTypeFromName(const std::string& name) const
     unsigned int i = 0;
     while (type == AST_UNKNOWN && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      type = plugin->getTypeFromName(name);
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
+      {
+        type = plugin->getTypeFromName(name);
+      }
       i++;
     }
   }
@@ -1686,11 +2223,16 @@ ASTBase::getNameFromType(int type) const
     bool empty = name == NULL || strcmp(name, "") == 0;
     while (empty == true && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      name = plugin->getNameFromType(type);
-      if (strcmp(name, "AST_unknown") == 0)
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
+      // now that I'm only loading required plugins there may on occasion
+      // be null plugins - need to check
+      if (plugin != NULL)
       {
-        name = "";
+        name = plugin->getNameFromType(type);
+        if (strcmp(name, "AST_unknown") == 0)
+        {
+          name = "";
+        }
       }
       i++;
       empty = (strcmp(name, "") == 0);
@@ -1711,6 +2253,11 @@ ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
     for (unsigned int i=0; i < numPkgs; i++)
     {
       const std::string& uri = names[i];
+      // we dont want to load the multi plugin here as it is used in a 
+      // very niche case and will be added when necessary
+      if (uri == "multi")
+        continue;
+
       const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
       if (sbmlext && sbmlext->isEnabled())
@@ -1841,7 +2388,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
   transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
              mPlugins.begin(), CloneASTPluginEntityNoParent() );
 
-  // reset parents
+   //reset parents
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
     getPlugin(i)->connectToParent(this);
@@ -1858,13 +2405,37 @@ ASTBase::syncMembersOnlyFrom(ASTBase* rhs)
   }
 
 //  mIsChildFlag          = rhs->mIsChildFlag;
-  mId                   = rhs->mId;
-  mClass                = rhs->mClass;
-  mStyle                = rhs->mStyle;
-  mParentSBMLObject     = rhs->mParentSBMLObject;
-  mUserData             = rhs->mUserData;
+  mType = rhs->mType;
+  mTypeFromPackage = rhs->mTypeFromPackage;
+  mPackageName = rhs->mPackageName;
+  mId = rhs->mId;
+  mClass = rhs->mClass;
+  mStyle = rhs->mStyle;
+  mParentSBMLObject = rhs->mParentSBMLObject;
+  mUserData = rhs->mUserData;
+  mIsBvar = rhs->mIsBvar;
 
 }
+
+
+void
+ASTBase::syncCoreMembersOnlyFrom(ASTBase* rhs)
+{
+  if (rhs == NULL || rhs == this)
+  {
+    return;
+  }
+
+  //  mIsChildFlag          = rhs->mIsChildFlag;
+  mId = rhs->mId;
+  mClass = rhs->mClass;
+  mStyle = rhs->mStyle;
+  mParentSBMLObject = rhs->mParentSBMLObject;
+  mUserData = rhs->mUserData;
+  mIsBvar = rhs->mIsBvar;
+
+}
+
 
 
 
@@ -1874,12 +2445,16 @@ ASTBase::resetPackageName()
 {
   std::string name = "";
   int type = getExtendedType();
+  if (getType() == AST_ORIGINATES_IN_PACKAGE && getNumPlugins() == 0)
+  {
+    loadASTPlugins(NULL);
+  }
   if (getNumPlugins() > 0)
   {
     unsigned int i = 0;
     while (name.empty() == true && i < getNumPlugins())
     {
-      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
+      const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(ASTBase::getPlugin(i)); 
       name = plugin->getNameFromType(type);
       if (name == "AST_unknown")
       {

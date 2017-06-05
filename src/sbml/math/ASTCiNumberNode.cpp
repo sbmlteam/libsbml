@@ -248,6 +248,20 @@ ASTCiNumberNode::readAttributes(const XMLAttributes& attributes,
   return true;
 }
 
+bool
+hasMultiAttributes(XMLToken element)
+{
+  bool multi = false;
+  for (int i = 0; i < element.getAttributesLength(); i++)
+  {
+    if (element.getAttrURI(i) == "http://www.sbml.org/sbml/level3/version1/multi/version1")
+    {
+      multi = true;
+      break;
+    }
+  }
+  return multi;
+}
 
 bool
 ASTCiNumberNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
@@ -267,6 +281,11 @@ ASTCiNumberNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
   }
 
   ExpectedAttributes expectedAttributes;
+  // only do this if I know to expect multi
+  if (hasMultiAttributes(element) && getPlugin("multi") == NULL)
+  {
+    addPlugin("multi");
+  }
   addExpectedAttributes(expectedAttributes, stream);
   read = readAttributes(element.getAttributes(), expectedAttributes,
                         stream, element);

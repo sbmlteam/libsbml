@@ -70,6 +70,8 @@ main (int argc, char* argv[])
   int num_failed = 0;
   setTestDataDirectory();
 
+  //SRunner *runner = srunner_create(create_suite_MultiAST());
+
   SRunner *runner = srunner_create(create_suite_MultiExtension());
   srunner_add_suite( runner, create_suite_MultiCheckConsistency() );
   srunner_add_suite( runner, create_suite_MultiAST() );
