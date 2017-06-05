@@ -102,8 +102,9 @@ main (void)
 
   setTestDataDirectory();
 
-  SRunner *runner = srunner_create( create_suite_NewASTNode() );
+  //SRunner *runner = srunner_create(create_suite_ArrayInfixWriting() );
 
+  SRunner *runner = srunner_create(create_suite_NewASTNode());
   srunner_add_suite( runner, create_suite_ArrayInfixWriting     () );
   srunner_add_suite( runner, create_suite_ArrayInfixParsing     () );
   srunner_add_suite( runner, create_suite_NewReadMathML         () );

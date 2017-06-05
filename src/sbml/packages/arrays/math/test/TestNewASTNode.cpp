@@ -81,6 +81,9 @@ START_TEST (test_ASTNode_create)
   fail_unless( n->isWellFormedASTNode() == true);
   fail_unless( n->hasCorrectNumberArguments() == true);
 
+  fail_unless(n->getNumPlugins() == 1);
+
+
   delete n;
 }
 END_TEST
@@ -103,6 +106,7 @@ START_TEST (test_ASTNode_deepCopy_1)
   fail_unless( node->getNumChildren() == 2        );
 
   child = node->getLeftChild();
+  fail_unless(child->getNumPlugins() == 0);
 
   fail_unless( child->getType       () == AST_INTEGER );
   fail_unless( child->getInteger    () == 1           );
@@ -110,9 +114,16 @@ START_TEST (test_ASTNode_deepCopy_1)
 
   child = node->getRightChild();
 
+  fail_unless(child->getNumPlugins() == 0);
   fail_unless( child->getType       () == AST_INTEGER );
   fail_unless( child->getInteger    () == 2           );
   fail_unless( child->getNumChildren() == 0           );
+
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+  
+  fail_unless(node->getNumPlugins() == 1);
+
 
   /** deepCopy() **/
   copy = node->deepCopy();
@@ -124,19 +135,23 @@ START_TEST (test_ASTNode_deepCopy_1)
 
   child = copy->getLeftChild();
 
+  fail_unless(child->getNumPlugins() == 0);
   fail_unless( child != node->getLeftChild() );
   fail_unless( child->getType       () == AST_INTEGER );
   fail_unless( child->getInteger    () == 1           );
   fail_unless( child->getNumChildren() == 0           );
 
   child = copy->getRightChild();
+  fail_unless(child->getNumPlugins() == 0);
   fail_unless( child != node->getRightChild() );
   fail_unless( child->getType       () == AST_INTEGER );
   fail_unless( child->getInteger    () == 2           );
   fail_unless( child->getNumChildren() == 0           );
 
-  fail_unless(node->isWellFormedASTNode() == true);
-  fail_unless(node->hasCorrectNumberArguments() == true);
+  fail_unless(copy->isWellFormedASTNode() == true);
+  fail_unless(copy->hasCorrectNumberArguments() == true);
+
+  fail_unless(copy->getNumPlugins() == 1);
 
   delete node;
   delete copy;

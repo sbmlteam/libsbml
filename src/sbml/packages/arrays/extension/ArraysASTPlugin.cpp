@@ -1329,7 +1329,7 @@ void ArraysASTPlugin::visitPackageInfixSyntax ( const ASTNode *parent,
 
 int ArraysASTPlugin::checkNumArguments(const ASTNode* function, std::stringstream& error) const
 {
-  if (function->getType() != AST_ORIGINATES_IN_PACKAGE) return 0;
+  if (function->ASTBase::getType() != AST_ORIGINATES_IN_PACKAGE) return 0;
   if (function->getPackageName() != "arrays") return 0;
   const ArraysASTPlugin* aap = static_cast<const ArraysASTPlugin*>(function->getPlugin("arrays"));
   string product = "";
