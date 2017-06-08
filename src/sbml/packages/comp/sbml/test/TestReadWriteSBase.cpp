@@ -77,6 +77,35 @@ START_TEST (test_comp_rwports)
 END_TEST
 
   
+START_TEST(test_comp_rwmoddef)
+{
+  SBMLNamespaces sbmlns(3, 2, "comp", 1);
+
+  SBMLDocument orig(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(orig.getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  Model model(&sbmlns);
+  model.setId("moddef1");
+  ModelDefinition md(model);
+  compdoc->addModelDefinition(&md);
+
+  SBMLWriter writer;
+  stringstream stream;
+  writer.writeSBML(&orig, stream);
+  string original = stream.str();
+
+  // Now round-trip that model.
+  SBMLDocument* doc = readSBMLFromString(original.c_str());
+  compdoc = static_cast<CompSBMLDocumentPlugin*> (doc->getPlugin("comp"));
+  ModelDefinition* moddef = compdoc->getModelDefinition(0);
+  //fail_unless(moddef->isSetId());
+
+  delete doc;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestReadWriteSBaseObjects(void)
 { 
@@ -84,6 +113,7 @@ create_suite_TestReadWriteSBaseObjects(void)
   Suite *suite = suite_create("SBMLCompSBaseObjects");
   
   tcase_add_test(tcase, test_comp_rwports);
+  tcase_add_test(tcase, test_comp_rwmoddef);
 
   suite_add_tcase(suite, tcase);
 
