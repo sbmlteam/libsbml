@@ -62,21 +62,17 @@ def main (args):
     sbmldoc = reader.readSBML(infile)
 
     if sbmldoc.getNumErrors() > 0:
-        exit = True
         if sbmldoc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
             # Handle case of unreadable file here.
             sbmldoc.printErrors()
         elif sbmldoc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
             # Handle case of other file error here.
             sbmldoc.printErrors()
-        elif sbmldoc.getError(0).getErrorId() == 5010100:
-            # bgoli: temporarily deal with spurious distrib error
-            exit = False
         else:
             # Handle other error cases here.
             sbmldoc.printErrors()
-        if exit:
-            sys.exit(1)
+        
+        sys.exit(1)
 
     props = libsbml.ConversionProperties()
     props.addOption("flatten arrays", True, "flatten arrays")
