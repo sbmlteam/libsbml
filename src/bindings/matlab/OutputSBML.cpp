@@ -217,7 +217,7 @@ private:
 
   void addCVTerms(const std::string& name, unsigned int index);
 
-  void freeMemory();
+  void freeStructureMemory();
 
 protected:
 
@@ -292,7 +292,7 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 
 // global variables
-mxArray * mxModel[3];
+mxArray *modelArray = NULL;
 bool freeMemory;
 ModelDetails * details;
 
@@ -301,6 +301,8 @@ IdList unreqdPkgPrefixes;
 
 bool fbcUsingId;
 bool fbcAddGeneProducts;
+bool onlyExpectedFields;
+bool applyUserValidation;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -313,9 +315,7 @@ bool fbcAddGeneProducts;
 void FreeMem(void)
 {
   /* destroy arrays created */
-  mxDestroyArray(mxModel[0]);
-  mxDestroyArray(mxModel[1]);
-  mxDestroyArray(mxModel[2]);
+  mxDestroyArray(modelArray);
 }
 
 void
@@ -487,14 +487,20 @@ StructureFields::~StructureFields()
 {
   // must not do this as it can be a part of a larger model
 //  delete mSBase;
-  mxDestroyArray(mxStructure);
-  mxDestroyArray(mxFieldnames);
-  mxDestroyArray(mxDefaultValues);
-  mxDestroyArray(mxValueTypes);
+  //mxDestroyArray(mxStructure);
+  //mxDestroyArray(mxFieldnames);
+  //mxDestroyArray(mxDefaultValues);
+  //mxDestroyArray(mxValueTypes);
+  // MATLAB says dont call destroy array in a destructor
+  // https://uk.mathworks.com/help/matlab/matlab_external/memory-management-issues.html
+  //mxDestroyArray(mxStructure);
+  //mxDestroyArray(mxFieldnames);
+  //mxDestroyArray(mxDefaultValues);
+  //mxDestroyArray(mxValueTypes);
 }
 
 void
-StructureFields::freeMemory()
+StructureFields::freeStructureMemory()
 {
   mxDestroyArray(mxFieldnames);
   mxDestroyArray(mxDefaultValues);
@@ -569,20 +575,29 @@ StructureFields::populateFields()
       inputCount++;
     }
   }
-
-  if (mexCallMATLAB(1, &mxFieldnames, numberInputs, mxInput, "getStructureFieldnames") != 0)
+  mxArray * exception = NULL;
+  exception = mexCallMATLABWithTrap(1, &mxFieldnames, numberInputs, mxInput, "getStructureFieldnames");
+  if (exception != 0)
   {
+    mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
+
     reportError(id, "Failed to get fieldnames");
   }
 
-  if (mexCallMATLAB(1, &mxDefaultValues, numberInputs, mxInput, "getDefaultValues") != 0)
+  exception = mexCallMATLABWithTrap(1, &mxDefaultValues, numberInputs, mxInput, "getDefaultValues");
+  if (exception != 0)
   {
-    reportError(id, "Failed to get default value");
+      mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
+
+      reportError(id, "Failed to get default value");
   }
 
-  if (mexCallMATLAB(1, &mxValueTypes, numberInputs, mxInput, "getValueType") != 0)
+  exception = mexCallMATLABWithTrap(1, &mxValueTypes, numberInputs, mxInput, "getValueType");
+  if (exception != 0)
   {
-    reportError(id, "Failed to get value types");
+      mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
+
+      reportError(id, "Failed to get value types");
   }
 
   mxDestroyArray(mxInput[0]);
@@ -599,7 +614,7 @@ const std::string
 StructureFields::getFieldname(unsigned int i, const std::string& id)
 {
   mxArray* mxName = mxGetCell(mxFieldnames, i);
-  unsigned int nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
+  size_t nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
   char * fieldname = (char *) mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxName, (char *) fieldname, (mwSize)(nBuflen)) != 0)
   {
@@ -808,7 +823,7 @@ StructureFields::getNamespacesStructure()
 
   const XMLNamespaces * NS = details->getNamespaces()->getNamespaces();
   int n = NS->getLength();
-  mwSize dims[2] = {1, n};
+  mwSize dims[2] = {1, (mwSize)(n)};
 
   /* fields within a namespace structure */
   const int nNoFields = 2;
@@ -852,10 +867,10 @@ StructureFields::getNamespacesStructure()
 }
 
 mxArray*
-  createCVTermStructure(int num)
+createCVTermStructure(int num)
 {
   mxArray* mxCVTermReturn;
-  mwSize dims[2] = {1, num};
+  mwSize dims[2] = {1, (mwSize)(num)};
 
   /* fields within a cvterm structure */
   const int nNoFields = 4;
@@ -1547,7 +1562,7 @@ StructureFields::addCVTerms(const std::string& name, unsigned int index)
   if (mxCVTerms == NULL)
     return;
 
-	size_t numCV = mxGetNumberOfElements(mxCVTerms);
+  size_t numCV = mxGetNumberOfElements(mxCVTerms);
 
   for (unsigned int i = 0; i < numCV; i++)
   {
@@ -1602,7 +1617,7 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
       std::string id = std::string("OutputSBML:addChildElement:") + sf->getTypeCode();
       sf->addAttributes(id, i, n);
 
-      sf->freeMemory();
+      sf->freeStructureMemory();
     }
   }
 }
@@ -2291,12 +2306,12 @@ ModelDetails::ModelDetails()
   mPackageMap.clear();
   mSupportedPackages.clear();
 
-  mLevel = StructureFields::readUint(mxModel[0], "SBML_level", 0);
-  mVersion = StructureFields::readUint(mxModel[0], "SBML_version", 0);
+  mLevel = StructureFields::readUint(modelArray, "SBML_level", 0);
+  mVersion = StructureFields::readUint(modelArray, "SBML_version", 0);
 
-  mDelaySymbol = StructureFields::readString(mxModel[0], "delay_symbol", 0); 
-  mTimeSymbol = StructureFields::readString(mxModel[0], "time_symbol", 0); 
-  mAvogadroSymbol = StructureFields::readString(mxModel[0], "avogadro_symbol", 0); 
+  mDelaySymbol = StructureFields::readString(modelArray, "delay_symbol", 0); 
+  mTimeSymbol = StructureFields::readString(modelArray, "time_symbol", 0); 
+  mAvogadroSymbol = StructureFields::readString(modelArray, "avogadro_symbol", 0); 
 
   populateNamespaces();
   populatePkgMap();
@@ -2325,8 +2340,8 @@ ModelDetails::populateNamespaces()
   mSBMLns = new SBMLNamespaces(getLevel(), getVersion());
 
   XMLNamespaces *xmlns = new XMLNamespaces();
-  mxArray* mxNamespaces = mxGetField(mxModel[0], 0, "namespaces");
-	size_t nNoNamespaces = mxGetNumberOfElements(mxNamespaces);
+  mxArray* mxNamespaces = mxGetField(modelArray, 0, "namespaces");
+  size_t nNoNamespaces = mxGetNumberOfElements(mxNamespaces);
 
   for (unsigned int i = 0; i < nNoNamespaces; i++)
   {
@@ -2364,7 +2379,7 @@ ModelDetails::populatePkgMap()
     {
       std::string prefix = xmlns->getPrefix(i);
       std::string name = prefix + "_version";
-      unsigned int version = StructureFields::readUint(mxModel[0], name, 0);
+      unsigned int version = StructureFields::readUint(modelArray, name, 0);
       mPackageMap.insert(std::pair<const std::string, unsigned int>(prefix, version));
     }
   }
@@ -2683,7 +2698,7 @@ validateNumberOfOutputsForOutput(int nlhs)
 void
 populateModelArray(int nrhs, const mxArray *prhs[])
 {
-  mxModel[0] = mxDuplicateArray(prhs[0]);
+  modelArray = mxDuplicateArray(prhs[0]);
 
   /**
   * note second argument may be the filename
@@ -2698,9 +2713,25 @@ populateModelArray(int nrhs, const mxArray *prhs[])
   */
   if (nrhs > 4)
   {
-    mxModel[1] = mxDuplicateArray(prhs[2]);
-    mxModel[2] = mxDuplicateArray(prhs[3]);
-    double *pr = mxGetPr(prhs[4]); 
+    double *pr2 = mxGetPr(prhs[2]);
+    if (*pr2 == 0)
+    {
+      onlyExpectedFields = false;
+    }
+    else
+    {
+      onlyExpectedFields = true;
+    }
+    double *pr3 = mxGetPr(prhs[3]);
+    if (*pr3 == 0)
+    {
+      applyUserValidation = false;
+    }
+    else
+    {
+      applyUserValidation = true;
+    }
+    double *pr = mxGetPr(prhs[4]);
   
     if (*pr == 0)
     {
@@ -2722,39 +2753,78 @@ populateModelArray(int nrhs, const mxArray *prhs[])
   }
   else if (nrhs > 3)
   {
-    mxModel[1] = mxDuplicateArray(prhs[2]);
-    mxModel[2] = mxDuplicateArray(prhs[3]);
+    double *pr2 = mxGetPr(prhs[2]);
+    if (*pr2 == 0)
+    {
+      onlyExpectedFields = false;
+    }
+    else
+    {
+      onlyExpectedFields = true;
+    }
+    double *pr3 = mxGetPr(prhs[3]);
+    if (*pr3 == 0)
+    {
+      applyUserValidation = false;
+    }
+    else
+    {
+      applyUserValidation = true;
+    }
     fbcUsingId = false;
     fbcAddGeneProducts = true;
   }  
   else if ( nrhs > 2)
   {
-    mxModel[1] = mxDuplicateArray(prhs[2]);
-    mxModel[2] = mxCreateDoubleScalar(0);
+    double *pr2 = mxGetPr(prhs[2]);
+    if (*pr2 == 0)
+    {
+      onlyExpectedFields = false;
+    }
+    else
+    {
+      onlyExpectedFields = true;
+    }
+    applyUserValidation = false;
     fbcUsingId = false;
     fbcAddGeneProducts = true;
   }
   else
   {
-    mxModel[1] = mxCreateDoubleScalar(1);
-    mxModel[2] = mxCreateDoubleScalar(0);
+    onlyExpectedFields = true;
+    applyUserValidation = false;
     fbcUsingId = false;
     fbcAddGeneProducts = true;
   }
-  mexMakeArrayPersistent(mxModel[0]);
-  mexMakeArrayPersistent(mxModel[1]);
-  mexMakeArrayPersistent(mxModel[2]);
   
-  // we have made persistent memory - need to free it is we exit prematurely
+  // we have made memory - need to free it is we exit prematurely
   freeMemory = true;
-
-  mexAtExit(FreeMem);
 }
 
 void 
 validateModel()
 {
   mxArray * mxCheckStructure[2];
+  mxArray * mxModel[3];
+  mxModel[0] = modelArray;
+  if (onlyExpectedFields)
+  {
+    mxModel[1] = mxCreateDoubleScalar(1);
+  }
+  else
+  {
+  
+    mxModel[1] = mxCreateDoubleScalar(0);
+  }
+  if (applyUserValidation)
+  {
+    mxModel[2] = mxCreateDoubleScalar(1);
+  }
+  else
+  {
+
+    mxModel[2] = mxCreateDoubleScalar(0);
+  }
   int nStatus = mexCallMATLAB(2, mxCheckStructure, 3, mxModel, "isSBML_Model");
 
   int value = (int)(mxGetScalar(mxCheckStructure[0]));
@@ -2917,7 +2987,7 @@ checkFileExists(FILE_CHAR filename)
 #else
       msgTxt = (char *) safe_calloc(strlen(filename)+35, sizeof(char));
 #endif
-      sprintf(msgTxt, "File %s does not exist on this path", filename);
+      sprintf(msgTxt, "File %ws does not exist on this path", filename);
       reportError("TranslateSBML:inputArguments:filename", msgTxt);
       safe_free(msgTxt);
     }
@@ -3072,7 +3142,7 @@ getAssociation(unsigned int i)
   mxArray* mxAssociation = NULL;
   mxArray* mxRn = NULL;
   mxArray* mxGPA = NULL;
-  mxRn = mxGetField(mxModel[0], 0, "reaction");
+  mxRn = mxGetField(modelArray, 0, "reaction");
   if (mxRn != NULL && mxIsStruct(mxRn))
   {
     mxGPA = mxGetField(mxRn, i, "fbc_geneProductAssociation");
@@ -3156,7 +3226,7 @@ dealWithAnomalies(SBMLDocument* sbmlDocument)
   if (fbcPresent)
   {
     // the fbc active objective on the listOfObjectives
-    std::string obj = StructureFields::readString(mxModel[0], "fbc_activeObjective", 0);
+    std::string obj = StructureFields::readString(modelArray, "fbc_activeObjective", 0);
     if (!obj.empty())
     {
       FbcModelPlugin* plug = static_cast<FbcModelPlugin*>(sbmlDocument->getModel()->getPlugin("fbc"));
@@ -3164,7 +3234,7 @@ dealWithAnomalies(SBMLDocument* sbmlDocument)
     }
 
     // the gene product associations in fbc v2
-    unsigned int vers = StructureFields::readUint(mxModel[0], "fbc_version", 0);
+    unsigned int vers = StructureFields::readUint(modelArray, "fbc_version", 0);
     if (vers == 2)
     {
       addGeneProductAssociations(sbmlDocument);
@@ -3224,7 +3294,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   //*/
   //if (fbcPresent == 0)
   //{
-  //  nStatus = mxGetFieldNumber(mxModel[0], "fbc_version");
+  //  nStatus = mxGetFieldNumber(modelArray, "fbc_version");
   //  if (nStatus > 0)
   //  {
   //    fbcPresent = 1;
@@ -3239,7 +3309,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   //if (fbcPresent == 1)
   //{
   //  SBMLDocument_setPkgRequired(sbmlDocument, "fbc", 0);
-  //  mxFBCVersion = mxGetField(mxModel[0], 0, "fbc_version");
+  //  mxFBCVersion = mxGetField(modelArray, 0, "fbc_version");
   //  nFBCVersion = (unsigned int) mxGetScalar(mxFBCVersion);
   //  fbcVersion = nFBCVersion;
   //}
@@ -3247,7 +3317,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   /* create a model within the document */
   sbmlModel = sbmlDocument->createModel();
 
-  StructureFields *sf = new StructureFields(sbmlModel, mxModel[0]);
+  StructureFields *sf = new StructureFields(sbmlModel, modelArray);
 
   std::string id = std::string("OutputSBML:GetModel:") + sf->getTypeCode();
   sf->addAttributes(id);
@@ -3264,12 +3334,19 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 #if USE_FILE_WCHAR
   {
     char* sbml = writeSBMLToString(sbmlDocument);
-    size_t len = strlen(sbml);
-    FILE* fp = _wfopen(pacFilename, L"w");
-    fwrite(sbml, sizeof(char), len, fp);
-    fclose(fp);
-    free(sbml);
-    nStatus = 1;
+    if (sbml != NULL)
+    {
+      size_t len = strlen(sbml);
+      FILE* fp = _wfopen(pacFilename, L"w");
+      if (fp != NULL)
+      {
+        fwrite(sbml, sizeof(char), len, fp);
+        fclose(fp);
+        nStatus = 1;
+      }
+
+      free(sbml);
+    }
   }
 #else
   nStatus = writeSBML(sbmlDocument, pacFilename);
@@ -3287,6 +3364,4 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   delete sbmlDocument;
   delete details;
   delete sf;
-
-//  FreeMem();
 }
