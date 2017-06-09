@@ -201,6 +201,24 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+void
+ModelDefinition::writeAttributes(XMLOutputStream& stream) const
+{
+  Model::writeAttributes(stream);
+
+  if (isSetId()) {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
+  if (isSetName()) {
+    stream.writeAttribute("name", getPrefix(), mName);
+  }
+  
+  ModelDefinition::writeExtensionAttributes(stream);
+}
+/** @endcond */
+
+
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */

@@ -90,6 +90,9 @@ START_TEST(test_comp_rwmoddef)
   ModelDefinition md(model);
   compdoc->addModelDefinition(&md);
 
+  ModelDefinition* moddef = compdoc->getModelDefinition(0);
+  fail_unless(moddef->isSetId());
+
   SBMLWriter writer;
   stringstream stream;
   writer.writeSBML(&orig, stream);
@@ -98,8 +101,8 @@ START_TEST(test_comp_rwmoddef)
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());
   compdoc = static_cast<CompSBMLDocumentPlugin*> (doc->getPlugin("comp"));
-  ModelDefinition* moddef = compdoc->getModelDefinition(0);
-  //fail_unless(moddef->isSetId());
+  moddef = compdoc->getModelDefinition(0);
+  fail_unless(moddef->isSetId());
 
   delete doc;
 }
