@@ -87,23 +87,31 @@ START_TEST(test_comp_rwmoddefl3v1)
 
   Model model(&sbmlns);
   model.setId("moddef1");
+  model.setName("Model Definition");
+  model.setMetaId("md1");
   ModelDefinition md(model);
   compdoc->addModelDefinition(&md);
 
   ModelDefinition* moddef = compdoc->getModelDefinition(0);
   fail_unless(moddef->isSetId());
+  fail_unless(moddef->isSetName());
+  fail_unless(moddef->isSetMetaId());
 
   SBMLWriter writer;
   stringstream stream;
   writer.writeSBML(&orig, stream);
   string original = stream.str();
   //fail_unless(original.find("comp:id") == string::npos);
+  //fail_unless(original.find("comp:name") == string::npos);
+  fail_unless(original.find("comp:metaid") == string::npos);
 
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());
   compdoc = static_cast<CompSBMLDocumentPlugin*> (doc->getPlugin("comp"));
   moddef = compdoc->getModelDefinition(0);
   fail_unless(moddef->isSetId());
+  fail_unless(moddef->isSetName());
+  fail_unless(moddef->isSetMetaId());
 
   delete doc;
 }
@@ -120,11 +128,15 @@ START_TEST(test_comp_rwmoddefl3v2)
 
   Model model(&sbmlns);
   model.setId("moddef1");
+  model.setName("Model Definition");
+  model.setMetaId("md1");
   ModelDefinition md(model);
   compdoc->addModelDefinition(&md);
 
   ModelDefinition* moddef = compdoc->getModelDefinition(0);
   fail_unless(moddef->isSetId());
+  fail_unless(moddef->isSetName());
+  fail_unless(moddef->isSetMetaId());
 
   SBMLWriter writer;
   stringstream stream;
@@ -132,12 +144,16 @@ START_TEST(test_comp_rwmoddefl3v2)
   string original = stream.str();
 
   //fail_unless(original.find("comp:id") == string::npos);
+  //fail_unless(original.find("comp:name") == string::npos);
+  fail_unless(original.find("comp:metaid") == string::npos);
 
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());
   compdoc = static_cast<CompSBMLDocumentPlugin*> (doc->getPlugin("comp"));
   moddef = compdoc->getModelDefinition(0);
   fail_unless(moddef->isSetId());
+  fail_unless(moddef->isSetName());
+  fail_unless(moddef->isSetMetaId());
 
   delete doc;
 }
