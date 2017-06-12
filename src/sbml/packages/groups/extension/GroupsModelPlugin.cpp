@@ -589,6 +589,98 @@ GroupsModelPlugin::copyInformationToNestedLists()
 #endif /* __cplusplus */
 
 
+/*
+ * Returns a ListOf_t* containing Group_t objects from this
+ * GroupsModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+GroupsModelPlugin_getListOfGroups(GroupsModelPlugin_t* gmp)
+{
+  return (gmp != NULL) ? gmp->getListOfGroups() : NULL;
+}
+
+
+/*
+ * Get a Group_t from the GroupsModelPlugin_t.
+ */
+LIBSBML_EXTERN
+const Group_t*
+GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n)
+{
+  return (gmp != NULL) ? gmp->getGroup(n) : NULL;
+}
+
+
+/*
+ * Get a Group_t from the GroupsModelPlugin_t based on its identifier.
+ */
+LIBSBML_EXTERN
+const Group_t*
+GroupsModelPlugin_getGroupById(GroupsModelPlugin_t* gmp, const char *sid)
+{
+  return (gmp != NULL && sid != NULL) ? gmp->getGroup(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given Group_t to this GroupsModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+GroupsModelPlugin_addGroup(GroupsModelPlugin_t* gmp, const Group_t* g)
+{
+  return (gmp != NULL) ? gmp->addGroup(g) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of Group_t objects in this GroupsModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+GroupsModelPlugin_getNumGroups(GroupsModelPlugin_t* gmp)
+{
+  return (gmp != NULL) ? gmp->getNumGroups() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new Group_t object, adds it to this GroupsModelPlugin_t object and
+ * returns the Group_t object created.
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_createGroup(GroupsModelPlugin_t* gmp)
+{
+  return (gmp != NULL) ? gmp->createGroup() : NULL;
+}
+
+
+/*
+ * Removes the nth Group_t from this GroupsModelPlugin_t and returns a pointer
+ * to it.
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_removeGroup(GroupsModelPlugin_t* gmp, unsigned int n)
+{
+  return (gmp != NULL) ? gmp->removeGroup(n) : NULL;
+}
+
+
+/*
+ * Removes the Group_t from this GroupsModelPlugin_t based on its identifier
+ * and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_removeGroupById(GroupsModelPlugin_t* gmp, const char* sid)
+{
+  return (gmp != NULL && sid != NULL) ? gmp->removeGroup(sid) : NULL;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END

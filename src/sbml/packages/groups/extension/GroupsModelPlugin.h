@@ -497,9 +497,166 @@ public:
 LIBSBML_CPP_NAMESPACE_END
 
 
-
-
 #endif /* __cplusplus */
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns a ListOf_t* containing Group_t objects from this
+ * GroupsModelPlugin_t.
+ *
+ * @param gmp the GroupsModelPlugin_t structure whose "ListOfGroups" is sought.
+ *
+ * @return the "ListOfGroups" from this GroupsModelPlugin_t as a ListOf_t *.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+GroupsModelPlugin_getListOfGroups(GroupsModelPlugin_t* gmp);
+
+
+/**
+ * Get a Group_t from the GroupsModelPlugin_t.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Group_t to retrieve.
+ *
+ * @return the nth Group_t in the ListOfGroups within this GroupsModelPlugin.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+const Group_t*
+GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n);
+
+
+/**
+ * Get a Group_t from the GroupsModelPlugin_t based on its identifier.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Group_t to retrieve.
+ *
+ * @return the Group_t in the ListOfGroups within this GroupsModelPlugin with
+ * the given id or NULL if no such Group_t exists.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+const Group_t*
+GroupsModelPlugin_getGroupById(GroupsModelPlugin_t* gmp, const char *sid);
+
+
+/**
+ * Adds a copy of the given Group_t to this GroupsModelPlugin_t.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to which the Group_t should be
+ * added.
+ *
+ * @param g the Group_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+GroupsModelPlugin_addGroup(GroupsModelPlugin_t* gmp, const Group_t* g);
+
+
+/**
+ * Get the number of Group_t objects in this GroupsModelPlugin_t.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to query.
+ *
+ * @return the number of Group_t objects in this GroupsModelPlugin_t.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+GroupsModelPlugin_getNumGroups(GroupsModelPlugin_t* gmp);
+
+
+/**
+ * Creates a new Group_t object, adds it to this GroupsModelPlugin_t object and
+ * returns the Group_t object created.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to which the Group_t should be
+ * added.
+ *
+ * @return a new Group_t object instance.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_createGroup(GroupsModelPlugin_t* gmp);
+
+
+/**
+ * Removes the nth Group_t from this GroupsModelPlugin_t and returns a pointer
+ * to it.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Group_t to remove.
+ *
+ * @return a pointer to the nth Group_t in this GroupsModelPlugin_t.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_removeGroup(GroupsModelPlugin_t* gmp, unsigned int n);
+
+
+/**
+ * Removes the Group_t from this GroupsModelPlugin_t based on its identifier
+ * and returns a pointer to it.
+ *
+ * @param gmp the GroupsModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Group_t to remove.
+ *
+ * @return the Group_t in this GroupsModelPlugin_t based on the identifier or
+ * NULL if no such Group_t exists.
+ *
+ * @memberof GroupsModelPlugin_t
+ */
+LIBSBML_EXTERN
+Group_t*
+GroupsModelPlugin_removeGroupById(GroupsModelPlugin_t* gmp, const char* sid);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
 
 
 
