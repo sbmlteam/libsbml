@@ -101,9 +101,12 @@ START_TEST(test_comp_rwmoddefl3v1)
   stringstream stream;
   writer.writeSBML(&orig, stream);
   string original = stream.str();
-  //fail_unless(original.find("comp:id") == string::npos);
-  //fail_unless(original.find("comp:name") == string::npos);
+  fail_unless(original.find("comp:id") == string::npos);
+  fail_unless(original.find("comp:name") == string::npos);
   fail_unless(original.find("comp:metaid") == string::npos);
+  fail_unless(original.find("id") != string::npos);
+  fail_unless(original.find("name") != string::npos);
+  fail_unless(original.find("metaid") != string::npos);
 
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());
@@ -143,9 +146,12 @@ START_TEST(test_comp_rwmoddefl3v2)
   writer.writeSBML(&orig, stream);
   string original = stream.str();
 
-  //fail_unless(original.find("comp:id") == string::npos);
-  //fail_unless(original.find("comp:name") == string::npos);
+  fail_unless(original.find("comp:id") == string::npos);
+  fail_unless(original.find("comp:name") == string::npos);
   fail_unless(original.find("comp:metaid") == string::npos);
+  fail_unless(original.find("id") != string::npos);
+  fail_unless(original.find("name") != string::npos);
+  fail_unless(original.find("metaid") != string::npos);
 
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());

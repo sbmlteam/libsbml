@@ -207,13 +207,18 @@ ModelDefinition::writeAttributes(XMLOutputStream& stream) const
 {
   Model::writeAttributes(stream);
 
-  if (isSetId()) {
-    stream.writeAttribute("id", getPrefix(), mId);
+  // the id and name attribute on a ModelDefinition come from the parent model
+  // BUT if the document is an L3V2 doc and we are using comp l3v1v1 we need to write
+  // the id and name here but still in the sbml ns
+  if (getSBMLDocument()->getVersion() > 1 && this->getObjectVersion() == 1)
+  {
+    if (isSetId()) {
+      stream.writeAttribute("id", getSBMLPrefix(), mId);
+    }
+    if (isSetName()) {
+      stream.writeAttribute("name", getSBMLPrefix(), mName);
+    }
   }
-  if (isSetName()) {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-  
   ModelDefinition::writeExtensionAttributes(stream);
 }
 /** @endcond */
