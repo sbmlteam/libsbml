@@ -409,4 +409,31 @@ if(WITH_CHECK)
            COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
            -p $<TARGET_FILE_DIR:binding_python_lib> -b ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
+
+  # adjust python path so that examples can be run            
+  macro(ADJUST_PYTHONPATH target)
+  
+  if (UNIX)
+  set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:binding_python_lib>:$ENV{PYTHONPATH})
+  else()
+  # need to creatively replace the semicolons
+  SET (NEW_PYTHON_PATH "${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:binding_python_lib>\\;$ENV{PYTHONPATH}")
+  STRING(REPLACE "\\;" ";" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
+  STRING(REPLACE ";" "\\;" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
+  set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${NEW_PYTHON_PATH})
+  endif()
+  
+  endmacro()
+  
+  add_test(NAME test_python_addCVTerms
+           COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCVTerms.py
+           ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+           out.xml
+  )
+  ADJUST_PYTHONPATH(test_python_addCVTerms)
+
+           
 endif()
+
+
+
