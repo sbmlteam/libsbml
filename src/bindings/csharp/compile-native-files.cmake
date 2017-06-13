@@ -97,6 +97,14 @@ execute_process(
 # message("CSHARP_EXTRA_ARGS : ${CSHARP_EXTRA_ARGS}")
 # 
 
+if (NOT EXISTS ${BIN_DIRECTORY}/libsbmlcsP.dll)
+  message(FATAL_ERROR "Could not create the managed library")
+else()
+  # copy binaries to example directory so tests can be run there
+  file(COPY ${BIN_DIRECTORY}/libsbmlcsP.dll 
+       DESTINATION ${BIN_DIRECTORY}/../../../examples/csharp )
+endif()
+
 # delete testrunner if it exists
 if (EXISTS ${BIN_DIRECTORY}/TestRunner.exe)
 	file(REMOVE ${BIN_DIRECTORY}/TestRunner.exe)

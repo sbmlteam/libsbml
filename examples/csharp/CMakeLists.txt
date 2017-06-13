@@ -77,3 +77,45 @@ foreach( example
 	add_custom_target(example_cs_${example} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${example}.exe)
 	add_dependencies(example_cs_${example} binding_csharp_managed_lib)
 endforeach()
+
+
+
+####################################################################
+#
+# CMake Build Script for C# examples
+#
+
+macro(ADJUST_ENVIRONMENT target)
+
+file(TO_NATIVE_PATH $<TARGET_FILE_DIR:binding_csharp_native_lib> CS_PATH)
+
+if (APPLE)
+# adjust DYLD_LIBRARY_PATH
+set_tests_properties(${target} PROPERTIES ENVIRONMENT DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}/../:$<TARGET_FILE_DIR:binding_csharp_native_lib>:$ENV{DYLD_LIBRARY_PATH})
+elseif(UNIX)
+# adjust LD_LIBRARY_PATH
+set_tests_properties(${target} PROPERTIES ENVIRONMENT LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/src/bindings/csharp/:$<TARGET_FILE_DIR:binding_csharp_native_lib>:$ENV{LD_LIBRARY_PATH})
+else()
+# adjust path variable
+SET (NEW_PATH "$<TARGET_FILE_DIR:binding_csharp_native_lib>\\;${CS_PATH}\\;$ENV{PATH}")
+STRING(REPLACE "\\;" ";" NEW_PATH "${NEW_PATH}")
+STRING(REPLACE ";" "\\;" NEW_PATH "${NEW_PATH}")
+set_tests_properties(${target} PROPERTIES ENVIRONMENT PATH=${NEW_PATH})
+endif()
+
+endmacro()
+
+
+set(CS_INTERPRETER)
+if (NOT WIN32)
+set(CS_INTERPRETER mono)
+endif()
+
+
+# now add all examples we want to run
+add_test(NAME test_cs_addCVTerms
+         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCVTerms.exe
+         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         out.xml
+)
+ADJUST_ENVIRONMENT(test_cs_addCVTerms)
