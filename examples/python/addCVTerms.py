@@ -64,6 +64,9 @@ def main (args):
           print("Model has no species.\n Cannot add CV terms\n");
       else:
           s = d.getModel().getSpecies(0);
+          
+          if not s.isSetMetaId(): 
+            s.setMetaId('unique_id_1')
   
           cv = CVTerm();
           cv.setQualifierType(BIOLOGICAL_QUALIFIER);
