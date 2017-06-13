@@ -31,6 +31,11 @@
 
 find_package(Java COMPONENTS Development REQUIRED)
 
+file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)
+file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../src/bindings/java/libsbmlj.jar CURRENT_JAR )
+file(TO_NATIVE_PATH $<TARGET_FILE_DIR:binding_java_lib> LIBRARY_PATH)
+	
+
 foreach(file 
 		addCustomValidator
 		addCVTerms
@@ -64,8 +69,6 @@ foreach(file
 		replaceOneFD
 		)
 	
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../src/bindings/java/libsbmlj.jar CURRENT_JAR )
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${file}.java CURRENT_FILE)
 		
 	add_custom_command(	
@@ -92,3 +95,16 @@ foreach(file
 	add_dependencies(example_java_${file} binding_java_jar)
 	
 endforeach()
+
+
+# add java example tests here
+
+
+add_test(NAME test_java_addCVTerms
+         COMMAND ${Java_JAVA_EXECUTABLE} 
+         -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
+         -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
+         addCVTerms
+         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         out.xml
+)
