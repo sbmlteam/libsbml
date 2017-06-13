@@ -106,3 +106,12 @@ if (WITH_LIBXML)
     target_link_libraries(example_cpp_rngvalidator ${LIBBZ_LIBRARY})
   endif(WITH_BZIP2)
 endif()
+
+
+# run examples as test 
+
+add_test(NAME test_cxx_addCVTerms
+         COMMAND "$<TARGET_FILE:example_cpp_addCVTerms>" 
+         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         out.xml
+)
