@@ -72,3 +72,13 @@ foreach(example
 	target_link_libraries(example_c_${example} ${LIBSBML_LIBRARY}-static)	
 
 endforeach()
+
+
+# run examples as test 
+
+add_test(NAME test_c_addCVTerms
+         COMMAND "$<TARGET_FILE:example_c_addCVTerms>" 
+         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         out.xml
+)
+
