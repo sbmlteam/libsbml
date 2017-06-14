@@ -45,7 +45,6 @@
 /** @cond doxygenIgnored */
 
 using namespace std;
-LIBSBML_CPP_NAMESPACE_USE
 
 static const SpeciesTypeComponentIndex * __getSpeciesTypeComponentIndexFromComponentId(const Model & model, const std::string & componentId)
 {
@@ -71,7 +70,7 @@ static const SpeciesTypeInstance * __getSpeciesTypeInstanceFromComponentId(const
   if (mPlugin != 0) {
     const SpeciesTypeComponentIndex * stci = __getSpeciesTypeComponentIndexFromComponentId(model, componentId);
     if (stci) {
-      std::string nextComponentId = stci->getComponent();
+      const std::string& nextComponentId = stci->getComponent();
 
       sti = __getSpeciesTypeInstanceFromComponentId(model, nextComponentId); // recursive
     }
@@ -98,7 +97,7 @@ static const MultiSpeciesType* __getSpeciesTypeFromComponentId(const Model & mod
 
     const SpeciesTypeComponentIndex * stci = __getSpeciesTypeComponentIndexFromComponentId(model, componentId);
     if (stci) {
-      std::string nextComponentId = stci->getComponent();
+      const std::string& nextComponentId = stci->getComponent();
 
       st = __getSpeciesTypeFromComponentId(model, nextComponentId); // recursive
     }
@@ -155,7 +154,7 @@ static const SpeciesFeatureType* __getSpeciesTypeFromComponent(const Model & mod
       {
         const SpeciesTypeInstance * speciesTypeInstance =
             speciesType->getSpeciesTypeInstance(i);
-        std::string refSpeciesTypeId =
+        const std::string& refSpeciesTypeId =
             speciesTypeInstance->getSpeciesType();
 
         sft = __getSpeciesTypeFromComponent(model, refSpeciesTypeId, speciesFeatureId);
@@ -782,7 +781,7 @@ START_CONSTRAINT (MultiSubLofSpeFtrs_CpoAtt_Ref, SubListOfSpeciesFeatures, subLi
 
   if (!valid) {
 
-	  std::string subLofSpeFtrsComponentId = subListOfSpeciesFeatures.getComponent();
+	  const std::string& subLofSpeFtrsComponentId = subListOfSpeciesFeatures.getComponent();
 
 	  const MultiSpeciesType * st = __getSpeciesTypeFromComponentId(m, subLofSpeFtrsComponentId);
 
@@ -840,9 +839,9 @@ START_CONSTRAINT (MultiSubLofSpeFtrs_RelationAndOcc, SubListOfSpeciesFeatures, s
 		unsigned i;
 		for (i = 0; valid && i < subListOfSpeciesFeatures.getNumSpeciesFeatures(); i++) {
 			const SpeciesFeature * spf = subListOfSpeciesFeatures.get(i);
-			std::string sftId = spf->getSpeciesFeatureType();
-			std::string componentId = spf->getComponent();
-			std::string stId = componentId;
+			const std::string& sftId = spf->getSpeciesFeatureType();
+			const std::string& componentId = spf->getComponent();
+			std::string& stId1 = std::string(componentId);
 			if (componentId.empty()) {
 				const SBase * parent = subListOfSpeciesFeatures.getParentSBMLObject();
 				if (dynamic_cast<const ListOfSpeciesFeatures *>(parent)) {
@@ -855,12 +854,13 @@ START_CONSTRAINT (MultiSubLofSpeFtrs_RelationAndOcc, SubListOfSpeciesFeatures, s
 						const MultiSpeciesPlugin * speciesPlugin =
 						      dynamic_cast<const MultiSpeciesPlugin*>(sp->getPlugin("multi"));
 						if (speciesPlugin != NULL) {
-							stId = speciesPlugin->getSpeciesType();
+							stId1 = speciesPlugin->getSpeciesType();
 						}
 					}
 				}
 			}
 
+      const std::string& stId = stId1;
 			const SpeciesFeatureType* sft = __getSpeciesTypeFromComponent(m, stId, sftId);
 
 			if (sft && sft->getOccur() > 1) {
@@ -903,7 +903,7 @@ START_CONSTRAINT (MultiOutBst_CpoAtt_Ref, OutwardBindingSite, outwardBindingSite
 
   pre (mPlugin != 0);
 
-  std::string bstComponentId = outwardBindingSite.getComponent();
+  const std::string& bstComponentId = outwardBindingSite.getComponent();
 
   const MultiSpeciesType * st = __getSpeciesTypeFromComponentId(m, bstComponentId);
   const BindingSiteSpeciesType * bst =
