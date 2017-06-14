@@ -61,7 +61,7 @@ public class AddingEvidenceCodes1
         }
 
 
-        d = libsbml.readSBML(args[1]);
+        d = libsbml.readSBML(args[0]);
         errors = d.getNumErrors();
 
         if (errors > 0)
