@@ -841,7 +841,7 @@ START_CONSTRAINT (MultiSubLofSpeFtrs_RelationAndOcc, SubListOfSpeciesFeatures, s
 			const SpeciesFeature * spf = subListOfSpeciesFeatures.get(i);
 			const std::string& sftId = spf->getSpeciesFeatureType();
 			const std::string& componentId = spf->getComponent();
-			std::string& stId1 = std::string(componentId);
+			std::string& stId1 = const_cast<std::string&>(componentId);
 			if (componentId.empty()) {
 				const SBase * parent = subListOfSpeciesFeatures.getParentSBMLObject();
 				if (dynamic_cast<const ListOfSpeciesFeatures *>(parent)) {
