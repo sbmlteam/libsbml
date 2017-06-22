@@ -114,193 +114,193 @@ endif()
 
 # now add all examples we want to run
 
-add_test(NAME test_cs_addCVTerms
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCVTerms.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         addCVTerms.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_addCVTerms)
-
-add_test(NAME test_cs_addCustomValidator
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCustomValidator.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_addCustomValidator)
-
-add_test(NAME test_cs_addingEvidenceCodes_1
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addingEvidenceCodes_1.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         addingEvidenceCodes_1.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_addingEvidenceCodes_1)
-
-add_test(NAME test_cs_addingEvidenceCodes_2
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addingEvidenceCodes_2.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         addingEvidenceCodes_2.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_addingEvidenceCodes_2)
-
-add_test(NAME test_cs_addModelHistory
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addModelHistory.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         addModelHistory.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_addModelHistory)
-
-add_test(NAME test_cs_appendAnnotation
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/appendAnnotation.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         appendAnnotation.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_appendAnnotation)
-
-#add_test(NAME test_cs_callExternalValidator
-#         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/callExternalValidator.exe
-#         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-#         callExternalValidator.out.xml
+#add_test(NAME test_cs_addCVTerms
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCVTerms.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #addCVTerms.out.xml
 #)
-#ADJUST_ENVIRONMENT(test_cs_callExternalValidator)
+#ADJUST_ENVIRONMENT(test_cs_addCVTerms)
 
-add_test(NAME test_cs_convertSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/convertSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         convertSBML.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_convertSBML)
+#add_test(NAME test_cs_addCustomValidator
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCustomValidator.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_addCustomValidator)
 
-add_test(NAME test_cs_createExampleSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/createExampleSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         createExampleSBML.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_createExampleSBML)
+#add_test(NAME test_cs_addingEvidenceCodes_1
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addingEvidenceCodes_1.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #addingEvidenceCodes_1.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_addingEvidenceCodes_1)
 
-add_test(NAME test_cs_echoSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/echoSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         echoSBML.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_echoSBML)
+#add_test(NAME test_cs_addingEvidenceCodes_2
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addingEvidenceCodes_2.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #addingEvidenceCodes_2.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_addingEvidenceCodes_2)
 
-add_test(NAME test_cs_GetAllElementsWithNotes
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/GetAllElementsWithNotes.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_GetAllElementsWithNotes)
+#add_test(NAME test_cs_addModelHistory
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addModelHistory.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #addModelHistory.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_addModelHistory)
 
-add_test(NAME test_cs_printAnnotation
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printAnnotation.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printAnnotation)
+#add_test(NAME test_cs_appendAnnotation
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/appendAnnotation.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #appendAnnotation.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_appendAnnotation)
 
-add_test(NAME test_cs_printMath
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printMath.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printMath)
+##add_test(NAME test_cs_callExternalValidator
+##         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/callExternalValidator.exe
+##         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+##         callExternalValidator.out.xml
+##)
+##ADJUST_ENVIRONMENT(test_cs_callExternalValidator)
 
-add_test(NAME test_cs_printNotes
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printNotes.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printNotes)
+#add_test(NAME test_cs_convertSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/convertSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #convertSBML.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_convertSBML)
 
-add_test(NAME test_cs_printRegisteredPackages
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printRegisteredPackages.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         printRegisteredPackages.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printRegisteredPackages)
+#add_test(NAME test_cs_createExampleSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/createExampleSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #createExampleSBML.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_createExampleSBML)
 
-add_test(NAME test_cs_printSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printSBML)
+#add_test(NAME test_cs_echoSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/echoSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #echoSBML.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_echoSBML)
 
-add_test(NAME test_cs_printsupported
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printsupported.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         printsupported.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printsupported)
+#add_test(NAME test_cs_GetAllElementsWithNotes
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/GetAllElementsWithNotes.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_GetAllElementsWithNotes)
 
-add_test(NAME test_cs_printUnits
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printUnits.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_printUnits)
+#add_test(NAME test_cs_printAnnotation
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printAnnotation.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printAnnotation)
 
-add_test(NAME test_cs_promoteParameters
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/promoteParameters.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         promoteParameters.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_promoteParameters)
+#add_test(NAME test_cs_printMath
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printMath.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printMath)
 
-add_test(NAME test_cs_readSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/readSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_readSBML)
+#add_test(NAME test_cs_printNotes
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printNotes.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printNotes)
 
-add_test(NAME test_cs_stripPackage
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/stripPackage.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
-         fbc
-         stripPackage.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_stripPackage)
+#add_test(NAME test_cs_printRegisteredPackages
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printRegisteredPackages.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #printRegisteredPackages.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printRegisteredPackages)
 
-add_test(NAME test_cs_SetIdFromNames
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/SetIdFromNames.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         SetIdFromNames.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_SetIdFromNames)
+#add_test(NAME test_cs_printSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printSBML)
 
-add_test(NAME test_cs_unsetAnnotation
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/unsetAnnotation.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         unsetAnnotation.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_unsetAnnotation)
+#add_test(NAME test_cs_printsupported
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printsupported.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #printsupported.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printsupported)
 
-add_test(NAME test_cs_unsetNotes
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/unsetNotes.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         unsetNotes.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_unsetNotes)
+#add_test(NAME test_cs_printUnits
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/printUnits.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_printUnits)
 
-add_test(NAME test_cs_validateSBML
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/validateSBML.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_validateSBML)
+#add_test(NAME test_cs_promoteParameters
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/promoteParameters.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #promoteParameters.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_promoteParameters)
 
-add_test(NAME test_cs_evaluateCustomMath
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/evaluateCustomMath.exe
-         2*3+4
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-ADJUST_ENVIRONMENT(test_cs_evaluateCustomMath)
+#add_test(NAME test_cs_readSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/readSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_readSBML)
 
-add_test(NAME test_cs_inlineInitialAssignments
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/inlineInitialAssignments.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         inlineInitialAssignments.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_inlineInitialAssignments)
+#add_test(NAME test_cs_stripPackage
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/stripPackage.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
+         #fbc
+         #stripPackage.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_stripPackage)
 
-add_test(NAME test_cs_replaceOneFD
-         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/replaceOneFD.exe
-         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/functiondef.xml
-         f
-         reaction_1
-         replaceOneFD.out.xml
-)
-ADJUST_ENVIRONMENT(test_cs_replaceOneFD)
+#add_test(NAME test_cs_SetIdFromNames
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/SetIdFromNames.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #SetIdFromNames.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_SetIdFromNames)
+
+#add_test(NAME test_cs_unsetAnnotation
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/unsetAnnotation.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #unsetAnnotation.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_unsetAnnotation)
+
+#add_test(NAME test_cs_unsetNotes
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/unsetNotes.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #unsetNotes.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_unsetNotes)
+
+#add_test(NAME test_cs_validateSBML
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/validateSBML.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_validateSBML)
+
+#add_test(NAME test_cs_evaluateCustomMath
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/evaluateCustomMath.exe
+         #2*3+4
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_evaluateCustomMath)
+
+#add_test(NAME test_cs_inlineInitialAssignments
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/inlineInitialAssignments.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+         #inlineInitialAssignments.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_inlineInitialAssignments)
+
+#add_test(NAME test_cs_replaceOneFD
+         #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/replaceOneFD.exe
+         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/functiondef.xml
+         #f
+         #reaction_1
+         #replaceOneFD.out.xml
+#)
+#ADJUST_ENVIRONMENT(test_cs_replaceOneFD)
 
