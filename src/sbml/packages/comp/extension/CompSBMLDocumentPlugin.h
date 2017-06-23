@@ -632,8 +632,7 @@ public:
 
   /** @endcond */
 
-
-private:
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Uses the suite of URI resolvers to find the document referenced by the
@@ -644,8 +643,14 @@ private:
    * ExternalModelDefinition functions, the document the model is from will
    * persist.  The public interface for this function is therefore to use
    * ExternalModelDefinition::getReferencedModel() function.
+   *
+   * SK: made this public as the validation code needs to use it
    */
   virtual SBMLDocument* getSBMLDocumentFromURI(const std::string& uri);
+
+  /** @endcond */
+
+private:
 
 
   /**

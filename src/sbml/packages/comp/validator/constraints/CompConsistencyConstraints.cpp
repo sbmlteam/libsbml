@@ -100,9 +100,10 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            const SBMLResolverRegistry& registry = 
-                                 SBMLResolverRegistry::getInstance();
-            mReferencedDocument = registry.resolve(uri, locationURI);
+            //const SBMLResolverRegistry& registry = 
+            //                     SBMLResolverRegistry::getInstance();
+//            mReferencedDocument = registry.resolve(uri, locationURI);
+            mReferencedDocument = docPlug->getSBMLDocumentFromURI(uri);
             if (mReferencedDocument != NULL)
             {
               if (emd->isSetModelRef() == false)
@@ -172,12 +173,13 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            SBMLResolverRegistry& registry = 
-                                 SBMLResolverRegistry::getInstance();
-            doc = registry.resolve(uri, locationURI);
+            //SBMLResolverRegistry& registry = 
+            //                     SBMLResolverRegistry::getInstance();
+            //doc = registry.resolve(uri, locationURI);
+            doc = docPlug->getSBMLDocumentFromURI(uri);
             if (doc != NULL)
             {
-              registry.addOwnedSBMLDocument(doc);
+//              registry.addOwnedSBMLDocument(doc);
               if (emd->isSetModelRef() == false)
               {
                 mReferencedModel = doc->getModel();
@@ -245,12 +247,13 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            SBMLResolverRegistry& registry = 
-                                 SBMLResolverRegistry::getInstance();
-            doc = registry.resolve(uri, locationURI);
+            //SBMLResolverRegistry& registry = 
+            //                     SBMLResolverRegistry::getInstance();
+            //doc = registry.resolve(uri, locationURI);
+            doc = docPlug->getSBMLDocumentFromURI(uri);
             if (doc != NULL)
             {
-              registry.addOwnedSBMLDocument(doc);
+//              registry.addOwnedSBMLDocument(doc);
               if (emd->isSetModelRef() == false)
               {
                 mReferencedModel = doc->getModel();
@@ -450,9 +453,11 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            const SBMLResolverRegistry& registry = 
-                                  SBMLResolverRegistry::getInstance();
-            mReferencedDocument = registry.resolve(uri, locationURI);
+            //const SBMLResolverRegistry& registry = 
+            //                      SBMLResolverRegistry::getInstance();
+            //mReferencedDocument = registry.resolve(uri, locationURI);
+            mReferencedDocument = docPlug->getSBMLDocumentFromURI(uri);
+
             pre(mReferencedDocument != NULL);
             mReferencedModel = mReferencedDocument->getModel();
           }
@@ -504,9 +509,10 @@ public:
                 string locationURI = doc->getLocationURI();
                 string uri = emd->getSource();
 
-                const SBMLResolverRegistry& registry = 
-                                      SBMLResolverRegistry::getInstance();
-                SBMLDocument *newDoc = registry.resolve(uri, locationURI);
+                //const SBMLResolverRegistry& registry = 
+                //                      SBMLResolverRegistry::getInstance();
+                //SBMLDocument *newDoc = registry.resolve(uri, locationURI);
+                SBMLDocument *newDoc = docPlug->getSBMLDocumentFromURI(uri);
                 pre(newDoc != NULL);
                 mReferencedModel = newDoc->getModel();
               }
@@ -520,7 +526,8 @@ public:
 
   ~ReferencedModel()
   {
-    delete mReferencedDocument;
+    // dont delete as we now keep one and only one copy in memory
+//    delete mReferencedDocument;
   }
 
 
@@ -589,17 +596,19 @@ START_CONSTRAINT (CompReferenceMustBeL3, ExternalModelDefinition, emd)
   pre(doc != NULL);
   string locationURI = doc->getLocationURI();
   string uri = emd.getSource();
-  doc = NULL;
 
-  doc = registry.resolve(uri, locationURI);
-  pre (doc != NULL);
+  CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
+  pre(docPlug != NULL);
+  const SBMLDocument* doc1 = docPlug->getSBMLDocumentFromURI(uri);
+//  doc = registry.resolve(uri, locationURI);
+  pre (doc1 != NULL);
 
-  if (doc->getLevel() != 3) 
+  if (doc1->getLevel() != 3) 
   {
     fail = true;
   }
 
-  delete doc;
+//  delete doc;
   
   inv(fail == false);
 }
@@ -630,19 +639,22 @@ START_CONSTRAINT (CompModReferenceMustIdOfModel, ExternalModelDefinition, emd)
   //pre(resolved != NULL )
   //string resolvedURI = resolved->getUri();
   //delete resolved;
-  doc = registry.resolve(uri, locationURI);
-  pre(doc != NULL);
-  if(doc->getLevel() != 3) {
-    delete doc;
+  CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
+  pre(docPlug != NULL);
+  const SBMLDocument* doc1 = docPlug->getSBMLDocumentFromURI(uri);
+//  doc = registry.resolve(uri, locationURI);
+  pre(doc1 != NULL);
+  if(doc1->getLevel() != 3) {
+//    delete doc;
     pre(false);
   }
   //pre(doc->getLevel() == 3);
 
   const CompSBMLDocumentPlugin* csdp = 
-    static_cast<const CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
+    static_cast<const CompSBMLDocumentPlugin*>(doc1->getPlugin("comp"));
   if (csdp == NULL) 
   {
-    const Model* model = doc->getModel();
+    const Model* model = doc1->getModel();
     if (model==NULL || (model->getId() != emd.getModelRef())) {
       fail = true;
     }
@@ -656,7 +668,7 @@ START_CONSTRAINT (CompModReferenceMustIdOfModel, ExternalModelDefinition, emd)
     }
   }
 
-  delete doc;
+//  delete doc;
   inv(fail == false);
 }
 END_CONSTRAINT

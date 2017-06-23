@@ -127,8 +127,9 @@ ExtModelReferenceCycles::addAllReferences(const SBMLDocument* doc,
     {
       string uri = docPlug->getExternalModelDefinition(i)->getSource();
 
-      SBMLDocument* newDoc = registry.resolve(uri, locationURI);
-      registry.addOwnedSBMLDocument(newDoc);
+      SBMLDocument* newDoc = const_cast<CompSBMLDocumentPlugin*>(docPlug)->getSBMLDocumentFromURI(uri);
+//      SBMLDocument* newDoc = registry.resolve(uri, locationURI);
+ //     registry.addOwnedSBMLDocument(newDoc);
 
       addAllReferences(newDoc, uri);
     }

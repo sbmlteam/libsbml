@@ -1677,6 +1677,7 @@ START_CONSTRAINT (10533, RateRule, rr)
   pre ( variableUnits != NULL); 
 
   /* in L3 need to check that time units were set */
+  pre(variableUnits->getPerTimeUnitDefinition() != NULL);
   pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 

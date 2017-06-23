@@ -79,7 +79,7 @@ SBMLResolverRegistry::addOwnedSBMLDocument(const SBMLDocument* doc)
 {
   if (doc == NULL) return LIBSBML_INVALID_OBJECT;
 
-  mOwnedDocuments.insert(doc);
+ // mOwnedDocuments.insert(doc);
 
   return LIBSBML_OPERATION_SUCCESS;
 }
