@@ -123,6 +123,9 @@ public:
                 modelId = emd->getModelRef();
               }
             }
+            else{
+                break;
+            }
           }
           else
           {
