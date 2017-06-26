@@ -1729,7 +1729,6 @@ Event::addChildObject(const std::string& elementName, const SBase* element)
 SBase*
 Event::removeChildObject(const std::string& elementName, const std::string& id)
 {
-  SBase* obj = NULL;
 
   if (elementName == "trigger")
   {

@@ -1861,8 +1861,7 @@ UnitDefinition::addChildObject(const std::string& elementName, const SBase* elem
 SBase*
 UnitDefinition::removeChildObject(const std::string& elementName, const std::string& id)
 {
-  SBase* obj = NULL;
-
+ 
   if (elementName == "unit")
   {
  //   return removeUnit(id);

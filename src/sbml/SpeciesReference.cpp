@@ -955,7 +955,6 @@ SpeciesReference::addChildObject(const std::string& elementName, const SBase* el
 SBase*
 SpeciesReference::removeChildObject(const std::string& elementName, const std::string& id)
 {
-  SBase* obj = NULL;
 
   if (elementName == "stoichiometryMath")
   {

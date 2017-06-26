@@ -1058,6 +1058,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_RATE_OF:
   case AST_FUNCTION_REM:
   case AST_LOGICAL_IMPLIES:
+      case AST_CSYMBOL_FUNCTION:
   case AST_UNKNOWN:
     return 1;
 
