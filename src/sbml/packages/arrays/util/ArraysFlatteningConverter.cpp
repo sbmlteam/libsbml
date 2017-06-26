@@ -468,8 +468,8 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   // SK nested elements where model is not parent
 
   SBase* parent = getParentObject(element);
-  if (parent == NULL || !parent->addChildObject(elementName, newElement)
-    == LIBSBML_OPERATION_SUCCESS)
+  if (parent == NULL || parent->addChildObject(elementName, newElement)
+    != LIBSBML_OPERATION_SUCCESS)
   {
     return false;
   }
@@ -564,8 +564,8 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   }
 
   SBase* parent = getParentObject(element);
-  if (parent == NULL || !parent->addChildObject(elementName, newElement)
-    == LIBSBML_OPERATION_SUCCESS)
+  if (parent == NULL || parent->addChildObject(elementName, newElement)
+    != LIBSBML_OPERATION_SUCCESS)
   {
     return false;
   }
