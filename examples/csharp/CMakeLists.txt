@@ -111,7 +111,7 @@ if (NOT WIN32)
     set(CS_INTERPRETER mono)
 endif()
 
-# now add all examples we want to run, assuming cmake version > 3.0
+# now add all examples we want to run, if cmake version > 3.0
 if (CMAKE_VERSION VERSION_LESS 3.0)
     message(STATUS "C# example tests check version: ${CMAKE_VERSION} < 3.0, skipping.")
 else()
