@@ -2955,6 +2955,7 @@ ASTNode::fillListOfNodes(ASTNodePredicate predicate, List* lst) const
   for (c = 0; c < numChildren; c++)
   {
     child = getChild(c);
+    if (child == NULL) continue;
     child->fillListOfNodes(predicate, lst);
   }
 }
