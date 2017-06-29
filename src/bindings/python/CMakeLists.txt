@@ -444,7 +444,7 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_addCVTerms)
     
-        ## there is a bug in this test which causes a interpreter crash - bgoli
+        ## there is a bug in this example which causes a interpreter crash on windows - bgoli
         #add_test(NAME test_python_addCustomValidator
             #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCustomValidator.py
             #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
