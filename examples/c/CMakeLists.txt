@@ -129,52 +129,38 @@ add_test(NAME test_c_echoSBML
          echoSBML.out.xml
 )
 
-## requires interactive input
-#add_test(NAME test_c_evaluateMath
-         #COMMAND "$<TARGET_FILE:example_c_evaluateMath>" 
-         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #evaluateMath.out.xml
-#)
-
 add_test(NAME test_c_printAnnotation
          COMMAND "$<TARGET_FILE:example_c_printAnnotation>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printAnnotation.out.xml
 )
 
 add_test(NAME test_c_printMath
          COMMAND "$<TARGET_FILE:example_c_printMath>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printMath.out.xml
 )
 
 add_test(NAME test_c_printNotes
          COMMAND "$<TARGET_FILE:example_c_printNotes>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printNotes.out.xml
 )
 
 add_test(NAME test_c_printRegisteredPackages
          COMMAND "$<TARGET_FILE:example_c_printRegisteredPackages>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printRegisteredPackages.out.xml
 )
 
 add_test(NAME test_c_printSBML
          COMMAND "$<TARGET_FILE:example_c_printSBML>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printSBML.out.xml
 )
 
 add_test(NAME test_c_printSupported
          COMMAND "$<TARGET_FILE:example_c_printSupported>" 
-         #printSupported.out.xml
 )
 
 add_test(NAME test_c_printUnits
          COMMAND "$<TARGET_FILE:example_c_printUnits>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #printUnits.out.xml
 )
 
 add_test(NAME test_c_promoteParameters
@@ -186,7 +172,6 @@ add_test(NAME test_c_promoteParameters
 add_test(NAME test_c_readSBML
          COMMAND "$<TARGET_FILE:example_c_readSBML>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #readSBML.out.xml
 )
 
 add_test(NAME test_c_stripPackage
@@ -195,20 +180,6 @@ add_test(NAME test_c_stripPackage
 		 fbc
 		 stripPackage.out.xml
 )
-
-## requires interactive input
-#add_test(NAME test_c_translateL3Math
-         #COMMAND "$<TARGET_FILE:example_c_translateL3Math>" 
-         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #translateL3Math.out.xml
-#)
-
-## requires interactive input
-#add_test(NAME test_c_translateMath
-         #COMMAND "$<TARGET_FILE:example_c_translateMath>" 
-         #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #translateMath.out.xml
-#)
 
 add_test(NAME test_c_unsetAnnotation
          COMMAND "$<TARGET_FILE:example_c_unsetAnnotation>" 
@@ -225,5 +196,4 @@ add_test(NAME test_c_unsetNotes
 add_test(NAME test_c_validateSBML
          COMMAND "$<TARGET_FILE:example_c_validateSBML>" 
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-         #validateSBML.out.xml
 )

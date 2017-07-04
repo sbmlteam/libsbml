@@ -409,7 +409,6 @@ if(WITH_CHECK)
         COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/test.py
         -p $<TARGET_FILE_DIR:binding_python_lib> -b ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
-
     # adjust python path so that examples can be run            
     macro(ADJUST_PYTHONPATH target)
 
@@ -430,26 +429,16 @@ if(WITH_CHECK)
 
     # run example as tests
 
-    # now add all examples we want to run, if cmake version > 3.0
     if (CMAKE_VERSION VERSION_LESS 3.0)
         message(STATUS "Python example tests check version: ${CMAKE_VERSION} < 3.0, skipping.")
     else()
-        # this is for debugging and will be removed
-        # message(STATUS "Python example tests check version: ${CMAKE_VERSION} OK, building test examples")
-    
+
         add_test(NAME test_python_addCVTerms
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCVTerms.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
             addCVTerms.out.xml
         )
         ADJUST_PYTHONPATH(test_python_addCVTerms)
-    
-        ## there is a bug in this example which causes a interpreter crash on windows - bgoli
-        #add_test(NAME test_python_addCustomValidator
-            #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCustomValidator.py
-            #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-        #)
-        #ADJUST_PYTHONPATH(test_python_addCustomValidator)    
     
         add_test(NAME test_python_addingEvidenceCodes_1
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addingEvidenceCodes_1.py
@@ -472,15 +461,14 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_addModelHistory)     
     
-        ## need to add a test model that has an existing note to append to - bgoli
-        #add_test(NAME test_python_append_to_note
-            #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/append_to_note.py
-            #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #veq
-            #"<p>a new note</p>"            
-            #append_to_note.out.xml
-        #)
-        #ADJUST_PYTHONPATH(test_python_append_to_note)      
+        add_test(NAME test_python_append_to_note
+            COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/append_to_note.py
+            ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekineticext.xml
+            veq
+            a new note            
+            append_to_note.out.xml
+        )
+        ADJUST_PYTHONPATH(test_python_append_to_note)      
     
         add_test(NAME test_python_appendAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/appendAnnotation.py
@@ -527,7 +515,6 @@ if(WITH_CHECK)
         add_test(NAME test_python_getAllElementsWithNotes
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/getAllElementsWithNotes.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #getAllElementsWithNotes.out.xml
         )
         ADJUST_PYTHONPATH(test_python_getAllElementsWithNotes)    
     
@@ -541,14 +528,12 @@ if(WITH_CHECK)
         add_test(NAME test_python_printAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/printAnnotation.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #printAnnotation.out.xml
         )
         ADJUST_PYTHONPATH(test_python_printAnnotation)    
     
         add_test(NAME test_python_printMath
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/printMath.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #printMath.out.xml
         )
         ADJUST_PYTHONPATH(test_python_printMath)
     
@@ -562,7 +547,6 @@ if(WITH_CHECK)
         add_test(NAME test_python_printSBML
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/printSBML.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #printSBML.out.xml
         )
         ADJUST_PYTHONPATH(test_python_printSBML)
     
@@ -574,7 +558,6 @@ if(WITH_CHECK)
         add_test(NAME test_python_printUnits
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/printUnits.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #printUnits.out.xml
         )
         ADJUST_PYTHONPATH(test_python_printUnits)
     
@@ -588,7 +571,6 @@ if(WITH_CHECK)
         add_test(NAME test_python_readSBML
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/readSBML.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #readSBML.out.xml
         )
         ADJUST_PYTHONPATH(test_python_readSBML)    
         
@@ -616,14 +598,6 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_stripPackage)    
         
-        ## requires interactive input
-        #add_test(NAME test_python_translateMath
-            #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/translateMath.py
-            #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #translateMath.out.xml
-        #)
-        #ADJUST_PYTHONPATH(test_python_translateMath)    
-        
         add_test(NAME test_python_unsetAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/unsetAnnotation.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
@@ -641,9 +615,15 @@ if(WITH_CHECK)
         add_test(NAME test_python_validateSBML
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/validateSBML.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-            #validateSBML.out.xml
         )
         ADJUST_PYTHONPATH(test_python_validateSBML)    
+    
+        ## there is a bug in this example which causes a interpreter crash on windows
+        #add_test(NAME test_python_addCustomValidator
+            #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCustomValidator.py
+            #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+        #)
+        #ADJUST_PYTHONPATH(test_python_addCustomValidator)    
     
     endif()
 

@@ -259,15 +259,3 @@ add_test(NAME test_cxx_validateSBML
          COMMAND "$<TARGET_FILE:example_cpp_validateSBML>"
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
 )
-
-# these examples require user input
-#add_test(NAME test_cxx_translateMath
-#         COMMAND "$<TARGET_FILE:example_cpp_translateMath>"
-#         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-#         translateMath.out.xml
-#)
-#add_test(NAME test_cxx_translateL3Math
-#         COMMAND "$<TARGET_FILE:example_cpp_translateL3Math>"
-#         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-#         translateL3Math.out.xml
-#)

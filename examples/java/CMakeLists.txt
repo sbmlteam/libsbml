@@ -96,8 +96,7 @@ add_dependencies(example_java_${file} binding_java_jar)
 
 endforeach()
 
-
-# add java example tests here
+# run examples as test 
 
 add_test(NAME test_java_addCVTerms
     COMMAND ${Java_JAVA_EXECUTABLE} 
@@ -114,7 +113,6 @@ add_test(NAME test_java_addCustomValidator
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     addCustomValidator
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #addCustomValidator.out.xml
 )
 
 add_test(NAME test_java_addingEvidenceCodes_1
@@ -153,15 +151,6 @@ add_test(NAME test_java_appendAnnotation
     appendAnnotation.out.xml
 )
 
-#add_test(NAME test_java_callExternalValidator
-    #COMMAND ${Java_JAVA_EXECUTABLE} 
-    #-cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    #-Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    #callExternalValidator
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #callExternalValidator.out.xml
-#)
-
 add_test(NAME test_java_convertSBML
     COMMAND ${Java_JAVA_EXECUTABLE} 
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
@@ -196,18 +185,7 @@ add_test(NAME test_java_evaluateCustomMath
     evaluateCustomMath
     2*3+4
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #evaluateCustomMath.out.xml
 )
-
-## requires interactive input
-#add_test(NAME test_java_evaluateMath
-    #COMMAND ${Java_JAVA_EXECUTABLE} 
-    #-cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    #-Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    #evaluateMath
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #evaluateMath.out.xml
-#)
 
 add_test(NAME test_java_getAllElementsWithNotes
     COMMAND ${Java_JAVA_EXECUTABLE} 
@@ -215,7 +193,6 @@ add_test(NAME test_java_getAllElementsWithNotes
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     getAllElementsWithNotes
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #getAllElementsWithNotes.out.xml
 )
 
 add_test(NAME test_java_inlineInitialAssignments
@@ -234,7 +211,6 @@ add_test(NAME test_java_printAnnotation
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printAnnotation
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printAnnotation.out.xml
 )
 
 add_test(NAME test_java_printMath
@@ -243,7 +219,6 @@ add_test(NAME test_java_printMath
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printMath
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printMath.out.xml
 )
 
 add_test(NAME test_java_printNotes
@@ -252,7 +227,6 @@ add_test(NAME test_java_printNotes
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printNotes
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printNotes.out.xml
 )
 
 add_test(NAME test_java_printRegisteredPackages
@@ -260,8 +234,6 @@ add_test(NAME test_java_printRegisteredPackages
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printRegisteredPackages
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printRegisteredPackages.out.xml
 )
 
 add_test(NAME test_java_printSBML
@@ -270,7 +242,6 @@ add_test(NAME test_java_printSBML
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printSBML
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printSBML.out.xml
 )
 
 add_test(NAME test_java_printsupported
@@ -278,8 +249,6 @@ add_test(NAME test_java_printsupported
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printsupported
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printsupported.out.xml
 )
 
 add_test(NAME test_java_printUnits
@@ -288,7 +257,6 @@ add_test(NAME test_java_printUnits
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     printUnits
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #printUnits.out.xml
 )
 
 add_test(NAME test_java_promoteParameters
@@ -306,7 +274,6 @@ add_test(NAME test_java_readSBML
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     readSBML
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #readSBML.out.xml
 )
 
 add_test(NAME replaceOneFD
@@ -339,16 +306,6 @@ add_test(NAME test_java_stripPackage
     stripPackage.out.xml
 )
 
-## requires interactive input
-#add_test(NAME test_java_translateMath
-    #COMMAND ${Java_JAVA_EXECUTABLE} 
-    #-cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    #-Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    #translateMath
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #translateMath.out.xml
-#)
-
 add_test(NAME test_java_unsetAnnotation
     COMMAND ${Java_JAVA_EXECUTABLE} 
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
@@ -364,5 +321,13 @@ add_test(NAME test_java_validateSBML
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
     validateSBML
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #validateSBML.out.xml
 )
+
+#add_test(NAME test_java_callExternalValidator
+    #COMMAND ${Java_JAVA_EXECUTABLE} 
+    #-cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
+    #-Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
+    #callExternalValidator
+    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+    #callExternalValidator.out.xml
+#)

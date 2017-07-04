@@ -111,12 +111,11 @@ if (NOT WIN32)
     set(CS_INTERPRETER mono)
 endif()
 
-# now add all examples we want to run, if cmake version > 3.0
+# run examples as test 
+
 if (CMAKE_VERSION VERSION_LESS 3.0)
     message(STATUS "C# example tests check version: ${CMAKE_VERSION} < 3.0, skipping.")
 else()
-    # this is for debugging and will be removed
-    # message(STATUS "C# example tests check version: ${CMAKE_VERSION} OK, building test examples")
 
     add_test(NAME test_cs_addCVTerms
         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCVTerms.exe
@@ -124,13 +123,6 @@ else()
         addCVTerms.out.xml
     )
     ADJUST_ENVIRONMENT(test_cs_addCVTerms)
-    
-    ## there is a bug in this example which may causes a crash on linux - bgoli
-    #add_test(NAME test_cs_addCustomValidator
-        #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCustomValidator.exe
-        #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #)
-    #ADJUST_ENVIRONMENT(test_cs_addCustomValidator)
     
     add_test(NAME test_cs_addingEvidenceCodes_1
         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addingEvidenceCodes_1.exe
@@ -159,13 +151,6 @@ else()
         appendAnnotation.out.xml
     )
     ADJUST_ENVIRONMENT(test_cs_appendAnnotation)
-    
-    #add_test(NAME test_cs_callExternalValidator
-    #         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/callExternalValidator.exe
-    #         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #         callExternalValidator.out.xml
-    #)
-    #ADJUST_ENVIRONMENT(test_cs_callExternalValidator)
     
     add_test(NAME test_cs_convertSBML
         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/convertSBML.exe
@@ -308,4 +293,19 @@ else()
         replaceOneFD.out.xml
     )
     ADJUST_ENVIRONMENT(test_cs_replaceOneFD)
+
+    ## there is a bug in this example which may causes a crash on linux - bgoli
+    #add_test(NAME test_cs_addCustomValidator
+        #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCustomValidator.exe
+        #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+    #)
+    #ADJUST_ENVIRONMENT(test_cs_addCustomValidator)
+
+    #add_test(NAME test_cs_callExternalValidator
+    #         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/callExternalValidator.exe
+    #         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+    #         callExternalValidator.out.xml
+    #)
+    #ADJUST_ENVIRONMENT(test_cs_callExternalValidator)
+
 endif()
