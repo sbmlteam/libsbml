@@ -524,6 +524,10 @@ public:
   */
   unsigned int getNumElementsInDimension(unsigned int arrayDimension) const;
 
+  /**/
+  unsigned int getNumImpliedDimensions() const;
+
+  SBase* getParent() const;
 
   #ifndef SWIG
 

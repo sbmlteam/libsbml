@@ -29,6 +29,7 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#include <sbml/SpeciesReference.h>
 
 #ifdef __cplusplus
 
@@ -38,6 +39,85 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond doxygenLibsbmlInternal */
+
+SBase*
+getParentObject(const SBase* element)
+{
+  SBase* parent = const_cast<SBase*>(element->getParentSBMLObject());
+  if (parent->getTypeCode() == SBML_LIST_OF)
+  {
+    return parent->getParentSBMLObject();
+  }
+  else
+  {
+    return parent;
+  }
+
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+VariableFilter::VariableFilter() : 
+  mParentType(SBML_UNKNOWN) 
+{ 
+}
+
+
+VariableFilter::VariableFilter(const SBase* parent) 
+{ 
+  mParentType = parent->getTypeCode(); 
+}
+
+
+VariableFilter::~VariableFilter() 
+{
+}
+
+void 
+VariableFilter::setParentType(const SBase* parent) 
+{ 
+  mParentType = parent->getTypeCode(); 
+}
+
+
+bool
+VariableFilter::filter(const SBase* element)
+{
+  bool isVariable = false;
+
+  // for the variable filter we want elements that have 
+  // dimensions but no math
+  if (element->getMath() != NULL)
+  {
+    return isVariable;
+  }
+
+  // we only want direct children
+  if (mParentType != SBML_UNKNOWN)
+  {
+    if (getParentObject(element)->getTypeCode() != mParentType)
+    {
+      return isVariable;
+    }
+  }
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+
+  if (plugin != NULL)
+  {
+    if (plugin->getNumImpliedDimensions() > 0)
+    {
+      isVariable = true;
+    }
+  }
+
+  return isVariable;
+}
+
+
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -128,8 +208,10 @@ ArraysFlatteningConverter::performConversion()
     return LIBSBML_INVALID_OBJECT;
   }
 
+  populateValueMap();
+
   // go through the model and expand all variable type objects
-  VariableFilter* filter = new VariableFilter();
+  VariableFilter* filter = new VariableFilter(mDocument->getModel());
   List * variables = mDocument->getAllElements(filter);
   for (ListIterator it = variables->begin(); it != variables->end(); ++it)
   {
@@ -145,10 +227,10 @@ ArraysFlatteningConverter::performConversion()
   // go through the model and expand all math type objects
   ArraysMathFilter* m_filter = new ArraysMathFilter();
   List * mathchildren = mDocument->getAllElements(m_filter);
-  if (mathchildren->getSize() > 0)
-  {
-    populateValueMap();
-  }
+  //if (mathchildren->getSize() > 0)
+  //{
+  //  populateValueMap();
+  //}
   for (ListIterator it = mathchildren->begin(); it != mathchildren->end(); ++it)
   {
     const SBase* obj = (const SBase*)(*it);
@@ -390,10 +472,8 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   std::string id = element->getIdAttribute();
 
   // get number of elements that need to be created
-  mArraySize.clear();
-  mArraySize = plugin->getNumArrayElements();
-  mNoDimensions = mArraySize.size();
-  if (mArraySize.size() >= 1)
+
+  if (getArraySize(element) && mArraySize.size() >= 1)
   {
     mArrayEntry.clear();
     mDimensionIndex.clear();
@@ -419,9 +499,22 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   if (success)
   {
     SBase* parent = getParentObject(element);
+    if (elementName == "speciesReference")
+    {
+      const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
+      if (losr != NULL)
+      {
+        switch (losr->getType())
+        {
+        case 1:
+          elementName = "reactant";
+          break;
+        }
+      }
+    }
     if (parent != NULL)
     {
-      SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+      SBase *obj = parent->removeChildObject(elementName, id);
       if (obj != NULL)  delete obj;
     }
   }
@@ -454,20 +547,39 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   {
     return false;
   }
-  if (elementName == "reaction")
-  {
-    if (!dealWithReaction((Reaction*)(newElement)))
-      return false;
-  }
-  else if (elementName == "event")
-  {
-    if (!dealWithEvent((Event*)(newElement)))
-      return false;
+  SBase* parent = getParentObject(element);
 
+  if (!dealWithChildObjects(parent, newElement))
+  {
+    return false;
   }
+  //if (elementName == "reaction")
+  //{
+  //  if (!dealWithReaction((Reaction*)(newElement)))
+  //    return false;
+  //}
+  //else if (elementName == "event")
+  //{
+  //  if (!dealWithEvent((Event*)(newElement)))
+  //    return false;
+
+  //}
   // SK nested elements where model is not parent
 
-  SBase* parent = getParentObject(element);
+  // if the parent is a reaction we need to know what sort of sr we are adding
+  if (elementName == "speciesReference")
+  {
+    const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
+    if (losr != NULL)
+    {
+      switch (losr->getType())
+      {
+      case 1:
+        elementName = "reactant";
+        break;
+      }
+    }
+  }
   if (parent == NULL || parent->addChildObject(elementName, newElement)
     != LIBSBML_OPERATION_SUCCESS)
   {
@@ -525,7 +637,7 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
     SBase* parent = getParentObject(element);
     if (parent != NULL)
     {
-      SBase *obj = mDocument->getModel()->removeChildObject(elementName, id);
+      SBase *obj = parent->removeChildObject(elementName, id);
       if (obj != NULL)  delete obj;
     }
   }
@@ -574,6 +686,26 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   return true;
 
 }
+
+bool
+ArraysFlatteningConverter::dealWithChildObjects(SBase* parent, SBase* element)
+{
+  bool success = true;
+  VariableFilter* filter = new VariableFilter(element);
+  List * variables = element->getAllElements(filter);
+  for (ListIterator it = variables->begin(); it != variables->end(); ++it)
+  {
+    const SBase* obj = (const SBase*)(*it);
+
+    //cout << "Obj is " << obj->getElementName() << endl;
+    success = expandVariableElement(obj);
+    if (!success)
+      break;
+  }
+  return success;
+}
+
+
 
 bool
 ArraysFlatteningConverter::dealWithEvent(Event* event)
@@ -763,6 +895,53 @@ ArraysFlatteningConverter::dealWithReaction(Reaction* reaction)
   return success;
 }
 
+bool
+ArraysFlatteningConverter::getArraySize(const SBase* element)
+{
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+
+  mArraySize.clear();
+  mArraySize = plugin->getNumArrayElements();
+  mNoDimensions = mArraySize.size();
+  
+  // if element is a child clone may not access the parent model
+  if (mNoDimensions == 0)
+  {
+    for (unsigned int i = plugin->getNumDimensions(); i > 0; i--)
+    {
+      unsigned int thisDim = 0;
+      const Dimension* dim = plugin->getDimensionByArrayDimension(i-1);
+      if (dim->isSetSize())
+      {
+        std::string p = dim->getSize();
+        if (mValues.find(p) != mValues.end())
+        {
+          thisDim = (unsigned int)((mValues.find(p)->second).first);
+        }
+        else
+        {
+          return false;
+        }
+      }
+      else
+      {
+        return false;
+      }
+      mArraySize.push_back(thisDim);
+    }
+  }
+
+  mNoDimensions = mArraySize.size();
+
+  if (mNoDimensions == 0)
+  { 
+    return false;
+  }
+
+  return true;
+}
+
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -828,25 +1007,6 @@ ArraysFlatteningConverter::populateValueMap()
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-
-SBase*
-ArraysFlatteningConverter::getParentObject(const SBase* element)
-{
-  SBase* parent = const_cast<SBase*>(element->getParentSBMLObject());
-  if (parent->getTypeCode() == SBML_LIST_OF)
-  {
-    return parent->getParentSBMLObject();
-  }
-  else
-  {
-    return parent;
-  }
-
-}
-
-
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

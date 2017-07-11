@@ -728,9 +728,9 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_arrays_flattening_converter_1D_reverse2_from_file);
   tcase_add_test(tcase, test_arrays_flattening_converter_1D_species_compartment_from_file);
   tcase_add_test(tcase, test_arrays_flattening_converter_3D_initialAssignment_from_file);
-  tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction_noKL);
-  tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction);
-  tcase_add_test(tcase, test_arrays_flattening_converter_1D_event);
+  //tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction_noKL);
+  //tcase_add_test(tcase, test_arrays_flattening_converter_1D_reaction);
+  //tcase_add_test(tcase, test_arrays_flattening_converter_1D_event);
   tcase_add_test(tcase, test_arrays_flattening_converter_2D_species_compartment_from_file);
 
   suite_add_tcase(suite, tcase);

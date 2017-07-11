@@ -50,37 +50,19 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class VariableFilter : public ElementFilter
 {
 public:
-  VariableFilter() { };
+  VariableFilter();
 
-  virtual ~VariableFilter() { };
+  VariableFilter(const SBase* parent);
 
-  virtual bool filter(const SBase* element)
-  {
-    bool isVariable = false;
-    // for the variable filter we want elements that have 
-    // dimensions but no math
- 
-    if (element->getMath() != NULL)
-    {
-      return isVariable;
-    }
+  virtual ~VariableFilter();
 
-    const ArraysSBasePlugin * plugin =
-          static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+  void setParentType(const SBase* parent);
 
-    if (plugin != NULL)
-    {
-      //if (plugin->getNumIndices() == 0)
-      //{
-        if (plugin->getNumDimensions() > 0)
-        {
-          isVariable = true;
-        }
-      //}
-    }
+  virtual bool filter(const SBase* element);
 
-    return isVariable;
-  };
+protected:
+
+  int mParentType;
 };
 
 class ArraysMathFilter : public ElementFilter
@@ -243,6 +225,8 @@ private:
   bool expandMath(const SBase* element);
 
   bool dealWithMathChild(SBase* element);
+
+  bool dealWithChildObjects(SBase* parent, SBase* element);
   
   bool dealWithEvent(Event* event);
 
@@ -266,14 +250,14 @@ private:
 
   unsigned int getNumElements(const Dimension* dim);
 
-  SBase* getParentObject(const SBase* element);
-
   int validateOriginalDocument();
 
   int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion,
                            unsigned int level, unsigned int version);
 
   bool getPerformValidation() const;
+
+  bool getArraySize(const SBase* element);
 
   void updateArrayEntry(unsigned int index);
 

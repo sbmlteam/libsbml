@@ -631,6 +631,50 @@ ArraysSBasePlugin::getNumElementsInDimension(unsigned int arrayDimension) const
   return num;
 }
 
+unsigned int
+ArraysSBasePlugin::getNumImpliedDimensions() const
+{
+  unsigned int num = 0;
+  if (getNumDimensions() == 0)
+  {
+    const SBase * parent = getParent();
+    if (parent != NULL)
+    {
+      const ArraysSBasePlugin* plugin = 
+        static_cast<const ArraysSBasePlugin*>(parent->getPlugin("arrays"));
+
+      if (plugin != NULL)
+      {
+        return plugin->getNumDimensions();
+      }
+
+    }
+    return num;
+  }
+  else
+  {
+    return getNumDimensions();
+  }
+}
+
+SBase*
+ArraysSBasePlugin::getParent() const
+{
+  if (this->getParentSBMLObject()->getTypeCode() == SBML_ARRAYS_DIMENSION)
+  {
+    return NULL;
+  }
+  SBase* parent = const_cast<SBase*>(this->getParentSBMLObject())->getParentSBMLObject();
+  if (parent->getTypeCode() == SBML_LIST_OF)
+  {
+    return parent->getParentSBMLObject();
+  }
+  else
+  {
+    return parent;
+  }
+
+}
 
 /** @cond doxygenLibsbmlInternal */
 
