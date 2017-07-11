@@ -1784,6 +1784,33 @@ ListOfSpeciesReferences::setType (SpeciesType type)
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+/*
+* gets type of this ListOfSpeciesReferences.
+*/
+unsigned int
+ListOfSpeciesReferences::getType() const
+{
+  switch (mType)
+  {
+  case Unknown:
+    return 0;
+    break;
+  case Reactant:
+    return 1;
+    break;
+  case Product:
+    return 2; 
+    break;
+  case Modifier:
+    return 3;
+    break;
+  default:
+    return 0;
+    break;
+  }
+}
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*

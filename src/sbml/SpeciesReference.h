@@ -1498,6 +1498,11 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  unsigned int getType() const;
+
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
