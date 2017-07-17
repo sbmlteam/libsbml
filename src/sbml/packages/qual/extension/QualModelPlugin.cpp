@@ -215,6 +215,458 @@ QualModelPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              bool& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              double& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              unsigned int& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              std::string& value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::getAttribute(const std::string& attributeName,
+                              const char* value) const
+{
+  int return_value = SBasePlugin::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this QualModelPlugin's attribute
+ * "attributeName" is set.
+ */
+bool
+QualModelPlugin::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBasePlugin::isSetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName,
+                              unsigned int value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName,
+                              const std::string& value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::setAttribute(const std::string& attributeName,
+                              const char* value)
+{
+  int return_value = SBasePlugin::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this QualModelPlugin.
+ */
+int
+QualModelPlugin::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBasePlugin::unsetAttribute(attributeName);
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this QualModelPlugin.
+ */
+SBase*
+QualModelPlugin::createChildObject(const std::string& elementName)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "qualitativeSpecies")
+  {
+    return createQualitativeSpecies();
+  }
+  else if (elementName == "transition")
+  {
+    return createTransition();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this QualModelPlugin.
+ */
+int
+QualModelPlugin::addChildObject(const std::string& elementName,
+                                const SBase* element)
+{
+  if (elementName == "qualitativeSpecies" && element->getTypeCode() ==
+    SBML_QUAL_QUALITATIVE_SPECIES)
+  {
+    return addQualitativeSpecies((const QualitativeSpecies*)(element));
+  }
+  else if (elementName == "transition" && element->getTypeCode() ==
+    SBML_QUAL_TRANSITION)
+  {
+    return addTransition((const Transition*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * QualModelPlugin.
+ */
+SBase*
+QualModelPlugin::removeChildObject(const std::string& elementName,
+                                   const std::string& id)
+{
+  if (elementName == "qualitativeSpecies")
+  {
+    return removeQualitativeSpecies(id);
+  }
+  else if (elementName == "transition")
+  {
+    return removeTransition(id);
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this QualModelPlugin.
+ */
+unsigned int
+QualModelPlugin::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "qualitativeSpecies")
+  {
+    return getNumQualitativeSpecies();
+  }
+  else if (elementName == "transition")
+  {
+    return getNumTransitions();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this QualModelPlugin.
+ */
+SBase*
+QualModelPlugin::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "qualitativeSpecies")
+  {
+    return getQualitativeSpecies(index);
+  }
+  else if (elementName == "transition")
+  {
+    return getTransition(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+QualModelPlugin::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mQualitativeSpecies.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mTransitions.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+QualModelPlugin::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mQualitativeSpecies.getMetaId() == metaid)
+  {
+    return &mQualitativeSpecies;
+  }
+
+  if (mTransitions.getMetaId() == metaid)
+  {
+    return &mTransitions;
+  }
+
+  obj = mQualitativeSpecies.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  obj = mTransitions.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
 /*
  *
  *  (EXTENSION) Additional public functions
@@ -700,3 +1152,201 @@ QualModelPlugin::enablePackageInternal(const std::string& pkgURI,
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
+
+
+/*
+ * Returns a ListOf_t* containing QualitativeSpecies_t objects from this
+ * QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+QualModelPlugin_getListOfQualitativeSpecies(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->getListOfQualitativeSpecies() : NULL;
+}
+
+
+/*
+ * Get a QualitativeSpecies_t from the QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+const QualitativeSpecies_t*
+QualModelPlugin_getQualitativeSpecies(QualModelPlugin_t* qmp, unsigned int n)
+{
+  return (qmp != NULL) ? qmp->getQualitativeSpecies(n) : NULL;
+}
+
+
+/*
+ * Get a QualitativeSpecies_t from the QualModelPlugin_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+const QualitativeSpecies_t*
+QualModelPlugin_getQualitativeSpeciesById(QualModelPlugin_t* qmp,
+                                          const char *sid)
+{
+  return (qmp != NULL && sid != NULL) ? qmp->getQualitativeSpecies(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given QualitativeSpecies_t to this QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+QualModelPlugin_addQualitativeSpecies(QualModelPlugin_t* qmp,
+                                      const QualitativeSpecies_t* qs)
+{
+  return (qmp != NULL) ? qmp->addQualitativeSpecies(qs) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of QualitativeSpecies_t objects in this QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+QualModelPlugin_getNumQualitativeSpecies(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->getNumQualitativeSpecies() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new QualitativeSpecies_t object, adds it to this QualModelPlugin_t
+ * object and returns the QualitativeSpecies_t object created.
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_createQualitativeSpecies(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->createQualitativeSpecies() : NULL;
+}
+
+
+/*
+ * Removes the nth QualitativeSpecies_t from this QualModelPlugin_t and returns
+ * a pointer to it.
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_removeQualitativeSpecies(QualModelPlugin_t* qmp,
+                                         unsigned int n)
+{
+  return (qmp != NULL) ? qmp->removeQualitativeSpecies(n) : NULL;
+}
+
+
+/*
+ * Removes the QualitativeSpecies_t from this QualModelPlugin_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_removeQualitativeSpeciesById(QualModelPlugin_t* qmp,
+                                             const char* sid)
+{
+  return (qmp != NULL && sid != NULL) ? qmp->removeQualitativeSpecies(sid) :
+    NULL;
+}
+
+
+/*
+ * Returns a ListOf_t* containing Transition_t objects from this
+ * QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+QualModelPlugin_getListOfTransitions(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->getListOfTransitions() : NULL;
+}
+
+
+/*
+ * Get a Transition_t from the QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+const Transition_t*
+QualModelPlugin_getTransition(QualModelPlugin_t* qmp, unsigned int n)
+{
+  return (qmp != NULL) ? qmp->getTransition(n) : NULL;
+}
+
+
+/*
+ * Get a Transition_t from the QualModelPlugin_t based on its identifier.
+ */
+LIBSBML_EXTERN
+const Transition_t*
+QualModelPlugin_getTransitionById(QualModelPlugin_t* qmp, const char *sid)
+{
+  return (qmp != NULL && sid != NULL) ? qmp->getTransition(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given Transition_t to this QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+QualModelPlugin_addTransition(QualModelPlugin_t* qmp, const Transition_t* t)
+{
+  return (qmp != NULL) ? qmp->addTransition(t) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of Transition_t objects in this QualModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+QualModelPlugin_getNumTransitions(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->getNumTransitions() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new Transition_t object, adds it to this QualModelPlugin_t object
+ * and returns the Transition_t object created.
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_createTransition(QualModelPlugin_t* qmp)
+{
+  return (qmp != NULL) ? qmp->createTransition() : NULL;
+}
+
+
+/*
+ * Removes the nth Transition_t from this QualModelPlugin_t and returns a
+ * pointer to it.
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_removeTransition(QualModelPlugin_t* qmp, unsigned int n)
+{
+  return (qmp != NULL) ? qmp->removeTransition(n) : NULL;
+}
+
+
+/*
+ * Removes the Transition_t from this QualModelPlugin_t based on its identifier
+ * and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_removeTransitionById(QualModelPlugin_t* qmp, const char* sid)
+{
+  return (qmp != NULL && sid != NULL) ? qmp->removeTransition(sid) : NULL;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

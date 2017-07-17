@@ -541,6 +541,419 @@ Input::enablePackageInternal(const std::string& pkgURI,
 /** @endcond */
 
 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName, double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName,
+                    unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "thresholdLevel")
+  {
+    value = getThresholdLevel();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName,
+                    std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "sign")
+  {
+    value = InputSign_toString(getSign());
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    value = getQualitativeSpecies();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    value = InputTransitionEffect_toString(getTransitionEffect());
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::getAttribute(const std::string& attributeName, const char* value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "name")
+  {
+    value = getName().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "sign")
+  {
+    value = InputSign_toString(getSign());
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    value = getQualitativeSpecies().c_str();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    value = InputTransitionEffect_toString(getTransitionEffect());
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this Input's attribute "attributeName" is
+ * set.
+ */
+bool
+Input::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = isSetName();
+  }
+  else if (attributeName == "sign")
+  {
+    value = isSetSign();
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    value = isSetQualitativeSpecies();
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    value = isSetTransitionEffect();
+  }
+  else if (attributeName == "thresholdLevel")
+  {
+    value = isSetThresholdLevel();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "thresholdLevel")
+  {
+    return_value = setThresholdLevel(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName,
+                    const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "sign")
+  {
+    return_value = setSign(InputSign_fromString(value.c_str()));
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    return_value = setQualitativeSpecies(value);
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    return_value = setTransitionEffect(InputTransitionEffect_fromString(value.c_str()));
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::setAttribute(const std::string& attributeName, const char* value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "name")
+  {
+    return_value = setName(value);
+  }
+  else if (attributeName == "sign")
+  {
+    return_value = setSign(InputSign_fromString(value));
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    return_value = setQualitativeSpecies(value);
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    return_value = setTransitionEffect(InputTransitionEffect_fromString(value));
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this Input.
+ */
+int
+Input::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "name")
+  {
+    value = unsetName();
+  }
+  else if (attributeName == "sign")
+  {
+    value = unsetSign();
+  }
+  else if (attributeName == "qualitativeSpecies")
+  {
+    value = unsetQualitativeSpecies();
+  }
+  else if (attributeName == "transitionEffect")
+  {
+    value = unsetTransitionEffect();
+  }
+  else if (attributeName == "thresholdLevel")
+  {
+    value = unsetThresholdLevel();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
 /** @cond doxygenLibsbmlInternal */
 void
 Input::addExpectedAttributes(ExpectedAttributes& attributes)

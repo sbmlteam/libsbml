@@ -491,6 +491,393 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
   /** @endcond */
 
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           const char* value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this QualModelPlugin's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this QualModelPlugin's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, const char*
+    value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this QualModelPlugin.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this QualModelPlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @return pointer to the element created.
+   */
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this QualModelPlugin.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * QualModelPlugin.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this QualModelPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this QualModelPlugin.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int teh index of teh object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -505,4 +892,345 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-#endif  /* QualModelPlugin_h */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns a ListOf_t* containing QualitativeSpecies_t objects from this
+ * QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure whose "ListOfQualitativeSpecies"
+ * is sought.
+ *
+ * @return the "ListOfQualitativeSpecies" from this QualModelPlugin_t as a
+ * ListOf_t *.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+QualModelPlugin_getListOfQualitativeSpecies(QualModelPlugin_t* qmp);
+
+
+/**
+ * Get a QualitativeSpecies_t from the QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the QualitativeSpecies_t
+ * to retrieve.
+ *
+ * @return the nth QualitativeSpecies_t in the ListOfQualitativeSpecies within
+ * this QualModelPlugin.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+const QualitativeSpecies_t*
+QualModelPlugin_getQualitativeSpecies(QualModelPlugin_t* qmp, unsigned int n);
+
+
+/**
+ * Get a QualitativeSpecies_t from the QualModelPlugin_t based on its
+ * identifier.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the QualitativeSpecies_t
+ * to retrieve.
+ *
+ * @return the QualitativeSpecies_t in the ListOfQualitativeSpecies within this
+ * QualModelPlugin with the given id or NULL if no such QualitativeSpecies_t
+ * exists.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+const QualitativeSpecies_t*
+QualModelPlugin_getQualitativeSpeciesById(QualModelPlugin_t* qmp,
+                                          const char *sid);
+
+
+/**
+ * Get a QualitativeSpecies_t from the QualModelPlugin_t based on the
+ * Compartment to which it refers.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the compartment attribute of the
+ * QualitativeSpecies_t object to retrieve.
+ *
+ * @return the first QualitativeSpecies_t in this QualModelPlugin_t based on
+ * the given compartment attribute or NULL if no such QualitativeSpecies_t
+ * exists.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+const QualitativeSpecies_t*
+QualModelPlugin_getQualitativeSpeciesByCompartment(QualModelPlugin_t* qmp,
+                                                   const char *sid);
+
+
+/**
+ * Adds a copy of the given QualitativeSpecies_t to this QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to which the QualitativeSpecies_t
+ * should be added.
+ *
+ * @param qs the QualitativeSpecies_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+QualModelPlugin_addQualitativeSpecies(QualModelPlugin_t* qmp,
+                                      const QualitativeSpecies_t* qs);
+
+
+/**
+ * Get the number of QualitativeSpecies_t objects in this QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to query.
+ *
+ * @return the number of QualitativeSpecies_t objects in this
+ * QualModelPlugin_t.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+QualModelPlugin_getNumQualitativeSpecies(QualModelPlugin_t* qmp);
+
+
+/**
+ * Creates a new QualitativeSpecies_t object, adds it to this QualModelPlugin_t
+ * object and returns the QualitativeSpecies_t object created.
+ *
+ * @param qmp the QualModelPlugin_t structure to which the QualitativeSpecies_t
+ * should be added.
+ *
+ * @return a new QualitativeSpecies_t object instance.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_createQualitativeSpecies(QualModelPlugin_t* qmp);
+
+
+/**
+ * Removes the nth QualitativeSpecies_t from this QualModelPlugin_t and returns
+ * a pointer to it.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the QualitativeSpecies_t
+ * to remove.
+ *
+ * @return a pointer to the nth QualitativeSpecies_t in this QualModelPlugin_t.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_removeQualitativeSpecies(QualModelPlugin_t* qmp,
+                                         unsigned int n);
+
+
+/**
+ * Removes the QualitativeSpecies_t from this QualModelPlugin_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the QualitativeSpecies_t
+ * to remove.
+ *
+ * @return the QualitativeSpecies_t in this QualModelPlugin_t based on the
+ * identifier or NULL if no such QualitativeSpecies_t exists.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+QualitativeSpecies_t*
+QualModelPlugin_removeQualitativeSpeciesById(QualModelPlugin_t* qmp,
+                                             const char* sid);
+
+
+/**
+ * Returns a ListOf_t* containing Transition_t objects from this
+ * QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure whose "ListOfTransitions" is
+ * sought.
+ *
+ * @return the "ListOfTransitions" from this QualModelPlugin_t as a ListOf_t *.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+QualModelPlugin_getListOfTransitions(QualModelPlugin_t* qmp);
+
+
+/**
+ * Get a Transition_t from the QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Transition_t to
+ * retrieve.
+ *
+ * @return the nth Transition_t in the ListOfTransitions within this
+ * QualModelPlugin.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+const Transition_t*
+QualModelPlugin_getTransition(QualModelPlugin_t* qmp, unsigned int n);
+
+
+/**
+ * Get a Transition_t from the QualModelPlugin_t based on its identifier.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Transition_t to
+ * retrieve.
+ *
+ * @return the Transition_t in the ListOfTransitions within this
+ * QualModelPlugin with the given id or NULL if no such Transition_t exists.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+const Transition_t*
+QualModelPlugin_getTransitionById(QualModelPlugin_t* qmp, const char *sid);
+
+
+/**
+ * Adds a copy of the given Transition_t to this QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to which the Transition_t should
+ * be added.
+ *
+ * @param t the Transition_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+QualModelPlugin_addTransition(QualModelPlugin_t* qmp, const Transition_t* t);
+
+
+/**
+ * Get the number of Transition_t objects in this QualModelPlugin_t.
+ *
+ * @param qmp the QualModelPlugin_t structure to query.
+ *
+ * @return the number of Transition_t objects in this QualModelPlugin_t.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+QualModelPlugin_getNumTransitions(QualModelPlugin_t* qmp);
+
+
+/**
+ * Creates a new Transition_t object, adds it to this QualModelPlugin_t object
+ * and returns the Transition_t object created.
+ *
+ * @param qmp the QualModelPlugin_t structure to which the Transition_t should
+ * be added.
+ *
+ * @return a new Transition_t object instance.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_createTransition(QualModelPlugin_t* qmp);
+
+
+/**
+ * Removes the nth Transition_t from this QualModelPlugin_t and returns a
+ * pointer to it.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Transition_t to
+ * remove.
+ *
+ * @return a pointer to the nth Transition_t in this QualModelPlugin_t.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_removeTransition(QualModelPlugin_t* qmp, unsigned int n);
+
+
+/**
+ * Removes the Transition_t from this QualModelPlugin_t based on its identifier
+ * and returns a pointer to it.
+ *
+ * @param qmp the QualModelPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Transition_t to
+ * remove.
+ *
+ * @return the Transition_t in this QualModelPlugin_t based on the identifier
+ * or NULL if no such Transition_t exists.
+ *
+ * @memberof QualModelPlugin_t
+ */
+LIBSBML_EXTERN
+Transition_t*
+QualModelPlugin_removeTransitionById(QualModelPlugin_t* qmp, const char* sid);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !QualModelPlugin_H__ */
+
+

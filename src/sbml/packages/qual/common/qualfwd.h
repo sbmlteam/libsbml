@@ -62,6 +62,7 @@ typedef CLASS_OR_STRUCT Input  Input_t;
 typedef CLASS_OR_STRUCT Output  Output_t;
 typedef CLASS_OR_STRUCT FunctionTerm  FunctionTerm_t;
 typedef CLASS_OR_STRUCT DefaultTerm  DefaultTerm_t;
+typedef CLASS_OR_STRUCT QualModelPlugin    QualModelPlugin_t;
 
 LIBSBML_CPP_NAMESPACE_END
 
