@@ -8,6 +8,10 @@
 STABLE RELEASE
 
 * New features
+
+  There are no features in the stable branch; although there has 
+  been some optimization of code. We have also included testing 
+  of examples code in our test protocol.
   
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
@@ -18,6 +22,18 @@ STABLE RELEASE
 
 * Bug fixes
 
+
+  - Conversion of interchangeable booleans and numbers was not
+    reporting consistent information. This has been improved. 
+
+  - Conversion between SBML levels and versions was failing to 
+    correctly identify a speciesReference identifier. This is
+    now sorted.
+
+  - Sourceforge Tracker #8: The MATLAB bindings were failing to 
+    correctly convert logical functions. This has been fixed. Thanks
+    to Fabian Froehlich for the report.
+
   - The check that reports <localParameters> shadowing other identifiers
     was not noticing when it shadowed a speciesReference.  This has 
     been corrected.
@@ -27,8 +43,25 @@ STABLE RELEASE
 
 
   - 'comp' package-specific bug fixes:
+
+    - Reading in externally referenced documents during 'comp' 
+      validation and/or flattening was consuming large amounts of memory.
+      This has now been optimized.
+
+    - There were some slight discrepancies with writing out the id
+      attribute in an L3V2 document using 'comp' L3V1V1. These have
+      been sorted out.
+
+    - There was a very obscure endless loop in validation that
+      Chris Myers managed to find. This is now closed. Thanks Chris.
+
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
+
+    - Sourceforge libSBML Tracker #438: The C API for the plugin 
+      objects was missing. This has been corrected. Thanks to CJF for
+      the report.
+       
   - 'layout' package-specific bug fixes:
   - 'multi' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
@@ -44,6 +77,10 @@ EXPERIMENTAL RELEASE
 * New features
 
   - 'arrays' package-specific updates:
+
+    - A basic ArraysFlatteningConverter has been added. As yet, this does
+      not deal with arrays of submodels from the 'comp' package.
+
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
   - 'render' package-specific updates:
