@@ -276,7 +276,7 @@ add_test(NAME test_java_readSBML
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
 )
 
-add_test(NAME replaceOneFD
+add_test(NAME test_java_replaceOneFD
     COMMAND ${Java_JAVA_EXECUTABLE} 
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
     -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
@@ -322,12 +322,3 @@ add_test(NAME test_java_validateSBML
     validateSBML
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
 )
-
-#add_test(NAME test_java_callExternalValidator
-    #COMMAND ${Java_JAVA_EXECUTABLE} 
-    #-cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    #-Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    #callExternalValidator
-    #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #callExternalValidator.out.xml
-#)

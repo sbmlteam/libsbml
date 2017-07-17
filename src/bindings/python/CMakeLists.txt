@@ -617,14 +617,7 @@ if(WITH_CHECK)
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
         )
         ADJUST_PYTHONPATH(test_python_validateSBML)    
-    
-        ## there is a bug in this example which causes a interpreter crash on windows
-        #add_test(NAME test_python_addCustomValidator
-            #COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/addCustomValidator.py
-            #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-        #)
-        #ADJUST_PYTHONPATH(test_python_addCustomValidator)    
-    
+       
     endif()
 
 endif()

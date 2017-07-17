@@ -294,18 +294,4 @@ else()
     )
     ADJUST_ENVIRONMENT(test_cs_replaceOneFD)
 
-    ## there is a bug in this example which may causes a crash on linux - bgoli
-    #add_test(NAME test_cs_addCustomValidator
-        #COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/addCustomValidator.exe
-        #${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #)
-    #ADJUST_ENVIRONMENT(test_cs_addCustomValidator)
-
-    #add_test(NAME test_cs_callExternalValidator
-    #         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/callExternalValidator.exe
-    #         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    #         callExternalValidator.out.xml
-    #)
-    #ADJUST_ENVIRONMENT(test_cs_callExternalValidator)
-
 endif()
