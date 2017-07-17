@@ -524,6 +524,47 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 }
 
 bool
+ArraysFlatteningConverter::expandNonDimensionedVariable(SBase* element)
+{
+  if (element->getPackageName() == "arrays")
+  {
+    return true;
+  }
+//  cout << "processing " << element->getElementName() << endl;
+  std::string refAtt = "";
+  const ArraysSBasePlugin * plugin =
+    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
+  const Index* index = NULL;
+  // SK current dimension is never updated; 
+  // also may need to looking there being two reference attribs
+  if (plugin != NULL)
+  {
+    if (plugin->getNumIndices() > 0)
+    {
+      index = plugin->getIndexByArrayDimension(mCurrentDimension);
+      if (index != NULL)
+      {
+        refAtt = index->getReferencedAttribute();
+      }
+    }
+  }
+
+  if (!adjustIdentifiers(element))
+  {
+    return false;
+  }
+  if (!refAtt.empty() && !adjustReferencedAttribute(element))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+
+
+
+bool
 ArraysFlatteningConverter::expandVariable(const SBase* element)
 {
   std::string elementName = element->getElementName();
@@ -691,16 +732,23 @@ bool
 ArraysFlatteningConverter::dealWithChildObjects(SBase* parent, SBase* element)
 {
   bool success = true;
-  VariableFilter* filter = new VariableFilter(element);
-  List * variables = element->getAllElements(filter);
+//  VariableFilter* filter = new VariableFilter(element);
+  List * variables = element->getAllElements();
   for (ListIterator it = variables->begin(); it != variables->end(); ++it)
   {
-    const SBase* obj = (const SBase*)(*it);
+    SBase* obj = (SBase*)(*it);
 
-    //cout << "Obj is " << obj->getElementName() << endl;
-    success = expandVariableElement(obj);
+//    cout << "Obj is " << obj->getElementName() << endl;
+    
+    success = expandNonDimensionedVariable(obj);
+//    success = expandVariableElement(obj); 
     if (!success)
       break;
+    if (obj->isSetMath())
+      success = dealWithMathChild(obj);
+    if (!success)
+      break;
+
   }
   return success;
 }

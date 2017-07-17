@@ -220,6 +220,8 @@ private:
 
   bool expandVariable(const SBase* element);
 
+  bool expandNonDimensionedVariable(SBase* element);
+
   bool expandMathElement(const SBase* element);
 
   bool expandMath(const SBase* element);
