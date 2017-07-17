@@ -107,14 +107,6 @@ add_test(NAME test_java_addCVTerms
     addCVTerms.out.xml
 )
 
-add_test(NAME test_java_addCustomValidator
-    COMMAND ${Java_JAVA_EXECUTABLE} 
-    -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    addCustomValidator
-    ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-)
-
 add_test(NAME test_java_addingEvidenceCodes_1
     COMMAND ${Java_JAVA_EXECUTABLE} 
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
@@ -149,15 +141,6 @@ add_test(NAME test_java_appendAnnotation
     appendAnnotation
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
     appendAnnotation.out.xml
-)
-
-add_test(NAME test_java_convertSBML
-    COMMAND ${Java_JAVA_EXECUTABLE} 
-    -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    convertSBML
-    ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-    convertSBML.out.xml
 )
 
 add_test(NAME test_java_createExampleSBML
@@ -313,12 +296,4 @@ add_test(NAME test_java_unsetAnnotation
     unsetAnnotation
     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
     unsetAnnotation.out.xml
-)
-
-add_test(NAME test_java_validateSBML
-    COMMAND ${Java_JAVA_EXECUTABLE} 
-    -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
-    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
-    validateSBML
-    ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
 )
