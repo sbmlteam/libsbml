@@ -85,6 +85,7 @@
 #include <sbml/util/util.h>
 
 #include <sstream>
+#include <set>
 
 LIBSBML_CPP_NAMESPACE_USE
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -254,6 +255,14 @@ public:
    * correct number of arguments is provided, 'false' is returned.
    */
   bool checkNumArguments(const ASTNode* function);
+
+  /**
+   * This function takes a 'lambda' function and changes any arguments
+   * that might match predefined constants, and changes them back to normal
+   * AST_NAME children, and changes any corresponding constants in the final
+   * math function to also be AST_NAME. 
+   */
+  void fixLambdaArguments(const ASTNode* function);
 
   /**
    * This function checks the provided ASTNode function to see if it is a 
@@ -509,6 +518,7 @@ node:           number {$$ = $1;}
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
                      ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) $$->setType(type);
+                     if (type == AST_LAMBDA) l3p->fixLambdaArguments($$);
                      if (l3p->checkNumArguments($$)) YYABORT;
                    }
         }
@@ -517,9 +527,9 @@ node:           number {$$ = $1;}
                    string name(*$1);
                    $$->setName($1->c_str());
                    $$->setType(AST_FUNCTION);
+                   ASTNodeType_t type = l3p->getFunctionFor(name);
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) $$->setType(type);
                      if (type==AST_FUNCTION_ROOT && l3p->l3StrCmp(name, "sqrt")) {
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
@@ -566,6 +576,7 @@ node:           number {$$ = $1;}
                        }
                      }
                    }
+                   if (type == AST_LAMBDA) l3p->fixLambdaArguments($$);
                    if (l3p->checkNumArguments($$)) YYABORT;
         }
         |       node '[' nodelist ']' {
@@ -1282,6 +1293,76 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   default:
     //n-ary 0 or more arguments
     return false;
+  }
+}
+
+void makeConstantIntoName(ASTNodeType_t type, ASTNode* function)
+{
+  if (function->getType() == type) {
+    function->setType(AST_NAME);
+    switch(type) {
+    case AST_CONSTANT_TRUE:
+      function->setName("true");
+      break;
+    case AST_CONSTANT_FALSE:
+      function->setName("false");
+      break;
+    case AST_CONSTANT_PI:
+      function->setName("pi");
+      break;
+    case AST_CONSTANT_E:
+      function->setName("exponentiale");
+      break;
+    }
+  }
+  for (unsigned int c=0; c<function->getNumChildren(); c++) {
+    makeConstantIntoName(type, function->getChild(c));
+  }
+}
+
+void L3Parser::fixLambdaArguments(const ASTNode* function)
+{
+  if (function->getType() != AST_LAMBDA) {
+    return;
+  }
+  unsigned int nchildren = function->getNumChildren();
+  if (nchildren==0) {
+    return;
+  }
+  std::set<ASTNodeType_t> fixList;
+  for (unsigned int c=0; c<nchildren-1; c++) {
+    ASTNode* child = function->getChild(c);
+    ASTNodeType_t ctype = child->getType(); 
+    switch(ctype) {
+    case AST_CONSTANT_TRUE:
+    case AST_CONSTANT_FALSE:
+    case AST_CONSTANT_PI:
+    case AST_CONSTANT_E:
+    case AST_NAME_AVOGADRO:
+    case AST_NAME_TIME:
+      child->setType(AST_NAME);
+      switch(ctype) {
+      case AST_CONSTANT_TRUE:
+        child->setName("true");
+        break;
+      case AST_CONSTANT_FALSE:
+        child->setName("false");
+        break;
+      case AST_CONSTANT_PI:
+        child->setName("pi");
+        break;
+      case AST_CONSTANT_E:
+        child->setName("exponentiale");
+        break;
+      }
+      fixList.insert(ctype);
+      break;
+    default:
+      break;
+    }
+  }
+  for (set<ASTNodeType_t>::iterator ftype = fixList.begin(); ftype != fixList.end(); ftype++) {
+    makeConstantIntoName(*ftype, function->getChild(nchildren-1));
   }
 }
 
