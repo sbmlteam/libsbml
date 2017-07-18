@@ -37,20 +37,20 @@ find_package(Matlab)
 
 # on windows let us build the library using MSVC, on Linux and OS X we choose
 # to build with the buildSBML script by default
-set(MATLAB_MEX_DEFAULT)
-set(WITH_MATLAB_BUILDSBML_DEFAULT)
-if (UNIX)
-   set(WITH_MATLAB_BUILDSBML_DEFAULT ON)
-   set(MATLAB_MEX_DEFAULT OFF)
-else()
-   set(WITH_MATLAB_BUILDSBML_DEFAULT OFF)
-   set(MATLAB_MEX_DEFAULT OFF)
-endif()
-
-option(WITH_MATLAB_BUILDSBML   
-      "Generate Matlab bindings using the buildsbml script from matlab."     ${WITH_MATLAB_BUILDSBML_DEFAULT} )
-option(WITH_MATLAB_MEX   
-      "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
+#set(MATLAB_MEX_DEFAULT)
+#set(WITH_MATLAB_BUILDSBML_DEFAULT)
+#if (UNIX)
+#   set(WITH_MATLAB_BUILDSBML_DEFAULT ON)
+#   set(MATLAB_MEX_DEFAULT OFF)
+#else()
+#   set(WITH_MATLAB_BUILDSBML_DEFAULT OFF)
+#   set(MATLAB_MEX_DEFAULT OFF)
+#endif()
+#
+#option(WITH_MATLAB_BUILDSBML   
+#      "Generate Matlab bindings using the buildsbml script from matlab."     ${WITH_MATLAB_BUILDSBML_DEFAULT} )
+#option(WITH_MATLAB_MEX   
+#      "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
 
 
 # 
@@ -63,186 +63,6 @@ else()
   set(MATLAB_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/matlab)
 endif()
 
-if (WITH_MATLAB_BUILDSBML)
-
-file(TO_CMAKE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../ binding_include_dir )
-file(TO_CMAKE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../ binding_lib_dir )
-
-
-ADD_CUSTOM_COMMAND(	
-
-OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}
-       ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT}
-
-COMMAND "${MATLAB_MATLAB_COMMAND}"
-ARGS  -nosplash -nodesktop -memmgr debug -logfile runTests.log 
-      -r \"cd ('${CMAKE_CURRENT_SOURCE_DIR}')\;buildSBML('${binding_include_dir}', '${binding_lib_dir}')\;quit\;\"
-
-COMMAND "${CMAKE_COMMAND}"
-ARGS  -E copy_if_different 
-      ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
-      ${CMAKE_CURRENT_BINARY_DIR}
-
-COMMAND "${CMAKE_COMMAND}"
-ARGS  -E copy_if_different 
-      ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
-      ${CMAKE_CURRENT_BINARY_DIR}
-
-DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.cpp"
-
-WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-COMMENT "compile and link bindings using buildSBML"
-
-) 
-
-add_custom_target(binding_matlab_mexfiles ALL 
-       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
-               ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
-               ${LIBSBML_LIBRARY})
-add_dependencies(binding_matlab_mexfiles ${LIBSBML_LIBRARY})
-
-install(
-    FILES 
-       ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}  
-       ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT}  
-    DESTINATION 
-       ${MATLAB_PACKAGE_INSTALL_DIR} 
-)
-
-elseif (WITH_MATLAB_MEX)
-
-if (NOT EXISTS "${MATLAB_MEX_COMMAND}")
-	# fail if mex was not found
-	message (FATAL_ERROR "The mex command is vital for building matlab bindings. It was not found during configuration. Please manually specify MATLAB_MEX_COMMAND.")
-endif()
-
-
-# get location of library
-get_property(sbml_location TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
-get_filename_component(sbml_path "${sbml_location}" PATH)
-file(TO_NATIVE_PATH ${sbml_path} sbml_path)
-
-message(STATUS "matlab root        ${MATLAB_ROOT}")
-message(STATUS "matlab mex command ${MATLAB_MEX_COMMAND}")
-message(STATUS "matlab mex library ${MATLAB_MEX_LIBRARY}")
-message(STATUS "matlab include dir ${MATLAB_INCLUDE_DIR}")
-message(STATUS "matlab libraries   ${MATLAB_LIBRARIES}")
-message(STATUS "matlab root path   ${MATLAB_ROOT_PATH}")
-message(STATUS "extension is       ${MATLAB_MEX_EXT}")
-
-
-
-# break up the libsbml library dependencies into paths and libraries
-set(MATLAB_EXTRA_LIBS)
-foreach(lib ${LIBSBML_LIBS})
-	get_filename_component(name ${lib} NAME_WE)	
-	get_filename_component(path ${lib} PATH)	
-	string(REGEX REPLACE "lib" "" name "${name}")
-	file(TO_NATIVE_PATH "${path}" native_path)
-	list(APPEND MATLAB_EXTRA_LIBS -l${name})
-	if (WIN32)
-		list(APPEND MATLAB_EXTRA_LIBS -L${native_path})
-	endif()
-endforeach()
-
-set(MATLAB_LIBSBML_LIB)
-set(MATLAB_OBJ_FILE)
-set(MATLAB_MEX_EXTRA_ARGS)
-if(UNIX)
-	set(MATLAB_LIBSBML_LIB -l${LIBSBML_LIBRARY} -L${sbml_path})
-	set(MATLAB_MEX_EXTRA_ARGS -cxx)
-else()
-	if(MSVC)
-		set(MATLAB_LIBSBML_LIB -l${LIBSBML_LIBRARY}-static -L${sbml_path})
-		set(MATLAB_MEX_EXTRA_ARGS -DWIN32 -DLIBSBML_EXPORTS -DLIBLAX_EXPORTS )
-	else()
-		set(MATLAB_LIBSBML_LIB -l${LIBSBML_LIBRARY} -L${sbml_path})	
-	endif()
-endif()
-
-macro(build_matlab_file fileName)
-	
-	if (NOT UNIX)
-		# sarah commented that the mex command did not work for her, 
-		# so let us try this one on windows
-		
-		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp" src)
-		file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/../../" include_path0)
-		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" include_path1)
-		file(TO_NATIVE_PATH "${LIBSBML_ROOT_SOURCE_DIR}/include" include_path2)
-
-		get_property(sbml_import TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
-		string(REPLACE ".dll" ".lib" sbml_import ${sbml_import})
-		file(TO_NATIVE_PATH "${sbml_import}" sbml_import)
-		
-		ADD_CUSTOM_COMMAND(	
-			OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT}
-			
-			COMMAND "${CMAKE_COMMAND}"
-			ARGS  -E remove ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT}
-			
-			COMMAND "${MATLAB_MEX_COMMAND}"
-			ARGS 
-				${src}
-				-I${include_path0}
-				-I${include_path1}
-				-I${include_path2}
-				${sbml_import}
-				
-			MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp
-			COMMENT "compile and link matlab mex file: ${fileName}") 
-	
-	else()
-	
-
-	if (MSVC)
-		set(MATLAB_OBJ_FILE ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.obj)
-	else()
-		set(MATLAB_OBJ_FILE ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.o)
-	endif()
-
-	# compile and link mex file
-	ADD_CUSTOM_COMMAND(	
-		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT}
-		
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS  -E remove ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT}
-		
-		COMMAND "${MATLAB_MEX_COMMAND}"
-		ARGS 
-			-I"${CMAKE_CURRENT_BINARY_DIR}/../../"
-			-I"${CMAKE_CURRENT_SOURCE_DIR}/../../"
-			-I"${LIBSBML_ROOT_SOURCE_DIR}/include"
-			-c
-			${MATLAB_MEX_EXTRA_ARGS}
-			"${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp"
-		
-		COMMAND "${MATLAB_MEX_COMMAND}"
-		ARGS 
-			${MATLAB_MEX_EXTRA_ARGS}
-			-output "${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT}"
-			${MATLAB_OBJ_FILE}
-			${MATLAB_LIBSBML_LIB}
-			${MATLAB_EXTRA_LIBS}
-			
-		MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp
-		COMMENT "compile and link matlab mex file: ${fileName}") 
-	
-	endif()
-		
-	add_custom_target(binding_matlab_${fileName} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT} ${LIBSBML_LIBRARY})
-	add_dependencies(binding_matlab_${fileName} ${LIBSBML_LIBRARY})
-
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${fileName}.m DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
-
-endmacro()
-
-build_matlab_file("TranslateSBML")
-build_matlab_file("OutputSBML")
-
-else()
 
 	if (MSVC)
 	###############################################################################
@@ -288,7 +108,7 @@ else()
 	endforeach()
 	
 	
-endif(WITH_MATLAB_BUILDSBML)
+#endif(WITH_MATLAB_BUILDSBML)
 
 
 # mark files for installation
