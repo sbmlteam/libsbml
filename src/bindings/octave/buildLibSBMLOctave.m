@@ -104,8 +104,8 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     copied = 0;
 
     cd(orig_dir);
-    copyfile('TranslateSBML.c', target_dir);
-    copyfile('OutputSBML.c', target_dir);
+    copyfile('TranslateSBML.cpp', target_dir);
+    copyfile('OutputSBML.cpp', target_dir);
     copyfile('*.m', target_dir);
     copyfile('*.xml', target_dir);
     cd(target_dir);
@@ -138,15 +138,17 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     copyfile('testReadFromFile15.m', new_dir);
     copyfile('testReadFromFile16.m', new_dir);
     copyfile('testBinding.m', new_dir);
+    copyfile('testCVTerms.m', new_dir);
     copyfile('testOutput.m', new_dir);
+    copyfile('testMissingOutput.m', new_dir);
     copyfile('compareFiles.m', new_dir);
     copyfile('testIsSBMLModel.m', new_dir);
     copyfile('testReadFlags.m', new_dir);
 	copyfile('testVersionInformation.m', new_dir);
-	
-	if (exist('testReadFromFileFbc1.m') ~= 0)
-		copyfile('testReadFromFileFbc1.m', new_dir);
-	end;
+	copyfile('testReadFromFileFbc1.m', new_dir);
+	copyfile('testReadFromFileFbc2.m', new_dir);
+	copyfile('testReadWriteGeneProductIds.m', new_dir);
+	copyfile('testReadWriteGeneProducts.m', new_dir);
     
     % create test-data dir
     cd(new_dir);

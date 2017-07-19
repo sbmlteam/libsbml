@@ -111,8 +111,8 @@ build_octave_file("OutputSBML")
 foreach(mFile
 
     test.xml
+	applyUserValidation.m
 	addLevelVersion.m
-    buildSBML.m
     CheckAndConvert.m  
     Contents.m
     ConvertFormulaToMathML.m
@@ -122,6 +122,7 @@ foreach(mFile
     installSBML.m
     isoctave.m
     isSBML_Model.m
+	isEnabled.m
     isFbcEnabled.m
     OutputSBML.m
     TranslateSBML.m
