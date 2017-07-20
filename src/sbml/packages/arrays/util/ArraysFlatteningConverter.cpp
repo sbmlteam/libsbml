@@ -505,7 +505,6 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
     }
   }
 
-
   if (success)
   {
     SBase* parent = getParentObject(element);
@@ -530,7 +529,6 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   }
 
   return success;
-
 }
 
 bool
@@ -598,10 +596,12 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   {
     return false;
   }
+
   if (!refAtt.empty() && !adjustReferencedAttribute(newElement))
   {
     return false;
   }
+
   SBase* parent = getParentObject(element);
   if (!dealWithChildObjects(parent, newElement))
   {
@@ -676,6 +676,19 @@ ArraysFlatteningConverter::expandMathElement(const SBase* element)
   if (success)
   {
     SBase* parent = getParentObject(element);
+    if (elementName == "speciesReference")
+    {
+      const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
+      if (losr != NULL)
+      {
+        switch (losr->getType())
+        {
+        case 1:
+          elementName = "reactant";
+          break;
+        }
+      }
+    }
     if (parent != NULL)
     {
       SBase *obj = parent->removeChildObject(elementName, id);
@@ -690,10 +703,11 @@ bool
 ArraysFlatteningConverter::expandMath(const SBase* element)
 {
   std::string elementName = element->getElementName();
+  std::string refAtt = "";
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-  std::string refAtt = "";
-  // SK current dimension is never updated
+  // SK current dimension is never updated; 
+  // also may need to looking there being two reference attribs
   const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
   if (index != NULL)
   {
@@ -701,7 +715,6 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   }
 
   SBase* newElement = element->clone();
-
   if (!adjustMath(newElement, index))
   {
     return false;
@@ -717,6 +730,24 @@ ArraysFlatteningConverter::expandMath(const SBase* element)
   }
 
   SBase* parent = getParentObject(element);
+  if (!dealWithChildObjects(parent, newElement))
+  {
+    return false;
+  }
+  // if the parent is a reaction we need to know what sort of sr we are adding
+  if (elementName == "speciesReference")
+  {
+    const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
+    if (losr != NULL)
+    {
+      switch (losr->getType())
+      {
+      case 1:
+        elementName = "reactant";
+        break;
+      }
+    }
+  }
   if (parent == NULL || parent->addChildObject(elementName, newElement)
     != LIBSBML_OPERATION_SUCCESS)
   {
