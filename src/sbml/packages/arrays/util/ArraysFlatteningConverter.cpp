@@ -333,6 +333,10 @@ bool
 ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
 {
   bool adjusted = false;
+  if (newElement->isSetMath() == false)
+  {
+    return true;
+  }
   addDimensionToModelValues();
 
   unsigned int count = mArrayEntry.at(0); 
@@ -472,22 +476,28 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
   std::string id = element->getIdAttribute();
 
   // get number of elements that need to be created
+  mArraySize.clear();
 
-  if (getArraySize(element) && mArraySize.size() >= 1)
+  // SK here we might have a case were there are no dimensions on the element but it 
+  // inherits dimensions (see event example)
+  mArraySize = plugin->getNumArrayElements();
+  mNoDimensions = mArraySize.size();
+  if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
   {
-    mArrayEntry.clear();
+
     mDimensionIndex.clear();
+    mArrayEntry.clear();
     mCurrentDimension = 0;
     unsigned int numEntries = 1;
     for (unsigned int i = 0; i < mNoDimensions; i++)
     {
       mArrayEntry.push_back(0);
-
-      mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
       numEntries *= mArraySize.at(i);
+      mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
     }
 
-    unsigned int j = 0;
+    unsigned int i = 0, j = 0;
+
     while (success && j < numEntries)
     {
       success = expandVariable(element);
@@ -580,6 +590,10 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   }
 
   SBase* newElement = element->clone();
+  if (!adjustMath(newElement, index))
+  {
+    return false;
+  }
   if (!adjustIdentifiers(newElement))
   {
     return false;
@@ -589,24 +603,10 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
     return false;
   }
   SBase* parent = getParentObject(element);
-
   if (!dealWithChildObjects(parent, newElement))
   {
     return false;
   }
-  //if (elementName == "reaction")
-  //{
-  //  if (!dealWithReaction((Reaction*)(newElement)))
-  //    return false;
-  //}
-  //else if (elementName == "event")
-  //{
-  //  if (!dealWithEvent((Event*)(newElement)))
-  //    return false;
-
-  //}
-  // SK nested elements where model is not parent
-
   // if the parent is a reaction we need to know what sort of sr we are adding
   if (elementName == "speciesReference")
   {
@@ -744,7 +744,7 @@ ArraysFlatteningConverter::dealWithChildObjects(SBase* parent, SBase* element)
 //    success = expandVariableElement(obj); 
     if (!success)
       break;
-    if (obj->isSetMath())
+    if (obj->getTypeCode() != SBML_ARRAYS_INDEX && obj->isSetMath())
       success = dealWithMathChild(obj);
     if (!success)
       break;
