@@ -27,8 +27,8 @@ Name: english; MessagesFile: compiler:Default.isl
 Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\nodejs\*; DestDir: {app}\bindings\nodejs\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
-Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
-Source: @CURRENT_DIR@\libsbml\win32\bin\libsbml.dll; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
+;Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
+; Source: @CURRENT_DIR@\libsbml\win32\bin\libsbml.dll; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: @CURRENT_DIR@\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: @CURRENT_DIR@\libsbml\bindings\perl\Libsbml.pm; DestDir: {code:GetPerlLibDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
 Source: @CURRENT_DIR@\libsbml\bindings\perl\Libsbml.pod; DestDir: {code:GetPerlLibDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
@@ -48,7 +48,7 @@ var
   PythonPage: TInputOptionWizardPage;
   CSharpPage: TInputDirWizardPage;
   JavaPage: TInputDirWizardPage;
-  OctavePage: TInputDirWizardPage;
+  ; OctavePage: TInputDirWizardPage;
   URLLabel: TNewStaticText;
   AboutButton, CancelButton: TButton;
 
@@ -379,7 +379,7 @@ begin
     False, False);
   InstallOptionsPage.Add('Copy C# language interface');
   InstallOptionsPage.Add('Copy Java language interface');
-  InstallOptionsPage.Add('Copy Octave language interface');
+  ; InstallOptionsPage.Add('Copy Octave language interface');
   InstallOptionsPage.Add('Install MATLAB language interface');
   InstallOptionsPage.Add('Install Perl language interface');
   InstallOptionsPage.Add('Install Python language interface');
@@ -395,12 +395,12 @@ begin
   PythonPage.Add('Python 3.2');
   PythonPage.Add('Python 3.4');
 
- { Octave page : location to install Octave binding }
-  OctavePage := CreateInputDirPage(InstallOptionsPage.ID,
-    'Octave binding', '',
-    'Select the folder in which Setup should install Octave binding files, then click Next.',
-    False, '');
-  OctavePage.Add('');
+ ; { Octave page : location to install Octave binding }
+ ;  OctavePage := CreateInputDirPage(InstallOptionsPage.ID,
+ ;    'Octave binding', '',
+ ;    'Select the folder in which Setup should install Octave binding files, then click Next.',
+ ;    False, '');
+ ;  OctavePage.Add('');
 
 
   { java page : location to install java binding }
@@ -425,12 +425,12 @@ begin
   { Skip pages that shouldn't be shown }
   if (PageID = JavaPage.ID) and (InstallOptionsPage.Values[1] = False) then
     Result := True
-  else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[5] = False) then
+  else if (PageID = PythonPage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else if (PageID = CSharpPage.ID) and (InstallOptionsPage.Values[0] = False) then
     Result := True
-  else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[2] = False) then
-    Result := True
+  ;else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[2] = False) then
+  ;  Result := True
   else
     Result := False;
 end;
@@ -456,7 +456,7 @@ begin
   end else if CurPageId = PythonPage.ID  then begin
     if not PythonPresent then begin
       MsgBox('Python cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
-      InstallOptionsPage.Values[5] := False;
+      InstallOptionsPage.Values[4] := False;
     end else if (not Python25Present) and  (PythonPage.SelectedValueIndex = 0) then begin
       MsgBox('Python 2.5 cannot be detected on the system. Cannot install to site-packages directory.', mbError, MB_OK);
     end else if (not Python26Present) and  (PythonPage.SelectedValueIndex = 1) then begin
@@ -472,10 +472,10 @@ begin
   end else if CurPageId = InstallOptionsPage.ID then begin
     JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
     CSharpPage.Values[0] := ExpandConstant('{app}/bindings/csharp');
-    OctavePage.Values[0] := ExpandConstant('{app}/bindings/octave');
-    if ((InstallOptionsPage.Values[4]) and ((not PerlPresent) or (PerlVersion < '1200'))) then begin
+    ;OctavePage.Values[0] := ExpandConstant('{app}/bindings/octave');
+    if ((InstallOptionsPage.Values[3]) and ((not PerlPresent) or (PerlVersion < '1200'))) then begin
       MsgBox('Libsbml Perl bindings require Perl 5.12 which cannot be detected on the system. Cannot install to the lib directory.', mbError, MB_OK);
-      InstallOptionsPage.Values[4] := False;
+      InstallOptionsPage.Values[3] := False;
     end;
     Result := True;
   end else begin
@@ -512,27 +512,27 @@ begin
       S := S + NewLine;
   end;
 
-  if (InstallOptionsPage.Values[2] = True) then begin
-      S := S + NewLine;
-      S := S + 'Writing libSBML Octave files  to ' + NewLine;
-      S := S + '      ' + OctavePage.Values[0];
-      S := S + NewLine;
-  end;
+;  if (InstallOptionsPage.Values[2] = True) then begin
+;      S := S + NewLine;
+;      S := S + 'Writing libSBML Octave files  to ' + NewLine;
+;      S := S + '      ' + OctavePage.Values[0];
+;      S := S + NewLine;
+;  end;
 
-  if(InstallOptionsPage.Values[3] = True) then begin
+  if(InstallOptionsPage.Values[2] = True) then begin
       S := S + NewLine;
       S := S + 'Installing libSBML MATLAB' + NewLine;
       S := S + NewLine;
   end;
 
-  if (InstallOptionsPage.Values[4] = True) then begin
+  if (InstallOptionsPage.Values[3] = True) then begin
       S := S + NewLine;
       S := S + 'Installing libSBML perl library files to' + NewLine;
       S := S + '      ' + GetPerlLibDir('');
       S := S + NewLine;
   end;
 
-  if (InstallOptionsPage.Values[5] = True) then begin
+  if (InstallOptionsPage.Values[4] = True) then begin
       if (PythonPage.SelectedValueIndex = 0) then begin
         S := S + NewLine;
         S := S + 'Installing libSBML Python 2.5 files to site-packages directory' + NewLine;
@@ -568,7 +568,7 @@ end;
 { function to return flag as to whether to write libraries to other directories directory}
 function GetPython34() : Boolean;
 begin
-  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 4) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 4) then
     Result := True
   else
     Result := False;
@@ -576,7 +576,7 @@ end;
 
 function GetPython32() : Boolean;
 begin
-  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 3) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 3) then
     Result := True
   else
     Result := False;
@@ -584,7 +584,7 @@ end;
 
 function GetPython27() : Boolean;
 begin
-  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 2) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 2) then
     Result := True
   else
     Result := False;
@@ -592,7 +592,7 @@ end;
 
 function GetPython26() : Boolean;
 begin
-  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 1) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 1) then
     Result := True
   else
     Result := False;
@@ -600,7 +600,7 @@ end;
 
 function GetPython25() : Boolean;
 begin
-  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 0) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 0) then
     Result := True
   else
     Result := False;
@@ -617,7 +617,7 @@ end;
 
 function GetPerl() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) then
+  if (InstallOptionsPage.Values[3] = True) then
     Result := True
   else
     Result := False;
@@ -625,7 +625,7 @@ end;
 
 function GetMatlab() : Boolean;
 begin
-    if (InstallOptionsPage.Values[3] = True) then
+    if (InstallOptionsPage.Values[2] = True) then
       Result := True
     else
       Result := False;
@@ -645,19 +645,19 @@ begin
   Result := CSharpPage.Values[0];
 end;
 
-function GetOctave() : Boolean;
-begin
-  if (InstallOptionsPage.Values[2] = True) then
-    Result := True
-  else
-    Result := False;
-end;
+;function GetOctave() : Boolean;
+;begin
+;  if (InstallOptionsPage.Values[2] = True) then
+;    Result := True
+;  else
+;    Result := False;
+;end;
 
-function GetOctaveDir(Param: String): String;
-begin
-  { Return the selected DataDir }
-  Result := OctavePage.Values[0];
-end;
+; function GetOctaveDir(Param: String): String;
+; begin
+;   { Return the selected DataDir }
+;   Result := OctavePage.Values[0];
+; end;
 
 [Run]
 
@@ -666,6 +666,7 @@ Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.6-x86.exe"; C
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.7-x86.exe"; Check: GetPython27;
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.2-x86.exe"; Check: GetPython32;
 Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.4-x86.exe"; Check: GetPython34;
+Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py3.5-x86.exe"; Check: GetPython34;
 Filename: "{app}\bindings\matlab\libSBML-@PACKAGE_VERSION@-win-matlab-x86.exe"; Check: GetMatlab;
 
 
