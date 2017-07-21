@@ -216,30 +216,16 @@ private:
 
   void removeDimensionFromModelValues();
 
-  bool expandVariableElement(const SBase* element);
+  bool expandVariableElement(const SBase* element, bool notMath);
 
-  bool expandVariable(const SBase* element);
+  bool expandVariable(const SBase* element, bool notMath);
 
   bool expandNonDimensionedVariable(SBase* element);
-
-  bool expandMathElement(const SBase* element);
-
-  bool expandMath(const SBase* element);
 
   bool dealWithMathChild(SBase* element);
 
   bool dealWithChildObjects(SBase* parent, SBase* element);
   
-  bool dealWithEvent(Event* event);
-
-  bool dealWithEventAssignment(EventAssignment* event);
-
-  bool dealWithReaction(Reaction* reaction);
-
-  bool dealWithSpeciesReference(SimpleSpeciesReference* sr);
-
-  bool dealWithKineticLaw(KineticLaw* kl);
-
   bool replaceSelector(ASTNode* math);
 
   unsigned int evaluateIndex(const Index* index);

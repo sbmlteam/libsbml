@@ -218,7 +218,7 @@ ArraysFlatteningConverter::performConversion()
     const SBase* obj = (const SBase*)(*it);
 
     //cout << "Obj is " << obj->getElementName() << endl;
-    success = expandVariableElement(obj);
+    success = expandVariableElement(obj, true);
     if (!success)
       break;
   }
@@ -236,7 +236,7 @@ ArraysFlatteningConverter::performConversion()
     const SBase* obj = (const SBase*)(*it);
 
  //   cout << "Obj is " << obj->getElementName() << endl;
-    success = expandMathElement(obj);
+    success = expandVariableElement(obj, false);
     if (!success)
       break;
   }
@@ -467,13 +467,16 @@ ArraysFlatteningConverter::adjustIdentifiers(SBase* newElement)
 
 
 bool
-ArraysFlatteningConverter::expandVariableElement(const SBase* element)
+ArraysFlatteningConverter::expandVariableElement(const SBase* element, bool notMath)
 {
   bool success = true;
   const ArraysSBasePlugin * plugin =
     static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
   std::string elementName = element->getElementName();
   std::string id = element->getIdAttribute();
+
+  if (!notMath && id.empty()) 
+    id = element->getId();
 
   // get number of elements that need to be created
   mArraySize.clear();
@@ -500,7 +503,7 @@ ArraysFlatteningConverter::expandVariableElement(const SBase* element)
 
     while (success && j < numEntries)
     {
-      success = expandVariable(element);
+      success = expandVariable(element, notMath);
       j++;
     }
   }
@@ -570,10 +573,8 @@ ArraysFlatteningConverter::expandNonDimensionedVariable(SBase* element)
 }
 
 
-
-
 bool
-ArraysFlatteningConverter::expandVariable(const SBase* element)
+ArraysFlatteningConverter::expandVariable(const SBase* element, bool notMath)
 {
   std::string elementName = element->getElementName();
   std::string refAtt = "";
@@ -597,7 +598,7 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
     return false;
   }
 
-  if (!refAtt.empty() && !adjustReferencedAttribute(newElement))
+  if (!refAtt.empty() && !adjustReferencedAttribute(newElement, notMath))
   {
     return false;
   }
@@ -631,133 +632,6 @@ ArraysFlatteningConverter::expandVariable(const SBase* element)
   return true;
 }
 
-
-bool
-ArraysFlatteningConverter::expandMathElement(const SBase* element)
-{
-  bool success = true;
-  const ArraysSBasePlugin * plugin =
-    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-
-  std::string elementName = element->getElementName();
-  std::string id = element->getIdAttribute();
-  if (id.empty()) id = element->getId();
-
-  // get number of elements that need to be created
-  mArraySize.clear();
-
-  // SK here we might have a case were there are no dimensions on the element but it 
-  // inherits dimensions (see event example)
-  mArraySize = plugin->getNumArrayElements();
-  mNoDimensions = mArraySize.size();
-  if (mArraySize.size() >= 1 || mArraySize.at(0) >= 1)
-  {
-
-    mDimensionIndex.clear();
-    mArrayEntry.clear();
-    mCurrentDimension = 0;
-    unsigned int numEntries = 1;
-    for (unsigned int i = 0; i < mNoDimensions; i++)
-    {
-      mArrayEntry.push_back(0);
-      numEntries *= mArraySize.at(i);
-      mDimensionIndex.append(plugin->getDimensionByArrayDimension(i)->getId());
-    }
-
-    unsigned int i = 0, j = 0;
-
-    while (success && j < numEntries)
-    {
-      success = expandMath(element);
-      j++;
-    }
-  }
-
-  if (success)
-  {
-    SBase* parent = getParentObject(element);
-    if (elementName == "speciesReference")
-    {
-      const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
-      if (losr != NULL)
-      {
-        switch (losr->getType())
-        {
-        case 1:
-          elementName = "reactant";
-          break;
-        }
-      }
-    }
-    if (parent != NULL)
-    {
-      SBase *obj = parent->removeChildObject(elementName, id);
-      if (obj != NULL)  delete obj;
-    }
-  }
-
-  return success;
-}
-
-bool
-ArraysFlatteningConverter::expandMath(const SBase* element)
-{
-  std::string elementName = element->getElementName();
-  std::string refAtt = "";
-  const ArraysSBasePlugin * plugin =
-    static_cast<const ArraysSBasePlugin*>(element->getPlugin("arrays"));
-  // SK current dimension is never updated; 
-  // also may need to looking there being two reference attribs
-  const Index* index = plugin->getIndexByArrayDimension(mCurrentDimension);
-  if (index != NULL)
-  {
-    refAtt = index->getReferencedAttribute();
-  }
-
-  SBase* newElement = element->clone();
-  if (!adjustMath(newElement, index))
-  {
-    return false;
-  }
-  if (!adjustIdentifiers(newElement))
-  {
-    return false;
-  }
-
-  if (!adjustReferencedAttribute(newElement, false))
-  {
-    return false;
-  }
-
-  SBase* parent = getParentObject(element);
-  if (!dealWithChildObjects(parent, newElement))
-  {
-    return false;
-  }
-  // if the parent is a reaction we need to know what sort of sr we are adding
-  if (elementName == "speciesReference")
-  {
-    const ListOfSpeciesReferences *losr = static_cast<const ListOfSpeciesReferences*>(element->getParentSBMLObject());
-    if (losr != NULL)
-    {
-      switch (losr->getType())
-      {
-      case 1:
-        elementName = "reactant";
-        break;
-      }
-    }
-  }
-  if (parent == NULL || parent->addChildObject(elementName, newElement)
-    != LIBSBML_OPERATION_SUCCESS)
-  {
-    return false;
-  }
-  updateArrayEntry(mNoDimensions);
-
-  return true;
-
-}
 
 bool
 ArraysFlatteningConverter::dealWithChildObjects(SBase* parent, SBase* element)
@@ -786,55 +660,6 @@ ArraysFlatteningConverter::dealWithChildObjects(SBase* parent, SBase* element)
 
 
 
-bool
-ArraysFlatteningConverter::dealWithEvent(Event* event)
-{
-  bool success = true;
-  unsigned int i = 0;
-  while (success && i < event->getNumEventAssignments())
-  {
-    success = dealWithEventAssignment(event->getEventAssignment(i));
-    i++;
-  }
-  if (event->isSetTrigger())
-  {
-    success = dealWithMathChild(event->getTrigger());
-  }
-  if (event->isSetDelay())
-  {
-    success = dealWithMathChild(event->getDelay());
-  }
-  if (event->isSetPriority())
-  {
-    success = dealWithMathChild(event->getPriority());
-  }
-  return success;
-}
-
-bool
-ArraysFlatteningConverter::dealWithEventAssignment(EventAssignment* ea)
-{
-  std::vector<unsigned int> arrayIndex;
-  const ArraysSBasePlugin* plugin = static_cast<const ArraysSBasePlugin*>(ea->getPlugin("arrays"));
-  if (plugin != NULL)
-  {
-    // assume no dimensions for now
-
-    for (unsigned int j = 0; j < plugin->getNumIndices(); j++)
-    {
-      unsigned int value = evaluateIndex(plugin->getIndex(j));
-      arrayIndex.push_back(value);
-      adjustMath(ea, plugin->getIndex(j));
-    }
-    ea->setVariable(getNewId(arrayIndex, ea->getVariable()));
-
-
-  }
-  return true;
-}
-
-
-
 unsigned int
 ArraysFlatteningConverter::evaluateIndex(const Index* index)
 {
@@ -846,29 +671,6 @@ ArraysFlatteningConverter::evaluateIndex(const Index* index)
   removeDimensionFromModelValues();
 
   return value;
-}
-
-bool
-ArraysFlatteningConverter::dealWithSpeciesReference(SimpleSpeciesReference* sr)
-{
-  std::vector<unsigned int> arrayIndex;
-  const ArraysSBasePlugin* plugin = static_cast<const ArraysSBasePlugin*>(sr->getPlugin("arrays"));
-  if (plugin != NULL)
-  {
-    // assume no dimensions for now
-    
-    for (unsigned int j = 0; j < plugin->getNumIndices(); j++)
-    {
-      unsigned int value = evaluateIndex(plugin->getIndex(j));
-      arrayIndex.push_back(value);
-    }
-    if (!adjustIdentifiers(sr))
-    {
-      return false;
-    }
-    sr->setSpecies(getNewId(arrayIndex, sr->getSpecies()));
-  }
-  return true;
 }
 
 bool
@@ -886,22 +688,6 @@ ArraysFlatteningConverter::dealWithMathChild(SBase* element)
   return success;
 }
 
-
-
-bool
-ArraysFlatteningConverter::dealWithKineticLaw(KineticLaw* kl)
-{
-  bool success = true;
-  if (kl->isSetMath() && SBMLTransforms::nodeContainsId(kl->getMath(), mDimensionIndex))
-  {
-    addDimensionToModelValues();
-    ASTNode* math = (ASTNode*)(kl->getMath());
-    success = replaceSelector(math);
-
-    removeDimensionFromModelValues();
-  }
-  return success;
-}
 
 
 bool
@@ -943,36 +729,6 @@ ArraysFlatteningConverter::replaceSelector(ASTNode* math)
   return success;
 }
 
-
-
-bool
-ArraysFlatteningConverter::dealWithReaction(Reaction* reaction)
-{
-  bool success = true;
-  unsigned int i = 0;
-  while (success && i < reaction->getNumReactants())
-  {
-    success =  dealWithSpeciesReference(reaction->getReactant(i));
-    i++;
-  }
-  i = 0;
-  while (success && i < reaction->getNumProducts())
-  {
-    success = dealWithSpeciesReference(reaction->getProduct(i));
-    i++;
-  }
-  i = 0;
-  while (success && i < reaction->getNumModifiers())
-  {
-    success = dealWithSpeciesReference(reaction->getModifier(i));
-    i++;
-  }
-  if (reaction->isSetKineticLaw())
-  {
-    success = dealWithMathChild(reaction->getKineticLaw());
-  }
-  return success;
-}
 
 bool
 ArraysFlatteningConverter::getArraySize(const SBase* element)
