@@ -6556,8 +6556,23 @@ SBase::checkListOfPopulated(SBase* object)
       }
 
       logError(error, getLevel(), getVersion());
+    } 
+    /*
+     * If there is a non-empty Parameter list in a kinetic law and we are in L3
+     * report UnrecognisedElement.
+     */ 
+    else if (this->getTypeCode() == SBML_KINETIC_LAW && 
+             getLevel()          == 3)
+    {
+        int tc = static_cast<ListOf*>(object)->getItemTypeCode();
+        SBMLErrorCode_t error = UnrecognizedElement;
+        if (tc == SBML_PARAMETER) {
+            error = UnrecognizedElement;
+            logError(error, getLevel(), getVersion());
+            }
     }
   }
+
   else if (object->getTypeCode() == SBML_KINETIC_LAW)
   {
     /*
