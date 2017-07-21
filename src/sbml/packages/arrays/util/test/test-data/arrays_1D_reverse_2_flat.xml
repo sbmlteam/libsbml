@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfParameters>
+      <parameter id="n" value="2" constant="true"/>
+      <parameter id="X_0" value="0" constant="false"/>
+      <parameter id="X_1" value="0" constant="false"/>
+      <parameter id="Y_0" value="0" constant="false"/>
+      <parameter id="Y_1" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="rule0_0" variable="Y_0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 5 </cn>
+            <ci> X_1 </ci>
+            <cn> 3.2 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule metaid="rule0_1" variable="Y_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 5 </cn>
+            <ci> X_0 </ci>
+            <cn> 5.7 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

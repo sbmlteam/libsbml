@@ -94,6 +94,25 @@ public:
   };
 };
 
+class ArraysChildFilter : public ElementFilter
+{
+public:
+  ArraysChildFilter() { };
+
+  virtual ~ArraysChildFilter() { };
+
+  virtual bool filter(const SBase* element)
+  {
+    bool nonArraysElement = true;
+    if (element->getPackageName() == "arrays")
+    {
+      nonArraysElement = false;
+    }
+    return nonArraysElement;
+  };
+};
+
+
 class LIBSBML_EXTERN ArraysFlatteningConverter : public SBMLConverter
 {
 public:
@@ -224,9 +243,9 @@ private:
 
   bool dealWithMathChild(SBase* element);
 
-  bool dealWithChildObjects(SBase* parent, SBase* element);
+  bool dealWithChildObjects(SBase* parent, SBase* element, const Index* index);
   
-  bool replaceSelector(ASTNode* math);
+  bool replaceSelector(ASTNode* math, bool& adjusted, const Index* index);
 
   unsigned int evaluateIndex(const Index* index);
 
@@ -237,6 +256,8 @@ private:
   bool adjustReferencedAttribute(SBase* newElement, bool calcIndex=true);
 
   unsigned int getNumElements(const Dimension* dim);
+
+  unsigned int getNumEntries(const ArraysSBasePlugin* plugin, const Model* model = NULL);
 
   int validateOriginalDocument();
 
