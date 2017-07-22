@@ -416,13 +416,10 @@ if(WITH_CHECK)
         set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:binding_python_lib>:$ENV{PYTHONPATH})
     else()
         # need to creatively replace the semicolons - this wasn't working (bgoli)
-        #SET (NEW_PYTHON_PATH "${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:binding_python_lib>\\;$ENV{PYTHONPATH}")
-        #STRING(REPLACE "\\;" ";" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
-        #STRING(REPLACE ";" "\\;" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
-        #set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${NEW_PYTHON_PATH})
-        
-        ## bgoli - needs testing but turns out at least Python 2.7 on Windows 10 deals with colon separated PYTHONPATH just fine.
-        set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$<TARGET_FILE_DIR:binding_python_lib>:$ENV{PYTHONPATH})
+        SET (NEW_PYTHON_PATH "${CMAKE_CURRENT_BINARY_DIR}\\;$<TARGET_FILE_DIR:binding_python_lib>\\;$ENV{PYTHONPATH}")
+        STRING(REPLACE "\\:" ";" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
+        STRING(REPLACE ";" "\\;" NEW_PYTHON_PATH "${NEW_PYTHON_PATH}")
+        set_tests_properties(${target} PROPERTIES ENVIRONMENT PYTHONPATH=${NEW_PYTHON_PATH})
     endif()
 
     endmacro()
