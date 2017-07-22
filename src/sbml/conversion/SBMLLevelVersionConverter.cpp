@@ -1363,6 +1363,33 @@ SBMLLevelVersionConverter::has_fatal_errors(unsigned int level, unsigned int ver
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+MathFilter::MathFilter() 
+{
+}
+
+
+MathFilter::~MathFilter() 
+{
+}
+
+
+bool 
+MathFilter::filter(const SBase* element)
+{
+  // get elements with math set
+  if (element == NULL || element->isSetMath() == false)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+
+/** @endcond */
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 

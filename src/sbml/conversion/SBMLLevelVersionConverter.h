@@ -290,22 +290,11 @@ private:
 class LIBSBML_EXTERN MathFilter : public ElementFilter
 {
 public:
-  MathFilter() {};
+  MathFilter();
 
-  virtual ~MathFilter() {};
+  virtual ~MathFilter();
 
-  virtual bool filter(const SBase* element)
-  {
-    // get elements with math set
-    if (element == NULL || element->isSetMath() == false)
-    {
-      return false;
-    }
-
-    return true;
-  };
-
-
+  virtual bool filter(const SBase* element);
 };
 
 
