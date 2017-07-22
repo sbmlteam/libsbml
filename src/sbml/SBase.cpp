@@ -6568,7 +6568,9 @@ SBase::checkListOfPopulated(SBase* object)
         SBMLErrorCode_t error = UnrecognizedElement;
         if (tc == SBML_PARAMETER) {
             error = UnrecognizedElement;
-            logError(error, getLevel(), getVersion());
+            std::string msg = "SBML Level 3 replaced the <parameter> ";
+            msg += "within a <kineticLaw> with <localParameter>.";
+            logError(error, getLevel(), getVersion(), msg);
             }
     }
   }
