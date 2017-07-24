@@ -74,7 +74,7 @@ distfiles =                      \
 		applyUserValidation.m    \
         buildSBML.m              \
 		getDefaultValues.m       \
-		getStructureFields.m     \
+		getStructureFieldnames.m     \
 		getValueType.m           \
         isSBML_Model.m           \
         installSBML.m            \
@@ -337,11 +337,11 @@ uninstall-getdefaultvalues:
 	  rm $$target; \
 	fi;
 
-install-getstructurefields:
-	$(INSTALL_SH) -m 644 getStructureFields.m "$(DESTDIR)$(LIBDIR)"
+install-getstructurefieldnames:
+	$(INSTALL_SH) -m 644 getStructureFieldnames.m "$(DESTDIR)$(LIBDIR)"
 
-uninstall-getstructurefields:
-	@target="$(DESTDIR)$(LIBDIR)/getStructureFields.m"; \
+uninstall-getstructurefieldnames:
+	@target="$(DESTDIR)$(LIBDIR)/getStructureFieldnames.m"; \
 	if test -f $$target ; then \
 	  echo rm $$target; \
 	  rm $$target; \
