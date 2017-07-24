@@ -458,7 +458,7 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_addModelHistory)     
     
-        add_test(NAME the probl
+        add_test(NAME test_python_append_to_note
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/append_to_note.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekineticext.xml
             veq
