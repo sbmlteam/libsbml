@@ -615,6 +615,7 @@ div.directory {
 
 table.directory {
     margin: 0px;
+    margin-left: 15px;
 }
 
 .directory h3 {
@@ -659,6 +660,10 @@ table.directory {
     vertical-align: -30%;
 }
 
+table.directory {
+    width: 98%;
+}
+
 table.directory td.desc {
     font-weight: normal;
     border-bottom: 1px dotted #ccc;
@@ -666,9 +671,9 @@ table.directory td.desc {
 
 table.directory td.entry {
     border-bottom: 1px dotted #ccc;
-    min-width: 240px;
     padding-top: 3px;
     padding-bottom: 3px;
+    padding-right: 5px;
     vertical-align: middle;
 }
 

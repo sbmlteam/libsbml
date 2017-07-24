@@ -15,6 +15,7 @@ body
     background-color: white;
     color: black;
     margin: 0;
+    overflow: hidden;
 }
 
 body, table, div, p, dl

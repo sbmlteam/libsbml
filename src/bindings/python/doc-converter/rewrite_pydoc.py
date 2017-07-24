@@ -402,7 +402,8 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     body = re.sub(r'\n *\n *\n *', '\n\n', body)
 
-    body = re.sub(r'%',            '',                            body)
+    body = re.sub(r'(?<!@)%',      '',                            body)
+    body = re.sub(r'@%',           '%',                           body)
     body = re.sub(r'@li\s+',       '\n' + ' '*list_indent + '* ', body)
     body = re.sub(r'@em\s+',       '',                            body)
     body = re.sub(r'@returns?\s+', 'Returns ',                    body)
