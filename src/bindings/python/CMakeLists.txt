@@ -504,7 +504,7 @@ if(WITH_CHECK)
     
         add_test(NAME test_python_evaluateCustomMath
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/evaluateCustomMath.py
-            2*3+4
+            "2*3+4"
             ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
         )
         ADJUST_PYTHONPATH(test_python_evaluateCustomMath)
