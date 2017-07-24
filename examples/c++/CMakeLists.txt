@@ -239,12 +239,18 @@ add_test(NAME test_cxx_setNamesFromIds
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
          setNamesFromIds.out.xml
 )
+
+ if(ENABLE_FBC) 
+
 add_test(NAME test_cxx_stripPackage
          COMMAND "$<TARGET_FILE:example_cpp_stripPackage>"
          ${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
          fbc
          stripPackage.out.xml
 )
+
+endif(ENABLE_FBC)
+
 add_test(NAME test_cxx_unsetAnnotation
          COMMAND "$<TARGET_FILE:example_cpp_unsetAnnotation>"
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml

@@ -236,6 +236,8 @@ else()
     )
     ADJUST_ENVIRONMENT(test_cs_readSBML)
     
+	if(ENABLE_FBC) 
+
     add_test(NAME test_cs_stripPackage
         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/stripPackage.exe
         ${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
@@ -244,6 +246,8 @@ else()
     )
     ADJUST_ENVIRONMENT(test_cs_stripPackage)
     
+	endif(ENABLE_FBC)
+
     add_test(NAME test_cs_SetIdFromNames
         COMMAND ${CS_INTERPRETER} ${CMAKE_CURRENT_BINARY_DIR}/SetIdFromNames.exe
         ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml

@@ -279,6 +279,8 @@ add_test(NAME test_java_setIdFromNames
     setIdFromNames.out.xml
 )
 
+ if(ENABLE_FBC) 
+
 add_test(NAME test_java_stripPackage
     COMMAND ${Java_JAVA_EXECUTABLE} 
     -cp ".${FILE_SEP}${CURRENT_JAR}${FILE_SEP}"
@@ -288,6 +290,8 @@ add_test(NAME test_java_stripPackage
     fbc
     stripPackage.out.xml
 )
+
+endif(ENABLE_FBC)
 
 add_test(NAME test_java_unsetAnnotation
     COMMAND ${Java_JAVA_EXECUTABLE} 

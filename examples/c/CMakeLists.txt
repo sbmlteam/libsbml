@@ -174,12 +174,16 @@ add_test(NAME test_c_readSBML
          ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
 )
 
+ if(ENABLE_FBC) 
+
 add_test(NAME test_c_stripPackage
          COMMAND "$<TARGET_FILE:example_c_stripPackage>" 
 		 ${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
 		 fbc
 		 stripPackage.out.xml
 )
+
+endif(ENABLE_FBC)
 
 add_test(NAME test_c_unsetAnnotation
          COMMAND "$<TARGET_FILE:example_c_unsetAnnotation>" 

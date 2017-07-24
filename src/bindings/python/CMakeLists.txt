@@ -587,13 +587,17 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_setIdFromNames)    
         
+        if(ENABLE_FBC) 
+        
         add_test(NAME test_python_stripPackage
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/stripPackage.py
             ${CMAKE_SOURCE_DIR}/examples/sample-models/fbc/fbc_example1.xml
             fbc
             stripPackage.out.xml
         )
-        ADJUST_PYTHONPATH(test_python_stripPackage)    
+        ADJUST_PYTHONPATH(test_python_stripPackage)
+
+        endif(ENABLE_FBC)
         
         add_test(NAME test_python_unsetAnnotation
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/unsetAnnotation.py
