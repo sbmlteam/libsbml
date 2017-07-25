@@ -296,7 +296,7 @@ ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
     }
     returnArray.push_back(mArrayEntry.at(index - 1) + 1);
 
-    for (i; i < final; i++)
+    for (i = 0; i < final; i++)
       returnArray.push_back(0);
 
     mArrayEntry.swap(returnArray);
