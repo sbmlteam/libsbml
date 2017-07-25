@@ -40,7 +40,8 @@
 
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
 #include <sbml/SBMLTransforms.h>
-
+#include <sbml/util/IdList.h>
+#include <sbml/util/ElementFilter.h>
 
 #ifdef __cplusplus
 
