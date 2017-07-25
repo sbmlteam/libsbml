@@ -30,6 +30,8 @@
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/Model.h>
+#include <sbml/Parameter.h>
 
 #ifdef __cplusplus
 
