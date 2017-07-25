@@ -33,6 +33,7 @@
 #include <sbml/packages/arrays/sbml/Index.h>
 #include <sbml/packages/arrays/sbml/ListOfIndices.h>
 #include <sbml/packages/arrays/validator/ArraysSBMLError.h>
+#include <sbml/math/MathML.h>
 
 
 using namespace std;
