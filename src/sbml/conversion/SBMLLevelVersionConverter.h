@@ -100,6 +100,9 @@
 #include <sbml/validator/L3v1CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
 
+#include <sbml/util/ElementFilter.h>
+#include <sbml/util/IdList.h>
+
 
 #ifdef __cplusplus
 
