@@ -226,9 +226,14 @@ add_custom_command(
     ARGS  -E rename pydoc.i pydoc-normal.i 
 
     COMMAND "${CMAKE_COMMAND}"
-    ARGS  -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
-        -DVERSION=\"${LIBSBML_DOTTED_VERSION}\"
-        -P "${CMAKE_CURRENT_SOURCE_DIR}/add_version.cmake"
+    ARGS -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+         -DVERSION=\"${LIBSBML_DOTTED_VERSION}\"
+         -P "${CMAKE_CURRENT_SOURCE_DIR}/add_version.cmake"
+
+    COMMAND "${CMAKE_COMMAND}"
+    ARGS -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+         -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+         -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-python.cmake"
 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
