@@ -455,6 +455,12 @@ ListOfGeometryDefinitions::createObject(XMLInputStream& stream)
     appendAndOwn(object);
   }
 
+  if (name == "csGeometry")
+  {
+    object = new CSGeometry(spatialns);
+    appendAndOwn(object);
+  }
+
   if (name == "csgeometry")
   {
     object = new CSGeometry(spatialns);

@@ -1342,7 +1342,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1222201
   { SpatialCSGeometryAllowedCoreAttributes,
-    "Core attributes allowed on <csgeometry>.",
+    "Core attributes allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGeometry> object may have the optional SBML Level 3 Core attributes "
@@ -1354,7 +1354,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1222202
   { SpatialCSGeometryAllowedCoreElements,
-    "Core elements allowed on <csgeometry>.",
+    "Core elements allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGeometry> object may have the optional SBML Level 3 Core subobjects "
@@ -1366,7 +1366,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
 
   // 1222203
   { SpatialCSGeometryAllowedElements,
-    "Elements allowed on <csgeometry>.",
+    "Elements allowed on <csGeometry>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <cSGeometry> object may contain one and only one instance of the "

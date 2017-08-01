@@ -311,7 +311,7 @@ CSGeometry::removeCSGObject(const std::string& sid)
 const std::string&
 CSGeometry::getElementName() const
 {
-  static const string name = "csgeometry";
+  static const string name = "csGeometry";
   return name;
 }
 

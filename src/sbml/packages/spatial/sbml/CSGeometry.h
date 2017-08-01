@@ -308,9 +308,9 @@ public:
   /**
    * Returns the XML element name of this CSGeometry object.
    *
-   * For CSGeometry, the XML element name is always @c "csgeometry".
+   * For CSGeometry, the XML element name is always @c "csGeometry".
    *
-   * @return the name of this element, i.e. @c "csgeometry".
+   * @return the name of this element, i.e. @c "csGeometry".
    */
   virtual const std::string& getElementName() const;
 
