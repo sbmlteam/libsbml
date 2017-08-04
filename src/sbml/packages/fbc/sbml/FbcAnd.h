@@ -934,7 +934,7 @@ FbcAnd_removeAssociationById(FbcAnd_t * fa, const char * sid);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of FbcAnd_t
+ * @memberof FbcAnd_t
  */
 LIBSBML_EXTERN
 int
@@ -950,7 +950,7 @@ FbcAnd_hasRequiredAttributes(const FbcAnd_t * fa);
  * @return @c 1 if all the required sub-elements for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of FbcAnd_t
+ * @memberof FbcAnd_t
  */
 LIBSBML_EXTERN
 int

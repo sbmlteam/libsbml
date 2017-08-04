@@ -1041,7 +1041,7 @@ FluxObjective_clone(FluxObjective_t * fo);
  *
  * @return the id of this structure.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1056,7 +1056,7 @@ FluxObjective_getId(const FluxObjective_t * fo);
  *
  * @return the name of this structure.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1071,7 +1071,7 @@ FluxObjective_getName(const FluxObjective_t * fo);
  *
  * @return the reaction of this structure.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1086,7 +1086,7 @@ FluxObjective_getReaction(const FluxObjective_t * fo);
  *
  * @return the coefficient of this structure.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 double
@@ -1102,7 +1102,7 @@ FluxObjective_getCoefficient(const FluxObjective_t * fo);
  * @return @c 1 if the "id" of this FluxObjective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1118,7 +1118,7 @@ FluxObjective_isSetId(const FluxObjective_t * fo);
  * @return @c 1 if the "name" of this FluxObjective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1134,7 +1134,7 @@ FluxObjective_isSetName(const FluxObjective_t * fo);
  * @return @c 1 if the "reaction" of this FluxObjective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1150,7 +1150,7 @@ FluxObjective_isSetReaction(const FluxObjective_t * fo);
  * @return @c 1 if the "coefficient" of this FluxObjective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1176,7 +1176,7 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1202,7 +1202,7 @@ FluxObjective_setId(FluxObjective_t * fo, const char * id);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1228,7 +1228,7 @@ FluxObjective_setName(FluxObjective_t * fo, const char * name);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1248,7 +1248,7 @@ FluxObjective_setReaction(FluxObjective_t * fo, const char * reaction);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1266,7 +1266,7 @@ FluxObjective_setCoefficient(FluxObjective_t * fo, double coefficient);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1284,7 +1284,7 @@ FluxObjective_unsetId(FluxObjective_t * fo);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1302,7 +1302,7 @@ FluxObjective_unsetName(FluxObjective_t * fo);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1320,7 +1320,7 @@ FluxObjective_unsetReaction(FluxObjective_t * fo);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int
@@ -1336,7 +1336,7 @@ FluxObjective_unsetCoefficient(FluxObjective_t * fo);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of FluxObjective_t
+ * @memberof FluxObjective_t
  */
 LIBSBML_EXTERN
 int

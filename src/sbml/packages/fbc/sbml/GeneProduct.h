@@ -1019,7 +1019,7 @@ GeneProduct_clone(GeneProduct_t * gp);
  *
  * @return the id of this structure.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1034,7 +1034,7 @@ GeneProduct_getId(const GeneProduct_t * gp);
  *
  * @return the name of this structure.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1049,7 +1049,7 @@ GeneProduct_getName(const GeneProduct_t * gp);
  *
  * @return the label of this structure.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1064,7 +1064,7 @@ GeneProduct_getLabel(const GeneProduct_t * gp);
  *
  * @return the associatedSpecies of this structure.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1080,7 +1080,7 @@ GeneProduct_getAssociatedSpecies(const GeneProduct_t * gp);
  * @return @c 1 if the "id" of this GeneProduct_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1096,7 +1096,7 @@ GeneProduct_isSetId(const GeneProduct_t * gp);
  * @return @c 1 if the "name" of this GeneProduct_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1112,7 +1112,7 @@ GeneProduct_isSetName(const GeneProduct_t * gp);
  * @return @c 1 if the "label" of this GeneProduct_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1128,7 +1128,7 @@ GeneProduct_isSetLabel(const GeneProduct_t * gp);
  * @return @c 1 if the "associatedSpecies" of this GeneProduct_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1154,7 +1154,7 @@ GeneProduct_isSetAssociatedSpecies(const GeneProduct_t * gp);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1180,7 +1180,7 @@ GeneProduct_setId(GeneProduct_t * gp, const char * id);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1206,7 +1206,7 @@ GeneProduct_setName(GeneProduct_t * gp, const char * name);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1232,7 +1232,7 @@ GeneProduct_setLabel(GeneProduct_t * gp, const char * label);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1250,7 +1250,7 @@ GeneProduct_setAssociatedSpecies(GeneProduct_t * gp, const char * associatedSpec
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1268,7 +1268,7 @@ GeneProduct_unsetId(GeneProduct_t * gp);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1286,7 +1286,7 @@ GeneProduct_unsetName(GeneProduct_t * gp);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1304,7 +1304,7 @@ GeneProduct_unsetLabel(GeneProduct_t * gp);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int
@@ -1320,7 +1320,7 @@ GeneProduct_unsetAssociatedSpecies(GeneProduct_t * gp);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of GeneProduct_t
+ * @memberof GeneProduct_t
  */
 LIBSBML_EXTERN
 int

@@ -760,7 +760,7 @@ GeneProductRef_clone(GeneProductRef_t * gpr);
  *
  * @return the id of this structure.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 const char *
@@ -775,7 +775,7 @@ GeneProductRef_getId(const GeneProductRef_t * gpr);
  *
  * @return the geneProduct of this structure.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 const char *
@@ -790,7 +790,7 @@ GeneProductRef_getGeneProduct(const GeneProductRef_t * gpr);
  *
  * @return the name of this structure.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 const char *
@@ -806,7 +806,7 @@ GeneProductRef_getName(const GeneProductRef_t * gpr);
  * @return @c 1 if the "id" of this GeneProductRef_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -822,7 +822,7 @@ GeneProductRef_isSetId(const GeneProductRef_t * gpr);
  * @return @c 1 if the "geneProduct" of this GeneProductRef_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -838,7 +838,7 @@ GeneProductRef_isSetGeneProduct(const GeneProductRef_t * gpr);
  * @return @c 1 if the "name" of this GeneProductRef_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -864,7 +864,7 @@ GeneProductRef_isSetName(const GeneProductRef_t * gpr);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -890,7 +890,7 @@ GeneProductRef_setId(GeneProductRef_t * gpr, const char * id);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -916,7 +916,7 @@ GeneProductRef_setGeneProduct(GeneProductRef_t * gpr, const char * geneProduct);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -934,7 +934,7 @@ GeneProductRef_setName(GeneProductRef_t * gpr, const char * name);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -952,7 +952,7 @@ GeneProductRef_unsetId(GeneProductRef_t * gpr);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -970,7 +970,7 @@ GeneProductRef_unsetGeneProduct(GeneProductRef_t * gpr);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int
@@ -986,7 +986,7 @@ GeneProductRef_unsetName(GeneProductRef_t * gpr);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of GeneProductRef_t
+ * @memberof GeneProductRef_t
  */
 LIBSBML_EXTERN
 int

@@ -332,7 +332,7 @@ IntraSpeciesReaction_clone(IntraSpeciesReaction_t * isr);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of IntraSpeciesReaction_t
+ * @memberof IntraSpeciesReaction_t
  */
 LIBSBML_EXTERN
 int

@@ -925,7 +925,7 @@ GeneProductAssociation_clone(GeneProductAssociation_t * gpa);
  *
  * @return the id of this structure.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 const char *
@@ -940,7 +940,7 @@ GeneProductAssociation_getId(const GeneProductAssociation_t * gpa);
  *
  * @return the name of this structure.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 const char *
@@ -976,7 +976,7 @@ GeneProductAssociation_createGeneProductRef(GeneProductAssociation_t * gpa);
  * @return @c 1 if the "id" of this GeneProductAssociation_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -992,7 +992,7 @@ GeneProductAssociation_isSetId(const GeneProductAssociation_t * gpa);
  * @return @c 1 if the "name" of this GeneProductAssociation_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1008,7 +1008,7 @@ GeneProductAssociation_isSetName(const GeneProductAssociation_t * gpa);
  * @return @c 1 if the "association" of this GeneProductAssociation_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1034,7 +1034,7 @@ GeneProductAssociation_isSetAssociation(const GeneProductAssociation_t * gpa);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1060,7 +1060,7 @@ GeneProductAssociation_setId(GeneProductAssociation_t * gpa, const char * id);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1083,7 +1083,7 @@ GeneProductAssociation_setAssociation(GeneProductAssociation_t * gpa, FbcAssocia
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1101,7 +1101,7 @@ GeneProductAssociation_unsetId(GeneProductAssociation_t * gpa);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1117,7 +1117,7 @@ GeneProductAssociation_unsetName(GeneProductAssociation_t * gpa);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int
@@ -1133,7 +1133,7 @@ GeneProductAssociation_hasRequiredAttributes(const GeneProductAssociation_t * gp
  * @return @c 1 if all the required sub-elements for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of GeneProductAssociation_t
+ * @memberof GeneProductAssociation_t
  */
 LIBSBML_EXTERN
 int

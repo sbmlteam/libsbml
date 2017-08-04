@@ -1375,7 +1375,7 @@ Objective_clone(Objective_t * o);
  *
  * @return the id of this structure.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1390,7 +1390,7 @@ Objective_getId(const Objective_t * o);
  *
  * @return the name of this structure.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 const char *
@@ -1420,7 +1420,7 @@ Objective_getType(Objective_t * obj);
  * @return @c 1 if the "id" of this Objective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1436,7 +1436,7 @@ Objective_isSetId(const Objective_t * o);
  * @return @c 1 if the "name" of this Objective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1452,7 +1452,7 @@ Objective_isSetName(const Objective_t * o);
  * @return @c 1 if the "type" of this Objective_t structure is
  * set, @c 0 otherwise.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1478,7 +1478,7 @@ Objective_isSetType(const Objective_t * o);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1504,7 +1504,7 @@ Objective_setId(Objective_t * o, const char * id);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1524,7 +1524,7 @@ Objective_setName(Objective_t * o, const char * name);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1542,7 +1542,7 @@ Objective_setType(Objective_t * o, const char* type);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1560,7 +1560,7 @@ Objective_unsetId(Objective_t * o);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1578,7 +1578,7 @@ Objective_unsetName(Objective_t * o);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1634,7 +1634,7 @@ Objective_removeFluxObjectiveById(Objective_t * o, const char * sid);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int
@@ -1650,7 +1650,7 @@ Objective_hasRequiredAttributes(const Objective_t * o);
  * @return @c 1 if all the required sub-elements for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of Objective_t
+ * @memberof Objective_t
  */
 LIBSBML_EXTERN
 int

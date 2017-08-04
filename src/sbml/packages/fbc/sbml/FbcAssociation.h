@@ -998,7 +998,7 @@ FbcAssociation_clone(FbcAssociation_t * fa);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of FbcAssociation_t
+ * @memberof FbcAssociation_t
  */
 LIBSBML_EXTERN
 int

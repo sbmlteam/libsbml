@@ -326,7 +326,7 @@ BindingSiteSpeciesType_clone(BindingSiteSpeciesType_t * bsst);
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of BindingSiteSpeciesType_t
+ * @memberof BindingSiteSpeciesType_t
  */
 LIBSBML_EXTERN
 int
