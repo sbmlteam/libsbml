@@ -47,6 +47,11 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
+
+#ifdef __cplusplus
+
+
 // -------------------------------------------
 // Apply<T>
 // -------------------------------------------
@@ -359,6 +364,11 @@ GroupsValidator::validate(const std::string& filename)
   delete d;
   return numErrors;
 }
+
+
+
+
+#endif /* __cplusplus */
 
 
 

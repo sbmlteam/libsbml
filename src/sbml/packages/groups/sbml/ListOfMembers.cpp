@@ -545,10 +545,9 @@ ListOfMembers::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      log->logPackageError("groups", GroupsIdSyntaxRule,
-        pkgVersion, level, version, "The id on the <" 
-        + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", 
-        getLine(), getColumn());
+      log->logPackageError("groups", GroupsIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "',which "
+          "does not conform to the syntax.", getLine(), getColumn());
     }
   }
 
@@ -611,7 +610,7 @@ ListOfMembers::writeXMLNS(XMLOutputStream& stream) const
 
   if (prefix.empty())
   {
-    XMLNamespaces* thisxmlns = getNamespaces();
+    const XMLNamespaces* thisxmlns = getNamespaces();
     if (thisxmlns && thisxmlns->hasURI(GroupsExtension::getXmlnsL3V1V1()))
     {
       xmlns.add(GroupsExtension::getXmlnsL3V1V1(), prefix);
