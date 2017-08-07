@@ -232,11 +232,13 @@ CompBase::logUnknownAttribute(const std::string &attribute,
     if (element == "port")
     {
       errlog->logPackageError(getPackageName(), CompPortAllowedAttributes, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else
     {
-      errlog->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str());
+      errlog->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
   }
 }
@@ -259,7 +261,8 @@ CompBase::logEmptyString(const std::string &attribute,
   SBMLErrorLog* errlog = getErrorLog();
   if (errlog)
   {
-    errlog->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str());
+    errlog->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str(), 
+      getLine(), getColumn());
   }
 }
 
@@ -296,65 +299,77 @@ CompBase::logInvalidId(const std::string& attribute,
     if (attribute == "comp:deletion")
     {
       errlog->logPackageError(getPackageName(), CompInvalidDeletionSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:conversionFactor")
     {
       errlog->logPackageError(getPackageName(), CompInvalidConversionFactorSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:submodelRef")
     {
       errlog->logPackageError(getPackageName(), CompInvalidSubmodelRefSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:modelRef")
     {
       if (object == "Submodel")
       {
         errlog->logPackageError(getPackageName(), CompModReferenceSyntax, 
-          getPackageVersion(), getLevel(), getVersion(), msg.str());
+          getPackageVersion(), getLevel(), getVersion(), msg.str(),
+          getLine(), getColumn());
       }
       else
       {
         errlog->logPackageError(getPackageName(), CompInvalidModelRefSyntax, 
-          getPackageVersion(), getLevel(), getVersion(), msg.str());
+          getPackageVersion(), getLevel(), getVersion(), msg.str(),
+          getLine(), getColumn());
       }
     }
     else if (attribute == "comp:metaIdRef")
     {
       errlog->logPackageError(getPackageName(), CompInvalidMetaIdRefSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:idRef")
     {
       errlog->logPackageError(getPackageName(), CompInvalidIdRefSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:portRef")
     {
       errlog->logPackageError(getPackageName(), CompInvalidPortRefSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:unitRef")
     {
       errlog->logPackageError(getPackageName(), CompInvalidUnitRefSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:timeConversionFactor")
     {
       errlog->logPackageError(getPackageName(), CompInvalidTimeConvFactorSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (attribute == "comp:extentConversionFactor")
     {
       errlog->logPackageError(getPackageName(), CompInvalidExtentConvFactorSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else
     {
       errlog->logPackageError(getPackageName(), CompInvalidSIdSyntax, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
   }
 }
@@ -379,17 +394,20 @@ CompBase::logMissingAttribute(const std::string& attribute,
     if (element == "<Port>")
     {
       errlog->logPackageError(getPackageName(), CompPortAllowedAttributes, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (element == "<ExternalModelDefinition>")
     {
       errlog->logPackageError(getPackageName(), CompExtModDefAllowedAttributes, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
     else if (element == "<Deletion>")
     {
       errlog->logPackageError(getPackageName(), CompDeletionAllowedAttributes, 
-        getPackageVersion(), getLevel(), getVersion(), msg.str());
+        getPackageVersion(), getLevel(), getVersion(), msg.str(),
+        getLine(), getColumn());
     }
   }
 }
