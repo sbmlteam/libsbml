@@ -40,6 +40,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -1082,5 +1084,8 @@ GeneProductRef_hasRequiredAttributes(const GeneProductRef_t * gpr)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
 

@@ -47,6 +47,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -1327,5 +1329,8 @@ GeneProductAssociation_hasRequiredElements(const GeneProductAssociation_t * gpa)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
 

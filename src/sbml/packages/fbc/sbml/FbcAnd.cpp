@@ -45,6 +45,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -965,6 +967,10 @@ FbcAnd::writeAttributes (XMLOutputStream& stream) const
 
   /** @endcond doxygenLibsbmlInternal */
 
+LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
 LIBSBML_EXTERN
 FbcAnd_t *
@@ -1087,6 +1093,5 @@ FbcAnd_hasRequiredElements(const FbcAnd_t * fa)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
 
 

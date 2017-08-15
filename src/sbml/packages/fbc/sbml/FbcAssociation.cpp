@@ -47,6 +47,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -1301,5 +1303,8 @@ FbcAssociation_parseFbcInfixAssociation(const char * infix, SBasePlugin_t* plugi
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
 

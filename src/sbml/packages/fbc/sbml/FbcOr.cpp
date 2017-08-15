@@ -45,6 +45,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -1088,5 +1090,8 @@ FbcOr_hasRequiredElements(const FbcOr_t * fo)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
 

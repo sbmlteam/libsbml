@@ -44,6 +44,8 @@
 
 using namespace std;
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
@@ -1558,4 +1560,7 @@ FluxBoundOperation_isValidFluxBoundOperationString(const char* s)
 }
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /* __cplusplus */
+
 
