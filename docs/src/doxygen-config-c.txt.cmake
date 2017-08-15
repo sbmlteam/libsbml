@@ -94,6 +94,7 @@ INPUT =                                    \
   libsbml-basics-of-extensions.txt         \
   libsbml-coding.txt                       \
   libsbml-communications.txt               \
+  libsbml-converters.txt                   \
   libsbml-downloading.txt                  \
   libsbml-example-c.txt                    \
   libsbml-example-files-c.txt              \
