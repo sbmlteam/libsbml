@@ -351,12 +351,10 @@ distfiles =                                                  \
         libsbml-news.txt                                     \
         libsbml-octave-reading-files.txt                     \
         libsbml-other.txt                                    \
-        libsbml-programming.txt                              \
         libsbml-python-creating-model.txt                    \
         libsbml-python-example-files.txt                     \
         libsbml-python-reading-files.txt                     \
         libsbml-reading-files.txt                            \
-        libsbml-release-info.txt                             \
         libsbml-sbml-specifications.txt                      \
         python-substitutions/ASTNodeList.py                  \
         python-substitutions/SBaseList.py                    \
