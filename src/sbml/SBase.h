@@ -3912,7 +3912,7 @@ SBase_getParentSBMLObject (SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  * @param type the typecode (int) of the structure to be returned.
- * @param pkgName the name of the package that defines the @param type.
+ * @param pkgName the name of the package that defines the @param type .
  *
  * @return the ancestor SBase_t structure of this SBML structure with
  * the corresponding typecode (int), NULL if there is no ancestor of

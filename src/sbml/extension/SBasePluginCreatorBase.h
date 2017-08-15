@@ -214,7 +214,7 @@ SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator,
 /**
  * Frees the given SBasePluginCreatorBase_t structure
  * 
- * @param plugin the SBasePluginCreatorBase_t structure to be freed.
+ * @param creator the SBasePluginCreatorBase_t structure to be freed.
  * 
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

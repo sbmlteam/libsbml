@@ -836,7 +836,7 @@ SBMLExtension_getName(SBMLExtension_t* ext);
  * @param ext the SBMLExtension_t structure.
  * @param sbmlLevel the level of SBML.
  * @param sbmlVersion the version of SBML.
- * @param pkgVersion the version of package.
+ * @param pkgVersion the version of the package.
  *
  * @return a string of the package URI
  *

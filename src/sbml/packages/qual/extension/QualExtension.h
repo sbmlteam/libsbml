@@ -194,7 +194,7 @@ public:
    *
    * @param sbmlLevel the level of SBML.
    * @param sbmlVersion the version of SBML.
-   * @param pkgVersion the version of package.
+   * @param pkgVersion the version of the package.
    *
    * @return a string of the package URI, or an empty string if no
    * corresponding URI exists.

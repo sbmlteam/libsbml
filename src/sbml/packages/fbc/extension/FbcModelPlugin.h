@@ -1650,7 +1650,7 @@ FbcModelPlugin_getStrict(SBasePlugin_t * fmp);
  * @copydetails doc_note_strict_v2_only
  *
  * @param fmp the FbcModelPlugin_t structure to set.
- * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
+ * @param strict bool value of the "strict" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

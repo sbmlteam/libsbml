@@ -714,7 +714,6 @@ GeneralGlyph_createFrom (const GeneralGlyph_t *temp);
 /**
  * Creates a new GeneralGlyph_t with the given @p sid
  *
- * @param gg the GeneralGlyph_t structure.
  * @param sid the id of the created SpeciesGlyph_t.
  *
  * @memberof GeneralGlyph_t
@@ -727,7 +726,6 @@ GeneralGlyph_createWith (const char *sid);
 /**
  * Creates a new GeneralGlyph_t referencing the given element.
  *
- * @param gg the GeneralGlyph_t structure.
  * @param sid the id of the created SpeciesGlyph_t.
  * @param referenceId the referenceId of the created SpeciesGlyph_t.
  *
@@ -793,6 +791,7 @@ GeneralGlyph_isSetReferenceId (const GeneralGlyph_t *gg);
  * ReferenceGlyph_t's.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param srg the ReferenceGlyph_t structure to add.
  *
  * @memberof GeneralGlyph_t
  */
@@ -817,6 +816,7 @@ GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *gg);
  * Returns the pointer to the ReferenceGlyph_t's for the given index.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param index the index of the ReferenceGlyph_t structure to return.
  *
  * @memberof GeneralGlyph_t
  */
@@ -843,6 +843,7 @@ GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *gg);
  * is invalid, nothing is removed.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param index the index of the ReferenceGlyph_t structure to remove.
  *
  * @memberof GeneralGlyph_t
  */
@@ -867,6 +868,7 @@ GeneralGlyph_initDefaults (GeneralGlyph_t *gg);
  * Sets the curve for the reaction glyph.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param c the Curve_t structure to use.
  *
  * @memberof GeneralGlyph_t
  */
@@ -961,6 +963,7 @@ GeneralGlyph_createCubicBezier (GeneralGlyph_t *gg);
  * is returned.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param index the index of the ReferenceGlyph_t structure to remove.
  *
  * @memberof GeneralGlyph_t
  */
@@ -975,6 +978,7 @@ GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* gg, unsigned int index);
  * is returned.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param id the id of the ReferenceGlyph_t structure to remove.
  *
  * @memberof GeneralGlyph_t
  */
@@ -989,6 +993,7 @@ GeneralGlyph_removeReferenceGlyphWithId(GeneralGlyph_t* gg, const char* id);
  * id, UINT_MAX from limits.h is returned.
  *
  * @param gg the GeneralGlyph_t structure.
+ * @param id the id of the ReferenceGlyph_t to search for.
  *
  * @memberof GeneralGlyph_t
  */

@@ -283,6 +283,9 @@ BEGIN_C_DECLS
  * @param version an unsigned int, the SBML version to assign to this
  * IntraSpeciesReaction_t structure.
  *
+ * @param pkgVersion an unsigned int, the version of the package to assign
+ * to this IntraSpeciesReaction_t structure.
+ *
  * @returns the newly-created IntraSpeciesReaction_t structure, or a null pointer if
  * an error occurred during construction.
  *

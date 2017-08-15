@@ -1205,6 +1205,7 @@ L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings);
 *
 * @copydetails doc_modulo_l3v2_values
 *
+* @param settings the L3ParserSettings_t structure to modify.
 * @param modulol3v2 a boolean value (one of the constants
 * @sbmlconstant{L3P_MODULO_IS_PIECEWISE,} or
 * @sbmlconstant{L3P_MODULO_IS_REM,})

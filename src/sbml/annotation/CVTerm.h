@@ -477,7 +477,7 @@ public:
 
   /**
    * Creates an empty CVTerm, optionally with the given
-   * @if clike #QualifierType_t value@else qualifier@endif@~ @p type.
+   * @if clike #QualifierType_t value@else qualifier@endif@~ @p type .
    *
    * @copydetails doc_what_are_cvterms 
    *
