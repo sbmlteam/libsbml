@@ -36,6 +36,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -1283,5 +1285,7 @@ ListOfSpeciesTypeComponentMapInProducts_removeById(ListOf_t * lo, const char * s
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /*__cplusplus */
 
 

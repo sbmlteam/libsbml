@@ -34,6 +34,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -753,5 +755,7 @@ ListOfSpeciesFeatureValues_removeById(ListOf_t * lo, const char * sid)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /*__cplusplus */
 
 

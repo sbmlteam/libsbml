@@ -40,6 +40,10 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -347,5 +351,7 @@ BindingSiteSpeciesType_hasRequiredAttributes(const BindingSiteSpeciesType_t * bs
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /*__cplusplus */
 
 

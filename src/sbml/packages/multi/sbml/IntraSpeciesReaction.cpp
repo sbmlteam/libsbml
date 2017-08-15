@@ -40,6 +40,8 @@
 using namespace std;
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
@@ -347,5 +349,7 @@ IntraSpeciesReaction_hasRequiredAttributes(const IntraSpeciesReaction_t * isr)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /*__cplusplus */
 
 

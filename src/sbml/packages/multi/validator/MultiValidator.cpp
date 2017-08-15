@@ -42,6 +42,8 @@ using namespace std;
 /** @endcond */
 
 
+#ifdef __cplusplus
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 //
@@ -651,6 +653,8 @@ MultiValidator::validate(const std::string& filename)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif /*__cplusplus */
 
 // ----------------------------------------------------------------------
 
