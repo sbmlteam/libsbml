@@ -674,112 +674,178 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_create(unsigned int level, unsigned int version,
                          unsigned int pkgVersion);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 void
 InSpeciesTypeBond_free(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_clone(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getId(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getName(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getBindingSite1(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getBindingSite2(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetId(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetName(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetBindingSite1(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetBindingSite2(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setId(InSpeciesTypeBond_t * istb, const char * id);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setName(InSpeciesTypeBond_t * istb, const char * name);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setBindingSite1(InSpeciesTypeBond_t * istb, const char * bindingSite1);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setBindingSite2(InSpeciesTypeBond_t * istb, const char * bindingSite2);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetId(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetName(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite1(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite2(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof InSpeciesTypeBond_t
+*/
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_hasRequiredAttributes(InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof ListOfInSpeciesTypeBonds_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 ListOfInSpeciesTypeBonds_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfInSpeciesTypeBonds_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 ListOfInSpeciesTypeBonds_removeById(ListOf_t * lo, const char * sid);

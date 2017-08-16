@@ -1055,182 +1055,290 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeature_t *
 SpeciesFeature_create(unsigned int level, unsigned int version,
                       unsigned int pkgVersion);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 void
 SpeciesFeature_free(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeature_t *
 SpeciesFeature_clone(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getId(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getName(SpeciesFeature_t * cr);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getSpeciesFeatureType(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 unsigned int
 SpeciesFeature_getOccur(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getComponent(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetId(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetName(SpeciesFeature_t * cr);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetSpeciesFeatureType(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetOccur(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetComponent(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_setId(SpeciesFeature_t * sf, const char * id);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_setName(SpeciesFeature_t * cr, const char * name);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_setSpeciesFeatureType(SpeciesFeature_t * sf, const char * speciesFeatureType);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_setOccur(SpeciesFeature_t * sf, unsigned int occur);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_setComponent(SpeciesFeature_t * sf, const char * component);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetId(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetName(SpeciesFeature_t * cr);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetSpeciesFeatureType(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetOccur(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetComponent(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_addSpeciesFeatureValue(SpeciesFeature_t * sf, SpeciesFeatureValue_t * sfv);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeature_createSpeciesFeatureValue(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 SpeciesFeature_getListOfSpeciesFeatureValues(SpeciesFeature_t * sf) ;
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeature_getSpeciesFeatureValue(SpeciesFeature_t * sf, unsigned int n);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeature_getSpeciesFeatureValueById(SpeciesFeature_t * sf, const char * sid);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 unsigned int
 SpeciesFeature_getNumSpeciesFeatureValues(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeature_removeSpeciesFeatureValue(SpeciesFeature_t * sf, unsigned int n);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeature_removeSpeciesFeatureValueById(SpeciesFeature_t * sf, const char * sid);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_hasRequiredAttributes(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof SpeciesFeature_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesFeature_hasRequiredElements(SpeciesFeature_t * sf);
 
 
+/**
+* @memberof ListOfSpeciesFeatures_t
+*/
 LIBSBML_EXTERN
 SpeciesFeature_t *
 ListOfSpeciesFeatures_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfSpeciesFeatures_t
+*/
 LIBSBML_EXTERN
 SpeciesFeature_t *
 ListOfSpeciesFeatures_removeById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof SubListOfSpeciesFeatures_t
+*/
 LIBSBML_EXTERN
 int 
 SubListOfSpeciesFeatures_isValidRelationString(const char* s);

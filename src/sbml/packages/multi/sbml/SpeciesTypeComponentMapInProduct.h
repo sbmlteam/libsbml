@@ -701,137 +701,218 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 SpeciesTypeComponentMapInProduct_create(unsigned int level, unsigned int version,
                                         unsigned int pkgVersion);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 void
 SpeciesTypeComponentMapInProduct_free(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 SpeciesTypeComponentMapInProduct_clone(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setId(SpeciesTypeComponentMapInProduct_t * cr, const char * id);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setName(SpeciesTypeComponentMapInProduct_t * cr, const char * name);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setReactant(SpeciesTypeComponentMapInProduct_t * stcmip, const char * reactant);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip, const char * reactantComponent);
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip, const char * productComponent);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_hasRequiredAttributes(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof SpeciesTypeComponentMapInProduct_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_hasRequiredElements(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
+/**
+* @memberof ListOfSpeciesTypeComponentMapInProducts_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 ListOfSpeciesTypeComponentMapInProducts_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfSpeciesTypeComponentMapInProducts_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 ListOfSpeciesTypeComponentMapInProducts_removeById(ListOf_t * lo, const char * sid);

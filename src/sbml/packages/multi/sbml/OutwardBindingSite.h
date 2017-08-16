@@ -730,122 +730,194 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 OutwardBindingSite_create(unsigned int level, unsigned int version,
                           unsigned int pkgVersion);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 void
 OutwardBindingSite_free(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 OutwardBindingSite_clone(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getId(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getName(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 BindingStatus_t
 OutwardBindingSite_getBindingStatus(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getComponent(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetId(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetName(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetBindingStatus(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetComponent(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setId(OutwardBindingSite_t * cr, const char * id);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setName(OutwardBindingSite_t * cr, const char * name);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setBindingStatus(OutwardBindingSite_t * obs, 
                                     BindingStatus_t bindingStatus);
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setComponent(OutwardBindingSite_t * obs, const char * component);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetId(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetName(OutwardBindingSite_t * cr);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetBindingStatus(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetComponent(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int
 OutwardBindingSite_hasRequiredAttributes(OutwardBindingSite_t * obs);
 
 
+/**
+* @memberof ListOfOutwardBindingSites_t
+*/
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 ListOfOutwardBindingSites_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfOutwardBindingSites_t
+*/
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 ListOfOutwardBindingSites_removeById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int 
 OutwardBindingSite_isValidBindingStatus(BindingStatus_t bindigStatus);
 
 
+/**
+* @memberof OutwardBindingSite_t
+*/
 LIBSBML_EXTERN
 int 
 OutwardBindingSite_isValidBindingStatusString(const char* s);

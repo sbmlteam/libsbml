@@ -1197,263 +1197,410 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_create(unsigned int level, unsigned int version,
                         unsigned int pkgVersion);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 void
 MultiSpeciesType_free(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_clone(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getId(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getName(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getCompartment(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetId(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetName(MultiSpeciesType_t * mst);
 
 
-
-
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetCompartment(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setId(MultiSpeciesType_t * mst, const char * id);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setName(MultiSpeciesType_t * mst, const char * name);
 
 
-
-
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setCompartment(MultiSpeciesType_t * mst, const char * compartment);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetId(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetName(MultiSpeciesType_t * mst);
 
 
-
-
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetCompartment(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_addSpeciesFeatureType(MultiSpeciesType_t * mst, SpeciesFeatureType_t * sft);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 MultiSpeciesType_createSpeciesFeatureType(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 MultiSpeciesType_getListOfSpeciesFeatureTypes(MultiSpeciesType_t * mst) ;
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 MultiSpeciesType_getSpeciesFeatureType(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 MultiSpeciesType_getSpeciesFeatureTypeById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesType_getNumSpeciesFeatureTypes(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 MultiSpeciesType_removeSpeciesFeatureType(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 MultiSpeciesType_removeSpeciesFeatureTypeById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_addSpeciesTypeInstance(MultiSpeciesType_t * mst, SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 MultiSpeciesType_createSpeciesTypeInstance(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 MultiSpeciesType_getListOfSpeciesTypeInstances(MultiSpeciesType_t * mst) ;
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 MultiSpeciesType_getSpeciesTypeInstance(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 MultiSpeciesType_getSpeciesTypeInstanceById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesType_getNumSpeciesTypeInstances(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 MultiSpeciesType_removeSpeciesTypeInstance(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 MultiSpeciesType_removeSpeciesTypeInstanceById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_addSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 MultiSpeciesType_createSpeciesTypeComponentIndex(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 MultiSpeciesType_getListOfSpeciesTypeComponentIndexes(MultiSpeciesType_t * mst) ;
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 MultiSpeciesType_getSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 MultiSpeciesType_getSpeciesTypeComponentIndexById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesType_getNumSpeciesTypeComponentIndexes(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 MultiSpeciesType_removeSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 MultiSpeciesType_removeSpeciesTypeComponentIndexById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_addInSpeciesTypeBond(MultiSpeciesType_t * mst, InSpeciesTypeBond_t * istb);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 MultiSpeciesType_createInSpeciesTypeBond(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 MultiSpeciesType_getListOfInSpeciesTypeBonds(MultiSpeciesType_t * mst) ;
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 MultiSpeciesType_getInSpeciesTypeBond(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 MultiSpeciesType_getInSpeciesTypeBondById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesType_getNumInSpeciesTypeBonds(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 MultiSpeciesType_removeInSpeciesTypeBond(MultiSpeciesType_t * mst, unsigned int n);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 MultiSpeciesType_removeInSpeciesTypeBondById(MultiSpeciesType_t * mst, const char * sid);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_hasRequiredAttributes(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof MultiSpeciesType_t
+*/
 LIBSBML_EXTERN
 int
 MultiSpeciesType_hasRequiredElements(MultiSpeciesType_t * mst);
 
 
+/**
+* @memberof ListOfMultiSpeciesTypes_t
+*/
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfMultiSpeciesTypes_t
+*/
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_removeById(ListOf_t * lo, const char * sid);

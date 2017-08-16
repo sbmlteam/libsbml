@@ -776,9 +776,6 @@ ListOfCompartmentReferences::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 CompartmentReference_t *
 CompartmentReference_create(unsigned int level, unsigned int version,
@@ -788,9 +785,6 @@ CompartmentReference_create(unsigned int level, unsigned int version,
 }
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 void
 CompartmentReference_free(CompartmentReference_t * cr)
@@ -800,9 +794,6 @@ CompartmentReference_free(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 CompartmentReference_t *
 CompartmentReference_clone(CompartmentReference_t * cr)
@@ -818,9 +809,6 @@ CompartmentReference_clone(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 CompartmentReference_getId(CompartmentReference_t * cr)
@@ -832,9 +820,6 @@ CompartmentReference_getId(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 CompartmentReference_getName(CompartmentReference_t * cr)
@@ -846,9 +831,6 @@ CompartmentReference_getName(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 CompartmentReference_getCompartment(CompartmentReference_t * cr)
@@ -860,9 +842,6 @@ CompartmentReference_getCompartment(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_isSetId(CompartmentReference_t * cr)
@@ -871,9 +850,6 @@ CompartmentReference_isSetId(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_isSetName(CompartmentReference_t * cr)
@@ -882,9 +858,6 @@ CompartmentReference_isSetName(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_isSetCompartment(CompartmentReference_t * cr)
@@ -893,9 +866,6 @@ CompartmentReference_isSetCompartment(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_setId(CompartmentReference_t * cr, const char * id)
@@ -904,9 +874,6 @@ CompartmentReference_setId(CompartmentReference_t * cr, const char * id)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_setName(CompartmentReference_t * cr, const char * name)
@@ -915,9 +882,6 @@ CompartmentReference_setName(CompartmentReference_t * cr, const char * name)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_setCompartment(CompartmentReference_t * cr, const char * compartment)
@@ -926,9 +890,6 @@ CompartmentReference_setCompartment(CompartmentReference_t * cr, const char * co
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetId(CompartmentReference_t * cr)
@@ -937,9 +898,6 @@ CompartmentReference_unsetId(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetName(CompartmentReference_t * cr)
@@ -948,9 +906,6 @@ CompartmentReference_unsetName(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetCompartment(CompartmentReference_t * cr)
@@ -959,9 +914,6 @@ CompartmentReference_unsetCompartment(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 CompartmentReference_hasRequiredAttributes(CompartmentReference_t * cr)
@@ -970,9 +922,6 @@ CompartmentReference_hasRequiredAttributes(CompartmentReference_t * cr)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 CompartmentReference_t *
 ListOfCompartmentReferences_getById(ListOf_t * lo, const char * sid)
@@ -984,9 +933,6 @@ ListOfCompartmentReferences_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 CompartmentReference_t *
 ListOfCompartmentReferences_removeById(ListOf_t * lo, const char * sid)

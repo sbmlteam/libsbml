@@ -593,92 +593,146 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 PossibleSpeciesFeatureValue_create(unsigned int level, unsigned int version,
                                    unsigned int pkgVersion);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 void
 PossibleSpeciesFeatureValue_free(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 PossibleSpeciesFeatureValue_clone(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 char *
 PossibleSpeciesFeatureValue_getId(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 char *
 PossibleSpeciesFeatureValue_getName(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 char *
 PossibleSpeciesFeatureValue_getNumericValue(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_isSetId(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_isSetName(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_isSetNumericValue(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setId(PossibleSpeciesFeatureValue_t * psfv, const char * id);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setName(PossibleSpeciesFeatureValue_t * psfv, const char * name);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setNumericValue(PossibleSpeciesFeatureValue_t * psfv, const char * numericValue);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetId(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetName(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetNumericValue(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof PossibleSpeciesFeatureValue_t
+*/
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_hasRequiredAttributes(PossibleSpeciesFeatureValue_t * psfv);
 
 
+/**
+* @memberof ListOfPossibleSpeciesFeatureValues_t
+*/
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 ListOfPossibleSpeciesFeatureValues_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfPossibleSpeciesFeatureValues_t
+*/
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 ListOfPossibleSpeciesFeatureValues_removeById(ListOf_t * lo, const char * sid);

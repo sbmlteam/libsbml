@@ -654,112 +654,178 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_create(unsigned int level, unsigned int version,
                            unsigned int pkgVersion);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 void
 SpeciesTypeInstance_free(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_clone(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getId(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getName(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getSpeciesType(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetId(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetName(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetSpeciesType(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setId(SpeciesTypeInstance_t * sti, const char * id);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setName(SpeciesTypeInstance_t * sti, const char * name);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setSpeciesType(SpeciesTypeInstance_t * sti, const char * speciesType);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setCompartmentReference(SpeciesTypeInstance_t * sti, const char * compartmentReference);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetId(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetName(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetSpeciesType(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof SpeciesTypeInstance_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_hasRequiredAttributes(SpeciesTypeInstance_t * sti);
 
 
+/**
+* @memberof ListOfSpeciesTypeInstances_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfSpeciesTypeInstances_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_removeById(ListOf_t * lo, const char * sid);

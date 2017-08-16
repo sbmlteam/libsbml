@@ -658,137 +658,218 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 SpeciesTypeComponentIndex_create(unsigned int level, unsigned int version,
                                  unsigned int pkgVersion);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 void
 SpeciesTypeComponentIndex_free(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 SpeciesTypeComponentIndex_clone(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getId(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getName(SpeciesTypeComponentIndex_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getComponent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 unsigned int
 SpeciesTypeComponentIndex_getOccur(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getIdentifyingParent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetId(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetName(SpeciesTypeComponentIndex_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetComponent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetOccur(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetIdentifyingParent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setId(SpeciesTypeComponentIndex_t * stci, const char * id);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setName(SpeciesTypeComponentIndex_t * cr, const char * name);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setComponent(SpeciesTypeComponentIndex_t * stci, const char * component);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setOccur(SpeciesTypeComponentIndex_t * stci, unsigned int occur);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setIdentifyingParent(SpeciesTypeComponentIndex_t * stci, const char * identifyingParent);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetId(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetName(SpeciesTypeComponentIndex_t * cr);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetComponent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetOccur(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetIdentifyingParent(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_hasRequiredAttributes(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof SpeciesTypeComponentIndex_t
+*/
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_hasRequiredElements(SpeciesTypeComponentIndex_t * stci);
 
 
+/**
+* @memberof ListOfSpeciesTypeComponentIndexes_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 ListOfSpeciesTypeComponentIndexes_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof ListOfSpeciesTypeComponentIndexes_t
+*/
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 ListOfSpeciesTypeComponentIndexes_removeById(ListOf_t * lo, const char * sid);

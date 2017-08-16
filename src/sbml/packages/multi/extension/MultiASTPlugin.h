@@ -74,7 +74,7 @@ class LIBSBML_EXTERN MultiASTPlugin : public ASTBasePlugin
 public:
 
   /**
-   * Creates a new MultiModelPlugin object using the given parameters.
+   * Creates a new MultiASTPlugin object using the given parameters.
    *
    * @copydetails doc_what_are_xmlnamespaces
    *
