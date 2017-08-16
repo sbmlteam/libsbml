@@ -42,8 +42,6 @@ using namespace std;
 
 #ifdef __cplusplus
 
-#ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
