@@ -1468,7 +1468,7 @@ Reaction::hasRequiredAttributes() const
   if (getLevel() > 2 && !isSetFast())
     allPresent = false;
 
-  if (getLevel() > 2 && !isSetReversible())
+  if (getLevel() > 2  ** getVersion() == 1 && !isSetReversible())
     allPresent = false;
 
   return allPresent;
