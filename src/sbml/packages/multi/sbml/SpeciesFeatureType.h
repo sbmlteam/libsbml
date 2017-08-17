@@ -866,7 +866,7 @@ int
 SpeciesFeatureType_unsetId(SpeciesFeatureType_t * sft);
 
 
-SpeciesFeatureType_t
+/**
 * @memberof SpeciesFeatureType_t
 */
 LIBSBML_EXTERN
