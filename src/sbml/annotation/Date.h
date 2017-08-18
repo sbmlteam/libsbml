@@ -992,7 +992,7 @@ Date_setDateAsString(Date_t * date, const char* str);
  *
  * @param date the Date_t structure to be checked.
  *
- * @return @c true if the date is valid, @c false otherwise.
+ * @c 1 (true) if the date is valid, @c 0 (false) otherwise.
  *
  * @memberof Date_t
  */

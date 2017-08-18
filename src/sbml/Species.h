@@ -1927,13 +1927,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Species_t structure.
  *
- * @note Once a Species_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Species_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Species_t
  */
@@ -1951,13 +1945,7 @@ Species_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Species_t structure.
  *
- * @note Once a Species_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Species_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Species_t
  */
@@ -2229,7 +2217,7 @@ Species_getCharge (const Species_t *s);
  * @param s the Species_t structure.
  * 
  * @return nonzero (true) if the given Species_t structure's "constant"
- * attribute value is nonzero, @c false otherwise.
+ * attribute value is nonzero, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2259,8 +2247,8 @@ Species_getConversionFactor (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "id" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2275,8 +2263,8 @@ Species_isSetId (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "name" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2291,8 +2279,8 @@ Species_isSetName (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "speciesType" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "speciesType" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2307,8 +2295,8 @@ Species_isSetSpeciesType (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "compartment" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "compartment" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2323,8 +2311,8 @@ Species_isSetCompartment (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "initialAmount" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "initialAmount" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @note In SBML Level 1, Species_t' "initialAmount" is required and
  * therefore <em>should always be set</em>.  (However, in Level 1, the
@@ -2345,8 +2333,8 @@ Species_isSetInitialAmount (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "compartment" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "compartment" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2361,8 +2349,8 @@ Species_isSetInitialConcentration (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "substanceUnits" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "substanceUnits" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2377,8 +2365,8 @@ Species_isSetSubstanceUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "spatialSizeUnits" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "spatialSizeUnits" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  * 
  * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the 
  * Species_t included an attribute called "spatialSizeUnits", which allowed
@@ -2402,8 +2390,8 @@ Species_isSetSpatialSizeUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "units" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "units" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2418,8 +2406,8 @@ Species_isSetUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "charge" attribute of the given
- * Species_t structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "charge" attribute of the given
+ * Species_t structure is set, @c 0 (false) otherwise.
  *
  * @note Beginning in SBML Level 2 Version&nbsp;2, the "charge" attribute on
  * Species_t in SBML is deprecated and its use strongly discouraged.  Its
@@ -2445,8 +2433,8 @@ Species_isSetCharge (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "conversionFactor" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "conversionFactor" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2461,8 +2449,8 @@ Species_isSetConversionFactor (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "constant" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "constant" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2477,8 +2465,8 @@ Species_isSetConstant (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "boundaryCondition" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "boundaryCondition" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2493,8 +2481,8 @@ Species_isSetBoundaryCondition (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
- * structure is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the "hasOnlySubstanceUnits" attribute of the given Species_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -3101,7 +3089,7 @@ Species_getDerivedUnitDefinition(Species_t *s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * all the required attributes for this Species_t structure
  * have been set.
  *
@@ -3116,7 +3104,7 @@ Species_getDerivedUnitDefinition(Species_t *s);
  * @param s the Species_t structure to check.
  *
  * @return a true if all the required
- * attributes for this structure have been defined, @c false otherwise.
+ * attributes for this structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */

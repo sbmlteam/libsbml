@@ -361,8 +361,8 @@ BEGIN_C_DECLS
  *
  * @param sid string to be checked for conformance.
  *
- * @return @c true (non-zero) if the string conforms to type SId, 
- * @c false (0) otherwise.
+ * @return @c 1 (true) if the string conforms to type SId, 
+ * @c 0 (false) otherwise.
  *
  * @note The literal representation of SBML type SId consists of strings 
  * of characters restricted to:
@@ -385,8 +385,8 @@ SyntaxChecker_isValidSBMLSId(const char * sid);
  *
  * @param id string to be checked for conformance.
  *
- * @return @c true (non-zero) if the string conforms to type ID, 
- * @c false (0) otherwise.
+ * @return @c 1 (true) if the string conforms to type ID, 
+ * @c 0 (false) otherwise.
  *
  * @note The literal representation of XML 1.0 type ID consists of strings 
  * of characters restricted to:
@@ -407,8 +407,8 @@ SyntaxChecker_isValidXMLID(const char * id);
  *
  * @param units string to be checked for conformance.
  *
- * @return @c true (non-zero) if the string conforms to type UnitSId, 
- * @c false (0) otherwise.
+ * @return @c 1 (true) if the string conforms to type UnitSId, 
+ * @c 0 (false) otherwise.
  *
  * @note The literal representation of SBML type UniySId consists of strings 
  * of characters restricted to:
@@ -433,8 +433,8 @@ SyntaxChecker_isValidUnitSId(const char * units);
  * @param node the XMLNode_t structure to be checked for conformance.
  * @param sbmlns the SBMLNamespaces_t structure associated with the @p node.
  *
- * @return @c true (non-zero) if the XMLNode_t structure conforms, 
- * @c false (0) otherwise.
+ * @return @c 1 (true) if the XMLNode_t structure conforms, 
+ * @c 0 (false) otherwise.
  *
  * @note the optional SBMLNamespaces_t argument can be used to
  * check for the declaration of the XHTML namespace at the top-level

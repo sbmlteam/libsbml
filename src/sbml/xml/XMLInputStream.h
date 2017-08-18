@@ -503,7 +503,7 @@ XMLInputStream_getErrorLog (XMLInputStream_t *stream);
  *
  * @param stream the XMLInputStream_t structure to examine.
  *
- * @return @c true (nonzero) if this stream is at its end, @c false (zero)
+ * @return @c 1 (true) if this stream is at its end, @c 0 (false)
  * otherwise.
  *
  * @memberof XMLInputStream_t
@@ -518,8 +518,8 @@ XMLInputStream_isEOF (XMLInputStream_t *stream);
  *
  * @param stream the XMLInputStream_t structure to examine.
  *
- * @return @c true (nonzero) if a fatal error occurred while reading from
- * this stream, @c false (zero) otherwise.
+ * @return @c 1 (true) if a fatal error occurred while reading from
+ * this stream, @c 0 (false) otherwise.
  *
  * @memberof XMLInputStream_t
  */
@@ -536,7 +536,7 @@ XMLInputStream_isError (XMLInputStream_t *stream);
  *
  * @param stream the XMLInputStream_t structure to examine.
  *
- * @return @c true (nonzero) if the stream is happy, @c false (zero)
+ * @return @c 1 (true) if the stream is happy, @c 0 (false)
  * otherwise.
  *
  * @memberof XMLInputStream_t

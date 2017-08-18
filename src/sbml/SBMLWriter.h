@@ -436,7 +436,7 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * compile time.  It also needs to be linked with the <a target="_blank"
  * href="">bzip2</a> library to write files in @em bzip2 format.  (Both
  * of these are the default configurations for libSBML.)  Errors about
- * unreadable files will be logged and this method will return @c false
+ * unreadable files will be logged and this method will return @c 0 (false)
  * if a compressed filename is given and libSBML was @em not linked with
  * the corresponding required library.
  *

@@ -710,13 +710,13 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new SBaseRef_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * SBaseRef_t.
  * @param version an unsigned int, the SBML Version to assign to this
  * SBaseRef_t.
- * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * @param pkgVersion an unsigned int, the SBML 'comp' package Version to assign to this
  * SBaseRef_t.
  *
  * @return a pointer to the newly created SBaseRef_t structure.
@@ -828,13 +828,13 @@ SBaseRef_getSBaseRef(SBaseRef_t * sbr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBaseRef_t structure's portRef is set.
  *
  * @param sbr the SBaseRef_t structure to query.
  * 
- * @return @c non-zero (true) if the "portRef" attribute of the given
- * SBaseRef_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "portRef" attribute of the given
+ * SBaseRef_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBaseRef_t
  */
@@ -844,13 +844,13 @@ SBaseRef_isSetPortRef(SBaseRef_t * sbr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBaseRef_t structure's idRef is set.
  *
  * @param sbr the SBaseRef_t structure to query.
  * 
- * @return @c non-zero (true) if the "idRef" attribute of the given
- * SBaseRef_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "idRef" attribute of the given
+ * SBaseRef_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBaseRef_t
  */
@@ -860,13 +860,13 @@ SBaseRef_isSetIdRef(SBaseRef_t * sbr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBaseRef_t structure's unitRef is set.
  *
  * @param sbr the SBaseRef_t structure to query.
  * 
- * @return @c non-zero (true) if the "unitRef" attribute of the given
- * SBaseRef_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "unitRef" attribute of the given
+ * SBaseRef_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBaseRef_t
  */
@@ -876,13 +876,13 @@ SBaseRef_isSetUnitRef(SBaseRef_t * sbr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBaseRef_t structure's metaIdRef is set.
  *
  * @param sbr the SBaseRef_t structure to query.
  * 
- * @return @c non-zero (true) if the "metaIdRef" attribute of the given
- * SBaseRef_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "metaIdRef" attribute of the given
+ * SBaseRef_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBaseRef_t
  */
@@ -892,13 +892,13 @@ SBaseRef_isSetMetaIdRef(SBaseRef_t * sbr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBaseRef_t structure's child SBaseRef_t is set.
  *
  * @param sbr the SBaseRef_t structure to query.
  * 
- * @return @c non-zero (true) if the SBaseRef_t child of the given
- * SBaseRef_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the SBaseRef_t child of the given
+ * SBaseRef_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBaseRef_t
  */
@@ -1090,8 +1090,8 @@ SBaseRef_unsetSBaseRef(SBaseRef_t * sbr);
   * all the required attributes for the given SBaseRef_t structure
   * have been set.
   *
-  * @note The required attributes for a SBaseRef_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
+  * @note The required attributes for a SBaseRef_t structure are
+  * that it uses exactly one attribute to refer to its target.
   *
  * @memberof SBaseRef_t
  */

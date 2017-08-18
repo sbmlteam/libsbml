@@ -226,7 +226,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new ModelDefinition_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * ModelDefinition_t.

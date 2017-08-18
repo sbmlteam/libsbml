@@ -1039,7 +1039,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new Input_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * Input_t.
@@ -1171,13 +1171,13 @@ Input_getThresholdLevel(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's identifier is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1187,13 +1187,13 @@ Input_isSetId(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's qualitativeSpecies is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "qualitativeSpecies" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "qualitativeSpecies" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1203,13 +1203,13 @@ Input_isSetQualitativeSpecies(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's transitionEffect is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "transitionEffect" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "transitionEffect" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1219,13 +1219,13 @@ Input_isSetTransitionEffect(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's name is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1235,13 +1235,13 @@ Input_isSetName(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's sign is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "sign" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "sign" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1251,13 +1251,13 @@ Input_isSetSign(Input_t * i);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Input_t structure's thresholdLevel is set.
  *
  * @param i the Input_t structure to query.
  * 
- * @return @c non-zero (true) if the "thresholdLevel" attribute of the given
- * Input_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "thresholdLevel" attribute of the given
+ * Input_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1485,7 +1485,8 @@ Input_unsetThresholdLevel(Input_t * i);
   * have been set.
   *
   * @note The required attributes for a Input_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
+  * @li qualitativeSpecies
+  * @li transitionEffect
   *
  * @memberof Input_t
  */
@@ -1503,9 +1504,9 @@ Input_hasRequiredAttributes(Input_t * i);
  * Input_t is being sought.
  *
  * @return the Input_t for the given variable, or @c NULL if no such
- * Input_t exits.
+ * Input_t exists.
  *
- * @memberof Input_t
+ * @memberof ListOfInputs_t
  */
 LIBSBML_EXTERN
 Input_t *
@@ -1525,7 +1526,7 @@ ListOfInputs_getById(ListOf_t * lo, const char * sid);
  * caller owns the returned structure. @c NULL is returned if no Input_t
  * structure with the "id" attribute exists in the given ListOfInputs_t structure.
  *
- * @memberof Input_t
+ * @memberof ListOfInputs_t
  */
 LIBSBML_EXTERN
 Input_t *
@@ -1566,14 +1567,14 @@ InputTransitionEffect_fromString(const char* s);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * InputTransitionEffect_t is valid.
  *
  * @param effect the InputTransitionEffect_t enumeration to query.
  * 
- * @return @c non-zero (true) if the InputTransitionEffect_t is
+ * @return @c 1 (true) if the InputTransitionEffect_t is
  * INPUT_TRANSITION_EFFECT_NONE or INPUT_TRANSITION_EFFECT_CONSUMPTION,
- * zero (false) otherwise (including INPUT_TRANSITION_EFFECT_UNKNOWN).
+ * @c 0 (false) otherwise (including INPUT_TRANSITION_EFFECT_UNKNOWN).
  *
  * @memberof Input_t
  */
@@ -1583,15 +1584,15 @@ InputTransitionEffect_isValidInputTransitionEffect(InputTransitionEffect_t effec
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending 
  * on whether the given string is a valid InputTransitionEffect_t.  
  * The matching is case-sensitive:  "none" will return @c true, but 
  * "NONE" will return @c false.
  *
  * @param s the string to query.
  * 
- * @return @c non-zero (true) if the string is
- * "none" or "consumption"; zero (false) otherwise.
+ * @return @c 1 (true) if the string is
+ * "none" or "consumption"; @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */
@@ -1634,14 +1635,14 @@ InputSign_fromString(const char* s);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * InputSign_t is valid.
  *
  * @param effect the InputSign_t enumeration to query.
  * 
- * @return @c non-zero (true) if the InputSign_t is INPUT_SIGN_POSITIVE, 
+ * @return @c 1 (true) if the InputSign_t is INPUT_SIGN_POSITIVE, 
  * INPUT_SIGN_NEGATIVE, INPUT_SIGN_DUAL, or INPUT_SIGN_UNKNOWN;
- * zero (false) otherwise (including INPUT_SIGN_VALUE_NOTSET).
+ * @c 0 (false) otherwise (including INPUT_SIGN_VALUE_NOTSET).
  *
  * @memberof Input_t
  */
@@ -1651,15 +1652,15 @@ InputSign_isValidInputSign(InputSign_t effect);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending 
  * on whether the given string is a valid InputSign_t.  
  * The matching is case-sensitive:  "negative" will return @c true, but 
  * "Negative" will return @c false.
  *
  * @param s the string to query.
  * 
- * @return @c non-zero (true) if the string is "positive",
- * "negative", "dual", or "unknown"; zero (false) otherwise.
+ * @return @c 1 (true) if the string is "positive",
+ * "negative", "dual", or "unknown"; @c 0 (false) otherwise.
  *
  * @memberof Input_t
  */

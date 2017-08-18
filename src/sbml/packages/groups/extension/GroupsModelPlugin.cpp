@@ -949,7 +949,7 @@ GroupsModelPlugin::copyInformationToNestedLists()
 
 
 /*
- * Returns a ListOf_t* containing Group_t objects from this
+ * Returns a ListOf_t * containing Group_t objects from this
  * GroupsModelPlugin_t.
  */
 LIBSBML_EXTERN

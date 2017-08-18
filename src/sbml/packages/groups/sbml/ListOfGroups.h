@@ -408,7 +408,7 @@ BEGIN_C_DECLS
  *
  * @return the nth Group_t in this ListOf_t.
  *
- * @memberof Group_t
+ * @memberof ListOfGroups_t
  */
 LIBSBML_EXTERN
 const Group_t*
@@ -425,7 +425,7 @@ ListOfGroups_getGroup(ListOf_t* lo, unsigned int n);
  * @return the Group_t in this ListOf_t with the given id or NULL if no such
  * Group_t exists.
  *
- * @memberof Group_t
+ * @memberof ListOfGroups_t
  */
 LIBSBML_EXTERN
 const Group_t*
@@ -441,7 +441,7 @@ ListOfGroups_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Group_t in this ListOf_t.
  *
- * @memberof Group_t
+ * @memberof ListOfGroups_t
  */
 LIBSBML_EXTERN
 Group_t*
@@ -459,7 +459,7 @@ ListOfGroups_remove(ListOf_t* lo, unsigned int n);
  * @return the Group_t in this ListOf_t based on the identifier or NULL if no
  * such Group_t exists.
  *
- * @memberof Group_t
+ * @memberof ListOfGroups_t
  */
 LIBSBML_EXTERN
 Group_t*

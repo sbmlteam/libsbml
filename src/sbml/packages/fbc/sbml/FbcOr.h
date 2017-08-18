@@ -822,7 +822,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new FbcOr_t structure using the given SBML @p level and
- * @p version values.
+ * @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML level to assign to this
  * FbcOr_t structure.
@@ -924,7 +924,7 @@ FbcOr_removeAssociationById(FbcOr_t * fo, const char * sid);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given FbcOr_t structure have been set.
  *
  * @param fo the FbcOr_t structure to check.
@@ -940,7 +940,7 @@ FbcOr_hasRequiredAttributes(const FbcOr_t * fo);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given FbcOr_t structure have been set.
  *
  * @param fo the FbcOr_t structure to check.

@@ -1694,8 +1694,8 @@ CVTerm_removeResource(CVTerm_t * term, const char * resource);
  *
  * @param term the CVTerm_t structure.
  *
- * @return @c true (1) if this CVTerm_t has all the required elements,
- * otherwise @c false (0) will be returned. If an invalid CVTerm_t
+ * @return @c 1 (true) if this CVTerm_t has all the required elements,
+ * otherwise @c 0 (false) will be returned. If an invalid CVTerm_t
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof CVTerm_t

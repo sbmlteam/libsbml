@@ -1592,13 +1592,7 @@ BEGIN_C_DECLS
  * 
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
- * @note Once a UnitDefinition_t has been added to an SBMLDocument_t, the @p 
- * level and @p version for the document @em override those used to create 
- * the UnitDefinition_t.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of 
- * the intended SBML Level and Version  determine whether it is valid to 
- * assign a particular value to an attribute, or whether it is valid to add 
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof UnitDefinition_t
  */
@@ -1616,13 +1610,7 @@ UnitDefinition_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created UnitDefinition_t structure.
  *
- * @note Once a UnitDefinition_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the UnitDefinition_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version determine whether it is valid to assign
- * a particular value to an attribute, or whether it is valid to add a structure
- * to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof UnitDefinition_t
  */
@@ -1737,9 +1725,9 @@ UnitDefinition_isSetName (const UnitDefinition_t *ud);
  * 
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if the UnitDefinition_t structure @p ud is a variant of
+ * @c 1 (true) if the UnitDefinition_t structure @p ud is a variant of
  * the built-in unit @c area, meaning square metres with only abritrary
- * variations in scale or multiplier values; @c false otherwise.
+ * variations in scale or multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1754,9 +1742,9 @@ UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * @c 1 (true) if this UnitDefinition_t is a variant of the built-in
  * unit @c length, meaning metres with only abritrary variations in scale
- * or multiplier values; @c false otherwise.
+ * or multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1771,9 +1759,9 @@ UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * @c 1 (true) if this UnitDefinition_t is a variant of the built-in
  * unit substance, meaning moles or items with only abritrary variations
- * in scale or multiplier values; @c false otherwise.
+ * in scale or multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1788,9 +1776,9 @@ UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * @c 1 (true) if this UnitDefinition_t is a variant of the built-in
  * unit time, meaning seconds with only abritrary variations in scale or
- * multiplier values; @c false otherwise.
+ * multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1805,9 +1793,9 @@ UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * @c 1 (true) if this UnitDefinition_t is a variant of the built-in
  * unit volume, meaning litre or cubic metre with only abritrary
- * variations in scale or multiplier values; @c false otherwise.
+ * variations in scale or multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1822,9 +1810,9 @@ UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of dimensionless,
+ * @c 1 (true) if this UnitDefinition_t is a variant of dimensionless,
  * meaning dimensionless with only abritrary variations in scale or
- * multiplier values; @c false otherwise.
+ * multiplier values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1839,9 +1827,9 @@ UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of mass, meaning
+ * @c 1 (true) if this UnitDefinition_t is a variant of mass, meaning
  * gram or kilogram with only abritrary variations in scale or multiplier
- * values; @c false otherwise.
+ * values; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1857,10 +1845,10 @@ UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * @c 1 (true) if this UnitDefinition_t is a variant of the built-in
  * unit substance per built-in unit time, meaning it contains two units
  * one of which is a variant of substance and the other is a variant of
- * time which an exponent of -1; @c false otherwise.
+ * time which an exponent of -1; @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -2108,8 +2096,8 @@ UnitDefinition_convertToSI(UnitDefinition_t * ud);
  * @param ud1 the first UnitDefinition_t structure to compare.
  * @param ud2 the second UnitDefinition_t structure to compare.
  *
- * @return @c true if all the Unit_t structures in ud1 are identical to the
- * Unit_t structures of ud2, @c false otherwise.
+ * @c 1 (true) if all the Unit_t structures in ud1 are identical to the
+ * Unit_t structures of ud2, @c 0 (false) otherwise.
  *
  * @copydetails doc_note_static_methods
  *
@@ -2138,8 +2126,8 @@ UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * 
  * @param ud2 the second UnitDefinition_t structure to compare.
  *
- * @return @c true if all the Unit_t structures in ud1 are equivalent
- * to the Unit_t structures in ud2, @c false otherwise.
+ * @c 1 (true) if all the Unit_t structures in ud1 are equivalent
+ * to the Unit_t structures in ud2, @c 0 (false) otherwise.
  *
  * @see UnitDefinition_areIdentical()
  * @see Unit_areEquivalent()

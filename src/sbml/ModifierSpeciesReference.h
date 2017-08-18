@@ -799,7 +799,7 @@ ModifierSpeciesReference_unsetSpecies(ModifierSpeciesReference_t * msr);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given ModifierSpeciesReference_t structure have been set.
  *
  * @param msr the ModifierSpeciesReference_t structure to check.

@@ -1155,9 +1155,6 @@ Member_unsetMetaIdRef(Member_t * m);
  * @return @c 1 to indicate that all the required attributes of this Member_t
  * have been set, otherwise @c 0 is returned.
  *
- *
- * @note The required attributes for the Member_t object are:
- *
  * @memberof Member_t
  */
 LIBSBML_EXTERN

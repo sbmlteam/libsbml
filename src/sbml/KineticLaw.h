@@ -1491,13 +1491,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created KineticLaw_t structure.
  *
- * @note Once a KineticLaw_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the KineticLaw_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof KineticLaw_t
  */
@@ -1515,13 +1509,7 @@ KineticLaw_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created KineticLaw_t structure.
  *
- * @note Once a KineticLaw_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the KineticLaw_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof KineticLaw_t
  */

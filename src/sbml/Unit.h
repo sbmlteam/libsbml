@@ -1692,13 +1692,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Unit_t structure.
  *
- * @note Once a Unit_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Unit_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Unit_t
  */
@@ -1716,13 +1710,7 @@ Unit_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Unit_t structure.
  *
- * @note Once a Unit_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Unit_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Unit_t
  */
@@ -2709,7 +2697,7 @@ Unit_unsetOffset (Unit_t *u);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * all the required attributes for this Unit_t structure
  * have been set.
  *
@@ -2750,7 +2738,7 @@ int
 Unit_isBuiltIn (const char *name, unsigned int level);
 
 /** 
- * Predicate returning @c true (non-zero) if two
+ * Predicate returning @c 1 (true) if two
  * Unit_t structures are identical.
  *
  * Two Unit_t structures are considered to be @em identical if they match in
@@ -2761,8 +2749,8 @@ Unit_isBuiltIn (const char *name, unsigned int level);
  * @param unit1 the first Unit_t structure to compare.
  * @param unit2 the second Unit_t structure to compare.
  *
- * @return @c true if all the attributes of unit1 are identical
- * to the attributes of unit2, @c false otherwise.
+ * @c 1 (true) if all the attributes of unit1 are identical
+ * to the attributes of unit2, @c 0 (false) otherwise.
  *
  * @see Unit_areEquivalent()
  *
@@ -2786,9 +2774,9 @@ Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
  * @param unit1 the first Unit_t structure to compare.
  * @param unit2 the second Unit_t structure to compare.
  *
- * @return @c true if the "kind" and "exponent" attributes of unit1 are
- * identical to the kind and exponent attributes of unit2, @c false
- * otherwise.
+ * @c 1 (true) if the "kind" and "exponent" attributes of unit1 are
+ * identical to the kind and exponent attributes of unit2,
+ * @c 0 (false) otherwise.
  * 
  * @see Unit_areIdentical()
  *

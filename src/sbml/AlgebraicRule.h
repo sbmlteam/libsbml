@@ -700,7 +700,7 @@ AlgebraicRule_setFormula (AlgebraicRule_t *r, const char *formula);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given AlgebraicRule_t structure have been set.
  *
  * @param ar the AlgebraicRule_t structure to check.
@@ -716,7 +716,7 @@ AlgebraicRule_hasRequiredAttributes(const AlgebraicRule_t * ar);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given AlgebraicRule_t structure have been set.
  *
  * @param ar the AlgebraicRule_t structure to check.

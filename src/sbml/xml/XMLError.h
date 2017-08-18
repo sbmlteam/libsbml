@@ -1389,13 +1389,13 @@ XMLError_getCategoryAsString (const XMLError_t *error);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * this XMLError_t structure is for information only.
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError_t is for informational purposes
- * only, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLError_t is for informational purposes
+ * only, @c 0 (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1405,12 +1405,12 @@ XMLError_isInfo (const XMLError_t *error);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * this XMLError_t structure is a warning.
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError_t is a warning, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLError_t is a warning, @c 0 (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1420,12 +1420,12 @@ XMLError_isWarning (const XMLError_t *error);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * this XMLError_t structure is an error.
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError_t is an error, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLError_t is an error, @c 0 (false) otherwise.
  *
  * @memberof XMLError_t
  */
@@ -1435,12 +1435,12 @@ XMLError_isError (const XMLError_t *error);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * this XMLError_t structure is a fatal error.
  *
  * @param error the XMLError_t.
  *
- * @return @c non-zero (true) if this XMLError_t is a fatal error, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLError_t is a fatal error, @c 0 (false) otherwise.
  *
  * @memberof XMLError_t
  */

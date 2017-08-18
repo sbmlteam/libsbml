@@ -1311,13 +1311,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Parameter_t structure.
  *
- * @note Once a Parameter_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Parameter_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Parameter_t
  */
@@ -1335,13 +1329,7 @@ Parameter_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Parameter_t structure.
  *
- * @note Once a Parameter_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Parameter_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Parameter_t
  */
@@ -1467,7 +1455,7 @@ Parameter_getUnits (const Parameter_t *p);
 
 
 /**
- * Takes a Parameter_t structure and returns zero or nonzero, depending
+ * Takes a Parameter_t structure and returns @c 1 (true) or @c 0 (false), depending
  * on the value of the parameter's "constant" attribute.
  *
  * @param p the Parameter_t whose constant value is sought.
@@ -1483,13 +1471,13 @@ Parameter_getConstant (const Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Parameter_t structure's identifier is set.
  *
  * @param p the Parameter_t structure to query.
  * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Parameter_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * Parameter_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Parameter_t
  */
@@ -1499,13 +1487,13 @@ Parameter_isSetId (const Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Parameter_t structure's name is set.
  *
  * @param p the Parameter_t structure to query.
  * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Parameter_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * Parameter_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Parameter_t
  */
@@ -1515,13 +1503,13 @@ Parameter_isSetName (const Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Parameter_t structure's value is set.
  * 
  * @param p the Parameter_t structure to query.
  * 
- * @return @c non-zero (true) if the "value" attribute of the given
- * Parameter_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "value" attribute of the given
+ * Parameter_t structure is set, @c 0 (false) otherwise.
  *
  * @note In SBML Level 1 Version 1, a Parameter_t value is required and
  * therefore <em>should always be set</em>.  In Level 1 Version 2 and
@@ -1535,13 +1523,13 @@ Parameter_isSetValue (const Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Parameter_t structure's units have been set.
  *
  * @param p the Parameter_t structure to query.
  * 
- * @return @c non-zero (true) if the "units" attribute of the given
- * Parameter_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "units" attribute of the given
+ * Parameter_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Parameter_t
  */
@@ -1551,13 +1539,13 @@ Parameter_isSetUnits (const Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Parameter_t structure's constant attribute have been set.
  *
  * @param p the Parameter_t structure to query.
  * 
- * @return @c non-zero (true) if the "constant" attribute of the given
- * Parameter_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "constant" attribute of the given
+ * Parameter_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Parameter_t
  */
@@ -1757,7 +1745,7 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * all the required attributes for this Parameter_t structure
  * have been set.
  *
@@ -1767,8 +1755,8 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p);
  *
  * @param p the Parameter_t structure to check.
  *
- * @return @c true if all the required
- * attributes for this structure have been defined, @c false otherwise.
+ * @return @c 1 (true) if all the required
+ * attributes for this structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Parameter_t
  */

@@ -3157,9 +3157,9 @@ ASTNode_isPiecewise (const ASTNode_t *node);
 
 
 /**
- * Returns true if the given node represents a MathML
+ * Returns @c 1 (true) if the given node represents a MathML
  * qualifier (i.e., @c bvar, @c degree, @c base, @c piece, @c otherwise),
- * @c false (zero) otherwise.
+ * @c 0 (false) otherwise.
  *
  * More precisely, this node must be of one of the following types:
  * @sbmlconstant{AST_QUALIFIER_BVAR, ASTNodeType_t},

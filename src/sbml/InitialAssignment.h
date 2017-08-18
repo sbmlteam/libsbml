@@ -1202,13 +1202,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
- * @note Once a InitialAssignment_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the InitialAssignment_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof InitialAssignment_t
  */
@@ -1226,13 +1220,7 @@ InitialAssignment_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created InitialAssignment_t structure.
  *
- * @note Once a InitialAssignment_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the InitialAssignment_t.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the 
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof InitialAssignment_t
  */
@@ -1314,7 +1302,7 @@ InitialAssignment_getMath (const InitialAssignment_t *ia);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether this
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether this
  * InitialAssignment_t's "symbol" attribute is set.
  *
  * @param ia the InitialAssignment_t structure.
@@ -1330,7 +1318,7 @@ InitialAssignment_isSetSymbol (const InitialAssignment_t *ia);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether this
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether this
  * InitialAssignment_t's "math" subelement contains a value.
  *
  * @param ia the InitialAssignment_t structure.
@@ -1432,13 +1420,13 @@ InitialAssignment_getDerivedUnitDefinition(InitialAssignment_t *ia);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the math expression of this InitialAssignment_t contains
  * parameters/numbers with undeclared units.
  * 
- * @return @c true if the math expression of this InitialAssignment_t
+ * @c 1 (true) if the math expression of this InitialAssignment_t
  * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
+ * with undeclared units, @c 0 (false) otherwise.
  *
  * @note a return value of @c true indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 

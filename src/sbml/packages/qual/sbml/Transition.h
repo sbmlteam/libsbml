@@ -1481,7 +1481,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new Transition_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * Transition_t.
@@ -1555,13 +1555,13 @@ Transition_getName(Transition_t * t);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Transition_t structure's identifier is set.
  *
  * @param t the Transition_t structure to query.
  * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Transition_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * Transition_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Transition_t
  */
@@ -1571,13 +1571,13 @@ Transition_isSetId(Transition_t * t);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Transition_t structure's name is set.
  *
  * @param t the Transition_t structure to query.
  * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Transition_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * Transition_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Transition_t
  */
@@ -1740,7 +1740,7 @@ Transition_getInput(Transition_t * t, unsigned int n);
  * Input_t is being sought.
  *
  * @return the Input_t for the given variable, or @c NULL if no such
- * Input_t exits.
+ * Input_t exists.
  *
  * @memberof Transition_t
  */
@@ -1884,7 +1884,7 @@ Transition_getOutput(Transition_t * t, unsigned int n);
  * Output_t is being sought.
  *
  * @return the Output_t for the given variable, or @c NULL if no such
- * Output_t exits.
+ * Output_t exists.
  *
  * @memberof Transition_t
  */
@@ -2028,7 +2028,7 @@ Transition_getFunctionTerm(Transition_t * t, unsigned int n);
  * FunctionTerm_t is being sought.
  *
  * @return the FunctionTerm_t for the given variable, or @c NULL if no such
- * FunctionTerm_t exits.
+ * FunctionTerm_t exists.
  *
  * @memberof Transition_t
  */
@@ -2097,8 +2097,6 @@ Transition_removeFunctionTermById(Transition_t * t, const char * sid);
   * all the required attributes for the given Transition_t structure
   * have been set.
   *
-  * @note The required attributes for a Transition_t structure are:
-  *
  * @memberof Transition_t
  */
 LIBSBML_EXTERN
@@ -2130,9 +2128,9 @@ Transition_hasRequiredElements(Transition_t * t);
  * Transition_t is being sought.
  *
  * @return the Transition_t for the given variable, or @c NULL if no such
- * Transition_t exits.
+ * Transition_t exists.
  *
- * @memberof Transition_t
+ * @memberof ListOfTransitions_t
  */
 LIBSBML_EXTERN
 Transition_t *
@@ -2152,7 +2150,7 @@ ListOfTransitions_getById(ListOf_t * lo, const char * sid);
  * caller owns the returned structure. @c NULL is returned if no Transition_t
  * structure with the "id" attribute exists in the given ListOf_t structure.
  *
- * @memberof Transition_t
+ * @memberof ListOfTransitions_t
  */
 LIBSBML_EXTERN
 Transition_t *

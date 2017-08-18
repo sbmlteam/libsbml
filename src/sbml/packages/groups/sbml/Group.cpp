@@ -1588,7 +1588,7 @@ Group_unsetKind(Group_t * g)
 
 
 /*
- * Returns a ListOf_t* containing Member_t objects from this Group_t.
+ * Returns a ListOf_t * containing Member_t objects from this Group_t.
  */
 LIBSBML_EXTERN
 ListOf_t*

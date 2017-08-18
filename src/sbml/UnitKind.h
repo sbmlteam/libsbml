@@ -101,15 +101,15 @@ typedef enum
  * <li>@sbmlconstant{UNIT_KIND_METER, UnitKind_t} <code>==</code> @sbmlconstant{UNIT_KIND_METRE, UnitKind_t}
  * </ul>
  *
- * In the two cases above, C equality comparison would yield @c false
+ * In the two cases above, C equality comparison would yield @c 0 (false)
  * (because each of the above is a distinct enumeration value), but
  * this function returns @c true.
  *
  * @param uk1 a <code>UNIT_KIND_</code> value.
  * @param uk2 a second <code>UNIT_KIND_</code> value to compare to @p uk1.
  *
- * @return nonzero (for @c true) if @p uk1 is logically equivalent to @p
- * uk2, zero (for @c false) otherwise.
+ * @return @c 1 (true) if @p uk1 is logically equivalent to @p
+ * uk2, @c 0 (false) otherwise.
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
@@ -185,8 +185,8 @@ UnitKind_toString (UnitKind_t uk);
  * @param level the Level of SBML.
  * @param version the Version within the Level of SBML.
  *
- * @return nonzero (for @c true) if string is the name of a valid
- * <code>UNIT_KIND_</code> value, zero (for @c false) otherwise.
+ * @return 1 (true) if string is the name of a valid
+ * <code>UNIT_KIND_</code> value, @c 0 (false) otherwise.
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.

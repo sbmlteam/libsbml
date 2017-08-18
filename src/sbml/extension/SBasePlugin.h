@@ -1053,7 +1053,7 @@ SBasePlugin_createObject(SBasePlugin_t* plugin, XMLInputStream_t* stream);
  * @param parentObject the SBase_t structure that will store the annotation.
  * @param stream the XMLInputStream_t structure to read from.
  *
- * @return @c true (1) if the subclass read from the stream, @c false (0) otherwise.
+ * @return @c 1 (true) if the subclass read from the stream, @c 0 (false) otherwise.
  * If an invalid plugin or stream was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof SBasePlugin_t
@@ -1087,8 +1087,8 @@ SBasePlugin_writeElements(SBasePlugin_t* plugin, XMLInputStream_t* stream);
  *
  * @param plugin the SBasePlugin_t structure.
  *
- * @return @c true (1) if this plugin structure has all the required elements,
- * otherwise @c false (0) will be returned. If an invalid plugin
+ * @return @c 1 (true) if this plugin structure has all the required elements,
+ * otherwise @c 0 (false) will be returned. If an invalid plugin
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof SBasePlugin_t
@@ -1163,8 +1163,8 @@ SBasePlugin_writeAttributes(SBasePlugin_t* plugin,
  *
  * @param plugin the SBasePlugin_t structure.
  *
- * @return @c true (1) if this plugin structure has all the required attributes,
- * otherwise @c false (0) will be returned. If an invalid plugin
+ * @return @c 1 (true) if this plugin structure has all the required attributes,
+ * otherwise @c 0 (false) will be returned. If an invalid plugin
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof SBasePlugin_t

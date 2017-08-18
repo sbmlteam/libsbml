@@ -648,13 +648,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
  *
- * @note Once a StoichiometryMath_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the StoichiometryMath_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof StoichiometryMath_t
  */
@@ -672,13 +666,7 @@ StoichiometryMath_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created StoichiometryMath_t structure.
  *
- * @note Once a StoichiometryMath_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the StoichiometryMath_t.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add a structure 
- * to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof StoichiometryMath_t
  */
@@ -734,8 +722,8 @@ StoichiometryMath_getMath (const StoichiometryMath_t *t);
 
 
 /**
- * @return @c true (non-zero) if the stoichMath (or equivalently the formula) of
- * this StoichiometryMath_t is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the stoichMath (or equivalently the formula) of
+ * this StoichiometryMath_t is set, @c 0 (false) otherwise.
  *
  * @memberof StoichiometryMath_t
  */
@@ -795,15 +783,15 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the math expression of this StoichiometryMath_t contains
  * parameters/numbers with undeclared units.
  *
  * @param math the StoichiometryMath_t structure to check.
  * 
- * @return @c true if the math expression of this StoichiometryMath_t
+ * @c 1 (true) if the math expression of this StoichiometryMath_t
  * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
+ * with undeclared units, @c 0 (false) otherwise.
  *
  * @note A return value of @c true indicates that the UnitDefinition_t
  * returned by getDerivedUnitDefinition() may not accurately represent

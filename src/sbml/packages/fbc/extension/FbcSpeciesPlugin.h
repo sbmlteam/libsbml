@@ -654,13 +654,13 @@ FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcSpeciesPlugin_t structure's charge is set.
  *
  * @param fbc the FbcSpeciesPlugin_t structure to query
  * 
- * @return @c non-zero (true) if the "charge" attribute of the given
- * FbcSpeciesPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "charge" attribute of the given
+ * FbcSpeciesPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcSpeciesPlugin_t
  */
@@ -719,13 +719,13 @@ FbcSpeciesPlugin_getChemicalFormula(SBasePlugin_t * fbc);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcSpeciesPlugin_t structure's chemicalFormula is set.
  *
  * @param fbc the FbcSpeciesPlugin_t structure to query
  * 
- * @return @c non-zero (true) if the "chemicalFormula" attribute of the given
- * FbcSpeciesPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "chemicalFormula" attribute of the given
+ * FbcSpeciesPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcSpeciesPlugin_t
  */

@@ -1066,7 +1066,7 @@ Event::getEventAssignment (unsigned int n)
 
 /*
  * @return the EventAssignment for the given variable, or @c NULL if no such
- * EventAssignment exits.
+ * EventAssignment exists.
  */
 const EventAssignment*
 Event::getEventAssignment (const std::string& variable) const
@@ -1077,7 +1077,7 @@ Event::getEventAssignment (const std::string& variable) const
 
 /*
  * @return the EventAssignment for the given variable, or @c NULL if no such
- * EventAssignment exits.
+ * EventAssignment exists.
  */
 EventAssignment*
 Event::getEventAssignment (const std::string& variable)

@@ -827,7 +827,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new FbcAnd_t structure using the given SBML @p level and
- * @p version values.
+ * @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML level to assign to this
  * FbcAnd_t structure.
@@ -878,58 +878,88 @@ FbcAnd_t *
 FbcAnd_clone(FbcAnd_t * fa);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 int
 FbcAnd_addAssociation(FbcAnd_t * fa, FbcAssociation_t * association);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcAnd_t *
 FbcAnd_createAnd(FbcAnd_t * fa);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcOr_t *
 FbcAnd_createOr(FbcAnd_t * fa);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 GeneProductRef_t *
 FbcAnd_createGeneProductRef(FbcAnd_t * fa);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 FbcAnd_getListOfFbcAssociations(FbcAnd_t * fa) ;
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_getAssociation(FbcAnd_t * fa, unsigned int n);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_getAssociationById(FbcAnd_t * fa, const char * sid);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 unsigned int
 FbcAnd_getNumAssociations(FbcAnd_t * fa);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_removeAssociation(FbcAnd_t * fa, unsigned int n);
 
 
+/**
+* @memberof FbcAnd_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_removeAssociationById(FbcAnd_t * fa, const char * sid);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given FbcAnd_t structure have been set.
  *
  * @param fa the FbcAnd_t structure to check.
@@ -945,7 +975,7 @@ FbcAnd_hasRequiredAttributes(const FbcAnd_t * fa);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given FbcAnd_t structure have been set.
  *
  * @param fa the FbcAnd_t structure to check.

@@ -2273,15 +2273,15 @@ XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* tr
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given index exists in this XMLAttributes_t
  * structure.
  *
  * @param xa the XMLAttributes_t structure.
  * @param index an integer, the position of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given index exists
- * in this XMLAttributes_t structure, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given index exists
+ * in this XMLAttributes_t structure, @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2291,15 +2291,15 @@ XMLAttributes_hasAttribute (const XMLAttributes_t *xa, int index);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given local name exists in this XMLAttributes_t
  * structure.
  *
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
- * exists in this XMLAttributes_t structure, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given local name
+ * exists in this XMLAttributes_t structure, @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2309,7 +2309,7 @@ XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name)
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given local name and namespace URI exists in this
  * XMLAttributes_t structure.
  *
@@ -2317,8 +2317,8 @@ XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name)
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
- * and namespace URI exists in this XMLAttributes_t structure, @c zero (false)
+ * @return @c 1 (true) if an attribute with the given local name
+ * and namespace URI exists in this XMLAttributes_t structure, @c 0 (false)
  * otherwise.
  *
  * @memberof XMLAttributes_t
@@ -2329,15 +2329,15 @@ XMLAttributes_hasAttributeWithNS (const XMLAttributes_t *xa, const char* name, c
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given XMLtriple_t exists in this XMLAttributes_t
  * structure.
  *
  * @param xa the XMLAttributes_t structure.
  * @param triple an XMLTriple_t, the XML triple of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given XMLTriple_t
- * exists in this XMLAttributes_t structure, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given XMLTriple_t
+ * exists in this XMLAttributes_t structure, @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2347,13 +2347,13 @@ XMLAttributes_hasAttributeWithTriple (const XMLAttributes_t *xa, const XMLTriple
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLAttributes_t structure is empty.
  *
  * @param xa the XMLAttributes_t structure.
  *
- * @return @c non-zero (true) if this XMLAttributes_t structure is empty,
- * @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLAttributes_t structure is empty,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2380,8 +2380,8 @@ XMLAttributes_isEmpty (const XMLAttributes_t *xa);
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoBooleanByTriple(...) should be used to read a value for
@@ -2418,8 +2418,8 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2452,8 +2452,8 @@ XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoDoubleByTriple(...) should be used to read a value for
@@ -2490,8 +2490,8 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2524,8 +2524,8 @@ XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoLongByTriple(...) should be used to read a value for
@@ -2562,8 +2562,8 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2596,8 +2596,8 @@ XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoIntByTriple(...) should be used to read a value for
@@ -2634,8 +2634,8 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2668,8 +2668,8 @@ XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoUnsignedIntByTriple(...) should be used to read a value for
@@ -2706,8 +2706,8 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */
@@ -2734,8 +2734,8 @@ XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @note A namespace bound to the given local name is not checked by this
  * function. readIntoStringByTriple(...) should be used to read a value for
@@ -2766,8 +2766,8 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
  * @param log an XMLErrorLog_t, the error log.
  * @param required a boolean, indicating whether the attribute is being sought.
  *
- * @returns @c non-zero (true) if the attribute was read into value,
- * @c zero (false) otherwise.
+ * @returns @c 1 (true) if the attribute was read into value,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLAttributes_t
  */

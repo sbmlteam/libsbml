@@ -932,7 +932,7 @@ public:
    * EventAssignment is being sought.
    *
    * @return the EventAssignment for the given @p variable, or @c NULL if
-   * no such EventAssignment exits.
+   * no such EventAssignment exists.
    */
   const EventAssignment* getEventAssignment (const std::string& variable) const;
 
@@ -944,7 +944,7 @@ public:
    * EventAssignment is being sought.
    *
    * @return the EventAssignment for the given @p variable, or @c NULL if
-   * no such EventAssignment exits.
+   * no such EventAssignment exists.
    */
   EventAssignment* getEventAssignment (const std::string& variable);
 
@@ -1760,13 +1760,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once an Event_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Event_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Event_t
  */
@@ -1784,13 +1778,7 @@ Event_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Event_t structure.
  *
- * @note Once an Event_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Event_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Event_t
  */
@@ -1948,13 +1936,13 @@ Event_getUseValuesFromTriggerTime (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's identifier is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * Event_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -1964,13 +1952,13 @@ Event_isSetId (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's name is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * Event_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -1980,13 +1968,13 @@ Event_isSetName (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's trigger is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if a Trigger_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
+ * @return @c 1 (true) if a Trigger_t structure is assigned to
+ * the given Event_t structure, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -1996,13 +1984,13 @@ Event_isSetTrigger (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's delay is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if a Delay_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
+ * @return @c 1 (true) if a Delay_t structure is assigned to
+ * the given Event_t structure, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -2012,13 +2000,13 @@ Event_isSetDelay (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's priority is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if a Priority_t structure is assigned to
- * the given Event_t structure, zero (false) otherwise.
+ * @return @c 1 (true) if a Priority_t structure is assigned to
+ * the given Event_t structure, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -2028,13 +2016,13 @@ Event_isSetPriority (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's "timeUnits" attribute is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if a value for the "timeUnits" attribute is
- * assigned in the given Event_t structure, zero (false) otherwise.
+ * @return @c 1 (true) if a value for the "timeUnits" attribute is
+ * assigned in the given Event_t structure, @c 0 (false) otherwise.
  *
  * @warning Definitions of Event_t in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
@@ -2050,13 +2038,13 @@ Event_isSetTimeUnits (const Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Event_t structure's useValuesFromTriggerTime attribute is set.
  *
  * @param e the Event_t structure to query.
  * 
- * @return @c non-zero (true) if the "useValuesFromTriggerTime" attribute of the given
- * Event_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "useValuesFromTriggerTime" attribute of the given
+ * Event_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */
@@ -2310,7 +2298,7 @@ Event_unsetTimeUnits (Event_t *e);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * all the required attributes for the given Event_t structure
  * have been set.
  *
@@ -2462,7 +2450,7 @@ Event_getEventAssignment (Event_t *e, unsigned int n);
  * EventAssignment_t is being sought.
  *
  * @return the EventAssignment_t for the given variable, or @c NULL if no such
- * EventAssignment_t exits.
+ * EventAssignment_t exists.
  *
  * @memberof Event_t
  */

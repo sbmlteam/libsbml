@@ -910,13 +910,13 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new Submodel_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * Submodel_t.
  * @param version an unsigned int, the SBML Version to assign to this
  * Submodel_t.
- * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * @param pkgVersion an unsigned int, the SBML 'comp' package Version to assign to this
  * Submodel_t.
  *
  * @return a pointer to the newly created Submodel_t structure.
@@ -1040,13 +1040,13 @@ Submodel_getExtentConversionFactor(Submodel_t * s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Submodel_t structure's identifier is set.
  *
  * @param s the Submodel_t structure to query.
  * 
- * @return @c non-zero (true) if the "id" attribute of the given
- * Submodel_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * Submodel_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Submodel_t
  */
@@ -1056,13 +1056,13 @@ Submodel_isSetId(Submodel_t * s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Submodel_t structure's name is set.
  *
  * @param s the Submodel_t structure to query.
  * 
- * @return @c non-zero (true) if the "name" attribute of the given
- * Submodel_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * Submodel_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Submodel_t
  */
@@ -1072,13 +1072,13 @@ Submodel_isSetName(Submodel_t * s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Submodel_t structure's modelRef is set.
  *
  * @param s the Submodel_t structure to query.
  * 
- * @return @c non-zero (true) if the "modelRef" attribute of the given
- * Submodel_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "modelRef" attribute of the given
+ * Submodel_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Submodel_t
  */
@@ -1102,13 +1102,13 @@ Submodel_isSetSubstanceConversionFactor(Submodel_t * s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Submodel_t structure's timeConversionFactor is set.
  *
  * @param s the Submodel_t structure to query.
  * 
- * @return @c non-zero (true) if the "timeConversionFactor" attribute of the given
- * Submodel_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "timeConversionFactor" attribute of the given
+ * Submodel_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Submodel_t
  */
@@ -1118,13 +1118,13 @@ Submodel_isSetTimeConversionFactor(Submodel_t * s);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * Submodel_t structure's extentConversionFactor is set.
  *
  * @param s the Submodel_t structure to query.
  * 
- * @return @c non-zero (true) if the "extentConversionFactor" attribute of the given
- * Submodel_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "extentConversionFactor" attribute of the given
+ * Submodel_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Submodel_t
  */
@@ -1426,7 +1426,7 @@ Submodel_getDeletion(Submodel_t * s, unsigned int n);
  * Deletion_t is being sought.
  *
  * @return the Deletion_t for the given variable, or @c NULL if no such
- * Deletion_t exits.
+ * Deletion_t exists.
  *
  * @memberof Submodel_t
  */
@@ -1496,6 +1496,8 @@ Submodel_removeDeletionById(Submodel_t * s, const char * sid);
   * have been set.
   *
   * @note The required attributes for a Submodel_t structure are:
+  * @li id
+  * @li modelRef
   *
  * @memberof Submodel_t
  */
@@ -1527,9 +1529,9 @@ Submodel_hasRequiredElements(Submodel_t * s);
  * Submodel_t is being sought.
  *
  * @return the Submodel_t for the given variable, or @c NULL if no such
- * Submodel_t exits.
+ * Submodel_t exists.
  *
- * @memberof Submodel_t
+ * @memberof ListOfSubmodels_t
  */
 LIBSBML_EXTERN
 Submodel_t *
@@ -1549,7 +1551,7 @@ ListOfSubmodels_getById(ListOf_t * lo, const char * sid);
  * caller owns the returned structure. @c NULL is returned if no Submodel_t
  * structure with the "id" attribute exists in the given ListOf_t structure.
  *
- * @memberof Submodel_t
+ * @memberof ListOfSubmodels_t
  */
 LIBSBML_EXTERN
 Submodel_t *

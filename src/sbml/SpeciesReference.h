@@ -1554,13 +1554,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a SpeciesReference_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the SpeciesReference_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof SpeciesReference_t
  */
@@ -1578,13 +1572,7 @@ SpeciesReference_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a SpeciesReference_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the SpeciesReference_t.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the 
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add a structure 
- * to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof SpeciesReference_t
  */
@@ -1605,13 +1593,7 @@ SpeciesReference_createWithNS (SBMLNamespaces_t *sbmlns);
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a modifier SpeciesReference_t has been added to an SBMLDocument_t, 
- * the @p level and @p version for the document @em override those used to 
- * create the modifier SpeciesReference_t.  Despite this, the ability to supply 
- * the values at creation time is an important aid to creating valid SBML.  
- * Knowledge of the intended SBML Level and Version determine whether it is
- * valid to assign a particular value to an attribute, or whether it is valid 
- * to add a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof SpeciesReference_t
  */
@@ -1629,13 +1611,7 @@ SpeciesReference_createModifier (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created SpeciesReference_t structure.
  *
- * @note Once a modifier SpeciesReference_t has been added to an SBMLDocument_t, 
- * the @p sbmlns namespaces for the document @em override those used to create
- * the modifier SpeciesReference_t. Despite this, the ability to supply the values 
- * at creation time is an important aid to creating valid SBML.  Knowledge of 
- * the intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof SpeciesReference_t
  */
@@ -1707,7 +1683,7 @@ SpeciesReference_getNamespaces(SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
  * given SpeciesReference_t structure is a modifier.
  * 
  * @param sr the SpeciesReference_t structure to use.

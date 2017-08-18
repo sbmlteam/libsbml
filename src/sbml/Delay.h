@@ -897,13 +897,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Delay_t structure.
  *
- * @note Once a Delay_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Delay_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Delay_t
  */
@@ -921,13 +915,7 @@ Delay_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Delay_t structure.
  *
- * @note Once a Delay_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Delay_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Delay_t
  */
@@ -999,8 +987,8 @@ Delay_getMath (const Delay_t *d);
  *
  * @param d the Delay_t structure to query.
  *
- * @return @c true if the formula (meaning the @c math subelement) of
- * this Delay_t is set, @c false otherwise.
+ * @c 1 (true) if the formula (meaning the @c math subelement) of
+ * this Delay_t is set, @c 0 (false) otherwise.
  *
  * @memberof Delay_t
  */
@@ -1055,13 +1043,13 @@ Delay_getDerivedUnitDefinition(Delay_t *d);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the math expression of this Delay_t contains
  * parameters/numbers with undeclared units.
  * 
- * @return @c true if the math expression of this Delay_t
+ * @c 1 (true) if the math expression of this Delay_t
  * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
+ * with undeclared units, @c 0 (false) otherwise.
  *
  * @note a return value of @c true indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 

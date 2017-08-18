@@ -418,13 +418,13 @@ SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * SBMLDocumentPlugin_t structure's "required" attribute is set.
  *
  * @param plugin the SBMLDocumentPlugin_t structure to query.
  *
- * @return @c non-zero (true) if the "required" attribute of the given
- * SBMLDocumentPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "required" attribute of the given
+ * SBMLDocumentPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof SBMLDocumentPlugin_t
  */

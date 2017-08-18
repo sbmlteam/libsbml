@@ -910,7 +910,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Returns a ListOf_t* containing QualitativeSpecies_t objects from this
+ * Returns a ListOf_t * containing QualitativeSpecies_t objects from this
  * QualModelPlugin_t.
  *
  * @param qmp the QualModelPlugin_t structure whose "ListOfQualitativeSpecies"
@@ -1077,7 +1077,7 @@ QualModelPlugin_removeQualitativeSpeciesById(QualModelPlugin_t* qmp,
 
 
 /**
- * Returns a ListOf_t* containing Transition_t objects from this
+ * Returns a ListOf_t * containing Transition_t objects from this
  * QualModelPlugin_t.
  *
  * @param qmp the QualModelPlugin_t structure whose "ListOfTransitions" is

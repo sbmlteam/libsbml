@@ -794,13 +794,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Priority_t structure.
  *
- * @note Once a Priority_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Priority_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Priority_t
  */
@@ -818,13 +812,7 @@ Priority_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Priority_t structure.
  *
- * @note Once a Priority_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Priority_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Priority_t
  */
@@ -896,8 +884,8 @@ Priority_getMath (const Priority_t *p);
  *
  * @param p the Priority_t structure to query.
  *
- * @return @c true if the formula (meaning the @c math subelement) of
- * this Priority_t is set, @c false otherwise.
+ * @c 1 (true) if the formula (meaning the @c math subelement) of
+ * this Priority_t is set, @c 0 (false) otherwise.
  *
  * @memberof Priority_t
  */

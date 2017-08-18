@@ -803,7 +803,7 @@ RateRule_unsetVariable(RateRule_t * ar);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given RateRule_t structure have been set.
  *
  * @param rr the RateRule_t structure to check.
@@ -819,7 +819,7 @@ RateRule_hasRequiredAttributes(const RateRule_t * rr);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given RateRule_t structure have been set.
  *
  * @param rr the RateRule_t structure to check.

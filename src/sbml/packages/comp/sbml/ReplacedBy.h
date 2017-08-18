@@ -217,13 +217,13 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new ReplacedBy_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * ReplacedBy_t.
  * @param version an unsigned int, the SBML Version to assign to this
  * ReplacedBy_t.
- * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * @param pkgVersion an unsigned int, the SBML 'comp' package Version to assign to this
  * ReplacedBy_t.
  *
  * @return a pointer to the newly created ReplacedBy_t structure.
@@ -277,13 +277,13 @@ ReplacedBy_getSubmodelRef(ReplacedBy_t * rb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * ReplacedBy_t structure's submodelRef is set.
  *
  * @param rb the ReplacedBy_t structure to query.
  * 
- * @return @c non-zero (true) if the "submodelRef" attribute of the given
- * ReplacedBy_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "submodelRef" attribute of the given
+ * ReplacedBy_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof ReplacedBy_t
  */
@@ -329,13 +329,14 @@ ReplacedBy_unsetSubmodelRef(ReplacedBy_t * rb);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for the given ReplacedBy_t structure
-  * have been set.
-  *
-  * @note The required attributes for a ReplacedBy_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
-  *
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
+ * all the required attributes for the given ReplacedBy_t structure
+ * have been set.
+ *
+ * @note The required attributes for a ReplacedBy_t structure are
+ * that it uses exactly one attribute to refer to its target, and that
+ * the submodelRef is set.
+ *
  * @memberof ReplacedBy_t
  */
 LIBSBML_EXTERN

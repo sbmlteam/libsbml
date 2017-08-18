@@ -880,7 +880,7 @@ BEGIN_C_DECLS
 
 
 /**
- * Returns a ListOf_t* containing Group_t objects from this
+ * Returns a ListOf_t * containing Group_t objects from this
  * GroupsModelPlugin_t.
  *
  * @param gmp the GroupsModelPlugin_t structure whose "ListOfGroups" is sought.

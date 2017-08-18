@@ -835,7 +835,7 @@ AssignmentRule_unsetVariable(AssignmentRule_t * ar);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given AssignmentRule_t structure have been set.
  *
  * @param ar the AssignmentRule_t structure to check.
@@ -851,7 +851,7 @@ AssignmentRule_hasRequiredAttributes(const AssignmentRule_t * ar);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given AssignmentRule_t structure have been set.
  *
  * @param ar the AssignmentRule_t structure to check.

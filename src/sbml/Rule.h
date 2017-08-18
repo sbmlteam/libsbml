@@ -1360,13 +1360,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once an algebraic Rule_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the algebraic Rule_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1384,13 +1378,7 @@ Rule_createAlgebraic (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once an algebraic Rule_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the algebraic Rule_t.  Despite this, the ability to supply the values at creation 
- * time is an important aid to creating valid SBML.  Knowledge of the intended 
- * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1411,13 +1399,7 @@ Rule_createAlgebraicWithNS (SBMLNamespaces_t *sbmlns);
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once an assignment Rule_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the assignment Rule_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1435,13 +1417,7 @@ Rule_createAssignment (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once an assignment Rule_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the assignment Rule_t.  Despite this, the ability to supply the values at creation
- * time is an important aid to creating valid SBML.  Knowledge of the intended
- * SBML Level and Version determine whether it is valid to assign a particular
- * * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1462,13 +1438,7 @@ Rule_createAssignmentWithNS (SBMLNamespaces_t *sbmlns);
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a rate Rule_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the rate Rule_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1486,13 +1456,7 @@ Rule_createRate (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Rule_t structure.
  *
- * @note Once a rate Rule_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the rate Rule_t.  Despite this, the ability to supply the values at creation
- * time is an important aid to creating valid SBML.  Knowledge of the intended
- * SBML Level and Version determine whether it is valid to assign a particular
- * * value to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Rule_t
  */
@@ -1599,8 +1563,8 @@ Rule_getUnits (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if the formula (or equivalently the math) for
- * this Rule_t is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the formula (or equivalently the math) for
+ * this Rule_t is set, @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1610,8 +1574,8 @@ Rule_isSetFormula (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if the math (or equivalently the formula) for
- * this Rule_t is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the math (or equivalently the formula) for
+ * this Rule_t is set, @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1621,8 +1585,8 @@ Rule_isSetMath (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if the variable of this Rule_t is set, false
- * (0) otherwise.
+ * @return @c 1 (true) if the variable of this Rule_t is set, 
+ * @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1632,8 +1596,8 @@ Rule_isSetVariable (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if the units for this Rule_t is set, false
- * (0) otherwise (L1 ParameterRules only).
+ * @return @c 1 (true) if the units for this Rule_t is set, 
+ * @c 0 (false) otherwise (L1 ParameterRules only).
  *
  * @memberof Rule_t
  */
@@ -1732,7 +1696,7 @@ Rule_unsetUnits (Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if this Rule_t is an AlgebraicRule, @c false (0)
+ * @return @c 1 (true) if this Rule_t is an AlgebraicRule, @c 0 (false)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1743,7 +1707,7 @@ Rule_isAlgebraic (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if this Rule_t is an AssignmentRule, @c false (0)
+ * @return @c 1 (true) if this Rule_t is an AssignmentRule, @c 0 (false)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1757,8 +1721,8 @@ Rule_isAssignment (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Compartments.
  *
- * @return @c true (non-zero) if this Rule_t is a CompartmentVolumeRule, false
- * (0) otherwise.
+ * @return @c 1 (true) if this Rule_t is a CompartmentVolumeRule, 
+ * @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1771,7 +1735,7 @@ Rule_isCompartmentVolume (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Parameters.
  *
- * @return @c true (non-zero) if this Rule_t is a ParameterRule, @c false (0)
+ * @return @c 1 (true) if this Rule_t is a ParameterRule, @c 0 (false)
  * otherwise.
  *
  * @memberof Rule_t
@@ -1782,8 +1746,8 @@ Rule_isParameter (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if this Rule_t is a RateRule (L2) or has
- * type="rate" (L1), @c false (0) otherwise.
+ * @return @c 1 (true) if this Rule_t is a RateRule (L2) or has
+ * type="rate" (L1), @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1793,8 +1757,8 @@ Rule_isRate (const Rule_t *r);
 
 
 /**
- * @return @c true (non-zero) if this Rule_t is an AssignmentRule (L2) has
- * type="scalar" (L1), @c false (0) otherwise.
+ * @return @c 1 (true) if this Rule_t is an AssignmentRule (L2) has
+ * type="scalar" (L1), @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1807,8 +1771,8 @@ Rule_isScalar (const Rule_t *r);
  * This method attempts to lookup the Rule_t's variable in the Model_t's list
  * of Species.
  *
- * @return @c true (non-zero) if this Rule_t is a species concentration Rule_t, false
- * (0) otherwise.
+ * @return @c 1 (true) if this Rule_t is a species concentration Rule_t,
+ * @c 0 (false) otherwise.
  *
  * @memberof Rule_t
  */
@@ -1887,13 +1851,13 @@ Rule_getDerivedUnitDefinition(Rule_t *ia);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the math expression of this Rule_t contains
  * parameters/numbers with undeclared units.
  * 
- * @return @c true if the math expression of this Rule_t
+ * @c 1 (true) if the math expression of this Rule_t
  * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
+ * with undeclared units, @c 0 (false) otherwise.
  *
  * @note a return value of @c true indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 

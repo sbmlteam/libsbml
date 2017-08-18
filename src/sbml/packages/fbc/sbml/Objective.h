@@ -1319,7 +1319,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new Objective_t structure using the given SBML @p level and
- * @p version values.
+ * @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML level to assign to this
  * Objective_t structure.
@@ -1629,7 +1629,7 @@ Objective_removeFluxObjectiveById(Objective_t * o, const char * sid);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given Objective_t structure have been set.
  *
  * @param o the Objective_t structure to check.
@@ -1645,7 +1645,7 @@ Objective_hasRequiredAttributes(const Objective_t * o);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * sub-elements of the given Objective_t structure have been set.
  *
  * @param o the Objective_t structure to check.
@@ -1660,11 +1660,39 @@ int
 Objective_hasRequiredElements(const Objective_t * o);
 
 
+/**
+* Return the structure indicated by the given @p sid.
+*
+* @param lo the ListOf_t structure to use.
+*
+* @param sid a string, the identifier of the
+* element being sought.
+*
+* @return the structure for the given variable, or @c NULL if no such
+* object exists in the list.
+*
+* @memberof ListOfObjectives_t
+*/
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* Removes the structure with the given @p sid
+* from the given ListOf_t structure and returns a pointer to it.
+*
+* * The caller owns the returned structure and is responsible for deleting it.
+*
+* @param lo the ListOf_t structure.
+* @param sid the string of the "id" attribute of the sought structure.
+*
+* @return the structure removed.  As mentioned above, the
+* caller owns the returned structure. @c NULL is returned if no
+* structure with the "id" attribute exists in the given ListOf_t structure.
+*
+* @memberof ListOfObjectives_t
+*/
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_removeById(ListOf_t * lo, const char * sid);
@@ -1708,14 +1736,14 @@ ObjectiveType_fromString(const char* s);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * ObjectiveType_t is valid.
  *
  * @param type the ObjectiveType_t enumeration to query.
  *
- * @return @c non-zero (true) if the ObjectiveType_t is
+ * @return @c 1 (true) if the ObjectiveType_t is
  * OBJECTIVE_TYPE_MAXIMIZE or OBJECTIVE_TYPE_MINIMIZE;
- * zero (false) otherwise (including OBJECTIVE_TYPE_UNKNOWN).
+ * @c 0 (false) otherwise (including OBJECTIVE_TYPE_UNKNOWN).
  *
  * @memberof Objective_t
  */
@@ -1725,15 +1753,15 @@ ObjectiveType_isValidObjectiveType(ObjectiveType_t type);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending
+ * Predicate returning @c 1 (true) or @c 0 (false) depending
  * on whether the given string is a valid ObjectiveType_t.
  * The matching is case-sensitive:  "maximize" will return @c true, but
  * "Maximize" will return @c false.
  *
  * @param s the string to query.
  *
- * @return @c non-zero (true) if the string is
- * "maximize" or "minimize"; zero (false) otherwise.
+ * @return @c 1 (true) if the string is
+ * "maximize" or "minimize"; @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */

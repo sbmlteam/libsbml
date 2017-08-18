@@ -580,7 +580,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new DefaultTerm_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * DefaultTerm_t.
@@ -640,13 +640,13 @@ DefaultTerm_getResultLevel(DefaultTerm_t * dt);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * DefaultTerm_t structure's resultLevel is set.
  *
  * @param dt the DefaultTerm_t structure to query.
  * 
- * @return @c non-zero (true) if the "resultLevel" attribute of the given
- * DefaultTerm_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "resultLevel" attribute of the given
+ * DefaultTerm_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof DefaultTerm_t
  */
@@ -696,7 +696,7 @@ DefaultTerm_unsetResultLevel(DefaultTerm_t * dt);
   * have been set.
   *
   * @note The required attributes for a DefaultTerm_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
+  * @li resultLevel
   *
  * @memberof DefaultTerm_t
  */

@@ -549,7 +549,7 @@ BEGIN_C_DECLS
  * @return the value of the "id" attribute of this ListOf_t as a pointer to a
  * string.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 const char *
@@ -564,7 +564,7 @@ ListOfMembers_getId(const ListOf_t * lo);
  * @return the value of the "name" attribute of this ListOf_t as a pointer to a
  * string.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 const char *
@@ -579,7 +579,7 @@ ListOfMembers_getName(const ListOf_t * lo);
  * @return @c 1 if this ListOf_t's "id" attribute has been set, otherwise @c 0
  * is returned.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -594,7 +594,7 @@ ListOfMembers_isSetId(const ListOf_t * lo);
  * @return @c 1 if this ListOf_t's "name" attribute has been set, otherwise @c
  * 0 is returned.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -612,7 +612,7 @@ ListOfMembers_isSetName(const ListOf_t * lo);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -630,7 +630,7 @@ ListOfMembers_setId(ListOf_t * lo, const char * id);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -646,7 +646,7 @@ ListOfMembers_setName(ListOf_t * lo, const char * name);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -662,7 +662,7 @@ ListOfMembers_unsetId(ListOf_t * lo);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 int
@@ -679,7 +679,7 @@ ListOfMembers_unsetName(ListOf_t * lo);
  *
  * @return the nth Member_t in this ListOf_t.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 const Member_t*
@@ -696,7 +696,7 @@ ListOfMembers_getMember(ListOf_t* lo, unsigned int n);
  * @return the Member_t in this ListOf_t with the given id or NULL if no such
  * Member_t exists.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 const Member_t*
@@ -712,7 +712,7 @@ ListOfMembers_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Member_t in this ListOf_t.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 Member_t*
@@ -730,7 +730,7 @@ ListOfMembers_remove(ListOf_t* lo, unsigned int n);
  * @return the Member_t in this ListOf_t based on the identifier or NULL if no
  * such Member_t exists.
  *
- * @memberof Member_t
+ * @memberof ListOfMembers_t
  */
 LIBSBML_EXTERN
 Member_t*

@@ -941,7 +941,7 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new FbcAssociation_t structure using the given SBML @p level and
- * @p version values.
+ * @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML level to assign to this
  * FbcAssociation_t structure.
@@ -993,7 +993,7 @@ FbcAssociation_clone(FbcAssociation_t * fa);
 
 
 /**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes of the given FbcAssociation_t structure have been set.
  *
  * @param fa the FbcAssociation_t structure to check.
@@ -1009,20 +1009,54 @@ FbcAssociation_hasRequiredAttributes(const FbcAssociation_t * fa);
 
 
 
+/**
+* Return the structure indicated by the given @p sid.
+*
+* @param lo the ListOf_t structure to use.
+*
+* @param sid a string, the identifier of the
+* element being sought.
+*
+* @return the structure for the given variable, or @c NULL if no such
+* object exists in the list.
+*
+* @memberof ListOfFbcAssociations_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 ListOfFbcAssociations_getById(ListOf_t * lo, const char * sid);
 
 
+/**
+* Removes the structure with the given @p sid
+* from the given ListOf_t structure and returns a pointer to it.
+*
+* * The caller owns the returned structure and is responsible for deleting it.
+*
+* @param lo the ListOf_t structure.
+* @param sid the string of the "id" attribute of the sought structure.
+*
+* @return the structure removed.  As mentioned above, the
+* caller owns the returned structure. @c NULL is returned if no 
+* structure with the "id" attribute exists in the given ListOf_t structure.
+*
+* @memberof ListOfFbcAssociations_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 ListOfFbcAssociations_removeById(ListOf_t * lo, const char * sid);
 
 
+/**
+* @memberof FbcAssociation_t
+*/
 LIBSBML_EXTERN
 char *
 FbcAssociation_toInfix(const FbcAssociation_t * fa);
 
+/**
+* @memberof FbcAssociation_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t*
 FbcAssociation_parseFbcInfixAssociation(const char * infix, SBasePlugin_t* plugin);

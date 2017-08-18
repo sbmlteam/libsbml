@@ -693,10 +693,10 @@ XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * this XMLNamespaces_t list is empty.
  * 
- * @return @c true if this XMLNamespaces_t list is empty, @c false otherwise.
+ * @c 1 (true) if this XMLNamespaces_t list is empty, @c 0 (false) otherwise.
  *
  * @memberof XMLNamespaces_t
  */
@@ -706,11 +706,11 @@ XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * an XML Namespace with the given URI is contained in this XMLNamespaces_t list.
  * 
- * @return @c true if an XML Namespace with the given URI is contained in this 
- * XMLNamespaces list,  @c false otherwise.
+ * @c 1 (true) if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list,  @c 0 (false) otherwise.
  *
  * @memberof XMLNamespaces_t
  */
@@ -720,11 +720,11 @@ XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * an XML Namespace the given @p prefix is contained in this XMLNamespaces_t list.
  * 
- * @return @c true if an XML Namespace with the given URI is contained in this 
- * XMLNamespaces list, @c false otherwise.
+ * @c 1 (true) if an XML Namespace with the given URI is contained in this 
+ * XMLNamespaces list, @c 0 (false) otherwise.
  *
  * @memberof XMLNamespaces_t
  */
@@ -734,11 +734,11 @@ XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an XML Namespace with the given URI is contained in this XMLNamespaces_t list.
  *
- * @return @c true if an XML Namespace with the given uri/prefix pair is contained
- * in this XMLNamespaces_t list,  @c false otherwise.
+ * @c 1 (true) if an XML Namespace with the given uri/prefix pair is contained
+ * in this XMLNamespaces_t list,  @c 0 (false) otherwise.
  *
  * @memberof XMLNamespaces_t
  */

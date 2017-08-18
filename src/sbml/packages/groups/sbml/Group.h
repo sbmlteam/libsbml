@@ -1473,7 +1473,7 @@ Group_unsetKind(Group_t * g);
 
 
 /**
- * Returns a ListOf_t* containing Member_t objects from this Group_t.
+ * Returns a ListOf_t * containing Member_t objects from this Group_t.
  *
  * @param g the Group_t structure whose "ListOfMembers" is sought.
  *

@@ -2788,7 +2788,7 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 or @c 0 depending on whether all the required
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
  * attributes for the given Compartment_t structure have been set.
  *
  * The required attributes for a Compartment_t structure are:
@@ -2797,8 +2797,8 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c);
  *
  * @param c the Compartment_t structure to check.
  *
- * @return @c true (nonzero) if all the required attributes for this
- * structure have been defined, @c false (zero) otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */

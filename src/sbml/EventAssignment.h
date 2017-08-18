@@ -1218,13 +1218,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
- * @note Once a EventAssignment_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the EventAssignment_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof EventAssignment_t
  */
@@ -1242,13 +1236,7 @@ EventAssignment_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created EventAssignment_t structure.
  *
- * @note Once a EventAssignment_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the EventAssignment_t.  Despite this, the ability to supply the values at 
- * creation time is an important aid to creating valid SBML.  Knowledge of the 
- * intended SBML Level and Version determine whether it is valid to assign a 
- * particular value to an attribute, or whether it is valid to add a structure to 
- * an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof EventAssignment_t
  */
@@ -1447,13 +1435,13 @@ EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the math expression of this EventAssignment_t contains
  * parameters/numbers with undeclared units.
  * 
- * @return @c true if the math expression of this EventAssignment_t
+ * @c 1 (true) if the math expression of this EventAssignment_t
  * includes parameters/numbers 
- * with undeclared units, @c false otherwise.
+ * with undeclared units, @c 0 (false) otherwise.
  *
  * @note a return value of @c true indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 

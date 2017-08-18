@@ -896,13 +896,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
- * @note Once a Trigger_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Trigger_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Trigger_t
  */
@@ -920,13 +914,7 @@ Trigger_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Trigger_t structure.
  *
- * @note Once a Trigger_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Trigger_t.  Despite this, the ability to supply the values at creation time
- * is an important aid to creating valid SBML.  Knowledge of the intended SBML
- * Level and Version determine whether it is valid to assign a particular value
- * to an attribute, or whether it is valid to add a structure to an existing
- * SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Trigger_t
  */
@@ -1012,8 +1000,8 @@ Trigger_getPersistent (const Trigger_t *t);
 
 
 /**
- * @return @c true (non-zero) if the math (or equivalently the formula) of
- * this Trigger_t is set, @c false (0) otherwise.
+ * @return @c 1 (true) if the math (or equivalently the formula) of
+ * this Trigger_t is set, @c 0 (false) otherwise.
  *
  * @memberof Trigger_t
  */
@@ -1027,8 +1015,8 @@ Trigger_isSetMath (const Trigger_t *t);
  * 
  * @param t the Trigger_t structure.
  *
- * @return @c true if the "initialValue" attribute value
- * in this Trigger_t is set, @c false otherwise.
+ * @c 1 (true) if the "initialValue" attribute value
+ * in this Trigger_t is set, @c 0 (false) otherwise.
  *
  * @memberof Trigger_t
  */
@@ -1042,8 +1030,8 @@ Trigger_isSetInitialValue (const Trigger_t *t);
  * 
  * @param t the Trigger_t structure.
  *
- * @return @c true if the "persisent" attribute value
- * in this Trigger_t is set, @c false otherwise.
+ * @c 1 (true) if the "persisent" attribute value
+ * in this Trigger_t is set, @c 0 (false) otherwise.
  *
  * @memberof Trigger_t
  */

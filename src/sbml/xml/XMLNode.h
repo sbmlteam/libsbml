@@ -1363,15 +1363,15 @@ XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given index exists in the attribute set in this
  * XMLNode.
  *
  * @param node XMLNode_t structure to be queried.
  * @param index an integer, the position of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given index exists in
- * the attribute set in this XMLNode_t, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given index exists in
+ * the attribute set in this XMLNode_t, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1381,16 +1381,16 @@ XMLNode_hasAttr (const XMLNode_t *node, int index);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given local name (without namespace URI)
  * exists in the attribute set in this XMLNode_t.
  *
  * @param node XMLNode_t structure to be queried.
  * @param name a string, the local name of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
+ * @return @c 1 (true) if an attribute with the given local name
  * (without namespace URI) exists in the attribute set in this XMLNode_t,
- * @c zero (false) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1399,7 +1399,7 @@ int
 XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name);
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given local name and namespace URI exists
  * in the attribute set in this XMLNode_t.
  *
@@ -1407,9 +1407,9 @@ XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name);
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
+ * @return @c 1 (true) if an attribute with the given local name
  * and namespace URI exists in the attribute set in this XMLNode_t,
- * @c zero (false) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1419,15 +1419,15 @@ XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri)
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an attribute with the given XML triple exists in the attribute set in
  * this XMLNode_t
  *
  * @param node XMLNode_t structure to be queried.
  * @param triple an XMLTriple_t, the XML triple of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given XML triple exists
- * in the attribute set in this XMLNode_t, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given XML triple exists
+ * in the attribute set in this XMLNode_t, @c 0 (false) otherwise.
  *
  *
  * @memberof XMLNode_t
@@ -1438,13 +1438,13 @@ XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * the attribute set in this XMLNode_t set is empty.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if the attribute set in this XMLNode_t is empty,
- * @c zero (false) otherwise.
+ * @return @c 1 (true) if the attribute set in this XMLNode_t is empty,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1690,13 +1690,13 @@ XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * the XMLNamespaces_t of this XMLNode_t is empty.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if the XMLNamespaces_t of this XMLNode_t is empty,
- * @c zero (false) otherwise.
+ * @return @c 1 (true) if the XMLNamespaces_t of this XMLNode_t is empty,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1706,7 +1706,7 @@ XMLNode_isNamespacesEmpty (const XMLNode_t *node);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an XML Namespace with the given URI is contained in the XMLNamespaces_t of
  * this XMLNode_t.
  *
@@ -1714,7 +1714,7 @@ XMLNode_isNamespacesEmpty (const XMLNode_t *node);
  * @param uri a string, the uri for the namespace.
  *
  * @return @c no-zero (true) if an XML Namespace with the given URI is
- * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.
+ * contained in the XMLNamespaces_t of this XMLNode_t,  @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1724,7 +1724,7 @@ XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an XML Namespace with the given prefix is contained in the XMLNamespaces_t of
  * this XMLNode_t.
  *
@@ -1732,7 +1732,7 @@ XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
  * @param prefix a string, the prefix for the namespace.
  *
  * @return @c no-zero (true) if an XML Namespace with the given URI is
- * contained in the XMLNamespaces_t of this XMLNode_t, @c zero (false) otherwise.
+ * contained in the XMLNamespaces_t of this XMLNode_t, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1742,7 +1742,7 @@ XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * an XML Namespace with the given uri/prefix pair is contained in the
  * XMLNamespaces_t of this XMLNode_t.
  *
@@ -1750,8 +1750,8 @@ XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix);
  * @param uri a string, the uri for the namespace.
  * @param prefix a string, the prefix for the namespace.
  *
- * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is
- * contained in the XMLNamespaces_t of this XMLNode_t,  @c zero (false) otherwise.
+ * @return @c 1 (true) if an XML Namespace with the given uri/prefix pair is
+ * contained in the XMLNamespaces_t of this XMLNode_t,  @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1812,12 +1812,12 @@ XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an XML element.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLNode_t structure is an XML element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLNode_t structure is an XML element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1827,12 +1827,12 @@ XMLNode_isElement (const XMLNode_t *node);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an XML end element.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLNode_t structure is an XML end element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLNode_t structure is an XML end element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1842,14 +1842,14 @@ XMLNode_isEnd (const XMLNode_t *node);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an XML end element for the given start element.
  *
  * @param node XMLNode_t structure to be queried.
  * @param element XMLNode_t structure, element for which query is made.
  *
- * @return @c non-zero (true) if this XMLNode_t structure is an XML end element for the given
- * XMLNode_t structure start element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLNode_t structure is an XML end element for the given
+ * XMLNode_t structure start element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1859,12 +1859,12 @@ XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an end of file marker.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLNode_t structure is an end of file (input) marker, @c zero (false)
+ * @return @c 1 (true) if this XMLNode_t structure is an end of file (input) marker, @c 0 (false)
  * otherwise.
  *
  * @memberof XMLNode_t
@@ -1875,12 +1875,12 @@ XMLNode_isEOF (const XMLNode_t *node);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an XML start element.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c true if this XMLNode_t structure is an XML start element, @c false otherwise.
+ * @c 1 (true) if this XMLNode_t structure is an XML start element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -1890,12 +1890,12 @@ XMLNode_isStart (const XMLNode_t *node);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * this XMLNode_t structure is an XML text element.
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLNode_t structure is an XML text element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLNode_t structure is an XML text element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */

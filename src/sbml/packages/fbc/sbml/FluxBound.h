@@ -1012,13 +1012,13 @@ BEGIN_C_DECLS
 
 /**
  * Creates a new FluxBound_t structure using the given SBML @p level
- * and @p version values.
+ * and @p version, and the @p pkgVersion package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
  * FluxBound_t.
  * @param version an unsigned int, the SBML Version to assign to this
  * FluxBound_t.
- * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
+ * @param pkgVersion an unsigned int, the SBML 'fbc' package Version to assign to this
  * FluxBound_t.
  *
  * @return a pointer to the newly created FluxBound_t structure.
@@ -1045,13 +1045,13 @@ FluxBound_getId(FluxBound_t * fb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBound_t structure's identifier is set.
  *
  * @param fb the FluxBound_t structure to query.
  *
- * @return @c non-zero (true) if the "id" attribute of the given
- * FluxBound_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * FluxBound_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FluxBound_t
  */
@@ -1112,13 +1112,13 @@ FluxBound_getName(FluxBound_t * fb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBound_t structure's name is set.
  *
  * @param fb the FluxBound_t structure to query.
  *
- * @return @c non-zero (true) if the "name" attribute of the given
- * FluxBound_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * FluxBound_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FluxBound_t
  */
@@ -1178,13 +1178,13 @@ FluxBound_getReaction(FluxBound_t * fb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBound_t structure's reaction is set.
  *
  * @param fb the FluxBound_t structure to query.
  *
- * @return @c non-zero (true) if the "reaction" attribute of the given
- * FluxBound_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "reaction" attribute of the given
+ * FluxBound_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FluxBound_t
  */
@@ -1244,13 +1244,13 @@ FluxBound_getOperation(FluxBound_t * fb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBound_t structure's operation is set.
  *
  * @param fb the FluxBound_t structure to query.
  *
- * @return @c non-zero (true) if the "operation" attribute of the given
- * FluxBound_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "operation" attribute of the given
+ * FluxBound_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FluxBound_t
  */
@@ -1310,13 +1310,13 @@ FluxBound_getValue(FluxBound_t * fb);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBound_t structure's value is set.
  *
  * @param fb the FluxBound_t structure to query.
  *
- * @return @c non-zero (true) if the "value" attribute of the given
- * FluxBound_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "value" attribute of the given
+ * FluxBound_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FluxBound_t
  */
@@ -1405,16 +1405,16 @@ FluxBoundOperation_fromString(const char* s);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FluxBoundOperation_t is valid.
  *
  * @param type the FluxBoundOperation_t enumeration to query.
  *
- * @return @c non-zero (true) if the FluxBoundOperation_t is
+ * @return @c 1 (true) if the FluxBoundOperation_t is
  * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL,
  * FLUXBOUND_OPERATION_LESS, FLUXBOUND_OPERATION_GREATER, or
  * FLUXBOUND_OPERATION_EQUAL;
- * zero (false) otherwise (including FLUXBOUND_OPERATION_UNKNOWN).
+ * @c 0 (false) otherwise (including FLUXBOUND_OPERATION_UNKNOWN).
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
@@ -1429,15 +1429,15 @@ FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending
+ * Predicate returning @c 1 (true) or @c 0 (false) depending
  * on whether the given string is a valid FluxBoundOperation_t.
  * The matching is case-sensitive:  "lessEqual" will return @c true, but
  * "lessequal" will return @c false.
  *
  * @param s the string to query.
  *
- * @return @c non-zero (true) if the string is
- * "lessEqual", "greaterEqual", "less", "greater", or "equal"; zero (false) otherwise.
+ * @return @c 1 (true) if the string is
+ * "lessEqual", "greaterEqual", "less", "greater", or "equal"; @c 0 (false) otherwise.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.

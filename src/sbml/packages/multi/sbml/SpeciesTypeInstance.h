@@ -816,6 +816,16 @@ SpeciesTypeInstance_hasRequiredAttributes(SpeciesTypeInstance_t * sti);
 
 
 /**
+* Return the structure indicated by the given @p sid.
+*
+* @param lo the ListOf_t structure to use.
+*
+* @param sid a string, the identifier of the
+* element being sought.
+*
+* @return the structure for the given variable, or @c NULL if no such
+* object exists in the list.
+*
 * @memberof ListOfSpeciesTypeInstances_t
 */
 LIBSBML_EXTERN
@@ -824,6 +834,18 @@ ListOfSpeciesTypeInstances_getById(ListOf_t * lo, const char * sid);
 
 
 /**
+* Removes the structure with the given @p sid
+* from the given list and returns a pointer to it.
+*
+* The caller owns the returned structure and is responsible for deleting it.
+*
+* @param lo the ListOf_t structure.
+* @param sid the string of the "id" attribute of the element sought.
+*
+* @return the structure removed.  As mentioned above, the
+* caller owns the returned structure. @c NULL is returned if no
+* structure with the "id" attribute exists in the given list.
+*
 * @memberof ListOfSpeciesTypeInstances_t
 */
 LIBSBML_EXTERN

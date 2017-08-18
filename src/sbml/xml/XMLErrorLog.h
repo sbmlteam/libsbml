@@ -503,12 +503,12 @@ char*
 XMLErrorLog_toString (XMLErrorLog_t *log);
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the 'severity overridden' flag of this XMLErrorLog_t is set.
  * 
  * @param log XMLErrorLog_t structure to be queried.
  *
- * @return @c non-zero (true) if the security override is not set to LIBSBML_OVERRIDE_DISABLED, @c zero (false) otherwise.
+ * @return @c 1 (true) if the security override is not set to LIBSBML_OVERRIDE_DISABLED, @c 0 (false) otherwise.
  *
  * @memberof XMLErrorLog_t
  */

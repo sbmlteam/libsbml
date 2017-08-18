@@ -1239,7 +1239,7 @@ public:
    * The required attributes for a Reaction object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
    * @li "fast" (in Level&nbsp;3 only, where it is defined as a required attribute)
-   * @li "reversible" (in Level&nbsp;3 only, where it is defined as a required attribute)
+   * @li "reversible" (in Level&nbsp;3 Version&nbsp;1 only, where it is defined as a required attribute)
    *
    * @return @c true if the required attributes have been set, @c false
    * otherwise.
@@ -1893,13 +1893,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
- * @note Once a Reaction_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the Reaction_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Reaction_t
  */
@@ -1917,13 +1911,7 @@ Reaction_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created Reaction_t structure.
  *
- * @note Once a Reaction_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the Reaction_t.  Despite this, the ability to supply the values at creation 
- * time is an important aid to creating valid SBML.  Knowledge of the intended 
- * SBML Level and Version determine whether it is valid to assign a particular 
- * value to an attribute, or whether it is valid to add a structure to an 
- * existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Reaction_t
  */
@@ -2044,8 +2032,8 @@ Reaction_getCompartment (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the id of this Reaction_t is set, false
- * (0) otherwise.
+ * @return @c 1 (true) if the id of this Reaction_t is set, 
+ * @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2055,8 +2043,8 @@ Reaction_isSetId (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the name of this Reaction_t is set, false
- * (0) otherwise.
+ * @return @c 1 (true) if the name of this Reaction_t is set, 
+ * @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2066,7 +2054,7 @@ Reaction_isSetName (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the KineticLaw_t of this Reaction_t is set,
+ * @return @c 1 (true) if the KineticLaw_t of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -2077,7 +2065,7 @@ Reaction_isSetKineticLaw (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the fast status of this Reaction_t is set,
+ * @return @c 1 (true) if the fast status of this Reaction_t is set,
  * false (0) otherwise.
  *
  * In L1, fast is optional with a default of false, which means it is
@@ -2094,7 +2082,7 @@ Reaction_isSetFast (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the KineticLaw_t of this Reaction_t is set,
+ * @return @c 1 (true) if the KineticLaw_t of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -2105,7 +2093,7 @@ Reaction_isSetCompartment (const Reaction_t *r);
 
 
 /**
- * @return @c true (non-zero) if the reversible attribute of this Reaction_t is set,
+ * @return @c 1 (true) if the reversible attribute of this Reaction_t is set,
  * false (0) otherwise.
  *
  * @memberof Reaction_t
@@ -2289,19 +2277,19 @@ Reaction_unsetReversible (Reaction_t *r);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * all the required attributes for this Reaction_t structure
  * have been set.
  *
  * The required attributes for a Reaction_t structure are:
  * @li id (name in L1)
  * @li fast (in L3 only)
- * @li reversible (in L3 only)
+ * @li reversible (in L3v1 only)
  *
  * @param r the Reaction_t structure to check.
  *
- * @return a true if all the required
- * attributes for this structure have been defined, @c false otherwise.
+ * @return @c 1 (true) if all the required
+ * attributes for this structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */

@@ -518,13 +518,13 @@ RDFAnnotationParser_createAnnotation();
 
 /**
   * Creates blank RDF annotation content organized in the form defined in
-  * Section 6 of the SBML Level 2 Version 4 specification .
+  * Section 6 of the SBML Level 2 Version 4 or SBML Level 3 specification.
   *
   * The annotation created by this method has namespace declarations for
   * all the relevant XML namespaces used in RDF annotations and also has
   * an empty RDF element.  Note that this is not the containing
-  * <code>&lt;annotation&gt;</code> element; the method createAnnotation()
-  * is available for that purpose.
+  * <code>&lt;annotation&gt;</code> element; the method 
+  * RDFAnnotationParser_createAnnotation() is available for that purpose.
   *
   * @return a pointer to an XMLNode_t represting the annotation.
   *
@@ -535,13 +535,13 @@ RDFAnnotationParser_createRDFAnnotation();
 
 /**
   * Creates blank RDF annotation content organized in the form defined in
-  * Section 6 of the SBML Level 2 Version 4 specification .
+  * Section 6 of the SBML Level 2 Version 4 or SBML Level 3 specification .
   *
   * The annotation created by this method has namespace declarations for
   * all the relevant XML namespaces used in RDF annotations and also has
   * an empty RDF element.  Note that this is not the containing
-  * <code>&lt;annotation&gt;</code> element; the method createAnnotation()
-  * is available for that purpose.
+  * <code>&lt;annotation&gt;</code> element; the method
+  * RDFAnnotationParser_createAnnotation() is available for that purpose.
   *
   * @param level unsigned int giving the SBML level to target.
   * @param version unsigned int giving the SBML version to target.
@@ -595,11 +595,11 @@ XMLNode_t *
 RDFAnnotationParser_createRDFDescription(const SBase_t * obj);
 
 /**
-  * Takes a list of CVTerms form an SBML object and 
+  * Takes a list of CVTerms from an SBML object and 
   * creates a the RDF "Description" element.
   *
   * This essentially takes the given SBML object, reads out the CVTerms
-  * attached to it, calls createRDFDescriptiom() to create an RDF
+  * attached to it, calls createRDFDescription() to create an RDF
   * "Description" element to hold the terms and adds each term with
   * appropriate qualifiers.
   *
@@ -617,10 +617,10 @@ RDFAnnotationParser_createCVTerms(const SBase_t * obj);
   * Takes a list of CVTerms from an SBML object and creates a 
   * complete SBML annotation around it.
   *
-  * This essentially takes the given SBML object, calls createRDFDescriptionWithCVTerms
-  * to read out the CVTerms
-  * attached to it, calls createRDFAnnotation() to create an RDF
-  * annotation to hold the terms, and finally calls createAnnotation() to
+  * This essentially takes the given SBML object, calls 
+  * RDFAnnotationParser_createRDFDescriptionWithCVTerms to read out the CVTerms
+  * attached to it, calls RDFAnnotationParser_createAnnotation() to create an RDF
+  * annotation to hold the terms, and finally calls RDFAnnotationParser_createAnnotation() to
   * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
   *
   * @param obj the SBML object to start from.

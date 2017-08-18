@@ -861,13 +861,7 @@ BEGIN_C_DECLS
  *
  * @return a pointer to the newly created CompartmentType_t structure.
  *
- * @note Once a CompartmentType_t has been added to an SBMLDocument_t, the @p
- * level and @p version for the document @em override those used to create
- * the CompartmentType_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * a structure to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof CompartmentType_t
  */
@@ -885,13 +879,7 @@ CompartmentType_create (unsigned int level, unsigned int version);
  *
  * @return a pointer to the newly created CompartmentType_t structure.
  *
- * @note Once a CompartmentType_t has been added to an SBMLDocument_t, the
- * @p sbmlns namespaces for the document @em override those used to create
- * the CompartmentType_t.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of the
- * intended SBML Level and Version determine whether it is valid to assign a
- * particular value to an attribute, or whether it is valid to add a structure
- * to an existing SBMLDocument_t.
+ * @copydetails doc_note_setting_lv
  *
  * @memberof CompartmentType_t
  */
@@ -971,13 +959,13 @@ CompartmentType_getName (const CompartmentType_t *ct);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * CompartmentType_t structure's identifier is set.
  *
  * @param ct the CompartmentType_t structure to query.
  *
- * @return @c non-zero (true) if the "id" field of the given
- * CompartmentType_t is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "id" field of the given
+ * CompartmentType_t is set, @c 0 (false) otherwise.
  *
  * @memberof CompartmentType_t
  */
@@ -987,13 +975,13 @@ CompartmentType_isSetId (const CompartmentType_t *ct);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * CompartmentType_t structure's name is set.
  *
  * @param ct the CompartmentType_t structure to query.
  *
- * @return @c non-zero (true) if the "name" field of the given
- * CompartmentType_t is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "name" field of the given
+ * CompartmentType_t is set, @c 0 (false) otherwise.
  *
  * @memberof CompartmentType_t
  */
