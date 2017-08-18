@@ -1307,8 +1307,8 @@ InitialAssignment_getMath (const InitialAssignment_t *ia);
  *
  * @param ia the InitialAssignment_t structure.
  * 
- * @return nonzero if the "symbol" attribute of this InitialAssignment_t
- * is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "symbol" attribute of this InitialAssignment_t
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof InitialAssignment_t
  */
@@ -1323,8 +1323,8 @@ InitialAssignment_isSetSymbol (const InitialAssignment_t *ia);
  *
  * @param ia the InitialAssignment_t structure.
  * 
- * @return nonzero if the "math" for this InitialAssignment_t is set,
- * zero (0) otherwise.
+ * @return @c 1 (true) if the "math" for this InitialAssignment_t is set,
+ * @c 0 (false) otherwise.
  *
  * @memberof InitialAssignment_t
  */

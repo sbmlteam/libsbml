@@ -203,7 +203,7 @@ XMLNamespaces::clear ()
 /*
  * Lookup the index of an XML namespace declaration by URI.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  */
 int
 XMLNamespaces::getIndex (const std::string uri) const
@@ -228,7 +228,7 @@ XMLNamespaces::containsUri(const std::string uri) const
 /*
  * Lookup the index of an XML namespace declaration by Prefix.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  */
 int
 XMLNamespaces::getIndexByPrefix (const std::string prefix) const

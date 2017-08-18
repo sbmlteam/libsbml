@@ -800,7 +800,7 @@ BoundingBox_clone (const BoundingBox_t *bb);
 
 
 /**
- * Returns non-zero if the id is set
+ * Returns @c 1 (true) if the id is set
  *
  * @param bb the BoundingBox_t structure.
  *

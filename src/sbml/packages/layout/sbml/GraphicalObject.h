@@ -743,7 +743,7 @@ GraphicalObject_clone (const GraphicalObject_t *go);
 
 
 /**
- * Returns non-zero if the id is set
+ * Returns @c 1 (true) if the id is set
  *
  * @param go the GraphicalObject_t structure.
  *

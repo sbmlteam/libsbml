@@ -704,7 +704,7 @@ RateRule_isSetMath(const RateRule_t * rr);
 
 
 /**
- * @return true (non-zero) if the formula (or equivalently the math) for
+ * @return @c 1 (true) if the formula (or equivalently the math) for
  * this RateRule_t is set, false (0) otherwise.
  *
  * @memberof RateRule_t

@@ -162,7 +162,7 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
 
 
 /**
- * @returns true (non-zero) if filename exists, false (zero) otherwise.
+ * @returns @c 1 (true) if filename exists, @c 0 (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -269,8 +269,8 @@ util_isFinite (double d);
  *
  * @param d the floating-point value to test.
  * 
- * @return nonzero (for true) if @p d is an IEEE-754 negative zero, zero
- * (for false) otherwise.
+ * @return @c 1 (true) if @p d is an IEEE-754 negative zero,
+ * @c 0 (false) otherwise.
  */
 LIBSBML_EXTERN
 int

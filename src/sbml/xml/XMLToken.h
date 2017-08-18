@@ -1433,7 +1433,7 @@ XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
 
 /**
  * Adds an attribute with a prefix and namespace URI to the attribute set
- * in this XMLToken_t optionally
+ * in this XMLToken_t.
  * Nothing will be done if this XMLToken_t is not a start element.
  *
  * @param token XMLToken_t structure to which an attribute to be added.
@@ -1593,7 +1593,7 @@ XMLToken_clearAttributes(XMLToken_t *token);
  * @param uri  a string, the namespace URI of the attribute.
  *
  * @return the index of an attribute with the given local name and namespace URI,
- * or -1 if not present.
+ * or @c -1 if not present.
  *
  *
  * @memberof XMLToken_t
@@ -1610,7 +1610,7 @@ XMLToken_getAttrIndex (const XMLToken_t *token, const char* name, const char* ur
  * @param triple an XMLTriple_t, the XML triple of the attribute for which
  *        the index is being sought.
  *
- * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple_t, or @c -1 if not present.
  *
  * @memberof XMLToken_t
  */
@@ -1805,8 +1805,8 @@ XMLToken_getAttrValueByTriple (const XMLToken_t *token, const XMLTriple_t *tripl
  * @param token XMLToken_t structure to be queried.
  * @param index an integer, the position of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given index exists in
- * the attribute set in this XMLToken_t, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given index exists in
+ * the attribute set in this XMLToken_t, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -1823,9 +1823,9 @@ XMLToken_hasAttr (const XMLToken_t *token, int index);
  * @param token XMLToken_t structure to be queried.
  * @param name a string, the local name of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
+ * @return @c 1 (true) if an attribute with the given local name
  * (without namespace URI) exists in the attribute set in this XMLToken_t,
- * @c zero (false) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -1842,9 +1842,9 @@ XMLToken_hasAttrWithName (const XMLToken_t *token, const char* name);
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name
+ * @return @c 1 (true) if an attribute with the given local name
  * and namespace URI exists in the attribute set in this XMLToken_t,
- * @c zero (false) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -1861,8 +1861,8 @@ XMLToken_hasAttrWithNS (const XMLToken_t *token, const char* name, const char* u
  * @param token XMLToken_t structure to be queried.
  * @param triple an XMLTriple_t, the XML triple of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given XML triple exists
- * in the attribute set in this XMLToken_t, @c zero (false) otherwise.
+ * @return @c 1 (true) if an attribute with the given XML triple exists
+ * in the attribute set in this XMLToken_t, @c 0 (false) otherwise.
  *
  *
  * @memberof XMLToken_t
@@ -1878,8 +1878,8 @@ XMLToken_hasAttrWithTriple (const XMLToken_t *token, const XMLTriple_t *triple);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if the attribute set in this XMLToken_t is empty,
- * @c zero (false) otherwise.
+ * @return @c 1 (true) if the attribute set in this XMLToken_t is empty,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2015,7 +2015,7 @@ XMLToken_clearNamespaces (XMLToken_t *token);
  * @param token XMLToken_t structure to be queried.
  * @param uri a string, uri of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLToken_t
  */
@@ -2030,7 +2030,7 @@ XMLToken_getNamespaceIndex (const XMLToken_t *token, const char* uri);
  * @param token XMLToken_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLToken_t
  */
@@ -2133,8 +2133,8 @@ XMLToken_getNamespaceURIByPrefix (const XMLToken_t *token, const char* prefix);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if the XMLNamespaces_t of this XMLToken_t is empty,
- * @c zero (false) otherwise.
+ * @return @c 1 (true) if the XMLNamespaces_t of this XMLToken_t is empty,
+ * @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2151,8 +2151,8 @@ XMLToken_isNamespacesEmpty (const XMLToken_t *token);
  * @param token XMLToken_t structure to be queried.
  * @param uri a string, the uri for the namespace.
  *
- * @return @c no-zero (true) if an XML Namespace with the given URI is
- * contained in the XMLNamespaces_t of this XMLToken_t,  @c zero (false) otherwise.
+ * @return @c 1 (true) if an XML Namespace with the given URI is
+ * contained in the XMLNamespaces_t of this XMLToken_t,  @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2169,8 +2169,8 @@ XMLToken_hasNamespaceURI(const XMLToken_t *token, const char* uri);
  * @param token XMLToken_t structure to be queried.
  * @param prefix a string, the prefix for the namespace.
  *
- * @return @c no-zero (true) if an XML Namespace with the given URI is
- * contained in the XMLNamespaces_t of this XMLToken_t, @c zero (false) otherwise.
+ * @return @c 1 (true) if an XML Namespace with the given URI is
+ * contained in the XMLNamespaces_t of this XMLToken_t, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2188,8 +2188,8 @@ XMLToken_hasNamespacePrefix(const XMLToken_t *token, const char* prefix);
  * @param uri a string, the uri for the namespace.
  * @param prefix a string, the prefix for the namespace.
  *
- * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is
- * contained in the XMLNamespaces_t of this XMLToken_t,  @c zero (false) otherwise.
+ * @return @c 1 (true) if an XML Namespace with the given uri/prefix pair is
+ * contained in the XMLNamespaces_t of this XMLToken_t,  @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2269,7 +2269,7 @@ XMLToken_getURI (const XMLToken_t *token);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLToken_t structure is an XML element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLToken_t structure is an XML element, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2284,7 +2284,7 @@ XMLToken_isElement (const XMLToken_t *token);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLToken_t structure is an XML end element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLToken_t structure is an XML end element, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2300,8 +2300,8 @@ XMLToken_isEnd (const XMLToken_t *token);
  * @param token XMLToken_t structure to be queried.
  * @param element XMLToken_t structure, element for which query is made.
  *
- * @return @c non-zero (true) if this XMLToken_t structure is an XML end element for the given
- * XMLToken_t structure start element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLToken_t structure is an XML end element for the given
+ * XMLToken_t structure start element, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */
@@ -2316,7 +2316,7 @@ XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLToken_t structure is an end of file (input) marker, @c zero (false)
+ * @return @c 1 (true) if this XMLToken_t structure is an end of file (input) marker, @c 0 (false)
  * otherwise.
  *
  * @memberof XMLToken_t
@@ -2347,7 +2347,7 @@ XMLToken_isStart (const XMLToken_t *token);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if this XMLToken_t structure is an XML text element, @c zero (false) otherwise.
+ * @return @c 1 (true) if this XMLToken_t structure is an XML text element, @c 0 (false) otherwise.
  *
  * @memberof XMLToken_t
  */

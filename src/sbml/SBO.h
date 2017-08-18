@@ -228,7 +228,7 @@ public:
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
    *
-   * @return the sboTerm as an integer or -1 if the sboTerm was not in the
+   * @return the sboTerm as an integer or @c -1 if the sboTerm was not in the
    * correct format or not found.
    */
   static int readTerm (const XMLAttributes& attributes, SBMLErrorLog* log,

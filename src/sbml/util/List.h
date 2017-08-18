@@ -78,7 +78,7 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  * ListItemPredicate
  *
  * This is a typedef for a pointer to a function that takes a List item and
- * returns nonzero (for true) or zero (for false).
+ * returns @c 1 (true) or @c 0 (false).
  *
  * @see List_countIf()
  *
@@ -205,13 +205,13 @@ public:
    * @code
    *   int (*ListItemPredicate) (const void *item);
    * @endcode
-   * where a return value of nonzero represents true and zero represents
+   * where a return value of @c 1 represents true and @c 0 represents
    * false.
    *
    * @param predicate the function applied to each item in this list.
    * 
    * @return the number of items in this List for which
-   * <code>predicate(item)</code> returns nonzero (true).
+   * <code>predicate(item)</code> returns @c 1 (true).
    */
   unsigned int countIf (ListItemPredicate  predicate) const;
 
@@ -250,7 +250,7 @@ public:
    * @code
    *   int (*ListItemPredicate) (const void *item);
    * @endcode
-   * where a return value of nonzero represents true and zero represents
+   * where a return value of @c 1 represents true and @c 0 represents
    * false.
    *
    * The caller owns the returned list (but not its constituent items) and
@@ -481,7 +481,7 @@ List_add (List_t *lst, void *item);
  *
  *   int (*ListItemPredicate) (const void *item);
  *
- * where a return value of non-zero represents true and zero represents
+ * where a return value of one represents true and zero represents
  * false.
  *
  * @param lst the List_t structure.

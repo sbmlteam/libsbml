@@ -693,7 +693,7 @@ SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *srg);
 
 
 /**
- * Returns non-zero if the id is set
+ * Returns @c 1 (true) if the id is set
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *

@@ -111,7 +111,7 @@ List::add (void *item)
  *
  *   int (*ListItemPredicate) (const void *item);
  *
- * where a return value of non-zero represents true and zero represents
+ * where a return value of one represents true and zero represents
  * false.
  */
 unsigned int

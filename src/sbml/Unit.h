@@ -1882,8 +1882,8 @@ Unit_getOffset (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "ampere", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ampere", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -1898,8 +1898,8 @@ Unit_isAmpere (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "becquerel", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "becquerel", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -1914,8 +1914,8 @@ Unit_isBecquerel (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "candela", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "candela", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -1930,8 +1930,8 @@ Unit_isCandela (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "Celsius", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "Celsius", @c 0 (false) otherwise.
  *
  * @warning The predefined unit @c Celsius was removed from the list of
  * predefined units in SBML Level 2 Version 3 at the same time that the
@@ -1953,8 +1953,8 @@ Unit_isCelsius (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "coulomb", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "coulomb", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -1969,8 +1969,8 @@ Unit_isCoulomb (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "dimensionless", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "dimensionless", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -1985,8 +1985,8 @@ Unit_isDimensionless (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "farad", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "farad", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2001,8 +2001,8 @@ Unit_isFarad (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "gram", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gram", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2017,8 +2017,8 @@ Unit_isGram (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "gray", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gray", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2033,8 +2033,8 @@ Unit_isGray (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "henry", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "henry", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2049,8 +2049,8 @@ Unit_isHenry (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "hertz", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "hertz", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2065,8 +2065,8 @@ Unit_isHertz (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "item", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "item", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2081,8 +2081,8 @@ Unit_isItem (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "joule", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "joule", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2097,8 +2097,8 @@ Unit_isJoule (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "katal", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "katal", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2113,8 +2113,8 @@ Unit_isKatal (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "kelvin", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kelvin", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2129,8 +2129,8 @@ Unit_isKelvin (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "kilogram", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kilogram", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2145,8 +2145,8 @@ Unit_isKilogram (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given Unit_t
- * structure is set to @c "litre" or @c "liter", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "litre" or @c "liter", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2161,8 +2161,8 @@ Unit_isLitre (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "lumen", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lumen", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2177,8 +2177,8 @@ Unit_isLumen (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "lux", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lux", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2193,8 +2193,8 @@ Unit_isLux (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given Unit_t
- * structure is set to @c "metre" or @c "meter", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "metre" or @c "meter", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2209,8 +2209,8 @@ Unit_isMetre (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "mole", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "mole", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2225,8 +2225,8 @@ Unit_isMole (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "newton", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "newton", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2241,8 +2241,8 @@ Unit_isNewton (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "ohm", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ohm", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2257,8 +2257,8 @@ Unit_isOhm (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "pascal", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "pascal", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2273,8 +2273,8 @@ Unit_isPascal (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "radian", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "radian", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2289,8 +2289,8 @@ Unit_isRadian (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "second", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "second", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2305,8 +2305,8 @@ Unit_isSecond (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "siemens", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "siemens", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2321,8 +2321,8 @@ Unit_isSiemens (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "sievert", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "sievert", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2337,8 +2337,8 @@ Unit_isSievert (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "steradian", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "steradian", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2353,8 +2353,8 @@ Unit_isSteradian (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "tesla", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "tesla", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2369,8 +2369,8 @@ Unit_isTesla (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "volt", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "volt", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2385,8 +2385,8 @@ Unit_isVolt (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "watt", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "watt", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2401,8 +2401,8 @@ Unit_isWatt (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set to @c "weber", zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "weber", @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2417,8 +2417,8 @@ Unit_isWeber (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "kind" attribute of the given
+ * Unit_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2433,8 +2433,8 @@ Unit_isSetKind (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "exponent" attribute of the given
- * Unit_t structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "exponent" attribute of the given
+ * Unit_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2449,8 +2449,8 @@ Unit_isSetExponent (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "multiplier" attribute of the given
- * Unit_t structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "multiplier" attribute of the given
+ * Unit_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2465,8 +2465,8 @@ Unit_isSetMultiplier (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "scale" attribute of the given
- * Unit_t structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "scale" attribute of the given
+ * Unit_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof Unit_t
  */
@@ -2481,8 +2481,8 @@ Unit_isSetScale (const Unit_t *u);
  *
  * @param u the Unit_t structure to query.
  * 
- * @return nonzero (for true) if the "scale" attribute of the given
- * Unit_t structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "scale" attribute of the given
+ * Unit_t structure is set, @c 0 (false) otherwise.
  *
  * @warning The "offset" attribute is only available in SBML Level 2
  * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
@@ -2725,9 +2725,9 @@ Unit_hasRequiredAttributes(Unit_t *u);
  * @param name a string to be tested against the built-in unit names.
  * @param level the level of SBML one is checking.
  *
- * @return nonzero (for true) if @p name is one of the five SBML
+ * @return @c 1 (true) if @p name is one of the five SBML
  * built-in Unit names (@c "substance", @c "volume, @c "area", @c "length"
- * or @c "time"), zero (0) otherwise
+ * or @c "time"), @c 0 (false) otherwise
  *
  * @note: @c "length" and @c "area" were added in Level 2 Version 1
  *

@@ -401,7 +401,7 @@ protected:
   virtual bool hasPackageOnlyInfixSyntax() const;
 
   /**
-   * Get the precedence of this package function, or -1 if unknown
+   * Get the precedence of this package function, or @c -1 if unknown
    */
   virtual int getL3PackageInfixPrecedence() const;
 
@@ -847,7 +847,7 @@ protected:
   virtual bool hasPackageOnlyInfixSyntax() const;
 
   /**
-  * Get the precedence of this package function, or -1 if unknown
+  * Get the precedence of this package function, or @c -1 if unknown
   */
   virtual int getL3PackageInfixPrecedence() const;
 

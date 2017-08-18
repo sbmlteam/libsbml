@@ -1370,7 +1370,7 @@ Parameter_clone (const Parameter_t *p);
  * The exact results depends on the %SBML Level and Version in use.  The
  * cases are currently the following:
  * 
- * @li (%SBML Level 2 only) constant = 1 (true)
+ * @li (%SBML Level 2 only) constant = @c true
  *
  * @param p the Parameter_t structure to initialize.
  *
@@ -1460,8 +1460,8 @@ Parameter_getUnits (const Parameter_t *p);
  *
  * @param p the Parameter_t whose constant value is sought.
  *
- * @return the value of the "constant" attribute, with nonzero meaning
- * true and zero meaning false.
+ * @return the value of the "constant" attribute, with @c nonzero meaning
+ * true and @c zero meaning false.
  *
  * @memberof Parameter_t
  */
@@ -1641,7 +1641,7 @@ Parameter_setUnits (Parameter_t *p, const char *units);
  *
  * @param p the Parameter_t structure to set.
  * @param value the value to assign as the "constant" attribute
- * of the parameter, either zero for false or nonzero for true.
+ * of the parameter, either @c zero for false or @c nonzero for true.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

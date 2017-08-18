@@ -4090,13 +4090,13 @@ SBase_getAnnotationString (SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "metaid" attribute is set.
  *
  * @param sb the SBase_t structure to query.
  *
- * @return nonzero (for true) if the "metaid" attribute of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "metaid" attribute of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4106,13 +4106,13 @@ SBase_isSetMetaId (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "id" attribute is set.
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "id" attribute of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "id" attribute of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4122,13 +4122,13 @@ SBase_isSetIdAttribute (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "name" attribute is set.
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "name" attribute of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "name" attribute of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4138,13 +4138,13 @@ SBase_isSetName (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "notes" subelement is set.
  *
  * @param sb the SBase_t structure to query.
  *
- * @return nonzero (for true) if the "notes" subelement of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "notes" subelement of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4154,13 +4154,13 @@ SBase_isSetNotes (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "annotation" subelement is set.
  *
  * @param sb the SBase_t structure to query.
  *
- * @return nonzero (for true) if the "annotation" subelement of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "annotation" subelement of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4170,13 +4170,13 @@ SBase_isSetAnnotation (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * structure's "sboTerm" attribute is set.
  *
  * @param sb the SBase_t structure to query.
  *
- * @return nonzero (for true) if the "sboTerm" attribute of this SBML structure
- * is set, zero (for false) otherwise.
+ * @return @c 1 (true) if the "sboTerm" attribute of this SBML structure
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -4867,8 +4867,8 @@ SBase_getModelHistory(SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
- * @return nonzero if the ModelHistory_t of this SBase_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the ModelHistory_t of this SBase_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -5041,7 +5041,7 @@ SBase_getElementName (const SBase_t *sb);
 
 
 /**
- * Predicate returning nonzero true or false depending on whether the
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
  * structure's level/version and namespace values correspond to a valid
  * SBML specification.
  *
@@ -5058,8 +5058,8 @@ SBase_getElementName (const SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
- * @return nonzero (true) if the level, version and namespace values of this
- * SBML structure correspond to a valid set of values, zero (false) otherwise.
+ * @return @c 1 (true) if the level, version and namespace values of this
+ * SBML structure correspond to a valid set of values, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -5138,13 +5138,13 @@ void *
 SBase_getUserData(const SBase_t* sb);
 
 /**
- * Predicate returning nonzero true or false depending on whether the
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
  * structure's user data object has been set.
  *
  * @param sb defines the node of which the user data should be queried.
  *
- * @return nonzero (true) if the user data object of this
- * SBML structure has been set, zero (false) otherwise.
+ * @return @c 1 (true) if the user data object of this
+ * SBML structure has been set, @c 0 (false) otherwise.
  *
  * @memberof SBase_t
  */

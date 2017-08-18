@@ -831,9 +831,9 @@ ListOf_getById (ListOf_t *lo, const char *sid);
 /**
  * Removes all items in this ListOf_t structure.
  *
- * If @p doDelete is true (non-zero), all items in this ListOf_t structure
+ * If @p doDelete is @c nonzero (true), all items in this ListOf_t structure
  * are both deleted and cleared, and thus the caller doesn't have to delete
- * those items.  Otherwise, if @p doDelete is false (zero), all items are
+ * those items.  Otherwise, if @p doDelete is @c 0 (false), all items are
  * only cleared from this ListOf_t structure and the caller is responsible
  * for deleting all items.  (In the latter case, callers are advised to store
  * pointers to all items elsewhere before calling this function.)

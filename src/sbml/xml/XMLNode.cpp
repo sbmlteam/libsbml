@@ -405,7 +405,7 @@ XMLNode::getChild (const std::string&  name) const
  * @param name a string, the name of the child for which the 
  * index is required.
  *
- * @return the index of the first child of this XMLNode with the given name, or -1 if not present.
+ * @return the index of the first child of this XMLNode with the given name, or @c -1 if not present.
  */
 int
 XMLNode::getIndex (const std::string& name) const

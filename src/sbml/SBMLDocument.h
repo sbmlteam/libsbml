@@ -1847,8 +1847,8 @@ SBMLDocument_getVersion (const SBMLDocument_t *d);
  *
  * @param d the SBMLDocument_t structure.
  *
- * @return nonzero if the model object of this SBMLDocument_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the model object of this SBMLDocument_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof SBMLDocument_t
  */
@@ -1884,7 +1884,7 @@ SBMLDocument_getModel (SBMLDocument_t *d);
  * 
  * @param d the SBMLDocument_t structure.
  *
- * @return true (non-zero) if the transformation was successful,
+ * @return @c 1 (true) if the transformation was successful,
  * false (0) otherwise.
  *
  * @note This function will check the consistency of a model
@@ -1913,7 +1913,7 @@ SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
  * 
  * @param d the SBMLDocument_t structure.
  *
- * @return true (non-zero) if the transformation was successful,
+ * @return @c 1 (true) if the transformation was successful,
  * false (0) otherwise.
  *
  *
@@ -2664,7 +2664,7 @@ SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
  * @param d the SBMLDocument_t structure to check.
  * @param package the name or URI of the package extension.
  *
- * @return true (non-zero) if the package is flagged as
+ * @return @c 1 (true) if the package is flagged as
  * being required in this SBML document, false (0) otherwise.
  *
  * @deprecated Replaced in libSBML 5.2.0 by
@@ -2686,7 +2686,7 @@ SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
  * @param d the SBMLDocument_t structure to check.
  * @param package the name or URI of the package extension.
  *
- * @return true (non-zero) if the package is flagged as
+ * @return @c 1 (true) if the package is flagged as
  * being required in this SBML document, false (0) otherwise.
  *
  * @memberof SBMLDocument_t
@@ -2752,8 +2752,8 @@ SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int fl
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
  *
- * @return @c non-zero (true) if the required attribute of the given package extension
- * is defined, @c zero (false) otherwise.
+ * @return @c 1 (true) if the required attribute of the given package extension
+ * is defined, @c 0 (false) otherwise.
  *
  * @deprecated Replaced in libSBML 5.2.0 by
  * SBMLDocument_isSetPackageRequired()
@@ -2774,8 +2774,8 @@ SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
  *
- * @return @c non-zero (true) if the required attribute of the given package extension
- * is defined, @c zero (false) otherwise.
+ * @return @c 1 (true) if the required attribute of the given package extension
+ * is defined, @c 0 (false) otherwise.
  *
  * @memberof SBMLDocument_t
  */

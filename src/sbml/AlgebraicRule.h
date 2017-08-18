@@ -646,7 +646,7 @@ AlgebraicRule_isSetMath(const AlgebraicRule_t * ar);
 
 
 /**
- * @return true (non-zero) if the formula (or equivalently the math) for
+ * @return @c 1 (true) if the formula (or equivalently the math) for
  * this AlgebraicRule_t is set, false (0) otherwise.
  *
  * @memberof AlgebraicRule_t

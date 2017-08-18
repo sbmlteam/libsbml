@@ -89,7 +89,7 @@
  * Product and reactant stoichiometries can be specified using
  * <em>either</em> "stoichiometry" or "stoichiometryMath" in a
  * SpeciesReference object.  The "stoichiometry" attribute is of type
- * double and should contain values greater than zero (0).  The
+ * double and should contain values greater than @c 0 (false).  The
  * "stoichiometryMath" element is implemented as an element containing a
  * MathML expression.  These two are mutually exclusive; only one of
  * "stoichiometry" or "stoichiometryMath" should be defined in a given
@@ -1688,8 +1688,8 @@ SpeciesReference_getNamespaces(SpeciesReference_t *sr);
  * 
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if this SpeciesReference_t represents a modifier
- * species, zero (0)if it is a plain SpeciesReference_t.
+ * @return @c 1 (true) if this SpeciesReference_t represents a modifier
+ * species, @c 0 (false)if it is a plain SpeciesReference_t.
  *
  * @memberof SpeciesReference_t
  */
@@ -1747,7 +1747,7 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr);
  * Get the value of the "stoichiometry" attribute of the given
  * SpeciesReference_t structure.
  *
- * This function returns zero if the SpeciesReference_t structure is a
+ * This function returns @c 0 (false) if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
  * @param sr the SpeciesReference_t structure to use.
@@ -1823,14 +1823,14 @@ SpeciesReference_getConstant (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "id" attribute of the given SpeciesReference_t structure is
  * set.
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "id" attribute of given SpeciesReference_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "id" attribute of given SpeciesReference_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -1840,14 +1840,14 @@ SpeciesReference_isSetId (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "name" attribute of the given SpeciesReference_t
  * structure is set.
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "name" attribute of given SpeciesReference_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "name" attribute of given SpeciesReference_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -1857,14 +1857,14 @@ SpeciesReference_isSetName (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "species" attribute of the given SpeciesReference_t
  * structure is set.
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "species" attribute of given SpeciesReference_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "species" attribute of given SpeciesReference_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -1874,7 +1874,7 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "stoichiometryMath" subelement of the given
  * SpeciesReference_t structure is non-empty.
  *
@@ -1883,8 +1883,8 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "stoichiometryMath" subelement has content, zero
- * (0) otherwise.
+ * @return @c 1 (true) if the "stoichiometryMath" subelement has content,
+ * @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -1894,14 +1894,14 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "stoichiometry" attribute of the given SpeciesReference_t structure is
  * set.
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "stoichiometry" attribute of given SpeciesReference_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "stoichiometry" attribute of given SpeciesReference_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -1911,14 +1911,14 @@ SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "constant" attribute of the given SpeciesReference_t structure is
  * set.
  *
  * @param sr the SpeciesReference_t structure to use.
  * 
- * @return nonzero if the "constant" attribute of given SpeciesReference_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "constant" attribute of given SpeciesReference_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof SpeciesReference_t
  */
@@ -2103,7 +2103,7 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
  *
  * @param sr the SpeciesReference_t structure to set.
  * @param value the value to assign as the "constant" attribute
- * of the SpeciesReference_t, either zero for false or nonzero for true.
+ * of the SpeciesReference_t, either @c zero for false or @c nonzero for true.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

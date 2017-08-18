@@ -443,7 +443,7 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * @note SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to
  * check whether libSBML has been linked with each library.
  *
- * @return non-zero on success and zero if the filename could not be opened
+ * @return @c 1 (true) on success and @c 0 (false) if the filename could not be opened
  * for writing.
  *
  * @memberof SBMLWriter_t
@@ -469,12 +469,12 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
  *
  * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
  * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
- * File unwritable error will be logged and @c zero will be returned if a compressed 
+ * File unwritable error will be logged and @c 0 (false) will be returned if a compressed 
  * file name is given and libSBML is not linked with the required library.
  * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
  * libSBML was linked with the library at compile time.
  *
- * @return non-zero on success and zero if the filename could not be opened
+ * @return @c 1 (true) on success and @c 0 (false) if the filename could not be opened
  * for writing.
  *
  * @memberof SBMLWriter_t
@@ -502,10 +502,10 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
 
 
 /**
- * Predicate returning @c non-zero or @c zero depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * libSBML is linked with zlib at compile time.
  *
- * @return @c non-zero if zlib is linked, @c zero otherwise.
+ * @return @c 1 (true) if zlib is linked, @c 0 (false) otherwise.
  *
  * @memberof SBMLWriter_t
  */
@@ -515,10 +515,10 @@ SBMLWriter_hasZlib ();
 
 
 /**
- * Predicate returning @c non-zero or @c zero depending on whether
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
  * libSBML is linked with bzip2 at compile time.
  *
- * @return @c non-zero if bzip2 is linked, @c zero otherwise.
+ * @return @c 1 (true) if bzip2 is linked, @c 0 (false) otherwise.
  *
  * @memberof SBMLWriter_t
  */
@@ -542,7 +542,7 @@ SBMLWriter_hasBzip2 ();
  * @param filename a string giving the path to a file where the XML
  * content is to be written.
  *
- * @return @c 1 on success and @c 0 (zero) if @p filename could not be
+ * @return @c 1 (true) on success and @c 0 (false) if @p filename could not be
  * written.  Some possible reasons for failure include (a) being unable to
  * open the file, and (b) using a filename that indicates a compressed SBML
  * file (i.e., a filename ending in <code>&quot;.zip&quot;</code> or
@@ -603,7 +603,7 @@ writeSBMLToString (const SBMLDocument_t *d);
  * @param filename a string giving the path to a file where the XML
  * content is to be written.
  *
- * @return @c 1 on success and @c 0 (zero) if @p filename could not be
+ * @return @c 1 (true) on success and @c 0 (false) if @p filename could not be
  * written.  Some possible reasons for failure include (a) being unable to
  * open the file, and (b) using a filename that indicates a compressed SBML
  * file (i.e., a filename ending in <code>&quot;.zip&quot;</code> or

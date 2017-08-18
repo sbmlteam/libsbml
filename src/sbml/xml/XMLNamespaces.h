@@ -543,7 +543,7 @@ XMLNamespaces_clear (XMLNamespaces_t *ns);
  * @param ns the XMLNamespaces_t structure.
  * @param uri a string, uri of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLNamespaces_t
  */
@@ -558,7 +558,7 @@ XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri);
  * @param ns the XMLNamespaces_t structure.
  * @param prefix a string, prefix of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLNamespaces_t
  */

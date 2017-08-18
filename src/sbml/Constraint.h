@@ -1023,8 +1023,8 @@ Constraint_getMath (const Constraint_t *c);
  *
  * @param c the Constraint_t structure.
  * 
- * @return a nonzero integer if the "message" subelement for this
- * Constraint_t is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "message" subelement for this
+ * Constraint_t is set, @c 0 (false) otherwise.
  *
  * @memberof Constraint_t
  */
@@ -1039,8 +1039,8 @@ Constraint_isSetMessage (const Constraint_t *c);
  *
  * @param c the Constraint_t structure.
  * 
- * @return a nonzero integer if the "math" subelement for this Constraint_t
- * is set, zero (0) otherwise.
+ * @return @return @c 1 (true) if the "math" subelement for this Constraint_t
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof Constraint_t
  */

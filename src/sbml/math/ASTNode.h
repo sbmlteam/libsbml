@@ -2504,7 +2504,7 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  * @code{.c}
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endcode
- * where a return value of nonzero represents true and zero
+ * where a return value of @c nonzero represents true and @c zero
  * represents false.
  *
  * @param node the node at which the search is to be started.
@@ -2541,7 +2541,7 @@ ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
  * @code{.c}
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endcode
- * where a return value of nonzero represents true and zero
+ * where a return value of @c nonzero represents true and @c zero
  * represents false.
  *
  * @param node the node at which the search is to be started.

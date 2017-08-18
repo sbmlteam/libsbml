@@ -197,7 +197,7 @@ public:
   /** @endcond */
 
   /**
-   * Does noting since no defaults are defined for LineSegment.
+   * Does nothing since no defaults are defined for LineSegment.
    */
   void initDefaults ();
 
@@ -490,7 +490,7 @@ Point_t *
 LineSegment_getEnd (LineSegment_t *ls);
 
 /**
- * Does noting since no defaults are defined for LineSegment_t.
+ * Does nothing since no defaults are defined for LineSegment_t.
  *
  * @param ls the LineSegment_t structure.
  *

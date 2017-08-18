@@ -4587,8 +4587,8 @@ Model_getConversionFactor (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "id" attribute of this Model_t structure is 
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "id" attribute of this Model_t structure is 
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4603,8 +4603,8 @@ Model_isSetId (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "name" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "name" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4619,8 +4619,8 @@ Model_isSetName (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "substanceUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "substanceUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4635,8 +4635,8 @@ Model_isSetSubstanceUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "timeUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "timeUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4651,8 +4651,8 @@ Model_isSetTimeUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "volumeUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "volumeUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4667,8 +4667,8 @@ Model_isSetVolumeUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "areaUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "areaUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4683,8 +4683,8 @@ Model_isSetAreaUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "lengthUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "lengthUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4699,8 +4699,8 @@ Model_isSetLengthUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "extentUnits" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "extentUnits" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -4715,8 +4715,8 @@ Model_isSetExtentUnits (const Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the "conversionFactor" attribute of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the "conversionFactor" attribute of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */
@@ -5101,8 +5101,8 @@ Model_getModelHistory(Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return nonzero if the ModelHistory_t of this Model_t structure is
- * set, zero (0) otherwise.
+ * @return @c 1 (true) if the ModelHistory_t of this Model_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Model_t
  */

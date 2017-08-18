@@ -411,7 +411,7 @@ public:
    * index is required.
    *
    * @return the index of the first child of this XMLNode with the given
-   * name, or -1 if not present.
+   * name, or @c -1 if not present.
    */
   int getIndex (const std::string& name) const;
 
@@ -880,7 +880,7 @@ XMLNode_getChildForName (const XMLNode_t *node, const char*  name);
  * @param name a string, the name of the child for which the
  * index is required.
  *
- * @return the index of the first child of node with the given name, or -1 if not present.
+ * @return the index of the first child of node with the given name, or @c -1 if not present.
  *
  * @memberof XMLNode_t
  */
@@ -894,7 +894,7 @@ XMLNode_getIndex (const XMLNode_t *node, const char*  name);
  * @param node XMLNode_t structure to be queried.
  * @param name a string, the name of the child to be checked.
  *
- * @return true (non-zero) if this node has a child with the given name false (zero) otherwise.
+ * @return @c 1 (true) if this node has a child with the given name @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */
@@ -903,15 +903,15 @@ int
 XMLNode_hasChild (const XMLNode_t *node, const char*  name);
 
 /**
- * Compare one XMLNode against another XMLNode returning true (non-zero) if both nodes
- * represent the same XML tree, or false (zero) otherwise.
+ * Compare one XMLNode against another XMLNode returning @c 1 (true) if both nodes
+ * represent the same XML tree, or @c 0 (false) otherwise.
  *
  *
  * @param node the original XMLNode_t structure.
  * @param other another XMLNode_t to compare against.
  *
- * @return true (non-zero) if both nodes
- * represent the same XML tree, or false (zero) otherwise
+ * @return @c 1 (true) if both nodes
+ * represent the same XML tree, or @c 0 (false) otherwise
  *
  * @memberof XMLNode_t
  */
@@ -1158,7 +1158,7 @@ XMLNode_clearAttributes(XMLNode_t *node);
  * @param uri  a string, the namespace URI of the attribute.
  *
  * @return the index of an attribute with the given local name and namespace URI,
- * or -1 if not present.
+ * or @c -1 if not present.
  *
  *
  * @memberof XMLNode_t
@@ -1175,7 +1175,7 @@ XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri);
  * @param triple an XMLTriple_t, the XML triple of the attribute for which
  *        the index is required.
  *
- * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple_t, or @c -1 if not present.
  *
  * @memberof XMLNode_t
  */
@@ -1577,7 +1577,7 @@ XMLNode_clearNamespaces (XMLNode_t *node);
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, uri of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLNode_t
  */
@@ -1592,7 +1592,7 @@ XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri);
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  *
  * @memberof XMLNode_t
  */
@@ -1713,7 +1713,7 @@ XMLNode_isNamespacesEmpty (const XMLNode_t *node);
  * @param node XMLNode_t structure to be queried.
  * @param uri a string, the uri for the namespace.
  *
- * @return @c no-zero (true) if an XML Namespace with the given URI is
+ * @return @c 1 (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLNode_t,  @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
@@ -1731,7 +1731,7 @@ XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri);
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, the prefix for the namespace.
  *
- * @return @c no-zero (true) if an XML Namespace with the given URI is
+ * @return @c 1 (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLNode_t, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t

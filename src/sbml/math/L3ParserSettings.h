@@ -1105,7 +1105,8 @@ L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
  * 
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether unary minus should be collapsed 
- * (non-zero) or not (zero).
+ * (@c 1 ; true) or not (@c 0 ; false).  Returns
+ * @c 0 (false) if @param settings is NULL.
  *
  * @memberof L3ParserSettings_t
  */
@@ -1123,8 +1124,8 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether unary minus should be collapsed 
- * (non-zero) or not (zero).  Returns zero (0) if @param settings
- * is NULL.
+ * (@c 1 ; true) or not (@c 0 ; false).  Returns
+ * @c 0 (false) if @param settings is NULL.
  *
  * @memberof L3ParserSettings_t
  */
@@ -1138,7 +1139,8 @@ L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings);
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether numbers should be considered as 
- * a having units (non-zero) or not (zero).
+ * a having units  (@c 1 ; true) or not (@c 0 ; false).  Returns
+ * @c 0 (false) if @param settings is NULL.
  *
  * @memberof L3ParserSettings_t
  */
@@ -1153,8 +1155,8 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether numbers should be considered as 
- * a having units (non-zero) or not (zero).  Returns zero (0) if @param settings
- * is NULL.
+ * a having units  (@c 1 ; true) or not (@c 0 ; false).  Returns 
+ * @c 0 (false) if @param settings is NULL.
  *
  * @memberof L3ParserSettings_t
  */
@@ -1168,7 +1170,8 @@ L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings);
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
  * @param flag an integer indicating whether avogadro should be considered as 
- * a csymbol (non-zero) or not (zero).
+ * a csymbol (@c 1 ; true) or not (@c 0 ; false).  Returns @c 0 (false) if @param settings
+ * is NULL.
  *
  * @memberof L3ParserSettings_t
  */
@@ -1183,7 +1186,7 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
  * @return an integer indicating whether avogadro should be considered as 
- * a csymbol (non-zero) or not (zero).  Returns zero (0) if @param settings
+ * a csymbol (@c 1 ; true) or not (@c 0 ; false).  Returns @c 0 (false) if @param settings
  * is NULL.
  *
  * @memberof L3ParserSettings_t

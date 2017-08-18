@@ -1159,8 +1159,8 @@ FunctionDefinition_getMath (const FunctionDefinition_t *fd);
  *
  * @param fd the FunctionDefinition_t structure.
  *
- * @return nonzero if the "id" attribute of the FunctionDefinition_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the FunctionDefinition_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1175,8 +1175,8 @@ FunctionDefinition_isSetId (const FunctionDefinition_t *fd);
  *
  * @param fd the FunctionDefinition_t structure.
  *
- * @return nonzero if the "name" attribute of the FunctionDefinition_t
- * structure is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the FunctionDefinition_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1191,8 +1191,8 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd);
  *
  * @param fd the FunctionDefinition_t structure.
  *
- * @return nonzero if the mathematical expression of this
- * FunctionDefinition_t is set, zero (0) otherwise.
+ * @return @c 1 (true) if the mathematical expression of this
+ * FunctionDefinition_t is set, @c 0 (false) otherwise.
  *
  * @memberof FunctionDefinition_t
  */
@@ -1337,8 +1337,8 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd);
  *
  * @param fd the FunctionDefinition_t structure.
  *
- * @return nonzero if the body of this
- * FunctionDefinition_t is set, zero (0) otherwise.
+ * @return @c 1 (true) if the body of this
+ * FunctionDefinition_t is set, @c 0 (false) otherwise.
  *
  * @memberof FunctionDefinition_t
  */

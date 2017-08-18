@@ -1985,9 +1985,9 @@ Species_clone (const Species_t *s);
  * defaults defined in the specification of the relevant Level/Version of
  * SBML.
  * 
- * @li sets "boundaryCondition" to @c 1 (true)
- * @li (Level 2 only) sets "constant" to @c 0 (false)
- * @li (Level 2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+ * @li sets "boundaryCondition" to @c true
+ * @li (Level 2 only) sets "constant" to @c false
+ * @li (Level 2 only) sets "hasOnlySubstanceUnits" to @c false
  *
  * @param s the Species_t structure.
  *
@@ -2161,8 +2161,8 @@ Species_getUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return nonzero (true) if the given Species_t structure's
- * "hasOnlySubstanceUnits" attribute value is nonzero, zero (0) otherwise.
+ * @return @c 1 (true) if the given Species_t structure's
+ * "hasOnlySubstanceUnits" attribute value is nonzero, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2176,8 +2176,8 @@ Species_getHasOnlySubstanceUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return nonzero (true) if the given Species_t structure's
- * "boundaryCondition" attribute value is nonzero, zero (0) otherwise.
+ * @return @c 1 (true) if the given Species_t structure's
+ * "boundaryCondition" attribute value is nonzero, @c 0 (false) otherwise.
  *
  * @memberof Species_t
  */
@@ -2216,7 +2216,7 @@ Species_getCharge (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return nonzero (true) if the given Species_t structure's "constant"
+ * @return @c 1 (true) if the given Species_t structure's "constant"
  * attribute value is nonzero, @c 0 (false) otherwise.
  *
  * @memberof Species_t
@@ -2726,7 +2726,7 @@ Species_setUnits (Species_t *s, const char *sname);
  *
  * @param s the Species_t structure.
  * 
- * @param value nonzero to indicate true, zero to indicate false.
+ * @param value @c nonzero to indicate true, @c zero to indicate false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2745,7 +2745,7 @@ Species_setHasOnlySubstanceUnits (Species_t *s, int value);
  *
  * @param s the Species_t structure.
  * 
- * @param value nonzero to indicate true, zero to indicate false.
+ * @param value @c nonzero to indicate true, @c zero to indicate false.
  *
  * @copydetails doc_returns_one_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2793,7 +2793,7 @@ Species_setCharge (Species_t *s, int value);
  *
  * @param s the Species_t structure.
  * 
- * @param value nonzero to indicate true, zero to indicate false.
+ * @param value @c nonzero to indicate true, @c zero to indicate false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

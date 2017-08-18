@@ -2321,7 +2321,7 @@ Layout_clone (const Layout_t *l);
 
 
 /**
- * Returns non-zero if the id is set
+ * Returns @c 1 (true) if the id is set
  *
  * @param l the Layout_t structure.
  *

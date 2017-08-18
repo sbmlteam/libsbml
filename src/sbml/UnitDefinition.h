@@ -1693,8 +1693,8 @@ UnitDefinition_getName (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return nonzero (true) if the "id" attribute of the given
- * UnitDefinition_t is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "id" attribute of the given
+ * UnitDefinition_t is set, @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */
@@ -1709,8 +1709,8 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud);
  *
  * @param ud the UnitDefinition_t to query.
  *
- * @return nonzero (true) if the "name" attribute of the given
- * UnitDefinition_t is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "name" attribute of the given
+ * UnitDefinition_t is set, @c 0 (false) otherwise.
  *
  * @memberof UnitDefinition_t
  */

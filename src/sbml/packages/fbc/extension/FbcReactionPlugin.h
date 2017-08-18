@@ -772,8 +772,8 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
  * 
- * @return @c non-zero (true) if the "UpperFluxBound" attribute of the given
- * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "UpperFluxBound" attribute of the given
+ * FbcReactionPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -838,8 +838,8 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
  * 
- * @return @c non-zero (true) if the "LowerFluxBound" attribute of the given
- * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "LowerFluxBound" attribute of the given
+ * FbcReactionPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -890,8 +890,8 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
  * 
- * @return @c non-zero (true) if the "geneProductAssopciation" elemen of the given
- * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ * @return @c 1 (true) if the "geneProductAssopciation" elemen of the given
+ * FbcReactionPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcReactionPlugin_t
  */

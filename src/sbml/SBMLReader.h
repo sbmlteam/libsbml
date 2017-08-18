@@ -546,7 +546,7 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
  * has been linked with the necessary libraries to support @em zlib
  * compression.
  *
- * @return @c non-zero if libSBML is linked with zlib, @c zero otherwise.
+ * @return @c 1 (true) if libSBML is linked with zlib, @c 0 (false) otherwise.
  *
  * @if conly
  * @memberof SBMLReader_t
@@ -565,7 +565,7 @@ SBMLReader_hasZlib ();
  * has been linked with the necessary libraries to support @em bzip2
  * compression.
  *
- * @return @c non-zero if libSBML is linked with bzip2, @c zero otherwise.
+ * @return @c 1 (true) if libSBML is linked with bzip2, @c 0 (false) otherwise.
  *
  * @if conly
  * @memberof SBMLReader_t

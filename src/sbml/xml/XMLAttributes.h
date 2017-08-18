@@ -2042,7 +2042,7 @@ XMLAttributes_clear(XMLAttributes_t *xa);
  * @param xa the XMLAttributes_t structure.
  * @param name a string, the local name of the attribute for which the index is being sought.
  *
- * @return the index of an attribute with the given local name, or -1 if not present.
+ * @return the index of an attribute with the given local name, or @c -1 if not present.
  *
  * @memberof XMLAttributes_t
  */
@@ -2059,7 +2059,7 @@ XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name);
  * @param uri a string, the namespace URI of the attribute.
  *
  * @return the index of an attribute with the given local name and namespace URI,
- * or -1 if not present.
+ * or @c -1 if not present.
  *
  * @memberof XMLAttributes_t
  */
@@ -2075,7 +2075,7 @@ XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const c
  * @param triple an XMLTriple_t, the XML triple of the attribute for which
  *        the index is being sought.
  *
- * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple_t, or @c -1 if not present.
  *
  * @memberof XMLAttributes_t
  */

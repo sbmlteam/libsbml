@@ -1323,8 +1323,8 @@ EventAssignment_getMath (const EventAssignment_t *ea);
  *
  * @param ea the EventAssignment_t structure to query.
  * 
- * @return nonzero (for true) if the "variable" attribute of @p ea
- * is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "variable" attribute of @p ea
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof EventAssignment_t
  */
@@ -1339,8 +1339,8 @@ EventAssignment_isSetVariable (const EventAssignment_t *ea);
  *
  * @param ea the EventAssignment_t structure to query.
  * 
- * @return nonzero (for true) if the "variable" attribute of @p ea
- * is set, zero (0) otherwise.
+ * @return @c 1 (true) if the "variable" attribute of @p ea
+ * is set, @c 0 (false) otherwise.
  *
  * @memberof EventAssignment_t
  */

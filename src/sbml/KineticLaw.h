@@ -1651,7 +1651,7 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "formula" attribute of the given KineticLaw_t structure is
  * set.
  *
@@ -1660,9 +1660,9 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
  *
  * @param kl the KineticLaw_t structure.
  * 
- * @return nonzero (meaning true) if the formula (or equivalently the
+ * @return @c 1 (true) if the formula (or equivalently the
  * "math" subelement) of the given KineticLaw_t structure is set,
- * zero (meaning false) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
@@ -1683,7 +1683,7 @@ KineticLaw_isSetFormula (const KineticLaw_t *kl);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "math" subelement of the given KineticLaw_t structure is
  * set.
  *
@@ -1693,8 +1693,8 @@ KineticLaw_isSetFormula (const KineticLaw_t *kl);
  *
  * @param kl the KineticLaw_t structure.
  * 
- * @return nonzero (meaning true) if the "math" subelement of the given
- * KineticLaw_t structure is set, zero (meaning false) otherwise.
+ * @return @c 1 (true) if the "math" subelement of the given
+ * KineticLaw_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof KineticLaw_t
  */
@@ -1704,14 +1704,14 @@ KineticLaw_isSetMath (const KineticLaw_t *kl);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "timeUnits" attribute of the given KineticLaw_t structure is
  * set.
  *
  * @param kl the KineticLaw_t structure.
  * 
- * @return nonzero (meaning true) if the "timeUnits" attribute of the given
- * KineticLaw_t structure is set, zero (meaning false) otherwise.
+ * @return @c 1 (true) if the "timeUnits" attribute of the given
+ * KineticLaw_t structure is set, @c 0 (false) otherwise.
  *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
@@ -1725,14 +1725,14 @@ KineticLaw_isSetTimeUnits (const KineticLaw_t *kl);
 
 
 /**
- * Predicate returning nonzero (for true) or zero (for false) depending on
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the "timeUnits" attribute of the given KineticLaw_t structure is
  * set.
  *
  * @param kl the KineticLaw_t structure.
  * 
- * @return nonzero (meaning true) if the "timeUnits" attribute of the given
- * KineticLaw_t structure is set, zero (meaning false) otherwise.
+ * @return @c 1 (true) if the "timeUnits" attribute of the given
+ * KineticLaw_t structure is set, @c 0 (false) otherwise.
  *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,

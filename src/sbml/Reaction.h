@@ -1943,8 +1943,8 @@ Reaction_clone (const Reaction_t *r);
 /**
  * Initializes the fields of this Reaction_t to their defaults:
  *
- *   - reversible = 1 (true)
- *   - fast       = 0 (false)  (L1 only)
+ *   - reversible = @c true
+ *   - fast       = @c false  (L1 only)
  *
  * @memberof Reaction_t
  */

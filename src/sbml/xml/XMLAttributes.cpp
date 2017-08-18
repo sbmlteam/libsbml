@@ -254,7 +254,7 @@ XMLAttributes::clear()
 /*
  * Lookup the index of an attribute with the given name.
  *
- * @return the index of an attribute with the given name, or -1 if not present.
+ * @return the index of an attribute with the given name, or @c -1 if not present.
  */
 int
 XMLAttributes::getIndex (const std::string& name) const
@@ -272,7 +272,7 @@ XMLAttributes::getIndex (const std::string& name) const
  * Lookup the index of an attribute with the given name and namespace URI
  *
  * @return the index of an attribute with the given name and namespace URI, 
- * or -1 if not present.
+ * or @c -1 if not present.
  */
 int
 XMLAttributes::getIndex (const std::string& name, const std::string& uri) const
@@ -289,7 +289,7 @@ XMLAttributes::getIndex (const std::string& name, const std::string& uri) const
 /*
  * Lookup the index of an attribute by XMLTriple.
  *
- * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple, or @c -1 if not present.
  */
 int 
 XMLAttributes::getIndex (const XMLTriple& triple) const

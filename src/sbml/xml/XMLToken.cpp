@@ -476,7 +476,7 @@ XMLToken::clearAttributes()
  * @param uri  a string, the namespace URI of the attribute.
  *
  * @return the index of an attribute with the given local name and namespace URI, 
- * or -1 if not present.
+ * or @c -1 if not present.
  *
  * The native C++ implementation of this method defines a
  * default argument value.  In the documentation generated for different
@@ -503,7 +503,7 @@ XMLToken::getAttrIndex (const std::string& name, const std::string& uri) const
  * @param triple an XMLTriple, the XML triple of the attribute for which 
  *        the index is required.
  *
- * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+ * @return the index of an attribute with the given XMLTriple, or @c -1 if not present.
  */
 int 
 XMLToken::getAttrIndex (const XMLTriple& triple) const
@@ -875,7 +875,7 @@ XMLToken::clearNamespaces ()
  *
  * @param uri a string, uri of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  */
 int 
 XMLToken::getNamespaceIndex (const std::string& uri) const
@@ -889,7 +889,7 @@ XMLToken::getNamespaceIndex (const std::string& uri) const
  *
  * @param prefix a string, prefix of the required namespace.
  *
- * @return the index of the given declaration, or -1 if not present.
+ * @return the index of the given declaration, or @c -1 if not present.
  */
 int 
 XMLToken::getNamespaceIndexByPrefix (const std::string& prefix) const

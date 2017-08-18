@@ -1081,8 +1081,8 @@ QualitativeSpecies_getCompartment(QualitativeSpecies_t * qs);
  *
  * @param qs the QualitativeSpecies_t whose constant is sought.
  *
- * @return nonzero (true) if the given QualitativeSpecies_t structure's
- * "constant" attribute value is nonzero, zero (0) otherwise.
+ * @return @c 1 (true) if the given QualitativeSpecies_t structure's
+ * "constant" attribute value is nonzero, @c 0 (false) otherwise.
  *
  * @memberof QualitativeSpecies_t
  */
@@ -1277,7 +1277,7 @@ QualitativeSpecies_setCompartment(QualitativeSpecies_t * qs, const char * compar
  * @param qs the QualitativeSpecies_t structure to set.
  * @param constant the value of the "constant" attribute, converted to a boolean: 
  * all nonzero values set the "constant" attribute to 'true', and a value of 
- * zero (0) will set the "constant" attribute to 'false'.
+ * @c 0 (zero) will set the "constant" attribute to 'false'.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

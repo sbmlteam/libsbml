@@ -535,7 +535,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
  *
  * @param mh the ModelHistory_t structure to be queried.
  *
- * @return true (non-zero) if the createdDate of this 
+ * @return @c 1 (true) if the createdDate of this 
  * ModelHistory_t structure is set, false (0) otherwise.
  *
  * @memberof ModelHistory_t
@@ -580,7 +580,7 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
  *
  * @param mh the ModelHistory_t structure to be queried.
  *
- * @return true (non-zero) if the modifiedDate of this 
+ * @return @c 1 (true) if the modifiedDate of this 
  * ModelHistory_t structure is set, false (0) otherwise.
  *
  * @memberof ModelHistory_t

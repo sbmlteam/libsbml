@@ -197,8 +197,8 @@ XMLTriple::isEmpty () const
 /*
  * Comparison (equal-to) operator for XMLTriple.
  *
- * @return @c non-zero (true) if the combination of name, URI, and 
- * prefix of lhs is equal to that of rhs @c zero (false) otherwise.
+ * @return @c 1 (true) if the combination of name, URI, and 
+ * prefix of lhs is equal to that of rhs @c 0 (false) otherwise.
  */
 bool operator==(const XMLTriple& lhs, const XMLTriple& rhs)
 {
@@ -213,8 +213,8 @@ bool operator==(const XMLTriple& lhs, const XMLTriple& rhs)
 /*
  * Comparison (not equal-to) operator for XMLTriple.
  *
- * @return @c non-zero (true) if the combination of name, URI, and 
- * prefix of lhs is not equal to that of rhs @c zero (false) otherwise.
+ * @return @c 1 (true) if the combination of name, URI, and 
+ * prefix of lhs is not equal to that of rhs @c 0 (false) otherwise.
  */
 bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
 {

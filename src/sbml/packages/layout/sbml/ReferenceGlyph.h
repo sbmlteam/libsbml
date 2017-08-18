@@ -656,7 +656,7 @@ ReferenceGlyph_t *
 ReferenceGlyph_clone (const ReferenceGlyph_t *rg);
 
 /**
- * Returns non-zero if the id is set
+ * Returns @c 1 (true) if the id is set
  *
  * @param rg the ReferenceGlyph_t structure.
  *

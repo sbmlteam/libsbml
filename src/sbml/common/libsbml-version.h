@@ -110,8 +110,8 @@ getLibSBMLVersionString ();
  * @param option the library to test against, this can be one of
  *        "expat", "libxml", "xerces-c", "bzip2", "zip"
  * 
- * @return 0 in case the libSBML has not been compiled against 
- *         that library and non-zero otherwise (for libraries 
+ * @return @c 0 (false) in case the libSBML has not been compiled against 
+ *         that library and @c 1 (true) otherwise (for libraries 
  *         that define an integer version number that number will 
  *         be returned).
  *
