@@ -2499,8 +2499,8 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  * nonzero).
  *
  * The predicate is passed in as a pointer to a function.  The function
- * definition must have the type @sbmlconstant{AST_PLUS, ASTNode.h::ASTNodePredicate
- * ASTNodePredicate}, which is defined as
+ * definition must have the type @link ASTNode.h::ASTNodePredicate
+ * ASTNodePredicate@endlink, which is defined as
  * @code{.c}
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endcode

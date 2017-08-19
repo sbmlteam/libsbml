@@ -839,7 +839,7 @@ Curve_t *
 ReactionGlyph_getCurve (ReactionGlyph_t *rg);
 
 /**
- * Returns true if the Curve_t has one or more LineSegment.
+ * Returns @c 1 (true) if the Curve_t has one or more LineSegment.
  *
  * @param rg the ReactionGlyph_t structure.
  *

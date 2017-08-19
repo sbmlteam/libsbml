@@ -487,7 +487,7 @@ XMLAttributes::isEmpty () const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Reads the value for the attribute with the index into value.  If attribute 
- * was not found or value could not be interpreted as a boolean, value is not 
+ * was not found or value could not be interpreted as a Boolean, value is not 
  * modified.
  *
  * According to the W3C XML Schema, valid boolean values are: "true",
@@ -495,7 +495,7 @@ XMLAttributes::isEmpty () const
  * http://www.w3.org/TR/xmlschema-2/#boolean
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -546,7 +546,7 @@ XMLAttributes::readInto (  int          index
 
 /*
  * Reads the value for the attribute name into value.  If the given local
- * name was not found or value could not be interpreted as a boolean, 
+ * name was not found or value could not be interpreted as a Boolean, 
  * value is not modified.
  *
  * According to the W3C XML Schema, valid boolean values are: "true",
@@ -554,7 +554,7 @@ XMLAttributes::readInto (  int          index
  * http://www.w3.org/TR/xmlschema-2/#boolean
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -572,14 +572,14 @@ XMLAttributes::readInto (  const std::string&   name
 
 /*
  * Reads the value for the attribute XMLTriple into value.  If XMLTriple was not
- * found or value could not be interpreted as a boolean, value is not modified.
+ * found or value could not be interpreted as a Boolean, value is not modified.
  *
  * According to the W3C XML Schema, valid boolean values are: "true",
  * "false", "1", and "0" (case-insensitive).  For more information, see:
  * http://www.w3.org/TR/xmlschema-2/#boolean
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -607,7 +607,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * http://www.w3.org/TR/xmlschema-2/#double
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -697,7 +697,7 @@ XMLAttributes::readInto (  int          index
  * http://www.w3.org/TR/xmlschema-2/#double
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -725,7 +725,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * http://www.w3.org/TR/xmlschema-2/#double
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -753,7 +753,7 @@ XMLAttributes::readInto (  const std::string&   name
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -815,7 +815,7 @@ XMLAttributes::readInto (  int          index
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -841,7 +841,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -869,7 +869,7 @@ XMLAttributes::readInto (  const std::string& name
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -903,7 +903,7 @@ XMLAttributes::readInto (  int          index
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -930,7 +930,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -958,7 +958,7 @@ XMLAttributes::readInto (  const std::string&  name
  * information, see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -994,7 +994,7 @@ XMLAttributes::readInto (  int           index
  * information, see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
  *
@@ -1022,7 +1022,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * information, see: http://www.w3.org/TR/xmlschema-2/#integer
  *
  * If an XMLErrorLog is passed in datatype format errors are logged.  If
- * required is true, missing attributes are also logged.
+ * @p required is true, missing attributes are also logged.
  *
  * @returns true if the attribute was read into value, false otherwise.
  */
@@ -1043,7 +1043,7 @@ XMLAttributes::readInto (  const std::string&  name
  * Reads the value for the attribute with the given index into value.  
  * If the attribute was not found, value is not modified.
  *
- * If an XMLErrorLog is passed in and required is true, missing
+ * If an XMLErrorLog is passed in and @p required is true, missing
  * attributes are logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
@@ -1082,7 +1082,7 @@ XMLAttributes::readInto (  int          index
  * Reads the value for the attribute with the given XMLTriple into value.  
  * If the XMLTriple was not found, value is not modified.
  *
- * If an XMLErrorLog is passed in and required is true, missing
+ * If an XMLErrorLog is passed in and @p required is true, missing
  * attributes are logged.
  *
  * @returns @c true if the attribute was read into value, @c false otherwise.
@@ -1104,7 +1104,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  * Reads the value for the attribute name into value.  If name was not
  * found, value is not modified.
  *
- * If an XMLErrorLog is passed in and required is true, missing
+ * If an XMLErrorLog is passed in and @p required is true, missing
  * attributes are logged.
  *
  * @returns true if the attribute was read into value, false otherwise.

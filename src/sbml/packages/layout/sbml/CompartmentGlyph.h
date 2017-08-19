@@ -443,7 +443,7 @@ int
 CompartmentGlyph_unsetOrder (CompartmentGlyph_t *cg);
 
 /**
- * Returns true if the compartment order has been set
+ * Returns @c 1 (true) if the compartment order has been set
  *
  * @param cg the CompartmentGlyph_t structure.
  *

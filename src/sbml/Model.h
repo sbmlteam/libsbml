@@ -6622,7 +6622,7 @@ Model_populateListFormulaUnitsData(Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @c 1 (true) if the list of FormulaUnitsData is populated, 
+ * @return @c 1 (true) if the list of FormulaUnitsData is populated, 
  * @c 0 (false) otherwise.
  *
  * @memberof Model_t

@@ -444,7 +444,7 @@ TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg);
 
 
 /**
- * Returns true is the text attribute is not the empty string.
+ * Returns @c 1 (true) if the text attribute is not the empty string.
  *
  * @param tg the TextGlyph_t structure.
  *
@@ -456,7 +456,7 @@ TextGlyph_isSetText (const TextGlyph_t *tg);
 
 
 /**
- * Returns true is the originOfText attribute is not the empty string.
+ * Returns @c 1 (true) if the originOfText attribute is not the empty string.
  *
  * @param tg the TextGlyph_t structure.
  *
@@ -468,7 +468,7 @@ TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg);
 
 
 /**
- * Returns true is the id of the associated graphical object is not the
+ * Returns @c 1 (true) if the id of the associated graphical object is not the
  * empty string.
  *
  * @param tg the TextGlyph_t structure.

@@ -1439,7 +1439,7 @@ EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea);
  * the math expression of this EventAssignment_t contains
  * parameters/numbers with undeclared units.
  * 
- * @c 1 (true) if the math expression of this EventAssignment_t
+ * @return @c 1 (true) if the math expression of this EventAssignment_t
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *

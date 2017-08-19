@@ -226,7 +226,7 @@ XMLNamespaces::containsUri(const std::string uri) const
 }
 
 /*
- * Lookup the index of an XML namespace declaration by Prefix.
+ * Lookup the index of an XML namespace declaration by @p prefix.
  *
  * @return the index of the given declaration, or @c -1 if not present.
  */

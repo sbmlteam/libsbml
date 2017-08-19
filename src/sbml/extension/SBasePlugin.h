@@ -1046,7 +1046,7 @@ SBasePlugin_createObject(SBasePlugin_t* plugin, XMLInputStream_t* stream);
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream_t if the target elements
- * can't be parsed by SBase::readAnnotation() and/or SBase::readNotes()
+ * can't be parsed by SBase::readAnnotation() and/or SBase_readNotes()
  * functions
  *
  * @param plugin the SBasePlugin_t structure.
@@ -1224,7 +1224,7 @@ SBasePlugin_setSBMLDocument(SBasePlugin_t* plugin, SBMLDocument_t* d);
  * This function is called when this structure is created by
  * the parent element.
  * Subclasses must override this this function if they have one
- * or more child elements. Also, SBasePlugin::connectToParent()
+ * or more child elements. Also, SBasePlugin_connectToParent()
  * must be called in the overridden function.
  *
  * @param plugin the SBasePlugin_t structure.
@@ -1247,7 +1247,7 @@ SBasePlugin_connectToParent(SBasePlugin_t* plugin, SBase_t* sbase);
  * Enables/Disables the given package with child elements in this plugin
  * structure (if any).
  * (This is an internal implementation invoked from
- *  SBase::enablePackageInternal() function)
+ *  SBase_enablePackageInternal() function)
  *
  * Subclasses which contain one or more SBase derived elements should
  * override this function if elements defined in them can be extended by

@@ -539,7 +539,7 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
 
 
 /**
- * Returns @c true if the underlying libSBML supports @em gzip and @em zlib
+ * Returns @c 1 (true) if the underlying libSBML supports @em gzip and @em zlib
  * format compression.
  *
  * This predicate tests whether the underlying copy of the libSBML library
@@ -558,7 +558,7 @@ SBMLReader_hasZlib ();
 
 
 /**
- * Returns @c true if the underlying libSBML supports @em bzip2 format
+ * Returns @c 1 (true) if the underlying libSBML supports @em bzip2 format
  * compression.
  *
  * This predicate tests whether the underlying copy of the libSBML library

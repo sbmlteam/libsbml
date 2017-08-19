@@ -1332,7 +1332,7 @@ XMLError_getColumn (const XMLError_t *error);
 
 /**
  * Return the severity of this XMLError_t.  The possible values (for the XML
- * layer) are those from the enumeration XMLErrorSeverity_t.
+ * layer) are those from the enumeration #XMLErrorSeverity_t.
  *
  * @param error the XMLError_t from which to return the severity.
  *
@@ -1346,7 +1346,7 @@ XMLError_getSeverity (const XMLError_t *error);
 
 
 /**
- * Return the severity of this XMLError_t as a string.erity_t.
+ * Return the severity of this XMLError_t as a string.
  *
  * @param error the XMLError_t from which to return the severity.
  *

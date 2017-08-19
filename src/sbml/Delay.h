@@ -987,7 +987,7 @@ Delay_getMath (const Delay_t *d);
  *
  * @param d the Delay_t structure to query.
  *
- * @c 1 (true) if the formula (meaning the @c math subelement) of
+ * @return @c 1 (true) if the formula (meaning the @c math subelement) of
  * this Delay_t is set, @c 0 (false) otherwise.
  *
  * @memberof Delay_t
@@ -1047,7 +1047,7 @@ Delay_getDerivedUnitDefinition(Delay_t *d);
  * the math expression of this Delay_t contains
  * parameters/numbers with undeclared units.
  * 
- * @c 1 (true) if the math expression of this Delay_t
+ * @return @c 1 (true) if the math expression of this Delay_t
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *

@@ -885,7 +885,7 @@ XMLToken::getNamespaceIndex (const std::string& uri) const
 
 
 /*
- * Look up the index of an XML namespace declaration by prefix.
+ * Look up the index of an XML namespace declaration by @p prefix.
  *
  * @param prefix a string, prefix of the required namespace.
  *

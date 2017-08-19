@@ -2031,7 +2031,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * Strict conversion applies the additional criteria that both the source
  * and the target model must be consistent SBML.  Users can control the
  * consistency checks that are applied using the 
- * SBMLDocument::setConsistencyChecks function.  If either the source
+ * SBMLDocument_setConsistencyChecks() function.  If either the source
  * or the potential target model have validation errors, the conversion
  * is not performed.  When a strict conversion is successful, the
  * underlying SBML structure model is altered to reflect the new level
@@ -2210,7 +2210,7 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  * 
  * @note The default (i.e., performing all checks) applies to each new
  * SBMLDocument_t structure created.  This means that each time a model is
- * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
+ * read using SBMLReader_readSBML(), SBMLReader_readSBMLFromString(), or
  * the global functions readSBML() and readSBMLFromString(), a new
  * SBMLDocument is created and for that document all checks are enabled.
  *
@@ -2268,7 +2268,7 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
  * 
  * @note The default (i.e., performing all checks) applies to each new
  * SBMLDocument_t structure created.  This means that each time a model is
- * read using SBMLReader::readSBML(), SBMLReader::readSBMLFromString, or
+ * read using SBMLReader_readSBML(), SBMLReader_readSBMLFromString(), or
  * the global functions readSBML() and readSBMLFromString(), a new
  * SBMLDocument is created and for that document all checks are enabled.
  *

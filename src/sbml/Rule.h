@@ -1855,7 +1855,7 @@ Rule_getDerivedUnitDefinition(Rule_t *ia);
  * the math expression of this Rule_t contains
  * parameters/numbers with undeclared units.
  * 
- * @c 1 (true) if the math expression of this Rule_t
+ * @return @c 1 (true) if the math expression of this Rule_t
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *

@@ -889,7 +889,7 @@ int
 XMLNode_getIndex (const XMLNode_t *node, const char*  name);
 
 /**
- * Return a boolean indicating whether node has a child with the given name.
+ \* Return @c 1 (true) or @c 0 (false) indicating whether node has a child with the given name.
  *
  * @param node XMLNode_t structure to be queried.
  * @param name a string, the name of the child to be checked.
@@ -1209,7 +1209,7 @@ XMLNode_getAttributesLength (const XMLNode_t *node);
  * @return the local name of an attribute in this list (by position).
  *
  * @note If index
- * is out of range, an empty string will be returned.  Use XMLNode_hasAttr(...)
+ * is out of range, an empty string will be returned.  Use XMLNode_hasAttr()
  * to test for the attribute existence.
  *
  * @memberof XMLNode_t
@@ -1231,7 +1231,7 @@ XMLNode_getAttrName (const XMLNode_t *node, int index);
  * (by position).
  *
  * @note If index is out of range, an empty string will be
- * returned. Use XMLNode_hasAttr(...) to test for the attribute existence.
+ * returned. Use XMLNode_hasAttr() to test for the attribute existence.
  *
  * @memberof XMLNode_t
  */
@@ -1252,7 +1252,7 @@ XMLNode_getAttrPrefix (const XMLNode_t *node, int index);
  * (by position).
  *
  * @note If index is out of range, an empty string will be
- * returned.  Use XMLNode_hasAttr(...) to test for attribute existence.
+ * returned.  Use XMLNode_hasAttr() to test for attribute existence.
  *
  * @memberof XMLNode_t
  */
@@ -1292,7 +1292,7 @@ XMLNode_getAttrURI (const XMLNode_t *node, int index);
  * @return the value of an attribute in the attribute set (by position).
  *
  * @note If index
- * is out of range, an empty string will be returned. Use XMLNode_hasAttr(...)
+ * is out of range, an empty string will be returned. Use XMLNode_hasAttr()
  * to test for attribute existence.
  *
  * @memberof XMLNode_t
@@ -1312,7 +1312,7 @@ XMLNode_getAttrValue (const XMLNode_t *node, int index);
  *
  * @note If an attribute with the given local name (without namespace URI)
  * does not exist, an empty string will be returned.
- * Use XMLNode_hasAttr(...) to test for attribute existence.
+ * Use XMLNode_hasAttr() to test for attribute existence.
  *
  * @memberof XMLNode_t
  */
@@ -1353,7 +1353,7 @@ XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* u
  *
  * @note If an attribute with the
  * given XMLTriple_t does not exist, an empty string will be returned.
- * Use XMLNode_hasAttr(...) to test for attribute existence.
+ * Use XMLNode_hasAttr() to test for attribute existence.
  *
  * @memberof XMLNode_t
  */
@@ -1587,7 +1587,7 @@ XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri);
 
 
 /**
- * Look up the index of an XML namespace declaration by prefix.
+ * Look up the index of an XML namespace declaration by @p prefix.
  *
  * @param node XMLNode_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
@@ -1880,7 +1880,7 @@ XMLNode_isEOF (const XMLNode_t *node);
  *
  * @param node XMLNode_t structure to be queried.
  *
- * @c 1 (true) if this XMLNode_t structure is an XML start element, @c 0 (false) otherwise.
+ * @return @c 1 (true) if this XMLNode_t structure is an XML start element, @c 0 (false) otherwise.
  *
  * @memberof XMLNode_t
  */

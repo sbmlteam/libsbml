@@ -1015,7 +1015,7 @@ Trigger_isSetMath (const Trigger_t *t);
  * 
  * @param t the Trigger_t structure.
  *
- * @c 1 (true) if the "initialValue" attribute value
+ * @return @c 1 (true) if the "initialValue" attribute value
  * in this Trigger_t is set, @c 0 (false) otherwise.
  *
  * @memberof Trigger_t
@@ -1030,7 +1030,7 @@ Trigger_isSetInitialValue (const Trigger_t *t);
  * 
  * @param t the Trigger_t structure.
  *
- * @c 1 (true) if the "persisent" attribute value
+ * @return @c 1 (true) if the "persisent" attribute value
  * in this Trigger_t is set, @c 0 (false) otherwise.
  *
  * @memberof Trigger_t

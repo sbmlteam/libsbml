@@ -789,7 +789,7 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
  *
  * @param math the StoichiometryMath_t structure to check.
  * 
- * @c 1 (true) if the math expression of this StoichiometryMath_t
+ * @return @c 1 (true) if the math expression of this StoichiometryMath_t
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *

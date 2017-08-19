@@ -307,7 +307,7 @@ UnitDefinition::unsetName ()
 
 /*
  * @return true if this UnitDefinition is a variant of the built-in type
- * area. i.e. square metres with only abritrary variations in scale,
+ * area. i.e. square metres with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
 bool
@@ -344,7 +344,7 @@ UnitDefinition::isVariantOfArea (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of the built-in type
- * length. i.e. metres with only abritrary variations in scale,
+ * length. i.e. metres with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
 bool
@@ -381,7 +381,7 @@ UnitDefinition::isVariantOfLength (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of the built-in type
- * substance. i.e. moles or items with only abritrary variations in
+ * substance. i.e. moles or items with only arbitrary variations in
  * scale or multiplier values, false otherwise.
  */
 bool
@@ -446,7 +446,7 @@ UnitDefinition::isVariantOfSubstance (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of the built-in type
- * time. i.e. seconds with only abritrary variations in scale,
+ * time. i.e. seconds with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
 bool
@@ -483,7 +483,7 @@ UnitDefinition::isVariantOfTime (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of the built-in type
- * volume. i.e. litre or cubic metre with only abritrary variations in
+ * volume. i.e. litre or cubic metre with only arbitrary variations in
  * scale or multiplier values, false otherwise.
  */
 bool
@@ -525,7 +525,7 @@ UnitDefinition::isVariantOfVolume (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of dimensionless.
- * i.e. dimensionless with only abritrary variations in scale,
+ * i.e. dimensionless with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
 bool
@@ -560,7 +560,7 @@ UnitDefinition::isVariantOfDimensionless (bool relaxed) const
 
 /*
  * @return true if this UnitDefinition is a variant of mass. ie gram or
- * kilogram with only abritrary variations in scale or multiplier
+ * kilogram with only arbitrary variations in scale or multiplier
  * values, false otherwise.
  */
 bool

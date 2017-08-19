@@ -884,7 +884,7 @@ Priority_getMath (const Priority_t *p);
  *
  * @param p the Priority_t structure to query.
  *
- * @c 1 (true) if the formula (meaning the @c math subelement) of
+ * @return @c 1 (true) if the formula (meaning the @c math subelement) of
  * this Priority_t is set, @c 0 (false) otherwise.
  *
  * @memberof Priority_t

@@ -2749,7 +2749,7 @@ Unit_isBuiltIn (const char *name, unsigned int level);
  * @param unit1 the first Unit_t structure to compare.
  * @param unit2 the second Unit_t structure to compare.
  *
- * @c 1 (true) if all the attributes of unit1 are identical
+ * @return @c 1 (true) if all the attributes of unit1 are identical
  * to the attributes of unit2, @c 0 (false) otherwise.
  *
  * @see Unit_areEquivalent()
@@ -2774,7 +2774,7 @@ Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
  * @param unit1 the first Unit_t structure to compare.
  * @param unit2 the second Unit_t structure to compare.
  *
- * @c 1 (true) if the "kind" and "exponent" attributes of unit1 are
+ * @return @c 1 (true) if the "kind" and "exponent" attributes of unit1 are
  * identical to the kind and exponent attributes of unit2,
  * @c 0 (false) otherwise.
  * 

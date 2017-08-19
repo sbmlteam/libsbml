@@ -440,9 +440,9 @@ BEGIN_C_DECLS
  *
  * @param content the source of the stream.
  *
- * @param isFile a boolean flag to indicate whether @p content is a file
- * name.  If @c true, @p content is assumed to be the file from which the
- * XML content is to be read.  If @c false, @p content is taken to be a
+ * @param isFile a Boolean flag to indicate whether @p content is a file
+ * name.  If @c nonzero (true), @p content is assumed to be the file from which the
+ * XML content is to be read.  If @c zero (false), @p content is taken to be a
  * string that @em is the content to be read.
  *
  * @param library the name of the parser library to use.
@@ -531,8 +531,9 @@ XMLInputStream_isError (XMLInputStream_t *stream);
 /**
  * Returns nonzero if the given stream is in a good state.
  *
- * The definition of "good state" is that isEOF() and isError() both return
- * @c false.
+ * The definition of "good state" is that XMLInputStream_isEOF() 
+ * and XMLInputStream_isError() both return
+ * @c 0 (false).
  *
  * @param stream the XMLInputStream_t structure to examine.
  *
@@ -567,7 +568,8 @@ XMLInputStream_next (XMLInputStream_t *stream);
 /**
  * Returns the next token @em without consuming it.
  *
- * A subsequent call to either peek() or next() will return the same token.
+ * A subsequent call to either XMLInputStream_peek() or 
+ * XMLInputStream_next() will return the same token.
  *
  * @param stream the XMLInputStream_t structure to examine.
  *
