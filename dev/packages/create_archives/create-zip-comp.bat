@@ -4,8 +4,12 @@ REM This script creates a source archive for the COMP package
 REM 
 
 SET THIS_DIR=%~dp0
+
+if "%~1"=="" GOTO NO_VERSION_NO
+SET VERSION_NO=%1
+
 SET PACKAGE_NAME=comp
-set VERSION=libSBML-5.15.2-%PACKAGE_NAME%-src
+set VERSION=libSBML-%VERSION_NO%-%PACKAGE_NAME%-src
 SET DIST_DIR=%~dp0\%VERSION%
 SET PACKAGE_DIR=%~dp0\..\..\..\
 
@@ -188,10 +192,19 @@ echo.
 echo The package directory %PACKAGE_DIR% could not be found. 
 echo.
 
+
 :DONE
 cd /d %THIS_DIR%
 rd /s /q %DIST_DIR%
+goto CLEAN_UP
 
+:NO_VERSION_NO
+echo.
+echo Need a version number.
+echo.
+
+
+:CLEAN_UP
 REM UNSET VARIABLES
 SET THIS_DIR=
 SET PACKAGE_NAME=
@@ -199,3 +212,4 @@ set VERSION=
 SET DIST_DIR=
 SET PACKAGE_DIR=
 SET ZIP=
+SET VERSION_NO=
