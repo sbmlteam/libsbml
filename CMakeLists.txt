@@ -34,13 +34,13 @@
 cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
-if(POLICY CMP0054) 
-    cmake_policy(SET CMP0054 NEW) 
-endif() 
+if(POLICY CMP0054)
+    cmake_policy(SET CMP0054 NEW)
+endif()
 
-if(POLICY CMP0058) 
-    cmake_policy(SET CMP0058 OLD) 
-endif() 
+if(POLICY CMP0058)
+    cmake_policy(SET CMP0058 OLD)
+endif()
 
 
 
@@ -173,7 +173,7 @@ mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
 # Whether to compile examples
 option(WITH_EXAMPLES "Compile the libSBML example programs."  OFF)
 
-# Which language bindings should be built 
+# Which language bindings should be built
 option(WITH_CSHARP   "Generate the C# language interface for libSBML."     OFF)
 option(WITH_JAVA     "Generate the Java language interface for libSBML."   OFF)
 option(WITH_PYTHON   "Generate the Python language interface for libSBML." OFF)
@@ -215,14 +215,14 @@ if (WITH_JAVASCRIPT)
 "In oder to build the JavaScript language interface, libSBML needs the
 node-gyp executable. Please set the variable named NODE_GYP_EXECUTABLE.")
   endif()
-  
+
   # ensure that the swig version is high enough for javascript
   if (SWIG_VERSION AND NOT SWIG_VERSION VERSION_GREATER 3.0.1)
         message(FATAL_ERROR
 "SWIG version 3.0.2 or greater is needed in order to build the JavaScript
 language interface for libSBML, but only version ${SWIG_VERSION} was found.")
   endif()
-  
+
 endif()
 
 # Add an option to compile with all warnings shown
@@ -328,7 +328,7 @@ endif()
 set(LIBSBML_USE_CPP_NAMESPACE OFF)
 if(WITH_CPP_NAMESPACE)
     add_definitions(-DLIBSBML_USE_CPP_NAMESPACE=1)
-    set(LIBSBML_USE_CPP_NAMESPACE ON)  
+    set(LIBSBML_USE_CPP_NAMESPACE ON)
 endif()
 
 if(WITH_SWIG)
@@ -388,7 +388,7 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
-  if (NOT LIBEXPAT_LIBRARY)  
+  if (NOT LIBEXPAT_LIBRARY)
     find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
         PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
@@ -398,19 +398,19 @@ if(WITH_EXPAT)
                 )
 
   endif()
-  
+
   if (NOT LIBEXPAT_INCLUDE_DIR)
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
         PATHS ${LIBSBML_DEPENDENCY_DIR}/include
               /usr/include /usr/local/include
-              ${CMAKE_OSX_SYSROOT}/usr/include              
+              ${CMAKE_OSX_SYSROOT}/usr/include
         DOC "The directory containing the Expat include files."
               )
   endif()
-  
+
     add_definitions( -DUSE_EXPAT )
-    list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)  
+    list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)
 
     set(LIBSBML_XML_LIBRARY "expat")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
@@ -438,7 +438,7 @@ if(WITH_LIBXML)
         DOC "The file name of the libxml2 library."
                 )
   endif()
-  
+
   if (NOT LIBXML_INCLUDE_DIR)
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
@@ -451,9 +451,9 @@ if(WITH_LIBXML)
         DOC "The directory containing the libxml2 include files."
               )
   endif()
-    
+
   add_definitions( -DUSE_LIBXML )
-  list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)  
+  list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)
   set(USE_LIBXML ON)
 
   set(LIBSBML_XML_LIBRARY "libxml2")
@@ -494,6 +494,39 @@ if(WITH_XERCES)
         DOC "The directory containing the Xerces include files."
               )
 
+    if (EXISTS "${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
+        function(_myXercesC_GET_VERSION  version_hdr)
+            file(STRINGS ${version_hdr} _contents REGEX "^[ \t]*#define XERCES_VERSION_.*")
+            if(_contents)
+                string(REGEX REPLACE ".*#define XERCES_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" XercesC_MAJOR "${_contents}")
+                string(REGEX REPLACE ".*#define XERCES_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" XercesC_MINOR "${_contents}")
+                string(REGEX REPLACE ".*#define XERCES_VERSION_REVISION[ \t]+([0-9]+).*" "\\1" XercesC_PATCH "${_contents}")
+
+                if(NOT XercesC_MAJOR MATCHES "^[0-9]+$")
+                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MAJOR!")
+                endif()
+                if(NOT XercesC_MINOR MATCHES "^[0-9]+$")
+                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_MINOR!")
+                endif()
+                if(NOT XercesC_PATCH MATCHES "^[0-9]+$")
+                    message(FATAL_ERROR "Version parsing failed for XERCES_VERSION_REVISION!")
+                endif()
+
+                set(XercesC_VERSION "${XercesC_MAJOR}.${XercesC_MINOR}.${XercesC_PATCH}" PARENT_SCOPE)
+            else()
+                message(FATAL_ERROR "Include file ${version_hdr} does not exist or does not contain expected version information")
+            endif()
+        endfunction()
+
+        _myXercesC_GET_VERSION("${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
+        if (XercesC_VERSION VERSION_EQUAL 2.6.0)
+         message(FATAL_ERROR
+"Xerces version ${XercesC_VERSION VERSION_EQUAL} contains known bugs
+and is not compatible with libSBML. Please use a newer version of
+Xerces or an alternate XML parser.")
+        endif()
+    endif ()
+
     set(LIBSBML_XML_LIBRARY "xerces-c")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${XERCES_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${XERCES_LIBRARY})
@@ -506,7 +539,6 @@ it does not.")
     endif()
 
 endif(WITH_XERCES)
-
 
 ###############################################################################
 #
@@ -524,8 +556,8 @@ find_library(LIBBZ_LIBRARY
           NO_CMAKE_ENVIRONMENT_PATH
           NO_CMAKE_PATH
           NO_SYSTEM_ENVIRONMENT_PATH
-          NO_CMAKE_SYSTEM_PATH    
- 
+          NO_CMAKE_SYSTEM_PATH
+
           DOC "The file name of the bzip2 library."
 )
 endif()
@@ -581,7 +613,7 @@ if(WITH_BZIP2)
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING 
+            message(WARNING
 "The chosen bz2 library does not appear to be valid because it is
 missing some required symbols. Please check that ${LIBBZ_LIBRARY}
 is the bzip2 library. For details about the error, please see
@@ -628,7 +660,7 @@ find_library(LIBZ_LIBRARY
           NO_CMAKE_ENVIRONMENT_PATH
           NO_CMAKE_PATH
           NO_SYSTEM_ENVIRONMENT_PATH
-          NO_CMAKE_SYSTEM_PATH    
+          NO_CMAKE_SYSTEM_PATH
           DOC "The file name of the zip compression library."
     )
 endif()
@@ -673,7 +705,7 @@ if(WITH_ZLIB)
     endif()
     set(USE_ZLIB ON)
     add_definitions( -DUSE_ZLIB )
-  list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)  
+  list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)
 
     # make sure that we have a valid zip library
     check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
@@ -705,24 +737,24 @@ endif(WITH_ZLIB)
 #
 
 if(WITH_CSHARP)
-    FILE(TO_CMAKE_PATH "$ENV{WINDIR}" windir)  
+    FILE(TO_CMAKE_PATH "$ENV{WINDIR}" windir)
     find_program(CSHARP_COMPILER
         NAMES gmcs csc mcs
-        PATHS 
-            ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
-            ${windir}/Microsoft.NET/Framework/v3.0/ 
-            /usr/bin 
+        PATHS
+            ${windir}/Microsoft.NET/Framework/v2.0.50727/
+            ${windir}/Microsoft.NET/Framework/v3.0/
+            /usr/bin
             /usr/local/bin
         DOC "The file name of the C# compiler for the libsbmlcs assembly."
         )
     find_program(CSHARP_EXAMPLE_COMPILER
         NAMES gmcs csc mcs
-        PATHS 
-            ${windir}/Microsoft.NET/Framework/v4.0.30319/ 
-            ${windir}/Microsoft.NET/Framework/v3.5/ 
-            ${windir}/Microsoft.NET/Framework/v3.0/ 
-            ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
-            /usr/bin 
+        PATHS
+            ${windir}/Microsoft.NET/Framework/v4.0.30319/
+            ${windir}/Microsoft.NET/Framework/v3.5/
+            ${windir}/Microsoft.NET/Framework/v3.0/
+            ${windir}/Microsoft.NET/Framework/v2.0.50727/
+            /usr/bin
             /usr/local/bin
         DOC "The file name of the C# compiler to be used for the examples."
         )
@@ -754,7 +786,7 @@ if(WITH_CHECK)
     # set test timeout to 3000 as the normal time limit is not sufficient
     # for the comp tests
     SET(DART_TESTING_TIMEOUT "3000" CACHE STRING "" FORCE)
-    
+
     enable_testing()
 
     find_library(LIBCHECK_LIBRARY
@@ -860,7 +892,7 @@ if(UNIX)
             SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++" )
           endif()
         endif()
-        
+
         # On OSX it is common to build universal binaries to support multiple
         # processor architectures. The default behavior is not to build
         # multiple architectures, as most users might not need that.
@@ -871,7 +903,7 @@ other operating systems.)" OFF)
         set(CMAKE_OSX_ARCHITECTURES "${CMAKE_OSX_ARCHITECTURES}" CACHE STRING
            "A semicolon-separated list of architectures for which libSBML should be built.")
         if(ENABLE_UNIVERSAL)
-            
+
             # if universal binaries are requested and none defined so far
             # overwrite them with all three common architectures. If the user
             # specified their own list of architectures do not touch!
@@ -904,7 +936,7 @@ other operating systems.)" OFF)
         endif(ENABLE_UNIVERSAL)
     else(APPLE)
         add_definitions(-DLINUX)
-    
+
         if(NOT CYGWIN)
             # on cygwin all code is position independent so -fPIC is not needed
             set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -fPIC")
@@ -937,13 +969,13 @@ else(UNIX)
                 if(${flag_var} MATCHES "/MD")
                     string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
                 endif(${flag_var} MATCHES "/MD")
-                
+
             endforeach(flag_var)
         add_definitions( -D_MT)
         endif(WITH_STATIC_RUNTIME)
-        
-        # on VS enable multiprocessor build 
-        SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")      
+
+        # on VS enable multiprocessor build
+        SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 
         # Provide an easy way to use Visual Leak Detector (https://vld.codeplex.com)
     option(LIBSBML_USE_VLD "When running debug builds with MSVC use Visual Leak Detector." OFF)
@@ -961,9 +993,9 @@ else(UNIX)
       else()
         include_directories(${VLD_INCLUDE_DIR})
       endif()
-      
+
       add_definitions( -DLIBSBML_USE_VLD)
-      
+
     endif (LIBSBML_USE_VLD)
 
     # CMake no longer creates PDB files for static libraries after 2.8.11
@@ -979,9 +1011,9 @@ else(UNIX)
             STRING(REPLACE "/Zi"  "/Z7" "${flag_var}" "${${flag_var}}")
                 endif(${flag_var} MATCHES "/Zi")
 
-            endforeach(flag_var)      
+            endforeach(flag_var)
     endif()
-    
+
         file(GLOB WIN32_BINARIES ${LIBSBML_DEPENDENCY_DIR}/bin/*.dll)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
@@ -996,7 +1028,7 @@ else(UNIX)
                       ${LIBSBML_DEPENDENCY_DIR}/lib
                 DOC "The file name of the libiconv library."
               )
-        
+
         set(ADDITIONAL_LIBS)
         if (EXISTS ${LIBICONV_LIBRARY})
         set(ADDITIONAL_LIBS "${ADDITIONAL_LIBS}${LIBICONV_LIBRARY};")
@@ -1026,7 +1058,7 @@ endif(UNIX)
 #
 
 if("${LIBSBML_ROOT_SOURCE_DIR}" STREQUAL "${LIBSBML_ROOT_BINARY_DIR}" )
-    message(FATAL_ERROR "In-source builds of libSBML are disabled. 
+    message(FATAL_ERROR "In-source builds of libSBML are disabled.
 Please create a separate build directory.")
 endif()
 
@@ -1171,7 +1203,7 @@ file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Requires.private: libxml-2
 endif()
 
 if (UNIX)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" 
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endif()
 
@@ -1227,7 +1259,7 @@ endif()
 
 if(WITH_SWIG)
     message(STATUS "     Using SWIG                      = ${SWIG_EXECUTABLE} (Version ${SWIG_VERSION})")
-    
+
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
       message(WARNING "   You are using SWIG version ${SWIG_VERSION}. We strongly recommend at least version 2.0.4.")
     endif()
@@ -1357,7 +1389,7 @@ CONFIGURE_FILE(
   "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
   IMMEDIATE @ONLY)
 ADD_CUSTOM_TARGET(uninstall
-  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake") 
+  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/dev/utilities/sboTree/updateSBO.cmake")
 # add update_sbo target
@@ -1365,7 +1397,7 @@ ADD_CUSTOM_TARGET(update_sbo
   "${CMAKE_COMMAND}"
       -DSRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
       -DPYTHON_EXECUTABLE="${PYTHON_EXECUTABLE}"
-      -P "${CMAKE_CURRENT_SOURCE_DIR}/dev/utilities/sboTree/updateSBO.cmake") 
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/dev/utilities/sboTree/updateSBO.cmake")
 endif()
 ## To compile a test program simply comment out the lines below ...
 #
