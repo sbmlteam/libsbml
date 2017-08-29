@@ -521,7 +521,7 @@ if(WITH_XERCES)
         _myXercesC_GET_VERSION("${XERCES_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
         if (XercesC_VERSION VERSION_EQUAL 2.6.0)
          message(FATAL_ERROR
-"Xerces version ${XercesC_VERSION VERSION_EQUAL} contains known bugs
+"Xerces version ${XercesC_VERSION} contains known bugs
 and is not compatible with libSBML. Please use a newer version of
 Xerces or an alternate XML parser.")
         endif()
