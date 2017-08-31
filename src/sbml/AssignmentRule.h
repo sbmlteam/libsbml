@@ -685,7 +685,7 @@ AssignmentRule_getMath(const AssignmentRule_t * ar);
 
 /**
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * Other levels of SBML use MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
  * with mathematical expressions; this API is more powerful than working
  * with formulas directly in text form, and ASTs can be translated into
@@ -704,13 +704,13 @@ AssignmentRule_getFormula (const AssignmentRule_t *r);
 
 
 /**
- * Predicate returning @c 1 if the given AssignmentRule_t structure's "variable"
+ * Predicate returning @c 1 (true) if the given AssignmentRule_t structure's "variable"
  * is set.
  *
  * @param ar the AssignmentRule_t structure.
  *
- * @return @c 1 if the "variable" of this AssignmentRule_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "variable" of this AssignmentRule_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof AssignmentRule_t
  */
@@ -720,13 +720,13 @@ AssignmentRule_isSetVariable(const AssignmentRule_t * ar);
 
 
 /**
- * Predicate returning @c 1 if the given AssignmentRule_t structure's "math"
+ * Predicate returning @c 1 (true) if the given AssignmentRule_t structure's "math"
  * is set.
  *
  * @param ar the AssignmentRule_t structure.
  *
- * @return @c 1 if the "math" of this AssignmentRule_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "math" of this AssignmentRule_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof AssignmentRule_t
  */
@@ -737,7 +737,7 @@ AssignmentRule_isSetMath(const AssignmentRule_t * ar);
 
 /**
  * @return @c 1 (true) if the formula (or equivalently the math) for
- * this AssignmentRule_t is set, false (0) otherwise.
+ * this AssignmentRule_t is set, @c 0 (false) otherwise.
  *
  * @memberof AssignmentRule_t
  */
@@ -799,7 +799,7 @@ AssignmentRule_setMath(AssignmentRule_t * ar, const ASTNode_t* math);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * Other levels of SBML use MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
  * with mathematical expressions; this API is more powerful than working
  * with formulas directly in text form, and ASTs can be translated into
@@ -840,8 +840,8 @@ AssignmentRule_unsetVariable(AssignmentRule_t * ar);
  *
  * @param ar the AssignmentRule_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof AssignmentRule_t
  */
@@ -856,8 +856,8 @@ AssignmentRule_hasRequiredAttributes(const AssignmentRule_t * ar);
  *
  * @param ar the AssignmentRule_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof AssignmentRule_t
  */

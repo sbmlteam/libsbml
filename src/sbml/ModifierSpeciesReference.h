@@ -619,13 +619,13 @@ ModifierSpeciesReference_getSpecies(const ModifierSpeciesReference_t * msr);
 
 
 /**
- * Predicate returning @c 1 if the given ModifierSpeciesReference_t structure's "id"
+ * Predicate returning @c 1 (true) if the given ModifierSpeciesReference_t structure's "id"
  * is set.
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
- * @return @c 1 if the "id" of this ModifierSpeciesReference_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this ModifierSpeciesReference_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof ModifierSpeciesReference_t
  */
@@ -635,13 +635,13 @@ ModifierSpeciesReference_isSetId(const ModifierSpeciesReference_t * msr);
 
 
 /**
- * Predicate returning @c 1 if the given ModifierSpeciesReference_t structure's "name"
+ * Predicate returning @c 1 (true) if the given ModifierSpeciesReference_t structure's "name"
  * is set.
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
- * @return @c 1 if the "name" of this ModifierSpeciesReference_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this ModifierSpeciesReference_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof ModifierSpeciesReference_t
  */
@@ -651,13 +651,13 @@ ModifierSpeciesReference_isSetName(const ModifierSpeciesReference_t * msr);
 
 
 /**
- * Predicate returning @c 1 if the given ModifierSpeciesReference_t structure's "species"
+ * Predicate returning @c 1 (true) if the given ModifierSpeciesReference_t structure's "species"
  * is set.
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
- * @return @c 1 if the "species" of this ModifierSpeciesReference_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "species" of this ModifierSpeciesReference_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof ModifierSpeciesReference_t
  */
@@ -804,8 +804,8 @@ ModifierSpeciesReference_unsetSpecies(ModifierSpeciesReference_t * msr);
  *
  * @param msr the ModifierSpeciesReference_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof ModifierSpeciesReference_t
  */

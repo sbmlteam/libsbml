@@ -576,7 +576,7 @@ Species::isSetConstant () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 Species::setId (const std::string& sid)
@@ -632,7 +632,7 @@ Species::setName (const std::string& name)
 
 
 /*
- * Sets the speciesType field of this Species to a copy of sid.
+ * Sets the speciesType field of this Species to a copy of @p sid.
  */
 int
 Species::setSpeciesType (const std::string& sid)
@@ -655,7 +655,7 @@ Species::setSpeciesType (const std::string& sid)
 
 
 /*
- * Sets the compartment of this Species to a copy of sid.
+ * Sets the compartment of this Species to a copy of @p sid.
  */
 int
 Species::setCompartment (const std::string& sid)
@@ -710,7 +710,7 @@ Species::setInitialConcentration (double value)
 
 
 /*
- * Sets the substanceUnits of this Species to a copy of sid.
+ * Sets the substanceUnits of this Species to a copy of @p sid.
  */
 int
 Species::setSubstanceUnits (const std::string& sid)
@@ -728,7 +728,7 @@ Species::setSubstanceUnits (const std::string& sid)
 
 
 /*
- * Sets the spatialSizeUnits of this Species to a copy of sid.
+ * Sets the spatialSizeUnits of this Species to a copy of @p sid.
  */
 int
 Species::setSpatialSizeUnits (const std::string& sid)
@@ -835,7 +835,7 @@ Species::setConstant (bool value)
 
 
 /*
- * Sets the conversionFactor field of this Species to a copy of sid.
+ * Sets the conversionFactor field of this Species to a copy of @p sid.
  */
 int
 Species::setConversionFactor (const std::string& sid)

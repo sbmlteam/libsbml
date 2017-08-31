@@ -1415,13 +1415,13 @@ Objective_getType(Objective_t * obj);
 
 
 /**
- * Predicate returning @c 1 if the given Objective_t structure's "id"
+ * Predicate returning @c 1 (true) if the given Objective_t structure's "id"
  * is set.
  *
  * @param o the Objective_t structure.
  *
- * @return @c 1 if the "id" of this Objective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this Objective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */
@@ -1431,13 +1431,13 @@ Objective_isSetId(const Objective_t * o);
 
 
 /**
- * Predicate returning @c 1 if the given Objective_t structure's "name"
+ * Predicate returning @c 1 (true) if the given Objective_t structure's "name"
  * is set.
  *
  * @param o the Objective_t structure.
  *
- * @return @c 1 if the "name" of this Objective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this Objective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */
@@ -1447,13 +1447,13 @@ Objective_isSetName(const Objective_t * o);
 
 
 /**
- * Predicate returning @c 1 if the given Objective_t structure's "type"
+ * Predicate returning @c 1 (true) if the given Objective_t structure's "type"
  * is set.
  *
  * @param o the Objective_t structure.
  *
- * @return @c 1 if the "type" of this Objective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "type" of this Objective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */
@@ -1634,8 +1634,8 @@ Objective_removeFluxObjectiveById(Objective_t * o, const char * sid);
  *
  * @param o the Objective_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */
@@ -1650,8 +1650,8 @@ Objective_hasRequiredAttributes(const Objective_t * o);
  *
  * @param o the Objective_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof Objective_t
  */

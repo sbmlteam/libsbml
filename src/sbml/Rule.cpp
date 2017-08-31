@@ -359,7 +359,7 @@ Rule::setMath (const ASTNode* math)
 
 
 /*
- * Sets the variable of this Rule to a copy of sid.
+ * Sets the variable of this Rule to a copy of @p sid.
  */
 int
 Rule::setVariable (const std::string& sid)

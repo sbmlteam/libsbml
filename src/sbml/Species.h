@@ -2506,7 +2506,7 @@ Species_isSetHasOnlySubstanceUnits (const Species_t *s);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "id" attribute.
  *
  * @memberof Species_t
@@ -2556,7 +2556,7 @@ Species_setName (Species_t *s, const char *name);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "speciesType" attribute.
  *
  * @memberof Species_t
@@ -2581,7 +2581,7 @@ Species_setSpeciesType (Species_t *s, const char *sid);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "compartment" attribute.
  *
  * @memberof Species_t
@@ -2650,7 +2650,7 @@ Species_setInitialConcentration (Species_t *s, double value);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "substanceUnits" attribute.
  *
  * @memberof Species_t
@@ -2676,7 +2676,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "spatialSizeUnits" attribute.
  * 
  * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the structure
@@ -2710,7 +2710,7 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sname of NULL is equivalent to
  * unsetting the "units" attribute.
  *
  * @memberof Species_t
@@ -2822,7 +2822,7 @@ Species_setConstant (Species_t *s, int value);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "conversionFactor" attribute.
  *
  * @memberof Species_t

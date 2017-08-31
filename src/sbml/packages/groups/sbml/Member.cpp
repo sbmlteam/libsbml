@@ -1157,7 +1157,7 @@ Member_getMetaIdRef(const Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if this Member_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1168,7 +1168,7 @@ Member_isSetId(const Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if this Member_t's "name" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "name" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1179,7 +1179,7 @@ Member_isSetName(const Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if this Member_t's "idRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "idRef" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1190,7 +1190,7 @@ Member_isSetIdRef(const Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if this Member_t's "metaIdRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1289,7 +1289,7 @@ Member_unsetMetaIdRef(Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this Member_t
+ * Predicate returning @c 1 (true) if all the required attributes for this Member_t
  * object have been set.
  */
 LIBSBML_EXTERN

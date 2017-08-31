@@ -536,7 +536,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh);
  * @param mh the ModelHistory_t structure to be queried.
  *
  * @return @c 1 (true) if the createdDate of this 
- * ModelHistory_t structure is set, false (0) otherwise.
+ * ModelHistory_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof ModelHistory_t
  */
@@ -581,7 +581,7 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh);
  * @param mh the ModelHistory_t structure to be queried.
  *
  * @return @c 1 (true) if the modifiedDate of this 
- * ModelHistory_t structure is set, false (0) otherwise.
+ * ModelHistory_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof ModelHistory_t
  */
@@ -666,8 +666,8 @@ ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
  *
  * @param mh the ModelHistory_t structure.
  * 
- * @return true (1) if this ModelHistory_t has all the required elements,
- * otherwise false (0) will be returned. If an invalid ModelHistory_t 
+ * @return @c 1 (true) if this ModelHistory_t has all the required elements,
+ * otherwise @c 0 (false) will be returned. If an invalid ModelHistory_t 
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof ModelHistory_t

@@ -868,56 +868,56 @@
  * @li <code>ASTNodeType_t ASTNode_getType()</code>
  * returns the type of this AST node.
  * @li <code>bool ASTNode_isConstant()</code>
- * returns @c 1 if this AST node is a MathML constant (@c true, @c false,
- * @c pi, @c exponentiale), @c 0 otherwise.
+ * returns @c 1 (true) if this AST node is a MathML constant (@c true, @c false,
+ * @c pi, @c exponentiale), @c 0 (false) otherwise.
  * @li <code>bool ASTNode_isBoolean()</code>
- * returns @c 1 if this AST node returns a boolean value (by being either a
+ * returns @c 1 (true) if this AST node returns a boolean value (by being either a
  * logical operator, a relational operator, or the constant @c true or @c
  * false).
  * @li <code>bool ASTNode_isFunction()</code>
- * returns @c 1 if this AST node is a function (i.e., a MathML defined
+ * returns @c 1 (true) if this AST node is a function (i.e., a MathML defined
  * function such as @c exp or else a function defined by a FunctionDefinition
  * in the Model).
  * @li <code>bool ASTNode_isInfinity()</code>
- * returns @c 1 if this AST node is the special IEEE 754 value infinity.
+ * returns @c 1 (true) if this AST node is the special IEEE 754 value infinity.
  * @li <code>bool ASTNode_isInteger()</code>
- * returns @c 1 if this AST node is holding an integer value.
+ * returns @c 1 (true) if this AST node is holding an integer value.
  * @li <code>bool ASTNode_isNumber()</code> returns
- * @c 1 if this AST node is holding any number.
+ * @c 1 (true) if this AST node is holding any number.
  * @li <code>bool ASTNode_isLambda()</code> returns
- * @c 1 if this AST node is a MathML @c lambda construct.
+ * @c 1 (true) if this AST node is a MathML @c lambda construct.
  * @li <code>bool ASTNode_isLog10()</code> returns
- * @c 1 if this AST node represents the @c log10 function, specifically,
+ * @c 1 (true) if this AST node represents the @c log10 function, specifically,
  * that its type is @c AST_FUNCTION_LOG and it has two children, the first of
  * which is an integer equal to 10.
  * @li <code>bool ASTNode_isLogical()</code>
- * returns @c 1 if this AST node is a logical operator (@c and, @c or, @c
+ * returns @c 1 (true) if this AST node is a logical operator (@c and, @c or, @c
  * not, @c xor).
  * @li <code>bool ASTNode_isName()</code> returns @c
  * true if this AST node is a user-defined name or (in SBML Levels&nbsp;2
  * and&nbsp;3) one of the two special @c csymbol constructs "delay" or "time".
  * @li <code>bool ASTNode_isNaN()</code> returns @c
  * true if this AST node has the special IEEE 754 value "not a number" (NaN).
- * @li <code>bool ASTNode_isNegInfinity()</code> returns @c 1 if this AST node has the special IEEE 754
+ * @li <code>bool ASTNode_isNegInfinity()</code> returns @c 1 (true) if this AST node has the special IEEE 754
  * value of negative infinity.
  * @li <code>bool ASTNode_isOperator()</code>
- * returns @c 1 if this AST node is an operator (e.g., @c +, @c -, etc.)
+ * returns @c 1 (true) if this AST node is an operator (e.g., @c +, @c -, etc.)
  * @li <code>bool ASTNode_isPiecewise()</code>
- * returns @c 1 if this AST node is the MathML @c piecewise function.
+ * returns @c 1 (true) if this AST node is the MathML @c piecewise function.
  * @li <code>bool ASTNode_isRational()</code>
- * returns @c 1 if this AST node is a rational number having a numerator
+ * returns @c 1 (true) if this AST node is a rational number having a numerator
  * and a denominator.
  * @li <code>bool ASTNode_isReal()</code> returns @c
  * true if this AST node is a real number (specifically, @c AST_REAL_E or
  * @c AST_RATIONAL).
  * @li <code>bool ASTNode_isRelational()</code>
- * returns @c 1 if this AST node is a relational operator.
+ * returns @c 1 (true) if this AST node is a relational operator.
  * @li <code>bool ASTNode_isSqrt()</code> returns @c
  * true if this AST node is the square-root operator
  * @li <code>bool ASTNode_isUMinus()</code> returns
- * @c 1 if this AST node is a unary minus.
+ * @c 1 (true) if this AST node is a unary minus.
  * @li <code>bool ASTNode_isUnknown()</code>
- * returns @c 1 if this AST node's type is unknown.
+ * returns @c 1 (true) if this AST node's type is unknown.
  * @endif
  *
  * Programs manipulating AST node structures should check the type of a given
@@ -3600,17 +3600,17 @@ if (lmp != null)
  * to produce a warning.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_fast_attribute_deprecated
+ * @class doc_fast_attribute_removed
  *
  * @par
- * In SBML Level&nbsp;3 Version&nbsp;2, values of @c true
- * for the "fast" attribute were deprecated, and in future
- * versions of the specification, the attribute itself will
- * be removed.  Users should be aware that even for previous
- * levels/versions of the specification, the "fast" attribute
- * has never achieved widespread support, and many software
+ * In SBML Level&nbsp;3 Version&nbsp;2, the "fast" attribute was 
+ * removed.  All reactions are assumed to be equivalent to reactions
+ * in previous levels/versions that have a "fast" attribute value
+ * of @c false.  Users should be aware that even for previous
+ * levels/versions of the specification, "fast" attribute values of
+ * @c true never achieved widespread support, and many software
  * packages may ignore it.  To achieve the same or similar 
- * effects as setting the fast attribute to "true" for a given 
+ * effects as setting the fast attribute to @c true for a given 
  * reaction, the KineticLaw attribute should be constructed to 
  * produce a value in the desired time scale, or else the 
  * reaction could be replaced with an AssignmentRule or 

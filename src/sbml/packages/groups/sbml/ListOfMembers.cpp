@@ -663,7 +663,7 @@ ListOfMembers_getName(const ListOf_t * lo)
 
 
 /*
- * Predicate returning @c 1 if this ListOf_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this ListOf_t's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -675,7 +675,7 @@ ListOfMembers_isSetId(const ListOf_t * lo)
 
 
 /*
- * Predicate returning @c 1 if this ListOf_t's "name" attribute is set.
+ * Predicate returning @c 1 (true) if this ListOf_t's "name" attribute is set.
  */
 LIBSBML_EXTERN
 int

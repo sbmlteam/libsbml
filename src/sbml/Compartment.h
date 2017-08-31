@@ -2185,8 +2185,8 @@ Compartment_getOutside (const Compartment_t *c);
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if this compartment's size is flagged as being
- * constant, @c 0 otherwise.
+ * @return @c 1 (true) if this compartment's size is flagged as being
+ * constant, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */
@@ -2196,13 +2196,13 @@ Compartment_getConstant (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "id"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "id"
  * attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "id" attribute of this Compartment_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" attribute of this Compartment_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */
@@ -2212,13 +2212,13 @@ Compartment_isSetId (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "name"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "name"
  * attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "name" attribute of this Compartment_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" attribute of this Compartment_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */
@@ -2228,13 +2228,13 @@ Compartment_isSetName (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's
  * "compartmentType" attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "compartmentType" attribute of this Compartment_t
- * structure is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "compartmentType" attribute of this Compartment_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @note The "compartmentType" attribute is only available in SBML
  * Level&nbsp;2 Versions&nbsp;2&ndash;4.
@@ -2247,7 +2247,7 @@ Compartment_isSetCompartmentType (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "size"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "size"
  * attribute is set.
  *
  * This method is similar but not identical to Compartment_isSetVolume().
@@ -2258,8 +2258,8 @@ Compartment_isSetCompartmentType (const Compartment_t *c);
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "size" attribute ("volume" in Level&nbsp;2) of
- * this Compartment_t structure is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "size" attribute ("volume" in Level&nbsp;2) of
+ * this Compartment_t structure is set, @c 0 (false) otherwise.
  *
  * @see Compartment_isSetVolume()
  * @see Compartment_setSize()
@@ -2272,7 +2272,7 @@ Compartment_isSetSize (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structures's "volume"
+ * Predicate returning @c 1 (true) if the given Compartment_t structures's "volume"
  * attribute is set.
  *
  * This method is similar but not identical to Compartment_isSetSize().  The
@@ -2282,8 +2282,8 @@ Compartment_isSetSize (const Compartment_t *c);
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "volume" attribute ("size" in Level&nbsp;2 and
- * above) of this Compartment_t structure is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "volume" attribute ("size" in Level&nbsp;2 and
+ * above) of this Compartment_t structure is set, @c 0 (false) otherwise.
  *
  * @copydetails doc_note_compartment_volume
  *
@@ -2298,13 +2298,13 @@ Compartment_isSetVolume (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "units"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "units"
  * attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "units" attribute of this Compartment_t structure
- * is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "units" attribute of this Compartment_t structure
+ * is set, @c 0 (false) otherwise.
  *
  * @copydetails doc_note_unassigned_unit_are_not_a_default
  *
@@ -2316,13 +2316,13 @@ Compartment_isSetUnits (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "outside"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "outside"
  * attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "outside" attribute of this Compartment_t structure
- * is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "outside" attribute of this Compartment_t structure
+ * is set, @c 0 (false) otherwise.
  *
  * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
  * Level&nbsp;2, but does not exist in SBML Level&nbsp;3.
@@ -2335,13 +2335,13 @@ Compartment_isSetOutside (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's
  * "spatialDimensions" attribute is set.
  *
  * @param c the Compartment_t structure.
  *
- * @return @c 1 if the "spatialDimensions" attribute of this Compartment_t
- * structure is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "spatialDimensions" attribute of this Compartment_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */
@@ -2351,11 +2351,11 @@ Compartment_isSetSpatialDimensions (const Compartment_t *c);
 
 
 /**
- * Predicate returning @c 1 if the given Compartment_t structure's "constant"
+ * Predicate returning @c 1 (true) if the given Compartment_t structure's "constant"
  * attribute is set.
  *
- * @return @c 1 if the "constant" attribute of this Compartment_t
- * structure is set, @c 0 otherwise.
+ * @return @c 1 (true) if the "constant" attribute of this Compartment_t
+ * structure is set, @c 0 (false) otherwise.
  *
  * @memberof Compartment_t
  */

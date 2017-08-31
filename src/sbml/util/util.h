@@ -242,8 +242,8 @@ util_NegZero (void);
  *
  * @param d the floating-point value to test.
  * 
- * @return @c -1 (for false) if @p d represents negative infinity, @c 1 if
- * @p d represents positive infinity, and @c 0 otherwise.
+ * @return @c -1 (for false) if @p d represents negative infinity, @c 1 (true) if
+ * @p d represents positive infinity, and @c 0 (false) otherwise.
  */
 LIBSBML_EXTERN
 int

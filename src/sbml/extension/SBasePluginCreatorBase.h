@@ -314,12 +314,13 @@ const SBaseExtensionPoint_t*
 SBasePluginCreator_getTargetExtensionPoint(SBasePluginCreatorBase_t* creator);
 
 /**
- * Returns true (1), if a package with the given namespace is supported. 
+ * Returns @c 1 (true) if a package with the given namespace is supported. 
  * 
  * @param creator the SBasePluginCreatorBase_t structure.
  * @param uri the package uri to test.
  * 
- * @return true (1), if a package with the given namespace is supported.
+ * @return @c 1 (true) if a package with the given namespace is supported,
+ * @c 0 (false) otherwise.
  *
  * @memberof SBasePlugin_t
  */

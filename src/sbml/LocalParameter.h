@@ -1155,7 +1155,7 @@ LocalParameter_isSetUnits (const LocalParameter_t *p);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "id" attribute.
  *
  * @memberof LocalParameter_t
@@ -1319,8 +1319,8 @@ LocalParameter_unsetConstant (LocalParameter_t *p);
  * The required attributes for a LocalParameter object are:
  * @li id (name in L1)
  *
- * @return @c 1 if all the required attributes for this object have been
- * defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this object have been
+ * defined, @c 0 (false) otherwise.
  *
  * @memberof LocalParameter_t
  */

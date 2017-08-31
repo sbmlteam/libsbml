@@ -409,7 +409,7 @@ KineticLaw::setMath (const ASTNode* math)
 
 
 /*
- * Sets the timeUnits of this KineticLaw to a copy of sid.
+ * Sets the timeUnits of this KineticLaw to a copy of @p sid.
  */
 int
 KineticLaw::setTimeUnits (const std::string& sid)
@@ -433,7 +433,7 @@ KineticLaw::setTimeUnits (const std::string& sid)
 
 
 /*
- * Sets the substanceUnits of this KineticLaw to a copy of sid.
+ * Sets the substanceUnits of this KineticLaw to a copy of @p sid.
  */
 int
 KineticLaw::setSubstanceUnits (const std::string& sid)

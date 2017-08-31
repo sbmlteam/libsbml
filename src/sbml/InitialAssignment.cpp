@@ -196,7 +196,7 @@ InitialAssignment::isSetMath () const
 
 
 /*
- * Sets the symbol of this InitialAssignment to a copy of sid.
+ * Sets the symbol of this InitialAssignment to a copy of @p sid.
  */
 int
 InitialAssignment::setSymbol (const std::string& sid)

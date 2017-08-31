@@ -585,7 +585,7 @@ ConversionProperties_getTargetNamespaces(const ConversionProperties_t* cp);
  * @param cp the conversion properties.
  * @param key the key for the option.
  *
- * @return @c 1 if the option exists, @c 0 otherwise.
+ * @return @c 1 (true) if the option exists, @c 0 (false) otherwise.
  *
  * @memberof ConversionProperties_t
  */
@@ -598,8 +598,8 @@ ConversionProperties_hasOption(const ConversionProperties_t* cp, const char* key
  *
  * @param cp the conversion properties.
  *
- * @return @c 1 if the target namespace has been set, @c 0
- * otherwise.
+ * @return @c 1 (true) if the target namespace has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof ConversionProperties_t
  */

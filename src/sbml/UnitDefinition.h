@@ -1868,7 +1868,7 @@ UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "id" attribute.
  *
  * @memberof UnitDefinition_t
@@ -2080,7 +2080,7 @@ UnitDefinition_t *
 UnitDefinition_convertToSI(UnitDefinition_t * ud);
 
 /**
- * Predicate returning @c true if two
+ * Predicate returning @c 1 (true) if two
  * UnitDefinition_t structures are identical.
  *
  * For the purposes of performing this comparison, two UnitDefinition_t
@@ -2110,7 +2110,7 @@ UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
 
 
 /**
- * Predicate returning @c true if two
+ * Predicate returning @c 1 (true) if two
  * UnitDefinition_t structures are equivalent.
  *
  * For the purposes of performing this comparison, two UnitDefinition_t

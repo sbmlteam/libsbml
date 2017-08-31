@@ -572,12 +572,12 @@ ListOfMembers_getName(const ListOf_t * lo);
 
 
 /**
- * Predicate returning @c 1 if this ListOf_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this ListOf_t's "id" attribute is set.
  *
  * @param lo the ListOf_t structure.
  *
- * @return @c 1 if this ListOf_t's "id" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this ListOf_t's "id" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof ListOfMembers_t
  */
@@ -587,11 +587,11 @@ ListOfMembers_isSetId(const ListOf_t * lo);
 
 
 /**
- * Predicate returning @c 1 if this ListOf_t's "name" attribute is set.
+ * Predicate returning @c 1 (true) if this ListOf_t's "name" attribute is set.
  *
  * @param lo the ListOf_t structure.
  *
- * @return @c 1 if this ListOf_t's "name" attribute has been set, otherwise @c
+ * @return @c 1 (true) if this ListOf_t's "name" attribute has been set, otherwise @c
  * 0 is returned.
  *
  * @memberof ListOfMembers_t

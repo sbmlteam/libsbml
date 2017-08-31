@@ -767,7 +767,7 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcReactionPlugin_t structure's UpperFluxBound is set.
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
@@ -833,7 +833,7 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcReactionPlugin_t structure's LowerFluxBound is set.
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
@@ -885,7 +885,7 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
  * FbcReactionPlugin_t structure's GeneProductAssociation is set.
  *
  * @param fbc the FbcReactionPlugin_t structure to query.

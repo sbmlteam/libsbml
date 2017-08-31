@@ -951,12 +951,12 @@ Member_getMetaIdRef(const Member_t * m);
 
 
 /**
- * Predicate returning @c 1 if this Member_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "id" attribute is set.
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 if this Member_t's "id" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this Member_t's "id" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Member_t
  */
@@ -966,11 +966,11 @@ Member_isSetId(const Member_t * m);
 
 
 /**
- * Predicate returning @c 1 if this Member_t's "name" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "name" attribute is set.
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 if this Member_t's "name" attribute has been set, otherwise @c
+ * @return @c 1 (true) if this Member_t's "name" attribute has been set, otherwise @c
  * 0 is returned.
  *
  * @memberof Member_t
@@ -981,11 +981,11 @@ Member_isSetName(const Member_t * m);
 
 
 /**
- * Predicate returning @c 1 if this Member_t's "idRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "idRef" attribute is set.
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 if this Member_t's "idRef" attribute has been set, otherwise @c
+ * @return @c 1 (true) if this Member_t's "idRef" attribute has been set, otherwise @c
  * 0 is returned.
  *
  * @memberof Member_t
@@ -996,11 +996,11 @@ Member_isSetIdRef(const Member_t * m);
 
 
 /**
- * Predicate returning @c 1 if this Member_t's "metaIdRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is set.
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 if this Member_t's "metaIdRef" attribute has been set,
+ * @return @c 1 (true) if this Member_t's "metaIdRef" attribute has been set,
  * otherwise @c 0 is returned.
  *
  * @memberof Member_t
@@ -1147,7 +1147,7 @@ Member_unsetMetaIdRef(Member_t * m);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this Member_t
+ * Predicate returning @c 1 (true) if all the required attributes for this Member_t
  * object have been set.
  *
  * @param m the Member_t structure.

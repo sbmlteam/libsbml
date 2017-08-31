@@ -801,13 +801,13 @@ GeneProductRef_getName(const GeneProductRef_t * gpr);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductRef_t structure's "id"
+ * Predicate returning @c 1 (true) if the given GeneProductRef_t structure's "id"
  * is set.
  *
  * @param gpr the GeneProductRef_t structure.
  *
- * @return @c 1 if the "id" of this GeneProductRef_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this GeneProductRef_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductRef_t
  */
@@ -817,13 +817,13 @@ GeneProductRef_isSetId(const GeneProductRef_t * gpr);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductRef_t structure's "geneProduct"
+ * Predicate returning @c 1 (true) if the given GeneProductRef_t structure's "geneProduct"
  * is set.
  *
  * @param gpr the GeneProductRef_t structure.
  *
- * @return @c 1 if the "geneProduct" of this GeneProductRef_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "geneProduct" of this GeneProductRef_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductRef_t
  */
@@ -833,13 +833,13 @@ GeneProductRef_isSetGeneProduct(const GeneProductRef_t * gpr);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductRef_t structure's "name"
+ * Predicate returning @c 1 (true) if the given GeneProductRef_t structure's "name"
  * is set.
  *
  * @param gpr the GeneProductRef_t structure.
  *
- * @return @c 1 if the "name" of this GeneProductRef_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this GeneProductRef_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductRef_t
  */
@@ -986,8 +986,8 @@ GeneProductRef_unsetName(GeneProductRef_t * gpr);
  *
  * @param gpr the GeneProductRef_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof GeneProductRef_t
  */

@@ -220,7 +220,7 @@ UnitDefinition::isSetName () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 UnitDefinition::setId (const std::string& sid)

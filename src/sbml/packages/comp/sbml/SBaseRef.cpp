@@ -1212,9 +1212,9 @@ SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef)
 
 LIBSBML_EXTERN
 int
-SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef)
+SBaseRef_setSBaseRef(SBaseRef_t * parent, SBaseRef_t * child)
 {
-  return (sbr != NULL) ? sbr->setSBaseRef(sBaseRef) : LIBSBML_INVALID_OBJECT;
+  return (parent != NULL) ? parent->setSBaseRef(child) : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -1051,7 +1051,7 @@ Delay_getDerivedUnitDefinition(Delay_t *d);
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *
- * @note a return value of @c true indicates that the UnitDefinition_t
+ * @note a return value of @c 1 (true) indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 
  * accurately represent the units of the expression.
  *

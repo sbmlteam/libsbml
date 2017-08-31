@@ -653,7 +653,7 @@ RateRule_getMath(const RateRule_t * rr);
 
 /**
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * Other levels of SBML use MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
  * with mathematical expressions; this API is more powerful than working
  * with formulas directly in text form, and ASTs can be translated into
@@ -672,13 +672,13 @@ RateRule_getFormula (const RateRule_t *r);
 
 
 /**
- * Predicate returning @c 1 if the given RateRule_t structure's "variable"
+ * Predicate returning @c 1 (true) if the given RateRule_t structure's "variable"
  * is set.
  *
  * @param rr the RateRule_t structure.
  *
- * @return @c 1 if the "variable" of this RateRule_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "variable" of this RateRule_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof RateRule_t
  */
@@ -688,13 +688,13 @@ RateRule_isSetVariable(const RateRule_t * rr);
 
 
 /**
- * Predicate returning @c 1 if the given RateRule_t structure's "math"
+ * Predicate returning @c 1 (true) if the given RateRule_t structure's "math"
  * is set.
  *
  * @param rr the RateRule_t structure.
  *
- * @return @c 1 if the "math" of this RateRule_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "math" of this RateRule_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof RateRule_t
  */
@@ -705,7 +705,7 @@ RateRule_isSetMath(const RateRule_t * rr);
 
 /**
  * @return @c 1 (true) if the formula (or equivalently the math) for
- * this RateRule_t is set, false (0) otherwise.
+ * this RateRule_t is set, @c 0 (false) otherwise.
  *
  * @memberof RateRule_t
  */
@@ -767,7 +767,7 @@ RateRule_setMath(RateRule_t * rr, const ASTNode_t* math);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * Other levels of SBML use MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
  * with mathematical expressions; this API is more powerful than working
  * with formulas directly in text form, and ASTs can be translated into
@@ -808,8 +808,8 @@ RateRule_unsetVariable(RateRule_t * ar);
  *
  * @param rr the RateRule_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof RateRule_t
  */
@@ -824,8 +824,8 @@ RateRule_hasRequiredAttributes(const RateRule_t * rr);
  *
  * @param rr the RateRule_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof RateRule_t
  */

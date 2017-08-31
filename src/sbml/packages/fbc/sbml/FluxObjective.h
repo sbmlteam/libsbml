@@ -1097,13 +1097,13 @@ FluxObjective_getCoefficient(const FluxObjective_t * fo);
 
 
 /**
- * Predicate returning @c 1 if the given FluxObjective_t structure's "id"
+ * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "id"
  * is set.
  *
  * @param fo the FluxObjective_t structure.
  *
- * @return @c 1 if the "id" of this FluxObjective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this FluxObjective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof FluxObjective_t
  */
@@ -1118,8 +1118,8 @@ FluxObjective_isSetId(const FluxObjective_t * fo);
  *
  * @param fo the FluxObjective_t structure.
  *
- * @return @c 1 if the "name" of this FluxObjective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this FluxObjective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof FluxObjective_t
  */
@@ -1129,13 +1129,13 @@ FluxObjective_isSetName(const FluxObjective_t * fo);
 
 
 /**
- * Predicate returning @c 1 if the given FluxObjective_t structure's "reaction"
+ * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "reaction"
  * is set.
  *
  * @param fo the FluxObjective_t structure.
  *
- * @return @c 1 if the "reaction" of this FluxObjective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "reaction" of this FluxObjective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof FluxObjective_t
  */
@@ -1145,13 +1145,13 @@ FluxObjective_isSetReaction(const FluxObjective_t * fo);
 
 
 /**
- * Predicate returning @c 1 if the given FluxObjective_t structure's "coefficient"
+ * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "coefficient"
  * is set.
  *
  * @param fo the FluxObjective_t structure.
  *
- * @return @c 1 if the "coefficient" of this FluxObjective_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "coefficient" of this FluxObjective_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof FluxObjective_t
  */
@@ -1336,8 +1336,8 @@ FluxObjective_unsetCoefficient(FluxObjective_t * fo);
  *
  * @param fo the FluxObjective_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof FluxObjective_t
  */

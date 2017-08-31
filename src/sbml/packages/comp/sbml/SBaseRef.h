@@ -988,10 +988,10 @@ SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef);
 
 
 /**
- * Sets the sBaseRef of this SBaseRef_t to a copy of the given SBaseRef_t.
+ * Sets the child SBaseRef_t of the @p parent SBaseRef_t to a copy of @p child.
  *
- * @param sbr the SBaseRef_t structure to set.
- * @param sBaseRef the SBaseRef_t structure to use.
+ * @param parent the parent SBaseRef_t structure.
+ * @param child the intended child SBaseRef_t structure to copy.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1002,7 +1002,7 @@ SBaseRef_setMetaIdRef(SBaseRef_t * sbr, const char * metaIdRef);
  */
 LIBSBML_EXTERN
 int
-SBaseRef_setSBaseRef(SBaseRef_t * sbr, SBaseRef_t * sBaseRef);
+SBaseRef_setSBaseRef(SBaseRef_t * parent, SBaseRef_t * child);
 
 
 /**
@@ -1091,7 +1091,7 @@ SBaseRef_unsetSBaseRef(SBaseRef_t * sbr);
   * have been set.
   *
   * @note The required attributes for a SBaseRef_t structure are
-  * that it uses exactly one attribute to refer to its target.
+  * that it must use exactly one attribute to refer to its target.
   *
  * @memberof SBaseRef_t
  */

@@ -971,13 +971,13 @@ GeneProductAssociation_createGeneProductRef(GeneProductAssociation_t * gpa);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductAssociation_t structure's
+ * Predicate returning @c 1 (true) if the given GeneProductAssociation_t structure's
  * "id" is set.
  *
  * @param gpa the GeneProductAssociation_t structure.
  *
- * @return @c 1 if the "id" of this GeneProductAssociation_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this GeneProductAssociation_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductAssociation_t
  */
@@ -987,13 +987,13 @@ GeneProductAssociation_isSetId(const GeneProductAssociation_t * gpa);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductAssociation_t structure's "name"
+ * Predicate returning @c 1 (true) if the given GeneProductAssociation_t structure's "name"
  * is set.
  *
  * @param gpa the GeneProductAssociation_t structure.
  *
- * @return @c 1 if the "name" of this GeneProductAssociation_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this GeneProductAssociation_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductAssociation_t
  */
@@ -1003,13 +1003,13 @@ GeneProductAssociation_isSetName(const GeneProductAssociation_t * gpa);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductAssociation_t structure's "association"
+ * Predicate returning @c 1 (true) if the given GeneProductAssociation_t structure's "association"
  * is set.
  *
  * @param gpa the GeneProductAssociation_t structure.
  *
- * @return @c 1 if the "association" of this GeneProductAssociation_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "association" of this GeneProductAssociation_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProductAssociation_t
  */
@@ -1117,8 +1117,8 @@ GeneProductAssociation_unsetName(GeneProductAssociation_t * gpa);
  *
  * @param gpa the GeneProductAssociation_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof GeneProductAssociation_t
  */
@@ -1133,8 +1133,8 @@ GeneProductAssociation_hasRequiredAttributes(const GeneProductAssociation_t * gp
  *
  * @param gpa the GeneProductAssociation_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof GeneProductAssociation_t
  */

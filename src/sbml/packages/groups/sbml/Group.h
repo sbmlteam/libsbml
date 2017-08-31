@@ -1308,12 +1308,12 @@ Group_getKindAsString(const Group_t * g);
 
 
 /**
- * Predicate returning @c 1 if this Group_t's "id" attribute is set.
+ * Predicate returning @c 1 (true) if this Group_t's "id" attribute is set.
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 if this Group_t's "id" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this Group_t's "id" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Group_t
  */
@@ -1323,12 +1323,12 @@ Group_isSetId(const Group_t * g);
 
 
 /**
- * Predicate returning @c 1 if this Group_t's "name" attribute is set.
+ * Predicate returning @c 1 (true) if this Group_t's "name" attribute is set.
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 if this Group_t's "name" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this Group_t's "name" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Group_t
  */
@@ -1338,12 +1338,12 @@ Group_isSetName(const Group_t * g);
 
 
 /**
- * Predicate returning @c 1 if this Group_t's "kind" attribute is set.
+ * Predicate returning @c 1 (true) if this Group_t's "kind" attribute is set.
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 if this Group_t's "kind" attribute has been set, otherwise @c 0
- * is returned.
+ * @return @c 1 (true) if this Group_t's "kind" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Group_t
  */
@@ -1619,13 +1619,13 @@ Group_removeMemberById(Group_t* g, const char* sid);
 
 
 /**
- * Predicate returning @c 1 if all the required attributes for this Group_t
+ * Predicate returning @c 1 (true) if all the required attributes for this Group_t
  * object have been set.
  *
  * @param g the Group_t structure.
  *
  * @return @c 1 to indicate that all the required attributes of this Group_t
- * have been set, otherwise @c 0 is returned.
+ * have been set, @c 0 (false) otherwise.
  *
  *
  * @note The required attributes for the Group_t object are:
@@ -1639,13 +1639,13 @@ Group_hasRequiredAttributes(const Group_t * g);
 
 
 /**
- * Predicate returning @c 1 if all the required elements for this Group_t
+ * Predicate returning @c 1 (true) if all the required elements for this Group_t
  * object have been set.
  *
  * @param g the Group_t structure.
  *
  * @return @c 1 to indicate that all the required elements of this Group_t have
- * been set, otherwise @c 0 is returned.
+ * been set, @c 0 (false) otherwise.
  *
  *
  * @note The required elements for the Group_t object are:

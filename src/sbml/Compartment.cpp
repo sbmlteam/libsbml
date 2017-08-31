@@ -457,7 +457,7 @@ Compartment::isSetConstant () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 Compartment::setId (const std::string& sid)
@@ -513,7 +513,7 @@ Compartment::setName (const std::string& name)
 
 
 /*
- * Sets the compartmentType field of this Compartment to a copy of sid.
+ * Sets the compartmentType field of this Compartment to a copy of @p sid.
  */
 int
 Compartment::setCompartmentType (const std::string& sid)
@@ -628,7 +628,7 @@ Compartment::setVolume (double value)
 
 
 /*
- * Sets the units of this Compartment to a copy of sid.
+ * Sets the units of this Compartment to a copy of @p sid.
  */
 int
 Compartment::setUnits (const std::string& sid)
@@ -646,7 +646,7 @@ Compartment::setUnits (const std::string& sid)
 
 
 /*
- * Sets the outside of this Compartment to a copy of sid.
+ * Sets the outside of this Compartment to a copy of @p sid.
  */
 int
 Compartment::setOutside (const std::string& sid)

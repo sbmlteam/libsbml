@@ -320,7 +320,7 @@ Parameter::isSetConstant () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 Parameter::setId (const std::string& sid)
@@ -388,7 +388,7 @@ Parameter::setValue (double value)
 
 
 /*
- * Sets the units of this Parameter to a copy of sid.
+ * Sets the units of this Parameter to a copy of @p sid.
  */
 int
 Parameter::setUnits (const std::string& units)

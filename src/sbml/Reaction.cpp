@@ -506,7 +506,7 @@ Reaction::isSetReversible () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 Reaction::setId (const std::string& sid)
@@ -633,7 +633,7 @@ Reaction::setFast (bool value)
 
 
 /*
- * Sets the compartment of this SBML object to a copy of sid.
+ * Sets the compartment of this SBML object to a copy of @p sid.
  */
 int
 Reaction::setCompartment (const std::string& sid)

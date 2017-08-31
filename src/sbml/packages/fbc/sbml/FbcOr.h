@@ -929,8 +929,8 @@ FbcOr_removeAssociationById(FbcOr_t * fo, const char * sid);
  *
  * @param fo the FbcOr_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof FbcOr_t
  */
@@ -945,8 +945,8 @@ FbcOr_hasRequiredAttributes(const FbcOr_t * fo);
  *
  * @param fo the FbcOr_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof FbcOr_t
  */

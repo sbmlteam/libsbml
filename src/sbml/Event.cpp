@@ -497,7 +497,7 @@ Event::isSetUseValuesFromTriggerTime () const
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 Event::setId (const std::string& sid)
@@ -665,7 +665,7 @@ Event::setPriority (const Priority* priority)
 
 
 /*
- * Sets the timeUnits of this Event to a copy of sid.
+ * Sets the timeUnits of this Event to a copy of @p sid.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was

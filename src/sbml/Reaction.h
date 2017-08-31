@@ -135,7 +135,7 @@
  * so may lead to different results as compared to a software system that
  * <em>does</em> make use of "fast".
  *
- * @copydetails doc_fast_attribute_deprecated
+ * @copydetails doc_fast_attribute_removed
  *
  * In SBML Level&nbsp;3, the Reaction object has an
  * additional optional attribute named "compartment", whose value must be
@@ -403,7 +403,7 @@ public:
   /**
    * Returns the value of the "fast" attribute of this Reaction.
    * 
-   * @copydetails doc_fast_attribute_deprecated
+   * @copydetails doc_fast_attribute_removed
    *
    * @return the "fast" status of this Reaction.
    *
@@ -457,7 +457,7 @@ public:
    * Predicate returning @c true if the value of
    * the "fast" attribute on this Reaction is set.
    *
-   * @copydetails doc_fast_attribute_deprecated
+   * @copydetails doc_fast_attribute_removed
    *
    * @return @c true if the "fast" attribute is set, @c false otherwise.
    *
@@ -534,19 +534,19 @@ public:
   /**
    * Sets the value of the "fast" attribute of this Reaction.
    *
-   * @copydetails doc_fast_attribute_deprecated
+   * @copydetails doc_fast_attribute_removed
    *
    * Calling this function with an argument of @c true for an
-   * SBML Level&nbsp;3 Version&nbsp;2 Reaction will set 
-   * the value, but will result in a return value of 
-   * @sbmlconstant{LIBSBML_DEPRECATED_ATTRIBUTE, OperationReturnValues_t}.
+   * SBML Level&nbsp;3 Version&nbsp;2 Reaction will not set
+   * the value, as the attribute does not exist for that level/version.
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
    * @param value the value of the "fast" attribute.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_DEPRECATED_ATTRIBUTE, OperationReturnValues_t}
-   * 
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   *
    * @copydetails doc_warning_reaction_cant_ignore_fast
    */
   int setFast (bool value);
@@ -592,11 +592,12 @@ public:
   /**
    * Unsets the value of the "fast" attribute of this Reaction.
    *
-   * @copydetails doc_fast_attribute_deprecated
+   * @copydetails doc_fast_attribute_removed
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
    * @copydetails doc_warning_reaction_cant_ignore_fast
    */
@@ -657,7 +658,7 @@ public:
    * @param species the species to be added as reactant.
    *
    * @param stoichiometry an optional parameter specifying the
-   *        stoichiometry of the product (defaulting to 1).
+   *        stoichiometry of the added reactant (defaulting to 1).
    *
    * @param id an optional id to be given to the species reference that will
    *        be created. (defaulting to empty string, i.e. not set).
@@ -708,7 +709,7 @@ public:
    * @param species the species to be added as product.
    *
    * @param stoichiometry an optional parameter specifying the
-   *        stoichiometry of the product (defaulting to 1).
+   *        stoichiometry of the added product (defaulting to 1).
    *
    * @param id an optional id to be given to the species reference that will
    *        be created. (defaulting to empty string, i.e. not set).
@@ -1238,8 +1239,8 @@ public:
    *
    * The required attributes for a Reaction object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
-   * @li "fast" (in Level&nbsp;3 only, where it is defined as a required attribute)
-   * @li "reversible" (in Level&nbsp;3 Version&nbsp;1 only, where it is defined as a required attribute)
+   * @li "fast" (in Level&nbsp;3 Version&nbsp;1 only, where it is defined as a required attribute)
+   * @li "reversible" (in Level&nbsp;3 only, where it is defined as a required attribute)
    *
    * @return @c true if the required attributes have been set, @c false
    * otherwise.
@@ -1944,7 +1945,7 @@ Reaction_clone (const Reaction_t *r);
  * Initializes the fields of this Reaction_t to their defaults:
  *
  *   - reversible = @c true
- *   - fast       = @c false  (L1 only)
+ *   - fast       = @c false  (L1 and L3v1 only)
  *
  * @memberof Reaction_t
  */
@@ -2012,7 +2013,7 @@ Reaction_getReversible (const Reaction_t *r);
 /**
  * @return the fast status of this Reaction_t.
  *
- * @copydetails doc_fast_attribute_deprecated
+ * @copydetails doc_fast_attribute_removed
  *
  * @memberof Reaction_t
  */
@@ -2055,7 +2056,7 @@ Reaction_isSetName (const Reaction_t *r);
 
 /**
  * @return @c 1 (true) if the KineticLaw_t of this Reaction_t is set,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2066,13 +2067,13 @@ Reaction_isSetKineticLaw (const Reaction_t *r);
 
 /**
  * @return @c 1 (true) if the fast status of this Reaction_t is set,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  * In L1, fast is optional with a default of false, which means it is
  * effectively always set.  In L2, however, fast is optional with no
  * default value, so it may or may not be set to a specific value.
  *
- * @copydetails doc_fast_attribute_deprecated
+ * @copydetails doc_fast_attribute_removed
  *
  * @memberof Reaction_t
  */
@@ -2083,7 +2084,7 @@ Reaction_isSetFast (const Reaction_t *r);
 
 /**
  * @return @c 1 (true) if the KineticLaw_t of this Reaction_t is set,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2094,7 +2095,7 @@ Reaction_isSetCompartment (const Reaction_t *r);
 
 /**
  * @return @c 1 (true) if the reversible attribute of this Reaction_t is set,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @memberof Reaction_t
  */
@@ -2104,13 +2105,13 @@ Reaction_isSetReversible (const Reaction_t *r);
 
 
 /**
- * Sets the id of this Reaction_t to a copy of sid.
+ * Sets the id of this Reaction_t to a copy of @p sid.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "id" attribute.
  *
  * @memberof Reaction_t
@@ -2168,10 +2169,11 @@ Reaction_setReversible (Reaction_t *r, int value);
 /**
  * Sets the fast status of this Reaction_t to value (boolean).
  *
- * @copydetails doc_fast_attribute_deprecated
+ * @copydetails doc_fast_attribute_removed
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
  * @memberof Reaction_t
  */
@@ -2244,11 +2246,12 @@ Reaction_unsetKineticLaw (Reaction_t *r);
 /**
  * Unsets the fast status of this Reation_t.
  *
- * @copydetails doc_fast_attribute_deprecated
+ * @copydetails doc_fast_attribute_removed
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
  * In L1, fast is optional with a default of false, which means it is
  * effectively always set.  In L2, however, fast is optional with no
@@ -2283,8 +2286,8 @@ Reaction_unsetReversible (Reaction_t *r);
  *
  * The required attributes for a Reaction_t structure are:
  * @li id (name in L1)
- * @li fast (in L3 only)
- * @li reversible (in L3v1 only)
+ * @li fast (in L3v1 only)
+ * @li reversible (in L3 only)
  *
  * @param r the Reaction_t structure to check.
  *
@@ -2352,10 +2355,10 @@ Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
  *
  * @param r the Reaction_t structure to which the reactant is added.
  * @param s the Species_t structure to be added as reactant.
- * @param stoichiometry of the product.
- * @param id be given to the species reference that will
+ * @param stoichiometry the stoichiometry of the added reactant.
+ * @param id the string to be used as the id of the SpeciesReference_t that will
  *        be created. 
- * @param constant an attribute specifying whether the species reference is
+ * @param constant an attribute specifying whether the created SpeciesReference_t is
  *        constant or not.
  *
  * @copydetails doc_returns_success_code
@@ -2380,10 +2383,10 @@ Reaction_addReactantBySpecies (Reaction_t *r, const Species_t *s,
  *
  * @param r the Reaction_t structure to which the product is added.
  * @param s the Species_t structure to be added as product.
- * @param stoichiometry of the product.
- * @param id be given to the species reference that will
- *        be created. 
- * @param constant an attribute specifying whether the species reference is
+ * @param stoichiometry the stoichiometry of the added product.
+ * @param id the string to be used as the id of the SpeciesReference_t that will
+ *        be created.
+ * @param constant an attribute specifying whether the SpeciesReference_t is
  *        constant or not.
  *
  * @copydetails doc_returns_success_code
@@ -2408,8 +2411,8 @@ Reaction_addProductBySpecies (Reaction_t *r, const Species_t *s,
  *
  * @param r the Reaction_t structure to which the modifier is added.
  * @param s the Species_t structure to be added as modifier.
- * @param id be given to the species reference that will
- *        be created. 
+ * @param id the string to be used as the id of the SpeciesReference_t that will
+ *        be created.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

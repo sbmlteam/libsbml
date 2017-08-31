@@ -407,8 +407,8 @@ public:
    * Sets the attribute "variable" of this EventAssignment to a copy of
    * the given identifier string.
    *
-   * @param sid the identifier of a Compartment, Species or (global)
-   * Parameter defined in this model.
+   * @param sid the identifier of an element defined in this model that
+   * can vary over time.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1354,14 +1354,14 @@ EventAssignment_isSetMath (const EventAssignment_t *ea);
  * to a copy of the given identifier string.
  *
  * @param ea the EventAssignment_t to set.
- * @param sid the identifier of a Compartment_t, Species_t or (global)
- * Parameter_t defined in this model.
+ * @param sid the identifier of an element defined in this model that
+ * can vary over time.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "variable" attribute.
  *
  * @memberof EventAssignment_t
@@ -1443,7 +1443,7 @@ EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea);
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *
- * @note a return value of @c true indicates that the UnitDefinition_t
+ * @note a return value of @c 1 (true) indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 
  * accurately represent the units of the expression.
  *

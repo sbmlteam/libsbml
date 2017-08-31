@@ -964,8 +964,8 @@ FbcAnd_removeAssociationById(FbcAnd_t * fa, const char * sid);
  *
  * @param fa the FbcAnd_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof FbcAnd_t
  */
@@ -980,8 +980,8 @@ FbcAnd_hasRequiredAttributes(const FbcAnd_t * fa);
  *
  * @param fa the FbcAnd_t structure to check.
  *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required sub-elements for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof FbcAnd_t
  */

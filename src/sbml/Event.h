@@ -2065,7 +2065,7 @@ Event_isSetUseValuesFromTriggerTime (const Event_t *e);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "id" attribute.
  *
  * @memberof Event_t
@@ -2168,7 +2168,7 @@ Event_setPriority (Event_t *e, const Priority_t *priority);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "timeUnits" attribute.
  *
  * @memberof Event_t
@@ -2305,8 +2305,8 @@ Event_unsetTimeUnits (Event_t *e);
  * The required attributes for an Event_t structure are:
  * @li useValuesfromTriggerTime ( L3 onwards )
  *
- * @return @c 1 if the required attributes have been set, @c 0
- * otherwise.
+ * @return @c 1 (true) if the required attributes have been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Event_t
  */

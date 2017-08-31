@@ -326,8 +326,8 @@ BindingSiteSpeciesType_clone(BindingSiteSpeciesType_t * bsst);
  *
  * @param bsst the BindingSiteSpeciesType_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof BindingSiteSpeciesType_t
  */

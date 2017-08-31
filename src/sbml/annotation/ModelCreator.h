@@ -671,7 +671,7 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc);
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return @c 1 (true) if the fn of this 
- * ModelCreator_t structure is set, false (0) otherwise.
+ * ModelCreator_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof ModelCreator_t
  */

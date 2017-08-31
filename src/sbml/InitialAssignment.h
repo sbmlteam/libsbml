@@ -397,8 +397,8 @@ public:
   /**
    * Sets the "symbol" attribute value of this InitialAssignment.
    *
-   * @param sid the identifier of a Species, Compartment or Parameter
-   * object defined elsewhere in this Model.
+   * @param sid the identifier of an element defined in this model whose
+   * value can be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1338,14 +1338,14 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
  *
  * @param ia the InitialAssignment_t structure.
  *
- * @param sid the identifier of a Species_t, Compartment_t or Parameter_t
- * structure defined elsewhere in this Model_t.
+ * @param sid the identifier of an element defined in this model whose
+ * value can be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
- * @note Using this function with an id of NULL is equivalent to
+ * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "symbol" attribute.
  *
  * @memberof InitialAssignment_t
@@ -1428,7 +1428,7 @@ InitialAssignment_getDerivedUnitDefinition(InitialAssignment_t *ia);
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *
- * @note a return value of @c true indicates that the UnitDefinition_t
+ * @note a return value of @c 1 (true) indicates that the UnitDefinition_t
  * returned by the getDerivedUnitDefinition function may not 
  * accurately represent the units of the expression.
  *

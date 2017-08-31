@@ -1204,7 +1204,6 @@ SBasePlugin_writeXMLNS(SBasePlugin_t* plugin, XMLOutputStream_t* stream);
  * @param d the SBMLDocument_t structure to use.
  *
  * @see SBasePlugin_connectToParent
- * @see SBasePlugin_enablePackageInternal
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1231,7 +1230,6 @@ SBasePlugin_setSBMLDocument(SBasePlugin_t* plugin, SBMLDocument_t* d);
  * @param sbase the SBase_t structure to use.
  *
  * @see SBasePlugin_setSBMLDocument
- * @see SBasePlugin_enablePackageInternal
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1243,11 +1241,10 @@ LIBSBML_EXTERN
 int
 SBasePlugin_connectToParent(SBasePlugin_t* plugin, SBase_t* sbase);
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Enables/Disables the given package with child elements in this plugin
  * structure (if any).
- * (This is an internal implementation invoked from
- *  SBase_enablePackageInternal() function)
  *
  * Subclasses which contain one or more SBase derived elements should
  * override this function if elements defined in them can be extended by
@@ -1271,6 +1268,7 @@ LIBSBML_EXTERN
 int
 SBasePlugin_enablePackageInternal(SBasePlugin_t* plugin,
         const char* pkgURI, const char* pkgPrefix, int flag);
+/** @endcond */
 
 /**
  * Returns the parent SBMLDocument of this plugin structure.

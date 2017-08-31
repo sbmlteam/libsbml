@@ -791,8 +791,8 @@ SBMLExtension_getNumOfSupportedPackageURI(SBMLExtension_t* ext);
  * @param ext the SBMLExtension_t structure.
  * @param uri the package uri.
  *
- * @return true (1) if the given URI (package version) is supported by this
- * package extension, otherwise false (0) is returned.
+ * @return @c 1 (true) if the given URI (package version) is supported by this
+ * package extension, otherwise @c 0 (false) is returned.
  *
  * @memberof SBMLExtension_t
  */
@@ -927,9 +927,9 @@ SBMLExtension_getSBMLExtensionNamespaces(SBMLExtension_t* ext, const char* uri);
  * Enable/disable this package.
  *
  * @param ext the SBMLExtension_t structure.
- * @param isEnabled the value to set : true (1) (enabled) or false (0) (disabled).
+ * @param isEnabled the value to set : @c 1 (true; enabled) or @c 0 (false; disabled).
  *
- * @return true (1) if this function call succeeded, otherwise false (0)is returned.
+ * @return @c 1 (true) if this function call succeeded, otherwise @c 0 (false) is returned.
  * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.
  *
  * @memberof SBMLExtension_t

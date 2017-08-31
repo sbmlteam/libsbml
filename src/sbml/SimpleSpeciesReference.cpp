@@ -182,7 +182,7 @@ SimpleSpeciesReference::isSetSpecies () const
 
 
 /*
- * Sets the species of this SimpleSpeciesReference to a copy of sid.
+ * Sets the species of this SimpleSpeciesReference to a copy of @p sid.
  */
 int
 SimpleSpeciesReference::setSpecies (const std::string& sid)
@@ -200,7 +200,7 @@ SimpleSpeciesReference::setSpecies (const std::string& sid)
 
 
 /*
- * Sets the id of this SBML object to a copy of sid.
+ * Sets the id of this SBML object to a copy of @p sid.
  */
 int
 SimpleSpeciesReference::setId (const std::string& sid)

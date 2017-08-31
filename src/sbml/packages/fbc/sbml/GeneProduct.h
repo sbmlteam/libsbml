@@ -1075,13 +1075,13 @@ GeneProduct_getAssociatedSpecies(const GeneProduct_t * gp);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProduct_t structure's "id"
+ * Predicate returning @c 1 (true) if the given GeneProduct_t structure's "id"
  * is set.
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return @c 1 if the "id" of this GeneProduct_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "id" of this GeneProduct_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProduct_t
  */
@@ -1091,13 +1091,13 @@ GeneProduct_isSetId(const GeneProduct_t * gp);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProduct_t structure's "name"
+ * Predicate returning @c 1 (true) if the given GeneProduct_t structure's "name"
  * is set.
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return @c 1 if the "name" of this GeneProduct_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "name" of this GeneProduct_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProduct_t
  */
@@ -1107,13 +1107,13 @@ GeneProduct_isSetName(const GeneProduct_t * gp);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProduct_t structure's "label"
+ * Predicate returning @c 1 (true) if the given GeneProduct_t structure's "label"
  * is set.
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return @c 1 if the "label" of this GeneProduct_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "label" of this GeneProduct_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProduct_t
  */
@@ -1123,13 +1123,13 @@ GeneProduct_isSetLabel(const GeneProduct_t * gp);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProduct_t structure's "associatedSpecies"
+ * Predicate returning @c 1 (true) if the given GeneProduct_t structure's "associatedSpecies"
  * is set.
  *
  * @param gp the GeneProduct_t structure.
  *
- * @return @c 1 if the "associatedSpecies" of this GeneProduct_t structure is
- * set, @c 0 otherwise.
+ * @return @c 1 (true) if the "associatedSpecies" of this GeneProduct_t structure is
+ * set, @c 0 (false) otherwise.
  *
  * @memberof GeneProduct_t
  */
@@ -1320,8 +1320,8 @@ GeneProduct_unsetAssociatedSpecies(GeneProduct_t * gp);
  *
  * @param gp the GeneProduct_t structure to check.
  *
- * @return @c 1 if all the required attributes for this
- * structure have been defined, @c 0 otherwise.
+ * @return @c 1 (true) if all the required attributes for this
+ * structure have been defined, @c 0 (false) otherwise.
  *
  * @memberof GeneProduct_t
  */

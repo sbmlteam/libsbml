@@ -193,7 +193,7 @@ EventAssignment::isSetMath () const
 
 
 /*
- * Sets the variable of this EventAssignment to a copy of sid.
+ * Sets the variable of this EventAssignment to a copy of @p sid.
  */
 int
 EventAssignment::setVariable (const std::string& sid)

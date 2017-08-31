@@ -793,7 +793,7 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
  * includes parameters/numbers 
  * with undeclared units, @c 0 (false) otherwise.
  *
- * @note A return value of @c true indicates that the UnitDefinition_t
+ * @note a return value of @c 1 (true) indicates that the UnitDefinition_t
  * returned by getDerivedUnitDefinition() may not accurately represent
  * the units of the expression.
  *

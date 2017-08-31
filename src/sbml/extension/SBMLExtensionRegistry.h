@@ -508,8 +508,8 @@ SBMLExtensionRegistry_getSBasePluginCreatorsByURI(const char* uri, int* length);
  *
  * @param uri the URI of the target package.
  *
- * @return false (0) will be returned if the given package is disabled
- * or not registered, otherwise true (1) will be returned.
+ * @return @c 0 (false) will be returned if the given package is disabled
+ * or not registered, otherwise @c 1 (true) will be returned.
  *
  * @memberof SBMLExtensionRegistry_t
  */
@@ -524,8 +524,8 @@ SBMLExtensionRegistry_isEnabled(const char* uri);
  * @param isEnabled the bool value corresponding to enabled (true/1) or
  * disabled (false/0).
  *
- * @return false (0) will be returned if the given bool value is false
- * or the given package is not registered, otherwise true (1) will be
+ * @return @c 0 (false) will be returned if the given bool value is false
+ * or the given package is not registered, otherwise @c 1 (true) will be
  * returned.
  *
  * @memberof SBMLExtensionRegistry_t
@@ -541,8 +541,8 @@ SBMLExtensionRegistry_setEnabled(const char* uri, int isEnabled);
  *
  * @param uri the URI of the target package.
  *
- * @return true (1) will be returned if the package with the given URI
- * is registered, otherwise false (0) will be returned.
+ * @return @c 1 (true) will be returned if the package with the given URI
+ * is registered, otherwise @c 0 (false) will be returned.
  *
  * @memberof SBMLExtensionRegistry_t
  */

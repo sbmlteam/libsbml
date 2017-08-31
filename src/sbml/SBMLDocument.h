@@ -1885,7 +1885,7 @@ SBMLDocument_getModel (SBMLDocument_t *d);
  * @param d the SBMLDocument_t structure.
  *
  * @return @c 1 (true) if the transformation was successful,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  * @note This function will check the consistency of a model
  * before attemptimg the transformation.  In the case of a model
@@ -1914,7 +1914,7 @@ SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
  * @param d the SBMLDocument_t structure.
  *
  * @return @c 1 (true) if the transformation was successful,
- * false (0) otherwise.
+ * @c 0 (false) otherwise.
  *
  *
  * @note This function will check the consistency of a model
@@ -2289,8 +2289,8 @@ SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d,
  * If this method returns a nonzero value (meaning, one or more
  * consistency checks have failed for SBML document), the failures may be
  * due to warnings @em or errors.  Callers should inspect the severity
- * flag in the individual SBMLError_t structures returned by getError() to
- * determine the nature of the failures.
+ * flag in the individual SBMLError_t structures returned by 
+ * SBMLDocument_getError() to determine the nature of the failures.
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2354,7 +2354,7 @@ SBMLDocument_checkInternalConsistency (SBMLDocument_t *d);
  * Level&nbsp;1.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2373,7 +2373,7 @@ SBMLDocument_checkL1Compatibility (SBMLDocument_t *d);
  * converted to Level&nbsp;2 Version&nbsp;1.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2392,7 +2392,7 @@ SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d);
  * converted to Level&nbsp;2 Version&nbsp;2.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2411,7 +2411,7 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
  * converted to Level&nbsp;2 Version&nbsp;3.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2430,7 +2430,7 @@ SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d);
  * converted to Level&nbsp;2 Version&nbsp;4.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2449,7 +2449,7 @@ SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d);
  * converted to Level 2 Version 5.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure
  *
@@ -2468,7 +2468,7 @@ SBMLDocument_checkL2v5Compatibility (SBMLDocument_t *d);
  * converted to Level 3 Version 1.
  *
  * Callers should query the results of the consistency check by calling
- * getError().
+ * SBMLDocument_getError().
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2479,6 +2479,25 @@ SBMLDocument_checkL2v5Compatibility (SBMLDocument_t *d);
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL3v1Compatibility (SBMLDocument_t *d);
+
+
+/**
+* Performs a set of consistency checks on the document to establish
+* whether it is compatible with SBML Level 3 Version 2 and can be
+* converted to Level 3 Version 2.
+*
+* Callers should query the results of the consistency check by calling
+* SBMLDocument_getError().
+*
+* @param d the SBMLDocument_t structure.
+*
+* @return the number of failed checks (errors) encountered.
+*
+* @memberof SBMLDocument_t
+*/
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_checkL3v2Compatibility(SBMLDocument_t *d);
 
 
 /**
@@ -2665,7 +2684,7 @@ SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
  * @param package the name or URI of the package extension.
  *
  * @return @c 1 (true) if the package is flagged as
- * being required in this SBML document, false (0) otherwise.
+ * being required in this SBML document, @c 0 (false) otherwise.
  *
  * @deprecated Replaced in libSBML 5.2.0 by
  * SBMLDocument_getPackageRequired()
@@ -2687,7 +2706,7 @@ SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
  * @param package the name or URI of the package extension.
  *
  * @return @c 1 (true) if the package is flagged as
- * being required in this SBML document, false (0) otherwise.
+ * being required in this SBML document, @c 0 (false) otherwise.
  *
  * @memberof SBMLDocument_t
  */
