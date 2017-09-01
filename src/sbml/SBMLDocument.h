@@ -621,8 +621,9 @@ public:
    * SBMLDocument::checkL2v2Compatibility(),
    * SBMLDocument::checkL2v3Compatibility(),
    * SBMLDocument::checkL2v4Compatibility(),
-   * SBMLDocument::checkL2v5Compatibility(), and
-   * SBMLDocument::checkL3v1Compatibility().
+   * SBMLDocument::checkL2v5Compatibility(),
+   * SBMLDocument::checkL3v1Compatibility(), and
+   * SBMLDocument::checkL3v2Compatibility().
    * 
    * The valid combinations of SBML Level and Version as of this release
    * of libSBML are the following: 
@@ -1873,7 +1874,7 @@ SBMLDocument_getModel (SBMLDocument_t *d);
 
 /**
  * Removes any FunctionDefinition_t's from the document and expands
- * any instances of their use within &gt;math&lt; elements.
+ * any instances of their use within &lt;math&gt; elements.
  *
  * For example a Model_t contains a FunctionDefinition_t with id f
  * representing the math expression: f(x, y) = x * y.
@@ -1946,8 +1947,14 @@ SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
  * more advanced Levels of SBML.
  *
  * Callers can also check compatibility directly using the methods
- * checkL1Compatibility(), checkL2v1Compatibility(), and 
- * checkL2v2Compatibility().
+ * SBMLDocument_checkL1Compatibility(), 
+ * SBMLDocument_checkL2v1Compatibility(), 
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(), and
+ * SBMLDocument_checkL3v2Compatibility().
  * 
  * The valid combinations as of this release of libSBML are the
  * following: 
@@ -1960,6 +1967,7 @@ SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
  * @li Level 2 Version 4
  * @li Level 2 Version 5
  * @li Level 3 Version 1
+ * @li Level 3 Version 2
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -1970,7 +1978,7 @@ SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
  * @note Calling this method will not @em necessarily lead to successful
  * conversion.  If the conversion fails, it will be logged in the error
  * list associated with this SBMLDocument_t structure.  Callers should
- * consult getNumErrors() to find out if the conversion succeeded without
+ * consult SBMLDocument_getNumErrors() to find out if the conversion succeeded without
  * problems.  For conversions from Level 2 to Level 1, callers can also
  * check the Level of the model after calling this method to find out
  * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
@@ -1997,8 +2005,14 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * more advanced Levels of SBML.
  *
  * Callers can also check compatibility directly using the methods
- * checkL1Compatibility(), checkL2v1Compatibility(), and 
- * checkL2v2Compatibility().
+ * SBMLDocument_checkL1Compatibility(), 
+ * SBMLDocument_checkL2v1Compatibility(), 
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(), and
+ * SBMLDocument_checkL3v2Compatibility().
  * 
  * The valid combinations as of this release of libSBML are the
  * following: 
@@ -2011,6 +2025,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * @li Level 2 Version 4
  * @li Level 2 Version 5
  * @li Level 3 Version 1
+ * @li Level 3 Version 2
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2021,7 +2036,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * @note Calling this method will not @em necessarily lead to successful
  * conversion.  If the conversion fails, it will be logged in the error
  * list associated with this SBMLDocument_t structure.  Callers should
- * consult getNumErrors() to find out if the conversion succeeded without
+ * consult SBMLDocument_getNumErrors() to find out if the conversion succeeded without
  * problems.  For conversions from Level 2 to Level 1, callers can also
  * check the Level of the model after calling this method to find out
  * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
@@ -2059,9 +2074,15 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
  * more advanced Levels of SBML.
  *
  * Callers can also check compatibility directly using the methods
- * checkL1Compatibility(), checkL2v1Compatibility(), and 
- * checkL2v2Compatibility().
- * 
+ * SBMLDocument_checkL1Compatibility(), 
+ * SBMLDocument_checkL2v1Compatibility(), 
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(), and
+ * SBMLDocument_checkL3v2Compatibility().
+ *
  * The valid combinations as of this release of libSBML are the
  * following: 
  *
@@ -2073,6 +2094,7 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
  * @li Level 2 Version 4
  * @li Level 2 Version 5
  * @li Level 3 Version 1
+ * @li Level 3 Version 2
  *
  * @param d the SBMLDocument_t structure.
  *
@@ -2083,7 +2105,7 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
  * @note Calling this method will not @em necessarily lead to successful
  * conversion.  If the conversion fails, it will be logged in the error
  * list associated with this SBMLDocument_t structure.  Callers should
- * consult getNumErrors() to find out if the conversion succeeded without
+ * consult SBMLDocument_getNumErrors() to find out if the conversion succeeded without
  * problems.  For conversions from Level 2 to Level 1, callers can also
  * check the Level of the model after calling this method to find out
  * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
@@ -2172,28 +2194,35 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  *
  * The second argument (@p category) to this method indicates which
  * category of consistency/error checks are being turned on or off, and
- * the second argument (a boolean) indicates whether to turn on (value of
- * @c true) or off (value of @c false) that particula category of checks.
+ * the third argument (an integer treated as a boolean, with non-zero 
+ * indicating @c true and zero indicating @c false) indicates whether to turn 
+ * on (@c true) or off (@c false) that particula category of checks.
  * The possible categories are represented as values of the enumeration
- * SBMLErrorCategory_t.  The following are the possible choices in libSBML
- * version 3.0.2:
+ * SBMLErrorCategory_t.  The following are the possible choices:
  *
- * @li LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
+ * @li @sbmlconstant{LIBSBML_CAT_GENERAL_CONSISTENCY, SBMLErrorCategory_t}:
+ * General overall SBML consistency.
  * 
- * @li LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+ * @li @sbmlconstant{LIBSBML_CAT_IDENTIFIER_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of identifiers.  An
  * example of inconsistency would be using a species identifier in a
  * reaction rate formula without first having declared the species.
  * 
- * @li LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
+ * @li @sbmlconstant{LIBSBML_CAT_UNITS_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of units of measure.
  * 
- * @li LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
+ * @li @sbmlconstant{LIBSBML_CAT_MATHML_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of MathML constructs.
  * 
- * @li LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
+ * @li @sbmlconstant{LIBSBML_CAT_SBO_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of SBO identifiers.
  * 
- * @li LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
+ * @li @sbmlconstant{LIBSBML_CAT_OVERDETERMINED_MODEL, SBMLErrorCategory_t}:
+ * Checking whether the system of
  * equations implied by a model is mathematically overdetermined.
  * 
- * @li LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
+ * @li @sbmlconstant{LIBSBML_CAT_MODELING_PRACTICE, SBMLErrorCategory_t}:
+ * General good practice in
  * model construction.
  * 
  * By default, all validation checks are applied to the model in an
@@ -2236,24 +2265,31 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
  * SBMLErrorCategory_t.  The following are the possible choices in libSBML
  * version 3.0.2:
  *
- * @li LIBSBML_CAT_GENERAL_CONSISTENCY:    General overall SBML consistency.
- * 
- * @li LIBSBML_CAT_IDENTIFIER_CONSISTENCY: Consistency of identifiers.  An
+ * @li @sbmlconstant{LIBSBML_CAT_GENERAL_CONSISTENCY, SBMLErrorCategory_t}:
+ * General overall SBML consistency.
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_IDENTIFIER_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of identifiers.  An
  * example of inconsistency would be using a species identifier in a
  * reaction rate formula without first having declared the species.
- * 
- * @li LIBSBML_CAT_UNITS_CONSISTENCY:      Consistency of units of measure.
- * 
- * @li LIBSBML_CAT_MATHML_CONSISTENCY:     Consistency of MathML constructs.
- * 
- * @li LIBSBML_CAT_SBO_CONSISTENCY:        Consistency of SBO identifiers.
- * 
- * @li LIBSBML_CAT_OVERDETERMINED_MODEL:   Checking whether the system of
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_UNITS_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of units of measure.
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_MATHML_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of MathML constructs.
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_SBO_CONSISTENCY, SBMLErrorCategory_t}:
+ * Consistency of SBO identifiers.
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_OVERDETERMINED_MODEL, SBMLErrorCategory_t}:
+ * Checking whether the system of
  * equations implied by a model is mathematically overdetermined.
- * 
- * @li LIBSBML_CAT_MODELING_PRACTICE:      General good practice in
+ *
+ * @li @sbmlconstant{LIBSBML_CAT_MODELING_PRACTICE, SBMLErrorCategory_t}:
+ * General good practice in
  * model construction.
- * 
+ *
  * By default, all validation checks are applied to the model in an
  * SBMLDocument_t structure @em unless setConsistencyChecks() is called to
  * indicate that only a subset should be applied.
@@ -2515,10 +2551,18 @@ SBMLDocument_checkL3v2Compatibility(SBMLDocument_t *d);
  *
  * @param n the index of the error sought.
  *
- * @see SBMLDocument_getNumErrors(), SBMLDocument_setLevelAndVersion(),
- * SBMLDocument_checkConsistency(), SBMLDocument_checkL1Compatibility(),
+ * @see SBMLDocument_getNumErrors(), 
+ * SBMLDocument_setLevelAndVersion(),
+ * SBMLDocument_checkConsistency(), 
+ * SBMLDocument_checkL1Compatibility(),
  * SBMLDocument_checkL2v1Compatibility()
- * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(),
+ * SBMLDocument_checkL3v2Compatibility(),
+ * SBMLReader_readSBML(),
  * SBMLReader_readSBMLFromString().
  *
  * @memberof SBMLDocument_t
@@ -2542,9 +2586,16 @@ SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
  * @param severity the severity of the error sought.
  *
  * @see SBMLDocument_getNumErrorsWithSeverity(), SBMLDocument_setLevelAndVersion(),
- * SBMLDocument_checkConsistency(), SBMLDocument_checkL1Compatibility(),
+ * SBMLDocument_checkConsistency(), 
+ * SBMLDocument_checkL1Compatibility(),
  * SBMLDocument_checkL2v1Compatibility()
- * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(),
+ * SBMLDocument_checkL3v2Compatibility(),
+ * SBMLReader_readSBML(),
  * SBMLReader_readSBMLFromString().
  *
  * @memberof SBMLDocument_t
@@ -2564,7 +2615,13 @@ SBMLDocument_getErrorWithSeverity(SBMLDocument_t *d, unsigned int n, unsigned in
  * @see SBMLDocument_setLevelAndVersion(), SBMLDocument_checkConsistency(),
  * SBMLDocument_checkL1Compatibility(),
  * SBMLDocument_checkL2v1Compatibility()
- * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(),
+ * SBMLDocument_checkL3v2Compatibility(),
+ * SBMLReader_readSBML(),
  * SBMLReader_readSBMLFromString().
  *
  * @memberof SBMLDocument_t
@@ -2586,7 +2643,13 @@ SBMLDocument_getNumErrors (const SBMLDocument_t *d);
  * @see SBMLDocument_setLevelAndVersion(), SBMLDocument_checkConsistency(),
  * SBMLDocument_checkL1Compatibility(),
  * SBMLDocument_checkL2v1Compatibility()
- * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLDocument_checkL2v2Compatibility(),
+ * SBMLDocument_checkL2v3Compatibility(),
+ * SBMLDocument_checkL2v4Compatibility(),
+ * SBMLDocument_checkL2v5Compatibility(),
+ * SBMLDocument_checkL3v1Compatibility(),
+ * SBMLDocument_checkL3v2Compatibility(),
+ * SBMLReader_readSBML(),
  * SBMLReader_readSBMLFromString().
  *
  * @memberof SBMLDocument_t
@@ -2657,7 +2720,7 @@ SBMLDocument_getNamespaces(SBMLDocument_t *d);
 
 
 /**
- * Sets the SBMLnamespaces_t 
+ * Sets the SBMLNamespaces_t on the given SBMLDocument_t.
  *
  * @param d the SBMLDocument_t structure to change.
  * @param sbmlns the SBMLNamespaces_t structure to set.
