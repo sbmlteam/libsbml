@@ -341,7 +341,9 @@ public:
    * 
    * @li Sets the "reversible" attribute to @c true
    * @li Sets the "fast" attribute to @c false
-   * @li Marks the "fast" attribute as @em not having been set
+   * @li Marks the "fast" attribute as @em not having been set for
+   *     SBML Level&nbsp;2, but @em as having been set for
+   *     SBML Level&nbsp;1 and SBML Level&nbsp;3.
    *
    * @copydetails doc_warning_reaction_cant_ignore_fast
    */
@@ -1944,8 +1946,18 @@ Reaction_clone (const Reaction_t *r);
 /**
  * Initializes the fields of this Reaction_t to their defaults:
  *
- *   - reversible = @c true
- *   - fast       = @c false  (L1 and L3v1 only)
+ * The SBML Reaction component has slightly different aspects and
+ * default attribute values in different SBML Levels and Versions.
+ * This method sets the values to certain common defaults, based
+ * mostly on what they are in SBML Level&nbsp;2.  Specifically:
+ *
+ * @li Sets the "reversible" attribute to @c true
+ * @li Sets the "fast" attribute to @c false
+ * @li Marks the "fast" attribute as @em not having been set for
+ *     SBML Level&nbsp;2, but @em as having been set for
+ *     SBML Level&nbsp;1 and SBML Level&nbsp;3.
+ *
+ * @copydetails doc_warning_reaction_cant_ignore_fast
  *
  * @memberof Reaction_t
  */
