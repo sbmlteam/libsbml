@@ -1411,9 +1411,6 @@ public:
    * Sets the <code>required</code> attribute value of the given package
    * extension.
    *
-   * @note The name of package must not be given if the package is not
-   * enabled.
-   *
    * @param package the name or URI of the package extension.
    * @param flag Boolean value indicating whether the package is required.
    *
@@ -1428,9 +1425,6 @@ public:
    * Returns the <code>required</code> attribute of the given package
    * extension.
    *
-   * @note The name of package must not be given if the package is not
-   * enabled.
-   *
    * @param package the name or URI of the package extension.
    *
    * @return Boolean flag indicating whether the package is flagged as
@@ -1442,9 +1436,6 @@ public:
   /**
    * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
-   *
-   * @note The name of package must not be given if the package is not
-   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
@@ -1489,9 +1480,6 @@ public:
    * Sets the value of the <code>required</code> attribute for the given
    * package.
    *
-   * @note The name of package must not be given if the package is not
-   * enabled.
-   *
    * @param package the name or URI of the package extension.
    * @param flag a Boolean value.
    *
@@ -1509,9 +1497,6 @@ public:
    * Returns the <code>required</code> attribute of the given package
    * extension.
    *
-   * @note The name of package must not be given if the package is not
-   * enabled.
-   *
    * @param package the name or URI of the package extension.
    *
    * @return a Boolean value indicating whether the package is flagged as
@@ -1526,9 +1511,6 @@ public:
   /**
    * Returns @c true if the required attribute of the given package extension
    * is defined, otherwise returns @c false.
-   *
-   * @note The name of package must not be given if the package is not
-   * enabled.
    *
    * @param package the name or URI of the package extension.
    *
@@ -2740,9 +2722,6 @@ SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
  * Returns the <code>required</code> attribute of the given package
  * extension.
  *
- * @note The name of package must not be given if the package is not
- * enabled.
- *
  * @param d the SBMLDocument_t structure to check.
  * @param package the name or URI of the package extension.
  *
@@ -2762,9 +2741,6 @@ SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
  * Returns the <code>required</code> attribute of the given package
  * extension.
  *
- * @note The name of package must not be given if the package is not
- * enabled.
- *
  * @param d the SBMLDocument_t structure to check.
  * @param package the name or URI of the package extension.
  *
@@ -2781,9 +2757,6 @@ SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package);
 /**
  * Sets the value of the <code>required</code> attribute for the given
  * package.
- *
- * @note The name of package must not be given if the package is not
- * enabled.
  *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
@@ -2806,9 +2779,6 @@ SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
  * Sets the value of the <code>required</code> attribute for the given
  * package.
  *
- * @note The name of package must not be given if the package is not
- * enabled.
- *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
  * @param flag a Boolean value.
@@ -2828,9 +2798,6 @@ SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int fl
  * Tests whether the required attribute of the given package extension
  * is defined.
  *
- * @note The name of package must not be given if the package is not
- * enabled.
- *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
  *
@@ -2849,9 +2816,6 @@ SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
 /**
  * Tests whether the required attribute of the given package extension
  * is defined.
- *
- * @note The name of package must not be given if the package is not
- * enabled.
  *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
