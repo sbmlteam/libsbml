@@ -1193,8 +1193,9 @@ LocalParameter_setName (LocalParameter_t *p, const char *name);
  * @param p the LocalParameter_t structure to set.
  * @param value the @c double value to use.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
  */
@@ -1231,8 +1232,9 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units);
  * @param p the LocalParameter_t structure to leave unchanged.
  * @param value the boolean value to ignore.
  *
- * @copydetails doc_returns_one_success_code
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
  */
@@ -1267,8 +1269,9 @@ LocalParameter_unsetName (LocalParameter_t *p);
  *
  * @param p the LocalParameter_t structure whose value is to be unset.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
  */
@@ -1299,8 +1302,9 @@ LocalParameter_unsetUnits (LocalParameter_t *p);
  *
  * @param p the LocalParameter_t structure to leave unchanged.
  *
- * @copydetails doc_returns_one_success_code
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
  */

@@ -389,8 +389,9 @@ SBMLWriter_free (SBMLWriter_t *sw);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
  */
@@ -407,8 +408,9 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
  */

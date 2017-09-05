@@ -2015,8 +2015,9 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
  *
  * @param value the value to assign to the "stoichiometry" attribute.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpeciesReference_t
  */
@@ -2088,8 +2089,9 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  *
  * @param value the value to assign to the "denominator" attribute.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpeciesReference_t
  */

@@ -2168,8 +2168,9 @@ Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl);
 /**
  * Sets the reversible status of this Reaction_t to value (boolean).
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Reaction_t
  */

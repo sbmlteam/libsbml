@@ -2541,8 +2541,9 @@ Unit_setExponent (Unit_t *u, int value);
  * @param u the Unit_t structure whose value is to be set.
  * @param value the double to which the attribute "exponent" should be set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Unit_t
  */
@@ -2557,8 +2558,9 @@ Unit_setExponentAsDouble (Unit_t *u, double value);
  * @param u the Unit_t structure whose value is to be set.
  * @param value the integer to which the attribute "scale" should be set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Unit_t
  */
@@ -2631,8 +2633,9 @@ Unit_unsetKind (Unit_t *u);
  *
  * @param u the Unit_t structure whose value is to be set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Unit_t
  */
@@ -2646,8 +2649,9 @@ Unit_unsetExponent (Unit_t *u);
  *
  * @param u the Unit_t structure whose value is to be set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Unit_t
  */
@@ -2798,8 +2802,9 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
  *
  * @param unit the Unit_t structure to manipulate.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @see Unit_convertToSI()
  * @see Unit_merge()

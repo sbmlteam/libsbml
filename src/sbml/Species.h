@@ -2602,8 +2602,9 @@ Species_setCompartment (Species_t *s, const char *sid);
  *
  * @param value the numerical value for the "initialAmount" attribute.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Species_t
  */
@@ -2747,8 +2748,9 @@ Species_setHasOnlySubstanceUnits (Species_t *s, int value);
  * 
  * @param value @c nonzero to indicate true, @c zero to indicate false.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Species_t
  */
@@ -2885,8 +2887,9 @@ Species_unsetSpeciesType (Species_t *s);
  *
  * @param s the Species_t structure whose attribute is to be unset.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Species_t
  */
@@ -2901,8 +2904,9 @@ Species_unsetInitialAmount (Species_t *s);
  *
  * @param s the Species_t structure whose attribute is to be unset.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Species_t
  */

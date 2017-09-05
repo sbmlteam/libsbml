@@ -4334,8 +4334,9 @@ SBase_setSBOTermID (SBase_t *sb, const char* sboid);
  *
  * @param xmlns the namespaces to set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBase_t
  */
@@ -4439,8 +4440,9 @@ SBase_appendNotesString (SBase_t *sb, const char *notes);
  * @param sb the given SBML structure.
  * @param annotation the XMLNode_t structure representing the annotation.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBase_t
  */
@@ -4695,8 +4697,9 @@ SBase_unsetName (SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBase_t
  */
@@ -4710,8 +4713,9 @@ SBase_unsetNotes (SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code.
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBase_t
  */

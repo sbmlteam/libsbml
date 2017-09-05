@@ -1604,8 +1604,9 @@ Parameter_setName (Parameter_t *p, const char *name);
  * @param p the Parameter_t structure to set.
  * @param value the @c double value to use.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Parameter_t
  */
@@ -1698,8 +1699,9 @@ Parameter_unsetConstant (Parameter_t *c);
  *
  * @param p the Parameter_t structure whose value is to be unset.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Parameter_t
  */
