@@ -148,7 +148,7 @@
  * SBML Level&nbsp;1 models.
  *
  * <li> The unit @c "Celsius" is included because of its presence in
- * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;3.
+ * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;2.
  *
  * <li> The unit @c avogadro was introduced in SBML Level&nbsp;3, and
  * is only permitted for use in SBML Level&nbsp;3 models.
@@ -1013,8 +1013,8 @@ public:
    * @param unit2 the second Unit object to compare.
    *
    * @return @c true if the "kind" and "exponent" attributes of unit1 are
-   * identical to the kind and exponent attributes of unit2, @c false
-   * otherwise.
+   * identical to the kind and exponent attributes of unit2, or if the kind
+   * attributes of both are @c dimensionless; @c false otherwise.
    *
    * @copydetails doc_note_static_methods
    * 
@@ -1934,7 +1934,7 @@ Unit_isCandela (const Unit_t *u);
  * Unit_t structure is set to @c "Celsius", @c 0 (false) otherwise.
  *
  * @warning The predefined unit @c Celsius was removed from the list of
- * predefined units in SBML Level 2 Version 3 at the same time that the
+ * predefined units in SBML Level 2 Version 2 at the same time that the
  * "offset" attribute was removed from Unit definitions.  LibSBML functions
  * such as this one related to @c Celsius are retained for compatibility
  * with earlier versions of SBML Level 2, but their use is strongly
@@ -2524,8 +2524,9 @@ Unit_setKind (Unit_t *u, UnitKind_t kind);
  * @param u the Unit_t structure whose value is to be set.
  * @param value the integer to which the attribute "exponent" should be set.
  *
- * @copydetails doc_returns_one_success_code
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Unit_t
  */
@@ -2726,10 +2727,10 @@ Unit_hasRequiredAttributes(Unit_t *u);
  * @param level the level of SBML one is checking.
  *
  * @return @c 1 (true) if @p name is one of the five SBML
- * built-in Unit names (@c "substance", @c "volume, @c "area", @c "length"
+ * built-in Unit names (@c "substance", @c "volume", @c "area", @c "length"
  * or @c "time"), @c 0 (false) otherwise
  *
- * @note: @c "length" and @c "area" were added in Level 2 Version 1
+ * @note @c "length" and @c "area" were added in Level 2 Version 1
  *
  * @memberof Unit_t
  */
@@ -2742,7 +2743,7 @@ Unit_isBuiltIn (const char *name, unsigned int level);
  * Unit_t structures are identical.
  *
  * Two Unit_t structures are considered to be @em identical if they match in
- * all attributes.  (Contrast this to the method areEquivalent(), which 
+ * all attributes.  (Contrast this to the method Unit_areEquivalent(), which 
  * compares Unit_t structures only with respect
  * to certain attributes.)
  *
@@ -2768,15 +2769,15 @@ Unit_areIdentical(Unit_t * unit1, Unit_t * unit2);
  * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
  * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
  * attribute values are equal. (Contrast this to the method
- * areIdentical(), which compares Unit_t structures with respect to all
+ * Unit_areIdentical(), which compares Unit_t structures with respect to all
  * attributes, not just the "kind" and "exponent".)
  *
  * @param unit1 the first Unit_t structure to compare.
  * @param unit2 the second Unit_t structure to compare.
  *
  * @return @c 1 (true) if the "kind" and "exponent" attributes of unit1 are
- * identical to the kind and exponent attributes of unit2,
- * @c 0 (false) otherwise.
+ * identical to the kind and exponent attributes of unit2, or if the kind attributes
+ * of both are @c dimensionless; @c 0 (false) otherwise.
  * 
  * @see Unit_areIdentical()
  *

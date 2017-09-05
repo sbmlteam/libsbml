@@ -785,7 +785,7 @@ int
 SBMLExtension_getNumOfSupportedPackageURI(SBMLExtension_t* ext);
 
 /**
- * Returns a flag indicating, whether the given URI (package version) is
+ * Returns a flag indicating whether the given URI (package version) is
  * supported by this package extension.
  *
  * @param ext the SBMLExtension_t structure.
@@ -939,11 +939,11 @@ int
 SBMLExtension_setEnabled(SBMLExtension_t* ext, int isEnabled);
 
 /**
- * Check if this package is enabled (true/1) or disabled (false/0).
+ * Check if this package is enabled or disabled.
  *
  * @param ext the SBMLExtension_t structure.
  *
- * @return true if the package is enabled, otherwise false is returned.
+ * @return @c 1 (true) if the package is enabled, otherwise @c 0 (false) is returned.
  * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.
  *
  * @memberof SBMLExtension_t

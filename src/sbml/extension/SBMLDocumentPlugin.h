@@ -280,7 +280,7 @@ BEGIN_C_DECLS
  * @param sbmlns the namespaces.
  *
  * @return a new SBMLDocumentPlugin_t structure with the given package
- * uri, prefix and SBMLNamespaces. Or null in case a NULL uri or prefix
+ * uri, prefix and SBMLNamespaces, or NULL in case a NULL uri or prefix
  * was given.
  *
  * @memberof SBMLDocumentPlugin_t
