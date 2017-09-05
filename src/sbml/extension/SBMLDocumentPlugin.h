@@ -319,6 +319,7 @@ LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin);
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes if they have their specific attributes.
@@ -358,6 +359,7 @@ int
 SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
       const XMLAttributes_t* attributes,
       const ExpectedAttributes_t* expectedAttributes);
+/** @endcond*/
 
 /**
  * Subclasses must override this method to write their XML attributes

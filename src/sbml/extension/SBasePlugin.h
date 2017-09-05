@@ -1097,6 +1097,7 @@ LIBSBML_EXTERN
 int
 SBasePlugin_hasRequiredElements(SBasePlugin_t* plugin);
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Subclasses should override this method to get the list of
  * expected attributes if they have their specific attributes.
@@ -1136,6 +1137,7 @@ int
 SBasePlugin_readAttributes(SBasePlugin_t* plugin,
         XMLAttributes_t* attributes,
         ExpectedAttributes_t* expectedAttributes);
+/** @endcond*/
 
 /**
  * Subclasses must override this method to write their XML attributes
