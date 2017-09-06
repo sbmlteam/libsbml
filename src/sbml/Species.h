@@ -2748,7 +2748,7 @@ Species_setHasOnlySubstanceUnits (Species_t *s, int value);
  * 
  * @param value @c nonzero to indicate true, @c zero to indicate false.
  *
- * @copydetails doc_returns_success_code.
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *

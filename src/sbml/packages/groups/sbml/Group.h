@@ -1648,7 +1648,7 @@ Group_hasRequiredAttributes(const Group_t * g);
  * been set, @c 0 (false) otherwise.
  *
  *
- * @note The required elements for the Group_t object are:
+ * @note A Group_t object has no required child elements.
  *
  * @memberof Group_t
  */

@@ -2056,7 +2056,7 @@ Event_isSetUseValuesFromTriggerTime (const Event_t *e);
 /**
  * Assigns the identifier of an Event_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param e the Event_t structure to set.
  * @param sid the string to use as the identifier.

@@ -558,7 +558,7 @@ public:
   /**
    * Returns @c true if SpeciesFeature has all the required subelements.
    *
-   * @note The required elements for a SpeciesFeature object are:
+   * @note A SpeciesFeature object has no required subelements.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

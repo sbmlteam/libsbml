@@ -1269,7 +1269,7 @@ Input_isSetThresholdLevel(Input_t * i);
 /**
  * Assigns the identifier of an Input_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param i the Input_t structure to set.
  * @param sid the string to use as the identifier.

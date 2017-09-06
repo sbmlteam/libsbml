@@ -1136,7 +1136,7 @@ Submodel_isSetExtentConversionFactor(Submodel_t * s);
 /**
  * Assigns the identifier of an Submodel_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param s the Submodel_t structure to set.
  * @param sid the string to use as the identifier.
@@ -1392,7 +1392,7 @@ Submodel_createDeletion(Submodel_t * s);
  *
  * @param s the Submodel_t structure to use.
  *
- * @return the list of CHILDTYPEs for the given Submodel_t.
+ * @return the list of Deletion_t structures for the given Submodel_t.
  *
  * @memberof Submodel_t
  */
@@ -1454,7 +1454,7 @@ Submodel_getNumDeletions(Submodel_t * s);
  * Removes the nth Deletion_t structure from the given Submodel_t structure and
  * returns a pointer to it.
  *
- * * The caller owns the returned structure and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param s the Submodel_t structure.
  * @param n the integer index of the Deletion_t sought.
@@ -1474,7 +1474,7 @@ Submodel_removeDeletion(Submodel_t * s, unsigned int n);
  * Removes the Deletion_t structure with the given @p sid
  * from the given Submodel_t structure and returns a pointer to it.
  *
- * * The caller owns the returned structure and is responsible for deleting it.
+ * The caller owns the returned structure and is responsible for deleting it.
  *
  * @param s the Submodel_t structure.
  * @param sid the string of the "id" attribute of the Deletion_t sought.
@@ -1511,7 +1511,7 @@ Submodel_hasRequiredAttributes(Submodel_t * s);
   * all the required elements for the given Submodel_t structure
   * have been set.
   *
-  * @note The required elements for an Submodel_t structure are:
+  * @note A Submodel_t structure has no required child elements.
   *
  * @memberof Submodel_t
  */

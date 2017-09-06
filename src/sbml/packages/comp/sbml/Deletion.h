@@ -450,7 +450,7 @@ Deletion_isSetName(Deletion_t * d);
 /**
  * Assigns the identifier of an Deletion_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param d the Deletion_t structure to set.
  * @param sid the string to use as the identifier.

@@ -1188,7 +1188,7 @@ Output_isSetOutputLevel(Output_t * o);
 /**
  * Assigns the identifier of an Output_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param o the Output_t structure to set.
  * @param sid the string to use as the identifier.

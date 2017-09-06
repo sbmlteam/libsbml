@@ -1232,7 +1232,7 @@ QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs);
 /**
  * Assigns the identifier of an QualitativeSpecies_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param qs the QualitativeSpecies_t structure to set.
  * @param sid the string to use as the identifier.

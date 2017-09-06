@@ -464,7 +464,7 @@ public:
    * Predicate returning @c true if all the required elements
    * for this SpeciesFeatureType object have been set.
    *
-   * @note The required elements for a SpeciesFeatureType object are:
+   * @note A SpeciesFeatureType object has no required subelements.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

@@ -1146,7 +1146,7 @@ LocalParameter_isSetUnits (const LocalParameter_t *p);
 /**
  * Assigns the identifier of a LocalParameter_t structure.
  *
- * This makes a copy of the string passed in the param @p sid.
+ * This makes a copy of the string passed in the parameter @p sid.
  *
  * @param p the LocalParameter_t structure to set.
  * @param sid the string to use as the identifier.
