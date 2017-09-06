@@ -3099,7 +3099,18 @@ Species_setConversionFactor (Species_t *s, const char *sid)
 
 LIBSBML_EXTERN
 int
-Species_unsetName (Species_t *s)
+Species_unsetId (Species_t *s)
+{
+  if (s != NULL)
+    return s->unsetId();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Species_unsetName(Species_t *s)
 {
   if (s != NULL)
     return s->unsetName();
