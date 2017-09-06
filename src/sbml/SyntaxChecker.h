@@ -364,13 +364,18 @@ BEGIN_C_DECLS
  * @return @c 1 (true) if the string conforms to type SId, 
  * @c 0 (false) otherwise.
  *
- * @note The literal representation of SBML type SId consists of strings 
- * of characters restricted to:
- *
- *  - letter ::= 'a'..'z','A'..'Z'
- *  - digit  ::= '0'..'9'
- *  - idChar ::= letter | digit | '_'
- *  - SId    ::= ( letter | '_' ) idChar*
+ * The identifier given by an object's "id" attribute value
+ * is used to identify the object within the SBML model definition.
+ * Other objects can refer to the component using this identifier.  The
+ * data type of "id" is always <code>SId</code> or a type derived
+ * from that, such as <code>UnitSId</code>, depending on the object in
+ * question.  All data types are defined as follows:
+ * <pre style="margin-left: 2em; border: none; font-weight: bold; color: black">
+ *   letter ::= 'a'..'z','A'..'Z'
+ *   digit  ::= '0'..'9'
+ *   idChar ::= letter | digit | '_'
+ *   SId    ::= ( letter | '_' ) idChar*
+ * </pre>
  *
  * @memberof SyntaxChecker_t
  */
@@ -388,11 +393,7 @@ SyntaxChecker_isValidSBMLSId(const char * sid);
  * @return @c 1 (true) if the string conforms to type ID, 
  * @c 0 (false) otherwise.
  *
- * @note The literal representation of XML 1.0 type ID consists of strings 
- * of characters restricted to:
- *
- *  - NCNameChar ::= letter | digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
- *  - ID ::= ( letter | '_' | ':' ) NCNameChar*
+ * @note @htmlinclude xmlid-syntax.html
  *
  * @memberof SyntaxChecker_t
  */
@@ -410,13 +411,7 @@ SyntaxChecker_isValidXMLID(const char * id);
  * @return @c 1 (true) if the string conforms to type UnitSId, 
  * @c 0 (false) otherwise.
  *
- * @note The literal representation of SBML type UniySId consists of strings 
- * of characters restricted to:
- *
- *  - letter ::= 'a'..'z','A'..'Z'
- *  - digit  ::= '0'..'9'
- *  - idChar ::= letter | digit | '_'
- *  - UnitSId    ::= ( letter | '_' ) idChar*
+ * @note @htmlinclude unitid-syntax.html
  *
  * @memberof SyntaxChecker_t
  */
