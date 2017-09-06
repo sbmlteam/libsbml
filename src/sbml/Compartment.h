@@ -2097,7 +2097,7 @@ Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c);
  * @param c the Compartment_t structure.
  *
  * @return the value of the "size" attribute ("volume" in Level 1) of
- * the Compartment_t structure @p c as a float-point number.
+ * the Compartment_t structure @p c as a floating point number.
  *
  * @note This method is identical to Compartment_getVolume().
  *

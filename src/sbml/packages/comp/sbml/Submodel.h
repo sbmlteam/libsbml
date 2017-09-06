@@ -497,7 +497,7 @@ public:
 
 
   /**
-   * Returns the deletion with the given index.
+   * Returns the deletion with the given @p index.
    * If the index is invalid, @c NULL is returned.
    *
    * @param n the index number of the Deletion to get.
@@ -508,7 +508,7 @@ public:
 
 
   /**
-   * Returns the deletion with the given index.
+   * Returns the deletion with the given @p index.
    * If the index is invalid, @c NULL is returned.
    *
    * @param n the index number of the Deletion to get.
@@ -577,7 +577,7 @@ public:
 
 
   /**
-   * Removes the deletion with the given index from the Submodel.
+   * Removes the deletion with the given @p index from the Submodel.
    * A pointer to the deletion that was removed is returned.
    * If no deletion has been removed, @c NULL is returned.
    *
@@ -585,7 +585,7 @@ public:
    *
    * @return the Deletion object removed.  As mentioned above, 
    * the caller owns the returned object. @c NULL is returned if 
-   * the given index is out of range.
+   * the given @p index is out of range.
    */
   Deletion* removeDeletion(unsigned int index);
 

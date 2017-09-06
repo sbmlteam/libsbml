@@ -174,11 +174,11 @@ public:
 
   
   /**
-   * Returns the ConversionOption object for the given index.
+   * Returns the ConversionOption object for the given @p index.
    *
    * @param index the index for the option.
    *
-   * @return the option with the given index.
+   * @return the option with the given @p index.
    */
   virtual ConversionOption* getOption(int index) const;
 

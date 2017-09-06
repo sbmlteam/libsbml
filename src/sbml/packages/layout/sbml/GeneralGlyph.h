@@ -378,25 +378,25 @@ public:
   ListOfGraphicalObjects* getListOfSubGlyphs ();
        
   /**
-   * Returns the reference glyph with the given index.
+   * Returns the reference glyph with the given @p index.
    * If the index is invalid, @c NULL is returned.
    */
   const ReferenceGlyph* getReferenceGlyph (unsigned int index) const;
 
   /**
-   * Returns the reference glyph with the given index.
+   * Returns the reference glyph with the given @p index.
    * If the index is invalid, @c NULL is returned.
    */
   ReferenceGlyph* getReferenceGlyph (unsigned int index) ;
 
   /**
-   * Returns the sub glyph with the given index.
+   * Returns the sub glyph with the given @p index.
    * If the index is invalid, @c NULL is returned.
    */
   const GraphicalObject* getSubGlyph (unsigned int index) const;
 
   /**
-   * Returns the sub glyph with the given index.
+   * Returns the sub glyph with the given @p index.
    * If the index is invalid, @c NULL is returned.
    */
   GraphicalObject* getSubGlyph (unsigned int index) ;
@@ -471,7 +471,7 @@ public:
    CubicBezier* createCubicBezier();
 
   /**
-   * Remove the reference glyph with the given index.
+   * Remove the reference glyph with the given @p index.
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
@@ -479,7 +479,7 @@ public:
   removeReferenceGlyph(unsigned int index);
 
   /**
-   * Remove the subglyph with the given index.
+   * Remove the subglyph with the given @p index.
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
@@ -813,7 +813,7 @@ GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *gg);
 
 
 /**
- * Returns the pointer to the ReferenceGlyph_t's for the given index.
+ * Returns the pointer to the ReferenceGlyph_t's for the given @p index.
  *
  * @param gg the GeneralGlyph_t structure.
  * @param index the index of the ReferenceGlyph_t structure to return.
@@ -839,7 +839,7 @@ GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *gg);
 
 
 /**
- * Removes the reference glyph with the given index.  If the index
+ * Removes the reference glyph with the given @p index.  If the index
  * is invalid, nothing is removed.
  *
  * @param gg the GeneralGlyph_t structure.
@@ -958,7 +958,7 @@ GeneralGlyph_createCubicBezier (GeneralGlyph_t *gg);
 
 
 /**
- * Remove the reference glyph with the given index.
+ * Remove the reference glyph with the given @p index.
  * A pointer to the structure is returned. If no structure has been removed, NULL
  * is returned.
  *

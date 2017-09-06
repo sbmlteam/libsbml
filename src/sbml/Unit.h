@@ -823,7 +823,7 @@ public:
   /**
    * Sets the "offset" attribute value of this Unit.
    *
-   * @param value the float-point value to which the attribute "offset"
+   * @param value the floating point value to which the attribute "offset"
    * should set.
    *
    * @copydetails doc_returns_success_code

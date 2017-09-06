@@ -357,7 +357,7 @@ ReactionGlyph::getListOfSpeciesReferenceGlyphs ()
 }
 
 /*
- * Returns the species reference glyph with the given index.  If the index
+ * Returns the species reference glyph with the given @p index.  If the index
  * is invalid, @c NULL is returned.
  */ 
 SpeciesReferenceGlyph*
@@ -371,7 +371,7 @@ ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index)
 
 
 /*
- * Returns the species reference glyph with the given index.  If the index
+ * Returns the species reference glyph with the given @p index.  If the index
  * is invalid, @c NULL is returned.
  */ 
 const SpeciesReferenceGlyph*
@@ -524,7 +524,7 @@ ReactionGlyph::createCubicBezier ()
 }
 
 /*
- * Remove the species reference glyph with the given index.
+ * Remove the species reference glyph with the given @p index.
  * A pointer to the object is returned. If no object has been removed, NULL
  * is returned.
  */

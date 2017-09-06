@@ -366,8 +366,8 @@
  * initial concentration.  This attribute was removed in SBML Level&nbsp;2
  * Version&nbsp;3.  LibSBML retains this attribute for compatibility with
  * older definitions of Level&nbsp;2, but its use is strongly discouraged
- * because it is incompatible with Level&nbsp;2 Version&nbsp;3 and
- * Level&nbsp;2 Version&nbsp;4.</span>
+ * because it is incompatible with levels and versions of SBML beyond
+ * Level&nbsp;2 Version&nbsp;2.</span>
  *
  * @class doc_note_species_units
  * 
@@ -572,7 +572,7 @@ public:
   /**
    * Get the value of the "initialAmount" attribute.
    * 
-   * @return the initialAmount of this Species, as a float-point number.
+   * @return the initialAmount of this Species, as a floating point number.
    */
   double getInitialAmount () const;
 
@@ -580,7 +580,7 @@ public:
   /**
    * Get the value of the "initialConcentration" attribute.
    * 
-   * @return the initialConcentration of this Species,, as a float-point
+   * @return the initialConcentration of this Species,, as a floating point
    * number.
    *
    * @note The attribute "initialConcentration" is only available in SBML
@@ -629,7 +629,7 @@ public:
    * Get the value of the "hasOnlySubstanceUnits" attribute.
    * 
    * @return @c true if this Species' "hasOnlySubstanceUnits" attribute
-   * value is nonzero, @c false otherwise.
+   * value is @c true, @c false otherwise.
    *
    * @note The "hasOnlySubstanceUnits" attribute does not exist in SBML
    * Level&nbsp;1.
@@ -641,7 +641,7 @@ public:
    * Get the value of the "boundaryCondition" attribute.
    * 
    * @return @c true if this Species' "boundaryCondition" attribute value
-   * is nonzero, @c false otherwise.
+   * is @c true, @c false otherwise.
    */
   bool getBoundaryCondition () const;
 
@@ -660,7 +660,7 @@ public:
    * Get the value of the "constant" attribute.
    * 
    * @return @c true if this Species's "constant" attribute value is
-   * nonzero, @c false otherwise.
+   * @c true, @c false otherwise.
    *
    * @note The attribute "constant" is only available in SBML Levels&nbsp;2
    * and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
@@ -2081,7 +2081,7 @@ Species_getCompartment (const Species_t *s);
  * @param s the Species_t structure.
  * 
  * @return the "initialAmount" attribute of the given Species_t structure,
- * as a float-point number.
+ * as a floating point number.
  *
  * @memberof Species_t
  */
@@ -2096,7 +2096,7 @@ Species_getInitialAmount (const Species_t *s);
  * @param s the Species_t structure.
  * 
  * @return the "initialConcentration" of the given Species_t structure, as
- * a float-point number.
+ * a floating point number.
  *
  * @memberof Species_t
  */
@@ -2127,13 +2127,7 @@ Species_getSubstanceUnits (const Species_t *s);
  * 
  * @return the spatialSizeUnits of the given Species_t.
  * 
- * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the Species_t
- * structure included an attribute called "spatialSizeUnits", which allowed
- * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
- * attribute for compatibility with older definitions of Level 2, but its
- * use is strongly discouraged because it is incompatible with Level 2
- * Versions 3 and 4.
+ * @copydetails doc_warning_species_spatialSizeUnits
  *
  * @memberof Species_t
  */
@@ -2161,8 +2155,9 @@ Species_getUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c 1 (true) if the given Species_t structure's
- * "hasOnlySubstanceUnits" attribute value is nonzero, @c 0 (false) otherwise.
+ * @return @c 1 (true) or @c 0 (false) depending on the value
+ * of the given Species_t structure's "hasOnlySubstanceUnits" attribute 
+ * value.
  *
  * @memberof Species_t
  */
@@ -2176,8 +2171,9 @@ Species_getHasOnlySubstanceUnits (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c 1 (true) if the given Species_t structure's
- * "boundaryCondition" attribute value is nonzero, @c 0 (false) otherwise.
+ * @return @c 1 (true) or @c 0 (false) depending on the value
+ * of the given Species_t structure's "boundaryCondition" attribute
+ * value.
  *
  * @memberof Species_t
  */
@@ -2216,8 +2212,9 @@ Species_getCharge (const Species_t *s);
  *
  * @param s the Species_t structure.
  * 
- * @return @c 1 (true) if the given Species_t structure's "constant"
- * attribute value is nonzero, @c 0 (false) otherwise.
+ * @return @c 1 (true) or @c 0 (false) depending on the value
+ * of the given Species_t structure's "constant" attribute
+ * value.
  *
  * @memberof Species_t
  */
@@ -2242,7 +2239,7 @@ Species_getConversionFactor (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "id" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2258,7 +2255,7 @@ Species_isSetId (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "name" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2274,7 +2271,7 @@ Species_isSetName (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "speciesType" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2290,7 +2287,7 @@ Species_isSetSpeciesType (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "compartment" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2306,7 +2303,7 @@ Species_isSetCompartment (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "initialAmount" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2328,7 +2325,7 @@ Species_isSetInitialAmount (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "compartment" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2344,7 +2341,7 @@ Species_isSetInitialConcentration (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "substanceUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2360,7 +2357,7 @@ Species_isSetSubstanceUnits (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "spatialSizeUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2368,13 +2365,7 @@ Species_isSetSubstanceUnits (const Species_t *s);
  * @return @c 1 (true) if the "spatialSizeUnits" attribute of the given
  * Species_t structure is set, @c 0 (false) otherwise.
  * 
- * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the 
- * Species_t included an attribute called "spatialSizeUnits", which allowed
- * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
- * attribute for compatibility with older definitions of Level 2, but its
- * use is strongly discouraged because it is incompatible with Level 2
- * Versions 3 and 4.
+ * @copydetails doc_warning_species_spatialSizeUnits
  *
  * @memberof Species_t
  */
@@ -2384,7 +2375,7 @@ Species_isSetSpatialSizeUnits (const Species_t *s);
 
 
 /**
- * (SBML Level 1 only) Predicate returning true or false depending on
+ * (SBML Level 1 only) Predicate returning @c 1 (true) or @c 0 (false) depending on
  * whether the attribute "units" of the given Species_t structure is
  * set.
  *
@@ -2401,7 +2392,7 @@ Species_isSetUnits (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "charge" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2428,7 +2419,7 @@ Species_isSetCharge (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "conversionFactor" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2444,7 +2435,7 @@ Species_isSetConversionFactor (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "constant" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2460,7 +2451,7 @@ Species_isSetConstant (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "boundaryCondition" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2476,7 +2467,7 @@ Species_isSetBoundaryCondition (const Species_t *s);
 
 
 /**
- * Predicate returning true or false depending on whether the attribute
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the attribute
  * "hasOnlySubstanceUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure.
@@ -2495,7 +2486,7 @@ Species_isSetHasOnlySubstanceUnits (const Species_t *s);
  * Sets the "id" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string is
- * @c NULL, this function performs unsetId() instead.
+ * @c NULL, this function is equivalent to calling Species_unsetId().
  *
  * @param s the Species_t structure.
  * 
@@ -2520,7 +2511,7 @@ Species_setId (Species_t *s, const char *sid);
  * Sets the "name" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p name.  If the string is
- * @c NULL, this function performs unsetName() instead.
+ * @c NULL, this function is equivalent to calling Species_unsetName().
  *
  * @param s the Species_t structure.
  * 
@@ -2544,7 +2535,7 @@ Species_setName (Species_t *s, const char *name);
  * Sets the "speciesType" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function performs unsetSpeciesType() instead.
+ * is NULL, this function is equivalent to calling Species_unsetSpeciesType().
  *
  * @param s the Species_t structure.
  * 
@@ -2570,7 +2561,7 @@ Species_setSpeciesType (Species_t *s, const char *sid);
  * Sets the "compartment" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p compartment.  If the string
- * is NULL, this function performs unsetCompartment() instead.
+ * is NULL, this function is equivalent to calling Species_unsetCompartment().
  *
  * @param s the Species_t structure.
  * 
@@ -2640,7 +2631,8 @@ Species_setInitialConcentration (Species_t *s, double value);
  * Sets the "substanceUnits" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function performs unsetSubstanceUnits() instead.
+ * is NULL, this function is equivalent to calling 
+ * Species_unsetSubstanceUnits().
  *
  * @param s the Species_t structure.
  * 
@@ -2665,7 +2657,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
  * Sets the "spatialSizeUnits" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string is NULL,
- * this function performs unsetSpatialSizeUnits() instead.
+ * this function is equivalent to calling Species_unsetSpatialSizeUnits().
  *
  * @param s the Species_t structure.
  * 
@@ -2680,13 +2672,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
  * @note Using this function with an @p sid of NULL is equivalent to
  * unsetting the "spatialSizeUnits" attribute.
  * 
- * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the structure
- * Species_t included an attribute called "spatialSizeUnits", which allowed
- * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
- * attribute for compatibility with older definitions of Level 2, but its
- * use is strongly discouraged because it is incompatible with Level 2
- * Versions 3 and 4.
+ * @copydetails doc_warning_species_spatialSizeUnits
  *
  * @memberof Species_t
  */
@@ -2700,7 +2686,7 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid);
  * structure.
  *
  * This function copies the string given in @p sid.  If the string is NULL,
- * this function performs unsetUnits() instead.
+ * this function is equivalent to calling Species_unsetUnits().
  *
  * @param s the Species_t structure.
  * 
@@ -2812,7 +2798,8 @@ Species_setConstant (Species_t *s, int value);
  * Sets the "conversionFactor" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function performs unsetConversionFactor() instead.
+ * is NULL, this function is equivalent to calling 
+ * Species_unsetConversionFactor().
  *
  * @param s the Species_t structure.
  * 
@@ -2942,13 +2929,7 @@ Species_unsetSubstanceUnits (Species_t *s);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * 
- * @warning In versions of SBML Level&nbsp;2 before Version&nbsp;3, the structure
- * Species_t included an attribute called "spatialSizeUnits", which allowed
- * explicitly setting the units of size for initial concentration.  This
- * attribute was removed in SBML Level 2 Version&nbsp;3.  LibSBML retains this
- * attribute for compatibility with older definitions of Level 2, but its
- * use is strongly discouraged because it is incompatible with Level 2
- * Versions 3 and 4.
+ * @copydetails doc_warning_species_spatialSizeUnits
  *
  * @memberof Species_t
  */
