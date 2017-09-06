@@ -729,8 +729,8 @@ const char *
 ReactionGlyph_getReactionId (const ReactionGlyph_t *rg);
 
 /**
- * Returns 0 if the reference reaction has not been set for this glyph and
- * 1 otherwise.
+ * Returns @c 0 (false) if the reference reaction has not been set for this glyph and
+ * @c 1 (true) otherwise.
  *
  * @param rg the ReactionGlyph_t structure.
  *
@@ -766,7 +766,7 @@ unsigned int
 ReactionGlyph_getNumSpeciesReferenceGlyphs (const ReactionGlyph_t *rg);
 
 /**
- * Returns the pointer to the SpeciesReferenceGlyph_t's for the given index.
+ * Returns the pointer to the SpeciesReferenceGlyph_t for the given index.
  *
  * @param rg the ReactionGlyph_t structure.
  * @param index the index of the SpeciesReferenceGlyph_t to return.
@@ -789,20 +789,6 @@ ReactionGlyph_getSpeciesReferenceGlyph (ReactionGlyph_t *rg,
 LIBSBML_EXTERN
 ListOf_t *
 ReactionGlyph_getListOfSpeciesReferenceGlyphs (ReactionGlyph_t *rg);
-
-/**
- * Removes the species reference glyph with the given index.  If the index
- * is invalid, nothing is removed.
- *
- * @param rg the ReactionGlyph_t structure.
- * @param index the index of the SpeciesReferenceGlyph_t to remove.
- *
- * @memberof ReactionGlyph_t
- */
-LIBSBML_EXTERN
-SpeciesReferenceGlyph_t *
-ReactionGlyph_removeSpeciesReferenceGlyph (ReactionGlyph_t *rg,
-                                           unsigned int index);
 
 /**
  * Calls initDefaults from GraphicalObject.

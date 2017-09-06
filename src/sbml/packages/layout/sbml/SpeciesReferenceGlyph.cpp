@@ -87,7 +87,7 @@ SpeciesReferenceGlyph::renameSIdRefs(const std::string& oldid, const std::string
 /*
  * Creates a new SpeciesReferenceGlyph.  The id if the associated species
  * reference and the id of the associated species glyph are set to the
- * empty string.  The role is set to SPECIES_ROLE_INVALID.
+ * empty string.  The role is set to {SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
  */
 SpeciesReferenceGlyph::SpeciesReferenceGlyph (unsigned int level, unsigned int version, unsigned int pkgVersion)
  : GraphicalObject(level,version,pkgVersion)

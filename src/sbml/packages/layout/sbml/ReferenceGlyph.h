@@ -489,8 +489,8 @@ const char *
 ReferenceGlyph_getReferenceId(const ReferenceGlyph_t *rg);
 
 /**
- * Returns 0 if the reference reference has not been set for this
- * glyph and 1 otherwise.
+ * Returns @c 0 (false) if the reference reference has not been set for this
+ * glyph and @c 1 (true) otherwise.
  *
  * @param rg the ReferenceGlyph_t structure.
  *
@@ -525,8 +525,8 @@ const char *
 ReferenceGlyph_getGlyphId (const ReferenceGlyph_t *rg);
 
 /**
- * Returns 0 if the reference has not been set for this
- * glyph and 1 otherwise.
+ * Returns @c 0 (false) if the reference has not been set for this
+ * glyph and @c 1 (true) otherwise.
  *
  * @param rg the ReferenceGlyph_t structure.
  *

@@ -75,7 +75,8 @@ public:
    * Creates a new SpeciesReferenceGlyph with the given SBML level, version and
    * package version.  The id if the associated species
    * reference and the id of the associated species glyph are set to the
-   * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
+   * empty string.  The role is set to @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}
+.
    *
    * @param level the SBML Level.
    * @param version the Version within the SBML Level.
@@ -241,13 +242,13 @@ public:
   bool isSetSpeciesReferenceId() const;
         
   /**
-   * Returns @c true of role is different from SPECIES_ROLE_UNDEFINED.
+   * Returns @c true of role is different from @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
    */
   bool isSetRole () const;
         
   /**
    * Calls initDefaults on GraphicalObject and sets role to
-   * SPECIES_ROLE_UNDEFINED.
+   * @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
    */
   void initDefaults ();
 
@@ -511,8 +512,8 @@ const char *
 SpeciesReferenceGlyph_getSpeciesReferenceId(const SpeciesReferenceGlyph_t *srg);
 
 /**
- * Returns 0 if the reference species reference has not been set for this
- * glyph and 1 otherwise.
+ * Returns @c 0 (false) if the reference species reference has not been set for this
+ * glyph and @c 1 (true) otherwise.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -536,7 +537,7 @@ SpeciesReferenceGlyph_setSpeciesGlyphId (SpeciesReferenceGlyph_t *srg,
                                          const char *id);
 
 /**
- * Gets the reference speciess id for the given species glyph.
+ * Gets the reference species id for the given species glyph.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -547,8 +548,8 @@ const char *
 SpeciesReferenceGlyph_getSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg);
 
 /**
- * Returns 0 if the reference species reference has not been set for this
- * glyph and 1 otherwise.
+ * Returns @c 0 (false) if the reference species reference has not been set for this
+ * glyph and @c 1 (true) otherwise.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -583,7 +584,7 @@ Curve_t *
 SpeciesReferenceGlyph_getCurve (SpeciesReferenceGlyph_t *srg);
 
 /**
- * Returns true if the Curve_t has one or more LineSegment_t's.
+ * Returns @c 1 (true) if the Curve_t has one or more LineSegment_t's.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -595,9 +596,18 @@ SpeciesReferenceGlyph_isSetCurve(SpeciesReferenceGlyph_t* srg);
 
 /**
  * Sets the role of the species reference glyph based on the string.  The
- * string can be one of UNDEFINED, SUBSTRATE, PRODUCT, SIDESUBSTRATE,
- * SIDEPRODUCT, MODIFIER, INHIBITOR or ACTIVATOR.  If it is none of those,
- * the role is set to SPECIES_ROLE_UNDEFINED.
+ * string can be one of:
+ * @li "substrate" (@sbmlconstant{SPECIES_ROLE_SUBSTRATE, SpeciesReferenceRole_t})
+ * @li "product" (@sbmlconstant{SPECIES_ROLE_PRODUCT, SpeciesReferenceRole_t})
+ * @li "sidesubstrate" (@sbmlconstant{SPECIES_ROLE_SIDESUBSTRATE, SpeciesReferenceRole_t})
+ * @li "sideproduct" (@sbmlconstant{SPECIES_ROLE_SIDEPRODUCT, SpeciesReferenceRole_t})
+ * @li "modifier" (@sbmlconstant{SPECIES_ROLE_MODIFIER, SpeciesReferenceRole_t})
+ * @li "activator" (@sbmlconstant{SPECIES_ROLE_ACTIVATOR, SpeciesReferenceRole_t})
+ * @li "inhibitor" (@sbmlconstant{SPECIES_ROLE_INHIBITOR, SpeciesReferenceRole_t})
+ * @li "undefined" (@sbmlconstant{SPECIES_ROLE_UNDEFINED, SpeciesReferenceRole_t})
+ *
+ * If it is none of those, the role is set to 
+ * @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  * @param r the role to use for the SpeciesReferenceGlyph_t.
@@ -632,7 +642,8 @@ SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg);
 
 
 /**
- * Returns true if the role is not SPECIES_ROLE_UNDEFINED.
+ * Returns @c 1 (true) if the role is not
+*  @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *
@@ -644,7 +655,7 @@ SpeciesReferenceGlyph_isSetRole(const SpeciesReferenceGlyph_t *srg);
 
 /**
  * Calls initDefaults on GraphicalObject and sets role to
- * SPECIES_ROLE_UNDEFINED.
+ * @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *

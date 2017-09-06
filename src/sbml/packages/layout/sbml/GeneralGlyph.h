@@ -774,8 +774,8 @@ GeneralGlyph_getReferenceId (const GeneralGlyph_t *gg);
 
 
 /**
- * Returns 0 if the reference element has not been set for this glyph and
- * 1 otherwise.
+ * Returns @c 0 (false) if the reference element has not been set for this glyph and
+ * @c 1 (true) otherwise.
  *
  * @param gg the GeneralGlyph_t structure.
  *

@@ -397,8 +397,8 @@ const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg);
 
 /**
- * Returns 0 if the reference compartment has not been set for this glyph
- * and 1 otherwise.
+ * Returns @c 0 (false) if the reference compartment has not been set for this glyph
+ * and @c 1 (true) otherwise.
  *
  * @param cg the CompartmentGlyph_t structure.
  *

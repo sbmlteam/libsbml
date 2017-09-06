@@ -712,7 +712,7 @@ StoichiometryMath_getNamespaces(StoichiometryMath_t *sm);
 
 
 /**
- * @return the stoichMath of this StoichiometryMath_t.
+ * @return the math of this StoichiometryMath_t as an ASTNode_t.
  *
  * @memberof StoichiometryMath_t
  */
@@ -722,7 +722,7 @@ StoichiometryMath_getMath (const StoichiometryMath_t *t);
 
 
 /**
- * @return @c 1 (true) if the stoichMath (or equivalently the formula) of
+ * @return @c 1 (true) if the math (or equivalently the formula) of
  * this StoichiometryMath_t is set, @c 0 (false) otherwise.
  *
  * @memberof StoichiometryMath_t
@@ -758,18 +758,18 @@ StoichiometryMath_setMath (StoichiometryMath_t *t, const ASTNode_t *math);
  * The units are calculated based on the mathematical expression in the
  * StoichiometryMath_t and the model quantities referenced by
  * <code>&lt;ci&gt;</code> elements used within that expression.  The
- * getDerivedUnitDefinition() method returns the calculated units.
+ * StoichiometryMath_getDerivedUnitDefinition() method returns the calculated units.
  * 
  * @warning Note that it is possible the "math" expression in the
  * StoichiometryMath_t contains pure numbers or parameters with undeclared
  * units.  In those cases, it is not possible to calculate the units of
  * the overall expression without making assumptions.  LibSBML does not
- * make assumptions about the units, and getDerivedUnitDefinition() only
- * returns the units as far as it is able to determine them.  For
+ * make assumptions about the units, and StoichiometryMath_getDerivedUnitDefinition()
+ * only returns the units as far as it is able to determine them.  For
  * example, in an expression <em>X + Y</em>, if <em>X</em> has
  * unambiguously-defined units and <em>Y</em> does not, it will return
  * the units of <em>X</em>.  <strong>It is important that callers also
- * invoke the method</strong> containsUndeclaredUnits() <strong>to
+ * invoke the method StoichiometryMath_containsUndeclaredUnits() to
  * determine whether this situation holds</strong>.  Callers may wish to
  * take suitable actions in those scenarios.
  *
@@ -794,8 +794,8 @@ StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *math);
  * with undeclared units, @c 0 (false) otherwise.
  *
  * @note a return value of @c 1 (true) indicates that the UnitDefinition_t
- * returned by getDerivedUnitDefinition() may not accurately represent
- * the units of the expression.
+ * returned by StoichiometryMath_getDerivedUnitDefinition() may not 
+ * accurately represent the units of the expression.
  *
  * @see StoichiometryMath_getDerivedUnitDefinition()
  *

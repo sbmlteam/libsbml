@@ -351,7 +351,7 @@ const char *
 SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg);
 
 /**
- * Returns @c 0 (false) if the id of the associated species is the empty string.
+ * Returns @c 0 (false) if the id of the associated species is the empty string,
  * @c 1 (true) otherwise.
  * 
  * @param sg the SpeciesGlyph_t structure.

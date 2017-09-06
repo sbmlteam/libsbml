@@ -711,6 +711,10 @@ public:
    *
    * @return the newly created StoichiometryMath object instance.
    *
+   * @note This function has no effect on SBML Level 1 or Level 3 
+   * SpeciesReference objects, neither of which have
+   * StoichiometryMath children.
+   *
    * @see Reaction::addReactant(const SpeciesReference* sr)
    * @see Reaction::addProduct(const SpeciesReference* sr)
    */
@@ -1747,7 +1751,7 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr);
  * Get the value of the "stoichiometry" attribute of the given
  * SpeciesReference_t structure.
  *
- * This function returns @c 0 (false) if the SpeciesReference_t structure is a
+ * This function returns @c 0 if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
  *
  * @param sr the SpeciesReference_t structure to use.
@@ -1771,6 +1775,10 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
  * @param sr the SpeciesReference_t structure to use.
  * 
  * @return the stoichiometryMath of this SpeciesReference_t.
+ *
+ * @note This function has no effect on SBML Level 1 or Level 3
+ * SpeciesReference_t objects, neither of which have
+ * StoichiometryMath_t children.
  *
  * @memberof SpeciesReference_t
  */
@@ -2035,6 +2043,10 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
  * @see Reaction_addReactant()
  * @see Reaction_addProduct()
  *
+ * @note This function has no effect on SBML Level 1 or Level 3
+ * SpeciesReference_t elements, neither of which have
+ * StoichiometryMath_t children.
+ *
  * @memberof SpeciesReference_t
  */
 LIBSBML_EXTERN
@@ -2058,6 +2070,10 @@ SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr);
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ *
+ * @note This function has no effect on SBML Level 1 or Level 3
+ * SpeciesReference_t elements, neither of which have
+ * StoichiometryMath_t children.
  *
  * @memberof SpeciesReference_t
  */
@@ -2199,6 +2215,10 @@ SpeciesReference_unsetConstant (SpeciesReference_t *sr);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
+ * @note This function has no effect on SBML Level 1 or Level 3
+ * SpeciesReference_t elements, neither of which have
+ * StoichiometryMath_t children.
+ *
  * @memberof SpeciesReference_t
  */
 LIBSBML_EXTERN
@@ -2227,7 +2247,7 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
+  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
   * all the required attributes for this SpeciesReference_t structure
   * have been set.
   *
@@ -2237,8 +2257,8 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
   *
   * @param sr the SpeciesReference_t structure to check.
   *
-  * @return a true if all the required
-  * attributes for this object have been defined, @c false otherwise.
+  * @return @c 1 (true) if all the required
+  * attributes for this object have been defined, @c 0 (false) otherwise.
   *
  * @memberof SpeciesReference_t
  */
