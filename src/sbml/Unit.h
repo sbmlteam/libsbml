@@ -922,21 +922,20 @@ public:
 
 
   /**
-   * Predicate to test whether a given string is the name of a
-   * predefined SBML unit.
+   * Predicate to test whether a given string is the name of a built-in SBML
+   * unit, depending on the SBML level, since new predefined units were added
+   * between level 2 versions 1 and 2, and then all predefined units were removed
+   * again in SBML Level 3.
    *
-   * @param name a string to be tested against the predefined unit names.
+   * @param name a string to be tested against the built-in unit names.
+   * @param level the level of SBML one is checking.
    *
-   * @param level the Level of SBML for which the determination should be
-   * made.  This is necessary because there are a few small differences
-   * in allowed units between SBML Level&nbsp;1 and Level&nbsp;2.
-   * 
-   * @return @c true if @p name is one of the five SBML predefined unit
-   * identifiers (@c "substance", @c "volume", @c "area", @c "length" or @c
-   * "time"), @c false otherwise.
+   * @return @c true if @p name is one of @c "substance", @c "volume",
+   * or @c "time" and the @p level is @c 1; or if @p name is one of
+   * @c "substance", @c "volume", @c "area", @c "length", or @c "time" and
+   * the @p level is @c 2; @c false otherwise (including all values when
+   * @p level is @c 3).
    *
-   * @note The predefined unit identifiers @c "length" and @c "area" were
-   * added in Level&nbsp;2 Version&nbsp;1.
    *
    * @copydetails doc_note_static_methods
    */
@@ -2724,17 +2723,18 @@ Unit_hasRequiredAttributes(Unit_t *u);
 
 /**
  * Predicate to test whether a given string is the name of a built-in SBML
- * unit, depending on the SBML level, since new units were added between
- * levels 2 and 3.
+ * unit, depending on the SBML level, since new predefined units were added 
+ * between level 2 versions 1 and 2, and then all predefined units were removed
+ * again in SBML Level 3.
  *
  * @param name a string to be tested against the built-in unit names.
  * @param level the level of SBML one is checking.
  *
- * @return @c 1 (true) if @p name is one of the five SBML
- * built-in Unit names (@c "substance", @c "volume", @c "area", @c "length"
- * or @c "time"), @c 0 (false) otherwise
- *
- * @note @c "length" and @c "area" were added in Level 2 Version 1
+ * @return @c 1 (true) if @p name is one of @c "substance", @c "volume",
+ * or @c "time" and the @p level is @c 1; or if @p name is one of 
+ * @c "substance", @c "volume", @c "area", @c "length", or @c "time" and
+ * the @p level is @c 2; @c 0 (false) otherwise (including all values when
+ * @p level is @c 3).
  *
  * @memberof Unit_t
  */
