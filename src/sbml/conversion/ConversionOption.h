@@ -511,7 +511,7 @@ ConversionOption_getValue(const ConversionOption_t* co);
  *
  * @param co the conversion option.
  *
- * @return the value, as a boolean.
+ * @return the value, @c 1 (true), or @c 0 (false).
  *
  * @memberof ConversionOption_t
  */

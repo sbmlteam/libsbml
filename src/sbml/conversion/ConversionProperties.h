@@ -455,7 +455,8 @@ ConversionProperties_clone(const ConversionProperties_t* cp);
  * @param cp the conversion properties.
  * @param key the key for the option.
  *
- * @return the boolean value of the option with the given key to be freed by the caller, or @c NULL.
+ * @return the boolean value of the option as an integer (@c 1 = true; 
+ * @c 0 = false or NULL) with the given key to be freed by the caller.
  *
  * @memberof ConversionProperties_t
  */
@@ -624,7 +625,8 @@ ConversionProperties_setTargetNamespaces(ConversionProperties_t* cp, SBMLNamespa
  *
  * @param cp the conversion properties.
  * @param key the key for the option.
- * @param value the new value for the option.
+ * @param value the new value for the option,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @memberof ConversionProperties_t
  */

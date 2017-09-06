@@ -2176,9 +2176,9 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  *
  * The second argument (@p category) to this method indicates which
  * category of consistency/error checks are being turned on or off, and
- * the third argument (an integer treated as a boolean, with non-zero 
- * indicating @c true and zero indicating @c false) indicates whether to turn 
- * on (@c true) or off (@c false) that particula category of checks.
+ * the third argument (an integer treated as a boolean, with @c nonzero 
+ * indicating @c true and @c zero indicating @c false) indicates whether to turn 
+ * on (@c true) or off (@c false) that particular category of checks.
  * The possible categories are represented as values of the enumeration
  * SBMLErrorCategory_t.  The following are the possible choices:
  *
@@ -2216,8 +2216,9 @@ SBMLDocument_getLocationURI(SBMLDocument_t *d);
  * @param category a value drawn from SBMLErrorCategory_t indicating the
  * consistency checking/validation to be turned on or off.
  *
- * @param apply a boolean indicating whether the checks indicated by @p
- * category should be applied or not. 
+ * @param apply an integer indicating whether the checks indicated by @p
+ * category should be applied or not,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  * 
  * @note The default (i.e., performing all checks) applies to each new
  * SBMLDocument_t structure created.  This means that each time a model is
@@ -2281,8 +2282,9 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t *d,
  * @param category a value drawn from SBMLErrorCategory_t indicating the
  * consistency checking/validation to be turned on or off.
  *
- * @param apply a boolean indicating whether the checks indicated by @p
- * category should be applied or not. 
+ * @param apply an integer indicating whether the checks indicated by @p
+ * category should be applied or not,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  * 
  * @note The default (i.e., performing all checks) applies to each new
  * SBMLDocument_t structure created.  This means that each time a model is
@@ -2760,7 +2762,8 @@ SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package);
  *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
- * @param flag a Boolean value.
+ * @param flag integer,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2781,7 +2784,8 @@ SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
  *
  * @param d the SBMLDocument_t structure.
  * @param package the name or URI of the package extension.
- * @param flag a Boolean value.
+ * @param flag integer,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

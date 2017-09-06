@@ -1058,7 +1058,8 @@ Trigger_setMath (Trigger_t *t, const ASTNode_t *math);
  * Sets the "initialValue" attribute of this Trigger_t instance.
  *
  * @param t the Trigger_t structure.
- * @param initialValue a boolean representing the initialValue to be set.
+ * @param initialValue an integer representing the initialValue to be set,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1075,7 +1076,8 @@ Trigger_setInitialValue (Trigger_t *t, int initialValue);
  * Sets the "persistent" attribute of this Trigger_t instance.
  *
  * @param t the Trigger_t structure.
- * @param persistent a boolean representing the initialValue to be set.
+ * @param persistent an integer representing the initialValue to be set,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

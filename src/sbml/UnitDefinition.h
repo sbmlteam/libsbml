@@ -2195,8 +2195,9 @@ UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * debugging software, or other situations.
  *
  * @param ud the UnitDefinition_t structure
- * @param compact boolean indicating whether the compact form
- * should be used.
+ * @param compact integer indicating whether the compact form
+ * should be used,
+ * with @c nonzero indicating @c true, and @c zero indicating @c false.
  *
  * @return a string expressing the unit definition defined by the given
  * UnitDefinition_t structure @p ud.

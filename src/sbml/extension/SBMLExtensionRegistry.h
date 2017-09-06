@@ -521,7 +521,7 @@ SBMLExtensionRegistry_isEnabled(const char* uri);
  * Enable/disable the package with the given uri.
  *
  * @param uri the URI of the target package.
- * @param isEnabled the bool value corresponding to enabled (@c non-zero, true) or
+ * @param isEnabled the bool value corresponding to enabled (@c nonzero, true) or
  * disabled (@c zero, false).
  *
  * @return @c 0 (false) will be returned if the given bool value is false

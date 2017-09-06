@@ -1230,7 +1230,7 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units);
  * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
  *
  * @param p the LocalParameter_t structure to leave unchanged.
- * @param value the boolean value to ignore.
+ * @param value the integer value to ignore.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
