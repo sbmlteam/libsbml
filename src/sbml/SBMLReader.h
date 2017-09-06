@@ -135,16 +135,26 @@
  * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
  * object returned by this method.  Callers can use the methods on
  * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~ such as
- * @if python @link libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink@else SBMLDocument::getNumErrors()@endif@~
+ * @if python @link libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink@endif 
+ * @if conly SBMLDocument_getNumErrors() @else SBMLDocument::getNumErrors()@endif@~
  * and
- * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@if java SBMLDocument::getError(long)@endif@if cpp SBMLDocument::getError()@endif@if csharp SBMLDocument::getError()@endif@~
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif
+ * @if java SBMLDocument::getError(long)@endif
+ * @if cpp SBMLDocument::getError()@endif
+ * @if csharp SBMLDocument::getError()@endif
+ * @if conly SBMLDocument_getError()@endif@~
  * to get the errors.  The object returned by
- * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@if java SBMLDocument::getError(long)@endif@if cpp SBMLDocument::getError()@endif@if csharp SBMLDocument::getError()@endif@~
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif
+ * @if java SBMLDocument::getError(long)@endif
+ * @if cpp SBMLDocument::getError()@endif
+ * @if csharp SBMLDocument::getError()@endif
+ * @if conly SBMLDocument_getError()@endif@~
  * is an SBMLError object, and it has methods to get the error code,
  * category, and severity level of the problem, as well as a textual
  * description of the problem.  The possible severity levels range from
  * informational messages to fatal errors; see the documentation for
- * @if python @link libsbml.SBMLError SBMLError@endlink@else SBMLError@endif@~
+ * @if python @link libsbml.SBMLError SBMLError@endlink@endif
+ * @if conly SBMLError_t @else SBMLError@endif@~
  * for more information.
  *
  * If the file @p filename could not be read, the file-reading error will
@@ -152,7 +162,7 @@
  * enumeration #XMLErrorCode_t)@endif@~ can provide a clue about what
  * happened.  For example, a file might be unreadable (either because it does
  * not actually exist or because the user does not have the necessary access
- * priviledges to read it) or some sort of file operation error may have been
+ * privileges to read it) or some sort of file operation error may have been
  * reported by the underlying operating system.  Callers can check for these
  * situations using a program fragment such as the following:
  * @if cpp
@@ -284,8 +294,8 @@ if (doc.getNumErrors() > 0)
  *
  * This method will log a fatal error if the content given in the parameter
  * @p xml is not in SBML format.  See the method documentation for
- * SBMLReader::readSBML(@if java String@endif) for an example of code for
- * testing the returned error code.
+ * @if conly SBMLReader_readSBML() @else SBMLReader::readSBML(@if java String@endif)@endif
+ * for an example of code for testing the returned error code.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_note_reading_comp
@@ -295,8 +305,8 @@ if (doc.getNumErrors() > 0)
  * location cannot be set automatically. Thus, if the model contains
  * references to ExternalModelDefinition objects, it will be necessary to
  * manually set the document URI location
- * (SBMLDocument::setLocationURI(@if java String@endif) in order to facilitate
- * resolving these models.
+ * (@if conly SBMLDocument_setLocationURI) @else SBMLDocument::setLocationURI(@if java String@endif) @endif
+ * in order to facilitate resolving these models.
  */
 
 #ifndef SBMLReader_h

@@ -383,11 +383,13 @@ SBMLWriter_free (SBMLWriter_t *sw);
 /**
  * Sets the name of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program name and version are set
- * (setProgramVersion()), the following XML comment, intended for human
+ * (SBMLWriter_setProgramVersion()), the following XML comment, intended for human
  * consumption, will be written at the beginning of the document:
  *
- *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ * @verbatim
+ <!-- Created by <program name> version <program version>
+ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ @endverbatim
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -402,11 +404,13 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
 /**
  * Sets the version of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program version and name are set
- * (setProgramName()), the following XML comment, intended for human
+ * (SBMLWriter_setProgramName()), the following XML comment, intended for human
  * consumption, will be written at the beginning of the document:
  *
- *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ * @verbatim
+ <!-- Created by <program name> version <program version>
+ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+ @endverbatim
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -551,8 +555,8 @@ SBMLWriter_hasBzip2 ();
  * similar) when the compression functionality has not been enabled in
  * the underlying copy of libSBML.
  *
- * @see SBMLWriter::hasZlib()
- * @see SBMLWriter::hasBzip2()
+ * @see @if conly SBMLWriter_hasZlib() @else SBMLWriter::hasZlib() @endif
+ * @see @if conly SBMLWriter_hasBzip2() @else SBMLWriter::hasBzip2() @endif
  *
  * @if conly
  * @memberof SBMLWriter_t
