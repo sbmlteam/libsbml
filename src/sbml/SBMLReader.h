@@ -294,7 +294,10 @@ if (doc.getNumErrors() > 0)
  *
  * This method will log a fatal error if the content given in the parameter
  * @p xml is not in SBML format.  See the method documentation for
- * @if conly SBMLReader_readSBML() @else SBMLReader::readSBML(@if java String@endif)@endif
+ * @if conly SBMLReader_readSBML() 
+ * @elseif java SBMLReader::readSBML( String )
+ * @else SBMLReader::readSBML()
+ * @endif
  * for an example of code for testing the returned error code.
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -305,8 +308,11 @@ if (doc.getNumErrors() > 0)
  * location cannot be set automatically. Thus, if the model contains
  * references to ExternalModelDefinition objects, it will be necessary to
  * manually set the document URI location
- * (@if conly SBMLDocument_setLocationURI) @else SBMLDocument::setLocationURI(@if java String@endif) @endif
- * in order to facilitate resolving these models.
+ * (@if conly SBMLDocument_setLocationURI()
+ * @elseif java SBMLDocument::setLocationURI( String ) 
+ * @else SBMLDocument::setLocationURI()
+ * @endif
+ * ) in order to facilitate resolving these models.
  */
 
 #ifndef SBMLReader_h
