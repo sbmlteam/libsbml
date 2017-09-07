@@ -3912,7 +3912,7 @@ SBase_getParentSBMLObject (SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  * @param type the typecode (int) of the structure to be returned.
- * @param pkgName the name of the package that defines the @param type .
+ * @param pkgName the name of the package that defines the @p type .
  *
  * @return the ancestor SBase_t structure of this SBML structure with
  * the corresponding typecode (int), NULL if there is no ancestor of
@@ -4002,7 +4002,7 @@ SBase_getSBOTermAsURL (const SBase_t *sb);
  *
  * @return the line number of the given structure, or <code>0</code> if no such value.
  *
- * @see getColumn().
+ * @see SBase_getColumn().
  *
  * @memberof SBase_t
  */
@@ -4020,7 +4020,7 @@ SBase_getLine (const SBase_t *sb);
  *
  * @return the column number of this SBML structure, or <code>0</code> if no such value.
  *
- * @see getLine().
+ * @see SBase_getLine().
  *
  * @memberof SBase_t
  */
@@ -4755,7 +4755,7 @@ SBase_unsetSBOTerm (SBase_t *sb);
  * @note The annotation constructed from a CVTerm_t uses the metaid
  * of the structure to identify it.  Adding a CVTerm_t to an structure
  * where the 'metaId' attribute has not been set will fail with the
- * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
+ * return value @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}.
  *
  * @memberof SBase_t
  */
@@ -4780,7 +4780,7 @@ SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
  * @note The annotation constructed from a CVTerm_t uses the metaid
  * of the structure to identify it.  Adding a CVTerm_t to an structure
  * where the 'metaId' attribute has not been set will fail with the
- * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
+ * return value @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}.
  *
  * @memberof SBase_t
  */
@@ -4968,7 +4968,7 @@ SBase_getModel (const SBase_t *sb);
  *
  * @return the SBML level of the given structure.
  *
- * @see getVersion()
+ * @see SBase_getVersion()
  *
  * @memberof SBase_t
  */
@@ -4984,7 +4984,7 @@ SBase_getLevel (const SBase_t *sb);
  *
  * @return the SBML version of the given structure.
  *
- * @see getLevel()
+ * @see SBase_getLevel()
  *
  * @memberof SBase_t
  */
@@ -5018,8 +5018,8 @@ SBase_getVersion (const SBase_t *sb);
  * @return the typecode (int value) of this SBML structure or SBML_UNKNOWN
  * (default).
  *
- * @see getElementName()
- * @see getPackageName()
+ * @see SBase_getElementName()
+ * @see SBase_getPackageName()
  *
  * @memberof SBase_t
  */
