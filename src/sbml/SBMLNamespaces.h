@@ -710,7 +710,7 @@ SBMLNamespaces_getVersion(SBMLNamespaces_t *sbmlns);
 
 
 /**
- * Get the SBML Version of this SBMLNamespaces_t structure.
+ * Get the XML Namespaces list of this SBMLNamespaces_t structure.
  *
  * @param sbmlns the SBMLNamespaces_t structure to query.
  *
