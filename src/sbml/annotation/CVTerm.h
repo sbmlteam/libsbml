@@ -1285,7 +1285,7 @@ BEGIN_C_DECLS
  *
  * This method takes a model qualifier type as argument
  * and returns a string name corresponding to that code.  For example,
- * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return
+ * passing it the qualifier @sbmlconstant{BQM_IS_DESCRIBED_BY, ModelQualifierType_t} will return
  * the string <code>"isDescribedBy"</code>.
  *
  * @param type the @if clike ModelQualifierType_t@endif@~ value to
@@ -1312,10 +1312,10 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  *
  * This method takes a biol qualifier type as argument
  * and returns a string name corresponding to that code.  For example,
- * passing it the qualifier <code>BQB_HAS_VERSION</code> will return
+ * passing it the qualifier @sbmlconstant{BQB_HAS_VERSION, BiolQualifierType_t} will return
  * the string <code>"hasVersion"</code>.
  *
- * @param type the @if clike BiolQualifierType_t@endif@~ value to
+ * @param type the @if clike #BiolQualifierType_t@endif@~ value to
  * translate. @ifnot clike The value should be a constant whose name
  * begins with @c BQB_, such as (for example)
  * @sbmlconstant{BQB_IS, BiolQualifierType_t}.@endif@~
@@ -1340,9 +1340,9 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  * This method takes a string as argument and returns a model qualifier type
  * corresponding to that string.  For example, passing it the string
  * <code>"isDescribedBy"</code> will return the qualifier
- * <code>BQM_IS_DESCRIBED_BY</code>.
+ * @sbmlconstant{BQM_IS_DESCRIBED_BY, ModelQualifierType_t}.
  *
- * @param s the string to translate to a @if clike ModelQualifierType_t
+ * @param s the string to translate to a @if clike #ModelQualifierType_t
  * value@else libSBML constant value representing a model qualifier@endif.
  *
  * @return a libSBML qualifier enumeration value for the given human readable
@@ -1363,9 +1363,9 @@ ModelQualifierType_fromString(const char* s);
  * This method takes a string as argument and returns a biol qualifier type
  * corresponding to that string.  For example, passing it the string
  * <code>"hasVersion"</code> will return the qualifier
- * <code>BQB_HAS_VERSION</code>.
+ * @sbmlconstant{BQB_HAS_VERSION, BiolQualifierType_t}.
  *
- * @param s the string to translate to a @if clike BiolQualifierType_t
+ * @param s the string to translate to a @if clike #BiolQualifierType_t
  * value@else libSBML constant value representing a biological qualifier@endif.
  *
  * @return a libSBML qualifier enumeration value for the given human readable
@@ -1391,9 +1391,10 @@ BEGIN_C_DECLS
  * Creates a new CVTerm_t with the given #QualifierType_t value @p type and
  * returns a pointer to it.
  *
- * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.
+ * The possible QualifierTypes are @sbmlconstant{MODEL_QUALIFIER, QualifierType_t} 
+ * and @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t}.
  *
- * @param type a QualifierType_t.
+ * @param type a #QualifierType_t.
  *
  * @return a pointer to the newly created CVTerm_t structure.
  *
@@ -1405,20 +1406,20 @@ CVTerm_createWithQualifierType(QualifierType_t type);
 
 
 /**
- * Create a new CVTerm_t from the given XMLNode_t and returns a
+ * Create a new CVTerm_t from the given #XMLNode_t and returns a
  * pointer to it.
  *
  * RDFAnnotations within a model are stored as a List_t of CVTerm_t's.  This allows
  * the user to interact with the CVTerm_t's directly.  When LibSBML reads in a
  * model containing RDFAnnotations it parses them into a %List of CVTerm_t's and
  * when writing a model it parses the CVTerm_t's into the appropriate annotation
- * structure.  This function creates a CVTerm_t from the XMLNode_t supplied.
+ * structure.  This function creates a CVTerm_t from the #XMLNode_t supplied.
  *
- * @param node an XMLNode_t representing a CVTerm_t.
+ * @param node an #XMLNode_t representing a CVTerm_t.
  *
  * @return a pointer to the newly created CVTerm_t structure.
  *
- * @note this method assumes that the %XMLNode_t is of the correct form
+ * @note this method assumes that the #XMLNode_t is of the correct form
  *
  * @memberof CVTerm_t
  */
@@ -1458,7 +1459,7 @@ CVTerm_clone (const CVTerm_t* term);
  *
  * @param term the CVTerm_t structure whose #QualifierType_t value is sought.
  *
- * @return the #QualifierType_t value of this CVTerm_t or UNKNOWN_QUALIFIER
+ * @return the #QualifierType_t value of this CVTerm_t or @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}
  * (default).
  *
  * @memberof CVTerm_t
@@ -1549,7 +1550,7 @@ CVTerm_getResourceURI(CVTerm_t * term, unsigned int n);
 
 
 /**
- * Sets the "QualifierType_t" of this %CVTerm_t.
+ * Sets the #QualifierType_t of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
  * @param type the QualifierType_t.
@@ -1566,7 +1567,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
 
 
 /**
- * Sets the "ModelQualifierType_t" of this %CVTerm_t.
+ * Sets the #ModelQualifierType_t of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
  * @param type the #ModelQualifierType_t.
@@ -1710,7 +1711,7 @@ CVTerm_hasRequiredAttributes(CVTerm_t *term);
  * Returns the number of CVTerm_t structures nested within this CVTerm_t
  * structure.
  *
- * @param cvt the structure to getNumNestedCVTerms from.
+ * @param cvt the structure to get the number of nested CVTerms from.
  *
  * @return the number of CVTerm_t structures nested within this CVTerm_t structure.
  *

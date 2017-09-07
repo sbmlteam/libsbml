@@ -7830,6 +7830,15 @@ SBase_getElementName (const SBase_t *sb)
 
 
 LIBSBML_EXTERN
+char *
+SBase_getPackageName(const SBaseExtensionPoint_t *sb)
+{
+  if (sb == NULL) return NULL;
+  return safe_strdup(sb->getPackageName().c_str());
+}
+
+
+LIBSBML_EXTERN
 unsigned int
 SBase_getLine (const SBase_t *sb)
 {

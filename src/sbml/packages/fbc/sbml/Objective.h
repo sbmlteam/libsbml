@@ -1707,7 +1707,7 @@ ListOfObjectives_removeById(ListOf_t * lo, const char * sid);
  *
  * @return A string corresponding to the given effect:  "maximize",
  * "minimize", or @c NULL if the value is 
- * @sbmlconstant {OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}
+ * @sbmlconstant{OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}
  * or another invalid enumeration value.
  *
  * @memberof Objective_t
@@ -1719,15 +1719,15 @@ ObjectiveType_toString(ObjectiveType_t type);
 
 /**
  * Returns the ObjectiveType_t enumeration corresponding to
- * the given string, or @sbmlconstant {OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t} if there is
+ * the given string, or @sbmlconstant{OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t} if there is
  * no such match.  The matching is case-sensitive:  "maximize" will
- * return @sbmlconstant {OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t}, but "Maximize" will return
- * @sbmlconstant {OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}.
+ * return @sbmlconstant{OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t}, but "Maximize" will return
+ * @sbmlconstant{OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}.
  *
  * @param s the string to convert to an ObjectiveType_t.
  *
  * @return The corresponding ObjectiveType_t, or
- * @sbmlconstant {OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t} if no match found.
+ * @sbmlconstant{OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t} if no match found.
  *
  * @memberof Objective_t
  */
@@ -1743,9 +1743,9 @@ ObjectiveType_fromString(const char* s);
  * @param type the ObjectiveType_t enumeration to query.
  *
  * @return @c 1 (true) if the ObjectiveType_t is
- * @sbmlconstant {OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t}
- * or @sbmlconstant {OBJECTIVE_TYPE_MINIMIZE, ObjectiveType_t};
- * @c 0 (false) otherwise (including @sbmlconstant {OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}).
+ * @sbmlconstant{OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t}
+ * or @sbmlconstant{OBJECTIVE_TYPE_MINIMIZE, ObjectiveType_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{OBJECTIVE_TYPE_UNKNOWN, ObjectiveType_t}).
  *
  * @memberof Objective_t
  */

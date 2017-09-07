@@ -3656,4 +3656,26 @@ if (lmp != null)
  * otherwise encoded here.
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_sbo_terms
+ *
+ * @par
+ * Beginning with SBML Level 2 Version 2, objects derived from SBase have
+ * an optional attribute named "sboTerm" for supporting the use of the
+ * Systems Biology Ontology.  In SBML proper, the data type of the
+ * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
+ * seven digit integer number; libSBML simplifies the representation by
+ * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
+ * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
+ * are stored simply as integers.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_sbo_terms_addendum
+ *
+ * @par
+ * SBO terms are a type of optional annotation, and each different class
+ * of SBML object derived from SBase imposes its own requirements about
+ * the values permitted for "sboTerm". More details can be found in SBML
+ * specifications for Level&nbsp;2 Version&nbsp;2 and above.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  */

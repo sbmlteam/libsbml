@@ -94,7 +94,7 @@
  * serves to identify a model component for purposes such as referencing
  * that component from metadata placed within "annotation" subelements.
  *
- * Beginning with SBML Level 2 Version 3, SBase also has an optional
+ * Beginning with SBML Level 2 Version 2, SBase has an optional
  * attribute named "sboTerm" for supporting the use of the Systems Biology
  * Ontology.  In SBML proper, the data type of the attribute is a string of
  * the form "SBO:NNNNNNN", where "NNNNNNN" is a seven digit integer number;
@@ -105,9 +105,8 @@
  * form and a text-string form of the SBO identifier.)  SBO terms are a
  * type of optional annotation, and each different class of SBML object
  * derived from SBase imposes its own requirements about the values
- * permitted for "sboTerm".  Please consult the SBML Level&nbsp;2
- * Version&nbsp;4 specification for more information about the use of SBO
- * and the "sboTerm" attribute.
+ * permitted for "sboTerm".  More details can be found in SBML specifications
+ * for Level&nbsp;2 Version&nbsp;2 and above.
  *
  * Finally, note that, in the list of methods on SBase, there is no public
  * constructor because SBase is an abstract class.  The constructors reside
@@ -860,22 +859,8 @@ public:
    * Returns the integer portion of the value of the "sboTerm" attribute of
    * this object.
    *
-   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
-   * an optional attribute named "sboTerm" for supporting the use of the
-   * Systems Biology Ontology.  In SBML proper, the data type of the
-   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
-   * seven digit integer number; libSBML simplifies the representation by
-   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
-   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
-   * are stored simply as integers.  (For convenience, libSBML offers
-   * methods for returning both the integer form and a text-string form of
-   * the SBO identifier.)
-   *
-   * SBO terms are a type of optional annotation, and each different class
-   * of SBML object derived from SBase imposes its own requirements about
-   * the values permitted for "sboTerm".  Please consult the SBML
-   * Level&nbsp;2 Version&nbsp;4 specification for more information about
-   * the use of SBO and the "sboTerm" attribute.
+   * @copydetails doc_sbo_terms
+   * @copydetails doc_sbo_terms_addendum
    *
    * @return the value of the "sboTerm" attribute as an integer, or @c -1
    * if the value is not set.
@@ -887,21 +872,8 @@ public:
    * Returns the string representation of the "sboTerm" attribute of
    * this object.
    *
-   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
-   * an optional attribute named "sboTerm" for supporting the use of the
-   * Systems Biology Ontology.  In SBML proper, the data type of the
-   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
-   * seven digit integer number; libSBML simplifies the representation by
-   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
-   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
-   * are stored simply as integers.  This method returns the entire SBO
-   * identifier as a text string in the form "SBO:NNNNNNN".
-   *
-   * SBO terms are a type of optional annotation, and each different class
-   * of SBML object derived from SBase imposes its own requirements about
-   * the values permitted for "sboTerm".  Please consult the SBML
-   * Level&nbsp;2 Version&nbsp;4 specification for more information about
-   * the use of SBO and the "sboTerm" attribute.
+   * @copydetails doc_sbo_terms
+   * @copydetails doc_sbo_terms_addendum
    *
    * @return the value of the "sboTerm" attribute as a string (its value
    * will be of the form "SBO:NNNNNNN"), or an empty string if
@@ -917,11 +889,7 @@ public:
    * This method returns the entire SBO identifier as a text string in the
    * form <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://identifiers.org/biomodels.sbo/SBO:NNNNNNN"</code>.
    *
-   * SBO terms are a type of optional annotation, and each different class
-   * of SBML object derived from SBase imposes its own requirements about
-   * the values permitted for "sboTerm".  Please consult the SBML
-   * Level&nbsp;2 Version&nbsp;4 specification for more information about
-   * the use of SBO and the "sboTerm" attribute.
+   * @copydetails doc_sbo_terms_addendum
    *
    * @return the value of the "sboTerm" attribute as an identifiers.org URL,
    * or an empty string if the value is not set.
@@ -1771,20 +1739,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Sets the value of the "sboTerm" attribute.
    *
-   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
-   * an optional attribute named "sboTerm" for supporting the use of the
-   * Systems Biology Ontology.  In SBML proper, the data type of the
-   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
-   * seven digit integer number; libSBML simplifies the representation by
-   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
-   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
-   * are stored simply as integers. 
-   *
-   * SBO terms are a type of optional annotation, and each different class
-   * of SBML object derived from SBase imposes its own requirements about
-   * the values permitted for "sboTerm".  Please consult the SBML
-   * Level&nbsp;2 Version&nbsp;4 specification for more information about
-   * the use of SBO and the "sboTerm" attribute.
+   * @copydetails doc_sbo_terms
+   * @copydetails doc_sbo_terms_addendum
    *
    * @param value the NNNNNNN integer portion of the SBO identifier.
    *
@@ -1801,22 +1757,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Sets the value of the "sboTerm" attribute by string.
    *
-   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
-   * an optional attribute named "sboTerm" for supporting the use of the
-   * Systems Biology Ontology.  In SBML proper, the data type of the
-   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
-   * seven digit integer number; libSBML simplifies the representation by
-   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
-   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
-   * are stored simply as integers.  This method lets you set the value of
-   * "sboTerm" as a complete string of the form "SBO:NNNNNNN", whereas
-   * SBase::setSBOTerm(int value) allows you to set it using the integer form.
-   *
-   * SBO terms are a type of optional annotation, and each different class
-   * of SBML object derived from SBase imposes its own requirements about
-   * the values permitted for "sboTerm".  Please consult the SBML
-   * Level&nbsp;2 Version&nbsp;4 specification for more information about
-   * the use of SBO and the "sboTerm" attribute.
+   * @copydetails doc_sbo_terms
+   * @copydetails doc_sbo_terms_addendum
    *
    * @param sboid the SBO identifier string of the form "SBO:NNNNNNN".
    *
@@ -3928,16 +3870,8 @@ SBase_getAncestorOfType (SBase_t *sb, int type, const char* pkgName);
  * Returns the integer portion of the value of the "sboTerm" attribute of
  * the given SBase_t structure.
  *
- * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
- * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
- * number; libSBML simplifies the representation by only storing the
- * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
- * SBase_t has data type @c int, and SBO identifiers are stored simply as
- * integers.  SBO terms are a type of optional annotation, and each
- * different class of SBML structure derived from SBase_t imposes its own
- * requirements about the values permitted for "sboTerm".  Please consult
- * the SBML Level 2 Version 4 specification for more information about
- * the use of SBO and the "sboTerm" attribute.
+ * @copydetails doc_sbo_terms
+ * @copydetails doc_sbo_terms_addendum
  *
  * @param sb the SBase_t structure.
  *
@@ -3955,17 +3889,8 @@ SBase_getSBOTerm (const SBase_t *sb);
  * Returns the string representation of the "sboTerm" attribute of
  * this structure.
  *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
- * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
- * number; libSBML simplifies the representation by only storing the
- * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
- * SBase has data type @c int, and SBO identifiers are stored simply as
- * integers.  This function recreates the string representation from the
- * stored value.  SBO terms are a type of optional annotation, and each
- * different class of SBML structure derived from SBase imposes its own
- * requirements about the values permitted for "sboTerm".  Please consult
- * the SBML Level 2 Version 4 specification for more information about
- * the use of SBO and the "sboTerm" attribute.
+ * @copydetails doc_sbo_terms
+ * @copydetails doc_sbo_terms_addendum
  *
  * @return the value of the "sboTerm" attribute as a string of the form
  * SBO:NNNNNNN, or @c NULL if the value is not set.
@@ -4271,16 +4196,8 @@ SBase_setName (SBase_t *sb, const char *name);
 /**
  * Sets the value of the "sboTerm" attribute.
  *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
- * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a seven
- * digit integer number; libSBML simplifies the representation by only
- * storing the NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm"
- * attribute on SBase_t has data type @c int, and SBO identifiers are
- * stored simply as integers.  SBO terms are a type of optional annotation,
- * and each different class of SBML structure derived from SBase_t imposes its
- * own requirements about the values permitted for "sboTerm".  Please
- * consult the SBML Level 2 Version 4 specification for more information
- * about the use of SBO and the "sboTerm" attribute.
+ * @copydetails doc_sbo_terms
+ * @copydetails doc_sbo_terms_addendum
  *
  * @param sb the SBase_t structure.
  * @param value the NNNNNNN integer portion of the SBO identifier.
@@ -4300,16 +4217,8 @@ SBase_setSBOTerm (SBase_t *sb, int value);
 /**
  * Sets the value of the "sboTerm" attribute by string.
  *
- * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
- * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
- * seven digit integer number; libSBML simplifies the representation by
- * only storing the NNNNNNN integer portion converted from the given string.
- * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int,
- * and SBO identifiers are stored simply as integers.  SBO terms are a type
- * of optional annotation, and each different class of SBML structure derived
- * from SBase imposes its own requirements about the values permitted for
- * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for
- * more information about the use of SBO and the "sboTerm" attribute.
+ * @copydetails doc_sbo_terms
+ * @copydetails doc_sbo_terms_addendum
  *
  * @param sb the SBase_t structure.
  *
@@ -5007,12 +4916,12 @@ SBase_getVersion (const SBase_t *sb);
  * typecode (int) to int. The return value is one of enum values defined for
  * each package. For example, return values will be one of typecode (int) if
  * this structure is defined in SBML core package, return values will be one of
- * SBMLLayoutTypeCode_t if this structure is defined in Layout extension
+ * #SBMLLayoutTypeCode_t if this structure is defined in Layout extension
  * (i.e. similar enum types are defined in each package extension for each
  * SBase subclass) The value of each typecode can be duplicated between those
  * of different packages. Thus, to distinguish the typecodes of different
- * packages, not only the return value of getTypeCode() but also that of
- * getPackageName() must be checked.
+ * packages, not only the return value of SBase_getTypeCode() but also that of
+ * SBase_getPackageName() must be checked.
  *
  * @param sb the SBase_t structure.
  *
@@ -5038,11 +4947,32 @@ SBase_getTypeCode (const SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
+ * @see SBase_getPackageName()
+ * @see SBase_getTypeCode()
+ *
  * @memberof SBase_t
  */
 LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb);
+
+
+/**
+* Returns the package name for the given SBase_t structure
+*
+* @param sb the SBase_t structure.
+*
+* @return the package name for the given SBase_t structure or
+* NULL.
+*
+* @see SBase_getElementName()
+* @see SBase_getTypeCode()
+*
+* @memberof SBase_t
+*/
+LIBSBML_EXTERN
+const char *
+SBase_getPackageName(const SBase_t *sb);
 
 
 /**
@@ -5059,6 +4989,8 @@ SBase_getElementName (const SBase_t *sb);
  * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
  * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
  * <li> Level&nbsp;2 Version&nbsp;5 "http://www.sbml.org/sbml/level2/version5"
+ * <li> Level&nbsp;3 Version&nbsp;1 "http://www.sbml.org/sbml/level3/version1"
+ * <li> Level&nbsp;3 Version&nbsp;2 "http://www.sbml.org/sbml/level3/version2"
  * </ul>
  *
  * @param sb the SBase_t structure.
