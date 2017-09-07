@@ -214,15 +214,6 @@ FbcAnd::getAssociation(const std::string& sid) const
 
 /*
  * Adds a copy the given "FbcAssociation" to this FbcAnd.
- *
- * @param fa; the FbcAssociation object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
 FbcAnd::addAssociation(const FbcAssociation* fa)

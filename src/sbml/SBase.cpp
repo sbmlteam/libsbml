@@ -3416,16 +3416,7 @@ SBase::getPackageName () const
 
 
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * This method MAY return the typecode of this SBML object or it MAY
- * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
- * implement this method to return a typecode.  This method is meant
- * primarily for the LibSBML C interface where class and subclass
- * information is not readily available.
- *
- * @see getElementName()
+ * @return the typecode (int) of this SBML object.
  */
 int
 SBase::getTypeCode () const
@@ -3578,12 +3569,6 @@ SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
 
 /*
  * Enables/Disables the given package with this object.
- *
- * @copydetails doc_returns_success_code
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li LIBSBML_PKG_UNKNOWN
- * @li LIBSBML_PKG_VERSION_MISMATCH
- * @li LIBSBML_PKG_CONFLICTED_VERSION
  */
 int
 SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool flag)

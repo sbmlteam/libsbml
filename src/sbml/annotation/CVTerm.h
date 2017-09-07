@@ -992,7 +992,7 @@ public:
    * @note If the Qualifier Type of this object is not
    * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, then the
    * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
-   * will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
+   * will default to @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
@@ -1035,7 +1035,7 @@ public:
    * @note If the Qualifier Type of this object is not
    * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, 
    * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
-   * will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
+   * will default to @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
@@ -1473,7 +1473,7 @@ CVTerm_getQualifierType(CVTerm_t* term);
  *
  * @param term the CVTerm_t structure whose #ModelQualifierType_t is sought.
  *
- * @return the #ModelQualifierType_t value of this CVTerm_t or BQM_UNKNOWN
+ * @return the #ModelQualifierType_t value of this CVTerm_t or @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}
  * (default).
  *
  * @memberof CVTerm_t
@@ -1489,7 +1489,7 @@ CVTerm_getModelQualifierType(CVTerm_t* term);
  * @param term the CVTerm_t structure whose #BiolQualifierType_t value is
  * sought.
  *
- * @return the #BiolQualifierType_t value of this CVTerm_t or BQB_UNKNOWN
+ * @return the #BiolQualifierType_t value of this CVTerm_t or @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}
  * (default).
  *
  * @memberof CVTerm_t
@@ -1569,15 +1569,15 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * Sets the "ModelQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the ModelQualifierType_t.
+ * @param type the #ModelQualifierType_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
- * then the ModelQualifierType_t will default to BQM_UNKNOWN.
+ * @note if the #QualifierType_t for this structure is not @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}
+ * then the #ModelQualifierType_t will default to @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.
  *
  * @memberof CVTerm_t
  */
@@ -1587,18 +1587,18 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
 
 
 /**
- * Sets the "BiolQualifierType_t" of this %CVTerm_t.
+ * Sets the #BiolQualifierType_t of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the BiolQualifierType_t.
+ * @param type the #BiolQualifierType_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
- * then the BiolQualifierType_t will default to BQB_UNKNOWN.
+ * @note if the #QualifierType_t for this structure is not @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t}
+ * then the #BiolQualifierType_t will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
  *
  * @memberof CVTerm_t
  */
@@ -1608,7 +1608,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
 
 
 /**
- * Sets the "ModelQualifierType_t" of this %CVTerm_t.
+ * Sets the #ModelQualifierType_t of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
  * @param qualifier the string representing a model qualifier.
@@ -1618,8 +1618,8 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
- * then the ModelQualifierType_t will default to BQM_UNKNOWN.
+ * @note if the #QualifierType_t for this structure is not @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}
+ * then the #ModelQualifierType_t will default to @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.
  *
  * @memberof CVTerm_t
  */
@@ -1639,8 +1639,8 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
- * then the BiolQualifierType_t will default to BQB_UNKNOWN.
+ * @note if the QualifierType_t for this structure is not @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t}
+ * then the BiolQualifierType_t will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
  *
  * @memberof CVTerm_t
  */
@@ -1695,8 +1695,8 @@ CVTerm_removeResource(CVTerm_t * term, const char * resource);
  * @param term the CVTerm_t structure.
  *
  * @return @c 1 (true) if this CVTerm_t has all the required elements,
- * otherwise @c 0 (false) will be returned. If an invalid CVTerm_t
- * was provided LIBSBML_INVALID_OBJECT is returned.
+ * otherwise @c 0 (false) will be returned, including if an invalid 
+ * CVTerm_t was provided.
  *
  * @memberof CVTerm_t
  */

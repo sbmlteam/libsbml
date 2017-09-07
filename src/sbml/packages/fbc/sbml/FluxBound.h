@@ -1365,7 +1365,8 @@ FluxBound_unsetValue(FluxBound_t * fb);
  * @param type the FluxBoundOperation_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "lessEqual",
- * "greaterEqual", "equal", or @c NULL if the value is FLUXBOUND_OPERATION_UNKNOWN
+ * "greaterEqual", "equal", or @c NULL if the value is 
+ * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}
  * or another invalid enumeration value.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
@@ -1382,15 +1383,17 @@ FluxBoundOperation_toString(FluxBoundOperation_t type);
 
 /**
  * Returns the FluxBoundOperation_t enumeration corresponding to
- * the given string, or FLUXBOUND_OPERATION_UNKNOWN if there is
+ * the given string, or 
+ * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}
+ * if there is
  * no such match.  The matching is case-sensitive:  "lessEqual" will
- * return FLUXBOUND_OPERATION_LESS_EQUAL, but "lessequal" will return
- * FLUXBOUND_OPERATION_UNKNOWN.
+ * return  @sbmlconstant{FLUXBOUND_OPERATION_LESS_EQUAL, FluxBoundOperation_t}, but "lessequal" will return
+ * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}.
  *
  * @param s the string to convert to an FluxBoundOperation_t.
  *
  * @return The corresponding FluxBoundOperation_t, or
- * FLUXBOUND_OPERATION_UNKNOWN if no match found.
+ * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t} if no match found.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
@@ -1411,10 +1414,13 @@ FluxBoundOperation_fromString(const char* s);
  * @param type the FluxBoundOperation_t enumeration to query.
  *
  * @return @c 1 (true) if the FluxBoundOperation_t is
- * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL,
- * FLUXBOUND_OPERATION_LESS, FLUXBOUND_OPERATION_GREATER, or
- * FLUXBOUND_OPERATION_EQUAL;
- * @c 0 (false) otherwise (including FLUXBOUND_OPERATION_UNKNOWN).
+ * @sbmlconstant{FLUXBOUND_OPERATION_LESS_EQUAL, FluxBoundOperation_t}, 
+ * @sbmlconstant{FLUXBOUND_OPERATION_GREATER_EQUAL, FluxBoundOperation_t},
+ * @sbmlconstant{FLUXBOUND_OPERATION_LESS, FluxBoundOperation_t}, 
+ * @sbmlconstant{FLUXBOUND_OPERATION_GREATER, FluxBoundOperation_t}, or
+ * @sbmlconstant{FLUXBOUND_OPERATION_EQUAL, FluxBoundOperation_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}).
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.

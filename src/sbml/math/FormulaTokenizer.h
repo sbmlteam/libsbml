@@ -169,7 +169,7 @@ t->value.real = 1.2;
 t->exponent   = 3;
 @endverbatim
  * 
- * When the @c type has a value of @c TT_UNKNOWN, the field @c ch will
+ * When the @c type has a value of @sbmlconstant{TT_UNKNOWN, TokenType_t}, the field @c ch will
  * contain the unrecognized character.  When the type is @c TT_END, the
  * field @c ch will contain @c '\\0'.  For all others, the @c value.ch will
  * contain the corresponding character.

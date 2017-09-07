@@ -4915,13 +4915,13 @@ SBase_unsetModelHistory(SBase_t *sb);
 
 /**
  * Returns the Biological Qualifier associated with this resource,
- * BQB_UNKNOWN if the resource does not exist.
+ * @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t} if the resource does not exist.
  *
  * @param sb the structure to query.
  * @param resource string representing the resource; e.g.,
  * <code>"http://www.geneontology.org/#GO:0005892"</code>.
  *
- * @return the BiolQualifierType_t associated with the resource
+ * @return the #BiolQualifierType_t associated with the resource
  *
  * @memberof SBase_t
  */
@@ -4932,13 +4932,13 @@ SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource);
 
 /**
  * Returns the Model Qualifier associated with this resource,
- * BQM_UNKNOWN if the resource does not exist.
+ * @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t} if the resource does not exist.
  *
  * @param sb the structure to query.
  * @param resource string representing the resource; e.g.,
  * <code>"http://www.geneontology.org/#GO:0005892"</code>.
  *
- * @return the ModelQualifierType_t associated with the resource
+ * @return the #ModelQualifierType_t associated with the resource
  *
  * @memberof SBase_t
  */
@@ -4952,7 +4952,7 @@ SBase_getResourceModelQualifier(SBase_t *sb, const char * resource);
  *
  * @param sb the SBase_t structure.
  *
- * @return the parent Model_t strucdture of the given structure.
+ * @return the parent Model_t structure of the given structure.
  *
  * @memberof SBase_t
  */
@@ -4997,7 +4997,8 @@ SBase_getVersion (const SBase_t *sb);
  * Returns the libSBML type code for this structure.
  *
  * This method MAY return the typecode of this SBML structure or it MAY
- * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
+ * return @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}.  That is, 
+ * subclasses of SBase are not required to
  * implement this method to return a typecode.  This method is meant
  * primarily for the LibSBML C interface where class and subclass
  * information is not readily available.
@@ -5015,8 +5016,8 @@ SBase_getVersion (const SBase_t *sb);
  *
  * @param sb the SBase_t structure.
  *
- * @return the typecode (int value) of this SBML structure or SBML_UNKNOWN
- * (default).
+ * @return the typecode (int value) of this SBML structure or 
+ * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t} (default).
  *
  * @see SBase_getElementName()
  * @see SBase_getPackageName()

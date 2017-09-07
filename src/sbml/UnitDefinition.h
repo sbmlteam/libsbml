@@ -1945,7 +1945,8 @@ UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u);
  * @note It is worth emphasizing that the attribute "kind" value of a
  * Unit_t is a required attribute for a valid Unit_t definition.  The
  * UnitDefinition_createUnit() method does not assign a valid kind to the
- * constructed unit (instead, it sets the "kind" to UNIT_KIND_INVALID).
+ * constructed unit (instead, it sets the "kind" to 
+ * @sbmlconstant{UNIT_KIND_INVALID, UnitKind_t}).
  * Callers are cautioned to set the newly-constructed Unit's kind using
  * UnitDefinition_setKind() soon after calling this method.
  *

@@ -965,7 +965,7 @@
  * value)@endlink</code> sets the value of this ASTNode to the given
  * character <code>value</code>.  If character is one of @c +, @c -, @c *, @c
  * / or @c ^, the node type will be to the appropriate operator type.  For all
- * other characters, the node type will be set to @c AST_UNKNOWN.
+ * other characters, the node type will be set to @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.
  * @li <code>void @link ASTNode::setName(const char *name) setName(const char
  * *name)@endlink</code> sets the value of this AST node to the given
  * <code>name</code>.  The node type will be set (to @c AST_NAME) <em>only
@@ -995,7 +995,7 @@
  * @li @link libsbml.ASTNode.setCharacter() ASTNode.setCharacter(char)@endlink sets the value of
  * this ASTNode to the given character.  If character is one of @c +, @c -, @c
  * *, @c / or @c ^, the node type will be to the appropriate operator type.
- * For all other characters, the node type will be set to @c AST_UNKNOWN.
+ * For all other characters, the node type will be set to @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.
  * @li @link libsbml.ASTNode.setName() ASTNode.setName(string)@endlink sets the value of
  * this AST node to the given name.  The node type will be set (to @c AST_NAME)
  * <em>only if</em> the AST node was previously an operator
@@ -1046,7 +1046,7 @@
  * @li <code>ASTNode* @link ASTNode::ASTNode(ASTNodeType_t type)
  * ASTNode(ASTNodeType_t type)@endlink</code> creates a new ASTNode object
  * and returns a pointer to it.  The returned node will have the given
- * <code>type</code>, or a type of @c AST_UNKNOWN if no argument
+ * <code>type</code>, or a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} if no argument
  * <code>type</code> is explicitly given or the type code is unrecognized.
  * @li <code>unsigned int @link ASTNode::getNumChildren() getNumChildren()
  * @endlink</code> returns the number of children of this AST node or
@@ -1078,7 +1078,7 @@
  * @if python
  * @li <code>ASTNode</code> @link libsbml.ASTNode(long) ASTNode(long)@endlink creates a new ASTNode object
  * and returns a pointer to it.  The returned node will have the type
- * identified by the code passed as the argument, or a type of @c AST_UNKNOWN if
+ * identified by the code passed as the argument, or a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} if
  * no type is explicitly given or the type code is unrecognized.
  * @li <code>unsigned int</code> @link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink returns the number
  * of children of this AST node or 0 is this node has no children.
@@ -1099,13 +1099,13 @@
  * children of this ASTNode with the children of @c that ASTNode.
  * @li @link libsbml.ASTNode.setType() ASTNode.setType(long)@endlink
  * sets the type of this ASTNode to the type identified by the
- * type code passed as argument, or to @c AST_UNKNOWN if the type
+ * type code passed as argument, or to @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} if the type
  * is unrecognized.
  * @endif
  * @if conly
  * @li <code>ASTNode_t* ASTNode_createWithType(ASTNodeType_t type)</code> creates a new
  * ASTNode object and returns a pointer to it.  The returned node will have the
- * given <code>type</code>, or a type of @c AST_UNKNOWN if no argument
+ * given <code>type</code>, or a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} if no argument
  * <code>type</code> is explicitly given or the type code is unrecognized.
  * @li <code>unsigned int ASTNode_getNumChildren(const ASTNode_t *node)</code> returns the number of
  * children of this AST node or <code>0</code> is this node has no children.

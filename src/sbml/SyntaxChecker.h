@@ -113,8 +113,9 @@ public:
    * @param srcId the string of SId to be set to the dstId.
    * @param dstId the string of SId to be set by the srcId.
    *
-   * @return LIBSBML_OPERATION_SUCCESS if the srcId is valid, otherwise 
-   * LIBSBML_INVALID_ATTRIBUTE_VALUE will be returned.
+   * @return @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * if the srcId is valid, otherwise 
+   * @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t} will be returned.
    */
   static int checkAndSetSId(const std::string &srcId, std::string &dstId);
 #endif //SWIG

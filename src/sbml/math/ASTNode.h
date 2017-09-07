@@ -2101,7 +2101,7 @@ BEGIN_C_DECLS
 /**
  * Creates a new ASTNode_t structure and returns a pointer to it.
  *
- * The returned node will have a type of @c AST_UNKNOWN.  The caller should
+ * The returned node will have a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  The caller should
  * be set the node type to something else as soon as possible using
  * ASTNode_setType().
  *
@@ -3340,7 +3340,7 @@ ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigne
  *
  * @param node the node to query.
  *
- * @return @c 1 (true) if @p node is of type @c AST_UNKNOWN, @c 0 (false) otherwise.
+ * @return @c 1 (true) if @p node is of type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}, @c 0 (false) otherwise.
  *
  * @memberof ASTNode_t
  */

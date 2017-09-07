@@ -1420,12 +1420,13 @@ Output_t *
 ListOfOutputs_removeById(ListOf_t * lo, const char * sid);
 
 /**
- * Returns the string version of the provided OutputTransitionEffect_t enumeration.
+ * Returns the string version of the provided #OutputTransitionEffect_t enumeration.
  *
- * @param effect the OutputTransitionEffect_t enumeration to convert.
+ * @param effect the #OutputTransitionEffect_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "production", 
- * "assignmentLevel", or @c NULL if the value is OUTPUT_TRANSITION_EFFECT_UNKNOWN 
+ * "assignmentLevel", or @c NULL if the value is 
+ * @sbmlconstant{OUTPUT_TRANSITION_EFFECT_UNKNOWN, OutputTransitionEffect_t}
  * or another invalid enumeration value.
  *
  * @memberof Output_t
@@ -1436,16 +1437,17 @@ OutputTransitionEffect_toString(OutputTransitionEffect_t effect);
 
 
 /**
- * Returns the OutputTransitionEffect_t enumeration corresponding to 
- * the given string, or OUTPUT_TRANSITION_EFFECT_UNKNOWN if there is 
+ * Returns the #OutputTransitionEffect_t enumeration corresponding to 
+ * the given string, or @sbmlconstant{OUTPUT_TRANSITION_EFFECT_UNKNOWN, OutputTransitionEffect_t} if there is 
  * no such match.  The matching is case-sensitive:  "production" will 
- * return OUTPUT_TRANSITION_EFFECT_PRODUCTION, but "Production" will return 
- * OUTPUT_TRANSITION_EFFECT_UNKNOWN.
+ * return @sbmlconstant{OUTPUT_TRANSITION_EFFECT_PRODUCTION, OutputTransitionEffect_t}, 
+ * but "Production" will return 
+ * @sbmlconstant{OUTPUT_TRANSITION_EFFECT_UNKNOWN, OutputTransitionEffect_t}.
  *
- * @param s the string to convert to an OutputTransitionEffect_t.
+ * @param s the string to convert to an #OutputTransitionEffect_t.
  *
- * @return The corresponding OutputTransitionEffect_t, or 
- * OUTPUT_TRANSITION_EFFECT_UNKNOWN if no match found.
+ * @return The corresponding #OutputTransitionEffect_t, or 
+ * @sbmlconstant{OUTPUT_TRANSITION_EFFECT_UNKNOWN, OutputTransitionEffect_t} if no match found.
  *
  * @memberof Output_t
  */
@@ -1456,13 +1458,14 @@ OutputTransitionEffect_fromString(const char* s);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
- * OutputTransitionEffect_t is valid.
+ * #OutputTransitionEffect_t is valid.
  *
- * @param effect the OutputTransitionEffect_t enumeration to query.
+ * @param effect the #OutputTransitionEffect_t enumeration to query.
  * 
- * @return @c 1 (true) if the OutputTransitionEffect_t is
- * OUTPUT_TRANSITION_EFFECT_PRODUCTION or OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL,
- * @c 0 (false) otherwise (including OUTPUT_TRANSITION_EFFECT_UNKNOWN).
+ * @return @c 1 (true) if the #OutputTransitionEffect_t is
+ * @sbmlconstant{OUTPUT_TRANSITION_EFFECT_PRODUCTION, OutputTransitionEffect_t} 
+ * or @sbmlconstant{OUTPUT_TRANSITION_EFFECT_ASSIGNMENT_LEVEL, OutputTransitionEffect_t},
+ * @c 0 (false) otherwise (including @sbmlconstant{OUTPUT_TRANSITION_EFFECT_UNKNOWN, OutputTransitionEffect_t}).
  *
  * @memberof Output_t
  */
@@ -1473,7 +1476,7 @@ OutputTransitionEffect_isValidOutputTransitionEffect(OutputTransitionEffect_t ef
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending 
- * on whether the given string is a valid OutputTransitionEffect_t.  
+ * on whether the given string is a valid #OutputTransitionEffect_t.  
  * The matching is case-sensitive:  "production" will return @c true, but 
  * "Production" will return @c false.
  *

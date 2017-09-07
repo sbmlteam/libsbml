@@ -1309,10 +1309,10 @@ Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies);
 
 
 /**
- * Sets the transitionEffect of this Input_t to a copy of the given InputTransitionEffect_t.
+ * Sets the transitionEffect of this Input_t to a copy of the given #InputTransitionEffect_t.
  *
  * @param i the Input_t structure to set.
- * @param transitionEffect the InputTransitionEffect_t structure to use.
+ * @param transitionEffect the #InputTransitionEffect_t structure to use.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1533,12 +1533,13 @@ Input_t *
 ListOfInputs_removeById(ListOf_t * lo, const char * sid);
 
 /**
- * Returns the string version of the provided InputTransitionEffect_t enumeration.
+ * Returns the string version of the provided #InputTransitionEffect_t enumeration.
  *
- * @param effect the InputTransitionEffect_t enumeration to convert.
+ * @param effect the #InputTransitionEffect_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "none", 
- * "consumption", or @c NULL if the value is INPUT_TRANSITION_EFFECT_UNKNOWN 
+ * "consumption", or @c NULL if the value is 
+ * @sbmlconstant{INPUT_TRANSITION_EFFECT_UNKNOWN, InputTransitionEffect_t}
  * or another invalid enumeration value.
  *
  * @memberof Input_t
@@ -1548,16 +1549,17 @@ const char*
 InputTransitionEffect_toString(InputTransitionEffect_t effect);
 
 /**
- * Returns the InputTransitionEffect_t enumeration corresponding to 
- * the given string, or INPUT_TRANSITION_EFFECT_UNKNOWN if there is 
+ * Returns the #InputTransitionEffect_t enumeration corresponding to 
+ * the given string, or @sbmlconstant{INPUT_TRANSITION_EFFECT_UNKNOWN, InputTransitionEffect_t} if there is 
  * no such match.  The matching is case-sensitive:  "none" will 
- * return INPUT_TRANSITION_EFFECT_NONE, but "NONE" will return 
- * INPUT_TRANSITION_EFFECT_UNKNOWN.
+ * return @sbmlconstant{INPUT_TRANSITION_EFFECT_NONE, InputTransitionEffect_t}, 
+ * but "NONE" will return 
+ * @sbmlconstant{INPUT_TRANSITION_EFFECT_UNKNOWN, InputTransitionEffect_t}.
  *
- * @param s the string to convert to an InputTransitionEffect_t.
+ * @param s the string to convert to an #InputTransitionEffect_t.
  *
- * @return The corresponding InputTransitionEffect_t, or 
- * INPUT_TRANSITION_EFFECT_UNKNOWN if no match found.
+ * @return The corresponding #InputTransitionEffect_t, or 
+ * @sbmlconstant{INPUT_TRANSITION_EFFECT_UNKNOWN, InputTransitionEffect_t} if no match found.
  *
  * @memberof Input_t
  */
@@ -1568,13 +1570,15 @@ InputTransitionEffect_fromString(const char* s);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
- * InputTransitionEffect_t is valid.
+ * #InputTransitionEffect_t is valid.
  *
- * @param effect the InputTransitionEffect_t enumeration to query.
+ * @param effect the #InputTransitionEffect_t enumeration to query.
  * 
- * @return @c 1 (true) if the InputTransitionEffect_t is
- * INPUT_TRANSITION_EFFECT_NONE or INPUT_TRANSITION_EFFECT_CONSUMPTION,
- * @c 0 (false) otherwise (including INPUT_TRANSITION_EFFECT_UNKNOWN).
+ * @return @c 1 (true) if the #InputTransitionEffect_t is
+ * @sbmlconstant{INPUT_TRANSITION_EFFECT_NONE, InputTransitionEffect_t} 
+ * or @sbmlconstant{INPUT_TRANSITION_EFFECT_CONSUMPTION, InputTransitionEffect_t},
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{INPUT_TRANSITION_EFFECT_UNKNOWN, InputTransitionEffect_t}).
  *
  * @memberof Input_t
  */
@@ -1585,7 +1589,7 @@ InputTransitionEffect_isValidInputTransitionEffect(InputTransitionEffect_t effec
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending 
- * on whether the given string is a valid InputTransitionEffect_t.  
+ * on whether the given string is a valid #InputTransitionEffect_t.  
  * The matching is case-sensitive:  "none" will return @c true, but 
  * "NONE" will return @c false.
  *
@@ -1640,9 +1644,12 @@ InputSign_fromString(const char* s);
  *
  * @param effect the InputSign_t enumeration to query.
  * 
- * @return @c 1 (true) if the InputSign_t is INPUT_SIGN_POSITIVE, 
- * INPUT_SIGN_NEGATIVE, INPUT_SIGN_DUAL, or INPUT_SIGN_UNKNOWN;
- * @c 0 (false) otherwise (including INPUT_SIGN_VALUE_NOTSET).
+ * @return @c 1 (true) if the InputSign_t is 
+ * @sbmlconstant{INPUT_SIGN_POSITIVE, InputSign_t}, 
+ * @sbmlconstant{INPUT_SIGN_NEGATIVE, InputSign_t},
+ * @sbmlconstant{INPUT_SIGN_DUAL, InputSign_t}, 
+ * or @sbmlconstant{INPUT_SIGN_UNKNOWN, InputSign_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{INPUT_SIGN_VALUE_NOTSET, InputSign_t}).
  *
  * @memberof Input_t
  */

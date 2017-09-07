@@ -887,8 +887,8 @@ ModelCreator_unsetName(ModelCreator_t *mc);
  * @param mc the ModelCreator_t structure.
  * 
  * @return @c 1 (true) if this ModelCreator_t has all the required elements,
- * otherwise @c 0 (false) will be returned. If an invalid ModelHistory_t 
- * was provided LIBSBML_INVALID_OBJECT is returned.
+ * otherwise @c 0 (false) will be returned, including if an invalid
+ * CVTerm_t was provided.
  *
  * @memberof ModelCreator_t
  */

@@ -1793,7 +1793,8 @@ Rule_getTypeCode (const Rule_t *r);
 
 
 /**
- * @return the SBML Level 1 typecode for this Rule_t or SBML_UNKNOWN
+ * @return the SBML Level 1 typecode for this Rule_t or 
+ * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}
  * (default).
  *
  * @memberof Rule_t

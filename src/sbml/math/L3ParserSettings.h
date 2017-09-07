@@ -960,7 +960,7 @@ private:
    * 'name' is recognized by a package as being a particular function.  We
    * already know that it is not used in the Model as a FunctionDefinition.
    * Should do caseless string comparison.  Return the type of the function,
-   * or AST_UNKNOWN if nothing found.
+   * or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} if nothing found.
    */
   int getPackageFunctionFor(const std::string& name) const;
 

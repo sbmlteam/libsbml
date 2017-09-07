@@ -761,7 +761,7 @@ SBMLExtension_getSBasePluginCreatorByIndex(SBMLExtension_t* ext,
  * @param ext the SBMLExtension_t structure.
  *
  * @return the number of SBasePlugin_t structures stored in the structure,
- * or LIBSBML_INVALID_OBJECT.
+ * or @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}.
  *
  * @memberof SBMLExtension_t
  */
@@ -776,7 +776,7 @@ SBMLExtension_getNumOfSBasePlugins(SBMLExtension_t* ext);
  * @param ext the SBMLExtension_t structure.
  *
  * @return the number of supported package namespaces (package versions)
- * for this package extension or LIBSBML_INVALID_OBJECT.
+ * for this package extension or @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}.
  *
  * @memberof SBMLExtension_t
  */
@@ -930,7 +930,7 @@ SBMLExtension_getSBMLExtensionNamespaces(SBMLExtension_t* ext, const char* uri);
  * @param isEnabled the value to set : @c 1 (true; enabled) or @c 0 (false; disabled).
  *
  * @return @c 1 (true) if this function call succeeded, otherwise @c 0 (false) is returned.
- * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.
+ * If the extension is invalid, @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t} will be returned.
  *
  * @memberof SBMLExtension_t
  */
@@ -944,7 +944,7 @@ SBMLExtension_setEnabled(SBMLExtension_t* ext, int isEnabled);
  * @param ext the SBMLExtension_t structure.
  *
  * @return @c 1 (true) if the package is enabled, otherwise @c 0 (false) is returned.
- * If the extension is invalid, LIBSBML_INVALID_OBJECT will be returned.
+ * If the extension is invalid, @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t} will be returned.
  *
  * @memberof SBMLExtension_t
  */

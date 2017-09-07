@@ -667,8 +667,8 @@ ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n);
  * @param mh the ModelHistory_t structure.
  * 
  * @return @c 1 (true) if this ModelHistory_t has all the required elements,
- * otherwise @c 0 (false) will be returned. If an invalid ModelHistory_t 
- * was provided LIBSBML_INVALID_OBJECT is returned.
+ * otherwise @c 0 (false) will be returned, including if an invalid
+ * CVTerm_t was provided.
  *
  * @memberof ModelHistory_t
  */
