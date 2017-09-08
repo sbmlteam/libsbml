@@ -264,8 +264,8 @@ public:
   /**
    * Predicate returning @c true if this Member's "id" attribute is set.
    *
-   * @return @c true if this Member's "id" attribute has been set, otherwise @c
-   * false is returned.
+   * @return @c true if this Member's "id" attribute has been set, otherwise
+   * @c false is returned.
    */
   bool isSetId() const;
 
@@ -318,7 +318,7 @@ public:
    *
    * @param name std::string& value of the "name" attribute to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setName(const std::string& name);
@@ -346,7 +346,7 @@ public:
    * @param metaIdRef std::string& value of the "metaIdRef" attribute to be
    * set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setMetaIdRef(const std::string& metaIdRef);
@@ -854,14 +854,15 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
 Member_t *
-Member_create(unsigned int level = GroupsExtension::getDefaultLevel(),
-              unsigned int version = GroupsExtension::getDefaultVersion(),
-              unsigned int pkgVersion =
-                GroupsExtension::getDefaultPackageVersion());
+Member_create(unsigned int level,
+              unsigned int version,
+              unsigned int pkgVersion);
 
 
 /**
@@ -870,6 +871,8 @@ Member_create(unsigned int level = GroupsExtension::getDefaultLevel(),
  * @param m the Member_t structure.
  *
  * @return a (deep) copy of this Member_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Member_t
  */
@@ -898,10 +901,12 @@ Member_free(Member_t* m);
  * @return the value of the "id" attribute of this Member_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getId(const Member_t * m);
 
 
@@ -913,10 +918,12 @@ Member_getId(const Member_t * m);
  * @return the value of the "name" attribute of this Member_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getName(const Member_t * m);
 
 
@@ -928,10 +935,12 @@ Member_getName(const Member_t * m);
  * @return the value of the "idRef" attribute of this Member_t as a pointer to
  * a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getIdRef(const Member_t * m);
 
 
@@ -943,10 +952,12 @@ Member_getIdRef(const Member_t * m);
  * @return the value of the "metaIdRef" attribute of this Member_t as a pointer
  * to a string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getMetaIdRef(const Member_t * m);
 
 
@@ -970,8 +981,8 @@ Member_isSetId(const Member_t * m);
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 (true) if this Member_t's "name" attribute has been set, otherwise @c
- * 0 is returned.
+ * @return @c 1 (true) if this Member_t's "name" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Member_t
  */
@@ -985,8 +996,8 @@ Member_isSetName(const Member_t * m);
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 (true) if this Member_t's "idRef" attribute has been set, otherwise @c
- * 0 is returned.
+ * @return @c 1 (true) if this Member_t's "idRef" attribute has been set,
+ * @c 0 (false) otherwise.
  *
  * @memberof Member_t
  */
@@ -1001,7 +1012,7 @@ Member_isSetIdRef(const Member_t * m);
  * @param m the Member_t structure.
  *
  * @return @c 1 (true) if this Member_t's "metaIdRef" attribute has been set,
- * otherwise @c 0 is returned.
+ * @c 0 (false) otherwise.
  *
  * @memberof Member_t
  */
@@ -1019,7 +1030,7 @@ Member_isSetMetaIdRef(const Member_t * m);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1037,7 +1048,7 @@ Member_setId(Member_t * m, const char * id);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1056,6 +1067,7 @@ Member_setName(Member_t * m, const char * name);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1074,6 +1086,7 @@ Member_setIdRef(Member_t * m, const char * idRef);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1090,6 +1103,7 @@ Member_setMetaIdRef(Member_t * m, const char * metaIdRef);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1106,6 +1120,7 @@ Member_unsetId(Member_t * m);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1122,6 +1137,7 @@ Member_unsetName(Member_t * m);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1138,6 +1154,7 @@ Member_unsetIdRef(Member_t * m);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -1153,7 +1170,7 @@ Member_unsetMetaIdRef(Member_t * m);
  * @param m the Member_t structure.
  *
  * @return @c 1 to indicate that all the required attributes of this Member_t
- * have been set, otherwise @c 0 is returned.
+ * have been set, @c 0 (false) otherwise.
  *
  * @memberof Member_t
  */

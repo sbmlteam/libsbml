@@ -1422,7 +1422,7 @@ Group_free(Group_t* g)
  * Returns the value of the "id" attribute of this Group_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getId(const Group_t * g)
 {
   if (g == NULL)
@@ -1438,7 +1438,7 @@ Group_getId(const Group_t * g)
  * Returns the value of the "name" attribute of this Group_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getName(const Group_t * g)
 {
   if (g == NULL)
@@ -1602,7 +1602,7 @@ Group_getListOfMembers(Group_t* g)
  * Get a Member_t from the Group_t.
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMember(Group_t* g, unsigned int n)
 {
   return (g != NULL) ? g->getMember(n) : NULL;
@@ -1613,7 +1613,7 @@ Group_getMember(Group_t* g, unsigned int n)
  * Get a Member_t from the Group_t based on its identifier.
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMemberById(Group_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getMember(sid) : NULL;
@@ -1624,7 +1624,7 @@ Group_getMemberById(Group_t* g, const char *sid)
  * Get a Member_t from the Group_t based on the IdRef to which it refers.
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMemberByIdRef(Group_t* g, const char *sid)
 {
   return (g != NULL && sid != NULL) ? g->getMemberByIdRef(sid) : NULL;

@@ -289,8 +289,8 @@ public:
   /**
    * Predicate returning @c true if this Group's "id" attribute is set.
    *
-   * @return @c true if this Group's "id" attribute has been set, otherwise @c
-   * false is returned.
+   * @return @c true if this Group's "id" attribute has been set, otherwise
+   * @c false is returned.
    */
   bool isSetId() const;
 
@@ -333,7 +333,7 @@ public:
    *
    * @param name std::string& value of the "name" attribute to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setName(const std::string& name);
@@ -416,6 +416,8 @@ public:
    * objects within the ListOfMembers child of a Group object.
    *
    * @return the ListOfMembers from this Group.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const ListOfMembers* getListOfMembers() const;
 
@@ -428,6 +430,8 @@ public:
    * objects within the ListOfMembers child of a Group object.
    *
    * @return the ListOfMembers from this Group.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   ListOfMembers* getListOfMembers();
 
@@ -439,6 +443,8 @@ public:
    * retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
+   *
+   * @copydetails doc_returned_unowned_pointer
    *
    * @see addMember(const Member* m)
    * @see createMember()
@@ -458,6 +464,8 @@ public:
    *
    * @return the nth Member in the ListOfMembers within this Group.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
    * @see addMember(const Member* m)
    * @see createMember()
    * @see getMember(const std::string& sid)
@@ -475,6 +483,8 @@ public:
    *
    * @return the Member in the ListOfMembers within this Group with the given
    * id or NULL if no such Member exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    *
    * @see addMember(const Member* m)
    * @see createMember()
@@ -494,6 +504,8 @@ public:
    * @return the Member in the ListOfMembers within this Group with the given
    * id or NULL if no such Member exists.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
    * @see addMember(const Member* m)
    * @see createMember()
    * @see getMember(unsigned int n)
@@ -510,6 +522,8 @@ public:
    * @param sid a string representing the idRef attribute of the Member object
    * to retrieve.
    *
+   * @copydetails doc_returned_unowned_pointer
+   *
    * @return the first Member in this Group based on the given idRef attribute
    * or NULL if no such Member exists.
    */
@@ -524,6 +538,8 @@ public:
    *
    * @return the first Member in this Group based on the given idRef attribute
    * or NULL if no such Member exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   Member* getMemberByIdRef(const std::string& sid);
 
@@ -575,6 +591,8 @@ public:
    *
    * @return a new Member object instance.
    *
+   * @copydetails doc_returned_owned_pointer
+   *
    * @see addMember(const Member* m)
    * @see getMember(const std::string& sid)
    * @see getMember(unsigned int n)
@@ -592,8 +610,7 @@ public:
    *
    * @return a pointer to the nth Member in this Group.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
    *
    * @see addMember(const Member* m)
    * @see createMember()
@@ -614,8 +631,7 @@ public:
    * @return the Member in this Group based on the identifier or NULL if no
    * such Member exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
    *
    * @see addMember(const Member* m)
    * @see createMember()
@@ -659,7 +675,6 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this Group
    * have been set, otherwise @c false is returned.
-   *
    *
    * @note The required attributes for the Group object are:
    * @li "kind"
@@ -1213,6 +1228,8 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
+ * @copydetails doc_returned_owned_pointer
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1229,6 +1246,8 @@ Group_create(unsigned int level = GroupsExtension::getDefaultLevel(),
  * @param g the Group_t structure.
  *
  * @return a (deep) copy of this Group_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Group_t
  */
@@ -1257,10 +1276,12 @@ Group_free(Group_t* g);
  * @return the value of the "id" attribute of this Group_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getId(const Group_t * g);
 
 
@@ -1272,10 +1293,12 @@ Group_getId(const Group_t * g);
  * @return the value of the "name" attribute of this Group_t as a pointer to a
  * string.
  *
+ * @copydetails doc_returned_owned_char
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 Group_getName(const Group_t * g);
 
 
@@ -1299,6 +1322,8 @@ Group_getKind(const Group_t * g);
  * @param g the Group_t structure whose kind is sought.
  *
  * @return the value of the "kind" attribute of this Group_t as a const char *.
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof Group_t
  */
@@ -1362,6 +1387,7 @@ Group_isSetKind(const Group_t * g);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1379,7 +1405,7 @@ Group_setId(Group_t * g, const char * id);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1398,6 +1424,7 @@ Group_setName(Group_t * g, const char * name);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1416,6 +1443,7 @@ Group_setKind(Group_t * g, GroupKind_t kind);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1432,6 +1460,7 @@ Group_setKindAsString(Group_t * g, const char * kind);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1448,6 +1477,7 @@ Group_unsetId(Group_t * g);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1464,6 +1494,7 @@ Group_unsetName(Group_t * g);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1478,6 +1509,8 @@ Group_unsetKind(Group_t * g);
  * @param g the Group_t structure whose "ListOfMembers" is sought.
  *
  * @return the "ListOfMembers" from this Group_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Group_t
  */
@@ -1495,10 +1528,12 @@ Group_getListOfMembers(Group_t* g);
  *
  * @return the nth Member_t in the ListOfMembers within this Group.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMember(Group_t* g, unsigned int n);
 
 
@@ -1512,10 +1547,12 @@ Group_getMember(Group_t* g, unsigned int n);
  * @return the Member_t in the ListOfMembers within this Group with the given
  * id or NULL if no such Member_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMemberById(Group_t* g, const char *sid);
 
 
@@ -1530,10 +1567,12 @@ Group_getMemberById(Group_t* g, const char *sid);
  * @return the first Member_t in this Group_t based on the given idRef
  * attribute or NULL if no such Member_t exists.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 Group_getMemberByIdRef(Group_t* g, const char *sid);
 
 
@@ -1547,6 +1586,7 @@ Group_getMemberByIdRef(Group_t* g, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1577,6 +1617,8 @@ Group_getNumMembers(Group_t* g);
  *
  * @return a new Member_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1592,6 +1634,8 @@ Group_createMember(Group_t* g);
  * @param n an unsigned int representing the index of the Member_t to remove.
  *
  * @return a pointer to the nth Member_t in this Group_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Group_t
  */
@@ -1610,6 +1654,8 @@ Group_removeMember(Group_t* g, unsigned int n);
  *
  * @return the Member_t in this Group_t based on the identifier or NULL if no
  * such Member_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Group_t
  */
