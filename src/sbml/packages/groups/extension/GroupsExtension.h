@@ -379,8 +379,16 @@ typedef enum
  * @brief Enumeration of values permitted as the value of the "kind"
  * attribute on Group objects.
  *
+ * @if conly
+ * @see Group_getKind()
+ * @see Group_setKind()
+ * @elseif java
  * @see Group::getKind()
- * @see Group::setKind(@if java long kind@endif)
+ * @see Group::setKind(long)
+ * @else
+ * @see Group::getKind()
+ * @see Group::setKind()
+ * @endif
  */
 typedef enum
 {
@@ -392,6 +400,18 @@ typedef enum
 
 
 /**
+ * Returns the string version of the provided #GroupKind_t enumeration.
+ *
+ * @param gk the #GroupKind_t enumeration to convert.
+ *
+ * @return A string corresponding to the given type:  "classification",
+ * "partonomy", "collection", or @c NULL if the value is 
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
+ * or another invalid enumeration value.
+ *
+ * @if conly
+ * @memberof Group_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -399,6 +419,22 @@ GroupKind_toString(GroupKind_t gk);
 
 
 /**
+ * Returns the #GroupKind_t enumeration corresponding to
+ * the given string, or
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t} if there is
+ * no such match.  The matching is case-sensitive:  "classification" will
+ * return  @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}, but 
+ * "Classification" will return
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}.
+ *
+ * @param code the string to convert to a #GroupKind_t.
+ *
+ * @return the corresponding #GroupKind_t, or
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t} if no match is found.
+ *
+ * @if conly
+ * @memberof Group_t
+ * @endif
  */
 LIBSBML_EXTERN
 GroupKind_t
@@ -406,6 +442,21 @@ GroupKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
+ * #GroupKind_t is valid.
+ *
+ * @param gk the #GroupKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #GroupKind_t is
+ * @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}, 
+ * @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}, or
+ * @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}).
+ *
+ * @if conly
+ * @memberof Group_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -413,6 +464,19 @@ GroupKind_isValid(GroupKind_t gk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending
+ * on whether the given string is a valid #GroupKind_t.
+ * The matching is case-sensitive:  "classification" will return @c 1 (true), but
+ * "Classification" will return @c 0 (false).
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "classification", "partonomy", or "collection"; @c 0 (false) otherwise.
+ *
+ * @if conly
+ * @memberof Group_t
+ * @endif
  */
 LIBSBML_EXTERN
 int

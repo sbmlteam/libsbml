@@ -351,7 +351,7 @@ public:
    * means it must be one of the following values:
    * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
    * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
-   * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -401,9 +401,8 @@ public:
   /**
    * Unsets the value of the "kind" attribute of this Group.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetKind();
 
@@ -1234,10 +1233,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 Group_t *
-Group_create(unsigned int level = GroupsExtension::getDefaultLevel(),
-             unsigned int version = GroupsExtension::getDefaultVersion(),
-             unsigned int pkgVersion =
-               GroupsExtension::getDefaultPackageVersion());
+Group_create(unsigned int level,
+             unsigned int version,
+             unsigned int pkgVersion);
 
 
 /**
@@ -1378,7 +1376,8 @@ Group_isSetKind(const Group_t * g);
 
 
 /**
- * Sets the value of the "id" attribute of this Group_t.
+ * Sets the value of the "id" attribute of this Group_t.  Calling this
+ * function with @p id = @c NULL is equivalent to calling Group_unsetId().
  *
  * @param g the Group_t structure.
  *
@@ -1397,7 +1396,8 @@ Group_setId(Group_t * g, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this Group_t.
+ * Sets the value of the "name" attribute of this Group_t.  Calling this
+ * function with @p name = @c NULL is equivalent to calling Group_unsetName().
  *
  * @param g the Group_t structure.
  *
@@ -1493,7 +1493,6 @@ Group_unsetName(Group_t * g);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Group_t
@@ -1506,9 +1505,9 @@ Group_unsetKind(Group_t * g);
 /**
  * Returns a ListOf_t * containing Member_t objects from this Group_t.
  *
- * @param g the Group_t structure whose "ListOfMembers" is sought.
+ * @param g the Group_t structure whose ListOfMembers is sought.
  *
- * @return the "ListOfMembers" from this Group_t as a ListOf_t *.
+ * @return the ListOfMembers from this Group_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1557,11 +1556,11 @@ Group_getMemberById(Group_t* g, const char *sid);
 
 
 /**
- * Get a Member_t from the Group_t based on the IdRef to which it refers.
+ * Get a Member_t from the Group_t based on the element to which it refers.
  *
  * @param g the Group_t structure to search.
  *
- * @param sid a string representing the idRef attribute of the Member_t object
+ * @param sid a string representing the "idRef" attribute of the Member_t object
  * to retrieve.
  *
  * @return the first Member_t in this Group_t based on the given idRef
@@ -1670,7 +1669,7 @@ Group_removeMemberById(Group_t* g, const char* sid);
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this Group_t
+ * @return @c 1 (true) to indicate that all the required attributes of this Group_t
  * have been set, @c 0 (false) otherwise.
  *
  *
@@ -1690,7 +1689,7 @@ Group_hasRequiredAttributes(const Group_t * g);
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 to indicate that all the required elements of this Group_t have
+ * @return @c 1 (true) to indicate that all the required elements of this Group_t have
  * been set, @c 0 (false) otherwise.
  *
  *

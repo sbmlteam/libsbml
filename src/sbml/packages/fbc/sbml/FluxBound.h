@@ -1390,7 +1390,7 @@ FluxBoundOperation_toString(FluxBoundOperation_t type);
  * return  @sbmlconstant{FLUXBOUND_OPERATION_LESS_EQUAL, FluxBoundOperation_t}, but "lessequal" will return
  * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}.
  *
- * @param s the string to convert to an FluxBoundOperation_t.
+ * @param s the string to convert to a FluxBoundOperation_t.
  *
  * @return The corresponding FluxBoundOperation_t, or
  * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t} if no match found.
@@ -1437,8 +1437,8 @@ FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending
  * on whether the given string is a valid FluxBoundOperation_t.
- * The matching is case-sensitive:  "lessEqual" will return @c true, but
- * "lessequal" will return @c false.
+ * The matching is case-sensitive:  "lessEqual" will return @c 1 (true), but
+ * "lessequal" will return @c 0 (false).
  *
  * @param s the string to query.
  *

@@ -1022,7 +1022,8 @@ Member_isSetMetaIdRef(const Member_t * m);
 
 
 /**
- * Sets the value of the "id" attribute of this Member_t.
+ * Sets the value of the "id" attribute of this Member_t.  Calling this
+ * function with @p id = @c NULL is equivalent to calling Member_unsetId().
  *
  * @param m the Member_t structure.
  *
@@ -1030,6 +1031,7 @@ Member_isSetMetaIdRef(const Member_t * m);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
@@ -1040,7 +1042,8 @@ Member_setId(Member_t * m, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this Member_t.
+ * Sets the value of the "name" attribute of this Member_t.  Calling this
+ * function with @p name = @c NULL is equivalent to calling Member_unsetName().
  *
  * @param m the Member_t structure.
  *
@@ -1058,7 +1061,8 @@ Member_setName(Member_t * m, const char * name);
 
 
 /**
- * Sets the value of the "idRef" attribute of this Member_t.
+ * Sets the value of the "idRef" attribute of this Member_t.  Calling this
+ * function with @p idRef = @c NULL is equivalent to calling Member_unsetIdRef().
  *
  * @param m the Member_t structure.
  *
@@ -1077,7 +1081,8 @@ Member_setIdRef(Member_t * m, const char * idRef);
 
 
 /**
- * Sets the value of the "metaIdRef" attribute of this Member_t.
+ * Sets the value of the "metaIdRef" attribute of this Member_t.  Calling this
+ * function with @p metaIdRef = @c NULL is equivalent to calling Member_unsetMetaIdRef().
  *
  * @param m the Member_t structure.
  *
@@ -1085,7 +1090,6 @@ Member_setIdRef(Member_t * m, const char * idRef);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Member_t
@@ -1169,7 +1173,7 @@ Member_unsetMetaIdRef(Member_t * m);
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 to indicate that all the required attributes of this Member_t
+ * @return @c 1 (true) to indicate that all the required attributes of this Member_t
  * have been set, @c 0 (false) otherwise.
  *
  * @memberof Member_t

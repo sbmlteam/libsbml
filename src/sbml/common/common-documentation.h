@@ -3683,7 +3683,7 @@ if (lmp != null)
  * @par
  * The pointer that is returned by this function is not owned by the caller,
  * but may be queried and modified.  Any changes will be reflected in any
- * resulting SBML document containing this pointer's parent.
+ * resulting SBML document containing the pointer's parent.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_returned_unowned_char
@@ -3697,7 +3697,7 @@ if (lmp != null)
  *
  * @par
  * The pointer that is returned by this function is owned by the caller,
- * and should be deleted to avoid leaking memory.  Any changes to the element
+ * who is responsible for deleting it.  Any changes to the element
  * will not be reflected in any resulting SBML document unless the element
  * is added to an SBML Document.  Even in this case, the element should be
  * deleted, as adding elements to an SBML Document adds a copy of the element,
@@ -3707,8 +3707,8 @@ if (lmp != null)
  * @class doc_returned_owned_char
  *
  * @par
- * The string returned by this function is owned by the caller, and should
- * be deleted to avoid leaking memory.  Any changes to the string will not
+ * The string returned by this function is owned by the caller,
+ * who is responsible for deleting it.  Any changes to the string will not
  * be reflected in any resulting SBML document unless the string
  * is added to an SBML Document.  Even in this case, the string should be
  * deleted, as adding string to an SBML Document adds a copy of the string,
