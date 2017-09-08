@@ -116,8 +116,8 @@
  * <ul>
  *
  * <li> The "id" of a UnitDefinition must @em not contain a value from the
- * list of SBML's predefined base unit names (i.e., the strings @c gram, @c
- * litre, etc.).  In SBML Level&nbsp;3, this list consists of the
+ * list of SBML's predefined base unit names (i.e., the strings @c gram,
+ * @c litre, etc.).  In SBML Level&nbsp;3, this list consists of the
  * following:
  * 
  * @copydetails doc_base_units
@@ -143,8 +143,8 @@
  *   @htmlinclude predefined-units.html
  *
  * Also, SBML Level&nbsp;2 imposes two limitations on redefining the
- * predefined unit @c substance, @c volume, @c area, @c length, and @c
- * time: (1) The UnitDefinition of a predefined SBML unit can only contain
+ * predefined unit @c substance, @c volume, @c area, @c length, and
+ * @c time: (1) The UnitDefinition of a predefined SBML unit can only contain
  * a single Unit object within it.  (2) The value of the "kind" attribute
  * in a Unit instance must be drawn from one of the values in the second
  * column of the table above.
@@ -514,8 +514,8 @@ public:
    * Convenience function for testing if a given unit definition is a
    * variant of the unit @c "dimensionless".
    *
-   * @return @c true if this UnitDefinition is a variant of @c
-   * dimensionless, meaning dimensionless with only arbitrary variations in
+   * @return @c true if this UnitDefinition is a variant of
+   * @c dimensionless, meaning dimensionless with only arbitrary variations in
    * scale or multiplier values; @c false otherwise.
    */
   bool isVariantOfDimensionless (bool relaxed = false) const;
@@ -1426,8 +1426,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfUnitDefinitions, the XML element name is @c
-   * "listOfUnitDefinitions".
+   * For ListOfUnitDefinitions, the XML element name is
+   * @c "listOfUnitDefinitions".
    * 
    * @return the name of this element, i.e., @c "listOfUnitDefinitions".
    */
@@ -1525,8 +1525,8 @@ public:
    * Removes item in this ListOfUnitDefinitions items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *

@@ -311,8 +311,8 @@ Token_free (Token_t *t);
 /**
  * Returns the value of this token as a (long) integer.
  *
- * This function should be called only when the token's type is @c
- * TT_INTEGER.  If the type is @c TT_REAL or @c TT_REAL_E, the function
+ * This function should be called only when the token's type is
+ * @c TT_INTEGER.  If the type is @c TT_REAL or @c TT_REAL_E, the function
  * will cope by truncating the number's fractional part.
  *
  * @param t the token to be parsed into an integer.

@@ -1061,8 +1061,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfEventAssignments, the XML element name is @c
-   * "listOfEventAssignments".
+   * For ListOfEventAssignments, the XML element name is
+   * @c "listOfEventAssignments".
    * 
    * @return the name of this element, i.e., @c "listOfEventAssignments".
    */
@@ -1144,8 +1144,8 @@ public:
    * identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *

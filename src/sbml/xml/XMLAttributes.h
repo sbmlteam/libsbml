@@ -330,8 +330,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * &ndash; this value is returned if any of the arguments are @c NULL.  To
-   * set an empty value for the attribute, use an empty string rather than @c
-   * NULL.
+   * set an empty value for the attribute, use an empty string rather than
+   * @c NULL.
    *
    * @copydetails doc_note_overwrites_existing_values
    *
@@ -802,8 +802,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -864,8 +864,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -929,8 +929,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -995,8 +995,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -1060,8 +1060,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -1126,8 +1126,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -1195,8 +1195,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -1264,8 +1264,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -1331,8 +1331,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -1400,8 +1400,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -1454,8 +1454,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @copydetails doc_note_read_methods_and_namespaces 
    *
@@ -1510,8 +1510,8 @@ public:
    * occurred.  Callers can supply this value if it makes sense for their
    * applications.
    *
-   * @returns @c true if the attribute was successfully read into value, @c
-   * false otherwise.
+   * @returns @c true if the attribute was successfully read into value,
+   * @c false otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */

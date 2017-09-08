@@ -3838,8 +3838,8 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
  *
  * @param pkgURI the URI of the package.
  *
- * @return @c true if the given package is enabled with this object, @c
- * false otherwise.
+ * @return @c true if the given package is enabled with this object,
+ * @c false otherwise.
  */
 bool
 SBase::isPackageURIEnabled(const std::string& pkgURI) const
@@ -3859,8 +3859,8 @@ SBase::isPackageURIEnabled(const std::string& pkgURI) const
  *
  * @param pkgURI the URI of the package.
  *
- * @return @c true if the given package is enabled with this object, @c
- * false otherwise.
+ * @return @c true if the given package is enabled with this object,
+ * @c false otherwise.
  */
 bool
 SBase::isPkgURIEnabled(const std::string& pkgURI) const
@@ -3875,8 +3875,8 @@ SBase::isPkgURIEnabled(const std::string& pkgURI) const
  *
  * @param pkgName the URI of the package.
  *
- * @return @c true if the given package is enabled with this object, @c
- * false otherwise.
+ * @return @c true if the given package is enabled with this object,
+ * @c false otherwise.
  */
 bool
 SBase::isPackageEnabled(const std::string& pkgName) const
@@ -3896,8 +3896,8 @@ SBase::isPackageEnabled(const std::string& pkgName) const
  *
  * @param pkgName the URI of the package.
  *
- * @return @c true if the given package is enabled with this object, @c
- * false otherwise.
+ * @return @c true if the given package is enabled with this object,
+ * @c false otherwise.
  */
 bool
 SBase::isPkgEnabled(const std::string& pkgName) const

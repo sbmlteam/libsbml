@@ -591,8 +591,8 @@ ListOfMembers_isSetId(const ListOf_t * lo);
  *
  * @param lo the ListOf_t structure.
  *
- * @return @c 1 (true) if this ListOf_t's "name" attribute has been set, otherwise @c
- * 0 is returned.
+ * @return @c 1 (true) if this ListOf_t's "name" attribute has been set, otherwise
+ * @c 0 is returned.
  *
  * @memberof ListOfMembers_t
  */

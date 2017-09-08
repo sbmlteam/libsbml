@@ -765,8 +765,8 @@ public:
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * The names of the type codes all begin with the characters
+   * @c SBML_. @endif@if java LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as
@@ -813,8 +813,8 @@ public:
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * The names of the type codes all begin with the characters
+   * @c SBML_. @endif@if java LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as
@@ -1142,8 +1142,8 @@ public:
    * Predicate returning @c true if this
    * object has a ModelHistory object attached to it.
    *
-   * @return @c true if the ModelHistory of this object is set, @c
-   * false otherwise.
+   * @return @c true if the ModelHistory of this object is set,
+   * @c false otherwise.
    * 
    * @note In SBML Level&nbsp;2, model history annotations were only
    * permitted on the Model element.  In SBML Level&nbsp;3, they are
@@ -2292,8 +2292,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the XML element name of this object.
    *
    * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning @c
-   * "model", CompartmentType defines it as returning @c "compartmentType",
+   * SBML component.  For example, Model defines it as returning
+   * @c "model", CompartmentType defines it as returning @c "compartmentType",
    * and so on.
    */
   virtual const std::string& getElementName () const;
@@ -2871,8 +2871,8 @@ newModel.addSpecies(s1);
    *
    * @param pkgName the name of the package.
    *
-   * @return @c true if the given package is enabled within this object, @c
-   * false otherwise.
+   * @return @c true if the given package is enabled within this object,
+   * @c false otherwise.
    *
    * @see isPackageURIEnabled(@if java String@endif)
    */
@@ -2904,8 +2904,8 @@ newModel.addSpecies(s1);
    *
    * @param pkgName the name of the package.
    *
-   * @return @c true if the given package is enabled within this object, @c
-   * false otherwise.
+   * @return @c true if the given package is enabled within this object,
+   * @c false otherwise.
    *
    * @deprecated Replaced in libSBML 5.2.0 by
    * SBase::isPackageEnabled(@if java String@endif).

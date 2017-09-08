@@ -113,8 +113,8 @@
  * The detailed semantics of events are described in the specification
  * documents for each SBML Level/Version.  Here we include the description
  * from the SBML Level&nbsp;1 Version&nbsp;1.
- * Any transition of a Trigger object's "math" formula from the value @c
- * false to @c true will cause the enclosing Event object to
+ * Any transition of a Trigger object's "math" formula from the value
+ * @c false to @c true will cause the enclosing Event object to
  * <em>trigger</em>.  Such a transition is not possible at the very start
  * of a simulation (i.e., at time <em>t = 0</em>) unless the Trigger
  * object's "initialValue" attribute has a value of @c false; this defines

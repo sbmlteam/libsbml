@@ -52,8 +52,8 @@ BEGIN_C_DECLS
  *
  * @param formula the text-string formula expression to be parsed.
  *
- * @return the root node of the AST corresponding to the @p formula, or @c
- * NULL if an error occurred in parsing the formula
+ * @return the root node of the AST corresponding to the @p formula, or
+ * @c NULL if an error occurred in parsing the formula
  *
  * @see @sbmlfunction{parseL3Formula, String}
  * @see @sbmlfunction{formulaToString, ASTNode}

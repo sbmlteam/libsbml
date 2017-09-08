@@ -66,8 +66,8 @@
  * <li> In SBML Level&nbsp;2, the value assigned to the parameter's "units"
  * attribute must be chosen from one of the following possibilities: one of
  * the base unit identifiers defined in SBML; one of the built-in unit
- * identifiers @c "substance", @c "time", @c "volume", @c "area" or @c
- * "length"; or the identifier of a new unit defined in the list of unit
+ * identifiers @c "substance", @c "time", @c "volume", @c "area" or
+ * @c "length"; or the identifier of a new unit defined in the list of unit
  * definitions in the enclosing Model structure.  There are no constraints
  * on the units that can be chosen from these sets.  There are no default
  * units for parameters.
@@ -614,8 +614,8 @@ public:
    * identifier.  It does this by constructing an appropriate
    * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
    * when the value of the "units" attribute is one of the predefined SBML
-   * units @c "substance", @c "volume", @c "area", @c "length" or @c
-   * "time".  Callers may find this useful in conjunction with the helper
+   * units @c "substance", @c "volume", @c "area", @c "length" or
+   * @c "time".  Callers may find this useful in conjunction with the helper
    * methods provided by the UnitDefinition class for comparing different
    * UnitDefinition objects.
    *

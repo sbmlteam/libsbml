@@ -629,8 +629,8 @@ public:
    * @param triple an XMLTriple object describing the attribute being sought.
    *
    * @return @c true if an attribute matching the properties of the given
-   * XMLTriple object exists in the list of attributes on this token, @c
-   * false otherwise.
+   * XMLTriple object exists in the list of attributes on this token,
+   * @c false otherwise.
    */
   bool hasAttr (const XMLTriple& triple) const;
 
@@ -1011,8 +1011,8 @@ public:
    * XMLToken:isStart(), XMLToken::isEnd() and XMLToken::isText() are more
    * specific predicates.
    *
-   * @return @c true if this XMLToken object represents an XML element, @c
-   * false otherwise.
+   * @return @c true if this XMLToken object represents an XML element,
+   * @c false otherwise.
    *
    * @see isStart()
    * @see isEnd()

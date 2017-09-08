@@ -218,8 +218,8 @@ public:
   /**
    * Returns @c true if this compartment's "isType" attribute has been set.
    *
-   * @return @c true if the "isType" attribute has been set; otherwise, @c
-   * false is returned.
+   * @return @c true if the "isType" attribute has been set; otherwise,
+   * @c false is returned.
    */
   virtual bool isSetIsType() const;
 

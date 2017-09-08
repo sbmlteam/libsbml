@@ -88,8 +88,8 @@
  * evoke the idea that the trigger expression does not have to be
  * re-checked after it triggers if "persistent"=@c true.  Conversely, if
  * the attribute value is @c false, then the trigger expression is not
- * assumed to persist: if the expression transitions in value back to @c
- * false at any time between when the event triggered and when it is to be
+ * assumed to persist: if the expression transitions in value back to
+ * @c false at any time between when the event triggered and when it is to be
  * executed, the event is no longer considered to have triggered and its
  * assignments are not executed.  (If the trigger expression transitions
  * once more to @c true after that point, then the event is triggered, but
@@ -123,8 +123,8 @@
  * trigger expression is determined by the value of the boolean attribute
  * "initialValue".  A value of @c true means the trigger expression is
  * taken to have the value @c true immediately prior to <em>t = 0</em>.  In
- * that case, the trigger cannot transition in value from @c false to @c
- * true at the moment simulation begins (because it has the value @c true
+ * that case, the trigger cannot transition in value from @c false to
+ * @c true at the moment simulation begins (because it has the value @c true
  * both before and after <em>t = 0</em>), and can only make the transition
  * from @c false to @c true sometime <em>after</em> <em>t = 0</em>.  (To do
  * that, it would also first have to transition to @c false before it could

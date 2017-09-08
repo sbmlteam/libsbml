@@ -121,8 +121,8 @@
  *
  * In SBML Level&nbsp;2, if the "substanceUnits" attribute is not set on a
  * given Species object instance, then the unit of <em>amount</em> for that
- * species is taken from the predefined SBML unit identifier @c
- * "substance".  The value assigned to "substanceUnits" must be chosen from
+ * species is taken from the predefined SBML unit identifier
+ * @c "substance".  The value assigned to "substanceUnits" must be chosen from
  * one of the following possibilities: one of the base unit identifiers
  * defined in SBML, the built-in unit identifier @c "substance", or the
  * identifier of a new unit defined in the list of unit definitions in the
@@ -206,8 +206,8 @@
  * can appear as a product and/or reactant of one or more reactions in the
  * model.  If the species is a reactant or product of a reaction, it must
  * @em not also appear as the target of any AssignmentRule or RateRule
- * object in the model.  If instead the species has "boundaryCondition"=@c
- * false and "constant"=@c true, then it cannot appear as a reactant or
+ * object in the model.  If instead the species has "boundaryCondition"=
+ * @c false and "constant"=@c true, then it cannot appear as a reactant or
  * product, or as the target of any AssignmentRule, RateRule or
  * EventAssignment object in the model.
  *
@@ -1862,8 +1862,8 @@ public:
    * Removes item in this ListOfSpeciess items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *

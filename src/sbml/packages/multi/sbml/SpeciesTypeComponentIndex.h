@@ -583,8 +583,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c
-   * "listOfSpeciesTypeComponentIndexes".
+   * @return the name of this element, i.e.
+   * @c "listOfSpeciesTypeComponentIndexes".
    */
   virtual const std::string& getElementName () const;
 

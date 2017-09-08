@@ -34,8 +34,8 @@
  * @htmlinclude not-sbml-warning.html
  *
  * There is currently exactly one namespace defined for the Hierarchical 
- * %Model Composition package: @c
- * "http://www.sbml.org/sbml/level3/version1/comp/version1".  Despite 
+ * %Model Composition package:
+ * @c "http://www.sbml.org/sbml/level3/version1/comp/version1".  Despite 
  * referencing SBML Level&nbsp;3 Version&nbsp;1 explicitly, this package 
  * (and all such packages) can be used without change in SBML Level&nbsp;3
  * Version&nbsp;2 documents.  The only caveat is that features of the SBML 

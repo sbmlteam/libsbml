@@ -143,8 +143,8 @@ public:
    *
    * This is the central predicate of the ElementFilter class.  In subclasses
    * of ElementFilter, callers should implement this method such that it
-   * returns @c true for @p element arguments that are "desirable" and @c
-   * false for those that are "undesirable" in whatever filtering context the
+   * returns @c true for @p element arguments that are "desirable" and
+   * @c false for those that are "undesirable" in whatever filtering context the
    * ElementFilter subclass is designed to be used.
    *
    * @param element the element to be tested.

@@ -188,8 +188,8 @@
  *     Similarly, if the flattened Model is not valid, those validation
  *     errors will be added to the SBMLDocument, which will remain otherwise
  *     unchanged, and the conversion attempt will return failure.
- *     Conversely, if the option @em "performValidation" is set to @c
- *     "false", the SBMLDocument will be flattened regardless of any
+ *     Conversely, if the option @em "performValidation" is set to
+ *     @c "false", the SBMLDocument will be flattened regardless of any
  *     validation errors.  The conversion may yet fail if insurmountable
  *     errors are encountered in the course of trying to flatten the model
  *     (for instance, if an element is replaced by something that does not
@@ -416,9 +416,9 @@ writer.writeSBML(doc, args[1]);
  * submodel @c "A") to form @c "D" (from submodel @c "A"), or with enzyme
  * @c "E" (from submodel @c "B") to form @c "D" (from submodel @c "B").
  * In the flattened model above, note how the identifiers of components
- * inside the ModelDefinition objects @c "A" and @c "B" of our file @c
- * "enzyme_model.xml" have been rewritten as (for example) @c "A__E" @c
- * "B__E", etc.
+ * inside the ModelDefinition objects @c "A" and @c "B" of our file
+ * @c "enzyme_model.xml" have been rewritten as (for example) @c "A__E"
+ * @c "B__E", etc.
  *
  * @copydetails doc_section_using_sbml_converters
  */
@@ -444,13 +444,13 @@ writer.writeSBML(doc, args[1]);
  * Setting the option to @c true (the default) means enable the flattening
  * converter.
  *
- * <li> @em "abortIfUnflattenable": Possible values are @c "all", @c
- * "requiredOnly" (the default), or @c "none".  Controls what happens upon
+ * <li> @em "abortIfUnflattenable": Possible values are @c "all",
+ * @c "requiredOnly" (the default), or @c "none".  Controls what happens upon
  * encountering an SBML Level&nbsp;3 package with no flattener
  * implementation.
  *
- * <li> @em "stripUnflattenablePackages": Possible values are @c "true" or @c
- * "false" (the default).  Controls whether the constructs of Level&nbsp;3
+ * <li> @em "stripUnflattenablePackages": Possible values are @c "true" or
+ * @c "false" (the default).  Controls whether the constructs of Level&nbsp;3
  * packages with no flattener implementation are stripped from the output.
  *
  * <li> @em "stripPackages": The value must be a string representing a
@@ -464,8 +464,8 @@ writer.writeSBML(doc, args[1]);
  * <li> @em "leavePorts": Possible values are @c "true" or @c "false" (the
  * default).  Controls what happens to Port constructs in the output.
  *
- * <li> @em "listModelDefinitions": Possible values are @c "true" or @c
- * "false" (the default).  Controls what happens to ModelDefinition and
+ * <li> @em "listModelDefinitions": Possible values are @c "true" or
+ * @c "false" (the default).  Controls what happens to ModelDefinition and
  * ExternalModelDefinition objects in the final output.
  *
  * <li> @em "performValidation": Possible values are @c "true" (the default)

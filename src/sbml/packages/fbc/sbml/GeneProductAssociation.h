@@ -303,8 +303,8 @@ public:
   * @param association string representation of the association to be set.
   *
   * @param usingId If @c true, this method assumes that the infix
-  * string @p association uses the identifiers of GeneProduct objects.  If @c
-  * false (the default), the method assumes that the string uses the label
+  * string @p association uses the identifiers of GeneProduct objects.  If
+  * @c false (the default), the method assumes that the string uses the label
   * attributes of GeneProduct objects.
   *
   * @param addMissingGP If @c true (the default), then while

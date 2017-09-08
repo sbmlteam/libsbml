@@ -46,8 +46,8 @@
  * SBML.  In SBML Level&nbsp;2 and Level&nbsp;3, the reaction "id"
  * identifier can be used in mathematical formulas elsewhere in an SBML
  * model to represent the rate of that reaction; this usage is explained
- * below.  Reaction also has an optional "name" attribute, of type @c
- * string.  The "id" and "name" must be used according to the guidelines
+ * below.  Reaction also has an optional "name" attribute, of type
+ * @c string.  The "id" and "name" must be used according to the guidelines
  * described in the SBML specification.
  *
  * The species participating as reactants, products, and/or modifiers in a
@@ -113,8 +113,8 @@
  * software generating it.
  *
  * The Reaction object class has another boolean attribute called "fast".
- * This attribute is optional in SBML Level&nbsp;2, with a default of @c
- * false; it is mandatory in SBML Level&nbsp;3 (with no default value).  
+ * This attribute is optional in SBML Level&nbsp;2, with a default of
+ * @c false; it is mandatory in SBML Level&nbsp;3 (with no default value).  
  * In SBML Level&nbsp;3 Version&nbsp;2, a value of @c true for the "fast"
  * attribute is deprecated in favor of all reactions having a "fast" value 
  * of @c false.  It
@@ -1798,8 +1798,8 @@ public:
    *
    * @param sid a string representing the identifier of the Reaction to get.
    * 
-   * @return Reaction in this ListOfReactions with the given @p sid or @c
-   * NULL if no such Reaction exists.
+   * @return Reaction in this ListOfReactions with the given @p sid or
+   * @c NULL if no such Reaction exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -1812,8 +1812,8 @@ public:
    *
    * @param sid a string representing the identifier of the Reaction to get.
    * 
-   * @return Reaction in this ListOfReactions with the given @p sid or @c
-   * NULL if no such Reaction exists.
+   * @return Reaction in this ListOfReactions with the given @p sid or
+   * @c NULL if no such Reaction exists.
    *
    * @see get(unsigned int n)
    * @see size()

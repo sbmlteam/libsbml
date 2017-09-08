@@ -99,8 +99,8 @@
  * &quot;<code>pi</code>&quot;, and the formula to be parsed is
  * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
  * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the construct
- * <code>&lt;pi/&gt;</code>.  Similarly, when a Model object is provided, @c
- * SId values of user-defined functions present in the Model will be used
+ * <code>&lt;pi/&gt;</code>.  Similarly, when a Model object is provided,
+ * @c SId values of user-defined functions present in the Model will be used
  * preferentially over pre-defined MathML functions.  For example, if the
  * passed-in Model contains a FunctionDefinition with the identifier
  * &quot;<code>sin</code>&quot;, that function will be used instead of the
@@ -793,8 +793,8 @@ public:
    *
    * @copydetails doc_case_sensitivity
    *
-   * @param strcmp a boolean indicating whether to be case sensitive (if @c
-   * true) or be case insensitive (if @c false).
+   * @param strcmp a boolean indicating whether to be case sensitive (if
+   * @c true) or be case insensitive (if @c false).
    *
    * @see getComparisonCaseSensitivity()
    */

@@ -54,8 +54,8 @@
  *
  * A few small differences exist between the Level&nbsp;3 list of base
  * units and the list defined in other Level/Version combinations of SBML.
- * Specifically, Levels of SBML before Level&nbsp;3 do not define @c
- * avogadro; conversely, Level&nbsp;2 Version&nbsp;1 defines @c Celsius,
+ * Specifically, Levels of SBML before Level&nbsp;3 do not define
+ * @c avogadro; conversely, Level&nbsp;2 Version&nbsp;1 defines @c Celsius,
  * and Level&nbsp;1 defines @c celsius, @c meter, and @c liter, none of
  * which are available in Level&nbsp;3.  In libSBML, each of the predefined
  * base unit names is represented by an enumeration value @if clike in
@@ -100,17 +100,17 @@
  * convenience and as a way to provide backward compatibility to previous
  * SBML Level/Version specifications.  (The removal in SBML Level&nbsp;2
  * Version&nbsp;3 of the enumeration @c UnitKind was also accompanied by
- * the redefinition of the data type @c UnitSId to include the previous @c
- * UnitKind values as reserved symbols in the @c UnitSId space.  This
+ * the redefinition of the data type @c UnitSId to include the previous
+ * @c UnitKind values as reserved symbols in the @c UnitSId space.  This
  * change has no net effect on permissible models, their representation or
  * their syntax.  The purpose of the change in the SBML specification was
  * simply to clean up an inconsistency about the contexts in which these
  * values were usable.)
  * @endif@if java In SBML Level&nbsp;2 Versions before
- * Version&nbsp;3, there existed an enumeration of units called @c
- * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
- * identifier class @c UnitSId redefined to include the previous @c
- * UnitKind values as reserved symbols.  This change has no net effect on
+ * Version&nbsp;3, there existed an enumeration of units called
+ * @c UnitKind.  In Version&nbsp;3, this enumeration was removed and the
+ * identifier class @c UnitSId redefined to include the previous
+ * @c UnitKind values as reserved symbols.  This change has no net effect on
  * permissible models, their representation or their syntax.  The purpose
  * of the change in the SBML specification was simply to clean up an
  * inconsistency about the contexts in which these values were usable.
@@ -119,10 +119,10 @@
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
  * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>.
  * @endif@if python In SBML Level&nbsp;2 Versions before
- * Version&nbsp;3, there existed an enumeration of units called @c
- * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
- * identifier class @c UnitSId redefined to include the previous @c
- * UnitKind values as reserved symbols.  This change has no net effect on
+ * Version&nbsp;3, there existed an enumeration of units called
+ * @c UnitKind.  In Version&nbsp;3, this enumeration was removed and the
+ * identifier class @c UnitSId redefined to include the previous
+ * @c UnitKind values as reserved symbols.  This change has no net effect on
  * permissible models, their representation or their syntax.  The purpose
  * of the change in the SBML specification was simply to clean up an
  * inconsistency about the contexts in which these values were usable.
@@ -429,8 +429,8 @@ public:
    * @warning <span class="warning">The predefined unit @c Celsius was
    * removed from the list of predefined units in SBML Level&nbsp;2
    * Version&nbsp;2 at the same time that the "offset" attribute was removed
-   * from Unit definitions.  LibSBML methods such as this one related to @c
-   * Celsius are retained in order to support SBML Level&nbsp;2
+   * from Unit definitions.  LibSBML methods such as this one related to
+   * @c Celsius are retained in order to support SBML Level&nbsp;2
    * Version&nbsp;1, but their use is strongly discouraged.</span>
    */
   bool isCelsius () const;
@@ -446,8 +446,8 @@ public:
 
 
   /**
-   * Predicate for testing whether this Unit is of the kind @c
-   * dimensionless.
+   * Predicate for testing whether this Unit is of the kind
+   * @c dimensionless.
    *
    * @return @c true if the kind of this Unit is @c dimensionless, @c false
    * otherwise.
@@ -548,9 +548,8 @@ public:
   /**
    * Predicate for testing whether this Unit is of the kind @c litre
    *
-   * @return @c true if the kind of this Unit is @c litre or 'liter', @c
-   * false 
-   * otherwise.
+   * @return @c true if the kind of this Unit is @c litre or 'liter',
+   * @c false otherwise.
    */
   bool isLitre () const;
 
@@ -576,8 +575,8 @@ public:
   /**
    * Predicate for testing whether this Unit is of the kind @c metre
    *
-   * @return @c true if the kind of this Unit is @c metre or 'meter', @c
-   * false 
+   * @return @c true if the kind of this Unit is @c metre or 'meter',
+   * @c false 
    * otherwise.
    */
   bool isMetre () const;
@@ -703,8 +702,8 @@ public:
   /**
    * Predicate to test whether the "kind" attribute of this Unit is set.
    * 
-   * @return @c true if the "kind" attribute of this Unit is set, @c
-   * false otherwise.
+   * @return @c true if the "kind" attribute of this Unit is set,
+   * @c false otherwise.
    */
   bool isSetKind () const;
 
@@ -1026,8 +1025,8 @@ public:
    * Manipulates the attributes of the Unit to express the unit with the 
    * value of the scale attribute reduced to zero.
    *
-   * For example, 1 millimetre can be expressed as a Unit with kind=@c
-   * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+   * For example, 1 millimetre can be expressed as a Unit with kind=
+   * @c "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
    * expressed as a Unit with kind=@c "metre"
    * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
    *
@@ -1448,8 +1447,8 @@ protected:
 
   /**
    * Predicate to test whether a given string is the name of a valid base
-   * unit in SBML Level&nbsp;2 Version&nbsp;1 (such as @c "gram" or @c
-   * "mole")
+   * unit in SBML Level&nbsp;2 Version&nbsp;1 (such as @c "gram" or
+   * @c "mole")
    *
    * @param name a string to be tested.
    * 
@@ -1460,8 +1459,8 @@ protected:
 
   /**
    * Predicate to test whether a given string is the name of a valid base
-   * unit in SBML Level&nbsp;2 Version&nbsp;2, 3 or 4 (such as @c "gram" or @c
-   * "mole")
+   * unit in SBML Level&nbsp;2 Version&nbsp;2, 3 or 4 (such as @c "gram" or
+   * @c "mole")
    *
    * @param name a string to be tested.
    * 
@@ -1472,8 +1471,8 @@ protected:
 
   /**
    * Predicate to test whether a given string is the name of a valid base
-   * unit in SBML Level&nbsp;3 (such as @c "gram" or @c
-   * "mole")
+   * unit in SBML Level&nbsp;3 (such as @c "gram" or
+   * @c "mole")
    *
    * @param name a string to be tested.
    * 
@@ -2795,8 +2794,8 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
  * Manipulates the attributes of the Unit_t to express the unit with the 
  * value of the scale attribute reduced to zero.
  *
- * For example, 1 millimetre can be expressed as a Unit_t with kind=@c
- * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+ * For example, 1 millimetre can be expressed as a Unit_t with kind=
+ * @c "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
  * expressed as a Unit_t with kind=@c "metre"
  * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
  *

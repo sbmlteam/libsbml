@@ -889,8 +889,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfGeneProducts, the XML element name is always @c
-   * "listOfGeneProducts".
+   * For ListOfGeneProducts, the XML element name is always
+   * @c "listOfGeneProducts".
    *
    * @return the name of this element, i.e. @c "listOfGeneProducts".
    */

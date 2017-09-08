@@ -96,8 +96,8 @@
  * @class doc_sbmlreader_if_compressed
  *
  * @par
- * If the given filename ends with the suffix @c ".gz" (for example, @c
- * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
+ * If the given filename ends with the suffix @c ".gz" (for example,
+ * @c "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
  * format and will be automatically decompressed upon reading.
  * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
  * file is assumed to be compressed in @em zip or @em bzip2 format

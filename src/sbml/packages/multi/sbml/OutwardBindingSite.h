@@ -618,8 +618,8 @@ public:
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * The names of the type codes all begin with the characters
+   * @c SBML_. @endif@if java LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as
@@ -652,8 +652,8 @@ public:
    * @if clike LibSBML attaches an identifying code to every kind of SBML
    * object.  These are known as <em>SBML type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * The names of the type codes all begin with the characters
+   * @c SBML_. @endif@if java LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as

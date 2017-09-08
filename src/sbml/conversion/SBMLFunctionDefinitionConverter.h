@@ -56,8 +56,8 @@
  * @section usage Configuration and use of SBMLFunctionDefinitionConverter
  *
  * SBMLFunctionDefinitionConverter is enabled by creating a
- * ConversionProperties object with the option @c
- * "expandFunctionDefinitions", and passing this properties object to
+ * ConversionProperties object with the option
+ * @c "expandFunctionDefinitions", and passing this properties object to
  * SBMLDocument::convert(@if java ConversionProperties@endif).
  * The converter accepts one option:
  *

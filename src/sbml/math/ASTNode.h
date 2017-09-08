@@ -291,8 +291,8 @@ public:
    * The rules determining the canonical form conversion are as follows:
    *
    * @li If the node type is @sbmlconstant{AST_NAME, ASTNodeType_t}
-   * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
-   * "False" the node type is converted to the corresponding
+   * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or
+   * @c "False" the node type is converted to the corresponding
    * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
    * @li If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and
    * the node name matches an SBML (MathML) function name, logical operator name,
@@ -679,8 +679,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
    * It will return @c 0 if the node type is @em not one of these, but since
    * @c 0 may be a valid value for integer, it is important to be sure that
-   * the node type is one of the expected types in order to understand if @c
-   * 0 is the actual value.
+   * the node type is one of the expected types in order to understand if
+   * @c 0 is the actual value.
    *
    * @see getNumerator()
    */
@@ -1041,8 +1041,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to
    * 10.
    *
-   * @return @c true if the given ASTNode represents a @c log10() function, @c
-   * false otherwise.
+   * @return @c true if the given ASTNode represents a @c log10() function,
+   * @c false otherwise.
    *
    * @see @sbmlfunction{parseL3Formula, String}
    */
@@ -1052,8 +1052,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node is a MathML logical operator.
    *
-   * The possible MathML logical operators in SBML core are @c and, @c or, @c not, @c
-   * xor, and (as of SBML Level&nbsp;3 Version&nbsp;2) @c implies.  If
+   * The possible MathML logical operators in SBML core are @c and, @c or, @c not,
+   * @c xor, and (as of SBML Level&nbsp;3 Version&nbsp;2) @c implies.  If
    * the node represents a logical operator defined in a Level&nbsp;3 package,
    * it will also return @c true.
    *
@@ -1075,8 +1075,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * and not a constant or variable.
    *
    * @return @c true if this ASTNode is a user-defined variable name in SBML
-   * or the special symbols for time or Avogadro's constant. It returns @c
-   * false otherwise.
+   * or the special symbols for time or Avogadro's constant. It returns
+   * @c false otherwise.
    */
   virtual bool isName () const;
 
@@ -1136,8 +1136,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Predicate returning @c true if this node is a MathML
    * qualifier.
    *
-   * The MathML qualifier node types are @c bvar, @c degree, @c base, @c
-   * piece, and @c otherwise.
+   * The MathML qualifier node types are @c bvar, @c degree, @c base,
+   * @c piece, and @c otherwise.
    *
    * @return @c true if this ASTNode is a MathML qualifier, @c false
    * otherwise.
@@ -1174,8 +1174,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * The MathML relational operators are <code>==</code>, <code>&gt;=</code>,
    * <code>&gt;</code>, <code>&lt;</code>, and <code>!=</code>.
    *
-   * @return @c true if this ASTNode is a MathML relational operator, @c
-   * false otherwise.
+   * @return @c true if this ASTNode is a MathML relational operator,
+   * @c false otherwise.
    */
   virtual bool isRelational () const;
 
@@ -1740,8 +1740,8 @@ setValue(value, 0);
    *
    * For example, if the formula in this ASTNode is <code>x + y</code>,
    * and the function is called with @c bvar = @c "x" and @c arg = an ASTNode
-   * representing the real value @c 3.  This method would substitute @c 3 for @c
-   * x within this ASTNode object, resulting in the forula <code>3 + y</code>.
+   * representing the real value @c 3.  This method would substitute @c 3 for
+   * @c x within this ASTNode object, resulting in the forula <code>3 + y</code>.
    *
    * @param bvar a string representing the variable name to be substituted.
    *
@@ -2192,8 +2192,8 @@ ASTNode_freeName (ASTNode_t *node);
  * The rules determining the canonical form conversion are as follows:
  *
  * @li If the node type is @sbmlconstant{AST_NAME, ASTNodeType_t}
- * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
- * "False" the node type is converted to the corresponding
+ * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or
+ * @c "False" the node type is converted to the corresponding
  * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
  * @li If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and
  * the node name matches an SBML (MathML) function name, logical operator
@@ -2572,8 +2572,8 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
  *
  * @param node the node whose value is to be returned.
  *
- * @return the value of @p node as a single character, or the value @c
- * CHAR_MAX if @p is null.
+ * @return the value of @p node as a single character, or the value
+ * @c CHAR_MAX if @p is null.
  *
  * @memberof ASTNode_t
  */
@@ -2876,8 +2876,8 @@ ASTNode_isBoolean (const ASTNode_t * node);
  * Returns @c 1 (true) if the given node is something that returns a Boolean value.
  *
  * This function looks at the whole ASTNode_t structure rather than just the
- * top level of @p node. Thus, it will consider return values from MathML @c
- * piecewise statements.  In addition, if the ASTNode_t structure in @p node
+ * top level of @p node. Thus, it will consider return values from MathML
+ * @c piecewise statements.  In addition, if the ASTNode_t structure in @p node
  * uses a function call, this function will examine the return value of the
  * function.  Note that this is only possible in cases the ASTNode_t
  * structure can trace its parent Model_t structure; that is, the ASTNode_t
@@ -2903,8 +2903,8 @@ ASTNode_returnsBoolean (const ASTNode_t *node);
  * Returns @c 1 (true) if the given node is something that returns a Boolean value.
  *
  * This function looks at the whole ASTNode_t structure rather than just the
- * top level of @p node. Thus, it will consider return values from MathML @c
- * piecewise statements.  In addition, if the ASTNode_t structure in @p node
+ * top level of @p node. Thus, it will consider return values from MathML
+ * @c piecewise statements.  In addition, if the ASTNode_t structure in @p node
  * uses a function call, this function will examine the return value of the
  * function using the definition of the function found in the given Model_t
  * structure given by @p model (rather than the model that might be traced
@@ -3026,8 +3026,8 @@ ASTNode_isLambda (const ASTNode_t *node);
  *
  * More precisely, this function tests if the given @p node's type is
  * @sbmlconstant{AST_FUNCTION_LOG, ASTNodeType_t} with two children, the
- * first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to @c
- * 10.
+ * first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to
+ * @c 10.
  *
  * @return @c 1 (true) if @p node represents a @c log10() function,
  * @c 0 (false) otherwise.

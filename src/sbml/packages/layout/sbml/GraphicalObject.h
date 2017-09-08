@@ -616,8 +616,8 @@ public:
    * Removes item in this ListOfGraphicalObjects items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *

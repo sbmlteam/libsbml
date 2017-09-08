@@ -706,8 +706,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfSpeciesTypes, the XML element name is @c
-   * "listOfSpeciesTypes".
+   * For ListOfSpeciesTypes, the XML element name is
+   * @c "listOfSpeciesTypes".
    * 
    * @return the name of this element, i.e., @c "listOfSpeciesTypes".
    */
@@ -788,8 +788,8 @@ public:
    * Removes item in this ListOfSpeciesTypes items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *

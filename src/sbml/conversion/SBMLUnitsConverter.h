@@ -42,8 +42,8 @@
  * Unit conversion will only be performed on models that are fully unit
  * consistent, meaning that all objects have units associated with them and
  * there are no literal numbers with unspecified units.  In the case of an
- * SBML Level&nbsp;3 model involving math expressions, this means that the @c
- * timeUnits attribute on the Model object must be set, and if there are any
+ * SBML Level&nbsp;3 model involving math expressions, this means that the
+ * @c timeUnits attribute on the Model object must be set, and if there are any
  * reactions in the model, the @c extentUnits attribute on the Model object
  * must also be set.
  *

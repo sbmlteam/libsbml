@@ -323,8 +323,8 @@ sp.setId("MySpecies");
  * compartments having a "spatialDimensions" attribute value of @c "2", and
  * "lengthUnits" for compartments having a "spatialDimensions" attribute
  * value of @c "1".  The attributes are not applicable to compartments
- * whose "spatialDimensions" attribute values are @em not one of @c "1", @c
- * "2" or @c "3".
+ * whose "spatialDimensions" attribute values are @em not one of @c "1",
+ * @c "2" or @c "3".
  *
  * If a given Compartment object instance does not provide a value for its
  * "units" attribute, then the unit of measurement of that compartment's
@@ -374,8 +374,8 @@ sp.setId("MySpecies");
  * not define separate values for their "conversionFactor" attributes.  The
  * value of this attribute must refer to a Parameter object instance
  * defined in the model.  The Parameter object in question must be a
- * constant; ie it must have its "constant" attribute value set to @c
- * "true".
+ * constant; ie it must have its "constant" attribute value set to
+ * @c "true".
  *
  * If a given Species object definition does not specify a conversion
  * factor via the "conversionFactor" attribute on Species, then the species
@@ -559,8 +559,8 @@ public:
    *
    * @param id string representing the id of the object to find.
    *
-   * @return pointer to the first element found with the given @p id, or @c
-   * NULL if no such object is found.
+   * @return pointer to the first element found with the given @p id, or
+   * @c NULL if no such object is found.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -1529,8 +1529,8 @@ public:
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created.  If a Reaction does not
-   * exist for this model, a new SpeciesReference is @em not created and @c
-   * NULL is returned.
+   * exist for this model, a new SpeciesReference is @em not created and
+   * @c NULL is returned.
    */
   SpeciesReference* createReactant ();
 
@@ -1546,8 +1546,8 @@ public:
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created. If a Reaction does not
-   * exist for this model, a new SpeciesReference is @em not created and @c
-   * NULL is returned.
+   * exist for this model, a new SpeciesReference is @em not created and
+   * @c NULL is returned.
    */
   SpeciesReference* createProduct ();
 
@@ -1564,8 +1564,8 @@ public:
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created.  If a Reaction does not
-   * exist for this model, a new SpeciesReference is @em not created and @c
-   * NULL is returned.
+   * exist for this model, a new SpeciesReference is @em not created and
+   * @c NULL is returned.
    */
   ModifierSpeciesReference* createModifier ();
 

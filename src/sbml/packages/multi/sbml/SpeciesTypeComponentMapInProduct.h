@@ -388,8 +388,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c
-   * "speciesTypeComponentMapInProduct".
+   * @return the name of this element, i.e.
+   * @c "speciesTypeComponentMapInProduct".
    */
   virtual const std::string& getElementName () const;
 
@@ -626,8 +626,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c
-   * "listOfSpeciesTypeComponentMapInProducts".
+   * @return the name of this element, i.e.
+   * @c "listOfSpeciesTypeComponentMapInProducts".
    */
   virtual const std::string& getElementName () const;
 

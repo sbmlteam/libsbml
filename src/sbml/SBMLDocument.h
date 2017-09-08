@@ -569,8 +569,8 @@ public:
    *
    * @note This function will check the consistency of a model before
    * attemptimg the transformation.  If the model is not valid SBML, the
-   * transformation will not be performed and the function will return @c
-   * false.
+   * transformation will not be performed and the function will return
+   * @c false.
    */
   bool expandFunctionDefinitions();
 
@@ -591,14 +591,14 @@ public:
    *
    * @note This function will check the consistency of a model before
    * attemptimg the transformation.  If the model is not valid SBML, the
-   * transformation will not be performed and the function will return @c
-   * false.  As part of that process, this method will check that it has
+   * transformation will not be performed and the function will return
+   * @c false.  As part of that process, this method will check that it has
    * values for any components referred to by the <code>&lt;math&gt;</code>
    * elements of InitialAssignment objects.  In cases where not all of the
    * values have been declared (e.g., if the mathematical expression refers
    * to model entities that have no declared values), the InitialAssignment
-   * in question will @em not be removed and this method will return @c
-   * false.
+   * in question will @em not be removed and this method will return
+   * @c false.
    */
   bool expandInitialAssignments();
 
@@ -1156,8 +1156,8 @@ public:
    * the severity of the problem.  The possible severity levels range from
    * informational messages to fatal errors.
    *
-   * @return the error or warning indexed by integer @p n, or return @c
-   * NULL if <code>n &gt; (getNumErrors() - 1)</code>.
+   * @return the error or warning indexed by integer @p n, or return
+   * @c NULL if <code>n &gt; (getNumErrors() - 1)</code>.
    *
    * @param n the integer index of the error sought.
    *
@@ -1171,8 +1171,8 @@ public:
    * encountered during parsing, consistency checking, or attempted
    * translation of this model.
    *
-   * @return the error or warning indexed by integer @p n, or return @c
-   * NULL if <code>n &gt; (getNumErrors(severity) - 1)</code>.
+   * @return the error or warning indexed by integer @p n, or return
+   * @c NULL if <code>n &gt; (getNumErrors(severity) - 1)</code>.
    *
    * @param n the integer index of the error sought.
    * @param severity the severity of the error sought.

@@ -81,8 +81,8 @@
  * stoichiometry found in textbooks.  Examples and more explanations of
  * this are given in the SBML specification.
  * 
- * The following is a simple example of a species reference for species @c
- * "X0", with stoichiometry @c 2, in a list of reactants within a reaction
+ * The following is a simple example of a species reference for species
+ * @c "X0", with stoichiometry @c 2, in a list of reactants within a reaction
  * having the identifier @c "J1":
  * @verbatim
  <model>

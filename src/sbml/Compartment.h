@@ -60,8 +60,8 @@
  * there are no restrictions on the permitted values of the
  * "spatialDimensions" attribute, and there are no default values.  In SBML
  * Level&nbsp;2, the value must be a positive @c integer, and the default
- * value is @c 3; the permissible values in SBML Level&nbsp;2 are @c 3, @c
- * 2, @c 1, and @c 0 (for a point).
+ * value is @c 3; the permissible values in SBML Level&nbsp;2 are @c 3,
+ * @c 2, @c 1, and @c 0 (for a point).
  *
  * Another optional attribute on Compartment is "size", representing the @em
  * initial total size of that compartment in the model.  The "size" attribute
@@ -89,8 +89,8 @@
  * Finally, the Compartment attribute named "constant" is used to
  * indicate whether the compartment's size stays constant after simulation
  * begins.  A value of @c true indicates the compartment's "size" cannot be
- * changed by any other construct except InitialAssignment; a value of @c
- * false indicates the compartment's "size" can be changed by other
+ * changed by any other construct except InitialAssignment; a value of
+ * @c false indicates the compartment's "size" can be changed by other
  * constructs in SBML.  In SBML Level&nbsp;2, there is an additional
  * explicit restriction that if "spatialDimensions"=@c "0", the value
  * cannot be changed by InitialAssignment either.  Further, in
@@ -105,8 +105,8 @@
  * of units allowed as values of the attribute "units", interact with the
  * number of spatial dimensions of the compartment.  The value of the "units"
  * attribute of a Compartment @if conly structure @else object@endif@~ must
- * be one of the base units (see Unit), or the predefined unit identifiers @c
- * volume, @c area, @c length or @c dimensionless, or a new unit defined by a
+ * be one of the base units (see Unit), or the predefined unit identifiers
+ * @c volume, @c area, @c length or @c dimensionless, or a new unit defined by a
  * UnitDefinition @if conly structure @else object@endif@~ in the enclosing
  * Model, subject to the restrictions detailed in the following table:
  *
@@ -449,8 +449,8 @@
  * whole.  In cases where the
  * @if conly Compartment_t structure @else Compartment object@endif@~ has not
  * yet been added to a model, or the model itself is incomplete, unit
- * analysis is not possible, and consequently this method will return @c
- * NULL.
+ * analysis is not possible, and consequently this method will return
+ * @c NULL.
  */
 
 #ifndef Compartment_h
@@ -1026,8 +1026,8 @@ public:
   /**
    * Sets the "units" attribute of this Compartment object.
    *
-   * @param sid the identifier of the defined units to use.  If @p sid is @c
-   * NULL, then this method will return
+   * @param sid the identifier of the defined units to use.  If @p sid is
+   * @c NULL, then this method will return
    * @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
    *
    * @copydetails doc_returns_success_code
@@ -1134,8 +1134,8 @@ public:
   /**
    * Unsets the value of the "size" attribute of this Compartment object.
    *
-   * In SBML Level&nbsp;1, a compartment's volume has a default value (@c
-   * 1.0) and therefore <em>should always be set</em>.  Calling this method
+   * In SBML Level&nbsp;1, a compartment's volume has a default value
+   * (@c 1.0) and therefore <em>should always be set</em>.  Calling this method
    * on a Level&nbsp;1 model resets the value to @c 1.0 rather than actually
    * unsetting it.  In Level&nbsp;2, a compartment's "size" is optional with
    * no default value, and unsetting it will result in the compartment having
@@ -2661,8 +2661,8 @@ Compartment_unsetConstant (Compartment_t *c);
  * Unsets the value of the "size" attribute of the given Compartment_t
  * structure.
  *
- * In SBML Level&nbsp;1, a compartment's volume has a default value (@c
- * 1.0) and therefore <em>should always be set</em>.  Calling this method
+ * In SBML Level&nbsp;1, a compartment's volume has a default value
+ * (@c 1.0) and therefore <em>should always be set</em>.  Calling this method
  * on a Level&nbsp;1 model resets the value to @c 1.0 rather than actually
  * unsetting it.  In Level&nbsp;2, a compartment's "size" is optional with
  * no default value, and unsetting it will result in the compartment having

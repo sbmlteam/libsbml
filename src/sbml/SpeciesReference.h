@@ -107,8 +107,8 @@
  * that can be used in "stoichiometryMath" are those referenced in the
  * Reaction list of reactants, products and modifiers.
  *
- * The following is a simple example of a species reference for species @c
- * X0, with stoichiometry @c 2, in a list of reactants within a reaction
+ * The following is a simple example of a species reference for species
+ * @c X0, with stoichiometry @c 2, in a list of reactants within a reaction
  * having the identifier @c J1:
  * @verbatim
  <model>
@@ -1396,8 +1396,8 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfSpeciesReferences, the XML element name is @c
-   * "listOfSpeciesReferences".
+   * For ListOfSpeciesReferences, the XML element name is
+   * @c "listOfSpeciesReferences".
    * 
    * @return the name of this element, i.e., @c "listOfSpeciesReferences".
    */
@@ -1479,8 +1479,8 @@ public:
    * Removes item in this ListOfSpeciesReferences items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove.
    *
