@@ -1095,7 +1095,7 @@ Member_free(Member_t* m)
  * Returns the value of the "id" attribute of this Member_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getId(const Member_t * m)
 {
   if (m == NULL)
@@ -1111,7 +1111,7 @@ Member_getId(const Member_t * m)
  * Returns the value of the "name" attribute of this Member_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getName(const Member_t * m)
 {
   if (m == NULL)
@@ -1127,7 +1127,7 @@ Member_getName(const Member_t * m)
  * Returns the value of the "idRef" attribute of this Member_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getIdRef(const Member_t * m)
 {
   if (m == NULL)
@@ -1143,7 +1143,7 @@ Member_getIdRef(const Member_t * m)
  * Returns the value of the "metaIdRef" attribute of this Member_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 Member_getMetaIdRef(const Member_t * m)
 {
   if (m == NULL)
