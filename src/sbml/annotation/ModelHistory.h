@@ -647,10 +647,10 @@ ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
  * of this ModelHistory_t.
  *
  * @note A bug in libSBML meant that originally a ModelHistory_t structure
- * contained only one instance of a ModifiedDate_t.  In fact the MIRIAM
+ * contained only one instance of a Date_t.  In fact the MIRIAM
  * annotation expects zero or more modified dates and thus the
- * implementation was changed.  To avoid impacting on existing code
- * there is a ditinction between the function 
+ * implementation was changed.  To avoid impacting existing code
+ * there is a distinction between the function 
  * ModelHistory_getModifiedDate() which requires no index value and
  * this function that indexes into a list.
  *

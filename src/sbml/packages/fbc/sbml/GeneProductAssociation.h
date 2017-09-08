@@ -1021,8 +1021,8 @@ GeneProductAssociation_isSetAssociation(const GeneProductAssociation_t * gpa);
 /**
  * Sets the "id" attribute of the given GeneProductAssociation_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProductAssociation_unsetId() instead.
+ * This function copies the string given in @p id.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProductAssociation_unsetId().
  *
  * @param gpa the GeneProductAssociation_t structure.
  *
@@ -1034,8 +1034,8 @@ GeneProductAssociation_isSetAssociation(const GeneProductAssociation_t * gpa);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p id is equivalent to
+ * unsetting the value of the "id" attribute.
  * 
  * @memberof GeneProductAssociation_t
  */
@@ -1047,8 +1047,8 @@ GeneProductAssociation_setId(GeneProductAssociation_t * gpa, const char * id);
 /**
  * Sets the "name" attribute of the given GeneProductAssociation_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProductAssociation_unsetName() instead.
+ * This function copies the string given in @p name.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProductAssociation_unsetName().
  *
  * @param gpa the GeneProductAssociation_t structure.
  *

@@ -636,7 +636,7 @@ ModelCreator_isSetEmail(ModelCreator_t *mc);
  * Predicate indicating whether this
  * ModelCreator_t's organization is set.
  *
- * @note This function is an alias of ModelCretor_isSetOrganization().
+ * @note This function is an alias of ModelCreator_isSetOrganization().
  *
  * @param mc the ModelCreator_t structure to be queried.
  *
@@ -736,7 +736,7 @@ ModelCreator_setEmail(ModelCreator_t *mc, const char * email);
  * @param mc the ModelCreator_t structure.
  * @param org a string representing the organisation of the ModelCreator_t.
  *
- * @note This function is an alias of ModelCretor_setOrganization().
+ * @note This function is an alias of ModelCreator_setOrganization().
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

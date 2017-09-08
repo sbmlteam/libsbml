@@ -717,8 +717,8 @@ RateRule_isSetFormula (const RateRule_t *r);
 /**
  * Sets the "variable" attribute of the given RateRule_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs RateRule_unsetVariable() instead.
+ * This function copies the string given in @p variable.  If the string is
+ * a null pointer, this function is equivalent to calling RateRule_unsetVariable().
  *
  * @param rr the RateRule_t structure.
  *
@@ -730,8 +730,8 @@ RateRule_isSetFormula (const RateRule_t *r);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p variable is equivalent to
+ * unsetting the value of the "variable" attribute.
  * 
  * @memberof RateRule_t
  */

@@ -1163,8 +1163,8 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
 /**
  * Sets the "id" attribute of the given FluxObjective_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs FluxObjective_unsetId() instead.
+ * This function copies the string given in @p id.  If the string is
+ * a null pointer, this function is equivalent to calling FluxObjective_unsetId().
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1176,8 +1176,8 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p id is equivalent to
+ * unsetting the value of the "id" attribute.
  * 
  * @memberof FluxObjective_t
  */
@@ -1189,8 +1189,8 @@ FluxObjective_setId(FluxObjective_t * fo, const char * id);
 /**
  * Sets the "name" attribute of the given FluxObjective_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs FluxObjective_unsetName() instead.
+ * This function copies the string given in @p name.  If the string is
+ * a null pointer, this function is equivalent to calling FluxObjective_unsetName().
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1215,8 +1215,8 @@ FluxObjective_setName(FluxObjective_t * fo, const char * name);
 /**
  * Sets the "reaction" attribute of the given FluxObjective_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs FluxObjective_unsetReaction() instead.
+ * This function copies the string given in @p reaction.  If the string is
+ * a null pointer, this function is equivalent to calling FluxObjective_unsetReaction().
  *
  * @param fo the FluxObjective_t structure.
  *
@@ -1228,8 +1228,8 @@ FluxObjective_setName(FluxObjective_t * fo, const char * name);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p reaction is equivalent to
+ * unsetting the value of the "reaction" attribute.
  * 
  * @memberof FluxObjective_t
  */

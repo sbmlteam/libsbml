@@ -669,8 +669,8 @@ ModifierSpeciesReference_isSetSpecies(const ModifierSpeciesReference_t * msr);
 /**
  * Sets the "id" attribute of the given ModifierSpeciesReference_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs ModifierSpeciesReference_unsetId() instead.
+ * This function copies the string given in @p id.  If the string is
+ * a null pointer, this function is equivalent to calling ModifierSpeciesReference_unsetId().
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
@@ -682,8 +682,8 @@ ModifierSpeciesReference_isSetSpecies(const ModifierSpeciesReference_t * msr);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p id is equivalent to
+ * unsetting the value of the "id" attribute.
  * 
  * @memberof ModifierSpeciesReference_t
  */
@@ -695,8 +695,8 @@ ModifierSpeciesReference_setId(ModifierSpeciesReference_t * msr, const char * id
 /**
  * Sets the "name" attribute of the given ModifierSpeciesReference_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs ModifierSpeciesReference_unsetName() instead.
+ * This function copies the string given in @p name.  If the string is
+ * a null pointer, this function is equivalent to calling ModifierSpeciesReference_unsetName().
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
@@ -721,8 +721,8 @@ ModifierSpeciesReference_setName(ModifierSpeciesReference_t * msr, const char * 
 /**
  * Sets the "species" attribute of the given ModifierSpeciesReference_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs ModifierSpeciesReference_unsetSpecies() instead.
+ * This function copies the string given in @p species.  If the string is
+ * a null pointer, this function is equivalent to calling ModifierSpeciesReference_unsetSpecies().
  *
  * @param msr the ModifierSpeciesReference_t structure.
  *
@@ -734,8 +734,8 @@ ModifierSpeciesReference_setName(ModifierSpeciesReference_t * msr, const char * 
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p species is equivalent to
+ * unsetting the value of the "species" attribute.
  * 
  * @memberof ModifierSpeciesReference_t
  */

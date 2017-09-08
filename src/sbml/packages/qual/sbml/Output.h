@@ -1063,12 +1063,12 @@ Output_getQualitativeSpecies(Output_t * o);
 
 
 /**
- * Takes a Output_t structure and returns its transitionEffect as a ENUMTYPE 
+ * Takes a Output_t structure and returns its transitionEffect as a #OutputTransitionEffect_t 
  * (an enumerated value of legal possible values for the attribute).
  *
  * @param o the Output_t whose transitionEffect is sought.
  *
- * @return the transitionEffect of the given Output_t, as a ENUMTYPE
+ * @return the transitionEffect of the given Output_t, as a #OutputTransitionEffect_t
  *
  * @memberof Output_t
  */

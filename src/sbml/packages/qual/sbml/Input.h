@@ -1113,12 +1113,12 @@ Input_getQualitativeSpecies(Input_t * i);
 
 
 /**
- * Takes a Input_t structure and returns its transitionEffect as a ENUMTYPE 
+ * Takes a Input_t structure and returns its transitionEffect as a #InputTransitionEffect_t 
  * (an enumerated value of legal possible values for the attribute).
  *
  * @param i the Input_t whose transitionEffect is sought.
  *
- * @return the transitionEffect of the given Input_t, as a ENUMTYPE
+ * @return the transitionEffect of the given Input_t, as a #InputTransitionEffect_t
  *
  * @memberof Input_t
  */
@@ -1142,12 +1142,12 @@ Input_getName(Input_t * i);
 
 
 /**
- * Takes a Input_t structure and returns its sign as a ENUMTYPE 
+ * Takes a Input_t structure and returns its sign as a #InputSign_t
  * (an enumerated value of legal possible values for the attribute).
  *
  * @param i the Input_t whose sign is sought.
  *
- * @return the sign of the given Input_t, as a ENUMTYPE
+ * @return the sign of the given Input_t, as a #InputSign_t
  *
  * @memberof Input_t
  */

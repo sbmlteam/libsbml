@@ -1141,8 +1141,8 @@ GeneProduct_isSetAssociatedSpecies(const GeneProduct_t * gp);
 /**
  * Sets the "id" attribute of the given GeneProduct_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProduct_unsetId() instead.
+ * This function copies the string given in @p id.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProduct_unsetId().
  *
  * @param gp the GeneProduct_t structure.
  *
@@ -1154,8 +1154,8 @@ GeneProduct_isSetAssociatedSpecies(const GeneProduct_t * gp);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p id is equivalent to
+ * unsetting the value of the "id" attribute.
  * 
  * @memberof GeneProduct_t
  */
@@ -1167,8 +1167,8 @@ GeneProduct_setId(GeneProduct_t * gp, const char * id);
 /**
  * Sets the "name" attribute of the given GeneProduct_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProduct_unsetName() instead.
+ * This function copies the string given in @p name.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProduct_unsetName().
  *
  * @param gp the GeneProduct_t structure.
  *
@@ -1193,8 +1193,8 @@ GeneProduct_setName(GeneProduct_t * gp, const char * name);
 /**
  * Sets the "label" attribute of the given GeneProduct_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProduct_unsetLabel() instead.
+ * This function copies the string given in @p label.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProduct_unsetLabel().
  *
  * @param gp the GeneProduct_t structure.
  *
@@ -1206,8 +1206,8 @@ GeneProduct_setName(GeneProduct_t * gp, const char * name);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p label is equivalent to
+ * unsetting the value of the "label" attribute.
  * 
  * @memberof GeneProduct_t
  */
@@ -1219,8 +1219,8 @@ GeneProduct_setLabel(GeneProduct_t * gp, const char * label);
 /**
  * Sets the "associatedSpecies" attribute of the given GeneProduct_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeneProduct_unsetAssociatedSpecies() instead.
+ * This function copies the string given in @p associatedSpecies.  If the string is
+ * a null pointer, this function is equivalent to calling GeneProduct_unsetAssociatedSpecies().
  *
  * @param gp the GeneProduct_t structure.
  *
@@ -1232,8 +1232,8 @@ GeneProduct_setLabel(GeneProduct_t * gp, const char * label);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
+ * @note Using this function with a null pointer for @p associatedSpecies is equivalent to
+ * unsetting the value of the "associatedSpecies" attribute.
  * 
  * @memberof GeneProduct_t
  */

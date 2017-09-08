@@ -2394,8 +2394,8 @@ Compartment_setId (Compartment_t *c, const char *sid);
 /**
  * Sets the "name" attribute of the given Compartment_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs Compartment_unsetName() instead.
+ * This function copies the string given in @p name.  If the string is
+ * a null pointer, this function is equivalent to calling Compartment_unsetName().
  *
  * @param c the Compartment_t structure.
  *

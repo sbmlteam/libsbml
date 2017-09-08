@@ -1532,8 +1532,17 @@ Rule_getMath (const Rule_t *r);
 
 
 /**
- * @return the type of this Rule_t, either RULE_TYPE_RATE or
- * RULE_TYPE_SCALAR.
+ * Returns a code representing the type of rule this is.
+ *
+ * @return the rule type, which will be one of the following three possible
+ * values:
+ * @li @sbmlconstant{RULE_TYPE_RATE, RuleType_t}
+ * @li @sbmlconstant{RULE_TYPE_SCALAR, RuleType_t}
+ * @li @sbmlconstant{RULE_TYPE_INVALID, RuleType_t}
+ *
+ * @note The attribute "type" on Rule objects is present only in SBML
+ * Level&nbsp;1.  In SBML Level&nbsp;2 and later, the type has been
+ * replaced by subclassing the Rule object.
  *
  * @memberof Rule_t
  */
@@ -1782,8 +1791,20 @@ Rule_isSpeciesConcentration (const Rule_t *r);
 
 
 /**
- * @return the typecode (int) of SBML structures contained in this ListOf_t or
- * (default).
+ * Returns the libSBML type code for this Rule_t object.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @return the SBML type code for this object, either
+ * @sbmlconstant{SBML_ASSIGNMENT_RULE, SBMLTypeCode_t},
+ * @sbmlconstant{SBML_RATE_RULE, SBMLTypeCode_t}, or
+ * @sbmlconstant{SBML_ALGEBRAIC_RULE, SBMLTypeCode_t}
+ * for %SBML Core.
+ *
+ * @copydetails doc_warning_typecodes_not_unique
+ *
+ * @see getElementName()
+ * @see getPackageName()
  *
  * @memberof Rule_t
  */

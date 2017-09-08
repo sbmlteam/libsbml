@@ -5722,7 +5722,7 @@ Model_createKineticLawParameter (Model_t *m);
  * Reaction_createKineticLaw() on the Reaction_t structure created by a
  * Model_createReaction().  If a Reaction_t structure does not exist for
  * this model, or the last Reaction_t structure does not contain a
- * KineticLaw_t structure, a new Parameter_t is @em not created and NULL is
+ * KineticLaw_t structure, a new LocalParameter_t is @em not created and NULL is
  * returned instead.
  *
  * @param m the Model_t structure.
@@ -5898,7 +5898,7 @@ Model_getListOfCompartments (Model_t *m);
  *
  * @param m the Model_t structure.
  *
- * @return the list of Specie_t structures.
+ * @return the list of Species_t structures.
  *
  * @memberof Model_t
  */
@@ -6458,12 +6458,12 @@ Model_getNumCompartments (const Model_t *m);
 
 
 /**
- * Get the number of Specie_t structures in the given
+ * Get the number of Species_t structures in the given
  * Model_t structure
  *
  * @param m the Model_t structure.
  *
- * @return an unsigned integer as the count of Specie_t
+ * @return an unsigned integer as the count of Species_t
  * structures in @p m
  *
  * @memberof Model_t
@@ -6583,6 +6583,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m);
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Populates the list of FormulaDataUnits with the units derived 
  * for the model. The list contains elements of class
@@ -6614,8 +6615,10 @@ Model_getNumEvents (const Model_t *m);
 LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m);
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether 
  * the list of FormulaUnitsData is populated.
@@ -6630,6 +6633,7 @@ Model_populateListFormulaUnitsData(Model_t *m);
 LIBSBML_EXTERN
 int 
 Model_isPopulatedListFormulaUnitsData(Model_t *m);
+/** @endcond */
 
 
 /**
