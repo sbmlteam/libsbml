@@ -1334,7 +1334,7 @@ const char*
 BiolQualifierType_toString(BiolQualifierType_t type);
 
 /**
- * This method takes a a string and returns a model qualifier
+ * This method takes a string and returns a model qualifier
  * representing the string.
  *
  * This method takes a string as argument and returns a model qualifier type
@@ -1357,7 +1357,7 @@ ModelQualifierType_t
 ModelQualifierType_fromString(const char* s);
 
 /**
- * This method takes a a string and returns a biol qualifier
+ * This method takes a string and returns a biol qualifier
  * representing the string.
  *
  * This method takes a string as argument and returns a biol qualifier type
