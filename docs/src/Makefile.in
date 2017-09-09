@@ -105,9 +105,11 @@ extra_clean =                        \
         class-list.txt               \
         doxygen-config.txt           \
         doxygen-version-specific.txt \
+	doyysearch.db                \
         java-files                   \
         libsbml.pc                   \
-        libsbml.py
+        libsbml.py                   \
+	searchdata.xml
 
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
@@ -161,6 +163,7 @@ distfiles =                                                  \
         common-graphics/official-sbml-supported-32.jpg       \
         common-graphics/official-sbml-supported-40.jpg       \
         common-graphics/official-sbml-supported-70.png       \
+        common-graphics/right-arrow.png                      \
         common-graphics/right-arrow.gif                      \
         common-graphics/right-arrow-2x.png                   \
         common-graphics/simple-ast.graffle                   \
@@ -476,6 +479,9 @@ doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 %.html: %.html.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
+common-text/%.html: common-text/%.html.in
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
+
 expanded-html-files = \
   common-text/libsbml-downloading.html        \
   common-text/libsbml-group-comp-intro.html   \
@@ -484,7 +490,9 @@ expanded-html-files = \
   common-text/libsbml-group-layout-intro.html \
   common-text/libsbml-group-multi-intro.html  \
   common-text/libsbml-group-qual-intro.html   \
-  common-text/libsbml-installation.html
+  common-text/libsbml-installation.html	      \
+  common-text/libsbml-version.html	      \
+  common-text/sbml-specifications-table.html
 
 other-generated-files = \
   libsbml-converters.txt
@@ -541,17 +549,6 @@ endef
 
 ifneq "$(USE_DOXYGEN)" ""
 
-doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
-
-define preprocess_doxygen
-  $(call compare_classes)
-  if test $(doxygen-minor-version) -ge 8; then \
-    echo "MARKDOWN_SUPPORT = NO" > doxygen-version-specific.txt; \
-  else \
-    echo "" > doxygen-version-specific.txt; \
-  fi
-endef
-
 # The use of @addindex in the next block of code is a hack, used only because
 # it's a Doxygen command that takes an argument but otherwise has no effect
 # on the output we generate.  We ultimately need to use @ingroup, but when
@@ -564,8 +561,6 @@ endef
 # defining @sbmlpackage to be @ingroup.  This results in the table of
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
-
-#
 
 define run_doxygen
    $(call doxygen_indexing_pass,$(1),$(2),$(3))
@@ -611,6 +606,11 @@ define doxygen_final_pass
   rm files.js
 endef
 
+define preprocess_doxygen
+  mkdir -p $(cpp-manual)
+  $(call compare_classes)
+endef
+
 define postprocess_doxygen
   cp $(logo-files) $(1)
   cp common-graphics/*.txt $(1)
@@ -626,19 +626,54 @@ define postprocess_doxygen
   cp -rf css/libsbml-doxygen-navtree.css $(1)/navtree.css
 endef
 
+define config_doxygen_search
+  if test $(1) = "local"; then \
+    echo "# Configuration for local search" >  doxygen-search-config.txt; \
+    echo "SEARCHENGINE = YES"               >> doxygen-search-config.txt; \
+    echo "SERVER_BASED_SEARCH = NO"         >> doxygen-search-config.txt; \
+  else \
+    echo "# Config for server-side search"      >  doxygen-search-config.txt; \
+    echo "SEARCHENGINE = YES"                   >> doxygen-search-config.txt; \
+    echo "SERVER_BASED_SEARCH = YES"            >> doxygen-search-config.txt; \
+    echo "EXTERNAL_SEARCH = YES"                >> doxygen-search-config.txt; \
+    echo "SEARCHENGINE_URL = db/doxysearch.cgi" >> doxygen-search-config.txt; \
+  fi
+endef
+
+define doxygen_make_search_db
+  $(DOXYINDEXER) searchdata.xml
+  -mkdir -p $(1)/db
+  cp -rf doxysearch.db $(1)/db
+endef
+
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(all-sources) $(css-files)
-	mkdir -p $(cpp-manual)
 	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"local")
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
 	$(call postprocess_doxygen,$(cpp-manual))
 
+cpp-manual-server: doxygen-config-cpp.txt $(all-sources) $(css-files)
+	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"server")
+	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
+	$(call postprocess_doxygen,$(cpp-manual))
+	$(call doxygen_make_search_db,$(cpp-manual))
+
 c-manual $(c-manual): doxygen-config-c.txt $(all-sources) $(css-files) \
   filters/doc-filter-c.py class-list.txt
-	mkdir -p $(c-manual)
 	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"local")
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
 	$(call postprocess_doxygen,$(c-manual))
 	cp -f css/libsbml-c-stylesheet.css $(c-manual)
+
+c-manual-server: doxygen-config-c.txt $(all-sources) $(css-files)
+	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"server")
+	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
+	$(call postprocess_doxygen,$(c-manual))
+	cp -f css/libsbml-c-stylesheet.css $(c-manual)
+	$(call doxygen_make_search_db,$(c-manual))
 
 ifdef USE_PYTHON
 
@@ -662,13 +697,23 @@ python-ignorable-warnings = \
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources) \
   filters/doc-filter-python.py class-list.txt
-	mkdir -p $(python-manual)
 	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
 	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
 	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"local")
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
 	$(call postprocess_doxygen,$(python-manual))
 	cp -f css/libsbml-python-stylesheet.css $(python-manual)
+
+python-manual-server: doxygen-config-python.txt $(all-sources) $(css-files)
+	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
+	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
+	$(call preprocess_doxygen)
+	$(call config_doxygen_search,"server")
+	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
+	$(call postprocess_doxygen,$(python-manual))
+	cp -f css/libsbml-python-stylesheet.css $(python-manual)
+	$(call doxygen_make_search_db,$(python-manual))
 
 endif
 
@@ -723,6 +768,10 @@ csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) \
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-csharp.txt,$(csharp-manual),$(cs-ignorable-warnings))
 	$(call postprocess_doxygen,$(csharp-manual))
+
+csharp-manual-search: doxygen-config-csharp.txt $(all-sources) $(css-files)
+	make csharp-manual
+	$(call doxygen_make_search_db,$(csharp-manual))
 
 endif
 
@@ -995,121 +1044,3 @@ include @top_srcdir@/config/makefile-common-actions.mk
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
-
-# No longer used:
-
-#preformatted_files     = java.txt python.txt
-#generated_manual_files = libsbml-manual libsbml-manual.pdf
-#generated_apiref_files = libsbml-api-ref.pdf
-#all_generated_files    = $(generated_manual_files) $(generated_apiref_files)
-#all_doc_files          = $(all_generated_files) $(preformatted_files)
-
-#docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
-
-
-#api-tex-files := $(wildcard api/*.tex)
-
-#api/.timestamp:
-#	$(SHELL) createAPISections.sh ../../src/sbml
-#	echo `date` > api/.timestamp
-
-#$(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf: libsbml-api-ref.tex \
-#  api/.timestamp $(api-tex-files)
-#	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-#	$(latex-env) pdflatex libsbml-api-ref
-#	$(latex-env) bibtex libsbml-api-ref
-#	$(latex-env) pdflatex libsbml-api-ref
-#	$(latex-env) pdflatex libsbml-api-ref
-#	$(latex-env) pdflatex libsbml-api-ref
-#	cp -f libsbml-api-ref.pdf $(formatted)
-
-#$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex \
-#  api/.timestamp $(api-tex-files)
-#	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-#	$(latex-env) latex libsbml-api-ref
-#	$(latex-env) bibtex libsbml-api-ref
-#	$(latex-env) latex libsbml-api-ref
-#	$(latex-env) latex libsbml-api-ref
-#	$(latex-env) latex libsbml-api-ref
-#	cp -f libsbml-api-ref.dvi $(formatted)
-
-#$(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  $(formatted)/libsbml-api-ref.dvi
-#	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
-#	cp -f libsbml-api-ref.ps $(formatted)
-
-# doxygen-output-dir = libsbml-api-ref
-
-# $(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*/*.[cpp,h])
-#	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
-#	doxygen Doxyfile
-#	cp -rf tabs.css $(doxygen-output-dir)
-#	cp common-graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
-#	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
-#	cp -rf libsbml-api-ref $(formatted)
-
-## -----------------------------------------------------------------------------
-## libsbml-manual
-## -----------------------------------------------------------------------------
-
-#manual_html_dir = libsbml-manual
-
-#epsfiles        = $(wildcard common-graphics/*.eps)
-#pdffiles        = $(epsfiles:.eps=.pdf)
-
-#latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::"
-
-## Check that these files are up-to-date w.r.t. libsbml's version number.
-## This helps catch the situation where a person does a CVS update and
-## the version number changes, but the person doesn't remember to do a
-## reconfigure.
-
-#tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
-#	cd $(TOP_BUILDDIR) && \
-#	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
-
-## Yes, run pdflatex 4 times after running bibtex here.
-
-#manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
-#	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-#	$(latex-env) pdflatex libsbml-manual
-#	$(latex-env) bibtex libsbml-manual
-#	$(latex-env) pdflatex libsbml-manual
-#	$(latex-env) pdflatex libsbml-manual
-#	$(latex-env) pdflatex libsbml-manual
-#	cp -f libsbml-manual.pdf $(formatted)
-
-#$(formatted)/libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
-#	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-#	$(latex-env) latex libsbml-manual
-#	$(latex-env) bibtex libsbml-manual
-#	$(latex-env) latex libsbml-manual
-#	$(latex-env) latex libsbml-manual
-#	$(latex-env) latex libsbml-manual
-#	cp -f libsbml-manual.dvi $(formatted)
-
-#$(formatted)/libsbml-manual.ps libsbml-manual.ps: $(formatted)/libsbml-manual.dvi
-#	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
-#	cp -f libsbml-manual.ps $(formatted)
-
-## latex2html wants a .aux file
-
-#$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.pdf
-#	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
-#	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
-#	$(latex-env) latex2html -white -split +0 -show_section_numbers \
-#		   -image_type gif -no_navigation -local_icons -discard \
-#		   -antialias -t "libSBML $(PACKAGE_VERSION) Developer's Manual" \
-#		   -mkdir -dir $(manual_html_dir) libsbml-manual
-#	rm $(manual_html_dir)/index.html
-#	cp -f libsbml-manual.css $(manual_html_dir)
-#	cp tex/logos/sbml-logo-300x48.jpg $(manual_html_dir)
-#	cd $(manual_html_dir) && ln -sf libsbml-manual.html index.html
-#	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
-#		$(manual_html_dir)/libsbml-manual.html
-#	cp -rf libsbml-manual $(formatted)
-
-##		   -init_file libsbml-manual.init \
-##	ln -s libsbml-manual.html $(manual_html_dir)/index.html
-##	ln -sf $(manual_html_dir)/libsbml-manual.html
-##	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
-##		$(manual_html_dir)/libsbml-manual.html
