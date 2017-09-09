@@ -1501,7 +1501,7 @@ Input_hasRequiredAttributes(Input_t * i);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Input_t is being sought.
+ * Input_t being sought.
  *
  * @return the Input_t for the given variable, or @c NULL if no such
  * Input_t exists.

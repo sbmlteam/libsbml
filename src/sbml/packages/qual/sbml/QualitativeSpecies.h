@@ -1467,7 +1467,7 @@ QualitativeSpecies_hasRequiredAttributes(QualitativeSpecies_t * qs);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * QualitativeSpecies_t is being sought.
+ * QualitativeSpecies_t being sought.
  *
  * @return the QualitativeSpecies_t for the given variable, or @c NULL if no such
  * QualitativeSpecies_t exists.

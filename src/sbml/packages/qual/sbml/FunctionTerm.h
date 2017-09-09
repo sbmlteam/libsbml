@@ -1099,7 +1099,7 @@ FunctionTerm_hasRequiredElements(FunctionTerm_t * ft);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * FunctionTerm_t is being sought.
+ * FunctionTerm_t being sought.
  *
  * @return the FunctionTerm_t for the given variable, or @c NULL if no such
  * FunctionTerm_t exists.

@@ -580,7 +580,7 @@ Port_hasRequiredAttributes(Port_t * p);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Port_t is being sought.
+ * Port_t being sought.
  *
  * @return the Port_t for the given variable, or @c NULL if no such
  * Port_t exists.

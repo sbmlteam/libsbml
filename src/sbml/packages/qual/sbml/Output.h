@@ -1388,7 +1388,7 @@ Output_hasRequiredAttributes(Output_t * o);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Output_t is being sought.
+ * Output_t being sought.
  *
  * @return the Output_t for the given variable, or @c NULL if no such
  * Output_t exists.

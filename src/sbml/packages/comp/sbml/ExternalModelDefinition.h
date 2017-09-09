@@ -855,7 +855,7 @@ ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * ExternalModelDefinition_t is being sought.
+ * ExternalModelDefinition_t being sought.
  *
  * @return the ExternalModelDefinition_t for the given variable, or @c NULL if no such
  * ExternalModelDefinition_t exists.

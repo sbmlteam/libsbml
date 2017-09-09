@@ -1423,7 +1423,7 @@ Submodel_getDeletion(Submodel_t * s, unsigned int n);
  * @param s the Submodel_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Deletion_t is being sought.
+ * Deletion_t being sought.
  *
  * @return the Deletion_t for the given variable, or @c NULL if no such
  * Deletion_t exists.
@@ -1526,7 +1526,7 @@ Submodel_hasRequiredElements(Submodel_t * s);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Submodel_t is being sought.
+ * Submodel_t being sought.
  *
  * @return the Submodel_t for the given variable, or @c NULL if no such
  * Submodel_t exists.

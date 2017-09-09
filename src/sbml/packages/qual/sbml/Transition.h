@@ -1737,7 +1737,7 @@ Transition_getInput(Transition_t * t, unsigned int n);
  * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Input_t is being sought.
+ * Input_t being sought.
  *
  * @return the Input_t for the given variable, or @c NULL if no such
  * Input_t exists.
@@ -1881,7 +1881,7 @@ Transition_getOutput(Transition_t * t, unsigned int n);
  * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Output_t is being sought.
+ * Output_t being sought.
  *
  * @return the Output_t for the given variable, or @c NULL if no such
  * Output_t exists.
@@ -2025,7 +2025,7 @@ Transition_getFunctionTerm(Transition_t * t, unsigned int n);
  * @param t the Transition_t structure to use.
  *
  * @param sid a string, the identifier of the
- * FunctionTerm_t is being sought.
+ * FunctionTerm_t being sought.
  *
  * @return the FunctionTerm_t for the given variable, or @c NULL if no such
  * FunctionTerm_t exists.
@@ -2125,7 +2125,7 @@ Transition_hasRequiredElements(Transition_t * t);
  * @param lo the ListOf_t structure to use.
  *
  * @param sid a string, the identifier of the
- * Transition_t is being sought.
+ * Transition_t being sought.
  *
  * @return the Transition_t for the given variable, or @c NULL if no such
  * Transition_t exists.
