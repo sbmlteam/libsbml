@@ -1299,21 +1299,15 @@ DOT_MULTI_TARGETS      = YES
 
 DOT_GRAPH_MAX_NODES    = 5000
 
+MARKDOWN_SUPPORT       = NO
+
 #---------------------------------------------------------------------------
 # Configuration:additions related to the search engine   
 #---------------------------------------------------------------------------
 
-# The SEARCHENGINE tag specifies whether or not a search engine should be 
-# used. If set to NO the values of all tags below this one will be ignored.
+# The following file does not exist in the distribution.  It's created by the
+# Makefile at run time, to generate different search systems depending on
+# whether we're building a copy of the docs for users' local use or for
+# installing them on sbml.org.
 
-SEARCHENGINE           = YES
-SERVER_BASED_SEARCH    = NO
-
-#---------------------------------------------------------------------------
-# Configuration: handling of Doxygen version-specific features
-#---------------------------------------------------------------------------
-
-# The following file does not exist in the distribution.  It's created
-# automatically by the Makefile at run-time.
-
-@INCLUDE = doxygen-version-specific.txt
+@INCLUDE = doxygen-search-config.txt
