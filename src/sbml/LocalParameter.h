@@ -1066,7 +1066,7 @@ LocalParameter_getUnits (const LocalParameter_t *p);
  *
  * @param p the LocalParameter_t to ignore.
  *
- * @return @c 1 (true).
+ * @return @c 1 (true), or @c 0 (false) if @p p is @c NULL.
  *
  * @memberof LocalParameter_t
  */
@@ -1115,10 +1115,6 @@ LocalParameter_isSetName (const LocalParameter_t *p);
  * 
  * @return @c 1 (true) if the "value" attribute of the given
  * LocalParameter_t structure is set, @c 0 (false) otherwise.
- *
- * @note In SBML Level 1 Version 1, a LocalParameter_t value is required and
- * therefore <em>should always be set</em>.  In Level 1 Version 2 and
- * later, the value is optional, and as such, may or may not be set.
  *
  * @memberof LocalParameter_t
  */
@@ -1227,13 +1223,15 @@ LocalParameter_setUnits (LocalParameter_t *p, const char *units);
 
 /**
  * Because LocalParameter_t structures don't have a 'constant' attribute, this function always
- * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
+ * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}, or 
+ * @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t} if
+ * @p p is @c NULL.
  *
  * @param p the LocalParameter_t structure to leave unchanged.
  * @param value the integer value to ignore.
  *
  * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
@@ -1261,11 +1259,6 @@ LocalParameter_unsetName (LocalParameter_t *p);
 
 /**
  * Unsets the value of this LocalParameter_t structure.
- *
- * In SBML Level 1 Version 1, a parameter is required to have a value and
- * therefore this attribute <em>should always be set</em>.  In Level 1
- * Version 2 and beyond, a value is optional, and as such, may or may not be
- * set.
  *
  * @param p the LocalParameter_t structure whose value is to be unset.
  *
@@ -1298,12 +1291,14 @@ LocalParameter_unsetUnits (LocalParameter_t *p);
 
 /**
  * Because LocalParameter_t structures don't have a 'constant' attribute, this function always
- * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
+ * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}, 
+ * or @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t} if
+ * @p p is @c NULL.
  *
  * @param p the LocalParameter_t structure to leave unchanged.
  *
  * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof LocalParameter_t
