@@ -31,3 +31,4 @@ libsbml-converters.txt
 *.tmp
 doxysearch.db
 searchdata.xml
+doxygen-search-config.txt
