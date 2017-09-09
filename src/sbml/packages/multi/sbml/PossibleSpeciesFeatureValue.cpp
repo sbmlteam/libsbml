@@ -970,9 +970,6 @@ PossibleSpeciesFeatureValue_hasRequiredAttributes(PossibleSpeciesFeatureValue_t 
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 ListOfPossibleSpeciesFeatureValues_getById(ListOf_t * lo, const char * sid)

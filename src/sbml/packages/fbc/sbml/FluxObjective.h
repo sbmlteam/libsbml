@@ -1351,8 +1351,7 @@ FluxObjective_hasRequiredAttributes(const FluxObjective_t * fo);
 *
 * @param lo the ListOf_t structure to use.
 *
-* @param sid a string, the identifier of the
-* element being sought.
+* @param sid a string matching the "id" attribute of the element sought.
 *
 * @return the structure for the given variable, or @c NULL if no such
 * object exists in the list.
