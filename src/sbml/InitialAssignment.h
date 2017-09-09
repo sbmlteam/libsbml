@@ -1447,7 +1447,7 @@ InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia);
  * @param lo the ListOfInitialAssignments_t structure to search.
  * @param sid the "symbol" attribute value being sought.
  *
- * @return item in the @p lo ListOfInitialAssignments whose "variable" attribute 
+ * @return item in the @p lo ListOfInitialAssignments whose "symbol" attribute 
  * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
@@ -1468,7 +1468,7 @@ ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid);
  * @param lo the list of InitialAssignment_t structures to search.
  * @param sid the "symbol" attribute value of the structure to remove.
  *
- * @return The InitialAssignment_t structure removed whose "variable" attribute 
+ * @return The InitialAssignment_t structure removed whose "symbol" attribute 
  * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
