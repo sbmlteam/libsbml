@@ -89,7 +89,10 @@ PREDEFINED             = LIBSBML_EXTERN:="" \
 			 LIBSBML_CPP_NAMESPACE_END:=""
 
 EXAMPLE_PATH           = common-text . ../.. ../../examples/c \
-                         ../../examples/c/comp
+                         ../../examples/c/comp \
+                         ../../examples/c/fbc \
+                         ../../examples/c/groups
+
 
 INPUT =                                    \
   libsbml-accessing.txt                    \
