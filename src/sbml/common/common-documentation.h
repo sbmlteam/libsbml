@@ -512,7 +512,10 @@
  * static integer constants in the interface class
  * @link libsbmlcs.libsbml@endlink.@endif@~  Note that different Level&nbsp;3
  * package plug-ins may use overlapping type codes; to identify the package
- * to which a given object belongs, call the <code>getPackageName()</code>
+ * to which a given object belongs, call the 
+ * <code>@if conly SBase_getPackageName()
+ * @else SBase::getPackageName()
+ * @endif</code>
  * method on the object.
  *
  * <!-- ------------------------------------------------------------------- -->

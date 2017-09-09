@@ -740,7 +740,7 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *disownedItem);
 
 
 /**
- * Adds clones a list of items from one list to another.
+ * Adds clones of one list of items to another.
  *
  * @param lo the ListOf_t list to which @p list will be appended.
  * @param list the list of items to append to @p lo.
