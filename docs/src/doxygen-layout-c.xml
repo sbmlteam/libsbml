@@ -17,11 +17,11 @@
       <tab type="namespacelist" visible="yes" title="" intro=""/>
       <tab type="namespacemembers" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="classes" visible="yes" title="Data Structures and Functions">
-      <tab type="classlist" visible="yes" title="All Data Structures" intro="The C language does not define objects in the object-oriented programming sense.  In libSBML's C API, the C++ object classes used to implement libSBML's functionality are expressed as C data structures whose names are suffixed with '_t', and access to the C++ object methods is provided in the form of functions whose names are prefixed with the class (data structure) name.  The following is a list of all object data structures defined in this release of libSBML.  Click on their names to view detailed information about them and the functions that operate on them."/>
+    <tab type="classes" visible="yes" title="Structures, functions">
+      <tab type="classlist" visible="yes" title="Data Structures" intro="The C language does not define objects in the object-oriented programming sense.  In libSBML's C API, the C++ object classes used to implement libSBML's functionality are expressed as C data structures whose names are suffixed with '_t', and access to the C++ object methods is provided in the form of functions whose names are prefixed with the class (data structure) name.  The following is a list of all object data structures defined in this release of libSBML.  Click on their names to view detailed information about them and the functions that operate on them."/>
       <tab type="classindex" visible="no" title=""/> 
       <tab type="hierarchy" visible="no" title="" intro=""/>
-      <tab type="classmembers" visible="yes" title="Alphabetical Listings" intro="The following is a list of all functions and data fields."/>
+      <tab type="classmembers" visible="yes" title="Functions" intro="The following is a list of all functions and data fields."/>
     </tab>
     <tab type="files" visible="yes" title="">
       <tab type="filelist" visible="yes" title="" intro=""/>
