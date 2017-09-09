@@ -1895,13 +1895,14 @@ Rule_containsUndeclaredUnits(Rule_t *ia);
 
 
 /**
- * Returns the Rule_t structure having a given identifier.
+ * Despite its name, returns the Rule_t structure with the "variable" attribute 
+ * matching the given identifier.
  *
  * @param lo the ListOfRules_t structure to search.
- * @param sid the "id" attribute value being sought.
+ * @param sid the "variable" attribute value being sought.
  *
- * @return item in the @p lo ListOfRules with the given @p sid or a
- * null pointer if no such item exists.
+ * @return item in the @p lo ListOfRules whose "variable" attribute 
+ * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
  *
@@ -1913,15 +1914,16 @@ ListOfRules_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes a Rule_t structure based on its identifier.
+ * Despite its name, removes a Rule_t structure with the "variable" attribute 
+ * matching the given identifier.
  *
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of Rule_t structures to search.
- * @param sid the "id" attribute value of the structure to remove.
+ * @param sid the "variable" attribute value of the structure to remove.
  *
- * @return The Rule_t structure removed, or a null pointer if no such
- * item exists in @p lo.
+ * @return The Rule_t structure removed whose "variable" attribute 
+ * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
  *

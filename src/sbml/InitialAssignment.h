@@ -1441,13 +1441,14 @@ int
 InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia);
 
 /**
- * Returns the InitialAssignment_t structure having a given identifier.
+ * Despite its name, returns the InitialAssignment_t structure with the 
+ * "symbol" attribute matching the given identifier.
  *
  * @param lo the ListOfInitialAssignments_t structure to search.
- * @param sid the "id" attribute value being sought.
+ * @param sid the "symbol" attribute value being sought.
  *
- * @return item in the @p lo ListOfInitialAssignments with the given @p sid or a
- * null pointer if no such item exists.
+ * @return item in the @p lo ListOfInitialAssignments whose "variable" attribute 
+ * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
  *
@@ -1459,15 +1460,16 @@ ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid);
 
 
 /**
- * Removes a InitialAssignment_t structure based on its identifier.
+ * Despite its name, removes a InitialAssignment_t structure with the 
+ * "symbol" attribute matching the given identifier.
  *
  * The caller owns the returned item and is responsible for deleting it.
  *
  * @param lo the list of InitialAssignment_t structures to search.
- * @param sid the "id" attribute value of the structure to remove.
+ * @param sid the "symbol" attribute value of the structure to remove.
  *
- * @return The InitialAssignment_t structure removed, or a null pointer if no such
- * item exists in @p lo.
+ * @return The InitialAssignment_t structure removed whose "variable" attribute 
+ * matches the given @p sid or @c NULL if no such item exists.
  *
  * @see ListOf_t
  *
