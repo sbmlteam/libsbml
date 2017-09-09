@@ -3699,9 +3699,14 @@ if (lmp != null)
  * The pointer that is returned by this function is owned by the caller,
  * who is responsible for deleting it.  Any changes to the element
  * will not be reflected in any resulting SBML document unless the element
- * is added to an SBML Document.  Even in this case, the element should be
- * deleted, as adding elements to an SBML Document adds a copy of the element,
- * and does not transfer ownership of the pointer.
+ * is added to an SBML Document.  Even in this case, the element's deletion is
+ * still the responsibility of the caller with two exceptions: if it is used
+ * as the "disownedItem" in the @if conly ListOf_appendAndOwn() or 
+ * ListOf_insertAndOwn() @elseif java
+ * ListOf::appendAndOwn(SBase) or ListOf::insertAndOwn(int, SBase) @else 
+ * ListOf::appendAndOwn() or ListOf::insertAndOwn() @endif
+ * functions.  All other functions in libsbml add a copy of the element, 
+ * and do not transfer ownership of the pointer.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_returned_owned_char

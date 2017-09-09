@@ -660,8 +660,6 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_bare_listof
  *
- * @copydetails doc_note_setting_lv
- *
  * @memberof ListOf_t
  */
 LIBSBML_EXTERN
@@ -725,7 +723,8 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
  * Will become a child of the parent list.
  *
  * Unlike ListOf_append(), this function does not copy the @p disownedItem.
- * The given @p lo list will contain the original item.
+ * The given @p lo list will contain the original item, and becomes responsible
+ * for its deletion.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
