@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
   <model>
     <listOfCompartments>
-      <compartment id="a" spatialDimensions="3" units="volume" constant="true"/>
+      <compartment id="a" spatialDimensions="3" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
       <species id="s" compartment="a" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false"/>
