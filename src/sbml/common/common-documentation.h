@@ -3685,7 +3685,7 @@ if (lmp != null)
  *
  * @par
  * The pointer that is returned by this function is not owned by the caller,
- * but may be queried and modified.  Any changes will be reflected in any
+ * but may be queried and modified.  Any changes made will be reflected in any
  * resulting SBML document containing the pointer's parent.
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -3700,7 +3700,7 @@ if (lmp != null)
  *
  * @par
  * The pointer that is returned by this function is owned by the caller,
- * who is responsible for deleting it.  Any changes to the element
+ * who is responsible for deleting it.  Any changes made to the element
  * will not be reflected in any resulting SBML document unless the element
  * is added to an SBML Document.  Even in this case, the element's deletion is
  * still the responsibility of the caller with two exceptions: if it is used
@@ -3716,10 +3716,10 @@ if (lmp != null)
  *
  * @par
  * The string returned by this function is owned by the caller,
- * who is responsible for deleting it.  Any changes to the string will not
- * be reflected in any resulting SBML document unless the string
+ * who is responsible for deleting it.  Any changes made to the string will
+ * not be reflected in any resulting SBML document unless the string
  * is added to an SBML Document.  Even in this case, the string should be
- * deleted, as adding string to an SBML Document adds a copy of the string,
+ * deleted, as adding a string to an SBML Document adds a copy of the string,
  * and does not transfer ownership of that string.
  *
  * <!-- ------------------------------------------------------------------- -->
