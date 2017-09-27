@@ -71,23 +71,23 @@ octave-manual = $(formatted)/octave-api
 # so doesn't require doxygen).
 
 ifneq "$(USE_DOXYGEN)" ""
-  docs = $(cpp-manual)  # $(c-manual) Skip C because it's so out of date.
+  docs = $(cpp-manual) $(c-manual)
+  server-docs = cpp-manual-server c-manual-server
 else
   docs =
 endif
 
 ifdef USE_JAVA
   docs += $(java-manual)
+  server-docs += java-manual-server
 endif
 ifdef USE_PYTHON
   docs += $(python-manual)
+  server-docs += python-manual-server
 endif
-# Currently, the Perl docs aren't ready.  So let's not make them.
-# ifdef USE_PERL
-#   docs += $(perl-manual)
-# endif
 ifdef USE_CSHARP
   docs += $(csharp-manual)
+  server-docs += csharp-manual-server
 endif
 ifdef USE_MATLAB
   docs += $(matlab-manual)
@@ -95,6 +95,10 @@ endif
 ifdef USE_OCTAVE
   docs += $(octave-manual)
 endif
+# Currently, the Perl docs aren't ready.  So let's not make them.
+# ifdef USE_PERL
+#   docs += $(perl-manual)
+# endif
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
@@ -414,12 +418,14 @@ endef
 
 ifeq "$(USE_DOXYGEN)" ""
   ifdef USE_JAVA
-    all docs: Makefile $(docs)
+    docs: Makefile $(docs)
+    server-docs: Makefile $(server-docs)
   else
-    all docs:; $(error $(nodoxygen))
+    docs:; $(error $(nodoxygen))
   endif
 else
-  all docs: Makefile $(docs)
+  docs: Makefile $(docs)
+  server-docs: Makefile $(server-docs)
 endif
 
 
@@ -440,7 +446,7 @@ endif
 # -----------------------------------------------------------------------------
 
 #
-# Rules for remaking the C++, C, Python and Perl manuals.
+# Rules for remaking the C++, C, C#, Python and Perl manuals.
 #
 # These require configuring libSBML with --with-doxygen *and* a
 # sufficiently recent version of doxygen.  The version check is done by
@@ -640,41 +646,79 @@ define config_doxygen_search
   fi
 endef
 
+# Do not put a semicolon on the last line of the function below.
+
 define doxygen_make_search_db
-  $(DOXYINDEXER) searchdata.xml
-  -mkdir -p $(1)/db
+  $(DOXYINDEXER) searchdata.xml; \
+  mkdir -p $(1)/db; \
   cp -rf doxysearch.db $(1)/db
 endef
 
+define make_cpp_manual
+  $(call preprocess_doxygen)
+  $(call config_doxygen_search,$1)
+  $(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
+  $(call postprocess_doxygen,$(cpp-manual))
+  if test $(1) = "server"; then \
+    $(call doxygen_make_search_db,$(cpp-manual)); \
+  fi
+endef
+
+define make_c_manual
+  $(call preprocess_doxygen)
+  $(call config_doxygen_search,$1)
+  $(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
+  $(call postprocess_doxygen,$(c-manual))
+  cp -f css/libsbml-c-stylesheet.css $(c-manual)
+  if test $(1) = "server"; then \
+    $(call doxygen_make_search_db,$(c-manual)); \
+  fi
+endef
+
 cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(all-sources) $(css-files)
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"local")
-	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
-	$(call postprocess_doxygen,$(cpp-manual))
+	$(call make_cpp_manual,"local")
 
 cpp-manual-server: doxygen-config-cpp.txt $(all-sources) $(css-files)
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"server")
-	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual),"")
-	$(call postprocess_doxygen,$(cpp-manual))
-	$(call doxygen_make_search_db,$(cpp-manual))
+	$(call make_cpp_manual,"server")
 
 c-manual $(c-manual): doxygen-config-c.txt $(all-sources) $(css-files) \
   filters/doc-filter-c.py class-list.txt
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"local")
-	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
-	$(call postprocess_doxygen,$(c-manual))
-	cp -f css/libsbml-c-stylesheet.css $(c-manual)
+	$(call make_c_manual,"local")
 
-c-manual-server: doxygen-config-c.txt $(all-sources) $(css-files)
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"server")
-	$(call run_doxygen,doxygen-config-c.txt,$(c-manual),"")
-	$(call postprocess_doxygen,$(c-manual))
-	cp -f css/libsbml-c-stylesheet.css $(c-manual)
-	$(call doxygen_make_search_db,$(c-manual))
+c-manual-server: doxygen-config-c.txt $(all-sources) $(css-files) \
+  filters/doc-filter-c.py class-list.txt
+	$(call make_c_manual,"server")
 
+# .............................................................................
+ifdef USE_CSHARP
+
+# Some differences are just really hard to deal with.  Let's ignore warnings
+# we can't currently do anything about, and that are harmless.
+
+cs-ignorable-warnings = \
+  "is not found in the argument list of|explicit link request to 'GO' could not be resolved|multiple use of section label"
+
+define make_csharp_manual
+  mkdir -p $(csharp-manual)
+  $(call preprocess_doxygen)
+  $(call config_doxygen_search,$1)
+  $(call run_doxygen,doxygen-config-csharp.txt,$(csharp-manual),$(cs-ignorable-warnings))
+  $(call postprocess_doxygen,$(csharp-manual))
+  if test $(1) = "server"; then \
+    $(call doxygen_make_search_db,$(csharp-manual)); \
+  fi
+endef
+
+csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) 
+  $(css-files)
+	$(call make_csharp_manual,"local")
+
+csharp-manual-search: doxygen-config-csharp.txt $(all-sources) $(css-files)
+	$(call make_csharp_manual,"server")
+
+endif
+
+# .............................................................................
 ifdef USE_PYTHON
 
 python-input	     = ../../src/bindings/python/libsbml-doxygen.py
@@ -695,28 +739,28 @@ python-sources	     =	     \
 python-ignorable-warnings = \
   "is not found in the argument list|The following parameters of libsbml|parameter 'args'|multiple use of section label"
 
+define make_python_manual
+  $(call compare_constants,$(python-input),python-substitutions/libsbml.py)
+  utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
+  $(call preprocess_doxygen)
+  $(call config_doxygen_search,$1)
+  $(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
+  $(call postprocess_doxygen,$(python-manual))
+  cp -f css/libsbml-python-stylesheet.css $(python-manual)
+  if test $(1) = "server"; then \
+    $(call doxygen_make_search_db,$(python-manual)); \
+  fi
+endef
+
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources) \
   filters/doc-filter-python.py class-list.txt
-	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
-	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"local")
-	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
-	$(call postprocess_doxygen,$(python-manual))
-	cp -f css/libsbml-python-stylesheet.css $(python-manual)
+	$(call make_python_manual,"local")
 
 python-manual-server: doxygen-config-python.txt $(all-sources) $(css-files)
-	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
-	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
-	$(call preprocess_doxygen)
-	$(call config_doxygen_search,"server")
-	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
-	$(call postprocess_doxygen,$(python-manual))
-	cp -f css/libsbml-python-stylesheet.css $(python-manual)
-	$(call doxygen_make_search_db,$(python-manual))
-
+	$(call make_python_manual,"server")
 endif
 
+# .............................................................................
 ifdef USE_PERL
 
 perl-sources = ../../src/bindings/perl/LibSBML.pm
@@ -729,6 +773,7 @@ perl-manual $(perl-manual): doxygen-config-perl.txt $(perl-sources)
 
 endif
 
+# .............................................................................
 ifdef USE_MATLAB
 
 matlab-sources = \
@@ -741,6 +786,7 @@ matlab-manual $(matlab-manual): doxygen-config-matlab.txt $(matlab-sources)
 	$(call postprocess_doxygen,$(matlab-manual))
 endif
 
+# .............................................................................
 ifdef USE_OCTAVE
 
 octave-sources = \
@@ -751,27 +797,6 @@ octave-manual $(octave-manual): doxygen-config-octave.txt $(octave-sources)
 	$(call preprocess_doxygen)
 	$(DOXYGEN) doxygen-config-octave.txt
 	$(call postprocess_doxygen,$(octave-manual))
-
-endif
-
-ifdef USE_CSHARP
-
-# Some differences are just really hard to deal with.  Let's ignore warnings
-# we can't currently do anything about, and that are harmless.
-
-cs-ignorable-warnings = \
-  "is not found in the argument list of|explicit link request to 'GO' could not be resolved|multiple use of section label"
-
-csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) \
-  $(css-files)
-	mkdir -p $(csharp-manual)
-	$(call preprocess_doxygen)
-	$(call run_doxygen,doxygen-config-csharp.txt,$(csharp-manual),$(cs-ignorable-warnings))
-	$(call postprocess_doxygen,$(csharp-manual))
-
-csharp-manual-search: doxygen-config-csharp.txt $(all-sources) $(css-files)
-	make csharp-manual
-	$(call doxygen_make_search_db,$(csharp-manual))
 
 endif
 
@@ -787,7 +812,6 @@ endef
 
 cpp-manual c-manual perl-manual python-manual:
 	$(error $(nodoxygen))
-
 endif
 
 #
