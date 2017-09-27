@@ -1282,8 +1282,8 @@ Member_unsetMetaIdRef(Member_t * m)
 
 
 /*
- * Predicate returning @c 1 if all the required attributes for this Member_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Member_t object have been set.
  */
 LIBSBML_EXTERN
 int

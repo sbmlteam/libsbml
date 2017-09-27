@@ -291,7 +291,7 @@ public:
    * @return @c true if this Group's "id" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
 
 
   /**
@@ -504,7 +504,7 @@ public:
    * @param sid a string representing the identifier of the Member to retrieve.
    *
    * @return the Member in the ListOfMembers within this Group with the given
-   * id or NULL if no such Member exists.
+   * @p sid or @c NULL if no such Member exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -524,7 +524,7 @@ public:
    * @param sid a string representing the identifier of the Member to retrieve.
    *
    * @return the Member in the ListOfMembers within this Group with the given
-   * id or NULL if no such Member exists.
+   * @p sid or @c NULL if no such Member exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -705,6 +705,7 @@ public:
    * @li "kind"
    */
   virtual bool hasRequiredAttributes() const;
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -1159,8 +1160,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * @param filter, an ElementFilter that may impose restrictions on the
-   * objects to be retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -1597,7 +1598,7 @@ Group_getMember(Group_t* g, unsigned int n);
  * @param sid a string representing the identifier of the Member_t to retrieve.
  *
  * @return the Member_t in the ListOfMembers within this Group with the given
- * id or NULL if no such Member_t exists.
+ * @p sid or @c NULL if no such Member_t exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1721,13 +1722,13 @@ Group_removeMemberById(Group_t* g, const char* sid);
 
 
 /**
- * Predicate returning @c 1 (true) if all the required attributes for this Group_t
- * object have been set.
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Group_t object have been set.
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 (true) to indicate that all the required attributes of this Group_t
- * have been set, @c 0 (false) otherwise.
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Group_t have been set, otherwise @c 0 (false) is returned.
  *
  *
  * @note The required attributes for the Group_t object are:
@@ -1738,6 +1739,7 @@ Group_removeMemberById(Group_t* g, const char* sid);
 LIBSBML_EXTERN
 int
 Group_hasRequiredAttributes(const Group_t * g);
+
 
 
 

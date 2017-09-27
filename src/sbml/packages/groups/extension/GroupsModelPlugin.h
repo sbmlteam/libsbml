@@ -32,21 +32,6 @@
  *
  * @class GroupsModelPlugin
  * @sbmlbrief{groups} Extension of Model.
- *
- * The GroupsModelPlugin class inherits from the SBMLSBasePlugin class, and
- * codifies the extensions to the Model class defined in the SBML
- * Level&nbsp;3 @ref groups (&ldquo;groups&rdquo;) package.  This extension
- * allows a Model to contain an optional ListOfGroups object inside a new
- * element called <code>&lt;listOfGroups&gt;</code>.  This list holds the
- * definition of optional groups defined in the model.
- *
- * A "group" in SBML Level&nbsp;3 provides a mechanism for
- * indicating that components of an SBML model are related in some way.
- * Groups may contain either the same or different types of SBML objects, and
- * groups may be nested if desired. There are no predefined behavioral
- * semantics associated with groups.  All groups in a given model have to be
- * defined as Group objects and included in the ListOfGroups object attached
- * to the Model object containing them.
  */
 
 
@@ -213,7 +198,7 @@ public:
    * @param sid a string representing the identifier of the Group to retrieve.
    *
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
-   * the given identifier @p sid, or @c NULL if no such Group exists.
+   * the given @p sid or @c NULL if no such Group exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -233,7 +218,7 @@ public:
    * @param sid a string representing the identifier of the Group to retrieve.
    *
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
-   * the given identifier @p sid, or @c NULL if no such Group exists.
+   * the given @p sid or @c NULL if no such Group exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -346,6 +331,7 @@ public:
    * @see removeGroup(unsigned int n)
    */
   Group* removeGroup(const std::string& sid);
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -812,8 +798,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * @param filter an ElementFilter that may impose restrictions on the
-   * objects to be retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.

@@ -184,8 +184,8 @@ public:
    *
    * @param sid a string representing the identifier of the Group to retrieve.
    *
-   * @return the Group in this ListOfGroups with the given id or NULL if no
-   * such Group exists.
+   * @return the Group in this ListOfGroups with the given @p sid or @c NULL if
+   * no such Group exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -204,8 +204,8 @@ public:
    *
    * @param sid a string representing the identifier of the Group to retrieve.
    *
-   * @return the Group in this ListOfGroups with the given id or NULL if no
-   * such Group exists.
+   * @return the Group in this ListOfGroups with the given @p sid or @c NULL if
+   * no such Group exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -445,8 +445,8 @@ ListOfGroups_getGroup(ListOf_t* lo, unsigned int n);
  *
  * @param sid a string representing the identifier of the Group_t to retrieve.
  *
- * @return the Group_t in this ListOf_t with the given id or NULL if no such
- * Group_t exists.
+ * @return the Group_t in this ListOf_t with the given @p sid or @c NULL if no
+ * such Group_t exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
