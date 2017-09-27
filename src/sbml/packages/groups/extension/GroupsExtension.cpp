@@ -119,8 +119,8 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegistry;
 static
 const char* SBML_GROUPS_TYPECODE_STRINGS[] =
 {
-    "Member"
-  , "Group"
+    "Group"
+  , "Member"
 };
 
 
@@ -286,8 +286,8 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 const char*
 GroupsExtension::getStringFromTypeCode(int typeCode) const
 {
-  int min = SBML_GROUPS_MEMBER;
-  int max = SBML_GROUPS_GROUP;
+  int min = SBML_GROUPS_GROUP;
+  int max = SBML_GROUPS_MEMBER;
 
   if (typeCode < min || typeCode > max)
   {
@@ -376,6 +376,7 @@ GroupsExtension::init()
 
 
   std::vector<std::string> packageURIs;
+
   packageURIs.push_back(getXmlnsL3V1V1());
 
   SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
@@ -406,18 +407,19 @@ const char* SBML_GROUP_KIND_STRINGS[] =
   "classification"
 , "partonomy"
 , "collection"
-, "(Unknown SBML Groups Type)"
+, "invalid GroupKind"
 };
 
 
 /*
+ * Returns the string version of the provided #GroupKind_t enumeration.
  */
 LIBSBML_EXTERN
 const char*
 GroupKind_toString(GroupKind_t gk)
 {
   int min = GROUP_KIND_CLASSIFICATION;
-  int max = GROUP_KIND_UNKNOWN;
+  int max = GROUP_KIND_INVALID;
 
   if (gk < min || gk > max)
   {
@@ -429,6 +431,8 @@ GroupKind_toString(GroupKind_t gk)
 
 
 /*
+ * Returns the #GroupKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t} if there is no such match.
  */
 LIBSBML_EXTERN
 GroupKind_t
@@ -446,18 +450,20 @@ GroupKind_fromString(const char* code)
     }
   }
 
-  return GROUP_KIND_UNKNOWN;
+  return GROUP_KIND_INVALID;
 }
 
 
 /*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #GroupKind_t is valid.
  */
 LIBSBML_EXTERN
 int
 GroupKind_isValid(GroupKind_t gk)
 {
   int min = GROUP_KIND_CLASSIFICATION;
-  int max = GROUP_KIND_UNKNOWN;
+  int max = GROUP_KIND_INVALID;
 
   if (gk < min || gk >= max)
   {
@@ -471,6 +477,8 @@ GroupKind_isValid(GroupKind_t gk)
 
 
 /*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #GroupKind_t.
  */
 LIBSBML_EXTERN
 int

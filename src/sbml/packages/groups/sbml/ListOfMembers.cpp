@@ -54,8 +54,6 @@ ListOfMembers::ListOfMembers(unsigned int level,
                              unsigned int version,
                              unsigned int pkgVersion)
   : ListOf(level, version)
-//  , mId ("")
-//  , mName ("")
 {
   setSBMLNamespacesAndOwn(new GroupsPkgNamespaces(level, version, pkgVersion));
 }
@@ -66,8 +64,6 @@ ListOfMembers::ListOfMembers(unsigned int level,
  */
 ListOfMembers::ListOfMembers(GroupsPkgNamespaces *groupsns)
   : ListOf(groupsns)
-//  , mId ("")
-//  , mName ("")
 {
   setElementNamespace(groupsns->getURI());
 }
@@ -78,8 +74,6 @@ ListOfMembers::ListOfMembers(GroupsPkgNamespaces *groupsns)
  */
 ListOfMembers::ListOfMembers(const ListOfMembers& orig)
   : ListOf( orig )
-  //, mId ( orig.mId )
-  //, mName ( orig.mName )
 {
 }
 
@@ -93,8 +87,6 @@ ListOfMembers::operator=(const ListOfMembers& rhs)
   if (&rhs != this)
   {
     ListOf::operator=(rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
   }
 
   return *this;
@@ -381,7 +373,7 @@ struct IdEqIR : public std::unary_function<SBase*, bool>
 
 
 /*
- * Get a Member from the ListOfMembers based on the IdRef to which it refers.
+ * Get a Member from the ListOfMembers based on the element to which it refers.
  */
 const Member*
 ListOfMembers::getByIdRef(const std::string& sid) const
@@ -393,7 +385,7 @@ ListOfMembers::getByIdRef(const std::string& sid) const
 
 
 /*
- * Get a Member from the ListOfMembers based on the IdRef to which it refers.
+ * Get a Member from the ListOfMembers based on the element to which it refers.
  */
 Member*
 ListOfMembers::getByIdRef(const std::string& sid)
@@ -632,7 +624,7 @@ ListOfMembers::writeXMLNS(XMLOutputStream& stream) const
  * Returns the value of the "id" attribute of this ListOf_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 ListOfMembers_getId(const ListOf_t * lo)
 {
   if (lo == NULL)
@@ -649,7 +641,7 @@ ListOfMembers_getId(const ListOf_t * lo)
  * Returns the value of the "name" attribute of this ListOf_t.
  */
 LIBSBML_EXTERN
-const char *
+char *
 ListOfMembers_getName(const ListOf_t * lo)
 {
   if (lo == NULL)
@@ -738,7 +730,7 @@ ListOfMembers_unsetName(ListOf_t * lo)
  * Get a Member_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 ListOfMembers_getMember(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
@@ -754,7 +746,7 @@ ListOfMembers_getMember(ListOf_t* lo, unsigned int n)
  * Get a Member_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-const Member_t*
+Member_t*
 ListOfMembers_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)

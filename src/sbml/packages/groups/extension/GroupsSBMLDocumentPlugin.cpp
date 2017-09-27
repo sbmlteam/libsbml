@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new GroupsSBMLDocumentPlugin using the given uri, prefix and
+ * Creates a new GroupsSBMLDocumentPlugin using the given URI, prefix and
  * package namespace.
  */
 GroupsSBMLDocumentPlugin::GroupsSBMLDocumentPlugin(const std::string& uri,
@@ -207,7 +207,7 @@ GroupsSBMLDocumentPlugin::checkConsistency()
 void
 GroupsSBMLDocumentPlugin::readAttributes(const XMLAttributes& attributes,
                                          const ExpectedAttributes&
-                                           /*expectedAttributes*/)
+                                           expectedAttributes)
 {
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3)
   {

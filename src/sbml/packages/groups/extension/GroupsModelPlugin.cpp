@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new GroupsModelPlugin using the given uri, prefix and package
+ * Creates a new GroupsModelPlugin using the given URI, prefix and package
  * namespace.
  */
 GroupsModelPlugin::GroupsModelPlugin(const std::string& uri,
@@ -856,16 +856,28 @@ GroupsModelPlugin::createObject(XMLInputStream& stream)
   SBase* obj = NULL;
 
   const std::string& name = stream.peek().getName();
+  const XMLNamespaces& xmlns = stream.peek().getNamespaces();
+  const std::string& prefix = stream.peek().getPrefix();
 
-  if (name == "listOfGroups")
+  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ?
+    xmlns.getPrefix(mURI) : mPrefix;
+
+  if (prefix == targetPrefix)
   {
-    if (mGroups.size() != 0)
+    if (name == "listOfGroups")
     {
-      getErrorLog()->logPackageError("groups", GroupsModelAllowedElements,
-        getPackageVersion(), getLevel(), getVersion());
-    }
+      if (mGroups.size() != 0)
+      {
+        getErrorLog()->logPackageError("groups", GroupsModelAllowedElements,
+          getPackageVersion(), getLevel(), getVersion());
+      }
 
-    obj = &mGroups;
+      obj = &mGroups;
+      if (targetPrefix.empty())
+      {
+        mGroups.getSBMLDocument()->enableDefaultNS(mURI, true);
+      }
+    }
   }
 
   connectToChild();
@@ -964,7 +976,7 @@ GroupsModelPlugin_getListOfGroups(GroupsModelPlugin_t* gmp)
  * Get a Group_t from the GroupsModelPlugin_t.
  */
 LIBSBML_EXTERN
-const Group_t*
+Group_t*
 GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n)
 {
   return (gmp != NULL) ? gmp->getGroup(n) : NULL;
@@ -975,7 +987,7 @@ GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n)
  * Get a Group_t from the GroupsModelPlugin_t based on its identifier.
  */
 LIBSBML_EXTERN
-const Group_t*
+Group_t*
 GroupsModelPlugin_getGroupById(GroupsModelPlugin_t* gmp, const char *sid)
 {
   return (gmp != NULL && sid != NULL) ? gmp->getGroup(sid) : NULL;

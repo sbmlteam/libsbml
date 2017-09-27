@@ -63,19 +63,21 @@ class LIBSBML_EXTERN GroupsSBMLDocumentPlugin : public SBMLDocumentPlugin
 public:
 
   /**
-   * Creates a new GroupsSBMLDocumentPlugin using the given uri, prefix and
+   * Creates a new GroupsSBMLDocumentPlugin using the given URI, prefix and
    * package namespace.
+   *
+   * @param uri a string, representing the URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
+   *
+   * @param prefix a string, the XML namespace prefix being used for this
+   * package.
+   *
+   * @param groupsns a pointer to the namesspaces object (GroupsPkgNamespaces)
+   * for this package.
    *
    * @copydetails doc_what_are_xmlnamespaces
    *
    * @copydetails doc_what_are_sbmlnamespaces
-   *
-   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
-   * this libSBML package extension.
-   *
-   * @param prefix the XML namespace prefix being used for the package.
-   *
-   * @param groupsns the namespaces object for the package.
    */
   GroupsSBMLDocumentPlugin(const std::string& uri,
                            const std::string& prefix,
@@ -93,8 +95,8 @@ public:
   /**
    * Assignment operator for GroupsSBMLDocumentPlugin.
    *
-   * @param rhs the GroupsSBMLDocumentPlugin object whose values are to be
-   * used as the basis of the assignment.
+   * @param rhs the GroupsSBMLDocumentPlugin object whose values are to be used
+   * as the basis of the assignment.
    */
   GroupsSBMLDocumentPlugin& operator=(const GroupsSBMLDocumentPlugin& rhs);
 

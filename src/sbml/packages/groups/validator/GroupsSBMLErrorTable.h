@@ -65,7 +65,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "To conform to the Groups Package specification for SBML Level 3 Version 1, "
     "an SBML document must declare "
     "'http://www.sbml.org/sbml/level3/version1/groups/version1' as the "
-    "XMLNamespaceto use for elements of this package.",
+    "XMLNamespace to use for elements of this package.",
     { "L3V1 Groups V1 Section 3.1"
     }
   },
@@ -401,9 +401,9 @@ static const packageErrorTableEntry groupsErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'groups:idRef' of a <member> object must be the "
-    "identifier of an existing <SBase> object defined in the enclosing <model> "
-    "object.",
-    { "L3V1 Groups V1 Section 3.5"
+    "identifier of an existing object derived from the 'SBase' class and "
+    "defined in the enclosing <model> object.",
+    { "L3V1 Groups V1 Section"
     }
   },
 

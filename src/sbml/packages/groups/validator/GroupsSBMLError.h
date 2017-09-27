@@ -35,7 +35,14 @@
 #ifndef GroupsSBMLError_H__
 #define GroupsSBMLError_H__
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
 /**
@@ -86,6 +93,10 @@ typedef enum
 
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 

@@ -56,8 +56,6 @@ Member::Member(unsigned int level,
                unsigned int version,
                unsigned int pkgVersion)
   : SBase(level, version)
-//  , mId ("")
-//  , mName ("")
   , mIdRef ("")
   , mMetaIdRef ("")
 {
@@ -70,8 +68,6 @@ Member::Member(unsigned int level,
  */
 Member::Member(GroupsPkgNamespaces *groupsns)
   : SBase(groupsns)
-//  , mId ("")
-//  , mName ("")
   , mIdRef ("")
   , mMetaIdRef ("")
 {
@@ -85,8 +81,6 @@ Member::Member(GroupsPkgNamespaces *groupsns)
  */
 Member::Member(const Member& orig)
   : SBase( orig )
-  //, mId ( orig.mId )
-  //, mName ( orig.mName )
   , mIdRef ( orig.mIdRef )
   , mMetaIdRef ( orig.mMetaIdRef )
 {
@@ -102,8 +96,6 @@ Member::operator=(const Member& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
     mIdRef = rhs.mIdRef;
     mMetaIdRef = rhs.mMetaIdRef;
   }
@@ -942,7 +934,7 @@ Member::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mIdRef) == false)
     {
-      std::string msg = "The idRef on the <" + this->getElementName() + "> ";
+      std::string msg = "The idRef attribute on the <" + this->getElementName() + "> ";
       if (this->isSetId()) {
         msg += "with id '" + this->getId() +"' ";
       }
@@ -966,7 +958,7 @@ Member::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidXMLID(mMetaIdRef) == false)
     {
-      std::string msg = "The metaIdRef on the <" + this->getElementName() + "> ";
+      std::string msg = "The metaIdRef attribute on the <" + this->getElementName() + "> ";
       if (this->isSetId()) {
         msg += "with id '" + this->getId() +"' ";
       }
@@ -1190,7 +1182,8 @@ Member_isSetIdRef(const Member_t * m)
 
 
 /*
- * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is
+ * set.
  */
 LIBSBML_EXTERN
 int
@@ -1289,7 +1282,7 @@ Member_unsetMetaIdRef(Member_t * m)
 
 
 /*
- * Predicate returning @c 1 (true) if all the required attributes for this Member_t
+ * Predicate returning @c 1 if all the required attributes for this Member_t
  * object have been set.
  */
 LIBSBML_EXTERN

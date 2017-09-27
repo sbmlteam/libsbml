@@ -56,9 +56,9 @@
 
 
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/SBase.h>
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLErrorLog.h>
-#include <sbml/SBase.h>
 #include <sbml/SBMLDocument.h>
 
 #include <sbml/extension/SBMLExtension.h>

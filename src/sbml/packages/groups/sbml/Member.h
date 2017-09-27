@@ -154,8 +154,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-//  std::string mId;
-//  std::string mName;
   std::string mIdRef;
   std::string mMetaIdRef;
 
@@ -230,7 +228,7 @@ public:
    *
    * @return the value of the "id" attribute of this Member as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
 
 
   /**
@@ -238,7 +236,7 @@ public:
    *
    * @return the value of the "name" attribute of this Member as a string.
    */
-  const std::string& getName() const;
+  virtual const std::string& getName() const;
 
 
   /**
@@ -267,7 +265,7 @@ public:
    * @return @c true if this Member's "id" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetId() const;
+  virtual bool isSetId() const;
 
 
   /**
@@ -276,7 +274,7 @@ public:
    * @return @c true if this Member's "name" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetName() const;
+  virtual bool isSetName() const;
 
 
   /**
@@ -308,9 +306,13 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
 
 
   /**
@@ -320,8 +322,11 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
    */
-  int setName(const std::string& name);
+  virtual int setName(const std::string& name);
 
 
   /**
@@ -333,7 +338,8 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
   int setIdRef(const std::string& idRef);
 
@@ -359,7 +365,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
 
 
   /**
@@ -369,7 +375,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetName();
+  virtual int unsetName();
 
 
   /**
@@ -435,9 +441,6 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this
    * Member have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required attributes for the Member object are:
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -967,7 +970,7 @@ Member_getMetaIdRef(const Member_t * m);
  * @param m the Member_t structure.
  *
  * @return @c 1 (true) if this Member_t's "id" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Member_t
  */
@@ -982,7 +985,7 @@ Member_isSetId(const Member_t * m);
  * @param m the Member_t structure.
  *
  * @return @c 1 (true) if this Member_t's "name" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Member_t
  */
@@ -997,7 +1000,7 @@ Member_isSetName(const Member_t * m);
  * @param m the Member_t structure.
  *
  * @return @c 1 (true) if this Member_t's "idRef" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Member_t
  */
@@ -1007,12 +1010,13 @@ Member_isSetIdRef(const Member_t * m);
 
 
 /**
- * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is set.
+ * Predicate returning @c 1 (true) if this Member_t's "metaIdRef" attribute is
+ * set.
  *
  * @param m the Member_t structure.
  *
  * @return @c 1 (true) if this Member_t's "metaIdRef" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Member_t
  */
@@ -1022,8 +1026,7 @@ Member_isSetMetaIdRef(const Member_t * m);
 
 
 /**
- * Sets the value of the "id" attribute of this Member_t.  Calling this
- * function with @p id = @c NULL is equivalent to calling Member_unsetId().
+ * Sets the value of the "id" attribute of this Member_t.
  *
  * @param m the Member_t structure.
  *
@@ -1034,6 +1037,9 @@ Member_isSetMetaIdRef(const Member_t * m);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Member_unsetId().
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
@@ -1042,8 +1048,7 @@ Member_setId(Member_t * m, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this Member_t.  Calling this
- * function with @p name = @c NULL is equivalent to calling Member_unsetName().
+ * Sets the value of the "name" attribute of this Member_t.
  *
  * @param m the Member_t structure.
  *
@@ -1053,6 +1058,9 @@ Member_setId(Member_t * m, const char * id);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling Member_unsetName().
+ *
  * @memberof Member_t
  */
 LIBSBML_EXTERN
@@ -1061,8 +1069,7 @@ Member_setName(Member_t * m, const char * name);
 
 
 /**
- * Sets the value of the "idRef" attribute of this Member_t.  Calling this
- * function with @p idRef = @c NULL is equivalent to calling Member_unsetIdRef().
+ * Sets the value of the "idRef" attribute of this Member_t.
  *
  * @param m the Member_t structure.
  *
@@ -1081,8 +1088,7 @@ Member_setIdRef(Member_t * m, const char * idRef);
 
 
 /**
- * Sets the value of the "metaIdRef" attribute of this Member_t.  Calling this
- * function with @p metaIdRef = @c NULL is equivalent to calling Member_unsetMetaIdRef().
+ * Sets the value of the "metaIdRef" attribute of this Member_t.
  *
  * @param m the Member_t structure.
  *
@@ -1168,13 +1174,13 @@ Member_unsetMetaIdRef(Member_t * m);
 
 
 /**
- * Predicate returning @c 1 (true) if all the required attributes for this Member_t
+ * Predicate returning @c 1 if all the required attributes for this Member_t
  * object have been set.
  *
  * @param m the Member_t structure.
  *
- * @return @c 1 (true) to indicate that all the required attributes of this Member_t
- * have been set, @c 0 (false) otherwise.
+ * @return @c 1 to indicate that all the required attributes of this Member_t
+ * have been set, otherwise @c 0 is returned.
  *
  * @memberof Member_t
  */

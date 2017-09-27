@@ -56,9 +56,7 @@ Group::Group(unsigned int level,
              unsigned int version,
              unsigned int pkgVersion)
   : SBase(level, version)
-//  , mId ("")
-//  , mName ("")
-  , mKind (GROUP_KIND_UNKNOWN)
+  , mKind (GROUP_KIND_INVALID)
   , mMembers (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new GroupsPkgNamespaces(level, version, pkgVersion));
@@ -71,9 +69,7 @@ Group::Group(unsigned int level,
  */
 Group::Group(GroupsPkgNamespaces *groupsns)
   : SBase(groupsns)
-//  , mId ("")
-//  , mName ("")
-  , mKind (GROUP_KIND_UNKNOWN)
+  , mKind (GROUP_KIND_INVALID)
   , mMembers (groupsns)
 {
   setElementNamespace(groupsns->getURI());
@@ -87,8 +83,6 @@ Group::Group(GroupsPkgNamespaces *groupsns)
  */
 Group::Group(const Group& orig)
   : SBase( orig )
-  //, mId ( orig.mId )
-  //, mName ( orig.mName )
   , mKind ( orig.mKind )
   , mMembers ( orig.mMembers )
 {
@@ -105,8 +99,6 @@ Group::operator=(const Group& rhs)
   if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId = rhs.mId;
-    mName = rhs.mName;
     mKind = rhs.mKind;
     mMembers = rhs.mMembers;
     connectToChild();
@@ -201,7 +193,7 @@ Group::isSetName() const
 bool
 Group::isSetKind() const
 {
-  return (mKind != GROUP_KIND_UNKNOWN);
+  return (mKind != GROUP_KIND_INVALID);
 }
 
 
@@ -234,7 +226,7 @@ Group::setKind(const GroupKind_t kind)
 {
   if (GroupKind_isValid(kind) == 0)
   {
-    mKind = GROUP_KIND_UNKNOWN;
+    mKind = GROUP_KIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -253,7 +245,7 @@ Group::setKind(const std::string& kind)
 {
   if (GroupKind_isValidString(kind.c_str()) == 0)
   {
-    mKind = GROUP_KIND_UNKNOWN;
+    mKind = GROUP_KIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -308,7 +300,7 @@ Group::unsetName()
 int
 Group::unsetKind()
 {
-  mKind = GROUP_KIND_UNKNOWN;
+  mKind = GROUP_KIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -374,7 +366,7 @@ Group::getMember(const std::string& sid) const
 
 
 /*
- * Get a Member from the Group based on the IdRef to which it refers.
+ * Get a Member from the Group based on the element to which it refers.
  */
 const Member*
 Group::getMemberByIdRef(const std::string& sid) const
@@ -384,7 +376,7 @@ Group::getMemberByIdRef(const std::string& sid) const
 
 
 /*
- * Get a Member from the Group based on the IdRef to which it refers.
+ * Get a Member from the Group based on the element to which it refers.
  */
 Member*
 Group::getMemberByIdRef(const std::string& sid)
@@ -622,6 +614,9 @@ Group::enablePackageInternal(const std::string& pkgURI,
 
 /** @endcond */
 
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Gets the value of the "attributeName" attribute of this Group.
@@ -1459,7 +1454,7 @@ Group_getKind(const Group_t * g)
 {
   if (g == NULL)
   {
-    return GROUP_KIND_UNKNOWN;
+    return GROUP_KIND_INVALID;
   }
 
   return g->getKind();
@@ -1621,7 +1616,7 @@ Group_getMemberById(Group_t* g, const char *sid)
 
 
 /*
- * Get a Member_t from the Group_t based on the IdRef to which it refers.
+ * Get a Member_t from the Group_t based on the element to which it refers.
  */
 LIBSBML_EXTERN
 Member_t*
@@ -1689,7 +1684,7 @@ Group_removeMemberById(Group_t* g, const char* sid)
 
 
 /*
- * Predicate returning @c 1 (true) if all the required attributes for this Group_t
+ * Predicate returning @c 1 if all the required attributes for this Group_t
  * object have been set.
  */
 LIBSBML_EXTERN
@@ -1698,19 +1693,6 @@ Group_hasRequiredAttributes(const Group_t * g)
 {
   return (g != NULL) ? static_cast<int>(g->hasRequiredAttributes()) : 0;
 }
-
-
-/*
- * Predicate returning @c 1 (true) if all the required elements for this Group_t
- * object have been set.
- */
-LIBSBML_EXTERN
-int
-Group_hasRequiredElements(const Group_t * g)
-{
-  return (g != NULL) ? static_cast<int>(g->hasRequiredElements()) : 0;
-}
-
 
 
 

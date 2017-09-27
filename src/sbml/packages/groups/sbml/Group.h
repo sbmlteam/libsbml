@@ -86,7 +86,7 @@
  * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
  * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
  * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
- * @li @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
+ * @li @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t}
  *
  * @section group-membership-rules Groups and their members
  *
@@ -168,8 +168,6 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-//  std::string mId;
-//  std::string mName;
   GroupKind_t mKind;
   ListOfMembers mMembers;
 
@@ -243,7 +241,7 @@ public:
    *
    * @return the value of the "id" attribute of this Group as a string.
    */
-  const std::string& getId() const;
+  virtual const std::string& getId() const;
 
 
   /**
@@ -251,7 +249,7 @@ public:
    *
    * @return the value of the "name" attribute of this Group as a string.
    */
-  const std::string& getName() const;
+  virtual const std::string& getName() const;
 
 
   /**
@@ -259,7 +257,8 @@ public:
    *
    * @copydetails doc_group_kind
    *
-   * @return the value of the "kind" attribute of this Group.
+   * @return the value of the "kind" attribute of this Group as a GroupKind_t.
+   *
    * @if clike The value is drawn from the enumeration
    * @ref GroupKind_t@endif.
    * The possible values returned by this method are:
@@ -301,16 +300,16 @@ public:
    * @return @c true if this Group's "name" attribute has been set, otherwise
    * @c false is returned.
    */
-  bool isSetName() const;
+  virtual bool isSetName() const;
 
 
   /**
    * Predicate returning @c true if this Group's "kind" attribute is set.
    *
-   * @copydetails doc_group_kind
-   *
    * @return @c true if this Group's "kind" attribute has been set, otherwise
    * @c false is returned.
+   *
+   * @copydetails doc_group_kind
    */
   bool isSetKind() const;
 
@@ -324,8 +323,11 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  int setId(const std::string& id);
+  virtual int setId(const std::string& id);
 
 
   /**
@@ -335,14 +337,15 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p name = @c NULL or an empty string is
+   * equivalent to calling unsetName().
    */
-  int setName(const std::string& name);
+  virtual int setName(const std::string& name);
 
 
   /**
    * Sets the value of the "kind" attribute of this Group.
-   *
-   * @copydetails doc_group_kind
    *
    * @param kind @if clike GroupKind_t@else int@endif value of the 
    * "kind" attribute to be set.
@@ -355,15 +358,16 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_group_kind
    */
   int setKind(const GroupKind_t kind);
 
 
   /**
    * Sets the value of the "kind" attribute of this Group.
-   *
-   * @copydetails doc_group_kind
    *
    * @param kind std::string& of the "kind" attribute to be set.  The value
    * must be one of the following possible strings:
@@ -373,7 +377,10 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_group_kind
    */
   int setKind(const std::string& kind);
 
@@ -385,7 +392,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetId();
+  virtual int unsetId();
 
 
   /**
@@ -395,7 +402,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  int unsetName();
+  virtual int unsetName();
 
 
   /**
@@ -403,6 +410,8 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * @copydetails doc_group_kind
    */
   int unsetKind();
 
@@ -417,6 +426,14 @@ public:
    * @return the ListOfMembers from this Group.
    *
    * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addMember(const Member* object)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   const ListOfMembers* getListOfMembers() const;
 
@@ -431,6 +448,14 @@ public:
    * @return the ListOfMembers from this Group.
    *
    * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addMember(const Member* object)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   ListOfMembers* getListOfMembers();
 
@@ -438,14 +463,13 @@ public:
   /**
    * Get a Member from the Group.
    *
-   * @param n an unsigned int representing the index of the Member to
-   * retrieve.
+   * @param n an unsigned int representing the index of the Member to retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
    * @see getNumMembers()
@@ -458,14 +482,13 @@ public:
   /**
    * Get a Member from the Group.
    *
-   * @param n an unsigned int representing the index of the Member to
-   * retrieve.
+   * @param n an unsigned int representing the index of the Member to retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
    * @see getNumMembers()
@@ -485,7 +508,7 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(unsigned int n)
    * @see getNumMembers()
@@ -505,7 +528,7 @@ public:
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(unsigned int n)
    * @see getNumMembers()
@@ -516,24 +539,24 @@ public:
 
 
   /**
-   * Get a Member from the Group based on the IdRef to which it refers.
+   * Get a Member from the Group based on the element to which it refers.
    *
-   * @param sid a string representing the idRef attribute of the Member object
-   * to retrieve.
-   *
-   * @copydetails doc_returned_unowned_pointer
+   * @param sid a string representing the "idRef" attribute of the Member
+   * object to retrieve.
    *
    * @return the first Member in this Group based on the given idRef attribute
    * or NULL if no such Member exists.
+   *
+   * @copydetails doc_returned_unowned_pointer
    */
   const Member* getMemberByIdRef(const std::string& sid) const;
 
 
   /**
-   * Get a Member from the Group based on the IdRef to which it refers.
+   * Get a Member from the Group based on the element to which it refers.
    *
-   * @param sid a string representing the idRef attribute of the Member object
-   * to retrieve.
+   * @param sid a string representing the "idRef" attribute of the Member
+   * object to retrieve.
    *
    * @return the first Member in this Group based on the given idRef attribute
    * or NULL if no such Member exists.
@@ -554,7 +577,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_NAMESPACES_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
@@ -574,7 +597,8 @@ public:
    *
    * @return the number of Member objects in this Group.
    *
-   * @see addMember(const Member* m)
+   *
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
    * @see getMember(unsigned int n)
@@ -590,9 +614,9 @@ public:
    *
    * @return a new Member object instance.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_returned_unowned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see getMember(const std::string& sid)
    * @see getMember(unsigned int n)
    * @see getNumMembers()
@@ -611,7 +635,7 @@ public:
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
    * @see getMember(unsigned int n)
@@ -632,7 +656,7 @@ public:
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addMember(const Member* m)
+   * @see addMember(const Member* object)
    * @see createMember()
    * @see getMember(const std::string& sid)
    * @see getMember(unsigned int n)
@@ -658,7 +682,8 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}.
+   *
+   * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -674,6 +699,7 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this Group
    * have been set, otherwise @c false is returned.
+   *
    *
    * @note The required attributes for the Group object are:
    * @li "kind"
@@ -1110,7 +1136,8 @@ public:
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
@@ -1122,7 +1149,8 @@ public:
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -1131,8 +1159,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter, an ElementFilter that may impose restrictions on the
+   * objects to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
@@ -1307,6 +1335,9 @@ Group_getName(const Group_t * g);
  *
  * @return the value of the "kind" attribute of this Group_t as a GroupKind_t.
  *
+ * @copydetails doc_group_kind
+ * @if clike The value is drawn from the enumeration @ref GroupKind_t@endif
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1323,6 +1354,8 @@ Group_getKind(const Group_t * g);
  *
  * @copydetails doc_returned_unowned_char
  *
+ * @copydetails doc_group_kind
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1335,8 +1368,8 @@ Group_getKindAsString(const Group_t * g);
  *
  * @param g the Group_t structure.
  *
- * @return @c 1 (true) if this Group_t's "id" attribute has been set,
- * @c 0 (false) otherwise.
+ * @return @c 1 (true) if this Group_t's "id" attribute has been set, otherwise
+ * @c 0 (false) is returned.
  *
  * @memberof Group_t
  */
@@ -1351,7 +1384,7 @@ Group_isSetId(const Group_t * g);
  * @param g the Group_t structure.
  *
  * @return @c 1 (true) if this Group_t's "name" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
  *
  * @memberof Group_t
  */
@@ -1366,7 +1399,9 @@ Group_isSetName(const Group_t * g);
  * @param g the Group_t structure.
  *
  * @return @c 1 (true) if this Group_t's "kind" attribute has been set,
- * @c 0 (false) otherwise.
+ * otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_group_kind
  *
  * @memberof Group_t
  */
@@ -1376,8 +1411,7 @@ Group_isSetKind(const Group_t * g);
 
 
 /**
- * Sets the value of the "id" attribute of this Group_t.  Calling this
- * function with @p id = @c NULL is equivalent to calling Group_unsetId().
+ * Sets the value of the "id" attribute of this Group_t.
  *
  * @param g the Group_t structure.
  *
@@ -1388,6 +1422,9 @@ Group_isSetKind(const Group_t * g);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Group_unsetId().
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1396,8 +1433,7 @@ Group_setId(Group_t * g, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this Group_t.  Calling this
- * function with @p name = @c NULL is equivalent to calling Group_unsetName().
+ * Sets the value of the "name" attribute of this Group_t.
  *
  * @param g the Group_t structure.
  *
@@ -1406,6 +1442,9 @@ Group_setId(Group_t * g, const char * id);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling Group_unsetName().
  *
  * @memberof Group_t
  */
@@ -1426,6 +1465,8 @@ Group_setName(Group_t * g, const char * name);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
+ * @copydetails doc_group_kind
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1444,6 +1485,8 @@ Group_setKind(Group_t * g, GroupKind_t kind);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_group_kind
  *
  * @memberof Group_t
  */
@@ -1495,6 +1538,8 @@ Group_unsetName(Group_t * g);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
+ * @copydetails doc_group_kind
+ *
  * @memberof Group_t
  */
 LIBSBML_EXTERN
@@ -1510,6 +1555,14 @@ Group_unsetKind(Group_t * g);
  * @return the ListOfMembers from this Group_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
+ *
+ * @see Group_addMember()
+ * @see Group_createMember()
+ * @see Group_getMember()
+ * @see Group_getMemberById()
+ * @see Group_getNumMembers()
+ * @see Group_removeMember()
+ * @see Group_removeMemberById()
  *
  * @memberof Group_t
  */
@@ -1560,8 +1613,8 @@ Group_getMemberById(Group_t* g, const char *sid);
  *
  * @param g the Group_t structure to search.
  *
- * @param sid a string representing the "idRef" attribute of the Member_t object
- * to retrieve.
+ * @param sid a string representing the "idRef" attribute of the Member_t
+ * object to retrieve.
  *
  * @return the first Member_t in this Group_t based on the given idRef
  * attribute or NULL if no such Member_t exists.
@@ -1586,6 +1639,10 @@ Group_getMemberByIdRef(Group_t* g, const char *sid);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -1681,26 +1738,6 @@ Group_removeMemberById(Group_t* g, const char* sid);
 LIBSBML_EXTERN
 int
 Group_hasRequiredAttributes(const Group_t * g);
-
-
-/**
- * Predicate returning @c 1 (true) if all the required elements for this Group_t
- * object have been set.
- *
- * @param g the Group_t structure.
- *
- * @return @c 1 (true) to indicate that all the required elements of this Group_t have
- * been set, @c 0 (false) otherwise.
- *
- *
- * @note A Group_t object has no required child elements.
- *
- * @memberof Group_t
- */
-LIBSBML_EXTERN
-int
-Group_hasRequiredElements(const Group_t * g);
-
 
 
 

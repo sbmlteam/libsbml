@@ -84,16 +84,18 @@ public:
    * Creates a new GroupsModelPlugin using the given URI, prefix and package
    * namespace.
    *
+   * @param uri a string, representing the URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
+   *
+   * @param prefix a string, the XML namespace prefix being used for this
+   * package.
+   *
+   * @param groupsns a pointer to the namesspaces object (GroupsPkgNamespaces)
+   * for this package.
+   *
    * @copydetails doc_what_are_xmlnamespaces
    *
    * @copydetails doc_what_are_sbmlnamespaces
-   *
-   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
-   * this libSBML package extension.
-   *
-   * @param prefix the XML namespace prefix being used for the package.
-   *
-   * @param groupsns the namespaces object for the package.
    */
   GroupsModelPlugin(const std::string& uri,
                     const std::string& prefix,
@@ -111,8 +113,8 @@ public:
   /**
    * Assignment operator for GroupsModelPlugin.
    *
-   * @param rhs the GroupsModelPlugin object whose values are to be used as
-   * the basis of the assignment.
+   * @param rhs the GroupsModelPlugin object whose values are to be used as the
+   * basis of the assignment.
    */
   GroupsModelPlugin& operator=(const GroupsModelPlugin& rhs);
 
@@ -136,13 +138,15 @@ public:
    *
    * @return the ListOfGroups from this GroupsModelPlugin.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   const ListOfGroups* getListOfGroups() const;
 
@@ -152,31 +156,34 @@ public:
    *
    * @return the ListOfGroups from this GroupsModelPlugin.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   ListOfGroups* getListOfGroups();
 
 
   /**
-   * Returns the nth Group.
+   * Get a Group from the GroupsModelPlugin.
    *
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
-   * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   Group* getGroup(unsigned int n);
 
@@ -186,16 +193,16 @@ public:
    *
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
-   * @return the nth Group in the ListOfGroups within this GroupsModelPlugin
-   * object.
+   * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
-   * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   const Group* getGroup(unsigned int n) const;
 
@@ -208,13 +215,14 @@ public:
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
    * the given identifier @p sid, or @c NULL if no such Group exists.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
-   * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   Group* getGroup(const std::string& sid);
 
@@ -227,12 +235,14 @@ public:
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
    * the given identifier @p sid, or @c NULL if no such Group exists.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   const Group* getGroup(const std::string& sid) const;
 
@@ -257,8 +267,8 @@ public:
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   int addGroup(const Group* g);
 
@@ -268,46 +278,46 @@ public:
    *
    * @return the number of Group objects in this GroupsModelPlugin.
    *
+   *
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
-   * @see removeGroup(unsigned int n)
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   unsigned int getNumGroups() const;
 
 
   /**
-   * Creates a new Group object
-   *
-   * This method creates a new Group object, adds it to this
-   * GroupsModelPlugin object, and returns the Group object created.
+   * Creates a new Group object, adds it to this GroupsModelPlugin object and
+   * returns the Group object created.
    *
    * @return a new Group object instance.
    *
-   * @see addGroup(const Group* g)
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGroup(const Group* object)
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
-   * @see removeGroup(unsigned int n)
+   * @see getNumGroups()
    * @see removeGroup(const std::string& sid)
+   * @see removeGroup(unsigned int n)
    */
   Group* createGroup();
 
 
   /**
-   * Removes the nth Group.
-   *
-   * This removes the nth Group from this GroupsModelPlugin object and
-   * returns a pointer to it.
+   * Removes the nth Group from this GroupsModelPlugin and returns a pointer to
+   * it.
    *
    * @param n an unsigned int representing the index of the Group to remove.
    *
    * @return a pointer to the nth Group in this GroupsModelPlugin.
    *
-   * @note The caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
    *
-   * @see addGroup(const Group* g)
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
@@ -318,24 +328,22 @@ public:
 
 
   /**
-   * Removes the Group from this GroupsModelPlugin based on its identifier.
-   *
-   * This method removes the Group from this GroupsModelPlugin based on its
-   * identifier, and returns a pointer to it.
+   * Removes the Group from this GroupsModelPlugin based on its identifier and
+   * returns a pointer to it.
    *
    * @param sid a string representing the identifier of the Group to remove.
    *
-   * @return the Group in this GroupsModelPlugin based on the identifier, or
-   * @c @c NULL if no such Group exists.
+   * @return the Group in this GroupsModelPlugin based on the identifier or
+   * NULL if no such Group exists.
    *
-   * @note The caller owns the returned object and is responsible for deleting
-   * it.
+   * @copydetails doc_returned_owned_pointer
    *
-   * @see addGroup(const Group* g)
+   * @see addGroup(const Group* object)
    * @see createGroup()
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
    */
   Group* removeGroup(const std::string& sid);
 
@@ -775,27 +783,27 @@ public:
 
 
   /**
-   * Returns the first child element that has the given @p id
-   *
-   * This method searches the model-wide SId namespace for the @p id.
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
    *
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.  If no such
+   * @return a pointer to the SBase element with the given @p id. If no such
    * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
 
   /**
-   * Returns the first child element that has the given @p metaid.
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
    *
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.  If
-   * no such object is found, this method returns @c NULL.
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -807,7 +815,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the
    * objects to be retrieved.
    *
-   * @return a List pointer of pointers to all SBase child objects with any
+   * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -863,8 +871,10 @@ public:
 
 LIBSBML_CPP_NAMESPACE_END
 
-
 #endif /* __cplusplus */
+
+
+
 
 #ifndef SWIG
 
@@ -883,9 +893,19 @@ BEGIN_C_DECLS
  * Returns a ListOf_t * containing Group_t objects from this
  * GroupsModelPlugin_t.
  *
- * @param gmp the GroupsModelPlugin_t structure whose "ListOfGroups" is sought.
+ * @param gmp the GroupsModelPlugin_t structure whose ListOfGroups is sought.
  *
- * @return the "ListOfGroups" from this GroupsModelPlugin_t as a ListOf_t *.
+ * @return the ListOfGroups from this GroupsModelPlugin_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see GroupsModelPlugin_addGroup()
+ * @see GroupsModelPlugin_createGroup()
+ * @see GroupsModelPlugin_getGroup()
+ * @see GroupsModelPlugin_getGroupById()
+ * @see GroupsModelPlugin_getNumGroups()
+ * @see GroupsModelPlugin_removeGroup()
+ * @see GroupsModelPlugin_removeGroupById()
  *
  * @memberof GroupsModelPlugin_t
  */
@@ -903,10 +923,12 @@ GroupsModelPlugin_getListOfGroups(GroupsModelPlugin_t* gmp);
  *
  * @return the nth Group_t in the ListOfGroups within this GroupsModelPlugin.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof GroupsModelPlugin_t
  */
 LIBSBML_EXTERN
-const Group_t*
+Group_t*
 GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n);
 
 
@@ -918,12 +940,14 @@ GroupsModelPlugin_getGroup(GroupsModelPlugin_t* gmp, unsigned int n);
  * @param sid a string representing the identifier of the Group_t to retrieve.
  *
  * @return the Group_t in the ListOfGroups within this GroupsModelPlugin with
- * the given id or NULL if no such Group_t exists.
+ * the given @p sid or @c NULL if no such Group_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof GroupsModelPlugin_t
  */
 LIBSBML_EXTERN
-const Group_t*
+Group_t*
 GroupsModelPlugin_getGroupById(GroupsModelPlugin_t* gmp, const char *sid);
 
 
@@ -938,6 +962,11 @@ GroupsModelPlugin_getGroupById(GroupsModelPlugin_t* gmp, const char *sid);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
  *
  * @memberof GroupsModelPlugin_t
  */
@@ -969,6 +998,8 @@ GroupsModelPlugin_getNumGroups(GroupsModelPlugin_t* gmp);
  *
  * @return a new Group_t object instance.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof GroupsModelPlugin_t
  */
 LIBSBML_EXTERN
@@ -985,6 +1016,8 @@ GroupsModelPlugin_createGroup(GroupsModelPlugin_t* gmp);
  * @param n an unsigned int representing the index of the Group_t to remove.
  *
  * @return a pointer to the nth Group_t in this GroupsModelPlugin_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GroupsModelPlugin_t
  */
@@ -1003,6 +1036,8 @@ GroupsModelPlugin_removeGroup(GroupsModelPlugin_t* gmp, unsigned int n);
  *
  * @return the Group_t in this GroupsModelPlugin_t based on the identifier or
  * NULL if no such Group_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof GroupsModelPlugin_t
  */
