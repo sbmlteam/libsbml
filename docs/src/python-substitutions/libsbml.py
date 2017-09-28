@@ -3758,6 +3758,14 @@ FastReactionsNotSupported = _libsbml.FastReactionsNotSupported
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+SpeciesRefIdInMathMLNotSupported = _libsbml.SpeciesRefIdInMathMLNotSupported
+    ## @var long SpeciesRefIdInMathMLNotSupported
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 IdNameSBaseInL3V2 = _libsbml.IdNameSBaseInL3V2
     ## @var long IdNameSBaseInL3V2
     ##
@@ -6262,8 +6270,8 @@ GROUP_KIND_COLLECTION = _libsbml.GROUP_KIND_COLLECTION
     ##
 
 
-GROUP_KIND_UNKNOWN = _libsbml.GROUP_KIND_UNKNOWN
-    ## @var long GROUP_KIND_UNKNOWN
+GROUP_KIND_INVALID = _libsbml.GROUP_KIND_INVALID
+    ## @var long GROUP_KIND_INVALID
     ##
     ## <span class="pkg-marker pkg-color-groups">groups</span> Unrecognized
     ## Group kind.

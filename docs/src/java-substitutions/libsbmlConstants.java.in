@@ -5623,6 +5623,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int SpeciesRefIdInMathMLNotSupported = 98011;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int InvalidSBMLLevelVersion = 99101;
 
 
@@ -7363,7 +7372,7 @@ public interface libsbmlConstants
      * <span class="pkg-marker pkg-color-groups">groups</span> One of the
      * possible Group kinds.
      */
-    public final static int GROUP_KIND_UNKNOWN = GROUP_KIND_COLLECTION + 1;
+    public final static int GROUP_KIND_INVALID = GROUP_KIND_COLLECTION + 1;
 
 
   // GroupsSBMLErrorCode_t 
