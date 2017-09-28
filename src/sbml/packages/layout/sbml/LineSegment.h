@@ -312,7 +312,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase*
   createObject (XMLInputStream& stream);
@@ -380,7 +380,12 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a LineSegment_t and returns the pointer.
+ * Creates a LineSegment_t with the default SBML level, version,
+ * and package version, and both points set to (0.0,0.0,0.0).
+ *
+ * @return A pointer to the created LineSegment_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -390,10 +395,15 @@ LineSegment_create (void);
 
 
 /**
- * Creates a LineSegment_t from a template.
+ * Creates a clone of @p temp, or creates a new empty LineSegment if 
+ * @p temp is NULL.
  *
  * @param temp the LineSegment_t structure to copy.
  *
+ * @return the created copy of the LineSegment_t
+ *
+ * @copydetails doc_returned_owned_pointer
+ * 
  * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
@@ -401,10 +411,13 @@ LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp);
 
 /**
- * Creates a LineSegment_t with the given points and returns the pointer.
+ * Creates a LineSegment_t with the default SBML level, version, and package 
+ * version, and with the given points and returns the pointer.
  *
  * @param start the Point_t at which the line segment starts.
  * @param end   the Point_t at which the line segment ends.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -413,8 +426,8 @@ LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end);
 
 /**
- * Creates a LineSegment_t with the given coordinates and returns the
- * pointer.
+ * Creates a LineSegment_t with the default SBML level, version, and package 
+ * version, and with the given coordinates and returns the pointer.
  *
  * @param x1 the value of the x coordinate of the start Point_t.
  * @param y1 the value of the y coordinate of the start Point_t.
@@ -422,6 +435,8 @@ LineSegment_createWithPoints (const Point_t *start, const Point_t *end);
  * @param x2 the value of the x coordinate of the end Point_t.
  * @param y2 the value of the y coordinate of the end Point_t.
  * @param z2 the value of the z coordinate of the end Point_t.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -472,6 +487,8 @@ LineSegment_setEnd (LineSegment_t *ls, const Point_t *end);
  *
  * @param ls the LineSegment_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof LineSegment_t
  */
 LIBSBML_EXTERN
@@ -482,6 +499,8 @@ LineSegment_getStart (LineSegment_t *ls);
  * Returns the end point of the line.
  *
  * @param ls the LineSegment_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -501,9 +520,12 @@ void
 LineSegment_initDefaults (LineSegment_t *ls);
 
 /**
- * @return a (deep) copy of this LineSegment_t.
+ * @return a (deep) copy of this LineSegment_t, or @c NULL if 
+ * @p ls is NULL.
  *
  * @param ls the LineSegment_t structure.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof LineSegment_t
  */

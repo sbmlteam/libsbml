@@ -219,7 +219,7 @@ public:
   bool l3StrCmp(const std::string& lhs, const std::string& rhs) const;
   /**
    * Sets the member variable 'modulol3v2' to the provided boolean value.  Used in parsing
-   * the '%' symbol.
+   * the @% symbol.
    */
   void setModuloL3v2(bool ml3v2);
   /**

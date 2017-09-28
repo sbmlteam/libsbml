@@ -1141,7 +1141,7 @@
  * libSBML using a method designed for this purpose:
  *
  * @if cpp
- * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String}</code> reads raw
+ * @li <code>ASTNode_t* readMathMLFromString() </code> reads raw
  * MathML from a text string, constructs an AST from it, then returns the root
  * ASTNode of the resulting expression tree.
  * @endif
@@ -1151,7 +1151,7 @@
  * ASTNode of the resulting expression tree.
  * @endif
  * @if conly
- * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String}</code> reads raw
+ * @li <code>ASTNode_t* readMathMLFromString() </code> reads raw
  * MathML from a text string, constructs an AST from it, then returns the root
  * ASTNode_t of the resulting expression tree.
  * @endif
@@ -1160,7 +1160,7 @@
  * the following method:
  *
  * @if cpp
- * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode}</code> writes an
+ * @li <code>char* writeMathMLToString() </code> writes an
  * AST to a string.  The caller owns the character string returned and should free
  * it after it is no longer needed.
  * @endif
@@ -1170,7 +1170,7 @@
  * after it is no longer needed.
  * @endif
  * @if conly
- * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode}</code> writes an
+ * @li <code>char* writeMathMLToString() </code> writes an
  * AST to a string.  The caller owns the character string returned and should free
  * it after it is no longer needed.
  * @endif
@@ -1282,12 +1282,14 @@
  * and <span class="code" style="background-color: #edd">unit</span>
  * is optional.
  *
- * @li The Boolean function symbols @c &&, @c ||, @c !, and @c != may be
- * used.
+ * @li The Boolean function symbols @c && (@em and), @c || (@em or), @c ! (@em not),
+ * and @c != (@em not @em equals) may be used.
  *
  * @li The @em modulo operation is allowed as the symbol @c @% and will
  * produce a <code>&lt;piecewise&gt;</code> function in the corresponding
- * MathML output.
+ * MathML output by default, or can produce the MathML function @c rem, 
+ * depending on the L3ParserSettings object (see 
+ * L3ParserSettings_setParseModuloL3v2() ).
  *
  * @li All inverse trigonometric functions may be defined in the infix either
  * using @c arc as a prefix or simply @c a; in other words, both @c arccsc
@@ -1331,6 +1333,19 @@
  *
  * <li style="margin-bottom: 0.5em"> The string @c avogadro can be parsed as
  * a MathML @em csymbol or as an identifier.
+ *
+ * <li style="margin-bottom: 0.5em"> The string @% can be parsed either as a 
+ * piecewise function or as the 'rem' function:  <code>a @% b</code> will either
+ * become
+ *
+ * <code>piecewise(a - b*ceil(a/b), xor((a < 0), (b < 0)), a - b*floor(a/b))</code>
+ *
+ * or 
+ *
+ * <code>rem(a, b)</code>.  
+ *
+ * The latter is simpler, but the <code>rem</code> MathML is only allowed 
+ * as of SBML Level&nbsp;3 Version&nbsp;2.</li>
  *
  * <li style="margin-bottom: 0.5em"> A Model object may optionally be
  * provided to the parser using the variant function call

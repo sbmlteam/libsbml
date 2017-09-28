@@ -332,7 +332,7 @@ public:
    * text-string form.
    * 
    * @return the ASTNode representation of the mathematical formula, 
-   * or NULL if the math is not set.
+   * or @c NULL if the math is not set.
    *
    * @see getFormula()
    */
@@ -1942,11 +1942,16 @@ KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p);
 /**
  * Creates a new Parameter_t structure, adds it to the given KineticLaw_t
  * structures's list of local parameters, and returns a pointer to the
- * Parameter_t created.
+ * Parameter_t created.  This function should be used for SBML
+ * Level&nbsp;1 and Level&nbsp;2 documents, as the equivalent constructs in 
+ * Level&nbsp;3 are LocalParameter_t objects instead.
  *
  * @param kl the KineticLaw_t structure.
  *
- * @return a pointer to a Parameter_t structure
+ * @return a pointer to a Parameter_t structure, or @c NULL if @p kl is NULL,
+ * or if its namepace indicates it is an SBML Level&nbsp;3 object.
+ *
+ * @see KineticLaw_createLocalParameter()
  *
  * @memberof KineticLaw_t
  */
@@ -1958,11 +1963,16 @@ KineticLaw_createParameter (KineticLaw_t *kl);
 /**
  * Creates a new LocalParameter_t structure, adds it to the given KineticLaw_t
  * structures's list of local parameters, and returns a pointer to the
- * Parameter_t created.
+ * LocalParameter_t created.  This function should be used for SBML
+ * Level&nbsp;3 documents, as the equivalent constructs in Level&nbsp;2
+ * are Parameter_t objects instead.
  *
  * @param kl the KineticLaw_t structure.
  *
- * @return a pointer to a LocalParameter_t structure
+ * @return a pointer to a LocalParameter_t structure, or @c NULL if @p kl is NULL,
+ * or if its namepace indicates it is an SBML Level&nbsp;1 or 2 object.
+ *
+ * @see KineticLaw_createParameter()
  *
  * @memberof KineticLaw_t
  */

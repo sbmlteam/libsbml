@@ -237,7 +237,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -412,7 +412,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -587,7 +587,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -762,7 +762,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -1505,7 +1505,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase*
   createObject (XMLInputStream& stream);
@@ -1723,7 +1723,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
@@ -1744,7 +1744,10 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new Layout_t and returns a pointer to it.
+ * Creates a new Layout_t with the default SBML level, version, and package 
+ * version, and returns a pointer to it.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -1753,7 +1756,8 @@ Layout_t *
 Layout_create (void);
 
 /**
- * Creates a new Layout_t with the given @p id and returns a pointer to it.
+ * Creates a new Layout_t with the default SBML level, version, and package 
+ * version, and with the given @p id and returns a pointer to it.
  *
  * @param sid the id of the created Layout_t.
  *
@@ -1764,9 +1768,12 @@ Layout_t *
 Layout_createWith (const char *sid);
 
 /**
- * Creates a Layout_t structure from a template.
+ * Creates a clone of @p temp, or an empty Layout_t structure 
+ * if @p temp is @c NULL.
  *
  * @param temp the Layout_t structure to copy.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -1775,8 +1782,9 @@ Layout_t *
 Layout_createFrom (const Layout_t *temp);
 
 /**
- * Creates a new Layout_t with the given width, height and depth and returns
- * a pointer to it.  The depth value defaults to 0.0.
+ * Creates a new Layout_t with the default SBML level, version, and package 
+ * version, and with the given width, height and depth and returns
+ * a pointer to it.
  *
  * @param sid    the id of the created Layout_t.
  * @param width  the value of the width.
@@ -1791,7 +1799,8 @@ Layout_createWithSize (const char *sid,
                        double width, double height, double depth);
 
 /**
- * Creates a new Layout_t with the given Dimensions_t and returns a pointer to
+ * Creates a new Layout_t with the default SBML level, version, and package 
+ * version, and with the given Dimensions_t and returns a pointer to
  * it.
  *
  * @param sid        the id of the created Layout_t.
@@ -1816,7 +1825,8 @@ Layout_free (Layout_t *l);
 
 
 /**
- * Sets the dimensions of the given Layout_t structure
+ * Sets the dimensions of the given Layout_t structure to a copy
+ * of @p dimensions.
  *
  * @param l the Layout_t structure.
  * @param dimensions the dimensions to use for the Layout_t structure.
@@ -1828,7 +1838,7 @@ void
 Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions);
 
 /**
- * Adds a new compartment glyph to the list of compartment glyphs.
+ * Adds a new copy of @p cg to the list of compartment glyphs.
  *
  * @param l the Layout_t structure.
  * @param cg the CompartmentGlyph_t to add to the Layout_t structure.
@@ -1840,7 +1850,7 @@ void
 Layout_addCompartmentGlyph (Layout_t *l, CompartmentGlyph_t *cg);
 
 /**
- * Adds a new species glyph to the list of species glyphs.
+ * Adds a new copy of @p sg to the list of species glyphs.
  *
  * @param l the Layout_t structure.
  * @param sg the SpeciesGlyph_t to add to the Layout_t structure.
@@ -1852,7 +1862,7 @@ void
 Layout_addSpeciesGlyph (Layout_t *l, SpeciesGlyph_t *sg);
 
 /**
- * Adds a new reaction glyph to the list of reaction glyphs.
+ * Adds a new copy of @p rg to the list of reaction glyphs.
  *
  * @param l the Layout_t structure.
  * @param rg the ReactionGlyph_t to add to the Layout_t structure.
@@ -1864,7 +1874,7 @@ void
 Layout_addReactionGlyph (Layout_t *l, ReactionGlyph_t *rg);
 
 /**
- * Adds a new GraphicalObject to the list of additional graphical objects.
+ * Adds a new copy of @p go to the list of additional graphical objects.
  *
  * @param l the Layout_t structure.
  * @param go the GraphicalObject_t to add to the Layout_t structure.
@@ -1876,7 +1886,7 @@ void
 Layout_addAdditionalGraphicalObject (Layout_t *l, GraphicalObject_t *go);
 
 /**
- * Adds a new TextGlyph to the list of text glyphs.
+ * Adds a new copy of @p tg to the list of text glyphs.
  *
  * @param l the Layout_t structure.
  * @param tg the TextGlyph_t to add to the Layout_t structure.
@@ -1894,6 +1904,8 @@ Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg);
  * @param l the Layout_t structure.
  * @param index the index of the desired CompartmentGlyph_t.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -1905,6 +1917,8 @@ Layout_getCompartmentGlyph (Layout_t *l, unsigned int index);
  *
  * @param l the Layout_t structure.
  * @param index the index of the desired SpeciesGlyph_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -1919,6 +1933,8 @@ Layout_getSpeciesGlyph (Layout_t *l, unsigned int index);
  * @param l the Layout_t structure.
  * @param index the index of the desired ReactionGlyph_t.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -1932,6 +1948,8 @@ Layout_getReactionGlyph (Layout_t *l, unsigned int index);
  * @param l the Layout_t structure.
  * @param index the index of the desired GraphicalObject_t.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -1943,6 +1961,8 @@ Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index);
  *
  * @param l the Layout_t structure.
  * @param index the index of the desired TextGlyph_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -1956,6 +1976,8 @@ Layout_getTextGlyph (Layout_t *l, unsigned int index);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -1966,6 +1988,8 @@ Layout_getListOfCompartmentGlyphs (Layout_t *l);
  * Returns a pointer to the list of SpeciesGlyphs.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -1979,6 +2003,8 @@ Layout_getListOfSpeciesGlyphs (Layout_t *l);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -1991,6 +2017,8 @@ Layout_getListOfReactionGlyphs (Layout_t *l);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -2001,6 +2029,8 @@ Layout_getListOfAdditionalGraphicalObjects (Layout_t *l);
  * Returns a pointer to the list of TextGlyphs.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -2013,6 +2043,8 @@ Layout_getListOfTextGlyphs (Layout_t *l);
  * Returns a Dimensions_t pointer from the layout.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -2078,10 +2110,12 @@ Layout_getNumTextGlyphs (const Layout_t *l);
 
 /**
  * Removes the compartment glyph with the given index.  If the index is
- * invalid, nothing is deleted.
+ * invalid, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param index the index of the CompartmentGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2091,10 +2125,12 @@ Layout_removeCompartmentGlyph (Layout_t *l, unsigned int index);
 
 /**
  * Removes the species glyph with the given index.  If the index is
- * invalid, nothing is deleted.
+ * invalid, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param index the index of the SpeciesGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2104,10 +2140,12 @@ Layout_removeSpeciesGlyph (Layout_t *l, unsigned int index);
 
 /**
  * Removes the reaction glyph with the given index.  If the index is
- * invalid, nothing is deleted.
+ * invalid, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param index the index of the ReactionGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2117,10 +2155,12 @@ Layout_removeReactionGlyph (Layout_t *l, unsigned int index);
  
 /**
  * Removes the text glyph with the given index.  If the index is invalid,
- * nothing is deleted.
+ * nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param index the index of the TextGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2130,10 +2170,12 @@ Layout_removeTextGlyph (Layout_t *l, unsigned int index);
  
 /**
  * Removes the graphical object with the given index.  If the index is
- * invalid, nothing is deleted.
+ * invalid, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param index the index of the GraphicalObject_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2143,10 +2185,12 @@ Layout_removeAdditionalGraphicalObject (Layout_t *l, unsigned int index);
 
 /**
  * Removes the compartment glyph with the given @p id.  If the id is
- * not found, nothing is deleted.
+ * not found, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the CompartmentGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2156,10 +2200,12 @@ Layout_removeCompartmentGlyphWithId (Layout_t *l, const char* id);
 
 /**
  * Removes the species glyph with the given @p id.  If the id is
- * not found, nothing is deleted.
+ * not found, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the SpeciesGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2169,10 +2215,12 @@ Layout_removeSpeciesGlyphWithId (Layout_t *l, const char* id);
 
 /**
  * Removes the species reference glyph with the given @p id.  If the id is
- * not found, nothing is deleted.
+ * not found, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the SpeciesReferenceGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2182,10 +2230,12 @@ Layout_removeSpeciesReferenceGlyphWithId (Layout_t *l, const char* id);
 
 /**
  * Removes the reaction glyph with the given @p id.  If the id is
- * not found, nothing is deleted.
+ * not found, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the ReactionGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2195,10 +2245,12 @@ Layout_removeReactionGlyphWithId (Layout_t *l, const char* id);
  
 /**
  * Removes the text glyph with the given @p id.  If the id is not found,
- * nothing is deleted.
+ * nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the TextGlyph_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2208,10 +2260,12 @@ Layout_removeTextGlyphWithId (Layout_t *l, const char* id);
  
 /**
  * Removes the graphical object with the given @p id.  If the id is
- * not found, nothing is deleted.
+ * not found, nothing is removed, and @c NULL is returned.
  *
  * @param l the Layout_t structure.
  * @param id the id of the GraphicalObject_t to remove.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2238,6 +2292,8 @@ Layout_initDefaults (Layout_t *l);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -2249,6 +2305,8 @@ Layout_createCompartmentGlyph (Layout_t *l);
  * list and returns a pointer to the newly created structure.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -2263,6 +2321,8 @@ Layout_createSpeciesGlyph (Layout_t *l);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -2274,6 +2334,8 @@ Layout_createReactionGlyph (Layout_t *l);
  * objects list and returns a pointer to the newly created structure.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -2287,6 +2349,8 @@ Layout_createGeneralGlyph (Layout_t *l);
  * list and returns a pointer to the newly created structure.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_unowned_pointer
  *
  * @memberof Layout_t
  */
@@ -2302,6 +2366,8 @@ Layout_createTextGlyph (Layout_t *l);
  *
  * @param l the Layout_t structure.
  *
+ * @copydetails doc_returned_unowned_pointer
+ *
  * @memberof Layout_t
  */
 LIBSBML_EXTERN
@@ -2312,6 +2378,8 @@ Layout_createAdditionalGraphicalObject (Layout_t *l);
  * @return a (deep) copy of this Layout_t.
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_owned_pointer
  *
  * @memberof Layout_t
  */
@@ -2336,6 +2404,8 @@ Layout_isSetId (const Layout_t *l);
  * Returns the id
  *
  * @param l the Layout_t structure.
+ *
+ * @copydetails doc_returned_owned_char
  *
  * @memberof Layout_t
  */
