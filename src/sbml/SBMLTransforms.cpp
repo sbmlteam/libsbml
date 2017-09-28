@@ -527,6 +527,10 @@ SBMLTransforms::clearComponentValues()
 double
 SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
 {
+  if (mValues.size() == 0)
+  {
+    mapComponentValues(m);
+  }
   return evaluateASTNode(node, mValues, m);
 }
 
