@@ -709,7 +709,7 @@ define make_csharp_manual
   fi
 endef
 
-csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) 
+csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) \
   $(css-files)
 	$(call make_csharp_manual,"local")
 
