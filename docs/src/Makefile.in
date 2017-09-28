@@ -79,7 +79,7 @@ endif
 
 ifdef USE_JAVA
   docs += $(java-manual)
-  server-docs += java-manual-server
+#  server-docs += java-manual-server
 endif
 ifdef USE_PYTHON
   docs += $(python-manual)
