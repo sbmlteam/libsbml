@@ -930,6 +930,7 @@ SpeciesReference::createChildObject(const std::string& elementName)
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Adds an new "elementName" object in this SpeciesReference.
 */

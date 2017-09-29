@@ -75,8 +75,7 @@ public:
    * Creates a new SpeciesReferenceGlyph with the given SBML level, version and
    * package version.  The id if the associated species
    * reference and the id of the associated species glyph are set to the
-   * empty string.  The role is set to @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}
-.
+   * empty string.  The role is set to @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
    *
    * @param level the SBML Level.
    * @param version the Version within the SBML Level.

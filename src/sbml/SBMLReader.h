@@ -48,8 +48,8 @@
  * libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif.
  *
  * For convenience as well as easy access from other languages besides C++,
- * this file also defines two global functions, @sbmlfunction{readSBML,
- * String} and @sbmlfunction{readSBMLFromString, String}.  They are
+ * this file also defines two global functions, @sbmlglobalfunction{readSBML,
+ * String} and @sbmlglobalfunction{readSBMLFromString, String}.  They are
  * equivalent to creating an SBMLReader object and then calling the
  * @if python @link SBMLReader::readSBML() SBMLReader.readSBML()@endlink@endif@if java SBMLReader::readSBML(String)@endif@if cpp SBMLReader::readSBML()@endif@if csharp SBMLReader.readSBML()@endif@~ and
  * @if python @link SBMLReader::readSBMLFromString() SBMLReader.readSBMLFromString()@endlink@endif@if java SBMLReader::readSBMLFromString(String)@endif@if cpp SBMLReader::readSBMLFromString()@endif@if csharp SBMLReader.readSBMLFromString()@endif@~ methods, respectively.

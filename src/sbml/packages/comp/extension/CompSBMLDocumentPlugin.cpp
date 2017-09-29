@@ -645,7 +645,8 @@ CompSBMLDocumentPlugin::enablePackageInternal(const string& pkgURI,
 /** @endcond */
 
 
-SBMLDocument* 
+/** @cond doxygenLibsbmlInternal */
+SBMLDocument*
 CompSBMLDocumentPlugin::getSBMLDocumentFromURI(const std::string& uri)
 {
   const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
@@ -672,6 +673,8 @@ CompSBMLDocumentPlugin::getSBMLDocumentFromURI(const std::string& uri)
   }
   return stored->second;
 }
+/** @endcond */
+
 
 std::string 
   CompSBMLDocumentPlugin::getResolvedURI(const string& sUri)

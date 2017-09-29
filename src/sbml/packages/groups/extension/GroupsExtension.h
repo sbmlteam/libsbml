@@ -425,7 +425,7 @@ GroupKind_toString(GroupKind_t gk);
 
 /**
  * Returns the #GroupKind_t enumeration corresponding to the given string or
- * @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t} if there is no such match.
+ * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t} if there is no such match.
  *
  * @param code the string to convert to a #GroupKind_t.
  *

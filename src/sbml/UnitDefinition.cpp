@@ -1811,13 +1811,11 @@ UnitDefinition::unsetAttribute(const std::string& attributeName)
 
   return value;
 }
-
 /** @endcond */
 
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Creates and returns an new "elementName" object in this UnitDefinition.
  */
@@ -1833,9 +1831,9 @@ UnitDefinition::createChildObject(const std::string& elementName)
 
   return obj;
 }
-
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Adds an new "elementName" object in this UnitDefinition.
 */
@@ -1849,12 +1847,10 @@ UnitDefinition::addChildObject(const std::string& elementName, const SBase* elem
 
   return LIBSBML_OPERATION_FAILED;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
 * Adds an new "elementName" object in this UnitDefinition.
 */
