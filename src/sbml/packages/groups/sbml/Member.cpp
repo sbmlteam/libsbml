@@ -247,8 +247,15 @@ Member::setIdRef(const std::string& idRef)
 int
 Member::setMetaIdRef(const std::string& metaIdRef)
 {
-  mMetaIdRef = metaIdRef;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (!(SyntaxChecker::isValidXMLID(metaIdRef)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mMetaIdRef = metaIdRef;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
