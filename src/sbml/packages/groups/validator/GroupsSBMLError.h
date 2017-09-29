@@ -45,12 +45,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 BEGIN_C_DECLS
 
+
 /**
  * @enum GroupsSBMLErrorCode_t
  * Codes for all SBML-level errors and warnings from the 'groups' package.
  *
- * These are distinguished from other SBML error codes
- * by having a number between 4000000 and 4099999.
+ * These are distinguished from other SBML error codes by having a number
+ * between 4000000 and 4099999.
  *
  * @copydetails doc_sbml_error_code_ranges
  */

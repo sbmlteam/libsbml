@@ -486,7 +486,6 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
    * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
@@ -501,7 +500,6 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML typecode for the objects contained in this ListOfMembers:
-   *
    * @sbmlconstant{SBML_GROUPS_MEMBER, SBMLGroupsTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique

@@ -409,7 +409,7 @@ typedef enum
  * "classification",
  * "partonomy",
  * "collection",
- * or @c NULL if the value is @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t} or
+ * or @c NULL if the value is @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t} or
  * another invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
@@ -429,12 +429,12 @@ GroupKind_toString(GroupKind_t gk);
  *
  * @param code the string to convert to a #GroupKind_t.
  *
- * @return the corresponding #GroupKind_t or @sbmlconstant{GROUP_KIND_INVALID,
+ * @return the corresponding #GroupKind_t or @sbmlconstant{GROUP_KIND_UNKNOWN,
  * GroupKind_t} if no match is found.
  *
  * @note The matching is case-sensitive: "classification" will return
  * @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}, but "Classification"
- * will return @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t}.
+ * will return @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}.
  *
  * @if conly
  * @memberof Group_t
@@ -455,7 +455,7 @@ GroupKind_fromString(const char* code);
  * @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t},
  * @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}, or
  * @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t};
- * @c 0 (false) otherwise (including @sbmlconstant{GROUP_KIND_INVALID,
+ * @c 0 (false) otherwise (including @sbmlconstant{GROUP_KIND_UNKNOWN,
  * GroupKind_t}).
  *
  * @if conly

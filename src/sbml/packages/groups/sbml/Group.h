@@ -86,7 +86,7 @@
  * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
  * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
  * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
- * @li @sbmlconstant{GROUP_KIND_INVALID, GroupKind_t}
+ * @li @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
  *
  * @section group-membership-rules Groups and their members
  *
@@ -115,10 +115,11 @@
 /**
  * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
  * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file.  The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality.  Symbols
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
  * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
  *
  * @class doc_group_kind
  *
@@ -138,6 +139,7 @@
  * for convenience, without an implied relationship between the members.
  * </ul>
  */
+
 
 #ifndef Group_H__
 #define Group_H__
@@ -682,7 +684,6 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
    * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
