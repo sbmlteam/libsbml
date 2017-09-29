@@ -58,6 +58,9 @@
 
       case (int) libsbml.SBML_REACTION:
         return new FbcReactionPlugin(cPtr, owner);
+        
+      case (int) libsbml.SBML_DOCUMENT:
+        return new FbcSBMLDocumentPlugin(cPtr, owner);
 
       default:
         return new SBasePlugin(cPtr, owner);

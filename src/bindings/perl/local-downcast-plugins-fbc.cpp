@@ -13,6 +13,10 @@ if (pkgName == "fbc")
   {
     return SWIGTYPE_p_FbcReactionPlugin;
   }
+  else if(sb->getTypeCode() == SBML_DOCUMENT)
+  {
+    return SWIGTYPE_p_FbcSBMLDocumentPlugin;
+  }
 }
 
 #endif // USE_FBC 
