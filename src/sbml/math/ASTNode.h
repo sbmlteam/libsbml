@@ -2573,7 +2573,7 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
  * @param node the node whose value is to be returned.
  *
  * @return the value of @p node as a single character, or the value
- * @c CHAR_MAX if @p is null.
+ * @c CHAR_MAX if @p node is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2591,7 +2591,7 @@ ASTNode_getCharacter (const ASTNode_t *node);
  * @param node the node whose value is to be returned.
  *
  * @return the value of the given ASTNode_t structure as a
- * (<code>long</code>) integer, or the value @c LONG_MAX if @p is null.
+ * (<code>long</code>) integer, or the value @c LONG_MAX if @p node is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2609,7 +2609,7 @@ ASTNode_getInteger (const ASTNode_t *node);
  *
  * @param node the node whose value is to be returned.
  *
- * @return the value of @p node as a string, or a null pointer if @p is null.
+ * @return the value of @p node as a string, or a null pointer if @p node is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2627,7 +2627,7 @@ ASTNode_getName (const ASTNode_t *node);
  * @param node the node whose value is to be returned.
 
  * @return the value of the numerator of @p node, or the value @c LONG_MAX if
- * @p is null.
+ * @p is @c NULL.
  *
  * @see ASTNode_getDenominator()
  *
@@ -2647,7 +2647,7 @@ ASTNode_getNumerator (const ASTNode_t *node);
  * @param node the node whose value is to be returned.
  *
  * @return the value of the denominator of @p node, or the value @c LONG_MAX
- * if @p is null.
+ * if @p node is @c NULL.
  *
  * @see ASTNode_getNumerator()
  *
@@ -2669,8 +2669,8 @@ ASTNode_getDenominator (const ASTNode_t *node);
  *
  * @param node the node whose value is to be returned.
  *
- * @return the value of @p node as a real (double), or NaN if @p
- * is null.
+ * @return the value of @p node as a real (double), or NaN if @p node
+ * is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2690,7 +2690,7 @@ ASTNode_getReal (const ASTNode_t *node);
  *
  * @param node the node whose value is to be returned.
  *
- * @return the value of the mantissa of @p node, or NaN if @p is null.
+ * @return the value of the mantissa of @p node, or NaN if @p node is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2709,7 +2709,7 @@ ASTNode_getMantissa (const ASTNode_t *node);
  * @param node the node whose value is to be returned.
  *
  * @return the value of the exponent field in the given @p node ASTNode_t
- * structure, or NaN if @p is null.
+ * structure, or NaN if @p node is @c NULL.
  *
  * @memberof ASTNode_t
  */
@@ -2780,7 +2780,7 @@ ASTNode_getType (const ASTNode_t *node);
  *
  * @param node the node whose identifier should be returned.
  *
- * @returns the identifier of the node, or @c NULL if @p is a null pointer.
+ * @returns the identifier of the node, or @c NULL if @p node is a null pointer.
  *
  * @memberof ASTNode_t
  */
@@ -2794,7 +2794,7 @@ ASTNode_getId(const ASTNode_t * node);
  *
  * @param node the node whose class should be returned.
  *
- * @returns the class identifier, or @c NULL if @p is a null pointer.
+ * @returns the class identifier, or @c NULL if @p node is a null pointer.
  *
  * @memberof ASTNode_t
  */
@@ -2808,7 +2808,7 @@ ASTNode_getClass(const ASTNode_t * node);
  *
  * @param node the node.
  *
- * @return a string representing the @c style value, or a null value if @p is
+ * @return a string representing the @c style value, or a null value if @p node is
  * a null pointer.
  *
  * @memberof ASTNode_t
@@ -2825,7 +2825,7 @@ ASTNode_getStyle(const ASTNode_t * node);
  *
  * @param node the node whose units are to be returned.
  *
- * @return the units, as a string, or a null value if @p is a null pointer.
+ * @return the units, as a string, or a null value if @p node is a null pointer.
  *
  * @note The <code>sbml:units</code> attribute for MathML expressions is only
  * defined in SBML Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of

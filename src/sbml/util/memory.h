@@ -265,7 +265,7 @@ MemTrace_MemInfoList_append (MemInfoList_t *list, MemInfoNode_t *node);
 
 /**
  * Returns a pointer to the MemInfoNode_t in MemInfoList_t with the given
- * address or NULL if address is not found.
+ * address or @c NULL if address is not found.
  */
 MemInfoNode_t *
 MemTrace_MemInfoList_get (const MemInfoList_t *list, const void *address);

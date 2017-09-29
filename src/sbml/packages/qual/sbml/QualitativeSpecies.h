@@ -887,7 +887,7 @@ public:
    * of the QualitativeSpecies to get.
    *
    * @return QualitativeSpecies in this ListOfQualitativeSpecies
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * QualitativeSpecies exists.
    *
    * @see get(unsigned int n)   *
@@ -904,7 +904,7 @@ public:
    * of the QualitativeSpecies to get.
    *
    * @return QualitativeSpecies in this ListOfQualitativeSpecies
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * QualitativeSpecies exists.
    *
    * @see get(unsigned int n)   *

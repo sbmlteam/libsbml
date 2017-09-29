@@ -196,7 +196,7 @@ public:
    * of the Association to get.
    *
    * @return the Association in the ListOfFbcAssociations
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Association exists.
    *
    * @see getAssociation(unsigned int n)
@@ -214,7 +214,7 @@ public:
    * of the Association to get.
    *
    * @return the Association in the ListOfFbcAssociations
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Association exists.
    *
    * @see getAssociation(unsigned int n)

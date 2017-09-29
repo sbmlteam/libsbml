@@ -535,7 +535,7 @@ public:
    * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
-   * @return the Priority object of this Event, or NULL if the Priority
+   * @return the Priority object of this Event, or @c NULL if the Priority
    * has not been set.
    * 
    * @note The element "priority" is available in SBML Level&nbsp;3,
@@ -548,7 +548,7 @@ public:
    * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
-   * @return the Priority object of this Event, or NULL if the Priority
+   * @return the Priority object of this Event, or @c NULL if the Priority
    * has not been set.
    * 
    * @note The element "priority" is available in SBML Level&nbsp;3,
@@ -880,7 +880,7 @@ public:
    * (SBML Level&nbsp;3 only) Creates a new, empty Priority, adds it to this
    * Event and returns the Priority.
    *
-   * @return the newly created Priority object instance, or NULL if the SBML
+   * @return the newly created Priority object instance, or @c NULL if the SBML
    * level and version used for this Event does not define Priority children.
    * 
    * @note The element "priority" is available in SBML Level&nbsp;3,

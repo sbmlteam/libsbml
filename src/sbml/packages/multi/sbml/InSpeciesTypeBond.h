@@ -505,7 +505,7 @@ public:
    * of the InSpeciesTypeBond to get.
    *
    * @return InSpeciesTypeBond in this ListOfInSpeciesTypeBonds
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * InSpeciesTypeBond exists.
    *
    * @see get(unsigned int n)   *
@@ -522,7 +522,7 @@ public:
    * of the InSpeciesTypeBond to get.
    *
    * @return InSpeciesTypeBond in this ListOfInSpeciesTypeBonds
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * InSpeciesTypeBond exists.
    *
    * @see get(unsigned int n)   *

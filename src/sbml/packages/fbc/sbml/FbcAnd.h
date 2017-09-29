@@ -199,7 +199,7 @@ public:
    * of the FbcAssociation to get.
    *
    * @return the FbcAssociation in the ListOfFbcAssociations
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FbcAssociation exists.
    *
    * @see getAssociation(unsigned int n)
@@ -217,7 +217,7 @@ public:
    * of the FbcAssociation to get.
    *
    * @return the FbcAssociation in the ListOfFbcAssociations
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FbcAssociation exists.
    *
    * @see getAssociation(unsigned int n)

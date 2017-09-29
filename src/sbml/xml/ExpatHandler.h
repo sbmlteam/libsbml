@@ -104,8 +104,8 @@ public:
   /**
    * Receive notification of the start of an XML namespace.
    *
-   * @param  prefix  the namespace prefix or NULL (for xmlns="...").
-   * @param  uri     the namespace uri    or NULL (for xmlns="").
+   * @param  prefix  the namespace prefix or @c NULL (for xmlns="...").
+   * @param  uri     the namespace uri    or @c NULL (for xmlns="").
    */
   void startNamespace (const XML_Char* prefix, const XML_Char* uri);
 

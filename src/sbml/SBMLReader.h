@@ -399,7 +399,7 @@ public:
    * @param xml a string containing a full SBML model.
    *
    * @return a pointer to the SBMLDocument created from the SBML content,
-   * or a null pointer if @p xml is null.
+   * or a null pointer if @p xml is @c NULL.
    *
    * @copydetails doc_note_reading_comp
    *

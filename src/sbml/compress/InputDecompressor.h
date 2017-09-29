@@ -56,7 +56,7 @@ public:
   *
   * @note ZlibNotLinked will be thrown if zlib is not linked with libSBML at compile time.
   *
-  * @return a istream* object bound to the given gzip file or NULL if the initialization
+  * @return a istream* object bound to the given gzip file or @c NULL if the initialization
   * for the object failed.
   */
   static std::istream* openGzipIStream (const std::string& filename);
@@ -70,7 +70,7 @@ public:
   *
   * @note Bzip2NotLinked will be thrown if zlib is not linked with libSBML at compile time.  
   *
-  * @return a istream* object bound to the given bzip2 file or NULL if the initialization
+  * @return a istream* object bound to the given bzip2 file or @c NULL if the initialization
   * for the object failed.
   */
   static std::istream* openBzip2IStream (const std::string& filename);
@@ -82,7 +82,7 @@ public:
   *
   * @param filename a string, the zip file name to be read.
   *
-  * @return a istream* object bound to the given zip file or NULL if the initialization
+  * @return a istream* object bound to the given zip file or @c NULL if the initialization
   * for the object failed.
   *
   * @note The first file in the given zip archive file will be opened if the zip archive

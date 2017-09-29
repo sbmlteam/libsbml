@@ -206,7 +206,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -1034,7 +1034,7 @@ SBasePlugin_free(SBasePlugin_t* plugin);
  * @param stream the XMLInputStream_t structure to read from.
  *
  * @return the SBML structure corresponding to next XMLToken in the
- * XMLInputStream_t or NULL if the token was not recognized or plugin or stream
+ * XMLInputStream_t or @c NULL if the token was not recognized or plugin or stream
  * were NULL.
  *
  * @memberof SBasePlugin_t
@@ -1278,7 +1278,7 @@ SBasePlugin_enablePackageInternal(SBasePlugin_t* plugin,
  *
  * @param plugin the SBasePlugin_t structure.
  *
- * @return the parent SBMLDocument_t structure of this plugin structure or NULL if
+ * @return the parent SBMLDocument_t structure of this plugin structure or @c NULL if
  * no document is set, or the plugin structure is invalid.
  *
  * @memberof SBasePlugin_t
@@ -1293,7 +1293,7 @@ SBasePlugin_getSBMLDocument(SBasePlugin_t* plugin);
  * @param plugin the SBasePlugin_t structure.
  *
  * @return the parent SBase_t structure to which this plugin structure is connected
- * or NULL if sbase structure is set, or the plugin structure is invalid.
+ * or @c NULL if sbase structure is set, or the plugin structure is invalid.
  *
  * @memberof SBasePlugin_t
  */

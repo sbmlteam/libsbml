@@ -335,7 +335,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase*
   createObject (XMLInputStream& stream);

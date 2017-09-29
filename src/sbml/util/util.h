@@ -173,7 +173,7 @@ util_file_exists (const char *filename);
  * Removes leading and trailing whitespace from the string s.
  *
  * @return a pointer to a new string which is a duplicate of the string s,
- * with leading and trailing whitespace removed or NULL is s is NULL.
+ * with leading and trailing whitespace removed or @c NULL if s is @c NULL.
  *
  * Whitespace is determined by isspace().
  */

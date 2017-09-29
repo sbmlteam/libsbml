@@ -121,7 +121,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
@@ -201,7 +201,7 @@ public:
    * of the QualitativeSpecies to get.
    * 
    * @return QualitativeSpecies in the ListOfQualitativeSpecies with the given id
-   * or NULL if no such QualitativeSpecies exists.
+   * or @c NULL if no such QualitativeSpecies exists.
    *
    * @see getQualitativeSpecies(unsigned int n)
    * @see getListOfQualitativeSpecies()
@@ -216,7 +216,7 @@ public:
    * of the QualitativeSpecies to get.
    * 
    * @return QualitativeSpecies in the ListOfQualitativeSpecies with the given id 
-   * or NULL if no such QualitativeSpecies exists.
+   * or @c NULL if no such QualitativeSpecies exists.
    *
    * @see getQualitativeSpecies(unsigned int n)
    * @see getListOfQualitativeSpecies()
@@ -328,7 +328,7 @@ public:
    * of the Transition to get.
    * 
    * @return Transition in the ListOfTransitions with the given id
-   * or NULL if no such Transition exists.
+   * or @c NULL if no such Transition exists.
    *
    * @see getTransition(unsigned int n)
    * @see getListOfTransitions()
@@ -343,7 +343,7 @@ public:
    * of the Transition to get.
    * 
    * @return Transition in the ListOfTransitions with the given id 
-   * or NULL if no such Transition exists.
+   * or @c NULL if no such Transition exists.
    *
    * @see getTransition(unsigned int n)
    * @see getListOfTransitions()
@@ -954,7 +954,7 @@ QualModelPlugin_getQualitativeSpecies(QualModelPlugin_t* qmp, unsigned int n);
  * to retrieve.
  *
  * @return the QualitativeSpecies_t in the ListOfQualitativeSpecies within this
- * QualModelPlugin with the given id or NULL if no such QualitativeSpecies_t
+ * QualModelPlugin with the given id or @c NULL if no such QualitativeSpecies_t
  * exists.
  *
  * @memberof QualModelPlugin_t
@@ -975,7 +975,7 @@ QualModelPlugin_getQualitativeSpeciesById(QualModelPlugin_t* qmp,
  * QualitativeSpecies_t object to retrieve.
  *
  * @return the first QualitativeSpecies_t in this QualModelPlugin_t based on
- * the given compartment attribute or NULL if no such QualitativeSpecies_t
+ * the given compartment attribute or @c NULL if no such QualitativeSpecies_t
  * exists.
  *
  * @memberof QualModelPlugin_t
@@ -1066,7 +1066,7 @@ QualModelPlugin_removeQualitativeSpecies(QualModelPlugin_t* qmp,
  * to remove.
  *
  * @return the QualitativeSpecies_t in this QualModelPlugin_t based on the
- * identifier or NULL if no such QualitativeSpecies_t exists.
+ * identifier or @c NULL if no such QualitativeSpecies_t exists.
  *
  * @memberof QualModelPlugin_t
  */
@@ -1119,7 +1119,7 @@ QualModelPlugin_getTransition(QualModelPlugin_t* qmp, unsigned int n);
  * retrieve.
  *
  * @return the Transition_t in the ListOfTransitions within this
- * QualModelPlugin with the given id or NULL if no such Transition_t exists.
+ * QualModelPlugin with the given id or @c NULL if no such Transition_t exists.
  *
  * @memberof QualModelPlugin_t
  */
@@ -1205,7 +1205,7 @@ QualModelPlugin_removeTransition(QualModelPlugin_t* qmp, unsigned int n);
  * remove.
  *
  * @return the Transition_t in this QualModelPlugin_t based on the identifier
- * or NULL if no such Transition_t exists.
+ * or @c NULL if no such Transition_t exists.
  *
  * @memberof QualModelPlugin_t
  */

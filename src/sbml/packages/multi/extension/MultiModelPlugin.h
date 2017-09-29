@@ -119,7 +119,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -209,7 +209,7 @@ public:
    * @param sid a string representing the id of the MultiSpeciesType to get
    *
    * @return MultiSpeciesType in the ListOfMultiSpeciesTypes with the given id
-   * or NULL if no such MultiSpeciesType exists.
+   * or @c NULL if no such MultiSpeciesType exists.
    */
   const MultiSpeciesType* getMultiSpeciesType(const std::string& sid) const;
 
@@ -220,7 +220,7 @@ public:
    * @param sid a string representing the id of the MultiSpeciesType to get
    *
    * @return MultiSpeciesType in the ListOfMultiSpeciesTypes with the given id
-   * or NULL if no such MultiSpeciesType exists.
+   * or @c NULL if no such MultiSpeciesType exists.
    */
   MultiSpeciesType* getMultiSpeciesType(const std::string& sid);
 
@@ -262,7 +262,7 @@ public:
    * @param n the index of the MultiSpeciesType to remove
    *
    * @return the MultiSpeciesType object removed 
-   * or NULL index was out of range.
+   * or @c NULL index was out of range.
    */
   MultiSpeciesType* removeMultiSpeciesType(unsigned int n);
 
@@ -277,7 +277,7 @@ public:
    * @param sid a string representing the id of the MultiSpeciesType to remove
    *
    * @return the MultiSpeciesType object removed 
-   * or NULL if no such MultiSpeciesType exists.
+   * or @c NULL if no such MultiSpeciesType exists.
    */
   MultiSpeciesType* removeMultiSpeciesType(const std::string& sid);
 

@@ -300,7 +300,7 @@ public:
    * of the Input to get.
    *
    * @return the Input in the ListOfInputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Input exists.
    *
    * @see getInput(unsigned int n)
@@ -317,7 +317,7 @@ public:
    * of the Input to get.
    *
    * @return the Input in the ListOfInputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Input exists.
    *
    * @see getInput(unsigned int n)
@@ -335,7 +335,7 @@ public:
    * of the Input to get.
    *
    * @return the first Input in the ListOfInputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Input exists.
    *
    * @see getInput(unsigned int n)
@@ -353,7 +353,7 @@ public:
    * of the Input to get.
    *
    * @return the first Input in the ListOfInputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Input exists.
    *
    * @see getInput(unsigned int n)
@@ -471,7 +471,7 @@ public:
    * of the Output to get.
    *
    * @return the Output in the ListOfOutputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Output exists.
    *
    * @see getOutput(unsigned int n)
@@ -489,7 +489,7 @@ public:
    * of the Output to get.
    *
    * @return the Output in the ListOfOutputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Output exists.
    *
    * @see getOutput(unsigned int n)
@@ -507,7 +507,7 @@ public:
    * of the Output to get.
    *
    * @return the first Output in the ListOfOutputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Output exists.
    *
    * @see getOutput(unsigned int n)
@@ -525,7 +525,7 @@ public:
    * of the Output to get.
    *
    * @return the first Output in the ListOfOutputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Output exists.
    *
    * @see getOutput(unsigned int n)
@@ -643,7 +643,7 @@ public:
    * of the FunctionTerm to get.
    *
    * @return the FunctionTerm in the ListOfFunctionTerms
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionTerm exists.
    *
    * @see getFunctionTerm(unsigned int n)
@@ -661,7 +661,7 @@ public:
    * of the FunctionTerm to get.
    *
    * @return the FunctionTerm in the ListOfFunctionTerms
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionTerm exists.
    *
    * @see getFunctionTerm(unsigned int n)
@@ -1365,7 +1365,7 @@ public:
    * of the Transition to get.
    *
    * @return Transition in this ListOfTransitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Transition exists.
    *
    * @see get(unsigned int n)   *
@@ -1382,7 +1382,7 @@ public:
    * of the Transition to get.
    *
    * @return Transition in this ListOfTransitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Transition exists.
    *
    * @see get(unsigned int n)   *

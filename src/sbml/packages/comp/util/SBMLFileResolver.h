@@ -108,7 +108,7 @@ public:
    * @param uri the URI to the target document.
    * @param baseUri base URI, in case the URI is a relative one.
    *
-   * @return the document, if this resolver can resolve the document or NULL.
+   * @return the document, if this resolver can resolve the document or @c NULL.
    */
   virtual SBMLDocument* resolve(const std::string &uri,
                                 const std::string& baseUri="") const;
@@ -122,7 +122,7 @@ public:
    * @param baseUri base URI, in case the URI is a relative one.
    *
    * @return the full URI to the document, if this resolver can resolve the
-   * document or NULL.
+   * document or @c NULL.
    */
   virtual SBMLUri* resolveUri(const std::string &uri, 
                               const std::string& baseUri="") const;

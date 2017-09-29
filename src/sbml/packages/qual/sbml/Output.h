@@ -839,7 +839,7 @@ public:
    * of the Output to get.
    *
    * @return Output in this ListOfOutputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Output exists.
    *
    * @see get(unsigned int n)   *
@@ -856,7 +856,7 @@ public:
    * of the Output to get.
    *
    * @return Output in this ListOfOutputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Output exists.
    *
    * @see get(unsigned int n)   *
@@ -873,7 +873,7 @@ public:
    * of the Output to get.
    *
    * @return the first Output in this ListOfOutputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Output exists.
    *
    * @see get(unsigned int n)   *
@@ -890,7 +890,7 @@ public:
    * of the Output to get.
    *
    * @return the first Output in this ListOfOutputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Output exists.
    *
    * @see get(unsigned int n)   *

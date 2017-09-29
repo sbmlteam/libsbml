@@ -504,7 +504,7 @@ public:
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -517,7 +517,7 @@ public:
    *
    * @param n the index number of the SpeciesTypeInstance to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -530,7 +530,7 @@ public:
    * @param sid a string representing the identifier of the
    * SpeciesTypeInstance to get.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -544,7 +544,7 @@ public:
    * @param sid a string representing the identifier of the
    * SpeciesTypeInstance to get.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -558,7 +558,7 @@ public:
    *
    * @param n the index of the SpeciesTypeInstance to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
@@ -571,7 +571,7 @@ public:
    *
    * @param sid the identifier of the SpeciesTypeInstance to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    */
   virtual SpeciesTypeInstance* remove(const std::string& sid);

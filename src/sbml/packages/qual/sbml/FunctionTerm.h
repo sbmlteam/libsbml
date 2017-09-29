@@ -744,7 +744,7 @@ public:
    * of the FunctionTerm to get.
    *
    * @return FunctionTerm in this ListOfFunctionTerms
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionTerm exists.
    *
    * @see get(unsigned int n)   *
@@ -761,7 +761,7 @@ public:
    * of the FunctionTerm to get.
    *
    * @return FunctionTerm in this ListOfFunctionTerms
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionTerm exists.
    *
    * @see get(unsigned int n)   *

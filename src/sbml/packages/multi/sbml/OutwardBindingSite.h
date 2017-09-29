@@ -548,7 +548,7 @@ public:
    * of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in this ListOfOutwardBindingSites
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * OutwardBindingSite exists.
    *
    * @see get(unsigned int n)   *
@@ -565,7 +565,7 @@ public:
    * of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in this ListOfOutwardBindingSites
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * OutwardBindingSite exists.
    *
    * @see get(unsigned int n)   *

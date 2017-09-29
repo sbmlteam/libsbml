@@ -338,7 +338,7 @@ public:
    * of the SpeciesFeatureType to get.
    *
    * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes with the
-   * given id, or NULL if no such SpeciesFeatureType exists.
+   * given id, or @c NULL if no such SpeciesFeatureType exists.
    *
    * @see getSpeciesFeatureType(unsigned int n)
    * @see getNumSpeciesFeatureTypes()
@@ -354,7 +354,7 @@ public:
    * of the SpeciesFeatureType to get.
    *
    * @return the SpeciesFeatureType in the ListOfSpeciesFeatureTypes with the
-   * given id, or NULL if no such SpeciesFeatureType exists.
+   * given id, or @c NULL if no such SpeciesFeatureType exists.
    *
    * @see getSpeciesFeatureType(unsigned int n)
    * @see getNumSpeciesFeatureTypes()
@@ -400,7 +400,7 @@ public:
    *
    * @param n the index of the SpeciesFeatureType to remove.
    *
-   * @return the SpeciesFeatureType object removed, or NULL if the given
+   * @return the SpeciesFeatureType object removed, or @c NULL if the given
    * index @p n is out of range.  Note that the caller owns the returned
    * object and is responsible for deleting it.
    *
@@ -415,7 +415,7 @@ public:
    *
    * @param sid the identifier of the SpeciesFeatureType to remove.
    *
-   * @return the SpeciesFeatureType removed, or NULL if none have the
+   * @return the SpeciesFeatureType removed, or @c NULL if none have the
    * identifier @p sid.  Note that the caller owns the returned item and is
    * responsible for deleting it.
    */
@@ -449,7 +449,7 @@ public:
    * @param n the index number of the SpeciesTypeInstance to get.
    *
    * @return the nth SpeciesTypeInstance object in the
-   * ListOfSpeciesTypeInstances, or NULL if the given index is out of range.
+   * ListOfSpeciesTypeInstances, or @c NULL if the given index is out of range.
    *
    * @see getNumSpeciesTypeInstances()
    */
@@ -463,7 +463,7 @@ public:
    * @param n the index number of the SpeciesTypeInstance to get.
    *
    * @return the nth SpeciesTypeInstance object in the
-   * ListOfSpeciesTypeInstances, or NULL if the given index is out of range.
+   * ListOfSpeciesTypeInstances, or @c NULL if the given index is out of range.
    *
    * @see getNumSpeciesTypeInstances()
    */
@@ -478,7 +478,7 @@ public:
    * of the SpeciesTypeInstance to get.
    *
    * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances with
-   * the given id, or NULL if no such SpeciesTypeInstance exists.
+   * the given id, or @c NULL if no such SpeciesTypeInstance exists.
    *
    * @see getSpeciesTypeInstance(unsigned int n)
    * @see getNumSpeciesTypeInstances()
@@ -494,7 +494,7 @@ public:
    * of the SpeciesTypeInstance to get.
    *
    * @return the SpeciesTypeInstance in the ListOfSpeciesTypeInstances with
-   * the given id, or NULL if no such SpeciesTypeInstance exists.
+   * the given id, or @c NULL if no such SpeciesTypeInstance exists.
    *
    * @see getSpeciesTypeInstance(unsigned int n)
    * @see getNumSpeciesTypeInstances()
@@ -539,7 +539,7 @@ public:
    *
    * @param n the index of the SpeciesTypeInstance to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getNumSpeciesTypeInstances()
@@ -553,7 +553,7 @@ public:
    *
    * @param sid the identifier of the SpeciesTypeInstance to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    */
   SpeciesTypeInstance* removeSpeciesTypeInstance(const std::string& sid);
@@ -584,7 +584,7 @@ public:
    * @param n the index number of the SpeciesTypeComponentIndex to get from
    * the ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or NULL
+   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or @c NULL
    * if the index @p n is out of range.
    *
    * @see getNumSpeciesTypeComponentIndexes()
@@ -599,7 +599,7 @@ public:
    * @param n the index number of the SpeciesTypeComponentIndex to get from
    * the ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or NULL
+   * @return the nth object in the ListOfSpeciesTypeComponentIndexes, or @c NULL
    * if the index @p n is out of range.
    *
    * @see getNumSpeciesTypeComponentIndexes()
@@ -614,7 +614,7 @@ public:
    * SpeciesTypeComponentIndex to get from the
    * ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see getSpeciesTypeComponentIndex(unsigned int n)
    * @see getNumSpeciesTypeComponentIndexes()
@@ -629,7 +629,7 @@ public:
    * SpeciesTypeComponentIndex to get from the
    * ListOfSpeciesTypeComponentIndexes.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see getSpeciesTypeComponentIndex(unsigned int n)
    * @see getNumSpeciesTypeComponentIndexes()
@@ -680,7 +680,7 @@ public:
    *
    * @param n the index of the SpeciesTypeComponentIndex to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getNumSpeciesTypeComponentIndexes()
@@ -694,7 +694,7 @@ public:
    *
    * @param sid the identifier to search for.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getNumSpeciesTypeComponentIndexes()
@@ -723,7 +723,7 @@ public:
    *
    * @param n the index number of the InSpeciesTypeBond to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -735,7 +735,7 @@ public:
    *
    * @param n the index number of the InSpeciesTypeBond to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -748,7 +748,7 @@ public:
    * @param sid a string representing the identifier of the InSpeciesTypeBond
    * to get from this ListOfInSpeciesTypeBonds.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getInSpeciesTypeBond(unsigned int n)
@@ -763,7 +763,7 @@ public:
    * @param sid a string representing the identifier of the InSpeciesTypeBond
    * to get from this ListOfInSpeciesTypeBonds.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see getInSpeciesTypeBond(unsigned int n)
@@ -811,7 +811,7 @@ public:
    *
    * @param n the index of the InSpeciesTypeBond to remove.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see getNumInSpeciesTypeBonds()
    */
@@ -824,7 +824,7 @@ public:
    * @param sid the identifier of the InSpeciesTypeBond to remove from
    * the ListOfInSpeciesTypeBonds within this MultiSpeciesType object.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    */
   InSpeciesTypeBond* removeInSpeciesTypeBond(const std::string& sid);
@@ -1043,7 +1043,7 @@ public:
    *
    * @param n the index number of the MultiSpeciesType to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -1055,7 +1055,7 @@ public:
    *
    * @param n the index number of the MultiSpeciesType to get.
    *
-   * @return the nth object, or NULL if the index @p is out of range.
+   * @return the nth object, or @c NULL if the index @p is out of range.
    *
    * @see size()
    */
@@ -1068,7 +1068,7 @@ public:
    * @param sid a string representing the identifier of the MultiSpeciesType
    * to get from this ListOfMultiSpeciesTypes.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -1082,7 +1082,7 @@ public:
    * @param sid a string representing the identifier of the MultiSpeciesType
    * to get from this ListOfMultiSpeciesTypes.
    *
-   * @return the object with the given id, or NULL if no such object exists.
+   * @return the object with the given id, or @c NULL if no such object exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -1095,7 +1095,7 @@ public:
    *
    * @param n the index of the MultiSpeciesType to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    *
    * @see size()
@@ -1108,7 +1108,7 @@ public:
    *
    * @param sid the identifier of the MultiSpeciesType to remove.
    *
-   * @return the object removed, or NULL if no such object exists.  Note that
+   * @return the object removed, or @c NULL if no such object exists.  Note that
    * the caller owns the returned object and is responsible for deleting it.
    */
   virtual MultiSpeciesType* remove(const std::string& sid);

@@ -802,7 +802,7 @@ public:
    * @param sid a string representing the identifier of the GeneProduct to
    * get.
    *
-   * @return GeneProduct in this ListOfGeneProducts with the given id or NULL
+   * @return GeneProduct in this ListOfGeneProducts with the given id or @c NULL
    * if no such GeneProduct exists.
    *
    * @see get(unsigned int n)
@@ -817,7 +817,7 @@ public:
    * @param sid a string representing the identifier of the GeneProduct to
    * get.
    *
-   * @return GeneProduct in this ListOfGeneProducts with the given id or NULL
+   * @return GeneProduct in this ListOfGeneProducts with the given id or @c NULL
    * if no such GeneProduct exists.
    *
    * @see get(unsigned int n)

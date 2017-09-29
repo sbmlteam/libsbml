@@ -889,7 +889,7 @@ public:
    * of the Input to get.
    *
    * @return Input in this ListOfInputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Input exists.
    *
    * @see get(unsigned int n)   *
@@ -906,7 +906,7 @@ public:
    * of the Input to get.
    *
    * @return Input in this ListOfInputs
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Input exists.
    *
    * @see get(unsigned int n)   *
@@ -923,7 +923,7 @@ public:
    * of the Input to get.
    *
    * @return the first Input in this ListOfInputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Input exists.
    *
    * @see get(unsigned int n)   *
@@ -940,7 +940,7 @@ public:
    * of the Input to get.
    *
    * @return the first Input in this ListOfInputs
-   * with the given qualitativeSpecies or NULL if no such
+   * with the given qualitativeSpecies or @c NULL if no such
    * Input exists.
    *
    * @see get(unsigned int n)   *

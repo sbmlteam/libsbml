@@ -200,7 +200,7 @@ BEGIN_C_DECLS
  * @param pkgName the package name for the new structure.
  * @param typeCode the SBML Type code for the new structure.
  *
- * @return the newly created SBaseExtensionPoint_t structure or NULL in case
+ * @return the newly created SBaseExtensionPoint_t structure or @c NULL in case
  * the given pkgName is invalid (NULL).
  *
  * @memberof SBaseExtensionPoint_t

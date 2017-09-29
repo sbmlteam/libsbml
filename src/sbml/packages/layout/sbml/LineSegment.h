@@ -396,7 +396,7 @@ LineSegment_create (void);
 
 /**
  * Creates a clone of @p temp, or creates a new empty LineSegment if 
- * @p temp is NULL.
+ * @p temp is @c NULL.
  *
  * @param temp the LineSegment_t structure to copy.
  *
@@ -521,7 +521,7 @@ LineSegment_initDefaults (LineSegment_t *ls);
 
 /**
  * @return a (deep) copy of this LineSegment_t, or @c NULL if 
- * @p ls is NULL.
+ * @p ls is @c NULL.
  *
  * @param ls the LineSegment_t structure.
  *

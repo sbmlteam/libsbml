@@ -133,7 +133,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -283,7 +283,7 @@ public:
    *
    * @param n the index number of the CompartmentReference to get.
    *
-   * @return the nth CompartmentReference, or NULL if the index @p n is out
+   * @return the nth CompartmentReference, or @c NULL if the index @p n is out
    * of range.
    */
   const CompartmentReference* getCompartmentReference(unsigned int n) const;
@@ -295,7 +295,7 @@ public:
    *
    * @param n the index number of the CompartmentReference to get.
    *
-   * @return the nth CompartmentReference, or NULL if the index @p n is out
+   * @return the nth CompartmentReference, or @c NULL if the index @p n is out
    * of range.
    */
   CompartmentReference* getCompartmentReference(unsigned int n);
@@ -308,7 +308,7 @@ public:
    * the ListOfCompartmentReferences.
    *
    * @return the CompartmentReference object with the given identifier in the
-   * ListOfCompartmentReferences, or NULL if no such CompartmentReference
+   * ListOfCompartmentReferences, or @c NULL if no such CompartmentReference
    * exists.
    */
   const CompartmentReference* getCompartmentReference(const std::string& sid) const;
@@ -321,7 +321,7 @@ public:
    * the ListOfCompartmentReferences.
    *
    * @return the CompartmentReference object with the given identifier in the
-   * ListOfCompartmentReferences, or NULL if no such CompartmentReference
+   * ListOfCompartmentReferences, or @c NULL if no such CompartmentReference
    * exists.
    */
   CompartmentReference* getCompartmentReference(const std::string& sid);
@@ -354,7 +354,7 @@ public:
    *
    * @param n the index of the CompartmentReference to remove.
    *
-   * @return the CompartmentReference object removed, or NULL if the given
+   * @return the CompartmentReference object removed, or @c NULL if the given
    * index @p n is out of range.  Note that the caller owns the returned
    * object and is responsible for deleting it.
    */
@@ -367,7 +367,7 @@ public:
    *
    * @param sid the id of the CompartmentReference to remove.
    *
-   * @return the CompartmentReference object removed, or NULL if no such
+   * @return the CompartmentReference object removed, or @c NULL if no such
    * CompartmentReference exists.  Note that the caller owns the returned
    * object and is responsible for deleting it.
    */

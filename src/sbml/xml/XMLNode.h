@@ -689,7 +689,7 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
  * @param child XMLNode_t structure to be inserted as nth child.
  *
  * @return the newly inserted child in this XMLNode_t.
- * NULL will be returned if the given child is NULL.
+ * @c NULL will be returned if the given child is @c NULL.
  *
  * @memberof XMLNode_t
  */

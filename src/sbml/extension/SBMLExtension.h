@@ -807,7 +807,7 @@ SBMLExtension_isSupported(SBMLExtension_t* ext, const char* uri);
  * @param ext the SBMLExtension_t structure.
  * @param index the index of the supported package uri to return.
  *
- * @return the package URI (package version) for the given index or NULL.
+ * @return the package URI (package version) for the given index or @c NULL.
  *
  * @memberof SBMLExtension_t
  */

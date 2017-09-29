@@ -3616,7 +3616,7 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
    *
    * @note The root element may not be an SBMLDocument element. For example,
    * this element is the root element if this element doesn't have a parent
-   * SBML object (i.e. mParentSBMLObject is NULL)
+   * SBML object (i.e. mParentSBMLObject is @c NULL)
    *
    * @see enablePackageInternal
    */

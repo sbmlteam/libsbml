@@ -544,7 +544,7 @@ public:
    * Adds a copy of the given Deletion object to the list of deletions.
    *
    * @param deletion the Deletion object to be added to the list of
-   * deletions.  Fails if the added deletion is NULL, does not match the
+   * deletions.  Fails if the added deletion is @c NULL, does not match the
    * level/version/package of the parent object, or cannot be added to the
    * list of deletions.
    *
@@ -703,7 +703,7 @@ public:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */

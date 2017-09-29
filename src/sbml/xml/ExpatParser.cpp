@@ -217,7 +217,7 @@ ExpatParser::getLine () const
 /**
  * Parses XML content in one fell swoop.
  *
- * If @p isFile whoa is true (default), @p content is treated as a filename from
+ * If @p isFile is true (default), @p content is treated as a filename from
  * which to read the XML content.  Otherwise, @p content is treated as a
  * null-terminated buffer containing XML data and is read directly.
  *

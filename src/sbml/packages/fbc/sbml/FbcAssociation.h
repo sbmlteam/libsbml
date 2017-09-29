@@ -734,7 +734,7 @@ public:
    * get.
    *
    * @return FbcAssociation in this ListOfFbcAssociations with the given id
-   * or NULL if no such FbcAssociation exists.
+   * or @c NULL if no such FbcAssociation exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -750,7 +750,7 @@ public:
    * get.
    *
    * @return FbcAssociation in this ListOfFbcAssociations with the given id
-   * or NULL if no such FbcAssociation exists.
+   * or @c NULL if no such FbcAssociation exists.
    *
    * @see get(unsigned int n)
    * @see size()

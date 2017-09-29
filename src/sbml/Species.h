@@ -2535,7 +2535,7 @@ Species_setName (Species_t *s, const char *name);
  * Sets the "speciesType" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function is equivalent to calling Species_unsetSpeciesType().
+ * is @c NULL, this function is equivalent to calling Species_unsetSpeciesType().
  *
  * @param s the Species_t structure.
  * 
@@ -2561,7 +2561,7 @@ Species_setSpeciesType (Species_t *s, const char *sid);
  * Sets the "compartment" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p compartment.  If the string
- * is NULL, this function is equivalent to calling Species_unsetCompartment().
+ * is @c NULL, this function is equivalent to calling Species_unsetCompartment().
  *
  * @param s the Species_t structure.
  * 
@@ -2631,7 +2631,7 @@ Species_setInitialConcentration (Species_t *s, double value);
  * Sets the "substanceUnits" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function is equivalent to calling 
+ * is @c NULL, this function is equivalent to calling 
  * Species_unsetSubstanceUnits().
  *
  * @param s the Species_t structure.
@@ -2656,7 +2656,7 @@ Species_setSubstanceUnits (Species_t *s, const char *sid);
 /**
  * Sets the "spatialSizeUnits" attribute of the given Species_t structure.
  *
- * This function copies the string given in @p sid.  If the string is NULL,
+ * This function copies the string given in @p sid.  If the string is @c NULL,
  * this function is equivalent to calling Species_unsetSpatialSizeUnits().
  *
  * @param s the Species_t structure.
@@ -2685,7 +2685,7 @@ Species_setSpatialSizeUnits (Species_t *s, const char *sid);
  * (SBML Level 1 only) Sets the "units" attribute of the given Species_t
  * structure.
  *
- * This function copies the string given in @p sid.  If the string is NULL,
+ * This function copies the string given in @p sid.  If the string is @c NULL,
  * this function is equivalent to calling Species_unsetUnits().
  *
  * @param s the Species_t structure.
@@ -2798,7 +2798,7 @@ Species_setConstant (Species_t *s, int value);
  * Sets the "conversionFactor" attribute of the given Species_t structure.
  *
  * This function copies the string given in @p sid.  If the string
- * is NULL, this function is equivalent to calling 
+ * is @c NULL, this function is equivalent to calling 
  * Species_unsetConversionFactor().
  *
  * @param s the Species_t structure.

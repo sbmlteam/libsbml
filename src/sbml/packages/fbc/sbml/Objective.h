@@ -367,7 +367,7 @@ public:
    * get.
    *
    * @return the FluxObjective in the ListOfFluxObjectives with the given id
-   * or NULL if no such FluxObjective exists.
+   * or @c NULL if no such FluxObjective exists.
    *
    * @see getFluxObjective(unsigned int n)
    *
@@ -384,7 +384,7 @@ public:
    * get.
    *
    * @return the FluxObjective in the ListOfFluxObjectives with the given id
-   * or NULL if no such FluxObjective exists.
+   * or @c NULL if no such FluxObjective exists.
    *
    * @see getFluxObjective(unsigned int n)
    *
@@ -1064,7 +1064,7 @@ public:
    *
    * @param sid a string representing the identifier of the Objective to get.
    *
-   * @return Objective in this ListOfObjectives with the given id or NULL if
+   * @return Objective in this ListOfObjectives with the given id or @c NULL if
    * no such Objective exists.
    *
    * @see get(unsigned int n)
@@ -1078,7 +1078,7 @@ public:
    *
    * @param sid a string representing the identifier of the Objective to get.
    *
-   * @return Objective in this ListOfObjectives with the given id or NULL if
+   * @return Objective in this ListOfObjectives with the given id or @c NULL if
    * no such Objective exists.
    *
    * @see get(unsigned int n)

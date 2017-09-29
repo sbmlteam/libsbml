@@ -223,7 +223,7 @@ public:
    * Get the mathematical formula of this Rule as an ASTNode tree.
    *
    * @return an ASTNode, the value of the "math" subelement of this Rule,
-   * or NULL if the math is not set.
+   * or @c NULL if the math is not set.
    *
    * @note The subelement "math" is present in SBML Levels&nbsp;2
    * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the

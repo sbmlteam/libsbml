@@ -124,7 +124,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -256,7 +256,7 @@ public:
    * @param sid a string representing the id of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in the ListOfOutwardBindingSites with the given id
-   * or NULL if no such OutwardBindingSite exists.
+   * or @c NULL if no such OutwardBindingSite exists.
    */
   const OutwardBindingSite* getOutwardBindingSite(const std::string& sid) const;
 
@@ -267,7 +267,7 @@ public:
    * @param sid a string representing the id of the OutwardBindingSite to get.
    *
    * @return OutwardBindingSite in the ListOfOutwardBindingSites with the given id
-   * or NULL if no such OutwardBindingSite exists.
+   * or @c NULL if no such OutwardBindingSite exists.
    */
   OutwardBindingSite* getOutwardBindingSite(const std::string& sid);
 
@@ -298,7 +298,7 @@ public:
    *
    * @param n the index of the OutwardBindingSite to remove.
    *
-   * @return the OutwardBindingSite object removed or NULL index was out of
+   * @return the OutwardBindingSite object removed or @c NULL index was out of
    * range.  Note that the caller owns the returned object and is responsible
    * for deleting it.
    */
@@ -311,7 +311,7 @@ public:
    *
    * @param sid a string representing the id of the OutwardBindingSite to remove.
    *
-   * @return the OutwardBindingSite object removed or NULL index was out of
+   * @return the OutwardBindingSite object removed or @c NULL index was out of
    * range.  Note that the caller owns the returned object and is responsible
    * for deleting it.
    */
@@ -370,7 +370,7 @@ public:
    * @param sid a string representing the id of the SpeciesFeature to get
    *
    * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id @p
-   * sid, or NULL if no such SpeciesFeature exists.
+   * sid, or @c NULL if no such SpeciesFeature exists.
    */
   const SpeciesFeature* getSpeciesFeature(const std::string& sid) const;
 
@@ -381,7 +381,7 @@ public:
    * @param sid a string representing the id of the SpeciesFeature to get
    *
    * @return SpeciesFeature in the ListOfSpeciesFeatures with the given id @p
-   * sid, or NULL if no such SpeciesFeature exists.
+   * sid, or @c NULL if no such SpeciesFeature exists.
    */
   SpeciesFeature* getSpeciesFeature(const std::string& sid);
 
@@ -435,7 +435,7 @@ public:
    * @param sid the id of the SubListOfSpeciesFeatures to get.
    *
    * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the
-   * given id @p sid, or NULL if no such SubListOfSpeciesFeatures exists.
+   * given id @p sid, or @c NULL if no such SubListOfSpeciesFeatures exists.
    */
   const SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(const std::string& sid) const;
 
@@ -446,7 +446,7 @@ public:
    * @param sid the id of the SubListOfSpeciesFeatures to get.
    *
    * @return SubListOfSpeciesFeatures in the ListOfSpeciesFeatures with the
-   * given id @p sid, or NULL if no such SubListOfSpeciesFeatures exists.
+   * given id @p sid, or @c NULL if no such SubListOfSpeciesFeatures exists.
    */
   SubListOfSpeciesFeatures* getSubListOfSpeciesFeatures(const std::string& sid);
 
@@ -477,7 +477,7 @@ public:
    *
    * @param n the index of the SpeciesFeature to remove.
    *
-   * @return the SpeciesFeature object removed or NULL index was out of
+   * @return the SpeciesFeature object removed or @c NULL index was out of
    * range.  Note that the caller owns the returned object and is responsible
    * for deleting it.
    */
@@ -489,7 +489,7 @@ public:
    *
    * @param sid a string representing the id of the SpeciesFeature to get.
    *
-   * @return the SpeciesFeature object removed or NULL index was out of
+   * @return the SpeciesFeature object removed or @c NULL index was out of
    * range.  Note that the caller owns the returned object and is responsible
    * for deleting it.
    */

@@ -455,7 +455,7 @@ public:
    * of the CompartmentReference to get.
    *
    * @return CompartmentReference in this ListOfCompartmentReferences
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * CompartmentReference exists.
    *
    * @see get(unsigned int n)   *
@@ -472,7 +472,7 @@ public:
    * of the CompartmentReference to get.
    *
    * @return CompartmentReference in this ListOfCompartmentReferences
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * CompartmentReference exists.
    *
    * @see get(unsigned int n)   *

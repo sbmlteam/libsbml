@@ -456,7 +456,7 @@ ConversionProperties_clone(const ConversionProperties_t* cp);
  * @param key the key for the option.
  *
  * @return the boolean value of the option as an integer (@c 1 = true; 
- * @c 0 = false or NULL) with the given key to be freed by the caller.
+ * @c 0 = false or @c NULL) with the given key to be freed by the caller.
  *
  * @memberof ConversionProperties_t
  */
@@ -717,7 +717,7 @@ ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* ke
  * @param key the key for the option to remove.
  *
  * @return the removed conversion option (needs to be freed by the caller), 
- * or NULL, if no option with the given key exists
+ * or @c NULL, if no option with the given key exists
  * 
  * @memberof ConversionProperties_t
  */

@@ -1948,7 +1948,7 @@ KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p);
  *
  * @param kl the KineticLaw_t structure.
  *
- * @return a pointer to a Parameter_t structure, or @c NULL if @p kl is NULL,
+ * @return a pointer to a Parameter_t structure, or @c NULL if @p kl is @c NULL,
  * or if its namepace indicates it is an SBML Level&nbsp;3 object.
  *
  * @see KineticLaw_createLocalParameter()
@@ -1969,7 +1969,7 @@ KineticLaw_createParameter (KineticLaw_t *kl);
  *
  * @param kl the KineticLaw_t structure.
  *
- * @return a pointer to a LocalParameter_t structure, or @c NULL if @p kl is NULL,
+ * @return a pointer to a LocalParameter_t structure, or @c NULL if @p kl is @c NULL,
  * or if its namepace indicates it is an SBML Level&nbsp;1 or 2 object.
  *
  * @see KineticLaw_createParameter()

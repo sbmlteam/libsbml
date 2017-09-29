@@ -121,7 +121,7 @@ public:
    * XMLInputStream if they have their specific elements.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -217,7 +217,7 @@ public:
    * SpeciesTypeComponentMapInProduct to get.
    *
    * @return the SpeciesTypeComponentMapInProduct object within the
-   * ListOfSpeciesTypeComponentMapInProducts with the given id, or NULL if no
+   * ListOfSpeciesTypeComponentMapInProducts with the given id, or @c NULL if no
    * such SpeciesTypeComponentMapInProduct exists.
    */
   const SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(const std::string& sid) const;
@@ -231,7 +231,7 @@ public:
    * SpeciesTypeComponentMapInProduct to get.
    *
    * @return the SpeciesTypeComponentMapInProduct object within the
-   * ListOfSpeciesTypeComponentMapInProducts with the given id, or NULL if no
+   * ListOfSpeciesTypeComponentMapInProducts with the given id, or @c NULL if no
    * such SpeciesTypeComponentMapInProduct exists.
    */
   SpeciesTypeComponentMapInProduct* getSpeciesTypeComponentMapInProduct(const std::string& sid);
@@ -267,7 +267,7 @@ public:
    *
    * @param n the index of the SpeciesTypeComponentMapInProduct to remove.
    *
-   * @return the SpeciesTypeComponentMapInProduct object removed or NULL
+   * @return the SpeciesTypeComponentMapInProduct object removed or @c NULL
    * index was out of range.  Note that the caller owns the returned object
    * and is responsible for deleting it.
    */
@@ -281,7 +281,7 @@ public:
    * @param sid a string representing the id of the
    * SpeciesTypeComponentMapInProduct to remove.
    *
-   * @return the SpeciesTypeComponentMapInProduct object removed or NULL if
+   * @return the SpeciesTypeComponentMapInProduct object removed or @c NULL if
    * no such SpeciesTypeComponentMapInProduct exists.  Note that the caller
    * owns the returned object and is responsible for deleting it.
    */

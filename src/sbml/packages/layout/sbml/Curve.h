@@ -191,7 +191,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
   /** @endcond */
@@ -309,7 +309,7 @@ public:
    * @param index the index value of the curve segment to return.
    *
    * @return the LineSegment representing the child "curveSegment"
-   * with the appropriate @p index, or NULL if no such LineSegment
+   * with the appropriate @p index, or @c NULL if no such LineSegment
    * exists.
    */
   const LineSegment* getCurveSegment (unsigned int index) const;
@@ -321,7 +321,7 @@ public:
    * @param index the index value of the curve segment to return.
    *
    * @return the LineSegment representing the child "curveSegment"
-   * with the appropriate @p index, or NULL if no such LineSegment
+   * with the appropriate @p index, or @c NULL if no such LineSegment
    * exists.
    */
   LineSegment* getCurveSegment (unsigned int index);
@@ -472,7 +472,7 @@ protected:
    * Create and return an SBML object of this class, if present.
    *
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase*
   createObject (XMLInputStream& stream);

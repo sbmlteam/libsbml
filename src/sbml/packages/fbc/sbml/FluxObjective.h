@@ -819,7 +819,7 @@ public:
    * of the FluxObjective to get.
    *
    * @return FluxObjective in this ListOfFluxObjectives
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FluxObjective exists.
    *
    * @see get(unsigned int n)   *
@@ -836,7 +836,7 @@ public:
    * of the FluxObjective to get.
    *
    * @return FluxObjective in this ListOfFluxObjectives
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FluxObjective exists.
    *
    * @see get(unsigned int n)   *
