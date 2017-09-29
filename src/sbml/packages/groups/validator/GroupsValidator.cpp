@@ -238,6 +238,11 @@ public:
   }
 
 
+  virtual void visit (const Model &x)
+  {
+    v.mGroupsConstraints->mModel.applyTo(m, x);
+  }
+
   virtual bool
   visit(const SBase& x)
   {
@@ -323,8 +328,8 @@ GroupsValidator::validate(const SBMLDocument& d)
   if (m != NULL)
   {
     GroupsValidatingVisitor vv(*this, *m);
-    const GroupsSBMLDocumentPlugin* plugin = static_cast<const
-      GroupsSBMLDocumentPlugin*>(d.getPlugin("groups"));
+    const GroupsModelPlugin* plugin = static_cast<const
+      GroupsModelPlugin*>(m->getPlugin("groups"));
     if (plugin != NULL)
     {
       plugin->accept(vv);

@@ -56,7 +56,7 @@ Group::Group(unsigned int level,
              unsigned int version,
              unsigned int pkgVersion)
   : SBase(level, version)
-  , mKind (GROUP_KIND_INVALID)
+  , mKind (GROUP_KIND_UNKNOWN)
   , mMembers (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new GroupsPkgNamespaces(level, version, pkgVersion));
@@ -69,7 +69,7 @@ Group::Group(unsigned int level,
  */
 Group::Group(GroupsPkgNamespaces *groupsns)
   : SBase(groupsns)
-  , mKind (GROUP_KIND_INVALID)
+  , mKind (GROUP_KIND_UNKNOWN)
   , mMembers (groupsns)
 {
   setElementNamespace(groupsns->getURI());
@@ -193,7 +193,7 @@ Group::isSetName() const
 bool
 Group::isSetKind() const
 {
-  return (mKind != GROUP_KIND_INVALID);
+  return (mKind != GROUP_KIND_UNKNOWN);
 }
 
 
@@ -226,7 +226,7 @@ Group::setKind(const GroupKind_t kind)
 {
   if (GroupKind_isValid(kind) == 0)
   {
-    mKind = GROUP_KIND_INVALID;
+    mKind = GROUP_KIND_UNKNOWN;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -245,7 +245,7 @@ Group::setKind(const std::string& kind)
 {
   if (GroupKind_isValidString(kind.c_str()) == 0)
   {
-    mKind = GROUP_KIND_INVALID;
+    mKind = GROUP_KIND_UNKNOWN;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -300,7 +300,7 @@ Group::unsetName()
 int
 Group::unsetKind()
 {
-  mKind = GROUP_KIND_INVALID;
+  mKind = GROUP_KIND_UNKNOWN;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1455,7 +1455,7 @@ Group_getKind(const Group_t * g)
 {
   if (g == NULL)
   {
-    return GROUP_KIND_INVALID;
+    return GROUP_KIND_UNKNOWN;
   }
 
   return g->getKind();

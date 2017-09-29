@@ -119,8 +119,8 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegistry;
 static
 const char* SBML_GROUPS_TYPECODE_STRINGS[] =
 {
-    "Group"
-  , "Member"
+    "Member"
+  , "Group"
 };
 
 
@@ -286,8 +286,8 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string& uri) const
 const char*
 GroupsExtension::getStringFromTypeCode(int typeCode) const
 {
-  int min = SBML_GROUPS_GROUP;
-  int max = SBML_GROUPS_MEMBER;
+  int min = SBML_GROUPS_MEMBER;
+  int max = SBML_GROUPS_GROUP;
 
   if (typeCode < min || typeCode > max)
   {
@@ -407,7 +407,7 @@ const char* SBML_GROUP_KIND_STRINGS[] =
   "classification"
 , "partonomy"
 , "collection"
-, "invalid GroupKind"
+, "(Unknown SBML Groups Type)"
 };
 
 
@@ -419,7 +419,7 @@ const char*
 GroupKind_toString(GroupKind_t gk)
 {
   int min = GROUP_KIND_CLASSIFICATION;
-  int max = GROUP_KIND_INVALID;
+  int max = GROUP_KIND_UNKNOWN;
 
   if (gk < min || gk > max)
   {
@@ -450,7 +450,7 @@ GroupKind_fromString(const char* code)
     }
   }
 
-  return GROUP_KIND_INVALID;
+  return GROUP_KIND_UNKNOWN;
 }
 
 
@@ -463,7 +463,7 @@ int
 GroupKind_isValid(GroupKind_t gk)
 {
   int min = GROUP_KIND_CLASSIFICATION;
-  int max = GROUP_KIND_INVALID;
+  int max = GROUP_KIND_UNKNOWN;
 
   if (gk < min || gk >= max)
   {
