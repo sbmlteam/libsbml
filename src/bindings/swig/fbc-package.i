@@ -43,6 +43,7 @@
 %include <sbml/packages/fbc/extension/FbcExtension.h>
 %include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 %include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
+%include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 
 %include <sbml/packages/fbc/util/CobraToFbcConverter.h>
 %include <sbml/packages/fbc/util/FbcToCobraConverter.h>
