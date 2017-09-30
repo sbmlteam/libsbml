@@ -551,6 +551,15 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /*  __cplusplus  */
+
+#ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
 /**
 * @memberof SubListOfSpeciesFeatures_t
 */
@@ -582,8 +591,10 @@ LIBSBML_EXTERN
 Relation_t
 Relation_fromString(const char* s);
 
+END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  __cplusplus  */
+#endif  /*  !SWIG  */
+
 
 #endif /* SubListOfSpeciesFeatures_H__ */
