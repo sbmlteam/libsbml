@@ -37,6 +37,16 @@
  * corresponding Transition. In Petri nets, these are the input places of the
  * transition. In logical models, they are the regulators of the species
  * whose behaviour is defined by the transition.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfInputs
+ * @sbmlbrief{qual} A list of Input objects.
+ *
+ * The ListOfInputs is a container for the Inputs of a Transition.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see Input
  */
 
 
@@ -806,16 +816,6 @@ protected:
 
 };
 
-/**
- * @class ListOfInputs
- * @sbmlbrief{qual} A list of Input objects.
- * 
- * The ListOfInputs is a container for the Inputs of a Transition.
- * 
- * @copydetails doc_what_is_listof
- *
- * @see Input
- */
 class LIBSBML_EXTERN ListOfInputs : public ListOf
 {
 

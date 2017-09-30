@@ -577,7 +577,7 @@ SubListOfSpeciesFeatures_isValidRelationString(const char* s);
 
 
 /**
-* @memberof Relation_t
+* @memberof SubListOfSpeciesFeatures_t
 */
 LIBSBML_EXTERN
 const char*
@@ -585,7 +585,7 @@ Relation_toString(Relation_t relation);
 
 
 /**
-* @memberof Relation_t
+* @memberof SubListOfSpeciesFeatures_t
 */
 LIBSBML_EXTERN
 Relation_t

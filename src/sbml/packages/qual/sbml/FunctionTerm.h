@@ -36,8 +36,17 @@
  * Each FunctionTerm is associated with a result and with a Boolean function
  * inside a Math element that can be used to set the conditions under which
  * this term is selected.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfFunctionTerms
+ * @sbmlbrief{qual} A list of FunctionTerm objects.
+ *
+ * The ListOfFunctionTerms is a container for the FunctionTerms of a Transition.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see Input
  */
-
 
 #ifndef FunctionTerm_H__
 #define FunctionTerm_H__
@@ -639,17 +648,6 @@ protected:
 
 };
 
-/**
- *
- * @class ListOfFunctionTerms
- * @sbmlbrief{qual} A list of FunctionTerm objects.
- * 
- * The ListOfFunctionTerms is a container for the FunctionTerms of a Transition.
- * 
- * @copydetails doc_what_is_listof
- *
- * @see Input
- */
 class LIBSBML_EXTERN ListOfFunctionTerms : public ListOf
 {
 

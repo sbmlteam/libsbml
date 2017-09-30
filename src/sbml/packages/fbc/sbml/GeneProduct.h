@@ -47,6 +47,22 @@
  * GeneProduct object.
  *
  * @copydetails doc_note_fbcv2_annotation_replacement
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfGeneProducts
+ * @sbmlbrief{fbc} A list of GeneProduct objects.
+ *
+ * The ListOfGeneProducts is a container for the SBML extended Model
+ * that lists all the possible GeneProduct elements in the model.  These
+ * GeneProduct elements are referenced in the GeneProductAssociation child
+ * of an extended Reaction.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see GeneProduct
+ * @see FbcModelPlugin
+ *
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
 
 #ifndef GeneProduct_H__
@@ -711,22 +727,6 @@ protected:
 };
 
 
-/**
- * @class ListOfGeneProducts
- * @sbmlbrief{fbc} A list of GeneProduct objects.
- *
- * The ListOfGeneProducts is a container for the SBML extended Model
- * that lists all the possible GeneProduct elements in the model.  These
- * GeneProduct elements are referenced in the GeneProductAssociation child
- * of an extended Reaction.
- *
- * @copydetails doc_what_is_listof
- *
- * @see GeneProduct
- * @see FbcModelPlugin
- *
- * @copydetails doc_note_fbcv2_annotation_replacement
- */
 class LIBSBML_EXTERN ListOfGeneProducts : public ListOf
 {
 

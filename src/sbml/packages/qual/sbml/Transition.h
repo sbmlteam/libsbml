@@ -49,7 +49,16 @@
  * In Petri net models, a Transition is interpreted, using the common Petri
  * net semantics, as events that might occur within the system causing tokens
  * to be moved.
- * 
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfTransitions
+ * @sbmlbrief{qual} A list of Transition objects.
+ *
+ * The ListOfTransitions is a container for the Transition elements of a Model.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see Transition
  */
 
 
@@ -1282,16 +1291,6 @@ public:
 
 };
 
-/**
- * @class ListOfTransitions
- * @sbmlbrief{qual} A list of Transition objects.
- * 
- * The ListOfTransitions is a container for the Transition elements of a Model.
- * 
- * @copydetails doc_what_is_listof
- *
- * @see Transition
- */
 class LIBSBML_EXTERN ListOfTransitions : public ListOf
 {
 

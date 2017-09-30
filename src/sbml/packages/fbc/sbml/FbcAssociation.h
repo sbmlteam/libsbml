@@ -46,6 +46,39 @@
  * @see FbcAnd
  * @see FbcOr
  * @see GeneProductRef
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfFbcAssociations
+ * @sbmlbrief{fbc} A list of FbcAssociation objects.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * The ListOfFbcAssociations is a container of FbcAssociation objects for the
+ * FbcAnd and FbcOr classes.  Unlike the ListOf___ classes in SBML, the
+ * ListOfFbcAssociations is not a class that appears in the &ldquo;fbc&rdquo;
+ * Version&nbsp;2 specification, and instead is used internally in libSBML as
+ * a convenience class to store arbitrary numbers of FbcAssociation objects.
+ * Also unlike other ListOf___ classes, the FbcAnd and FbcOr classes require
+ * at least two child FbcAssociation objects, so valid ListOfFbcAssociations
+ * libsbml objects will always contain two or more children.  These children
+ * will have element names associated with their derived class, not the base
+ * FbcAssociation class: <code>&lt;fbc:and&gt;</code>,
+ * <code>&lt;fbc:or&gt;</code>, and <code>&lt;fbc:geneProductRef&gt;</code>.
+ *
+ * @copydetails doc_note_fbcv2_annotation_replacement
+ *
+ * @warning It is important to be clear that <em>ListOfFbcAssociations is not
+ * written out in the XML output produced by libSBML</em>&mdash;the
+ * constructs only exist in software to enable software applications to
+ * manipulate FbcAssociation objects in a way that mirrors how other lists of
+ * components in SBML are manipulated.  ListOfFbcAssociations is abstracted
+ * away when an SBML &ldquo;fbc&rdquo; model file is actually written out in
+ * the final XML form.
+ *
+ * @see FbcAssociation
+ * @see FbcAnd
+ * @see FbcOr
+ * @see GeneProductRef
  */
 
 #ifndef FbcAssociation_H__
@@ -621,39 +654,6 @@ protected:
 
 };
 
-/**
- * @class ListOfFbcAssociations
- * @sbmlbrief{fbc} A list of FbcAssociation objects.
- *
- * @htmlinclude not-sbml-warning.html
- *
- * The ListOfFbcAssociations is a container of FbcAssociation objects for the
- * FbcAnd and FbcOr classes.  Unlike the ListOf___ classes in SBML, the
- * ListOfFbcAssociations is not a class that appears in the &ldquo;fbc&rdquo;
- * Version&nbsp;2 specification, and instead is used internally in libSBML as
- * a convenience class to store arbitrary numbers of FbcAssociation objects.
- * Also unlike other ListOf___ classes, the FbcAnd and FbcOr classes require
- * at least two child FbcAssociation objects, so valid ListOfFbcAssociations
- * libsbml objects will always contain two or more children.  These children
- * will have element names associated with their derived class, not the base
- * FbcAssociation class: <code>&lt;fbc:and&gt;</code>,
- * <code>&lt;fbc:or&gt;</code>, and <code>&lt;fbc:geneProductRef&gt;</code>.
- *
- * @copydetails doc_note_fbcv2_annotation_replacement
- *
- * @warning It is important to be clear that <em>ListOfFbcAssociations is not
- * written out in the XML output produced by libSBML</em>&mdash;the
- * constructs only exist in software to enable software applications to
- * manipulate FbcAssociation objects in a way that mirrors how other lists of
- * components in SBML are manipulated.  ListOfFbcAssociations is abstracted
- * away when an SBML &ldquo;fbc&rdquo; model file is actually written out in
- * the final XML form.
- *
- * @see FbcAssociation
- * @see FbcAnd
- * @see FbcOr
- * @see GeneProductRef
- */
 class LIBSBML_EXTERN ListOfFbcAssociations : public ListOf
 {
 

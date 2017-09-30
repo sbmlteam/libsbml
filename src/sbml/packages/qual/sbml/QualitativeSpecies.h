@@ -47,6 +47,16 @@
  * A QualitativeSpecies describes a pool of indistinguishable entities in a
  * Compartment. It is associated with a level (an integer representing
  * e.g. an activity state, or a functional level of concentration, etc.)
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfQualitativeSpecies
+ * @sbmlbrief{qual} A list of QualitativeSpecies objects.
+ *
+ * The ListOfQualitativeSpecies is a container for the QualitativeSpecies elements of a Model.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see QualitativeSpecies
  */
 
 
@@ -804,16 +814,6 @@ protected:
 
 };
 
-/**
- * @class ListOfQualitativeSpecies
- * @sbmlbrief{qual} A list of QualitativeSpecies objects.
- * 
- * The ListOfQualitativeSpecies is a container for the QualitativeSpecies elements of a Model.
- * 
- * @copydetails doc_what_is_listof
- *
- * @see QualitativeSpecies
- */
 class LIBSBML_EXTERN ListOfQualitativeSpecies : public ListOf
 {
 

@@ -41,6 +41,16 @@
  * one ListOfOutputs, (that of the Transition defining the evolution of this
  * species). When a Transition has several outputs, it is because the
  * referenced species share the same regulators and the same logical rules.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfOutputs
+ * @sbmlbrief{qual} A list of Output objects.
+ *
+ * The ListOfOutputs is a container for the Output elements of a Transition.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see Output
  */
 
 
@@ -756,16 +766,6 @@ protected:
 
 };
 
-/**
- * @class ListOfOutputs
- * @sbmlbrief{qual} A list of Output objects.
- * 
- * The ListOfOutputs is a container for the Output elements of a Transition.
- * 
- * @copydetails doc_what_is_listof
- *
- * @see Output
- */
 class LIBSBML_EXTERN ListOfOutputs : public ListOf
 {
 

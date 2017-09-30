@@ -62,6 +62,35 @@
  *
  * @see FluxObjective
  * @see ListOfObjectives
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class ListOfObjectives
+ * @sbmlbrief{fbc} A list of Objective objects.
+ *
+ * The ListOfObjectives is a container for the SBML extended Model
+ * that lists all the possible Objective elements in the model.
+ *
+ * Unlike most other ListOf subclasses in SBML, SBML Level&nbsp;3 @ref fbc
+ * Version&nbsp;2 defines an additional required attribute on
+ * ListOfObjectives: the "activeObjective" attribute.  This attribute is of
+ * type <code>SIdRef</code> and can only refer to the id of an existing
+ * Objective. This required attribute exists so that when multiple
+ * Objective's are included in a single model, the model will always be well
+ * described; i.e., there will be a single, primary objective function which
+ * defines a single optimum and its associated solution space.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see GeneProduct
+ * @see FbcModelPlugin
+ *
+ * @warning The required attribute "activeObjective" on ListOfObjectives is
+ * an additional attribute that is not present on typical ListOf classes.
+ * The introduction of an attribute on ListOf is perfectly legal in SBML, but
+ * uncommon, and software developers may have grown accustomed to ListOf
+ * classes all having the same attributes and no others.  We are belaboring
+ * this point so that developers are more likely to notice the presence of an
+ * additional attribute on ListOfObjectives.
  */
 
 #ifndef Objective_H__
@@ -944,35 +973,6 @@ protected:
 };
 
 
-/**
- * @class ListOfObjectives
- * @sbmlbrief{fbc} A list of Objective objects.
- *
- * The ListOfObjectives is a container for the SBML extended Model
- * that lists all the possible Objective elements in the model.
- *
- * Unlike most other ListOf subclasses in SBML, SBML Level&nbsp;3 @ref fbc
- * Version&nbsp;2 defines an additional required attribute on
- * ListOfObjectives: the "activeObjective" attribute.  This attribute is of
- * type <code>SIdRef</code> and can only refer to the id of an existing
- * Objective. This required attribute exists so that when multiple
- * Objective's are included in a single model, the model will always be well
- * described; i.e., there will be a single, primary objective function which
- * defines a single optimum and its associated solution space.
- *
- * @copydetails doc_what_is_listof
- *
- * @see GeneProduct
- * @see FbcModelPlugin
- *
- * @warning The required attribute "activeObjective" on ListOfObjectives is
- * an additional attribute that is not present on typical ListOf classes.
- * The introduction of an attribute on ListOf is perfectly legal in SBML, but
- * uncommon, and software developers may have grown accustomed to ListOf
- * classes all having the same attributes and no others.  We are belaboring
- * this point so that developers are more likely to notice the presence of an
- * additional attribute on ListOfObjectives.
- */
 class LIBSBML_EXTERN ListOfObjectives : public ListOf
 {
 
