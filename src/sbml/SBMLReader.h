@@ -37,15 +37,12 @@
  *
  * The SBMLReader class provides the main interface for reading SBML content
  * from files and strings.  The methods for reading SBML all return an
- * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
- * object representing the results.  In the case of failures (such as if the
- * SBML contains errors or a file cannot be read), the errors will be
- * recorded with the SBMLErrorLog object kept in the
- * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
+ * SBMLDocument object representing the results.  In the case of failures
+ * (such as if the SBML contains errors or a file cannot be read), the errors
+ * will be recorded with the SBMLErrorLog object kept in the SBMLDocument
  * returned by SBMLReader.  Consequently, immediately after calling a method
  * on SBMLReader, callers should always check for errors and warnings using
- * the methods for this purpose provided by @if python @link
- * libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif.
+ * the methods for this purpose provided by SBMLDocument.
  *
  * For convenience as well as easy access from other languages besides C++,
  * this file also defines two global functions,
@@ -131,30 +128,28 @@
  *
  * Reads an SBML document from the given file.
  *
- * If the file named @p filename does not exist or its content is not
- * valid SBML, one or more errors will be logged with the
- * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
- * object returned by this method.  Callers can use the methods on
- * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~ such as
- * @if python @link libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink@endif@~
+ * If the file named @p filename does not exist or its content is not valid
+ * SBML, one or more errors will be logged with the SBMLDocument object
+ * returned by this method.  Callers can use the methods on SBMLDocument such
+ * as
+ * @if python @link libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink@endif,
  * @if conly SBMLDocument_getNumErrors() @else SBMLDocument::getNumErrors()@endif@~
  * and
- * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@~
- * @if java SBMLDocument::getError(long)@endif@~
- * @if cpp SBMLDocument::getError()@endif@~
- * @if csharp SBMLDocument::getError()@endif@~
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif
+ * @if java SBMLDocument::getError(long)@endif
+ * @if cpp SBMLDocument::getError()@endif
+ * @if csharp SBMLDocument::getError()@endif
  * @if conly SBMLDocument_getError()@endif@~
  * to get the errors.  The object returned by
- * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@~
- * @if java SBMLDocument::getError(long)@endif@~
- * @if cpp SBMLDocument::getError()@endif@~
- * @if csharp SBMLDocument::getError()@endif@~
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif
+ * @if java SBMLDocument::getError(long)@endif
+ * @if cpp SBMLDocument::getError()@endif
+ * @if csharp SBMLDocument::getError()@endif
  * @if conly SBMLDocument_getError()@endif@~
  * is an SBMLError object, and it has methods to get the error code,
  * category, and severity level of the problem, as well as a textual
  * description of the problem.  The possible severity levels range from
  * informational messages to fatal errors; see the documentation for
- * @if python @link libsbml.SBMLError SBMLError@endlink@endif@~
  * @if conly SBMLError_t @else SBMLError@endif@~
  * for more information.
  *
