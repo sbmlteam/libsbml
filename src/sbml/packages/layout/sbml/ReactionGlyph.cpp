@@ -770,7 +770,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 void
 ReactionGlyph::writeElements (XMLOutputStream& stream) const
 {
-  if(this->isSetCurve())
+  if(isSetCurve())
   {
     SBase::writeElements(stream);
     mCurve.write(stream);
@@ -778,7 +778,8 @@ ReactionGlyph::writeElements (XMLOutputStream& stream) const
     // BoundingBox is to be ignored if a curve element defined.
     //
   }
-  else
+  
+  if(this->getBoundingBoxExplicitlySet() || !isSetCurve())
   {
     //
     // SBase::writeElements(stream) is invoked in the function below.
