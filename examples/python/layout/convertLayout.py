@@ -110,7 +110,8 @@ def convertFile(inputFile, outputFile):
   doc  = readSBMLFromFile(inputFile)
   if doc.getLevel() == 3:
     convertDocToL2(doc, outputFile)
-  convertDocToL3(doc, outputFile)
+  else:
+    convertDocToL3(doc, outputFile)
   
   
 if __name__ == '__main__':
