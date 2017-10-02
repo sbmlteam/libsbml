@@ -33,11 +33,15 @@
  * MultiSpeciesPlugin object).  Listed alongside its sibling SpeciesFeature
  * objects, it allows the user to define a set of two or more SpeciesFeature
  * elements that have a logical relationship with each other.  This
- * relationship is defined by the "relation" attribute, which is of type
- * @if java {@link Relation_t} @else@link Relation_t Relation_t@endlink@endif,
- * and can be "and", "or", "not".  (An "unknown" option is provided here for
- * incomplete models, but cannot be used in a valid SBML document.)  If any
- * SpeciesFeature involved in a SubListOfSpeciesFeatures references a
+ * relationship is defined by the "relation" attribute, which is an
+ * enumeration of values representing "and", "or", "not".  (An "unknown"
+ * option is provided here for incomplete models, but cannot be used in a
+ * valid SBML document.)  The following constants represent the values:
+ * @sbmlconstant{MULTI_RELATION_AND, Relation_t},
+ * @sbmlconstant{MULTI_RELATION_OR, Relation_t},
+ * @sbmlconstant{MULTI_RELATION_NOT, Relation_t}, and
+ * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t}.
+ * If any SpeciesFeature involved in a SubListOfSpeciesFeatures references a
  * SpeciesFeatureType with an "occur" attribute greater than 1, the
  * SubListOfSpeciesFeatures can only have the value "and" for its relation
  * attribute.
@@ -50,7 +54,7 @@
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/multi/common/multifwd.h>
 
- /**
+/**
  * @enum  Relation_t
  * @brief Enumeration of possible relations between the children of a
  * SubListOfSpeciesFeatures in the libSBML "multi" package implementation.
