@@ -168,31 +168,35 @@ def filterDocStrings(contents):
   contents = re.sub(r'(\b' + r'\b|\b'.join(libsbml_enums) + r'\b)', 'long', contents)
 
   # We alter the names of some functions.
-  contents = re.sub('SBML_parseFormula\b',        "parseFormula",    contents)
-  contents = re.sub('SBML_formulaToString\b',     "formulaToString", contents)
+  contents = re.sub(r'SBML_parseFormula\b',        "parseFormula",    contents)
+  contents = re.sub(r'SBML_formulaToString\b',     "formulaToString", contents)
 
-  # Other simple type replacements.
-  contents = contents.replace('an unsigned int',           'a long integer')
-  contents = contents.replace('unsigned int',              'long')
-  contents = contents.replace('const int&',                'int')
-  contents = contents.replace('const long&',               'long')
-  contents = contents.replace('const bool&',               'bool')
-  contents = contents.replace('const std.string&',         'string')
-  contents = contents.replace('const std.string',          'string')
-  contents = contents.replace('SBMLConstructorException',  'ValueError')
+  # Other type replacements.
+  contents = re.sub(r'an unsigned int',          'a long integer ', contents)
+  contents = re.sub(r'bool const\s*\&',          'bool ',           contents)
+  contents = re.sub(r'char const\s*\*',          'long ',           contents)
+  contents = re.sub(r'const bool\s*\&',          'bool ',           contents)
+  contents = re.sub(r'const int\s*\&',           'int ',            contents)
+  contents = re.sub(r'const long\s*\&',          'long ',           contents)
+  contents = re.sub(r'const std.string\s*\&',    'string ',         contents)
+  contents = re.sub(r'const std.string',         'string ',         contents)
+  contents = re.sub(r'double const\s*\&',        'bool ',           contents)
+  contents = re.sub(r'int const\s*&',            'bool ',           contents)
+  contents = re.sub(r'SBMLConstructorException', 'ValueError ',     contents)
+  contents = re.sub(r'long const\s*\&',          'bool ',           contents)
+  contents = re.sub(r'unsigned int',             'long ',           contents)
   # Make sure to do the replacement for 'const' before the replacement for
   # 'char *', because in the SWIG output, there are things like 'char const *'.
-  contents = contents.replace('const ',                    '')
-  contents = contents.replace('char *',                    'string')
-  contents = contents.replace('string *',                  'string')
-  contents = contents.replace('string &',                  'string')
-  contents = contents.replace('double *',                  'float')
-  contents = contents.replace('double &',                  'float')
-  contents = contents.replace('float &',                   'float')
-  contents = contents.replace('float&',                    'float')
-  contents = contents.replace('bool &',                    'bool')
-  contents = contents.replace('long &',                    'long')
-  contents = contents.replace('int &',                     'int')
+  contents = re.sub(r'const ',                   ' ',               contents)
+  contents = re.sub(r'char \*',                  'string ',         contents)
+  contents = re.sub(r'string \*',                'string ',         contents)
+  contents = re.sub(r'string\s*\&',              'string ',         contents)
+  contents = re.sub(r'double \*',                'float ',          contents)
+  contents = re.sub(r'double\s*\&',              'float ',          contents)
+  contents = re.sub(r'float\s*\&',               'float ',          contents)
+  contents = re.sub(r'bool\s*\&',                'bool ',           contents)
+  contents = re.sub(r'long\s*\&',                'long ',           contents)
+  contents = re.sub(r'int\s*\&',                 'int ',            contents)
 
   return contents
 
