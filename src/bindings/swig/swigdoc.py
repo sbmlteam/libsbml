@@ -831,7 +831,7 @@ def rewriteClassRef (match):
 
 
 def translateCrossRefs (str):
-  if re.search('@sbmlfunction', str) != None:
+  if re.search('@sbml(global)?function', str) != None:
     p = re.compile('@sbmlfunction{([^}]+?)}')
     str = p.sub(translateSBMLFunctionRef, str)
   else:
@@ -1086,7 +1086,7 @@ def sanitizeForHTML (docstring):
   # manually create cross-links just for the Java case, let's automate.
 
   if language == 'java' or language == 'csharp':
-    listOfSegments = re.split('(@sbmlfunction{[^}]+?})', docstring)
+    listOfSegments = re.split('(@sbml(global)?function{[^}]+?})', docstring)
     reconstructed = ''
     for segment in listOfSegments:
       reconstructed += translateCrossRefs(segment)
@@ -1366,20 +1366,25 @@ def rewriteDocstringForPython (docstring):
   # (Note: this rewriting affects only the documentation comments inside
   # classes & methods, not the method signatures.)
 
-  docstring = re.sub(r'const\s+char\s+\*',    'string ',        docstring)
-  docstring = re.sub(r'char\s+const\s+\*',    'string ',        docstring)
-  docstring = re.sub(r'const\s+char\* ',      'string ',        docstring)
-  docstring = re.sub(r'const\s+std::string&', 'string',         docstring)
-  docstring = re.sub(r'const\s+std::string',  'string',         docstring)
-  docstring = re.sub(r'std::string',          'string',         docstring)
-  docstring = re.sub(r'bool\s+const\s+&',     'bool',           docstring)
-  docstring = re.sub(r'float\s+const\s+&',    'float',          docstring)
-  docstring = re.sub(r'double\s+const\s+&',   'float',          docstring)
-  docstring = re.sub(r'long\s+const\s+&',     'long',           docstring)
-  docstring = re.sub(r'unsigned int const &', 'int',            docstring)
-  docstring = re.sub(r'int\s+const\s+&',      'int',            docstring)
+  docstring = re.sub(r'const\s+char\s+\*',     'string ',        docstring)
+  docstring = re.sub(r'char\s+const\s+\*',     'string ',        docstring)
+  docstring = re.sub(r'const\s+char\* ',       'string ',        docstring)
+  docstring = re.sub(r'const\s+double\s*\&',   'long',           docstring)
+  docstring = re.sub(r'const\s+long\s*\&',     'long',           docstring)
+  docstring = re.sub(r'const\s+std::string\&', 'string',         docstring)
+  docstring = re.sub(r'const\s+std::string',   'string',         docstring)
+  docstring = re.sub(r'std::string',           'string',         docstring)
+  docstring = re.sub(r'bool\s+const\s*\&',     'bool',           docstring)
+  docstring = re.sub(r'double\s+const\s*\&',   'float',          docstring)
+  docstring = re.sub(r'float\s+const\s*\&',    'float',          docstring)
+  docstring = re.sub(r'long\s+const\s*\&',     'long',           docstring)
+  docstring = re.sub(r'unsigned int const\s*\&', 'int',          docstring)
+  docstring = re.sub(r'int\s+const\s*\&',      'int',            docstring)
+  docstring = re.sub(r'bool\s*&',              'bool',           docstring)
+  docstring = re.sub(r'int\s*&',               'int',            docstring)
+  docstring = re.sub(r'long\s*&',              'long',           docstring)
 
-  docstring = re.sub(r'NULL',                 'None',           docstring)
+  docstring = re.sub(r'NULL',                  'None',           docstring)
 
   breakable_translations = [[r'an unsigned int',     'a long integer'],
                             [r'unsigned int',        'long'],
