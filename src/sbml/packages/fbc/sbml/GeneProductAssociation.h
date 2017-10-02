@@ -301,6 +301,8 @@ public:
   * C2&quot;</code> and have the method work out the correct XML structure.
   *
   * @param association string representation of the association to be set.
+  * @param usingId
+  * @param addMissingGP
   *
   * @param usingId If @c true, this method assumes that the infix
   * string @p association uses the identifiers of GeneProduct objects.  If
