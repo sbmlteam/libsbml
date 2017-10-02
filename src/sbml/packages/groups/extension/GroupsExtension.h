@@ -401,9 +401,9 @@ typedef enum
 
 
 /**
- * Returns the string version of the provided #GroupKind_t enumeration.
+ * Returns the string version of the provided enumeration value.
  *
- * @param gk the #GroupKind_t enumeration value to convert.
+ * @param gk the enumeration value to convert.
  *
  * @return A string corresponding to the given type:
  * "classification",
@@ -424,12 +424,12 @@ GroupKind_toString(GroupKind_t gk);
 
 
 /**
- * Returns the #GroupKind_t enumeration corresponding to the given string or
+ * Returns the enumeration value corresponding to the given string or
  * @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t} if there is no such match.
  *
- * @param code the string to convert to a #GroupKind_t.
+ * @param code the string to convert to an enumeration value.
  *
- * @return the corresponding #GroupKind_t or @sbmlconstant{GROUP_KIND_UNKNOWN,
+ * @return the corresponding value, or @sbmlconstant{GROUP_KIND_UNKNOWN,
  * GroupKind_t} if no match is found.
  *
  * @note The matching is case-sensitive: "classification" will return
@@ -447,11 +447,11 @@ GroupKind_fromString(const char* code);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given #GroupKind_t is valid.
+ * given enumeration value is valid.
  *
- * @param gk the #GroupKind_t enumeration to query.
+ * @param gk the enumeration value to query.
  *
- * @return @c 1 (true) if the #GroupKind_t is
+ * @return @c 1 (true) if the value is
  * @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t},
  * @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}, or
  * @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t};
@@ -469,7 +469,7 @@ GroupKind_isValid(GroupKind_t gk);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given string is a valid #GroupKind_t.
+ * given string is a valid enumeration value.
  *
  * @param code the string to query.
  *
