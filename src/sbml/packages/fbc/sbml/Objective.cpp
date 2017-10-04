@@ -55,7 +55,6 @@ Objective::Objective (unsigned int level, unsigned int version, unsigned int pkg
 //  , mName ("")
   , mType (OBJECTIVE_TYPE_UNKNOWN)
   , mFluxObjectives (level, version, pkgVersion)
-  , mIsSetListOfFluxObjectives(false)
   , mTypeString()
 {
   // set an SBMLNamespaces derived object of this package
@@ -75,7 +74,6 @@ Objective::Objective (FbcPkgNamespaces* fbcns)
 //  , mName ("")
   , mType (OBJECTIVE_TYPE_UNKNOWN)
   , mFluxObjectives (fbcns)
-  , mIsSetListOfFluxObjectives(false)
   , mTypeString()
 {
   // set the element namespace of this object
@@ -98,7 +96,6 @@ Objective::Objective (const Objective& orig)
   //, mName(orig.mName)
   , mType(orig.mType)
   , mFluxObjectives(orig.mFluxObjectives)
-  , mIsSetListOfFluxObjectives(orig.mIsSetListOfFluxObjectives)
 {
   
 
@@ -120,7 +117,6 @@ Objective::operator=(const Objective& rhs)
     mName  = rhs.mName;
     mType  = rhs.mType;
     mFluxObjectives  = rhs.mFluxObjectives;
-    mIsSetListOfFluxObjectives = rhs.mIsSetListOfFluxObjectives;
 
     // connect to child objects
     connectToChild();
@@ -560,7 +556,7 @@ Objective::hasRequiredElements () const
 bool
 Objective::getIsSetListOfFluxObjectives() const
 {
-  return mIsSetListOfFluxObjectives;
+  return mFluxObjectives.size() != 0;
 }
 /** @endcond */
 
@@ -1081,7 +1077,6 @@ Objective::createObject(XMLInputStream& stream)
     }
 
     object = &mFluxObjectives;
-    mIsSetListOfFluxObjectives = true;
   }
   connectToChild();
 

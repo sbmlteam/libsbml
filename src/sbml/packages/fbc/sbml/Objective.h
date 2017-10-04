@@ -144,7 +144,6 @@ protected:
 //  std::string   mName;
   ObjectiveType_t   mType;
   ListOfFluxObjectives   mFluxObjectives;
-  bool mIsSetListOfFluxObjectives;
   std::string mTypeString;
   /** @endcond */
 
