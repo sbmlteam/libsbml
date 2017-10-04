@@ -160,7 +160,6 @@ endif()
 # so we encode these values here
 if (MSVC)
   set(HAVE_ERRNO_H TRUE)
-  set(HAVE_IEEEFP_H TRUE)
   set(STDC_HEADERS TRUE)
   set(HAVE_MATH_H TRUE)
   set(HAVE_SYS_TYPES_H TRUE)
