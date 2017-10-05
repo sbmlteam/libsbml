@@ -2267,6 +2267,43 @@ START_TEST (test_element_child_func1)
 }
 END_TEST
 
+START_TEST(test_element_csymbol_other)
+{
+  const char* s = wrapMathML
+    (
+      "<csymbol encoding='text' "
+      "definitionURL='http://www.other/symbols/foo'> NA </csymbol>"
+      );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless(N != NULL);
+
+  fail_unless(N->getType() == AST_CSYMBOL_FUNCTION);
+  fail_unless(!strcmp(N->getName(), "NA"));
+  fail_unless(N->getNumChildren() == 0);
+}
+END_TEST
+
+
+START_TEST(test_element_csymbol_other_withNS)
+{
+  const char* s = wrapMathML
+    (
+      "<csymbol encoding='text' "
+      "definitionURL='http://www.other/symbols/foo'> NA </csymbol>"
+      );
+
+  XMLNamespaces* xmlns = new XMLNamespaces();
+  xmlns->add("any_uri");
+
+  N = readMathMLFromStringWithNamespaces(s, xmlns);
+
+  fail_unless(N == NULL);
+}
+END_TEST
+
 
 Suite *
 create_suite_ReadMathML ()
@@ -2396,6 +2433,10 @@ create_suite_ReadMathML ()
 
   tcase_add_test( tcase, test_element_child_func             );
   tcase_add_test( tcase, test_element_child_func1             );
+
+  tcase_add_test(tcase, test_element_csymbol_other);
+  tcase_add_test(tcase, test_element_csymbol_other_withNS);
+
   suite_add_tcase(suite, tcase);
 
   return suite;
