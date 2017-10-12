@@ -121,7 +121,15 @@ def reformatDocString (match):
   middle = '.*?'
   end    = '</pre>'
 
-  # First, clean up whitespace in the method signature strings (and not the
+  # First, remove default value statements in the parameter list.  The
+  # Doxygen output has method signatures like "foo(string x, bool y=False)",
+  # but the "y" does not really have a default value in the code.  This is
+  # misleading and people have complained, so:
+
+  p = re.compile('(' + start + ')(' + middle + ')(' + end + ')', re.DOTALL)
+  text = p.sub(remove_default_values, text)
+
+  # Next, clean up whitespace in the method signature strings (and not the
   # rest of the doc body, because that will mess up code example blocks).
 
   p = re.compile(start + '(' + middle + ')' + end, re.DOTALL)
@@ -138,6 +146,11 @@ def reformatDocString (match):
   # else Doxygen puts the entire docstring inside a verbatim environment.
 
   return "\"\"\"!" + text + "\"\"\""
+
+
+def remove_default_values(match):
+  new_middle = re.sub(r'([_a-zA-Z]\w*)=[_a-zA-Z]\w*', r'\1', match.group(2))
+  return match.group(1) + new_middle + match.group(3)
 
 
 def clean_up_spaces(match):
@@ -283,6 +296,9 @@ def main (args):
   else:
     classes_list_file = 'class-list.txt'
 
+  # import time
+  # debugstream = open('/tmp/fout-' + str(time.time()), 'w')
+
   istream         = open(classes_list_file, 'r')
   libsbml_classes = istream.read().splitlines()
   libsbml_enums   = filter(lambda c: c.endswith('_t'), libsbml_classes)
@@ -295,7 +311,10 @@ def main (args):
   # Only process the content if it's Python.
 
   if re.search('.py$', args[1]):
-    sys.stdout.write(filterForDoxygen(contents))
+    result = filterForDoxygen(contents)
+    sys.stdout.write(result)
+    # debugstream.write(result)
+    # debugstream.close()
   else:
     sys.stdout.write(contents)
 
