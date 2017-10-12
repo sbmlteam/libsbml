@@ -6270,8 +6270,8 @@ GROUP_KIND_COLLECTION = _libsbml.GROUP_KIND_COLLECTION
     ##
 
 
-GROUP_KIND_INVALID = _libsbml.GROUP_KIND_INVALID
-    ## @var long GROUP_KIND_INVALID
+GROUP_KIND_UNKNOWN = _libsbml.GROUP_KIND_UNKNOWN
+    ## @var long GROUP_KIND_UNKNOWN
     ##
     ## <span class="pkg-marker pkg-color-groups">groups</span> Unrecognized
     ## Group kind.

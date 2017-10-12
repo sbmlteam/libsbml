@@ -7372,7 +7372,7 @@ public interface libsbmlConstants
      * <span class="pkg-marker pkg-color-groups">groups</span> One of the
      * possible Group kinds.
      */
-    public final static int GROUP_KIND_INVALID = GROUP_KIND_COLLECTION + 1;
+    public final static int GROUP_KIND_UNKNOWN = GROUP_KIND_COLLECTION + 1;
 
 
   // GroupsSBMLErrorCode_t 
