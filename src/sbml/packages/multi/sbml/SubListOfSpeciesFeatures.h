@@ -559,10 +559,10 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  __cplusplus  */
 
-#ifndef SWIG
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
+
+#ifndef SWIG
 
 /**
 * @memberof SubListOfSpeciesFeatures_t
@@ -579,6 +579,7 @@ LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* s);
 
+#endif  /*  !SWIG  */
 
 /**
 * @memberof SubListOfSpeciesFeatures_t
@@ -598,7 +599,7 @@ Relation_fromString(const char* s);
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /*  !SWIG  */
+
 
 
 #endif /* SubListOfSpeciesFeatures_H__ */
