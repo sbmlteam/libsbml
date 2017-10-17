@@ -146,6 +146,7 @@ struct FbcValidatorConstraints
   ConstraintSet<Reaction>                 mReaction;
   ConstraintSet<SpeciesReference>         mSpeciesReference;
   ConstraintSet<GeneProductRef>           mGeneProductRef;
+  ConstraintSet<GeneProductAssociation>   mGeneProductAssociation;
   ConstraintSet<GeneProduct>              mGeneProduct;
   ConstraintSet<FbcAnd>                   mFbcAnd;
   ConstraintSet<FbcOr>                    mFbcOr;
@@ -246,6 +247,13 @@ FbcValidatorConstraints::add (VConstraint* c)
   {
     mGeneProductRef.add( 
       static_cast< TConstraint<GeneProductRef>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<GeneProductAssociation>* >(c) != NULL)
+  {
+    mGeneProductAssociation.add(
+      static_cast< TConstraint<GeneProductAssociation>* >(c));
     return;
   }
 
@@ -350,6 +358,12 @@ public:
     return !v.mFbcConstraints->mGeneProductRef.empty();
   }
 
+  virtual bool visit(const GeneProductAssociation &x)
+  {
+    v.mFbcConstraints->mGeneProductAssociation.applyTo(m, x);
+    return !v.mFbcConstraints->mGeneProductAssociation.empty();
+  }
+
   virtual bool visit (const GeneProduct &x)
   {
     v.mFbcConstraints->mGeneProduct.applyTo(m, x);
@@ -411,6 +425,10 @@ public:
       {
         return visit((const GeneProductRef&)x);
       } 
+      else if (code == SBML_FBC_GENEPRODUCTASSOCIATION)
+      {
+        return visit((const GeneProductAssociation&)x);
+      }
       else if (code == SBML_FBC_GENEPRODUCT)
       {
         return visit((const GeneProduct&)x);

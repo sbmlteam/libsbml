@@ -68,6 +68,8 @@ addConstraint(new VConstraintSpeciesReferenceFbcSpeciesRefsStoichMustBeRealStric
 
 addConstraint(new VConstraintSpeciesReferenceFbcSpeciesRefNotAssignedStrict(*this));
 
+addConstraint(new VConstraintGeneProductAssociationFbcGeneProdAssocContainsOneElement(*this));
+
 addConstraint(new VConstraintGeneProductRefFbcGeneProdRefGeneProductExists(*this));
 
 addConstraint(new VConstraintFbcAndFbcAndTwoChildren(*this));

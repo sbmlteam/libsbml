@@ -686,6 +686,13 @@ END_CONSTRAINT
   // 20803 - caught at read
   // 20804 - caught at read
   // 20805 - caught at read
+
+START_CONSTRAINT(FbcGeneProdAssocContainsOneElement, GeneProductAssociation, gpa)
+{
+  inv(gpa.isSetAssociation());
+
+}
+END_CONSTRAINT
   // 20806 - caught at read
 
   // 20901 - caught at read
