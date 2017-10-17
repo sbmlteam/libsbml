@@ -173,7 +173,10 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
 void
 FbcReactionPlugin::writeElements (XMLOutputStream& stream) const
 {
-  if (isSetGeneProductAssociation() == true && getLevel() == 3 && getPackageVersion() == 2) 
+  // dont want to write <fbc:geneProductAssociation/> 
+  // so check it actual has something in
+  if (isSetGeneProductAssociation() == true && getLevel() == 3 
+    && getPackageVersion() == 2 && getGeneProductAssociation()->getAssociation() != NULL) 
   { 
     mGeneProductAssociation->write(stream);
   } 
