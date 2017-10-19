@@ -728,6 +728,22 @@ as a comment in the output stream.
 ";
 
 #endif
+
+/** 
+ * Enable unicode input in Python 2 if Swig version is > 3.0.8
+ */
+
+#ifdef USE_SWIG_PYTHON_2_UNICODE
+
+%begin %{
+
+#define SWIG_PYTHON_2_UNICODE
+
+%}
+
+#endif
+
+
 /**
  * Wrap these files.
  */
