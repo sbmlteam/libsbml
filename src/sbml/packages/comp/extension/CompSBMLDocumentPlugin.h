@@ -647,7 +647,10 @@ public:
    * SK: made this public as the validation code needs to use it
    */
   virtual SBMLDocument* getSBMLDocumentFromURI(const std::string& uri);
+  /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  virtual void dealWithFast();
   /** @endcond */
 
 private:

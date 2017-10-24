@@ -823,7 +823,11 @@ public:
    * @return pointer to the object.
    */
   virtual SBase* getObject(const std::string& elementName, unsigned int index);
+  /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
+  virtual void dealWithFast();
   /** @endcond */
 
 
