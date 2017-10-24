@@ -643,11 +643,14 @@ if(WITH_CHECK)
         )
         ADJUST_PYTHONPATH(test_python_validateSBML)    
 
-        # add_test(NAME test_python_stringInput
-        #     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/stringInput.py
-        #     ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
-        # )
-        # ADJUST_PYTHONPATH(test_python_stringInput)
+        # Enable only when swig is the correct version
+        # if (CMAKE_VERSION VERSION_GREATER "3.0.7")
+        add_test(NAME test_python_stringInput
+            COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/stringInput.py
+            ${CMAKE_SOURCE_DIR}/examples/sample-models/from-spec/level-3/enzymekinetics.xml
+        )
+        ADJUST_PYTHONPATH(test_python_stringInput)
+        # endif()
        
     endif()
 
