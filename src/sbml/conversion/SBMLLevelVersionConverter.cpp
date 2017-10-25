@@ -867,10 +867,10 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
             if (currentVersion == 2)
               currentModel->convertFromL3V2(strict);
             currentModel->convertL3ToL1(strict);
-            if (currentVersion > 1)
-            {
-              currentModel->dealWithFast();
-            }
+            //if (currentVersion > 1)
+            //{
+            //  currentModel->dealWithFast();
+            //}
             conversion = true;
           }
         }
@@ -1009,10 +1009,10 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           }
           currentModel->convertFromL3V2(strict);
         }
-        if (currentVersion > 1)
-        {
-          currentModel->dealWithFast();
-        }
+        //if (currentVersion > 1)
+        //{
+        //  currentModel->dealWithFast();
+        //}
         conversion = true;
       }
       break;
@@ -1043,10 +1043,10 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           SBMLTransforms::expandL3V2InitialAssignments(currentModel);
           currentModel->convertFromL3V2(strict);
         }
-        if (currentVersion > 1)
-        {
-          currentModel->dealWithFast();
-        }
+        //if (currentVersion > 1)
+        //{
+        //  currentModel->dealWithFast();
+        //}
         conversion = true;
       }
       break;

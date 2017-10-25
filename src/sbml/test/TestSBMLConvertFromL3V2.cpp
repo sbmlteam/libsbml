@@ -1086,7 +1086,7 @@ START_TEST (test_SBMLConvertFromL3V2_convertMissingFast)
   Reaction *r = doc->getModel()->getReaction(0);
   fail_unless(r != NULL);
 
-  fail_unless(r->isSetFast() == false);
+  fail_unless(r->isSetFast() == true);
 
   bool done = doc->setLevelAndVersion(3, 1, true);
 

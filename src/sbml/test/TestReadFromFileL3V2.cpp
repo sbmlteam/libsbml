@@ -506,7 +506,7 @@ START_TEST (test_read_l3v2_all)
 
   r = m->getReaction(0);
 
-  fail_unless(!r->isSetFast());
+  fail_unless(r->isSetFast());
   fail_unless(r->getFast() == false);
   fail_unless(r->isSetReversible());
   fail_unless(r->getReversible() == false);
