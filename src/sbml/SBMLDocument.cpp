@@ -2285,18 +2285,6 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
 }
 /** @endcond */
 
-void
-SBMLDocument::dealWithFast()
-{
-  if (mModel != NULL) {
-    mModel->dealWithFast();
-  }
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    getPlugin(i)->dealWithFast();
-  }
-}
-
 
 
 #endif /* __cplusplus */

@@ -805,13 +805,6 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void
-SBasePlugin::dealWithFast()
-{
-}
-/** @endcond */
-
 
 /** @cond doxygenLibsbmlInternal */
 

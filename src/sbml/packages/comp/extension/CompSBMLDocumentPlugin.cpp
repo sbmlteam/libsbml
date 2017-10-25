@@ -1076,17 +1076,6 @@ CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-void
-CompSBMLDocumentPlugin::dealWithFast()
-{
-  for (unsigned int i = 0; i < getNumModelDefinitions(); i++) {
-    getModelDefinition(i)->dealWithFast();
-  }
-}
-/** @endcond */
-
-
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
 LIBSBML_EXTERN

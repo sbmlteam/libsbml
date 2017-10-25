@@ -1045,7 +1045,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         if (currentVersion > 1)
         {
-          mDocument->dealWithFast();
+          currentModel->dealWithFast();
         }
         conversion = true;
       }

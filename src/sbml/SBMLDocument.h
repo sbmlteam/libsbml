@@ -1620,8 +1620,6 @@ public:
   
   std::string getUnknownPackagePrefix(int index) const;
 
-  void dealWithFast();
-
   /** @endcond */
 
 protected:
