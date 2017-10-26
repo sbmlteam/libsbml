@@ -2911,6 +2911,8 @@ public:
 
   void dealWithFast();
 
+  void dealWithL3Fast(unsigned int targetVersion);
+
   //void convertTimeWith(ASTNode* conversionFactor);
 
   //void convertExtentWith(ASTNode* conversionFactor);

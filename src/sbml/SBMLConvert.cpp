@@ -829,6 +829,21 @@ Model::dealWithFast()
   }
 }
 
+void
+Model::dealWithL3Fast(unsigned int targetVersion)
+{
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    if (targetVersion == 1)
+    {
+      getReaction(i)->setFast(false);
+    }
+    else
+    {
+      getReaction(i)->unsetFast();
+    }
+  }
+}
 /* the new strict setters mean that for a conversion to L2 to
  * take place the model needs to think it still l1 for
  * some actions and think it is already L2 for others

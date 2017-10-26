@@ -330,7 +330,7 @@ START_TEST (test_L3V2_Reaction_create)
   fail_unless( !Reaction_isSetId     (R32) );
   fail_unless( !Reaction_isSetName   (R32) );
   fail_unless( !Reaction_isSetCompartment (R32) );
-  fail_unless( Reaction_isSetFast  (R32) );
+  fail_unless( !Reaction_isSetFast  (R32) );
   fail_unless( !Reaction_isSetReversible(R32) );
 }
 END_TEST
@@ -338,7 +338,7 @@ END_TEST
 
 START_TEST (test_L3V2_Reaction_fast)
 {
-  fail_unless(Reaction_isSetFast(R32) == 1);
+  fail_unless(Reaction_isSetFast(R32) == 0);
 
   int i = Reaction_setFast(R32, 1);
 

@@ -117,9 +117,6 @@ Reaction::Reaction (unsigned int level, unsigned int version) :
 //    mIsSetFast = true;
     mIsSetReversible = true;
   }
-  if (level == 3 && version >= 2) {
-    mIsSetFast = true;
-  }
 
   connectToChild();
 }
@@ -154,9 +151,6 @@ Reaction::Reaction (SBMLNamespaces * sbmlns) :
     /* this changes existing behaviour as isSetFast already existed in L2 */
 //    mIsSetFast = true;
     mIsSetReversible = true;
-  }
-  if (sbmlns->getLevel() == 3 && sbmlns->getVersion() >= 2) {
-    mIsSetFast = true;
   }
   connectToChild();
   loadPlugins(sbmlns);

@@ -39,6 +39,10 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 
+#ifdef USE_COMP
+#include <sbml/packages/comp/common/CompExtensionTypes.h>
+#endif
+
 #ifdef __cplusplus
 
 #include <algorithm>
@@ -867,10 +871,10 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
             if (currentVersion == 2)
               currentModel->convertFromL3V2(strict);
             currentModel->convertL3ToL1(strict);
-            //if (currentVersion > 1)
-            //{
-            //  currentModel->dealWithFast();
-            //}
+            if (currentVersion > 1)
+            {
+              currentModel->dealWithFast();
+            }
             conversion = true;
           }
         }
@@ -1009,10 +1013,10 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           }
           currentModel->convertFromL3V2(strict);
         }
-        //if (currentVersion > 1)
-        //{
-        //  currentModel->dealWithFast();
-        //}
+        if (currentVersion > 1)
+        {
+          currentModel->dealWithFast();
+        }
         conversion = true;
       }
       break;
@@ -1043,10 +1047,20 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           SBMLTransforms::expandL3V2InitialAssignments(currentModel);
           currentModel->convertFromL3V2(strict);
         }
-        //if (currentVersion > 1)
-        //{
-        //  currentModel->dealWithFast();
-        //}
+        currentModel->dealWithL3Fast(targetVersion);
+
+#ifdef USE_COMP
+        CompSBMLDocumentPlugin* compPlug = 
+          static_cast<CompSBMLDocumentPlugin*>(mDocument->getPlugin("comp"));
+        if (compPlug != NULL)
+        {
+          for (unsigned int i = 0; i < compPlug->getNumModelDefinitions(); i++)
+          {
+            compPlug->getModelDefinition(i)->dealWithL3Fast(targetVersion);
+          }
+        }
+#endif
+        
         conversion = true;
       }
       break;

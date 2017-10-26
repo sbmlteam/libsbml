@@ -2174,7 +2174,7 @@ START_TEST (test_SBMLConvertStrict_convertFrom_L3V2_fast)
 
   Reaction *r1 = doc->getModel()->getReaction(0);
 
-  fail_unless(r1->isSetFast() == true);
+  fail_unless(r1->isSetFast() == false);
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(doc, 3, 1) == 1);
 
