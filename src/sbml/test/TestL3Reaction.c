@@ -362,6 +362,25 @@ START_TEST (test_L3V2_Reaction_fast)
 END_TEST
 
 
+START_TEST(test_L3V2_Reaction_hasRequiredAttributes)
+{
+  Reaction_t *r = Reaction_create(3, 2);
+
+  fail_unless(!Reaction_hasRequiredAttributes(r));
+
+  Reaction_setId(r, "id");
+
+  fail_unless(!Reaction_hasRequiredAttributes(r));
+
+  Reaction_setReversible(r, 0);
+
+  fail_unless(Reaction_hasRequiredAttributes(r));
+
+  Reaction_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Reaction (void)
 {
@@ -386,6 +405,7 @@ create_suite_L3_Reaction (void)
 
   tcase_add_test( tcase, test_L3V2_Reaction_create              );
   tcase_add_test( tcase, test_L3V2_Reaction_fast      );
+  tcase_add_test(tcase, test_L3V2_Reaction_hasRequiredAttributes);
 
   suite_add_tcase(suite, tcase);
 
