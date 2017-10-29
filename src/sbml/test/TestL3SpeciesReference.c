@@ -190,6 +190,17 @@ START_TEST (test_L3_SpeciesReference_stoichiometry)
 END_TEST
 
 
+START_TEST(test_L3_SpeciesReference_denominator)
+{
+  // check it cannot be set
+  fail_unless(SpeciesReference_setDenominator(SR, 2) == LIBSBML_UNEXPECTED_ATTRIBUTE);
+
+  // but for backwards compatability allow teh value to be set
+  fail_unless(SpeciesReference_getDenominator(SR) == 2);
+}
+END_TEST
+
+
 START_TEST (test_L3_SpeciesReference_constant)
 {
   fail_unless(SpeciesReference_isSetConstant(SR) == 0);
@@ -307,6 +318,7 @@ create_suite_L3_SpeciesReference (void)
   tcase_add_test( tcase, test_L3_SpeciesReference_name             );
   tcase_add_test( tcase, test_L3_SpeciesReference_species            );
   tcase_add_test( tcase, test_L3_SpeciesReference_stoichiometry      );
+  tcase_add_test(tcase, test_L3_SpeciesReference_denominator);
   tcase_add_test( tcase, test_L3_SpeciesReference_constant);
   tcase_add_test( tcase, test_L3_SpeciesReference_createWithNS         );
   tcase_add_test( tcase, test_L3_SpeciesReference_hasRequiredAttributes        );
