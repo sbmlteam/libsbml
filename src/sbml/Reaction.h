@@ -2298,9 +2298,9 @@ Reaction_unsetReversible (Reaction_t *r);
  * have been set.
  *
  * The required attributes for a Reaction_t structure are:
- * @li id (name in L1)
- * @li fast (in L3v1 only)
- * @li reversible (in L3 only)
+ * @li "id" (or "name" in SBML Level&nbsp;1)
+ * @li "fast" (in Level&nbsp;3 Version&nbsp;1 only, where it is defined as a required attribute)
+ * @li "reversible" (in Level&nbsp;3 only, where it is defined as a required attribute)
  *
  * @param r the Reaction_t structure to check.
  *
