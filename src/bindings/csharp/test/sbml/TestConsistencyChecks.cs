@@ -161,10 +161,11 @@ namespace LibSBMLCSTest.sbml {
       d.getErrorLog().clearLog();
       d.setConsistencyChecks(libsbml.LIBSBML_CAT_MATHML_CONSISTENCY,false);
       errors = d.checkConsistency();
-      assertTrue( errors == 3 );
+      assertTrue( errors == 4 );
       assertTrue( d.getError(0).getErrorId() == 99505 );
       assertTrue( d.getError(1).getErrorId() == 99505 );
-      assertTrue( d.getError(2).getErrorId() == 80701 );
+      assertTrue( d.getError(2).getErrorId() == 99505 );
+      assertTrue( d.getError(3).getErrorId() == 80701 );
       d.getErrorLog().clearLog();
       d.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY,false);
       errors = d.checkConsistency();
