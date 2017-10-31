@@ -11,6 +11,7 @@
     <listOfParameters>
       <parameter id="p1" value="2" units="metre"/>
       <parameter id="p2" constant="false"/>
+	  <parameter id="p3" value="2" units="metre"/>
     </listOfParameters>
 		<listOfEvents>
 			<event>
@@ -19,7 +20,7 @@
 						<apply>
 							<lt/>
 							<ci> p1 </ci>
-							<cn> 0.1 </cn>
+							<ci> p3 </ci>
 						</apply>
 					</math>
 				</trigger>

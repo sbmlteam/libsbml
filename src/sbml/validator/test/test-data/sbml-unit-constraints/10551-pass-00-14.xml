@@ -13,15 +13,17 @@
       <parameter id="p1" value="1" units="minutes" constant="false"/>
       <parameter id="p2" units="dimensionless" constant="false"/>
       <parameter id="p3" value="1" units="dimensionless"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfEvents>
       <event>
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <lt/>
-              <ci> p3 </ci>
-              <cn> 0.1 </cn>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>

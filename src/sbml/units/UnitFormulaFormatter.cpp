@@ -822,7 +822,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node,
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
-                                const ASTNode *, bool , int )
+                                const ASTNode *node, bool inKL, int reactNo )
 { 
   UnitDefinition * ud;
   Unit *unit;
@@ -840,6 +840,40 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
   unit = ud->createUnit();
   unit->setKind(UNIT_KIND_DIMENSIONLESS);
   unit->initDefaults();
+
+  /* save any existing value of undeclaredUnits/canIgnoreUndeclaredUnits */
+  unsigned int originalIgnore = mCanIgnoreUndeclaredUnits;
+  bool originalUndeclaredValue = mContainsUndeclaredUnits;
+  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
+  bool currentUndeclared = mContainsUndeclaredUnits;
+
+  // check for undeclared units in child expressions
+  UnitDefinition * tempUd;
+  unsigned int noUndeclared = 0;
+  for (unsigned int i = 0; i < node->getNumChildren(); i++)
+  {
+    tempUd = getUnitDefinition(node->getChild(i), inKL, reactNo);
+    if (getContainsUndeclaredUnits() == true)
+    {
+      noUndeclared++;
+    }
+  }
+  
+  if (noUndeclared == 0)
+  {
+    mCanIgnoreUndeclaredUnits = originalIgnore;
+    mContainsUndeclaredUnits = originalUndeclaredValue;
+  }
+  else if (noUndeclared == node->getNumChildren())
+  {
+    mCanIgnoreUndeclaredUnits = originalIgnore;
+    mContainsUndeclaredUnits = true;
+  }
+  else
+  {
+    mCanIgnoreUndeclaredUnits = false;
+    mContainsUndeclaredUnits = true;
+  }
 
   return ud;
 }

@@ -95,10 +95,11 @@ START_TEST (test_consistency_checks)
   d->setConsistencyChecks(LIBSBML_CAT_MATHML_CONSISTENCY, false);
   errors = d->checkConsistency();
 
-  fail_unless(errors == 3);
+  fail_unless(errors == 4);
   fail_unless(d->getError(0)->getErrorId() == 99505);
   fail_unless(d->getError(1)->getErrorId() == 99505);
-  fail_unless(d->getError(2)->getErrorId() == 80701);
+  fail_unless(d->getError(2)->getErrorId() == 99505);
+  fail_unless(d->getError(3)->getErrorId() == 80701);
 
   d->getErrorLog()->clearLog();
   d->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);

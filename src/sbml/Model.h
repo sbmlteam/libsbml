@@ -4350,7 +4350,10 @@ protected:
   void createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e, 
                             const std::string& eventId);
 
-  void createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 
+  void createTriggerUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
+    const std::string& eventId);
+
+  void createPriorityUnitsData(UnitFormulaFormatter* unitFormatter,
                                Priority * p, const std::string& eventId);
 
   void createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter, 

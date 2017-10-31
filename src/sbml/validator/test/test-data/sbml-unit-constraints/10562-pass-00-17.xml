@@ -17,15 +17,17 @@
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="mole" constant="false"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfEvents>
       <event id="e" useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
+        <trigger initialValue="true" persistent="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <neq/>
-              <cn> 0 </cn>
-              <cn> 1 </cn>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>

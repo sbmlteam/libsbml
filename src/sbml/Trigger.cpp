@@ -62,6 +62,7 @@ Trigger::Trigger (unsigned int level, unsigned int version) :
  , mPersistent        ( true )
  , mIsSetInitialValue ( false )
  , mIsSetPersistent   ( false )
+ , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -75,6 +76,7 @@ Trigger::Trigger (SBMLNamespaces * sbmlns) :
  , mPersistent        ( true )
  , mIsSetInitialValue ( false )
  , mIsSetPersistent   ( false )
+ , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
@@ -104,6 +106,7 @@ Trigger::Trigger (const Trigger& orig) :
  , mPersistent        ( orig.mPersistent)
  , mIsSetInitialValue ( orig.mIsSetInitialValue)
  , mIsSetPersistent   ( orig.mIsSetPersistent)
+ , mInternalId    ( orig.mInternalId )
 
 {
   if (orig.mMath != NULL) 
@@ -126,6 +129,7 @@ Trigger& Trigger::operator=(const Trigger& rhs)
     this->mPersistent        = rhs.mPersistent;
     this->mIsSetInitialValue = rhs.mIsSetInitialValue;
     this->mIsSetPersistent   = rhs.mIsSetPersistent;
+    this->mInternalId = rhs.mInternalId;
 
     delete mMath;
     if (rhs.mMath != NULL) 
@@ -732,6 +736,27 @@ Trigger::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
   }
 }
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Function to set/get an identifier for unit checking
+*/
+std::string 
+Trigger::getInternalId() const
+{ 
+  return mInternalId; 
+}
+
+
+void 
+Trigger::setInternalId(std::string id)
+{ 
+  mInternalId = id; 
+}
+
+/** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
 /*

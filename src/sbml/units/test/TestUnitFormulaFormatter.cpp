@@ -127,7 +127,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
 {
   UnitDefinition * ud = uff->getUnitDefinition(m->getRule(1)->getMath());
   
-  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
   fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
@@ -149,7 +149,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
 {
   UnitDefinition * ud = uff->getUnitDefinition(m->getRule(2)->getMath());
  
-  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
   fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);

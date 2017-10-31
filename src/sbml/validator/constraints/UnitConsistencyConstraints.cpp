@@ -696,6 +696,34 @@ START_CONSTRAINT (99505, Priority, e)
 END_CONSTRAINT
 
   
+START_CONSTRAINT(99505, Trigger, e)
+{
+  const FormulaUnitsData * formulaUnits =
+    m.getFormulaUnitsData(e.getInternalId(), SBML_TRIGGER);
+
+  pre(formulaUnits != NULL);
+
+  if (e.isSetMath() == true)
+  {
+    char * formula = SBML_formulaToString(e.getMath());
+    msg = "The units of the <event> <trigger> expression '";
+    msg += formula;
+    msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+    safe_free(formula);
+  }
+  else
+  {
+    msg = "The <event> <trigger> has no defined math expression. ";
+    msg += "Thus unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+  }
+
+  inv(!formulaUnits->getContainsUndeclaredUnits());
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (99505, EventAssignment, ea)
 {
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);

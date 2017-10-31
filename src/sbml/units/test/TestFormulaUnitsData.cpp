@@ -99,7 +99,7 @@ START_TEST (test_FormulaUnitsData_setters)
 
   m->addFormulaUnitsData(fud);
 
-  fail_unless(m->getNumFormulaUnitsData() == 29);
+  fail_unless(m->getNumFormulaUnitsData() == 30);
 
   delete fud;
 
@@ -638,7 +638,27 @@ END_TEST
 START_TEST (test_FormulaUnitsData_getevent)
 {
   FormulaUnitsData *fud = m->getFormulaUnitsData(26);
+  //trigger units
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "event_0"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Trigger"), NULL);
+  fail_unless(fud->getContainsUndeclaredUnits() == 1);
+  fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
 
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+
+  fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
+
+
+
+
+  fud = m->getFormulaUnitsData(27);
+  // delay units
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "event_0"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Event"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
@@ -648,8 +668,8 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fud = m->getFormulaUnitsData(27);
-
+  fud = m->getFormulaUnitsData(28);
+  // event assignment units
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2event_0"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "EventAssignment"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
@@ -670,6 +690,7 @@ START_TEST (test_FormulaUnitsData_getevent)
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getExponent() == -1);
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+
 
 
 }

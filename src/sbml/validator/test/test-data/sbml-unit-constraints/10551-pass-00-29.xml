@@ -19,18 +19,17 @@
       <parameter id="p2" units="dimensionless" constant="false"/>
       <parameter id="p3" value="1" units="dimensionless" constant="true"/>
       <parameter id="p4" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfEvents>
       <event useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
+        <trigger initialValue="true" persistent="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <apply>
-                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/rateOf"> r </csymbol>
-                <ci> p2 </ci>
-              </apply>
-              <ci> p </ci>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>

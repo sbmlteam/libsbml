@@ -19,7 +19,7 @@
             <apply>
               <lt/>
               <ci> S1 </ci>
-              <cn> 0.1 </cn>
+              <ci> S2 </ci>
             </apply>
           </math>
         </trigger>

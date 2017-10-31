@@ -6859,8 +6859,14 @@ Model::createEventUnitsData(UnitFormulaFormatter * unitFormatter)
     
     /* dont need units returned by trigger formula - 
      * should be boolean
+     * but we might want to check they are defined
      */
-    
+    if (e->isSetTrigger())
+    {
+      createTriggerUnitsData(unitFormatter, e, newID);
+    }
+
+
     /* get units returned by dely */
     if (e->isSetDelay())
     {
@@ -6912,6 +6918,26 @@ Model::createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+void
+Model::createTriggerUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
+  const std::string& eventId)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+
+  Trigger * d = e->getTrigger();
+
+  fud->setUnitReferenceId(eventId);
+  d->setInternalId(eventId);
+
+  fud->setComponentTypecode(SBML_TRIGGER);
+
+  createUnitsDataFromMath(unitFormatter, fud, d->getMath());
+
+  fud->setEventTimeUnitDefinition(NULL);
+}
+/** @endcond */
 /** @cond doxygenLibsbmlInternal */
 void 
 Model::createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 

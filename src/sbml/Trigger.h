@@ -795,8 +795,19 @@ public:
 
   #endif /* !SWIG */
 
+  /** @cond doxygenLibsbmlInternal */
+  /*
+  * Function to set/get an identifier for unit checking
+  */
+  std::string getInternalId() const;// { return mInternalId; };
+  void setInternalId(std::string id);// { mInternalId = id; };
+
+  /** @endcond */
+
 
 protected:
+
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -851,6 +862,9 @@ protected:
   bool mPersistent;
   bool mIsSetInitialValue;
   bool mIsSetPersistent;
+
+  /* internal id used by unit checking */
+  std::string mInternalId;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

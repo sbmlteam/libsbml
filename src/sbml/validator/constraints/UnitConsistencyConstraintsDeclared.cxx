@@ -68,6 +68,8 @@ addConstraint(new VConstraintEvent99505(*this));
 
 addConstraint(new VConstraintPriority99505(*this));
 
+addConstraint(new VConstraintTrigger99505(*this));
+
 addConstraint(new VConstraintEventAssignment99505(*this));
 
 addConstraint(new VConstraintCompartment99508(*this));

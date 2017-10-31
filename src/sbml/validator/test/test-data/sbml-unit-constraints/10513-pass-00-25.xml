@@ -15,6 +15,8 @@
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p2" value="1" units="dimensionless" constant="true"/>
       <parameter id="p3" value="1" units="dimensionless" constant="false"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="p3">
@@ -23,9 +25,9 @@
             <rem/>
             <apply>
               <geq/>
-              <cn> 1 </cn>
-              <cn> 2 </cn>
-              </apply>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
+            </apply>
             <ci> p2 </ci>
           </apply>
         </math>

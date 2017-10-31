@@ -10,15 +10,17 @@
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="ampere" constant="false"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfEvents>
       <event id="e">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <neq/>
-              <cn type="integer"> 0 </cn>
-              <cn type="integer"> 1 </cn>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>
@@ -38,9 +40,9 @@
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <neq/>
-              <cn type="integer"> 0 </cn>
-              <cn type="integer"> 1 </cn>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>

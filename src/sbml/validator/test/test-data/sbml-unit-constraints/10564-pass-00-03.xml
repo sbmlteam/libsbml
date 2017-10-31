@@ -9,36 +9,38 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" constant="false" units="litre"/>
+      <compartment id="c" units="litre" constant="false"/>
     </listOfCompartments>
+    <listOfSpecies>
+      <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="e" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="p" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
     <listOfParameters>
       <parameter id="p2" value="1" units="dimensionless" constant="false"/>
-      <parameter id="p1" value="1" units="dimensionless" constant="false"/> 
-      <parameter id="p3" value="1" units="mole" constant="false"/> 
+      <parameter id="p1" value="1" units="dimensionless" constant="false"/>
+      <parameter id="p3" value="1" units="mole" constant="false"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="r" reversible="true">
         <listOfReactants>
-          <speciesReference species="s" stoichiometry="1" constant="false" id="sr"/>
+          <speciesReference id="sr" species="s" stoichiometry="1" constant="false"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="p" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
     </listOfReactions>
-    <listOfSpecies>
-      <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="e" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="p" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-    </listOfSpecies>
     <listOfEvents>
       <event id="e1" useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
+        <trigger initialValue="true" persistent="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <neq/>
-              <cn type="integer"> 0 </cn>
-              <cn type="integer"> 1 </cn>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>
@@ -54,6 +56,6 @@
           </eventAssignment>
         </listOfEventAssignments>
       </event>
-   </listOfEvents>
+    </listOfEvents>
   </model>
 </sbml>

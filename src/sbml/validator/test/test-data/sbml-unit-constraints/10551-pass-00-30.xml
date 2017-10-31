@@ -5,14 +5,15 @@
       <functionDefinition id="rateOf">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
-            <bvar> <ci> x </ci> </bvar>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
             <apply>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/rateOf"> r </csymbol>
               <ci> x </ci>
             </apply>
           </lambda>
         </math>
-        
       </functionDefinition>
     </listOfFunctionDefinitions>
     <listOfUnitDefinitions>
@@ -33,18 +34,17 @@
       <parameter id="p2" units="dimensionless" constant="false"/>
       <parameter id="p3" value="1" units="dimensionless" constant="true"/>
       <parameter id="p4" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="dummy_p_2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfEvents>
       <event useValuesFromTriggerTime="true">
-        <trigger persistent="true" initialValue="true">
+        <trigger initialValue="true" persistent="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <apply>
-                <ci> rateOf </ci>
-                <ci> p2 </ci>
-              </apply>
-              <ci> p </ci>
+              <gt/>
+              <ci> dummy_p_1 </ci>
+              <ci> dummy_p_2 </ci>
             </apply>
           </math>
         </trigger>
