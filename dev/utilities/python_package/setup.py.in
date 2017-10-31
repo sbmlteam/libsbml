@@ -65,7 +65,8 @@ packages = [
   ('USE_GROUPS', None),
   ('USE_QUAL', None),
   ('USE_FBC', None),
-  ('USE_LAYOUT', None)
+  ('USE_LAYOUT', None),
+  ('USE_MULTI', None)
 ]
 if platform.system() == 'Darwin': 
   current_os = 'DARWIN'
