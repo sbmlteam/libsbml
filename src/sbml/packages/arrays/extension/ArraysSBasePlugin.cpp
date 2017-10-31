@@ -579,9 +579,14 @@ ArraysSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                          const std::string& pkgPrefix,
                                          bool flag)
 {
-  mIndices.enablePackageInternal(pkgURI, pkgPrefix, flag);
-
-  mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  if (mIndices.size() > 0)
+  {
+    mIndices.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+  if (mDimensions.size() > 0)
+  {
+    mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
 
 /** @endcond */
