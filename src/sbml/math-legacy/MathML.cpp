@@ -505,6 +505,11 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   // here is the only place we might encounter the sbml:units attribute
   string units = "";
   element.getAttributes().readInto("units", units);
+  if (!SyntaxChecker::isValidInternalUnitSId(units))
+  {
+    std::string msg = "The units attribute '" + units + "' does not conform to the syntax.";
+    logError(stream, element, InvalidUnitIdSyntax, msg);
+  }
 
   if (type == "real")
   {

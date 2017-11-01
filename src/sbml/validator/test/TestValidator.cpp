@@ -111,8 +111,9 @@ TestValidator::test (const TestFile& file)
   unsigned int others   = file.getAdditionalFailId();
   unsigned int num = file.getSequenceId();
 
-  /* for 10311 called using just the id validator you will get 99303 */
-  if (id == 10311 && expected == 1)
+  /* for 10311 called using just the id validator you will get 99303
+     unless it is from units on a cn element (ie case 31*/
+  if (id == 10311 && expected == 1 && num != 31)
   {
     expected = 2;
     others = 99303;

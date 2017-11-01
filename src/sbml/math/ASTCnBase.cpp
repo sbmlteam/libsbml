@@ -234,6 +234,14 @@ ASTCnBase::readAttributes(const XMLAttributes& attributes,
   string units;
   attributes.readInto( "units"        , units );
 
+  if (!SyntaxChecker::isValidInternalUnitSId(units))
+  {
+    std::string msg = "The units attribute '" + units + "' does not conform to the syntax.";
+    logError(stream, element, InvalidUnitIdSyntax, msg);
+  }
+
+
+
   // cannot put up the prefix here as we need the stream
   // to establish the sbml ns uri
   if (!units.empty())
