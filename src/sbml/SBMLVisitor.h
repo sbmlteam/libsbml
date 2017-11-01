@@ -93,6 +93,7 @@ class SimpleSpeciesReference;
 class ModifierSpeciesReference;
 class SpeciesReference;
 class KineticLaw;
+class StoichiometryMath;
 
 class Event;
 class EventAssignment;
@@ -333,6 +334,16 @@ public:
    * @param x the SpeciesReference object to visit.
    */
   virtual bool visit (const SpeciesReference         &x);
+
+
+  /**
+  * Interface method for using the <a target="_blank"
+  * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+  * Pattern</i></a> to perform operations on StoichiometryMath objects.
+  *
+  * @param x the StoichiometryMath object to visit.
+  */
+  virtual bool visit(const StoichiometryMath         &x);
 
 
   /**

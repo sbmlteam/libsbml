@@ -58,6 +58,7 @@ Constraint::Constraint (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mMath   (  NULL )
  , mMessage(  NULL )
+ , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -68,6 +69,7 @@ Constraint::Constraint (SBMLNamespaces* sbmlns) :
    SBase   ( sbmlns )
  , mMath   (  NULL )
  , mMessage(  NULL )
+ , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
@@ -95,6 +97,7 @@ Constraint::Constraint (const Constraint& orig) :
    SBase   ( orig )
  , mMath   ( NULL   )
  , mMessage( NULL   )
+ , mInternalId    ( orig.mInternalId )
 {
   if (orig.mMath != NULL)    
   {
@@ -114,6 +117,7 @@ Constraint& Constraint::operator=(const Constraint& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mInternalId = rhs.mInternalId;
 
     delete mMath;
     if (rhs.mMath != NULL)    
@@ -709,6 +713,27 @@ Constraint::unsetAttribute(const std::string& attributeName)
   int value = SBase::unsetAttribute(attributeName);
 
   return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Function to set/get an identifier for unit checking
+*/
+std::string 
+Constraint::getInternalId() const
+{ 
+  return mInternalId; 
+}
+
+
+void 
+Constraint::setInternalId(std::string id)
+{ 
+  mInternalId = id; 
 }
 
 /** @endcond */

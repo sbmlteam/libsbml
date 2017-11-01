@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" metaid="_000000" version="4">
+  <model id="BIOMD0000000001" metaid="_000001" name="Edelstein1996 - EPSP ACh event">
+    <listOfParameters>
+      <parameter constant="false" id="kf_0" value="3000" units="dimensionless"/>
+      <parameter constant="false" id="kf_1" value="3000" units="dimensionless"/>
+      <parameter id="t2" metaid="metaid_0000072" value="20"/>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="RemovalACh" metaid="_180306" name="removal of ACh">
+        
+        <trigger metaid="_323956">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <gt/>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+              <ci> t2 </ci>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment metaid="_323968" variable="kf_0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <ci> kf_1 </ci>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

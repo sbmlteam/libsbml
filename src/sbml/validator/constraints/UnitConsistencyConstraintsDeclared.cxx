@@ -72,6 +72,10 @@ addConstraint(new VConstraintTrigger99505(*this));
 
 addConstraint(new VConstraintEventAssignment99505(*this));
 
+addConstraint(new VConstraintStoichiometryMath99505(*this));
+
+addConstraint(new VConstraintConstraint99505(*this));
+
 addConstraint(new VConstraintCompartment99508(*this));
 
 addConstraint(new VConstraintSpecies99508(*this));

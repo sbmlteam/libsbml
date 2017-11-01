@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" metaid="metaid_0000001" version="1">
+  <model metaid="metaid_0000002">
+    
+    
+      <listOfCompartments>
+      <compartment id="BZ" metaid="metaid_0000003" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species compartment="BZ" id="Br" initialConcentration="1E-7" metaid="metaid_0000004" name="Br-">
+        
+            </species>
+      
+      <species compartment="BZ" id="Ce" initialConcentration="0.05" metaid="metaid_0000006" name="Ce4+"/>
+      
+      
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="f" metaid="metaid_0000014" value="1"/>
+    </listOfParameters>
+    <listOfReactions>
+      
+      
+      
+      
+      <reaction id="Reaction5" metaid="metaid_0000013" name="M5" reversible="false">
+        <listOfReactants>
+          <speciesReference metaid="_106777" species="Ce"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_106790" species="Br">
+            <stoichiometryMath metaid="_106802">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">              
+                <ci> f </ci>
+              </math>
+                        </stoichiometryMath>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw metaid="_106814">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">   
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Ce </ci>
+                <ci> BZ </ci>
+              </apply>
+              <ci> k5 </ci>
+            </apply>
+            
+          </math>
+                  <listOfParameters>
+            <parameter id="k5" metaid="_106826" name="kM5" value="1" units="second"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

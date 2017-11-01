@@ -83,7 +83,7 @@
 		  <constraint>
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                   <apply>
-                    <lt/> <ci> x </ci> <cn> 3 </cn>
+                    <lt/> <ci> x </ci> <ci> c1 </ci>
                   </apply>
               </math>	
             </constraint>

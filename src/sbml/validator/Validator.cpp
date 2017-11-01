@@ -168,6 +168,7 @@ struct ValidatorConstraints
   ConstraintSet<SimpleSpeciesReference>   mSimpleSpeciesReference;
   ConstraintSet<SpeciesReference>         mSpeciesReference;
   ConstraintSet<ModifierSpeciesReference> mModifierSpeciesReference;
+  ConstraintSet<StoichiometryMath>        mStoichiometryMath;
   ConstraintSet<Event>                    mEvent;
   ConstraintSet<EventAssignment>          mEventAssignment;
   ConstraintSet<InitialAssignment>        mInitialAssignment;
@@ -339,6 +340,13 @@ ValidatorConstraints::add (VConstraint* c)
     );
     return;
   }
+
+  if (dynamic_cast< TConstraint<StoichiometryMath>* >(c) != NULL)
+  {
+    mStoichiometryMath.add(static_cast< TConstraint<StoichiometryMath>* >(c));
+    return;
+  }
+
 
   if (dynamic_cast< TConstraint<Event>* >(c) != NULL)
   {
@@ -587,6 +595,15 @@ public:
       !v.mConstraints->mSimpleSpeciesReference  .empty() ||
       !v.mConstraints->mModifierSpeciesReference.empty();
   }
+
+  bool visit(const StoichiometryMath& x)
+  {
+    v.mConstraints->mStoichiometryMath.applyTo(m, x);
+
+    return
+      !v.mConstraints->mStoichiometryMath.empty();
+  }
+
 
 
   bool visit (const Event& x)

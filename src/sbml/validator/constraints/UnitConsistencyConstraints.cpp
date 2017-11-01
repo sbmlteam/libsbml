@@ -749,6 +749,62 @@ START_CONSTRAINT (99505, EventAssignment, ea)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT(99505, Constraint, e)
+{
+  const FormulaUnitsData * formulaUnits =
+    m.getFormulaUnitsData(e.getInternalId(), SBML_CONSTRAINT);
+
+  pre(formulaUnits != NULL);
+
+  if (e.isSetMath() == true)
+  {
+    char * formula = SBML_formulaToString(e.getMath());
+    msg = "The units of the <constraint> expression '";
+    msg += formula;
+    msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+    safe_free(formula);
+  }
+  else
+  {
+    msg = "The <constraint> has no defined math expression. ";
+    msg += "Thus unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+  }
+
+  inv(!formulaUnits->getContainsUndeclaredUnits());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99505, StoichiometryMath, e)
+{
+  const FormulaUnitsData * formulaUnits =
+    m.getFormulaUnitsData(e.getInternalId(), SBML_STOICHIOMETRY_MATH);
+
+  pre(formulaUnits != NULL);
+
+  if (e.isSetMath() == true)
+  {
+    char * formula = SBML_formulaToString(e.getMath());
+    msg = "The units of the <reaction> <speciesReference> <stoichiometryMath> expression '";
+    msg += formula;
+    msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+    safe_free(formula);
+  }
+  else
+  {
+    msg = "The <reaction> <speciesReference> <stoichiometryMath> has no defined math expression. ";
+    msg += "Thus unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+  }
+
+  inv(!formulaUnits->getContainsUndeclaredUnits());
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (99508, Compartment, c)
 {
   pre ( c.getLevel() > 2);

@@ -296,6 +296,27 @@ StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* 
 
 /** @cond doxygenLibsbmlInternal */
 /*
+* Function to set/get an identifier for unit checking
+*/
+std::string 
+StoichiometryMath::getInternalId() const
+{ 
+  return mInternalId; 
+}
+
+
+void 
+StoichiometryMath::setInternalId(std::string id)
+{ 
+  mInternalId = id; 
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
@@ -313,7 +334,7 @@ StoichiometryMath::readOtherXML (XMLInputStream& stream)
     if (getLevel() == 1) 
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "SBML Level 1 does not support MathML.");
+         "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
@@ -384,7 +405,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes,
   {
   case 1:
     logError(NotSchemaConformant, level, version,
-	      "StoichiometryMath is not a valid component for this level/version.");
+        "StoichiometryMath is not a valid component for this level/version.");
     break;
   case 2:
     readL2Attributes(attributes);
@@ -392,7 +413,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes,
   case 3:
   default:
     logError(NotSchemaConformant, level, version,
-	      "StoichiometryMath is not a valid component for this level/version.");
+        "StoichiometryMath is not a valid component for this level/version.");
     break;
   }
 }
@@ -412,7 +433,7 @@ StoichiometryMath::readL2Attributes (const XMLAttributes& attributes)
   const unsigned int version = getVersion();
   if (version == 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
 }
 /** @endcond */
 

@@ -676,6 +676,15 @@ public:
 
   #endif /* !SWIG */
 
+  /** @cond doxygenLibsbmlInternal */
+  /*
+  * Function to set/get an identifier for unit checking
+  */
+  std::string getInternalId() const;// { return mInternalId; };
+  void setInternalId(std::string id);// { mInternalId = id; };
+
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -720,6 +729,8 @@ protected:
 
   ASTNode* mMath;
   XMLNode* mMessage;
+  /* internal id used by unit checking */
+  std::string mInternalId;
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments

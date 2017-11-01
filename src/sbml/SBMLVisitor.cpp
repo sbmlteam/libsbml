@@ -208,6 +208,13 @@ SBMLVisitor::visit (const SpeciesReference& x)
 
 
 bool
+SBMLVisitor::visit(const StoichiometryMath& x)
+{
+  return visit(static_cast<const SBase&>(x));
+}
+
+
+bool
 SBMLVisitor::visit (const ModifierSpeciesReference& x)
 {
   return visit( static_cast<const SimpleSpeciesReference&>(x) );

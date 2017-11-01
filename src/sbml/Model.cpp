@@ -5663,6 +5663,7 @@ Model::populateListFormulaUnitsData()
   // for math expressions already evaluated
 
   createInitialAssignmentUnitsData(unitFormatter);
+  createConstraintUnitsData(unitFormatter);
   createRuleUnitsData(unitFormatter);
   createReactionUnitsData(unitFormatter);
   createEventUnitsData(unitFormatter);
@@ -6647,6 +6648,30 @@ Model::createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter)
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+void
+Model::createConstraintUnitsData(UnitFormulaFormatter * unitFormatter)
+{
+  FormulaUnitsData *fud = NULL;
+  char newId[15];
+  std::string newID;
+
+  for (unsigned int n = 0; n < getNumConstraints(); n++)
+  {
+    Constraint* c = getConstraint(n);
+    sprintf(newId, "constraint_%u", n);
+    newID.assign(newId);
+    c->setInternalId(newID);
+
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(newID);
+    fud->setComponentTypecode(SBML_CONSTRAINT);
+
+    createUnitsDataFromMath(unitFormatter, fud, c->getMath());
+  }
+}
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void

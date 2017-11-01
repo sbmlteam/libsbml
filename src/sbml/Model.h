@@ -4341,6 +4341,8 @@ protected:
 
   void createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter);
 
+  void createConstraintUnitsData(UnitFormulaFormatter * unitFormatter);
+ 
   void createRuleUnitsData(UnitFormulaFormatter * unitFormatter);
 
   void createReactionUnitsData(UnitFormulaFormatter * unitFormatter);
