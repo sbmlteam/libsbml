@@ -118,7 +118,7 @@ set(DIRECTORIES
   sbml/packages/multi/extension
   sbml/packages/multi/sbml
   sbml/packages/multi/validator
-  sbml/packages/multi/validator/constraint
+  sbml/packages/multi/validator/constraints
   
   sbml/units
   sbml/util
