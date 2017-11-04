@@ -296,27 +296,6 @@ StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* 
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Function to set/get an identifier for unit checking
-*/
-std::string 
-StoichiometryMath::getInternalId() const
-{ 
-  return mInternalId; 
-}
-
-
-void 
-StoichiometryMath::setInternalId(std::string id)
-{ 
-  mInternalId = id; 
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
