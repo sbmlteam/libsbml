@@ -1102,7 +1102,7 @@ L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
 /**
  * Sets the collapse minus option associated with this L3ParserSettings_t structure.  
  *
- * This option allows the user to specify how infix expressions like '-4'
+ * This option allows the user to specify how infix expressions like '- -4'
  * are parsed in a MathML ASTNode. 
  * 
  * @param settings the L3ParserSettings_t structure on which to set the option.
@@ -1120,7 +1120,7 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 /**
  * Retrieves the collapse minus option associated with this L3ParserSettings_t structure.  
  *
- * This option allows the user to specify how infix expressions like '-4'
+ * This option allows the user to specify how infix expressions like '- -4'
  * are parsed in a MathML ASTNode. 
  * 
  * @param settings the L3ParserSettings_t structure from which to get the option.
