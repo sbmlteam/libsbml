@@ -1616,6 +1616,24 @@ SpeciesReference::syncAnnotation ()
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+bool 
+SpeciesReference::isExplicitlySetStoichiometry() const 
+{
+  return mExplicitlySetStoichiometry;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+bool 
+SpeciesReference::isExplicitlySetDenominator() const 
+{
+  return mExplicitlySetDenominator;
+}
+/** @endcond */
+
+
 /*
  * Creates a new ListOfSpeciesReferences items.
  */

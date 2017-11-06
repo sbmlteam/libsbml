@@ -471,7 +471,10 @@ public:
    * will write out the appropriate constructs (either a combination of
    * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or a
    * "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
-   * 
+   * However, as the "stoichiometryMath" subelement was removed in SBML
+   * Level&nbsp;3, automatic translation of the "denominator"
+   * attribute is no longer supported for that level.
+   *
    * @return the value of the "denominator" attribute of this
    * SpeciesReference.
    */
@@ -614,11 +617,15 @@ public:
    * will write out the appropriate constructs (either a combination of
    * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or
    * a "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
+   * However, as the "stoichiometryMath" subelement was removed in SBML
+   * Level&nbsp;3, automatic translation of the "denominator" 
+   * attribute is no longer supported for that level.
    *
    * @param value the scalar value.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    */
   int setDenominator (int value);
 
@@ -1217,7 +1224,7 @@ public:
    *
    * @param elementName, the name of the element to get number of.
    *
-   * @param index, unsigned int teh index of teh object to retrieve.
+   * @param index, unsigned int the index of the object to retrieve.
    *
    * @return pointer to the object.
    */
@@ -1293,11 +1300,9 @@ protected:
    */
   virtual void syncAnnotation();
 
-  bool isExplicitlySetStoichiometry() const { 
-                               return mExplicitlySetStoichiometry; };
+  bool isExplicitlySetStoichiometry() const;
 
-  bool isExplicitlySetDenominator() const { 
-                               return mExplicitlySetDenominator; } ;
+  bool isExplicitlySetDenominator() const;
 
   double    mStoichiometry;
   int       mDenominator;
@@ -1801,6 +1806,9 @@ SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr);
  * (either a combination of "stoichiometry" and "denominator" in the case
  * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
  * Level 2).
+ * However, as the "stoichiometryMath" subelement was removed in SBML
+ * Level&nbsp;3, automatic translation of the "denominator"
+ * attribute is no longer supported for that level.
  *
  * This function returns 0 if the SpeciesReference_t structure is a Modifer (see
  * SpeciesReference_isModifier()).
@@ -2097,6 +2105,9 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  * (either a combination of "stoichiometry" and "denominator" in the case
  * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
  * Level 2).
+ * However, as the "stoichiometryMath" subelement was removed in SBML
+ * Level&nbsp;3, automatic translation of the "denominator"
+ * attribute is no longer supported for that level.
  *
  * This function has no effect if the SpeciesReference_t structure is a
  * Modifer (see SpeciesReference_isModifier()).
@@ -2107,6 +2118,7 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SpeciesReference_t
