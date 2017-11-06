@@ -1662,7 +1662,7 @@ SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
 bool
 SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
 {
-  // has this package been added to teh list of unknown required attributes
+  // has this package been added to the list of unknown required attributes
   std::string req = mRequiredAttrOfUnknownPkg.getValue("required", pkgURI);
   if (!req.empty()) return true;
 

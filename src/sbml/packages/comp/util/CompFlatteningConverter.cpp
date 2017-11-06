@@ -608,7 +608,7 @@ CompFlatteningConverter::validateFlatDocument(Model * flatmodel,
   int result;
   // create a dummyDocument that will mirror what the user options are 
    // we need the dummyDoc to know things about unknown packages
-  // but dont want teh original model/error log
+  // but dont want the original model/error log
   SBMLDocument dummy = SBMLDocument(*(mDocument));
   dummy.setModel(NULL);
   dummy.getErrorLog()->clearLog();

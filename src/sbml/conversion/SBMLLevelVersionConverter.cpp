@@ -1356,7 +1356,7 @@ SBMLLevelVersionConverter::has_fatal_errors(unsigned int level, unsigned int ver
     if (level == 3 && version == 2)
     {
       // there are a coupl of errors that will be logged as general warnings
-      // since they were not in teh relevant spec BUT should still stop a conversion
+      // since they were not in the relevant spec BUT should still stop a conversion
       if (mDocument->getErrorLog()->contains(MathResultMustBeNumeric) ||
         (mDocument->getErrorLog()->contains(PieceNeedsBoolean)) ||
         (mDocument->getErrorLog()->contains(NumericOpsNeedNumericArgs)) ||

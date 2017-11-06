@@ -5609,7 +5609,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
   }
 
   // for l3v2 a document should only have sbo terms from modelling framework
-  // this is impossible to catch in teh validation framework which does not work
+  // this is impossible to catch in the validation framework which does not work
   // on a document level - so we will need to catch it here
   if (isSetSBOTerm() && getTypeCode() == SBML_DOCUMENT)
   {

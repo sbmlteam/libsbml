@@ -367,7 +367,7 @@ SpeciesReference::setDenominator (int value)
   // this attribute was removed in l2 but we were able to capture it
   // by creating a stoichiometryMath element for the speciesReference
   // however stoichiometryMath was removed in l3 and so would require
-  // an initialAssignment which would only work if teh SpeciesReference
+  // an initialAssignment which would only work if the SpeciesReference
   // was already placed within a model
   // so we return unexpected attribute in L3
   if (getLevel() < 3)
