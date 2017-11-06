@@ -564,6 +564,8 @@ BEGIN_C_DECLS
 
 #ifndef SWIG
 
+#endif  /*  !SWIG  */
+
 /**
 * @memberof SubListOfSpeciesFeatures_t
 */
@@ -578,8 +580,6 @@ SubListOfSpeciesFeatures_isValidRelation(Relation_t relation);
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* s);
-
-#endif  /*  !SWIG  */
 
 /**
 * @memberof SubListOfSpeciesFeatures_t
