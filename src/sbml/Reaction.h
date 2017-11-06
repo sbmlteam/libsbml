@@ -41,7 +41,7 @@
  * at which the reaction takes place, and optional parameters.
  *
  * As with other major objects in SBML, Reaction has a mandatory attribute,
- * "id", used to give the compartment type an identifier.  The identifier
+ * "id", used to give the reaction an identifier.  The identifier
  * must be a text string conforming to the identifer syntax permitted in
  * SBML.  In SBML Level&nbsp;2 and Level&nbsp;3, the reaction "id"
  * identifier can be used in mathematical formulas elsewhere in an SBML
