@@ -3738,4 +3738,18 @@ if (lmp != null)
  * and does not transfer ownership of that string.
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_use_param_in_l2
+ *
+ * @par
+ * This function should be used for SBML Level&nbsp;1 and Level&nbsp;2 documents, 
+ * as the equivalent constructs in Level&nbsp;3 are LocalParameter objects instead.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_use_localparam_in_l3
+ *
+ * @par
+ * This function should be used for SBML Level&nbsp;3 documents, as the equivalent 
+ * constructs in Level&nbsp;2 and Level&nbsp;1 are Parameter objects instead.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  */

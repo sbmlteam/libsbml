@@ -528,6 +528,7 @@ public:
   /**
    * Adds a copy of the given Parameter object to the list of local
    * parameters in this KineticLaw.
+   * @copydetails doc_use_param_in_l2
    *
    * @param p the Parameter to add.
    *
@@ -549,6 +550,7 @@ public:
   /**
    * Adds a copy of the given LocalParameter object to the list of local
    * parameters in this KineticLaw.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @param p the LocalParameter to add.
    *
@@ -569,7 +571,8 @@ public:
 
   /**
    * Creates a new Parameter object, adds it to this KineticLaw's list of
-   * local parameters, and returns the Parameter object created.
+   * parameters, and returns the Parameter object created.
+   * @copydetails doc_use_param_in_l2
    *
    * @return a new Parameter object instance.
    *
@@ -581,6 +584,7 @@ public:
   /**
    * Creates a new LocalParameter object, adds it to this KineticLaw's list
    * of local parameters, and returns the LocalParameter object created.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @return a new LocalParameter object instance.
    *
@@ -590,16 +594,18 @@ public:
 
 
   /**
-   * Returns the list of local parameters in this KineticLaw object.
-   * 
+   * Returns the list of parameters in this KineticLaw object.
+   * @copydetails doc_use_param_in_l2
+   *
    * @return the list of Parameters for this KineticLaw.
    */
   const ListOfParameters* getListOfParameters () const;
 
 
   /**
-   * Returns the list of local parameters in this KineticLaw object.
-   * 
+   * Returns the list of parameters in this KineticLaw object.
+   * @copydetails doc_use_param_in_l2
+   *
    * @return the list of Parameters for this KineticLaw.
    */
   ListOfParameters* getListOfParameters ();
@@ -607,7 +613,8 @@ public:
 
   /**
    * Returns the list of local parameters in this KineticLaw object.
-   * 
+   * @copydetails doc_use_localparam_in_l3
+   *
    * @return the list of LocalParameters for this KineticLaw.
    */
   const ListOfLocalParameters* getListOfLocalParameters () const;
@@ -615,15 +622,17 @@ public:
 
   /**
    * Returns the list of local parameters in this KineticLaw object.
-   * 
+   * @copydetails doc_use_localparam_in_l3
+   *
    * @return the list of LocalParameters for this KineticLaw.
    */
   ListOfLocalParameters* getListOfLocalParameters ();
 
 
   /**
-   * Returns the nth Parameter object in the list of local parameters in
+   * Returns the nth Parameter object in the list of parameters in
    * this KineticLaw instance.
+   * @copydetails doc_use_param_in_l2
    *
    * @param n the index of the Parameter object sought.
    * 
@@ -633,8 +642,9 @@ public:
 
 
   /**
-   * Returns the nth Parameter object in the list of local parameters in
+   * Returns the nth Parameter object in the list of parameters in
    * this KineticLaw instance.
+   * @copydetails doc_use_param_in_l2
    *
    * @param n the index of the Parameter object sought.
    * 
@@ -646,6 +656,7 @@ public:
   /**
    * Returns the nth LocalParameter object in the list of local parameters in
    * this KineticLaw instance.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @param n the index of the LocalParameter object sought.
    * 
@@ -657,6 +668,7 @@ public:
   /**
    * Returns the nth LocalParameter object in the list of local parameters in
    * this KineticLaw instance.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @param n the index of the LocalParameter object sought.
    * 
@@ -666,7 +678,8 @@ public:
 
 
   /**
-   * Returns a local parameter based on its identifier.
+   * Returns a parameter based on its identifier.
+   * @copydetails doc_use_param_in_l2
    *
    * @param sid the identifier of the Parameter being sought.
    * 
@@ -677,7 +690,8 @@ public:
 
 
   /**
-   * Returns a local parameter based on its identifier.
+   * Returns a parameter based on its identifier.
+   * @copydetails doc_use_param_in_l2
    *
    * @param sid the identifier of the Parameter being sought.
    * 
@@ -689,6 +703,7 @@ public:
 
   /**
    * Returns a local parameter based on its identifier.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @param sid the identifier of the LocalParameter being sought.
    * 
@@ -700,6 +715,7 @@ public:
 
   /**
    * Returns a local parameter based on its identifier.
+   * @copydetails doc_use_localparam_in_l3
    *
    * @param sid the identifier of the LocalParameter being sought.
    * 
@@ -710,8 +726,9 @@ public:
 
 
   /**
-   * Returns the number of local parameters in this KineticLaw instance.
-   * 
+   * Returns the number of parameters in this KineticLaw instance.
+   * @copydetails doc_use_param_in_l2
+   *
    * @return the number of Parameters in this KineticLaw.
    */
   unsigned int getNumParameters () const;
@@ -719,7 +736,8 @@ public:
 
   /**
    * Returns the number of local parameters in this KineticLaw instance.
-   * 
+   * @copydetails doc_use_localparam_in_l3
+   *
    * @return the number of LocalParameters in this KineticLaw.
    */
   unsigned int getNumLocalParameters () const;
@@ -798,8 +816,9 @@ public:
 
 
   /**
-   * Removes the nth Parameter object in the list of local parameters 
+   * Removes the nth Parameter object in the list of parameters 
    * in this KineticLaw instance and returns a pointer to it.
+   * @copydetails doc_use_param_in_l2
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
@@ -815,6 +834,7 @@ public:
   /**
    * Removes the nth LocalParameter object in the list of local parameters 
    * in this KineticLaw instance and returns a pointer to it.
+   * @copydetails doc_use_localparam_in_l3
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
@@ -829,7 +849,8 @@ public:
 
   /**
    * Removes a Parameter object with the given identifier in the list of
-   * local parameters in this KineticLaw instance and returns a pointer to it.
+   * parameters in this KineticLaw instance and returns a pointer to it.
+   * @copydetails doc_use_param_in_l2
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
@@ -845,6 +866,7 @@ public:
   /**
    * Removes a LocalParameter object with the given identifier in the list of
    * local parameters in this KineticLaw instance and returns a pointer to it.
+   * @copydetails doc_use_localparam_in_l3
    *
    * The caller owns the returned object and is responsible for deleting it.
    *
@@ -1920,6 +1942,7 @@ KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p);
 /**
  * Adds a copy of the given LocalParameter_t structure to the list of local
  * parameters in the given KineticLaw_t structure.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -1941,10 +1964,9 @@ KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p);
 
 /**
  * Creates a new Parameter_t structure, adds it to the given KineticLaw_t
- * structures's list of local parameters, and returns a pointer to the
- * Parameter_t created.  This function should be used for SBML
- * Level&nbsp;1 and Level&nbsp;2 documents, as the equivalent constructs in 
- * Level&nbsp;3 are LocalParameter_t objects instead.
+ * structures's list of parameters, and returns a pointer to the
+ * Parameter_t created.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -1963,9 +1985,8 @@ KineticLaw_createParameter (KineticLaw_t *kl);
 /**
  * Creates a new LocalParameter_t structure, adds it to the given KineticLaw_t
  * structures's list of local parameters, and returns a pointer to the
- * LocalParameter_t created.  This function should be used for SBML
- * Level&nbsp;3 documents, as the equivalent constructs in Level&nbsp;2
- * are Parameter_t objects instead.
+ * LocalParameter_t created.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -1982,8 +2003,9 @@ KineticLaw_createLocalParameter (KineticLaw_t *kl);
 
 
 /**
- * Get the list of local parameters defined for the given KineticLaw_t
+ * Get the list of parameters defined for the given KineticLaw_t
  * structure.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  * 
@@ -1999,6 +2021,7 @@ KineticLaw_getListOfParameters (KineticLaw_t *kl);
 /**
  * Get the list of local parameters defined for the given KineticLaw_t
  * structure.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  * 
@@ -2012,11 +2035,12 @@ KineticLaw_getListOfLocalParameters (KineticLaw_t *kl);
 
 
 /**
- * Get the nth parameter in the list of local parameters in the
+ * Get the nth parameter in the list of parameters in the
  * given KineticLaw_t structure.
  *
  * Callers should first find out how many parameters are in the list by
  * calling KineticLaw_getNumParameters().
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -2039,6 +2063,7 @@ KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n);
  *
  * Callers should first find out how many parameters are in the list by
  * calling KineticLaw_getNumLocalParameters().
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -2058,6 +2083,7 @@ KineticLaw_getLocalParameter (KineticLaw_t *kl, unsigned int n);
 /**
  * Get a parameter with identifier "id" out of the list of local
  * parameters defined for the given KineticLaw_t structure.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -2076,6 +2102,7 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid);
 /**
  * Get a parameter with identifier "id" out of the list of local
  * parameters defined for the given KineticLaw_t structure.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  *
@@ -2092,8 +2119,9 @@ KineticLaw_getLocalParameterById (KineticLaw_t *kl, const char *sid);
 
 
 /**
- * Get the number of local parameters defined in the given KineticLaw_t
+ * Get the number of parameters defined in the given KineticLaw_t
  * structure.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  * 
@@ -2110,6 +2138,7 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl);
 /**
  * Get the number of local parameters defined in the given KineticLaw_t
  * structure.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  * 
@@ -2173,10 +2202,11 @@ KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl);
 
 
 /**
- * Removes the nth Parameter_t structure from the list of local parameters
+ * Removes the nth Parameter_t structure from the list of parameters
  * in this KineticLaw_t structure and returns a pointer to it.
  *
  * The caller owns the returned structure and is responsible for deleting it.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  * @param n the integer index of the Parameter_t sought.
@@ -2197,6 +2227,7 @@ KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n);
  * in this KineticLaw_t structure and returns a pointer to it.
  *
  * The caller owns the returned structure and is responsible for deleting it.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  * @param n the integer index of the LocalParameter_t sought.
@@ -2214,10 +2245,11 @@ KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n);
 
 /**
  * Removes the Parameter_t structure with the given "id" attribute
- * from the list of local parameters in this KineticLaw_t structure and 
+ * from the list of parameters in this KineticLaw_t structure and 
  * returns a pointer to it.
  *
  * The caller owns the returned structure and is responsible for deleting it.
+ * @copydetails doc_use_param_in_l2
  *
  * @param kl the KineticLaw_t structure.
  * @param sid the string of the "id" attribute of the Parameter_t sought.
@@ -2239,6 +2271,7 @@ KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid);
  * returns a pointer to it.
  *
  * The caller owns the returned structure and is responsible for deleting it.
+ * @copydetails doc_use_localparam_in_l3
  *
  * @param kl the KineticLaw_t structure.
  * @param sid the string of the "id" attribute of the LocalParameter_t sought.
