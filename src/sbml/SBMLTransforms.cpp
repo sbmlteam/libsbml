@@ -431,7 +431,7 @@ SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values)
           !( sr->isSetStoichiometryMath() && sr->getStoichiometryMath()->isSetMath() ) )
       {
         /* not set by assignment */
-        if (!(sr->isSetStoichiometry()))
+        if (sr->isSetStoichiometry() == false && m->getLevel() > 2 )
         {
           ids.append(sr->getId());
           ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);

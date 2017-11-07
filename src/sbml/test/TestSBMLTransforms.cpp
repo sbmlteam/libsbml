@@ -870,6 +870,36 @@ START_TEST(test_SBMLTransforms_StoichiometryMath)
 }
 END_TEST
 
+START_TEST(test_SBMLTransforms_evaluateAST_L2SpeciesReference)
+{
+  SBMLDocument doc(2, 2);
+  Model* pMod = doc.createModel();
+  Compartment* pComp = pMod->createCompartment();
+  pComp->initDefaults();
+  pComp->setId("C");
+
+  Species* pSpecies = pMod->createSpecies();
+  pSpecies->initDefaults();
+  pSpecies->setId("A");
+  pSpecies->setCompartment("C");
+
+  Reaction* pReaction = pMod->createReaction(); 
+  pReaction->initDefaults();
+  pReaction->setId("J1");
+  SpeciesReference* pSR = pReaction->createReactant();
+  pSR->setId("SR");
+  pSR->setSpecies("A");
+  KineticLaw* pKL = pReaction->createKineticLaw();
+  pKL->setFormula("A*0.1");
+
+  double value = SBMLTransforms::evaluateASTNode(SBML_parseFormula("SR"), pMod);
+
+  fail_unless(value == 1.0);
+
+
+}
+END_TEST
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
@@ -881,6 +911,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_replaceFD);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateAST);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateCustomAST);
+  tcase_add_test(tcase, test_SBMLTransforms_evaluateAST_L2SpeciesReference);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA);
   tcase_add_test(tcase, test_SBMLTransforms_replaceIA_species);
   tcase_add_test(tcase, test_SBMLTransforms_evaluateL3V2AST);
