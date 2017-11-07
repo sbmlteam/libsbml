@@ -280,7 +280,7 @@ XMLOutputStream::endElement (const std::string& name, const std::string& prefix)
  * XMLOutputStream.
  */
 void
-XMLOutputStream::endElement (const XMLTriple& triple)
+XMLOutputStream::endElement (const XMLTriple& triple, bool text)
 {
 
   if (mInStart)
@@ -288,7 +288,7 @@ XMLOutputStream::endElement (const XMLTriple& triple)
     mInStart = false;
     mStream << '/' << '>';
   }
-  else if (mInText)
+  else if (mInText || text)
   {
     mInText = false;
     mSkipNextIndent = false;

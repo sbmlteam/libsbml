@@ -297,7 +297,7 @@ public:
    *
    * @param triple the XML element to write.
    */
-  void endElement (const XMLTriple& triple);
+  void endElement (const XMLTriple& triple, bool text = false);
 
 
   /**

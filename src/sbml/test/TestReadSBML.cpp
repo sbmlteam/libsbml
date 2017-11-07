@@ -2805,6 +2805,90 @@ START_TEST(test_ReadSBML_bad_indents)
 END_TEST
 
 
+START_TEST(test_ReadSBML_bad_indents_2)
+{
+  const char* valid = wrapXML
+    (
+      "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\">\n"
+      "  <model>\n"
+      "    <notes>\n"
+      "      <p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a></p>\n"
+      "    </notes>\n"
+      "  </model>\n"
+      "</sbml>\n"
+      );
+
+  SBMLDocument* d = new SBMLDocument(2, 4);
+  Model * m = d->createModel();
+  m->setNotes("<p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a></p>");
+
+  char * output = writeSBMLToString(d);
+
+  fail_unless(equals(valid, output));
+
+}
+END_TEST
+
+
+START_TEST(test_ReadSBML_bad_indents_3)
+{
+  const char* valid = wrapXML
+    (
+      "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\">\n"
+      "  <model>\n"
+      "    <notes>\n"
+      "      <p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a></p>\n"
+      "      <p xmlns=\"http://www.w3.org/1999/xhtml\">Hello</p>\n"
+      "      <p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a>\n"
+      "      <a href=\"foo\">foolink</a></p>\n"
+      "    </notes>\n"
+      "  </model>\n"
+      "</sbml>\n"
+      );
+
+  SBMLDocument* d = new SBMLDocument(2, 4);
+  Model * m = d->createModel();
+  m->setNotes("<p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a></p>");
+  m->appendNotes("<p xmlns=\"http://www.w3.org/1999/xhtml\">Hello</p>");
+  m->appendNotes("<p xmlns=\"http://www.w3.org/1999/xhtml\">Hello<a href=\"test\">link</a><a href=\"foo\">foolink</a></p>");
+
+  char * output = writeSBMLToString(d);
+
+  fail_unless(equals(valid, output));
+
+}
+END_TEST
+
+
+
+START_TEST(test_ReadSBML_bad_indents_4)
+{
+  const char* valid = wrapXML
+    (
+      "<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\">\n"
+      "  <model>\n"
+      "    <notes>\n"
+      "      <p xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+      "        <a href=\"test\">link</a>\n"
+      "      </p>\n"
+      "    </notes>\n"
+      "  </model>\n"
+      "</sbml>\n"
+      );
+
+  SBMLDocument* d = new SBMLDocument(2, 4);
+  Model * m = d->createModel();
+  m->setNotes("<p xmlns=\"http://www.w3.org/1999/xhtml\"><a href=\"test\">link</a></p>");
+
+  char * output = writeSBMLToString(d);
+
+  fail_unless(equals(valid, output));
+
+}
+END_TEST
+
+
+
 Suite *
 create_suite_ReadSBML (void)
 {
@@ -2901,7 +2985,10 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_invalid_default_namespace );
 
   tcase_add_test(tcase, test_ReadSBML_bad_indents);
-  
+  tcase_add_test(tcase, test_ReadSBML_bad_indents_2);
+  tcase_add_test(tcase, test_ReadSBML_bad_indents_3);
+  tcase_add_test(tcase, test_ReadSBML_bad_indents_4);
+
   suite_add_tcase(suite, tcase);
 
   return suite;
