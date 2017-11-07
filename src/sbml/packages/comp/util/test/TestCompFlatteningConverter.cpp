@@ -2119,6 +2119,20 @@ START_TEST (test_comp_flatten_test1_l3v2)
 END_TEST
 
 
+START_TEST(test_comp_flatten_boundary_replace1)
+{
+  TestFlattenedPair("boundary_replace1.xml", "boundary_replace1_flat.xml");
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_boundary_replace2)
+{
+  TestFlattenedPair("boundary_replace2.xml", "boundary_replace2_flat.xml");
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningConverter (void)
 { 
@@ -2259,6 +2273,8 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_submodel_callbacks);
  
   tcase_add_test(tcase, test_comp_flatten_test1_l3v2);
+  tcase_add_test(tcase, test_comp_flatten_boundary_replace1);
+  tcase_add_test(tcase, test_comp_flatten_boundary_replace2);
 
   suite_add_tcase(suite, tcase);
 
