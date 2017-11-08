@@ -250,6 +250,10 @@ DynElement::setName(const std::string& name)
 int
 DynElement::setMetaIdRef(const std::string& metaIdRef)
 {
+  if (!SyntaxChecker::isValidXMLID(metaIdRef))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
   mMetaIdRef = metaIdRef;
   return LIBSBML_OPERATION_SUCCESS;
 }
