@@ -3021,10 +3021,14 @@ SBase::getVersion () const
 * @return the SBML version of this SBML object.
 */
 unsigned int
-SBase::getObjectVersion() const
+SBase::getPackageCoreVersion() const
 {
-  // FIX_ME: This needs careful thinking through but since for the moment
-  // a package object cannot be more than L3V1
+  const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(mURI);
+
+  if (sbmlext)
+  {
+    return sbmlext->getVersion(mURI);
+  }
   return 1;
 }
 
@@ -5910,7 +5914,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
       stream.writeAttribute("id", mId);
       stream.writeAttribute("name", mName);
     }
-    else if (getObjectVersion() > 1)
+    else if (getPackageCoreVersion() > 1)
     {
       stream.writeAttribute("id", mId);
       stream.writeAttribute("name", mName);
