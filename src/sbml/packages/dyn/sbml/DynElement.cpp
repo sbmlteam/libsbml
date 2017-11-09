@@ -578,11 +578,11 @@ DynElement::readAttributes (const XMLAttributes& attributes,
 
     if (mId.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<DynElement>");
+      logEmptyString(mId, sbmlLevel, sbmlVersion, "<DynElement>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+      getErrorLog()->logError(InvalidIdSyntax, sbmlLevel, sbmlVersion,
         "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
@@ -614,6 +614,16 @@ DynElement::readAttributes (const XMLAttributes& attributes,
     if (mMetaIdRef.empty() == true)
     {
       logEmptyString(mMetaIdRef, getLevel(), getVersion(), "<DynElement>");
+    }
+    else if (SyntaxChecker::isValidXMLID(mMetaIdRef) == false)
+    {
+      std::string msg = "The metaIdRef attribute on the <" + this->getElementName() + "> ";
+      if (this->isSetId()) {
+        msg += "with id '" + this->getId() + "' ";
+      }
+      msg += "is '" + mMetaIdRef + "', which does not conform to the syntax.";
+      getErrorLog()->logPackageError("dyn", DynUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
     }
   }
 
