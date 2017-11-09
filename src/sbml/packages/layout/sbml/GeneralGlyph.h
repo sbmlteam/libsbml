@@ -813,7 +813,7 @@ GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *gg);
 
 
 /**
- * Returns the pointer to the ReferenceGlyph_t's for the given @p index.
+ * Returns the pointer to the ReferenceGlyph_t for the given @p index.
  *
  * @param gg the GeneralGlyph_t structure.
  * @param index the index of the ReferenceGlyph_t structure to return.
@@ -837,20 +837,6 @@ LIBSBML_EXTERN
 ListOf_t *
 GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *gg);
 
-
-/**
- * Removes the reference glyph with the given @p index.  If the index
- * is invalid, nothing is removed.
- *
- * @param gg the GeneralGlyph_t structure.
- * @param index the index of the ReferenceGlyph_t structure to remove.
- *
- * @memberof GeneralGlyph_t
- */
-LIBSBML_EXTERN
-ReferenceGlyph_t *
-GeneralGlyph_removeReferenceGlyph (GeneralGlyph_t *gg,
-                                   unsigned int index);
 
 /**
  * Calls initDefaults from GraphicalObject.
