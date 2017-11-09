@@ -842,7 +842,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
   assigned = attributes.readInto("metaidRef", mMetaIdRef);
   if (assigned == true && getErrorLog() != NULL)
   {
-    if (!SyntaxChecker::isValidInternalSId(mMetaIdRef))
+    if (!SyntaxChecker::isValidXMLID(mMetaIdRef))
     {
       int tc = this->getTypeCode();
       std::string msg = "The metaIdRef on the <" + this->getElementName() + "> ";
