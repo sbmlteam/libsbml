@@ -165,13 +165,16 @@ function [found, fhandle] = getFields(typecode, pkg, extension)
     if (strcmp(pkg, 'fbc'))
         if (extension)
             if (isFBCExtension(typecode))
-        [found, fhandle] = getFBCFieldnameFunction(typecode);
+        [found, fhandle] = getFBCDefaultValueFunction(typecode);
             end;
         else
-        [found, fhandle] = getFBCFieldnameFunction(typecode);
+        [found, fhandle] = getFBCDefaultValueFunction(typecode);
         end;
     end;
-
+%%%%% REMOVE END
+%%%%% ADD ADDITIONAL
+	
+	
 function extend = isFBCExtension(typecode)
    extend = 0;
    switch (typecode)
@@ -182,8 +185,13 @@ function extend = isFBCExtension(typecode)
         case {'SBML_FBC_REACTION', 'FBCReaction','SBML_REACTION', 'Reaction', 'reaction'}
             extend = 1;
    end;
+   
+%%%% ADD isExtension
+%%%% ADD isExtension
 
-function [found, fhandle] = getFBCFieldnameFunction(typecode)
+%%%% END isExtension
+
+function [found, fhandle] = getFBCDefaultValueFunction(typecode)
     found = 1;
   switch (typecode)
         case {'SBML_FBC_FLUXBOUND', 'FluxBound', 'fluxBound', 'fbc_fluxBound'}
@@ -208,6 +216,11 @@ function [found, fhandle] = getFBCFieldnameFunction(typecode)
       fhandle = str2func('disp');
       found = 0;
     end;
+
+%%%% ADD getFilename
+%%%% ADD getFieldname
+
+%%%% END getFieldname
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3260,8 +3273,14 @@ elseif (level == 3)
 	end;
 end;
 
+%%%% ADD functions
+%%%% ADD functions
+
+%%%% END functions
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function valid = isValidLevelVersionCombination(level, version)
 valid = 1;
 

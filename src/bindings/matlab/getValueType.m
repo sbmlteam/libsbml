@@ -174,7 +174,10 @@ function [found, fhandle] = getValues(typecode, pkg, extension)
              [found, fhandle] = getFBCValueFunction(typecode);           
         end;
     end;
-
+%%%%% REMOVE END
+%%%%% ADD ADDITIONAL
+	
+	
 function extend = isFBCExtension(typecode)
    extend = 0;
    switch (typecode)
@@ -185,6 +188,11 @@ function extend = isFBCExtension(typecode)
         case {'SBML_FBC_REACTION', 'FBCReaction','SBML_REACTION', 'Reaction', 'reaction'}
             extend = 1;
    end;
+   
+%%%% ADD isExtension
+%%%% ADD isExtension
+
+%%%% END isExtension
 
 function [found, fhandle] = getFBCValueFunction(typecode)
     found = 1;
@@ -211,6 +219,11 @@ function [found, fhandle] = getFBCValueFunction(typecode)
           fhandle = str2func('disp');
           found = 0;
     end;
+
+%%%% ADD getFilename
+%%%% ADD getFieldname
+
+%%%% END getFieldname
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3263,8 +3276,14 @@ elseif (level == 3)
 	end;
 end;
 
+%%%% ADD functions
+%%%% ADD functions
+
+%%%% END functions
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function valid = isValidLevelVersionCombination(level, version)
 valid = 1;
 

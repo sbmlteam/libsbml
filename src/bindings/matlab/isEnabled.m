@@ -82,7 +82,7 @@ fout = fopen(filename, 'w');
 
 fprintf(fout, '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n');
 fprintf(fout, '<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" ');
-fprintf(fout, strcat('xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/', package, '/version1\"\n'));
+fprintf(fout, strcat('xmlns:', package, '=\"http://www.sbml.org/sbml/level3/version1/', package, '/version1\"\n'));
 fprintf(fout, 'level=\"3\" version=\"1\"\n');
 fprintf(fout, strcat(package, ':required=\"false\">\n'));
 fprintf(fout, '  <model/>\n</sbml>\n');
