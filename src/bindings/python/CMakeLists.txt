@@ -452,7 +452,16 @@ if(WITH_CHECK)
 
     endmacro()
 
-    # run example as tests
+    # test that the bindings are returning the correct version
+
+    if (CMAKE_VERSION VERSION_GREATER 3.0)
+        add_test(NAME test_python_printversion 
+            COMMAND ${PYTHON_EXECUTABLE} -c "import libsbml; assert libsbml.getLibSBMLDottedVersion() == '${PACKAGE_VERSION}'"
+            -p $<TARGET_FILE_DIR:binding_python_lib> -b ${CMAKE_CURRENT_SOURCE_DIR}/test)
+        ADJUST_PYTHONPATH(test_python_printversion)
+    endif()
+    
+    # run examples as tests
 
     if (CMAKE_VERSION VERSION_LESS 3.0)
         message(STATUS "Python example tests check version: ${CMAKE_VERSION} < 3.0, skipping.")
