@@ -763,10 +763,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 Dimension_t *
-Dimension_create(unsigned int level = ArraysExtension::getDefaultLevel(),
-                 unsigned int version = ArraysExtension::getDefaultVersion(),
-                 unsigned int pkgVersion =
-                   ArraysExtension::getDefaultPackageVersion());
+Dimension_create(unsigned int level,
+                 unsigned int version,
+                 unsigned int pkgVersion);
 
 
 /**
