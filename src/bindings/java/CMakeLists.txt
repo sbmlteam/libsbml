@@ -340,6 +340,17 @@ if(WITH_CHECK)
 			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
 			AutoTestRunner						    
 	)
+
+    # running a basic to check the package version
+	add_test(NAME test_java_printversion 
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+			COMMAND "${Java_JAVA_EXECUTABLE}" 
+			-Xss8m
+	    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
+			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
+			TestPrintVersion ${PACKAGE_VERSION}						    
+	)
+
 	# specify that tests have passed if we find only dots	
 	set_tests_properties(test_java_binding PROPERTIES PASS_REGULAR_EXPRESSION "[.]+" )
 	# specify that tests have failed in case there was one of the words below in the output
@@ -354,6 +365,4 @@ if(WITH_CHECK)
 		endif()
 	endif() 
 
-endif(WITH_CHECK)
-
-
+  endif(WITH_CHECK)
