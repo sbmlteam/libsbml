@@ -880,13 +880,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 CSGHomogeneousTransformation_t *
-CSGHomogeneousTransformation_create(
-                                    unsigned int level =
-                                      SpatialExtension::getDefaultLevel(),
-                                    unsigned int version =
-                                      SpatialExtension::getDefaultVersion(),
-                                    unsigned int pkgVersion =
-                                      SpatialExtension::getDefaultPackageVersion());
+CSGHomogeneousTransformation_create(unsigned int level,
+                                    unsigned int version,
+                                    unsigned int pkgVersion);
 
 
 /**

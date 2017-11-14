@@ -676,10 +676,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 DomainType_t *
-DomainType_create(unsigned int level = SpatialExtension::getDefaultLevel(),
-                  unsigned int version = SpatialExtension::getDefaultVersion(),
-                  unsigned int pkgVersion =
-                    SpatialExtension::getDefaultPackageVersion());
+DomainType_create(unsigned int level,
+                  unsigned int version,
+                  unsigned int pkgVersion);
 
 
 /**

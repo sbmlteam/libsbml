@@ -866,13 +866,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 CSGTransformation_t *
-CSGTransformation_create(
-                         unsigned int level =
-                           SpatialExtension::getDefaultLevel(),
-                         unsigned int version =
-                           SpatialExtension::getDefaultVersion(),
-                         unsigned int pkgVersion =
-                           SpatialExtension::getDefaultPackageVersion());
+CSGTransformation_create(unsigned int level,
+                         unsigned int version,
+                         unsigned int pkgVersion);
 
 
 /**

@@ -685,10 +685,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 Boundary_t *
-Boundary_create(unsigned int level = SpatialExtension::getDefaultLevel(),
-                unsigned int version = SpatialExtension::getDefaultVersion(),
-                unsigned int pkgVersion =
-                  SpatialExtension::getDefaultPackageVersion());
+Boundary_create(unsigned int level,
+                unsigned int version,
+                unsigned int pkgVersion);
 
 
 /**

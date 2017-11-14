@@ -723,11 +723,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 InteriorPoint_t *
-InteriorPoint_create(unsigned int level = SpatialExtension::getDefaultLevel(),
-                     unsigned int version =
-                       SpatialExtension::getDefaultVersion(),
-                     unsigned int pkgVersion =
-                       SpatialExtension::getDefaultPackageVersion());
+InteriorPoint_create(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion);
 
 
 /**

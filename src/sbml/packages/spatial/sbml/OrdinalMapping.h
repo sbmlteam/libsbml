@@ -690,11 +690,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 OrdinalMapping_t *
-OrdinalMapping_create(unsigned int level = SpatialExtension::getDefaultLevel(),
-                      unsigned int version =
-                        SpatialExtension::getDefaultVersion(),
-                      unsigned int pkgVersion =
-                        SpatialExtension::getDefaultPackageVersion());
+OrdinalMapping_create(unsigned int level,
+                      unsigned int version,
+                      unsigned int pkgVersion);
 
 
 /**

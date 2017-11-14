@@ -751,13 +751,9 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 GeometryDefinition_t *
-GeometryDefinition_createAnalyticGeometry(
-                                          unsigned int level =
-                                            SpatialExtension::getDefaultLevel(),
-                                          unsigned int version =
-                                            SpatialExtension::getDefaultVersion(),
-                                          unsigned int pkgVersion =
-                                            SpatialExtension::getDefaultPackageVersion());
+GeometryDefinition_createAnalyticGeometry(unsigned int level,
+                                          unsigned int version,
+                                          unsigned int pkgVersion);
 
 
 /**
