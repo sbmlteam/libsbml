@@ -1065,6 +1065,73 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft);
 
 
 /**
+ * Returns the value of the "math" element of this FunctionTerm_t.
+ *
+ * @param ft the FunctionTerm_t structure whose math is sought.
+ *
+ * @return the value of the "math" element of this FunctionTerm_t as a
+ * ASTNode*.
+ *
+ * @memberof FunctionTerm_t
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+FunctionTerm_getMath(const FunctionTerm_t * ft);
+
+
+/**
+ * Predicate returning @c 1 (true) if this FunctionTerm_t's "math" element is
+ * set.
+ *
+ * @param ft the FunctionTerm_t structure.
+ *
+ * @return @c 1 (true) if this FunctionTerm_t's "math" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof FunctionTerm_t
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_isSetMath(const FunctionTerm_t * ft);
+
+
+/**
+ * Sets the value of the "math" element of this FunctionTerm_t.
+ *
+ * @param ft the FunctionTerm_t structure.
+ *
+ * @param math ASTNode_t* value of the "math" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof FunctionTerm_t
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_setMath(FunctionTerm_t * ft, const ASTNode_t* math);
+
+
+/**
+ * Unsets the value of the "math" element of this FunctionTerm_t.
+ *
+ * @param ft the FunctionTerm_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof FunctionTerm_t
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_unsetMath(FunctionTerm_t * ft);
+
+
+/**
   * Predicate returning @c true or @c false depending on whether
   * all the required attributes for the given FunctionTerm_t structure
   * have been set.
@@ -1073,7 +1140,7 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft);
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
+FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft);
 
 
 /**
@@ -1088,7 +1155,7 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_hasRequiredElements(FunctionTerm_t * ft);
+FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft);
 
 
 /**

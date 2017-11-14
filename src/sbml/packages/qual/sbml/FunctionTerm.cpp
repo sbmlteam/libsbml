@@ -1320,9 +1320,63 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
 }
 
 
+/*
+ * Returns the value of the "math" element of this FunctionTerm_t.
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+FunctionTerm_getMath(const FunctionTerm_t * ft)
+{
+  if (ft == NULL)
+  {
+    return NULL;
+  }
+
+  return (ASTNode_t*)(ft->getMath());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this FunctionTerm_t's "math" element is
+ * set.
+ */
 LIBSBML_EXTERN
 int
-FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
+FunctionTerm_isSetMath(const FunctionTerm_t * ft)
+{
+  return (ft != NULL) ? static_cast<int>(ft->isSetMath()) : 0;
+}
+
+
+/*
+ * Sets the value of the "math" element of this FunctionTerm_t.
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_setMath(FunctionTerm_t * ft, const ASTNode_t* math)
+{
+  return (ft != NULL) ? ft->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "math" element of this FunctionTerm_t.
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_unsetMath(FunctionTerm_t * ft)
+{
+  return (ft != NULL) ? ft->unsetMath() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * FunctionTerm_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->hasRequiredAttributes()) : 0;
 }
@@ -1330,7 +1384,7 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
 
 LIBSBML_EXTERN
 int
-FunctionTerm_hasRequiredElements(FunctionTerm_t * ft)
+FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->hasRequiredElements()) : 0;
 }
