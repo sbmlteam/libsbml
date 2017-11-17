@@ -42,7 +42,7 @@ function enabled = isEnabled(package)
 % assume not enabled
 enabled = 0;
 
-supported = {'fbc', 'qual'};
+supported = {'fbc', 'qual', 'groups'};
 if ~ischar(package)
     disp('argument must be a string representing an SBML L3 package');
 elseif ~ismember(supported, package)

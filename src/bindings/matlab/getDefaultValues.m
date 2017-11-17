@@ -178,6 +178,14 @@ function [found, fhandle] = getFields(typecode, pkg, extension)
       else
         [found, fhandle] = getQUALDefaultValueFunction(typecode);
       end;
+    elseif strcmp(pkg, 'groups')
+      if (extension)
+        if (isGROUPSExtension(typecode))
+          [found, fhandle] = getGROUPSDefaultValueFunction(typecode);
+        end;
+      else
+        [found, fhandle] = getGROUPSDefaultValueFunction(typecode);
+      end;
     end;
 %%%%% REMOVE END
 %%%%% ADD ADDITIONAL
@@ -201,9 +209,15 @@ function extend = isQUALExtension(typecode)
     case {'SBML_QUAL_MODEL', 'QUALModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
   end;
-%%%% ADD isExtension
-%%%% ADD isExtension
 
+function extend = isGROUPSExtension(typecode)
+  extend = 0;
+  switch (typecode)
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      extend = 1;
+  end;
+%%%% ADD isExtension
+%%%% ADD isExtension
 %%%% END isExtension
 
 function [found, fhandle] = getFBCDefaultValueFunction(typecode)
@@ -253,9 +267,22 @@ function [found, fhandle] = getQUALDefaultValueFunction(typecode)
       fhandle = str2func('disp');
       found = 0;
   end;
-%%%% ADD getFieldname
-%%%% ADD getFieldname
 
+function [found, fhandle] = getGROUPSDefaultValueFunction(typecode)
+  found = 1;
+  switch (typecode)
+    case {'SBML_GROUPS_GROUP', 'Group', 'group', 'groups_group'}
+      fhandle = str2func('getGroupDefaultValues');
+    case {'SBML_GROUPS_MEMBER', 'Member', 'member', 'groups_member'}
+      fhandle = str2func('getMemberDefaultValues');
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      fhandle = str2func('getGROUPSModelDefaultValues');
+    otherwise
+      fhandle = str2func('disp');
+      found = 0;
+  end;
+%%%% ADD getFieldname
+%%%% ADD getFieldname
 %%%% END getFieldname
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3534,6 +3561,97 @@ version, pkgVersion)
         int32(pkgVersion), ...
         };
         nNumberFields = 11;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGROUPSModelDefaultValues(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        int32(pkgVersion), ...
+        [], ...
+        };
+        nNumberFields = 2;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGroupDefaultValues(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'SBML_GROUPS_GROUP', ...
+        '', ...
+        '', ...
+        '', ...
+        [], ...
+        int32(-1), ...
+        '', ...
+        '', ...
+        '', ...
+        [], ...
+        3, ...
+        int32(version), ...
+        int32(pkgVersion), ...
+        };
+        nNumberFields = 13;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getMemberDefaultValues(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'SBML_GROUPS_MEMBER', ...
+        '', ...
+        '', ...
+        '', ...
+        [], ...
+        int32(-1), ...
+        '', ...
+        '', ...
+        '', ...
+        '', ...
+        3, ...
+        int32(version), ...
+        int32(pkgVersion), ...
+        };
+        nNumberFields = 13;
       end;
     end;
   end;

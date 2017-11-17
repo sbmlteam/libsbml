@@ -179,6 +179,14 @@ function [found, fhandle] = getFields(typecode, pkg, extension)
       else
         [found, fhandle] = getQUALFieldnameFunction(typecode);
       end;
+    elseif strcmp(pkg, 'groups')
+      if (extension)
+        if (isGROUPSExtension(typecode))
+          [found, fhandle] = getGROUPSFieldnameFunction(typecode);
+        end;
+      else
+        [found, fhandle] = getGROUPSFieldnameFunction(typecode);
+      end;
     end;
 %%%%% REMOVE END
 %%%%% ADD ADDITIONAL
@@ -202,9 +210,15 @@ function extend = isQUALExtension(typecode)
     case {'SBML_QUAL_MODEL', 'QUALModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
   end;
-%%%% ADD isExtension
-%%%% ADD isExtension
 
+function extend = isGROUPSExtension(typecode)
+  extend = 0;
+  switch (typecode)
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      extend = 1;
+  end;
+%%%% ADD isExtension
+%%%% ADD isExtension
 %%%% END isExtension
 
 function [found, fhandle] = getFBCFieldnameFunction(typecode)
@@ -254,9 +268,22 @@ function [found, fhandle] = getQUALFieldnameFunction(typecode)
       fhandle = str2func('disp');
       found = 0;
   end;
-%%%% ADD getFieldname
-%%%% ADD getFieldname
 
+function [found, fhandle] = getGROUPSFieldnameFunction(typecode)
+  found = 1;
+  switch (typecode)
+    case {'SBML_GROUPS_GROUP', 'Group', 'group', 'groups_group'}
+      fhandle = str2func('getGroupFieldnames');
+    case {'SBML_GROUPS_MEMBER', 'Member', 'member', 'groups_member'}
+      fhandle = str2func('getMemberFieldnames');
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      fhandle = str2func('getGROUPSModelFieldnames');
+    otherwise
+      fhandle = str2func('disp');
+      found = 0;
+  end;
+%%%% ADD getFieldname
+%%%% ADD getFieldname
 %%%% END getFieldname
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3571,6 +3598,97 @@ version, pkgVersion)
         'qual_version', ...
         };
         nNumberFields = 11;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGROUPSModelFieldnames(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'groups_version', ...
+        'groups_group', ...
+        };
+        nNumberFields = 2;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGroupFieldnames(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'typecode', ...
+        'metaid', ...
+        'notes', ...
+        'annotation', ...
+        'cvterms', ...
+        'sboTerm', ...
+        'groups_id', ...
+        'groups_name', ...
+        'groups_kind', ...
+        'groups_member', ...
+        'level', ...
+        'version', ...
+        'groups_version', ...
+        };
+        nNumberFields = 13;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getMemberFieldnames(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'typecode', ...
+        'metaid', ...
+        'notes', ...
+        'annotation', ...
+        'cvterms', ...
+        'sboTerm', ...
+        'groups_id', ...
+        'groups_name', ...
+        'groups_idRef', ...
+        'groups_metaIdRef', ...
+        'level', ...
+        'version', ...
+        'groups_version', ...
+        };
+        nNumberFields = 13;
       end;
     end;
   end;

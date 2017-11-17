@@ -181,6 +181,14 @@ function [found, fhandle] = getValues(typecode, pkg, extension)
       else
         [found, fhandle] = getQUALValueTypeFunction(typecode);
       end;
+    elseif strcmp(pkg, 'groups')
+      if (extension)
+        if (isGROUPSExtension(typecode))
+          [found, fhandle] = getGROUPSValueTypeFunction(typecode);
+        end;
+      else
+        [found, fhandle] = getGROUPSValueTypeFunction(typecode);
+      end;
     end;
 %%%%% REMOVE END
 %%%%% ADD ADDITIONAL
@@ -197,14 +205,21 @@ function extend = isFBCExtension(typecode)
             extend = 1;
    end;
    
-%%%% ADD isExtension
-%%%% ADD isExtension
 function extend = isQUALExtension(typecode)
   extend = 0;
   switch (typecode)
     case {'SBML_QUAL_MODEL', 'QUALModel', 'SBML_MODEL', 'Model', 'model'}
       extend = 1;
   end;
+
+function extend = isGROUPSExtension(typecode)
+  extend = 0;
+  switch (typecode)
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      extend = 1;
+  end;
+%%%% ADD isExtension
+%%%% ADD isExtension
 %%%% END isExtension
 
 function [found, fhandle] = getFBCValueFunction(typecode)
@@ -254,9 +269,22 @@ function [found, fhandle] = getQUALValueTypeFunction(typecode)
       fhandle = str2func('disp');
       found = 0;
   end;
-%%%% ADD getFieldname
-%%%% ADD getFieldname
 
+function [found, fhandle] = getGROUPSValueTypeFunction(typecode)
+  found = 1;
+  switch (typecode)
+    case {'SBML_GROUPS_GROUP', 'Group', 'group', 'groups_group'}
+      fhandle = str2func('getGroupValueType');
+    case {'SBML_GROUPS_MEMBER', 'Member', 'member', 'groups_member'}
+      fhandle = str2func('getMemberValueType');
+    case {'SBML_GROUPS_MODEL', 'GROUPSModel', 'SBML_MODEL', 'Model', 'model'}
+      fhandle = str2func('getGROUPSModelValueType');
+    otherwise
+      fhandle = str2func('disp');
+      found = 0;
+  end;
+%%%% ADD getFieldname
+%%%% ADD getFieldname
 %%%% END getFieldname
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3540,9 +3568,100 @@ version, pkgVersion)
     end;
   end;
 
-%%%% ADD functions
-%%%% ADD functions
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGROUPSModelValueType(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'uint', ...
+        'structure', ...
+        };
+        nNumberFields = 2;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getGroupValueType(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'SBML_GROUPS_GROUP', ...
+        'char', ...
+        'char', ...
+        'char', ...
+        'structure', ...
+        'int', ...
+        'char', ...
+        'char', ...
+        'char', ...
+        'structure', ...
+        'uint', ...
+        'uint', ...
+        'uint', ...
+        };
+        nNumberFields = 13;
+      end;
+    end;
+  end;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [SBMLfieldnames, nNumberFields] = getMemberValueType(level, ...
+version, pkgVersion)
+  if (~isValidLevelVersionCombination(level, version))
+    error ('invalid level/version combination');
+  end;
+
+  SBMLfieldnames = [];
+  nNumberFields = 0;
+
+  if (level == 3)
+    if (version < 3)
+      if (pkgVersion == 1)
+        SBMLfieldnames = {
+        'SBML_GROUPS_MEMBER', ...
+        'char', ...
+        'char', ...
+        'char', ...
+        'structure', ...
+        'int', ...
+        'char', ...
+        'char', ...
+        'char', ...
+        'char', ...
+        'uint', ...
+        'uint', ...
+        'uint', ...
+        };
+        nNumberFields = 13;
+      end;
+    end;
+  end;
+
+
+%%%% ADD functions
+%%%% ADD functions
 %%%% END functions
 
 

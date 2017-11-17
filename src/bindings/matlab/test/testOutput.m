@@ -141,6 +141,24 @@ if (isEnabled('qual'))
     end;
 
 end; 
+
+if (isEnabled('groups'))
+    disp('Reading groups-example1');
+    filename = ['test-data', filesep, 'groups-example1.xml'];    
+    outfile = [outdir, filesep, 'groups-example1.xml'];
+
+    model = TranslateSBML(filename);
+    if (~isempty(model))
+        disp(sprintf('Printing  %s', filename));
+        OutputSBML(model, outfile);
+    end;
+    test = test + 1;
+    if (compareFiles(filename, outfile))
+        disp(sprintf('Output of %s failed', outfile));
+        fail = fail + 1;
+    end;
+end; 
+
 disp ('************************************');
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));
