@@ -42,7 +42,7 @@ function enabled = isEnabled(package)
 % assume not enabled
 enabled = 0;
 
-supported = {'fbc'};
+supported = {'fbc', 'qual'};
 if ~ischar(package)
     disp('argument must be a string representing an SBML L3 package');
 elseif ~ismember(supported, package)
@@ -66,8 +66,8 @@ try
   
   delete(filename);
   
-catch
-  
+catch err
+  disp(err.identifier)
   delete(filename);
   
   return

@@ -444,6 +444,8 @@ void populatePackageLists()
   //reqdPkgPrefixes.append("spatial");
 
   unreqdPkgPrefixes.append("fbc");
+  unreqdPkgPrefixes.append("qual");
+  unreqdPkgPrefixes.append("groups");
 }
 
 
