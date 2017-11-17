@@ -1347,6 +1347,10 @@ Transition::createChildObject(const std::string& elementName)
   {
     return createFunctionTerm();
   }
+  else if (elementName == "defaultTerm")
+  {
+    return createDefaultTerm();
+  }
 
   return obj;
 }
@@ -1378,6 +1382,12 @@ Transition::addChildObject(const std::string& elementName,
   {
     return addFunctionTerm((const FunctionTerm*)(element));
   }
+  else if (elementName == "defaultTerm" && element->getTypeCode() ==
+    SBML_QUAL_DEFAULT_TERM)
+  {
+    return setDefaultTerm((const DefaultTerm*)(element));
+  }
+
 
   return LIBSBML_OPERATION_FAILED;
 }
@@ -1438,6 +1448,11 @@ Transition::getNumObjects(const std::string& elementName)
   {
     return getNumFunctionTerms();
   }
+  else if (elementName == "defaultTerm")
+  {
+    return (isSetDefaultTerm() ? 1 : 0);
+  }
+
 
   return n;
 }
@@ -1468,6 +1483,11 @@ Transition::getObject(const std::string& elementName, unsigned int index)
   {
     return getFunctionTerm(index);
   }
+  else if (elementName == "defaultTerm")
+  {
+    return getDefaultTerm();
+  }
+
 
   return obj;
 }
