@@ -46,6 +46,8 @@
 
 using namespace std;
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 static const SpeciesTypeComponentIndex * __getSpeciesTypeComponentIndexFromComponentId(const Model & model, const std::string & componentId)
 {
   const SpeciesTypeComponentIndex * stci = NULL;
@@ -322,6 +324,8 @@ static bool __isReferencedByChildCompartment(const Compartment * compartment, co
 
   return isReferenced;
 }
+
+LIBSBML_CPP_NAMESPACE_END
 
 
 //static const Compartment * __getParentCompartment(const Compartment * compartment)
@@ -772,7 +776,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiSubLofSpeFtrs_CpoAtt_Ref, SubListOfSpeciesFeatures, subListOfSpeciesFeatures)
 {
-	const MultiModelPlugin * mPlugin =
+  const MultiModelPlugin * mPlugin =
       dynamic_cast<const MultiModelPlugin*>(m.getPlugin("multi"));
 
   pre (mPlugin != 0);
@@ -781,11 +785,11 @@ START_CONSTRAINT (MultiSubLofSpeFtrs_CpoAtt_Ref, SubListOfSpeciesFeatures, subLi
 
   if (!valid) {
 
-	  const std::string& subLofSpeFtrsComponentId = subListOfSpeciesFeatures.getComponent();
+    const std::string& subLofSpeFtrsComponentId = subListOfSpeciesFeatures.getComponent();
 
-	  const MultiSpeciesType * st = __getSpeciesTypeFromComponentId(m, subLofSpeFtrsComponentId);
+    const MultiSpeciesType * st = __getSpeciesTypeFromComponentId(m, subLofSpeFtrsComponentId);
 
-	  valid = (st != NULL);
+    valid = (st != NULL);
   }
 
   inv(valid);
@@ -814,14 +818,14 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiExSpe_ReqSpt_LofSpeFtrs, Species, species)
 {
-	const MultiSpeciesPlugin * speciesPlugin =
-	      dynamic_cast<const MultiSpeciesPlugin*>(species.getPlugin("multi"));
+  const MultiSpeciesPlugin * speciesPlugin =
+        dynamic_cast<const MultiSpeciesPlugin*>(species.getPlugin("multi"));
 
-	  pre (speciesPlugin != 0);
+    pre (speciesPlugin != 0);
 
-	  if (speciesPlugin->getListOfSpeciesFeatures()->size() > 0) {
-	      inv (speciesPlugin->isSetSpeciesType());
-	  }
+    if (speciesPlugin->getListOfSpeciesFeatures()->size() > 0) {
+        inv (speciesPlugin->isSetSpeciesType());
+    }
 }
 END_CONSTRAINT
 
@@ -831,45 +835,45 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiSubLofSpeFtrs_RelationAndOcc, SubListOfSpeciesFeatures, subListOfSpeciesFeatures)
 {
-	bool valid = true;
+  bool valid = true;
 
-	if (subListOfSpeciesFeatures.isSetRelation() &&
-		subListOfSpeciesFeatures.getRelation() != MULTI_RELATION_AND)
-	{
-		unsigned i;
-		for (i = 0; valid && i < subListOfSpeciesFeatures.getNumSpeciesFeatures(); i++) {
-			const SpeciesFeature * spf = subListOfSpeciesFeatures.get(i);
-			const std::string& sftId = spf->getSpeciesFeatureType();
-			const std::string& componentId = spf->getComponent();
-			std::string& stId1 = const_cast<std::string&>(componentId);
-			if (componentId.empty()) {
-				const SBase * parent = subListOfSpeciesFeatures.getParentSBMLObject();
-				if (dynamic_cast<const ListOfSpeciesFeatures *>(parent)) {
-					parent = parent->getParentSBMLObject();
+  if (subListOfSpeciesFeatures.isSetRelation() &&
+    subListOfSpeciesFeatures.getRelation() != MULTI_RELATION_AND)
+  {
+    unsigned i;
+    for (i = 0; valid && i < subListOfSpeciesFeatures.getNumSpeciesFeatures(); i++) {
+      const SpeciesFeature * spf = subListOfSpeciesFeatures.get(i);
+      const std::string& sftId = spf->getSpeciesFeatureType();
+      const std::string& componentId = spf->getComponent();
+      std::string& stId1 = const_cast<std::string&>(componentId);
+      if (componentId.empty()) {
+        const SBase * parent = subListOfSpeciesFeatures.getParentSBMLObject();
+        if (dynamic_cast<const ListOfSpeciesFeatures *>(parent)) {
+          parent = parent->getParentSBMLObject();
 
-					const Species * sp =
-							dynamic_cast<const Species *> (parent);
+          const Species * sp =
+              dynamic_cast<const Species *> (parent);
 
-					if (sp != NULL) {
-						const MultiSpeciesPlugin * speciesPlugin =
-						      dynamic_cast<const MultiSpeciesPlugin*>(sp->getPlugin("multi"));
-						if (speciesPlugin != NULL) {
-							stId1 = speciesPlugin->getSpeciesType();
-						}
-					}
-				}
-			}
+          if (sp != NULL) {
+            const MultiSpeciesPlugin * speciesPlugin =
+                  dynamic_cast<const MultiSpeciesPlugin*>(sp->getPlugin("multi"));
+            if (speciesPlugin != NULL) {
+              stId1 = speciesPlugin->getSpeciesType();
+            }
+          }
+        }
+      }
 
       const std::string& stId = stId1;
-			const SpeciesFeatureType* sft = __getSpeciesTypeFromComponent(m, stId, sftId);
+      const SpeciesFeatureType* sft = __getSpeciesTypeFromComponent(m, stId, sftId);
 
-			if (sft && sft->getOccur() > 1) {
-				valid = false;
-			}
-		}
-	}
+      if (sft && sft->getOccur() > 1) {
+        valid = false;
+      }
+    }
+  }
 
-	inv(valid);
+  inv(valid);
 }
 END_CONSTRAINT
 
@@ -879,7 +883,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (MultiSubLofSpeFtrs_TwoSpeFtrs, SubListOfSpeciesFeatures, subListOfSpeciesFeatures)
 {
-	inv(subListOfSpeciesFeatures.getNumSpeciesFeatures() > 1);
+  inv(subListOfSpeciesFeatures.getNumSpeciesFeatures() > 1);
 }
 END_CONSTRAINT
 

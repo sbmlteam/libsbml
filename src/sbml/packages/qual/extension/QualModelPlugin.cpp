@@ -1149,7 +1149,6 @@ QualModelPlugin::enablePackageInternal(const std::string& pkgURI,
 }
 /** @endcond */
 
-LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
