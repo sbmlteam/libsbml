@@ -2,33 +2,91 @@
 
 
 ====================================================================
-5.15.3 (Current SVN)
+5.16.0 (2017-12-07)
 ====================================================================
 
 STABLE RELEASE
 
+
 * New features
+
+  - The MATLAB interface now supports both the 'qual' and 'groups' 
+    packages , in addition to 'fbc'. 
+
+  - Unit checking has been expanded to include checking the <math>
+    of <trigger>, <constraint> and <stoichiometryMath> to at least
+    allow detection of values with undeclared units.
 	
   - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'qual' package-specific updates:
+
+    - There has been some improvements made to the reporting of line
+      numbers for errors and warnings.
 
 * Bug fixes
 
-  - 'comp' package-specific bug fixes:
+  - Validation was failing to distinguish between LocalParameters 
+    in L3V1 and Parameters when reporting errors. This is fixed.
+
+  - An L3V2 <reaction> element was incorrectly reporting that 
+    'fast' was a required attribute.
+
+  - The C API does not work with default arguments. There were a few
+    stray ones; which have been removed.
+
+  - The SBMLTransforms::evaluateASTNode function was failing to check
+    that model values had been evaluated prior to trying to evaluate
+    an ASTNode. The function now checks whether the map of values is
+    present and populates it, if necessary.
+
+  - Code that checked the syntax for attributes of type ID and IDREF 
+    was not always using the appropriate function. These cases have been
+    fixed.
+
+  - The use of an invalid syntax as the sbml:units attribute on a math
+    <cn> element was not being detected. This has been fixed. Thanks
+    to Nicolas Rodriguez for the report.
+
+  - The SBMLTransforms::evaluateASTNode function was missing the 
+    fact that in SBML L2 stoichiomtery defaulted to '1'. This has
+    been corrected. 
+
+  - The use of certain combinations of text elements in a <notes> element
+    could derail the entire indentation of the document. This has been
+    reported by several people. Hopefully this time we have fixed the
+    situation for all cases where it may occur. 
+
   - 'fbc' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
+
+    - Validation was incorrectly reporting an empty <listOfFluxObjectives>
+      when a model was being created and did in fact have a <fluxObjective>
+      element. This has been fixed. Thanks to Arthur Goldberg for 
+      reporting it.
+
+    - An empty <geneProductAssociation> was causing reading to crash. This
+      no longer happens.
+
   - 'layout' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
+
+    - Conversion between Level 2 annotations using both layout and render
+      and Level 3 packages has been corrected.
+  
   - 'qual' package-specific bug fixes:
+
+     - Functions to get and get math on a <functionTerm> element were missing
+       from the C API. These have been added.
 
 * Configuration/build system changes
 
+  - Sourceforge Tracker #447: Configuration no longer defines
+    HAVE_IEEEFP_H when using MSVC compilers as it is not needed 
+    and not always present. Thanks to Alan Garny for spotting this.
+
 
 * Miscellaneous
+
+  - Documentation for the C API has been extensively improved.
+
+  - Support has been added for Python 2 unicode input.
 
 
 EXPERIMENTAL RELEASE
@@ -48,6 +106,11 @@ EXPERIMENTAL RELEASE
   - 'distrib' package-specific bug fixes:
   - 'dyn' package-specific bug fixes:
   - 'render' package-specific bug fixes:
+
+    - Conversion between Level 2 annotations using both layout and render
+      and Level 3 packages has been corrected.
+
+
   - 'req' package-specific bug fixes:
   - 'spatial' package-specific bug fixes:
 
