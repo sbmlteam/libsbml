@@ -609,7 +609,7 @@ typedef enum
     SETOPERATION_UNKNOWN  /*!< Unknown SetOperation */
   , SPATIAL_SETOPERATION_UNION /*!< union */
   , SPATIAL_SETOPERATION_INTERSECTION /*!< intersection */
-  , SPATIAL_SETOPERATION_RELATIVECOMPLEMENT /*!< relativeComplement */
+  , SPATIAL_SETOPERATION_DIFFERENCE /*!< difference */
 } SetOperation_t;
 
 

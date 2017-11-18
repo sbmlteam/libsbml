@@ -907,7 +907,7 @@ const char * SBML_SETOPERATION_STRINGS[] =
    "Unknown SetOperation"
  , "union"
  , "intersection"
- , "relativeComplement"
+ , "difference"
 };
 
 
@@ -919,7 +919,7 @@ const char *
 SetOperation_toString(SetOperation_t typeCode)
 {
   int min = SETOPERATION_UNKNOWN;
-  int max = SPATIAL_SETOPERATION_RELATIVECOMPLEMENT;
+  int max = SPATIAL_SETOPERATION_DIFFERENCE;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -964,7 +964,7 @@ int
 SetOperation_isValid(SetOperation_t so)
 {
   int min = SETOPERATION_UNKNOWN;
-  int max = SPATIAL_SETOPERATION_RELATIVECOMPLEMENT;
+  int max = SPATIAL_SETOPERATION_DIFFERENCE;
 
   if (so <= min || so > max)
   {

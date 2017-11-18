@@ -1976,7 +1976,7 @@ static const packageErrorTableEntry spatialErrorTable[] =
     "object must conform to the syntax of SBML data type 'setOperation' and may "
     "only take on the allowed values of 'setOperation' defined in SBML; that "
     "is, the value must be one of the following: 'union', 'intersection' or "
-    "'relativeComplement'.",
+    "'difference'.",
     { "L3V1 Spatial V1 Section"
     }
   },
