@@ -93,26 +93,27 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
   - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
+
+    - At the request of the SBMLEditors the attribute 'name' has been
+      added to render elements.
 
  * Bug fixes
  
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
   - 'render' package-specific bug fixes:
 
     - Conversion between Level 2 annotations using both layout and render
       and Level 3 packages has been corrected.
 
-
-  - 'req' package-specific bug fixes:
   - 'spatial' package-specific bug fixes:
+
+    - There was a mismatch in the SetOperation enumeration in the
+      specification.  This has been agreed as 'union', 'intersection'
+      and 'difference' and libSBML code has changed to reflect this.
+
+    - Corrected the output of a <csGeometry> element to correctly use
+      an upper case G.
+      
 
 
 ====================================================================
