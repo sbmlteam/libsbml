@@ -1547,6 +1547,7 @@ START_TEST(test_Elements_Model)
   fail_unless(m->getNumSpecies() == 1);
   fail_unless(m->getNumObjects("species") == 1);
 
+  delete s2;
   delete ss;
   delete m;
 }
@@ -1581,6 +1582,7 @@ START_TEST(test_Elements_Event)
   fail_unless(e->isSetTrigger() == true);
   fail_unless(e->getNumObjects("trigger") == 1);
 
+  delete t1;
   Trigger *t2 = (Trigger*)(e->removeChildObject("trigger", ""));
 
   fail_unless(t2 != NULL);
