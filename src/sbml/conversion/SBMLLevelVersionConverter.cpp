@@ -63,6 +63,8 @@ void SBMLLevelVersionConverter::init()
 
 SBMLLevelVersionConverter::SBMLLevelVersionConverter () 
   : SBMLConverter("SBML Level Version Converter")
+  , mSRIds (NULL)
+  , mMathElements (NULL)
 {
 }
 
@@ -71,7 +73,9 @@ SBMLLevelVersionConverter::SBMLLevelVersionConverter ()
  * Copy constructor.
  */
 SBMLLevelVersionConverter::SBMLLevelVersionConverter(const SBMLLevelVersionConverter& orig) :
-    SBMLConverter(orig)
+    SBMLConverter(orig),
+  mSRIds (NULL)
+  , mMathElements (NULL)
 {
 }
 
@@ -81,6 +85,8 @@ SBMLLevelVersionConverter::SBMLLevelVersionConverter(const SBMLLevelVersionConve
  */
 SBMLLevelVersionConverter::~SBMLLevelVersionConverter ()
 {
+  delete mSRIds;
+  delete mMathElements;
 }
 
 
@@ -1165,6 +1171,15 @@ containsId(const ASTNode* ast, std::string id)
   return present;
 }
 
+void
+SBMLLevelVersionConverter::populateMathElements()
+{
+  MathFilter *mfilter = new MathFilter();
+  mMathElements = mDocument->getAllElements(mfilter);
+  delete mfilter;
+
+}
+
 bool
 SBMLLevelVersionConverter::speciesReferenceIdUsed()
 {
@@ -1177,18 +1192,23 @@ SBMLLevelVersionConverter::speciesReferenceIdUsed()
   //  return used;
   //}
 
-  IdList* srids = collectSpeciesReferenceIds();
+  if (mSRIds == NULL)
+  {
+    mSRIds = collectSpeciesReferenceIds();
+  }
 
-  MathFilter *mfilter = new MathFilter();
-  List* mathelements = mDocument->getAllElements(mfilter);
+  if (mMathElements == NULL)
+  {
+    populateMathElements();
+  }
 
   unsigned int i = 0;
-  while (!used && i < mathelements->getSize())
+  while (!used && i < mMathElements->getSize())
   {
-    const ASTNode* ast = static_cast<SBase*>(mathelements->get(i))->getMath();
-    for (unsigned int j = 0; j < srids->size(); j++)
+    const ASTNode* ast = static_cast<SBase*>(mMathElements->get(i))->getMath();
+    for (unsigned int j = 0; j < mSRIds->size(); j++)
     {
-      used = containsId(ast, srids->at(j));
+      used = containsId(ast, mSRIds->at(j));
       if (used) break;
     }
     i++;

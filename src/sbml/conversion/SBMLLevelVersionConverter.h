@@ -285,6 +285,10 @@ private:
   bool speciesReferenceIdUsed();
 
   IdList* collectSpeciesReferenceIds();
+  void populateMathElements();
+
+  IdList* mSRIds;
+  List* mMathElements;
 
   /** @endcond */
 };
