@@ -831,6 +831,8 @@ def rewriteClassRef (match):
 
 
 def translateCrossRefs (str):
+  if str is None:
+    return ''
   if re.search('@sbml(global)?function', str) != None:
     p = re.compile('@sbmlfunction{([^}]+?)}')
     str = p.sub(translateSBMLFunctionRef, str)
