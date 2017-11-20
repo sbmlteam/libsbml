@@ -1070,7 +1070,7 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft);
  * @param ft the FunctionTerm_t structure whose math is sought.
  *
  * @return the value of the "math" element of this FunctionTerm_t as a
- * ASTNode*.
+ * ASTNode_t.
  *
  * @memberof FunctionTerm_t
  */
@@ -1100,7 +1100,7 @@ FunctionTerm_isSetMath(const FunctionTerm_t * ft);
  *
  * @param ft the FunctionTerm_t structure.
  *
- * @param math ASTNode_t* value of the "math" element to be set.
+ * @param math ASTNode_t value of the "math" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1132,7 +1132,7 @@ FunctionTerm_unsetMath(FunctionTerm_t * ft);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
+  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
   * all the required attributes for the given FunctionTerm_t structure
   * have been set.
   *
@@ -1144,7 +1144,7 @@ FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
+  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
   * all the required elements for the given FunctionTerm_t structure
   * have been set.
   *
