@@ -890,13 +890,16 @@ START_TEST(test_SBMLTransforms_evaluateAST_L2SpeciesReference)
   pSR->setId("SR");
   pSR->setSpecies("A");
   KineticLaw* pKL = pReaction->createKineticLaw();
-  pKL->setFormula("A*0.1");
+  ASTNode * node = SBML_parseL3Formula("A*0.1");
+  pKL->setMath(node);
+  delete node;
 
-  double value = SBMLTransforms::evaluateASTNode(SBML_parseFormula("SR"), pMod);
+  node = SBML_parseFormula("SR");
+  double value = SBMLTransforms::evaluateASTNode(node, pMod);
 
   fail_unless(value == 1.0);
 
-
+  delete node;
 }
 END_TEST
 
