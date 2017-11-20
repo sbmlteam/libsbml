@@ -857,6 +857,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
     {
       noUndeclared++;
     }
+    delete tempUd;
   }
   
   if (noUndeclared == 0)
