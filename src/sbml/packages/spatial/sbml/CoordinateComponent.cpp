@@ -1337,6 +1337,9 @@ CoordinateComponent::createObject(XMLInputStream& stream)
       getErrorLog()->logPackageError("spatial",
         SpatialCoordinateComponentAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
+      
+      delete mBoundaryMin;
+      mBoundaryMin = NULL;
     }
 
     mBoundaryMin = new Boundary(spatialns);
@@ -1350,6 +1353,9 @@ CoordinateComponent::createObject(XMLInputStream& stream)
       getErrorLog()->logPackageError("spatial",
         SpatialCoordinateComponentAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
+      
+      delete mBoundaryMax;
+      mBoundaryMax = NULL;
     }
 
     mBoundaryMax = new Boundary(spatialns);

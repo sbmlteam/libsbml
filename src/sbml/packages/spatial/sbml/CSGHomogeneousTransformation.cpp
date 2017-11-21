@@ -1052,6 +1052,9 @@ CSGHomogeneousTransformation::createObject(XMLInputStream& stream)
       getErrorLog()->logPackageError("spatial",
         SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
+
+      delete mForwardTransformation;
+      mForwardTransformation = NULL;
     }
 
     mForwardTransformation = new TransformationComponent(spatialns);
@@ -1065,6 +1068,9 @@ CSGHomogeneousTransformation::createObject(XMLInputStream& stream)
       getErrorLog()->logPackageError("spatial",
         SpatialCSGHomogeneousTransformationAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
+
+      delete mReverseTransformation;
+      mReverseTransformation = NULL;
     }
 
     mReverseTransformation = new TransformationComponent(spatialns);

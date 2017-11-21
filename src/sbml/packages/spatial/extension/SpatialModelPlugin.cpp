@@ -818,6 +818,9 @@ SpatialModelPlugin::createObject (XMLInputStream& stream)
       {
         getErrorLog()->logPackageError("spatial", SpatialModelAllowedElements,
           getPackageVersion(), getLevel(), getVersion());
+
+        delete mGeometry;
+        mGeometry = NULL;
       }
 
       mGeometry = new Geometry(spatialns);

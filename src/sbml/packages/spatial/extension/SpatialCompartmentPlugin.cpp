@@ -847,6 +847,9 @@ SpatialCompartmentPlugin::createObject (XMLInputStream& stream)
         getErrorLog()->logPackageError("spatial",
           SpatialCompartmentAllowedElements, getPackageVersion(), getLevel(),
             getVersion());
+
+        delete mCompartmentMapping;
+        mCompartmentMapping = NULL;
       }
 
       mCompartmentMapping = new CompartmentMapping(spatialns);

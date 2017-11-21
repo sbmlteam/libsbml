@@ -1044,6 +1044,9 @@ ParametricGeometry::createObject(XMLInputStream& stream)
       getErrorLog()->logPackageError("spatial",
         SpatialParametricGeometryAllowedElements, getPackageVersion(),
           getLevel(), getVersion());
+
+      delete mSpatialPoints;
+      mSpatialPoints = NULL;
     }
 
     mSpatialPoints = new SpatialPoints(spatialns);
