@@ -5,8 +5,18 @@
 5.16.0 (2017-12-07)
 ====================================================================
 
+
+
 STABLE RELEASE
 
+* Note
+
+  The L3 Render Package has been approved by the SBML Editors but due
+  to time constraints has not yet been included in the stable release 
+  of libSBML.
+
+  There have been two implementations of SBML L3V2 Core and this code
+  can now be considered stable and will only change for bug fixes.
 
 * New features
 
@@ -87,6 +97,10 @@ STABLE RELEASE
   - Documentation for the C API has been extensively improved.
 
   - Support has been added for Python 2 unicode input.
+
+  - Currently we supply lib files built with MSVC2010 as part of the 
+    windows installers. These will be removed from future releases. 
+    Please let us know if this is an issue for you.
 
 
 EXPERIMENTAL RELEASE
