@@ -150,17 +150,17 @@ public:
 
 
    /**
-   * Returns the  "ListOfFbcAssociations" in this FbcAnd object.
+   * Returns the ListOfFbcAssociations in this FbcAnd object.
    *
-   * @return the "ListOfFbcAssociations" attribute of this FbcAnd.
+   * @return the ListOfFbcAssociations child of this FbcAnd.
    */
   const ListOfFbcAssociations* getListOfAssociations() const;
 
 
   /**
-   * Returns the  "ListOfFbcAssociations" in this FbcAnd object.
+   * Returns the ListOfFbcAssociations in this FbcAnd object.
    *
-   * @return the "ListOfFbcAssociations" attribute of this FbcAnd.
+   * @return the ListOfFbcAssociations child of this FbcAnd.
    */
   ListOfFbcAssociations* getListOfAssociations();
 

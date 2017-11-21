@@ -365,17 +365,17 @@ public:
 
 
   /**
-   * Returns the  "ListOfSpeciesFeatureValues" in this SpeciesFeature object.
+   * Returns the ListOfSpeciesFeatureValues in this SpeciesFeature object.
    *
-   * @return the "ListOfSpeciesFeatureValues" attribute of this SpeciesFeature.
+   * @return the ListOfSpeciesFeatureValues child of this SpeciesFeature.
    */
   const ListOfSpeciesFeatureValues* getListOfSpeciesFeatureValues() const;
 
 
   /**
-   * Returns the  "ListOfSpeciesFeatureValues" in this SpeciesFeature object.
+   * Returns the ListOfSpeciesFeatureValues in this SpeciesFeature object.
    *
-   * @return the "ListOfSpeciesFeatureValues" attribute of this SpeciesFeature.
+   * @return the ListOfSpeciesFeatureValues child of this SpeciesFeature.
    */
   ListOfSpeciesFeatureValues* getListOfSpeciesFeatureValues();
 

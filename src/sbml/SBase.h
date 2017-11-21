@@ -2511,6 +2511,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
+   * The returned plug-in will be the appropriate type of plugin requested:
+   * calling Model::getPlugin("fbc") will return an FbcModelPlugin; calling
+   * Parameter::getPlugin("comp") will return CompSBasePlugin, etc.
+   *
+   * If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -2527,6 +2532,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns a plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension with the given package name or URI.
+   * The returned plug-in will be the appropriate type of plugin requested:
+   * calling Model::getPlugin("fbc") will return an FbcModelPlugin; calling
+   * Parameter::getPlugin("comp") will return CompSBasePlugin, etc.
+   *
+   * If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -2543,6 +2553,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
+   * The returned plug-in will be the appropriate type of plugin requested:
+   * calling Model::getPlugin("fbc") will return an FbcModelPlugin; calling
+   * Parameter::getPlugin("comp") will return CompSBasePlugin, etc.
+   *
+   * If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -2560,6 +2575,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the nth plug-in object (extension interface) for an SBML Level&nbsp;3
    * package extension.
+   * The returned plug-in will be the appropriate type of plugin requested:
+   * calling Model::getPlugin("fbc") will return an FbcModelPlugin; calling
+   * Parameter::getPlugin("comp") will return CompSBasePlugin, etc.
+   *
+   * If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -2576,7 +2596,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns the nth disabled plug-in object (extension interface) for an SBML Level&nbsp;3
-   * package extension.
+   * package extension.  If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -2595,7 +2615,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns the nth disabled plug-in object (extension interface) for an SBML Level&nbsp;3
-   * package extension.
+   * package extension.  If no such plugin exists, NULL is returned.
    *
    * @copydetails doc_what_are_plugins
    *
@@ -5025,6 +5045,11 @@ SBase_getNumPlugins(SBase_t *sb);
 /**
  * Returns a plug-in structure (extension interface) for an SBML Level&nbsp;3
  * package extension with the given package name or URI.
+ * The returned plug-in will be the appropriate type of plugin requested:
+ * calling SBase_getPlugin(model, "fbc") will return an FbcModelPlugin; calling
+ * SBase_getPlugin(parameter, "comp") will return CompSBasePlugin, etc.
+ *
+ * If no such plugin exists, NULL is returned.
  *
  * @copydetails doc_what_are_plugins
  *

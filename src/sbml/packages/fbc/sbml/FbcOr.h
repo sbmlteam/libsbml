@@ -149,17 +149,17 @@ public:
 
 
    /**
-   * Returns the  "ListOfFbcAssociations" in this FbcOr object.
+   * Returns the ListOfFbcAssociations in this FbcOr object.
    *
-   * @return the "ListOfFbcAssociations" attribute of this FbcOr.
+   * @return the ListOfFbcAssociations child of this FbcOr.
    */
   const ListOfFbcAssociations* getListOfAssociations() const;
 
 
   /**
-   * Returns the  "ListOfFbcAssociations" in this FbcOr object.
+   * Returns the ListOfFbcAssociations in this FbcOr object.
    *
-   * @return the "ListOfFbcAssociations" attribute of this FbcOr.
+   * @return the ListOfFbcAssociations child of this FbcOr.
    */
   ListOfFbcAssociations* getListOfAssociations();
 

@@ -79,7 +79,7 @@
  * define @c foot as a measure of length in terms of a @c metre.  The
  * "multiplier" attribute is optional in SBML Level&nbsp;2, where it has a
  * default value of @c 1 (one); in SBML Level&nbsp;3, the attribute is
- * mandatory and has not default value.
+ * mandatory and has no default value.
  *
  * @if clike
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>

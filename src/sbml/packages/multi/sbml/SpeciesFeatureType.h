@@ -278,7 +278,7 @@ public:
    * Returns the ListOfPossibleSpeciesFeatureValues in this
    * SpeciesFeatureType object.
    *
-   * @return the ListOfPossibleSpeciesFeatureValues attribute of this
+   * @return the ListOfPossibleSpeciesFeatureValues child of this
    * SpeciesFeatureType.
    */
   const ListOfPossibleSpeciesFeatureValues* getListOfPossibleSpeciesFeatureValues() const;
@@ -288,7 +288,7 @@ public:
    * Returns the ListOfPossibleSpeciesFeatureValues in this
    * SpeciesFeatureType object.
    *
-   * @return the ListOfPossibleSpeciesFeatureValues attribute of this
+   * @return the ListOfPossibleSpeciesFeatureValues child of this
    * SpeciesFeatureType.
    */
   ListOfPossibleSpeciesFeatureValues* getListOfPossibleSpeciesFeatureValues();

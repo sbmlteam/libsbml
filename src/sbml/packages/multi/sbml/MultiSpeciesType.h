@@ -285,18 +285,18 @@ public:
 
 
   /**
-   * Returns the "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
+   * Returns the ListOfSpeciesFeatureTypes in this MultiSpeciesType object.
    *
-   * @return the "ListOfSpeciesFeatureTypes" attribute of this
+   * @return the ListOfSpeciesFeatureTypes child of this
    * MultiSpeciesType.
    */
   const ListOfSpeciesFeatureTypes* getListOfSpeciesFeatureTypes() const;
 
 
   /**
-   * Returns the "ListOfSpeciesFeatureTypes" in this MultiSpeciesType object.
+   * Returns the ListOfSpeciesFeatureTypes in this MultiSpeciesType object.
    *
-   * @return the "ListOfSpeciesFeatureTypes" attribute of this
+   * @return the ListOfSpeciesFeatureTypes child of this
    * MultiSpeciesType.
    */
   ListOfSpeciesFeatureTypes* getListOfSpeciesFeatureTypes();
@@ -423,20 +423,20 @@ public:
 
 
   /**
-   * Returns the "ListOfSpeciesTypeInstances" in this MultiSpeciesType
+   * Returns the ListOfSpeciesTypeInstances in this MultiSpeciesType
    * object.
    *
-   * @return the "ListOfSpeciesTypeInstances" attribute of this
+   * @return the ListOfSpeciesTypeInstances child of this
    * MultiSpeciesType.
    */
   const ListOfSpeciesTypeInstances* getListOfSpeciesTypeInstances() const;
 
 
   /**
-   * Returns the "ListOfSpeciesTypeInstances" in this MultiSpeciesType
+   * Returns the ListOfSpeciesTypeInstances in this MultiSpeciesType
    * object.
    *
-   * @return the "ListOfSpeciesTypeInstances" attribute of this
+   * @return the ListOfSpeciesTypeInstances child of this
    * MultiSpeciesType.
    */
   ListOfSpeciesTypeInstances* getListOfSpeciesTypeInstances();
@@ -705,7 +705,7 @@ public:
   /**
    * Returns the ListOfInSpeciesTypeBonds object.
    *
-   * @return the ListOfInSpeciesTypeBonds attribute of this MultiSpeciesType.
+   * @return the ListOfInSpeciesTypeBonds child of this MultiSpeciesType.
    */
   const ListOfInSpeciesTypeBonds* getListOfInSpeciesTypeBonds() const;
 
@@ -713,7 +713,7 @@ public:
   /**
    * Returns the ListOfInSpeciesTypeBonds object.
    *
-   * @return the ListOfInSpeciesTypeBonds attribute of this MultiSpeciesType.
+   * @return the ListOfInSpeciesTypeBonds child of this MultiSpeciesType.
    */
   ListOfInSpeciesTypeBonds* getListOfInSpeciesTypeBonds();
 

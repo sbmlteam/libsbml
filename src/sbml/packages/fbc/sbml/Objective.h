@@ -296,9 +296,13 @@ public:
 
 
   /**
-   * Sets the SIdRef string of the "type" attribute of this Objective.
+   * Sets the value of the "type" attribute of this Objective.
+   * The @p type must be a valid #ObjectiveType_t value
    *
-   * @param type a SIdRef string to be set.
+   * @param type string value of the "type" attribute to be set.  Valid values
+   * include:
+   * @li @sbmlconstant{OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t}
+   * @li @sbmlconstant{OBJECTIVE_TYPE_MINIMIZE, ObjectiveType_t}
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -310,7 +314,10 @@ public:
   /**
    * Sets the value of the "type" attribute of this Objective.
    *
-   * @param type string value of the "type" attribute to be set.
+   * @param type string value of the "type" attribute to be set.  Valid values
+   * include:
+   * @li "maximize" (@sbmlconstant{OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t})
+   * @li "minimize" (@sbmlconstant{OBJECTIVE_TYPE_MINIMIZE, ObjectiveType_t})
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -346,17 +353,17 @@ public:
 
 
   /**
-   * Returns the  "ListOfFluxObjectives" in this Objective object.
+   * Returns the ListOfFluxObjectives in this Objective object.
    *
-   * @return the "ListOfFluxObjectives" attribute of this Objective.
+   * @return the ListOfFluxObjectives child of this Objective.
    */
   const ListOfFluxObjectives* getListOfFluxObjectives() const;
 
 
   /**
-   * Returns the  "ListOfFluxObjectives" in this Objective object.
+   * Returns the ListOfFluxObjectives in this Objective object.
    *
-   * @return the "ListOfFluxObjectives" attribute of this Objective.
+   * @return the ListOfFluxObjectives child of this Objective.
    */
   ListOfFluxObjectives* getListOfFluxObjectives();
 
@@ -1519,7 +1526,9 @@ Objective_setName(Objective_t * o, const char * name);
  * @param o the Objective_t structure.
  *
  * @param type the string to which the structures "type" attribute should be
- * set.
+ * set.  Valid values include:
+ * @li "maximize" (@sbmlconstant{OBJECTIVE_TYPE_MAXIMIZE, ObjectiveType_t})
+ * @li "minimize" (@sbmlconstant{OBJECTIVE_TYPE_MINIMIZE, ObjectiveType_t})
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

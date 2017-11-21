@@ -262,17 +262,17 @@ public:
 
 
   /**
-   * Returns the  "ListOfInputs" in this Transition object.
+   * Returns the ListOfInputs in this Transition object.
    *
-   * @return the "ListOfInputs" attribute of this Transition.
+   * @return the ListOfInputs child of this Transition.
    */
   const ListOfInputs* getListOfInputs() const;
 
 
   /**
-   * Returns the  "ListOfInputs" in this Transition object.
+   * Returns the ListOfInputs in this Transition object.
    *
-   * @return the "ListOfInputs" attribute of this Transition.
+   * @return the ListOfInputs child of this Transition.
    */
   ListOfInputs* getListOfInputs();
 
@@ -433,17 +433,17 @@ public:
 
 
   /**
-   * Returns the  "ListOfOutputs" in this Transition object.
+   * Returns the ListOfOutputs in this Transition object.
    *
-   * @return the "ListOfOutputs" attribute of this Transition.
+   * @return the ListOfOutputs child of this Transition.
    */
   const ListOfOutputs* getListOfOutputs() const;
 
 
   /**
-   * Returns the  "ListOfOutputs" in this Transition object.
+   * Returns the ListOfOutputs in this Transition object.
    *
-   * @return the "ListOfOutputs" attribute of this Transition.
+   * @return the ListOfOutputs child of this Transition.
    */
   ListOfOutputs* getListOfOutputs();
 
@@ -605,17 +605,17 @@ public:
 
 
   /**
-   * Returns the  "ListOfFunctionTerms" in this Transition object.
+   * Returns the ListOfFunctionTerms in this Transition object.
    *
-   * @return the "ListOfFunctionTerms" attribute of this Transition.
+   * @return the ListOfFunctionTerms child of this Transition.
    */
   const ListOfFunctionTerms* getListOfFunctionTerms() const;
 
 
   /**
-   * Returns the  "ListOfFunctionTerms" in this Transition object.
+   * Returns the ListOfFunctionTerms in this Transition object.
    *
-   * @return the "ListOfFunctionTerms" attribute of this Transition.
+   * @return the ListOfFunctionTerms child of this Transition.
    */
   ListOfFunctionTerms* getListOfFunctionTerms();
 

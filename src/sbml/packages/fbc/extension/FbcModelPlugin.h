@@ -715,21 +715,21 @@ public:
   int unsetActiveObjectiveId();
 
   /**
-   * Returns the "ListOfGeneProducts" in this FbcModelPlugin object.
+   * Returns the ListOfGeneProducts in this FbcModelPlugin object.
    *
    * @copydetails doc_note_geneproduct_v2_only
    *
-   * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
+   * @return the ListOfGeneProducts child of this FbcModelPlugin.
    */
   const ListOfGeneProducts* getListOfGeneProducts() const;
 
 
   /**
-   * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+   * Returns the ListOfGeneProducts in this FbcModelPlugin object.
    *
    * @copydetails doc_note_geneproduct_v2_only
    *
-   * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
+   * @return the ListOfGeneProducts child of this FbcModelPlugin.
    */
   ListOfGeneProducts* getListOfGeneProducts();
 

@@ -120,7 +120,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     LIBSBML_SEV_ERROR,
     "In all SBML documents using the Flux Balance Constraints "
     "package, the SBML object must include a value for the attribute "
-    "'fbc:required.",
+    "'fbc:required'.",
     { "L3V1 Core Section 4.1.2",
       "L3V1 Core Section 4.1.2"
     }
