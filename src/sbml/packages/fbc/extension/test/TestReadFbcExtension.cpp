@@ -572,6 +572,8 @@ START_TEST(test_FbcExtension_read_L3V2V1_check_id)
 
   fail_unless(equals(s1, output));
 
+  safe_free(output);
+
   delete document;
 }
 END_TEST
