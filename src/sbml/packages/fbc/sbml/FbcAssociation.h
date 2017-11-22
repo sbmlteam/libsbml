@@ -1047,15 +1047,48 @@ ListOfFbcAssociations_removeById(ListOf_t * lo, const char * sid);
 
 
 /**
-* @memberof FbcAssociation_t
-*/
+ * Converts this FbcAssociation_t into an infix string representation.
+ *
+ * @param fa the FbcAssociation_t structure to convert.
+ *
+ * @return the association as infix string.
+ *
+ * @memberof FbcAssociation_t
+ */
 LIBSBML_EXTERN
 char *
 FbcAssociation_toInfix(const FbcAssociation_t * fa);
 
 /**
-* @memberof FbcAssociation_t
-*/
+ * Parses a gene association in infix format and returns a corresponding
+ * Association object.
+ *
+ * This parses a string that has a list of gene names and conjunctions
+ * or disjunctions.  For example:
+ * @verbatim
+ (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
+@endverbatim
+ *
+ * The 'and' operator takes precedence over the 'or' operator, meaning that
+ * the above input string would turn into two groups of gene names: either
+ * "b2422, b2425, b2423, and b2424" or "b2422, b2423, b2424, b2413, and b3917".
+ * Parentheses may be added to make things more clear, and to encode
+ * alternative schemes.
+ * 
+ * This method also creates missing GeneProduct objects, in case the unique
+ * reference does not yet exist.
+ * 
+ * Note that the function assumes that the infix contains identifiers and not
+ * labels, and that any missing geneProducts are to be added.
+ *
+ * @param infix the string to parse.
+ * @param plugin the FbcModelPlugin on which to add the geneProduct elements.
+ *
+ * @return the parsed association, or @c NULL in case of an error.
+ *
+ * @copydetails doc_note_static_methods
+ * @memberof FbcAssociation_t
+ */
 LIBSBML_EXTERN
 FbcAssociation_t*
 FbcAssociation_parseFbcInfixAssociation(const char * infix, SBasePlugin_t* plugin);
