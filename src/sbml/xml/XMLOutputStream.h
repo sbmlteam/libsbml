@@ -764,6 +764,11 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    */
   static void setLibraryVersion(const std::string& libraryVersion);
 
+  /** @cond doxygenLibsbmlInternal */
+  unsigned int getIndent();
+  void setIndent(unsigned int indent);
+  /** @endcond */
+
 private:
   /** @cond doxygenLibsbmlInternal */
   /**

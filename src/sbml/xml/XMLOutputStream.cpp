@@ -1150,6 +1150,16 @@ void XMLOutputStream::setLibraryVersion(const string& libraryVersion)
   mLibraryVersion = libraryVersion;
 }
 
+unsigned int XMLOutputStream::getIndent()
+{
+  return mIndent;
+}
+
+void XMLOutputStream::setIndent(unsigned int indent)
+{
+  mIndent = indent;
+}
+
 XMLOutputStream::~XMLOutputStream()
 {
   if (mSBMLns != NULL) 
