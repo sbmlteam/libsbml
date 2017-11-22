@@ -222,6 +222,13 @@ CompModelPlugin::getListOfSubmodels () const
 }
 
 
+ListOfSubmodels*
+CompModelPlugin::getListOfSubmodels()
+{
+  return &mListOfSubmodels;
+}
+
+
 Submodel*
 CompModelPlugin::removeSubmodel(unsigned int index)
 {
@@ -308,10 +315,20 @@ CompModelPlugin::createSubmodel ()
 
 
 /*
- * Returns the listofports object that holds all ports.
- */ 
+ * Returns the ListOfPorts from this CompModelPlugin.
+ */
 const ListOfPorts*
-CompModelPlugin::getListOfPorts () const
+CompModelPlugin::getListOfPorts() const
+{
+  return &mListOfPorts;
+}
+
+
+/*
+ * Returns the ListOfPorts from this CompModelPlugin.
+ */
+ListOfPorts*
+CompModelPlugin::getListOfPorts()
 {
   return &mListOfPorts;
 }
@@ -1398,15 +1415,167 @@ CompModelPlugin::getRemovedSet()
 /** @endcond */
 
 #endif /* __cplusplus */
-/** @cond doxygenIgnored */
+
+
+/*
+ * Creates a new Submodel_t object, adds it to this CompModelPlugin_t object
+ * and returns the Submodel_t object created.
+ */
 LIBSBML_EXTERN
-Submodel_t *
-CompModelPlugin_createSubmodel(CompModelPlugin_t * modelPlug)
+Submodel_t*
+CompModelPlugin_createSubmodel(CompModelPlugin_t* cmp)
 {
-  return modelPlug->createSubmodel();
+  return (cmp != NULL) ? cmp->createSubmodel() : NULL;
 }
-/** @endcond */
+
+
+/*
+ * Returns a ListOf_t * containing Submodel_t objects from this
+ * CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+CompModelPlugin_getListOfSubmodels(CompModelPlugin_t* cmp)
+{
+  return (cmp != NULL) ? cmp->getListOfSubmodels() : NULL;
+}
+
+
+/*
+ * Get a Submodel_t from the CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+Submodel_t*
+CompModelPlugin_getSubmodel(CompModelPlugin_t* cmp, unsigned int n)
+{
+  return (cmp != NULL) ? cmp->getSubmodel(n) : NULL;
+}
+
+
+/*
+ * Get a Submodel_t from the CompModelPlugin_t based on its identifier.
+ */
+LIBSBML_EXTERN
+Submodel_t*
+CompModelPlugin_getSubmodelById(CompModelPlugin_t* cmp, const char *sid)
+{
+  return (cmp != NULL && sid != NULL) ? cmp->getSubmodel(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given Submodel_t to this CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+CompModelPlugin_addSubmodel(CompModelPlugin_t* cmp, const Submodel_t* s)
+{
+  return (cmp != NULL) ? cmp->addSubmodel(s) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of Submodel_t objects in this CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+CompModelPlugin_getNumSubmodels(CompModelPlugin_t* cmp)
+{
+  return (cmp != NULL) ? cmp->getNumSubmodels() : SBML_INT_MAX;
+}
+
+
+/*
+ * Removes the nth Submodel_t from this CompModelPlugin_t and returns a pointer
+ * to it.
+ */
+LIBSBML_EXTERN
+Submodel_t*
+CompModelPlugin_removeSubmodel(CompModelPlugin_t* cmp, unsigned int n)
+{
+  return (cmp != NULL) ? cmp->removeSubmodel(n) : NULL;
+}
+
+
+/*
+ * Returns a ListOf_t * containing Port_t objects from this CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+CompModelPlugin_getListOfPorts(CompModelPlugin_t* cmp)
+{
+  return (cmp != NULL) ? cmp->getListOfPorts() : NULL;
+}
+
+
+/*
+ * Get a Port_t from the CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+Port_t*
+CompModelPlugin_getPort(CompModelPlugin_t* cmp, unsigned int n)
+{
+  return (cmp != NULL) ? cmp->getPort(n) : NULL;
+}
+
+
+/*
+ * Get a Port_t from the CompModelPlugin_t based on its identifier.
+ */
+LIBSBML_EXTERN
+Port_t*
+CompModelPlugin_getPortById(CompModelPlugin_t* cmp, const char *sid)
+{
+  return (cmp != NULL && sid != NULL) ? cmp->getPort(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given Port_t to this CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+CompModelPlugin_addPort(CompModelPlugin_t* cmp, const Port_t* p)
+{
+  return (cmp != NULL) ? cmp->addPort(p) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of Port_t objects in this CompModelPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+CompModelPlugin_getNumPorts(CompModelPlugin_t* cmp)
+{
+  return (cmp != NULL) ? cmp->getNumPorts() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new Port_t object, adds it to this CompModelPlugin_t object and
+ * returns the Port_t object created.
+ */
+LIBSBML_EXTERN
+Port_t*
+CompModelPlugin_createPort(CompModelPlugin_t* cmp)
+{
+  return (cmp != NULL) ? cmp->createPort() : NULL;
+}
+
+
+/*
+ * Removes the nth Port_t from this CompModelPlugin_t and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+Port_t*
+CompModelPlugin_removePort(CompModelPlugin_t* cmp, unsigned int n)
+{
+  return (cmp != NULL) ? cmp->removePort(n) : NULL;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
-
