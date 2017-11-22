@@ -873,51 +873,81 @@ FbcOr_t *
 FbcOr_clone(FbcOr_t * fo);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 int
 FbcOr_addAssociation(FbcOr_t * fo, FbcAssociation_t * fa);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcAnd_t *
 FbcOr_createAnd(FbcOr_t * fo);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcOr_t *
 FbcOr_createOr(FbcOr_t * fo);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 GeneProductRef_t *
 FbcOr_createGeneProductRef(FbcOr_t * fo);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 ListOf_t *
 FbcOr_getListOfFbcAssociations(FbcOr_t * fo) ;
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcOr_getAssociation(FbcOr_t * fo, unsigned int n);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcOr_getAssociationById(FbcOr_t * fo, const char * sid);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 unsigned int
 FbcOr_getNumAssociations(FbcOr_t * fo);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcOr_removeAssociation(FbcOr_t * fo, unsigned int n);
 
 
+/**
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcOr_removeAssociationById(FbcOr_t * fo, const char * sid);

@@ -804,7 +804,7 @@ unsigned int
 Date_getMinutesOffset(Date_t * date);
 
 /**
- * Sets the value of the year checking appropriateness.
+ * Sets the value of the year, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the year to set.  
@@ -821,7 +821,7 @@ int
 Date_setYear(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the month checking appropriateness.
+ * Sets the value of the month, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the month to set.
@@ -838,7 +838,7 @@ int
 Date_setMonth(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the day checking appropriateness.
+ * Sets the value of the day, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the day to set.
@@ -855,7 +855,7 @@ int
 Date_setDay(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the hour checking appropriateness.
+ * Sets the value of the hour, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the hour to set.
@@ -872,7 +872,7 @@ int
 Date_setHour(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the minute checking appropriateness.
+ * Sets the value of the minute, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the minute to set.
@@ -889,7 +889,7 @@ int
 Date_setMinute(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the second checking appropriateness.
+ * Sets the value of the second, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the second to set.
@@ -906,7 +906,7 @@ int
 Date_setSecond(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the offset sign checking appropriateness.
+ * Sets the value of the offset sign, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the sign of the 
@@ -924,7 +924,7 @@ int
 Date_setSignOffset(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the offset hour checking appropriateness.
+ * Sets the value of the offset hour, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the hours of the 
@@ -942,7 +942,7 @@ int
 Date_setHoursOffset(Date_t * date, unsigned int value);
 
 /**
- * Sets the value of the offset minutes checking appropriateness.
+ * Sets the value of the offset minutes, checking appropriateness.
  *  
  * @param date the Date_t structure to be set.
  * @param value an unsigned int representing the minutes of the 

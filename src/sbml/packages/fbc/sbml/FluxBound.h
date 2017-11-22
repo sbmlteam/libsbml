@@ -1360,9 +1360,9 @@ int
 FluxBound_unsetValue(FluxBound_t * fb);
 
 /**
- * Returns the string version of the provided FluxBoundOperation_t enumeration.
+ * Returns the string version of the provided #FluxBoundOperation_t enumeration.
  *
- * @param type the FluxBoundOperation_t enumeration to convert.
+ * @param type the #FluxBoundOperation_t enumeration to convert.
  *
  * @return A string corresponding to the given effect:  "lessEqual",
  * "greaterEqual", "equal", or @c NULL if the value is 
@@ -1382,7 +1382,7 @@ FluxBoundOperation_toString(FluxBoundOperation_t type);
 
 
 /**
- * Returns the FluxBoundOperation_t enumeration corresponding to
+ * Returns the #FluxBoundOperation_t enumeration corresponding to
  * the given string, or 
  * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}
  * if there is
@@ -1390,9 +1390,9 @@ FluxBoundOperation_toString(FluxBoundOperation_t type);
  * return  @sbmlconstant{FLUXBOUND_OPERATION_LESS_EQUAL, FluxBoundOperation_t}, but "lessequal" will return
  * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t}.
  *
- * @param s the string to convert to a FluxBoundOperation_t.
+ * @param s the string to convert to a #FluxBoundOperation_t.
  *
- * @return The corresponding FluxBoundOperation_t, or
+ * @return The corresponding #FluxBoundOperation_t, or
  * @sbmlconstant{FLUXBOUND_OPERATION_UNKNOWN, FluxBoundOperation_t} if no match found.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
@@ -1409,9 +1409,9 @@ FluxBoundOperation_fromString(const char* s);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
- * FluxBoundOperation_t is valid.
+ * #FluxBoundOperation_t is valid.
  *
- * @param type the FluxBoundOperation_t enumeration to query.
+ * @param type the #FluxBoundOperation_t enumeration to query.
  *
  * @return @c 1 (true) if the FluxBoundOperation_t is
  * @sbmlconstant{FLUXBOUND_OPERATION_LESS_EQUAL, FluxBoundOperation_t}, 
@@ -1436,7 +1436,7 @@ FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending
- * on whether the given string is a valid FluxBoundOperation_t.
+ * on whether the given string is a valid #FluxBoundOperation_t.
  * The matching is case-sensitive:  "lessEqual" will return @c 1 (true), but
  * "lessequal" will return @c 0 (false).
  *

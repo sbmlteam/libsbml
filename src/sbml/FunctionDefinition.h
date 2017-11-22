@@ -1321,7 +1321,7 @@ FunctionDefinition_getArgumentByName (  FunctionDefinition_t *fd
  *
  * @param fd the FunctionDefinition_t structure.
  * 
- * @return an ASTNode_t tree that is the "math" subelement" of this
+ * @return an ASTNode_t tree that is the "math" subelement of this
  * FunctionDefinition_t structure.
  *
  * @memberof FunctionDefinition_t

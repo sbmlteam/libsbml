@@ -1113,7 +1113,7 @@ FluxObjective_isSetId(const FluxObjective_t * fo);
 
 
 /**
- * Predicate returning @c 1 if the given FluxObjective_t structure's "name"
+ * Predicate returning @c 1 (true) if the given FluxObjective_t structure's "name"
  * is set.
  *
  * @param fo the FluxObjective_t structure.
@@ -1367,7 +1367,7 @@ ListOfFluxObjectives_getById(ListOf_t * lo, const char * sid);
 * Removes the structure with the given @p sid
 * from the given ListOf_t structure and returns a pointer to it.
 *
-* * The caller owns the returned structure and is responsible for deleting it.
+* The caller owns the returned structure and is responsible for deleting it.
 *
 * @param lo the ListOf_t structure.
 * @param sid the string of the "id" attribute of the sought structure.

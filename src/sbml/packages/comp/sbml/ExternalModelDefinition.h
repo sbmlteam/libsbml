@@ -834,7 +834,7 @@ ExternalModelDefinition_unsetModelRef(ExternalModelDefinition_t * emd);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
+  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
   * all the required attributes for the given ExternalModelDefinition_t structure
   * have been set.
   *

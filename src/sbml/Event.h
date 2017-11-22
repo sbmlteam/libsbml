@@ -1083,9 +1083,9 @@ public:
    * object have been set.
    *
    * @note The required elements for an Event object are:
-   * @li "trigger" (required in SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1,
+   * @li "trigger" (required in SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1;
    *     optional in SBML Level&nbsp;3 Version&nbsp;2+
-   * @li "listOfEventAssignments" (required in SBML Level&nbsp;2, optional in Level&nbsp;3)
+   * @li "listOfEventAssignments" (required in SBML Level&nbsp;2; optional in Level&nbsp;3)
    */
   virtual bool hasRequiredElements() const;
 
@@ -2316,13 +2316,14 @@ Event_hasRequiredAttributes (Event_t *e);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
+  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether
   * all the required elements for the given Event_t structure
   * have been set.
   *
   * @note The required elements for an Event_t structure are:
-  * @li trigger
-  * @li listOfEventAssignments (requirement removed in L3)
+  * @li "trigger" (required in SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1;
+  *     optional in SBML Level&nbsp;3 Version&nbsp;2+
+  * @li "listOfEventAssignments" (required in SBML Level&nbsp;2; optional in Level&nbsp;3)
   *
  * @memberof Event_t
  */

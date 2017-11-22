@@ -753,11 +753,11 @@ BEGIN_C_DECLS
 
 
 /**
- * Takes a FbcReactionPlugin_t structure and returns its UpperFluxBound.
+ * Takes a FbcReactionPlugin_t structure and returns its "upperFluxBound" attribute.
  *
- * @param fbc the FbcReactionPlugin_t whose UpperFluxBound is sought.
+ * @param fbc the FbcReactionPlugin_t whose "upperFluxBound" attribute is sought.
  *
- * @return the UpperFluxBound of the given FbcReactionPlugin_t, as a pointer to a string.
+ * @return the "upperFluxBound" attribute of the given FbcReactionPlugin_t, as a pointer to a string.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -768,11 +768,11 @@ FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
- * FbcReactionPlugin_t structure's UpperFluxBound is set.
+ * FbcReactionPlugin_t structure's "upperFluxBound" attribute is set.
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
  * 
- * @return @c 1 (true) if the "UpperFluxBound" attribute of the given
+ * @return @c 1 (true) if the "upperFluxBound" attribute of the given
  * FbcReactionPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcReactionPlugin_t
@@ -783,17 +783,17 @@ FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Sets the UpperFluxBound of the given FbcReactionPlugin_t to a copy of @p UpperFluxBound.
+ * Sets the "upperFluxBound" attribute of the given FbcReactionPlugin_t to a copy of @p UpperFluxBound.
  *
  * @param fbc the FbcReactionPlugin_t structure to set.
- * @param UpperFluxBound the UpperFluxBound to assign to the given FbcReactionPlugin_t's "UpperFluxBound" attribute.
+ * @param UpperFluxBound the string to assign to the given FbcReactionPlugin_t's "upperFluxBound" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "UpperFluxBound" attribute.
+ * unsetting the "upperFluxBound" attribute.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -803,7 +803,7 @@ FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * UpperFluxB
 
 
 /**
- * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ * Unsets the "upperFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
  * @param fbc the FbcReactionPlugin_t structure to unset.
  *
@@ -819,11 +819,11 @@ FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Takes a FbcReactionPlugin_t structure and returns its LowerFluxBound.
+ * Takes a FbcReactionPlugin_t structure and returns its "lowerFluxBound" attribute.
  *
- * @param fbc the FbcReactionPlugin_t whose LowerFluxBound is sought.
+ * @param fbc the FbcReactionPlugin_t whose "lowerFluxBound" attribute is sought.
  *
- * @return the LowerFluxBound of the given FbcReactionPlugin_t, as a pointer to a string.
+ * @return the "lowerFluxBound" attribute of the given FbcReactionPlugin_t, as a pointer to a string.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -834,11 +834,11 @@ FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the given
- * FbcReactionPlugin_t structure's LowerFluxBound is set.
+ * FbcReactionPlugin_t structure's "lowerFluxBound" attribute is set.
  *
  * @param fbc the FbcReactionPlugin_t structure to query.
  * 
- * @return @c 1 (true) if the "LowerFluxBound" attribute of the given
+ * @return @c 1 (true) if the "lowerFluxBound" attribute attribute of the given
  * FbcReactionPlugin_t structure is set, @c 0 (false) otherwise.
  *
  * @memberof FbcReactionPlugin_t
@@ -849,17 +849,17 @@ FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc);
 
 
 /**
- * Sets the LowerFluxBound of the given FbcReactionPlugin_t to a copy of @p LowerFluxBound.
+ * Sets the "lowerFluxBound" attribute of the given FbcReactionPlugin_t to a copy of @p LowerFluxBound.
  *
  * @param fbc the FbcReactionPlugin_t structure to set.
- * @param LowerFluxBound the LowerFluxBound to assign to the given FbcReactionPlugin_t's "LowerFluxBound" attribute.
+ * @param LowerFluxBound the string to assign to the given FbcReactionPlugin_t's "lowerFluxBound" attribute.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "LowerFluxBound" attribute.
+ * unsetting the "lowerFluxBound" attribute.
  *
  * @memberof FbcReactionPlugin_t
  */
@@ -869,7 +869,7 @@ FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * LowerFluxB
 
 
 /**
- * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ * Unsets the "upperFluxBound" attribute of the given FbcReactionPlugin_t structure.
  *
  * @param fbc the FbcReactionPlugin_t structure to unset.
  *
