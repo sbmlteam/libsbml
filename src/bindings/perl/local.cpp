@@ -128,7 +128,11 @@ GetDowncastSwigType (SBasePlugin* sbp)
 	if (!sb) return SWIGTYPE_p_SBasePlugin;
 
 #include "local-downcast-plugins.cpp"
-		
+
+  if (sb->getTypeCode() == SBML_DOCUMENT)
+    return SWIGTYPE_p_SBMLDocumentPlugin;
+
+
 	return SWIGTYPE_p_SBasePlugin;
 }
 
