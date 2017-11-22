@@ -36,7 +36,6 @@
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
-#include <sbml/packages/fbc/sbml/FbcAnd.h>
 #include <sbml/packages/fbc/sbml/FbcOr.h>
 #include <sbml/packages/fbc/sbml/GeneProductRef.h>
 
@@ -982,7 +981,7 @@ FbcAnd_free(FbcAnd_t * fa)
 
 LIBSBML_EXTERN
 FbcAnd_t *
-FbcAnd_clone(FbcAnd_t * fa)
+FbcAnd_clone(const FbcAnd_t * fa)
 {
   if (fa != NULL)
   {
@@ -997,7 +996,7 @@ FbcAnd_clone(FbcAnd_t * fa)
 
 LIBSBML_EXTERN
 int
-FbcAnd_addAssociation(FbcAnd_t * fa, FbcAssociation_t * a)
+FbcAnd_addAssociation(FbcAnd_t * fa, const FbcAssociation_t * a)
 {
   return  (fa != NULL) ? fa->addAssociation(a) : LIBSBML_INVALID_OBJECT;
 }
