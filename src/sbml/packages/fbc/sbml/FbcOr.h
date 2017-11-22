@@ -955,7 +955,6 @@ FbcOr_createGeneProductRef(FbcOr_t* fo);
 * @copydetails doc_returned_unowned_pointer
 *
 * @see FbcOr_addAssociation()
-* @see FbcOr_createAssociation()
 * @see FbcOr_getAssociationById()
 * @see FbcOr_getAssociation()
 * @see FbcOr_getNumAssociations()
