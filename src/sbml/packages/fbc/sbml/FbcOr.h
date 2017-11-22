@@ -819,27 +819,23 @@ LIBSBML_CPP_NAMESPACE_END
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
-
 /**
- * Creates a new FbcOr_t structure using the given SBML @p level and
- * @p version, and the @p pkgVersion package version.
- *
- * @param level an unsigned int, the SBML level to assign to this
- * FbcOr_t structure.
- *
- * @param version an unsigned int, the SBML version to assign to this
- * FbcOr_t structure.
- *
- * @param pkgVersion an unsigned int, the version of the package to assign
- * to this FbcOr_t structure.
- *
- * @returns the newly-created FbcOr_t structure, or a null pointer if
- * an error occurred during construction.
- *
- * @copydetails doc_note_setting_lv
- *
- * @memberof FbcOr_t
- */
+* Creates a new FbcOr_t using the given SBML Level, Version and
+* &ldquo;fbc&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this FbcOr_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this FbcOr_t.
+*
+* @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
+* FbcOr_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 FbcOr_t *
 FbcOr_create(unsigned int level, unsigned int version,
@@ -847,81 +843,163 @@ FbcOr_create(unsigned int level, unsigned int version,
 
 
 /**
- * Frees the given FbcOr_t structure.
- * 
- * @param fo the FbcOr_t structure to be freed.
- *
- * @memberof FbcOr_t
- */
+* Frees this FbcOr_t object.
+*
+* @param fo the FbcOr_t structure.
+*
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 void
-FbcOr_free(FbcOr_t * fo);
+FbcOr_free(FbcOr_t* fo);
 
 
 /**
- * Creates a deep copy of the given FbcOr_t structure.
- * 
- * @param fo the FbcOr_t structure to be copied.
- *
- * @returns a (deep) copy of the given FbcOr_t structure, or a null
- * pointer if a failure occurred.
- *
- * @memberof FbcOr_t
- */
+* Creates and returns a deep copy of this FbcOr_t object.
+*
+* @param fo the FbcOr_t structure.
+*
+* @return a (deep) copy of this FbcOr_t object.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
-FbcOr_t *
-FbcOr_clone(FbcOr_t * fo);
+FbcOr_t*
+FbcOr_clone(const FbcOr_t* fo);
 
 
 /**
+* Adds a copy of the given FbcAssociation_t to this FbcOr_t.
+*
+* @param fo the FbcOr_t structure to which the FbcAssociation_t should be added.
+*
+* @param a the FbcAssociation_t object to add.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
 int
-FbcOr_addAssociation(FbcOr_t * fo, FbcAssociation_t * fa);
+FbcOr_addAssociation(FbcOr_t* fo, const FbcAssociation_t* a);
 
 
 /**
+* Creates a new FbcAnd_t object, adds it to this FbcOr_t object and returns
+* the FbcAnd_t object created.
+*
+* @param fo the FbcOr_t structure to which the FbcAnd_t should be added.
+*
+* @return a new FbcAnd_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-FbcAnd_t *
-FbcOr_createAnd(FbcOr_t * fo);
+FbcAnd_t*
+FbcOr_createAnd(FbcOr_t* fo);
 
 
 /**
+* Creates a new FbcOr_t object, adds it to this FbcOr_t object and returns the
+* FbcOr_t object created.
+*
+* @param fo the FbcOr_t structure to which the FbcOr_t should be added.
+*
+* @return a new FbcOr_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-FbcOr_t *
-FbcOr_createOr(FbcOr_t * fo);
+FbcOr_t*
+FbcOr_createOr(FbcOr_t* fo);
 
 
 /**
+* Creates a new GeneProductRef_t object, adds it to this FbcOr_t object and
+* returns the GeneProductRef_t object created.
+*
+* @param fo the FbcOr_t structure to which the GeneProductRef_t should be
+* added.
+*
+* @return a new GeneProductRef_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-GeneProductRef_t *
-FbcOr_createGeneProductRef(FbcOr_t * fo);
+GeneProductRef_t*
+FbcOr_createGeneProductRef(FbcOr_t* fo);
 
 
 /**
+* Returns a ListOf_t * containing FbcAssociation_t objects from this FbcOr_t.
+*
+* @param fo the FbcOr_t structure whose ListOfAssociations is sought.
+*
+* @return the ListOfAssociations from this FbcOr_t as a ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see FbcOr_addAssociation()
+* @see FbcOr_createAssociation()
+* @see FbcOr_getAssociationById()
+* @see FbcOr_getAssociation()
+* @see FbcOr_getNumAssociations()
+* @see FbcOr_removeAssociationById()
+* @see FbcOr_removeAssociation()
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-ListOf_t *
-FbcOr_getListOfFbcAssociations(FbcOr_t * fo) ;
+ListOf_t*
+FbcOr_getListOfFbcAssociations(FbcOr_t* fo);
 
 
 /**
+* Get an FbcAssociation_t from the FbcOr_t.
+*
+* @param fo the FbcOr_t structure to search.
+*
+* @param n an unsigned int representing the index of the FbcAssociation_t to
+* retrieve.
+*
+* @return the nth FbcAssociation_t in the ListOfAssociations within this FbcOr.
+*
+* @copydetails doc_returned_unowned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-FbcAssociation_t *
-FbcOr_getAssociation(FbcOr_t * fo, unsigned int n);
+FbcAssociation_t*
+FbcOr_getAssociation(FbcOr_t* fo, unsigned int n);
 
 
 /**
+* Get an FbcAssociation_t from the FbcOr_t.
+*
+* @param fo the FbcOr_t structure to search.
+*
+* @param sid the identifier of the FbcAssociation_t to
+* retrieve.
+*
+* @return the FbcAssociation_t in the ListOfAssociations within this FbcOr with the given identifier.
+*
+* @copydetails doc_returned_unowned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
@@ -930,22 +1008,50 @@ FbcOr_getAssociationById(FbcOr_t * fo, const char * sid);
 
 
 /**
+* Get the number of FbcAssociation_t objects in this FbcOr_t.
+*
+* @param fo the FbcOr_t structure to query.
+*
+* @return the number of FbcAssociation_t objects in this FbcOr_t.
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
 unsigned int
-FbcOr_getNumAssociations(FbcOr_t * fo);
+FbcOr_getNumAssociations(FbcOr_t* fo);
 
 
 /**
+* Removes the nth FbcAssociation_t from this FbcOr_t and returns a pointer to it.
+*
+* @param fo the FbcOr_t structure to search.
+*
+* @param n an unsigned int representing the index of the FbcAssociation_t to
+* remove.
+*
+* @return a pointer to the nth FbcAssociation_t in this FbcOr_t.
+*
+* @copydetails doc_returned_owned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
-FbcAssociation_t *
-FbcOr_removeAssociation(FbcOr_t * fo, unsigned int n);
+FbcAssociation_t*
+FbcOr_removeAssociation(FbcOr_t* fo, unsigned int n);
 
 
 /**
+* Removes the FbcAssociation_t with the given identifier from this FbcOr_t and returns a pointer to it.
+*
+* @param fo the FbcOr_t structure to search.
+*
+* @param sid the identifier of the FbcAssociation_t to
+* remove.
+*
+* @return a pointer to the removed FbcAssociation_t in this FbcOr_t, or NULL if no FbcAssociation_t was found.
+*
+* @copydetails doc_returned_owned_pointer
+*
 * @memberof FbcOr_t
 */
 LIBSBML_EXTERN
@@ -954,32 +1060,35 @@ FbcOr_removeAssociationById(FbcOr_t * fo, const char * sid);
 
 
 /**
- * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
- * attributes of the given FbcOr_t structure have been set.
- *
- * @param fo the FbcOr_t structure to check.
- *
- * @return @c 1 (true) if all the required attributes for this
- * structure have been defined, @c 0 (false) otherwise.
- *
- * @memberof FbcOr_t
- */
+* Predicate returning @c 1 (true) if all the required attributes for this
+* FbcOr_t object have been set.
+*
+* @param fo the FbcOr_t structure.
+*
+* @return @c 1 (true) to indicate that all the required attributes of this
+* FbcOr_t have been set, otherwise @c 0 (false) is returned.
+*
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 int
 FbcOr_hasRequiredAttributes(const FbcOr_t * fo);
 
 
 /**
- * Predicate returning @c 1 (true) or @c 0 (false) depending on whether all the required
- * sub-elements of the given FbcOr_t structure have been set.
- *
- * @param fo the FbcOr_t structure to check.
- *
- * @return @c 1 (true) if all the required sub-elements for this
- * structure have been defined, @c 0 (false) otherwise.
- *
- * @memberof FbcOr_t
- */
+* Predicate returning @c 1 (true) if all the required elements for this
+* FbcOr_t object have been set.
+*
+* @param fo the FbcOr_t structure.
+*
+* @return @c 1 (true) to indicate that all the required elements of this
+* FbcOr_t have been set, otherwise @c 0 (false) is returned.
+*
+*
+* @note The required elements for the FbcOr_t object are:
+*
+* @memberof FbcOr_t
+*/
 LIBSBML_EXTERN
 int
 FbcOr_hasRequiredElements(const FbcOr_t * fo);
