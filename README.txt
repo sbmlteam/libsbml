@@ -288,16 +288,12 @@ experienced the issue and offer a workaround more quickly than the
 libSBML developers can respond.
 
 
-5. MAILING LISTS
+5. FORUMS AND MAILING LISTS
 ======================================================================
 
-There are two kinds of mailing lists available: normal discussion
-lists for humans, and a SVN change notification list.
-
-Discussion lists
-----------------
-
-All discussion lists, their web interfaces and their RSS feeds are at
+There are different forums/mailing lists available for SBML. Most are
+hosted by Google Groups; a few legacy lists are still operated as
+SourceForge mailing lists. You can find a list of all of them here:
 
                        http://sbml.org/Forums/
 
@@ -315,16 +311,6 @@ subscribe to the 'libsbml-development' mailing list.  Being a member
 of libsbml-development will enable you to keep in touch with the
 latest developments in libSBML as well as to ask questions and share
 your experiences with fellow developers and users of libSBML.
-
-SVN notification
-----------------
-
-If you are obtaining your libSBML files from SVN, you may wish to
-subscribe to the mailing list sbml-svn, to be apprised of changes to
-the SVN repository as soon as they are committed.  You can join the
-list by visiting the following URL:
-
-  https://lists.sourceforge.net/lists/listinfo/sbml-svn
 
 
 6. LICENSING AND DISTRIBUTION

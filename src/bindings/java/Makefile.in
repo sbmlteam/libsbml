@@ -437,15 +437,17 @@ endif
 
 # We use a trick involving marking methods as deprecated with the Javadoc
 # @deprecated comment directive, but unfortunately javac seems to pay
-# attention to that and thinks we're trying to use deprecated methods.  The
-# contortion below, involving the pipe and grep, filters the output from
-# javac so that people don't get confused.
+# attention to that and thinks we're trying to use deprecated methods. We
+# used to use a "grep -v" to filter them out, but in Java 9 each warning
+# prints multiple lines and the simple grep filter doesn't work. Resorting
+# to the use of -nowarn even though this is dangerous and could mask
+# a problem.
 
 compile_command = "$(JAVAC)" $(JAVAC_OPTION) -d $(outdir) $(outpath)/*.java
 
 $(outpath)/libsbml.class: libsbml_wrap.cpp $(outpath)
 	@echo $(compile_command)
-	$(shell $(compile_command) 2>&1 | grep -v deprecat)
+	$(compile_command) -nowarn
 
 $(jarfile): $(outpath)/libsbml.class 
 	$(CD) $(outdir) && "$(JAR)" -cvfm ../$(jarfile) ../Manifest.txt $(pkg_path)/*.class

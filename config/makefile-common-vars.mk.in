@@ -126,6 +126,7 @@ RUBY_LDFLAGS      = @RUBY_LDFLAGS@
 RUBY_LIBS         = @RUBY_LIBS@
 
 USE_JAVA          = @USE_JAVA@
+JAVA_VERSION      = @JAVA_VERSION@
 JAVA              = @JAVA@
 JAVAC             = @JAVAC@
 JAR               = @JAR@

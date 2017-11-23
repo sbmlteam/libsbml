@@ -895,7 +895,12 @@ endef
 # Compile the SBMLDoclet class file if needed.
 
 SBMLDoclet.class: SBMLDoclet.java
-	$(JAVAC) -nowarn -cp $(JAVADOC_JAR) $<
+	if test -n '$(JAVA_VERSION)' -a '$(JAVA_VERSION)' -ge 9; then \
+	  $(JAVAC) -nowarn $<; \
+	else \
+	  echo "jar = $(JAVADOC_JAR)"; \
+	  $(JAVAC) -nowarn -cp $(JAVADOC_JAR) $<; \
+	fi
 
 # Rerun configure if needed.
 

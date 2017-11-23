@@ -62,9 +62,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
       with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
 
-      AC_PATH_PROG([JAVA], [java], [no], [$with_java/bin])
-      AC_PATH_PROG([JAVAC], [javac], [no], [$with_java/bin])
-      AC_PATH_PROG([JAR], [jar], [no], [$with_java/bin])
+      AC_PATH_PROG([JAVA], [java], [no], [$with_java/bin $with_java])
+      AC_PATH_PROG([JAVAC], [javac], [no], [$with_java/bin $with_java])
+      AC_PATH_PROG([JAR], [jar], [no], [$with_java/bin $with_java])
     else
       dnl No prefix directory path supplied for --with-java.  Use defaults.
 
@@ -101,20 +101,18 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
       changequote([, ])
 
-      if test $jx -gt $rx \
-         || (test $jx -eq $rx -a $jy -gt $ry) \
-         || (test $jx -eq $rx -a $jy -eq $ry -a $jz -ge $rz); then
-        AC_MSG_RESULT(yes (found $jx.$jy.$jz))
+      if test $jx -gt 1; then
+        dnl Java switched versioning from 1.9 to 9.
+        JAVA_VERSION=$jx
+        AC_MSG_RESULT(yes (found version $version))
+      elif test $jy -gt $ry; then
+        dnl Old-style Java version numbers are 1.y.z, where y is important.
+        JAVA_VERSION=$jy
+        AC_MSG_RESULT(yes (found version $version))
       else
         AC_MSG_RESULT(no)
-        AC_MSG_ERROR([Need Java version $1, but only found version $jx.$jy.$jz.])
+        AC_MSG_ERROR([Need Java version $1, but only found version $version])
       fi
-
-      dnl Retain these for use below.
-
-      JAVA_VER_MINOR=$jy
-      JAVA_VER_SUBMINOR=$jz
-
     ])
 
     dnl Look for the path to jni.h.
@@ -170,7 +168,14 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     case "$host" in
       *darwin*)
         framework="/System/Library/Frameworks/JavaVM.framework"
-        case $JAVA_VER_MINOR in
+        case $JAVA_VERSION in
+          9)
+            if test -e "$framework/Versions/Current/Headers"; then
+              headers="$framework/Versions/Current/Headers"
+            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
+              headers="$framework/Versions/CurrentJDK/Headers"
+            fi
+            ;;
           8)
             if test -e "$framework/Versions/Current/Headers"; then
               headers="$framework/Versions/Current/Headers"
@@ -212,34 +217,27 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         esac
 
         if ! test -e "$headers/jni.h"; then
-          if test $macosx_minor_vers -ge 9; then
-            AC_MSG_ERROR([
-Cannot find Java include files.  
-Note that Mac OS X 10.9 (Mavericks) does not provide a JDK by default.
-You may need to install Apple's "Java for OS X Developer Package"
-distribution, which you can find by visiting http://developer.apple.com
-and searching for "java", then selecting the most recent distribution.
-At the time of this writing, the full name was "Java for OS X 2013-005
-Developer Package".  As an alternative, you can try to use Oracle's
-distribution of Java for Mac OS X.
-])
-          else
-            AC_MSG_ERROR([
+          AC_MSG_ERROR([
 Cannot find Java include files. Your environment may lack a Java
 development kit installation.
 ])
-          fi
         fi
 
         JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
 
         parent=`dirname "$headers"`
-        if test -e "$parent/Classes/classes.jar"; then
+        if test $JAVA_VERSION -ge 9; then
+	  JAVADOC_JAR=
+        elif test -e "$parent/Classes/classes.jar"; then
           JAVADOC_JAR="$parent/Classes/classes.jar"
         elif test -e "$parent/Classes/tools.jar"; then
           JAVADOC_JAR="$parent/Classes/tools.jar"
         elif test -e "${parent}JDK/Classes/classes.jar"; then
           JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
+        elif test -e "/usr/libexec/java_home"; then
+          JAVADOC_JAR=`/usr/libexec/java_home`/lib/tools.jar
+        else
+          JAVADOC_JAR="$parent/lib/tools.jar"
         fi
       ;;
 
@@ -285,8 +283,6 @@ development kit installation.
           linux*)   JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/linux\"";;
           solaris*) JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$parent/include/solaris\"";;
         esac
-
-        JAVADOC_JAR="$parent/lib/tools.jar"
       ;;
     esac
 
@@ -629,6 +625,7 @@ the options for configure to bypass this architecture check.
 
     AC_SUBST(JAVA_CPPFLAGS)
     AC_SUBST(JAVA_LDFLAGS)
+    AC_SUBST(JAVA_VERSION)
     AC_SUBST(JNIEXT)
     AC_SUBST(JNIBASENAME)
     AC_SUBST(JAVADOC_JAR)
