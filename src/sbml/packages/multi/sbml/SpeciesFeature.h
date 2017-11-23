@@ -1686,14 +1686,6 @@ SpeciesFeature_t *
 ListOfSpeciesFeatures_removeById(ListOf_t * lo, const char * sid);
 
 
-/**
-* @memberof SubListOfSpeciesFeatures_t
-*/
-LIBSBML_EXTERN
-int 
-SubListOfSpeciesFeatures_isValidRelationString(const char* s);
-
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
