@@ -542,7 +542,7 @@ BoundingBox_t *
 BoundingBox_create (void);
 
 /**
- * ZFunction that creates a BoundingBox_t structure with position set to
+ * Function that creates a BoundingBox_t structure with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0).  The id is set to the
  * given string.
  *

@@ -1971,7 +1971,7 @@ Compartment_clone (const Compartment_t* c);
  * mostly on what they are in SBML Level&nbsp;2.  Specifically:
  *
  * @li Sets attribute "spatialDimensions" to @c 3
- * @li Sets attribute "constant" to @c 1
+ * @li Sets attribute "constant" to @c 1 (true)
  * @li (Applies to Level&nbsp;1 models only) Sets attribute "volume" to @c 1.0
  * @li (Applies to Level&nbsp;3 models only) Sets attribute "units" to @c litre
  *

@@ -332,11 +332,6 @@ writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns
   return result;
 }
 
-/**
- * @if conly
- * @memberof ASTNode_t
- * @endif
- */
 LIBSBML_EXTERN
 char *
 writeMathMLToString (const ASTNode* node)

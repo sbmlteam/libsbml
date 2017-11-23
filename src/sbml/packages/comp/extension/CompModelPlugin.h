@@ -799,7 +799,6 @@ CompModelPlugin_createSubmodel(CompModelPlugin_t* cmp);
  * @see CompModelPlugin_getSubmodelById()
  * @see CompModelPlugin_getSubmodel()
  * @see CompModelPlugin_getNumSubmodels()
- * @see CompModelPlugin_removeSubmodelById()
  * @see CompModelPlugin_removeSubmodel()
  *
  * @memberof CompModelPlugin_t
@@ -920,7 +919,6 @@ CompModelPlugin_removeSubmodel(CompModelPlugin_t* cmp, unsigned int n);
  * @see CompModelPlugin_getPortById()
  * @see CompModelPlugin_getPort()
  * @see CompModelPlugin_getNumPorts()
- * @see CompModelPlugin_removePortById()
  * @see CompModelPlugin_removePort()
  *
  * @memberof CompModelPlugin_t

@@ -3164,11 +3164,6 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
 }
 
 
-/**
- * @if conly
- * @memberof ASTNode_t
- * @endif
- */
 LIBSBML_EXTERN
 L3ParserSettings_t* 
 SBML_getDefaultL3ParserSettings ()

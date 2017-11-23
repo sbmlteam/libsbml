@@ -961,7 +961,6 @@ FbcAnd_createGeneProductRef(FbcAnd_t* fa);
 * @copydetails doc_returned_unowned_pointer
 *
 * @see FbcAnd_addAssociation()
-* @see FbcAnd_createAssociation()
 * @see FbcAnd_getAssociationById()
 * @see FbcAnd_getAssociation()
 * @see FbcAnd_getNumAssociations()

@@ -3219,7 +3219,7 @@ ASTNode_isReal (const ASTNode_t *node);
  * @param node the node to query.
  *
  * @return @c 1 (true) if @p node is a MathML relational operator, meaning
- * <code>==</code>, <code>&gt;=</code>, <code>&gt;</code>,
+ * <code>==</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>,
  * <code>&lt;</code>, and <code>!=</code>.
  *
  * @memberof ASTNode_t
@@ -3292,7 +3292,7 @@ ASTNode_isUMinus (const ASTNode_t *node);
  * Returns @c 1 (true) if the given node is a unary plus.
  *
  * A node is defined as a unary minus node if it is of type
- * @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
+ * @sbmlconstant{AST_PLUS, ASTNodeType_t} and has exactly one child.
  *
  * @param node the node to query.
  *
