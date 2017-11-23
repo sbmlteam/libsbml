@@ -4650,12 +4650,7 @@ SBase::writeElements (XMLOutputStream& stream) const
 {
   if (mNotes != NULL)
   {
-    unsigned int savedIndent = stream.getIndent();
-    stream << *mNotes;
-    if (savedIndent != stream.getIndent() + 1)
-    {
-      stream.setIndent(savedIndent + 1);
-    }
+    mNotes->writeToStream(stream);
   }
 
   /*

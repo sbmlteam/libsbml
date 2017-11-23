@@ -540,6 +540,21 @@ XMLNode::write (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+void
+XMLNode::writeToStream(XMLOutputStream& stream) const
+{
+  unsigned int savedIndent = stream.getIndent();
+  this->write(stream);
+  if (savedIndent != stream.getIndent() + 1)
+  {
+    stream.setIndent(savedIndent + 1);
+  }
+
+}
+
+/** @endcond */
 
 /*
  * Returns a string which is converted from this XMLNode.

@@ -459,6 +459,13 @@ public:
    * is to be written.
    */
   void write (XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  void writeToStream(XMLOutputStream& stream) const;
+
   /** @endcond */
 
 

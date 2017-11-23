@@ -1570,7 +1570,10 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 void
 SpeciesReference::writeElements (XMLOutputStream& stream) const
 {
-  if ( mNotes != NULL ) stream << *mNotes;
+  if (mNotes != NULL)
+  {
+    mNotes->writeToStream(stream);
+  }
   SpeciesReference * sr = const_cast <SpeciesReference *> (this);
   sr->syncAnnotation();
   if ( mAnnotation != NULL ) stream << *mAnnotation;
