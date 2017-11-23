@@ -509,6 +509,20 @@ StructureFields::freeStructureMemory()
   mxDestroyArray(mxValueTypes);
 }
 
+bool
+isUnknownType(std::string tc)
+{
+  if (tc == "(Unknown SBML Type)")
+    return true;
+  else if (tc == "(Unknown SBML Fbc Type)")
+    return true;
+  else if (tc == "(Unknown SBML Groups Type)")
+    return true;
+  else if (tc == "(Unknown SBML Qual Type)")
+    return true;
+  else
+    return false;
+}
 void
 StructureFields::determineTypeCode()
 {
@@ -521,7 +535,7 @@ StructureFields::determineTypeCode()
   // check whether we are using a package object
   PkgIter it = pm.begin();
 
-  while (sbmlTC == "(Unknown SBML Type)" && it != pm.end())
+  while (isUnknownType(sbmlTC) && it != pm.end())
   {
     sbmlTC = SBMLTypeCode_toString(mSBase->getTypeCode(), (it->first).c_str());
     sbmlTC[0] = tolower(sbmlTC[0]);
@@ -1031,6 +1045,9 @@ StructureFields::addStructureField(const std::string& functionId, SBase* base,
   case TYPE_DOUBLE:
     dvalue = getDoubleValue(functionId, base, name, fieldIndex, usePlugin, prefix);
     mxSetField(mxStructure, index, fieldname.c_str(), mxCreateDoubleScalar(dvalue));
+    break;
+  case TYPE_ELEMENT:
+  default:
     break;
   }
 }
