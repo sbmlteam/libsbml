@@ -3003,10 +3003,11 @@ checkFileExists(FILE_CHAR filename)
       char * msgTxt = NULL;
 #if USE_FILE_WCHAR
       msgTxt = (char *) safe_calloc(wcslen(filename)+35, sizeof(char));
+      sprintf(msgTxt, "File %ws does not exist on this path", filename);
 #else
       msgTxt = (char *) safe_calloc(strlen(filename)+35, sizeof(char));
+      sprintf(msgTxt, "File %s does not exist on this path", filename);
 #endif
-      sprintf(msgTxt, "File %ws does not exist on this path", filename);
       reportError("TranslateSBML:inputArguments:filename", msgTxt);
       safe_free(msgTxt);
     }
