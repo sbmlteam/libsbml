@@ -338,7 +338,7 @@ if(WITH_CHECK)
 			-Xss8m
 	    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
 			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
-			AutoTestRunner						    
+			AutoTestRunner
 	)
 
     # running a basic to check the package version
@@ -348,7 +348,7 @@ if(WITH_CHECK)
 			-Xss8m
 	    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
 			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
-			TestPrintVersion ${PACKAGE_VERSION}						    
+			TestPrintVersion ${PACKAGE_VERSION}
 	)
 
 	# specify that tests have passed if we find only dots	
