@@ -255,50 +255,50 @@ static bool __isSpeciesTypeComponent(const Model & model, const std::string & sp
 }
 
 
-static bool __isSpeciesFeature(const Model & model, const std::string & speciesId,const std::string & speciesFeatureId)
-{
-        bool isSpeciesFeature = false;
-        bool good = true;
-
-
-        const Species * species = 0;
-        if (good) {
-                 species = model.getSpecies(speciesId);
-        }
-
-        if (species == 0) {
-                good = false;
-        }
-
-        if (good) {
-            const MultiSpeciesPlugin * speciesPlugin =
-                dynamic_cast<const MultiSpeciesPlugin*>(species->getPlugin("multi"));
-
-            if (speciesPlugin == 0) {
-                    good = false;
-            }
-
-            for(unsigned int i = 0; good && !isSpeciesFeature && i < speciesPlugin->getNumSpeciesFeatures(); i++) {
-                const SpeciesFeature * speciesFeature = speciesPlugin->getSpeciesFeature(i);
-                if (speciesFeature->getId() == speciesFeatureId) {
-                        isSpeciesFeature = true;
-                }
-            }
-
-            for(unsigned int i = 0; good && !isSpeciesFeature && i < speciesPlugin->getNumSubListOfSpeciesFeatures(); i++) {
-                const SubListOfSpeciesFeatures * subListOfSpeciesFeatures = speciesPlugin->getSubListOfSpeciesFeatures(i);
-                for (unsigned int j = 0; good && !isSpeciesFeature && j < subListOfSpeciesFeatures->getNumSpeciesFeatures(); j++) {
-                    const SpeciesFeature * speciesFeature = subListOfSpeciesFeatures->get(j);
-                    if (speciesFeature->getId() == speciesFeatureId) {
-                         isSpeciesFeature = true;
-                    }
-                }
-            }
-
-        }
-
-        return isSpeciesFeature;
-}
+//static bool __isSpeciesFeature(const Model & model, const std::string & speciesId,const std::string & speciesFeatureId)
+//{
+//        bool isSpeciesFeature = false;
+//        bool good = true;
+//
+//
+//        const Species * species = 0;
+//        if (good) {
+//                 species = model.getSpecies(speciesId);
+//        }
+//
+//        if (species == 0) {
+//                good = false;
+//        }
+//
+//        if (good) {
+//            const MultiSpeciesPlugin * speciesPlugin =
+//                dynamic_cast<const MultiSpeciesPlugin*>(species->getPlugin("multi"));
+//
+//            if (speciesPlugin == 0) {
+//                    good = false;
+//            }
+//
+//            for(unsigned int i = 0; good && !isSpeciesFeature && i < speciesPlugin->getNumSpeciesFeatures(); i++) {
+//                const SpeciesFeature * speciesFeature = speciesPlugin->getSpeciesFeature(i);
+//                if (speciesFeature->getId() == speciesFeatureId) {
+//                        isSpeciesFeature = true;
+//                }
+//            }
+//
+//            for(unsigned int i = 0; good && !isSpeciesFeature && i < speciesPlugin->getNumSubListOfSpeciesFeatures(); i++) {
+//                const SubListOfSpeciesFeatures * subListOfSpeciesFeatures = speciesPlugin->getSubListOfSpeciesFeatures(i);
+//                for (unsigned int j = 0; good && !isSpeciesFeature && j < subListOfSpeciesFeatures->getNumSpeciesFeatures(); j++) {
+//                    const SpeciesFeature * speciesFeature = subListOfSpeciesFeatures->get(j);
+//                    if (speciesFeature->getId() == speciesFeatureId) {
+//                         isSpeciesFeature = true;
+//                    }
+//                }
+//            }
+//
+//        }
+//
+//        return isSpeciesFeature;
+//}
 
 static bool __isReferencedByChildCompartment(const Compartment * compartment, const std::string & compartmentId)
 {

@@ -844,8 +844,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
   /* save any existing value of undeclaredUnits/canIgnoreUndeclaredUnits */
   unsigned int originalIgnore = mCanIgnoreUndeclaredUnits;
   bool originalUndeclaredValue = mContainsUndeclaredUnits;
-  unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
-  bool currentUndeclared = mContainsUndeclaredUnits;
+  //unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
+  //bool currentUndeclared = mContainsUndeclaredUnits;
 
   // check for undeclared units in child expressions
   UnitDefinition * tempUd;

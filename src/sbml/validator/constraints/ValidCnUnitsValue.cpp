@@ -176,10 +176,10 @@ const string
 ValidCnUnitsValue::getMessage (const ASTNode& , const SBase& )
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 LIBSBML_CPP_NAMESPACE_END

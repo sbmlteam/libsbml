@@ -1086,18 +1086,18 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
 
   case AST_FUNCTION_MIN:
     result = evaluateASTNode(node->getChild(0), values);
-    for (unsigned int i = 1; i < node->getNumChildren(); i++)
+    for (unsigned int j = 1; j < node->getNumChildren(); j++)
     {
-      double nextValue = evaluateASTNode(node->getChild(i), values);
+      double nextValue = evaluateASTNode(node->getChild(j), values);
       if (nextValue < result) result = nextValue;
     }
     break;
 
   case AST_FUNCTION_MAX:
     result = evaluateASTNode(node->getChild(0), values);
-    for (unsigned int i = 1; i < node->getNumChildren(); i++)
+    for (unsigned int j = 1; j < node->getNumChildren(); j++)
     {
-      double nextValue = evaluateASTNode(node->getChild(i), values);
+      double nextValue = evaluateASTNode(node->getChild(j), values);
       if (nextValue > result) result = nextValue;
     }
     break;

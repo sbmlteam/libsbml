@@ -335,7 +335,7 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
 
   for (iter = mErrors.begin(); iter != mErrors.end(); ++iter) 
   {
-    if ((*iter)->getSeverity() == originalSeverity)
+    if ((*iter)->getSeverity() == (unsigned int)(originalSeverity))
     {
       if (package == "all" || (*iter)->getPackage() == package)
       {

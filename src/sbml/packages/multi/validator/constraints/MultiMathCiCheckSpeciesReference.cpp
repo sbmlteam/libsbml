@@ -75,7 +75,7 @@ MultiMathCiCheckSpeciesReference::checkMath (const Model& m, const ASTNode& node
   switch (type) 
   {
     case AST_NAME:
-    	checkCiSpeciesReference(m, node, sb);
+      checkCiSpeciesReference(m, node, sb);
       break;
 
     default:
@@ -95,27 +95,27 @@ MultiMathCiCheckSpeciesReference::checkMath (const Model& m, const ASTNode& node
 const string
 MultiMathCiCheckSpeciesReference::getMessage (const ASTNode& node, const SBase& object)
 {
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "The 'multi:speciesReference' attribute of the ci element '" << formula;
-  msg << "' in <" << object.getElementName();
-  msg << "> does not reference a valid speciesReference Id.";
+  oss_msg << "The 'multi:speciesReference' attribute of the ci element '" << formula;
+  oss_msg << "' in <" << object.getElementName();
+  oss_msg << "> does not reference a valid speciesReference Id.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 void
 MultiMathCiCheckSpeciesReference::checkCiSpeciesReference(const Model& m, const ASTNode& node, const SBase & sb)
 {
-	if (!node.isCiNumber()) return;
+  if (!node.isCiNumber()) return;
 
-	bool isSpeciesReference = true;
-	const MultiASTPlugin * astPlugin = dynamic_cast<const MultiASTPlugin*>(node.getPlugin("multi"));
+  bool isSpeciesReference = true;
+  const MultiASTPlugin * astPlugin = dynamic_cast<const MultiASTPlugin*>(node.getPlugin("multi"));
 
-	if (astPlugin == 0 || !astPlugin->isSetSpeciesReference()) return;
+  if (astPlugin == 0 || !astPlugin->isSetSpeciesReference()) return;
 
 
     std::string speciesReferenceId = astPlugin->getSpeciesReference();
@@ -152,7 +152,7 @@ MultiMathCiCheckSpeciesReference::checkCiSpeciesReference(const Model& m, const 
     }
 
     if (!isSpeciesReference) {
-    	logMathConflict(node, sb);
+      logMathConflict(node, sb);
     }
 }
 

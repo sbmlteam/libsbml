@@ -594,7 +594,7 @@ START_CONSTRAINT (CompReferenceMustBeL3, ExternalModelDefinition, emd)
   msg += emd.getSource();
   msg += "' which is not an SBML Level 3 document.";
 
-  const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
+  //const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
   const SBMLDocument* doc = emd.getSBMLDocument();
   pre(doc != NULL);
   string locationURI = doc->getLocationURI();
@@ -632,7 +632,7 @@ START_CONSTRAINT (CompModReferenceMustIdOfModel, ExternalModelDefinition, emd)
   msg += emd.getModelRef();
   msg += "' that does not exist in the referenced document.";
 
-  const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
+  //const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
   const SBMLDocument* doc = emd.getSBMLDocument();
   pre(doc != NULL);
   string locationURI = doc->getLocationURI();
@@ -2548,12 +2548,12 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
     else
     {
       // must be a metaidref
-      std::string ref = repE.getMetaIdRef();
+      std::string strref = repE.getMetaIdRef();
       bool found = false;
       unsigned int i = 0;
       while (found == false &&  i < plug1->getNumSubmodels())
       {
-        if (ref == plug1->getSubmodel(i)->getMetaId())
+        if (strref == plug1->getSubmodel(i)->getMetaId())
         {
           found = true;
         }
@@ -2667,12 +2667,12 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
     else
     {
       // must be a metaidref
-      std::string ref = repE.getMetaIdRef();
+      std::string strref = repE.getMetaIdRef();
       bool found = false;
       unsigned int i = 0;
       while (found == false &&  i < plug1->getNumSubmodels())
       {
-        if (ref == plug1->getSubmodel(i)->getMetaId())
+        if (strref == plug1->getSubmodel(i)->getMetaId())
         {
           found = true;
         }
@@ -2785,12 +2785,12 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, SBaseRef, sbRef)
     else
     {
       // must be a metaidref
-      std::string ref = sbRef.getMetaIdRef();
+      std::string strref = sbRef.getMetaIdRef();
       bool found = false;
       unsigned int i = 0;
       while (found == false &&  i < plug->getNumSubmodels())
       {
-        if (ref == plug->getSubmodel(i)->getMetaId())
+        if (strref == plug->getSubmodel(i)->getMetaId())
         {
           found = true;
         }

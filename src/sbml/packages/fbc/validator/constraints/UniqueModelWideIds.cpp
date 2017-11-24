@@ -147,11 +147,11 @@ UniqueModelWideIds::getMessage (const string& id, const SBase& object)
   }
 
 
-  ostringstream msg;
+  ostringstream oss_msg;
   const SBase&  previous = *(iter->second);
 
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
   //
   // Example message: 
@@ -160,19 +160,19 @@ UniqueModelWideIds::getMessage (const string& id, const SBase& object)
   // <parameter> id 'cell' at line 10.
   //
 
-  msg << "  The <" << object.getElementName()
+  oss_msg << "  The <" << object.getElementName()
       << "> id '" << id << "' conflicts with the previously defined <"
       << previous.getElementName()
       << "> id '" << id << "'";
 
   if (previous.getLine() != 0)
   {
-    msg << " at line " << previous.getLine();
+    oss_msg << " at line " << previous.getLine();
   }
 
-  msg << '.';
+  oss_msg << '.';
 
-  return msg.str();
+  return oss_msg.str();
 }
 /*
  * Checks that all ids on the following Model objects are unique:

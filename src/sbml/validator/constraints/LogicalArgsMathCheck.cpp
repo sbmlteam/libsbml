@@ -170,14 +170,14 @@ const string
 LogicalArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
   char * formula = SBML_formulaToString(&node);
-  msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The formula '" << formula;
+  oss_msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -187,14 +187,14 @@ LogicalArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
-  msg << "uses an argument to a logical operator that is not Boolean.";
+  oss_msg << "uses an argument to a logical operator that is not Boolean.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 LIBSBML_CPP_NAMESPACE_END

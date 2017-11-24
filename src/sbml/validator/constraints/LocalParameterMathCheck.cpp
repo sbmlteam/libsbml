@@ -194,12 +194,12 @@ const string
 LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
-  msg << "The <" << getFieldname() << "> element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The <" << getFieldname() << "> element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -209,13 +209,13 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
-  msg << "uses '" << node.getName() << "' that is the id of a local parameter.";
+  oss_msg << "uses '" << node.getName() << "' that is the id of a local parameter.";
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 #endif /* __cplusplus */

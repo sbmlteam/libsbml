@@ -1631,9 +1631,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
       {
         if (!allowed) 
         {
-        std::string name = mRateOf->getName();
+        std::string newname = mRateOf->getName();
         mRateOf->setType(AST_FUNCTION);
-        mRateOf->setName(name);
+        mRateOf->setName(newname);
         this->ASTBase::syncMembersAndResetParentsFrom(mRateOf);
         }
         else

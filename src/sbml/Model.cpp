@@ -6951,7 +6951,7 @@ void
 Model::createTriggerUnitsData(UnitFormulaFormatter* unitFormatter, Event * e,
   const std::string& eventId)
 {
-  UnitDefinition *ud = NULL;
+  //UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData();
 
   Trigger * d = e->getTrigger();

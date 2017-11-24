@@ -171,7 +171,7 @@ SubmodelReferenceCycles::addAllExternalReferences(const SBMLDocument* doc,
     mDocumentsHandled.append(location);
 
 
-    SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
+    //SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
 
     for (unsigned int i = 0; i < docPlug->getNumExternalModelDefinitions(); i++)
     {

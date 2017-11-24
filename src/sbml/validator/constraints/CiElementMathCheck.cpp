@@ -187,13 +187,13 @@ const string
 CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The formula '" << formula;
+  oss_msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -203,19 +203,19 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
   if (object.getLevel() == 2 && object.getVersion() == 1)
-    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";
+    oss_msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";
   else if (object.getLevel() < 3)
-    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
+    oss_msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
   else
-    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction/speciesReference.";
+    oss_msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction/speciesReference.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 #endif /* __cplusplus */

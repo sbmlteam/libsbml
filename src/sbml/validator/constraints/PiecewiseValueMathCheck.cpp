@@ -161,14 +161,14 @@ const string
 PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
   char * left = SBML_formulaToString(node.getLeftChild());
-  msg << "The piecewise formula ";
-  msg << "in the " << getFieldname() << " element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The piecewise formula ";
+  oss_msg << "in the " << getFieldname() << " element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -178,16 +178,16 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
-  msg << "returns arguments " ;
-  msg << "which have different value types from the first element '";
-  msg << left << "'."; 
+  oss_msg << "returns arguments " ;
+  oss_msg << "which have different value types from the first element '";
+  oss_msg << left << "'."; 
   safe_free(left);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 LIBSBML_CPP_NAMESPACE_END

@@ -2851,11 +2851,11 @@ ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
     {
       stream.skipText();
       const XMLToken element1 = stream.peek();
-      const string&  name = element1.getName();
+      const string&  newname = element1.getName();
       if (element1.isEndFor(element) == false)
       {
         std::string message = "Unexpected element encountered. The element <" +
-          name + "> should not be encountered here.";
+          newname + "> should not be encountered here.";
         logError(stream, element, InvalidMathElement, message);
         stream.skipPastEnd(element);
       }

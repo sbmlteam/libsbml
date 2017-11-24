@@ -3723,8 +3723,8 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
         // we have to force it to realise it is also a core model
         if (sbPluginCreator == NULL && getPackageName() == "comp" && getElementName() == "modelDefinition")
         {
-          SBaseExtensionPoint extPoint("core", SBML_MODEL, "model");
-          sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+          SBaseExtensionPoint coreextPoint("core", SBML_MODEL, "model");
+          sbPluginCreator = sbmlext->getSBasePluginCreator(coreextPoint);
 
         }
         if (sbPluginCreator)

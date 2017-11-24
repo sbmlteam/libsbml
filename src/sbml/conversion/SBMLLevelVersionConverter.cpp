@@ -1060,9 +1060,9 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           static_cast<CompSBMLDocumentPlugin*>(mDocument->getPlugin("comp"));
         if (compPlug != NULL)
         {
-          for (unsigned int i = 0; i < compPlug->getNumModelDefinitions(); i++)
+          for (unsigned int ii = 0; ii < compPlug->getNumModelDefinitions(); ii++)
           {
-            compPlug->getModelDefinition(i)->dealWithL3Fast(targetVersion);
+            compPlug->getModelDefinition(ii)->dealWithL3Fast(targetVersion);
           }
         }
 #endif

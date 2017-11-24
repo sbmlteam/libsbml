@@ -185,13 +185,13 @@ const string
 RateOfCompartmentMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The formula '" << formula;
+  oss_msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -201,15 +201,15 @@ RateOfCompartmentMathCheck::getMessage (const ASTNode& node, const SBase& object
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
-  msg << "uses the species'" << node.getChild(0)->getName();
-  msg << "' whose compartment is referenced as the variable in an assignmentRule.";
+  oss_msg << "uses the species'" << node.getChild(0)->getName();
+  oss_msg << "' whose compartment is referenced as the variable in an assignmentRule.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 void 

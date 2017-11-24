@@ -341,13 +341,13 @@ const string
 ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
-  msg << "> ";
+  oss_msg << "The formula '" << formula;
+  oss_msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  oss_msg << "> ";
   switch(object.getTypeCode()) {
   case SBML_INITIAL_ASSIGNMENT:
   case SBML_EVENT_ASSIGNMENT:
@@ -357,15 +357,15 @@ ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
     break;
   default:
     if (object.isSetId()) {
-      msg << "with id '" << object.getId() << "' ";
+      oss_msg << "with id '" << object.getId() << "' ";
     }
     break;
   }
-  msg << "produces an exponent that is not an integer and thus may produce ";
-  msg << "invalid units.";
+  oss_msg << "produces an exponent that is not an integer and thus may produce ";
+  oss_msg << "invalid units.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 /*
 * Logs a message about a function that should return same units

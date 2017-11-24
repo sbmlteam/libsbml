@@ -409,7 +409,7 @@ SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkg
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-  return LIBSBML_OPERATION_SUCCESS;
+//  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

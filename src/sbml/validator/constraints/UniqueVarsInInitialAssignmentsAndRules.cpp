@@ -121,11 +121,11 @@ UniqueVarsInInitialAssignmentsAndRules::getMessage (const string& id, const SBas
   }
 
 
-  ostringstream msg;
+  ostringstream oss_msg;
   const SBase&  previous = *(iter->second);
 
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
   //
   // Example message: 
@@ -134,19 +134,19 @@ UniqueVarsInInitialAssignmentsAndRules::getMessage (const string& id, const SBas
   // <parameter> id 'cell' at line 10.
   //
 
-  msg << "  The <" << object.getElementName() << "> " << getFieldname(object.getTypeCode())
+  oss_msg << "  The <" << object.getElementName() << "> " << getFieldname(object.getTypeCode())
       << " '" << id << "' conflicts with the previously defined <"
       << previous.getElementName() << "> " << getFieldname(previous.getTypeCode())
       << " '" << id << "'";
 
   if (previous.getLine() != 0)
   {
-    msg << " at line " << previous.getLine();
+    oss_msg << " at line " << previous.getLine();
   }
 
-  msg << '.';
+  oss_msg << '.';
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 const char*

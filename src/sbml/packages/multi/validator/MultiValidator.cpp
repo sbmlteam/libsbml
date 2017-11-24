@@ -601,9 +601,9 @@ MultiValidator::validate(const SBMLDocument& d)
         // TODO for validation of ci elements
         List * listNumberNodes = math->getListOfNodes((ASTNodePredicate)ASTNode_isNumber);
 
-        for (unsigned int i = 0; i < listNumberNodes->getSize(); i++)
+        for (unsigned int ii = 0; ii < listNumberNodes->getSize(); ii++)
         {
-          const ASTNode * node = static_cast<const ASTNode *> (listNumberNodes->get(i));
+          const ASTNode * node = static_cast<const ASTNode *> (listNumberNodes->get(ii));
           if (node != NULL) {
             const MultiASTPlugin * astPlugin = static_cast<const MultiASTPlugin*>(node->getPlugin("multi"));
             if (astPlugin != NULL) {

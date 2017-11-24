@@ -4085,9 +4085,9 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
       if (stream.getSBMLNamespaces()->getNamespaces()
                                     ->containsUri(plugin->getURI()))
       {
-        int type = ASTBase::getTypeFromName(nextName);
+        int newtype = ASTBase::getTypeFromName(nextName);
 
-        done = readFunctionNode(stream, reqd_prefix, nextElement, read, type, 
+        done = readFunctionNode(stream, reqd_prefix, nextElement, read, newtype, 
                                 numChildren, plugin);
       }
       i++;

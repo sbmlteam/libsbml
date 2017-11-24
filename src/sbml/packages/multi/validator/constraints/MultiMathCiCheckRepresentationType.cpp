@@ -95,16 +95,16 @@ MultiMathCiCheckRepresentationType::checkMath (const Model& m, const ASTNode& no
 const string
 MultiMathCiCheckRepresentationType::getMessage (const ASTNode& node, const SBase& object)
 {
-  ostringstream msg;
+  ostringstream oss_msg;
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "The 'multi:representationType' attribute of the ci element '" << formula;
-  msg << "' in <" << object.getElementName();
-  msg << "> does not have a valid RepresentationType value.";
+  oss_msg << "The 'multi:representationType' attribute of the ci element '" << formula;
+  oss_msg << "' in <" << object.getElementName();
+  oss_msg << "> does not have a valid RepresentationType value.";
   safe_free(formula);
 
-  return msg.str();
+  return oss_msg.str();
 }
 
 void

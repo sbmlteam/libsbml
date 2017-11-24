@@ -170,11 +170,11 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
   }
 
 
-  ostringstream msg;
+  ostringstream oss_msg;
   const SBase&  previous = *(iter->second);
 
 
-  //msg << getPreamble();
+  //oss_msg << getPreamble();
 
   //
   // Example message: 
@@ -183,19 +183,19 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
   // <parameter> id 'cell' at line 10.
   //
 
-  msg << "  The <" << object.getElementName() << "> " << getFieldname()
+  oss_msg << "  The <" << object.getElementName() << "> " << getFieldname()
       << " '" << id << "' conflicts with the previously defined <"
       << previous.getElementName() << "> " << getFieldname()
       << " '" << id << "'";
 
   if (previous.getLine() != 0)
   {
-    msg << " at line " << previous.getLine();
+    oss_msg << " at line " << previous.getLine();
   }
 
-  msg << '.';
+  oss_msg << '.';
 
-  return msg.str();
+  return oss_msg.str();
 }
 /*
  * Checks that all ids on the following Model objects are unique:
