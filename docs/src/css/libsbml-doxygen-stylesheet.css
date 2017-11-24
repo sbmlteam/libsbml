@@ -1471,3 +1471,8 @@ uses it is introduced by swigdoc.py. */
     white-space: nowrap;
     padding-left: 4pt;
 }
+
+/* Hide confusing triangle shown in class lists. */
+div.contents div.directory span#arr_0_.arrow {
+  display: none;
+}
