@@ -436,11 +436,14 @@ public:
    *
    * @param ignoreURI whether to ignore the namespace URI when doing the
    * comparison.
+   * 
+   * @param ignoreAttributeValues whetehr to ignore attribute values when 
+   *        doing the comparison.
    *
    * @return boolean indicating whether this XMLNode represents the same XML
    * tree as another.
    */
-  bool equals(const XMLNode& other, bool ignoreURI=false) const;
+  bool equals(const XMLNode& other, bool ignoreURI=false, bool ignoreAttributeValues=false) const;
 	
 
   /**

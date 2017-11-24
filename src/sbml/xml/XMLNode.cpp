@@ -428,15 +428,17 @@ XMLNode::getIndex (const std::string& name) const
  * @return boolean indicating whether this XMLNode represents the same XML tree as another.
  */
 bool 
-XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
+XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/, bool ignoreAttributeValues /*=false*/) const
 {
   bool equal;//=true;
   // check if the nodes have the same name,
   equal=getName()==other.getName();
-  if (!equal) return false;
+  if (!equal) 
+    return false;
   // the same namespace uri, 
   equal=(ignoreURI ||  getURI()==other.getURI());
-  if (!equal) return false;
+  if (!equal)
+    return false;
 
   XMLAttributes attr1=getAttributes(); 
   XMLAttributes attr2=other.getAttributes();
@@ -444,15 +446,20 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
   //the same attributes and the same number of children
   equal=(iMax==attr2.getLength());
   std::string attrName;
+  int attr2Index;
   while(equal && i<iMax)
   {
     attrName=attr1.getName(i);
-    equal=(attr2.getIndex(attrName)!=-1);
-    // also check the namspace
-    equal=(equal && (attr1.getURI(i)==attr2.getURI(i) 
-      || (attr1.getPrefix(i) == "" && getURI() == attr2.getURI(i))
-      || (attr2.getPrefix(i) == "" && other.getURI() == attr1.getURI(i))
+    attr2Index = attr2.getIndex(attrName);
+    equal=(attr2Index !=-1);
+    // also check the namespace
+    equal=(equal && (attr1.getURI(i)==attr2.getURI(attr2Index)
+      || (attr1.getPrefix(i) == "" && getURI() == attr2.getURI(attr2Index))
+      || (attr2.getPrefix(attr2Index) == "" && other.getURI() == attr1.getURI(i))
       ));
+    // also check the value of the attribute
+    if (!ignoreAttributeValues)
+    equal = (equal && (attr1.getValue(i) == attr2.getValue(attr2Index)));
     ++i;
   }
 
@@ -462,7 +469,7 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
   equal=(equal && (iMax==(int)other.getNumChildren()));
   while(equal && i<iMax)
   {
-    equal=getChild(i).equals(other.getChild(i), ignoreURI);
+    equal=getChild(i).equals(other.getChild(i), ignoreURI, ignoreAttributeValues);
     ++i;
   }
   return equal; 
