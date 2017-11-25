@@ -21,11 +21,17 @@ STABLE RELEASE
 * New features
 
   - The MATLAB interface now supports both the 'qual' and 'groups' 
-    packages , in addition to 'fbc'. 
+    packages, in addition to 'fbc'. 
 
   - Unit checking has been expanded to include checking the <math>
     of <trigger>, <constraint> and <stoichiometryMath> to at least
     allow detection of values with undeclared units.
+
+  - Writing out an XMLNode that represented XHTML with multiple
+    nested text elements could distrupt indentation (see bug fixes).
+    A new function XMLNode::writeToStream(XMLOutputStream&) checks
+    the indentation is correctly recovered after writing out the
+    XMLNode.
 	
   - 'comp' package-specific updates:
 
