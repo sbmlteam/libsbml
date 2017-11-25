@@ -55,30 +55,28 @@
 <!-- ---------------------------------------------------------------------- -->
 
 <p> LibSBML supports two build systems: <a target="_blank"
-href="http://www.cmake.org/">CMake</a>, and <a target="_blank"
-href="http://www.gnu.org/software/make/">GNU make</a>.  CMake is preferred
-and is the only one supported for building SBML Level&nbsp;3 package
-extensions; GNU make is an alternative for building core libSBML and
-currently is also the only build system supported for generating the
-documentation.
+href="http://www.cmake.org/">CMake</a>, and GNU autoconf plus GNU make.
+CMake is preferred and is the <b>only one supported for building SBML Level&nbsp;3
+  package extensions</b>; the use of GNU autoconf and GNU make is deprecated
+but is currently still used to build the documentation.
 
+In all cases below, you will need to download the libSBML source code archive
+from the
+ <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml">download
+area on SourceForge.net</a> then unpack the archive somewhere on your computer.
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-cmake">1.1 Configuring using CMake</a></h3>
 
 <p> <a target="_blank" href="http://www.cmake.org/">CMake</a> is a
-cross-platform build system that can be used to build packages such as
-libSBML and generate projects for common development environments such as
-Visual Studio, Eclipse, Xcode and CodeBlocks. If you do not already have
+cross-platform build configuration system that can be used to generate
+makefiles as well as project files for common development environments such
+as Visual Studio, Eclipse, Xcode and CodeBlocks. If you do not already have
 CMake installed on your system, please make sure to download and install a
-copy of CMake version&nbsp;2.8.4 or later from <a target="_blank"
-href="http://www.cmake.org/">cmake.org</a> on your computer system.  Also
-download and unzip the libSBML source code archive from the <a
-target="_blank" href="http://sf.net/projects/sbml/files/libsbml">download
-area on SourceForge.net</a> and save the archive somewhere on your file
-system, then unpack it.
+copy of CMake 3.10 or later from <a target="_blank"
+href="http://www.cmake.org/">cmake.org</a> on your computer system.  
 
-<p> Next, start up the CMake graphical user interface (GUI).  This GUI is a
+<p> Next, start up the CMake graphical user interface (GUI).  This is a
 configuration tool that allows you to select options for configuring your
 libSBML build and then generate makefiles for running the actual build.  The
 GUI will look something similar to the following screenshot:
@@ -91,7 +89,7 @@ Mac&nbsp;OS&nbsp;X version of CMake; it will look similar but not identical
 on other operating systems.
 </center>
 
-<p> In the CMake interface, first click on the <b>Browse Source...</b> button
+<p> In the CMake GUI interface, first click on the <b>Browse Source...</b> button
 and navigate to the directory where you unpacked the libSBML source code
 archive on your file system.  Next, check the value of the field <em>Where to
 build the binaries</em>.  We use so-called &ldquo;out-of-source builds&rdquo;
@@ -207,10 +205,10 @@ href="#unix-compiling"><i>Compiling and installing LibSBML</i></a>.
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-gnumake">1.2 Configuring using GNU Make</a></h3>
 
-<p> First, please download and unpack the libSBML source code archive
-somewhere on your file system, and in a shell (terminal), <code>cd</code>
-into the directory thereby created (e.g.,
-<code>libSBML-@PACKAGE_VERSION@-Source</code>).
+<p> First, in a shell (terminal), <code>cd</code>
+into the directory where you unpacked the libSBML source code
+archive. (It will have a name such as
+<code>libSBML-@PACKAGE_VERSION@-Source</code>.)
 
 
 <!-- ---------------------------------------------------------------------- -->

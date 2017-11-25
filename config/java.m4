@@ -95,7 +95,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
       version=`"$JAVA" -version 2>&1 | sed -e 's/openjdk/java/' | sed -e 's/-internal//'| sed -e 's/\(.*\)$/\1/;q'`
 
-      jx=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      jx=`echo $version | sed -e 's/java version \"\([0-9]\).*/\1/'`
       jy=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
       jz=`echo $version | sed -e 's/java version \"\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
 

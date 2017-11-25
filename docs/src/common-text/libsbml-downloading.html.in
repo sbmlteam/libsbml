@@ -19,7 +19,7 @@ your situation:
 <li><a href="#dl-r-gui">4.1 Using the R GUI</a></li>
 <li><a href="#dl-r-shell">4.2 Using a shell command</a></li>
 </ul></li>
-<li><a href="#dl-src">5. Building from sources</a></li>
+<li><a href="#dl-src">5. Other languages</a></li>
 </table>
 
 
@@ -27,10 +27,10 @@ your situation:
 <h2><a class="anchor" name="dl-matlab">1. MATLAB</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> We provide a single-archive installation for all versions of MATLAB and
-all operating systems.  The files are ready to run; they <strong>require no
-compilation</strong>, only informing MATLAB about where you unpacked the
-archive:
+<p> For <em>stable</em> releases of libSBML, we provide a unified installer
+for all versions of MATLAB and all operating systems. The result is ready to
+  run after installation; it <strong>does not need compilation</strong>, and
+only requires you tell MATLAB where you placed the files. Here are the steps:
 
 <ol> <li> <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@/stable/MATLAB%20interface">Download
@@ -41,7 +41,7 @@ the distribution archive</a> from SourceForge.
 <li>Start your copy of MATLAB, then:
 <ol style="list-style-type: lower-alpha">
 
-<li>Add the folder to your MATLAB path using MATLAB's <code>addPath</code>
+<li>Add that folder to your MATLAB path using MATLAB's <code>addPath</code>
 command.
 
 <li>Verify it works: change into that folder within your running MATLAB
@@ -54,22 +54,18 @@ use MATLAB's standard <code>savepath</code> command.
 </ol>
 
 <p> Note that this MATLAB installer contains <em>only</em> the core libSBML
-ilbrary and the MATLAB interface; it does not contain language API interfaces
-for other programming languages discussed on this page.
+  ilbrary and the MATLAB interface; it does <strong>not</strong> contain
+language API interfaces for other programming languages discussed on this
+page.
 
 
 <!-- ---------------------------------------------------------------------- -->
 <h2><a class="anchor" name="dl-python">2. Python</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> We provide four ways to obtain the libSBML Python interface: (1) via <a
-target="_blank" href="http://anaconda.org/sbmlteam">Anaconda Cloud</a>; (2)
-via the Python Package Index (<a target="_blank"
-href="https://pypi.python.org/pypi">PyPI</a>) with <code>pip</code>; (3) for
-Linux only, installers for use with the standard operating system tools such
-as <code>yum</code> and <code>apt-get</code>; and (4) for Windows only,
-standalone Windows installers. The following paragraphs provide more
-information.
+<p> We provide four ways to obtain the libSBML Python interface. Please use
+whichever one you prefer.
+
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="dl-python-conda">2.1 Using Conda</a></h3>
@@ -375,7 +371,7 @@ libSBML R interface is probably installed correctly.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-src">5. Building from sources</a></h2>
+<h2><a class="anchor" name="dl-src">5. Other languages</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> If you need to use Octave, or no installation package is available for
