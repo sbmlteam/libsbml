@@ -48,12 +48,17 @@ if (EXISTS ${BIN_DIRECTORY}/libsbml.jar)
   file(REMOVE ${BIN_DIRECTORY}/libsbml.jar)  
 endif()
 
+# figure out the compativility args to use
+SET (COMPATIBILITY_ARGS)
+if (COMPATIBILIY)
+SET (COMPATIBILITY_ARGS ${COMPATIBILITY_ARGS} -source ${COMPATIBILIY} -target ${COMPATIBILIY})
+endif()
+
 # compile files
 execute_process(
   
   COMMAND "${Java_JAVAC_EXECUTABLE}"
-     -source 1.5
-     -target 1.5
+     ${COMPATIBILITY_ARGS}
      -d java-files
      ${NATIVE_FILES}
   
@@ -110,8 +115,7 @@ file(TO_NATIVE_PATH ${SRC_DIRECTORY}/TestPrintVersion.java print_version_src)
 message("
   ${Java_JAVAC_EXECUTABLE}
      -cp ${jar_file}${FILE_SEP}${current_dir}
-     -source 1.5
-     -target 1.5     
+     ${COMPATIBILITY_ARGS}
      -d ${test_dir}
      ${JAVA_NATIVE_FILES}"
 )
@@ -120,8 +124,7 @@ message("
 execute_process(
   COMMAND "${Java_JAVAC_EXECUTABLE}"
      -cp ${jar_file}
-     -source 1.5
-     -target 1.5     
+     ${COMPATIBILITY_ARGS}
      -d ${test_dir}
      ${JAVA_NATIVE_FILES}
      WORKING_DIRECTORY "${SRC_DIRECTORY}"
