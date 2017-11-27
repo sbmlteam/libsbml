@@ -768,7 +768,7 @@
  * returns @c true if this AST node is a MathML constant (@c true, @c false,
  * @c pi, @c exponentiale), @c false otherwise.
  * @li <code>bool @link ASTNode::isBoolean() isBoolean()@endlink</code>
- * returns @c true if this AST node returns a boolean value (by being either a
+ * returns @c true if this AST node returns a Boolean value (by being either a
  * logical operator, a relational operator, or the constant @c true or
  * @c false).
  * @li <code>bool @link ASTNode::isFunction() isFunction()@endlink</code>
@@ -824,7 +824,7 @@
  * AST node is a MathML constant (@c True, @c False, @c pi, @c exponentiale),
  * @c False otherwise.
  * @li <code>bool</code> @link libsbml.ASTNode.isBoolean() ASTNode.isBoolean()@endlink returns @c True if this
- * AST node returns a boolean value (by being either a logical operator, a
+ * AST node returns a Boolean value (by being either a logical operator, a
  * relational operator, or the constant @c True or @c False).
  * @li <code>bool</code> @link libsbml.ASTNode.isFunction() ASTNode.isFunction()@endlink returns @c True if this
  * AST node is a function (i.e., a MathML defined function such as @c exp or
@@ -874,7 +874,7 @@
  * returns @c 1 (true) if this AST node is a MathML constant (@c true, @c false,
  * @c pi, @c exponentiale), @c 0 (false) otherwise.
  * @li <code>bool ASTNode_isBoolean()</code>
- * returns @c 1 (true) if this AST node returns a boolean value (by being either a
+ * returns @c 1 (true) if this AST node returns a Boolean value (by being either a
  * logical operator, a relational operator, or the constant @c true or
  * @c false).
  * @li <code>bool ASTNode_isFunction()</code>
@@ -1262,7 +1262,7 @@
  * @sbmlfunction{formulaToL3String, ASTNode}.
  *
  * The following lists the main differences in the formula syntax supported by
- * the "Level 3" or L3 versions of the formula parsers and formatters,
+ * the Level 3 ("L3") versions of the formula parsers and formatters,
  * compared to what is supported by the Level&nbsp;1-oriented
  * @sbmlfunction{parseFormula, String} and
  * @sbmlfunction{formulaToString, ASTNode}:
@@ -1342,9 +1342,9 @@
  *
  * or 
  *
- * <code>rem(a, b)</code>.  
+ * <code>rem(a, b)</code>.
  *
- * The latter is simpler, but the <code>rem</code> MathML is only allowed 
+ * The latter is simpler, but the @c rem MathML is only allowed
  * as of SBML Level&nbsp;3 Version&nbsp;2.</li>
  *
  * <li style="margin-bottom: 0.5em"> A Model object may optionally be
@@ -1353,7 +1353,7 @@
  * stored in a L3ParserSettings object passed to the variant function
  * @sbmlfunction{parseL3FormulaWithSettings, String\,
  * L3ParserSettings}.  When a Model object is provided, identifiers
- * (values of type @c SId) from that model are used in preference to
+ * (values of type @c SId ) from that model are used in preference to
  * pre-defined MathML definitions for both symbols and functions.
  * More precisely:
  * <ul style="list-style-type: square">

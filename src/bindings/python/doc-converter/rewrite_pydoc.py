@@ -341,6 +341,14 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'<!--(.+?) -->', re.DOTALL)
     body = p.sub(r'', body)
 
+    # Replace some basic formatting with the plain contents, because we have
+    # no good way of representing the formatting in plain text.
+
+    for tag in ['strong', 'em', 'i', 'b', 'code', 'span', 'div', 'a']:
+        p = re.compile(r'<(?P<tag>' + tag + r')(\s+.*?)?>(.*?)</(?P=tag)>',
+                       re.DOTALL|re.IGNORECASE)
+        body = p.sub(r'\3', body)
+
     # Translate basic HTML constructs.
 
     body = re.sub(r'&lt;',        '<',                                body)
@@ -362,13 +370,6 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = re.sub(r'<li(\s+.*?)?>\s*', '\n' + ' '*list_indent + '* ', body)
     body = re.sub(r'</li>\s*',         '',                            body)
 
-    # Matched pairs of tags.
-
-    for tag in ['strong', 'em', 'i', 'b', 'code', 'span', 'div', 'a']:
-        p = re.compile(r'<(?P<tag>' + tag + r')(\s+.*?)?>(.*?)</(?P=tag)>',
-                       re.DOTALL|re.IGNORECASE)
-        body = p.sub(r'\3', body)
-
     # We probably should do <sub> and <sup> repeatedly, in case there's
     # nesting involved, but in our docs we've never nested them.
 
@@ -379,18 +380,19 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     # We don't want our <pre> blocks to be wrapped, but we do want basic HTML
     # processing done, so we wait until now to store them.  We also treat our
-    # <pre> elements for signature descriptions specially first.
+    # <pre> elements for signature descriptions specially first.  This also
+    # uses _@_@_@_@_ to be replaced later with spaces, to maintain indentation.
 
     p = re.compile(r"<pre class='signature'>(.+?)</pre>", re.DOTALL|re.IGNORECASE)
-    body = p.sub(r"\n    \1\n", body)
+    body = p.sub(r"\n_@_@_@_@_\1\n", body)
     p = re.compile(r'<pre(\s+.*?)?>(.+?)</pre>', re.DOTALL|re.IGNORECASE)
     body = p.sub(lambda match: store_text(match, 2, placeholders, "\n"), body)
 
     # Doing <p> after <pre> is easier than coming up with a hairy regexp to
     # avoid the wrong match.
 
-    body = re.sub(r'<p.*?>\s*',  '\n',                          body)
-    body = re.sub(r'</p>',       '',                            body)
+    body = re.sub(r'<p .*?>\s*', '\n',                            body)
+    body = re.sub(r'</p>',         '',                            body)
 
     # Now finish rewriting Doxygen tags.
 
@@ -402,14 +404,14 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     body = re.sub(r'\n *\n *\n *', '\n\n', body)
 
-    body = re.sub(r'(?<!@)%',      '',                            body)
+    body = re.sub(r'(?<!@)%(?=\w)', '',                           body)
     body = re.sub(r'@%',           '%',                           body)
     body = re.sub(r'@li\s+',       '\n' + ' '*list_indent + '* ', body)
     body = re.sub(r'@em\s+',       '',                            body)
     body = re.sub(r'@returns?\s+', 'Returns ',                    body)
 
     p = re.compile(r'@c\s+(\S+(\(\))?)', re.IGNORECASE)
-    body = p.sub(r'\1', body)
+    body = p.sub(r"'\1'", body)
 
     p = re.compile(r'@param\s+(\S+)\s+', re.IGNORECASE)
     body = p.sub(r'Parameter \'\1\' is ', body)
@@ -432,7 +434,7 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = p.sub(rewrite_ref, body)
 
     p = re.compile(r'@note(\s*)', re.IGNORECASE)
-    body = p.sub(r'Note:\n\n', body)
+    body = p.sub(r'Note:\n', body)
 
     p = re.compile(r'@docnote(\s*)', re.IGNORECASE)
     body = p.sub(R'Documentation note:\n\n', body)
@@ -500,6 +502,10 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     body = re.sub(r'\n *\n *\n *\n', '\n\n', body)
     body = re.sub(r'\n *\n *\n',     '\n\n', body)
 
+    # Remove other hacks
+
+    body = re.sub('_@_@_@_@_', '    ', body)
+
     # And we're done.
 
     return body.strip() + '\n'
@@ -543,19 +549,20 @@ def replace_stored_text(match, placeholder_list):
 
 
 def rewrite_see(text):
-    matches = []
-    words = []
-    for m in re.finditer(r'(@see\s+([^\n]+\n))', text):
-        matches.append(m)
-        words.append(m.group(2).strip())
+    def replace_sees(segment):
+        subtext = segment.group(0)
+        matches = []
+        words = []
+        for m in re.finditer(r'(@see\s+([^\n]+\n))', subtext):
+            matches.append(m)
+            words.append(m.group(2).strip())
+        inner_pre_text   = subtext[:matches[0].start(0)]
+        replacement_text = 'See also ' + ', '.join(words) + '.\n'
+        inner_post_text  = subtext[matches[-1].end(0):]
+        return inner_pre_text + replacement_text + inner_post_text
 
-    if len(matches) == 0: return text
-
-    pre_text         = text[:matches[0].start(0)]
-    replacement_text = 'See also ' + ', '.join(words) + '.\n'
-    post_text        = text[matches[-1].end(0):]
-
-    return pre_text + replacement_text + post_text
+    p = re.compile(r'(@see.*?\n(\s*\n|\Z))', re.DOTALL|re.MULTILINE)
+    return re.sub(p, replace_sees, text)
 
 
 def rewrite_ref(match):
@@ -600,19 +607,24 @@ def rewrite_htmlinclude(match, include_dir, quietly):
         contents = read_file_contents(txt_file)
         return rewrite_included_contents(contents) + trailing_char
     else:                               # No txt file; proceed with .html file.
-        file = open(file_path, 'r')
+        # 2017-11-25 <mhucka@caltech.edu> Now that we use PrettyTable, I'm not
+        # sure it's worth doing the stuff below.  Still, keeping it here
+        # (commented out) for future reference.
+        #
+        #     file = open(file_path, 'r')
+        #     writer = RewritePydocStringWriter()
+        #     parser = None
+        #     try:
+        #       parser = RewritePydocHTMLParser(AbstractFormatter(writer))
+        #     except:
+        #       parser = RewritePydocHTMLParser()
+        #     parser.feed(file.read())
+        #     parser.close()
+        #     file.close()
+        #     return rewrite_included_contents(writer.get_text()) + trailing_char
 
-        writer = RewritePydocStringWriter()
-        parser = None
-        try: 
-          parser = RewritePydocHTMLParser(AbstractFormatter(writer))
-        except: 
-          parser = RewritePydocHTMLParser()
-        parser.feed(file.read())
-        parser.close()
-        file.close()
-
-        return rewrite_included_contents(writer.get_text()) + trailing_char
+        contents = read_file_contents(file_path)
+        return rewrite_included_contents(contents) + trailing_char
 
 
 # When expanding @image directives, it looks for a file with the extension
@@ -681,8 +693,8 @@ def rewrite_htmltable_guarded(match):
 
     table.border = not empty_list(headings)
     table.align = "l"
-    table.right_padding_width = 2
-    table.left_padding_width = 0
+    table.right_padding_width = 1
+    table.left_padding_width = 1
 
     return "%%%%{" + "\n" + table.get_string() + "\n" + "}%%%%"
 

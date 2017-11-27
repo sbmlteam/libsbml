@@ -11,12 +11,13 @@ STABLE RELEASE
 
 * Note
 
-  The L3 Render Package has been approved by the SBML Editors but due
-  to time constraints has not yet been included in the stable release 
-  of libSBML.
+  The L3 Render Package has been approved by the SBML Editors, but
+  approval came too late in the libSBML release cycle to include it
+  in this stable release of libSBML.
 
-  There have been two implementations of SBML L3V2 Core and this code
-  can now be considered stable and will only change for bug fixes.
+  There are now two implementations of support for SBML Level 3
+  Version 2 Core.  The libSBML code for L3V2 can now be considered
+  stable and will only change for bug fixes.
 
 * New features
 
@@ -40,46 +41,52 @@ STABLE RELEASE
 
 * Bug fixes
 
-  - Validation was failing to distinguish between LocalParameters 
-    in L3V1 and Parameters when reporting errors. This is fixed.
+  - SBML validation failed to distinguish between LocalParameters and
+    Parameters in L3V1 when reporting errors. This is fixed.
 
-  - An L3V2 <reaction> element was incorrectly reporting that 
-    'fast' was a required attribute.
+  - libSBML had incorrectly reported that the 'fast' attribute was a
+    required attribute of L3V2 <reaction> elements. This is fixed.
 
-  - The C API does not work with default arguments. There were a few
-    stray ones; which have been removed.
+  - The libSBML C API does not work with default arguments. There were
+    previously a few stray ones left in the API code. These have been
+    removed.
 
-  - The SBMLTransforms::evaluateASTNode function was failing to check
-    that model values had been evaluated prior to trying to evaluate
-    an ASTNode. The function now checks whether the map of values is
-    present and populates it, if necessary.
+  - The SBMLTransforms::evaluateASTNode function previously failed to
+    check that model values had been evaluated prior to trying to
+    evaluate an ASTNode. The relevant function now checks whether the
+    map of values is present and populates it, if necessary.
 
-  - Code that checked the syntax for attributes of type ID and IDREF 
-    was not always using the appropriate function. These cases have been
+  - Code that checked the syntax for attributes of type ID and IDREF
+    did not always use the appropriate function. These cases have been
     fixed.
 
   - The use of an invalid syntax as the sbml:units attribute on a math
     <cn> element was not being detected. This has been fixed. Thanks
     to Nicolas Rodriguez for the report.
 
-  - The SBMLTransforms::evaluateASTNode function was missing the 
-    fact that in SBML L2 stoichiomtery defaulted to '1'. This has
-    been corrected. 
+  - The SBMLTransforms::evaluateASTNode function missed the fact that
+    in SBML Level 2, stoichiometry defaulted to '1'. This has been
+    corrected.
 
   - The use of certain combinations of text elements in a <notes> element
     could derail the entire indentation of the document. This has been
     reported by several people. Hopefully this time we have fixed the
     situation for all cases where it may occur. 
 
+  - The interactive help text stored with the functions and classes in
+    the Python bindings had many formatting problems and outright
+    omissions due to bugs in our "rewrite_pydoc.py" code. Many of
+    these problems should be fixed now.
+
   - 'fbc' package-specific bug fixes:
 
-    - Validation was incorrectly reporting an empty <listOfFluxObjectives>
-      when a model was being created and did in fact have a <fluxObjective>
-      element. This has been fixed. Thanks to Arthur Goldberg for 
-      reporting it.
+    - Validation incorrectly reported an empty <listOfFluxObjectives>
+      even when a model was being created and did in fact have a
+      <fluxObjective> element. This has been fixed. Thanks to Arthur
+      Goldberg for reporting it.
 
-    - An empty <geneProductAssociation> was causing reading to crash. This
-      no longer happens.
+    - An empty <geneProductAssociation> caused the reading of model
+      files to crash libSBML. This no longer happens.
 
   - 'layout' package-specific bug fixes:
 
@@ -88,15 +95,18 @@ STABLE RELEASE
   
   - 'qual' package-specific bug fixes:
 
-     - Functions to get and get math on a <functionTerm> element were missing
-       from the C API. These have been added.
+     - Functions to get math on a <functionTerm> element were missing
+       from the C API. They have been added.
 
 * Configuration/build system changes
 
-  - Sourceforge Tracker #447: Configuration no longer defines
+  - SourceForge Tracker item #447: Configuration no longer defines
     HAVE_IEEEFP_H when using MSVC compilers as it is not needed 
     and not always present. Thanks to Alan Garny for spotting this.
 
+  - SourceForge Tracker item #443 & separate unreported problems:
+    Build failures with Java 9 should be fixed now.  Thanks to Chris
+    West for reporting the issue related to building the docs.
 
 * Miscellaneous
 
@@ -122,8 +132,8 @@ EXPERIMENTAL RELEASE
  
   - 'render' package-specific bug fixes:
 
-    - Conversion between Level 2 annotations using both layout and render
-      and Level 3 packages has been corrected.
+    - Conversion between Level 2 annotations using both layout and
+      render and Level 3 packages has been corrected.
 
   - 'spatial' package-specific bug fixes:
 
