@@ -41,6 +41,10 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - SF Tracker #450: Code validating the shadowing of localParameter
+    was checking both 'id' and 'species' attributes. This rule should
+    only check the species attribute.
+
   - SBML validation failed to distinguish between LocalParameters and
     Parameters in L3V1 when reporting errors. This is fixed.
 
@@ -109,6 +113,9 @@ STABLE RELEASE
     West for reporting the issue related to building the docs.
 
 * Miscellaneous
+
+  - SWIG only supports Javascript node 6x. Thus we cannot currently
+    support later versions of node.
 
   - Documentation for the C API has been extensively improved.
 
