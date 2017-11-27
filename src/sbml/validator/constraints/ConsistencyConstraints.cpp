@@ -2384,20 +2384,29 @@ START_CONSTRAINT (21173, LocalParameter, p)
   if (r != NULL)
   {
     rnId = r->getId();
-    if (r->getReactant(id) != NULL)
+    const SpeciesReference *sr = r->getReactant(id);
+    if (sr != NULL && sr->getSpecies() == id)
     {
       fail = true;
       conflictType = "reactant";
     }
-    else if (r->getProduct(id) != NULL)
+    else
     {
-      fail = true;
-      conflictType = "product";
-    }
-    else if (r->getModifier(id) != NULL)
-    {
-      fail = true;
-      conflictType = "modifier";
+      sr = r->getProduct(id);
+      if (sr != NULL && sr->getSpecies() == id)
+      {
+        fail = true;
+        conflictType = "product";
+      }
+      else
+      {
+        const ModifierSpeciesReference *msr = r->getModifier(id);
+        if(msr != NULL && msr->getSpecies() == id)
+        {
+          fail = true;
+          conflictType = "modifier";
+        }
+      }
     }
   }
   
