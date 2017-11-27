@@ -1010,7 +1010,7 @@ else(UNIX)
             NAMES vld.h
             PATHS ${LIBSBML_DEPENDENCY_DIR}/include
             "$ENV{PROGRAMFILES}/Visual Leak Detector/include"
-          "$ENV{PROGRAMFILES(X86)}/Visual Leak Detector/include"
+            "$ENV{ProgramW6432}/Visual Leak Detector/include"
             DOC "Directory containing VLD files."
           )
           if (NOT VLD_INCLUDE_DIR)

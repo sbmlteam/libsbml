@@ -98,8 +98,8 @@ if (NOT MATLAB_ROOT_PATH OR NOT EXISTS "${MATLAB_ROOT_PATH}")
       "MATLAB/R2008b"
       "MATLAB/R2008a"
     )
-      if(EXISTS "$ENV{PROGRAMFILES(X86)}/${dir}" AND NOT ${FOUND})
-         set(MATLAB_ROOT_PATH $ENV{PROGRAMFILES}/${dir} CACHE PATH
+      if(EXISTS "$ENV{ProgramW6432}/${dir}" AND NOT ${FOUND})
+         set(MATLAB_ROOT_PATH $ENV{ProgramW6432}/${dir} CACHE PATH
     "Path to the matlab root path" FORCE)
          set(FOUND ON)
       endif()
