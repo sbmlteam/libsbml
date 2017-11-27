@@ -29,6 +29,9 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
+if (${CMAKE_VERSION} VERSION_LESS "3.10.0")
+    set(CMAKE_MODULE_PATH "${LIBSBML_ROOT_SOURCE_DIR}/src/bindings/java")
+endif()
 find_package(Java COMPONENTS Development REQUIRED)
 
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)
@@ -76,8 +79,8 @@ add_custom_command(
     COMMAND "${Java_JAVAC_EXECUTABLE}"
     ARGS -cp ".${FILE_SEP}\"${CURRENT_JAR}\"${FILE_SEP}${CMAKE_CURRENT_SOURCE_DIR}"
         ${CURRENT_FILE}
-        -source 1.5
-        -target 1.5
+        -source "${JAVA_COMPATIBILITY}"
+        -target "${JAVA_COMPATIBILITY}"
         -d ${CMAKE_CURRENT_BINARY_DIR}
     MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/../../src/bindings/java/local.i"
     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
