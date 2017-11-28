@@ -259,6 +259,7 @@ examples =                                                          \
   examples/perl/printUnits.pl                                       \
   examples/perl/promoteParameters.pl                                \
   examples/perl/readSBML.pl                                         \
+  examples/perl/renameSId.pl                                         \
   examples/perl/translateMath.pl                                    \
   examples/perl/unsetAnnotation.pl                                  \
   examples/perl/unsetNotes.pl                                       \
@@ -286,6 +287,7 @@ examples =                                                          \
   examples/python/printUnits.py                                     \
   examples/python/promoteParameters.py                              \
   examples/python/readSBML.py                                       \
+  examples/python/stringInput.py                                    \
   examples/python/setIdFromNames.py                                 \
   examples/python/translateMath.py                                  \
   examples/python/unsetAnnotation.py                                \
@@ -554,11 +556,11 @@ distfiles =                         \
 # makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
-	src/sbml/common/config.h src/sbml/common/stamp-h1 config/lt_link_helper.sh \
-	config/mkoctfile_wrapper.sh libtool doltlibtool doltcompile \
-	config/makefile-common-vars.mk config/chk_swig_version.sh \
-	examples/c/Makefile examples/c++/Makefile examples/csharp/Makefile \
-	examples/java/Makefile
+  src/sbml/common/config.h src/sbml/common/stamp-h1 config/lt_link_helper.sh \
+  config/mkoctfile_wrapper.sh libtool doltlibtool doltcompile \
+  config/makefile-common-vars.mk config/chk_swig_version.sh \
+  examples/c/Makefile examples/c++/Makefile examples/csharp/Makefile \
+  examples/java/Makefile
 
 # It's safer to remove and recreate the copy of the include files (in the
 # 'include' directory) after a make clean.  Previously we did it in a make
@@ -597,13 +599,13 @@ docs:;
 ifndef USE_JAVA
 ifeq "$(USE_DOXYGEN)" ""
 # Doxygen hasn't been configured suitably.
-	$(error $(nodoxygen))
+  $(error $(nodoxygen))
 endif
 endif
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -w -C docs $(MAKECMDGOALS)
+  $(MAKE) -$(MAKEFLAGS) -w -C docs $(MAKECMDGOALS)
 else
-	$(MAKE) -w -C docs $(MAKECMDGOALS)
+  $(MAKE) -w -C docs $(MAKECMDGOALS)
 endif
 
 #
@@ -625,9 +627,9 @@ endif
 
 create-dmg:
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -w -C macosx $(MAKECMDGOALS)
+  $(MAKE) -$(MAKEFLAGS) -w -C macosx $(MAKECMDGOALS)
 else
-	$(MAKE) -w -C macosx $(MAKECMDGOALS)
+  $(MAKE) -w -C macosx $(MAKECMDGOALS)
 endif
 
 #
@@ -635,12 +637,12 @@ endif
 #
 
 create-rpm: libsbml.spec
-	rpmbuild -ba libsbml.spec --with java --with csharp --with python \
+  rpmbuild -ba libsbml.spec --with java --with csharp --with python \
              --with ruby --with perl --with octave
 
 libsbml.spec: libsbml.spec.in $(TOP_SRCDIR)/configure \
-	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $@
+       $(TOP_SRCDIR)/config/makefile-common-vars.mk
+  cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $@
 
 
 # -----------------------------------------------------------------------------
@@ -675,24 +677,24 @@ DEPENDENCY_CPPFLAGS = ${XML_CPPFLAGS} ${COMPRESS_CPPFLAGS}
 DEPENDENCY_LIBFLAGS = ${XML_LDFLAGS} ${COMPRESS_LDFLAGS} ${XML_LIBS} ${COMPRESS_LIBS}
 
 libsbml.pc: Makefile
-	@rm -f libsbml.pc
-	@echo "Name: @PACKAGE_NAME@"                                         > libsbml.pc
-	@echo "Description: A library for reading/writing/manipulating SBML" >> libsbml.pc
-	@echo "URL: http://sbml.org/Software/libSBML"                        >> libsbml.pc
-	@echo "Version: @PACKAGE_VERSION@"                                   >> libsbml.pc
-	@echo ""                                                             >> libsbml.pc
-	@echo "prefix=@prefix@"                                              >> libsbml.pc
-	@echo "libdir=@libdir@"                                              >> libsbml.pc
-	@echo "includedir=@includedir@"                                      >> libsbml.pc
-	@echo ""                                                             >> libsbml.pc
-	@echo "Libs: -L\$${libdir} -lsbml"                                   >> libsbml.pc
-	@echo "Libs.private: ${DEPENDENCY_LIBFLAGS} ${base-libs}"            >> libsbml.pc
-	@echo "Cflags: -I\$${includedir}"                                    >> libsbml.pc
+  @rm -f libsbml.pc
+  @echo "Name: @PACKAGE_NAME@"                                         > libsbml.pc
+  @echo "Description: A library for reading/writing/manipulating SBML" >> libsbml.pc
+  @echo "URL: http://sbml.org/Software/libSBML"                        >> libsbml.pc
+  @echo "Version: @PACKAGE_VERSION@"                                   >> libsbml.pc
+  @echo ""                                                             >> libsbml.pc
+  @echo "prefix=@prefix@"                                              >> libsbml.pc
+  @echo "libdir=@libdir@"                                              >> libsbml.pc
+  @echo "includedir=@includedir@"                                      >> libsbml.pc
+  @echo ""                                                             >> libsbml.pc
+  @echo "Libs: -L\$${libdir} -lsbml"                                   >> libsbml.pc
+  @echo "Libs.private: ${DEPENDENCY_LIBFLAGS} ${base-libs}"            >> libsbml.pc
+  @echo "Cflags: -I\$${includedir}"                                    >> libsbml.pc
 ifdef USE_XERCES
-	@echo "Conflicts: xerces-c = 2.6.0"                                  >> libsbml.pc
+  @echo "Conflicts: xerces-c = 2.6.0"                                  >> libsbml.pc
 endif
 ifdef USE_LIBXML
-	@echo "Requires.private: libxml-2.0 >= 2.6.22" 	                     >> libsbml.pc
+  @echo "Requires.private: libxml-2.0 >= 2.6.22" 	                     >> libsbml.pc
 endif
 
 # -----------------------------------------------------------------------------
@@ -736,7 +738,7 @@ else
 ifeq "$(USE_DOXYGEN)" ""
 # Doxygen hasn't been configured suitably.
 install-docs:
-	$(error $(nodoxygen))
+  $(error $(nodoxygen))
 else
 install-docs: install-docs-recursive
 endif
@@ -746,55 +748,55 @@ installcheck: installcheck-recursive
 
 install-warnings:
 ifeq "$(HOST_TYPE)" "darwin"
-	$(warning $(install-darwin-warning-msg))
+  $(warning $(install-darwin-warning-msg))
 else
-	$(warning $(install-linux-warning-msg))
+  $(warning $(install-linux-warning-msg))
 endif
 
 install-pc: libsbml.pc
-	$(INSTALL_SH) libsbml.pc -m 0644 "$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"
+  $(INSTALL_SH) libsbml.pc -m 0644 "$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"
 
 uninstall: uninstall-recursive uninstall-libsbml-pc
-	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
-	  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir "$(DESTDIR)$(LIBDIR)"; \
-	    rmdir "$(DESTDIR)$(LIBDIR)"; \
-	  else \
-	    echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
-	  fi; \
-	fi; \
-	if test -d "$(DESTDIR)$(INCLUDEDIR)"; then \
-	  if test -n "`find $(DESTDIR)$(INCLUDEDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
-	    rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
-	  else \
-	    echo "Directory $(DESTDIR)$(INCLUDEDIR) not empty; leaving it alone"; \
-	  fi; \
-	fi; \
-	if test -d "$(DESTDIR)"; then \
-	  if test -n "`find $(DESTDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir "$(DESTDIR)"; \
-	    rmdir "$(DESTDIR)"; \
-	  else \
-	    echo "Directory $(DESTDIR) not empty; leaving it alone"; \
-	  fi; \
-	fi;
-	$(warning $(uninstall-warning-msg))
+  @if test -d "$(DESTDIR)$(LIBDIR)"; then \
+    if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
+      echo rmdir "$(DESTDIR)$(LIBDIR)"; \
+      rmdir "$(DESTDIR)$(LIBDIR)"; \
+    else \
+      echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
+    fi; \
+  fi; \
+  if test -d "$(DESTDIR)$(INCLUDEDIR)"; then \
+    if test -n "`find $(DESTDIR)$(INCLUDEDIR) -maxdepth 0 -empty`"; then \
+      echo rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
+      rmdir "$(DESTDIR)$(INCLUDEDIR)"; \
+    else \
+      echo "Directory $(DESTDIR)$(INCLUDEDIR) not empty; leaving it alone"; \
+    fi; \
+  fi; \
+  if test -d "$(DESTDIR)"; then \
+    if test -n "`find $(DESTDIR) -maxdepth 0 -empty`"; then \
+      echo rmdir "$(DESTDIR)"; \
+      rmdir "$(DESTDIR)"; \
+    else \
+      echo "Directory $(DESTDIR) not empty; leaving it alone"; \
+    fi; \
+  fi;
+  $(warning $(uninstall-warning-msg))
 
 uninstall-libsbml-pc:
-	@target="$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"; \
-	if test -f $$target ; then \
-	  echo rm $$target; \
-	  rm $$target; \
-	fi; \
-	if test -d "$(DESTDIR)$(LIBDIR)/pkgconfig"; then \
-	  if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
-	    echo rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
-	    rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
-	  else \
-	    echo "Directory $(DESTDIR)$(LIBDIR)/pkgconfig not empty; leaving it alone"; \
-	  fi; \
-	fi;
+  @target="$(DESTDIR)$(LIBDIR)/pkgconfig/libsbml.pc"; \
+  if test -f $$target ; then \
+    echo rm $$target; \
+    rm $$target; \
+  fi; \
+  if test -d "$(DESTDIR)$(LIBDIR)/pkgconfig"; then \
+    if test -n "`find $(DESTDIR)$(LIBDIR) -maxdepth 0 -empty`"; then \
+      echo rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
+      rmdir "$(DESTDIR)$(LIBDIR)/pkgconfig"; \
+    else \
+      echo "Directory $(DESTDIR)$(LIBDIR)/pkgconfig not empty; leaving it alone"; \
+    fi; \
+  fi;
 
 # -----------------------------------------------------------------------------
 # Cleaning.
@@ -831,9 +833,9 @@ tar_archive      = $(archive_basename)-src.tar.gz
 zip_archive      = $(archive_basename)-src.zip
 
 dist: dist-all dist-gzip dist-zip
-	if test -d $(DISTDIR); then \
-	  $(remove_distdir); \
-	fi
+  if test -d $(DISTDIR); then \
+    $(remove_distdir); \
+  fi
 
 TAR := $(shell gnutar --version 2>/dev/null)
 ifdef TAR
@@ -843,19 +845,19 @@ else
 endif
 
 dist-gzip: config-check dist-all
-	if test -d $(DISTDIR); then \
-	  $(TAR) -C $(DISTDIR)/.. -czf $(tar_archive) $(notdir $(DISTDIR)); \
-	fi
+  if test -d $(DISTDIR); then \
+    $(TAR) -C $(DISTDIR)/.. -czf $(tar_archive) $(notdir $(DISTDIR)); \
+  fi
 
 # The dependency on dist-gzip is to make sure that one is done first, because
 # this one resets the file time stamps before creating the archive:
 
 dist-zip: dist-gzip
-	if test -d $(DISTDIR); then				\
-	  cd $(DISTDIR)/..;					\
-	  $(touch_distdir);                                     \
-	  zip -Xyvr9  $(zip_archive) "$(archive_basename)";     \
-	fi
+  if test -d $(DISTDIR); then				\
+    cd $(DISTDIR)/..;					\
+    $(touch_distdir);                                     \
+    zip -Xyvr9  $(zip_archive) "$(archive_basename)";     \
+  fi
 
 # For `make dist' to work properly, we need the developer to configure
 # libsbml with certain flags, so that certain auto-generated files are
@@ -868,79 +870,79 @@ num_vars        = $(words $(check_vars_list))
 num_vars_set    = $(words $(foreach var,$(check_vars_list),$($(var))))
 
 config-check:
-	@if test $(num_vars_set) != $(num_vars); then \
-	  echo "Please reconfigure with options $(check_vars_list)"; \
-	  echo "before running 'make dist'"; \
-	  exit 2; \
-	fi
+  @if test $(num_vars_set) != $(num_vars); then \
+    echo "Please reconfigure with options $(check_vars_list)"; \
+    echo "before running 'make dist'"; \
+    exit 2; \
+  fi
 
 dist-all: $(distfiles)
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) all
+  $(MAKE) -$(MAKEFLAGS) all
 else
-	$(MAKE) all
+  $(MAKE) all
 endif
-	-rm -f $(tar_archive) $(zip_archive)
-	@$(remove_distdir)
-	mkdir -p $(DISTDIR)
-	@list='$(distfiles)'; for file in $$list; do \
-	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	    dir="$$dir"; \
-	    $(MKINSTALLDIRS) "$(DISTDIR)/$$dir"; \
-	  else \
-	    dir=''; \
-	  fi; \
-	  if test -d $$d/$$file; then \
-	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	      cp -pR $(srcdir)/$$file $(DISTDIR)/$$dir || exit 1; \
-	    fi; \
-	    cp -pR $$d/$$file $(DISTDIR)/$$dir || exit 1; \
-	  else \
-	    test -f $(DISTDIR)/$$file \
-	    || cp -p $$d/$$file $(DISTDIR)/$$file \
-	    || exit 1; \
-	  fi; \
-	done
-	@list='$(subdirs)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    test -d $(DISTDIR)/$$subdir \
-	    || mkdir $(DISTDIR)/$$subdir \
-	    || exit 1; \
-	    $(MAKE) -$(MAKEFLAGS) -C $$subdir \
-	        TOP_DISTDIR="$(TOP_DISTDIR)" \
-	        DISTDIR=$(DISTDIR) \
-	        dist \
-	      || exit 1; \
-	  fi; \
-	done
-	-@find $(DISTDIR) -type d ! -perm -777 -exec chmod a+rwx {} \; -o \
-	  ! -type d ! -perm -444 -links 1 -exec chmod a+r {} \; -o \
-	  ! -type d ! -perm -400 -exec chmod a+r {} \; -o \
-	  ! -type d ! -perm -444 -exec $(SHELL) $(INSTALL_SH) -c -m a+r {} {} \; \
-	|| chmod -R a+r $(DISTDIR)
+  -rm -f $(tar_archive) $(zip_archive)
+  @$(remove_distdir)
+  mkdir -p $(DISTDIR)
+  @list='$(distfiles)'; for file in $$list; do \
+    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+      dir="$$dir"; \
+      $(MKINSTALLDIRS) "$(DISTDIR)/$$dir"; \
+    else \
+      dir=''; \
+    fi; \
+    if test -d $$d/$$file; then \
+      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+        cp -pR $(srcdir)/$$file $(DISTDIR)/$$dir || exit 1; \
+      fi; \
+      cp -pR $$d/$$file $(DISTDIR)/$$dir || exit 1; \
+    else \
+      test -f $(DISTDIR)/$$file \
+      || cp -p $$d/$$file $(DISTDIR)/$$file \
+      || exit 1; \
+    fi; \
+  done
+  @list='$(subdirs)'; for subdir in $$list; do \
+    if test "$$subdir" = .; then :; else \
+      test -d $(DISTDIR)/$$subdir \
+      || mkdir $(DISTDIR)/$$subdir \
+      || exit 1; \
+      $(MAKE) -$(MAKEFLAGS) -C $$subdir \
+          TOP_DISTDIR="$(TOP_DISTDIR)" \
+          DISTDIR=$(DISTDIR) \
+          dist \
+        || exit 1; \
+    fi; \
+  done
+  -@find $(DISTDIR) -type d ! -perm -777 -exec chmod a+rwx {} \; -o \
+    ! -type d ! -perm -444 -links 1 -exec chmod a+r {} \; -o \
+    ! -type d ! -perm -400 -exec chmod a+r {} \; -o \
+    ! -type d ! -perm -444 -exec $(SHELL) $(INSTALL_SH) -c -m a+r {} {} \; \
+  || chmod -R a+r $(DISTDIR)
 
 docs_tar_archive = $(archive_basename)-docs.tar.gz
 docs_zip_archive = $(archive_basename)-docs.zip
 
 docs_archive_contents =		    \
-	docs/*.txt		    \
-	docs/*.html		    \
-	docs/*.docx		    \
-	docs/*.pdf		    \
-	docs/.graphics		    \
-	docs/formatted/cpp-api	    \
-	docs/formatted/csharp-api   \
-	docs/formatted/java-api	    \
-	docs/formatted/matlab-api   \
-	docs/formatted/octave-api   \
-	docs/formatted/python-api
+  docs/*.txt		    \
+  docs/*.html		    \
+  docs/*.docx		    \
+  docs/*.pdf		    \
+  docs/.graphics		    \
+  docs/formatted/cpp-api	    \
+  docs/formatted/csharp-api   \
+  docs/formatted/java-api	    \
+  docs/formatted/matlab-api   \
+  docs/formatted/octave-api   \
+  docs/formatted/python-api
 
 dist-docs:
-	make docs
-	$(TAR) -czf $(docs_tar_archive) $(docs_archive_contents)
-	zip -Xyvr9 $(docs_zip_archive) $(docs_archive_contents)
+  make docs
+  $(TAR) -czf $(docs_tar_archive) $(docs_archive_contents)
+  zip -Xyvr9 $(docs_zip_archive) $(docs_archive_contents)
 
 ## This target untars the dist file and tries a VPATH configuration.  Then
 ## it guarantees that the distribution is self-contained by making another
@@ -1001,15 +1003,15 @@ dist-docs:
 #	       find -type f -print ; \
 #	       exit 1; } >&2
 
-
+ 
 # -----------------------------------------------------------------------------
 # Miscellaneous.
 # -----------------------------------------------------------------------------
 
 printJavaDataModel: config/printJavaDataModel.java
-	$(JAVAC) config/printJavaDataModel.java
+  $(JAVAC) config/printJavaDataModel.java
 
-
+ 
 # -----------------------------------------------------------------------------
 # Common default rules.
 # -----------------------------------------------------------------------------
