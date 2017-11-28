@@ -123,6 +123,8 @@ mkdir examples\csharp
 mkdir examples\csharp\%PACKAGE_NAME%
 mkdir examples\java
 mkdir examples\java\%PACKAGE_NAME%
+mkdir examples\python
+mkdir examples\python\%PACKAGE_NAME%
 
 copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake       examples\
 

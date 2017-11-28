@@ -117,6 +117,8 @@ copy /y %PACKAGE_DIR%\src\bindings\php\*-%PACKAGE_NAME%.i           src\bindings
 mkdir examples
 mkdir examples\sample-models
 mkdir examples\sample-models\fbc
+mkdir examples\c
+mkdir examples\c\%PACKAGE_NAME%
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
 mkdir examples\csharp
