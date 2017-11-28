@@ -269,10 +269,6 @@ distfiles = Makefile.in                \
             CMakeLists.txt             \
             compile-native-files.cmake \
             swig-binding.cmake.in      \
-            CMakeFindJavaCommon.cmake  \
-            FindJava.cmake             \
-            FindPackageHandleStandardArgs.cmake \
-            FindPackageMessage.cmake   \
             $(check_sources)           \
             $(extra_sources)           \
             $(java_files)              \

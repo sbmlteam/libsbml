@@ -32,13 +32,8 @@
 ###############################################################################
 
 find_package(SWIG REQUIRED)
-
-if (${CMAKE_VERSION} VERSION_LESS "3.10.0")
-    set(CMAKE_MODULE_PATH "${LIBSBML_ROOT_SOURCE_DIR}/src/bindings/java")
-endif()
-find_package(Java COMPONENTS Development REQUIRED)
 find_package(JNI)
-
+find_package(Java COMPONENTS Development REQUIRED)
 find_package(PythonInterp)
 include(${SWIG_USE_FILE})
 
