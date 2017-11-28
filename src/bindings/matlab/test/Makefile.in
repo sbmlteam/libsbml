@@ -32,7 +32,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
- 
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -83,15 +83,15 @@ distfiles =                  \
         testReadFromFile13.m \
         testReadFromFile14.m \
         testReadFromFile15.m \
-    testReadFromFile16.m \
+		testReadFromFile16.m \
         testReadFlags.m      \
         compareFiles.m       \
         testOutput.m         \
-    testReadFromFileFbc1.m  \
+		testReadFromFileFbc1.m  \
     testReadFromFileFbc2.m  \
-    testReadWriteGeneProductIds.m  \
-    testReadWriteGeneProducts.m    \
-    testVersionInformation.m \
+    testReadWriteGeneProductIds.m \
+    testReadWriteGeneProducts.m   \
+		testVersionInformation.m \
         $(test_data_files)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
@@ -101,7 +101,7 @@ extra_clean = test.log
 
 extra_distclean = Makefile
 
- 
+
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ extra_distclean = Makefile
 
 all: Makefile
 
- 
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
@@ -133,15 +133,15 @@ endef
 here = $(shell /bin/pwd)
 
 check: $(libraries)
-  @echo
-  @echo
-  @echo Running Tests in $(thisdir)
-  @echo -----------------------------------------------------------------
-  $(call matlabrun,$(MATLAB) $(matlab_test_args) -r "cd ('$(here)'); runTests")
-  @echo -----------------------------------------------------------------
-  @echo
+	@echo
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	$(call matlabrun,$(MATLAB) $(matlab_test_args) -r "cd ('$(here)'); runTests")
+	@echo -----------------------------------------------------------------
+	@echo
 
- 
+
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
@@ -155,7 +155,7 @@ uninstall:
 
 installcheck:
 
- 
+
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ mostlyclean: mostlyclean-normal
 
 maintainer-clean: maintainer-clean-normal
 
- 
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -177,14 +177,14 @@ dist: all dist-normal
 
 distcheck: all distcheck-normal
 
- 
+
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
- 
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
