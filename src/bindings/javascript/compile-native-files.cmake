@@ -46,8 +46,8 @@ if (NOT NODE_GYP_EXECUTABLE)
   message(FATAL_ERROR 
   "
        node-gyp is required to build the libSBML JS bindings. 
-	   Please set the NODE_GYP_EXECUTABLE variable to the 
-	   full location of node-gyp.
+     Please set the NODE_GYP_EXECUTABLE variable to the 
+     full location of node-gyp.
   "
   )
 endif()
@@ -56,7 +56,7 @@ if (NOT PYTHON_EXECUTABLE)
   message(FATAL_ERROR 
   "
        Please specify the PYTHON_EXECUTABLE variable to a python 2 executable
-	   compatible with node-gyp
+     compatible with node-gyp
   "
   )
 endif()
@@ -89,11 +89,11 @@ file(WRITE ${BIN_DIRECTORY}/binding.gyp ${BINDING_CONTENT})
 if (WIN32)
   if (NODEJS_EXECUTABLE)
     set(nodejs_dir)
-	if("${CMAKE_VERSION}" VERSION_GREATER 2.8.11)
+  if("${CMAKE_VERSION}" VERSION_GREATER 2.8.11)
       get_filename_component(nodejs_dir ${NODEJS_EXECUTABLE} DIRECTORY)
-	else()
+  else()
       get_filename_component(nodejs_dir ${NODEJS_EXECUTABLE} PATH)
-	endif()
+  endif()
     set(ENV{PATH} "${nodejs_dir};$ENV{PATH}")
   endif()
 endif()
@@ -104,8 +104,8 @@ set(ENV{PYTHON} ${PYTHON_EXECUTABLE})
 execute_process(
     COMMAND "${NODE_GYP_EXECUTABLE}"
             "rebuild"
-	        "${NODE_GYP_ARGS}"
-	
-	WORKING_DIRECTORY "${BIN_DIRECTORY}"
+            ${NODE_GYP_ARGS}
+  
+  WORKING_DIRECTORY "${BIN_DIRECTORY}"
 )
 
