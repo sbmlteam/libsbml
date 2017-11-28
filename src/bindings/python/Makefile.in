@@ -199,6 +199,8 @@ distfiles =							  \
             Makefile.in						  \
             CMakeLists.txt					  \
             add_version.cmake					  \
+            patch-python.cmake					  \
+            setup.py.cmake					  \
             test.py						  \
             local-doc-extras.i					  \
             local-packages.i.in					  \
