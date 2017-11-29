@@ -3,7 +3,7 @@
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, Perl and Ruby installers_**
+### **_C, C++, C#, Java, Perl and Ruby installers_**
 
 This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 32-bit Linux systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 
@@ -11,7 +11,6 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * C++
 * C# (Mono)
 * Java
-* Javascript
 * Perl
 * Ruby
 	
@@ -26,7 +25,7 @@ By default, the installer will put libSBML into `/usr`.  Detailed information ab
 
 ### **_MATLAB interface_**
 
-[The directory named "MATLAB interface"](MATLAB%20interface) contains the standalone binaries for the MATLAB libSBML interface **only**.  This is **not** included in the main installers.
+[The main directory named "MATLAB interface"](../../MATLAB%20interface) contains the standalone binaries for the MATLAB libSBML interface **only**.  This is **not** included in the main installers.
 
 ### **_R source package_**
 
@@ -42,8 +41,12 @@ If you are primarily interested in Python, we provide two options for installing
 
 After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/python-api/libsbml-accessing.html).
 
+### **_Javascript/PHP interfaces_**
+
+We do provide support for these languages but it will be necessary to build them for your system (see [Additional information](#add) below).
 
 ### **_Additional information_**
+[add]:l
 
 If you need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
 

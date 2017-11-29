@@ -15,6 +15,11 @@ This archive contains standalone binaries for the libSBML MATLAB interface.  The
 
 4. Save the changes to your MATLAB path for future use.  To do this, you can use the [savepath](http://www.mathworks.com/help/matlab/ref/savepath.html) command in MATLAB.
 
+#### Alternative installation
+
+1. Extract the archive somewhere on your local computer.
+
+2. Start your copy of MATLAB, navigate to the extracted folder and run '**installSBML**'. This will add the path and verify that everything works (as above).
 
 ### Help and support
 

@@ -4,7 +4,7 @@ REM This script creates the directory structure for SF
 REM 
 
 SET THIS_DIR=%~dp0
-set VERSION=5.15.0
+set VERSION=5.16.0
 SET DIST_DIR=%~dp0\%VERSION%
 SET TEST_DIR=%~dp0\stable
 
@@ -30,19 +30,14 @@ mkdir "experimental\source\R interface"
 mkdir stable
 mkdir "stable\Linux"
 mkdir "stable\Linux\32-bit"
-mkdir "stable\Linux\32-bit\MATLAB interface"
 mkdir "stable\Linux\64-bit"
-mkdir "stable\Linux\64-bit\MATLAB interface"
 mkdir "stable\Mac OS X"
-mkdir "stable\Mac OS X\MATLAB interface"
 mkdir "stable\Windows"
 mkdir "stable\Windows\32-bit"
 mkdir "stable\Windows\32-bit\R interface"
-mkdir "stable\Windows\32-bit\MATLAB interface"
 mkdir "stable\Windows\32-bit\python"
 mkdir "stable\Windows\64-bit"
 mkdir "stable\Windows\64-bit\R interface"
-mkdir "stable\Windows\64-bit\MATLAB interface"
 mkdir "stable\Windows\64-bit\python"
 mkdir "stable\Windows\R interface"
 mkdir "stable\MATLAB interface"
@@ -65,20 +60,15 @@ copy /y %THIS_DIR%\experimental\source\R_interface\README.md "%DIST_DIR%\experim
 copy /y %THIS_DIR%\stable\README.md %DIST_DIR%\stable\.
 copy /y %THIS_DIR%\stable\linux\README.md "%DIST_DIR%\stable\Linux\."
 copy /y %THIS_DIR%\stable\linux\32-bit\README.md "%DIST_DIR%\stable\Linux\32-bit\."
-copy /y %THIS_DIR%\stable\linux\32-bit\MATLAB_interface\README.md "%DIST_DIR%\stable\Linux\32-bit\MATLAB interface\."
 copy /y %THIS_DIR%\stable\linux\64-bit\README.md "%DIST_DIR%\stable\Linux\64-bit\."
-copy /y %THIS_DIR%\stable\linux\64-bit\MATLAB_interface\README.md "%DIST_DIR%\stable\Linux\64-bit\MATLAB interface\."
 copy /y %THIS_DIR%\stable\macos\README.md "%DIST_DIR%\stable\Mac OS X\."
-copy /y %THIS_DIR%\stable\macos\MATLAB_interface\README.md "%DIST_DIR%\stable\Mac OS X\MATLAB interface\."
 copy /y %THIS_DIR%\stable\windows\README.md "%DIST_DIR%\stable\Windows\."
 copy /y %THIS_DIR%\stable\windows\32-bit\README.md "%DIST_DIR%\stable\Windows\32-bit\."
 copy /y %THIS_DIR%\stable\windows\32-bit\R_interface\README.md "%DIST_DIR%\stable\Windows\32-bit\R interface\."
 copy /y %THIS_DIR%\stable\windows\32-bit\python\README.md "%DIST_DIR%\stable\Windows\32-bit\python\."
-copy /y %THIS_DIR%\stable\windows\32-bit\MATLAB_interface\README.md "%DIST_DIR%\stable\Windows\32-bit\MATLAB interface\."
 copy /y %THIS_DIR%\stable\windows\64-bit\README.md "%DIST_DIR%\stable\Windows\64-bit\."
 copy /y %THIS_DIR%\stable\windows\64-bit\R_interface\README.md "%DIST_DIR%\stable\Windows\64-bit\R interface\."
 copy /y %THIS_DIR%\stable\windows\64-bit\python\README.md "%DIST_DIR%\stable\Windows\64-bit\python\."
-copy /y %THIS_DIR%\stable\windows\64-bit\MATLAB_interface\README.md "%DIST_DIR%\stable\Windows\64-bit\MATLAB interface\."
 copy /y %THIS_DIR%\stable\windows\64-bit\R_interface\README.md "%DIST_DIR%\stable\Windows\R interface\."
 copy /y %THIS_DIR%\stable\MATLAB_interface\README.md "%DIST_DIR%\stable\MATLAB interface\."
 copy /y %THIS_DIR%\stable\R_interface\README.md "%DIST_DIR%\stable\R interface\."
