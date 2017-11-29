@@ -121,7 +121,8 @@ main (int argc, char *argv[])
     delete document;
     return errors;
   }   
-  else if (errors > 0)
+  
+  if (errors > 0)
   {
     cout << "Information may have been lost in conversion; but a valid model ";
     cout << "was produced by the conversion.\nThe following information ";

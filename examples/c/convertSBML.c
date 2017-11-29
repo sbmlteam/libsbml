@@ -102,8 +102,10 @@ main (int argc, char *argv[])
       printf("Conversion skipped.  Either libSBML does not (yet) have\n");
       printf("ability to convert this model, or (automatic) conversion\n");
       printf("is not possible in this case.\n");
+      return errors;
     }
-    else if (errors > 0)
+    
+    if (errors > 0)
     {
       printf("Information may have been lost in conversion; but a valid model ");
       printf("was produced by the conversion.\nThe following information ");
@@ -119,6 +121,6 @@ main (int argc, char *argv[])
   }
 
   SBMLDocument_free(d);
-  return errors;
+  return 0;
 }
 
