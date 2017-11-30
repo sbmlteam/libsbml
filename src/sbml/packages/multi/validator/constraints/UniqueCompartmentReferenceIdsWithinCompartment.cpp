@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
-#include "UniqueCompartmentReferenceIdsWithinCompartment.h"
+#include "UniqueCRefIdsWithinCompartment.h"
 
 /** @cond doxygenIgnored */
 

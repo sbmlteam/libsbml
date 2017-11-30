@@ -27,7 +27,7 @@
 
 #include <sbml/Model.h>
 #include <sbml/packages/multi/sbml/SubListOfSpeciesFeatures.h>
-#include "UniqueSubListOfSpeciesFeaturesIdsWithinSpecies.h"
+#include "UniqueSLOSFIdsWithinSpecies.h"
 
 /** @cond doxygenIgnored */
 

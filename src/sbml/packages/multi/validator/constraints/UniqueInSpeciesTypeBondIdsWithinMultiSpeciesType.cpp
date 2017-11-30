@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
-#include "UniqueInSpeciesTypeBondIdsWithinMultiSpeciesType.h"
+#include "UniqueISTBIdsWithinMultiSpeciesType.h"
 
 /** @cond doxygenIgnored */
 

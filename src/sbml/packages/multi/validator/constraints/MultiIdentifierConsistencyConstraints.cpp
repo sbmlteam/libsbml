@@ -33,13 +33,13 @@
 #include <sbml/validator/VConstraint.h>
 #include <sbml/packages/multi/validator/MultiSBMLError.h>
 #include "UniqueMultiComponentIds.h"
-#include "UniqueSpeciesTypeInstanceIdsWithinMultiSpeciesType.h"
-#include "UniqueSpeciesTypeComponentIndexIdsWithinMultiSpeciesType.h"
-#include "UniqueInSpeciesTypeBondIdsWithinMultiSpeciesType.h"
-#include "UniqueSpeciesFeatureTypeIdsWithinMultiSpeciesType.h"
-#include "UniqueSubListOfSpeciesFeaturesIdsWithinSpecies.h"
+#include "UniqueSTIIdsWithinMultiSpeciesType.h"
+#include "UniqueSTCIdsWithinMultiSpeciesType.h"
+#include "UniqueISTBIdsWithinMultiSpeciesType.h"
+#include "UniqueSFTIdsWithinMultiSpeciesType.h"
+#include "UniqueSLOSFIdsWithinSpecies.h"
 #include "UniqueSpeciesFeatureIdsWithinSpecies.h"
-#include "UniqueCompartmentReferenceIdsWithinCompartment.h"
+#include "UniqueCRefIdsWithinCompartment.h"
 
 #endif  /* AddingConstrainstToValidator */
 

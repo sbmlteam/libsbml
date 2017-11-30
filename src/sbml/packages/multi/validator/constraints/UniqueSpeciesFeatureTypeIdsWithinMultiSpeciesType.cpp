@@ -26,7 +26,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
-#include "UniqueSpeciesFeatureTypeIdsWithinMultiSpeciesType.h"
+#include "UniqueSFTIdsWithinMultiSpeciesType.h"
 
 /** @cond doxygenIgnored */
 
