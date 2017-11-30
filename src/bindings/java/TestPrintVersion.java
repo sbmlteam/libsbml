@@ -38,7 +38,6 @@
  * ------------------------------------------------------------------------ -->
  */
 
-import java.util.Objects;
 import org.sbml.libsbml.*;
  
 
@@ -54,7 +53,7 @@ public class TestPrintVersion
 
     String input_version_string     = args[0];
     String binding_version_string   = libsbml.getLibSBMLDottedVersion();
-    if ( Objects.equals(input_version_string, binding_version_string) )
+    if ( String.equals(input_version_string, binding_version_string) )
      {
       System.out.println(".");
      }
