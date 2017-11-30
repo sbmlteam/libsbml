@@ -53,7 +53,7 @@ public class TestPrintVersion
 
     String input_version_string     = args[0];
     String binding_version_string   = libsbml.getLibSBMLDottedVersion();
-    if ( String.equals(input_version_string, binding_version_string) )
+    if ( input_version_string != null && input_version_string.equals(binding_version_string) )
      {
       System.out.println(".");
      }
