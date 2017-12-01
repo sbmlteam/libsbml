@@ -47,6 +47,7 @@
 #include <sbml/AssignmentRule.h>
 #include <sbml/AlgebraicRule.h>
 #include <sbml/RateRule.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 #include <sbml/util/List.h>
 
