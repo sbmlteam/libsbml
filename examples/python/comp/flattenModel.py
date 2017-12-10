@@ -54,7 +54,7 @@ def check(value, message):
   prints an error message constructed using 'message' along with text from
   libSBML explaining the meaning of the code, and exits with status code 1.
   """
-  if value == None:
+  if value is None:
     raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
   elif type(value) is int:
     if value == LIBSBML_OPERATION_SUCCESS:
@@ -99,7 +99,7 @@ Arguments:
   output_file = args[1]
 
   if not os.path.exists(input_file):
-    raise SystemExit('%s : No such file.' % (input_file))
+    raise SystemExit('%s : No such file.' % input_file)
 
   # Read the SBML input file.
 
@@ -130,7 +130,7 @@ Arguments:
   # Do the conversion.
 
   result = sbmldoc.convert(props)
-  if (result != LIBSBML_OPERATION_SUCCESS):
+  if result != LIBSBML_OPERATION_SUCCESS:
     sbmldoc.printErrors()
     raise SystemExit("Conversion failed... ("+ str(result) + ")")
 
@@ -139,7 +139,7 @@ Arguments:
   writer  = SBMLWriter()
   check(writer, 'create an SBMLWriter object.')
   writer.writeSBML(sbmldoc, output_file)
-  print("Flattened model written to %s" % (output_file))
+  print("Flattened model written to %s" % output_file)
 
 if __name__ == '__main__':
   main(sys.argv)

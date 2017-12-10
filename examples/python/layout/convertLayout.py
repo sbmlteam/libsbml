@@ -54,14 +54,14 @@ def convertDocToL2(doc, outputFile):
 
 
   docPlugin = doc.getPlugin("layout")
-  if docPlugin != None:
+  if docPlugin is not None:
     docPlugin.setElementNamespace(layoutNsUri)
 
   doc.getSBMLNamespaces().removePackageNamespace(3, 1, "layout", 1)
   doc.getSBMLNamespaces().addPackageNamespace("layout", 1)
 
   rdocPlugin = doc.getPlugin("render")
-  if rdocPlugin!= None:
+  if rdocPlugin is not None:
     rdocPlugin.setElementNamespace(renderNsUri)
 
   doc.getSBMLNamespaces().removePackageNamespace(3, 1, "render", 1)
@@ -83,14 +83,14 @@ def convertDocToL3(doc, outputFile):
 
 
   docPlugin = doc.getPlugin("layout")
-  if docPlugin != None:
+  if docPlugin is not None:
     docPlugin.setElementNamespace(layoutNsUri)
 
   doc.getSBMLNamespaces().removePackageNamespace(3, 1, "layout", 1)
   doc.getSBMLNamespaces().addPackageNamespace("layout", 1)
 
   rdocPlugin = doc.getPlugin("render")
-  if rdocPlugin!= None:
+  if rdocPlugin is not None:
     rdocPlugin.setElementNamespace(renderNsUri)
 
   doc.getSBMLNamespaces().removePackageNamespace(3, 1, "render", 1)
@@ -100,11 +100,11 @@ def convertDocToL3(doc, outputFile):
 
 def convertFileToL2(inputFile, outputFile):
   doc  = readSBMLFromFile(inputFile)
-  convertDocToL2(doc)
+  convertDocToL2(doc, outputFile)
 
 def convertFileToL3(inputFile, outputFile):
   doc  = readSBMLFromFile(inputFile)
-  convertDocToL3(outputFile)
+  convertDocToL3(doc, outputFile)
 
 def convertFile(inputFile, outputFile):
   doc  = readSBMLFromFile(inputFile)

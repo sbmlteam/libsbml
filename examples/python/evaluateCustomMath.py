@@ -48,34 +48,35 @@ def main (args):
     """
     if len(args) < 2:
       print("Usage: evaluateCustomMath formula [model containing values]")
-      return 1;
+      return 1
 
-    formula = args[1];
+    formula = args[1]
     filename = None
-    if (len(args) > 2):
+    if len(args) > 2:
         filename = args[2]
 
-    math = libsbml.parseFormula(formula);
-    if (math == None):
-      print("Invalid formula, aborting.");
-      return 1;
+    math = libsbml.parseFormula(formula)
+    if math is None:
+      print("Invalid formula, aborting.")
+      return 1
 
-    doc = None;
-    if filename != None:
-      doc = libsbml.readSBML(filename);
+    doc = None
+    if filename is not None:
+      doc = libsbml.readSBML(filename)
       if doc.getNumErrors(libsbml.LIBSBML_SEV_ERROR) > 0:
-        print("The models contains errors, please correct them before continuing.");
-        doc.printErrors();
-        return 1;
+        print("The models contains errors, please correct them before continuing.")
+        doc.printErrors()
+        return 1
       # the following maps a list of ids to their corresponding model values
       # this makes it possible to evaluate expressions involving SIds. 
-      libsbml.SBMLTransforms.mapComponentValues(doc.getModel());    
+      libsbml.SBMLTransforms.mapComponentValues(doc.getModel())
     else:
       # create dummy document
-      doc = libsbml.SBMLDocument(3, 1);
+      doc = libsbml.SBMLDocument(3, 1)
 
-    result = libsbml.SBMLTransforms.evaluateASTNode(math, doc.getModel());
-    print("{0} = {1}".format(formula, result));
-   
+    result = libsbml.SBMLTransforms.evaluateASTNode(math, doc.getModel())
+    print("{0} = {1}".format(formula, result))
+
+
 if __name__ == '__main__':
   main(sys.argv)  

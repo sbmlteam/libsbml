@@ -46,46 +46,47 @@ import libsbml
 def main (args):
     """Usage: replaceOneFD filename functionDefinitionId reactionId outfile
     """
-    if (len(args) != 5):
-      print("Usage: replaceOneFD filename functionDefinitionId reactionId outfile");
-      return 1;
+    if len(args) != 5:
+      print("Usage: replaceOneFD filename functionDefinitionId reactionId outfile")
+      return 1
 
-    filename = args[1];
-    outFile = args[4];
-    functionDefinitionId = args[2];
-    reactionId = args[3];
-    document = libsbml.readSBML(filename);
+    filename = args[1]
+    outFile = args[4]
+    functionDefinitionId = args[2]
+    reactionId = args[3]
+    document = libsbml.readSBML(filename)
 
-    if (document.getNumErrors(libsbml.LIBSBML_SEV_ERROR)  > 0):
-      print("The models contains errors, please correct them before continuing.");
-      document.printErrors();
-      return 1;
+    if document.getNumErrors(libsbml.LIBSBML_SEV_ERROR)  > 0:
+      print("The models contains errors, please correct them before continuing.")
+      document.printErrors()
+      return 1
 
-    model = document.getModel();
-    functionDefinition = model.getFunctionDefinition(functionDefinitionId);
-    if (functionDefinition == None):
-      print();
-      print("No functiondefinition with the given id can be found.");
-      return 1;
+    model = document.getModel()
+    functionDefinition = model.getFunctionDefinition(functionDefinitionId)
+    if functionDefinition is None:
+      print()
+      print("No functiondefinition with the given id can be found.")
+      return 1
 
-    reaction = model.getReaction(reactionId);
-    if (reaction == None):
-      print();
-      print("No reaction with the given id can be found.");
-      return 1;
+    reaction = model.getReaction(reactionId)
+    if reaction is None:
+      print()
+      print("No reaction with the given id can be found.")
+      return 1
 
-    if (reaction.isSetKineticLaw() == False or reaction.getKineticLaw().isSetMath()== False):
-      print();
-      print("The reaction has no math set. ");
-      return 1;
+    if reaction.isSetKineticLaw() == False or reaction.getKineticLaw().isSetMath()== False:
+      print()
+      print("The reaction has no math set. ")
+      return 1
 
     # Until here it was all setup, all we needed was an ASTNode, in which we wanted to 
     # replace calls to a function definition, with the function definitions content. 
     #
-    libsbml.SBMLTransforms.replaceFD(reaction.getKineticLaw().getMath(), functionDefinition);
+    libsbml.SBMLTransforms.replaceFD(reaction.getKineticLaw().getMath(), functionDefinition)
 
     # finally write to file
-    libsbml.writeSBML(document, outFile);
-   
+    libsbml.writeSBML(document, outFile)
+
+
 if __name__ == '__main__':
   main(sys.argv)  

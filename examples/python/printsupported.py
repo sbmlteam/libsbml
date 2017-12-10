@@ -45,13 +45,11 @@ import sys
 import os.path
 from libsbml import *
 
-print("Supported by LibSBML " + getLibSBMLDottedVersion());
-print;
-
-supported = SBMLNamespaces.getSupportedNamespaces();
+print("Supported by LibSBML " + getLibSBMLDottedVersion())
+print()
+supported = SBMLNamespaces.getSupportedNamespaces()
 for i in range(0,supported.getSize()):
-	current = supported.get(i);
-	print("\tSBML Level: " + str(current.getLevel()) + 
-					" Version: " + str(current.getVersion()));
-print;
-
+  current = supported.get(i)
+  print("\tSBML Level: " + str(current.getLevel()) + 
+        " Version: " + str(current.getVersion()))
+print()

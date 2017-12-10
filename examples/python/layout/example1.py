@@ -49,21 +49,21 @@
 from libsbml import *
 
 def createDimensions(width, height):
-  "Create a dimension object with given width and height"
+  """Create a dimension object with given width and height"""
   dim = Dimensions()
   dim.setWidth(width)
   dim.setHeight(height)
   return dim
 
 def createPoint(x, y):
-  "Create a point object with given coordinates"
+  """Create a point object with given coordinates"""
   p = Point()
   p.setX(x)
   p.setY(y)
   return p
 
 def createBoundingBox(id, x, y, width, height):
-  "Create a bounding box object with given coordinates and dimensions"
+  """Create a bounding box object with given coordinates and dimensions"""
   bb = BoundingBox()
   bb.setX(x)
   bb.setY(y)
@@ -120,7 +120,7 @@ reference4.setSpecies(species1.getId())
 reference4.setId("SpeciesReference_4")
 
 # create the Layout
-mplugin = model.getPlugin("layout");
+mplugin = model.getPlugin("layout")
 layout = mplugin.createLayout()
 
 layout.setId("Layout_1")

@@ -56,7 +56,7 @@ def main (args):
   outfile = args[2]
 
   if not os.path.exists(infile):
-    print("[Error] %s : No such file." % (infile))
+    print("[Error] %s : No such file." % infile)
     sys.exit(1)
 
   reader  = libsbml.SBMLReader()

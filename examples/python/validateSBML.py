@@ -53,7 +53,7 @@ class validateSBML:
 
   def validate(self, file):
     if not os.path.exists(file):
-      print("[Error] %s : No such file." % (infile))
+      print("[Error] %s : No such file." % infile)
       self.numinvalid += 1
       return
 
@@ -88,13 +88,13 @@ class validateSBML:
     numCCErr  = 0
     numCCWarn = 0
     errMsgCC  = ""
-    skipCC    = False;
+    skipCC    = False
     timeCC    = 0.0
 
     if seriousErrors:
-      skipCC = True;
+      skipCC = True
       errMsgRead += "Further consistency checking and validation aborted."
-      self.numinvalid += 1;    
+      self.numinvalid += 1
     else:
       sbmlDoc.setConsistencyChecks(libsbml.LIBSBML_CAT_UNITS_CONSISTENCY, self.ucheck)
       start    = time.time()
@@ -105,17 +105,17 @@ class validateSBML:
  
       if failures > 0:
 
-        isinvalid = False;
+        isinvalid = False
         for i in range(failures):
           severity = sbmlDoc.getError(i).getSeverity()
           if (severity == libsbml.LIBSBML_SEV_ERROR) or (severity == libsbml.LIBSBML_SEV_FATAL):
             numCCErr += 1
-            isinvalid = True;
+            isinvalid = True
           else:
             numCCWarn += 1
 
         if isinvalid:
-          self.numinvalid += 1;    
+          self.numinvalid += 1
 
         errMsgCC = sbmlDoc.getErrorLog().toString()
 
@@ -123,24 +123,24 @@ class validateSBML:
     # print results
     #
         
-    print("                 filename : %s" % (file))
+    print("                 filename : %s" % file)
     print("         file size (byte) : %d" % (os.path.getsize(file)))
-    print("           read time (ms) : %f" % (timeRead))
+    print("           read time (ms) : %f" % timeRead)
 
     if not skipCC :
-      print( "        c-check time (ms) : %f" % (timeCC))
+      print( "        c-check time (ms) : %f" % timeCC)
     else:
       print( "        c-check time (ms) : skipped")
 
     print( "      validation error(s) : %d" % (numReadErr  + numCCErr))
     if not skipCC :
-      print( "    (consistency error(s)): %d" % (numCCErr))
+      print( "    (consistency error(s)): %d" % numCCErr)
     else:
       print( "    (consistency error(s)): skipped")
 
     print( "    validation warning(s) : %d" % (numReadWarn + numCCWarn))
     if not skipCC :
-      print( "  (consistency warning(s)): %d" % (numCCWarn))
+      print( "  (consistency warning(s)): %d" % numCCWarn)
     else:
       print( "  (consistency warning(s)): skipped")
 

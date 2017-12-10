@@ -51,21 +51,20 @@ def main (args):
     print(main.__doc__)
     sys.exit(2)
 
-  filename = args[1];
-  document = libsbml.readSBMLFromFile(filename);
-  
-  errors = document.getNumErrors();
-  
-  print("filename: " + filename + "\n");
-  
-  if (errors > 0):
-      document.printErrors();
-      return errors;
-  
-  
+  filename = args[1]
+  document = libsbml.readSBMLFromFile(filename)
+
+  errors = document.getNumErrors()
+
+  print("filename: " + filename + "\n")
+
+  if errors > 0:
+      document.printErrors()
+      return errors
+
   # Model
   
-  m = document.getModel();
+  m = document.getModel()
 
   # testing ascii input, this should work for Python 2 and 3
   
@@ -82,7 +81,8 @@ def main (args):
   
   print(type(m.getName()))
   
-  return errors;
-  
+  return errors
+
+
 if __name__ == '__main__':
   main(sys.argv)  

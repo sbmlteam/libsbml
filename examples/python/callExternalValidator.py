@@ -50,65 +50,66 @@ def main (args):
     print(main.__doc__)
     sys.exit(1)
   
-  filename = args[1];
-  
+  filename = args[1]
+
   # read additional args
-  externalValidator = args[2];
-  
-  tempSBMLFileName = filename + "_temp.xml";
-  if (len(args) > 3):
-      tempSBMLFileName = args[3];
-  
-  outputFile = filename + "_out.xml";
-  if (len(args) > 4):
-      outputFile = args[4];
-  
+  externalValidator = args[2]
+
+  tempSBMLFileName = filename + "_temp.xml"
+  if len(args) > 3:
+      tempSBMLFileName = args[3]
+
+  outputFile = filename + "_out.xml"
+  if len(args) > 4:
+      outputFile = args[4]
+
   additionalArgs = []
   for i in range (5, len(args)):
-      additionalArgs = additionalArgs + [ args[i] ] ;
+      additionalArgs += [args[i]]
   
   # add the output file as additional arg
-  additionalArgs = additionalArgs + [outputFile];
+  additionalArgs += [outputFile]
   
   # read the file name
-  document = readSBML(filename);
-  
+  document = readSBML(filename)
+
   # create a external validator that will write the model to 
   # tempFile, then call teh externalValidator with the given number of arguments
   # to produce the output file. This output file will then be parsed and its
   # errors will be added to the error log.
-  validator = SBMLExternalValidator();
-  
-  validator.setProgram(externalValidator);
-  validator.setSBMLFileName(tempSBMLFileName);
-  validator.setOutputFileName(outputFile);
+  validator = SBMLExternalValidator()
+
+  validator.setProgram(externalValidator)
+  validator.setSBMLFileName(tempSBMLFileName)
+  validator.setOutputFileName(outputFile)
   for item in additionalArgs:
-      validator.addArgument(item);
-  
+      validator.addArgument(item)
+
   # this means that the external program will be called with the following arguments
   # 
   #    externalValidator tempSBMLFileName additionalArgs
   #
-  # (where additionalargs contains the output file as last argument)
+  # (where additionalArgs contains the output file as last argument)
   #
   # The output file that is generated should be an XML document following the 
   # Validator XML format as described here: http://sbml.org/validator/api/#xml
   #
   
   # disable all regular checks
-  document.setApplicableValidators(0);
-  
+  document.setApplicableValidators(0)
+
   # add a custom validator
-  document.addValidator(validator);
-  
+  document.addValidator(validator)
+
   # check consistency like before
-  numErrors = document.checkConsistency();
-  
+  numErrors = document.checkConsistency()
+
   # print errors and warnings
-  document.printErrors();
-  
+  document.printErrors()
+
   # return number of errors
-  return numErrors;
-  
+  return numErrors
+
+
 if __name__ == '__main__':
   main(sys.argv)  

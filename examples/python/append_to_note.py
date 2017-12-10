@@ -50,27 +50,27 @@ import libsbml
 import sys
 
 def getBody(notes):
-    if notes == None:
+    if notes is None:
         return None
     if notes.isStart() and notes.getName() == "body":
         return notes
     for i in range(notes.getNumChildren()):
         current = getBody(notes.getChild(i))
-        if current != None:
-            return current;
+        if current is not None:
+            return current
     return None
 
 def addToNotes(doc, id, stringToAdd):
     element = doc.getElementBySId(id)
-    if element == None:
+    if element is None:
         print ("Couldn't find element '{0}'".format(id))
         exit(2)
     notes = element.getNotes()
-    if notes == None:
+    if notes is None:
         print("Element '{0}' has no notes".format(id))
         exit(3)
     body = getBody(notes)
-    if body == None:
+    if body is None:
         print ("Element '{0}' has no body".format(id))
         exit(4)
     print ("Body before change: ")
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     if doc.getNumErrors(libsbml.LIBSBML_SEV_ERROR) > 0:
         print("Errors occurred loading the file")
         doc.printErrors()
-        exit(1);
+        exit(1)
 
     addToNotes(doc, sys.argv[2], sys.argv[3])
 

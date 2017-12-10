@@ -29,68 +29,67 @@
 
 from libsbml import * 
 
-sbmlns = SBMLNamespaces(3,1,"multi",1);
+sbmlns = SBMLNamespaces(3,1,"multi",1)
 
 # create the document
 
-document = SBMLDocument(sbmlns);
+document = SBMLDocument(sbmlns)
 
 # set the required attribute to True
-docPlug = document.getPlugin("multi");
-docPlug.setRequired(True);
-
+docPlug = document.getPlugin("multi")
+docPlug.setRequired(True)
 
 # create the Model
 
-model=document.createModel();
+model=document.createModel()
 
 # create a compartment
 
-c = model.createCompartment();
-c.setId("membrane");
-c.setConstant(True);
+c = model.createCompartment()
+c.setId("membrane")
+c.setConstant(True)
 
 # set the multi attribute isType via the compartmentPlugin
-compPlug = c.getPlugin("multi");
-compPlug.setIsType(True);
+compPlug = c.getPlugin("multi")
+compPlug.setIsType(True)
 
 # create species
-s = model.createSpecies();
-s.setId("s1");
-s.setCompartment("membrane");
-s.setBoundaryCondition(False);
-s.setHasOnlySubstanceUnits(False);
-s.setConstant(False);
+s = model.createSpecies()
+s.setId("s1")
+s.setCompartment("membrane")
+s.setBoundaryCondition(False)
+s.setHasOnlySubstanceUnits(False)
+s.setConstant(False)
 
 # create reaction
-r = model.createReaction();
-r.setId("r1");
-r.setFast(False);
-r.setReversible(False);
+r = model.createReaction()
+r.setId("r1")
+r.setFast(False)
+r.setReversible(False)
 
 # createReactant
-sr = r.createReactant();
-sr.setId("sr1");
-sr.setSpecies("s1");
-sr.setConstant(False);
+sr = r.createReactant()
+sr.setId("sr1")
+sr.setSpecies("s1")
+sr.setConstant(False)
 
-kl = r.createKineticLaw();
+kl = r.createKineticLaw()
 
-ci = ASTNode(AST_NAME);
-ci.setName("s1");
-astPlugin = ci.getPlugin("multi");
-astPlugin.setSpeciesReference("r1");
+ci = ASTNode(AST_NAME)
+ci.setName("s1")
+astPlugin = ci.getPlugin("multi")
+astPlugin.setSpeciesReference("r1")
 
-ci1 = ASTNode(AST_NAME);
-astPlugin1 = ci1.getPlugin("multi");
-astPlugin1.setRepresentationType("sum");
-ci1.setName("s1");
+ci1 = ASTNode(AST_NAME)
+astPlugin1 = ci1.getPlugin("multi")
+astPlugin1.setRepresentationType("sum")
+ci1.setName("s1")
 
-math = ASTNode(AST_TIMES);
-math.addChild(ci);
-math.addChild(ci1);
+math = ASTNode(AST_TIMES)
+math.addChild(ci)
+math.addChild(ci1)
 
-kl.setMath(math);
+kl.setMath(math)
 
-writeSBML(document,"multi_example2.xml");
+writeSBML(document,"multi_example2.xml")
 
