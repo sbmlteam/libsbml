@@ -297,7 +297,9 @@ public:
 
   /**
    * Sets the value of the "type" attribute of this Objective.
-   * The @p type must be a valid #ObjectiveType_t value
+   *
+   * The @p type must be a @if clike #ObjectiveType_t value@else
+   * value from one of the constants whose names begin with <code>OBJECTIVE_TYPE_</code>@endif@~.
    *
    * @param type string value of the "type" attribute to be set.  Valid values
    * include:

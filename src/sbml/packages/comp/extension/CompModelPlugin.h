@@ -206,7 +206,6 @@ public:
   * @see getSubmodel(const std::string& sid)
   * @see getSubmodel(unsigned int n)
   * @see getNumSubmodels()
-  * @see removeSubmodel(const std::string& sid)
   * @see removeSubmodel(unsigned int n)
   */
   const ListOfSubmodels* getListOfSubmodels () const;
@@ -224,7 +223,6 @@ public:
    * @see getSubmodel(const std::string& sid)
    * @see getSubmodel(unsigned int n)
    * @see getNumSubmodels()
-   * @see removeSubmodel(const std::string& sid)
    * @see removeSubmodel(unsigned int n)
    */
   ListOfSubmodels* getListOfSubmodels();
@@ -340,7 +338,6 @@ public:
   * @see getPort(const std::string& sid)
   * @see getPort(unsigned int n)
   * @see getNumPorts()
-  * @see removePort(const std::string& sid)
   * @see removePort(unsigned int n)
   */
   const ListOfPorts* getListOfPorts() const;
@@ -358,7 +355,6 @@ public:
   * @see getPort(const std::string& sid)
   * @see getPort(unsigned int n)
   * @see getNumPorts()
-  * @see removePort(const std::string& sid)
   * @see removePort(unsigned int n)
   */
   ListOfPorts* getListOfPorts();

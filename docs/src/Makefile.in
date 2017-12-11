@@ -92,9 +92,9 @@ endif
 ifdef USE_MATLAB
   docs += $(matlab-manual)
 endif
-ifdef USE_OCTAVE
-  docs += $(octave-manual)
-endif
+# ifdef USE_OCTAVE
+#   docs += $(octave-manual)
+# endif
 # Currently, the Perl docs aren't ready.  So let's not make them.
 # ifdef USE_PERL
 #   docs += $(perl-manual)
@@ -647,8 +647,11 @@ define config_doxygen_search
 endef
 
 # Do not put a semicolon on the last line of the function below.
+# The sed command is to fix a weird glitch in doxygen output.
 
 define doxygen_make_search_db
+  sed -i.bak 's|<field name="name"></field>|<field name="name">libsbml</field>|g' searchdata.xml; \
+  rm -f searchdata.xml.bak; \
   $(DOXYINDEXER) searchdata.xml; \
   mkdir -p $(1)/db; \
   cp -rf doxysearch.db $(1)/db
@@ -713,7 +716,7 @@ csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) \
   $(css-files)
 	$(call make_csharp_manual,"local")
 
-csharp-manual-search: doxygen-config-csharp.txt $(all-sources) $(css-files)
+csharp-manual-server: doxygen-config-csharp.txt $(all-sources) $(css-files)
 	$(call make_csharp_manual,"server")
 
 endif
@@ -861,7 +864,7 @@ define merge_java_example
 endef
 
 define insert_javascript
-  perl -i -pe 's|<SCRIPT type="text/javascript">|<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">|ig' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<SCRIPT type="text/javascript">|<script src="sbml.js"></script><SCRIPT type="text/javascript">|ig' $(wildcard $(1)/*.html)
 endef
 
 define rewrite_links

@@ -38,9 +38,10 @@ the distribution archive</a> from SourceForge.
 
 <li>Extract the archive somewhere on your local computer.
 
-<li>Start your copy of MATLAB, then:
-<ol style="list-style-type: lower-alpha">
+  <li>Start your copy of MATLAB, then <em>either</em>:
+    <ol style="list-style-type: lower-alpha">
 
+      <ol style="list-style-type: lower-alpha">
 <li>Add that folder to your MATLAB path using MATLAB's <code>addPath</code>
 command.
 
@@ -51,12 +52,17 @@ all is well, the output will be a MATLAB data structure.
 <li>Save the changes to your MATLAB path for future use. You can
 use MATLAB's standard <code>savepath</code> command.
 </ol>
+    </ol>
+<i>or</i>
+<ol style="list-style-type: lower-alpha">
+  <li>Navigate to the directory where you extracted the archive.
+    <li>Run <code>installSBML</code>, which performs the above steps.
 </ol>
+    </ol>
 
-<p> Note that this MATLAB installer contains <em>only</em> the core libSBML
-  ilbrary and the MATLAB interface; it does <strong>not</strong> contain
-language API interfaces for other programming languages discussed on this
-page.
+<p> Note that the MATLAB installation archive contains <em>only</em> the MATLAB
+interface; it does <strong>not</strong> contain the core libSBML library or language
+libSBML API interfaces for other programming languages.
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -109,31 +115,24 @@ install it is the following:
 <li> Download <a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a>.</li>
 
 <li> Run the following command in a shell terminal, where <span
-class="placeholder">version</span> is your version of Python (e.g., 3.4):
+class="placeholder">version</span> is your version of Python (e.g., 3):
 <pre class="fragment">
 sudo python<span class="placeholder-nospace">version</span> get-pip.py
 </pre>
-An example of the command line above is the following: <code>sudo python3.4 get-pip.py</code>.
+An example of the command line above is the following: <code>sudo python3 get-pip.py</code>.
 </li>
 </ol>
 
-
-<h4>To get libSBML with PyPi for <b>Python 3.x</b></h4>
-
-<p> To get the <em>stable</em> release of libSBML, execute the following
-command:
+Assuming you have either <code>pip2</code> or <code>pip3</code> on your system, then to 
+get the <em>stable</em> release of libSBML, execute the following command:
 
 <pre class="fragment">
 sudo pip<span class="placeholder-nospace">version</span> install python-libsbml
 </pre>
 
-<p> where <span class="placeholder">version</span> is a string that
-identifies the correct version of <code>pip</code> for Python
-3.x. Unfortunately, this string differs for different systems, but is
-typically either of the form <code>pip3.4</code> or <code>pip-3.4</code> (to
-use 3.4 as a concrete example).
-
-<p> Alternatively, for the <em>experimental</em> release of libSBML, use the
+<p> where <span class="placeholder">version</span> is either <code>2</code> 
+or  <code>3</code> depending on whether you want to use Python 2 or Python 3. 
+Alternatively, for the <em>experimental</em> release of libSBML, use the
 following command instead:
 
 <pre class="fragment">
@@ -141,30 +140,10 @@ sudo pip<span class="placeholder-nospace">version</span> install python-libsbml-
 </pre>
 </ol>
 
-
-<h4>To get libSBML with PyPi for <b>Python 2.x</b></h4>
-
-<p> To get the <em>stable</em> release of libSBML, execute the following
-command:
-
-<pre class="fragment">
-sudo pip install python-libsbml
-</pre>
-
-<p> Alternatively, for the <em>experimental</em> release of libSBML, use the following
-command instead:
-
-<pre class="fragment">
-sudo pip install python-libsbml-experimental
-</pre>
-
-
-<h4>In all cases</h4>
-
-<p> The process will take a long time because it must install and build
-dependent libraries. If all goes well, the steps above should result in
-<code>pip</code> eventually printing the following message to tell you has it
-finished successfully:
+<p> Note that in all cases, the process <strong>will take a long time</strong>
+because it must install and build dependent libraries. If all goes well, 
+the steps above should result in <code>pip</code> eventually printing the 
+following message to tell you has it finished successfully:
 
 <pre class="fragment">
 <em><span style="font-weight: normal; font-family: Helvetica, Arial, Sans; color: #999">[... much text omitted ...]</span></em>
@@ -374,7 +353,7 @@ libSBML R interface is probably installed correctly.
 <h2><a class="anchor" name="dl-src">5. Other languages</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> If you need to use Octave, or no installation package is available for
+<p> If no installation package is available for
 your particular platform, or you have special requirements for libSBML's
 configuration, you can always build libSBML from sources.  The process for
 doing that is the topic a separate section, <a

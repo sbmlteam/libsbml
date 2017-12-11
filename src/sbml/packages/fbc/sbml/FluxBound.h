@@ -47,9 +47,10 @@
  * must be the identifier of a Reaction object defined within the enclosing
  * model.
  *
- * The "operation" attribute takes a value from an enumeration
- * (#FluxBoundOperation_t) of Boolean operations that represent mathemetical
- * inequalities.  Possible values for "operation" include
+ * The "operation" attribute takes a value from
+ * @if clike the enumeration #FluxBoundOperation_t @else a set of constants
+ * whose names begin with <code>FLUXBOUND_</code>@endif@~ representing
+ * different mathematical inequalities. Possible values for "operation" include
  * <code>"greaterEqual"</code>, <code>"equal"</code>, and others.
  *
  * The "value" attribute takes a numerical value of type <code>double</code>,

@@ -11,6 +11,10 @@
 @import url('libsbml-base-stylesheet.css');
 @import url('libsbml-package-stylesheet.css');
 
+body {
+  overflow: visible;
+}
+
 pre
 {
     margin-top: 1em;

@@ -20,7 +20,7 @@ else
         zip -rq9 $basename.zip $files
     else
         echo "Creating tar archive ..."
-        tar czf $basename.tgz 
+        tar czf $basename.tgz $files
         echo "Creating zip archive ..."
         zip -rq9 $basename.zip $files
     fi
