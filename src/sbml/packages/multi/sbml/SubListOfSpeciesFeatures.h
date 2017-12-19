@@ -579,6 +579,8 @@ LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* s);
 
+#endif  /*  !SWIG  */
+
 /**
 * @memberof SubListOfSpeciesFeatures_t
 */
@@ -594,7 +596,6 @@ LIBSBML_EXTERN
 Relation_t
 Relation_fromString(const char* s);
 
-#endif  /*  !SWIG  */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
