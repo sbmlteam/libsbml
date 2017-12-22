@@ -5746,9 +5746,6 @@ SBase::storeUnknownExtAttribute(const std::string& element,
 }
 
 
-/*
- *
- */
 bool
 SBase::storeUnknownExtElement(XMLInputStream &stream)
 {

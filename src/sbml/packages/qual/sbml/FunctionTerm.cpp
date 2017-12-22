@@ -1199,9 +1199,6 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
 }
 /** @endcond */
   /** @cond doxygenLibsbmlInternal */
-/*
- * 
- */
 void
 ListOfFunctionTerms::connectToChild()
 {
@@ -1215,9 +1212,6 @@ ListOfFunctionTerms::connectToChild()
 
 
   /** @cond doxygenLibsbmlInternal */
-/*
- * 
- */
 void
 ListOfFunctionTerms::setSBMLDocument(SBMLDocument* d)
 {

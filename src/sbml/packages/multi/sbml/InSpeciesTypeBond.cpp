@@ -879,9 +879,6 @@ ListOfInSpeciesTypeBonds::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_create(unsigned int level, unsigned int version,
@@ -891,9 +888,6 @@ InSpeciesTypeBond_create(unsigned int level, unsigned int version,
 }
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 void
 InSpeciesTypeBond_free(InSpeciesTypeBond_t * istb)
@@ -903,9 +897,6 @@ InSpeciesTypeBond_free(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_clone(InSpeciesTypeBond_t * istb)
@@ -921,9 +912,6 @@ InSpeciesTypeBond_clone(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getId(InSpeciesTypeBond_t * istb)
@@ -935,9 +923,6 @@ InSpeciesTypeBond_getId(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getName(InSpeciesTypeBond_t * istb)
@@ -949,9 +934,6 @@ InSpeciesTypeBond_getName(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getBindingSite1(InSpeciesTypeBond_t * istb)
@@ -963,9 +945,6 @@ InSpeciesTypeBond_getBindingSite1(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 InSpeciesTypeBond_getBindingSite2(InSpeciesTypeBond_t * istb)
@@ -977,9 +956,6 @@ InSpeciesTypeBond_getBindingSite2(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetId(InSpeciesTypeBond_t * istb)
@@ -988,9 +964,6 @@ InSpeciesTypeBond_isSetId(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetName(InSpeciesTypeBond_t * istb)
@@ -999,9 +972,6 @@ InSpeciesTypeBond_isSetName(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetBindingSite1(InSpeciesTypeBond_t * istb)
@@ -1010,9 +980,6 @@ InSpeciesTypeBond_isSetBindingSite1(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_isSetBindingSite2(InSpeciesTypeBond_t * istb)
@@ -1021,9 +988,6 @@ InSpeciesTypeBond_isSetBindingSite2(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setId(InSpeciesTypeBond_t * istb, const char * id)
@@ -1032,9 +996,6 @@ InSpeciesTypeBond_setId(InSpeciesTypeBond_t * istb, const char * id)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setName(InSpeciesTypeBond_t * istb, const char * name)
@@ -1043,9 +1004,6 @@ InSpeciesTypeBond_setName(InSpeciesTypeBond_t * istb, const char * name)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setBindingSite1(InSpeciesTypeBond_t * istb, const char * bindingSite1)
@@ -1054,9 +1012,6 @@ InSpeciesTypeBond_setBindingSite1(InSpeciesTypeBond_t * istb, const char * bindi
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setBindingSite2(InSpeciesTypeBond_t * istb, const char * bindingSite2)
@@ -1065,9 +1020,6 @@ InSpeciesTypeBond_setBindingSite2(InSpeciesTypeBond_t * istb, const char * bindi
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetId(InSpeciesTypeBond_t * istb)
@@ -1076,9 +1028,6 @@ InSpeciesTypeBond_unsetId(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetName(InSpeciesTypeBond_t * istb)
@@ -1087,9 +1036,6 @@ InSpeciesTypeBond_unsetName(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite1(InSpeciesTypeBond_t * istb)
@@ -1098,9 +1044,6 @@ InSpeciesTypeBond_unsetBindingSite1(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite2(InSpeciesTypeBond_t * istb)
@@ -1109,9 +1052,6 @@ InSpeciesTypeBond_unsetBindingSite2(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_hasRequiredAttributes(InSpeciesTypeBond_t * istb)
@@ -1120,9 +1060,6 @@ InSpeciesTypeBond_hasRequiredAttributes(InSpeciesTypeBond_t * istb)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 ListOfInSpeciesTypeBonds_getById(ListOf_t * lo, const char * sid)
@@ -1134,9 +1071,6 @@ ListOfInSpeciesTypeBonds_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 ListOfInSpeciesTypeBonds_removeById(ListOf_t * lo, const char * sid)

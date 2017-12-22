@@ -1912,9 +1912,6 @@ Objective_hasRequiredElements(const Objective_t * o)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_getById(ListOf_t * lo, const char * sid)
@@ -1926,9 +1923,6 @@ ListOfObjectives_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_removeById(ListOf_t * lo, const char * sid)

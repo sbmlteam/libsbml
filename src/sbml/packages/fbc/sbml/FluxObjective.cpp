@@ -1481,9 +1481,6 @@ FluxObjective_hasRequiredAttributes(const FluxObjective_t * fo)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 FluxObjective_t *
 ListOfFluxObjectives_getById(ListOf_t * lo, const char * sid)
@@ -1495,9 +1492,6 @@ ListOfFluxObjectives_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 FluxObjective_t *
 ListOfFluxObjectives_removeById(ListOf_t * lo, const char * sid)

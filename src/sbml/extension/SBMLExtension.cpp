@@ -149,9 +149,6 @@ SBMLExtension::operator=(const SBMLExtension& orig)
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- *
- */
 int 
 SBMLExtension::addSBasePluginCreator(const SBasePluginCreatorBase* sbaseExt)
 {
@@ -312,9 +309,6 @@ SBMLExtension::getNumOfSBasePlugins() const
 }
 
 
-/*
- *
- */
 unsigned int 
 SBMLExtension::getNumOfSupportedPackageURI() const
 {
@@ -322,9 +316,6 @@ SBMLExtension::getNumOfSupportedPackageURI() const
 }
 
 
-/*
- *
- */
 bool
 SBMLExtension::isSupported(const std::string& uri) const
 {

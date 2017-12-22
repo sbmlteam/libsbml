@@ -69,9 +69,6 @@ SBMLExtensionRegistry::deleteRegistry()
 }
 
 /** @cond doxygenLibsbmlInternal */
-/*
- *
- */
 SBMLExtensionRegistry& 
 SBMLExtensionRegistry::getInstance()
 {

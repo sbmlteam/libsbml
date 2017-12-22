@@ -1487,9 +1487,6 @@ GeneProduct_hasRequiredAttributes(const GeneProduct_t * gp)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 GeneProduct_t *
 ListOfGeneProducts_getById(ListOf_t * lo, const char * sid)
@@ -1501,9 +1498,6 @@ ListOfGeneProducts_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 GeneProduct_t *
 ListOfGeneProducts_removeById(ListOf_t * lo, const char * sid)

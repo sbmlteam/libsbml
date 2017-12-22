@@ -111,9 +111,6 @@ LayoutModelPlugin::appendFrom(const Model* model)
 
 
 
-/*
- * 
- */
 LayoutModelPlugin::LayoutModelPlugin (const std::string &uri, 
                                       const std::string &prefix,
                                       LayoutPkgNamespaces *layoutns)

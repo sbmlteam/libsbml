@@ -984,9 +984,6 @@ Transition::setSBMLDocument (SBMLDocument* d)
 
 
   /** @cond doxygenLibsbmlInternal */
-/*
- * 
- */
 void
 Transition::connectToChild()
 {

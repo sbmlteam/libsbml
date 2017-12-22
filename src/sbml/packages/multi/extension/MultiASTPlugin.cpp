@@ -102,9 +102,6 @@ MultiASTPlugin::clone () const
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- *
- */
 MultiASTPlugin*
 MultiASTPlugin::createObject(XMLInputStream& stream)
 {
@@ -127,9 +124,6 @@ MultiASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- *
- */
 void
 MultiASTPlugin::writeElements (XMLOutputStream& stream) const
 {
