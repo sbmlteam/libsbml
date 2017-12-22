@@ -399,6 +399,25 @@ SubListOfSpeciesFeatures::setRelation(Relation_t relation)
 
 
 /*
+ * Sets the value of the "relation" attribute of this SubListOfSpeciesFeatures.
+ */
+int
+SubListOfSpeciesFeatures::setRelation(const std::string& relation)
+{
+  if (SubListOfSpeciesFeatures_isValidRelationString(relation.c_str()) == 0)
+  {
+    mRelation = MULTI_RELATION_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mRelation = Relation_fromString(relation.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Unsets the value of the "relation" attribute of this SubListOfSpeciesFeatures.
  */
 int
@@ -781,6 +800,372 @@ Relation_fromString(const char* s)
   return MULTI_RELATION_UNKNOWN;
 }
 
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #Relation_t is valid.
+ */
+LIBSBML_EXTERN
+int
+Relation_isValid(Relation_t r)
+{
+  int min = MULTI_RELATION_AND;
+  int max = MULTI_RELATION_UNKNOWN;
+
+  if (r < min || r >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #Relation_t.
+ */
+LIBSBML_EXTERN
+int
+Relation_isValidString(const char* code)
+{
+  return Relation_isValid(Relation_fromString(code));
+}
+
+
+/*
+* Creates a new SubListOfSpeciesFeatures_t using the given SBML Level, Version
+* and &ldquo;multi&rdquo; package version.
+*/
+LIBSBML_EXTERN
+SubListOfSpeciesFeatures_t *
+SubListOfSpeciesFeatures_create(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
+{
+  return new SubListOfSpeciesFeatures(level, version, pkgVersion);
+}
+
+
+/*
+* Creates and returns a deep copy of this SubListOfSpeciesFeatures_t object.
+*/
+LIBSBML_EXTERN
+SubListOfSpeciesFeatures_t*
+SubListOfSpeciesFeatures_clone(const SubListOfSpeciesFeatures_t* slosf)
+{
+  if (slosf != NULL)
+  {
+    return static_cast<SubListOfSpeciesFeatures_t*>(slosf->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+* Frees this SubListOfSpeciesFeatures_t object.
+*/
+LIBSBML_EXTERN
+void
+SubListOfSpeciesFeatures_free(SubListOfSpeciesFeatures_t* slosf)
+{
+  if (slosf != NULL)
+  {
+    delete slosf;
+  }
+}
+
+
+/*
+* Returns the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getId(const SubListOfSpeciesFeatures_t * slosf)
+{
+  if (slosf == NULL)
+  {
+    return NULL;
+  }
+
+  return slosf->getId().empty() ? NULL : safe_strdup(slosf->getId().c_str());
+}
+
+
+/*
+* Returns the value of the "name" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf)
+{
+  if (slosf == NULL)
+  {
+    return NULL;
+  }
+
+  return slosf->getName().empty() ? NULL :
+    safe_strdup(slosf->getName().c_str());
+}
+
+
+/*
+* Returns the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+Relation_t
+SubListOfSpeciesFeatures_getRelation(const SubListOfSpeciesFeatures_t * slosf)
+{
+  if (slosf == NULL)
+  {
+    return MULTI_RELATION_UNKNOWN;
+  }
+
+  return slosf->getRelation();
+}
+
+
+/*
+* Returns the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+const char *
+SubListOfSpeciesFeatures_getRelationAsString(const SubListOfSpeciesFeatures_t *
+  slosf)
+{
+  return Relation_toString(slosf->getRelation());
+}
+
+
+/*
+* Returns the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getComponent(const SubListOfSpeciesFeatures_t * slosf)
+{
+  if (slosf == NULL)
+  {
+    return NULL;
+  }
+
+  return slosf->getComponent().empty() ? NULL :
+    safe_strdup(slosf->getComponent().c_str());
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "id"
+* attribute is set.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetId(const SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? static_cast<int>(slosf->isSetId()) : 0;
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "name"
+* attribute is set.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetName(const SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? static_cast<int>(slosf->isSetName()) : 0;
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+* "relation" attribute is set.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetRelation(const SubListOfSpeciesFeatures_t *
+  slosf)
+{
+  return (slosf != NULL) ? static_cast<int>(slosf->isSetRelation()) : 0;
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+* "component" attribute is set.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetComponent(const SubListOfSpeciesFeatures_t *
+  slosf)
+{
+  return (slosf != NULL) ? static_cast<int>(slosf->isSetComponent()) : 0;
+}
+
+
+/*
+* Sets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setId(SubListOfSpeciesFeatures_t * slosf,
+  const char * id)
+{
+  return (slosf != NULL) ? slosf->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Sets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setName(SubListOfSpeciesFeatures_t * slosf,
+  const char * name)
+{
+  return (slosf != NULL) ? slosf->setName(name) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Sets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setRelation(SubListOfSpeciesFeatures_t * slosf,
+  Relation_t relation)
+{
+  return (slosf != NULL) ? slosf->setRelation(relation) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Sets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setRelationAsString(
+  SubListOfSpeciesFeatures_t *
+  slosf,
+  const char * relation)
+{
+  return (slosf != NULL) ? slosf->setRelation(relation) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Sets the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setComponent(SubListOfSpeciesFeatures_t * slosf,
+  const char * component)
+{
+  return (slosf != NULL) ? slosf->setComponent(component) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetId(SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? slosf->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetName(SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? slosf->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetRelation(SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? slosf->unsetRelation() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetComponent(SubListOfSpeciesFeatures_t * slosf)
+{
+  return (slosf != NULL) ? slosf->unsetComponent() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Get the number of SpeciesFeature_t objects in this
+* SubListOfSpeciesFeatures_t.
+*/
+LIBSBML_EXTERN
+unsigned int
+SubListOfSpeciesFeatures_getNumSpeciesFeatures(SubListOfSpeciesFeatures_t*
+  slosf)
+{
+  return (slosf != NULL) ? slosf->getNumSpeciesFeatures() : SBML_INT_MAX;
+}
+
+
+/*
+* Creates a new SpeciesFeature_t object, adds it to this
+* SubListOfSpeciesFeatures_t object and returns the SpeciesFeature_t object
+* created.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+SubListOfSpeciesFeatures_createSpeciesFeature(SubListOfSpeciesFeatures_t*
+  slosf)
+{
+  return (slosf != NULL) ? slosf->createSpeciesFeature() : NULL;
+}
+
+
+/*
+* Predicate returning @c 1 (true) if all the required attributes for this
+* SubListOfSpeciesFeatures_t object have been set.
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_hasRequiredAttributes(const SubListOfSpeciesFeatures_t
+  * slosf)
+{
+  return (slosf != NULL) ? static_cast<int>(slosf->hasRequiredAttributes()) :
+    0;
+}
 
 LIBSBML_CPP_NAMESPACE_END
 

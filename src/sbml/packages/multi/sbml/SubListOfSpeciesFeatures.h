@@ -395,6 +395,22 @@ public:
 
 
   /**
+   * Sets the value of the "relation" attribute of this
+   * SubListOfSpeciesFeatures.
+   *
+   * @param relation std::string& of the "relation" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_sublistofspeciesfeatures_relation
+   */
+  int setRelation(const std::string& relation);
+
+
+  /**
    * Unsets the value of the "relation" attribute of this SubListOfSpeciesFeatures.
    *
    * @copydetails doc_returns_success_code
@@ -565,7 +581,21 @@ BEGIN_C_DECLS
 #ifndef SWIG
 
 /**
-* @memberof SubListOfSpeciesFeatures_t
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #Relation_t is valid.
+ *
+ * @param r the #Relation_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #Relation_t is
+ * @sbmlconstant{MULTI_RELATION_AND, Relation_t},
+ * @sbmlconstant{MULTI_RELATION_OR, Relation_t}, or
+ * @sbmlconstant{MULTI_RELATION_NOT, Relation_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{RELATION_INVALID,
+ * Relation_t}).
+ *
+ * @if conly
+ * @memberof SubListOfSpeciesFeatures_t
+ * @endif
 */
 LIBSBML_EXTERN
 int
@@ -573,8 +603,24 @@ SubListOfSpeciesFeatures_isValidRelation(Relation_t relation);
 
 
 /**
-* @memberof SubListOfSpeciesFeatures_t
-*/
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #Relation_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "and",
+ * "or", or
+ * "not";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "and" will return @c 1 (true), but
+ * "And" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof SubListOfSpeciesFeatures_t
+ * @endif
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* s);
@@ -582,19 +628,549 @@ SubListOfSpeciesFeatures_isValidRelationString(const char* s);
 #endif  /*  !SWIG  */
 
 /**
-* @memberof SubListOfSpeciesFeatures_t
-*/
+ * Returns the string version of the provided #Relation_t enumeration.
+ *
+ * @param r the #Relation_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "and",
+ * "or",
+ * "not",
+ * or @c NULL if the value is @sbmlconstant{RELATION_INVALID, Relation_t} or
+ * another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Multi_t
+ * @endif
+ */
 LIBSBML_EXTERN
 const char*
-Relation_toString(Relation_t relation);
+Relation_toString(Relation_t r);
 
 
 /**
+ * Returns the #Relation_t enumeration corresponding to the given string or
+ * @sbmlconstant{RELATION_INVALID, Relation_t} if there is no such match.
+ *
+ * @param code the string to convert to a #Relation_t.
+ *
+ * @return the corresponding #Relation_t or @sbmlconstant{RELATION_INVALID,
+ * Relation_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "and" will return
+ * @sbmlconstant{MULTI_RELATION_AND, Relation_t}, but "And" will return
+ * @sbmlconstant{RELATION_INVALID, Relation_t}.
+ *
+ * @if conly
+ * @memberof Multi_t
+ * @endif
+ */
+LIBSBML_EXTERN
+Relation_t
+Relation_fromString(const char* code);
+
+
+/**
+* Creates a new SubListOfSpeciesFeatures_t using the given SBML Level, Version
+* and &ldquo;multi&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* SubListOfSpeciesFeatures_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* SubListOfSpeciesFeatures_t.
+*
+* @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+* SubListOfSpeciesFeatures_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+SubListOfSpeciesFeatures_t *
+SubListOfSpeciesFeatures_create(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates and returns a deep copy of this SubListOfSpeciesFeatures_t object.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return a (deep) copy of this SubListOfSpeciesFeatures_t object.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+SubListOfSpeciesFeatures_t*
+SubListOfSpeciesFeatures_clone(const SubListOfSpeciesFeatures_t* slosf);
+
+
+/**
+* Frees this SubListOfSpeciesFeatures_t object.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+void
+SubListOfSpeciesFeatures_free(SubListOfSpeciesFeatures_t* slosf);
+
+
+/**
+* Returns the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose id is sought.
+*
+* @return the value of the "id" attribute of this SubListOfSpeciesFeatures_t
+* as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getId(const SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Returns the value of the "name" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose name is sought.
+*
+* @return the value of the "name" attribute of this SubListOfSpeciesFeatures_t
+* as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Returns the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose relation is
+* sought.
+*
+* @return the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t as a Relation_t.
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+* @if clike The value is drawn from the enumeration @ref Relation_t@endif
+* The possible values returned by this method are:
+* @li @sbmlconstant{MULTI_RELATION_AND, Relation_t}
+* @li @sbmlconstant{MULTI_RELATION_OR, Relation_t}
+* @li @sbmlconstant{MULTI_RELATION_NOT, Relation_t}
+* @li @sbmlconstant{SUB_LIST_OF_SPECIES_FEATURES_RELATION_INVALID, Relation_t}
+*
 * @memberof SubListOfSpeciesFeatures_t
 */
 LIBSBML_EXTERN
 Relation_t
-Relation_fromString(const char* s);
+SubListOfSpeciesFeatures_getRelation(const SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Returns the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose relation is
+* sought.
+*
+* @return the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t as a const char *.
+*
+* @copydetails doc_returned_unowned_char
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+* The possible values returned by this method are:
+* @li @c "and"
+* @li @c "or"
+* @li @c "not"
+* @li @c "invalid SubListOfSpeciesFeaturesRelation"
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+const char *
+SubListOfSpeciesFeatures_getRelationAsString(const SubListOfSpeciesFeatures_t *
+  slosf);
+
+
+/**
+* Returns the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose component is
+* sought.
+*
+* @return the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+char *
+SubListOfSpeciesFeatures_getComponent(const SubListOfSpeciesFeatures_t *
+  slosf);
+
+
+/**
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "id"
+* attribute is set.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return @c 1 (true) if this SubListOfSpeciesFeatures_t's "id" attribute has
+* been set, otherwise @c 0 (false) is returned.
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetId(const SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "name"
+* attribute is set.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return @c 1 (true) if this SubListOfSpeciesFeatures_t's "name" attribute
+* has been set, otherwise @c 0 (false) is returned.
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetName(const SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+* "relation" attribute is set.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return @c 1 (true) if this SubListOfSpeciesFeatures_t's "relation"
+* attribute has been set, otherwise @c 0 (false) is returned.
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetRelation(const SubListOfSpeciesFeatures_t *
+  slosf);
+
+
+/**
+* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+* "component" attribute is set.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return @c 1 (true) if this SubListOfSpeciesFeatures_t's "component"
+* attribute has been set, otherwise @c 0 (false) is returned.
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_isSetComponent(const SubListOfSpeciesFeatures_t *
+  slosf);
+
+
+/**
+* Sets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @param id const char * value of the "id" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* Calling this function with @p id = @c NULL or an empty string is equivalent
+* to calling SubListOfSpeciesFeatures_unsetId().
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setId(SubListOfSpeciesFeatures_t * slosf,
+  const char * id);
+
+
+/**
+* Sets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @param name const char * value of the "name" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* Calling this function with @p name = @c NULL or an empty string is
+* equivalent to calling SubListOfSpeciesFeatures_unsetName().
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setName(SubListOfSpeciesFeatures_t * slosf,
+  const char * name);
+
+
+/**
+* Sets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @param relation Relation_t value of the "relation" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setRelation(SubListOfSpeciesFeatures_t * slosf,
+  Relation_t relation);
+
+
+/**
+* Sets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @param relation const char * of the "relation" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setRelationAsString(
+  SubListOfSpeciesFeatures_t *
+  slosf,
+  const char * relation);
+
+
+/**
+* Sets the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @param component const char * value of the "component" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_setComponent(SubListOfSpeciesFeatures_t * slosf,
+  const char * component);
+
+
+/**
+* Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetId(SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Unsets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetName(SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Unsets the value of the "relation" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @copydetails doc_sublistofspeciesfeatures_relation
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetRelation(SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Unsets the value of the "component" attribute of this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_unsetComponent(SubListOfSpeciesFeatures_t * slosf);
+
+
+/**
+* Returns a ListOf_t * containing SpeciesFeature_t objects from this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure whose
+* ListOfSpeciesFeatures is sought.
+*
+* @return the ListOfSpeciesFeatures from this SubListOfSpeciesFeatures_t as a
+* ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see SubListOfSpeciesFeatures_addSpeciesFeature()
+* @see SubListOfSpeciesFeatures_createSpeciesFeature()
+* @see SubListOfSpeciesFeatures_getSpeciesFeatureById()
+* @see SubListOfSpeciesFeatures_getSpeciesFeature()
+* @see SubListOfSpeciesFeatures_getNumSpeciesFeatures()
+* @see SubListOfSpeciesFeatures_removeSpeciesFeatureById()
+* @see SubListOfSpeciesFeatures_removeSpeciesFeature()
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+ListOf_t*
+SubListOfSpeciesFeatures_getListOfSpeciesFeatures(SubListOfSpeciesFeatures_t*
+  slosf);
+
+
+/**
+* Get the number of SpeciesFeature_t objects in this
+* SubListOfSpeciesFeatures_t.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure to query.
+*
+* @return the number of SpeciesFeature_t objects in this
+* SubListOfSpeciesFeatures_t.
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+unsigned int
+SubListOfSpeciesFeatures_getNumSpeciesFeatures(SubListOfSpeciesFeatures_t*
+  slosf);
+
+
+/**
+* Creates a new SpeciesFeature_t object, adds it to this
+* SubListOfSpeciesFeatures_t object and returns the SpeciesFeature_t object
+* created.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure to which the
+* SpeciesFeature_t should be added.
+*
+* @return a new SpeciesFeature_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+SubListOfSpeciesFeatures_createSpeciesFeature(SubListOfSpeciesFeatures_t*
+  slosf);
+
+
+/**
+* Predicate returning @c 1 (true) if all the required attributes for this
+* SubListOfSpeciesFeatures_t object have been set.
+*
+* @param slosf the SubListOfSpeciesFeatures_t structure.
+*
+* @return @c 1 (true) to indicate that all the required attributes of this
+* SubListOfSpeciesFeatures_t have been set, otherwise @c 0 (false) is
+* returned.
+*
+*
+* @note The required attributes for the SubListOfSpeciesFeatures_t object are:
+* @li "relation"
+*
+* @memberof SubListOfSpeciesFeatures_t
+*/
+LIBSBML_EXTERN
+int
+SubListOfSpeciesFeatures_hasRequiredAttributes(const SubListOfSpeciesFeatures_t
+  * slosf);
 
 
 END_C_DECLS

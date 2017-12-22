@@ -60,6 +60,7 @@ typedef CLASS_OR_STRUCT SpeciesFeatureType    SpeciesFeatureType_t;
 typedef CLASS_OR_STRUCT SpeciesTypeComponentIndex    SpeciesTypeComponentIndex_t;
 typedef CLASS_OR_STRUCT SpeciesFeature    SpeciesFeature_t;
 typedef CLASS_OR_STRUCT SpeciesTypeComponentMapInProduct    SpeciesTypeComponentMapInProduct_t;
+typedef CLASS_OR_STRUCT SubListOfSpeciesFeatures    SubListOfSpeciesFeatures_t;
 typedef CLASS_OR_STRUCT MultiSpeciesType    MultiSpeciesType_t;
 typedef CLASS_OR_STRUCT BindingSiteSpeciesType    BindingSiteSpeciesType_t;
 typedef CLASS_OR_STRUCT IntraSpeciesReaction    IntraSpeciesReaction_t;
