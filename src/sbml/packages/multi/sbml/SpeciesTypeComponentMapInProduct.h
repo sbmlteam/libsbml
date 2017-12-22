@@ -771,7 +771,7 @@ SpeciesTypeComponentMapInProduct_clone(SpeciesTypeComponentMapInProduct_t * stcm
  */
 LIBSBML_EXTERN
 char *
-SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
@@ -790,7 +790,7 @@ SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * cr);
  */
 LIBSBML_EXTERN
 char *
-SpeciesTypeComponentMapInProduct_getName(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_getName(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
@@ -863,7 +863,7 @@ SpeciesTypeComponentMapInProduct_getProductComponent(SpeciesTypeComponentMapInPr
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_isSetId(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_isSetId(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
@@ -879,7 +879,7 @@ SpeciesTypeComponentMapInProduct_isSetId(SpeciesTypeComponentMapInProduct_t * cr
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_isSetName(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_isSetName(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
@@ -952,7 +952,7 @@ SpeciesTypeComponentMapInProduct_isSetProductComponent(SpeciesTypeComponentMapIn
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_setId(SpeciesTypeComponentMapInProduct_t * cr, const char * id);
+SpeciesTypeComponentMapInProduct_setId(SpeciesTypeComponentMapInProduct_t * stcmip, const char * id);
 
 
 /**
@@ -974,7 +974,7 @@ SpeciesTypeComponentMapInProduct_setId(SpeciesTypeComponentMapInProduct_t * cr, 
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_setName(SpeciesTypeComponentMapInProduct_t * cr, const char * name);
+SpeciesTypeComponentMapInProduct_setName(SpeciesTypeComponentMapInProduct_t * stcmip, const char * name);
 
 
 /**
@@ -1053,7 +1053,7 @@ SpeciesTypeComponentMapInProduct_setProductComponent(SpeciesTypeComponentMapInPr
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_unsetId(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_unsetId(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
@@ -1071,7 +1071,7 @@ SpeciesTypeComponentMapInProduct_unsetId(SpeciesTypeComponentMapInProduct_t * cr
  */
 LIBSBML_EXTERN
 int
-SpeciesTypeComponentMapInProduct_unsetName(SpeciesTypeComponentMapInProduct_t * cr);
+SpeciesTypeComponentMapInProduct_unsetName(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**

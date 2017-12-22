@@ -47,6 +47,36 @@
  * attribute.
  */
 
+ /**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_sublistofspeciesfeatures_relation
+ *
+ * @par
+ * The attribute "relation" on a SubListOfSpeciesFeatures object is used to
+ * define the logic relationship among its children.  If any SpeciesFeature
+ * involved in a SubListOfSpeciesFeatures references a SpeciesFeatureType with 
+ * occur > 1, the SubListOfSpeciesFeatures can only have the value 'and' for its
+ * relation attribute.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Multi specification, the following are the
+ * allowable values for "relation":
+ * <ul>
+ * <li> @c "and", means that the species features all apply.
+ *
+ * <li> @c "or", means that at least one of the species features apply.
+ *
+ * <li> @c "not", means that the species feature must not apply.
+ *
+ * </ul>
+ */
 #ifndef SubListOfSpeciesFeatures_H__
 #define SubListOfSpeciesFeatures_H__
 
@@ -584,13 +614,13 @@ BEGIN_C_DECLS
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
  * given #Relation_t is valid.
  *
- * @param r the #Relation_t enumeration to query.
+ * @param relation the #Relation_t enumeration to query.
  *
  * @return @c 1 (true) if the #Relation_t is
  * @sbmlconstant{MULTI_RELATION_AND, Relation_t},
  * @sbmlconstant{MULTI_RELATION_OR, Relation_t}, or
  * @sbmlconstant{MULTI_RELATION_NOT, Relation_t};
- * @c 0 (false) otherwise (including @sbmlconstant{RELATION_INVALID,
+ * @c 0 (false) otherwise (including @sbmlconstant{MULTI_RELATION_UNKNOWN,
  * Relation_t}).
  *
  * @if conly
@@ -623,7 +653,7 @@ SubListOfSpeciesFeatures_isValidRelation(Relation_t relation);
  */
 LIBSBML_EXTERN
 int
-SubListOfSpeciesFeatures_isValidRelationString(const char* s);
+SubListOfSpeciesFeatures_isValidRelationString(const char* code);
 
 #endif  /*  !SWIG  */
 
@@ -636,13 +666,13 @@ SubListOfSpeciesFeatures_isValidRelationString(const char* s);
  * "and",
  * "or",
  * "not",
- * or @c NULL if the value is @sbmlconstant{RELATION_INVALID, Relation_t} or
+ * or @c NULL if the value is @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} or
  * another invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Multi_t
+ * @memberof SubListOfSpeciesFeatures_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -652,19 +682,19 @@ Relation_toString(Relation_t r);
 
 /**
  * Returns the #Relation_t enumeration corresponding to the given string or
- * @sbmlconstant{RELATION_INVALID, Relation_t} if there is no such match.
+ * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} if there is no such match.
  *
  * @param code the string to convert to a #Relation_t.
  *
- * @return the corresponding #Relation_t or @sbmlconstant{RELATION_INVALID,
+ * @return the corresponding #Relation_t or @sbmlconstant{MULTI_RELATION_UNKNOWN,
  * Relation_t} if no match is found.
  *
  * @note The matching is case-sensitive: "and" will return
  * @sbmlconstant{MULTI_RELATION_AND, Relation_t}, but "And" will return
- * @sbmlconstant{RELATION_INVALID, Relation_t}.
+ * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t}.
  *
  * @if conly
- * @memberof Multi_t
+ * @memberof SubListOfSpeciesFeatures_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -777,7 +807,7 @@ SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf);
 * @li @sbmlconstant{MULTI_RELATION_AND, Relation_t}
 * @li @sbmlconstant{MULTI_RELATION_OR, Relation_t}
 * @li @sbmlconstant{MULTI_RELATION_NOT, Relation_t}
-* @li @sbmlconstant{SUB_LIST_OF_SPECIES_FEATURES_RELATION_INVALID, Relation_t}
+* @li @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t}
 *
 * @memberof SubListOfSpeciesFeatures_t
 */

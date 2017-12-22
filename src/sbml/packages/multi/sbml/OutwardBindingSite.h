@@ -72,6 +72,35 @@
  */
 
 
+ /**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file. The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality. Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
+ *
+ *
+ * @class doc_outwardbindingsite_bindingStatus
+ *
+ * @par
+ * The attribute "bindingStatus" on a OutwardBindingSite object is used to
+ * describe the status of the binding site.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Multi specification, the following are the
+ * allowable values for "bindingStatus":
+ * <ul>
+ * <li> @c "bound", the binding site is bound.
+ *
+ * <li> @c "unbound", the binding site is not bound.
+ *
+ * <li> @c "either", the binding site may either be bound or unbound.
+ *
+ * </ul>
+ */
+
+
 #ifndef OutwardBindingSite_H__
 #define OutwardBindingSite_H__
 
