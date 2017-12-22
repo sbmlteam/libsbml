@@ -1877,9 +1877,6 @@ ListOfSpeciesFeatures_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesFeature_t *
 ListOfSpeciesFeatures_removeById(ListOf_t * lo, const char * sid)

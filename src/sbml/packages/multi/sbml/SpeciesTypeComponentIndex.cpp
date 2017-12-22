@@ -898,9 +898,6 @@ ListOfSpeciesTypeComponentIndexes::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 SpeciesTypeComponentIndex_create(unsigned int level, unsigned int version,
@@ -910,9 +907,6 @@ SpeciesTypeComponentIndex_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 SpeciesTypeComponentIndex_free(SpeciesTypeComponentIndex_t * stci)
@@ -922,9 +916,6 @@ SpeciesTypeComponentIndex_free(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 SpeciesTypeComponentIndex_clone(SpeciesTypeComponentIndex_t * stci)
@@ -940,9 +931,6 @@ SpeciesTypeComponentIndex_clone(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getId(SpeciesTypeComponentIndex_t * stci)
@@ -954,9 +942,6 @@ SpeciesTypeComponentIndex_getId(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getName(SpeciesTypeComponentIndex_t * cr)
@@ -968,9 +953,6 @@ SpeciesTypeComponentIndex_getName(SpeciesTypeComponentIndex_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getComponent(SpeciesTypeComponentIndex_t * stci)
@@ -982,9 +964,6 @@ SpeciesTypeComponentIndex_getComponent(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentIndex_getIdentifyingParent(SpeciesTypeComponentIndex_t * stci)
@@ -996,9 +975,6 @@ SpeciesTypeComponentIndex_getIdentifyingParent(SpeciesTypeComponentIndex_t * stc
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetId(SpeciesTypeComponentIndex_t * stci)
@@ -1007,9 +983,6 @@ SpeciesTypeComponentIndex_isSetId(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetName(SpeciesTypeComponentIndex_t * cr)
@@ -1018,9 +991,6 @@ SpeciesTypeComponentIndex_isSetName(SpeciesTypeComponentIndex_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetComponent(SpeciesTypeComponentIndex_t * stci)
@@ -1029,9 +999,6 @@ SpeciesTypeComponentIndex_isSetComponent(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetIdentifyingParent(SpeciesTypeComponentIndex_t * stci)
@@ -1040,9 +1007,6 @@ SpeciesTypeComponentIndex_isSetIdentifyingParent(SpeciesTypeComponentIndex_t * s
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setId(SpeciesTypeComponentIndex_t * stci, const char * id)
@@ -1051,9 +1015,6 @@ SpeciesTypeComponentIndex_setId(SpeciesTypeComponentIndex_t * stci, const char *
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setName(SpeciesTypeComponentIndex_t * cr, const char * name)
@@ -1062,9 +1023,6 @@ SpeciesTypeComponentIndex_setName(SpeciesTypeComponentIndex_t * cr, const char *
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setComponent(SpeciesTypeComponentIndex_t * stci, const char * component)
@@ -1073,9 +1031,6 @@ SpeciesTypeComponentIndex_setComponent(SpeciesTypeComponentIndex_t * stci, const
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_setIdentifyingParent(SpeciesTypeComponentIndex_t * stci, const char * identifyingParent)
@@ -1084,9 +1039,6 @@ SpeciesTypeComponentIndex_setIdentifyingParent(SpeciesTypeComponentIndex_t * stc
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetId(SpeciesTypeComponentIndex_t * stci)
@@ -1095,9 +1047,6 @@ SpeciesTypeComponentIndex_unsetId(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetName(SpeciesTypeComponentIndex_t * cr)
@@ -1106,9 +1055,6 @@ SpeciesTypeComponentIndex_unsetName(SpeciesTypeComponentIndex_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetComponent(SpeciesTypeComponentIndex_t * stci)
@@ -1117,9 +1063,6 @@ SpeciesTypeComponentIndex_unsetComponent(SpeciesTypeComponentIndex_t * stci)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_unsetIdentifyingParent(SpeciesTypeComponentIndex_t * stci)
@@ -1128,9 +1071,6 @@ SpeciesTypeComponentIndex_unsetIdentifyingParent(SpeciesTypeComponentIndex_t * s
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_hasRequiredAttributes(SpeciesTypeComponentIndex_t * stci)
@@ -1139,9 +1079,6 @@ SpeciesTypeComponentIndex_hasRequiredAttributes(SpeciesTypeComponentIndex_t * st
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 ListOfSpeciesTypeComponentIndexes_getById(ListOf_t * lo, const char * sid)
@@ -1153,9 +1090,6 @@ ListOfSpeciesTypeComponentIndexes_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeComponentIndex_t *
 ListOfSpeciesTypeComponentIndexes_removeById(ListOf_t * lo, const char * sid)

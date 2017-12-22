@@ -624,9 +624,6 @@ ListOfSpeciesFeatureValues::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeatureValue_create(unsigned int level, unsigned int version,
@@ -636,9 +633,6 @@ SpeciesFeatureValue_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 SpeciesFeatureValue_free(SpeciesFeatureValue_t * sfv)
@@ -648,9 +642,6 @@ SpeciesFeatureValue_free(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 SpeciesFeatureValue_clone(SpeciesFeatureValue_t * sfv)
@@ -666,9 +657,6 @@ SpeciesFeatureValue_clone(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesFeatureValue_getValue(SpeciesFeatureValue_t * sfv)
@@ -680,9 +668,6 @@ SpeciesFeatureValue_getValue(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesFeatureValue_isSetValue(SpeciesFeatureValue_t * sfv)
@@ -691,9 +676,6 @@ SpeciesFeatureValue_isSetValue(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesFeatureValue_setValue(SpeciesFeatureValue_t * sfv, const char * value)
@@ -702,9 +684,6 @@ SpeciesFeatureValue_setValue(SpeciesFeatureValue_t * sfv, const char * value)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesFeatureValue_unsetValue(SpeciesFeatureValue_t * sfv)
@@ -713,9 +692,6 @@ SpeciesFeatureValue_unsetValue(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesFeatureValue_hasRequiredAttributes(SpeciesFeatureValue_t * sfv)
@@ -724,9 +700,6 @@ SpeciesFeatureValue_hasRequiredAttributes(SpeciesFeatureValue_t * sfv)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 ListOfSpeciesFeatureValues_getById(ListOf_t * lo, const char * sid)
@@ -738,9 +711,6 @@ ListOfSpeciesFeatureValues_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t *
 ListOfSpeciesFeatureValues_removeById(ListOf_t * lo, const char * sid)

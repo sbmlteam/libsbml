@@ -892,9 +892,6 @@ ListOfSpeciesTypeInstances::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_create(unsigned int level, unsigned int version,
@@ -904,9 +901,6 @@ SpeciesTypeInstance_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 SpeciesTypeInstance_free(SpeciesTypeInstance_t * sti)
@@ -916,9 +910,6 @@ SpeciesTypeInstance_free(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_clone(SpeciesTypeInstance_t * sti)
@@ -934,9 +925,6 @@ SpeciesTypeInstance_clone(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getId(SpeciesTypeInstance_t * sti)
@@ -948,9 +936,6 @@ SpeciesTypeInstance_getId(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getName(SpeciesTypeInstance_t * sti)
@@ -962,9 +947,6 @@ SpeciesTypeInstance_getName(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getSpeciesType(SpeciesTypeInstance_t * sti)
@@ -976,9 +958,6 @@ SpeciesTypeInstance_getSpeciesType(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getCompartmentReference(SpeciesTypeInstance_t * sti)
@@ -990,9 +969,6 @@ SpeciesTypeInstance_getCompartmentReference(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetId(SpeciesTypeInstance_t * sti)
@@ -1001,9 +977,6 @@ SpeciesTypeInstance_isSetId(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetName(SpeciesTypeInstance_t * sti)
@@ -1012,9 +985,6 @@ SpeciesTypeInstance_isSetName(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetSpeciesType(SpeciesTypeInstance_t * sti)
@@ -1023,9 +993,6 @@ SpeciesTypeInstance_isSetSpeciesType(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetCompartmentReference(SpeciesTypeInstance_t * sti)
@@ -1034,9 +1001,6 @@ SpeciesTypeInstance_isSetCompartmentReference(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setId(SpeciesTypeInstance_t * sti, const char * id)
@@ -1045,9 +1009,6 @@ SpeciesTypeInstance_setId(SpeciesTypeInstance_t * sti, const char * id)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setName(SpeciesTypeInstance_t * sti, const char * name)
@@ -1056,9 +1017,6 @@ SpeciesTypeInstance_setName(SpeciesTypeInstance_t * sti, const char * name)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setSpeciesType(SpeciesTypeInstance_t * sti, const char * speciesType)
@@ -1067,9 +1025,6 @@ SpeciesTypeInstance_setSpeciesType(SpeciesTypeInstance_t * sti, const char * spe
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setCompartmentReference(SpeciesTypeInstance_t * sti, const char * compartmentReference)
@@ -1078,9 +1033,6 @@ SpeciesTypeInstance_setCompartmentReference(SpeciesTypeInstance_t * sti, const c
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetId(SpeciesTypeInstance_t * sti)
@@ -1089,9 +1041,6 @@ SpeciesTypeInstance_unsetId(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetName(SpeciesTypeInstance_t * sti)
@@ -1100,9 +1049,6 @@ SpeciesTypeInstance_unsetName(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetSpeciesType(SpeciesTypeInstance_t * sti)
@@ -1111,9 +1057,6 @@ SpeciesTypeInstance_unsetSpeciesType(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetCompartmentReference(SpeciesTypeInstance_t * sti)
@@ -1122,9 +1065,6 @@ SpeciesTypeInstance_unsetCompartmentReference(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_hasRequiredAttributes(SpeciesTypeInstance_t * sti)
@@ -1133,9 +1073,6 @@ SpeciesTypeInstance_hasRequiredAttributes(SpeciesTypeInstance_t * sti)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_getById(ListOf_t * lo, const char * sid)
@@ -1147,9 +1084,6 @@ ListOfSpeciesTypeInstances_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_removeById(ListOf_t * lo, const char * sid)

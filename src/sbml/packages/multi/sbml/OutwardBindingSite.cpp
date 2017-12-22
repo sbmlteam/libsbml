@@ -853,9 +853,6 @@ ListOfOutwardBindingSites::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond */
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 OutwardBindingSite_create(unsigned int level, unsigned int version,
@@ -865,9 +862,6 @@ OutwardBindingSite_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 void
 OutwardBindingSite_free(OutwardBindingSite_t * obs)
@@ -877,9 +871,6 @@ OutwardBindingSite_free(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 OutwardBindingSite_clone(OutwardBindingSite_t * obs)
@@ -895,9 +886,6 @@ OutwardBindingSite_clone(OutwardBindingSite_t * obs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getId(OutwardBindingSite_t * cr)
@@ -909,9 +897,6 @@ OutwardBindingSite_getId(OutwardBindingSite_t * cr)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getName(OutwardBindingSite_t * cr)
@@ -923,9 +908,6 @@ OutwardBindingSite_getName(OutwardBindingSite_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 BindingStatus_t
 OutwardBindingSite_getBindingStatus(OutwardBindingSite_t * obs)
@@ -937,9 +919,6 @@ OutwardBindingSite_getBindingStatus(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getComponent(OutwardBindingSite_t * obs)
@@ -951,9 +930,6 @@ OutwardBindingSite_getComponent(OutwardBindingSite_t * obs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetId(OutwardBindingSite_t * cr)
@@ -962,9 +938,6 @@ OutwardBindingSite_isSetId(OutwardBindingSite_t * cr)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetName(OutwardBindingSite_t * cr)
@@ -973,9 +946,6 @@ OutwardBindingSite_isSetName(OutwardBindingSite_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetBindingStatus(OutwardBindingSite_t * obs)
@@ -984,9 +954,6 @@ OutwardBindingSite_isSetBindingStatus(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_isSetComponent(OutwardBindingSite_t * obs)
@@ -995,9 +962,6 @@ OutwardBindingSite_isSetComponent(OutwardBindingSite_t * obs)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setId(OutwardBindingSite_t * cr, const char * id)
@@ -1006,9 +970,6 @@ OutwardBindingSite_setId(OutwardBindingSite_t * cr, const char * id)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setName(OutwardBindingSite_t * cr, const char * name)
@@ -1017,9 +978,6 @@ OutwardBindingSite_setName(OutwardBindingSite_t * cr, const char * name)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setBindingStatus(OutwardBindingSite_t * obs, BindingStatus_t bindingStatus)
@@ -1028,9 +986,6 @@ OutwardBindingSite_setBindingStatus(OutwardBindingSite_t * obs, BindingStatus_t 
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_setComponent(OutwardBindingSite_t * obs, const char * component)
@@ -1039,9 +994,6 @@ OutwardBindingSite_setComponent(OutwardBindingSite_t * obs, const char * compone
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetId(OutwardBindingSite_t * cr)
@@ -1050,9 +1002,6 @@ OutwardBindingSite_unsetId(OutwardBindingSite_t * cr)
 }
 
 
-/**
- *
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetName(OutwardBindingSite_t * cr)
@@ -1061,9 +1010,6 @@ OutwardBindingSite_unsetName(OutwardBindingSite_t * cr)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetBindingStatus(OutwardBindingSite_t * obs)
@@ -1072,9 +1018,6 @@ OutwardBindingSite_unsetBindingStatus(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_unsetComponent(OutwardBindingSite_t * obs)
@@ -1083,9 +1026,6 @@ OutwardBindingSite_unsetComponent(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 int
 OutwardBindingSite_hasRequiredAttributes(OutwardBindingSite_t * obs)
@@ -1094,9 +1034,6 @@ OutwardBindingSite_hasRequiredAttributes(OutwardBindingSite_t * obs)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 ListOfOutwardBindingSites_getById(ListOf_t * lo, const char * sid)
@@ -1108,9 +1045,6 @@ ListOfOutwardBindingSites_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * 
- */
 LIBSBML_EXTERN
 OutwardBindingSite_t *
 ListOfOutwardBindingSites_removeById(ListOf_t * lo, const char * sid)
