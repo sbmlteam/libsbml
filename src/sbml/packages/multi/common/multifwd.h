@@ -56,6 +56,7 @@ typedef CLASS_OR_STRUCT CompartmentReference    CompartmentReference_t;
 typedef CLASS_OR_STRUCT SpeciesTypeInstance    SpeciesTypeInstance_t;
 typedef CLASS_OR_STRUCT InSpeciesTypeBond    InSpeciesTypeBond_t;
 typedef CLASS_OR_STRUCT OutwardBindingSite    OutwardBindingSite_t;
+typedef CLASS_OR_STRUCT PossibleSpeciesFeatureValue    PossibleSpeciesFeatureValue_t;
 typedef CLASS_OR_STRUCT SpeciesFeatureType    SpeciesFeatureType_t;
 typedef CLASS_OR_STRUCT SpeciesTypeComponentIndex    SpeciesTypeComponentIndex_t;
 typedef CLASS_OR_STRUCT SpeciesFeature    SpeciesFeature_t;

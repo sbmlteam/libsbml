@@ -762,8 +762,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Creates a new SpeciesFeatureType_t using the given SBML Level, Version and
+ * &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * SpeciesFeatureType_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesFeatureType_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * SpeciesFeatureType_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 SpeciesFeatureType_create(unsigned int level, unsigned int version,
@@ -771,195 +787,433 @@ SpeciesFeatureType_create(unsigned int level, unsigned int version,
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Frees this SpeciesFeatureType_t object.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 void
 SpeciesFeatureType_free(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Creates and returns a deep copy of this SpeciesFeatureType_t object.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @return a (deep) copy of this SpeciesFeatureType_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 SpeciesFeatureType_t *
 SpeciesFeatureType_clone(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Returns the value of the "id" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this SpeciesFeatureType_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 char *
-SpeciesFeatureType_getId(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_getId(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Returns the value of the "name" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this SpeciesFeatureType_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 char *
-SpeciesFeatureType_getName(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_getName(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Returns the value of the "occur" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure whose occur is sought.
+ *
+ * @return the value of the "occur" attribute of this SpeciesFeatureType_t as a
+ * unsigned integer.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 unsigned int
-SpeciesFeatureType_getOccur(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_getOccur(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeatureType_t's "id"
+ * attribute is set.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesFeatureType_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
-SpeciesFeatureType_isSetId(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_isSetId(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeatureType_t's "name"
+ * attribute is set.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesFeatureType_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
-SpeciesFeatureType_isSetName(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_isSetName(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeatureType_t's "occur"
+ * attribute is set.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesFeatureType_t's "occur" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
-SpeciesFeatureType_isSetOccur(SpeciesFeatureType_t * sft);
+SpeciesFeatureType_isSetOccur(const SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Sets the value of the "id" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SpeciesFeatureType_unsetId().
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_setId(SpeciesFeatureType_t * sft, const char * id);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Sets the value of the "name" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SpeciesFeatureType_unsetName().
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_setName(SpeciesFeatureType_t * sft, const char * name);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Sets the value of the "occur" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @param occur unsigned int value of the "occur" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_setOccur(SpeciesFeatureType_t * sft, unsigned int occur);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Unsets the value of the "id" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_unsetId(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Unsets the value of the "name" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_unsetName(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Unsets the value of the "occur" attribute of this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_unsetOccur(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Adds a copy of the given PossibleSpeciesFeatureValue_t to this
+ * SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure to which the
+ * PossibleSpeciesFeatureValue_t should be added.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_addPossibleSpeciesFeatureValue(SpeciesFeatureType_t * sft, PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Creates a new PossibleSpeciesFeatureValue_t object, adds it to this
+ * SpeciesFeatureType_t object and returns the PossibleSpeciesFeatureValue_t
+ * object created.
+ *
+ * @param sft the SpeciesFeatureType_t structure to which the
+ * PossibleSpeciesFeatureValue_t should be added.
+ *
+ * @return a new PossibleSpeciesFeatureValue_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 SpeciesFeatureType_createPossibleSpeciesFeatureValue(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Returns a ListOf_t * containing PossibleSpeciesFeatureValue_t objects from
+ * this SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure whose
+ * ListOfPossibleSpeciesFeatureValues is sought.
+ *
+ * @return the ListOfPossibleSpeciesFeatureValues from this
+ * SpeciesFeatureType_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see SpeciesFeatureType_addPossibleSpeciesFeatureValue()
+ * @see SpeciesFeatureType_createPossibleSpeciesFeatureValue()
+ * @see SpeciesFeatureType_getPossibleSpeciesFeatureValueById()
+ * @see SpeciesFeatureType_getPossibleSpeciesFeatureValue()
+ * @see SpeciesFeatureType_getNumPossibleSpeciesFeatureValues()
+ * @see SpeciesFeatureType_removePossibleSpeciesFeatureValueById()
+ * @see SpeciesFeatureType_removePossibleSpeciesFeatureValue()
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 ListOf_t *
 SpeciesFeatureType_getListOfPossibleSpeciesFeatureValues(SpeciesFeatureType_t * sft) ;
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Get a PossibleSpeciesFeatureValue_t from the SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * PossibleSpeciesFeatureValue_t to retrieve.
+ *
+ * @return the nth PossibleSpeciesFeatureValue_t in the
+ * ListOfPossibleSpeciesFeatureValues within this SpeciesFeatureType.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 SpeciesFeatureType_getPossibleSpeciesFeatureValue(SpeciesFeatureType_t * sft, unsigned int n);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Get a PossibleSpeciesFeatureValue_t from the SpeciesFeatureType_t based on
+ * its identifier.
+ *
+ * @param sft the SpeciesFeatureType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * PossibleSpeciesFeatureValue_t to retrieve.
+ *
+ * @return the PossibleSpeciesFeatureValue_t in the
+ * ListOfPossibleSpeciesFeatureValues within this SpeciesFeatureType with the
+ * given @p sid or @c NULL if no such PossibleSpeciesFeatureValue_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 SpeciesFeatureType_getPossibleSpeciesFeatureValueById(SpeciesFeatureType_t * sft, const char * sid);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Get the number of PossibleSpeciesFeatureValue_t objects in this
+ * SpeciesFeatureType_t.
+ *
+ * @param sft the SpeciesFeatureType_t structure to query.
+ *
+ * @return the number of PossibleSpeciesFeatureValue_t objects in this
+ * SpeciesFeatureType_t.
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 unsigned int
 SpeciesFeatureType_getNumPossibleSpeciesFeatureValues(SpeciesFeatureType_t * sft);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Removes the nth PossibleSpeciesFeatureValue_t from this SpeciesFeatureType_t
+ * and returns a pointer to it.
+ *
+ * @param sft the SpeciesFeatureType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * PossibleSpeciesFeatureValue_t to remove.
+ *
+ * @return a pointer to the nth PossibleSpeciesFeatureValue_t in this
+ * SpeciesFeatureType_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 SpeciesFeatureType_removePossibleSpeciesFeatureValue(SpeciesFeatureType_t * sft, unsigned int n);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Removes the PossibleSpeciesFeatureValue_t from this SpeciesFeatureType_t
+ * based on its identifier and returns a pointer to it.
+ *
+ * @param sft the SpeciesFeatureType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * PossibleSpeciesFeatureValue_t to remove.
+ *
+ * @return the PossibleSpeciesFeatureValue_t in this SpeciesFeatureType_t based
+ * on the identifier or NULL if no such PossibleSpeciesFeatureValue_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 SpeciesFeatureType_removePossibleSpeciesFeatureValueById(SpeciesFeatureType_t * sft, const char * sid);
 
 
 /**
-* @memberof SpeciesFeatureType_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * SpeciesFeatureType_t object have been set.
+ *
+ * @param sft the SpeciesFeatureType_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SpeciesFeatureType_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the SpeciesFeatureType_t object are:
+ * @li "id"
+ * @li "occur"
+ *
+ * @memberof SpeciesFeatureType_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeatureType_hasRequiredAttributes(SpeciesFeatureType_t * sft);
-
-
-/**
-* @memberof SpeciesFeatureType_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesFeatureType_hasRequiredElements(SpeciesFeatureType_t * sft);
 
 
 /**
