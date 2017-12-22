@@ -655,8 +655,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Creates a new SpeciesTypeInstance_t using the given SBML Level, Version and
+ * &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * SpeciesTypeInstance_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesTypeInstance_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * SpeciesTypeInstance_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_create(unsigned int level, unsigned int version,
@@ -664,189 +680,375 @@ SpeciesTypeInstance_create(unsigned int level, unsigned int version,
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Frees this SpeciesTypeInstance_t object.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 void
 SpeciesTypeInstance_free(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Creates and returns a deep copy of this SpeciesTypeInstance_t object.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return a (deep) copy of this SpeciesTypeInstance_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 SpeciesTypeInstance_clone(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Returns the value of the "id" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this SpeciesTypeInstance_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getId(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Returns the value of the "name" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this SpeciesTypeInstance_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getName(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Returns the value of the "speciesType" attribute of this
+ * SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure whose speciesType is sought.
+ *
+ * @return the value of the "speciesType" attribute of this
+ * SpeciesTypeInstance_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getSpeciesType(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Returns the value of the "compartmentReference" attribute of this
+ * SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure whose compartmentReference is
+ * sought.
+ *
+ * @return the value of the "compartmentReference" attribute of this
+ * SpeciesTypeInstance_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeInstance_getCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeInstance_t's "id"
+ * attribute is set.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeInstance_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetId(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeInstance_t's "name"
+ * attribute is set.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeInstance_t's "name" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetName(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeInstance_t's
+ * "speciesType" attribute is set.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeInstance_t's "speciesType" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetSpeciesType(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeInstance_t's
+ * "compartmentReference" attribute is set.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeInstance_t's "compartmentReference"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_isSetCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Sets the value of the "id" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SpeciesTypeInstance_unsetId().
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setId(SpeciesTypeInstance_t * sti, const char * id);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Sets the value of the "name" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SpeciesTypeInstance_unsetName().
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setName(SpeciesTypeInstance_t * sti, const char * name);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Sets the value of the "speciesType" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @param speciesType const char * value of the "speciesType" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setSpeciesType(SpeciesTypeInstance_t * sti, const char * speciesType);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Sets the value of the "compartmentReference" attribute of this
+ * SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @param compartmentReference const char * value of the "compartmentReference"
+ * attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_setCompartmentReference(SpeciesTypeInstance_t * sti, const char * compartmentReference);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Unsets the value of the "id" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetId(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Unsets the value of the "name" attribute of this SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetName(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Unsets the value of the "speciesType" attribute of this
+ * SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetSpeciesType(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Unsets the value of the "compartmentReference" attribute of this
+ * SpeciesTypeInstance_t.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_unsetCompartmentReference(SpeciesTypeInstance_t * sti);
 
 
 /**
-* @memberof SpeciesTypeInstance_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * SpeciesTypeInstance_t object have been set.
+ *
+ * @param sti the SpeciesTypeInstance_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SpeciesTypeInstance_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the SpeciesTypeInstance_t object are:
+ * @li "id"
+ * @li "speciesType"
+ *
+ * @memberof SpeciesTypeInstance_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeInstance_hasRequiredAttributes(SpeciesTypeInstance_t * sti);
 
 
 /**
-* Return the structure indicated by the given @p sid.
-*
-* @param lo the ListOf_t structure to use.
-*
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure for the given variable, or @c NULL if no such
-* object exists in the list.
-*
-* @memberof ListOfSpeciesTypeInstances_t
-*/
+ * Return the structure indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use.
+ *
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure for the given variable, or @c NULL if no such
+ * object exists in the list.
+ *
+ * @memberof ListOfSpeciesTypeInstances_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_getById(ListOf_t * lo, const char * sid);
 
 
 /**
-* Removes the structure with the given @p sid
-* from the given list and returns a pointer to it.
-*
-* The caller owns the returned structure and is responsible for deleting it.
-*
-* @param lo the ListOf_t structure.
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure removed.  As mentioned above, the
-* caller owns the returned structure. @c NULL is returned if no
-* structure with the "id" attribute exists in the given list.
-*
-* @memberof ListOfSpeciesTypeInstances_t
-*/
+ * Removes the structure with the given @p sid
+ * from the given list and returns a pointer to it.
+ *
+ * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure.
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure removed.  As mentioned above, the
+ * caller owns the returned structure. @c NULL is returned if no
+ * structure with the "id" attribute exists in the given list.
+ *
+ * @memberof ListOfSpeciesTypeInstances_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeInstance_t *
 ListOfSpeciesTypeInstances_removeById(ListOf_t * lo, const char * sid);
