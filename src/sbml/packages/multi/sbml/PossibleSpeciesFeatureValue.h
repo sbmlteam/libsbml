@@ -594,8 +594,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Creates a new PossibleSpeciesFeatureValue_t using the given SBML Level,
+ * Version and &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 PossibleSpeciesFeatureValue_create(unsigned int level, unsigned int version,
@@ -603,157 +619,311 @@ PossibleSpeciesFeatureValue_create(unsigned int level, unsigned int version,
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Frees this PossibleSpeciesFeatureValue_t object.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 void
 PossibleSpeciesFeatureValue_free(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Creates and returns a deep copy of this PossibleSpeciesFeatureValue_t
+ * object.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @return a (deep) copy of this PossibleSpeciesFeatureValue_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 PossibleSpeciesFeatureValue_clone(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Returns the value of the "id" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this
+ * PossibleSpeciesFeatureValue_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 char *
-PossibleSpeciesFeatureValue_getId(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_getId(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Returns the value of the "name" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure whose name is
+ * sought.
+ *
+ * @return the value of the "name" attribute of this
+ * PossibleSpeciesFeatureValue_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 char *
-PossibleSpeciesFeatureValue_getName(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_getName(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Returns the value of the "numericValue" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure whose numericValue
+ * is sought.
+ *
+ * @return the value of the "numericValue" attribute of this
+ * PossibleSpeciesFeatureValue_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 char *
-PossibleSpeciesFeatureValue_getNumericValue(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_getNumericValue(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Predicate returning @c 1 (true) if this PossibleSpeciesFeatureValue_t's "id"
+ * attribute is set.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @return @c 1 (true) if this PossibleSpeciesFeatureValue_t's "id" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
-PossibleSpeciesFeatureValue_isSetId(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_isSetId(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Predicate returning @c 1 (true) if this PossibleSpeciesFeatureValue_t's
+ * "name" attribute is set.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @return @c 1 (true) if this PossibleSpeciesFeatureValue_t's "name" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
-PossibleSpeciesFeatureValue_isSetName(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_isSetName(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Predicate returning @c 1 (true) if this PossibleSpeciesFeatureValue_t's
+ * "numericValue" attribute is set.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @return @c 1 (true) if this PossibleSpeciesFeatureValue_t's "numericValue"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
-PossibleSpeciesFeatureValue_isSetNumericValue(PossibleSpeciesFeatureValue_t * psfv);
+PossibleSpeciesFeatureValue_isSetNumericValue(const PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Sets the value of the "id" attribute of this PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling PossibleSpeciesFeatureValue_unsetId().
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setId(PossibleSpeciesFeatureValue_t * psfv, const char * id);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Sets the value of the "name" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling PossibleSpeciesFeatureValue_unsetName().
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setName(PossibleSpeciesFeatureValue_t * psfv, const char * name);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Sets the value of the "numericValue" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @param numericValue const char * value of the "numericValue" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_setNumericValue(PossibleSpeciesFeatureValue_t * psfv, const char * numericValue);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Unsets the value of the "id" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetId(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Unsets the value of the "name" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetName(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Unsets the value of the "numericValue" attribute of this
+ * PossibleSpeciesFeatureValue_t.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_unsetNumericValue(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* @memberof PossibleSpeciesFeatureValue_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * PossibleSpeciesFeatureValue_t object have been set.
+ *
+ * @param psfv the PossibleSpeciesFeatureValue_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * PossibleSpeciesFeatureValue_t have been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ *
+ * @note The required attributes for the PossibleSpeciesFeatureValue_t object
+ * are:
+ * @li "id"
+ *
+ * @memberof PossibleSpeciesFeatureValue_t
+ */
 LIBSBML_EXTERN
 int
 PossibleSpeciesFeatureValue_hasRequiredAttributes(PossibleSpeciesFeatureValue_t * psfv);
 
 
 /**
-* Return the structure indicated by the given @p sid.
-*
-* @param lo the ListOf_t structure to use.
-*
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure for the given variable, or @c NULL if no such
-* object exists in the list.
-*
-* @memberof ListOfPossibleSpeciesFeatureValues_t
-*/
+ * Return the structure indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use.
+ *
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure for the given variable, or @c NULL if no such
+ * object exists in the list.
+ *
+ * @memberof ListOfPossibleSpeciesFeatureValues_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 ListOfPossibleSpeciesFeatureValues_getById(ListOf_t * lo, const char * sid);
 
 
 /**
-* Removes the structure with the given @p sid
-* from the given list and returns a pointer to it.
-*
-* The caller owns the returned structure and is responsible for deleting it.
-*
-* @param lo the ListOf_t structure.
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure removed.  As mentioned above, the
-* caller owns the returned structure. @c NULL is returned if no
-* structure with the "id" attribute exists in the given list.
-*
-* @memberof ListOfPossibleSpeciesFeatureValues_t
-*/
+ * Removes the structure with the given @p sid
+ * from the given list and returns a pointer to it.
+ *
+ * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure.
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure removed.  As mentioned above, the
+ * caller owns the returned structure. @c NULL is returned if no
+ * structure with the "id" attribute exists in the given list.
+ *
+ * @memberof ListOfPossibleSpeciesFeatureValues_t
+ */
 LIBSBML_EXTERN
 PossibleSpeciesFeatureValue_t *
 ListOfPossibleSpeciesFeatureValues_removeById(ListOf_t * lo, const char * sid);
