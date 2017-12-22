@@ -1198,8 +1198,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates a new BindingSiteSpeciesType (MultiSpeciesType_t) using the given
+ * SBML Level, Version and &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * MultiSpeciesType_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * MultiSpeciesType_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * MultiSpeciesType_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_create(unsigned int level, unsigned int version,
@@ -1207,421 +1223,996 @@ MultiSpeciesType_create(unsigned int level, unsigned int version,
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Frees this MultiSpeciesType_t object.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 void
 MultiSpeciesType_free(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates and returns a deep copy of this MultiSpeciesType_t object.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @return a (deep) copy of this MultiSpeciesType_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_clone(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Returns the value of the "id" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this MultiSpeciesType_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 char *
-MultiSpeciesType_getId(MultiSpeciesType_t * mst);
+MultiSpeciesType_getId(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Returns the value of the "name" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this MultiSpeciesType_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 char *
-MultiSpeciesType_getName(MultiSpeciesType_t * mst);
+MultiSpeciesType_getName(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Returns the value of the "compartment" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose compartment is sought.
+ *
+ * @return the value of the "compartment" attribute of this MultiSpeciesType_t
+ * as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 char *
-MultiSpeciesType_getCompartment(MultiSpeciesType_t * mst);
+MultiSpeciesType_getCompartment(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Predicate returning @c 1 (true) if this MultiSpeciesType_t's "id" attribute
+ * is set.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @return @c 1 (true) if this MultiSpeciesType_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_isSetId(MultiSpeciesType_t * mst);
+MultiSpeciesType_isSetId(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Predicate returning @c 1 (true) if this MultiSpeciesType_t's "name"
+ * attribute is set.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @return @c 1 (true) if this MultiSpeciesType_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_isSetName(MultiSpeciesType_t * mst);
+MultiSpeciesType_isSetName(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Predicate returning @c 1 (true) if this MultiSpeciesType_t's "compartment"
+ * attribute is set.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @return @c 1 (true) if this MultiSpeciesType_t's "compartment" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_isSetCompartment(MultiSpeciesType_t * mst);
+MultiSpeciesType_isSetCompartment(const MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Sets the value of the "id" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling MultiSpeciesType_unsetId().
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setId(MultiSpeciesType_t * mst, const char * id);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Sets the value of the "name" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling MultiSpeciesType_unsetName().
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setName(MultiSpeciesType_t * mst, const char * name);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Sets the value of the "compartment" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @param compartment const char * value of the "compartment" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setCompartment(MultiSpeciesType_t * mst, const char * compartment);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Unsets the value of the "id" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetId(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Unsets the value of the "name" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetName(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Unsets the value of the "compartment" attribute of this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetCompartment(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Returns a ListOf_t * containing SpeciesFeatureType_t objects from this
+ * MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose ListOfSpeciesFeatureTypes
+ * is sought.
+ *
+ * @return the ListOfSpeciesFeatureTypes from this MultiSpeciesType_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MultiSpeciesType_addSpeciesFeatureType()
+ * @see MultiSpeciesType_createSpeciesFeatureType()
+ * @see MultiSpeciesType_getSpeciesFeatureTypeById()
+ * @see MultiSpeciesType_getSpeciesFeatureType()
+ * @see MultiSpeciesType_getNumSpeciesFeatureTypes()
+ * @see MultiSpeciesType_removeSpeciesFeatureTypeById()
+ * @see MultiSpeciesType_removeSpeciesFeatureType()
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesFeatureTypes(MultiSpeciesType_t* mst);
+
+
+/**
+ * Get a SpeciesFeatureType_t from the MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the SpeciesFeatureType_t
+ * to retrieve.
+ *
+ * @return the nth SpeciesFeatureType_t in the ListOfSpeciesFeatureTypes within
+ * this MultiSpeciesType.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_getSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                       unsigned int n);
+
+
+/**
+ * Get a SpeciesFeatureType_t from the MultiSpeciesType_t based on its
+ * identifier.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the SpeciesFeatureType_t
+ * to retrieve.
+ *
+ * @return the SpeciesFeatureType_t in the ListOfSpeciesFeatureTypes within
+ * this MultiSpeciesType with the given @p sid or @c NULL if no such
+ * SpeciesFeatureType_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_getSpeciesFeatureTypeById(MultiSpeciesType_t* mst,
+                                           const char *sid);
+
+
+/**
+ * Adds a copy of the given SpeciesFeatureType_t to this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesFeatureType_t should be added.
+ *
+ * @param sft the SpeciesFeatureType_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_addSpeciesFeatureType(MultiSpeciesType_t * mst, SpeciesFeatureType_t * sft);
+MultiSpeciesType_addSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                       const SpeciesFeatureType_t* sft);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesFeatureType_t *
-MultiSpeciesType_createSpeciesFeatureType(MultiSpeciesType_t * mst);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-ListOf_t *
-MultiSpeciesType_getListOfSpeciesFeatureTypes(MultiSpeciesType_t * mst) ;
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesFeatureType_t *
-MultiSpeciesType_getSpeciesFeatureType(MultiSpeciesType_t * mst, unsigned int n);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesFeatureType_t *
-MultiSpeciesType_getSpeciesFeatureTypeById(MultiSpeciesType_t * mst, const char * sid);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
+ * Get the number of SpeciesFeatureType_t objects in this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to query.
+ *
+ * @return the number of SpeciesFeatureType_t objects in this
+ * MultiSpeciesType_t.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 unsigned int
-MultiSpeciesType_getNumSpeciesFeatureTypes(MultiSpeciesType_t * mst);
+MultiSpeciesType_getNumSpeciesFeatureTypes(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates a new SpeciesFeatureType_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesFeatureType_t object
+ * created.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesFeatureType_t should be added.
+ *
+ * @return a new SpeciesFeatureType_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesFeatureType_t *
-MultiSpeciesType_removeSpeciesFeatureType(MultiSpeciesType_t * mst, unsigned int n);
+SpeciesFeatureType_t*
+MultiSpeciesType_createSpeciesFeatureType(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the nth SpeciesFeatureType_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the SpeciesFeatureType_t
+ * to remove.
+ *
+ * @return a pointer to the nth SpeciesFeatureType_t in this
+ * MultiSpeciesType_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesFeatureType_t *
-MultiSpeciesType_removeSpeciesFeatureTypeById(MultiSpeciesType_t * mst, const char * sid);
+SpeciesFeatureType_t*
+MultiSpeciesType_removeSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                          unsigned int n);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the SpeciesFeatureType_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the SpeciesFeatureType_t
+ * to remove.
+ *
+ * @return the SpeciesFeatureType_t in this MultiSpeciesType_t based on the
+ * identifier or NULL if no such SpeciesFeatureType_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_removeSpeciesFeatureTypeById(MultiSpeciesType_t* mst,
+                                              const char* sid);
+
+
+/**
+ * Returns a ListOf_t * containing SpeciesTypeInstance_t objects from this
+ * MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose ListOfSpeciesTypeInstances
+ * is sought.
+ *
+ * @return the ListOfSpeciesTypeInstances from this MultiSpeciesType_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MultiSpeciesType_addSpeciesTypeInstance()
+ * @see MultiSpeciesType_createSpeciesTypeInstance()
+ * @see MultiSpeciesType_getSpeciesTypeInstanceById()
+ * @see MultiSpeciesType_getSpeciesTypeInstance()
+ * @see MultiSpeciesType_getNumSpeciesTypeInstances()
+ * @see MultiSpeciesType_removeSpeciesTypeInstanceById()
+ * @see MultiSpeciesType_removeSpeciesTypeInstance()
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesTypeInstances(MultiSpeciesType_t* mst);
+
+
+/**
+ * Get a SpeciesTypeInstance_t from the MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the SpeciesTypeInstance_t
+ * to retrieve.
+ *
+ * @return the nth SpeciesTypeInstance_t in the ListOfSpeciesTypeInstances
+ * within this MultiSpeciesType.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_getSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                        unsigned int n);
+
+
+/**
+ * Get a SpeciesTypeInstance_t from the MultiSpeciesType_t based on its
+ * identifier.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the SpeciesTypeInstance_t
+ * to retrieve.
+ *
+ * @return the SpeciesTypeInstance_t in the ListOfSpeciesTypeInstances within
+ * this MultiSpeciesType with the given @p sid or @c NULL if no such
+ * SpeciesTypeInstance_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_getSpeciesTypeInstanceById(MultiSpeciesType_t* mst,
+                                            const char *sid);
+
+
+/**
+ * Adds a copy of the given SpeciesTypeInstance_t to this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesTypeInstance_t should be added.
+ *
+ * @param sti the SpeciesTypeInstance_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_addSpeciesTypeInstance(MultiSpeciesType_t * mst, SpeciesTypeInstance_t * sti);
+MultiSpeciesType_addSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                        const SpeciesTypeInstance_t* sti);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeInstance_t *
-MultiSpeciesType_createSpeciesTypeInstance(MultiSpeciesType_t * mst);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-ListOf_t *
-MultiSpeciesType_getListOfSpeciesTypeInstances(MultiSpeciesType_t * mst) ;
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeInstance_t *
-MultiSpeciesType_getSpeciesTypeInstance(MultiSpeciesType_t * mst, unsigned int n);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeInstance_t *
-MultiSpeciesType_getSpeciesTypeInstanceById(MultiSpeciesType_t * mst, const char * sid);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
+ * Get the number of SpeciesTypeInstance_t objects in this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to query.
+ *
+ * @return the number of SpeciesTypeInstance_t objects in this
+ * MultiSpeciesType_t.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 unsigned int
-MultiSpeciesType_getNumSpeciesTypeInstances(MultiSpeciesType_t * mst);
+MultiSpeciesType_getNumSpeciesTypeInstances(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates a new SpeciesTypeInstance_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesTypeInstance_t object
+ * created.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesTypeInstance_t should be added.
+ *
+ * @return a new SpeciesTypeInstance_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesTypeInstance_t *
-MultiSpeciesType_removeSpeciesTypeInstance(MultiSpeciesType_t * mst, unsigned int n);
+SpeciesTypeInstance_t*
+MultiSpeciesType_createSpeciesTypeInstance(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the nth SpeciesTypeInstance_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the SpeciesTypeInstance_t
+ * to remove.
+ *
+ * @return a pointer to the nth SpeciesTypeInstance_t in this
+ * MultiSpeciesType_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesTypeInstance_t *
-MultiSpeciesType_removeSpeciesTypeInstanceById(MultiSpeciesType_t * mst, const char * sid);
+SpeciesTypeInstance_t*
+MultiSpeciesType_removeSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                           unsigned int n);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the SpeciesTypeInstance_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the SpeciesTypeInstance_t
+ * to remove.
+ *
+ * @return the SpeciesTypeInstance_t in this MultiSpeciesType_t based on the
+ * identifier or NULL if no such SpeciesTypeInstance_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_removeSpeciesTypeInstanceById(MultiSpeciesType_t* mst,
+                                               const char* sid);
+
+
+/**
+ * Returns a ListOf_t * containing SpeciesTypeComponentIndex_t objects from
+ * this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose
+ * ListOfSpeciesTypeComponentIndexes is sought.
+ *
+ * @return the ListOfSpeciesTypeComponentIndexes from this MultiSpeciesType_t
+ * as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MultiSpeciesType_addSpeciesTypeComponentIndex()
+ * @see MultiSpeciesType_createSpeciesTypeComponentIndex()
+ * @see MultiSpeciesType_getSpeciesTypeComponentIndexById()
+ * @see MultiSpeciesType_getSpeciesTypeComponentIndex()
+ * @see MultiSpeciesType_getNumSpeciesTypeComponentIndexes()
+ * @see MultiSpeciesType_removeSpeciesTypeComponentIndexById()
+ * @see MultiSpeciesType_removeSpeciesTypeComponentIndex()
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesTypeComponentIndexes(MultiSpeciesType_t* mst);
+
+
+/**
+ * Get a SpeciesTypeComponentIndex_t from the MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * SpeciesTypeComponentIndex_t to retrieve.
+ *
+ * @return the nth SpeciesTypeComponentIndex_t in the
+ * ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_getSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                              unsigned int n);
+
+
+/**
+ * Get a SpeciesTypeComponentIndex_t from the MultiSpeciesType_t based on its
+ * identifier.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * SpeciesTypeComponentIndex_t to retrieve.
+ *
+ * @return the SpeciesTypeComponentIndex_t in the
+ * ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType with the
+ * given @p sid or @c NULL if no such SpeciesTypeComponentIndex_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_getSpeciesTypeComponentIndexById(MultiSpeciesType_t* mst,
+                                                  const char *sid);
+
+
+/**
+ * Adds a copy of the given SpeciesTypeComponentIndex_t to this
+ * MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesTypeComponentIndex_t should be added.
+ *
+ * @param stci the SpeciesTypeComponentIndex_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_addSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, SpeciesTypeComponentIndex_t * stci);
+MultiSpeciesType_addSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                              const
+                                                SpeciesTypeComponentIndex_t*
+                                                  stci);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeComponentIndex_t *
-MultiSpeciesType_createSpeciesTypeComponentIndex(MultiSpeciesType_t * mst);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-ListOf_t *
-MultiSpeciesType_getListOfSpeciesTypeComponentIndexes(MultiSpeciesType_t * mst) ;
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeComponentIndex_t *
-MultiSpeciesType_getSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, unsigned int n);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-SpeciesTypeComponentIndex_t *
-MultiSpeciesType_getSpeciesTypeComponentIndexById(MultiSpeciesType_t * mst, const char * sid);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
+ * Get the number of SpeciesTypeComponentIndex_t objects in this
+ * MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to query.
+ *
+ * @return the number of SpeciesTypeComponentIndex_t objects in this
+ * MultiSpeciesType_t.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 unsigned int
-MultiSpeciesType_getNumSpeciesTypeComponentIndexes(MultiSpeciesType_t * mst);
+MultiSpeciesType_getNumSpeciesTypeComponentIndexes(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates a new SpeciesTypeComponentIndex_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesTypeComponentIndex_t object
+ * created.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the
+ * SpeciesTypeComponentIndex_t should be added.
+ *
+ * @return a new SpeciesTypeComponentIndex_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesTypeComponentIndex_t *
-MultiSpeciesType_removeSpeciesTypeComponentIndex(MultiSpeciesType_t * mst, unsigned int n);
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_createSpeciesTypeComponentIndex(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the nth SpeciesTypeComponentIndex_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * SpeciesTypeComponentIndex_t to remove.
+ *
+ * @return a pointer to the nth SpeciesTypeComponentIndex_t in this
+ * MultiSpeciesType_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-SpeciesTypeComponentIndex_t *
-MultiSpeciesType_removeSpeciesTypeComponentIndexById(MultiSpeciesType_t * mst, const char * sid);
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_removeSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                                 unsigned int n);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the SpeciesTypeComponentIndex_t from this MultiSpeciesType_t based
+ * on its identifier and returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * SpeciesTypeComponentIndex_t to remove.
+ *
+ * @return the SpeciesTypeComponentIndex_t in this MultiSpeciesType_t based on
+ * the identifier or NULL if no such SpeciesTypeComponentIndex_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_removeSpeciesTypeComponentIndexById(MultiSpeciesType_t* mst,
+                                                     const char* sid);
+
+
+/**
+ * Returns a ListOf_t * containing InSpeciesTypeBond_t objects from this
+ * MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure whose ListOfInSpeciesTypeBonds
+ * is sought.
+ *
+ * @return the ListOfInSpeciesTypeBonds from this MultiSpeciesType_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MultiSpeciesType_addInSpeciesTypeBond()
+ * @see MultiSpeciesType_createInSpeciesTypeBond()
+ * @see MultiSpeciesType_getInSpeciesTypeBondById()
+ * @see MultiSpeciesType_getInSpeciesTypeBond()
+ * @see MultiSpeciesType_getNumInSpeciesTypeBonds()
+ * @see MultiSpeciesType_removeInSpeciesTypeBondById()
+ * @see MultiSpeciesType_removeInSpeciesTypeBond()
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfInSpeciesTypeBonds(MultiSpeciesType_t* mst);
+
+
+/**
+ * Get an InSpeciesTypeBond_t from the MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the InSpeciesTypeBond_t
+ * to retrieve.
+ *
+ * @return the nth InSpeciesTypeBond_t in the ListOfInSpeciesTypeBonds within
+ * this MultiSpeciesType.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_getInSpeciesTypeBond(MultiSpeciesType_t* mst,
+                                      unsigned int n);
+
+
+/**
+ * Get an InSpeciesTypeBond_t from the MultiSpeciesType_t based on its
+ * identifier.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the InSpeciesTypeBond_t
+ * to retrieve.
+ *
+ * @return the InSpeciesTypeBond_t in the ListOfInSpeciesTypeBonds within this
+ * MultiSpeciesType with the given @p sid or @c NULL if no such
+ * InSpeciesTypeBond_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_getInSpeciesTypeBondById(MultiSpeciesType_t* mst,
+                                          const char *sid);
+
+
+/**
+ * Adds a copy of the given InSpeciesTypeBond_t to this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the InSpeciesTypeBond_t
+ * should be added.
+ *
+ * @param istb the InSpeciesTypeBond_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
-MultiSpeciesType_addInSpeciesTypeBond(MultiSpeciesType_t * mst, InSpeciesTypeBond_t * istb);
+MultiSpeciesType_addInSpeciesTypeBond(MultiSpeciesType_t* mst,
+                                      const InSpeciesTypeBond_t* istb);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-InSpeciesTypeBond_t *
-MultiSpeciesType_createInSpeciesTypeBond(MultiSpeciesType_t * mst);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-ListOf_t *
-MultiSpeciesType_getListOfInSpeciesTypeBonds(MultiSpeciesType_t * mst) ;
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-InSpeciesTypeBond_t *
-MultiSpeciesType_getInSpeciesTypeBond(MultiSpeciesType_t * mst, unsigned int n);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-InSpeciesTypeBond_t *
-MultiSpeciesType_getInSpeciesTypeBondById(MultiSpeciesType_t * mst, const char * sid);
-
-
-/**
-* @memberof MultiSpeciesType_t
-*/
+ * Get the number of InSpeciesTypeBond_t objects in this MultiSpeciesType_t.
+ *
+ * @param mst the MultiSpeciesType_t structure to query.
+ *
+ * @return the number of InSpeciesTypeBond_t objects in this
+ * MultiSpeciesType_t.
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 unsigned int
-MultiSpeciesType_getNumInSpeciesTypeBonds(MultiSpeciesType_t * mst);
+MultiSpeciesType_getNumInSpeciesTypeBonds(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Creates a new InSpeciesTypeBond_t object, adds it to this MultiSpeciesType_t
+ * object and returns the InSpeciesTypeBond_t object created.
+ *
+ * @param mst the MultiSpeciesType_t structure to which the InSpeciesTypeBond_t
+ * should be added.
+ *
+ * @return a new InSpeciesTypeBond_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-InSpeciesTypeBond_t *
-MultiSpeciesType_removeInSpeciesTypeBond(MultiSpeciesType_t * mst, unsigned int n);
+InSpeciesTypeBond_t*
+MultiSpeciesType_createInSpeciesTypeBond(MultiSpeciesType_t* mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the nth InSpeciesTypeBond_t from this MultiSpeciesType_t and returns
+ * a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the InSpeciesTypeBond_t
+ * to remove.
+ *
+ * @return a pointer to the nth InSpeciesTypeBond_t in this MultiSpeciesType_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
-InSpeciesTypeBond_t *
-MultiSpeciesType_removeInSpeciesTypeBondById(MultiSpeciesType_t * mst, const char * sid);
+InSpeciesTypeBond_t*
+MultiSpeciesType_removeInSpeciesTypeBond(MultiSpeciesType_t* mst,
+                                         unsigned int n);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
+ * Removes the InSpeciesTypeBond_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param mst the MultiSpeciesType_t structure to search.
+ *
+ * @param sid a string representing the identifier of the InSpeciesTypeBond_t
+ * to remove.
+ *
+ * @return the InSpeciesTypeBond_t in this MultiSpeciesType_t based on the
+ * identifier or NULL if no such InSpeciesTypeBond_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesType_t
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_removeInSpeciesTypeBondById(MultiSpeciesType_t* mst,
+                                             const char* sid);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * MultiSpeciesType_t object have been set.
+ *
+ * @param mst the MultiSpeciesType_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * MultiSpeciesType_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the MultiSpeciesType_t object are:
+ * @li "id"
+ *
+ * @memberof MultiSpeciesType_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_hasRequiredAttributes(MultiSpeciesType_t * mst);
 
 
 /**
-* @memberof MultiSpeciesType_t
-*/
-LIBSBML_EXTERN
-int
-MultiSpeciesType_hasRequiredElements(MultiSpeciesType_t * mst);
-
-
-/**
-* Return the structure indicated by the given @p sid.
-*
-* @param lo the ListOf_t structure to use.
-*
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure for the given variable, or @c NULL if no such
-* object exists in the list.
-*
-* @memberof ListOfMultiSpeciesTypes_t
-*/
+ * Return the structure indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use.
+ *
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure for the given variable, or @c NULL if no such
+ * object exists in the list.
+ *
+ * @memberof ListOfMultiSpeciesTypes_t
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_getById(ListOf_t * lo, const char * sid);
 
 
 /**
-* Removes the structure with the given @p sid
-* from the given list and returns a pointer to it.
-*
-* The caller owns the returned structure and is responsible for deleting it.
-*
-* @param lo the ListOf_t structure.
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure removed.  As mentioned above, the
-* caller owns the returned structure. @c NULL is returned if no
-* structure with the "id" attribute exists in the given list.
-*
-* @memberof ListOfMultiSpeciesTypes_t
-*/
+ * Removes the structure with the given @p sid
+ * from the given list and returns a pointer to it.
+ *
+ * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure.
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure removed.  As mentioned above, the
+ * caller owns the returned structure. @c NULL is returned if no
+ * structure with the "id" attribute exists in the given list.
+ *
+ * @memberof ListOfMultiSpeciesTypes_t
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_removeById(ListOf_t * lo, const char * sid);

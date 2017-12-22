@@ -1680,9 +1680,6 @@ ListOfMultiSpeciesTypes::isValidTypeForList(SBase * item)
   /** @endcond */
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_create(unsigned int level, unsigned int version,
@@ -1692,9 +1689,6 @@ MultiSpeciesType_create(unsigned int level, unsigned int version,
 }
 
 
-/*
- * 
- */
 LIBSBML_EXTERN
 void
 MultiSpeciesType_free(MultiSpeciesType_t * mst)
@@ -1704,9 +1698,6 @@ MultiSpeciesType_free(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 MultiSpeciesType_clone(MultiSpeciesType_t * mst)
@@ -1722,9 +1713,6 @@ MultiSpeciesType_clone(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getId(MultiSpeciesType_t * mst)
@@ -1736,9 +1724,6 @@ MultiSpeciesType_getId(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getName(MultiSpeciesType_t * mst)
@@ -1752,9 +1737,6 @@ MultiSpeciesType_getName(MultiSpeciesType_t * mst)
 
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 char *
 MultiSpeciesType_getCompartment(MultiSpeciesType_t * mst)
@@ -1766,9 +1748,6 @@ MultiSpeciesType_getCompartment(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetId(MultiSpeciesType_t * mst)
@@ -1777,9 +1756,6 @@ MultiSpeciesType_isSetId(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetName(MultiSpeciesType_t * mst)
@@ -1790,9 +1766,6 @@ MultiSpeciesType_isSetName(MultiSpeciesType_t * mst)
 
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_isSetCompartment(MultiSpeciesType_t * mst)
@@ -1801,9 +1774,6 @@ MultiSpeciesType_isSetCompartment(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setId(MultiSpeciesType_t * mst, const char * id)
@@ -1812,9 +1782,6 @@ MultiSpeciesType_setId(MultiSpeciesType_t * mst, const char * id)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setName(MultiSpeciesType_t * mst, const char * name)
@@ -1825,9 +1792,6 @@ MultiSpeciesType_setName(MultiSpeciesType_t * mst, const char * name)
 
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_setCompartment(MultiSpeciesType_t * mst, const char * compartment)
@@ -1836,9 +1800,6 @@ MultiSpeciesType_setCompartment(MultiSpeciesType_t * mst, const char * compartme
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetId(MultiSpeciesType_t * mst)
@@ -1847,9 +1808,6 @@ MultiSpeciesType_unsetId(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetName(MultiSpeciesType_t * mst)
@@ -1860,9 +1818,6 @@ MultiSpeciesType_unsetName(MultiSpeciesType_t * mst)
 
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 int
 MultiSpeciesType_unsetCompartment(MultiSpeciesType_t * mst)
@@ -1872,8 +1827,414 @@ MultiSpeciesType_unsetCompartment(MultiSpeciesType_t * mst)
 
 
 /*
- *
+ * Returns a ListOf_t * containing SpeciesFeatureType_t objects from this
+ * MultiSpeciesType_t.
  */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesFeatureTypes(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getListOfSpeciesFeatureTypes() : NULL;
+}
+
+
+/*
+ * Get a SpeciesFeatureType_t from the MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_getSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                       unsigned int n)
+{
+  return (mst != NULL) ? mst->getSpeciesFeatureType(n) : NULL;
+}
+
+
+/*
+ * Get a SpeciesFeatureType_t from the MultiSpeciesType_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_getSpeciesFeatureTypeById(MultiSpeciesType_t* mst,
+                                           const char *sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->getSpeciesFeatureType(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given SpeciesFeatureType_t to this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+int
+MultiSpeciesType_addSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                       const SpeciesFeatureType_t* sft)
+{
+  return (mst != NULL) ? mst->addSpeciesFeatureType(sft) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of SpeciesFeatureType_t objects in this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesType_getNumSpeciesFeatureTypes(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getNumSpeciesFeatureTypes() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new SpeciesFeatureType_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesFeatureType_t object
+ * created.
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_createSpeciesFeatureType(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->createSpeciesFeatureType() : NULL;
+}
+
+
+/*
+ * Removes the nth SpeciesFeatureType_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_removeSpeciesFeatureType(MultiSpeciesType_t* mst,
+                                          unsigned int n)
+{
+  return (mst != NULL) ? mst->removeSpeciesFeatureType(n) : NULL;
+}
+
+
+/*
+ * Removes the SpeciesFeatureType_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesFeatureType_t*
+MultiSpeciesType_removeSpeciesFeatureTypeById(MultiSpeciesType_t* mst,
+                                              const char* sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->removeSpeciesFeatureType(sid) :
+    NULL;
+}
+
+
+/*
+ * Returns a ListOf_t * containing SpeciesTypeInstance_t objects from this
+ * MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesTypeInstances(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getListOfSpeciesTypeInstances() : NULL;
+}
+
+
+/*
+ * Get a SpeciesTypeInstance_t from the MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_getSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                        unsigned int n)
+{
+  return (mst != NULL) ? mst->getSpeciesTypeInstance(n) : NULL;
+}
+
+
+/*
+ * Get a SpeciesTypeInstance_t from the MultiSpeciesType_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_getSpeciesTypeInstanceById(MultiSpeciesType_t* mst,
+                                            const char *sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->getSpeciesTypeInstance(sid) :
+    NULL;
+}
+
+
+/*
+ * Adds a copy of the given SpeciesTypeInstance_t to this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+int
+MultiSpeciesType_addSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                        const SpeciesTypeInstance_t* sti)
+{
+  return (mst != NULL) ? mst->addSpeciesTypeInstance(sti) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of SpeciesTypeInstance_t objects in this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesType_getNumSpeciesTypeInstances(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getNumSpeciesTypeInstances() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new SpeciesTypeInstance_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesTypeInstance_t object
+ * created.
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_createSpeciesTypeInstance(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->createSpeciesTypeInstance() : NULL;
+}
+
+
+/*
+ * Removes the nth SpeciesTypeInstance_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_removeSpeciesTypeInstance(MultiSpeciesType_t* mst,
+                                           unsigned int n)
+{
+  return (mst != NULL) ? mst->removeSpeciesTypeInstance(n) : NULL;
+}
+
+
+/*
+ * Removes the SpeciesTypeInstance_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesTypeInstance_t*
+MultiSpeciesType_removeSpeciesTypeInstanceById(MultiSpeciesType_t* mst,
+                                               const char* sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->removeSpeciesTypeInstance(sid) :
+    NULL;
+}
+
+
+/*
+ * Returns a ListOf_t * containing SpeciesTypeComponentIndex_t objects from
+ * this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfSpeciesTypeComponentIndexes(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getListOfSpeciesTypeComponentIndexes() : NULL;
+}
+
+
+/*
+ * Get a SpeciesTypeComponentIndex_t from the MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_getSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                              unsigned int n)
+{
+  return (mst != NULL) ? mst->getSpeciesTypeComponentIndex(n) : NULL;
+}
+
+
+/*
+ * Get a SpeciesTypeComponentIndex_t from the MultiSpeciesType_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_getSpeciesTypeComponentIndexById(MultiSpeciesType_t* mst,
+                                                  const char *sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->getSpeciesTypeComponentIndex(sid)
+    : NULL;
+}
+
+
+/*
+ * Adds a copy of the given SpeciesTypeComponentIndex_t to this
+ * MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+int
+MultiSpeciesType_addSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                              const
+                                                SpeciesTypeComponentIndex_t*
+                                                  stci)
+{
+  return (mst != NULL) ? mst->addSpeciesTypeComponentIndex(stci) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of SpeciesTypeComponentIndex_t objects in this
+ * MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesType_getNumSpeciesTypeComponentIndexes(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getNumSpeciesTypeComponentIndexes() :
+    SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new SpeciesTypeComponentIndex_t object, adds it to this
+ * MultiSpeciesType_t object and returns the SpeciesTypeComponentIndex_t object
+ * created.
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_createSpeciesTypeComponentIndex(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->createSpeciesTypeComponentIndex() : NULL;
+}
+
+
+/*
+ * Removes the nth SpeciesTypeComponentIndex_t from this MultiSpeciesType_t and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_removeSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
+                                                 unsigned int n)
+{
+  return (mst != NULL) ? mst->removeSpeciesTypeComponentIndex(n) : NULL;
+}
+
+
+/*
+ * Removes the SpeciesTypeComponentIndex_t from this MultiSpeciesType_t based
+ * on its identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesTypeComponentIndex_t*
+MultiSpeciesType_removeSpeciesTypeComponentIndexById(MultiSpeciesType_t* mst,
+                                                     const char* sid)
+{
+  return (mst != NULL && sid != NULL) ?
+    mst->removeSpeciesTypeComponentIndex(sid) : NULL;
+}
+
+
+/*
+ * Returns a ListOf_t * containing InSpeciesTypeBond_t objects from this
+ * MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesType_getListOfInSpeciesTypeBonds(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getListOfInSpeciesTypeBonds() : NULL;
+}
+
+
+/*
+ * Get an InSpeciesTypeBond_t from the MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_getInSpeciesTypeBond(MultiSpeciesType_t* mst, unsigned int n)
+{
+  return (mst != NULL) ? mst->getInSpeciesTypeBond(n) : NULL;
+}
+
+
+/*
+ * Get an InSpeciesTypeBond_t from the MultiSpeciesType_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_getInSpeciesTypeBondById(MultiSpeciesType_t* mst,
+                                          const char *sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->getInSpeciesTypeBond(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given InSpeciesTypeBond_t to this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+int
+MultiSpeciesType_addInSpeciesTypeBond(MultiSpeciesType_t* mst,
+                                      const InSpeciesTypeBond_t* istb)
+{
+  return (mst != NULL) ? mst->addInSpeciesTypeBond(istb) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of InSpeciesTypeBond_t objects in this MultiSpeciesType_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesType_getNumInSpeciesTypeBonds(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->getNumInSpeciesTypeBonds() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new InSpeciesTypeBond_t object, adds it to this MultiSpeciesType_t
+ * object and returns the InSpeciesTypeBond_t object created.
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_createInSpeciesTypeBond(MultiSpeciesType_t* mst)
+{
+  return (mst != NULL) ? mst->createInSpeciesTypeBond() : NULL;
+}
+
+
+/*
+ * Removes the nth InSpeciesTypeBond_t from this MultiSpeciesType_t and returns
+ * a pointer to it.
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_removeInSpeciesTypeBond(MultiSpeciesType_t* mst,
+                                         unsigned int n)
+{
+  return (mst != NULL) ? mst->removeInSpeciesTypeBond(n) : NULL;
+}
+
+
+/*
+ * Removes the InSpeciesTypeBond_t from this MultiSpeciesType_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+InSpeciesTypeBond_t*
+MultiSpeciesType_removeInSpeciesTypeBondById(MultiSpeciesType_t* mst,
+                                             const char* sid)
+{
+  return (mst != NULL && sid != NULL) ? mst->removeInSpeciesTypeBond(sid) :
+    NULL;
+}
+
+
 LIBSBML_EXTERN
 int
 MultiSpeciesType_hasRequiredAttributes(MultiSpeciesType_t * mst)
@@ -1882,9 +2243,6 @@ MultiSpeciesType_hasRequiredAttributes(MultiSpeciesType_t * mst)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_getById(ListOf_t * lo, const char * sid)
@@ -1896,9 +2254,6 @@ ListOfMultiSpeciesTypes_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/*
- *
- */
 LIBSBML_EXTERN
 MultiSpeciesType_t *
 ListOfMultiSpeciesTypes_removeById(ListOf_t * lo, const char * sid)
