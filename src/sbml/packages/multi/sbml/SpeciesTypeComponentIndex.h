@@ -366,7 +366,6 @@ public:
    * @note The required attributes for a SpeciesTypeComponentIndex object are:
    * @li "id"
    * @li "component"
-   * @li "occur"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -766,14 +765,6 @@ SpeciesTypeComponentIndex_getComponent(SpeciesTypeComponentIndex_t * stci);
 
 
 /**
-* @memberof SpeciesTypeComponentIndex_t
-*/
-LIBSBML_EXTERN
-unsigned int
-SpeciesTypeComponentIndex_getOccur(SpeciesTypeComponentIndex_t * stci);
-
-
-/**
  * Returns the value of the "identifyingParent" attribute of this
  * SpeciesTypeComponentIndex_t.
  *
@@ -838,14 +829,6 @@ SpeciesTypeComponentIndex_isSetName(SpeciesTypeComponentIndex_t * cr);
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_isSetComponent(SpeciesTypeComponentIndex_t * stci);
-
-
-/**
-* @memberof SpeciesTypeComponentIndex_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesTypeComponentIndex_isSetOccur(SpeciesTypeComponentIndex_t * stci);
 
 
 /**
@@ -929,14 +912,6 @@ SpeciesTypeComponentIndex_setComponent(SpeciesTypeComponentIndex_t * stci, const
 
 
 /**
-* @memberof SpeciesTypeComponentIndex_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesTypeComponentIndex_setOccur(SpeciesTypeComponentIndex_t * stci, unsigned int occur);
-
-
-/**
  * Sets the value of the "identifyingParent" attribute of this
  * SpeciesTypeComponentIndex_t.
  *
@@ -1011,14 +986,6 @@ SpeciesTypeComponentIndex_unsetComponent(SpeciesTypeComponentIndex_t * stci);
 
 
 /**
-* @memberof SpeciesTypeComponentIndex_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesTypeComponentIndex_unsetOccur(SpeciesTypeComponentIndex_t * stci);
-
-
-/**
  * Unsets the value of the "identifyingParent" attribute of this
  * SpeciesTypeComponentIndex_t.
  *
@@ -1057,14 +1024,6 @@ SpeciesTypeComponentIndex_unsetIdentifyingParent(SpeciesTypeComponentIndex_t * s
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentIndex_hasRequiredAttributes(SpeciesTypeComponentIndex_t * stci);
-
-
-/**
-* @memberof SpeciesTypeComponentIndex_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesTypeComponentIndex_hasRequiredElements(SpeciesTypeComponentIndex_t * stci);
 
 
 /**
