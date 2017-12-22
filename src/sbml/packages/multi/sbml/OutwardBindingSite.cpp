@@ -234,6 +234,25 @@ OutwardBindingSite::setBindingStatus(BindingStatus_t bindingStatus)
 
 
 /*
+ * Sets the value of the "bindingStatus" attribute of this OutwardBindingSite.
+ */
+int
+OutwardBindingSite::setBindingStatus(const std::string& bindingStatus)
+{
+  if (OutwardBindingSite_isValidBindingStatusString(bindingStatus.c_str()) == 0)
+  {
+    mBindingStatus = MULTI_BINDING_STATUS_UNKNOWN;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mBindingStatus = BindingStatus_fromString(bindingStatus.c_str());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets component and returns value indicating success.
  */
 int
@@ -919,6 +938,18 @@ OutwardBindingSite_getBindingStatus(OutwardBindingSite_t * obs)
 }
 
 
+/*
+ * Returns the value of the "bindingStatus" attribute of this
+ * OutwardBindingSite_t.
+ */
+LIBSBML_EXTERN
+const char *
+OutwardBindingSite_getBindingStatusAsString(const OutwardBindingSite_t * obs)
+{
+  return BindingStatus_toString(obs->getBindingStatus());
+}
+
+
 LIBSBML_EXTERN
 char *
 OutwardBindingSite_getComponent(OutwardBindingSite_t * obs)
@@ -951,6 +982,16 @@ int
 OutwardBindingSite_isSetBindingStatus(OutwardBindingSite_t * obs)
 {
   return (obs != NULL) ? static_cast<int>(obs->isSetBindingStatus()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+OutwardBindingSite_setBindingStatusAsString(OutwardBindingSite_t * obs,
+  const char * bindingStatus)
+{
+  return (obs != NULL) ? obs->setBindingStatus(bindingStatus) :
+    LIBSBML_INVALID_OBJECT;
 }
 
 
