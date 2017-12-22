@@ -702,8 +702,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Creates a new SpeciesTypeComponentMapInProduct_t using the given SBML Level,
+ * Version and &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 SpeciesTypeComponentMapInProduct_create(unsigned int level, unsigned int version,
@@ -711,195 +727,429 @@ SpeciesTypeComponentMapInProduct_create(unsigned int level, unsigned int version
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Frees this SpeciesTypeComponentMapInProduct_t object.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 void
 SpeciesTypeComponentMapInProduct_free(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Creates and returns a deep copy of this SpeciesTypeComponentMapInProduct_t
+ * object.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return a (deep) copy of this SpeciesTypeComponentMapInProduct_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t *
 SpeciesTypeComponentMapInProduct_clone(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Returns the value of the "id" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure whose id is
+ * sought.
+ *
+ * @return the value of the "id" attribute of this
+ * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Returns the value of the "name" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure whose name is
+ * sought.
+ *
+ * @return the value of the "name" attribute of this
+ * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Returns the value of the "reactant" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure whose
+ * reactant is sought.
+ *
+ * @return the value of the "reactant" attribute of this
+ * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Returns the value of the "reactantComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure whose
+ * reactantComponent is sought.
+ *
+ * @return the value of the "reactantComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Returns the value of the "productComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure whose
+ * productComponent is sought.
+ *
+ * @return the value of the "productComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 char *
 SpeciesTypeComponentMapInProduct_getProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "id" attribute is set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's "id"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "name" attribute is set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's "name"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "reactant" attribute is set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's "reactant"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "reactantComponent" attribute is set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "reactantComponent" attribute has been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "productComponent" attribute is set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) if this SpeciesTypeComponentMapInProduct_t's
+ * "productComponent" attribute has been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_isSetProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Sets the value of the "id" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling SpeciesTypeComponentMapInProduct_unsetId().
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setId(SpeciesTypeComponentMapInProduct_t * cr, const char * id);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Sets the value of the "name" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling SpeciesTypeComponentMapInProduct_unsetName().
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setName(SpeciesTypeComponentMapInProduct_t * cr, const char * name);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Sets the value of the "reactant" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @param reactant const char * value of the "reactant" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setReactant(SpeciesTypeComponentMapInProduct_t * stcmip, const char * reactant);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Sets the value of the "reactantComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @param reactantComponent const char * value of the "reactantComponent"
+ * attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip, const char * reactantComponent);
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
-
+ * Sets the value of the "productComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @param productComponent const char * value of the "productComponent"
+ * attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_setProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip, const char * productComponent);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Unsets the value of the "id" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetId(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Unsets the value of the "name" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetName(SpeciesTypeComponentMapInProduct_t * cr);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Unsets the value of the "reactant" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetReactant(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Unsets the value of the "reactantComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetReactantComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Unsets the value of the "productComponent" attribute of this
+ * SpeciesTypeComponentMapInProduct_t.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_unsetProductComponent(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * SpeciesTypeComponentMapInProduct_t object have been set.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * SpeciesTypeComponentMapInProduct_t have been set, otherwise @c 0 (false) is
+ * returned.
+ *
+ *
+ * @note The required attributes for the SpeciesTypeComponentMapInProduct_t
+ * object are:
+ * @li "reactant"
+ * @li "reactantComponent"
+ * @li "productComponent"
+ *
+ * @memberof SpeciesTypeComponentMapInProduct_t
+ */
 LIBSBML_EXTERN
 int
 SpeciesTypeComponentMapInProduct_hasRequiredAttributes(SpeciesTypeComponentMapInProduct_t * stcmip);
-
-
-/**
-* @memberof SpeciesTypeComponentMapInProduct_t
-*/
-LIBSBML_EXTERN
-int
-SpeciesTypeComponentMapInProduct_hasRequiredElements(SpeciesTypeComponentMapInProduct_t * stcmip);
 
 
 /**
