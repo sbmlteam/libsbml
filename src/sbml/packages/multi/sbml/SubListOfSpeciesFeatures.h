@@ -802,7 +802,7 @@ SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf);
 * SubListOfSpeciesFeatures_t as a Relation_t.
 *
 * @copydetails doc_sublistofspeciesfeatures_relation
-* @if clike The value is drawn from the enumeration @ref Relation_t@endif
+* @if clike The value is drawn from the enumeration @ref Relation_t @endif
 * The possible values returned by this method are:
 * @li @sbmlconstant{MULTI_RELATION_AND, Relation_t}
 * @li @sbmlconstant{MULTI_RELATION_OR, Relation_t}

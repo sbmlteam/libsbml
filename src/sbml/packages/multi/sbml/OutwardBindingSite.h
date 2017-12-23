@@ -873,12 +873,12 @@ OutwardBindingSite_getName(const OutwardBindingSite_t * obs);
  * OutwardBindingSite_t as a BindingStatus_t.
  *
  * @copydetails doc_outwardbindingsite_bindingStatus
- * @if clike The value is drawn from the enumeration @ref BindingStatus_t@endif
+ * @if clike The value is drawn from the enumeration @ref BindingStatus_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{MULTI_BINDING_STATUS_BOUND, BindingStatus_t}
  * @li @sbmlconstant{MULTI_BINDING_STATUS_UNBOUND, BindingStatus_t}
  * @li @sbmlconstant{MULTI_BINDING_STATUS_EITHER, BindingStatus_t}
- * @li @sbmlconstant{OUTWARD_BINDING_SITE_BINDING_STATUS_INVALID,
+ * @li @sbmlconstant{MULTI_BINDING_STATUS_UNKNOWN,
  * BindingStatus_t}
  *
  * @memberof OutwardBindingSite_t
