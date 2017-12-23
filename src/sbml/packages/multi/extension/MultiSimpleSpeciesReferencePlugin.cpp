@@ -392,7 +392,74 @@ MultiSimpleSpeciesReferencePlugin::accept(SBMLVisitor& v) const
 
 LIBSBML_CPP_NAMESPACE_END
 
-
 #endif /* __cplusplus */
 
 
+/*
+* Returns the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+char *
+MultiSimpleSpeciesReferencePlugin_getCompartmentReference(const
+  MultiSimpleSpeciesReferencePlugin_t * mssrp)
+{
+  if (mssrp == NULL)
+  {
+    return NULL;
+  }
+
+  return mssrp->getCompartmentReference().empty() ? NULL :
+    safe_strdup(mssrp->getCompartmentReference().c_str());
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this
+* MultiSimpleSpeciesReferencePlugin_t's "compartmentReference" attribute is
+* set.
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_isSetCompartmentReference(const
+  MultiSimpleSpeciesReferencePlugin_t * mssrp)
+{
+  return (mssrp != NULL) ? static_cast<int>(mssrp->isSetCompartmentReference())
+    : 0;
+}
+
+
+/*
+* Sets the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_setCompartmentReference(
+  MultiSimpleSpeciesReferencePlugin_t
+  * mssrp,
+  const char *
+  compartmentReference)
+{
+  return (mssrp != NULL) ? mssrp->setCompartmentReference(compartmentReference)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_unsetCompartmentReference(MultiSimpleSpeciesReferencePlugin_t
+  * mssrp)
+{
+  return (mssrp != NULL) ? mssrp->unsetCompartmentReference() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END

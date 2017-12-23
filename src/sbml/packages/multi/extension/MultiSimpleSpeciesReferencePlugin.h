@@ -41,6 +41,7 @@
 
 
 #include <sbml/common/extern.h>
+#include <sbml/packages/multi/common/multifwd.h>
 
 
 #ifdef __cplusplus
@@ -285,7 +286,123 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
-#endif /* MultiSimpleSpeciesReferencePlugin_H__ */
 
 
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Returns the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*
+* @param mssrp the MultiSimpleSpeciesReferencePlugin_t structure whose
+* compartmentReference is sought.
+*
+* @return the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof MultiSimpleSpeciesReferencePlugin_t
+*/
+LIBSBML_EXTERN
+char *
+MultiSimpleSpeciesReferencePlugin_getCompartmentReference(const
+  MultiSimpleSpeciesReferencePlugin_t * mssrp);
+
+
+/**
+* Predicate returning @c 1 (true) if this
+* MultiSimpleSpeciesReferencePlugin_t's "compartmentReference" attribute is
+* set.
+*
+* @param mssrp the MultiSimpleSpeciesReferencePlugin_t structure.
+*
+* @return @c 1 (true) if this MultiSimpleSpeciesReferencePlugin_t's
+* "compartmentReference" attribute has been set, otherwise @c 0 (false) is
+* returned.
+*
+* @memberof MultiSimpleSpeciesReferencePlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_isSetCompartmentReference(const
+  MultiSimpleSpeciesReferencePlugin_t * mssrp);
+
+
+/**
+* Sets the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*
+* @param mssrp the MultiSimpleSpeciesReferencePlugin_t structure.
+*
+* @param compartmentReference const char * value of the "compartmentReference"
+* attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiSimpleSpeciesReferencePlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_setCompartmentReference(
+  MultiSimpleSpeciesReferencePlugin_t * mssrp,
+  const char *
+  compartmentReference);
+
+
+/**
+* Unsets the value of the "compartmentReference" attribute of this
+* MultiSimpleSpeciesReferencePlugin_t.
+*
+* @param mssrp the MultiSimpleSpeciesReferencePlugin_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiSimpleSpeciesReferencePlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSimpleSpeciesReferencePlugin_unsetCompartmentReference(MultiSimpleSpeciesReferencePlugin_t
+  * mssrp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !MultiSimpleSpeciesReferencePlugin_H__ */
