@@ -40,6 +40,7 @@
 
 
 #include <sbml/common/extern.h>
+#include <sbml/packages/multi/common/multifwd.h>
 
 
 #ifdef __cplusplus
@@ -349,7 +350,215 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
-#endif /* MultiModelPlugin_H__ */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Returns a ListOf_t * containing MultiSpeciesType_t objects from this
+* MultiModelPlugin_t.
+*
+* @param mmp the MultiModelPlugin_t structure whose ListOfMultiSpeciesTypes is
+* sought.
+*
+* @return the ListOfMultiSpeciesTypes from this MultiModelPlugin_t as a
+* ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see MultiModelPlugin_addMultiSpeciesType()
+* @see MultiModelPlugin_createMultiSpeciesType()
+* @see MultiModelPlugin_getMultiSpeciesTypeById()
+* @see MultiModelPlugin_getMultiSpeciesType()
+* @see MultiModelPlugin_getNumMultiSpeciesTypes()
+* @see MultiModelPlugin_removeMultiSpeciesTypeById()
+* @see MultiModelPlugin_removeMultiSpeciesType()
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiModelPlugin_getListOfMultiSpeciesTypes(MultiModelPlugin_t* mmp);
+
+
+/**
+* Get a MultiSpeciesType_t from the MultiModelPlugin_t.
+*
+* @param mmp the MultiModelPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the MultiSpeciesType_t to
+* retrieve.
+*
+* @return the nth MultiSpeciesType_t in the ListOfMultiSpeciesTypes within
+* this MultiModelPlugin.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+MultiSpeciesType_t*
+MultiModelPlugin_getMultiSpeciesType(MultiModelPlugin_t* mmp, unsigned int n);
+
+
+/**
+* Get a MultiSpeciesType_t from the MultiModelPlugin_t based on its
+* identifier.
+*
+* @param mmp the MultiModelPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the MultiSpeciesType_t to
+* retrieve.
+*
+* @return the MultiSpeciesType_t in the ListOfMultiSpeciesTypes within this
+* MultiModelPlugin with the given @p sid or @c NULL if no such
+* MultiSpeciesType_t exists.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+MultiSpeciesType_t*
+MultiModelPlugin_getMultiSpeciesTypeById(MultiModelPlugin_t* mmp,
+  const char *sid);
+
+
+/**
+* Adds a copy of the given MultiSpeciesType_t to this MultiModelPlugin_t.
+*
+* @param mmp the MultiModelPlugin_t structure to which the MultiSpeciesType_t
+* should be added.
+*
+* @param mst the MultiSpeciesType_t object to add.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiModelPlugin_addMultiSpeciesType(MultiModelPlugin_t* mmp,
+  const MultiSpeciesType_t* mst);
+
+
+/**
+* Get the number of MultiSpeciesType_t objects in this MultiModelPlugin_t.
+*
+* @param mmp the MultiModelPlugin_t structure to query.
+*
+* @return the number of MultiSpeciesType_t objects in this MultiModelPlugin_t.
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiModelPlugin_getNumMultiSpeciesTypes(MultiModelPlugin_t* mmp);
+
+
+/**
+* Creates a new MultiSpeciesType_t object, adds it to this MultiModelPlugin_t
+* object and returns the MultiSpeciesType_t object created.
+*
+* @param mmp the MultiModelPlugin_t structure to which the MultiSpeciesType_t
+* should be added.
+*
+* @return a new MultiSpeciesType_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+MultiSpeciesType_t*
+MultiModelPlugin_createMultiSpeciesType(MultiModelPlugin_t* mmp);
+
+
+/**
+* Removes the nth MultiSpeciesType_t from this MultiModelPlugin_t and returns
+* a pointer to it.
+*
+* @param mmp the MultiModelPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the MultiSpeciesType_t to
+* remove.
+*
+* @return a pointer to the nth MultiSpeciesType_t in this MultiModelPlugin_t.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+MultiSpeciesType_t*
+MultiModelPlugin_removeMultiSpeciesType(MultiModelPlugin_t* mmp,
+  unsigned int n);
+
+
+/**
+* Removes the MultiSpeciesType_t from this MultiModelPlugin_t based on its
+* identifier and returns a pointer to it.
+*
+* @param mmp the MultiModelPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the MultiSpeciesType_t to
+* remove.
+*
+* @return the MultiSpeciesType_t in this MultiModelPlugin_t based on the
+* identifier or NULL if no such MultiSpeciesType_t exists.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiModelPlugin_t
+*/
+LIBSBML_EXTERN
+MultiSpeciesType_t*
+MultiModelPlugin_removeMultiSpeciesTypeById(MultiModelPlugin_t* mmp,
+  const char* sid);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !MultiModelPlugin_H__ */
+
+
 
 
