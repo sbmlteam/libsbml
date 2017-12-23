@@ -65,6 +65,7 @@ typedef CLASS_OR_STRUCT SubListOfSpeciesFeatures    SubListOfSpeciesFeatures_t;
 typedef CLASS_OR_STRUCT MultiSpeciesType    MultiSpeciesType_t;
 typedef CLASS_OR_STRUCT BindingSiteSpeciesType    BindingSiteSpeciesType_t;
 typedef CLASS_OR_STRUCT IntraSpeciesReaction    IntraSpeciesReaction_t;
+typedef CLASS_OR_STRUCT MultiSpeciesReferencePlugin    MultiSpeciesReferencePlugin_t;
 
 LIBSBML_CPP_NAMESPACE_END
 

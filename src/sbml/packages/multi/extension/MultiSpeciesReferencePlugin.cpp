@@ -410,3 +410,118 @@ LIBSBML_CPP_NAMESPACE_END
 #endif /* __cplusplus */
 
 
+
+
+/*
+* Returns a ListOf_t * containing SpeciesTypeComponentMapInProduct_t objects
+* from this MultiSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesReferencePlugin_getListOfSpeciesTypeComponentMapInProducts(MultiSpeciesReferencePlugin_t*
+  msrp)
+{
+  return (msrp != NULL) ? msrp->getListOfSpeciesTypeComponentMapInProducts() :
+    NULL;
+}
+
+
+/*
+* Get a SpeciesTypeComponentMapInProduct_t from the
+* MultiSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+SpeciesTypeComponentMapInProduct_t*
+MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProduct(
+  MultiSpeciesReferencePlugin_t* msrp, unsigned int n)
+{
+  return (msrp != NULL) ? msrp->getSpeciesTypeComponentMapInProduct(n) : NULL;
+}
+
+
+/*
+* Get a SpeciesTypeComponentMapInProduct_t from the
+* MultiSpeciesReferencePlugin_t based on its identifier.
+*/
+LIBSBML_EXTERN
+SpeciesTypeComponentMapInProduct_t*
+MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProductById(
+  MultiSpeciesReferencePlugin_t* msrp, const char *sid)
+{
+  return (msrp != NULL && sid != NULL) ?
+    msrp->getSpeciesTypeComponentMapInProduct(sid) : NULL;
+}
+
+
+/*
+* Adds a copy of the given SpeciesTypeComponentMapInProduct_t to this
+* MultiSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesReferencePlugin_addSpeciesTypeComponentMapInProduct(
+  MultiSpeciesReferencePlugin_t* msrp, const SpeciesTypeComponentMapInProduct_t* stcmip)
+{
+  return (msrp != NULL) ? msrp->addSpeciesTypeComponentMapInProduct(stcmip) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Get the number of SpeciesTypeComponentMapInProduct_t objects in this
+* MultiSpeciesReferencePlugin_t.
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesReferencePlugin_getNumSpeciesTypeComponentMapInProducts(MultiSpeciesReferencePlugin_t*
+  msrp)
+{
+  return (msrp != NULL) ? msrp->getNumSpeciesTypeComponentMapInProducts() :
+    SBML_INT_MAX;
+}
+
+
+/*
+* Creates a new SpeciesTypeComponentMapInProduct_t object, adds it to this
+* MultiSpeciesReferencePlugin_t object and returns the
+* SpeciesTypeComponentMapInProduct_t object created.
+*/
+LIBSBML_EXTERN
+SpeciesTypeComponentMapInProduct_t*
+MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct(MultiSpeciesReferencePlugin_t*
+  msrp)
+{
+  return (msrp != NULL) ? msrp->createSpeciesTypeComponentMapInProduct() :
+    NULL;
+}
+
+
+/*
+* Removes the nth SpeciesTypeComponentMapInProduct_t from this
+* MultiSpeciesReferencePlugin_t and returns a pointer to it.
+*/
+LIBSBML_EXTERN
+SpeciesTypeComponentMapInProduct_t*
+MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct(
+  MultiSpeciesReferencePlugin_t* msrp, unsigned int n)
+{
+  return (msrp != NULL) ? msrp->removeSpeciesTypeComponentMapInProduct(n) :
+    NULL;
+}
+
+
+/*
+* Removes the SpeciesTypeComponentMapInProduct_t from this
+* MultiSpeciesReferencePlugin_t based on its identifier and returns a pointer
+* to it.
+*/
+LIBSBML_EXTERN
+SpeciesTypeComponentMapInProduct_t*
+MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProductById(
+  MultiSpeciesReferencePlugin_t* msrp, const char* sid)
+{
+  return (msrp != NULL && sid != NULL) ?
+    msrp->removeSpeciesTypeComponentMapInProduct(sid) : NULL;
+}
+
+LIBSBML_CPP_NAMESPACE_END
