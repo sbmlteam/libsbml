@@ -655,8 +655,6 @@ LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* code);
 
-#endif  /*  !SWIG  */
-
 /**
  * Returns the string version of the provided #Relation_t enumeration.
  *
@@ -1205,5 +1203,7 @@ SubListOfSpeciesFeatures_hasRequiredAttributes(const SubListOfSpeciesFeatures_t
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
+
+#endif  /*  !SWIG  */
 
 #endif /* SubListOfSpeciesFeatures_H__ */
