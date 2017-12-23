@@ -67,7 +67,7 @@ typedef CLASS_OR_STRUCT BindingSiteSpeciesType    BindingSiteSpeciesType_t;
 typedef CLASS_OR_STRUCT IntraSpeciesReaction    IntraSpeciesReaction_t;
 typedef CLASS_OR_STRUCT MultiSpeciesReferencePlugin    MultiSpeciesReferencePlugin_t;
 typedef CLASS_OR_STRUCT MultiSimpleSpeciesReferencePlugin    MultiSimpleSpeciesReferencePlugin_t;
-
+typedef CLASS_OR_STRUCT MultiSpeciesPlugin    MultiSpeciesPlugin_t;
 LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT

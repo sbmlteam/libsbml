@@ -885,3 +885,264 @@ LIBSBML_CPP_NAMESPACE_END
 #endif /* __cplusplus */
 
 
+/*
+* Returns a ListOf_t * containing SpeciesFeature_t objects from this
+* MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesPlugin_getListOfSpeciesFeatures(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->getListOfSpeciesFeatures() : NULL;
+}
+
+
+/*
+* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_getSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  unsigned int n)
+{
+  return (msp != NULL) ? msp->getSpeciesFeature(n) : NULL;
+}
+
+
+/*
+* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t based on its
+* identifier.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_getSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
+  const char *sid)
+{
+  return (msp != NULL && sid != NULL) ? msp->getSpeciesFeature(sid) : NULL;
+}
+
+
+/*
+* Adds a copy of the given SpeciesFeature_t to this MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_addSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  const SpeciesFeature_t* sf)
+{
+  return (msp != NULL) ? msp->addSpeciesFeature(sf) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Get the number of SpeciesFeature_t objects in this MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesPlugin_getNumSpeciesFeatures(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->getNumSpeciesFeatures() : SBML_INT_MAX;
+}
+
+
+/*
+* Creates a new SpeciesFeature_t object, adds it to this MultiSpeciesPlugin_t
+* object and returns the SpeciesFeature_t object created.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_createSpeciesFeature(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->createSpeciesFeature() : NULL;
+}
+
+
+/*
+* Removes the nth SpeciesFeature_t from this MultiSpeciesPlugin_t and returns
+* a pointer to it.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_removeSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  unsigned int n)
+{
+  return (msp != NULL) ? msp->removeSpeciesFeature(n) : NULL;
+}
+
+
+/*
+* Removes the SpeciesFeature_t from this MultiSpeciesPlugin_t based on its
+* identifier and returns a pointer to it.
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_removeSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
+  const char* sid)
+{
+  return (msp != NULL && sid != NULL) ? msp->removeSpeciesFeature(sid) : NULL;
+}
+
+
+/*
+* Returns a ListOf_t * containing OutwardBindingSite_t objects from this
+* MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesPlugin_getListOfOutwardBindingSites(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->getListOfOutwardBindingSites() : NULL;
+}
+
+
+/*
+* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_getOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  unsigned int n)
+{
+  return (msp != NULL) ? msp->getOutwardBindingSite(n) : NULL;
+}
+
+
+/*
+* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t based on its
+* identifier.
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_getOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
+  const char *sid)
+{
+  return (msp != NULL && sid != NULL) ? msp->getOutwardBindingSite(sid) : NULL;
+}
+
+
+/*
+* Adds a copy of the given OutwardBindingSite_t to this MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_addOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  const OutwardBindingSite_t* obs)
+{
+  return (msp != NULL) ? msp->addOutwardBindingSite(obs) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Get the number of OutwardBindingSite_t objects in this MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesPlugin_getNumOutwardBindingSites(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->getNumOutwardBindingSites() : SBML_INT_MAX;
+}
+
+
+/*
+* Creates a new OutwardBindingSite_t object, adds it to this
+* MultiSpeciesPlugin_t object and returns the OutwardBindingSite_t object
+* created.
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_createOutwardBindingSite(MultiSpeciesPlugin_t* msp)
+{
+  return (msp != NULL) ? msp->createOutwardBindingSite() : NULL;
+}
+
+
+/*
+* Removes the nth OutwardBindingSite_t from this MultiSpeciesPlugin_t and
+* returns a pointer to it.
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_removeOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  unsigned int n)
+{
+  return (msp != NULL) ? msp->removeOutwardBindingSite(n) : NULL;
+}
+
+
+/*
+* Removes the OutwardBindingSite_t from this MultiSpeciesPlugin_t based on its
+* identifier and returns a pointer to it.
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_removeOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
+  const char* sid)
+{
+  return (msp != NULL && sid != NULL) ? msp->removeOutwardBindingSite(sid) :
+    NULL;
+}
+
+
+/*
+* Returns the value of the "speciesType" attribute of this
+* MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+char *
+MultiSpeciesPlugin_getSpeciesType(const MultiSpeciesPlugin_t * msp)
+{
+  if (msp == NULL)
+  {
+    return NULL;
+  }
+
+  return msp->getSpeciesType().empty() ? NULL :
+    safe_strdup(msp->getSpeciesType().c_str());
+}
+
+
+/*
+* Predicate returning @c 1 (true) if this MultiSpeciesPlugin_t's "speciesType"
+* attribute is set.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_isSetSpeciesType(const MultiSpeciesPlugin_t * msp)
+{
+  return (msp != NULL) ? static_cast<int>(msp->isSetSpeciesType()) : 0;
+}
+
+
+/*
+* Sets the value of the "speciesType" attribute of this MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_setSpeciesType(MultiSpeciesPlugin_t * msp,
+  const char * speciesType)
+{
+  return (msp != NULL) ? msp->setSpeciesType(speciesType) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+* Unsets the value of the "speciesType" attribute of this
+* MultiSpeciesPlugin_t.
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_unsetSpeciesType(MultiSpeciesPlugin_t * msp)
+{
+  return (msp != NULL) ? msp->unsetSpeciesType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+

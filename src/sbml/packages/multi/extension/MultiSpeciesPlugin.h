@@ -42,6 +42,7 @@
 
 
 #include <sbml/common/extern.h>
+#include <sbml/packages/multi/common/multifwd.h>
 
 
 #ifdef __cplusplus
@@ -581,7 +582,461 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
-#endif /* MultiSpeciesPlugin_H__ */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Returns a ListOf_t * containing SpeciesFeature_t objects from this
+* MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure whose ListOfSpeciesFeatures is
+* sought.
+*
+* @return the ListOfSpeciesFeatures from this MultiSpeciesPlugin_t as a
+* ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see MultiSpeciesPlugin_addSpeciesFeature()
+* @see MultiSpeciesPlugin_createSpeciesFeature()
+* @see MultiSpeciesPlugin_getSpeciesFeatureById()
+* @see MultiSpeciesPlugin_getSpeciesFeature()
+* @see MultiSpeciesPlugin_getNumSpeciesFeatures()
+* @see MultiSpeciesPlugin_removeSpeciesFeatureById()
+* @see MultiSpeciesPlugin_removeSpeciesFeature()
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesPlugin_getListOfSpeciesFeatures(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the SpeciesFeature_t to
+* retrieve.
+*
+* @return the nth SpeciesFeature_t in the ListOfSpeciesFeatures within this
+* MultiSpeciesPlugin.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_getSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  unsigned int n);
+
+
+/**
+* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t based on its
+* identifier.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the SpeciesFeature_t to
+* retrieve.
+*
+* @return the SpeciesFeature_t in the ListOfSpeciesFeatures within this
+* MultiSpeciesPlugin with the given @p sid or @c NULL if no such
+* SpeciesFeature_t exists.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_getSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
+  const char *sid);
+
+
+/**
+* Adds a copy of the given SpeciesFeature_t to this MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to which the SpeciesFeature_t
+* should be added.
+*
+* @param sf the SpeciesFeature_t object to add.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_addSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  const SpeciesFeature_t* sf);
+
+
+/**
+* Get the number of SpeciesFeature_t objects in this MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to query.
+*
+* @return the number of SpeciesFeature_t objects in this MultiSpeciesPlugin_t.
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesPlugin_getNumSpeciesFeatures(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Creates a new SpeciesFeature_t object, adds it to this MultiSpeciesPlugin_t
+* object and returns the SpeciesFeature_t object created.
+*
+* @param msp the MultiSpeciesPlugin_t structure to which the SpeciesFeature_t
+* should be added.
+*
+* @return a new SpeciesFeature_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_createSpeciesFeature(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Removes the nth SpeciesFeature_t from this MultiSpeciesPlugin_t and returns
+* a pointer to it.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the SpeciesFeature_t to
+* remove.
+*
+* @return a pointer to the nth SpeciesFeature_t in this MultiSpeciesPlugin_t.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_removeSpeciesFeature(MultiSpeciesPlugin_t* msp,
+  unsigned int n);
+
+
+/**
+* Removes the SpeciesFeature_t from this MultiSpeciesPlugin_t based on its
+* identifier and returns a pointer to it.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the SpeciesFeature_t to
+* remove.
+*
+* @return the SpeciesFeature_t in this MultiSpeciesPlugin_t based on the
+* identifier or NULL if no such SpeciesFeature_t exists.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+SpeciesFeature_t*
+MultiSpeciesPlugin_removeSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
+  const char* sid);
+
+
+/**
+* Returns a ListOf_t * containing OutwardBindingSite_t objects from this
+* MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure whose
+* ListOfOutwardBindingSites is sought.
+*
+* @return the ListOfOutwardBindingSites from this MultiSpeciesPlugin_t as a
+* ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see MultiSpeciesPlugin_addOutwardBindingSite()
+* @see MultiSpeciesPlugin_createOutwardBindingSite()
+* @see MultiSpeciesPlugin_getOutwardBindingSiteById()
+* @see MultiSpeciesPlugin_getOutwardBindingSite()
+* @see MultiSpeciesPlugin_getNumOutwardBindingSites()
+* @see MultiSpeciesPlugin_removeOutwardBindingSiteById()
+* @see MultiSpeciesPlugin_removeOutwardBindingSite()
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiSpeciesPlugin_getListOfOutwardBindingSites(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the OutwardBindingSite_t
+* to retrieve.
+*
+* @return the nth OutwardBindingSite_t in the ListOfOutwardBindingSites within
+* this MultiSpeciesPlugin.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_getOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  unsigned int n);
+
+
+/**
+* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t based on its
+* identifier.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the OutwardBindingSite_t
+* to retrieve.
+*
+* @return the OutwardBindingSite_t in the ListOfOutwardBindingSites within
+* this MultiSpeciesPlugin with the given @p sid or @c NULL if no such
+* OutwardBindingSite_t exists.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_getOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
+  const char *sid);
+
+
+/**
+* Adds a copy of the given OutwardBindingSite_t to this MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to which the
+* OutwardBindingSite_t should be added.
+*
+* @param obs the OutwardBindingSite_t object to add.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_addOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  const OutwardBindingSite_t* obs);
+
+
+/**
+* Get the number of OutwardBindingSite_t objects in this MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure to query.
+*
+* @return the number of OutwardBindingSite_t objects in this
+* MultiSpeciesPlugin_t.
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiSpeciesPlugin_getNumOutwardBindingSites(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Creates a new OutwardBindingSite_t object, adds it to this
+* MultiSpeciesPlugin_t object and returns the OutwardBindingSite_t object
+* created.
+*
+* @param msp the MultiSpeciesPlugin_t structure to which the
+* OutwardBindingSite_t should be added.
+*
+* @return a new OutwardBindingSite_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_createOutwardBindingSite(MultiSpeciesPlugin_t* msp);
+
+
+/**
+* Removes the nth OutwardBindingSite_t from this MultiSpeciesPlugin_t and
+* returns a pointer to it.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the OutwardBindingSite_t
+* to remove.
+*
+* @return a pointer to the nth OutwardBindingSite_t in this
+* MultiSpeciesPlugin_t.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_removeOutwardBindingSite(MultiSpeciesPlugin_t* msp,
+  unsigned int n);
+
+
+/**
+* Removes the OutwardBindingSite_t from this MultiSpeciesPlugin_t based on its
+* identifier and returns a pointer to it.
+*
+* @param msp the MultiSpeciesPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the OutwardBindingSite_t
+* to remove.
+*
+* @return the OutwardBindingSite_t in this MultiSpeciesPlugin_t based on the
+* identifier or NULL if no such OutwardBindingSite_t exists.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+OutwardBindingSite_t*
+MultiSpeciesPlugin_removeOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
+  const char* sid);
+
+
+/**
+* Returns the value of the "speciesType" attribute of this
+* MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure whose speciesType is sought.
+*
+* @return the value of the "speciesType" attribute of this
+* MultiSpeciesPlugin_t as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+char *
+MultiSpeciesPlugin_getSpeciesType(const MultiSpeciesPlugin_t * msp);
+
+
+/**
+* Predicate returning @c 1 (true) if this MultiSpeciesPlugin_t's "speciesType"
+* attribute is set.
+*
+* @param msp the MultiSpeciesPlugin_t structure.
+*
+* @return @c 1 (true) if this MultiSpeciesPlugin_t's "speciesType" attribute
+* has been set, otherwise @c 0 (false) is returned.
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_isSetSpeciesType(const MultiSpeciesPlugin_t * msp);
+
+
+/**
+* Sets the value of the "speciesType" attribute of this MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure.
+*
+* @param speciesType const char * value of the "speciesType" attribute to be
+* set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_setSpeciesType(MultiSpeciesPlugin_t * msp,
+  const char * speciesType);
+
+
+/**
+* Unsets the value of the "speciesType" attribute of this
+* MultiSpeciesPlugin_t.
+*
+* @param msp the MultiSpeciesPlugin_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiSpeciesPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiSpeciesPlugin_unsetSpeciesType(MultiSpeciesPlugin_t * msp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !MultiSpeciesPlugin_H__ */
 
 
