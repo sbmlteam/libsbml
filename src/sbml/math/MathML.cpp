@@ -306,11 +306,6 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 }
 
 
-/**
-* @if conly
-* @memberof ASTNode_t
-* @endif
-*/
 LIBSBML_EXTERN
 char *
 writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns)
@@ -334,7 +329,7 @@ writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns
 
 LIBSBML_EXTERN
 char *
-writeMathMLToString (const ASTNode* node)
+writeMathMLToString (const ASTNode_t* node)
 {
   SBMLNamespaces sbmlns;
   return writeMathMLWithNamespaceToString(node, &sbmlns);
