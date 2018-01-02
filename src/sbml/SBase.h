@@ -4978,21 +4978,21 @@ SBase_getElementName (const SBase_t *sb);
 
 
 /**
-* Returns the package name for the given SBase_t structure
-*
-* @param sb the SBase_t structure.
-*
-* @return the package name for the given SBase_t structure or
-* NULL.
-*
-* @see SBase_getElementName()
-* @see SBase_getTypeCode()
-*
-* @memberof SBase_t
-*/
+ * Returns the package name for the given SBase_t structure
+ *
+ * @param sb the SBase_t structure.
+ *
+ * @return the package name for the given SBase_t structure or
+ * NULL.
+ *
+ * @see SBase_getElementName()
+ * @see SBase_getTypeCode()
+ *
+ * @memberof SBase_t
+ */
 LIBSBML_EXTERN
-const char *
-SBase_getPackageName(const SBase_t *sb);
+char *
+SBase_getPackageName(const SBaseExtensionPoint_t *sb);
 
 
 /**
