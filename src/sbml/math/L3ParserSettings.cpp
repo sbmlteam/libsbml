@@ -502,6 +502,27 @@ L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings)
   return (static_cast<int>(settings->getParseAvogadroCsymbol()));
 }
 
+LIBSBML_EXTERN
+void
+L3ParserSettings_setParseModuloL3v2(L3ParserSettings_t * settings, int flag)
+{
+  if (settings == NULL)
+    return;
+
+  settings->setParseModuloL3v2(static_cast<bool>(flag));
+}
+
+
+LIBSBML_EXTERN
+int
+L3ParserSettings_getParseModuloL3v2(const L3ParserSettings_t * settings)
+{
+  if (settings == NULL)
+    return 0;
+
+  return (static_cast<int>(settings->getParseModuloL3v2()));
+}
+
 /**
  * Visits the given ASTNode and continues the inorder traversal.
  */
