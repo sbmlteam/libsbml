@@ -353,22 +353,31 @@ public:
 //
 typedef SBMLExtensionNamespaces<MultiExtension> MultiPkgNamespaces;
 
+/**
+* @enum  SBMLMultiTypeCode_t
+* @brief SBMLMultiTypeCode_t Enumeration of possible types in the libSBML
+* &ldquo;multi&rdquo; package implementation.
+*
+* @copydetails doc_what_are_typecodes
+*
+* @copydetails doc_additional_typecode_details
+*/
 typedef enum
 {
-    SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE        = 1400
-  , SBML_MULTI_SPECIES_FEATURE_VALUE                 = 1401
-  , SBML_MULTI_COMPARTMENT_REFERENCE                 = 1402
-  , SBML_MULTI_SPECIES_TYPE_INSTANCE                 = 1403
-  , SBML_MULTI_IN_SPECIES_TYPE_BOND                  = 1404
-  , SBML_MULTI_OUTWARD_BINDING_SITE                  = 1405
-  , SBML_MULTI_SPECIES_FEATURE_TYPE                  = 1406
-  , SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX          = 1407
-  , SBML_MULTI_SPECIES_FEATURE                       = 1408
-  , SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT = 1409
-  , SBML_MULTI_SPECIES_TYPE                          = 1410
-  , SBML_MULTI_BINDING_SITE_SPECIES_TYPE             = 1411
-  , SBML_MULTI_INTRA_SPECIES_REACTION                = 1412
-  , SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES           = 1413
+  SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE          = 1400  /*!< PossibleSpeciesFeatureValue */
+  , SBML_MULTI_SPECIES_FEATURE_VALUE                 = 1401  /*!< SpeciesFeatureValue */
+  , SBML_MULTI_COMPARTMENT_REFERENCE                 = 1402  /*!< CompartmentReference */
+  , SBML_MULTI_SPECIES_TYPE_INSTANCE                 = 1403  /*!< SpeciesTypeInstance */
+  , SBML_MULTI_IN_SPECIES_TYPE_BOND                  = 1404  /*!< InSpeciesTypeBond */
+  , SBML_MULTI_OUTWARD_BINDING_SITE                  = 1405  /*!< OutwardBindingSite */
+  , SBML_MULTI_SPECIES_FEATURE_TYPE                  = 1406  /*!< SpeciesFeatureType */
+  , SBML_MULTI_SPECIES_TYPE_COMPONENT_INDEX          = 1407  /*!< SpeciesTypeComponentIndex */
+  , SBML_MULTI_SPECIES_FEATURE                       = 1408  /*!< SpeciesFeature */
+  , SBML_MULTI_SPECIES_TYPE_COMPONENT_MAP_IN_PRODUCT = 1409  /*!< SpeciesTypeComponentMapInProduct */
+  , SBML_MULTI_SPECIES_TYPE                          = 1410  /*!< MultiSpeciesType */
+  , SBML_MULTI_BINDING_SITE_SPECIES_TYPE             = 1411  /*!< BindingSiteSpeciesType */
+  , SBML_MULTI_INTRA_SPECIES_REACTION                = 1412  /*!< IntraSpeciesReaction */
+  , SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES           = 1413  /*!< SubListOfSpeciesFeatures */
 } SBMLMultiTypeCode_t;
 
 
