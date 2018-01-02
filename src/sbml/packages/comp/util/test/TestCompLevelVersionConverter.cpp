@@ -42,8 +42,8 @@ LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
 /**
-* Wraps the string s in the appropriate XML boilerplate.
-*/
+ * Wraps the string s in the appropriate XML boilerplate.
+ */
 #define XML_START   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define SBML_START  "<sbml "
 #define NS_L3v1     "xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" "

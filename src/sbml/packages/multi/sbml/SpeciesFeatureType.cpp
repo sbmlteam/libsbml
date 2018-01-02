@@ -879,7 +879,7 @@ ListOfSpeciesFeatureTypes::clone () const
 
 /*
  * Get a SpeciesFeatureType from the ListOfSpeciesFeatureTypes by index.
-*/
+ */
 SpeciesFeatureType*
 ListOfSpeciesFeatureTypes::get(unsigned int n)
 {

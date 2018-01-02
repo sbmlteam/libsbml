@@ -1693,8 +1693,8 @@ Event::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Event.
-*/
+ * Adds an new "elementName" object in this Event.
+ */
 int
 Event::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -1724,8 +1724,8 @@ Event::addChildObject(const std::string& elementName, const SBase* element)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Event.
-*/
+ * Adds an new "elementName" object in this Event.
+ */
 SBase*
 Event::removeChildObject(const std::string& elementName, const std::string& id)
 {

@@ -1,11 +1,8 @@
 /**
-* @file    TestWriteFbcExtension.cpp
-* @brief   Unit tests of writing FbcExtension
-* @author  Akiya Jouraku
-*
-* $Id: $
-* $HeadURL: $
-*/
+ * @file    TestWriteFbcExtension.cpp
+ * @brief   Unit tests of writing FbcExtension
+ * @author  Akiya Jouraku
+ */
 
 #include <limits>
 

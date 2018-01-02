@@ -232,7 +232,7 @@ TestValidator::test (const TestFile& file)
  *
  * I went with leaving the result of the read unchanged 
  * but actually logging the errors
-*/
+ */
 #ifdef LIBSBML_USE_LEGACY_MATH
   if (id == 99219 && num == 32)
   {

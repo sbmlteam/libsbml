@@ -4300,8 +4300,8 @@ Model::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Model.
-*/
+ * Adds an new "elementName" object in this Model.
+ */
 int
 Model::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -4371,8 +4371,8 @@ Model::addChildObject(const std::string& elementName, const SBase* element)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Model.
-*/
+ * Adds an new "elementName" object in this Model.
+ */
 SBase*
 Model::removeChildObject(const std::string& elementName, const std::string& id)
 {
