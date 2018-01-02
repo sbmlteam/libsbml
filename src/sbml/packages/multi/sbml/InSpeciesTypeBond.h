@@ -675,8 +675,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Creates a new InSpeciesTypeBond_t using the given SBML Level, Version and
+ * &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * InSpeciesTypeBond_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * InSpeciesTypeBond_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * InSpeciesTypeBond_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_create(unsigned int level, unsigned int version,
@@ -684,152 +700,338 @@ InSpeciesTypeBond_create(unsigned int level, unsigned int version,
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Frees this InSpeciesTypeBond_t object.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 void
 InSpeciesTypeBond_free(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Creates and returns a deep copy of this InSpeciesTypeBond_t object.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return a (deep) copy of this InSpeciesTypeBond_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 InSpeciesTypeBond_t *
 InSpeciesTypeBond_clone(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Returns the value of the "id" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this InSpeciesTypeBond_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 char *
-InSpeciesTypeBond_getId(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_getId(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Returns the value of the "name" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this InSpeciesTypeBond_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 char *
-InSpeciesTypeBond_getName(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_getName(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Returns the value of the "bindingSite1" attribute of this
+ * InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure whose bindingSite1 is sought.
+ *
+ * @return the value of the "bindingSite1" attribute of this
+ * InSpeciesTypeBond_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 char *
-InSpeciesTypeBond_getBindingSite1(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_getBindingSite1(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Returns the value of the "bindingSite2" attribute of this
+ * InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure whose bindingSite2 is sought.
+ *
+ * @return the value of the "bindingSite2" attribute of this
+ * InSpeciesTypeBond_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 char *
-InSpeciesTypeBond_getBindingSite2(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_getBindingSite2(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Predicate returning @c 1 (true) if this InSpeciesTypeBond_t's "id" attribute
+ * is set.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return @c 1 (true) if this InSpeciesTypeBond_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_isSetId(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_isSetId(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Predicate returning @c 1 (true) if this InSpeciesTypeBond_t's "name"
+ * attribute is set.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return @c 1 (true) if this InSpeciesTypeBond_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_isSetName(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_isSetName(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Predicate returning @c 1 (true) if this InSpeciesTypeBond_t's "bindingSite1"
+ * attribute is set.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return @c 1 (true) if this InSpeciesTypeBond_t's "bindingSite1" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_isSetBindingSite1(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_isSetBindingSite1(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Predicate returning @c 1 (true) if this InSpeciesTypeBond_t's "bindingSite2"
+ * attribute is set.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return @c 1 (true) if this InSpeciesTypeBond_t's "bindingSite2" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_isSetBindingSite2(InSpeciesTypeBond_t * istb);
+InSpeciesTypeBond_isSetBindingSite2(const InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Sets the value of the "id" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling InSpeciesTypeBond_unsetId().
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setId(InSpeciesTypeBond_t * istb, const char * id);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Sets the value of the "name" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling InSpeciesTypeBond_unsetName().
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_setName(InSpeciesTypeBond_t * istb, const char * name);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Sets the value of the "bindingSite1" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @param bindingSite1 const char * value of the "bindingSite1" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_setBindingSite1(InSpeciesTypeBond_t * istb, const char * bindingSite1);
+InSpeciesTypeBond_setBindingSite1(InSpeciesTypeBond_t * istb,
+                                  const char * bindingSite1);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Sets the value of the "bindingSite2" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @param bindingSite2 const char * value of the "bindingSite2" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
-InSpeciesTypeBond_setBindingSite2(InSpeciesTypeBond_t * istb, const char * bindingSite2);
+InSpeciesTypeBond_setBindingSite2(InSpeciesTypeBond_t * istb,
+                                  const char * bindingSite2);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Unsets the value of the "id" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetId(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Unsets the value of the "name" attribute of this InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetName(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Unsets the value of the "bindingSite1" attribute of this
+ * InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite1(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Unsets the value of the "bindingSite2" attribute of this
+ * InSpeciesTypeBond_t.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_unsetBindingSite2(InSpeciesTypeBond_t * istb);
 
 
 /**
-* @memberof InSpeciesTypeBond_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * InSpeciesTypeBond_t object have been set.
+ *
+ * @param istb the InSpeciesTypeBond_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * InSpeciesTypeBond_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the InSpeciesTypeBond_t object are:
+ * @li "bindingSite1"
+ * @li "bindingSite2"
+ *
+ * @memberof InSpeciesTypeBond_t
+ */
 LIBSBML_EXTERN
 int
 InSpeciesTypeBond_hasRequiredAttributes(InSpeciesTypeBond_t * istb);
