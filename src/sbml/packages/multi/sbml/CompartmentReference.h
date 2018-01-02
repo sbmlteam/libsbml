@@ -625,165 +625,326 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
-  * @memberof CompartmentReference_t
-  */
+ * Creates a new CompartmentReference_t using the given SBML Level, Version and
+ * &ldquo;multi&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * CompartmentReference_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * CompartmentReference_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Multi Version to assign to this
+ * CompartmentReference_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 CompartmentReference_t *
 CompartmentReference_create(unsigned int level, unsigned int version,
                             unsigned int pkgVersion);
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Frees this CompartmentReference_t object.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 void
 CompartmentReference_free(CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Creates and returns a deep copy of this CompartmentReference_t object.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @return a (deep) copy of this CompartmentReference_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 CompartmentReference_t *
 CompartmentReference_clone(CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Returns the value of the "id" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this CompartmentReference_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 char *
-CompartmentReference_getId(CompartmentReference_t * cr);
+CompartmentReference_getId(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Returns the value of the "name" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure whose name is sought.
+ *
+ * @return the value of the "name" attribute of this CompartmentReference_t as
+ * a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 char *
-CompartmentReference_getName(CompartmentReference_t * cr);
+CompartmentReference_getName(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Returns the value of the "compartment" attribute of this
+ * CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure whose compartment is sought.
+ *
+ * @return the value of the "compartment" attribute of this
+ * CompartmentReference_t as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 char *
-CompartmentReference_getCompartment(CompartmentReference_t * cr);
+CompartmentReference_getCompartment(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Predicate returning @c 1 (true) if this CompartmentReference_t's "id"
+ * attribute is set.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @return @c 1 (true) if this CompartmentReference_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
-CompartmentReference_isSetId(CompartmentReference_t * cr);
+CompartmentReference_isSetId(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Predicate returning @c 1 (true) if this CompartmentReference_t's "name"
+ * attribute is set.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @return @c 1 (true) if this CompartmentReference_t's "name" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
-CompartmentReference_isSetName(CompartmentReference_t * cr);
+CompartmentReference_isSetName(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Predicate returning @c 1 (true) if this CompartmentReference_t's
+ * "compartment" attribute is set.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @return @c 1 (true) if this CompartmentReference_t's "compartment" attribute
+ * has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
-CompartmentReference_isSetCompartment(CompartmentReference_t * cr);
+CompartmentReference_isSetCompartment(const CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Sets the value of the "id" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling CompartmentReference_unsetId().
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_setId(CompartmentReference_t * cr, const char * id);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Sets the value of the "name" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @param name const char * value of the "name" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p name = @c NULL or an empty string is
+ * equivalent to calling CompartmentReference_unsetName().
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_setName(CompartmentReference_t * cr, const char * name);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Sets the value of the "compartment" attribute of this
+ * CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @param compartment const char * value of the "compartment" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
-CompartmentReference_setCompartment(CompartmentReference_t * cr, const char * compartment);
+CompartmentReference_setCompartment(CompartmentReference_t * cr,
+                                    const char * compartment);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Unsets the value of the "id" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetId(CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Unsets the value of the "name" attribute of this CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetName(CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Unsets the value of the "compartment" attribute of this
+ * CompartmentReference_t.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_unsetCompartment(CompartmentReference_t * cr);
 
 
 /**
-* @memberof CompartmentReference_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * CompartmentReference_t object have been set.
+ *
+ * @param cr the CompartmentReference_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * CompartmentReference_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the CompartmentReference_t object are:
+ * @li "compartment"
+ *
+ * @memberof CompartmentReference_t
+ */
 LIBSBML_EXTERN
 int
 CompartmentReference_hasRequiredAttributes(CompartmentReference_t * cr);
 
 
 /**
-* Return the structure indicated by the given @p sid.
-*
-* @param lo the ListOf_t structure to use.
-*
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure for the given variable, or @c NULL if no such
-* object exists in the list.
-*
-* @memberof ListOfCompartmentReferences_t
-*/
+ * Return the structure indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use.
+ *
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure for the given variable, or @c NULL if no such
+ * object exists in the list.
+ *
+ * @memberof ListOfCompartmentReferences_t
+ */
 LIBSBML_EXTERN
 CompartmentReference_t *
 ListOfCompartmentReferences_getById(ListOf_t * lo, const char * sid);
 
 
 /**
-* Removes the structure with the given @p sid
-* from the given list and returns a pointer to it.
-*
-* The caller owns the returned structure and is responsible for deleting it.
-*
-* @param lo the ListOf_t structure.
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure removed.  As mentioned above, the
-* caller owns the returned structure. @c NULL is returned if no 
-* structure with the "id" attribute exists in the given list.
-*
-* @memberof ListOfCompartmentReferences_t
-*/
+ * Removes the structure with the given @p sid
+ * from the given list and returns a pointer to it.
+ *
+ * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure.
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure removed.  As mentioned above, the
+ * caller owns the returned structure. @c NULL is returned if no 
+ * structure with the "id" attribute exists in the given list.
+ *
+ * @memberof ListOfCompartmentReferences_t
+ */
 LIBSBML_EXTERN
 CompartmentReference_t *
 ListOfCompartmentReferences_removeById(ListOf_t * lo, const char * sid);
