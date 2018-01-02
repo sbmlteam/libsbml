@@ -320,7 +320,7 @@ typedef SBMLExtensionNamespaces<CompExtension> CompPkgNamespaces;
 
 /**
  * @enum  SBMLCompTypeCode_t
- * @brief SBMLFbcTypeCode_t Enumeration of possible types in the libSBML
+ * @brief SBMLCompTypeCode_t Enumeration of possible types in the libSBML
  * &ldquo;comp&rdquo; package implementation.
  *
  * @copydetails doc_what_are_typecodes
