@@ -531,27 +531,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 /** @endcond */
 
 
-/*
- * Checks if this plugin object has all the required elements.
- */
-  //According to the specs for both FBC v1 and v2, the model plugin has no 
-  // required children!
-/*
-bool
-FbcModelPlugin::hasRequiredElements () const
-{
-  bool allPresent = true; 
-
-  if (mObjectives.size() < 1)
-  {
-    allPresent = false;    
-  }
-
-  return allPresent; 
-}
-*/
-
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Read values from the given XMLAttributes set into their specific fields.
@@ -701,10 +681,10 @@ FbcModelPlugin::getAllElements(ElementFilter* filter)
 
 
 /*
-* Returns the ListOfFluxBounds in this plugin object.
-*
-* @return ListOfFluxBounds object in this plugin object.
-*/
+ * Returns the ListOfFluxBounds in this plugin object.
+ *
+ * @return ListOfFluxBounds object in this plugin object.
+ */
 const ListOfFluxBounds* 
   FbcModelPlugin::getListOfFluxBounds () const
 {
@@ -713,10 +693,10 @@ const ListOfFluxBounds*
 
 
 /*
-* Returns the ListOfFluxBounds in this plugin object.
-*
-* @return ListOfFluxBounds object in this plugin object.
-*/
+ * Returns the ListOfFluxBounds in this plugin object.
+ *
+ * @return ListOfFluxBounds object in this plugin object.
+ */
 ListOfFluxBounds* 
   FbcModelPlugin::getListOfFluxBounds ()
 {
@@ -725,13 +705,13 @@ ListOfFluxBounds*
 
 
 /*
-* Returns the FluxBound object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the FluxBound to get.
-*
-* @return the nth FluxBound in the ListOfFluxBounds.
-*/
+ * Returns the FluxBound object that belongs to the given index. If the
+ * index is invalid, @c NULL is returned.
+ *
+ * @param n the index number of the FluxBound to get.
+ *
+ * @return the nth FluxBound in the ListOfFluxBounds.
+ */
 const FluxBound* 
   FbcModelPlugin::getFluxBound (unsigned int n) const
 {
@@ -740,13 +720,13 @@ const FluxBound*
 
 
 /*
-* Returns the FluxBound object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the FluxBound to get.
-*
-* @return the nth FluxBound in the ListOfFluxBounds.
-*/
+ * Returns the FluxBound object that belongs to the given index. If the
+ * index is invalid, @c NULL is returned.
+ *
+ * @param n the index number of the FluxBound to get.
+ *
+ * @return the nth FluxBound in the ListOfFluxBounds.
+ */
 FluxBound* 
   FbcModelPlugin::getFluxBound (unsigned int n)
 {
@@ -755,17 +735,17 @@ FluxBound*
 
 
 /*
-* Returns the FluxBound object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the FluxBound to get.
-* 
-* @return FluxBound in the ListOfFluxBounds with the given @p id
-* or NULL if no such FluxBound exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
+ * Returns the FluxBound object based on its identifier.
+ *
+ * @param sid a string representing the identifier 
+ * of the FluxBound to get.
+ * 
+ * @return FluxBound in the ListOfFluxBounds with the given @p id
+ * or NULL if no such FluxBound exists.
+ *
+ * @see get(unsigned int n)
+ * @see size()
+ */
 FluxBound* 
   FbcModelPlugin::getFluxBound (const std::string& sid)
 {
@@ -774,17 +754,17 @@ FluxBound*
 
 
 /*
-* Returns the FluxBound object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the FluxBound to get.
-* 
-* @return FluxBound in the ListOfFluxBounds with the given @p id 
-* or NULL if no such FluxBound exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
+ * Returns the FluxBound object based on its identifier.
+ *
+ * @param sid a string representing the identifier 
+ * of the FluxBound to get.
+ * 
+ * @return FluxBound in the ListOfFluxBounds with the given @p id 
+ * or NULL if no such FluxBound exists.
+ *
+ * @see get(unsigned int n)
+ * @see size()
+ */
 const FluxBound* 
   FbcModelPlugin::getFluxBound (const std::string& sid) const
 {
@@ -794,13 +774,13 @@ const FluxBound*
 }
 
 /*
-* Adds a copy of the given FluxBound object to the list of FluxBounds.
-*
-* @param bound the FluxBound object to be added to the list of FluxBounds.
-*
-* @copydetails doc_returns_success_code
-* @li LIBSBML_OPERATION_SUCCESS
-*/ 
+ * Adds a copy of the given FluxBound object to the list of FluxBounds.
+ *
+ * @param bound the FluxBound object to be added to the list of FluxBounds.
+ *
+ * @copydetails doc_returns_success_code
+ * @li LIBSBML_OPERATION_SUCCESS
+ */ 
 int 
   FbcModelPlugin::addFluxBound (const FluxBound* bound)
 {
@@ -832,11 +812,11 @@ int
 
 
 /*
-* Creates a new FluxBound object and adds it to the list of FluxBound objects
-* and returns it.
-*
-* @return a newly created FluxBound object
-*/
+ * Creates a new FluxBound object and adds it to the list of FluxBound objects
+ * and returns it.
+ *
+ * @return a newly created FluxBound object
+ */
 FluxBound* 
   FbcModelPlugin::createFluxBound()
 {
@@ -866,18 +846,18 @@ FluxBound*
 
 
 /*
-* Removes the nth FluxBound object from this plugin object and
-* returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-*  deleting it.
-*
-* @param n the index of the FluxBound object to remove.
-*
-* @return the FluxBound object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
+ * Removes the nth FluxBound object from this plugin object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for
+ *  deleting it.
+ *
+ * @param n the index of the FluxBound object to remove.
+ *
+ * @return the FluxBound object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ */
 FluxBound* 
   FbcModelPlugin::removeFluxBound (unsigned int n)
 {
@@ -886,18 +866,18 @@ FluxBound*
 
 
 /*
-* Removes the FluxBound object with the given @p id attribute from 
-* this plugin object and returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-* deleting it.
-*
-* @param sid the id attribute of the FluxBound object to remove.
-*
-* @return the FluxBound object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
+ * Removes the FluxBound object with the given @p id attribute from 
+ * this plugin object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for
+ * deleting it.
+ *
+ * @param sid the id attribute of the FluxBound object to remove.
+ *
+ * @return the FluxBound object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ */
 FluxBound* 
   FbcModelPlugin::removeFluxBound (const std::string& sid)
 {
@@ -906,10 +886,10 @@ FluxBound*
 
 
 /*
-* Returns the number of FluxBound object in this plugin object.
-*
-* @return the number of FluxBound object in this plugin object.
-*/
+ * Returns the number of FluxBound object in this plugin object.
+ *
+ * @return the number of FluxBound object in this plugin object.
+ */
 unsigned int 
   FbcModelPlugin::getNumFluxBounds() const
 {
@@ -1359,10 +1339,10 @@ FbcModelPlugin::unsetActiveObjectiveId()
 }
 
 /*
-* Returns the ListOfObjectives in this plugin object.
-*
-* @return ListOfObjectives object in this plugin object.
-*/
+ * Returns the ListOfObjectives in this plugin object.
+ *
+ * @return ListOfObjectives object in this plugin object.
+ */
 const ListOfGeneAssociations* 
   FbcModelPlugin::getListOfGeneAssociations () const
 {
@@ -1370,10 +1350,10 @@ const ListOfGeneAssociations*
 }
 
 /*
-* Returns the ListOfGeneAssociations in this plugin object.
-*
-* @return ListOfGeneAssociations object in this plugin object.
-*/
+ * Returns the ListOfGeneAssociations in this plugin object.
+ *
+ * @return ListOfGeneAssociations object in this plugin object.
+ */
 ListOfGeneAssociations* 
   FbcModelPlugin::getListOfGeneAssociations ()
 {
@@ -1381,13 +1361,13 @@ ListOfGeneAssociations*
 }
 
 /*
-* Returns the GeneAssociation object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the GeneAssociation to get.
-*
-* @return the nth GeneAssociation in the ListOfGeneAssociations.
-*/
+ * Returns the GeneAssociation object that belongs to the given index. If the
+ * index is invalid, @c NULL is returned.
+ *
+ * @param n the index number of the GeneAssociation to get.
+ *
+ * @return the nth GeneAssociation in the ListOfGeneAssociations.
+ */
 const GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (unsigned int n) const
 {
@@ -1395,13 +1375,13 @@ const GeneAssociation*
 }
 
 /*
-* Returns the GeneAssociation object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the GeneAssociation to get.
-*
-* @return the nth GeneAssociation in the ListOfGeneAssociations.
-*/
+ * Returns the GeneAssociation object that belongs to the given index. If the
+ * index is invalid, @c NULL is returned.
+ *
+ * @param n the index number of the GeneAssociation to get.
+ *
+ * @return the nth GeneAssociation in the ListOfGeneAssociations.
+ */
 GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (unsigned int n)
 {
@@ -1409,17 +1389,17 @@ GeneAssociation*
 }
 
 /*
-* Returns the GeneAssociation object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the GeneAssociation to get.
-* 
-* @return GeneAssociation in the ListOfGeneAssociations with the given @p id
-* or NULL if no such GeneAssociation exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
+ * Returns the GeneAssociation object based on its identifier.
+ *
+ * @param sid a string representing the identifier 
+ * of the GeneAssociation to get.
+ * 
+ * @return GeneAssociation in the ListOfGeneAssociations with the given @p id
+ * or NULL if no such GeneAssociation exists.
+ *
+ * @see get(unsigned int n)
+ * @see size()
+ */
 GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (const std::string& sid)
 {
@@ -1427,17 +1407,17 @@ GeneAssociation*
 }
 
 /*
-* Returns the GeneAssociation object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the GeneAssociation to get.
-* 
-* @return GeneAssociation in the ListOfGeneAssociations with the given @p id 
-* or NULL if no such GeneAssociation exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
+ * Returns the GeneAssociation object based on its identifier.
+ *
+ * @param sid a string representing the identifier 
+ * of the GeneAssociation to get.
+ * 
+ * @return GeneAssociation in the ListOfGeneAssociations with the given @p id 
+ * or NULL if no such GeneAssociation exists.
+ *
+ * @see get(unsigned int n)
+ * @see size()
+ */
 const GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (const std::string& sid) const
 {
@@ -1445,13 +1425,13 @@ const GeneAssociation*
 }
 
 /*
-* Adds a copy of the given GeneAssociation object to the list of GeneAssociations.
-*
-* @param association the GeneAssociation object to be added to the list of GeneAssociations.
-*
-* @copydetails doc_returns_success_code
-* @li LIBSBML_OPERATION_SUCCESS
-*/ 
+ * Adds a copy of the given GeneAssociation object to the list of GeneAssociations.
+ *
+ * @param association the GeneAssociation object to be added to the list of GeneAssociations.
+ *
+ * @copydetails doc_returns_success_code
+ * @li LIBSBML_OPERATION_SUCCESS
+ */ 
 int 
   FbcModelPlugin::addGeneAssociation (const GeneAssociation* association)
 {
@@ -1482,11 +1462,11 @@ int
 }
 
 /*
-* Creates a new GeneAssociation object and adds it to the list of GeneAssociation objects
-* and returns it.
-*
-* @return a newly created GeneAssociation object
-*/
+ * Creates a new GeneAssociation object and adds it to the list of GeneAssociation objects
+ * and returns it.
+ *
+ * @return a newly created GeneAssociation object
+ */
 GeneAssociation* 
   FbcModelPlugin::createGeneAssociation()
 {
@@ -1515,18 +1495,18 @@ GeneAssociation*
 }
 
 /*
-* Removes the nth GeneAssociation object from this plugin object and
-* returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-*  deleting it.
-*
-* @param n the index of the GeneAssociation object to remove.
-*
-* @return the GeneAssociation object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
+ * Removes the nth GeneAssociation object from this plugin object and
+ * returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for
+ *  deleting it.
+ *
+ * @param n the index of the GeneAssociation object to remove.
+ *
+ * @return the GeneAssociation object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ */
 GeneAssociation* 
   FbcModelPlugin::removeGeneAssociation (unsigned int n)
 {
@@ -1534,18 +1514,18 @@ GeneAssociation*
 }
 
 /*
-* Removes the GeneAssociation object with the given @p id attribute from 
-* this plugin object and returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-* deleting it.
-*
-* @param sid the id attribute of the GeneAssociation object to remove.
-*
-* @return the GeneAssociation object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
+ * Removes the GeneAssociation object with the given @p id attribute from 
+ * this plugin object and returns a pointer to it.
+ *
+ * The caller owns the returned object and is responsible for
+ * deleting it.
+ *
+ * @param sid the id attribute of the GeneAssociation object to remove.
+ *
+ * @return the GeneAssociation object removed.  As mentioned above, the 
+ * caller owns the returned object. @c NULL is returned if the 
+ * given index is out of range.
+ */
 GeneAssociation* 
   FbcModelPlugin::removeGeneAssociation (const std::string& sid)
 {
@@ -1553,10 +1533,10 @@ GeneAssociation*
 }
 
 /*
-* Returns the number of GeneAssociation object in this plugin object.
-*
-* @return the number of GeneAssociation object in this plugin object.
-*/
+ * Returns the number of GeneAssociation object in this plugin object.
+ *
+ * @return the number of GeneAssociation object in this plugin object.
+ */
 int 
   FbcModelPlugin::getNumGeneAssociations() const
 {
