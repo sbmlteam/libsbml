@@ -69,6 +69,7 @@ typedef CLASS_OR_STRUCT MultiSpeciesReferencePlugin    MultiSpeciesReferencePlug
 typedef CLASS_OR_STRUCT MultiSimpleSpeciesReferencePlugin    MultiSimpleSpeciesReferencePlugin_t;
 typedef CLASS_OR_STRUCT MultiSpeciesPlugin    MultiSpeciesPlugin_t;
 typedef CLASS_OR_STRUCT MultiModelPlugin    MultiModelPlugin_t;
+typedef CLASS_OR_STRUCT MultiCompartmentPlugin    MultiCompartmentPlugin_t;
 LIBSBML_CPP_NAMESPACE_END
 
 #undef CLASS_OR_STRUCT

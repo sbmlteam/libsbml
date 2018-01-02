@@ -690,9 +690,227 @@ MultiCompartmentPlugin::accept(SBMLVisitor& v) const
 
 
 
-LIBSBML_CPP_NAMESPACE_END
-
-
 #endif /* __cplusplus */
 
+
+/*
+ * Returns a ListOf_t * containing CompartmentReference_t objects from this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+MultiCompartmentPlugin_getListOfCompartmentReferences(MultiCompartmentPlugin_t*
+  mcp)
+{
+  return (mcp != NULL) ? mcp->getListOfCompartmentReferences() : NULL;
+}
+
+
+/*
+ * Get a CompartmentReference_t from the MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_getCompartmentReference(MultiCompartmentPlugin_t* mcp,
+                                               unsigned int n)
+{
+  return (mcp != NULL) ? mcp->getCompartmentReference(n) : NULL;
+}
+
+
+/*
+ * Get a CompartmentReference_t from the MultiCompartmentPlugin_t based on its
+ * identifier.
+ */
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_getCompartmentReferenceById(
+                                                   MultiCompartmentPlugin_t*
+                                                     mcp,
+                                                   const char *sid)
+{
+  return (mcp != NULL && sid != NULL) ? mcp->getCompartmentReference(sid) :
+    NULL;
+}
+
+
+/*
+ * Adds a copy of the given CompartmentReference_t to this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_addCompartmentReference(MultiCompartmentPlugin_t* mcp,
+                                               const CompartmentReference_t*
+                                                 cr)
+{
+  return (mcp != NULL) ? mcp->addCompartmentReference(cr) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of CompartmentReference_t objects in this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+MultiCompartmentPlugin_getNumCompartmentReferences(MultiCompartmentPlugin_t*
+  mcp)
+{
+  return (mcp != NULL) ? mcp->getNumCompartmentReferences() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new CompartmentReference_t object, adds it to this
+ * MultiCompartmentPlugin_t object and returns the CompartmentReference_t
+ * object created.
+ */
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_createCompartmentReference(MultiCompartmentPlugin_t*
+  mcp)
+{
+  return (mcp != NULL) ? mcp->createCompartmentReference() : NULL;
+}
+
+
+/*
+ * Removes the nth CompartmentReference_t from this MultiCompartmentPlugin_t
+ * and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_removeCompartmentReference(
+                                                  MultiCompartmentPlugin_t*
+                                                    mcp,
+                                                  unsigned int n)
+{
+  return (mcp != NULL) ? mcp->removeCompartmentReference(n) : NULL;
+}
+
+
+/*
+ * Removes the CompartmentReference_t from this MultiCompartmentPlugin_t based
+ * on its identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_removeCompartmentReferenceById(
+                                                      MultiCompartmentPlugin_t*
+                                                        mcp,
+                                                      const char* sid)
+{
+  return (mcp != NULL && sid != NULL) ? mcp->removeCompartmentReference(sid) :
+    NULL;
+}
+
+
+/*
+ * Returns the value of the "compartmentType" attribute of this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+char *
+MultiCompartmentPlugin_getCompartmentType(const MultiCompartmentPlugin_t * mcp)
+{
+  if (mcp == NULL)
+  {
+    return NULL;
+  }
+
+  return mcp->getCompartmentType().empty() ? NULL :
+    safe_strdup(mcp->getCompartmentType().c_str());
+}
+
+
+/*
+ * Returns the value of the "isType" attribute of this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_getIsType(const MultiCompartmentPlugin_t * mcp)
+{
+  return (mcp != NULL) ? static_cast<int>(mcp->getIsType()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this MultiCompartmentPlugin_t's
+ * "compartmentType" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_isSetCompartmentType(const MultiCompartmentPlugin_t *
+  mcp)
+{
+  return (mcp != NULL) ? static_cast<int>(mcp->isSetCompartmentType()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this MultiCompartmentPlugin_t's "isType"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_isSetIsType(const MultiCompartmentPlugin_t * mcp)
+{
+  return (mcp != NULL) ? static_cast<int>(mcp->isSetIsType()) : 0;
+}
+
+
+/*
+ * Sets the value of the "compartmentType" attribute of this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_setCompartmentType(MultiCompartmentPlugin_t * mcp,
+                                          const char * compartmentType)
+{
+  return (mcp != NULL) ? mcp->setCompartmentType(compartmentType) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "isType" attribute of this MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_setIsType(MultiCompartmentPlugin_t * mcp, int isType)
+{
+  return (mcp != NULL) ? mcp->setIsType(isType) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "compartmentType" attribute of this
+ * MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_unsetCompartmentType(MultiCompartmentPlugin_t * mcp)
+{
+  return (mcp != NULL) ? mcp->unsetCompartmentType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "isType" attribute of this MultiCompartmentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_unsetIsType(MultiCompartmentPlugin_t * mcp)
+{
+  return (mcp != NULL) ? mcp->unsetIsType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
 

@@ -462,7 +462,372 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
-#endif /* MultiCompartmentPlugin_H__ */
 
 
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Returns a ListOf_t * containing CompartmentReference_t objects from this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure whose
+* ListOfCompartmentReferences is sought.
+*
+* @return the ListOfCompartmentReferences from this MultiCompartmentPlugin_t
+* as a ListOf_t *.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @see MultiCompartmentPlugin_addCompartmentReference()
+* @see MultiCompartmentPlugin_createCompartmentReference()
+* @see MultiCompartmentPlugin_getCompartmentReferenceById()
+* @see MultiCompartmentPlugin_getCompartmentReference()
+* @see MultiCompartmentPlugin_getNumCompartmentReferences()
+* @see MultiCompartmentPlugin_removeCompartmentReferenceById()
+* @see MultiCompartmentPlugin_removeCompartmentReference()
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+ListOf_t*
+MultiCompartmentPlugin_getListOfCompartmentReferences(MultiCompartmentPlugin_t*
+  mcp);
+
+
+/**
+* Get a CompartmentReference_t from the MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the
+* CompartmentReference_t to retrieve.
+*
+* @return the nth CompartmentReference_t in the ListOfCompartmentReferences
+* within this MultiCompartmentPlugin.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_getCompartmentReference(MultiCompartmentPlugin_t* mcp,
+  unsigned int n);
+
+
+/**
+* Get a CompartmentReference_t from the MultiCompartmentPlugin_t based on its
+* identifier.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the
+* CompartmentReference_t to retrieve.
+*
+* @return the CompartmentReference_t in the ListOfCompartmentReferences within
+* this MultiCompartmentPlugin with the given @p sid or @c NULL if no such
+* CompartmentReference_t exists.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_getCompartmentReferenceById(
+  MultiCompartmentPlugin_t*
+  mcp,
+  const char *sid);
+
+
+/**
+* Adds a copy of the given CompartmentReference_t to this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to which the
+* CompartmentReference_t should be added.
+*
+* @param cr the CompartmentReference_t object to add.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_addCompartmentReference(MultiCompartmentPlugin_t* mcp,
+  const CompartmentReference_t*
+  cr);
+
+
+/**
+* Get the number of CompartmentReference_t objects in this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to query.
+*
+* @return the number of CompartmentReference_t objects in this
+* MultiCompartmentPlugin_t.
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+unsigned int
+MultiCompartmentPlugin_getNumCompartmentReferences(MultiCompartmentPlugin_t*
+  mcp);
+
+
+/**
+* Creates a new CompartmentReference_t object, adds it to this
+* MultiCompartmentPlugin_t object and returns the CompartmentReference_t
+* object created.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to which the
+* CompartmentReference_t should be added.
+*
+* @return a new CompartmentReference_t object instance.
+*
+* @copydetails doc_returned_unowned_pointer
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_createCompartmentReference(MultiCompartmentPlugin_t*
+  mcp);
+
+
+/**
+* Removes the nth CompartmentReference_t from this MultiCompartmentPlugin_t
+* and returns a pointer to it.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to search.
+*
+* @param n an unsigned int representing the index of the
+* CompartmentReference_t to remove.
+*
+* @return a pointer to the nth CompartmentReference_t in this
+* MultiCompartmentPlugin_t.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_removeCompartmentReference(
+  MultiCompartmentPlugin_t*
+  mcp,
+  unsigned int n);
+
+
+/**
+* Removes the CompartmentReference_t from this MultiCompartmentPlugin_t based
+* on its identifier and returns a pointer to it.
+*
+* @param mcp the MultiCompartmentPlugin_t structure to search.
+*
+* @param sid a string representing the identifier of the
+* CompartmentReference_t to remove.
+*
+* @return the CompartmentReference_t in this MultiCompartmentPlugin_t based on
+* the identifier or NULL if no such CompartmentReference_t exists.
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+CompartmentReference_t*
+MultiCompartmentPlugin_removeCompartmentReferenceById(
+  MultiCompartmentPlugin_t*
+  mcp,
+  const char* sid);
+
+
+/**
+* Returns the value of the "compartmentType" attribute of this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure whose compartmentType is
+* sought.
+*
+* @return the value of the "compartmentType" attribute of this
+* MultiCompartmentPlugin_t as a pointer to a string.
+*
+* @copydetails doc_returned_owned_char
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+char *
+MultiCompartmentPlugin_getCompartmentType(const MultiCompartmentPlugin_t *
+  mcp);
+
+
+/**
+* Returns the value of the "isType" attribute of this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure whose isType is sought.
+*
+* @return the value of the "isType" attribute of this MultiCompartmentPlugin_t
+* as a boolean.
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_getIsType(const MultiCompartmentPlugin_t * mcp);
+
+
+/**
+* Predicate returning @c 1 (true) if this MultiCompartmentPlugin_t's
+* "compartmentType" attribute is set.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @return @c 1 (true) if this MultiCompartmentPlugin_t's "compartmentType"
+* attribute has been set, otherwise @c 0 (false) is returned.
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_isSetCompartmentType(const MultiCompartmentPlugin_t *
+  mcp);
+
+
+/**
+* Predicate returning @c 1 (true) if this MultiCompartmentPlugin_t's "isType"
+* attribute is set.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @return @c 1 (true) if this MultiCompartmentPlugin_t's "isType" attribute
+* has been set, otherwise @c 0 (false) is returned.
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_isSetIsType(const MultiCompartmentPlugin_t * mcp);
+
+
+/**
+* Sets the value of the "compartmentType" attribute of this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @param compartmentType const char * value of the "compartmentType" attribute
+* to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_setCompartmentType(MultiCompartmentPlugin_t * mcp,
+  const char * compartmentType);
+
+
+/**
+* Sets the value of the "isType" attribute of this MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @param isType int value of the "isType" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_setIsType(MultiCompartmentPlugin_t * mcp, int isType);
+
+
+/**
+* Unsets the value of the "compartmentType" attribute of this
+* MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_unsetCompartmentType(MultiCompartmentPlugin_t * mcp);
+
+
+/**
+* Unsets the value of the "isType" attribute of this MultiCompartmentPlugin_t.
+*
+* @param mcp the MultiCompartmentPlugin_t structure.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof MultiCompartmentPlugin_t
+*/
+LIBSBML_EXTERN
+int
+MultiCompartmentPlugin_unsetIsType(MultiCompartmentPlugin_t * mcp);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !MultiCompartmentPlugin_H__ */
