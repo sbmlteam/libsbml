@@ -85,22 +85,6 @@ SpeciesReactionOrRule::check_ (const Model& m, const Model&)
       mRules.append(r->getVariable());
     }
   }
-  /* redid this to get better information in the error message 
-  for (n = 0; n < m.getNumReactions(); n++)
-  {
-    const Reaction * react = m.getReaction(n);
-
-    for (nsr = 0; nsr < react->getNumReactants(); nsr++)
-    {
-      mReactions.append(react->getReactant(nsr)->getSpecies());
-    }
-
-    for (nsr = 0; nsr < react->getNumProducts(); nsr++)
-    {
-      mReactions.append(react->getProduct(nsr)->getSpecies());
-    }
-  }
-*/
   for (n = 0; n < m.getNumSpecies(); ++n)
   {
     s = m.getSpecies(n);
