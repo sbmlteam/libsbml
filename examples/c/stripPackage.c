@@ -1,7 +1,7 @@
 /**
-* @file    stripPackage.c
-* @brief   Strips the given package from the given SBML file.
-* @author  Frank T. Bergmann
+ * @file    stripPackage.c
+ * @brief   Strips the given package from the given SBML file.
+ * @author  Frank T. Bergmann
  *
  * <!--------------------------------------------------------------------------
  * This sample program is distributed under a different license than the rest
@@ -36,7 +36,7 @@
  * or promote products derived from this software without specific prior
  * written permission.
  * ------------------------------------------------------------------------ -->
-*/
+ */
 
 
 #include <stdio.h>

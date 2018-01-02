@@ -753,12 +753,12 @@ SBMLInternalValidator::checkL3v1Compatibility ()
 
 
 /*
-* Performs a set of semantic consistency checks on the document to establish
-* whether it is compatible with L3v2 and can be converted.  Query
-* the results by calling getNumErrors() and getError().
-*
-* @return the number of failed checks (errors) encountered.
-*/
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L3v2 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
 unsigned int
 SBMLInternalValidator::checkL3v2Compatibility()
 {

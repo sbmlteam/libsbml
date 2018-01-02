@@ -2945,16 +2945,16 @@ ASTNode_isConstant (const ASTNode_t * node);
 
 
 /**
-* Returns @c 1 (true) if the given node represents a MathML constant.
-*
-* Examples of constants in this context are @c Pi, @c true, etc.
-*
-* @param node the node
-*
-* @return @c 1 (true) if @p node is a MathML constant, @c 0 (false) otherwise.
-*
-* @memberof ASTNode_t
-*/
+ * Returns @c 1 (true) if the given node represents a MathML constant.
+ *
+ * Examples of constants in this context are @c Pi, @c true, etc.
+ *
+ * @param node the node
+ *
+ * @return @c 1 (true) if @p node is a MathML constant, @c 0 (false) otherwise.
+ *
+ * @memberof ASTNode_t
+ */
 LIBSBML_EXTERN
 int
 ASTNode_isConstantNumber(const ASTNode_t * node);

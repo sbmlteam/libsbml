@@ -3018,8 +3018,8 @@ SBase::getVersion () const
 }
 
 /*
-* @return the SBML version of this SBML object.
-*/
+ * @return the SBML version of this SBML object.
+ */
 unsigned int
 SBase::getPackageCoreVersion() const
 {

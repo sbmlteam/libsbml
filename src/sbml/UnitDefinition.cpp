@@ -226,7 +226,7 @@ int
 UnitDefinition::setId (const std::string& sid)
 {
   /* since the setId function has been used as an
-   * alias for setName we cant require it to only
+   * alias for setName we can't require it to only
    * be used on a L2 model
    */
 /*  if (getLevel() == 1)
@@ -1835,8 +1835,8 @@ UnitDefinition::createChildObject(const std::string& elementName)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Adds an new "elementName" object in this UnitDefinition.
-*/
+ * Adds an new "elementName" object in this UnitDefinition.
+ */
 int
 UnitDefinition::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -1852,8 +1852,8 @@ UnitDefinition::addChildObject(const std::string& elementName, const SBase* elem
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Adds an new "elementName" object in this UnitDefinition.
-*/
+ * Adds an new "elementName" object in this UnitDefinition.
+ */
 SBase*
 UnitDefinition::removeChildObject(const std::string& elementName, const std::string& id)
 {

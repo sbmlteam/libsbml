@@ -734,7 +734,7 @@ ListOfSpeciesTypeInstances::clone () const
 
 /*
  * Get a SpeciesTypeInstance from the ListOfSpeciesTypeInstances by index.
-*/
+ */
 SpeciesTypeInstance*
 ListOfSpeciesTypeInstances::get(unsigned int n)
 {

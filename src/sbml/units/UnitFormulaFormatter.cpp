@@ -2123,9 +2123,9 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 }
 
 /**
-* Returns the unitDefinition constructed
-* from the extent units of this Model.
-*/
+ * Returns the unitDefinition constructed
+ * from the extent units of this Model.
+ */
 UnitDefinition * 
 UnitFormulaFormatter::getExtentUnitDefinition()
 {

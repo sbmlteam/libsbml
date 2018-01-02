@@ -886,9 +886,9 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /*
-* Returns a ListOf_t * containing SpeciesFeature_t objects from this
-* MultiSpeciesPlugin_t.
-*/
+ * Returns a ListOf_t * containing SpeciesFeature_t objects from this
+ * MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 ListOf_t*
 MultiSpeciesPlugin_getListOfSpeciesFeatures(MultiSpeciesPlugin_t* msp)
@@ -898,8 +898,8 @@ MultiSpeciesPlugin_getListOfSpeciesFeatures(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t.
-*/
+ * Get a SpeciesFeature_t from the MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 MultiSpeciesPlugin_getSpeciesFeature(MultiSpeciesPlugin_t* msp,
@@ -910,9 +910,9 @@ MultiSpeciesPlugin_getSpeciesFeature(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Get a SpeciesFeature_t from the MultiSpeciesPlugin_t based on its
-* identifier.
-*/
+ * Get a SpeciesFeature_t from the MultiSpeciesPlugin_t based on its
+ * identifier.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 MultiSpeciesPlugin_getSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
@@ -923,8 +923,8 @@ MultiSpeciesPlugin_getSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Adds a copy of the given SpeciesFeature_t to this MultiSpeciesPlugin_t.
-*/
+ * Adds a copy of the given SpeciesFeature_t to this MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesPlugin_addSpeciesFeature(MultiSpeciesPlugin_t* msp,
@@ -935,8 +935,8 @@ MultiSpeciesPlugin_addSpeciesFeature(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Get the number of SpeciesFeature_t objects in this MultiSpeciesPlugin_t.
-*/
+ * Get the number of SpeciesFeature_t objects in this MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesPlugin_getNumSpeciesFeatures(MultiSpeciesPlugin_t* msp)
@@ -946,9 +946,9 @@ MultiSpeciesPlugin_getNumSpeciesFeatures(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Creates a new SpeciesFeature_t object, adds it to this MultiSpeciesPlugin_t
-* object and returns the SpeciesFeature_t object created.
-*/
+ * Creates a new SpeciesFeature_t object, adds it to this MultiSpeciesPlugin_t
+ * object and returns the SpeciesFeature_t object created.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 MultiSpeciesPlugin_createSpeciesFeature(MultiSpeciesPlugin_t* msp)
@@ -958,9 +958,9 @@ MultiSpeciesPlugin_createSpeciesFeature(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Removes the nth SpeciesFeature_t from this MultiSpeciesPlugin_t and returns
-* a pointer to it.
-*/
+ * Removes the nth SpeciesFeature_t from this MultiSpeciesPlugin_t and returns
+ * a pointer to it.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 MultiSpeciesPlugin_removeSpeciesFeature(MultiSpeciesPlugin_t* msp,
@@ -971,9 +971,9 @@ MultiSpeciesPlugin_removeSpeciesFeature(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Removes the SpeciesFeature_t from this MultiSpeciesPlugin_t based on its
-* identifier and returns a pointer to it.
-*/
+ * Removes the SpeciesFeature_t from this MultiSpeciesPlugin_t based on its
+ * identifier and returns a pointer to it.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 MultiSpeciesPlugin_removeSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
@@ -984,9 +984,9 @@ MultiSpeciesPlugin_removeSpeciesFeatureById(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Returns a ListOf_t * containing OutwardBindingSite_t objects from this
-* MultiSpeciesPlugin_t.
-*/
+ * Returns a ListOf_t * containing OutwardBindingSite_t objects from this
+ * MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 ListOf_t*
 MultiSpeciesPlugin_getListOfOutwardBindingSites(MultiSpeciesPlugin_t* msp)
@@ -996,8 +996,8 @@ MultiSpeciesPlugin_getListOfOutwardBindingSites(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t.
-*/
+ * Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 OutwardBindingSite_t*
 MultiSpeciesPlugin_getOutwardBindingSite(MultiSpeciesPlugin_t* msp,
@@ -1008,9 +1008,9 @@ MultiSpeciesPlugin_getOutwardBindingSite(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t based on its
-* identifier.
-*/
+ * Get an OutwardBindingSite_t from the MultiSpeciesPlugin_t based on its
+ * identifier.
+ */
 LIBSBML_EXTERN
 OutwardBindingSite_t*
 MultiSpeciesPlugin_getOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
@@ -1021,8 +1021,8 @@ MultiSpeciesPlugin_getOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Adds a copy of the given OutwardBindingSite_t to this MultiSpeciesPlugin_t.
-*/
+ * Adds a copy of the given OutwardBindingSite_t to this MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesPlugin_addOutwardBindingSite(MultiSpeciesPlugin_t* msp,
@@ -1034,8 +1034,8 @@ MultiSpeciesPlugin_addOutwardBindingSite(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Get the number of OutwardBindingSite_t objects in this MultiSpeciesPlugin_t.
-*/
+ * Get the number of OutwardBindingSite_t objects in this MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesPlugin_getNumOutwardBindingSites(MultiSpeciesPlugin_t* msp)
@@ -1045,10 +1045,10 @@ MultiSpeciesPlugin_getNumOutwardBindingSites(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Creates a new OutwardBindingSite_t object, adds it to this
-* MultiSpeciesPlugin_t object and returns the OutwardBindingSite_t object
-* created.
-*/
+ * Creates a new OutwardBindingSite_t object, adds it to this
+ * MultiSpeciesPlugin_t object and returns the OutwardBindingSite_t object
+ * created.
+ */
 LIBSBML_EXTERN
 OutwardBindingSite_t*
 MultiSpeciesPlugin_createOutwardBindingSite(MultiSpeciesPlugin_t* msp)
@@ -1058,9 +1058,9 @@ MultiSpeciesPlugin_createOutwardBindingSite(MultiSpeciesPlugin_t* msp)
 
 
 /*
-* Removes the nth OutwardBindingSite_t from this MultiSpeciesPlugin_t and
-* returns a pointer to it.
-*/
+ * Removes the nth OutwardBindingSite_t from this MultiSpeciesPlugin_t and
+ * returns a pointer to it.
+ */
 LIBSBML_EXTERN
 OutwardBindingSite_t*
 MultiSpeciesPlugin_removeOutwardBindingSite(MultiSpeciesPlugin_t* msp,
@@ -1071,9 +1071,9 @@ MultiSpeciesPlugin_removeOutwardBindingSite(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Removes the OutwardBindingSite_t from this MultiSpeciesPlugin_t based on its
-* identifier and returns a pointer to it.
-*/
+ * Removes the OutwardBindingSite_t from this MultiSpeciesPlugin_t based on its
+ * identifier and returns a pointer to it.
+ */
 LIBSBML_EXTERN
 OutwardBindingSite_t*
 MultiSpeciesPlugin_removeOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
@@ -1085,9 +1085,9 @@ MultiSpeciesPlugin_removeOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
 
 
 /*
-* Returns the value of the "speciesType" attribute of this
-* MultiSpeciesPlugin_t.
-*/
+ * Returns the value of the "speciesType" attribute of this
+ * MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 char *
 MultiSpeciesPlugin_getSpeciesType(const MultiSpeciesPlugin_t * msp)
@@ -1103,9 +1103,9 @@ MultiSpeciesPlugin_getSpeciesType(const MultiSpeciesPlugin_t * msp)
 
 
 /*
-* Predicate returning @c 1 (true) if this MultiSpeciesPlugin_t's "speciesType"
-* attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this MultiSpeciesPlugin_t's "speciesType"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesPlugin_isSetSpeciesType(const MultiSpeciesPlugin_t * msp)
@@ -1115,8 +1115,8 @@ MultiSpeciesPlugin_isSetSpeciesType(const MultiSpeciesPlugin_t * msp)
 
 
 /*
-* Sets the value of the "speciesType" attribute of this MultiSpeciesPlugin_t.
-*/
+ * Sets the value of the "speciesType" attribute of this MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesPlugin_setSpeciesType(MultiSpeciesPlugin_t * msp,
@@ -1128,9 +1128,9 @@ MultiSpeciesPlugin_setSpeciesType(MultiSpeciesPlugin_t * msp,
 
 
 /*
-* Unsets the value of the "speciesType" attribute of this
-* MultiSpeciesPlugin_t.
-*/
+ * Unsets the value of the "speciesType" attribute of this
+ * MultiSpeciesPlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesPlugin_unsetSpeciesType(MultiSpeciesPlugin_t * msp)

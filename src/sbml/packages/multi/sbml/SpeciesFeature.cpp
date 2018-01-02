@@ -1104,7 +1104,7 @@ ListOfSpeciesFeatures::clone () const
 
 /*
  * Get a SpeciesFeature from the ListOfSpeciesFeatures by index.
-*/
+ */
 SpeciesFeature*
 ListOfSpeciesFeatures::get(unsigned int n)
 {
@@ -1190,7 +1190,7 @@ ListOfSpeciesFeatures::size() const
 
 /*
  * Get a SubListOfSpeciesFeatures from the ListOfSpeciesFeatures by index.
-*/
+ */
 SubListOfSpeciesFeatures*
 ListOfSpeciesFeatures::getSubListOfSpeciesFeatures(unsigned int n)
 {
@@ -1484,9 +1484,9 @@ ListOfSpeciesFeatures::connectToChild()
 
 
 /*
-* Creates a new SpeciesFeature_t using the given SBML Level, Version and
-* &ldquo;multi&rdquo; package version.
-*/
+ * Creates a new SpeciesFeature_t using the given SBML Level, Version and
+ * &ldquo;multi&rdquo; package version.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t *
 SpeciesFeature_create(unsigned int level,
@@ -1498,8 +1498,8 @@ SpeciesFeature_create(unsigned int level,
 
 
 /*
-* Frees this SpeciesFeature_t object.
-*/
+ * Frees this SpeciesFeature_t object.
+ */
 LIBSBML_EXTERN
 void
 SpeciesFeature_free(SpeciesFeature_t* sf)
@@ -1512,8 +1512,8 @@ SpeciesFeature_free(SpeciesFeature_t* sf)
 
 
 /*
-* Creates and returns a deep copy of this SpeciesFeature_t object.
-*/
+ * Creates and returns a deep copy of this SpeciesFeature_t object.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 SpeciesFeature_clone(const SpeciesFeature_t* sf)
@@ -1530,8 +1530,8 @@ SpeciesFeature_clone(const SpeciesFeature_t* sf)
 
 
 /*
-* Returns the value of the "id" attribute of this SpeciesFeature_t.
-*/
+ * Returns the value of the "id" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getId(const SpeciesFeature_t * sf)
@@ -1546,8 +1546,8 @@ SpeciesFeature_getId(const SpeciesFeature_t * sf)
 
 
 /*
-* Returns the value of the "name" attribute of this SpeciesFeature_t.
-*/
+ * Returns the value of the "name" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getName(const SpeciesFeature_t * sf)
@@ -1562,9 +1562,9 @@ SpeciesFeature_getName(const SpeciesFeature_t * sf)
 
 
 /*
-* Returns the value of the "speciesFeatureType" attribute of this
-* SpeciesFeature_t.
-*/
+ * Returns the value of the "speciesFeatureType" attribute of this
+ * SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getSpeciesFeatureType(const SpeciesFeature_t * sf)
@@ -1580,8 +1580,8 @@ SpeciesFeature_getSpeciesFeatureType(const SpeciesFeature_t * sf)
 
 
 /*
-* Returns the value of the "occur" attribute of this SpeciesFeature_t.
-*/
+ * Returns the value of the "occur" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 SpeciesFeature_getOccur(const SpeciesFeature_t * sf)
@@ -1591,8 +1591,8 @@ SpeciesFeature_getOccur(const SpeciesFeature_t * sf)
 
 
 /*
-* Returns the value of the "component" attribute of this SpeciesFeature_t.
-*/
+ * Returns the value of the "component" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 char *
 SpeciesFeature_getComponent(const SpeciesFeature_t * sf)
@@ -1608,9 +1608,9 @@ SpeciesFeature_getComponent(const SpeciesFeature_t * sf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SpeciesFeature_t's "id" attribute is
-* set.
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeature_t's "id" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetId(const SpeciesFeature_t * sf)
@@ -1620,9 +1620,9 @@ SpeciesFeature_isSetId(const SpeciesFeature_t * sf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SpeciesFeature_t's "name" attribute
-* is set.
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeature_t's "name" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetName(const SpeciesFeature_t * sf)
@@ -1632,9 +1632,9 @@ SpeciesFeature_isSetName(const SpeciesFeature_t * sf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SpeciesFeature_t's
-* "speciesFeatureType" attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeature_t's
+ * "speciesFeatureType" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetSpeciesFeatureType(const SpeciesFeature_t * sf)
@@ -1644,9 +1644,9 @@ SpeciesFeature_isSetSpeciesFeatureType(const SpeciesFeature_t * sf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SpeciesFeature_t's "occur" attribute
-* is set.
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeature_t's "occur" attribute
+ * is set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetOccur(const SpeciesFeature_t * sf)
@@ -1656,9 +1656,9 @@ SpeciesFeature_isSetOccur(const SpeciesFeature_t * sf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SpeciesFeature_t's "component"
-* attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SpeciesFeature_t's "component"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_isSetComponent(const SpeciesFeature_t * sf)
@@ -1668,8 +1668,8 @@ SpeciesFeature_isSetComponent(const SpeciesFeature_t * sf)
 
 
 /*
-* Sets the value of the "id" attribute of this SpeciesFeature_t.
-*/
+ * Sets the value of the "id" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_setId(SpeciesFeature_t * sf, const char * id)
@@ -1679,8 +1679,8 @@ SpeciesFeature_setId(SpeciesFeature_t * sf, const char * id)
 
 
 /*
-* Sets the value of the "name" attribute of this SpeciesFeature_t.
-*/
+ * Sets the value of the "name" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_setName(SpeciesFeature_t * sf, const char * name)
@@ -1690,9 +1690,9 @@ SpeciesFeature_setName(SpeciesFeature_t * sf, const char * name)
 
 
 /*
-* Sets the value of the "speciesFeatureType" attribute of this
-* SpeciesFeature_t.
-*/
+ * Sets the value of the "speciesFeatureType" attribute of this
+ * SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_setSpeciesFeatureType(SpeciesFeature_t * sf,
@@ -1704,8 +1704,8 @@ SpeciesFeature_setSpeciesFeatureType(SpeciesFeature_t * sf,
 
 
 /*
-* Sets the value of the "occur" attribute of this SpeciesFeature_t.
-*/
+ * Sets the value of the "occur" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_setOccur(SpeciesFeature_t * sf, unsigned int occur)
@@ -1715,8 +1715,8 @@ SpeciesFeature_setOccur(SpeciesFeature_t * sf, unsigned int occur)
 
 
 /*
-* Sets the value of the "component" attribute of this SpeciesFeature_t.
-*/
+ * Sets the value of the "component" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_setComponent(SpeciesFeature_t * sf, const char * component)
@@ -1726,8 +1726,8 @@ SpeciesFeature_setComponent(SpeciesFeature_t * sf, const char * component)
 
 
 /*
-* Unsets the value of the "id" attribute of this SpeciesFeature_t.
-*/
+ * Unsets the value of the "id" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetId(SpeciesFeature_t * sf)
@@ -1737,8 +1737,8 @@ SpeciesFeature_unsetId(SpeciesFeature_t * sf)
 
 
 /*
-* Unsets the value of the "name" attribute of this SpeciesFeature_t.
-*/
+ * Unsets the value of the "name" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetName(SpeciesFeature_t * sf)
@@ -1748,9 +1748,9 @@ SpeciesFeature_unsetName(SpeciesFeature_t * sf)
 
 
 /*
-* Unsets the value of the "speciesFeatureType" attribute of this
-* SpeciesFeature_t.
-*/
+ * Unsets the value of the "speciesFeatureType" attribute of this
+ * SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetSpeciesFeatureType(SpeciesFeature_t * sf)
@@ -1760,8 +1760,8 @@ SpeciesFeature_unsetSpeciesFeatureType(SpeciesFeature_t * sf)
 
 
 /*
-* Unsets the value of the "occur" attribute of this SpeciesFeature_t.
-*/
+ * Unsets the value of the "occur" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetOccur(SpeciesFeature_t * sf)
@@ -1771,8 +1771,8 @@ SpeciesFeature_unsetOccur(SpeciesFeature_t * sf)
 
 
 /*
-* Unsets the value of the "component" attribute of this SpeciesFeature_t.
-*/
+ * Unsets the value of the "component" attribute of this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_unsetComponent(SpeciesFeature_t * sf)
@@ -1782,9 +1782,9 @@ SpeciesFeature_unsetComponent(SpeciesFeature_t * sf)
 
 
 /*
-* Returns a ListOf_t * containing SpeciesFeatureValue_t objects from this
-* SpeciesFeature_t.
-*/
+ * Returns a ListOf_t * containing SpeciesFeatureValue_t objects from this
+ * SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 ListOf_t*
 SpeciesFeature_getListOfSpeciesFeatureValues(SpeciesFeature_t* sf)
@@ -1794,8 +1794,8 @@ SpeciesFeature_getListOfSpeciesFeatureValues(SpeciesFeature_t* sf)
 
 
 /*
-* Get a SpeciesFeatureValue_t from the SpeciesFeature_t.
-*/
+ * Get a SpeciesFeatureValue_t from the SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t*
 SpeciesFeature_getSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n)
@@ -1805,8 +1805,8 @@ SpeciesFeature_getSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n)
 
 
 /*
-* Adds a copy of the given SpeciesFeatureValue_t to this SpeciesFeature_t.
-*/
+ * Adds a copy of the given SpeciesFeatureValue_t to this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_addSpeciesFeatureValue(SpeciesFeature_t* sf,
@@ -1818,8 +1818,8 @@ SpeciesFeature_addSpeciesFeatureValue(SpeciesFeature_t* sf,
 
 
 /*
-* Get the number of SpeciesFeatureValue_t objects in this SpeciesFeature_t.
-*/
+ * Get the number of SpeciesFeatureValue_t objects in this SpeciesFeature_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 SpeciesFeature_getNumSpeciesFeatureValues(SpeciesFeature_t* sf)
@@ -1829,9 +1829,9 @@ SpeciesFeature_getNumSpeciesFeatureValues(SpeciesFeature_t* sf)
 
 
 /*
-* Creates a new SpeciesFeatureValue_t object, adds it to this SpeciesFeature_t
-* object and returns the SpeciesFeatureValue_t object created.
-*/
+ * Creates a new SpeciesFeatureValue_t object, adds it to this SpeciesFeature_t
+ * object and returns the SpeciesFeatureValue_t object created.
+ */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t*
 SpeciesFeature_createSpeciesFeatureValue(SpeciesFeature_t* sf)
@@ -1841,9 +1841,9 @@ SpeciesFeature_createSpeciesFeatureValue(SpeciesFeature_t* sf)
 
 
 /*
-* Removes the nth SpeciesFeatureValue_t from this SpeciesFeature_t and returns
-* a pointer to it.
-*/
+ * Removes the nth SpeciesFeatureValue_t from this SpeciesFeature_t and returns
+ * a pointer to it.
+ */
 LIBSBML_EXTERN
 SpeciesFeatureValue_t*
 SpeciesFeature_removeSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n)
@@ -1853,9 +1853,9 @@ SpeciesFeature_removeSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n)
 
 
 /*
-* Predicate returning @c 1 (true) if all the required attributes for this
-* SpeciesFeature_t object have been set.
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * SpeciesFeature_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 SpeciesFeature_hasRequiredAttributes(const SpeciesFeature_t * sf)

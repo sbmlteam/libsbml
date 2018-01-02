@@ -1,7 +1,7 @@
 /**
-* @file    promoteParameters.c
-* @brief   promotes all local to global paramters
-* @author  Frank T. Bergmann
+ * @file    promoteParameters.c
+ * @brief   promotes all local to global paramters
+ * @author  Frank T. Bergmann
  *
  * <!--------------------------------------------------------------------------
  * This sample program is distributed under a different license than the rest
@@ -36,7 +36,7 @@
  * or promote products derived from this software without specific prior
  * written permission.
  * ------------------------------------------------------------------------ -->
-*/
+ */
 
 
 #include <stdio.h>

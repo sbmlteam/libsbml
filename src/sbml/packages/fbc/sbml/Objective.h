@@ -1409,14 +1409,14 @@ Objective_getName(const Objective_t * o);
 
 
 /**
-* Takes a Objective_t structure and returns its type.
-*
-* @param obj the Objective_t whose type is sought.
-*
-* @return the type of the given Objective_t, as a pointer to a string.
-*
-* @memberof Objective_t
-*/
+ * Takes a Objective_t structure and returns its type.
+ *
+ * @param obj the Objective_t whose type is sought.
+ *
+ * @return the type of the given Objective_t, as a pointer to a string.
+ *
+ * @memberof Objective_t
+ */
 LIBSBML_EXTERN
 const char *
 Objective_getType(Objective_t * obj);
@@ -1671,37 +1671,37 @@ Objective_hasRequiredElements(const Objective_t * o);
 
 
 /**
-* Return the structure indicated by the given @p sid.
-*
-* @param lo the ListOf_t structure to use.
-*
-* @param sid a string matching the "id" attribute of the element sought.
-*
-* @return the structure for the given variable, or @c NULL if no such
-* object exists in the list.
-*
-* @memberof ListOfObjectives_t
-*/
+ * Return the structure indicated by the given @p sid.
+ *
+ * @param lo the ListOf_t structure to use.
+ *
+ * @param sid a string matching the "id" attribute of the element sought.
+ *
+ * @return the structure for the given variable, or @c NULL if no such
+ * object exists in the list.
+ *
+ * @memberof ListOfObjectives_t
+ */
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_getById(ListOf_t * lo, const char * sid);
 
 
 /**
-* Removes the structure with the given @p sid
-* from the given ListOf_t structure and returns a pointer to it.
-*
-* * The caller owns the returned structure and is responsible for deleting it.
-*
-* @param lo the ListOf_t structure.
-* @param sid the string of the "id" attribute of the sought structure.
-*
-* @return the structure removed.  As mentioned above, the
-* caller owns the returned structure. @c NULL is returned if no
-* structure with the "id" attribute exists in the given ListOf_t structure.
-*
-* @memberof ListOfObjectives_t
-*/
+ * Removes the structure with the given @p sid
+ * from the given ListOf_t structure and returns a pointer to it.
+ *
+ * * The caller owns the returned structure and is responsible for deleting it.
+ *
+ * @param lo the ListOf_t structure.
+ * @param sid the string of the "id" attribute of the sought structure.
+ *
+ * @return the structure removed.  As mentioned above, the
+ * caller owns the returned structure. @c NULL is returned if no
+ * structure with the "id" attribute exists in the given ListOf_t structure.
+ *
+ * @memberof ListOfObjectives_t
+ */
 LIBSBML_EXTERN
 Objective_t *
 ListOfObjectives_removeById(ListOf_t * lo, const char * sid);

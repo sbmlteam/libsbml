@@ -1,7 +1,7 @@
 /**
-* @file    flattenModel.c
-* @brief   Flattens the comp code from the given SBML file.
-* @author  Sarah Keating
+ * @file    flattenModel.c
+ * @brief   Flattens the comp code from the given SBML file.
+ * @author  Sarah Keating
  *
  * <!--------------------------------------------------------------------------
  * This sample program is distributed under a different license than the rest
@@ -36,7 +36,7 @@
  * or promote products derived from this software without specific prior
  * written permission.
  * ------------------------------------------------------------------------ -->
-*/
+ */
 
 
 #include <stdio.h>

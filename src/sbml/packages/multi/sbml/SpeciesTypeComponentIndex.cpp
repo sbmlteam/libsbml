@@ -740,7 +740,7 @@ ListOfSpeciesTypeComponentIndexes::clone () const
 
 /*
  * Get a SpeciesTypeComponentIndex from the ListOfSpeciesTypeComponentIndexes by index.
-*/
+ */
 SpeciesTypeComponentIndex*
 ListOfSpeciesTypeComponentIndexes::get(unsigned int n)
 {

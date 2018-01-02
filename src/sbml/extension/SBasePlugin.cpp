@@ -67,8 +67,8 @@ SBasePlugin::SBasePlugin (const std::string &uri, const std::string &prefix,
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Copy constructor. Creates a copy of this SBasePlugin object.
-*/
+ * Copy constructor. Creates a copy of this SBasePlugin object.
+ */
 SBasePlugin::SBasePlugin(const SBasePlugin& orig)
   : mSBMLExt(orig.mSBMLExt)
    ,mSBML(NULL)   // (NOTE) NULL must be set to mSBML and mParent........ 

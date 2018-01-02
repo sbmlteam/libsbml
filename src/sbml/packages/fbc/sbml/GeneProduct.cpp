@@ -1061,7 +1061,7 @@ ListOfGeneProducts::clone () const
 
 /*
  * Get a GeneProduct from the ListOfGeneProducts by index.
-*/
+ */
 GeneProduct*
 ListOfGeneProducts::get(unsigned int n)
 {

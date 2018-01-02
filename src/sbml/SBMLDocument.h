@@ -2502,19 +2502,19 @@ SBMLDocument_checkL3v1Compatibility (SBMLDocument_t *d);
 
 
 /**
-* Performs a set of consistency checks on the document to establish
-* whether it is compatible with SBML Level 3 Version 2 and can be
-* converted to Level 3 Version 2.
-*
-* Callers should query the results of the consistency check by calling
-* SBMLDocument_getError().
-*
-* @param d the SBMLDocument_t structure.
-*
-* @return the number of failed checks (errors) encountered.
-*
-* @memberof SBMLDocument_t
-*/
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 3 Version 2 and can be
+ * converted to Level 3 Version 2.
+ *
+ * Callers should query the results of the consistency check by calling
+ * SBMLDocument_getError().
+ *
+ * @param d the SBMLDocument_t structure.
+ *
+ * @return the number of failed checks (errors) encountered.
+ *
+ * @memberof SBMLDocument_t
+ */
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkL3v2Compatibility(SBMLDocument_t *d);

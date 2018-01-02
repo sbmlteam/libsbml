@@ -285,7 +285,7 @@ SubListOfSpeciesFeatures::createSpeciesFeature ()
 
 /*
  * Get a SpeciesFeature from the SubListOfSpeciesFeatures by index.
-*/
+ */
 SpeciesFeature*
 SubListOfSpeciesFeatures::get(unsigned int n)
 {
@@ -694,8 +694,8 @@ SubListOfSpeciesFeatures::writeElements (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Accepts the given SBMLVisitor.
-*/
+ * Accepts the given SBMLVisitor.
+ */
 bool
 SubListOfSpeciesFeatures::accept (SBMLVisitor& v) const
 {
@@ -836,9 +836,9 @@ Relation_isValidString(const char* code)
 
 
 /*
-* Creates a new SubListOfSpeciesFeatures_t using the given SBML Level, Version
-* and &ldquo;multi&rdquo; package version.
-*/
+ * Creates a new SubListOfSpeciesFeatures_t using the given SBML Level, Version
+ * and &ldquo;multi&rdquo; package version.
+ */
 LIBSBML_EXTERN
 SubListOfSpeciesFeatures_t *
 SubListOfSpeciesFeatures_create(unsigned int level,
@@ -850,8 +850,8 @@ SubListOfSpeciesFeatures_create(unsigned int level,
 
 
 /*
-* Creates and returns a deep copy of this SubListOfSpeciesFeatures_t object.
-*/
+ * Creates and returns a deep copy of this SubListOfSpeciesFeatures_t object.
+ */
 LIBSBML_EXTERN
 SubListOfSpeciesFeatures_t*
 SubListOfSpeciesFeatures_clone(const SubListOfSpeciesFeatures_t* slosf)
@@ -868,8 +868,8 @@ SubListOfSpeciesFeatures_clone(const SubListOfSpeciesFeatures_t* slosf)
 
 
 /*
-* Frees this SubListOfSpeciesFeatures_t object.
-*/
+ * Frees this SubListOfSpeciesFeatures_t object.
+ */
 LIBSBML_EXTERN
 void
 SubListOfSpeciesFeatures_free(SubListOfSpeciesFeatures_t* slosf)
@@ -882,8 +882,8 @@ SubListOfSpeciesFeatures_free(SubListOfSpeciesFeatures_t* slosf)
 
 
 /*
-* Returns the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
-*/
+ * Returns the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 char *
 SubListOfSpeciesFeatures_getId(const SubListOfSpeciesFeatures_t * slosf)
@@ -898,9 +898,9 @@ SubListOfSpeciesFeatures_getId(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Returns the value of the "name" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Returns the value of the "name" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 char *
 SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf)
@@ -916,9 +916,9 @@ SubListOfSpeciesFeatures_getName(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Returns the value of the "relation" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Returns the value of the "relation" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 Relation_t
 SubListOfSpeciesFeatures_getRelation(const SubListOfSpeciesFeatures_t * slosf)
@@ -933,9 +933,9 @@ SubListOfSpeciesFeatures_getRelation(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Returns the value of the "relation" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Returns the value of the "relation" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 const char *
 SubListOfSpeciesFeatures_getRelationAsString(const SubListOfSpeciesFeatures_t *
@@ -946,9 +946,9 @@ SubListOfSpeciesFeatures_getRelationAsString(const SubListOfSpeciesFeatures_t *
 
 
 /*
-* Returns the value of the "component" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Returns the value of the "component" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 char *
 SubListOfSpeciesFeatures_getComponent(const SubListOfSpeciesFeatures_t * slosf)
@@ -964,9 +964,9 @@ SubListOfSpeciesFeatures_getComponent(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "id"
-* attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "id"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isSetId(const SubListOfSpeciesFeatures_t * slosf)
@@ -976,9 +976,9 @@ SubListOfSpeciesFeatures_isSetId(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "name"
-* attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's "name"
+ * attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isSetName(const SubListOfSpeciesFeatures_t * slosf)
@@ -988,9 +988,9 @@ SubListOfSpeciesFeatures_isSetName(const SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
-* "relation" attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+ * "relation" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isSetRelation(const SubListOfSpeciesFeatures_t *
@@ -1001,9 +1001,9 @@ SubListOfSpeciesFeatures_isSetRelation(const SubListOfSpeciesFeatures_t *
 
 
 /*
-* Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
-* "component" attribute is set.
-*/
+ * Predicate returning @c 1 (true) if this SubListOfSpeciesFeatures_t's
+ * "component" attribute is set.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isSetComponent(const SubListOfSpeciesFeatures_t *
@@ -1014,8 +1014,8 @@ SubListOfSpeciesFeatures_isSetComponent(const SubListOfSpeciesFeatures_t *
 
 
 /*
-* Sets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
-*/
+ * Sets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_setId(SubListOfSpeciesFeatures_t * slosf,
@@ -1026,8 +1026,8 @@ SubListOfSpeciesFeatures_setId(SubListOfSpeciesFeatures_t * slosf,
 
 
 /*
-* Sets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
-*/
+ * Sets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_setName(SubListOfSpeciesFeatures_t * slosf,
@@ -1038,9 +1038,9 @@ SubListOfSpeciesFeatures_setName(SubListOfSpeciesFeatures_t * slosf,
 
 
 /*
-* Sets the value of the "relation" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Sets the value of the "relation" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_setRelation(SubListOfSpeciesFeatures_t * slosf,
@@ -1052,9 +1052,9 @@ SubListOfSpeciesFeatures_setRelation(SubListOfSpeciesFeatures_t * slosf,
 
 
 /*
-* Sets the value of the "relation" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Sets the value of the "relation" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_setRelationAsString(
@@ -1068,9 +1068,9 @@ SubListOfSpeciesFeatures_setRelationAsString(
 
 
 /*
-* Sets the value of the "component" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Sets the value of the "component" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_setComponent(SubListOfSpeciesFeatures_t * slosf,
@@ -1082,8 +1082,8 @@ SubListOfSpeciesFeatures_setComponent(SubListOfSpeciesFeatures_t * slosf,
 
 
 /*
-* Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
-*/
+ * Unsets the value of the "id" attribute of this SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_unsetId(SubListOfSpeciesFeatures_t * slosf)
@@ -1093,8 +1093,8 @@ SubListOfSpeciesFeatures_unsetId(SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Unsets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
-*/
+ * Unsets the value of the "name" attribute of this SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_unsetName(SubListOfSpeciesFeatures_t * slosf)
@@ -1104,9 +1104,9 @@ SubListOfSpeciesFeatures_unsetName(SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Unsets the value of the "relation" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Unsets the value of the "relation" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_unsetRelation(SubListOfSpeciesFeatures_t * slosf)
@@ -1116,9 +1116,9 @@ SubListOfSpeciesFeatures_unsetRelation(SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Unsets the value of the "component" attribute of this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Unsets the value of the "component" attribute of this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_unsetComponent(SubListOfSpeciesFeatures_t * slosf)
@@ -1128,9 +1128,9 @@ SubListOfSpeciesFeatures_unsetComponent(SubListOfSpeciesFeatures_t * slosf)
 
 
 /*
-* Get the number of SpeciesFeature_t objects in this
-* SubListOfSpeciesFeatures_t.
-*/
+ * Get the number of SpeciesFeature_t objects in this
+ * SubListOfSpeciesFeatures_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 SubListOfSpeciesFeatures_getNumSpeciesFeatures(SubListOfSpeciesFeatures_t*
@@ -1141,10 +1141,10 @@ SubListOfSpeciesFeatures_getNumSpeciesFeatures(SubListOfSpeciesFeatures_t*
 
 
 /*
-* Creates a new SpeciesFeature_t object, adds it to this
-* SubListOfSpeciesFeatures_t object and returns the SpeciesFeature_t object
-* created.
-*/
+ * Creates a new SpeciesFeature_t object, adds it to this
+ * SubListOfSpeciesFeatures_t object and returns the SpeciesFeature_t object
+ * created.
+ */
 LIBSBML_EXTERN
 SpeciesFeature_t*
 SubListOfSpeciesFeatures_createSpeciesFeature(SubListOfSpeciesFeatures_t*
@@ -1155,9 +1155,9 @@ SubListOfSpeciesFeatures_createSpeciesFeature(SubListOfSpeciesFeatures_t*
 
 
 /*
-* Predicate returning @c 1 (true) if all the required attributes for this
-* SubListOfSpeciesFeatures_t object have been set.
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * SubListOfSpeciesFeatures_t object have been set.
+ */
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_hasRequiredAttributes(const SubListOfSpeciesFeatures_t

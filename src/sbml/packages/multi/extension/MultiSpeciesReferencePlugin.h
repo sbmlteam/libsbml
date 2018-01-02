@@ -349,28 +349,28 @@ BEGIN_C_DECLS
 
 
 /**
-* Returns a ListOf_t * containing SpeciesTypeComponentMapInProduct_t objects
-* from this MultiSpeciesReferencePlugin_t.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure whose
-* ListOfSpeciesTypeComponentMapsInProduct is sought.
-*
-* @return the ListOfSpeciesTypeComponentMapsInProduct from this
-* MultiSpeciesReferencePlugin_t as a ListOf_t *.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @see MultiSpeciesReferencePlugin_addSpeciesTypeComponentMapInProduct()
-* @see MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct()
-* @see MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProductById()
-* @see MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProduct()
-* @see MultiSpeciesReferencePlugin_getNumSpeciesTypeComponentMapInProducts()
-* @see
-* MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProductById()
-* @see MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct()
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Returns a ListOf_t * containing SpeciesTypeComponentMapInProduct_t objects
+ * from this MultiSpeciesReferencePlugin_t.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure whose
+ * ListOfSpeciesTypeComponentMapsInProduct is sought.
+ *
+ * @return the ListOfSpeciesTypeComponentMapsInProduct from this
+ * MultiSpeciesReferencePlugin_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see MultiSpeciesReferencePlugin_addSpeciesTypeComponentMapInProduct()
+ * @see MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct()
+ * @see MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProductById()
+ * @see MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProduct()
+ * @see MultiSpeciesReferencePlugin_getNumSpeciesTypeComponentMapInProducts()
+ * @see
+ * MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProductById()
+ * @see MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct()
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 ListOf_t*
 MultiSpeciesReferencePlugin_getListOfSpeciesTypeComponentMapInProducts(MultiSpeciesReferencePlugin_t*
@@ -378,22 +378,22 @@ MultiSpeciesReferencePlugin_getListOfSpeciesTypeComponentMapInProducts(MultiSpec
 
 
 /**
-* Get a SpeciesTypeComponentMapInProduct_t from the
-* MultiSpeciesReferencePlugin_t.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to search.
-*
-* @param n an unsigned int representing the index of the
-* SpeciesTypeComponentMapInProduct_t to retrieve.
-*
-* @return the nth SpeciesTypeComponentMapInProduct_t in the
-* ListOfSpeciesTypeComponentMapsInProduct within this
-* MultiSpeciesReferencePlugin.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Get a SpeciesTypeComponentMapInProduct_t from the
+ * MultiSpeciesReferencePlugin_t.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * SpeciesTypeComponentMapInProduct_t to retrieve.
+ *
+ * @return the nth SpeciesTypeComponentMapInProduct_t in the
+ * ListOfSpeciesTypeComponentMapsInProduct within this
+ * MultiSpeciesReferencePlugin.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t*
 MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProduct(
@@ -404,23 +404,23 @@ MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProduct(
 
 
 /**
-* Get a SpeciesTypeComponentMapInProduct_t from the
-* MultiSpeciesReferencePlugin_t based on its identifier.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to search.
-*
-* @param sid a string representing the identifier of the
-* SpeciesTypeComponentMapInProduct_t to retrieve.
-*
-* @return the SpeciesTypeComponentMapInProduct_t in the
-* ListOfSpeciesTypeComponentMapsInProduct within this
-* MultiSpeciesReferencePlugin with the given @p sid or @c NULL if no such
-* SpeciesTypeComponentMapInProduct_t exists.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Get a SpeciesTypeComponentMapInProduct_t from the
+ * MultiSpeciesReferencePlugin_t based on its identifier.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * SpeciesTypeComponentMapInProduct_t to retrieve.
+ *
+ * @return the SpeciesTypeComponentMapInProduct_t in the
+ * ListOfSpeciesTypeComponentMapsInProduct within this
+ * MultiSpeciesReferencePlugin with the given @p sid or @c NULL if no such
+ * SpeciesTypeComponentMapInProduct_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t*
 MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProductById(
@@ -428,25 +428,25 @@ MultiSpeciesReferencePlugin_getSpeciesTypeComponentMapInProductById(
 
 
 /**
-* Adds a copy of the given SpeciesTypeComponentMapInProduct_t to this
-* MultiSpeciesReferencePlugin_t.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to which the
-* SpeciesTypeComponentMapInProduct_t should be added.
-*
-* @param stcmip the SpeciesTypeComponentMapInProduct_t object to add.
-*
-* @copydetails doc_returns_success_code
-* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Adds a copy of the given SpeciesTypeComponentMapInProduct_t to this
+ * MultiSpeciesReferencePlugin_t.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to which the
+ * SpeciesTypeComponentMapInProduct_t should be added.
+ *
+ * @param stcmip the SpeciesTypeComponentMapInProduct_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 int
 MultiSpeciesReferencePlugin_addSpeciesTypeComponentMapInProduct(
@@ -454,16 +454,16 @@ MultiSpeciesReferencePlugin_addSpeciesTypeComponentMapInProduct(
 
 
 /**
-* Get the number of SpeciesTypeComponentMapInProduct_t objects in this
-* MultiSpeciesReferencePlugin_t.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to query.
-*
-* @return the number of SpeciesTypeComponentMapInProduct_t objects in this
-* MultiSpeciesReferencePlugin_t.
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Get the number of SpeciesTypeComponentMapInProduct_t objects in this
+ * MultiSpeciesReferencePlugin_t.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to query.
+ *
+ * @return the number of SpeciesTypeComponentMapInProduct_t objects in this
+ * MultiSpeciesReferencePlugin_t.
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 unsigned int
 MultiSpeciesReferencePlugin_getNumSpeciesTypeComponentMapInProducts(MultiSpeciesReferencePlugin_t*
@@ -471,19 +471,19 @@ MultiSpeciesReferencePlugin_getNumSpeciesTypeComponentMapInProducts(MultiSpecies
 
 
 /**
-* Creates a new SpeciesTypeComponentMapInProduct_t object, adds it to this
-* MultiSpeciesReferencePlugin_t object and returns the
-* SpeciesTypeComponentMapInProduct_t object created.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to which the
-* SpeciesTypeComponentMapInProduct_t should be added.
-*
-* @return a new SpeciesTypeComponentMapInProduct_t object instance.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Creates a new SpeciesTypeComponentMapInProduct_t object, adds it to this
+ * MultiSpeciesReferencePlugin_t object and returns the
+ * SpeciesTypeComponentMapInProduct_t object created.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to which the
+ * SpeciesTypeComponentMapInProduct_t should be added.
+ *
+ * @return a new SpeciesTypeComponentMapInProduct_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t*
 MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct(MultiSpeciesReferencePlugin_t*
@@ -491,21 +491,21 @@ MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct(MultiSpeciesR
 
 
 /**
-* Removes the nth SpeciesTypeComponentMapInProduct_t from this
-* MultiSpeciesReferencePlugin_t and returns a pointer to it.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to search.
-*
-* @param n an unsigned int representing the index of the
-* SpeciesTypeComponentMapInProduct_t to remove.
-*
-* @return a pointer to the nth SpeciesTypeComponentMapInProduct_t in this
-* MultiSpeciesReferencePlugin_t.
-*
-* @copydetails doc_returned_owned_pointer
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Removes the nth SpeciesTypeComponentMapInProduct_t from this
+ * MultiSpeciesReferencePlugin_t and returns a pointer to it.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * SpeciesTypeComponentMapInProduct_t to remove.
+ *
+ * @return a pointer to the nth SpeciesTypeComponentMapInProduct_t in this
+ * MultiSpeciesReferencePlugin_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t*
 MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct(
@@ -513,23 +513,23 @@ MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct(
 
 
 /**
-* Removes the SpeciesTypeComponentMapInProduct_t from this
-* MultiSpeciesReferencePlugin_t based on its identifier and returns a pointer
-* to it.
-*
-* @param msrp the MultiSpeciesReferencePlugin_t structure to search.
-*
-* @param sid a string representing the identifier of the
-* SpeciesTypeComponentMapInProduct_t to remove.
-*
-* @return the SpeciesTypeComponentMapInProduct_t in this
-* MultiSpeciesReferencePlugin_t based on the identifier or NULL if no such
-* SpeciesTypeComponentMapInProduct_t exists.
-*
-* @copydetails doc_returned_owned_pointer
-*
-* @memberof MultiSpeciesReferencePlugin_t
-*/
+ * Removes the SpeciesTypeComponentMapInProduct_t from this
+ * MultiSpeciesReferencePlugin_t based on its identifier and returns a pointer
+ * to it.
+ *
+ * @param msrp the MultiSpeciesReferencePlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * SpeciesTypeComponentMapInProduct_t to remove.
+ *
+ * @return the SpeciesTypeComponentMapInProduct_t in this
+ * MultiSpeciesReferencePlugin_t based on the identifier or NULL if no such
+ * SpeciesTypeComponentMapInProduct_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof MultiSpeciesReferencePlugin_t
+ */
 LIBSBML_EXTERN
 SpeciesTypeComponentMapInProduct_t*
 MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProductById(

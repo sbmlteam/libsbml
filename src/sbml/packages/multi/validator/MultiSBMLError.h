@@ -39,14 +39,14 @@ BEGIN_C_DECLS
 
 
 /**
-* @enum MultiSBMLErrorCode_t
-* Codes for all SBML-level errors and warnings from the 'multi' package.
-*
-* These are distinguished from other SBML error codes
-* by having a number between 7000000 and 7099999.
-*
-* @copydetails doc_sbml_error_code_ranges
-*/
+ * @enum MultiSBMLErrorCode_t
+ * Codes for all SBML-level errors and warnings from the 'multi' package.
+ *
+ * These are distinguished from other SBML error codes
+ * by having a number between 7000000 and 7099999.
+ *
+ * @copydetails doc_sbml_error_code_ranges
+ */
 typedef enum
 {
   MultiUnknownError                 	= 7010100 /*!< Unknown error from multi */

@@ -285,7 +285,7 @@ Constraint::setMessage (const XMLNode* xhtml)
 
 
 /* Sets the message from a string optionally wrapping in xhtml tags
-*/
+ */
 int 
 Constraint::setMessage (const std::string& message, 
                         bool addXHTMLMarkup)
@@ -721,8 +721,8 @@ Constraint::unsetAttribute(const std::string& attributeName)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Function to set/get an identifier for unit checking
-*/
+ * Function to set/get an identifier for unit checking
+ */
 std::string 
 Constraint::getInternalId() const
 { 

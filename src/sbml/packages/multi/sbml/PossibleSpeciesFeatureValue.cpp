@@ -618,7 +618,7 @@ ListOfPossibleSpeciesFeatureValues::clone () const
 
 /*
  * Get a PossibleSpeciesFeatureValue from the ListOfPossibleSpeciesFeatureValues by index.
-*/
+ */
 PossibleSpeciesFeatureValue*
 ListOfPossibleSpeciesFeatureValues::get(unsigned int n)
 {

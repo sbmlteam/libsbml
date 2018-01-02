@@ -1503,7 +1503,7 @@ ListOfMultiSpeciesTypes::clone () const
 
 /*
  * Get a MultiSpeciesType from the ListOfMultiSpeciesTypes by index.
-*/
+ */
 MultiSpeciesType*
 ListOfMultiSpeciesTypes::get(unsigned int n)
 {

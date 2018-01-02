@@ -1170,7 +1170,7 @@ ListOfOutputs::clone () const
 
 /*
  * Get a Output from the ListOfOutputs by index.
-*/
+ */
 Output*
 ListOfOutputs::get(unsigned int n)
 {

@@ -1275,7 +1275,7 @@ ListOfInputs::clone () const
 
 /*
  * Get a Input from the ListOfInputs by index.
-*/
+ */
 Input*
 ListOfInputs::get(unsigned int n)
 {

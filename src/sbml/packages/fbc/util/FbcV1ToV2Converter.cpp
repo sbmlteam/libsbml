@@ -307,7 +307,7 @@ FbcV1ToV2Converter::convert()
 	  return LIBSBML_OPERATION_FAILED;
   }
   mplug->setElementNamespace(FbcExtension::getXmlnsL3V1V2());
-*/
+ */
   // the model will be strict, as in v1 nothing else was allowed
   plugin->setStrict(getStrict());
 

@@ -1199,46 +1199,46 @@ L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings);
 
 
 /**
-* Sets the behavior for handling the @% symbol in mathematical
-* formulas.
-*
-* @copydetails doc_modulo_l3v2_settings
-*
-* This method lets you tell the parser which behavior to use---either
-* collapse minuses or always preserve them.  The two possibilities are
-* represented using the following constants:
-*
-* @copydetails doc_modulo_l3v2_values
-*
-* @param settings the L3ParserSettings_t structure to modify.
-* @param modulol3v2 a boolean value (one of the constants
-* @sbmlconstant{L3P_MODULO_IS_PIECEWISE,} or
-* @sbmlconstant{L3P_MODULO_IS_REM,})
-* indicating how the @% symbol in the input should be handled.
-*
-* @see L3ParserSettings_getParseModuloL3v2()
-*
-* @memberof L3ParserSettings_t
-*/
+ * Sets the behavior for handling the @% symbol in mathematical
+ * formulas.
+ *
+ * @copydetails doc_modulo_l3v2_settings
+ *
+ * This method lets you tell the parser which behavior to use---either
+ * collapse minuses or always preserve them.  The two possibilities are
+ * represented using the following constants:
+ *
+ * @copydetails doc_modulo_l3v2_values
+ *
+ * @param settings the L3ParserSettings_t structure to modify.
+ * @param modulol3v2 a boolean value (one of the constants
+ * @sbmlconstant{L3P_MODULO_IS_PIECEWISE,} or
+ * @sbmlconstant{L3P_MODULO_IS_REM,})
+ * indicating how the @% symbol in the input should be handled.
+ *
+ * @see L3ParserSettings_getParseModuloL3v2()
+ *
+ * @memberof L3ParserSettings_t
+ */
 LIBSBML_EXTERN
 void
 L3ParserSettings_setParseModuloL3v2(const L3ParserSettings_t * settings, int modulol3v2);
 
 
 /**
-* Indicates the current behavior set for handling the @% symbol in
-* mathematical formulas.
-*
-* @copydetails doc_modulo_l3v2_settings
-*
-* @return a boolean indicating the behavior currently set.  The possible
-* values are as follows:
-* @copydetails doc_modulo_l3v2_values
-*
-* @see L3ParserSettings_setParseModuloL3v2(@if java boolean@endif)
-*
-* @memberof L3ParserSettings_t
-*/
+ * Indicates the current behavior set for handling the @% symbol in
+ * mathematical formulas.
+ *
+ * @copydetails doc_modulo_l3v2_settings
+ *
+ * @return a boolean indicating the behavior currently set.  The possible
+ * values are as follows:
+ * @copydetails doc_modulo_l3v2_values
+ *
+ * @see L3ParserSettings_setParseModuloL3v2(@if java boolean@endif)
+ *
+ * @memberof L3ParserSettings_t
+ */
 LIBSBML_EXTERN
 int
 L3ParserSettings_getParseModuloL3v2(const L3ParserSettings_t * settings);

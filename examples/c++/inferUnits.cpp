@@ -1,8 +1,8 @@
 /**
-* @file    inferUnits.cpp
-* @brief   Infers units of parameters (where possible).
-* @author  Sarah Keating
-*
+ * @file    inferUnits.cpp
+ * @brief   Infers units of parameters (where possible).
+ * @author  Sarah Keating
+ *
  * <!--------------------------------------------------------------------------
  * This sample program is distributed under a different license than the rest
  * of libSBML.  This program uses the open-source MIT license, as follows:
@@ -36,7 +36,7 @@
  * or promote products derived from this software without specific prior
  * written permission.
  * ------------------------------------------------------------------------ -->
-*/
+ */
 
 
 #include <iostream>

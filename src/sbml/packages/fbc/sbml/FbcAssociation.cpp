@@ -861,7 +861,7 @@ ListOfFbcAssociations::clone () const
 
 /*
  * Get a FbcAssociation from the ListOfFbcAssociations by index.
-*/
+ */
 FbcAssociation*
 ListOfFbcAssociations::get(unsigned int n)
 {

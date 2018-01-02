@@ -946,8 +946,8 @@ SpeciesReference::createChildObject(const std::string& elementName)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Adds an new "elementName" object in this SpeciesReference.
-*/
+ * Adds an new "elementName" object in this SpeciesReference.
+ */
 int
 SpeciesReference::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -965,8 +965,8 @@ SpeciesReference::addChildObject(const std::string& elementName, const SBase* el
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this SpeciesReference.
-*/
+ * Adds an new "elementName" object in this SpeciesReference.
+ */
 SBase*
 SpeciesReference::removeChildObject(const std::string& elementName, const std::string& id)
 {
@@ -1822,8 +1822,8 @@ ListOfSpeciesReferences::setType (SpeciesType type)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* gets type of this ListOfSpeciesReferences.
-*/
+ * gets type of this ListOfSpeciesReferences.
+ */
 unsigned int
 ListOfSpeciesReferences::getType() const
 {

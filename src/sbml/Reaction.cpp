@@ -1928,8 +1928,8 @@ Reaction::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Reaction.
-*/
+ * Adds an new "elementName" object in this Reaction.
+ */
 int
 Reaction::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -1959,8 +1959,8 @@ Reaction::addChildObject(const std::string& elementName, const SBase* element)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this Reaction.
-*/
+ * Adds an new "elementName" object in this Reaction.
+ */
 SBase*
 Reaction::removeChildObject(const std::string& elementName, const std::string& id)
 {

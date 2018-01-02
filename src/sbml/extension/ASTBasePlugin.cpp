@@ -82,8 +82,8 @@ ASTBasePlugin::ASTBasePlugin ()
 
 
 /*
-* Copy constructor. Creates a copy of this ASTBasePlugin object.
-*/
+ * Copy constructor. Creates a copy of this ASTBasePlugin object.
+ */
 ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
   : mSBMLExt(orig.mSBMLExt)
    ,mParentASTNode(NULL) // 
@@ -686,8 +686,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
-* Constructor
-*/
+ * Constructor
+ */
 ASTBasePlugin::ASTBasePlugin(const std::string &uri)
   : mSBMLExt(SBMLExtensionRegistry::getInstance().getExtensionInternal(uri))
   , mParentASTNode(NULL)
@@ -698,8 +698,8 @@ ASTBasePlugin::ASTBasePlugin(const std::string &uri)
 }
 
 /*
-* Constructor
-*/
+ * Constructor
+ */
 ASTBasePlugin::ASTBasePlugin()
   : mSBMLExt(NULL)
   , mParentASTNode(NULL)
@@ -713,8 +713,8 @@ ASTBasePlugin::ASTBasePlugin()
 
 
 /*
-* Copy constructor. Creates a copy of this ASTBasePlugin object.
-*/
+ * Copy constructor. Creates a copy of this ASTBasePlugin object.
+ */
 ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
   : mSBMLExt(orig.mSBMLExt)
   , mParentASTNode(NULL) // 
@@ -730,8 +730,8 @@ ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
 
 
 /*
-* Destroy this object.
-*/
+ * Destroy this object.
+ */
 ASTBasePlugin::~ASTBasePlugin()
 {
   if (mSBMLNS != NULL)
@@ -740,8 +740,8 @@ ASTBasePlugin::~ASTBasePlugin()
 
 
 /*
-* Assignment operator for ASTBasePlugin.
-*/
+ * Assignment operator for ASTBasePlugin.
+ */
 ASTBasePlugin&
 ASTBasePlugin::operator=(const ASTBasePlugin& orig)
 {
@@ -767,8 +767,8 @@ ASTBasePlugin::clone() const
 
 
 /*
-* Sets the given SBMLDocument as a parent document.
-*/
+ * Sets the given SBMLDocument as a parent document.
+ */
 int
 ASTBasePlugin::setSBMLExtension(const SBMLExtension* ext)
 {
@@ -780,10 +780,10 @@ ASTBasePlugin::setSBMLExtension(const SBMLExtension* ext)
 
 
 /*
-* Sets the parent SBML object of this plugin object to
-* this object and child elements (if any).
-* (Creates a child-parent relationship by this plugin object)
-*/
+ * Sets the parent SBML object of this plugin object to
+ * this object and child elements (if any).
+ * (Creates a child-parent relationship by this plugin object)
+ */
 void
 ASTBasePlugin::connectToParent(ASTNode* astbase)
 {
@@ -794,17 +794,17 @@ ASTBasePlugin::connectToParent(ASTNode* astbase)
 
 
 /*
-*
-* (Extension)
-*
-* Sets the XML namespace to which this element belongs to.
-* For example, all elements that belong to SBML Level 3 Version 1 Core
-* must set the namespace to "http://www.sbml.org/sbml/level3/version1/core";
-* all elements that belong to Layout Extension Version 1 for SBML Level 3
-* Version 1 Core must set the namespace to
-* "http://www.sbml.org/sbml/level3/version1/layout/version1/"
-*
-*/
+ *
+ * (Extension)
+ *
+ * Sets the XML namespace to which this element belongs to.
+ * For example, all elements that belong to SBML Level 3 Version 1 Core
+ * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core";
+ * all elements that belong to Layout Extension Version 1 for SBML Level 3
+ * Version 1 Core must set the namespace to
+ * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+ *
+ */
 int
 ASTBasePlugin::setElementNamespace(const std::string &uri)
 {
@@ -823,8 +823,8 @@ ASTBasePlugin::setPrefix(const std::string &prefix)
 }
 
 /*
-* Returns the parent element.
-*/
+ * Returns the parent element.
+ */
 ASTNode*
 ASTBasePlugin::getParentASTObject()
 {
@@ -833,8 +833,8 @@ ASTBasePlugin::getParentASTObject()
 
 
 /*
-* Returns the parent element.
-*/
+ * Returns the parent element.
+ */
 const ASTNode*
 ASTBasePlugin::getParentASTObject() const
 {
@@ -919,9 +919,9 @@ ASTBasePlugin::replaceChild(unsigned int, ASTNode*, bool)
 //}
 //
 /*
-* Enables/Disables the given package with child elements in this plugin
-* object (if any).
-*/
+ * Enables/Disables the given package with child elements in this plugin
+ * object (if any).
+ */
 void
 ASTBasePlugin::enablePackageInternal(const std::string&,
   const std::string&, bool)
@@ -939,10 +939,10 @@ ASTBasePlugin::stripPackage(const std::string&, bool)
 
 
 /*
-* Returns the SBML level of this plugin object.
-*
-* @return the SBML level of this plugin object.
-*/
+ * Returns the SBML level of this plugin object.
+ *
+ * @return the SBML level of this plugin object.
+ */
 unsigned int
 ASTBasePlugin::getLevel() const
 {
@@ -951,10 +951,10 @@ ASTBasePlugin::getLevel() const
 
 
 /*
-* Returns the SBML version of this plugin object.
-*
-* @return the SBML version of this plugin object.
-*/
+ * Returns the SBML version of this plugin object.
+ *
+ * @return the SBML version of this plugin object.
+ */
 unsigned int
 ASTBasePlugin::getVersion() const
 {
@@ -975,10 +975,10 @@ ASTBasePlugin::getSBMLNamespaces() const
 
 
 /*
-* Returns the package version of this plugin object.
-*
-* @return the package version of this plugin object.
-*/
+ * Returns the package version of this plugin object.
+ *
+ * @return the package version of this plugin object.
+ */
 unsigned int
 ASTBasePlugin::getPackageVersion() const
 {
@@ -990,8 +990,8 @@ ASTBasePlugin::getPackageVersion() const
 
 
 /*
-* Returns the namespace URI of this element.
-*/
+ * Returns the namespace URI of this element.
+ */
 const std::string&
 ASTBasePlugin::getElementNamespace() const
 {
@@ -1022,8 +1022,8 @@ ASTBasePlugin::getURI() const
 }
 
 /*
-* Returns the prefix bound to this element.
-*/
+ * Returns the prefix bound to this element.
+ */
 const std::string&
 ASTBasePlugin::getPrefix() const
 {
@@ -1033,8 +1033,8 @@ ASTBasePlugin::getPrefix() const
 
 
 /*
-* Returns the package name of this plugin object.
-*/
+ * Returns the package name of this plugin object.
+ */
 const std::string&
 ASTBasePlugin::getPackageName() const
 {

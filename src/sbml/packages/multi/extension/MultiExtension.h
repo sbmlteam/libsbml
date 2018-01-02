@@ -354,14 +354,14 @@ public:
 typedef SBMLExtensionNamespaces<MultiExtension> MultiPkgNamespaces;
 
 /**
-* @enum  SBMLMultiTypeCode_t
-* @brief SBMLMultiTypeCode_t Enumeration of possible types in the libSBML
-* &ldquo;multi&rdquo; package implementation.
-*
-* @copydetails doc_what_are_typecodes
-*
-* @copydetails doc_additional_typecode_details
-*/
+ * @enum  SBMLMultiTypeCode_t
+ * @brief SBMLMultiTypeCode_t Enumeration of possible types in the libSBML
+ * &ldquo;multi&rdquo; package implementation.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @copydetails doc_additional_typecode_details
+ */
 typedef enum
 {
   SBML_MULTI_POSSIBLE_SPECIES_FEATURE_VALUE          = 1400  /*!< PossibleSpeciesFeatureValue */

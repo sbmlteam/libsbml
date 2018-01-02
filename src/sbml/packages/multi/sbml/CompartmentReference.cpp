@@ -618,7 +618,7 @@ ListOfCompartmentReferences::clone () const
 
 /*
  * Get a CompartmentReference from the ListOfCompartmentReferences by index.
-*/
+ */
 CompartmentReference*
 ListOfCompartmentReferences::get(unsigned int n)
 {

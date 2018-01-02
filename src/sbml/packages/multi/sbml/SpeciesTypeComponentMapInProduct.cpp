@@ -809,7 +809,7 @@ ListOfSpeciesTypeComponentMapInProducts::clone () const
 
 /*
  * Get a SpeciesTypeComponentMapInProduct from the ListOfSpeciesTypeComponentMapInProducts by index.
-*/
+ */
 SpeciesTypeComponentMapInProduct*
 ListOfSpeciesTypeComponentMapInProducts::get(unsigned int n)
 {

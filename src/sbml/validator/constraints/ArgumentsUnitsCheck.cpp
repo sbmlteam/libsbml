@@ -368,9 +368,9 @@ ArgumentsUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
   return oss_msg.str();
 }
 /*
-* Logs a message about a function that should return same units
-* as the arguments
-*/
+ * Logs a message about a function that should return same units
+ * as the arguments
+ */
 void 
 ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node, 
                                              const SBase & sb)
@@ -403,8 +403,8 @@ ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node,
 }
 
 /*
-* Logs a message about a delay function that should have time units
-*/
+ * Logs a message about a delay function that should have time units
+ */
 void 
 ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node, 
                                           const SBase & sb)
@@ -438,8 +438,8 @@ ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node,
 }
 
 /*
-* Logs a message about a piecewise function that should same units
-*/
+ * Logs a message about a piecewise function that should same units
+ */
 void 
 ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node, 
                                           const SBase & sb)
@@ -473,9 +473,9 @@ ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node,
 }
 
 /*
-* Logs a message about the conditional part of a piecewise function 
-* that should have dimensionless units
-*/
+ * Logs a message about the conditional part of a piecewise function 
+ * that should have dimensionless units
+ */
 void 
 ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node, 
                                           const SBase & sb)

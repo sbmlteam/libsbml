@@ -296,8 +296,8 @@ StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* 
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Function to set/get an identifier for unit checking
-*/
+ * Function to set/get an identifier for unit checking
+ */
 std::string 
 StoichiometryMath::getInternalId() const
 { 

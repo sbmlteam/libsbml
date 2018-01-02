@@ -1055,7 +1055,7 @@ ListOfFluxObjectives::clone () const
 
 /*
  * Get a FluxObjective from the ListOfFluxObjectives by index.
-*/
+ */
 FluxObjective*
 ListOfFluxObjectives::get(unsigned int n)
 {

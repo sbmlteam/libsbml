@@ -739,8 +739,8 @@ Trigger::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Function to set/get an identifier for unit checking
-*/
+ * Function to set/get an identifier for unit checking
+ */
 std::string 
 Trigger::getInternalId() const
 { 

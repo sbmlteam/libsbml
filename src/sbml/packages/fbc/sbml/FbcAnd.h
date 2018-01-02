@@ -827,22 +827,22 @@ BEGIN_C_DECLS
 
 
 /**
-* Creates a new FbcAnd_t using the given SBML Level, Version and
-* &ldquo;fbc&rdquo; package version.
-*
-* @param level an unsigned int, the SBML Level to assign to this FbcAnd_t.
-*
-* @param version an unsigned int, the SBML Version to assign to this FbcAnd_t.
-*
-* @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
-* FbcAnd_t.
-*
-* @copydetails doc_note_setting_lv_pkg
-*
-* @copydetails doc_returned_owned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Creates a new FbcAnd_t using the given SBML Level, Version and
+ * &ldquo;fbc&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this FbcAnd_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this FbcAnd_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
+ * FbcAnd_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAnd_t *
 FbcAnd_create(unsigned int level, unsigned int version,
@@ -850,251 +850,251 @@ FbcAnd_create(unsigned int level, unsigned int version,
 
 
 /**
-* Frees this FbcAnd_t object.
-*
-* @param fa the FbcAnd_t structure.
-*
-* @memberof FbcAnd_t
-*/
+ * Frees this FbcAnd_t object.
+ *
+ * @param fa the FbcAnd_t structure.
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 void
 FbcAnd_free(FbcAnd_t* fa);
 
 
 /**
-* Creates and returns a deep copy of this FbcAnd_t object.
-*
-* @param fa the FbcAnd_t structure.
-*
-* @return a (deep) copy of this FbcAnd_t object.
+ * Creates and returns a deep copy of this FbcAnd_t object.
+ *
+ * @param fa the FbcAnd_t structure.
+ *
+ * @return a (deep) copy of this FbcAnd_t object.
  * pointer if a failure occurred.
  *
-* @memberof FbcAnd_t
-*/
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAnd_t*
 FbcAnd_clone(const FbcAnd_t* fa);
 
 
 /**
-* Adds a copy of the given FbcAssociation_t to this FbcAnd_t.
-*
-* @param fa the FbcAnd_t structure to which the FbcAssociation_t should be added.
-*
-* @param a the FbcAssociation_t object to add.
-*
-* @copydetails doc_returns_success_code
-* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
-*
-* @memberof FbcAnd_t
-*/
+ * Adds a copy of the given FbcAssociation_t to this FbcAnd_t.
+ *
+ * @param fa the FbcAnd_t structure to which the FbcAssociation_t should be added.
+ *
+ * @param a the FbcAssociation_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 int
 FbcAnd_addAssociation(FbcAnd_t* fa, const FbcAssociation_t* a);
 
 
 /**
-* Creates a new FbcAnd_t object, adds it to this FbcAnd_t object and returns
-* the FbcAnd_t object created.
-*
-* @param fa the FbcAnd_t structure to which the FbcAnd_t should be added.
-*
-* @return a new FbcAnd_t object instance.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Creates a new FbcAnd_t object, adds it to this FbcAnd_t object and returns
+ * the FbcAnd_t object created.
+ *
+ * @param fa the FbcAnd_t structure to which the FbcAnd_t should be added.
+ *
+ * @return a new FbcAnd_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAnd_t*
 FbcAnd_createAnd(FbcAnd_t* fa);
 
 
 /**
-* Creates a new FbcOr_t object, adds it to this FbcAnd_t object and returns
-* the FbcOr_t object created.
-*
-* @param fa the FbcAnd_t structure to which the FbcOr_t should be added.
-*
-* @return a new FbcOr_t object instance.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Creates a new FbcOr_t object, adds it to this FbcAnd_t object and returns
+ * the FbcOr_t object created.
+ *
+ * @param fa the FbcAnd_t structure to which the FbcOr_t should be added.
+ *
+ * @return a new FbcOr_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcOr_t*
 FbcAnd_createOr(FbcAnd_t* fa);
 
 
 /**
-* Creates a new GeneProductRef_t object, adds it to this FbcAnd_t object and
-* returns the GeneProductRef_t object created.
-*
-* @param fa the FbcAnd_t structure to which the GeneProductRef_t should be
-* added.
-*
-* @return a new GeneProductRef_t object instance.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Creates a new GeneProductRef_t object, adds it to this FbcAnd_t object and
+ * returns the GeneProductRef_t object created.
+ *
+ * @param fa the FbcAnd_t structure to which the GeneProductRef_t should be
+ * added.
+ *
+ * @return a new GeneProductRef_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 GeneProductRef_t*
 FbcAnd_createGeneProductRef(FbcAnd_t* fa);
 
 
 /**
-* Returns a ListOf_t * containing FbcAssociation_t objects from this FbcAnd_t.
-*
-* @param fa the FbcAnd_t structure whose ListOfAssociations is sought.
-*
-* @return the ListOfAssociations from this FbcAnd_t as a ListOf_t *.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @see FbcAnd_addAssociation()
-* @see FbcAnd_getAssociationById()
-* @see FbcAnd_getAssociation()
-* @see FbcAnd_getNumAssociations()
-* @see FbcAnd_removeAssociationById()
-* @see FbcAnd_removeAssociation()
-*
-* @memberof FbcAnd_t
-*/
+ * Returns a ListOf_t * containing FbcAssociation_t objects from this FbcAnd_t.
+ *
+ * @param fa the FbcAnd_t structure whose ListOfAssociations is sought.
+ *
+ * @return the ListOfAssociations from this FbcAnd_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see FbcAnd_addAssociation()
+ * @see FbcAnd_getAssociationById()
+ * @see FbcAnd_getAssociation()
+ * @see FbcAnd_getNumAssociations()
+ * @see FbcAnd_removeAssociationById()
+ * @see FbcAnd_removeAssociation()
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 ListOf_t*
 FbcAnd_getListOfFbcAssociations(FbcAnd_t* fa);
 
 
 /**
-* Get an FbcAssociation_t from the FbcAnd_t.
-*
-* @param fa the FbcAnd_t structure to search.
-*
-* @param n an unsigned int representing the index of the FbcAssociation_t to
-* retrieve.
-*
-* @return the nth FbcAssociation_t in the ListOfAssociations within this FbcAnd.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Get an FbcAssociation_t from the FbcAnd_t.
+ *
+ * @param fa the FbcAnd_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the FbcAssociation_t to
+ * retrieve.
+ *
+ * @return the nth FbcAssociation_t in the ListOfAssociations within this FbcAnd.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAssociation_t*
 FbcAnd_getAssociation(FbcAnd_t* fa, unsigned int n);
 
 
 /**
-* Get an FbcAssociation_t from the FbcAnd_t.
-*
-* @param fa the FbcAnd_t structure to search.
-*
-* @param sid the identifier of the FbcAssociation_t to
-* retrieve.
-*
-* @return the FbcAssociation_t with the given @p sid in the ListOfAssociations within this FbcAnd.
-*
-* @copydetails doc_returned_unowned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Get an FbcAssociation_t from the FbcAnd_t.
+ *
+ * @param fa the FbcAnd_t structure to search.
+ *
+ * @param sid the identifier of the FbcAssociation_t to
+ * retrieve.
+ *
+ * @return the FbcAssociation_t with the given @p sid in the ListOfAssociations within this FbcAnd.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_getAssociationById(FbcAnd_t * fa, const char * sid);
 
 
 /**
-* Get the number of FbcAssociation_t objects in this FbcAnd_t.
-*
-* @param fa the FbcAnd_t structure to query.
-*
-* @return the number of FbcAssociation_t objects in this FbcAnd_t.
-*
-* @memberof FbcAnd_t
-*/
+ * Get the number of FbcAssociation_t objects in this FbcAnd_t.
+ *
+ * @param fa the FbcAnd_t structure to query.
+ *
+ * @return the number of FbcAssociation_t objects in this FbcAnd_t.
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 unsigned int
 FbcAnd_getNumAssociations(FbcAnd_t* fa);
 
 
 /**
-* Removes the nth FbcAssociation_t from this FbcAnd_t and returns a pointer to
-* it.
-*
-* @param fa the FbcAnd_t structure to search.
-*
-* @param n an unsigned int representing the index of the FbcAssociation_t to
-* remove.
-*
-* @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
-*
-* @copydetails doc_returned_owned_pointer
-*
-* @memberof FbcAnd_t
-*/
+ * Removes the nth FbcAssociation_t from this FbcAnd_t and returns a pointer to
+ * it.
+ *
+ * @param fa the FbcAnd_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the FbcAssociation_t to
+ * remove.
+ *
+ * @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 FbcAssociation_t*
 FbcAnd_removeAssociation(FbcAnd_t* fa, unsigned int n);
 
 
 /**
-* Removes the FbcAssociation_t with the given identifier from this FbcAnd_t and returns a pointer to
-* it.
-*
-* @param fa the FbcAnd_t structure to search.
-*
-* @param sid the identifier of the FbcAssociation_t to
-* remove.
-*
-* @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
-*
-* @copydetails doc_returned_owned_pointer
-*
-*/
+ * Removes the FbcAssociation_t with the given identifier from this FbcAnd_t and returns a pointer to
+ * it.
+ *
+ * @param fa the FbcAnd_t structure to search.
+ *
+ * @param sid the identifier of the FbcAssociation_t to
+ * remove.
+ *
+ * @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ */
 LIBSBML_EXTERN
 FbcAssociation_t *
 FbcAnd_removeAssociationById(FbcAnd_t * fa, const char * sid);
 
 
 /**
-* Predicate returning @c 1 (true) if all the required attributes for this
-* FbcAnd_t object have been set.
-*
-* @param fa the FbcAnd_t structure.
-*
-* @return @c 1 (true) to indicate that all the required attributes of this
-* FbcAnd_t have been set, otherwise @c 0 (false) is returned.
-*
-* @memberof FbcAnd_t
-*/
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * FbcAnd_t object have been set.
+ *
+ * @param fa the FbcAnd_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * FbcAnd_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 int
 FbcAnd_hasRequiredAttributes(const FbcAnd_t * fa);
 
 
 /**
-* Predicate returning @c 1 (true) if all the required elements for this
-* FbcAnd_t object have been set.
-*
-* @param fa the FbcAnd_t structure.
-*
-* @return @c 1 (true) to indicate that all the required elements of this
-* FbcAnd_t have been set, otherwise @c 0 (false) is returned.
-*
-*
-* @note The required elements for the FbcAnd_t object are:
-*
-* @memberof FbcAnd_t
-*/
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * FbcAnd_t object have been set.
+ *
+ * @param fa the FbcAnd_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * FbcAnd_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the FbcAnd_t object are:
+ *
+ * @memberof FbcAnd_t
+ */
 LIBSBML_EXTERN
 int
 FbcAnd_hasRequiredElements(const FbcAnd_t * fa);

@@ -466,7 +466,7 @@ ListOfSpeciesFeatureValues::clone () const
 
 /*
  * Get a SpeciesFeatureValue from the ListOfSpeciesFeatureValues by index.
-*/
+ */
 SpeciesFeatureValue*
 ListOfSpeciesFeatureValues::get(unsigned int n)
 {

@@ -396,9 +396,9 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /*
-* Returns the value of the "compartmentReference" attribute of this
-* MultiSimpleSpeciesReferencePlugin_t.
-*/
+ * Returns the value of the "compartmentReference" attribute of this
+ * MultiSimpleSpeciesReferencePlugin_t.
+ */
 LIBSBML_EXTERN
 char *
 MultiSimpleSpeciesReferencePlugin_getCompartmentReference(const
@@ -415,10 +415,10 @@ MultiSimpleSpeciesReferencePlugin_getCompartmentReference(const
 
 
 /*
-* Predicate returning @c 1 (true) if this
-* MultiSimpleSpeciesReferencePlugin_t's "compartmentReference" attribute is
-* set.
-*/
+ * Predicate returning @c 1 (true) if this
+ * MultiSimpleSpeciesReferencePlugin_t's "compartmentReference" attribute is
+ * set.
+ */
 LIBSBML_EXTERN
 int
 MultiSimpleSpeciesReferencePlugin_isSetCompartmentReference(const
@@ -430,9 +430,9 @@ MultiSimpleSpeciesReferencePlugin_isSetCompartmentReference(const
 
 
 /*
-* Sets the value of the "compartmentReference" attribute of this
-* MultiSimpleSpeciesReferencePlugin_t.
-*/
+ * Sets the value of the "compartmentReference" attribute of this
+ * MultiSimpleSpeciesReferencePlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSimpleSpeciesReferencePlugin_setCompartmentReference(
@@ -447,9 +447,9 @@ MultiSimpleSpeciesReferencePlugin_setCompartmentReference(
 
 
 /*
-* Unsets the value of the "compartmentReference" attribute of this
-* MultiSimpleSpeciesReferencePlugin_t.
-*/
+ * Unsets the value of the "compartmentReference" attribute of this
+ * MultiSimpleSpeciesReferencePlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiSimpleSpeciesReferencePlugin_unsetCompartmentReference(MultiSimpleSpeciesReferencePlugin_t

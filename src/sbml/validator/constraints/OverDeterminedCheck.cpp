@@ -322,7 +322,7 @@ EquationMatching::getNumVariables()
  * creates edges between the equation vertexes and the variable vertexes
  * graph produced is an id representimg the equation and an IdList
  * listing the edges the equation vertex is connected to
-*/
+ */
 void
 EquationMatching::createGraph(const Model& m)
 {
@@ -764,7 +764,7 @@ EquationMatching::Recurse(std::string v)
 
 
 /* return true if the pair are matched
-*/
+ */
 bool
 EquationMatching::match_dependency(const std::string& var, const std::string& eq)
 {

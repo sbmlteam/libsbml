@@ -133,17 +133,17 @@ std::string
 writeMathMLToStdString(const ASTNode* node);
 
 /**
-* Writes the given ASTNode to an in-memory string that is returned.
-*
-* @param node the root of an AST to write out to the string.
-* @param ns the optional sbml namespace to be used when specifying units
-*
-* @return the string containing the written-out MathML representation
-* of the given AST on success or an empty string,
-*         if one of the underlying parser
-*         components fail.
-*
-*/
+ * Writes the given ASTNode to an in-memory string that is returned.
+ *
+ * @param node the root of an AST to write out to the string.
+ * @param ns the optional sbml namespace to be used when specifying units
+ *
+ * @return the string containing the written-out MathML representation
+ * of the given AST on success or an empty string,
+ *         if one of the underlying parser
+ *         components fail.
+ *
+ */
 LIBSBML_EXTERN
 std::string
 writeMathMLToStdString(const ASTNode* node, SBMLNamespaces* ns);
@@ -223,23 +223,23 @@ writeMathMLToString (const ASTNode_t* node);
 
 
 /**
-* Writes the given AST node (and its children) to a string as MathML, and
-* returns the string.
-*
-* @param node the root of an AST to write out to the stream.
-* @param sbmlns the SBML namespace to be used
-*
-* @return a string containing the written-out MathML representation
-* of the given AST.
-*
-* @note The string is owned by the caller and should be freed (with
-* free()) when no longer needed.  @c NULL is returned if the given
-* argument is @c NULL.
-*
-* @if conly
-* @memberof ASTNode_t
-* @endif
-*/
+ * Writes the given AST node (and its children) to a string as MathML, and
+ * returns the string.
+ *
+ * @param node the root of an AST to write out to the stream.
+ * @param sbmlns the SBML namespace to be used
+ *
+ * @return a string containing the written-out MathML representation
+ * of the given AST.
+ *
+ * @note The string is owned by the caller and should be freed (with
+ * free()) when no longer needed.  @c NULL is returned if the given
+ * argument is @c NULL.
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
 LIBSBML_EXTERN
 char *
 writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns);

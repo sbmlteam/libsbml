@@ -927,7 +927,7 @@ ListOfFunctionTerms::~ListOfFunctionTerms()
 }
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms by index.
-*/
+ */
 FunctionTerm*
 ListOfFunctionTerms::get(unsigned int n)
 {

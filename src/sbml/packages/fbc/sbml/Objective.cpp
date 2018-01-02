@@ -1292,8 +1292,8 @@ ListOfObjectives::ListOfObjectives(const ListOfObjectives& other)
 }
 
 /*
-* Assignment for Objective.
-*/
+ * Assignment for Objective.
+ */
 ListOfObjectives&
 ListOfObjectives::operator=(const ListOfObjectives& rhs)
 {
@@ -1329,7 +1329,7 @@ ListOfObjectives::clone () const
 
 /*
  * Get a Objective from the ListOfObjectives by index.
-*/
+ */
 Objective*
 ListOfObjectives::get(unsigned int n)
 {

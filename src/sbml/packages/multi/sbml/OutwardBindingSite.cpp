@@ -714,7 +714,7 @@ ListOfOutwardBindingSites::clone () const
 
 /*
  * Get a OutwardBindingSite from the ListOfOutwardBindingSites by index.
-*/
+ */
 OutwardBindingSite*
 ListOfOutwardBindingSites::get(unsigned int n)
 {

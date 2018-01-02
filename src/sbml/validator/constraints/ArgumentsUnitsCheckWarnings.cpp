@@ -242,9 +242,9 @@ ArgumentsUnitsCheckWarnings::getMessage (const ASTNode& node, const SBase& objec
 }
 
 /*
-* Logs a message about a function that should have dmensionless
-* as the arguments
-*/
+ * Logs a message about a function that should have dmensionless
+ * as the arguments
+ */
 void 
 ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node, 
                                                  const SBase & sb)

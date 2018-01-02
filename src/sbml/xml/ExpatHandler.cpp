@@ -127,8 +127,8 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
 
 
 /**
-* Copy Constructor
-*/
+ * Copy Constructor
+ */
 ExpatHandler::ExpatHandler (const ExpatHandler& other)
   : mParser  (other.mParser)
   , mHandler (other.mHandler)
@@ -139,8 +139,8 @@ ExpatHandler::ExpatHandler (const ExpatHandler& other)
 
 
 /**
-* Assignment operator
-*/
+ * Assignment operator
+ */
 ExpatHandler& ExpatHandler::operator=(const ExpatHandler& other)
 {
   if (this == &other) return *this;
@@ -155,7 +155,7 @@ ExpatHandler& ExpatHandler::operator=(const ExpatHandler& other)
 
 
 /**
-* Destroys this ExpatHandler.
+ * Destroys this ExpatHandler.
  */
 ExpatHandler::~ExpatHandler ()
 {

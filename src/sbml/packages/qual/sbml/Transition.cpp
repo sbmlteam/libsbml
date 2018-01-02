@@ -1713,7 +1713,7 @@ ListOfTransitions::clone () const
 
 /*
  * Get a Transition from the ListOfTransitions by index.
-*/
+ */
 Transition*
 ListOfTransitions::get(unsigned int n)
 {

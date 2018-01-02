@@ -642,7 +642,7 @@ SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg);
 
 /**
  * Returns @c 1 (true) if the role is not
-*  @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
+ * @sbmlconstant{SPECIES_ROLE_INVALID, SpeciesReferenceRole_t}.
  *
  * @param srg the SpeciesReferenceGlyph_t structure.
  *

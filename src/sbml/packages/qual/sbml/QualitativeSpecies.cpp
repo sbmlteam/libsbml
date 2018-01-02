@@ -1290,7 +1290,7 @@ ListOfQualitativeSpecies::clone () const
 
 /*
  * Get a QualitativeSpecies from the ListOfQualitativeSpecies by index.
-*/
+ */
 QualitativeSpecies*
 ListOfQualitativeSpecies::get(unsigned int n)
 {

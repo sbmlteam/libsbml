@@ -59,8 +59,8 @@ XMLErrorLog::XMLErrorLog ()
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Copy Constructor
-*/
+ * Copy Constructor
+ */
 XMLErrorLog::XMLErrorLog (const XMLErrorLog& other)
   : mParser(NULL)
   , mOverriddenSeverity(other.mOverriddenSeverity)
@@ -71,8 +71,8 @@ XMLErrorLog::XMLErrorLog (const XMLErrorLog& other)
 
 /** @cond doxygenLibsbmlInternal */
 /*
-* Assignment operator
-*/
+ * Assignment operator
+ */
 XMLErrorLog& XMLErrorLog::operator=(const XMLErrorLog& other)  
 {
   if (this != &other)
@@ -347,8 +347,8 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
 }
 
 /*
-* Helper class used by XMLErrorLog::contains.
-*/
+ * Helper class used by XMLErrorLog::contains.
+ */
 class MatchErrorId
 {
 public:

@@ -2836,14 +2836,14 @@ Species_unsetId (Species_t *s);
 
 
 /**
-* Unsets the "name" attribute of the given Species_t structure.
-*
-* @copydetails doc_returns_success_code
-* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-*
-* @memberof Species_t
-*/
+ * Unsets the "name" attribute of the given Species_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Species_t
+ */
 LIBSBML_EXTERN
 int
 Species_unsetName(Species_t *s);

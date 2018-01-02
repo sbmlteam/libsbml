@@ -1484,8 +1484,8 @@ KineticLaw::createChildObject(const std::string& elementName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this KineticLaw.
-*/
+ * Adds an new "elementName" object in this KineticLaw.
+ */
 int
 KineticLaw::addChildObject(const std::string& elementName, const SBase* element)
 {
@@ -1507,8 +1507,8 @@ KineticLaw::addChildObject(const std::string& elementName, const SBase* element)
 /** @cond doxygenLibsbmlInternal */
 
 /*
-* Adds an new "elementName" object in this KineticLaw.
-*/
+ * Adds an new "elementName" object in this KineticLaw.
+ */
 SBase*
 KineticLaw::removeChildObject(const std::string& elementName, const std::string& id)
 {

@@ -1313,17 +1313,17 @@ XMLToken_append (XMLToken_t *token, const char *text);
 
 
 /**
-* Sets characters of this XML text content.
-*
-* @param token XMLToken_t structure whose characters to set.
-* @param text string, characters to set.
-*
-* @copydetails doc_returns_success_code
-* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-* @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-**
-* @memberof XMLToken_t
-*/
+ * Sets characters of this XML text content.
+ *
+ * @param token XMLToken_t structure whose characters to set.
+ * @param text string, characters to set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ **
+ * @memberof XMLToken_t
+ */
 LIBLAX_EXTERN
 int
 XMLToken_setCharacters(XMLToken_t *token, const char *text);
@@ -2327,8 +2327,8 @@ XMLToken_isEOF (const XMLToken_t *token);
 
 
 /**
-* Returns @c 1 (true) or @c 0 (false) depending on whether
-* this XMLToken_t structure is an XML start element.
+ * Returns @c 1 (true) or @c 0 (false) depending on whether
+ * this XMLToken_t structure is an XML start element.
  *
  * @param token XMLToken_t structure to be queried.
  *

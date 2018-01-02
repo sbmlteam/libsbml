@@ -60,16 +60,16 @@ SBMLErrorLog::SBMLErrorLog ()
 }
 
 /*
-* Copy Constructor
-*/
+ * Copy Constructor
+ */
 SBMLErrorLog::SBMLErrorLog (const SBMLErrorLog& other)
   : XMLErrorLog(other)
 {
 }
 
 /*
-* Assignment operator
-*/
+ * Assignment operator
+ */
 SBMLErrorLog& SBMLErrorLog::operator=(const SBMLErrorLog& other)
 {
   XMLErrorLog::operator=(other);

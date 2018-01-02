@@ -721,7 +721,7 @@ ListOfInSpeciesTypeBonds::clone () const
 
 /*
  * Get a InSpeciesTypeBond from the ListOfInSpeciesTypeBonds by index.
-*/
+ */
 InSpeciesTypeBond*
 ListOfInSpeciesTypeBonds::get(unsigned int n)
 {

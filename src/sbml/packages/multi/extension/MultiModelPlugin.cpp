@@ -490,9 +490,9 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /*
-* Returns a ListOf_t * containing MultiSpeciesType_t objects from this
-* MultiModelPlugin_t.
-*/
+ * Returns a ListOf_t * containing MultiSpeciesType_t objects from this
+ * MultiModelPlugin_t.
+ */
 LIBSBML_EXTERN
 ListOf_t*
 MultiModelPlugin_getListOfMultiSpeciesTypes(MultiModelPlugin_t* mmp)
@@ -502,8 +502,8 @@ MultiModelPlugin_getListOfMultiSpeciesTypes(MultiModelPlugin_t* mmp)
 
 
 /*
-* Get a MultiSpeciesType_t from the MultiModelPlugin_t.
-*/
+ * Get a MultiSpeciesType_t from the MultiModelPlugin_t.
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t*
 MultiModelPlugin_getMultiSpeciesType(MultiModelPlugin_t* mmp, unsigned int n)
@@ -513,9 +513,9 @@ MultiModelPlugin_getMultiSpeciesType(MultiModelPlugin_t* mmp, unsigned int n)
 
 
 /*
-* Get a MultiSpeciesType_t from the MultiModelPlugin_t based on its
-* identifier.
-*/
+ * Get a MultiSpeciesType_t from the MultiModelPlugin_t based on its
+ * identifier.
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t*
 MultiModelPlugin_getMultiSpeciesTypeById(MultiModelPlugin_t* mmp,
@@ -526,8 +526,8 @@ MultiModelPlugin_getMultiSpeciesTypeById(MultiModelPlugin_t* mmp,
 
 
 /*
-* Adds a copy of the given MultiSpeciesType_t to this MultiModelPlugin_t.
-*/
+ * Adds a copy of the given MultiSpeciesType_t to this MultiModelPlugin_t.
+ */
 LIBSBML_EXTERN
 int
 MultiModelPlugin_addMultiSpeciesType(MultiModelPlugin_t* mmp,
@@ -539,8 +539,8 @@ MultiModelPlugin_addMultiSpeciesType(MultiModelPlugin_t* mmp,
 
 
 /*
-* Get the number of MultiSpeciesType_t objects in this MultiModelPlugin_t.
-*/
+ * Get the number of MultiSpeciesType_t objects in this MultiModelPlugin_t.
+ */
 LIBSBML_EXTERN
 unsigned int
 MultiModelPlugin_getNumMultiSpeciesTypes(MultiModelPlugin_t* mmp)
@@ -550,9 +550,9 @@ MultiModelPlugin_getNumMultiSpeciesTypes(MultiModelPlugin_t* mmp)
 
 
 /*
-* Creates a new MultiSpeciesType_t object, adds it to this MultiModelPlugin_t
-* object and returns the MultiSpeciesType_t object created.
-*/
+ * Creates a new MultiSpeciesType_t object, adds it to this MultiModelPlugin_t
+ * object and returns the MultiSpeciesType_t object created.
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t*
 MultiModelPlugin_createMultiSpeciesType(MultiModelPlugin_t* mmp)
@@ -562,9 +562,9 @@ MultiModelPlugin_createMultiSpeciesType(MultiModelPlugin_t* mmp)
 
 
 /*
-* Removes the nth MultiSpeciesType_t from this MultiModelPlugin_t and returns
-* a pointer to it.
-*/
+ * Removes the nth MultiSpeciesType_t from this MultiModelPlugin_t and returns
+ * a pointer to it.
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t*
 MultiModelPlugin_removeMultiSpeciesType(MultiModelPlugin_t* mmp,
@@ -575,9 +575,9 @@ MultiModelPlugin_removeMultiSpeciesType(MultiModelPlugin_t* mmp,
 
 
 /*
-* Removes the MultiSpeciesType_t from this MultiModelPlugin_t based on its
-* identifier and returns a pointer to it.
-*/
+ * Removes the MultiSpeciesType_t from this MultiModelPlugin_t based on its
+ * identifier and returns a pointer to it.
+ */
 LIBSBML_EXTERN
 MultiSpeciesType_t*
 MultiModelPlugin_removeMultiSpeciesTypeById(MultiModelPlugin_t* mmp,
