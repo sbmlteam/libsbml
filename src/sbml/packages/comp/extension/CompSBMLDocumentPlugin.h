@@ -260,6 +260,14 @@ public:
 
 
   /**
+   * Returns the ListOf object that holds each ModelDefinition.
+   *
+   * @return the ListOf object that holds each ModelDefinition.
+   */
+  ListOfModelDefinitions* getListOfModelDefinitions ();
+
+
+  /**
    * Returns the ModelDefinition with the given index.
    *
    * @param n the index number of the ModelDefinition to get.
@@ -384,6 +392,14 @@ public:
    * @return the ListOf object that each all ExternalModelDefinition.
    */
   const ListOfExternalModelDefinitions* getListOfExternalModelDefinitions () const;
+
+
+  /**
+   * Returns the ListOf object that holds each ExternalModelDefinition.
+   *
+   * @return the ListOf object that each all ExternalModelDefinition.
+   */
+  ListOfExternalModelDefinitions* getListOfExternalModelDefinitions ();
 
 
   /**
@@ -684,32 +700,366 @@ private:
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+
+
 #endif /* __cplusplus */
+
+
 
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
+
 /**
- * Creates a new, empty ModelDefinition_t structure, adds it to the given
- * CompSBMLDocumentPlugin_t, and returns the ModelDefinition_t.
+ * Returns a ListOf_t * containing ExternalModelDefinition_t objects from this
+ * CompSBMLDocumentPlugin_t.
  *
- * @param docPlug the CompSBMLDocumentPlugin_t structure to which the ModelDefinition_t should be
- * added.
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure whose
+ * ListOfExternalModelDefinitions is sought.
  *
- * @return the newly-created empty ModelDefinition_t.
+ * @return the ListOfExternalModelDefinitions from this
+ * CompSBMLDocumentPlugin_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see CompSBMLDocumentPlugin_addExternalModelDefinition()
+ * @see CompSBMLDocumentPlugin_createExternalModelDefinition()
+ * @see CompSBMLDocumentPlugin_getExternalModelDefinitionById()
+ * @see CompSBMLDocumentPlugin_getExternalModelDefinition()
+ * @see CompSBMLDocumentPlugin_getNumExternalModelDefinitions()
+ * @see CompSBMLDocumentPlugin_removeExternalModelDefinitionById()
+ * @see CompSBMLDocumentPlugin_removeExternalModelDefinition()
  *
  * @memberof CompSBMLDocumentPlugin_t
  */
 LIBSBML_EXTERN
-ModelDefinition_t *
-CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug);
+ListOfExternalModelDefinitions_t*
+CompSBMLDocumentPlugin_getListOfExternalModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Get an ExternalModelDefinition_t from the CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * ExternalModelDefinition_t to retrieve.
+ *
+ * @return the nth ExternalModelDefinition_t in the
+ * ListOfExternalModelDefinitions within this CompSBMLDocumentPlugin.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_getExternalModelDefinition(
+  CompSBMLDocumentPlugin_t*
+  csbmldp,
+  unsigned int n);
+
+
+/**
+ * Get an ExternalModelDefinition_t from the CompSBMLDocumentPlugin_t based on
+ * its identifier.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * ExternalModelDefinition_t to retrieve.
+ *
+ * @return the ExternalModelDefinition_t in the ListOfExternalModelDefinitions
+ * within this CompSBMLDocumentPlugin with the given @p sid or @c NULL if no
+ * such ExternalModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_getExternalModelDefinitionById(
+  CompSBMLDocumentPlugin_t*
+  csbmldp,
+  const char *sid);
+
+
+/**
+ * Adds a copy of the given ExternalModelDefinition_t to this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to which the
+ * ExternalModelDefinition_t should be added.
+ *
+ * @param emd the ExternalModelDefinition_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBMLDocumentPlugin_addExternalModelDefinition(
+  CompSBMLDocumentPlugin_t*
+  csbmldp,
+  const
+  ExternalModelDefinition_t*
+  emd);
+
+
+/**
+ * Get the number of ExternalModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to query.
+ *
+ * @return the number of ExternalModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+CompSBMLDocumentPlugin_getNumExternalModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Creates a new ExternalModelDefinition_t object, adds it to this
+ * CompSBMLDocumentPlugin_t object and returns the ExternalModelDefinition_t
+ * object created.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to which the
+ * ExternalModelDefinition_t should be added.
+ *
+ * @return a new ExternalModelDefinition_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_createExternalModelDefinition(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Removes the nth ExternalModelDefinition_t from this CompSBMLDocumentPlugin_t
+ * and returns a pointer to it.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * ExternalModelDefinition_t to remove.
+ *
+ * @return a pointer to the nth ExternalModelDefinition_t in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_removeExternalModelDefinition(
+  CompSBMLDocumentPlugin_t*
+  csbmldp,
+  unsigned int n);
+
+
+/**
+ * Removes the ExternalModelDefinition_t from this CompSBMLDocumentPlugin_t
+ * based on its identifier and returns a pointer to it.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * ExternalModelDefinition_t to remove.
+ *
+ * @return the ExternalModelDefinition_t in this CompSBMLDocumentPlugin_t based
+ * on the identifier or NULL if no such ExternalModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_removeExternalModelDefinitionById(
+  CompSBMLDocumentPlugin_t*
+  csbmldp,
+  const char* sid);
+
+
+/**
+ * Returns a ListOf_t * containing ModelDefinition_t objects from this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure whose
+ * ListOfModelDefinitions is sought.
+ *
+ * @return the ListOfModelDefinitions from this CompSBMLDocumentPlugin_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see CompSBMLDocumentPlugin_addModelDefinition()
+ * @see CompSBMLDocumentPlugin_createModelDefinition()
+ * @see CompSBMLDocumentPlugin_getModelDefinitionById()
+ * @see CompSBMLDocumentPlugin_getModelDefinition()
+ * @see CompSBMLDocumentPlugin_getNumModelDefinitions()
+ * @see CompSBMLDocumentPlugin_removeModelDefinitionById()
+ * @see CompSBMLDocumentPlugin_removeModelDefinition()
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ListOfModelDefinitions_t*
+CompSBMLDocumentPlugin_getListOfModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Get a ModelDefinition_t from the CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ModelDefinition_t to
+ * retrieve.
+ *
+ * @return the nth ModelDefinition_t in the ListOfModelDefinitions within this
+ * CompSBMLDocumentPlugin.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_getModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+  unsigned int n);
+
+
+/**
+ * Adds a copy of the given ModelDefinition_t to this CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to which the
+ * ModelDefinition_t should be added.
+ *
+ * @param md the ModelDefinition_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBMLDocumentPlugin_addModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+  const ModelDefinition_t* md);
+
+
+/**
+ * Get the number of ModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to query.
+ *
+ * @return the number of ModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+CompSBMLDocumentPlugin_getNumModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Creates a new ModelDefinition_t object, adds it to this
+ * CompSBMLDocumentPlugin_t object and returns the ModelDefinition_t object
+ * created.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to which the
+ * ModelDefinition_t should be added.
+ *
+ * @return a new ModelDefinition_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t*
+  csbmldp);
+
+
+/**
+ * Removes the nth ModelDefinition_t from this CompSBMLDocumentPlugin_t and
+ * returns a pointer to it.
+ *
+ * @param csbmldp the CompSBMLDocumentPlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ModelDefinition_t to
+ * remove.
+ *
+ * @return a pointer to the nth ModelDefinition_t in this
+ * CompSBMLDocumentPlugin_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompSBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_removeModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+  unsigned int n);
+
+
+
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 
-#endif  /* !SWIG */
-#endif  /* CompSBMLDocumentPlugin_h */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !CompSBMLDocumentPlugin_H__ */

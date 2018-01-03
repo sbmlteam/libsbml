@@ -299,6 +299,13 @@ CompSBMLDocumentPlugin::getListOfModelDefinitions () const
 }
 
 
+ListOfModelDefinitions*
+CompSBMLDocumentPlugin::getListOfModelDefinitions()
+{
+  return &mListOfModelDefinitions;
+}
+
+
 /*
  * Returns the modelDefinition with the given index.
  * If the index is invalid, @c NULL is returned.
@@ -422,6 +429,16 @@ CompSBMLDocumentPlugin::removeModelDefinition(string id)
  */ 
 const ListOfExternalModelDefinitions*
 CompSBMLDocumentPlugin::getListOfExternalModelDefinitions () const
+{
+  return &mListOfExternalModelDefinitions;
+}
+
+
+/*
+* Returns the externalModelDefinition object that holds all externalModelDefinitions.
+*/
+ListOfExternalModelDefinitions*
+CompSBMLDocumentPlugin::getListOfExternalModelDefinitions()
 {
   return &mListOfExternalModelDefinitions;
 }
@@ -1077,14 +1094,208 @@ CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
 
 
 #endif /* __cplusplus */
-/** @cond doxygenIgnored */
+
+
+/*
+ * Returns a ListOf_t * containing ExternalModelDefinition_t objects from this
+ * CompSBMLDocumentPlugin_t.
+ */
 LIBSBML_EXTERN
-ModelDefinition_t *
-CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug)
+ListOfExternalModelDefinitions_t*
+CompSBMLDocumentPlugin_getListOfExternalModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp)
 {
-  return docPlug->createModelDefinition();
+  return (csbmldp != NULL) ? csbmldp->getListOfExternalModelDefinitions() :
+    NULL;
 }
-/** @endcond */
+
+
+/*
+ * Get an ExternalModelDefinition_t from the CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_getExternalModelDefinition(
+                                                  CompSBMLDocumentPlugin_t*
+                                                    csbmldp,
+                                                  unsigned int n)
+{
+  return (csbmldp != NULL) ? csbmldp->getExternalModelDefinition(n) : NULL;
+}
+
+
+/*
+ * Get an ExternalModelDefinition_t from the CompSBMLDocumentPlugin_t based on
+ * its identifier.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_getExternalModelDefinitionById(
+                                                      CompSBMLDocumentPlugin_t*
+                                                        csbmldp,
+                                                      const char *sid)
+{
+  return (csbmldp != NULL && sid != NULL) ?
+    csbmldp->getExternalModelDefinition(sid) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given ExternalModelDefinition_t to this
+ * CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+CompSBMLDocumentPlugin_addExternalModelDefinition(
+                                                  CompSBMLDocumentPlugin_t*
+                                                    csbmldp,
+                                                  const
+                                                    ExternalModelDefinition_t*
+                                                      emd)
+{
+  return (csbmldp != NULL) ? csbmldp->addExternalModelDefinition(emd) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of ExternalModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+CompSBMLDocumentPlugin_getNumExternalModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp)
+{
+  return (csbmldp != NULL) ? csbmldp->getNumExternalModelDefinitions() :
+    SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new ExternalModelDefinition_t object, adds it to this
+ * CompSBMLDocumentPlugin_t object and returns the ExternalModelDefinition_t
+ * object created.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_createExternalModelDefinition(CompSBMLDocumentPlugin_t*
+  csbmldp)
+{
+  return (csbmldp != NULL) ? csbmldp->createExternalModelDefinition() : NULL;
+}
+
+
+/*
+ * Removes the nth ExternalModelDefinition_t from this CompSBMLDocumentPlugin_t
+ * and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_removeExternalModelDefinition(
+                                                     CompSBMLDocumentPlugin_t*
+                                                       csbmldp,
+                                                     unsigned int n)
+{
+  return (csbmldp != NULL) ? csbmldp->removeExternalModelDefinition(n) : NULL;
+}
+
+
+/*
+ * Removes the ExternalModelDefinition_t from this CompSBMLDocumentPlugin_t
+ * based on its identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+CompSBMLDocumentPlugin_removeExternalModelDefinitionById(
+                                                         CompSBMLDocumentPlugin_t*
+                                                           csbmldp,
+                                                         const char* sid)
+{
+  return (csbmldp != NULL && sid != NULL) ?
+    csbmldp->removeExternalModelDefinition(sid) : NULL;
+}
+
+
+/*
+ * Returns a ListOf_t * containing ModelDefinition_t objects from this
+ * CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+ListOfModelDefinitions_t*
+CompSBMLDocumentPlugin_getListOfModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp)
+{
+  return (csbmldp != NULL) ? csbmldp->getListOfModelDefinitions() : NULL;
+}
+
+
+/*
+ * Get a ModelDefinition_t from the CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_getModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+                                          unsigned int n)
+{
+  return (csbmldp != NULL) ? csbmldp->getModelDefinition(n) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given ModelDefinition_t to this CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+int
+CompSBMLDocumentPlugin_addModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+                                          const ModelDefinition_t* md)
+{
+  return (csbmldp != NULL) ? csbmldp->addModelDefinition(md) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of ModelDefinition_t objects in this
+ * CompSBMLDocumentPlugin_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+CompSBMLDocumentPlugin_getNumModelDefinitions(CompSBMLDocumentPlugin_t*
+  csbmldp)
+{
+  return (csbmldp != NULL) ? csbmldp->getNumModelDefinitions() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new ModelDefinition_t object, adds it to this
+ * CompSBMLDocumentPlugin_t object and returns the ModelDefinition_t object
+ * created.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t* csbmldp)
+{
+  return (csbmldp != NULL) ? csbmldp->createModelDefinition() : NULL;
+}
+
+
+/*
+ * Removes the nth ModelDefinition_t from this CompSBMLDocumentPlugin_t and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+CompSBMLDocumentPlugin_removeModelDefinition(CompSBMLDocumentPlugin_t* csbmldp,
+                                             unsigned int n)
+{
+  return (csbmldp != NULL) ? csbmldp->removeModelDefinition(n) : NULL;
+}
+
+
+
 
 LIBSBML_CPP_NAMESPACE_END
+
 

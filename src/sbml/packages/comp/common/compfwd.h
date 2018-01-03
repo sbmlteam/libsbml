@@ -102,6 +102,20 @@ typedef CLASS_OR_STRUCT Submodel                     Submodel_t;
  * @copydoc SBMLDocumentPlugin
  */
 typedef CLASS_OR_STRUCT CompSBMLDocumentPlugin       CompSBMLDocumentPlugin_t;
+
+
+/**
+ * @var typedef class ListOfExternalModelDefinitions ListOfExternalModelDefinitions_t
+ * @copydoc ListOfExternalModelDefinitions
+ */
+typedef CLASS_OR_STRUCT ListOfExternalModelDefinitions       ListOfExternalModelDefinitions_t;
+
+
+/**
+ * @var typedef class ListOfModelDefinitions ListOfModelDefinitions_t
+ * @copydoc ListOfModelDefinitions
+ */
+typedef CLASS_OR_STRUCT ListOfModelDefinitions       ListOfModelDefinitions_t;
 /** @endcond */
 
 
