@@ -231,9 +231,83 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+
+/**
+ * Get a Submodel_t from the ListOf_t.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Submodel_t to
+ * retrieve.
+ *
+ * @return the nth Submodel_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfSubmodels_t
+ */
+LIBSBML_EXTERN
+Submodel_t*
+ListOfSubmodels_getSubmodel(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Get a Submodel_t from the ListOf_t based on its identifier.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Submodel_t to
+ * retrieve.
+ *
+ * @return the Submodel_t in this ListOf_t with the given @p sid or @c NULL if
+ * no such Submodel_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfSubmodels_t
+ */
+LIBSBML_EXTERN
+Submodel_t*
+ListOfSubmodels_getById(ListOf_t* lo, const char *sid);
+
+
+/**
+ * Removes the nth Submodel_t from this ListOf_t and returns a pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Submodel_t to remove.
+ *
+ * @return a pointer to the nth Submodel_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfSubmodels_t
+ */
+LIBSBML_EXTERN
+Submodel_t*
+ListOfSubmodels_remove(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Removes the Submodel_t from this ListOf_t based on its identifier and
+ * returns a pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Submodel_t to remove.
+ *
+ * @return the Submodel_t in this ListOf_t based on the identifier or NULL if
+ * no such Submodel_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfSubmodels_t
+ */
+LIBSBML_EXTERN
+Submodel_t*
+ListOfSubmodels_removeById(ListOf_t* lo, const char* sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

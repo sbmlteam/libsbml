@@ -1520,45 +1520,6 @@ int
 Submodel_hasRequiredElements(Submodel_t * s);
 
 
-/**
- * Return the Submodel_t indicated by the given @p sid.
- *
- * @param lo the ListOf_t structure to use.
- *
- * @param sid a string, the identifier of the
- * Submodel_t being sought.
- *
- * @return the Submodel_t for the given variable, or @c NULL if no such
- * Submodel_t exists.
- *
- * @memberof ListOfSubmodels_t
- */
-LIBSBML_EXTERN
-Submodel_t *
-ListOfSubmodels_getById(ListOf_t * lo, const char * sid);
-
-
-/**
- * Removes the Submodel_t structure with the given @p sid
- * from the given ListOf_t structure and returns a pointer to it.
- *
- * * The caller owns the returned structure and is responsible for deleting it.
- *
- * @param lo the ListOf_t structure.
- * @param sid the string of the "id" attribute of the Submodel_t sought.
- *
- * @return the Submodel_t structure removed.  As mentioned above, the 
- * caller owns the returned structure. @c NULL is returned if no Submodel_t
- * structure with the "id" attribute exists in the given ListOf_t structure.
- *
- * @memberof ListOfSubmodels_t
- */
-LIBSBML_EXTERN
-Submodel_t *
-ListOfSubmodels_removeById(ListOf_t * lo, const char * sid);
-
-
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

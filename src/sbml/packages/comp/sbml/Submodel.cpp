@@ -1741,28 +1741,6 @@ Submodel_hasRequiredElements(Submodel_t * s)
 {
   return (s != NULL) ? static_cast<int>(s->hasRequiredElements()) : 0;
 }
-
-
-LIBSBML_EXTERN
-Submodel_t *
-ListOfSubmodels_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfSubmodels *>(lo)->get(sid) : NULL;
-}
-
-
-LIBSBML_EXTERN
-Submodel_t *
-ListOfSubmodels_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfSubmodels *>(lo)->remove(sid) : NULL;
-}
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
