@@ -164,6 +164,36 @@ public:
 
 
   /**
+   * Predicate returning @c true if this abstract "Association" is of type
+   * FbcAnd
+   *
+   * @return @c true if this abstract "Association" is of type FbcAnd, @c false
+   * otherwise
+   */
+  virtual bool isFbcAnd() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Association" is of type
+   * FbcOr
+   *
+   * @return @c true if this abstract "Association" is of type FbcOr, @c false
+   * otherwise
+   */
+  virtual bool isFbcOr() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Association" is of type
+   * GeneProductRef
+   *
+   * @return @c true if this abstract "Association" is of type GeneProductRef,
+   * @c false otherwise
+   */
+  virtual bool isGeneProductRef() const;
+
+
+  /**
    * Returns the string of the "type" attribute of this Association object.
    *
    * @return the string of the "type" attribute of this Association object.
@@ -763,21 +793,191 @@ protected:
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+
+
 #endif /* __cplusplus */
+
+
 
 
 #ifndef SWIG
 
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
 BEGIN_C_DECLS
 
-/*
- * C API will be added here.
+
+/**
+ * Creates a new FbcAnd (Association_t) using the given SBML Level, Version and
+ * &ldquo;fbc&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Association_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Association_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
+ * Association_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Association_t
  */
+LIBSBML_EXTERN
+FbcAnd_t *
+Association_createFbcAnd(unsigned int level,
+                         unsigned int version,
+                         unsigned int pkgVersion);
+
+
+/**
+ * Creates a new FbcOr (Association_t) using the given SBML Level, Version and
+ * &ldquo;fbc&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Association_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Association_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
+ * Association_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+FbcOr_t *
+Association_createFbcOr(unsigned int level,
+                        unsigned int version,
+                        unsigned int pkgVersion);
+
+
+/**
+ * Creates a new GeneProductRef (Association_t) using the given SBML Level,
+ * Version and &ldquo;fbc&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Association_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Association_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this
+ * Association_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+GeneProductRef_t *
+Association_createGeneProductRef(unsigned int level,
+                                 unsigned int version,
+                                 unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this Association_t object.
+ *
+ * @param a the Association_t structure.
+ *
+ * @return a (deep) copy of this Association_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+Association_t*
+Association_clone(const Association_t* a);
+
+
+/**
+ * Frees this Association_t object.
+ *
+ * @param a the Association_t structure.
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+void
+Association_free(Association_t* a);
+
+
+/**
+ * Predicate returning @c 1 if this Association_t is of type FbcAnd_t
+ *
+ * @param a the Association_t structure.
+ *
+ * @return @c 1 if this Association_t is of type FbcAnd_t, @c 0 otherwise
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+int
+Association_isFbcAnd(const Association_t * a);
+
+
+/**
+ * Predicate returning @c 1 if this Association_t is of type FbcOr_t
+ *
+ * @param a the Association_t structure.
+ *
+ * @return @c 1 if this Association_t is of type FbcOr_t, @c 0 otherwise
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+int
+Association_isFbcOr(const Association_t * a);
+
+
+/**
+ * Predicate returning @c 1 if this Association_t is of type GeneProductRef_t
+ *
+ * @param a the Association_t structure.
+ *
+ * @return @c 1 if this Association_t is of type GeneProductRef_t, @c 0
+ * otherwise
+ *
+ * @memberof Association_t
+ */
+LIBSBML_EXTERN
+int
+Association_isGeneProductRef(const Association_t * a);
+
+
+
 
 END_C_DECLS
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 
-#endif  /* !SWIG */
-#endif  /* Association_H__ */
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !Association_H__ */
