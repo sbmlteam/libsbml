@@ -146,5 +146,39 @@ ListOfReplacedElements::writeXMLNS (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 
+
+/*
+ * Get a ReplacedElement_t from the ListOf_t.
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+ListOfReplacedElements_getReplacedElement(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfReplacedElements*>(lo)->get(n);
+}
+
+
+/*
+ * Removes the nth ReplacedElement_t from this ListOf_t and returns a pointer
+ * to it.
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+ListOfReplacedElements_remove(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfReplacedElements*>(lo)->remove(n);
+}
+
+
 LIBSBML_CPP_NAMESPACE_END
 

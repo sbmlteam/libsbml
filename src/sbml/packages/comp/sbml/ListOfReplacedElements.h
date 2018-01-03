@@ -186,9 +186,45 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+
+/**
+ * Get a ReplacedElement_t from the ListOf_t.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ReplacedElement_t to
+ * retrieve.
+ *
+ * @return the nth ReplacedElement_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfReplacedElements_t
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+ListOfReplacedElements_getReplacedElement(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Removes the nth ReplacedElement_t from this ListOf_t and returns a pointer
+ * to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ReplacedElement_t to
+ * remove.
+ *
+ * @return a pointer to the nth ReplacedElement_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfReplacedElements_t
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+ListOfReplacedElements_remove(ListOf_t* lo, unsigned int n);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
