@@ -189,4 +189,70 @@ ListOfDeletions::writeXMLNS (XMLOutputStream& stream) const
 
 #endif  /* __cplusplus */
 
+/*
+ * Get a Deletion_t from the ListOf_t.
+ */
+LIBSBML_EXTERN
+Deletion_t*
+ListOfDeletions_getDeletion(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfDeletions*>(lo)->get(n);
+}
+
+
+/*
+ * Get a Deletion_t from the ListOf_t based on its identifier.
+ */
+LIBSBML_EXTERN
+Deletion_t*
+ListOfDeletions_getById(ListOf_t* lo, const char *sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfDeletions*>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ * Removes the nth Deletion_t from this ListOf_t and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+Deletion_t*
+ListOfDeletions_remove(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfDeletions*>(lo)->remove(n);
+}
+
+
+/*
+ * Removes the Deletion_t from this ListOf_t based on its identifier and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+Deletion_t*
+ListOfDeletions_removeById(ListOf_t* lo, const char* sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfDeletions*>(lo)->remove(sid) :
+    NULL;
+}
+
+
 LIBSBML_CPP_NAMESPACE_END

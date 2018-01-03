@@ -536,46 +536,6 @@ int
 Deletion_hasRequiredAttributes(Deletion_t * d);
 
 
-/**
- * Return the Deletion_t indicated by the given @p sid.
- *
- * @param lo the ListOf_t structure to use.
- *
- * @param sid a string, the identifier of the
- * Deletion_t being sought.
- *
- * @return the Deletion_t for the given variable, or @c NULL if no such
- * Deletion_t exists.
- *
- * @memberof ListOfDeletions_t
- */
-LIBSBML_EXTERN
-Deletion_t *
-ListOfDeletions_getById(ListOf_t * lo, const char * sid);
-
-
-/**
- * Removes the Deletion_t structure with the given @p sid
- * from the given ListOf_t structure and returns a pointer to it.
- *
- * The caller owns the returned structure and is responsible for deleting it.
- *
- * @param lo the ListOf_t structure.
- * @param sid the string of the "id" attribute of the Deletion_t sought.
- *
- * @return the Deletion_t structure removed.  As mentioned above, the 
- * caller owns the returned structure. @c NULL is returned if no Deletion_t
- * structure with the "id" attribute exists in the given ListOf_t structure.
- *
- * @memberof ListOfDeletions_t
- */
-LIBSBML_EXTERN
-Deletion_t *
-ListOfDeletions_removeById(ListOf_t * lo, const char * sid);
-
-
-
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

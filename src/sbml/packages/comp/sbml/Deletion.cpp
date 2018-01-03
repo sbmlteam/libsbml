@@ -443,26 +443,6 @@ Deletion_hasRequiredAttributes(Deletion_t * d)
 }
 
 
-LIBSBML_EXTERN
-Deletion_t *
-ListOfDeletions_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->get(sid) : NULL;
-}
-
-
-LIBSBML_EXTERN
-Deletion_t *
-ListOfDeletions_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->remove(sid) : NULL;
-}
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
