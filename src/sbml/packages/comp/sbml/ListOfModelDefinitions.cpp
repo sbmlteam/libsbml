@@ -181,5 +181,73 @@ ListOfModelDefinitions::writeXMLNS (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 
-LIBSBML_CPP_NAMESPACE_END
 
+/*
+ * Get a ModelDefinition_t from the ListOf_t.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_getModelDefinition(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfModelDefinitions*>(lo)->get(n);
+}
+
+
+/*
+ * Get a ModelDefinition_t from the ListOf_t based on its identifier.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_getById(ListOf_t* lo, const char *sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfModelDefinitions*>(lo)->get(sid) :
+    NULL;
+}
+
+
+/*
+ * Removes the nth ModelDefinition_t from this ListOf_t and returns a pointer
+ * to it.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_remove(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfModelDefinitions*>(lo)->remove(n);
+}
+
+
+/*
+ * Removes the ModelDefinition_t from this ListOf_t based on its identifier and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_removeById(ListOf_t* lo, const char* sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfModelDefinitions*>(lo)->remove(sid)
+    : NULL;
+}
+
+
+LIBSBML_CPP_NAMESPACE_END

@@ -233,9 +233,86 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+
+/**
+ * Get a ModelDefinition_t from the ListOf_t.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ModelDefinition_t to
+ * retrieve.
+ *
+ * @return the nth ModelDefinition_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_getModelDefinition(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Get a ModelDefinition_t from the ListOf_t based on its identifier.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the ModelDefinition_t to
+ * retrieve.
+ *
+ * @return the ModelDefinition_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such ModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_getById(ListOf_t* lo, const char *sid);
+
+
+/**
+ * Removes the nth ModelDefinition_t from this ListOf_t and returns a pointer
+ * to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ModelDefinition_t to
+ * remove.
+ *
+ * @return a pointer to the nth ModelDefinition_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_remove(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Removes the ModelDefinition_t from this ListOf_t based on its identifier and
+ * returns a pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the ModelDefinition_t to
+ * remove.
+ *
+ * @return the ModelDefinition_t in this ListOf_t based on the identifier or
+ * NULL if no such ModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ModelDefinition_t*
+ListOfModelDefinitions_removeById(ListOf_t* lo, const char* sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
