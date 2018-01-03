@@ -119,6 +119,13 @@ typedef CLASS_OR_STRUCT ListOfModelDefinitions       ListOfModelDefinitions_t;
 /** @endcond */
 
 
+/**
+ * @var typedef class CompSBasePlugin CompSBasePlugin_t
+ * @copydoc CompSBasePlugin
+ */
+typedef CLASS_OR_STRUCT CompSBasePlugin               CompSBasePlugin_t;
+
+
 /** @cond doxygenLibsbmlInternal */
 /**
  * @var typedef class ModelPlugin ModelPlugin_t

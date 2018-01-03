@@ -235,6 +235,14 @@ public:
 
 
   /**
+  * Returns the ListOf object that holds all replacedElements.
+  *
+  * @return the ListOf object that holds all replacedElements.
+  */
+  ListOfReplacedElements* getListOfReplacedElements ();
+
+
+  /**
    * Returns the ReplacedElement with the given index.
    *
    * @param n the index number of the ReplacedElement to get.
@@ -461,7 +469,242 @@ private:
 
 };
 
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
-#endif  /* CompSBasePlugin_h */
+
+
+
+#endif /* __cplusplus */
+
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Returns a ListOf_t * containing ReplacedElement_t objects from this
+ * CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure whose ListOfReplacedElements is
+ * sought.
+ *
+ * @return the ListOfReplacedElements from this CompSBasePlugin_t as a ListOf_t
+ * *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see CompSBasePlugin_addReplacedElement()
+ * @see CompSBasePlugin_createReplacedElement()
+ * @see CompSBasePlugin_getReplacedElementById()
+ * @see CompSBasePlugin_getReplacedElement()
+ * @see CompSBasePlugin_getNumReplacedElements()
+ * @see CompSBasePlugin_removeReplacedElementById()
+ * @see CompSBasePlugin_removeReplacedElement()
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+CompSBasePlugin_getListOfReplacedElements(CompSBasePlugin_t* csbp);
+
+
+/**
+ * Get a ReplacedElement_t from the CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ReplacedElement_t to
+ * retrieve.
+ *
+ * @return the nth ReplacedElement_t in the ListOfReplacedElements within this
+ * CompSBasePlugin.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+CompSBasePlugin_getReplacedElement(CompSBasePlugin_t* csbp, unsigned int n);
+
+
+/**
+ * Adds a copy of the given ReplacedElement_t to this CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure to which the ReplacedElement_t
+ * should be added.
+ *
+ * @param re the ReplacedElement_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBasePlugin_addReplacedElement(CompSBasePlugin_t* csbp,
+                                   const ReplacedElement_t* re);
+
+
+/**
+ * Get the number of ReplacedElement_t objects in this CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure to query.
+ *
+ * @return the number of ReplacedElement_t objects in this CompSBasePlugin_t.
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+CompSBasePlugin_getNumReplacedElements(CompSBasePlugin_t* csbp);
+
+
+/**
+ * Creates a new ReplacedElement_t object, adds it to this CompSBasePlugin_t
+ * object and returns the ReplacedElement_t object created.
+ *
+ * @param csbp the CompSBasePlugin_t structure to which the ReplacedElement_t
+ * should be added.
+ *
+ * @return a new ReplacedElement_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+CompSBasePlugin_createReplacedElement(CompSBasePlugin_t* csbp);
+
+
+/**
+ * Removes the nth ReplacedElement_t from this CompSBasePlugin_t and returns a
+ * pointer to it.
+ *
+ * @param csbp the CompSBasePlugin_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the ReplacedElement_t to
+ * remove.
+ *
+ * @return a pointer to the nth ReplacedElement_t in this CompSBasePlugin_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+ReplacedElement_t*
+CompSBasePlugin_removeReplacedElement(CompSBasePlugin_t* csbp,
+                                      unsigned int n);
+
+
+/**
+ * Returns the value of the "replacedBy" element of this CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure whose replacedBy is sought.
+ *
+ * @return the value of the "replacedBy" element of this CompSBasePlugin_t as a
+ * ReplacedBy*.
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+const ReplacedBy_t*
+CompSBasePlugin_getReplacedBy(const CompSBasePlugin_t * csbp);
+
+
+/**
+ * Predicate returning @c 1 (true) if this CompSBasePlugin_t's "replacedBy"
+ * element is set.
+ *
+ * @param csbp the CompSBasePlugin_t structure.
+ *
+ * @return @c 1 (true) if this CompSBasePlugin_t's "replacedBy" element has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBasePlugin_isSetReplacedBy(const CompSBasePlugin_t * csbp);
+
+
+/**
+ * Sets the value of the "replacedBy" element of this CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure.
+ *
+ * @param replacedBy ReplacedBy_t* value of the "replacedBy" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBasePlugin_setReplacedBy(CompSBasePlugin_t * csbp,
+                              const ReplacedBy_t* replacedBy);
+
+
+/**
+ * Creates a new ReplacedBy_t object, adds it to this CompSBasePlugin_t object
+ * and returns the ReplacedBy_t object created.
+ *
+ * @param csbp the CompSBasePlugin_t structure to which the ReplacedBy_t should
+ * be added.
+ *
+ * @return a new ReplacedBy_t object instance.
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+ReplacedBy_t*
+CompSBasePlugin_createReplacedBy(CompSBasePlugin_t* csbp);
+
+
+/**
+ * Unsets the value of the "replacedBy" element of this CompSBasePlugin_t.
+ *
+ * @param csbp the CompSBasePlugin_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CompSBasePlugin_t
+ */
+LIBSBML_EXTERN
+int
+CompSBasePlugin_unsetReplacedBy(CompSBasePlugin_t * csbp);
+
+END_C_DECLS
+
+LIBSBML_CPP_NAMESPACE_END
+
+#endif /* !SWIG */
+#endif /* !CompSBasePlugin_H__ */
