@@ -195,5 +195,77 @@ ListOfExternalModelDefinitions::accept(SBMLVisitor& v) const
 /** @endcond */
 
 #endif /* __cplusplus */
-LIBSBML_CPP_NAMESPACE_END
 
+
+/*
+ * Get an ExternalModelDefinition_t from the ListOf_t.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_getExternalModelDefinition(ListOf_t* lo,
+                                                          unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfExternalModelDefinitions*>(lo)->get(n);
+}
+
+
+/*
+ * Get an ExternalModelDefinition_t from the ListOf_t based on its identifier.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_getById(ListOf_t* lo, const char *sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast
+    <ListOfExternalModelDefinitions*>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ * Removes the nth ExternalModelDefinition_t from this ListOf_t and returns a
+ * pointer to it.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_remove(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfExternalModelDefinitions*>(lo)->remove(n);
+}
+
+
+/*
+ * Removes the ExternalModelDefinition_t from this ListOf_t based on its
+ * identifier and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_removeById(ListOf_t* lo, const char* sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast
+    <ListOfExternalModelDefinitions*>(lo)->remove(sid) : NULL;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END

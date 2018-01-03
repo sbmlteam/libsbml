@@ -849,45 +849,6 @@ int
 ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd);
 
 
-/**
- * Return the ExternalModelDefinition_t indicated by the given @p sid.
- *
- * @param lo the ListOf_t structure to use.
- *
- * @param sid a string, the identifier of the
- * ExternalModelDefinition_t being sought.
- *
- * @return the ExternalModelDefinition_t for the given variable, or @c NULL if no such
- * ExternalModelDefinition_t exists.
- *
- * @memberof ListOfExternalModelDefinitions_t
- */
-LIBSBML_EXTERN
-ExternalModelDefinition_t *
-ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid);
-
-
-/**
- * Removes the ExternalModelDefinition_t structure with the given @p sid
- * from the given ListOf_t structure and returns a pointer to it.
- *
- * The caller owns the returned structure and is responsible for deleting it.
- *
- * @param lo the ListOf_t structure.
- * @param sid the string of the "id" attribute of the ExternalModelDefinition_t sought.
- *
- * @return the ExternalModelDefinition_t structure removed.  As mentioned above, the 
- * caller owns the returned structure. @c NULL is returned if no ExternalModelDefinition_t
- * structure with the "id" attribute exists in the given ListOf_t structure.
- *
- * @memberof ListOfExternalModelDefinitions_t
- */
-LIBSBML_EXTERN
-ExternalModelDefinition_t *
-ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid);
-
-
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

@@ -252,9 +252,87 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+
+/**
+ * Get an ExternalModelDefinition_t from the ListOf_t.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * ExternalModelDefinition_t to retrieve.
+ *
+ * @return the nth ExternalModelDefinition_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfExternalModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_getExternalModelDefinition(ListOf_t* lo,
+                                                          unsigned int n);
+
+
+/**
+ * Get an ExternalModelDefinition_t from the ListOf_t based on its identifier.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * ExternalModelDefinition_t to retrieve.
+ *
+ * @return the ExternalModelDefinition_t in this ListOf_t with the given @p sid
+ * or @c NULL if no such ExternalModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfExternalModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_getById(ListOf_t* lo, const char *sid);
+
+
+/**
+ * Removes the nth ExternalModelDefinition_t from this ListOf_t and returns a
+ * pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the
+ * ExternalModelDefinition_t to remove.
+ *
+ * @return a pointer to the nth ExternalModelDefinition_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfExternalModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_remove(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Removes the ExternalModelDefinition_t from this ListOf_t based on its
+ * identifier and returns a pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the
+ * ExternalModelDefinition_t to remove.
+ *
+ * @return the ExternalModelDefinition_t in this ListOf_t based on the
+ * identifier or NULL if no such ExternalModelDefinition_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfExternalModelDefinitions_t
+ */
+LIBSBML_EXTERN
+ExternalModelDefinition_t*
+ListOfExternalModelDefinitions_removeById(ListOf_t* lo, const char* sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

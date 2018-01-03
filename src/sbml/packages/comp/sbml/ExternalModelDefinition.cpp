@@ -923,28 +923,6 @@ ExternalModelDefinition_hasRequiredAttributes(ExternalModelDefinition_t * emd)
 {
   return (emd != NULL) ? static_cast<int>(emd->hasRequiredAttributes()) : 0;
 }
-
-
-LIBSBML_EXTERN
-ExternalModelDefinition_t *
-ListOfExternalModelDefinitions_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->get(sid) : NULL;
-}
-
-
-LIBSBML_EXTERN
-ExternalModelDefinition_t *
-ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->remove(sid) : NULL;
-}
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
