@@ -242,9 +242,81 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+
+/**
+ * Get a Port_t from the ListOf_t.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Port_t to retrieve.
+ *
+ * @return the nth Port_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfPorts_t
+ */
+LIBSBML_EXTERN
+Port_t*
+ListOfPorts_getPort(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Get a Port_t from the ListOf_t based on its identifier.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Port_t to retrieve.
+ *
+ * @return the Port_t in this ListOf_t with the given @p sid or @c NULL if no
+ * such Port_t exists.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof ListOfPorts_t
+ */
+LIBSBML_EXTERN
+Port_t*
+ListOfPorts_getById(ListOf_t* lo, const char *sid);
+
+
+/**
+ * Removes the nth Port_t from this ListOf_t and returns a pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the Port_t to remove.
+ *
+ * @return a pointer to the nth Port_t in this ListOf_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfPorts_t
+ */
+LIBSBML_EXTERN
+Port_t*
+ListOfPorts_remove(ListOf_t* lo, unsigned int n);
+
+
+/**
+ * Removes the Port_t from this ListOf_t based on its identifier and returns a
+ * pointer to it.
+ *
+ * @param lo the ListOf_t structure to search.
+ *
+ * @param sid a string representing the identifier of the Port_t to remove.
+ *
+ * @return the Port_t in this ListOf_t based on the identifier or NULL if no
+ * such Port_t exists.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof ListOfPorts_t
+ */
+LIBSBML_EXTERN
+Port_t*
+ListOfPorts_removeById(ListOf_t* lo, const char* sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

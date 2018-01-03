@@ -494,28 +494,6 @@ Port_hasRequiredAttributes(Port_t * p)
 {
   return (p != NULL) ? static_cast<int>(p->hasRequiredAttributes()) : 0;
 }
-
-
-LIBSBML_EXTERN
-Port_t *
-ListOfPorts_getById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfPorts *>(lo)->get(sid) : NULL;
-}
-
-
-LIBSBML_EXTERN
-Port_t *
-ListOfPorts_removeById(ListOf_t * lo, const char * sid)
-{
-  if (lo == NULL)
-    return NULL;
-
-  return (sid != NULL) ? static_cast <ListOfPorts *>(lo)->remove(sid) : NULL;
-}
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 
