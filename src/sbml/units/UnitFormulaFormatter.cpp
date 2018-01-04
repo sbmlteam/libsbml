@@ -2505,6 +2505,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
     const ASTNode * LHS, std::string id, bool inKL, int reactNo)
 {
   UnitDefinition * resultUD = NULL;
+  if (expectedUD == NULL) return NULL;
 
   ASTNode * math = LHS->deepCopy();
   UnitDefinition * tempUD = expectedUD->clone();

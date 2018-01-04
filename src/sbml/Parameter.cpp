@@ -615,11 +615,10 @@ Parameter::getDerivedUnitDefinition()
     /* here we do not want to try to infer the unit from any formula
     * we just use what is given
     */
-    if (m->getFormulaUnitsData(id, typecode) != NULL)
+    FormulaUnitsData *fud = m->getFormulaUnitsData(id, typecode);
+    if (fud != NULL)
     {
-      // we already have the ud in memory return it
-
-      derivedUD = m->getFormulaUnitsData(id, typecode)->getUnitDefinition();
+      derivedUD = fud->getUnitDefinition();
     }
   }
 

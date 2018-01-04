@@ -1158,8 +1158,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre ( !formulaUnits->getContainsUndeclaredUnits()
-	|| (formulaUnits->getContainsUndeclaredUnits()
-	    && formulaUnits->getCanIgnoreUndeclaredUnits()) );
+  || (formulaUnits->getContainsUndeclaredUnits()
+      && formulaUnits->getCanIgnoreUndeclaredUnits()) );
 
   if (ar.getLevel() == 1)
   {
@@ -1589,9 +1589,11 @@ START_CONSTRAINT (10531, RateRule, rr)
   pre ( variableUnits != NULL ); 
 
   /* in level 3 need to check that the compartment has units defined */
-  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+  pre(variableUnits->getUnitDefinition() != NULL &&
+    variableUnits->getUnitDefinition()->getNumUnits() > 0);
   /* in L3 need to check that time units were set */
-  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+  pre (variableUnits->getPerTimeUnitDefinition() != NULL &&
+    variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
 
 
   /* check that the formula is okay 
@@ -1668,10 +1670,12 @@ START_CONSTRAINT (10532, RateRule, rr)
   pre ( formulaUnits  != NULL );
   pre ( variableUnits != NULL ); 
 
-  /* in level 3 need to check that the species has units defined */
-  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+  /* in level 3 need to check that the compartment has units defined */
+  pre(variableUnits->getUnitDefinition() != NULL &&
+    variableUnits->getUnitDefinition()->getNumUnits() > 0);
   /* in L3 need to check that time units were set */
-  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+  pre(variableUnits->getPerTimeUnitDefinition() != NULL &&
+    variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
 
 
   /* check that the formula is okay 
@@ -1761,8 +1765,8 @@ START_CONSTRAINT (10533, RateRule, rr)
   pre ( variableUnits != NULL); 
 
   /* in L3 need to check that time units were set */
-  pre(variableUnits->getPerTimeUnitDefinition() != NULL);
-  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+  pre(variableUnits->getPerTimeUnitDefinition() != NULL &&
+    variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1823,7 +1827,8 @@ START_CONSTRAINT (10534, RateRule, rr)
   pre ( variableUnits != NULL ); 
 
   /* in L3 need to check that time units were set */
-  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+  pre(variableUnits->getPerTimeUnitDefinition() != NULL &&
+    variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */

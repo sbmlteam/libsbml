@@ -242,10 +242,10 @@ Delay::getDerivedUnitDefinition()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), SBML_EVENT))
+    FormulaUnitsData *fud = m->getFormulaUnitsData(getId(), SBML_EVENT);
+    if (fud != NULL)
     {
-      return m->getFormulaUnitsData(getId(), SBML_EVENT)
-                                             ->getUnitDefinition();
+      return fud->getUnitDefinition();
     }
     else
     {
@@ -311,10 +311,10 @@ Delay::containsUndeclaredUnits()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), SBML_EVENT))
+    FormulaUnitsData *fud = m->getFormulaUnitsData(getId(), SBML_EVENT);
+    if (fud != NULL)
     {
-      return m->getFormulaUnitsData(getId(), SBML_EVENT)
-      ->getContainsUndeclaredUnits();
+      return fud->getContainsUndeclaredUnits();
     }
     else
     {

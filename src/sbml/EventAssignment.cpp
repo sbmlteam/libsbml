@@ -300,10 +300,10 @@ EventAssignment::getDerivedUnitDefinition()
     if (e != NULL) eid = e->getInternalId();
     
     std::string id = getVariable() + eid;
-    if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
+    FormulaUnitsData *fud = m->getFormulaUnitsData(id, getTypeCode());
+    if (fud != NULL)
     {
-      return m->getFormulaUnitsData(id, getTypeCode())
-                                             ->getUnitDefinition();
+      return fud->getUnitDefinition();
     }
     else
     {
@@ -375,10 +375,10 @@ EventAssignment::containsUndeclaredUnits()
     if (e != NULL) eid = e->getInternalId();
 
     std::string id = getVariable() + eid;
-    if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
+    FormulaUnitsData *fud = m->getFormulaUnitsData(id, getTypeCode());
+    if (fud != NULL)
     {
-      return m->getFormulaUnitsData(id, getTypeCode())
-      ->getContainsUndeclaredUnits();
+      return fud->getContainsUndeclaredUnits();
     }
     else
     {

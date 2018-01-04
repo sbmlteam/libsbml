@@ -502,10 +502,10 @@ Rule::getDerivedUnitDefinition()
     
     if (isAlgebraic())
     {
-      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
+      FormulaUnitsData *fud = m->getFormulaUnitsData(getInternalId(), getTypeCode());
+      if (fud != NULL)
       {
-        return m->getFormulaUnitsData(getInternalId(), getTypeCode())
-                                               ->getUnitDefinition();
+        return fud->getUnitDefinition();
       }
       else
       {
@@ -514,10 +514,10 @@ Rule::getDerivedUnitDefinition()
     }
     else
     {
-      if (m->getFormulaUnitsData(getVariable(), getTypeCode()) != NULL)
+      FormulaUnitsData *fud = m->getFormulaUnitsData(getVariable(), getTypeCode());
+      if (fud != NULL)
       {
-        return m->getFormulaUnitsData(getVariable(), getTypeCode())
-                                              ->getUnitDefinition();
+        return fud->getUnitDefinition();
       }
       else
       {
@@ -588,10 +588,10 @@ Rule::containsUndeclaredUnits()
     
     if (isAlgebraic())
     {
-      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
+      FormulaUnitsData *fud = m->getFormulaUnitsData(getInternalId(), getTypeCode());
+      if (fud != NULL)
       {
-        return m->getFormulaUnitsData(getInternalId(), getTypeCode())
-          ->getContainsUndeclaredUnits();
+        return fud->getContainsUndeclaredUnits();
       }
       else
       {
@@ -600,10 +600,10 @@ Rule::containsUndeclaredUnits()
     }
     else
     {
-      if (m->getFormulaUnitsData(getVariable(), getTypeCode()) != NULL)
+      FormulaUnitsData *fud = m->getFormulaUnitsData(getVariable(), getTypeCode());
+      if (fud != NULL)
       {
-        return m->getFormulaUnitsData(getVariable(), getTypeCode())
-          ->getContainsUndeclaredUnits();
+        return fud->getContainsUndeclaredUnits();
       }
       else
       {

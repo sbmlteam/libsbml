@@ -474,6 +474,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Model : public SBase
 {
+#ifndef SWIG
+  typedef std::pair<const std::string, int>   KeyValue;
+  typedef std::map<KeyValue, FormulaUnitsData*> UnitsValueMap;
+  typedef UnitsValueMap::const_iterator                  UnitsValueIter;
+#endif
   friend class SBMLDocument; //So that SBMLDocument can change the element namespace if it needs to.
 public:
 
@@ -3527,6 +3532,14 @@ public:
 
 
   /**
+  * Creates a new FormulaUnitsData inside this Model and returns it.
+  *
+  * @return the FormulaUnitsData object created.
+  */
+  FormulaUnitsData* createFormulaUnitsData(const std::string& id, int typecode);
+
+
+  /**
    * Get the nth FormulaUnitsData object in this Model.
    *
    * @return the nth FormulaUnitsData of this Model.
@@ -4211,6 +4224,7 @@ protected:
   List *                     mFormulaUnitsData;
   IdList                     mIdList;
   IdList                     mMetaidList;
+  UnitsValueMap              mUnitsDataMap;
 
 
   /* the validator classes need to be friends to access the 

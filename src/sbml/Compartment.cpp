@@ -921,7 +921,7 @@ Compartment::getDerivedUnitDefinition()
   /* we should have a model by this point 
    * OR the object is not yet a child of a model
    */
-
+  
   if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
@@ -929,10 +929,10 @@ Compartment::getDerivedUnitDefinition()
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    FormulaUnitsData *fud = m->getFormulaUnitsData(getId(), getTypeCode());
+    if (fud != NULL)
     {
-      return m->getFormulaUnitsData(getId(), getTypeCode())
-                                             ->getUnitDefinition();
+      return fud->getUnitDefinition();
     }
     else
     {
