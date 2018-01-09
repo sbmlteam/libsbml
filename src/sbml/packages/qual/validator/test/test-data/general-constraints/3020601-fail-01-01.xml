@@ -25,7 +25,7 @@
                 <qual:listOfOutputs>
                     <qual:output qual:transitionEffect="assignmentLevel" 
                                  qual:qualitativeSpecies="B"
-                    metaid="_h" sboTerm="SBO:0000001" variable="nucleus"/>
+                    metaid="_h1" sboTerm="SBO:0000001" variable="nucleus"/>
                 </qual:listOfOutputs>
                 <qual:listOfFunctionTerms>
                     <qual:functionTerm qual:resultLevel="1">
