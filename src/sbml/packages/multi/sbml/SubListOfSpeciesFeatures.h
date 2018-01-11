@@ -605,6 +605,57 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  __cplusplus  */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
+/**
+ * Returns the string version of the provided #Relation_t enumeration.
+ *
+ * @param r the #Relation_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "and",
+ * "or",
+ * "not",
+ * or @c NULL if the value is @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} or
+ * another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof SubListOfSpeciesFeatures_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+Relation_toString(Relation_t r);
+
+/**
+ * Returns the #Relation_t enumeration corresponding to the given string or
+ * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} if there is no such match.
+ *
+ * @param code the string to convert to a #Relation_t.
+ *
+ * @return the corresponding #Relation_t or @sbmlconstant{MULTI_RELATION_UNKNOWN,
+ * Relation_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "and" will return
+ * @sbmlconstant{MULTI_RELATION_AND, Relation_t}, but "And" will return
+ * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t}.
+ *
+ * @if conly
+ * @memberof SubListOfSpeciesFeatures_t
+ * @endif
+ */
+LIBSBML_EXTERN
+Relation_t
+Relation_fromString(const char* code);
+
+END_C_DECLS
+LIBSBML_CPP_NAMESPACE_END
+
+
+
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -654,51 +705,6 @@ SubListOfSpeciesFeatures_isValidRelation(Relation_t relation);
 LIBSBML_EXTERN
 int
 SubListOfSpeciesFeatures_isValidRelationString(const char* code);
-
-/**
- * Returns the string version of the provided #Relation_t enumeration.
- *
- * @param r the #Relation_t enumeration value to convert.
- *
- * @return A string corresponding to the given type:
- * "and",
- * "or",
- * "not",
- * or @c NULL if the value is @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} or
- * another invalid enumeration value.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @if conly
- * @memberof SubListOfSpeciesFeatures_t
- * @endif
- */
-LIBSBML_EXTERN
-const char*
-Relation_toString(Relation_t r);
-
-
-/**
- * Returns the #Relation_t enumeration corresponding to the given string or
- * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} if there is no such match.
- *
- * @param code the string to convert to a #Relation_t.
- *
- * @return the corresponding #Relation_t or @sbmlconstant{MULTI_RELATION_UNKNOWN,
- * Relation_t} if no match is found.
- *
- * @note The matching is case-sensitive: "and" will return
- * @sbmlconstant{MULTI_RELATION_AND, Relation_t}, but "And" will return
- * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t}.
- *
- * @if conly
- * @memberof SubListOfSpeciesFeatures_t
- * @endif
- */
-LIBSBML_EXTERN
-Relation_t
-Relation_fromString(const char* code);
-
 
 /**
  * Creates a new SubListOfSpeciesFeatures_t using the given SBML Level, Version
