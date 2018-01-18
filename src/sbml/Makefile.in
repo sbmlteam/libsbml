@@ -225,7 +225,7 @@ ifdef USE_MULTI
 endif
 ifdef USE_RENDER
   otherdirs +=  packages/render/extension packages/render/sbml  \
-                packages/render/common \
+                packages/render/common packages/render/util \
                 packages/render/validator packages/render/validator/constraints
 endif
 
