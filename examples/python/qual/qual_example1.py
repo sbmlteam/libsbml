@@ -40,6 +40,7 @@
 
 import sys
 import os.path
+import libsbml
 from libsbml import *
 
 
@@ -48,7 +49,7 @@ def main (args):
     # package name, package version.
     sbmlns = SBMLNamespaces(3, 1, "qual", 1)
 
-    # Creates an SBMLDocument object 
+    # Creates an SBMLDocument object
     document = SBMLDocument(sbmlns)
 
     # mark qual as required
@@ -82,15 +83,15 @@ def main (args):
     i = t.createInput()
     i.setId("RD")
     i.setQualitativeSpecies("s1")
-    i.setTransitionEffect("none")
-    i.setSign("negative")
+    i.setTransitionEffect(INPUT_TRANSITION_EFFECT_NONE)
+    i.setSign(INPUT_SIGN_NEGATIVE)
     i.setThresholdLevel(2)
     i.setName("aa")
 
     o = t.createOutput()
     o.setId("wd")
     o.setQualitativeSpecies("s1")
-    o.setTransitionEffect("production")
+    o.setTransitionEffect(OUTPUT_TRANSITION_EFFECT_PRODUCTION)
     o.setOutputLevel(2)
     o.setName("aa")
 
@@ -106,4 +107,4 @@ def main (args):
 
 
 if __name__ == '__main__':
-  main(sys.argv)  
+  main(sys.argv)
