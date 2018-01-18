@@ -66,6 +66,7 @@ packages = [
   ('USE_QUAL', None),
   ('USE_MULTI', None),
   ('USE_FBC', None),
+  ('USE_RENDER', None),
   ('USE_LAYOUT', None)
 ]
 if platform.system() == 'Darwin': 

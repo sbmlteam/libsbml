@@ -101,6 +101,13 @@ set(DIRECTORIES
   sbml/packages/layout/validator
   sbml/packages/layout/validator/constraints
   
+  sbml/packages/render/common
+  sbml/packages/render/extension
+  sbml/packages/render/sbml
+  sbml/packages/render/util
+  sbml/packages/render/validator
+  sbml/packages/render/validator/constraints
+  
   sbml/packages/qual/common
   sbml/packages/qual/extension
   sbml/packages/qual/sbml
