@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Created on: 1/11/2014 8:28:41 AM-->
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <!--                     -->
+  <!--  Model Starts Here  -->
+  <!--                     -->
+  <model id="futileCycle" name="FutileCycle">
+    <annotation>
+      <listOfLayouts xmlns="http://projects.eml.org/bcb/sbml/level2">
+        <layout id="JDesigner2_0" xmlns="http://projects.eml.org/bcb/sbml/level2">
+          <!--Created by SBW SBML LayoutViewer/Manipulator-->
+          <annotation>
+            <listOfRenderInformation xmlns="http://projects.eml.org/bcb/sbml/render/level2">
+              <renderInformation id="ConvertedRenderStyle" programName="SBML Layout Viewer - SBW version" programVersion="2.7.5121.21120 Compiled on: 1/9/2014 11:44:00 AM">
+                <listOfColorDefinitions>
+                  <colorDefinition id="Color_0" value="#969696" />
+                  <colorDefinition id="Color_1" value="#000000" />
+                  <colorDefinition id="Color_2" value="#ff6600" />
+                </listOfColorDefinitions>
+                <listOfGradientDefinitions>
+                  <radialGradient cx="50%" cy="50%" cz="50%" r="50%" id="RadialGradient_0" spreadMethod="pad">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#99cc00" />
+                  </radialGradient>
+                </listOfGradientDefinitions>
+                <listOfLineEndings>
+                  <lineEnding id="product" enableRotationalMapping="true">
+                    <boundingBox>
+                      <position x="-10" y="-5" />
+                      <dimensions width="10" height="10" />
+                    </boundingBox>
+                    <g stroke="Color_2" stroke-width="0.001" fill="Color_2" font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top">
+                      <polygon>
+                        <listOfCurveSegments>
+                          <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <start x="0%" y="0%" />
+                            <end x="100%" y="50%" />
+                          </curveSegment>
+                          <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <start x="100%" y="50%" />
+                            <end x="0%" y="100%" />
+                          </curveSegment>
+                          <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <start x="0%" y="100%" />
+                            <end x="33%" y="50%" />
+                          </curveSegment>
+                          <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <start x="33%" y="50%" />
+                            <end x="0%" y="0%" />
+                          </curveSegment>
+                        </listOfCurveSegments>
+                      </polygon>
+                    </g>
+                  </lineEnding>
+                </listOfLineEndings>
+                <listOfStyles>
+                  <style idList="sGlyph_0 sGlyph_1 sGlyph_2 sGlyph_3">
+                    <g font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top">
+                      <ellipse cx="22.5" cy="16.5" cz="0.0" rx="22.5" ry="16.5" />
+                    </g>
+                  </style>
+                  <style roleList=" product">
+                    <g stroke="Color_2" stroke-width="2" font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top" endHead="product" />
+                  </style>
+                  <style roleList="substrate sidesubstrate" idList="rGlyph_0 rGlyph_1 rGlyph_2 rGlyph_3">
+                    <g stroke="Color_2" stroke-width="2" font-size="0" font-style="normal" font-weight="normal" text-anchor="start" vtext-anchor="top" />
+                  </style>
+                  <style idList="tGlyph_0 tGlyph_1 tGlyph_2 tGlyph_3">
+                    <g stroke="Color_1" font-family="Arial" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" vtext-anchor="top" />
+                  </style>
+                </listOfStyles>
+              </renderInformation>
+            </listOfRenderInformation>
+          </annotation>
+          <dimensions width="535.537328720093" height="277" />
+          <listOfSpeciesGlyphs>
+            <speciesGlyph id="sGlyph_0" species="Node1">
+              <boundingBox>
+                <position x="178" y="119" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </speciesGlyph>
+            <speciesGlyph id="sGlyph_1" species="Node2">
+              <boundingBox>
+                <position x="315" y="122" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </speciesGlyph>
+            <speciesGlyph id="sGlyph_2" species="Node0">
+              <boundingBox>
+                <position x="48" y="120" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </speciesGlyph>
+            <speciesGlyph id="sGlyph_3" species="Node3">
+              <boundingBox>
+                <position x="442" y="120" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </speciesGlyph>
+          </listOfSpeciesGlyphs>
+          <listOfReactionGlyphs>
+            <reactionGlyph id="rGlyph_0" reaction="J0">
+              <boundingBox>
+                <position x="0" y="0" />
+                <dimensions width="0" height="0" />
+              </boundingBox>
+              <listOfSpeciesReferenceGlyphs>
+                <speciesReferenceGlyph id="SpeciesReference_J0_0" render:objectRole="product" speciesReference="Node1" speciesGlyph="sGlyph_0" role="product" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                  <curve>
+                    <listOfCurveSegments>
+                      <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <start x="100" y="136.239382239382" />
+                        <end x="171" y="135.586206896552" />
+                      </curveSegment>
+                    </listOfCurveSegments>
+                  </curve>
+                </speciesReferenceGlyph>
+                <speciesReferenceGlyph id="SpeciesReference_J0_2" render:objectRole="substrate" speciesReference="Node0" speciesGlyph="sGlyph_2" role="substrate" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                </speciesReferenceGlyph>
+              </listOfSpeciesReferenceGlyphs>
+            </reactionGlyph>
+            <reactionGlyph id="rGlyph_1" reaction="J1">
+              <boundingBox>
+                <position x="0" y="0" />
+                <dimensions width="0" height="0" />
+              </boundingBox>
+              <listOfSpeciesReferenceGlyphs>
+                <speciesReferenceGlyph id="SpeciesReference_J1_0" render:objectRole="product" speciesReference="Node2" speciesGlyph="sGlyph_1" role="product" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                  <curve>
+                    <listOfCurveSegments>
+                      <curveSegment xsi:type="CubicBezier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <start x="229" y="117.181818181818" />
+                        <end x="309" y="121.255319148936" />
+                        <basePoint1 x="261" y="97" />
+                        <basePoint2 x="267" y="97" />
+                      </curveSegment>
+                    </listOfCurveSegments>
+                  </curve>
+                </speciesReferenceGlyph>
+                <speciesReferenceGlyph id="SpeciesReference_J1_2" render:objectRole="substrate" speciesReference="Node1" speciesGlyph="sGlyph_0" role="substrate" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                </speciesReferenceGlyph>
+              </listOfSpeciesReferenceGlyphs>
+            </reactionGlyph>
+            <reactionGlyph id="rGlyph_2" reaction="J2">
+              <boundingBox>
+                <position x="0" y="0" />
+                <dimensions width="0" height="0" />
+              </boundingBox>
+              <listOfSpeciesReferenceGlyphs>
+                <speciesReferenceGlyph id="SpeciesReference_J2_0" render:objectRole="product" speciesReference="Node1" speciesGlyph="sGlyph_0" role="product" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                  <curve>
+                    <listOfCurveSegments>
+                      <curveSegment xsi:type="CubicBezier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <start x="308" y="146.469387755102" />
+                        <end x="230" y="145.6" />
+                        <basePoint1 x="264" y="158" />
+                        <basePoint2 x="263" y="158" />
+                      </curveSegment>
+                    </listOfCurveSegments>
+                  </curve>
+                </speciesReferenceGlyph>
+                <speciesReferenceGlyph id="SpeciesReference_J2_2" render:objectRole="substrate" speciesReference="Node2" speciesGlyph="sGlyph_1" role="substrate" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                </speciesReferenceGlyph>
+              </listOfSpeciesReferenceGlyphs>
+            </reactionGlyph>
+            <reactionGlyph id="rGlyph_3" reaction="J3">
+              <boundingBox>
+                <position x="0" y="0" />
+                <dimensions width="0" height="0" />
+              </boundingBox>
+              <listOfSpeciesReferenceGlyphs>
+                <speciesReferenceGlyph id="SpeciesReference_J3_0" render:objectRole="product" speciesReference="Node3" speciesGlyph="sGlyph_3" role="product" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                  <curve>
+                    <listOfCurveSegments>
+                      <curveSegment xsi:type="LineSegment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <start x="367" y="138.055335968379" />
+                        <end x="435" y="136.764705882353" />
+                      </curveSegment>
+                    </listOfCurveSegments>
+                  </curve>
+                </speciesReferenceGlyph>
+                <speciesReferenceGlyph id="SpeciesReference_J3_2" render:objectRole="substrate" speciesReference="Node2" speciesGlyph="sGlyph_1" role="substrate" xmlns:render="http://projects.eml.org/bcb/sbml/render/level2">
+                  <boundingBox>
+                    <position x="0" y="0" />
+                    <dimensions width="0" height="0" />
+                  </boundingBox>
+                </speciesReferenceGlyph>
+              </listOfSpeciesReferenceGlyphs>
+            </reactionGlyph>
+          </listOfReactionGlyphs>
+          <listOfTextGlyphs>
+            <textGlyph id="tGlyph_0" graphicalObject="sGlyph_0" text="Node1">
+              <boundingBox>
+                <position x="178" y="119" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </textGlyph>
+            <textGlyph id="tGlyph_1" graphicalObject="sGlyph_1" text="Node2">
+              <boundingBox>
+                <position x="315" y="122" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </textGlyph>
+            <textGlyph id="tGlyph_2" graphicalObject="sGlyph_2" text="Node0">
+              <boundingBox>
+                <position x="48" y="120" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </textGlyph>
+            <textGlyph id="tGlyph_3" graphicalObject="sGlyph_3" text="Node3">
+              <boundingBox>
+                <position x="442" y="120" />
+                <dimensions width="45" height="33" />
+              </boundingBox>
+            </textGlyph>
+          </listOfTextGlyphs>
+        </layout>
+      </listOfLayouts>
+    </annotation>
+    <listOfCompartments>
+      <compartment id="compartment" size="1" />
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Node1" boundaryCondition="false" initialConcentration="0" compartment="compartment" />
+      <species id="Node2" boundaryCondition="false" initialConcentration="0" compartment="compartment" />
+      <species id="Node0" boundaryCondition="true" initialConcentration="10" compartment="compartment" />
+      <species id="Node3" boundaryCondition="true" initialConcentration="0" compartment="compartment" />
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="J0_J0_Vmax" value="0.1" />
+      <parameter id="J0_K1" value="0.1" />
+      <parameter id="J0_J0_Keq" value="0.1" />
+      <parameter id="J0_K2" value="0.1" />
+      <parameter id="J1_J1_k" value="0.1" />
+      <parameter id="J2_J2_k" value="0.1" />
+      <parameter id="J3_J3_k" value="0.1" />
+      <parameter id="J0_Vmax" value="0.1" />
+      <parameter id="K1" value="0.1" />
+      <parameter id="J0_Keq" value="0.1" />
+      <parameter id="K2" value="0.1" />
+      <parameter id="J1_k" value="0.1" />
+      <parameter id="J2_k" value="0.1" />
+      <parameter id="J3_k" value="0.1" />
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J0" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Node0" stoichiometry="1" />
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Node1" stoichiometry="1" />
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide />
+              <apply>
+                <times />
+                <apply>
+                  <divide />
+                  <ci>
+                                 J0_J0_Vmax
+                           </ci>
+                  <ci>
+                                 J0_K1
+                           </ci>
+                </apply>
+                <apply>
+                  <minus />
+                  <ci>
+                                 Node0
+                           </ci>
+                  <apply>
+                    <divide />
+                    <ci>
+                                    Node1
+                              </ci>
+                    <ci>
+                                    J0_J0_Keq
+                              </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <plus />
+                <cn type="integer">
+                              1
+                        </cn>
+                <apply>
+                  <divide />
+                  <ci>
+                                 Node0
+                           </ci>
+                  <ci>
+                                 J0_K1
+                           </ci>
+                </apply>
+                <apply>
+                  <divide />
+                  <ci>
+                                 Node1
+                           </ci>
+                  <ci>
+                                 J0_K2
+                           </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Node1" stoichiometry="1" />
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Node2" stoichiometry="1" />
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times />
+              <ci>
+                           J1_J1_k
+                     </ci>
+              <ci>
+                           Node1
+                     </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J2" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Node2" stoichiometry="1" />
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Node1" stoichiometry="1" />
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times />
+              <ci>
+                           J2_J2_k
+                     </ci>
+              <ci>
+                           Node2
+                     </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="J3" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Node2" stoichiometry="1" />
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Node3" stoichiometry="1" />
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times />
+              <ci>
+                           J3_J3_k
+                     </ci>
+              <ci>
+                           Node2
+                     </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
