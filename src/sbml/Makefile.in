@@ -223,6 +223,11 @@ ifdef USE_MULTI
                 packages/multi/common \
                 packages/multi/validator packages/multi/validator/constraints
 endif
+ifdef USE_RENDER
+  otherdirs +=  packages/render/extension packages/render/sbml  \
+                packages/render/common \
+                packages/render/validator packages/render/validator/constraints
+endif
 
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 

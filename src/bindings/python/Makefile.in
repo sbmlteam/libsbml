@@ -150,6 +150,11 @@ ifdef USE_MULTI
   SWIGDOCDEFINES += --define USE_MULTI
 endif # USE_MULTI  
 
+ifdef USE_RENDER
+  SWIGFLAGS      += -DUSE_RENDER
+  SWIGDOCDEFINES += --define USE_RENDER
+endif # USE_RENDER
+
 
 # On MacOS X, compilation generates a warning about `long double'.
 

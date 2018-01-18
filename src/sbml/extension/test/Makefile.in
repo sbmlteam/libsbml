@@ -169,6 +169,11 @@ ifdef USE_COMP
 				../../packages/comp/validator ../../packages/comp/validator/constraints
 endif
 
+ifdef USE_RENDER
+  otherdirs +=	../../packages/render/extension ../../packages/render/sbml \
+				../../packages/render/common  ../../packages/render/util \
+				../../packages/render/validator ../../packages/render/validator/constraints
+endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 

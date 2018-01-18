@@ -121,6 +121,12 @@ ifeq ("@USE_MULTI@", "1")
 	SWIGDOCDEFINES += --define USE_MULTI
 endif
 
+ifeq ("@USE_RENDER@", "1")
+  SWIGFLAGS      += -DUSE_RENDER
+  SWIGDOCDEFINES += --define USE_RENDER
+endif # USE_RENDER
+
+
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' \
     | cut -f2- -d'/' | sed -e 's,^,../../sbml/,g')
