@@ -41,7 +41,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcd/Users/skeating/libsbml/src/sbml/packages/multi/common/Makefile.inir  = @srcdir@
+srcdir  = @srcdir@
 thisdir = src/sbml/packages/multi/extension
 
 subdirs = test
@@ -51,28 +51,28 @@ subdirs = test
 # rules in `makefile-common-actions.mk' included at the end.
 
 headers = \
-	MultiASTPlugin.h		    \
-	MultiCompartmentPlugin.h	    \
-	MultiListOfReactionsPlugin.h	    \
-	MultiSimpleSpeciesReferencePlugin.h \
-	MultiSpeciesPlugin.h		    \
-	MultiSpeciesReferencePlugin.h	    \
-        MultiExtension.h		    \
-        MultiModelPlugin.h		    \
-        MultiSBMLDocumentPlugin.h
+  MultiASTPlugin.h                    \
+  MultiCompartmentPlugin.h            \
+  MultiListOfReactionsPlugin.h        \
+  MultiSimpleSpeciesReferencePlugin.h \
+  MultiSpeciesPlugin.h                \
+  MultiSpeciesReferencePlugin.h       \
+  MultiExtension.h                    \
+  MultiModelPlugin.h                  \
+  MultiSBMLDocumentPlugin.h
 
 header_inst_prefix = packages/multi/extension
 
 sources = \
-	MultiASTPlugin.cpp		      \
-	MultiCompartmentPlugin.cpp	      \
-	MultiListOfReactionsPlugin.cpp	      \
-	MultiSimpleSpeciesReferencePlugin.cpp \
-	MultiSpeciesPlugin.cpp		      \
-	MultiSpeciesReferencePlugin.cpp	      \
-        MultiExtension.cpp		      \
-        MultiModelPlugin.cpp		      \
-        MultiSBMLDocumentPlugin.cpp
+  MultiASTPlugin.cpp                    \
+  MultiCompartmentPlugin.cpp            \
+  MultiListOfReactionsPlugin.cpp        \
+  MultiSimpleSpeciesReferencePlugin.cpp \
+  MultiSpeciesPlugin.cpp                \
+  MultiSpeciesReferencePlugin.cpp       \
+  MultiExtension.cpp                    \
+  MultiModelPlugin.cpp                  \
+  MultiSBMLDocumentPlugin.cpp
 
 extra_CPPFLAGS = -I../../..
 
