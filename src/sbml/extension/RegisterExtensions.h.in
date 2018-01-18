@@ -19,3 +19,11 @@
 #ifdef LIBSBML_HAS_PACKAGE_COMP
 #include <sbml/packages/comp-register.h>
 #endif
+
+#ifdef LIBSBML_HAS_PACKAGE_MULTI
+#include <sbml/packages/multi-register.h>
+#endif
+
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
+#include <sbml/packages/render-register.h>
+#endif

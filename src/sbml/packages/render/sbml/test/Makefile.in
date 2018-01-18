@@ -1,11 +1,10 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/sbml/packages/render/validator/test
-## Author(s)   : SBML Team <sbml-team@googlegroups.com>
-## Organization: California Institute of Technology
-## Created     : 2005-03-15
-## 
+## Description : Makefile.in for 'render'
+## Organization: Michael Hucka
+## Created     : 2013-10-19
+##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -15,17 +14,10 @@
 ##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
 ##     3. University of Heidelberg, Heidelberg, Germany
 ## 
-## Copyright (C) 2009-2013 jointly by the following organizations: 
+## Copyright 2011-2012 jointly by the following organizations:
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-##  
-## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
-##     1. California Institute of Technology, Pasadena, CA, USA
-##     2. Japan Science and Technology Agency, Japan
-## 
+##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
@@ -33,7 +25,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ------------------------------------------------------------------------ -->
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -49,25 +41,50 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/packages/render/validator/test
+thisdir   = src/sbml/packages/render/sbml/test
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =                       \
-  TestFile.cpp                       \
-  TestRenderConsistencyValidator.cpp \
-  TestValidator.cpp
+test_sources = \
+  TestRunner.c                    \
+  TestColorDefinition.cpp         \
+  TestEllipse.cpp                 \
+  TestGlobalRenderInformation.cpp \
+  TestGlobalStyle.cpp             \
+  TestGradientBase.cpp            \
+  TestGradientStop.cpp            \
+  TestGraphicalPrimitive1D.cpp    \
+  TestGraphicalPrimitive2D.cpp    \
+  TestGroup.cpp                   \
+  TestImage.cpp                   \
+  TestLinearGradient.cpp          \
+  TestLineEnding.cpp              \
+  TestLocalRenderInformation.cpp  \
+  TestLocalStyle.cpp              \
+  TestPolygon.cpp                 \
+  TestRadialGradient.cpp          \
+  TestRectangle.cpp               \
+  TestRelAbsVector.cpp            \
+  TestRenderCubicBezier.cpp       \
+  TestRenderCurve.cpp             \
+  TestRenderExtension.cpp         \
+  TestRenderInformationBase.cpp   \
+  TestRenderPoint.cpp             \
+  TestRenderReading.cpp           \
+  TestRenderWriting.cpp           \
+  TestStyle.cpp                   \
+  TestText.cpp                    \
+  TestTransformation.cpp          \
+  TestTransformation2D.cpp
 
-test_headers = \
-  TestFile.h   \
-  TestValidator.h
+test_headers =
 
-extra_CPPFLAGS = -I.. -I../.. -I../../../../
+extra_CPPFLAGS = -I.. -I../extension -I../../../.. -I../../../../..
 
 ifdef USE_LIBCHECK
-  check_driver      = TestLayoutConsistencyValidator
+  check_driver      = TestRunner
   ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
     extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
   endif
@@ -81,36 +98,39 @@ ifdef USE_LIBCHECK
 endif
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
-  extra_LIBS     += $(EXPAT_LIBS)
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
 endif
 
 ifdef USE_XERCES
-  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS  += $(XERCES_LDFLAGS)
-  extra_LIBS     += $(XERCES_LIBS)
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
 endif
 
 ifdef USE_LIBXML
   extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
   extra_LDFLAGS  += $(LIBXML_LDFLAGS)
   extra_LIBS     += $(LIBXML_LIBS)
-ifdef BUGGY_APPLE_LIBXML
-  extra_CPPFLAGS += -DBUGGY_APPLE_LIBXML=$(BUGGY_APPLE_LIBXML)
-endif
 endif
 
 extra_LDFLAGS  += ../../../../../libsbml.la
+
+# Remove duplicates, just to shorten the command line.
+
+extra_CPPFLAGS := $(sort $(extra_CPPFLAGS))
+extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) $(test_headers) \
-	    Makefile.in CMakeLists.txt
+test_data_files = $(wildcard test-data/*.xml) $(wildcard test-data/*.xsd)
 
-subdirs = test-data
+distfiles = $(test_sources) $(test_headers) $(test_data_files) Makefile.in \
+	        CMakeLists.txt
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -119,9 +139,9 @@ subdirs = test-data
 # The default action is to do nothing except maybe remake the Makefile.  The
 # real actions are triggered by 'make check'.
 
-all: Makefile all-recursive
+all: Makefile
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
@@ -147,15 +167,27 @@ ifdef USE_LAYOUT
 		../../../layout/extension ../../../layout/util \
 		../../../layout/validator
 endif
-ifdef USE_COMP
-  otherdirs  += ../../../comp/common ../../../comp/sbml \
-		../../../comp/extension ../../../comp/util \
-		../../../comp/validator
+ifdef USE_QUAL
+  otherdirs  += ../../../qual/common ../../../qual/sbml \
+		../../../qual/extension ../../../qual/util \
+		../../../qual/validator
+endif
+
+ifdef USE_MULTI
+  otherdirs  += ../../../multi/common ../../../multi/sbml \
+		../../../multi/extension ../../../multi/util \
+		../../../multi/validator
+endif
+
+ifdef USE_RENDER
+  otherdirs  += ../../../render/common ../../../render/sbml \
+		../../../render/extension ../../../render/util \
+		../../../render/validator
 endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
-test_objfiles = $(localobjfiles) $(otherobjfiles)
 
+test_objfiles = $(localobjfiles) $(otherobjfiles)
 
 ifdef USE_LIBCHECK
   check: all run-checks
@@ -163,13 +195,20 @@ else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
 
-
+
 # -----------------------------------------------------------------------------
-# Tags.
+# Formatting documentation.
 # -----------------------------------------------------------------------------
 
-tags: etags ctags
+dvi:
 
+pdf:
+
+ps:
+
+info:
+
+html:
 
 # -----------------------------------------------------------------------------
 # Installation
@@ -178,12 +217,11 @@ tags: etags ctags
 # This library doesn't actually get installed.  The main libsbml library
 # (in ../src) slurps in the contents when it's built.
 
-install: all install-headers
+install:
 
-installcheck: all installcheck-headers
+uninstall:
 
-uninstall: uninstall-recursive uninstall-headers
-
+installcheck:
 
 # -----------------------------------------------------------------------------
 # Cleaning.
@@ -197,15 +235,13 @@ mostlyclean: mostlyclean-normal mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
-
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: all dist-normal
 
-distcheck: all distcheck-normal distcheck-recursive
-
+distcheck: all distcheck-normal
 
 # -----------------------------------------------------------------------------
 # Miscellaneous
@@ -213,8 +249,6 @@ distcheck: all distcheck-normal distcheck-recursive
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
-

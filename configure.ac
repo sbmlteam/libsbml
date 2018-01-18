@@ -123,6 +123,19 @@ if test "$enable_layout" != no; then
   AC_SUBST(LIBSBML_HAS_PACKAGE_LAYOUT, 1)
 fi
 
+AC_ARG_ENABLE([render],
+  AS_HELP_STRING([--enable-render@<:@=ARG@:>@],
+                 [build support for SBML 'render' @<:@default=no@:>@]),
+  [enable_render=$enableval],
+  [enable_render=no])
+
+if test "$enable_render" != no; then
+  AC_DEFINE([USE_RENDER], 1, [Define to 1 to build support for SBML 'layout'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_RENDER], 1, [Define to 1 to build support for SBML 'layout'.])
+  AC_SUBST(USE_RENDER, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_RENDER, 1)
+fi
+
 AC_ARG_ENABLE([comp],
   AS_HELP_STRING([--enable-comp@<:@=ARG@:>@],
                  [build support for SBML 'comp' @<:@default=no@:>@]),
@@ -575,6 +588,23 @@ if test "$enable_multi" != "no" ; then
 fi
 fi
 
+if test -d src/sbml/packages/render; then
+if test "$enable_render" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/packages/render/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/common/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/extension/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/sbml/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/sbml/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/util/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/validator/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/validator/constraints/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/validator/test/Makefile])
+  AC_CONFIG_FILES([src/sbml/packages/render/validator/test/test-data/Makefile])
+  AC_CONFIG_FILES([examples/c++/render/Makefile])
+dnl  AC_CONFIG_FILES([examples/c/render/Makefile])
+fi
+fi
+
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/index.html])
 AC_CONFIG_FILES([docs/src/Makefile])
@@ -857,6 +887,9 @@ if test "$enable_multi" != "no" ; then
 fi
 if test "$enable_layout" != "no" ; then
   echo "  SBML 'layout'                 = $enable_layout"
+fi
+if test "$enable_render" != "no" ; then
+  echo "  SBML 'render'                 = $enable_render"
 fi
 if test "$enable_qual" != "no" ; then
   echo "  SBML 'qual'                   = $enable_qual"

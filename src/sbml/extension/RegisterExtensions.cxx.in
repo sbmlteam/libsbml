@@ -26,3 +26,15 @@
 #include <sbml/packages/qual-register.cxx>
 /** @endcond */
 #endif
+
+#ifdef LIBSBML_HAS_PACKAGE_MULTI
+/** @cond doxygenLibsbmlInternal */
+#include <sbml/packages/multi-register.cxx>
+/** @endcond */
+#endif
+
+#ifdef LIBSBML_HAS_PACKAGE_RENDER
+/** @cond doxygenLibsbmlInternal */
+#include <sbml/packages/render-register.cxx>
+/** @endcond */
+#endif

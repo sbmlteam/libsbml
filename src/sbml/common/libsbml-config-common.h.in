@@ -118,6 +118,13 @@
 /* Define to 1 to build the SBML multi extension. */
 #undef LIBSBML_HAS_PACKAGE_MULTI
 
+/* Define to 1 to build the SBML render extension. */
+#undef USE_RENDER
+
+/* Define to 1 to build the SBML render extension. */
+#undef LIBSBML_HAS_PACKAGE_RENDER
+
+
 
 /* Define to 1 to build the SBML groups extension. */
 #undef USE_GROUPS

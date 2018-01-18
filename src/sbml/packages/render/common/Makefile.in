@@ -1,19 +1,15 @@
 ## @configure_input@
 ##
-## @file    Makefile.in
-## @brief   Makefile template for extension packages
-## @author  Mike Hucka
-## @author  Akiya Jouraku (Modified for extension packages)
+## Filename    : Makefile.in
+## Description : Makefile template for libsbml 'render' extension
+## Author(s)   : Michael Hucka
+## Organization: California Institute of Technology
+## Created     : 2013-10-19
 ## 
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ##
-## Copyright (C) 2013-2018 jointly by the following organizations:
-##     1. California Institute of Technology, Pasadena, CA, USA
-##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-##     3. University of Heidelberg, Heidelberg, Germany
-## 
 ## Copyright (C) 2009-2013 jointly by the following organizations: 
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
@@ -44,61 +40,56 @@
 include @top_srcdir@/config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src/sbml/packages
+srcdir    = @srcdir@
+thisdir   = src/sbml/packages/render/common
 
-# Depending on the flags given during libSBML's configuration step, different
-# subdirectories will be added to the list of targets.
+subdirs = 
 
-ifneq "$(MAKECMDGOALS)" "dist"
-  ifdef USE_COMP
-    subdirs += comp
-  endif
-  ifdef USE_FBC
-    subdirs += fbc
-  endif
-  ifdef USE_LAYOUT
-    subdirs += layout
-  endif
-  ifdef USE_QUAL
-    subdirs += qual
-  endif
-  ifdef USE_MULTI
-    subdirs += multi
-  endif
-  ifdef USE_RENDER
-    subdirs += render
-  endif
-else
-  # If `make dist' was given, include all subdirectories.
-  # subdirs = comp fbc layout qual
-  subdirs = layout
-endif
-
-# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-distfiles = Makefile.in layout-register.h layout-register.cxx
+headers = \
+  RenderExtensionTypes.h \
+  renderfwd.h
+
+header_inst_prefix = packages/render/common
+
+sources =
+
+extra_CPPFLAGS = -I../../..
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS)
+endif
+
+
+distfiles = $(sources) $(headers) Makefile.in 
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.  Targets of the
-# form 'foo-recursive' are interpreted by the common makefile rules as meaning
-# "go into every subdir and do 'make foo' in each".
+# The default action is to remake everything.
 
-all: Makefile all-recursive
-
-include: include-recursive
-
-docs:
-
+all: Makefile default
 
 # -----------------------------------------------------------------------------
 # Checking.
@@ -106,47 +97,30 @@ docs:
 
 check: all check-recursive
 
-
 # -----------------------------------------------------------------------------
-# Tags.
-# -----------------------------------------------------------------------------
-
-tags: tags-recursive
-
-
-# -----------------------------------------------------------------------------
-# Checking.
+# Installation
 # -----------------------------------------------------------------------------
 
-install: all install-recursive
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
 
-installdirs: all installdirs-recursive
+install: all install-headers
 
-uninstall: uninstall-recursive 
+uninstall: all uninstall-headers
 
-
-# -----------------------------------------------------------------------------
-# Installation.
-# -----------------------------------------------------------------------------
-
-install: install-recursive
-
-uninstall: uninstall-recursive 
-
-installdirs: installdirs-recursive
-
+installcheck: all installcheck-headers
 
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-recursive
+clean: clean-normal clean-recursive
 
-distclean: distclean-recursive
+distclean: distclean-normal distclean-recursive
 
-mostlyclean: mostlyclean-recursive
+mostlyclean: mostlyclean-normal mostlyclean-recursive
 
-maintainer-clean: maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -155,15 +129,14 @@ maintainer-clean: maintainer-clean-recursive
 
 dist: dist-normal dist-recursive
 
-distcheck: distcheck-recursive distcheck-normal
+distcheck: distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------
-# Common default rules.
+# Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
-
 
 # -----------------------------------------------------------------------------
 # End.
