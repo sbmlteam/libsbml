@@ -84,6 +84,7 @@ SET(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${RENDER_SOURCES})
 if(WITH_CHECK)
 
 		add_subdirectory(sbml/packages/render/sbml/test)
+	add_subdirectory(sbml/packages/render/validator/test)
 
 endif()
 
