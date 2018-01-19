@@ -857,12 +857,12 @@ SBasePlugin::getAttribute(const std::string& attributeName, std::string& value) 
 }
 
 
-int 
-SBasePlugin::getAttribute(const std::string& attributeName, const char * value) const
-{
-  return LIBSBML_OPERATION_FAILED;
-}
-
+//int 
+//SBasePlugin::getAttribute(const std::string& attributeName, const char * value) const
+//{
+//  return LIBSBML_OPERATION_FAILED;
+//}
+//
 
 bool 
 SBasePlugin::isSetAttribute(const std::string& attributeName) const
@@ -907,11 +907,11 @@ SBasePlugin::setAttribute(const std::string& attributeName, const std::string& v
 }
 
 
-int 
-SBasePlugin::setAttribute(const std::string& attributeName, const char * value)
-{
-  return LIBSBML_OPERATION_FAILED;
-}
+//int 
+//SBasePlugin::setAttribute(const std::string& attributeName, const char * value)
+//{
+//  return LIBSBML_OPERATION_FAILED;
+//}
 
 
 int 

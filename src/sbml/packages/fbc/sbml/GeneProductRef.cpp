@@ -534,45 +534,6 @@ GeneProductRef::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProductRef.
- */
-int
-GeneProductRef::getAttribute(const std::string& attributeName,
-                             const char* value) const
-{
-  int return_value = FbcAssociation::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "geneProduct")
-  {
-    value = getGeneProduct().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this GeneProductRef's attribute
  * "attributeName" is set.
  */
@@ -678,37 +639,6 @@ GeneProductRef::setAttribute(const std::string& attributeName,
 int
 GeneProductRef::setAttribute(const std::string& attributeName,
                              const std::string& value)
-{
-  int return_value = FbcAssociation::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "geneProduct")
-  {
-    return_value = setGeneProduct(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this GeneProductRef.
- */
-int
-GeneProductRef::setAttribute(const std::string& attributeName,
-                             const char* value)
 {
   int return_value = FbcAssociation::setAttribute(attributeName, value);
 

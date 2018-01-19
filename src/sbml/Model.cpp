@@ -3893,54 +3893,54 @@ Model::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Model.
  */
-int
-Model::getAttribute(const std::string& attributeName, const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "substanceUnits")
-  {
-    value = getSubstanceUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "timeUnits")
-  {
-    value = getTimeUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "volumeUnits")
-  {
-    value = getVolumeUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "lengthUnits")
-  {
-    value = getLengthUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "areaUnits")
-  {
-    value = getAreaUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "extentUnits")
-  {
-    value = getExtentUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "conversionFactor")
-  {
-    value = getConversionFactor().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
+//int
+//Model::getAttribute(const std::string& attributeName, const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "substanceUnits")
+//  {
+//    value = getSubstanceUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "timeUnits")
+//  {
+//    value = getTimeUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "volumeUnits")
+//  {
+//    value = getVolumeUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "lengthUnits")
+//  {
+//    value = getLengthUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "areaUnits")
+//  {
+//    value = getAreaUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "extentUnits")
+//  {
+//    value = getExtentUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "conversionFactor")
+//  {
+//    value = getConversionFactor().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -4113,43 +4113,43 @@ Model::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Model.
  */
-int
-Model::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "substanceUnits")
-  {
-    return_value = setSubstanceUnits(value);
-  }
-  else if (attributeName == "timeUnits")
-  {
-    return_value = setTimeUnits(value);
-  }
-  else if (attributeName == "volumeUnits")
-  {
-    return_value = setVolumeUnits(value);
-  }
-  else if (attributeName == "lengthUnits")
-  {
-    return_value = setLengthUnits(value);
-  }
-  else if (attributeName == "areaUnits")
-  {
-    return_value = setAreaUnits(value);
-  }
-  else if (attributeName == "extentUnits")
-  {
-    return_value = setExtentUnits(value);
-  }
-  else if (attributeName == "conversionFactor")
-  {
-    return_value = setConversionFactor(value);
-  }
-
-  return return_value;
-}
-
+//int
+//Model::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "substanceUnits")
+//  {
+//    return_value = setSubstanceUnits(value);
+//  }
+//  else if (attributeName == "timeUnits")
+//  {
+//    return_value = setTimeUnits(value);
+//  }
+//  else if (attributeName == "volumeUnits")
+//  {
+//    return_value = setVolumeUnits(value);
+//  }
+//  else if (attributeName == "lengthUnits")
+//  {
+//    return_value = setLengthUnits(value);
+//  }
+//  else if (attributeName == "areaUnits")
+//  {
+//    return_value = setAreaUnits(value);
+//  }
+//  else if (attributeName == "extentUnits")
+//  {
+//    return_value = setExtentUnits(value);
+//  }
+//  else if (attributeName == "conversionFactor")
+//  {
+//    return_value = setConversionFactor(value);
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 

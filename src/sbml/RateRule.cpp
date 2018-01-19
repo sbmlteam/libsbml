@@ -227,41 +227,41 @@ RateRule::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this RateRule.
  */
-int
-RateRule::getAttribute(const std::string& attributeName,
-                       const char* value) const
-{
-  int return_value = LIBSBML_OPERATION_FAILED;
-  if (getLevel() > 1)
-  {
-    return_value = Rule::getAttribute(attributeName, value);
-  }
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "variable")
-  {
-    value = getVariable().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    int l1type = getL1TypeCode();
-    if ((attributeName == "name" && l1type == SBML_PARAMETER_RULE) 
-      || (attributeName == "compartment" && l1type == SBML_COMPARTMENT_VOLUME_RULE) 
-      || (attributeName == "species" && l1type == SBML_SPECIES_CONCENTRATION_RULE))
-    {
-      value = getVariable().c_str();
-      return_value = LIBSBML_OPERATION_SUCCESS;
-    }
-  }
-
-  return return_value;
-}
-
+//int
+//RateRule::getAttribute(const std::string& attributeName,
+//                       const char* value) const
+//{
+//  int return_value = LIBSBML_OPERATION_FAILED;
+//  if (getLevel() > 1)
+//  {
+//    return_value = Rule::getAttribute(attributeName, value);
+//  }
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "variable")
+//  {
+//    value = getVariable().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    int l1type = getL1TypeCode();
+//    if ((attributeName == "name" && l1type == SBML_PARAMETER_RULE) 
+//      || (attributeName == "compartment" && l1type == SBML_COMPARTMENT_VOLUME_RULE) 
+//      || (attributeName == "species" && l1type == SBML_SPECIES_CONCENTRATION_RULE))
+//    {
+//      value = getVariable().c_str();
+//      return_value = LIBSBML_OPERATION_SUCCESS;
+//    }
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 
@@ -413,33 +413,33 @@ RateRule::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this RateRule.
  */
-int
-RateRule::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = LIBSBML_OPERATION_FAILED;
-  if (getLevel() > 1)
-  {
-    return_value = Rule::setAttribute(attributeName, value);
-  }
-
-  if (attributeName == "variable")
-  {
-    return_value = setVariable(value);
-  }
-  else
-  {
-    int l1type = getL1TypeCode();
-    if ((attributeName == "name" && l1type == SBML_PARAMETER_RULE) 
-      || (attributeName == "compartment" && l1type == SBML_COMPARTMENT_VOLUME_RULE) 
-      || (attributeName == "species" && l1type == SBML_SPECIES_CONCENTRATION_RULE))
-    {
-        return_value = setVariable(value);
-    }
-  }
-
-  return return_value;
-}
-
+//int
+//RateRule::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = LIBSBML_OPERATION_FAILED;
+//  if (getLevel() > 1)
+//  {
+//    return_value = Rule::setAttribute(attributeName, value);
+//  }
+//
+//  if (attributeName == "variable")
+//  {
+//    return_value = setVariable(value);
+//  }
+//  else
+//  {
+//    int l1type = getL1TypeCode();
+//    if ((attributeName == "name" && l1type == SBML_PARAMETER_RULE) 
+//      || (attributeName == "compartment" && l1type == SBML_COMPARTMENT_VOLUME_RULE) 
+//      || (attributeName == "species" && l1type == SBML_SPECIES_CONCENTRATION_RULE))
+//    {
+//        return_value = setVariable(value);
+//    }
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 

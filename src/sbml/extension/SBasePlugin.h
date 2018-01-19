@@ -735,7 +735,7 @@ public:
 
   /** @endcond */
 
-   virtual int getAttribute(const std::string& attributeName, const char * value) const;
+   //virtual int getAttribute(const std::string& attributeName, const char * value) const;
 
 
    virtual bool isSetAttribute(const std::string& attributeName) const;
@@ -774,7 +774,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-   virtual int setAttribute(const std::string& attributeName, const char* value);
+   //virtual int setAttribute(const std::string& attributeName, const char* value);
 
   /** @endcond */
 

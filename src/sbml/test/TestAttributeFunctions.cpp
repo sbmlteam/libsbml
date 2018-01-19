@@ -1345,9 +1345,9 @@ START_TEST (test_Attributes_Trigger_Id)
 {
   Trigger *obj = new Trigger(3,2);
   const std::string& att_name = "id";
-  const char* id = "x12345";
-  char* value;
-  const char* other_value;
+  std::string id = "x12345";
+  std::string value;
+  std::string other_value;
   int result;
 
   result = obj->setAttribute(att_name, id);
@@ -1361,11 +1361,11 @@ START_TEST (test_Attributes_Trigger_Id)
   result = obj->getAttribute(att_name, value);
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(strcmp(value, id));
+  fail_unless(value == id);
 
-  other_value = static_cast<SBase*>(obj)->getAttribute<const char *>(att_name);
+  result = obj->getAttribute(att_name, other_value);
 
-  fail_unless(strcmp(other_value, id));
+  fail_unless(other_value == id);
 
   result = obj->unsetAttribute(att_name);
 
@@ -1375,7 +1375,7 @@ START_TEST (test_Attributes_Trigger_Id)
   result = obj->getAttribute(att_name, value);
 
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(strcmp(value, ""));
+  fail_unless(value.empty());
   delete obj;
 }
 END_TEST

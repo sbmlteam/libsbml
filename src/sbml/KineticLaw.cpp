@@ -1252,30 +1252,30 @@ KineticLaw::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this KineticLaw.
  */
-int
-KineticLaw::getAttribute(const std::string& attributeName,
-                         const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "timeUnits")
-  {
-    value = getTimeUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "substanceUnits")
-  {
-    value = getSubstanceUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
+//int
+//KineticLaw::getAttribute(const std::string& attributeName,
+//                         const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "timeUnits")
+//  {
+//    value = getTimeUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "substanceUnits")
+//  {
+//    value = getSubstanceUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -1408,22 +1408,22 @@ KineticLaw::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this KineticLaw.
  */
-int
-KineticLaw::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "timeUnits")
-  {
-    return_value = setTimeUnits(value);
-  }
-  else if (attributeName == "substanceUnits")
-  {
-    return_value = setSubstanceUnits(value);
-  }
-
-  return return_value;
-}
+//int
+//KineticLaw::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "timeUnits")
+//  {
+//    return_value = setTimeUnits(value);
+//  }
+//  else if (attributeName == "substanceUnits")
+//  {
+//    return_value = setSubstanceUnits(value);
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

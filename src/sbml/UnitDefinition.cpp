@@ -1663,14 +1663,14 @@ UnitDefinition::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this UnitDefinition.
  */
-int
-UnitDefinition::getAttribute(const std::string& attributeName,
-                             const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//UnitDefinition::getAttribute(const std::string& attributeName,
+//                             const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -1786,15 +1786,15 @@ UnitDefinition::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this UnitDefinition.
  */
-int
-UnitDefinition::setAttribute(const std::string& attributeName,
-                             const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
+//int
+//UnitDefinition::setAttribute(const std::string& attributeName,
+//                             const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 

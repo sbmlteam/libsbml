@@ -719,14 +719,14 @@ FunctionDefinition::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this FunctionDefinition.
  */
-int
-FunctionDefinition::getAttribute(const std::string& attributeName,
-                                 const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//FunctionDefinition::getAttribute(const std::string& attributeName,
+//                                 const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -843,14 +843,14 @@ FunctionDefinition::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this FunctionDefinition.
  */
-int
-FunctionDefinition::setAttribute(const std::string& attributeName,
-                                 const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//FunctionDefinition::setAttribute(const std::string& attributeName,
+//                                 const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

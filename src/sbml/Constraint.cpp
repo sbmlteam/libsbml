@@ -568,14 +568,14 @@ Constraint::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Constraint.
  */
-int
-Constraint::getAttribute(const std::string& attributeName,
-                         const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//Constraint::getAttribute(const std::string& attributeName,
+//                         const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -690,13 +690,13 @@ Constraint::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Constraint.
  */
-int
-Constraint::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//Constraint::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

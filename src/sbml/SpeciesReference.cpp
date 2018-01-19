@@ -721,15 +721,15 @@ SpeciesReference::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this SpeciesReference.
  */
-int
-SpeciesReference::getAttribute(const std::string& attributeName,
-                               const char* value) const
-{
-  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
-    value);
-
-  return return_value;
-}
+//int
+//SpeciesReference::getAttribute(const std::string& attributeName,
+//                               const char* value) const
+//{
+//  int return_value = SimpleSpeciesReference::getAttribute(attributeName,
+//    value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -881,15 +881,15 @@ SpeciesReference::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this SpeciesReference.
  */
-int
-SpeciesReference::setAttribute(const std::string& attributeName,
-                               const char* value)
-{
-  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
-    value);
-
-  return return_value;
-}
+//int
+//SpeciesReference::setAttribute(const std::string& attributeName,
+//                               const char* value)
+//{
+//  int return_value = SimpleSpeciesReference::setAttribute(attributeName,
+//    value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

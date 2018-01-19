@@ -1686,25 +1686,25 @@ Reaction::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Reaction.
  */
-int
-Reaction::getAttribute(const std::string& attributeName,
-                       const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "compartment")
-  {
-    value = getCompartment().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
+//int
+//Reaction::getAttribute(const std::string& attributeName,
+//                       const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "compartment")
+//  {
+//    value = getCompartment().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -1846,18 +1846,18 @@ Reaction::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Reaction.
  */
-int
-Reaction::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "compartment")
-  {
-    return_value = setCompartment(value);
-  }
-
-  return return_value;
-}
+//int
+//Reaction::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "compartment")
+//  {
+//    return_value = setCompartment(value);
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

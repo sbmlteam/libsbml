@@ -570,50 +570,6 @@ GeneProduct::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this GeneProduct.
- */
-int
-GeneProduct::getAttribute(const std::string& attributeName,
-                          const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "label")
-  {
-    value = getLabel().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "associatedSpecies")
-  {
-    value = getAssociatedSpecies().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this GeneProduct's attribute "attributeName"
  * is set.
  */
@@ -723,40 +679,6 @@ GeneProduct::setAttribute(const std::string& attributeName,
 int
 GeneProduct::setAttribute(const std::string& attributeName,
                           const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "label")
-  {
-    return_value = setLabel(value);
-  }
-  else if (attributeName == "associatedSpecies")
-  {
-    return_value = setAssociatedSpecies(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this GeneProduct.
- */
-int
-GeneProduct::setAttribute(const std::string& attributeName, const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 
@@ -1085,7 +1007,7 @@ ListOfGeneProducts::get(unsigned int n) const
 GeneProduct*
 ListOfGeneProducts::get(const std::string& sid)
 {
-	return const_cast<GeneProduct*>(
+  return const_cast<GeneProduct*>(
     static_cast<const ListOfGeneProducts&>(*this).get(sid));
 }
 
@@ -1137,7 +1059,7 @@ ListOfGeneProducts::addGeneProduct(const GeneProduct* gp)
   }
   else
   {
-	return append(gp);
+  return append(gp);
   }
 }
 
@@ -1150,7 +1072,7 @@ ListOfGeneProducts::addGeneProduct(const GeneProduct* gp)
 unsigned int 
 ListOfGeneProducts::getNumGeneProducts() const
 {
-	return size();
+  return size();
 }
 
 
@@ -1217,7 +1139,7 @@ ListOfGeneProducts::remove(const std::string& sid)
     mItems.erase(result);
   }
 
-	return static_cast <GeneProduct*> (item);
+  return static_cast <GeneProduct*> (item);
 }
 
 
@@ -1343,7 +1265,7 @@ LIBSBML_EXTERN
 const char *
 GeneProduct_getId(const GeneProduct_t * gp)
 {
-	return (gp != NULL && gp->isSetId()) ? gp->getId().c_str() : NULL;
+  return (gp != NULL && gp->isSetId()) ? gp->getId().c_str() : NULL;
 }
 
 
@@ -1351,7 +1273,7 @@ LIBSBML_EXTERN
 const char *
 GeneProduct_getName(const GeneProduct_t * gp)
 {
-	return (gp != NULL && gp->isSetName()) ? gp->getName().c_str() : NULL;
+  return (gp != NULL && gp->isSetName()) ? gp->getName().c_str() : NULL;
 }
 
 
@@ -1359,7 +1281,7 @@ LIBSBML_EXTERN
 const char *
 GeneProduct_getLabel(const GeneProduct_t * gp)
 {
-	return (gp != NULL && gp->isSetLabel()) ? gp->getLabel().c_str() : NULL;
+  return (gp != NULL && gp->isSetLabel()) ? gp->getLabel().c_str() : NULL;
 }
 
 
@@ -1367,7 +1289,7 @@ LIBSBML_EXTERN
 const char *
 GeneProduct_getAssociatedSpecies(const GeneProduct_t * gp)
 {
-	return (gp != NULL && gp->isSetAssociatedSpecies()) ? gp->getAssociatedSpecies().c_str() : NULL;
+  return (gp != NULL && gp->isSetAssociatedSpecies()) ? gp->getAssociatedSpecies().c_str() : NULL;
 }
 
 

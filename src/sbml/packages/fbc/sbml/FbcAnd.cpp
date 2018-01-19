@@ -629,24 +629,6 @@ FbcAnd::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcAnd.
- */
-int
-FbcAnd::getAttribute(const std::string& attributeName,
-                     const char* value) const
-{
-  int return_value = FbcAssociation::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this FbcAnd's attribute "attributeName" is
  * set.
  */
@@ -745,24 +727,6 @@ FbcAnd::setAttribute(const std::string& attributeName,
 }
 
 /** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this FbcAnd.
- */
-int
-FbcAnd::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = FbcAssociation::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
 
 
 /** @cond doxygenLibsbmlInternal */

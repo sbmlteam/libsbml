@@ -391,14 +391,14 @@ Priority::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Priority.
  */
-int
-Priority::getAttribute(const std::string& attributeName,
-                       const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//Priority::getAttribute(const std::string& attributeName,
+//                       const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -513,13 +513,13 @@ Priority::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Priority.
  */
-int
-Priority::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//Priority::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

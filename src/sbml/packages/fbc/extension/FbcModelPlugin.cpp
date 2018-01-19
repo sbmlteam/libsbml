@@ -1726,29 +1726,6 @@ FbcModelPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this FbcModelPlugin.
- */
-int
-FbcModelPlugin::getAttribute(const std::string& attributeName,
-                             const char* value) const
-{
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
-
-  if (attributeName == "activeObjective")
-  {
-    value = getActiveObjectiveId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this FbcModelPlugin's attribute
  * "attributeName" is set.
  */
@@ -1855,28 +1832,6 @@ FbcModelPlugin::setAttribute(const std::string& attributeName,
 int
 FbcModelPlugin::setAttribute(const std::string& attributeName,
                              const std::string& value)
-{
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
-
-  if (attributeName == "activeObjective")
-  {
-    return_value = setActiveObjectiveId(value);
-  }
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this FbcModelPlugin.
- */
-int
-FbcModelPlugin::setAttribute(const std::string& attributeName,
-                             const char* value)
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 

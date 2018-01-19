@@ -497,26 +497,26 @@ SimpleSpeciesReference::getAttribute(const std::string& attributeName,
  * Gets the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
-int
-SimpleSpeciesReference::getAttribute(const std::string& attributeName,
-                                     const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "species")
-  {
-    value = getSpecies().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
+//int
+//SimpleSpeciesReference::getAttribute(const std::string& attributeName,
+//                                     const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "species")
+//  {
+//    value = getSpecies().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 
@@ -650,19 +650,19 @@ SimpleSpeciesReference::setAttribute(const std::string& attributeName,
  * Sets the value of the "attributeName" attribute of this
  * SimpleSpeciesReference.
  */
-int
-SimpleSpeciesReference::setAttribute(const std::string& attributeName,
-                                     const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "species")
-  {
-    return_value = setSpecies(value);
-  }
-
-  return return_value;
-}
+//int
+//SimpleSpeciesReference::setAttribute(const std::string& attributeName,
+//                                     const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "species")
+//  {
+//    return_value = setSpecies(value);
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

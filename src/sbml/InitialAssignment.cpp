@@ -563,25 +563,25 @@ InitialAssignment::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this InitialAssignment.
  */
-int
-InitialAssignment::getAttribute(const std::string& attributeName,
-                                const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "symbol")
-  {
-    value = getSymbol().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
+//int
+//InitialAssignment::getAttribute(const std::string& attributeName,
+//                                const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "symbol")
+//  {
+//    value = getSymbol().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -708,19 +708,19 @@ InitialAssignment::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this InitialAssignment.
  */
-int
-InitialAssignment::setAttribute(const std::string& attributeName,
-                                const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "symbol")
-  {
-    return_value = setSymbol(value);
-  }
-
-  return return_value;
-}
+//int
+//InitialAssignment::setAttribute(const std::string& attributeName,
+//                                const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "symbol")
+//  {
+//    return_value = setSymbol(value);
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

@@ -549,23 +549,6 @@ FbcAssociation::getAttribute(const std::string& attributeName,
 
 
 
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Gets the value of the "attributeName" attribute of this Association.
- */
-int
-FbcAssociation::getAttribute(const std::string& attributeName,
-                          const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -670,22 +653,6 @@ FbcAssociation::setAttribute(const std::string& attributeName,
 
 /** @endcond */
 
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this Association.
- */
-int
-FbcAssociation::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
 
 
 

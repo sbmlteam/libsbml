@@ -398,14 +398,14 @@ SpeciesType::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this SpeciesType.
  */
-int
-SpeciesType::getAttribute(const std::string& attributeName,
-                          const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//SpeciesType::getAttribute(const std::string& attributeName,
+//                          const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -521,13 +521,13 @@ SpeciesType::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this SpeciesType.
  */
-int
-SpeciesType::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//SpeciesType::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

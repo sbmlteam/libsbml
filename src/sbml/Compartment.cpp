@@ -1161,36 +1161,36 @@ Compartment::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Compartment.
  */
-int
-Compartment::getAttribute(const std::string& attributeName,
-                          const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "units")
-  {
-    value = getUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "outside")
-  {
-    value = getOutside().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "compartmentType")
-  {
-    value = getCompartmentType().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
+//int
+//Compartment::getAttribute(const std::string& attributeName,
+//                          const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "units")
+//  {
+//    value = getUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "outside")
+//  {
+//    value = getOutside().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (attributeName == "compartmentType")
+//  {
+//    value = getCompartmentType().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 
@@ -1370,30 +1370,30 @@ Compartment::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Compartment.
  */
-int
-Compartment::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "units")
-  {
-    return_value = setUnits(value);
-  }
-  else if (attributeName == "outside")
-  {
-    return_value = setOutside(value);
-  }
-  else if (attributeName == "compartmentType")
-  {
-    return_value = setCompartmentType(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
+//int
+//Compartment::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "units")
+//  {
+//    return_value = setUnits(value);
+//  }
+//  else if (attributeName == "outside")
+//  {
+//    return_value = setOutside(value);
+//  }
+//  else if (attributeName == "compartmentType")
+//  {
+//    return_value = setCompartmentType(value);
+//  }
+//
+//  return return_value;
+//}
+//
+///** @endcond */
+//
+//
 
 /** @cond doxygenLibsbmlInternal */
 

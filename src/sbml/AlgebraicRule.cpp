@@ -232,14 +232,14 @@ AlgebraicRule::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this AlgebraicRule.
  */
-int
-AlgebraicRule::getAttribute(const std::string& attributeName,
-                            const char* value) const
-{
-  int return_value = Rule::getAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//AlgebraicRule::getAttribute(const std::string& attributeName,
+//                            const char* value) const
+//{
+//  int return_value = Rule::getAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -355,14 +355,14 @@ AlgebraicRule::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this AlgebraicRule.
  */
-int
-AlgebraicRule::setAttribute(const std::string& attributeName,
-                            const char* value)
-{
-  int return_value = Rule::setAttribute(attributeName, value);
-
-  return return_value;
-}
+//int
+//AlgebraicRule::setAttribute(const std::string& attributeName,
+//                            const char* value)
+//{
+//  int return_value = Rule::setAttribute(attributeName, value);
+//
+//  return return_value;
+//}
 
 /** @endcond */
 

@@ -813,25 +813,25 @@ Parameter::getAttribute(const std::string& attributeName,
 /*
  * Gets the value of the "attributeName" attribute of this Parameter.
  */
-int
-Parameter::getAttribute(const std::string& attributeName,
-                        const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "units")
-  {
-    value = getUnits().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
+//int
+//Parameter::getAttribute(const std::string& attributeName,
+//                        const char* value) const
+//{
+//  int return_value = SBase::getAttribute(attributeName, value);
+//
+//  if (return_value == LIBSBML_OPERATION_SUCCESS)
+//  {
+//    return return_value;
+//  }
+//
+//  if (attributeName == "units")
+//  {
+//    value = getUnits().c_str();
+//    return_value = LIBSBML_OPERATION_SUCCESS;
+//  }
+//
+//  return return_value;
+//}
 
 /** @endcond */
 
@@ -974,19 +974,19 @@ Parameter::setAttribute(const std::string& attributeName,
 /*
  * Sets the value of the "attributeName" attribute of this Parameter.
  */
-int
-Parameter::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "units")
-  {
-    return_value = setUnits(value);
-  }
-
-  return return_value;
-}
-
+//int
+//Parameter::setAttribute(const std::string& attributeName, const char* value)
+//{
+//  int return_value = SBase::setAttribute(attributeName, value);
+//
+//  if (attributeName == "units")
+//  {
+//    return_value = setUnits(value);
+//  }
+//
+//  return return_value;
+//}
+//
 /** @endcond */
 
 
