@@ -918,45 +918,6 @@ CSGSetOperator::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CSGSetOperator.
- */
-int
-CSGSetOperator::getAttribute(const std::string& attributeName,
-                             const char* value) const
-{
-  int return_value = CSGNode::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "operationType")
-  {
-    value = getOperationTypeAsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "complementA")
-  {
-    value = getComplementA().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "complementB")
-  {
-    value = getComplementB().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this CSGSetOperator's attribute
  * "attributeName" is set.
  */
@@ -1062,37 +1023,6 @@ CSGSetOperator::setAttribute(const std::string& attributeName,
 int
 CSGSetOperator::setAttribute(const std::string& attributeName,
                              const std::string& value)
-{
-  int return_value = CSGNode::setAttribute(attributeName, value);
-
-  if (attributeName == "operationType")
-  {
-    return_value = setOperationType(value);
-  }
-  else if (attributeName == "complementA")
-  {
-    return_value = setComplementA(value);
-  }
-  else if (attributeName == "complementB")
-  {
-    return_value = setComplementB(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this CSGSetOperator.
- */
-int
-CSGSetOperator::setAttribute(const std::string& attributeName,
-                             const char* value)
 {
   int return_value = CSGNode::setAttribute(attributeName, value);
 

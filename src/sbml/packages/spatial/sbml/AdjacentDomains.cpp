@@ -538,45 +538,6 @@ AdjacentDomains::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this AdjacentDomains.
- */
-int
-AdjacentDomains::getAttribute(const std::string& attributeName,
-                              const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "domain1")
-  {
-    value = getDomain1().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "domain2")
-  {
-    value = getDomain2().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this AdjacentDomains's attribute
  * "attributeName" is set.
  */
@@ -682,37 +643,6 @@ AdjacentDomains::setAttribute(const std::string& attributeName,
 int
 AdjacentDomains::setAttribute(const std::string& attributeName,
                               const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "domain1")
-  {
-    return_value = setDomain1(value);
-  }
-  else if (attributeName == "domain2")
-  {
-    return_value = setDomain2(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this AdjacentDomains.
- */
-int
-AdjacentDomains::setAttribute(const std::string& attributeName,
-                              const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 

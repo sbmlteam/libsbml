@@ -797,24 +797,6 @@ MixedGeometry::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this MixedGeometry.
- */
-int
-MixedGeometry::getAttribute(const std::string& attributeName,
-                            const char* value) const
-{
-  int return_value = GeometryDefinition::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this MixedGeometry's attribute
  * "attributeName" is set.
  */
@@ -920,24 +902,6 @@ MixedGeometry::setAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this MixedGeometry.
- */
-int
-MixedGeometry::setAttribute(const std::string& attributeName,
-                            const char* value)
-{
-  int return_value = GeometryDefinition::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Unsets the value of the "attributeName" attribute of this MixedGeometry.
  */
 int
@@ -958,7 +922,7 @@ MixedGeometry::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this MixedGeometry.
  */
 SBase*
-MixedGeometry::createObject(const std::string& elementName)
+MixedGeometry::createChildObject(const std::string& elementName)
 {
   GeometryDefinition* obj = NULL;
 

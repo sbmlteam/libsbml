@@ -649,24 +649,6 @@ CSGTransformation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CSGTransformation.
- */
-int
-CSGTransformation::getAttribute(const std::string& attributeName,
-                                const char* value) const
-{
-  int return_value = CSGNode::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this CSGTransformation's attribute
  * "attributeName" is set.
  */
@@ -760,24 +742,6 @@ CSGTransformation::setAttribute(const std::string& attributeName,
 int
 CSGTransformation::setAttribute(const std::string& attributeName,
                                 const std::string& value)
-{
-  int return_value = CSGNode::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this CSGTransformation.
- */
-int
-CSGTransformation::setAttribute(const std::string& attributeName,
-                                const char* value)
 {
   int return_value = CSGNode::setAttribute(attributeName, value);
 

@@ -347,25 +347,6 @@ SpatialSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
- * SpatialSBMLDocumentPlugin.
- */
-int
-SpatialSBMLDocumentPlugin::getAttribute(const std::string& attributeName,
-                                        const char* value) const
-{
-  int return_value = SBMLDocumentPlugin::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this SpatialSBMLDocumentPlugin's attribute
  * "attributeName" is set.
  */
@@ -467,25 +448,6 @@ SpatialSBMLDocumentPlugin::setAttribute(const std::string& attributeName,
 int
 SpatialSBMLDocumentPlugin::setAttribute(const std::string& attributeName,
                                         const std::string& value)
-{
-  int return_value = SBMLDocumentPlugin::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this
- * SpatialSBMLDocumentPlugin.
- */
-int
-SpatialSBMLDocumentPlugin::setAttribute(const std::string& attributeName,
-                                        const char* value)
 {
   int return_value = SBMLDocumentPlugin::setAttribute(attributeName, value);
 

@@ -585,24 +585,6 @@ CSGRotation::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CSGRotation.
- */
-int
-CSGRotation::getAttribute(const std::string& attributeName,
-                          const char* value) const
-{
-  int return_value = CSGTransformation::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this CSGRotation's attribute "attributeName"
  * is set.
  */
@@ -729,23 +711,6 @@ CSGRotation::setAttribute(const std::string& attributeName,
 int
 CSGRotation::setAttribute(const std::string& attributeName,
                           const std::string& value)
-{
-  int return_value = CSGTransformation::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this CSGRotation.
- */
-int
-CSGRotation::setAttribute(const std::string& attributeName, const char* value)
 {
   int return_value = CSGTransformation::setAttribute(attributeName, value);
 

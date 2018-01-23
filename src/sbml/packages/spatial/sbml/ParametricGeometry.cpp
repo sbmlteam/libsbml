@@ -681,24 +681,6 @@ ParametricGeometry::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ParametricGeometry.
- */
-int
-ParametricGeometry::getAttribute(const std::string& attributeName,
-                                 const char* value) const
-{
-  int return_value = GeometryDefinition::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this ParametricGeometry's attribute
  * "attributeName" is set.
  */
@@ -805,24 +787,6 @@ ParametricGeometry::setAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this ParametricGeometry.
- */
-int
-ParametricGeometry::setAttribute(const std::string& attributeName,
-                                 const char* value)
-{
-  int return_value = GeometryDefinition::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Unsets the value of the "attributeName" attribute of this
  * ParametricGeometry.
  */
@@ -844,7 +808,7 @@ ParametricGeometry::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this ParametricGeometry.
  */
 SBase*
-ParametricGeometry::createObject(const std::string& elementName)
+ParametricGeometry::createChildObject(const std::string& elementName)
 {
   GeometryDefinition* obj = NULL;
 

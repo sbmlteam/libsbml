@@ -406,36 +406,6 @@ SpatialSymbolReference::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
- * SpatialSymbolReference.
- */
-int
-SpatialSymbolReference::getAttribute(const std::string& attributeName,
-                                     const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "spatialRef")
-  {
-    value = getSpatialRef().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this SpatialSymbolReference's attribute
  * "attributeName" is set.
  */
@@ -541,30 +511,6 @@ SpatialSymbolReference::setAttribute(const std::string& attributeName,
 int
 SpatialSymbolReference::setAttribute(const std::string& attributeName,
                                      const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "spatialRef")
-  {
-    return_value = setSpatialRef(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this
- * SpatialSymbolReference.
- */
-int
-SpatialSymbolReference::setAttribute(const std::string& attributeName,
-                                     const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 

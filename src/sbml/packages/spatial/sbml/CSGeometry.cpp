@@ -539,24 +539,6 @@ CSGeometry::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this CSGeometry.
- */
-int
-CSGeometry::getAttribute(const std::string& attributeName,
-                         const char* value) const
-{
-  int return_value = GeometryDefinition::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this CSGeometry's attribute "attributeName"
  * is set.
  */
@@ -648,23 +630,6 @@ CSGeometry::setAttribute(const std::string& attributeName, unsigned int value)
 int
 CSGeometry::setAttribute(const std::string& attributeName,
                          const std::string& value)
-{
-  int return_value = GeometryDefinition::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this CSGeometry.
- */
-int
-CSGeometry::setAttribute(const std::string& attributeName, const char* value)
 {
   int return_value = GeometryDefinition::setAttribute(attributeName, value);
 

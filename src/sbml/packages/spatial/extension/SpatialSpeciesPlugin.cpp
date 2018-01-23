@@ -347,25 +347,6 @@ SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
- * SpatialSpeciesPlugin.
- */
-int
-SpatialSpeciesPlugin::getAttribute(const std::string& attributeName,
-                                   const char* value) const
-{
-  int return_value = SBasePlugin::getAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this SpatialSpeciesPlugin's attribute
  * "attributeName" is set.
  */
@@ -476,25 +457,6 @@ SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
 int
 SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
                                    const std::string& value)
-{
-  int return_value = SBasePlugin::setAttribute(attributeName, value);
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this
- * SpatialSpeciesPlugin.
- */
-int
-SpatialSpeciesPlugin::setAttribute(const std::string& attributeName,
-                                   const char* value)
 {
   int return_value = SBasePlugin::setAttribute(attributeName, value);
 

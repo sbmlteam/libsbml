@@ -631,40 +631,6 @@ Domain::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Domain.
- */
-int
-Domain::getAttribute(const std::string& attributeName,
-                     const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "domainType")
-  {
-    value = getDomainType().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this Domain's attribute "attributeName" is
  * set.
  */
@@ -787,32 +753,6 @@ Domain::setAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Sets the value of the "attributeName" attribute of this Domain.
- */
-int
-Domain::setAttribute(const std::string& attributeName, const char* value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "domainType")
-  {
-    return_value = setDomainType(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Unsets the value of the "attributeName" attribute of this Domain.
  */
 int
@@ -842,7 +782,7 @@ Domain::unsetAttribute(const std::string& attributeName)
  * Creates and returns an new "elementName" object in this Domain.
  */
 SBase*
-Domain::createObject(const std::string& elementName)
+Domain::createChildObject(const std::string& elementName)
 {
   SBase* obj = NULL;
 
@@ -852,6 +792,55 @@ Domain::createObject(const std::string& elementName)
   }
 
   return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this Domain.
+ */
+int
+Domain::addChildObject(const std::string& elementName, const SBase* element)
+{
+  if (elementName == "interiorPoint" && element->getTypeCode() ==
+    SBML_SPATIAL_INTERIORPOINT)
+  {
+    return addInteriorPoint((const InteriorPoint*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * Domain.
+ */
+SBase*
+Domain::removeChildObject(const std::string& elementName,
+                          const std::string& id)
+{
+  if (elementName == "interiorPoint")
+  {
+    for (unsigned int i = 0; i < getNumInteriorPoints(); i++)
+    {
+      if (getInteriorPoint(i)->getId() == id)
+      {
+        return removeInteriorPoint(i);
+      }
+    }
+  }
+
+  return NULL;
 }
 
 /** @endcond */

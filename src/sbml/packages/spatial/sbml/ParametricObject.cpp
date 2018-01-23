@@ -933,55 +933,6 @@ ParametricObject::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this ParametricObject.
- */
-int
-ParametricObject::getAttribute(const std::string& attributeName,
-                               const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "polygonType")
-  {
-    value = getPolygonTypeAsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "domainType")
-  {
-    value = getDomainType().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "compression")
-  {
-    value = getCompressionAsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "dataType")
-  {
-    value = getDataTypeAsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this ParametricObject's attribute
  * "attributeName" is set.
  */
@@ -1108,45 +1059,6 @@ ParametricObject::setAttribute(const std::string& attributeName,
 int
 ParametricObject::setAttribute(const std::string& attributeName,
                                const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "polygonType")
-  {
-    return_value = setPolygonType(value);
-  }
-  else if (attributeName == "domainType")
-  {
-    return_value = setDomainType(value);
-  }
-  else if (attributeName == "compression")
-  {
-    return_value = setCompression(value);
-  }
-  else if (attributeName == "dataType")
-  {
-    return_value = setDataType(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this ParametricObject.
- */
-int
-ParametricObject::setAttribute(const std::string& attributeName,
-                               const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 

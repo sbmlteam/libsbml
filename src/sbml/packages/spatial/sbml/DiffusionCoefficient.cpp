@@ -696,51 +696,6 @@ DiffusionCoefficient::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this
- * DiffusionCoefficient.
- */
-int
-DiffusionCoefficient::getAttribute(const std::string& attributeName,
-                                   const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "variable")
-  {
-    value = getVariable().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "type")
-  {
-    value = getTypeAsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "coordinateReference1")
-  {
-    value = getCoordinateReference1AsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "coordinateReference2")
-  {
-    value = getCoordinateReference2AsString().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this DiffusionCoefficient's attribute
  * "attributeName" is set.
  */
@@ -858,42 +813,6 @@ DiffusionCoefficient::setAttribute(const std::string& attributeName,
 int
 DiffusionCoefficient::setAttribute(const std::string& attributeName,
                                    const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "variable")
-  {
-    return_value = setVariable(value);
-  }
-  else if (attributeName == "type")
-  {
-    return_value = setType(value);
-  }
-  else if (attributeName == "coordinateReference1")
-  {
-    return_value = setCoordinateReference1(value);
-  }
-  else if (attributeName == "coordinateReference2")
-  {
-    return_value = setCoordinateReference2(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this
- * DiffusionCoefficient.
- */
-int
-DiffusionCoefficient::setAttribute(const std::string& attributeName,
-                                   const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 

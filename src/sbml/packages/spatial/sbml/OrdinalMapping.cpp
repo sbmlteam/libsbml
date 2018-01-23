@@ -477,35 +477,6 @@ OrdinalMapping::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this OrdinalMapping.
- */
-int
-OrdinalMapping::getAttribute(const std::string& attributeName,
-                             const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "geometryDefinition")
-  {
-    value = getGeometryDefinition().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this OrdinalMapping's attribute
  * "attributeName" is set.
  */
@@ -612,29 +583,6 @@ OrdinalMapping::setAttribute(const std::string& attributeName,
 int
 OrdinalMapping::setAttribute(const std::string& attributeName,
                              const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "geometryDefinition")
-  {
-    return_value = setGeometryDefinition(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this OrdinalMapping.
- */
-int
-OrdinalMapping::setAttribute(const std::string& attributeName,
-                             const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 
