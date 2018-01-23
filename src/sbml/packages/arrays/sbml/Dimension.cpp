@@ -578,45 +578,6 @@ Dimension::getAttribute(const std::string& attributeName,
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Gets the value of the "attributeName" attribute of this Dimension.
- */
-int
-Dimension::getAttribute(const std::string& attributeName,
-                        const char* value) const
-{
-  int return_value = SBase::getAttribute(attributeName, value);
-
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "size")
-  {
-    value = getSize().c_str();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
  * Predicate returning @c true if this Dimension's attribute "attributeName" is
  * set.
  */
@@ -730,36 +691,6 @@ Dimension::setAttribute(const std::string& attributeName, unsigned int value)
 int
 Dimension::setAttribute(const std::string& attributeName,
                         const std::string& value)
-{
-  int return_value = SBase::setAttribute(attributeName, value);
-
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "size")
-  {
-    return_value = setSize(value);
-  }
-
-  return return_value;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the value of the "attributeName" attribute of this Dimension.
- */
-int
-Dimension::setAttribute(const std::string& attributeName, const char* value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
 

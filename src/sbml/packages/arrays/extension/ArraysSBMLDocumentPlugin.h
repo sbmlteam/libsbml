@@ -272,27 +272,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this
-   * ArraysSBMLDocumentPlugin.
-   *
-   * @param attributeName, the name of the attribute to retrieve.
-   *
-   * @param value, the address of the value to record.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int getAttribute(const std::string& attributeName,
-                           const char* value) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Predicate returning @c true if this ArraysSBMLDocumentPlugin's attribute
    * "attributeName" is set.
    *
@@ -404,27 +383,6 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            const std::string& value);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the value of the "attributeName" attribute of this
-   * ArraysSBMLDocumentPlugin.
-   *
-   * @param attributeName, the name of the attribute to set.
-   *
-   * @param value, the value of the attribute to set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int setAttribute(const std::string& attributeName, const char*
-    value);
 
   /** @endcond */
 
