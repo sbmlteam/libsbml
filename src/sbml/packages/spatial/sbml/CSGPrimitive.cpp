@@ -54,7 +54,7 @@ CSGPrimitive::CSGPrimitive(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
   : CSGNode(level, version)
-  , mPrimitiveType (PRIMITIVEKIND_UNKNOWN)
+  , mPrimitiveType (SPATIAL_PRIMITIVEKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -66,7 +66,7 @@ CSGPrimitive::CSGPrimitive(unsigned int level,
  */
 CSGPrimitive::CSGPrimitive(SpatialPkgNamespaces *spatialns)
   : CSGNode(spatialns)
-  , mPrimitiveType (PRIMITIVEKIND_UNKNOWN)
+  , mPrimitiveType (SPATIAL_PRIMITIVEKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
   loadPlugins(spatialns);
@@ -145,7 +145,7 @@ CSGPrimitive::getPrimitiveTypeAsString() const
 bool
 CSGPrimitive::isSetPrimitiveType() const
 {
-  return (mPrimitiveType != PRIMITIVEKIND_UNKNOWN);
+  return (mPrimitiveType != SPATIAL_PRIMITIVEKIND_INVALID);
 }
 
 
@@ -157,7 +157,7 @@ CSGPrimitive::setPrimitiveType(const PrimitiveKind_t primitiveType)
 {
   if (PrimitiveKind_isValid(primitiveType) == 0)
   {
-    mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
+    mPrimitiveType = SPATIAL_PRIMITIVEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -176,7 +176,7 @@ CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
 {
   if (PrimitiveKind_isValidString(primitiveType.c_str()) == 0)
   {
-    mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
+    mPrimitiveType = SPATIAL_PRIMITIVEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -193,7 +193,7 @@ CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
 int
 CSGPrimitive::unsetPrimitiveType()
 {
-  mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
+  mPrimitiveType = SPATIAL_PRIMITIVEKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -740,7 +740,7 @@ CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp)
 {
   if (csgp == NULL)
   {
-    return PRIMITIVEKIND_UNKNOWN;
+    return SPATIAL_PRIMITIVEKIND_INVALID;
   }
 
   return csgp->getPrimitiveType();

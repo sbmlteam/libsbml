@@ -31,10 +31,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpatialExtension
- * @sbmlbrief{spatial} Base extension class.
+ * @sbmlbrief{spatial} Base extension class for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * This is the Spatial package extension of the SBMLExtension class that is
+ * used to facilitate libSBML plug-ins in the implementation of an
+ * SBMLLevel&nbsp;3 package.
  *
  * @class SpatialPkgNamespaces
  * @sbmlbrief{spatial} SBMLNamespaces extension.
+ *
+ * @htmlinclude not-sbml-warning.html
  */
 
 
@@ -197,7 +205,7 @@ public:
    * the "spatial" package.
    *
    * @return the SBML Level for the given URI of this package, or @c 0 if the
-   * given URI is invalid.
+   * given URI is invalid, or for a different package.
    */
   virtual unsigned int getLevel(const std::string& uri) const;
 
@@ -210,7 +218,7 @@ public:
    * the "spatial" package.
    *
    * @return the SBML Version within the SBML Level for the given URI of this
-   * package, or @c 0 if the given URI is invalid.
+   * package, or @c 0 if the given URI is invalid, or for a different package.
    */
   virtual unsigned int getVersion(const std::string& uri) const;
 
@@ -223,7 +231,7 @@ public:
    * the "spatial" package.
    *
    * @return the version of the SBML Level&nbsp;3 package for the given URI of
-   * this package, or @c 0 if the given URI is invalid.
+   * this package, or @c 0 if the given URI is invalid, or for a different
    */
   virtual unsigned int getPackageVersion(const std::string& uri) const;
 
@@ -398,18 +406,53 @@ typedef enum
 } SBMLSpatialTypeCode_t;
 
 
+/**
+ * @enum BoundaryConditionKind_t
+ * @brief Enumeration of values permitted as the value of the "boundarykind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getBoundarykind()
+ * @see Spatial_setBoundarykind()
+ * @elseif java
+ * @see Spatial::getBoundarykind()
+ * @see Spatial::setBoundarykind(long)
+ * @else
+ * @see Spatial::getBoundarykind()
+ * @see Spatial::setBoundarykind()
+ * @endif
+ */
 typedef enum
 {
-    BOUNDARYCONDITIONKIND_UNKNOWN  /*!< Unknown BoundaryConditionKind */
-  , SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT /*!< Robin_valueCoefficient */
-  , SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT /*!< Robin_inwardNormalGradientCoefficient */
-  , SPATIAL_BOUNDARYKIND_ROBIN_SUM /*!< Robin_sum */
-  , SPATIAL_BOUNDARYKIND_NEUMANN /*!< Neumann */
-  , SPATIAL_BOUNDARYKIND_DIRICHLET /*!< Dirichlet */
+  SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT                        /*!< The spatial boundarykind is @c "Robin_valueCoefficient". */
+, SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT       /*!< The spatial boundarykind is @c "Robin_inwardNormalGradientCoefficient". */
+, SPATIAL_BOUNDARYKIND_ROBIN_SUM                                      /*!< The spatial boundarykind is @c "Robin_sum". */
+, SPATIAL_BOUNDARYKIND_NEUMANN                                        /*!< The spatial boundarykind is @c "Neumann". */
+, SPATIAL_BOUNDARYKIND_DIRICHLET                                      /*!< The spatial boundarykind is @c "Dirichlet". */
+, SPATIAL_BOUNDARYKIND_INVALID                                        /*!< Invalid BoundaryConditionKind value. */
 } BoundaryConditionKind_t;
 
 
 /**
+ * Returns the string version of the provided #BoundaryConditionKind_t
+ * enumeration.
+ *
+ * @param bck the #BoundaryConditionKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "Robin_valueCoefficient",
+ * "Robin_inwardNormalGradientCoefficient",
+ * "Robin_sum",
+ * "Neumann",
+ * "Dirichlet",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID,
+ * BoundaryConditionKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -422,13 +465,51 @@ LIBSBML_EXTERN
 BoundaryConditionKind_t
 BoundaryConditionKind_parse(const char* code);
 
-
+/**
+ * Returns the #BoundaryConditionKind_t enumeration corresponding to the given
+ * string or @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID,
+ * BoundaryConditionKind_t} if there is no such match.
+ *
+ * @param code the string to convert to a #BoundaryConditionKind_t.
+ *
+ * @return the corresponding #BoundaryConditionKind_t or
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t} if no
+ * match is found.
+ *
+ * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
+ * BoundaryConditionKind_t}, but "Robin_valueCoefficient" will return
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 BoundaryConditionKind_t
 BoundaryConditionKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #BoundaryConditionKind_t is valid.
+ *
+ * @param bck the #BoundaryConditionKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #BoundaryConditionKind_t is
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT,
+ * BoundaryConditionKind_t},
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT,
+ * BoundaryConditionKind_t},
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_ROBIN_SUM, BoundaryConditionKind_t},
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_NEUMANN, BoundaryConditionKind_t}, or
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_DIRICHLET, BoundaryConditionKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_BOUNDARYKIND_INVALID, BoundaryConditionKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -436,22 +517,74 @@ BoundaryConditionKind_isValid(BoundaryConditionKind_t bck);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #BoundaryConditionKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "Robin_valueCoefficient",
+ * "Robin_inwardNormalGradientCoefficient",
+ * "Robin_sum",
+ * "Neumann", or
+ * "Dirichlet";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "Robin_valueCoefficient" will return
+ * @c 1 (true), but "Robin_valueCoefficient" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 BoundaryConditionKind_isValidString(const char* code);
 
 
+/**
+ * @enum CoordinateKind_t
+ * @brief Enumeration of values permitted as the value of the "coordinatekind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getCoordinatekind()
+ * @see Spatial_setCoordinatekind()
+ * @elseif java
+ * @see Spatial::getCoordinatekind()
+ * @see Spatial::setCoordinatekind(long)
+ * @else
+ * @see Spatial::getCoordinatekind()
+ * @see Spatial::setCoordinatekind()
+ * @endif
+ */
 typedef enum
 {
-    COORDINATEKIND_UNKNOWN  /*!< Unknown CoordinateKind */
-  , SPATIAL_COORDINATEKIND_CARTESIAN_X /*!< cartesianX */
-  , SPATIAL_COORDINATEKIND_CARTESIAN_Y /*!< cartesianY */
-  , SPATIAL_COORDINATEKIND_CARTESIAN_Z /*!< cartesianZ */
+  SPATIAL_COORDINATEKIND_CARTESIAN_X   /*!< The spatial coordinatekind is @c "cartesianX". */
+, SPATIAL_COORDINATEKIND_CARTESIAN_Y   /*!< The spatial coordinatekind is @c "cartesianY". */
+, SPATIAL_COORDINATEKIND_CARTESIAN_Z   /*!< The spatial coordinatekind is @c "cartesianZ". */
+, SPATIAL_COORDINATEKIND_INVALID       /*!< Invalid CoordinateKind value. */
 } CoordinateKind_t;
 
 
 /**
+ * Returns the string version of the provided #CoordinateKind_t enumeration.
+ *
+ * @param ck the #CoordinateKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "cartesianX",
+ * "cartesianY",
+ * "cartesianZ",
+ * or @c NULL if the value is
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} or
+ * another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -465,12 +598,47 @@ CoordinateKind_t
 CoordinateKind_parse(const char* code);
 
 
+/**
+ * Returns the #CoordinateKind_t enumeration corresponding to the given string
+ * or @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}
+ * if there is no such match.
+ *
+ * @param code the string to convert to a #CoordinateKind_t.
+ *
+ * @return the corresponding #CoordinateKind_t or
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t} if
+ * no match is found.
+ *
+ * @note The matching is case-sensitive: "cartesianX" will return
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t}, but
+ * "CartesianX" will return
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 CoordinateKind_t
 CoordinateKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #CoordinateKind_t is valid.
+ *
+ * @param ck the #CoordinateKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #CoordinateKind_t is
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_X, CoordinateKind_t},
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Y, CoordinateKind_t}, or
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_CARTESIAN_Z, CoordinateKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_COORDINATEKIND_INVALID, CoordinateKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -478,22 +646,71 @@ CoordinateKind_isValid(CoordinateKind_t ck);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #CoordinateKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "cartesianX",
+ * "cartesianY", or
+ * "cartesianZ";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "cartesianX" will return @c 1 (true),
+ * but "CartesianX" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 CoordinateKind_isValidString(const char* code);
 
 
+/**
+ * @enum DiffusionKind_t
+ * @brief Enumeration of values permitted as the value of the "diffusionkind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getDiffusionkind()
+ * @see Spatial_setDiffusionkind()
+ * @elseif java
+ * @see Spatial::getDiffusionkind()
+ * @see Spatial::setDiffusionkind(long)
+ * @else
+ * @see Spatial::getDiffusionkind()
+ * @see Spatial::setDiffusionkind()
+ * @endif
+ */
 typedef enum
 {
-    DIFFUSIONKIND_UNKNOWN  /*!< Unknown DiffusionKind */
-  , SPATIAL_DIFFUSIONKIND_ISOTROPIC /*!< isotropic */
-  , SPATIAL_DIFFUSIONKIND_ANISOTROPIC /*!< anisotropic */
-  , SPATIAL_DIFFUSIONKIND_TENSOR /*!< tensor */
+  SPATIAL_DIFFUSIONKIND_ISOTROPIC         /*!< The spatial diffusionkind is @c "isotropic". */
+, SPATIAL_DIFFUSIONKIND_ANISOTROPIC       /*!< The spatial diffusionkind is @c "anisotropic". */
+, SPATIAL_DIFFUSIONKIND_TENSOR            /*!< The spatial diffusionkind is @c "tensor". */
+, SPATIAL_DIFFUSIONKIND_INVALID           /*!< Invalid DiffusionKind value. */
 } DiffusionKind_t;
 
 
 /**
+ * Returns the string version of the provided #DiffusionKind_t enumeration.
+ *
+ * @param dk the #DiffusionKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "isotropic",
+ * "anisotropic",
+ * "tensor",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID,
+ * DiffusionKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -506,12 +723,47 @@ LIBSBML_EXTERN
 DiffusionKind_t
 DiffusionKind_parse(const char* code);
 
+/**
+ * Returns the #DiffusionKind_t enumeration corresponding to the given string
+ * or @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID, DiffusionKind_t} if there is
+ * no such match.
+ *
+ * @param code the string to convert to a #DiffusionKind_t.
+ *
+ * @return the corresponding #DiffusionKind_t or
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID, DiffusionKind_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "isotropic" will return
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_ISOTROPIC, DiffusionKind_t}, but
+ * "Isotropic" will return @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID,
+ * DiffusionKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 DiffusionKind_t
 DiffusionKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #DiffusionKind_t is valid.
+ *
+ * @param dk the #DiffusionKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #DiffusionKind_t is
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_ISOTROPIC, DiffusionKind_t},
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_ANISOTROPIC, DiffusionKind_t}, or
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_TENSOR, DiffusionKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_DIFFUSIONKIND_INVALID, DiffusionKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -519,20 +771,67 @@ DiffusionKind_isValid(DiffusionKind_t dk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #DiffusionKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "isotropic",
+ * "anisotropic", or
+ * "tensor";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "isotropic" will return @c 1 (true),
+ * but "Isotropic" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 DiffusionKind_isValidString(const char* code);
 
 
+/**
+ * @enum FunctionKind_t
+ * @brief Enumeration of values permitted as the value of the "functionkind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getFunctionkind()
+ * @see Spatial_setFunctionkind()
+ * @elseif java
+ * @see Spatial::getFunctionkind()
+ * @see Spatial::setFunctionkind(long)
+ * @else
+ * @see Spatial::getFunctionkind()
+ * @see Spatial::setFunctionkind()
+ * @endif
+ */
 typedef enum
 {
-    FUNCTIONKIND_UNKNOWN  /*!< Unknown FunctionKind */
-  , SPATIAL_FUNCTIONKIND_LAYERED /*!< layered */
+  SPATIAL_FUNCTIONKIND_LAYERED       /*!< The spatial functionkind is @c "layered". */
+, SPATIAL_FUNCTIONKIND_INVALID       /*!< Invalid FunctionKind value. */
 } FunctionKind_t;
 
 
 /**
+ * Returns the string version of the provided #FunctionKind_t enumeration.
+ *
+ * @param fk the #FunctionKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "layered",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_FUNCTIONKIND_INVALID,
+ * FunctionKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -540,6 +839,23 @@ FunctionKind_toString(FunctionKind_t fk);
 
 
 /**
+ * Returns the #FunctionKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_FUNCTIONKIND_INVALID, FunctionKind_t} if there is no
+ * such match.
+ *
+ * @param code the string to convert to a #FunctionKind_t.
+ *
+ * @return the corresponding #FunctionKind_t or
+ * @sbmlconstant{SPATIAL_FUNCTIONKIND_INVALID, FunctionKind_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "layered" will return
+ * @sbmlconstant{SPATIAL_FUNCTIONKIND_LAYERED, FunctionKind_t}, but "Layered"
+ * will return @sbmlconstant{SPATIAL_FUNCTIONKIND_INVALID, FunctionKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 FunctionKind_t
@@ -551,6 +867,19 @@ FunctionKind_t
 FunctionKind_parse(const char* code);
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FunctionKind_t is valid.
+ *
+ * @param fk the #FunctionKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #FunctionKind_t is
+ * @sbmlconstant{SPATIAL_FUNCTIONKIND_LAYERED, FunctionKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_FUNCTIONKIND_INVALID, FunctionKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -558,20 +887,65 @@ FunctionKind_isValid(FunctionKind_t fk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FunctionKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "layered";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "layered" will return @c 1 (true), but
+ * "Layered" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 FunctionKind_isValidString(const char* code);
 
 
+/**
+ * @enum GeometryKind_t
+ * @brief Enumeration of values permitted as the value of the "geometrykind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getGeometrykind()
+ * @see Spatial_setGeometrykind()
+ * @elseif java
+ * @see Spatial::getGeometrykind()
+ * @see Spatial::setGeometrykind(long)
+ * @else
+ * @see Spatial::getGeometrykind()
+ * @see Spatial::setGeometrykind()
+ * @endif
+ */
 typedef enum
 {
-    GEOMETRYKIND_UNKNOWN  /*!< Unknown GeometryKind */
-  , SPATIAL_GEOMETRYKIND_CARTESIAN /*!< cartesian */
+  SPATIAL_GEOMETRYKIND_CARTESIAN       /*!< The spatial geometrykind is @c "cartesian". */
+, SPATIAL_GEOMETRYKIND_INVALID         /*!< Invalid GeometryKind value. */
 } GeometryKind_t;
 
 
 /**
+ * Returns the string version of the provided #GeometryKind_t enumeration.
+ *
+ * @param gk the #GeometryKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "cartesian",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID,
+ * GeometryKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -585,12 +959,45 @@ GeometryKind_t
 GeometryKind_parse(const char* code);
 
 
+/**
+ * Returns the #GeometryKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID, GeometryKind_t} if there is no
+ * such match.
+ *
+ * @param code the string to convert to a #GeometryKind_t.
+ *
+ * @return the corresponding #GeometryKind_t or
+ * @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID, GeometryKind_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "cartesian" will return
+ * @sbmlconstant{SPATIAL_GEOMETRYKIND_CARTESIAN, GeometryKind_t}, but
+ * "Cartesian" will return @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID,
+ * GeometryKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 GeometryKind_t
 GeometryKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #GeometryKind_t is valid.
+ *
+ * @param gk the #GeometryKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #GeometryKind_t is
+ * @sbmlconstant{SPATIAL_GEOMETRYKIND_CARTESIAN, GeometryKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_GEOMETRYKIND_INVALID, GeometryKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -598,22 +1005,69 @@ GeometryKind_isValid(GeometryKind_t gk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #GeometryKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "cartesian";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "cartesian" will return @c 1 (true),
+ * but "Cartesian" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 GeometryKind_isValidString(const char* code);
 
 
+/**
+ * @enum SetOperation_t
+ * @brief Enumeration of values permitted as the value of the "setoperation"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getSetoperation()
+ * @see Spatial_setSetoperation()
+ * @elseif java
+ * @see Spatial::getSetoperation()
+ * @see Spatial::setSetoperation(long)
+ * @else
+ * @see Spatial::getSetoperation()
+ * @see Spatial::setSetoperation()
+ * @endif
+ */
 typedef enum
 {
-    SETOPERATION_UNKNOWN  /*!< Unknown SetOperation */
-  , SPATIAL_SETOPERATION_UNION /*!< union */
-  , SPATIAL_SETOPERATION_INTERSECTION /*!< intersection */
-  , SPATIAL_SETOPERATION_DIFFERENCE /*!< difference */
+  SPATIAL_SETOPERATION_UNION              /*!< The spatial setoperation is @c "union". */
+, SPATIAL_SETOPERATION_INTERSECTION       /*!< The spatial setoperation is @c "intersection". */
+, SPATIAL_SETOPERATION_DIFFERENCE         /*!< The spatial setoperation is @c "relativeComplement". */
+, SPATIAL_SETOPERATION_INVALID            /*!< Invalid SetOperation value. */
 } SetOperation_t;
 
 
 /**
+ * Returns the string version of the provided #SetOperation_t enumeration.
+ *
+ * @param so the #SetOperation_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "union",
+ * "intersection",
+ * "relativeComplement",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_SETOPERATION_INVALID,
+ * SetOperation_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -621,6 +1075,23 @@ SetOperation_toString(SetOperation_t so);
 
 
 /**
+ * Returns the #SetOperation_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t} if there is no
+ * such match.
+ *
+ * @param code the string to convert to a #SetOperation_t.
+ *
+ * @return the corresponding #SetOperation_t or
+ * @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "union" will return
+ * @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t}, but "Union" will
+ * return @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 SetOperation_t
@@ -633,6 +1104,21 @@ SetOperation_parse(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #SetOperation_t is valid.
+ *
+ * @param so the #SetOperation_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #SetOperation_t is
+ * @sbmlconstant{SPATIAL_SETOPERATION_UNION, SetOperation_t},
+ * @sbmlconstant{SPATIAL_SETOPERATION_INTERSECTION, SetOperation_t}, or
+ * @sbmlconstant{SPATIAL_SETOPERATION_DIFFERENCE, SetOperation_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_SETOPERATION_INVALID, SetOperation_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -640,21 +1126,69 @@ SetOperation_isValid(SetOperation_t so);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #SetOperation_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "union",
+ * "intersection", or
+ * "relativeComplement";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "union" will return @c 1 (true), but
+ * "Union" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 SetOperation_isValidString(const char* code);
 
 
+/**
+ * @enum InterpolationKind_t
+ * @brief Enumeration of values permitted as the value of the
+ * "interpolationkind" attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getInterpolationkind()
+ * @see Spatial_setInterpolationkind()
+ * @elseif java
+ * @see Spatial::getInterpolationkind()
+ * @see Spatial::setInterpolationkind(long)
+ * @else
+ * @see Spatial::getInterpolationkind()
+ * @see Spatial::setInterpolationkind()
+ * @endif
+ */
 typedef enum
 {
-    INTERPOLATIONKIND_UNKNOWN  /*!< Unknown InterpolationKind */
-  , SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR /*!< nearestNeighbor */
-  , SPATIAL_INTERPOLATIONKIND_LINEAR /*!< linear */
+  SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR       /*!< The spatial interpolationkind is @c "nearestNeighbor". */
+, SPATIAL_INTERPOLATIONKIND_LINEAR                /*!< The spatial interpolationkind is @c "linear". */
+, SPATIAL_INTERPOLATIONKIND_INVALID               /*!< Invalid InterpolationKind value. */
 } InterpolationKind_t;
 
 
 /**
+ * Returns the string version of the provided #InterpolationKind_t enumeration.
+ *
+ * @param ik the #InterpolationKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "nearestNeighbor",
+ * "linear",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID,
+ * InterpolationKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -662,6 +1196,24 @@ InterpolationKind_toString(InterpolationKind_t ik);
 
 
 /**
+ * Returns the #InterpolationKind_t enumeration corresponding to the given
+ * string or @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID,
+ * InterpolationKind_t} if there is no such match.
+ *
+ * @param code the string to convert to a #InterpolationKind_t.
+ *
+ * @return the corresponding #InterpolationKind_t or
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID, InterpolationKind_t} if no
+ * match is found.
+ *
+ * @note The matching is case-sensitive: "nearestNeighbor" will return
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR,
+ * InterpolationKind_t}, but "NearestNeighbor" will return
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID, InterpolationKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 InterpolationKind_t
@@ -674,6 +1226,21 @@ InterpolationKind_parse(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #InterpolationKind_t is valid.
+ *
+ * @param ik the #InterpolationKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #InterpolationKind_t is
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR,
+ * InterpolationKind_t}, or
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_LINEAR, InterpolationKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_INTERPOLATIONKIND_INVALID, InterpolationKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -681,21 +1248,68 @@ InterpolationKind_isValid(InterpolationKind_t ik);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #InterpolationKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "nearestNeighbor", or
+ * "linear";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "nearestNeighbor" will return @c 1
+ * (true), but "NearestNeighbor" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 InterpolationKind_isValidString(const char* code);
 
 
+/**
+ * @enum PolygonKind_t
+ * @brief Enumeration of values permitted as the value of the "polygonkind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getPolygonkind()
+ * @see Spatial_setPolygonkind()
+ * @elseif java
+ * @see Spatial::getPolygonkind()
+ * @see Spatial::setPolygonkind(long)
+ * @else
+ * @see Spatial::getPolygonkind()
+ * @see Spatial::setPolygonkind()
+ * @endif
+ */
 typedef enum
 {
-    POLYGONKIND_UNKNOWN  /*!< Unknown PolygonKind */
-  , SPATIAL_POLYGONKIND_TRIANGLE /*!< triangle */
-  , SPATIAL_POLYGONKIND_QUADRILATERAL /*!< quadrilateral */
+  SPATIAL_POLYGONKIND_TRIANGLE            /*!< The spatial polygonkind is @c "triangle". */
+, SPATIAL_POLYGONKIND_QUADRILATERAL       /*!< The spatial polygonkind is @c "quadrilateral". */
+, SPATIAL_POLYGONKIND_INVALID             /*!< Invalid PolygonKind value. */
 } PolygonKind_t;
 
 
 /**
+ * Returns the string version of the provided #PolygonKind_t enumeration.
+ *
+ * @param pk the #PolygonKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "triangle",
+ * "quadrilateral",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
+ * PolygonKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -709,12 +1323,45 @@ PolygonKind_t
 PolygonKind_parse(const char* code);
 
 
+/**
+ * Returns the #PolygonKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t} if there is no
+ * such match.
+ *
+ * @param code the string to convert to a #PolygonKind_t.
+ *
+ * @return the corresponding #PolygonKind_t or
+ * @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "triangle" will return
+ * @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}, but "Triangle"
+ * will return @sbmlconstant{SPATIAL_POLYGONKIND_INVALID, PolygonKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 PolygonKind_t
 PolygonKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #PolygonKind_t is valid.
+ *
+ * @param pk the #PolygonKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #PolygonKind_t is
+ * @sbmlconstant{SPATIAL_POLYGONKIND_TRIANGLE, PolygonKind_t}, or
+ * @sbmlconstant{SPATIAL_POLYGONKIND_QUADRILATERAL, PolygonKind_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{SPATIAL_POLYGONKIND_INVALID,
+ * PolygonKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -722,26 +1369,78 @@ PolygonKind_isValid(PolygonKind_t pk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #PolygonKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "triangle", or
+ * "quadrilateral";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "triangle" will return @c 1 (true),
+ * but "Triangle" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 PolygonKind_isValidString(const char* code);
 
 
+/**
+ * @enum PrimitiveKind_t
+ * @brief Enumeration of values permitted as the value of the "primitivekind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getPrimitivekind()
+ * @see Spatial_setPrimitivekind()
+ * @elseif java
+ * @see Spatial::getPrimitivekind()
+ * @see Spatial::setPrimitivekind(long)
+ * @else
+ * @see Spatial::getPrimitivekind()
+ * @see Spatial::setPrimitivekind()
+ * @endif
+ */
 typedef enum
 {
-    PRIMITIVEKIND_UNKNOWN  /*!< Unknown PrimitiveKind */
-  , SPATIAL_PRIMITIVEKIND_SPHERE /*!< sphere */
-  , SPATIAL_PRIMITIVEKIND_CUBE /*!< cube */
-  , SPATIAL_PRIMITIVEKIND_CYLINDER /*!< cylinder */
-  , SPATIAL_PRIMITIVEKIND_CONE /*!< cone */
-  , SPATIAL_PRIMITIVEKIND_CIRCLE /*!< circle */
-  , SPATIAL_PRIMITIVEKIND_SQUARE /*!< square */
-  , SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE /*!< rightTriangle */
+  SPATIAL_PRIMITIVEKIND_SPHERE              /*!< The spatial primitivekind is @c "sphere". */
+, SPATIAL_PRIMITIVEKIND_CUBE                /*!< The spatial primitivekind is @c "cube". */
+, SPATIAL_PRIMITIVEKIND_CYLINDER            /*!< The spatial primitivekind is @c "cylinder". */
+, SPATIAL_PRIMITIVEKIND_CONE                /*!< The spatial primitivekind is @c "cone". */
+, SPATIAL_PRIMITIVEKIND_CIRCLE              /*!< The spatial primitivekind is @c "circle". */
+, SPATIAL_PRIMITIVEKIND_SQUARE              /*!< The spatial primitivekind is @c "square". */
+, SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE       /*!< The spatial primitivekind is @c "rightTriangle". */
+, SPATIAL_PRIMITIVEKIND_INVALID             /*!< Invalid PrimitiveKind value. */
 } PrimitiveKind_t;
 
 
 /**
+ * Returns the string version of the provided #PrimitiveKind_t enumeration.
+ *
+ * @param pk the #PrimitiveKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "sphere",
+ * "cube",
+ * "cylinder",
+ * "cone",
+ * "circle",
+ * "square",
+ * "rightTriangle",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID,
+ * PrimitiveKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -755,12 +1454,50 @@ PrimitiveKind_t
 PrimitiveKind_parse(const char* code);
 
 
+/**
+ * Returns the #PrimitiveKind_t enumeration corresponding to the given string
+ * or @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t} if there is
+ * no such match.
+ *
+ * @param code the string to convert to a #PrimitiveKind_t.
+ *
+ * @return the corresponding #PrimitiveKind_t or
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "sphere" will return
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_SPHERE, PrimitiveKind_t}, but "Sphere"
+ * will return @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 PrimitiveKind_t
 PrimitiveKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #PrimitiveKind_t is valid.
+ *
+ * @param pk the #PrimitiveKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #PrimitiveKind_t is
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_SPHERE, PrimitiveKind_t},
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CUBE, PrimitiveKind_t},
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CYLINDER, PrimitiveKind_t},
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CONE, PrimitiveKind_t},
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_CIRCLE, PrimitiveKind_t},
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_SQUARE, PrimitiveKind_t}, or
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE, PrimitiveKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_PRIMITIVEKIND_INVALID, PrimitiveKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -768,24 +1505,79 @@ PrimitiveKind_isValid(PrimitiveKind_t pk);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #PrimitiveKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "sphere",
+ * "cube",
+ * "cylinder",
+ * "cone",
+ * "circle",
+ * "square", or
+ * "rightTriangle";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "sphere" will return @c 1 (true), but
+ * "Sphere" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 PrimitiveKind_isValidString(const char* code);
 
 
+/**
+ * @enum DataKind_t
+ * @brief Enumeration of values permitted as the value of the "datakind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getDatakind()
+ * @see Spatial_setDatakind()
+ * @elseif java
+ * @see Spatial::getDatakind()
+ * @see Spatial::setDatakind(long)
+ * @else
+ * @see Spatial::getDatakind()
+ * @see Spatial::setDatakind()
+ * @endif
+ */
 typedef enum
 {
-    DATAKIND_UNKNOWN  /*!< Unknown DataKind */
-  , SPATIAL_DATAKIND_DOUBLE /*!< double */
-  , SPATIAL_DATAKIND_FLOAT /*!< float */
-  , SPATIAL_DATAKIND_UINT8 /*!< uint8 */
-  , SPATIAL_DATAKIND_UINT16 /*!< uint16 */
-  , SPATIAL_DATAKIND_UINT32 /*!< uint32 */
+  SPATIAL_DATAKIND_DOUBLE        /*!< The spatial datakind is @c "double". */
+, SPATIAL_DATAKIND_FLOAT         /*!< The spatial datakind is @c "float". */
+, SPATIAL_DATAKIND_UINT8         /*!< The spatial datakind is @c "uint8". */
+, SPATIAL_DATAKIND_UINT16        /*!< The spatial datakind is @c "uint16". */
+, SPATIAL_DATAKIND_UINT32        /*!< The spatial datakind is @c "uint32". */
+, SPATIAL_DATAKIND_INVALID       /*!< Invalid DataKind value. */
 } DataKind_t;
 
 
 /**
+ * Returns the string version of the provided #DataKind_t enumeration.
+ *
+ * @param dk the #DataKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "double",
+ * "float",
+ * "uint8",
+ * "uint16",
+ * "uint32",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_DATAKIND_INVALID,
+ * DataKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -793,6 +1585,22 @@ DataKind_toString(DataKind_t dk);
 
 
 /**
+ * Returns the #DataKind_t enumeration corresponding to the given string or
+ * @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t} if there is no such
+ * match.
+ *
+ * @param code the string to convert to a #DataKind_t.
+ *
+ * @return the corresponding #DataKind_t or
+ * @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "double" will return
+ * @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t}, but "Double" will return
+ * @sbmlconstant{SPATIAL_DATAKIND_INVALID, DataKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 DataKind_t
@@ -800,12 +1608,50 @@ DataKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #DataKind_t is valid.
+ *
+ * @param dk the #DataKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #DataKind_t is
+ * @sbmlconstant{SPATIAL_DATAKIND_DOUBLE, DataKind_t},
+ * @sbmlconstant{SPATIAL_DATAKIND_FLOAT, DataKind_t},
+ * @sbmlconstant{SPATIAL_DATAKIND_UINT8, DataKind_t},
+ * @sbmlconstant{SPATIAL_DATAKIND_UINT16, DataKind_t}, or
+ * @sbmlconstant{SPATIAL_DATAKIND_UINT32, DataKind_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{SPATIAL_DATAKIND_INVALID,
+ * DataKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
 DataKind_isValid(DataKind_t dk);
 
 
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #DataKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "double",
+ * "float",
+ * "uint8",
+ * "uint16", or
+ * "uint32";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "double" will return @c 1 (true), but
+ * "Double" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 int
 DataKind_isValidString(const char* code);
@@ -817,15 +1663,47 @@ DataKind_t
 DataKind_parse(const char* code);
 
 
+
+/**
+ * @enum CompressionKind_t
+ * @brief Enumeration of values permitted as the value of the "compressionkind"
+ * attribute on Spatial objects.
+ *
+ * @if conly
+ * @see Spatial_getCompressionkind()
+ * @see Spatial_setCompressionkind()
+ * @elseif java
+ * @see Spatial::getCompressionkind()
+ * @see Spatial::setCompressionkind(long)
+ * @else
+ * @see Spatial::getCompressionkind()
+ * @see Spatial::setCompressionkind()
+ * @endif
+ */
 typedef enum
 {
-    COMPRESSIONKIND_UNKNOWN  /*!< Unknown CompressionKind */
-  , SPATIAL_COMPRESSIONKIND_UNCOMPRESSED /*!< uncompressed */
-  , SPATIAL_COMPRESSIONKIND_DEFLATED /*!< deflated */
+  SPATIAL_COMPRESSIONKIND_UNCOMPRESSED       /*!< The spatial compressionkind is @c "uncompressed". */
+, SPATIAL_COMPRESSIONKIND_DEFLATED           /*!< The spatial compressionkind is @c "deflated". */
+, SPATIAL_COMPRESSIONKIND_INVALID            /*!< Invalid CompressionKind value. */
 } CompressionKind_t;
 
 
 /**
+ * Returns the string version of the provided #CompressionKind_t enumeration.
+ *
+ * @param ck the #CompressionKind_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "uncompressed",
+ * "deflated",
+ * or @c NULL if the value is @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID,
+ * CompressionKind_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -839,12 +1717,46 @@ CompressionKind_t
 CompressionKind_parse(const char* code);
 
 
+/**
+ * Returns the #CompressionKind_t enumeration corresponding to the given string
+ * or @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t} if
+ * there is no such match.
+ *
+ * @param code the string to convert to a #CompressionKind_t.
+ *
+ * @return the corresponding #CompressionKind_t or
+ * @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t} if no
+ * match is found.
+ *
+ * @note The matching is case-sensitive: "uncompressed" will return
+ * @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}, but
+ * "Uncompressed" will return @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID,
+ * CompressionKind_t}.
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
+ */
 LIBSBML_EXTERN
 CompressionKind_t
 CompressionKind_fromString(const char* code);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #CompressionKind_t is valid.
+ *
+ * @param ck the #CompressionKind_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #CompressionKind_t is
+ * @sbmlconstant{SPATIAL_COMPRESSIONKIND_UNCOMPRESSED, CompressionKind_t}, or
+ * @sbmlconstant{SPATIAL_COMPRESSIONKIND_DEFLATED, CompressionKind_t};
+ * @c 0 (false) otherwise (including
+ * @sbmlconstant{SPATIAL_COMPRESSIONKIND_INVALID, CompressionKind_t}).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -852,6 +1764,22 @@ CompressionKind_isValid(CompressionKind_t ck);
 
 
 /**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #CompressionKind_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "uncompressed", or
+ * "deflated";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "uncompressed" will return @c 1
+ * (true), but "Uncompressed" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Spatial_t
+ * @endif
  */
 LIBSBML_EXTERN
 int
@@ -865,6 +1793,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif /* SpatialExtension_H__ */
+#endif /* !SpatialExtension_H__ */
 
 

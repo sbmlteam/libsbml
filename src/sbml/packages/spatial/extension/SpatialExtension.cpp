@@ -481,15 +481,17 @@ SpatialExtension::init()
 
 
 #endif /* __cplusplus */
+
+
 static
 const char * SBML_BOUNDARYCONDITIONKIND_STRINGS[] = 
 {
-   "Unknown BoundaryConditionKind"
- , "Robin_valueCoefficient"
- , "Robin_inwardNormalGradientCoefficient"
- , "Robin_sum"
- , "Neumann"
- , "Dirichlet"
+  "Robin_valueCoefficient"
+, "Robin_inwardNormalGradientCoefficient"
+, "Robin_sum"
+, "Neumann"
+, "Dirichlet"
+, "invalid BoundaryConditionKind"
 };
 
 
@@ -500,8 +502,8 @@ LIBSBML_EXTERN
 const char *
 BoundaryConditionKind_toString(BoundaryConditionKind_t typeCode)
 {
-  int min = BOUNDARYCONDITIONKIND_UNKNOWN;
-  int max = SPATIAL_BOUNDARYKIND_DIRICHLET;
+  int min = SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT;
+  int max = SPATIAL_BOUNDARYKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -527,7 +529,7 @@ BoundaryConditionKind_parse(const char* code)
     if (type == SBML_BOUNDARYCONDITIONKIND_STRINGS[i])
       return (BoundaryConditionKind_t)i;
   }
-  return BOUNDARYCONDITIONKIND_UNKNOWN;
+  return SPATIAL_BOUNDARYKIND_INVALID;
 }
 
 
@@ -543,10 +545,10 @@ LIBSBML_EXTERN
 int
 BoundaryConditionKind_isValid(BoundaryConditionKind_t bck)
 {
-  int min = BOUNDARYCONDITIONKIND_UNKNOWN;
-  int max = SPATIAL_BOUNDARYKIND_DIRICHLET;
+  int min = SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT;
+  int max = SPATIAL_BOUNDARYKIND_INVALID;
 
-  if (bck <= min || bck > max)
+  if (bck < min || bck >= max)
   {
     return 0;
   }
@@ -568,10 +570,10 @@ BoundaryConditionKind_isValidString(const char* code)
 static
 const char * SBML_COORDINATEKIND_STRINGS[] = 
 {
-   "Unknown CoordinateKind"
- , "cartesianX"
- , "cartesianY"
- , "cartesianZ"
+  "cartesianX"
+, "cartesianY"
+, "cartesianZ"
+, "invalid CoordinateKind"
 };
 
 
@@ -582,8 +584,8 @@ LIBSBML_EXTERN
 const char *
 CoordinateKind_toString(CoordinateKind_t typeCode)
 {
-  int min = COORDINATEKIND_UNKNOWN;
-  int max = SPATIAL_COORDINATEKIND_CARTESIAN_Z;
+  int min = SPATIAL_COORDINATEKIND_CARTESIAN_X;
+  int max = SPATIAL_COORDINATEKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -609,7 +611,7 @@ CoordinateKind_parse(const char* code)
     if (type == SBML_COORDINATEKIND_STRINGS[i])
       return (CoordinateKind_t)i;
   }
-  return COORDINATEKIND_UNKNOWN;
+  return SPATIAL_COORDINATEKIND_INVALID;
 }
 
 
@@ -627,10 +629,10 @@ LIBSBML_EXTERN
 int
 CoordinateKind_isValid(CoordinateKind_t ck)
 {
-  int min = COORDINATEKIND_UNKNOWN;
-  int max = SPATIAL_COORDINATEKIND_CARTESIAN_Z;
+  int min = SPATIAL_COORDINATEKIND_CARTESIAN_X;
+  int max = SPATIAL_COORDINATEKIND_INVALID;
 
-  if (ck <= min || ck > max)
+  if (ck < min || ck >= max)
   {
     return 0;
   }
@@ -654,10 +656,10 @@ CoordinateKind_isValidString(const char* code)
 static
 const char * SBML_DIFFUSIONKIND_STRINGS[] = 
 {
-   "Unknown DiffusionKind"
- , "isotropic"
- , "anisotropic"
- , "tensor"
+  "isotropic"
+, "anisotropic"
+, "tensor"
+, "invalid DiffusionKind"
 };
 
 
@@ -668,8 +670,8 @@ LIBSBML_EXTERN
 const char *
 DiffusionKind_toString(DiffusionKind_t typeCode)
 {
-  int min = DIFFUSIONKIND_UNKNOWN;
-  int max = SPATIAL_DIFFUSIONKIND_TENSOR;
+  int min = SPATIAL_DIFFUSIONKIND_ISOTROPIC;
+  int max = SPATIAL_DIFFUSIONKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -695,7 +697,7 @@ DiffusionKind_parse(const char* code)
     if (type == SBML_DIFFUSIONKIND_STRINGS[i])
       return (DiffusionKind_t)i;
   }
-  return DIFFUSIONKIND_UNKNOWN;
+  return SPATIAL_DIFFUSIONKIND_INVALID;
 }
 
 
@@ -713,10 +715,10 @@ LIBSBML_EXTERN
 int
 DiffusionKind_isValid(DiffusionKind_t dk)
 {
-  int min = DIFFUSIONKIND_UNKNOWN;
-  int max = SPATIAL_DIFFUSIONKIND_TENSOR;
+  int min = SPATIAL_DIFFUSIONKIND_ISOTROPIC;
+  int max = SPATIAL_DIFFUSIONKIND_INVALID;
 
-  if (dk <= min || dk > max)
+  if (dk < min || dk >= max)
   {
     return 0;
   }
@@ -740,8 +742,8 @@ DiffusionKind_isValidString(const char* code)
 static
 const char * SBML_FUNCTIONKIND_STRINGS[] = 
 {
-   "Unknown FunctionKind"
- , "layered"
+  "layered"
+, "invalid FunctionKind"
 };
 
 
@@ -752,8 +754,8 @@ LIBSBML_EXTERN
 const char *
 FunctionKind_toString(FunctionKind_t typeCode)
 {
-  int min = FUNCTIONKIND_UNKNOWN;
-  int max = SPATIAL_FUNCTIONKIND_LAYERED;
+  int min = SPATIAL_FUNCTIONKIND_LAYERED;
+  int max = SPATIAL_FUNCTIONKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -779,7 +781,7 @@ FunctionKind_parse(const char* code)
     if (type == SBML_FUNCTIONKIND_STRINGS[i])
       return (FunctionKind_t)i;
   }
-  return FUNCTIONKIND_UNKNOWN;
+  return SPATIAL_FUNCTIONKIND_INVALID;
 }
 
 
@@ -797,10 +799,10 @@ LIBSBML_EXTERN
 int
 FunctionKind_isValid(FunctionKind_t fk)
 {
-  int min = FUNCTIONKIND_UNKNOWN;
-  int max = SPATIAL_FUNCTIONKIND_LAYERED;
+  int min = SPATIAL_FUNCTIONKIND_LAYERED;
+  int max = SPATIAL_FUNCTIONKIND_INVALID;
 
-  if (fk <= min || fk > max)
+  if (fk < min || fk >= max)
   {
     return 0;
   }
@@ -822,8 +824,8 @@ FunctionKind_isValidString(const char* code)
 static
 const char * SBML_GEOMETRYKIND_STRINGS[] = 
 {
-   "Unknown GeometryKind"
- , "cartesian"
+  "cartesian"
+, "invalid GeometryKind"
 };
 
 
@@ -834,8 +836,8 @@ LIBSBML_EXTERN
 const char *
 GeometryKind_toString(GeometryKind_t typeCode)
 {
-  int min = GEOMETRYKIND_UNKNOWN;
-  int max = SPATIAL_GEOMETRYKIND_CARTESIAN;
+  int min = SPATIAL_GEOMETRYKIND_CARTESIAN;
+  int max = SPATIAL_GEOMETRYKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -861,7 +863,7 @@ GeometryKind_parse(const char* code)
     if (type == SBML_GEOMETRYKIND_STRINGS[i])
       return (GeometryKind_t)i;
   }
-  return GEOMETRYKIND_UNKNOWN;
+  return SPATIAL_GEOMETRYKIND_INVALID;
 }
 
 
@@ -877,10 +879,10 @@ LIBSBML_EXTERN
 int
 GeometryKind_isValid(GeometryKind_t gk)
 {
-  int min = GEOMETRYKIND_UNKNOWN;
-  int max = SPATIAL_GEOMETRYKIND_CARTESIAN;
+  int min = SPATIAL_GEOMETRYKIND_CARTESIAN;
+  int max = SPATIAL_GEOMETRYKIND_INVALID;
 
-  if (gk <= min || gk > max)
+  if (gk < min || gk >= max)
   {
     return 0;
   }
@@ -904,10 +906,10 @@ GeometryKind_isValidString(const char* code)
 static
 const char * SBML_SETOPERATION_STRINGS[] = 
 {
-   "Unknown SetOperation"
- , "union"
- , "intersection"
- , "difference"
+  "union"
+, "intersection"
+, "relativeComplement"
+, "invalid SetOperation"
 };
 
 
@@ -918,8 +920,8 @@ LIBSBML_EXTERN
 const char *
 SetOperation_toString(SetOperation_t typeCode)
 {
-  int min = SETOPERATION_UNKNOWN;
-  int max = SPATIAL_SETOPERATION_DIFFERENCE;
+  int min = SPATIAL_SETOPERATION_UNION;
+  int max = SPATIAL_SETOPERATION_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -945,7 +947,7 @@ SetOperation_parse(const char* code)
     if (type == SBML_SETOPERATION_STRINGS[i])
       return (SetOperation_t)i;
   }
-  return SETOPERATION_UNKNOWN;
+  return SPATIAL_SETOPERATION_INVALID;
 }
 
 
@@ -963,10 +965,10 @@ LIBSBML_EXTERN
 int
 SetOperation_isValid(SetOperation_t so)
 {
-  int min = SETOPERATION_UNKNOWN;
-  int max = SPATIAL_SETOPERATION_DIFFERENCE;
+  int min = SPATIAL_SETOPERATION_UNION;
+  int max = SPATIAL_SETOPERATION_INVALID;
 
-  if (so <= min || so > max)
+  if (so < min || so >= max)
   {
     return 0;
   }
@@ -990,9 +992,9 @@ SetOperation_isValidString(const char* code)
 static
 const char * SBML_INTERPOLATIONKIND_STRINGS[] = 
 {
-   "Unknown InterpolationKind"
- , "nearestNeighbor"
- , "linear"
+  "nearestNeighbor"
+, "linear"
+, "invalid InterpolationKind"
 };
 
 
@@ -1003,8 +1005,8 @@ LIBSBML_EXTERN
 const char *
 InterpolationKind_toString(InterpolationKind_t typeCode)
 {
-  int min = INTERPOLATIONKIND_UNKNOWN;
-  int max = SPATIAL_INTERPOLATIONKIND_LINEAR;
+  int min = SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR;
+  int max = SPATIAL_INTERPOLATIONKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -1030,7 +1032,7 @@ InterpolationKind_parse(const char* code)
     if (type == SBML_INTERPOLATIONKIND_STRINGS[i])
       return (InterpolationKind_t)i;
   }
-  return INTERPOLATIONKIND_UNKNOWN;
+  return SPATIAL_INTERPOLATIONKIND_INVALID;
 }
 
 
@@ -1048,10 +1050,10 @@ LIBSBML_EXTERN
 int
 InterpolationKind_isValid(InterpolationKind_t ik)
 {
-  int min = INTERPOLATIONKIND_UNKNOWN;
-  int max = SPATIAL_INTERPOLATIONKIND_LINEAR;
+  int min = SPATIAL_INTERPOLATIONKIND_NEARESTNEIGHBOR;
+  int max = SPATIAL_INTERPOLATIONKIND_INVALID;
 
-  if (ik <= min || ik > max)
+  if (ik < min || ik >= max)
   {
     return 0;
   }
@@ -1075,9 +1077,9 @@ InterpolationKind_isValidString(const char* code)
 static
 const char * SBML_POLYGONKIND_STRINGS[] = 
 {
-   "Unknown PolygonKind"
- , "triangle"
- , "quadrilateral"
+  "triangle"
+, "quadrilateral"
+, "invalid PolygonKind"
 };
 
 
@@ -1088,8 +1090,8 @@ LIBSBML_EXTERN
 const char *
 PolygonKind_toString(PolygonKind_t typeCode)
 {
-  int min = POLYGONKIND_UNKNOWN;
-  int max = SPATIAL_POLYGONKIND_QUADRILATERAL;
+  int min = SPATIAL_POLYGONKIND_TRIANGLE;
+  int max = SPATIAL_POLYGONKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -1115,7 +1117,7 @@ PolygonKind_parse(const char* code)
     if (type == SBML_POLYGONKIND_STRINGS[i])
       return (PolygonKind_t)i;
   }
-  return POLYGONKIND_UNKNOWN;
+  return SPATIAL_POLYGONKIND_INVALID;
 }
 
 
@@ -1133,10 +1135,10 @@ LIBSBML_EXTERN
 int
 PolygonKind_isValid(PolygonKind_t pk)
 {
-  int min = POLYGONKIND_UNKNOWN;
-  int max = SPATIAL_POLYGONKIND_QUADRILATERAL;
+  int min = SPATIAL_POLYGONKIND_TRIANGLE;
+  int max = SPATIAL_POLYGONKIND_INVALID;
 
-  if (pk <= min || pk > max)
+  if (pk < min || pk >= max)
   {
     return 0;
   }
@@ -1160,26 +1162,26 @@ PolygonKind_isValidString(const char* code)
 static
 const char * SBML_PRIMITIVEKIND_STRINGS[] = 
 {
-   "Unknown PrimitiveKind"
- , "sphere"
- , "cube"
- , "cylinder"
- , "cone"
- , "circle"
- , "square"
- , "rightTriangle"
+  "sphere"
+, "cube"
+, "cylinder"
+, "cone"
+, "circle"
+, "square"
+, "rightTriangle"
+, "invalid PrimitiveKind"
 };
 
 
 /*
- * This method takes a type code from the PrimitiveKind enum and returns a string representing 
+ * Returns the string version of the provided #PrimitiveKind_t enumeration.
  */
 LIBSBML_EXTERN
 const char *
 PrimitiveKind_toString(PrimitiveKind_t typeCode)
 {
-  int min = PRIMITIVEKIND_UNKNOWN;
-  int max = SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE;
+  int min = SPATIAL_PRIMITIVEKIND_SPHERE;
+  int max = SPATIAL_PRIMITIVEKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -1205,7 +1207,7 @@ PrimitiveKind_parse(const char* code)
     if (type == SBML_PRIMITIVEKIND_STRINGS[i])
       return (PrimitiveKind_t)i;
   }
-  return PRIMITIVEKIND_UNKNOWN;
+  return SPATIAL_PRIMITIVEKIND_INVALID;
 }
 
 
@@ -1223,8 +1225,8 @@ LIBSBML_EXTERN
 int
 PrimitiveKind_isValid(PrimitiveKind_t pk)
 {
-  int min = PRIMITIVEKIND_UNKNOWN;
-  int max = SPATIAL_PRIMITIVEKIND_RIGHTTRIANGLE;
+  int min = SPATIAL_PRIMITIVEKIND_SPHERE;
+  int max = SPATIAL_PRIMITIVEKIND_INVALID;
 
   if (pk < min || pk >= max)
   {
@@ -1250,12 +1252,12 @@ PrimitiveKind_isValidString(const char* code)
 static
 const char * SBML_DATAKIND_STRINGS[] = 
 {
-   "Unknown DataKind"
- , "double"
- , "float"
- , "uint8"
- , "uint16"
- , "uint32"
+  "double"
+, "float"
+, "uint8"
+, "uint16"
+, "uint32"
+, "invalid DataKind"
 };
 
 
@@ -1266,8 +1268,8 @@ LIBSBML_EXTERN
 const char *
 DataKind_toString(DataKind_t typeCode)
 {
-  int min = DATAKIND_UNKNOWN;
-  int max = SPATIAL_DATAKIND_UINT32;
+  int min = SPATIAL_DATAKIND_DOUBLE;
+  int max = SPATIAL_DATAKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -1293,7 +1295,7 @@ DataKind_parse(const char* code)
     if (type == SBML_DATAKIND_STRINGS[i])
       return (DataKind_t)i;
   }
-  return DATAKIND_UNKNOWN;
+  return SPATIAL_DATAKIND_INVALID;
 }
 
 
@@ -1311,10 +1313,10 @@ LIBSBML_EXTERN
 int
 DataKind_isValid(DataKind_t dk)
 {
-  int min = DATAKIND_UNKNOWN;
-  int max = SPATIAL_DATAKIND_UINT32;
+  int min = SPATIAL_DATAKIND_DOUBLE;
+  int max = SPATIAL_DATAKIND_INVALID;
 
-  if (dk <= min || dk > max)
+  if (dk < min || dk >= max)
   {
     return 0;
   }
@@ -1338,9 +1340,9 @@ DataKind_isValidString(const char* code)
 static
 const char * SBML_COMPRESSIONKIND_STRINGS[] = 
 {
-   "Unknown CompressionKind"
- , "uncompressed"
- , "deflated"
+  "uncompressed"
+, "deflated"
+, "invalid CompressionKind"
 };
 
 
@@ -1351,8 +1353,8 @@ LIBSBML_EXTERN
 const char *
 CompressionKind_toString(CompressionKind_t typeCode)
 {
-  int min = COMPRESSIONKIND_UNKNOWN;
-  int max = SPATIAL_COMPRESSIONKIND_DEFLATED;
+  int min = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
+  int max = SPATIAL_COMPRESSIONKIND_INVALID;
 
   if ( typeCode < min || typeCode > max)
   {
@@ -1378,7 +1380,7 @@ CompressionKind_parse(const char* code)
     if (type == SBML_COMPRESSIONKIND_STRINGS[i])
       return (CompressionKind_t)i;
   }
-  return COMPRESSIONKIND_UNKNOWN;
+  return SPATIAL_COMPRESSIONKIND_INVALID;
 }
 
 
@@ -1396,10 +1398,10 @@ LIBSBML_EXTERN
 int
 CompressionKind_isValid(CompressionKind_t ck)
 {
-  int min = COMPRESSIONKIND_UNKNOWN;
-  int max = SPATIAL_COMPRESSIONKIND_DEFLATED;
+  int min = SPATIAL_COMPRESSIONKIND_UNCOMPRESSED;
+  int max = SPATIAL_COMPRESSIONKIND_INVALID;
 
-  if (ck <= min || ck > max)
+  if (ck < min || ck >= max)
   {
     return 0;
   }
@@ -1411,6 +1413,8 @@ CompressionKind_isValid(CompressionKind_t ck)
 
 
 /*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #CompressionKind_t.
  */
 LIBSBML_EXTERN
 int

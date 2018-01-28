@@ -55,7 +55,7 @@ AdvectionCoefficient::AdvectionCoefficient(unsigned int level,
                                            unsigned int pkgVersion)
   : SBase(level, version)
   , mVariable ("")
-  , mCoordinate (COORDINATEKIND_UNKNOWN)
+  , mCoordinate (SPATIAL_COORDINATEKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -69,7 +69,7 @@ AdvectionCoefficient::AdvectionCoefficient(unsigned int level,
 AdvectionCoefficient::AdvectionCoefficient(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mVariable ("")
-  , mCoordinate (COORDINATEKIND_UNKNOWN)
+  , mCoordinate (SPATIAL_COORDINATEKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
   loadPlugins(spatialns);
@@ -173,7 +173,7 @@ AdvectionCoefficient::isSetVariable() const
 bool
 AdvectionCoefficient::isSetCoordinate() const
 {
-  return (mCoordinate != COORDINATEKIND_UNKNOWN);
+  return (mCoordinate != SPATIAL_COORDINATEKIND_INVALID);
 }
 
 
@@ -203,7 +203,7 @@ AdvectionCoefficient::setCoordinate(const CoordinateKind_t coordinate)
 {
   if (CoordinateKind_isValid(coordinate) == 0)
   {
-    mCoordinate = COORDINATEKIND_UNKNOWN;
+    mCoordinate = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -222,7 +222,7 @@ AdvectionCoefficient::setCoordinate(const std::string& coordinate)
 {
   if (CoordinateKind_isValidString(coordinate.c_str()) == 0)
   {
-    mCoordinate = COORDINATEKIND_UNKNOWN;
+    mCoordinate = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -258,7 +258,7 @@ AdvectionCoefficient::unsetVariable()
 int
 AdvectionCoefficient::unsetCoordinate()
 {
-  mCoordinate = COORDINATEKIND_UNKNOWN;
+  mCoordinate = SPATIAL_COORDINATEKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -895,7 +895,7 @@ AdvectionCoefficient_getCoordinate(const AdvectionCoefficient_t * ac)
 {
   if (ac == NULL)
   {
-    return COORDINATEKIND_UNKNOWN;
+    return SPATIAL_COORDINATEKIND_INVALID;
   }
 
   return ac->getCoordinate();

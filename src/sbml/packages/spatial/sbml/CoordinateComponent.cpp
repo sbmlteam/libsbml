@@ -58,7 +58,7 @@ CoordinateComponent::CoordinateComponent(unsigned int level,
                                          unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mType (COORDINATEKIND_UNKNOWN)
+  , mType (SPATIAL_COORDINATEKIND_INVALID)
   , mUnit ("")
   , mBoundaryMin (NULL)
   , mBoundaryMax (NULL)
@@ -76,7 +76,7 @@ CoordinateComponent::CoordinateComponent(unsigned int level,
 CoordinateComponent::CoordinateComponent(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mType (COORDINATEKIND_UNKNOWN)
+  , mType (SPATIAL_COORDINATEKIND_INVALID)
   , mUnit ("")
   , mBoundaryMin (NULL)
   , mBoundaryMax (NULL)
@@ -232,7 +232,7 @@ CoordinateComponent::isSetId() const
 bool
 CoordinateComponent::isSetType() const
 {
-  return (mType != COORDINATEKIND_UNKNOWN);
+  return (mType != SPATIAL_COORDINATEKIND_INVALID);
 }
 
 
@@ -265,7 +265,7 @@ CoordinateComponent::setType(const CoordinateKind_t type)
 {
   if (CoordinateKind_isValid(type) == 0)
   {
-    mType = COORDINATEKIND_UNKNOWN;
+    mType = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -284,7 +284,7 @@ CoordinateComponent::setType(const std::string& type)
 {
   if (CoordinateKind_isValidString(type.c_str()) == 0)
   {
-    mType = COORDINATEKIND_UNKNOWN;
+    mType = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -338,7 +338,7 @@ CoordinateComponent::unsetId()
 int
 CoordinateComponent::unsetType()
 {
-  mType = COORDINATEKIND_UNKNOWN;
+  mType = SPATIAL_COORDINATEKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1591,7 +1591,7 @@ CoordinateComponent_getType(const CoordinateComponent_t * cc)
 {
   if (cc == NULL)
   {
-    return COORDINATEKIND_UNKNOWN;
+    return SPATIAL_COORDINATEKIND_INVALID;
   }
 
   return cc->getType();

@@ -57,7 +57,7 @@ AnalyticVolume::AnalyticVolume(unsigned int level,
                                unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mFunctionType (FUNCTIONKIND_UNKNOWN)
+  , mFunctionType (SPATIAL_FUNCTIONKIND_INVALID)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mDomainType ("")
@@ -75,7 +75,7 @@ AnalyticVolume::AnalyticVolume(unsigned int level,
 AnalyticVolume::AnalyticVolume(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mFunctionType (FUNCTIONKIND_UNKNOWN)
+  , mFunctionType (SPATIAL_FUNCTIONKIND_INVALID)
   , mOrdinal (SBML_INT_MAX)
   , mIsSetOrdinal (false)
   , mDomainType ("")
@@ -227,7 +227,7 @@ AnalyticVolume::isSetId() const
 bool
 AnalyticVolume::isSetFunctionType() const
 {
-  return (mFunctionType != FUNCTIONKIND_UNKNOWN);
+  return (mFunctionType != SPATIAL_FUNCTIONKIND_INVALID);
 }
 
 
@@ -271,7 +271,7 @@ AnalyticVolume::setFunctionType(const FunctionKind_t functionType)
 {
   if (FunctionKind_isValid(functionType) == 0)
   {
-    mFunctionType = FUNCTIONKIND_UNKNOWN;
+    mFunctionType = SPATIAL_FUNCTIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -290,7 +290,7 @@ AnalyticVolume::setFunctionType(const std::string& functionType)
 {
   if (FunctionKind_isValidString(functionType.c_str()) == 0)
   {
-    mFunctionType = FUNCTIONKIND_UNKNOWN;
+    mFunctionType = SPATIAL_FUNCTIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -356,7 +356,7 @@ AnalyticVolume::unsetId()
 int
 AnalyticVolume::unsetFunctionType()
 {
-  mFunctionType = FUNCTIONKIND_UNKNOWN;
+  mFunctionType = SPATIAL_FUNCTIONKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1292,7 +1292,7 @@ AnalyticVolume_getFunctionType(const AnalyticVolume_t * av)
 {
   if (av == NULL)
   {
-    return FUNCTIONKIND_UNKNOWN;
+    return SPATIAL_FUNCTIONKIND_INVALID;
   }
 
   return av->getFunctionType();

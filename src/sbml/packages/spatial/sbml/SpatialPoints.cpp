@@ -55,11 +55,11 @@ SpatialPoints::SpatialPoints(unsigned int level,
                              unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mCompression (COMPRESSIONKIND_UNKNOWN)
+  , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
-  , mDataType (DATAKIND_UNKNOWN)
+  , mDataType (SPATIAL_DATAKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -72,11 +72,11 @@ SpatialPoints::SpatialPoints(unsigned int level,
 SpatialPoints::SpatialPoints(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mCompression (COMPRESSIONKIND_UNKNOWN)
+  , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
   , mArrayData (NULL)
   , mArrayDataLength (SBML_INT_MAX)
   , mIsSetArrayDataLength (false)
-  , mDataType (DATAKIND_UNKNOWN)
+  , mDataType (SPATIAL_DATAKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
   loadPlugins(spatialns);
@@ -240,7 +240,7 @@ SpatialPoints::isSetId() const
 bool
 SpatialPoints::isSetCompression() const
 {
-  return (mCompression != COMPRESSIONKIND_UNKNOWN);
+  return (mCompression != SPATIAL_COMPRESSIONKIND_INVALID);
 }
 
 
@@ -273,7 +273,7 @@ SpatialPoints::isSetArrayDataLength() const
 bool
 SpatialPoints::isSetDataType() const
 {
-  return (mDataType != DATAKIND_UNKNOWN);
+  return (mDataType != SPATIAL_DATAKIND_INVALID);
 }
 
 
@@ -295,7 +295,7 @@ SpatialPoints::setCompression(const CompressionKind_t compression)
 {
   if (CompressionKind_isValid(compression) == 0)
   {
-    mCompression = COMPRESSIONKIND_UNKNOWN;
+    mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -314,7 +314,7 @@ SpatialPoints::setCompression(const std::string& compression)
 {
   if (CompressionKind_isValidString(compression.c_str()) == 0)
   {
-    mCompression = COMPRESSIONKIND_UNKNOWN;
+    mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -370,7 +370,7 @@ SpatialPoints::setDataType(const DataKind_t dataType)
 {
   if (DataKind_isValid(dataType) == 0)
   {
-    mDataType = DATAKIND_UNKNOWN;
+    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -389,7 +389,7 @@ SpatialPoints::setDataType(const std::string& dataType)
 {
   if (DataKind_isValidString(dataType.c_str()) == 0)
   {
-    mDataType = DATAKIND_UNKNOWN;
+    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -425,7 +425,7 @@ SpatialPoints::unsetId()
 int
 SpatialPoints::unsetCompression()
 {
-  mCompression = COMPRESSIONKIND_UNKNOWN;
+  mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -473,7 +473,7 @@ SpatialPoints::unsetArrayDataLength()
 int
 SpatialPoints::unsetDataType()
 {
-  mDataType = DATAKIND_UNKNOWN;
+  mDataType = SPATIAL_DATAKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1274,7 +1274,7 @@ SpatialPoints_getCompression(const SpatialPoints_t * sp)
 {
   if (sp == NULL)
   {
-    return COMPRESSIONKIND_UNKNOWN;
+    return SPATIAL_COMPRESSIONKIND_INVALID;
   }
 
   return sp->getCompression();
@@ -1313,7 +1313,7 @@ SpatialPoints_getDataType(const SpatialPoints_t * sp)
 {
   if (sp == NULL)
   {
-    return DATAKIND_UNKNOWN;
+    return SPATIAL_DATAKIND_INVALID;
   }
 
   return sp->getDataType();

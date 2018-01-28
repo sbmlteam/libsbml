@@ -55,9 +55,9 @@ DiffusionCoefficient::DiffusionCoefficient(unsigned int level,
                                            unsigned int pkgVersion)
   : SBase(level, version)
   , mVariable ("")
-  , mType (DIFFUSIONKIND_UNKNOWN)
-  , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
-  , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
+  , mType (SPATIAL_DIFFUSIONKIND_INVALID)
+  , mCoordinateReference1 (SPATIAL_COORDINATEKIND_INVALID)
+  , mCoordinateReference2 (SPATIAL_COORDINATEKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -71,9 +71,9 @@ DiffusionCoefficient::DiffusionCoefficient(unsigned int level,
 DiffusionCoefficient::DiffusionCoefficient(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mVariable ("")
-  , mType (DIFFUSIONKIND_UNKNOWN)
-  , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
-  , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
+  , mType (SPATIAL_DIFFUSIONKIND_INVALID)
+  , mCoordinateReference1 (SPATIAL_COORDINATEKIND_INVALID)
+  , mCoordinateReference2 (SPATIAL_COORDINATEKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
   loadPlugins(spatialns);
@@ -227,7 +227,7 @@ DiffusionCoefficient::isSetVariable() const
 bool
 DiffusionCoefficient::isSetType() const
 {
-  return (mType != DIFFUSIONKIND_UNKNOWN);
+  return (mType != SPATIAL_DIFFUSIONKIND_INVALID);
 }
 
 
@@ -238,7 +238,7 @@ DiffusionCoefficient::isSetType() const
 bool
 DiffusionCoefficient::isSetCoordinateReference1() const
 {
-  return (mCoordinateReference1 != COORDINATEKIND_UNKNOWN);
+  return (mCoordinateReference1 != SPATIAL_COORDINATEKIND_INVALID);
 }
 
 
@@ -249,7 +249,7 @@ DiffusionCoefficient::isSetCoordinateReference1() const
 bool
 DiffusionCoefficient::isSetCoordinateReference2() const
 {
-  return (mCoordinateReference2 != COORDINATEKIND_UNKNOWN);
+  return (mCoordinateReference2 != SPATIAL_COORDINATEKIND_INVALID);
 }
 
 
@@ -279,7 +279,7 @@ DiffusionCoefficient::setType(const DiffusionKind_t type)
 {
   if (DiffusionKind_isValid(type) == 0)
   {
-    mType = DIFFUSIONKIND_UNKNOWN;
+    mType = SPATIAL_DIFFUSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -298,7 +298,7 @@ DiffusionCoefficient::setType(const std::string& type)
 {
   if (DiffusionKind_isValidString(type.c_str()) == 0)
   {
-    mType = DIFFUSIONKIND_UNKNOWN;
+    mType = SPATIAL_DIFFUSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -319,7 +319,7 @@ DiffusionCoefficient::setCoordinateReference1(const CoordinateKind_t
 {
   if (CoordinateKind_isValid(coordinateReference1) == 0)
   {
-    mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+    mCoordinateReference1 = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -340,7 +340,7 @@ DiffusionCoefficient::setCoordinateReference1(const std::string&
 {
   if (CoordinateKind_isValidString(coordinateReference1.c_str()) == 0)
   {
-    mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+    mCoordinateReference1 = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -362,7 +362,7 @@ DiffusionCoefficient::setCoordinateReference2(const CoordinateKind_t
 {
   if (CoordinateKind_isValid(coordinateReference2) == 0)
   {
-    mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+    mCoordinateReference2 = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -383,7 +383,7 @@ DiffusionCoefficient::setCoordinateReference2(const std::string&
 {
   if (CoordinateKind_isValidString(coordinateReference2.c_str()) == 0)
   {
-    mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+    mCoordinateReference2 = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -420,7 +420,7 @@ DiffusionCoefficient::unsetVariable()
 int
 DiffusionCoefficient::unsetType()
 {
-  mType = DIFFUSIONKIND_UNKNOWN;
+  mType = SPATIAL_DIFFUSIONKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -432,7 +432,7 @@ DiffusionCoefficient::unsetType()
 int
 DiffusionCoefficient::unsetCoordinateReference1()
 {
-  mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+  mCoordinateReference1 = SPATIAL_COORDINATEKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -444,7 +444,7 @@ DiffusionCoefficient::unsetCoordinateReference1()
 int
 DiffusionCoefficient::unsetCoordinateReference2()
 {
-  mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+  mCoordinateReference2 = SPATIAL_COORDINATEKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1207,7 +1207,7 @@ DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc)
 {
   if (dc == NULL)
   {
-    return DIFFUSIONKIND_UNKNOWN;
+    return SPATIAL_DIFFUSIONKIND_INVALID;
   }
 
   return dc->getType();
@@ -1235,7 +1235,7 @@ DiffusionCoefficient_getCoordinateReference1(const DiffusionCoefficient_t * dc)
 {
   if (dc == NULL)
   {
-    return COORDINATEKIND_UNKNOWN;
+    return SPATIAL_COORDINATEKIND_INVALID;
   }
 
   return dc->getCoordinateReference1();
@@ -1265,7 +1265,7 @@ DiffusionCoefficient_getCoordinateReference2(const DiffusionCoefficient_t * dc)
 {
   if (dc == NULL)
   {
-    return COORDINATEKIND_UNKNOWN;
+    return SPATIAL_COORDINATEKIND_INVALID;
   }
 
   return dc->getCoordinateReference2();

@@ -62,7 +62,7 @@ Geometry::Geometry(unsigned int level,
                    unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
+  , mCoordinateSystem (SPATIAL_GEOMETRYKIND_INVALID)
   , mCoordinateComponents (level, version, pkgVersion)
   , mDomainTypes (level, version, pkgVersion)
   , mDomains (level, version, pkgVersion)
@@ -82,7 +82,7 @@ Geometry::Geometry(unsigned int level,
 Geometry::Geometry(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
+  , mCoordinateSystem (SPATIAL_GEOMETRYKIND_INVALID)
   , mCoordinateComponents (spatialns)
   , mDomainTypes (spatialns)
   , mDomains (spatialns)
@@ -204,7 +204,7 @@ Geometry::isSetId() const
 bool
 Geometry::isSetCoordinateSystem() const
 {
-  return (mCoordinateSystem != GEOMETRYKIND_UNKNOWN);
+  return (mCoordinateSystem != SPATIAL_GEOMETRYKIND_INVALID);
 }
 
 
@@ -226,7 +226,7 @@ Geometry::setCoordinateSystem(const GeometryKind_t coordinateSystem)
 {
   if (GeometryKind_isValid(coordinateSystem) == 0)
   {
-    mCoordinateSystem = GEOMETRYKIND_UNKNOWN;
+    mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -245,7 +245,7 @@ Geometry::setCoordinateSystem(const std::string& coordinateSystem)
 {
   if (GeometryKind_isValidString(coordinateSystem.c_str()) == 0)
   {
-    mCoordinateSystem = GEOMETRYKIND_UNKNOWN;
+    mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -281,7 +281,7 @@ Geometry::unsetId()
 int
 Geometry::unsetCoordinateSystem()
 {
-  mCoordinateSystem = GEOMETRYKIND_UNKNOWN;
+  mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -2401,7 +2401,7 @@ Geometry_getCoordinateSystem(const Geometry_t * g)
 {
   if (g == NULL)
   {
-    return GEOMETRYKIND_UNKNOWN;
+    return SPATIAL_GEOMETRYKIND_INVALID;
   }
 
   return g->getCoordinateSystem();

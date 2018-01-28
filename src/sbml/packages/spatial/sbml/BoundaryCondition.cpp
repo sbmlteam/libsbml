@@ -55,7 +55,7 @@ BoundaryCondition::BoundaryCondition(unsigned int level,
                                      unsigned int pkgVersion)
   : SBase(level, version)
   , mVariable ("")
-  , mType (BOUNDARYCONDITIONKIND_UNKNOWN)
+  , mType (SPATIAL_BOUNDARYKIND_INVALID)
   , mCoordinateBoundary ("")
   , mBoundaryDomainType ("")
 {
@@ -70,7 +70,7 @@ BoundaryCondition::BoundaryCondition(unsigned int level,
 BoundaryCondition::BoundaryCondition(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mVariable ("")
-  , mType (BOUNDARYCONDITIONKIND_UNKNOWN)
+  , mType (SPATIAL_BOUNDARYKIND_INVALID)
   , mCoordinateBoundary ("")
   , mBoundaryDomainType ("")
 {
@@ -200,7 +200,7 @@ BoundaryCondition::isSetVariable() const
 bool
 BoundaryCondition::isSetType() const
 {
-  return (mType != BOUNDARYCONDITIONKIND_UNKNOWN);
+  return (mType != SPATIAL_BOUNDARYKIND_INVALID);
 }
 
 
@@ -252,7 +252,7 @@ BoundaryCondition::setType(const BoundaryConditionKind_t type)
 {
   if (BoundaryConditionKind_isValid(type) == 0)
   {
-    mType = BOUNDARYCONDITIONKIND_UNKNOWN;
+    mType = SPATIAL_BOUNDARYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -271,7 +271,7 @@ BoundaryCondition::setType(const std::string& type)
 {
   if (BoundaryConditionKind_isValidString(type.c_str()) == 0)
   {
-    mType = BOUNDARYCONDITIONKIND_UNKNOWN;
+    mType = SPATIAL_BOUNDARYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -345,7 +345,7 @@ BoundaryCondition::unsetVariable()
 int
 BoundaryCondition::unsetType()
 {
-  mType = BOUNDARYCONDITIONKIND_UNKNOWN;
+  mType = SPATIAL_BOUNDARYKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1106,7 +1106,7 @@ BoundaryCondition_getType(const BoundaryCondition_t * bc)
 {
   if (bc == NULL)
   {
-    return BOUNDARYCONDITIONKIND_UNKNOWN;
+    return SPATIAL_BOUNDARYKIND_INVALID;
   }
 
   return bc->getType();

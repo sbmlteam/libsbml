@@ -62,7 +62,7 @@ CSGSetOperator::CSGSetOperator(unsigned int level,
                                unsigned int version,
                                unsigned int pkgVersion)
   : CSGNode(level, version)
-  , mOperationType (SETOPERATION_UNKNOWN)
+  , mOperationType (SPATIAL_SETOPERATION_INVALID)
   , mComplementA ("")
   , mComplementB ("")
   , mCSGNodes (level, version, pkgVersion)
@@ -78,7 +78,7 @@ CSGSetOperator::CSGSetOperator(unsigned int level,
  */
 CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces *spatialns)
   : CSGNode(spatialns)
-  , mOperationType (SETOPERATION_UNKNOWN)
+  , mOperationType (SPATIAL_SETOPERATION_INVALID)
   , mComplementA ("")
   , mComplementB ("")
   , mCSGNodes (spatialns)
@@ -189,7 +189,7 @@ CSGSetOperator::getComplementB() const
 bool
 CSGSetOperator::isSetOperationType() const
 {
-  return (mOperationType != SETOPERATION_UNKNOWN);
+  return (mOperationType != SPATIAL_SETOPERATION_INVALID);
 }
 
 
@@ -223,7 +223,7 @@ CSGSetOperator::setOperationType(const SetOperation_t operationType)
 {
   if (SetOperation_isValid(operationType) == 0)
   {
-    mOperationType = SETOPERATION_UNKNOWN;
+    mOperationType = SPATIAL_SETOPERATION_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -242,7 +242,7 @@ CSGSetOperator::setOperationType(const std::string& operationType)
 {
   if (SetOperation_isValidString(operationType.c_str()) == 0)
   {
-    mOperationType = SETOPERATION_UNKNOWN;
+    mOperationType = SPATIAL_SETOPERATION_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -295,7 +295,7 @@ CSGSetOperator::setComplementB(const std::string& complementB)
 int
 CSGSetOperator::unsetOperationType()
 {
-  mOperationType = SETOPERATION_UNKNOWN;
+  mOperationType = SPATIAL_SETOPERATION_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1486,7 +1486,7 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso)
 {
   if (csgso == NULL)
   {
-    return SETOPERATION_UNKNOWN;
+    return SPATIAL_SETOPERATION_INVALID;
   }
 
   return csgso->getOperationType();

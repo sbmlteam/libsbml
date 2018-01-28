@@ -56,13 +56,13 @@ ParametricObject::ParametricObject(unsigned int level,
                                    unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mPolygonType (POLYGONKIND_UNKNOWN)
+  , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
   , mPointIndex (NULL)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
-  , mCompression (COMPRESSIONKIND_UNKNOWN)
-  , mDataType (DATAKIND_UNKNOWN)
+  , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
+  , mDataType (SPATIAL_DATAKIND_INVALID)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version,
     pkgVersion));
@@ -75,13 +75,13 @@ ParametricObject::ParametricObject(unsigned int level,
 ParametricObject::ParametricObject(SpatialPkgNamespaces *spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mPolygonType (POLYGONKIND_UNKNOWN)
+  , mPolygonType (SPATIAL_POLYGONKIND_INVALID)
   , mDomainType ("")
   , mPointIndex (NULL)
   , mPointIndexLength (SBML_INT_MAX)
   , mIsSetPointIndexLength (false)
-  , mCompression (COMPRESSIONKIND_UNKNOWN)
-  , mDataType (DATAKIND_UNKNOWN)
+  , mCompression (SPATIAL_COMPRESSIONKIND_INVALID)
+  , mDataType (SPATIAL_DATAKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
   loadPlugins(spatialns);
@@ -282,7 +282,7 @@ ParametricObject::isSetId() const
 bool
 ParametricObject::isSetPolygonType() const
 {
-  return (mPolygonType != POLYGONKIND_UNKNOWN);
+  return (mPolygonType != SPATIAL_POLYGONKIND_INVALID);
 }
 
 
@@ -326,7 +326,7 @@ ParametricObject::isSetPointIndexLength() const
 bool
 ParametricObject::isSetCompression() const
 {
-  return (mCompression != COMPRESSIONKIND_UNKNOWN);
+  return (mCompression != SPATIAL_COMPRESSIONKIND_INVALID);
 }
 
 
@@ -337,7 +337,7 @@ ParametricObject::isSetCompression() const
 bool
 ParametricObject::isSetDataType() const
 {
-  return (mDataType != DATAKIND_UNKNOWN);
+  return (mDataType != SPATIAL_DATAKIND_INVALID);
 }
 
 
@@ -359,7 +359,7 @@ ParametricObject::setPolygonType(const PolygonKind_t polygonType)
 {
   if (PolygonKind_isValid(polygonType) == 0)
   {
-    mPolygonType = POLYGONKIND_UNKNOWN;
+    mPolygonType = SPATIAL_POLYGONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -378,7 +378,7 @@ ParametricObject::setPolygonType(const std::string& polygonType)
 {
   if (PolygonKind_isValidString(polygonType.c_str()) == 0)
   {
-    mPolygonType = POLYGONKIND_UNKNOWN;
+    mPolygonType = SPATIAL_POLYGONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -452,7 +452,7 @@ ParametricObject::setCompression(const CompressionKind_t compression)
 {
   if (CompressionKind_isValid(compression) == 0)
   {
-    mCompression = COMPRESSIONKIND_UNKNOWN;
+    mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -471,7 +471,7 @@ ParametricObject::setCompression(const std::string& compression)
 {
   if (CompressionKind_isValidString(compression.c_str()) == 0)
   {
-    mCompression = COMPRESSIONKIND_UNKNOWN;
+    mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -490,7 +490,7 @@ ParametricObject::setDataType(const DataKind_t dataType)
 {
   if (DataKind_isValid(dataType) == 0)
   {
-    mDataType = DATAKIND_UNKNOWN;
+    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -509,7 +509,7 @@ ParametricObject::setDataType(const std::string& dataType)
 {
   if (DataKind_isValidString(dataType.c_str()) == 0)
   {
-    mDataType = DATAKIND_UNKNOWN;
+    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
@@ -545,7 +545,7 @@ ParametricObject::unsetId()
 int
 ParametricObject::unsetPolygonType()
 {
-  mPolygonType = POLYGONKIND_UNKNOWN;
+  mPolygonType = SPATIAL_POLYGONKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -613,7 +613,7 @@ ParametricObject::unsetPointIndexLength()
 int
 ParametricObject::unsetCompression()
 {
-  mCompression = COMPRESSIONKIND_UNKNOWN;
+  mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -624,7 +624,7 @@ ParametricObject::unsetCompression()
 int
 ParametricObject::unsetDataType()
 {
-  mDataType = DATAKIND_UNKNOWN;
+  mDataType = SPATIAL_DATAKIND_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1590,7 +1590,7 @@ ParametricObject_getPolygonType(const ParametricObject_t * po)
 {
   if (po == NULL)
   {
-    return POLYGONKIND_UNKNOWN;
+    return SPATIAL_POLYGONKIND_INVALID;
   }
 
   return po->getPolygonType();
@@ -1646,7 +1646,7 @@ ParametricObject_getCompression(const ParametricObject_t * po)
 {
   if (po == NULL)
   {
-    return COMPRESSIONKIND_UNKNOWN;
+    return SPATIAL_COMPRESSIONKIND_INVALID;
   }
 
   return po->getCompression();
@@ -1673,7 +1673,7 @@ ParametricObject_getDataType(const ParametricObject_t * po)
 {
   if (po == NULL)
   {
-    return DATAKIND_UNKNOWN;
+    return SPATIAL_DATAKIND_INVALID;
   }
 
   return po->getDataType();
