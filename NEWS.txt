@@ -1,5 +1,83 @@
            libSBML NEWS -- History of user-visible changes
 
+====================================================================
+5.16.1 (Current SVN)
+====================================================================
+
+STABLE RELEASE
+
+* Render
+
+  - The first official version of the specification of the Render
+    package is now available, and thus the 
+    libSBML code for 'render' is now included in the stable release of 
+    libSBML.  This means that all prebuilt binaries for the stable 
+    release will include the 'render' package code. The src archive 
+    containing libSBML core code will continue to be available, with
+    additional src archives available in the stable branch: one
+    containing libSBML core plus all stable packages and additional
+    archives of the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
+
+* New features
+
+  - Unit validation has been optimized and significantly speeded up for
+    larger models. 
+	
+  - 'comp' package-specific updates:
+
+    - The C API for comp has been completed.
+
+  - 'fbc' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'multi' package-specific updates:
+
+    - The C API for multi has been completed.
+
+  - 'qual' package-specific updates:
+  - 'render' package-specific updates:
+
+* Bug fixes
+
+  - Python examples have been updated to work with Python v3.
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
 
 ====================================================================
 5.16.0 (2017-12-07)
