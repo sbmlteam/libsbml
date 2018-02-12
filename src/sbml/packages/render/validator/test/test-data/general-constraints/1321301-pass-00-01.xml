@@ -22,8 +22,12 @@
         <render:listOfRenderInformation>
           <render:renderInformation render:id="SBGN_default">
             <render:listOfColorDefinitions>
-              <render:colorDefinition render:value="#000000" />
+              <render:colorDefinition render:id="black" render:value="#000000" />
             </render:listOfColorDefinitions>
+            <render:listOfLineEndings>
+              <render:lineEnding render:id="simpleHead_black" metaid="__hh" render:enableRotationalMapping="true">
+              </render:lineEnding>
+            </render:listOfLineEndings>
           </render:renderInformation>
           </render:listOfRenderInformation>
       </layout:layout>

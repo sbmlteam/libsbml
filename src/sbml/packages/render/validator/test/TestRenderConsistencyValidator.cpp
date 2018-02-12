@@ -162,9 +162,9 @@ main (int argc, char* argv[])
   failed += runTests( "Testing General XML Consistency Constraints (20000 - 29999)",
           testThisDataDir, 0, 0, runMainTest, library);
 
-  testThisDataDir = testDataDir + "/" + "identifier-constraints";
-  failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
-          testThisDataDir, 0, 0, runIdTest, library);
+  //testThisDataDir = testDataDir + "/" + "identifier-constraints";
+  //failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
+  //        testThisDataDir, 0, 0, runIdTest, library);
 
   return failed;
 }

@@ -26,13 +26,14 @@
  *     Germany
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
  * @class RelAbsVector
+ * @sbmlbrief{render} TODO:Definition of the RelAbsVector class.
  * @brief This class represents a pair of numerical values where one value represents an absolute
  * value and the other value is a relative value in percent.
  *

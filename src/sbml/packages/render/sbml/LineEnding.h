@@ -32,6 +32,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LineEnding
+ * @sbmlbrief{render} TODO:Definition of the LineEnding class.
+
  * @brief a LineEnding is a decoration element for the start and/or end
  * of curves in the SBML render extension, e.g. arrow heads
  *
@@ -48,29 +50,30 @@
  *
  * A LineEnding object is only valid if it has an id, a viewport that has an area which is not 0
  * and a valid group object.
- *
- * @class ListOfLineEndings
- * @brief container class to store LineEnding objects
- *
- * Each RenderInformation object can contain its own ListOfLineEndings object.
  */
 
 
 #ifndef LineEnding_H__
 #define LineEnding_H__
 
+
+#include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
+
+#ifdef __cplusplus
+
+
+#include <string>
+
 
 #include <sbml/packages/render/sbml/GraphicalPrimitive2D.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
 #include <sbml/packages/layout/sbml/BoundingBox.h>
-#include <sbml/ListOf.h>
 #include <sbml/xml/XMLNode.h>
 
-#ifdef __cplusplus
-
-#include <string>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -78,33 +81,48 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class LIBSBML_EXTERN LineEnding : public GraphicalPrimitive2D
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
-////  std::string mId;
+
   bool mEnableRotationalMapping;
-  BoundingBox mBoundingBox;
-  RenderGroup mGroup;
-  static const std::string ELEMENT_NAME;
+  bool mIsSetEnableRotationalMapping;
+  RenderGroup* mGroup;
+  BoundingBox* mBoundingBox;
+
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new LineEnding object with the given SBML level
-   * and SBML version.
+   * Creates a new LineEnding using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this LineEnding.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * LineEnding.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this LineEnding.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  LineEnding (unsigned int level      = RenderExtension::getDefaultLevel(),
-              unsigned int version    = RenderExtension::getDefaultVersion(),
-              unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  LineEnding(unsigned int level = RenderExtension::getDefaultLevel(),
+             unsigned int version = RenderExtension::getDefaultVersion(),
+             unsigned int pkgVersion =
+               RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new LineEnding object with the given SBMLNamespaces.
+   * Creates a new LineEnding using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  LineEnding (RenderPkgNamespaces* renderns);
+  LineEnding(RenderPkgNamespaces *renderns);
 
 
   /**
@@ -118,18 +136,6 @@ public:
    * object to be instantiated.
    */
   LineEnding(const XMLNode& node, unsigned int l2version);
-
-  /**
-   * Copy constructor.
-   */
-  LineEnding(const LineEnding& other);
-
-
-  /**
-   * Destroy this LineEnding object.
-   */
-  virtual ~LineEnding ();
-
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -151,15 +157,53 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
-   * Sets whether rotational mapping is to be done or not.
-   * This flag determines whether the LineEnding is rotated
-   * according to the direction of the curve when it is applied.
-   * For details on this, see the render extension specification.
+   * Copy constructor for LineEnding.
    *
-   * @param enable Boolean flag that specifies whether rotational mapping
-   * for the line ending is to be enabled or not.
+   * @param orig the LineEnding instance to copy.
    */
-  void setEnableRotationalMapping(bool enable);
+  LineEnding(const LineEnding& orig);
+
+
+  /**
+   * Assignment operator for LineEnding.
+   *
+   * @param rhs the LineEnding object whose values are to be used as the basis
+   * of the assignment.
+   */
+  LineEnding& operator=(const LineEnding& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this LineEnding object.
+   *
+   * @return a (deep) copy of this LineEnding object.
+   */
+  virtual LineEnding* clone() const;
+
+
+  /**
+   * Destructor for LineEnding.
+   */
+  virtual ~LineEnding();
+
+
+  /**
+   * Returns the value of the "id" attribute of this LineEnding.
+   *
+   * @return the value of the "id" attribute of this LineEnding as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "enableRotationalMapping" attribute of this
+   * LineEnding.
+   *
+   * @return the value of the "enableRotationalMapping" attribute of this
+   * LineEnding as a boolean.
+   */
+  bool getEnableRotationalMapping() const;
+
 
   /**
    * Returns whether rotational mapping is enabled or not.
@@ -170,82 +214,670 @@ public:
   bool getIsEnabledRotationalMapping() const;
 
   /**
-   * Sets the viewport for the LineEnding.
+   * Predicate returning @c true if this LineEnding's "id" attribute is set.
    *
-   * @param box The viewport bounding box for the LineEnding.
+   * @return @c true if this LineEnding's "id" attribute has been set,
+   * otherwise @c false is returned.
    */
-  void setBoundingBox(const BoundingBox* box);
+  virtual bool isSetId() const;
+
 
   /**
-   * Returns a pointer to the viewport bounding box.
+   * Predicate returning @c true if this LineEnding's "enableRotationalMapping"
+   * attribute is set.
    *
-   * @return pointer to the viewport bounding box.
+   * @return @c true if this LineEnding's "enableRotationalMapping" attribute
+   * has been set, otherwise @c false is returned.
    */
-  BoundingBox* getBoundingBox();
+  bool isSetEnableRotationalMapping() const;
+
 
   /**
-   * Returns a const pointer to the viewport bounding box.
+   * Sets the value of the "id" attribute of this LineEnding.
    *
-   * @return const pointer to the viewport bounding box.
+   * @param id std::string& value of the "id" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
    */
-  const BoundingBox* getBoundingBox() const;
+  virtual int setId(const std::string& id);
+
 
   /**
-   * Sets the group of the LineEnding to a copy of the given group.
+   * Sets the value of the "enableRotationalMapping" attribute of this
+   * LineEnding.
    *
-   * @param group const pointer to the group to be set for the bounding box.
-   * The group object is copied.
+   * @param enableRotationalMapping bool value of the "enableRotationalMapping"
+   * attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
    */
-  void setGroup(const RenderGroup* group);
+  int setEnableRotationalMapping(bool enableRotationalMapping);
+
 
   /**
-   * Returns a const pointer to the group object.
+   * Unsets the value of the "id" attribute of this LineEnding.
    *
-   * @return const pointer to the group object
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "enableRotationalMapping" attribute of this
+   * LineEnding.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetEnableRotationalMapping();
+
+
+  /**
+   * Returns the value of the "group" element of this LineEnding.
+   *
+   * @return the value of the "group" element of this LineEnding as a
+   * RenderGroup*.
    */
   const RenderGroup* getGroup() const;
 
+
   /**
-   * Returns a pointer to the group object.
+   * Returns the value of the "group" element of this LineEnding.
    *
-   * @return pointer to the group object
+   * @return the value of the "group" element of this LineEnding as a
+   * RenderGroup*.
    */
   RenderGroup* getGroup();
 
 
   /**
+   * Returns the value of the "boundingBox" element of this LineEnding.
+   *
+   * @return the value of the "boundingBox" element of this LineEnding as a
+   * BoundingBox*.
+   */
+  const BoundingBox* getBoundingBox() const;
+
+
+  /**
+   * Returns the value of the "boundingBox" element of this LineEnding.
+   *
+   * @return the value of the "boundingBox" element of this LineEnding as a
+   * BoundingBox*.
+   */
+  BoundingBox* getBoundingBox();
+
+
+  /**
+   * Predicate returning @c true if this LineEnding's "group" element is set.
+   *
+   * @return @c true if this LineEnding's "group" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetGroup() const;
+
+
+  /**
+   * Predicate returning @c true if this LineEnding's "boundingBox" element is
+   * set.
+   *
+   * @return @c true if this LineEnding's "boundingBox" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetBoundingBox() const;
+
+
+  /**
+   * Sets the value of the "group" element of this LineEnding.
+   *
+   * @param group RenderGroup* value of the "group" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setGroup(const RenderGroup* group);
+
+
+  /**
+   * Sets the value of the "boundingBox" element of this LineEnding.
+   *
+   * @param boundingBox BoundingBox* value of the "boundingBox" element to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setBoundingBox(const BoundingBox* boundingBox);
+
+
+  /**
+   * Creates a new RenderGroup object, adds it to this LineEnding object and
+   * returns the RenderGroup object created.
+   *
+   * @return a new RenderGroup object instance.
+   */
+  RenderGroup* createGroup();
+
+
+  /**
+   * Creates a new BoundingBox object, adds it to this LineEnding object and
+   * returns the BoundingBox object created.
+   *
+   * @return a new BoundingBox object instance.
+   */
+  BoundingBox* createBoundingBox();
+
+
+  /**
+   * Unsets the value of the "group" element of this LineEnding.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetGroup();
+
+
+  /**
+   * Unsets the value of the "boundingBox" element of this LineEnding.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetBoundingBox();
+
+
+  /**
+   * Returns the XML element name of this LineEnding object.
+   *
+   * For LineEnding, the XML element name is always @c "lineEnding".
+   *
+   * @return the name of this element, i.e. @c "lineEnding".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this LineEnding object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_LINEENDING, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * LineEnding object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * LineEnding have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the LineEnding object are:
+   * @li "id"
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * LineEnding object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * LineEnding have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the LineEnding object are:
+   */
+  virtual bool hasRequiredElements() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this LineEnding's attribute "attributeName"
+   * is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this LineEnding's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+   /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this LineEnding.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this LineEnding.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @return pointer to the element created.
+   */
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this LineEnding.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * LineEnding.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this LineEnding.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this LineEnding.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int the index of the object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
+
+
+  /**
    * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
+   * arbitrary depth.
    *
-   * @return a List* of pointers to all children objects.
-   */
-  virtual List* getAllElements(ElementFilter* filter=NULL);
-
-
-  /**
-   * Accepts the given SBMLVisitor for this instance of LineEnding.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
    *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual List* getAllElements(ElementFilter * filter = NULL);
 
-  /**
-   * Creates and returns a deep copy of this LineEnding object.
-   * 
-   * @return a (deep) copy of this LineEnding object
-   */
-  virtual LineEnding* clone () const;
-
-  /**
-   * Returns the XML element name of this object.
-   *
-   * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning "model",
-   * CompartmentType defines it as returning "compartmentType", etc.
-   */
-  virtual const std::string& getElementName () const;
 
   /**
    * Creates an XMLNode object from this LineEnding object.
@@ -255,379 +887,503 @@ public:
    */
   XMLNode toXML() const;
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-    const std::string& pkgPrefix, bool flag);
-  /** @endcond */
-
-  /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode() const;
-
-  /**
-   * Returns the value of the "id" attribute of this GraphicalPrimitive.
-   *
-   * @return the id of the GraphicalPrimitive
-   */
-  const std::string& getId () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GraphicalPrimitive's "id" attribute has been set.
-   *
-   * @return returns true or false depending on whether the id on the 
-   * GraphicalPrimitive has been set.
-   */
-  bool isSetId () const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this GraphicalPrimitive.
-   *
-   * @param id the new id for the GraphicalPrimitive 
-   *
-   * @return status if the operation succeeded
-   */
-  int setId (const std::string& id);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this GraphicalPrimitive.
-   */
-  virtual int unsetId ();
-
-
-  /**
-   * Sets the parent SBML object of this SBML object.
-   *
-   * @param sb the SBML object to use
-   */
-  virtual void setParentSBMLObject (SBase* sb);
-
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * attributes
-   */
-  virtual bool hasRequiredAttributes() const ;
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * elements
-   */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
-
-
 
 protected:
+
+
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * When reading SBML render extension, this method takes care of 
-   * getting the attributes to the LineEnding object.
-   *
-   * @param const reference to XMLAttributes object which contains 
-   * the attributes to be set on the LineEnding.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
+  virtual SBase* createObject(XMLInputStream& stream);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Reads the expected attributes into the member data variables
    */
-  virtual SBase* createObject (XMLInputStream& stream);
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
   /** @endcond */
+
+
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Writes the attributes to the stream
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactants.write(stream);
-   *   mProducts.write(stream);
-   *   ...
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
 
-  
-  /**
-   *
-   * Subclasses should override this method to write their xmlns attriubutes
-   * (if any) to the XMLOutputStream. 
-   *
-   */
-  virtual void writeXMLNS (XMLOutputStream& stream) const;
-  /** @endcond */
 };
 
 
-class LIBSBML_EXTERN ListOfLineEndings : public ListOf
-{
-protected:
-  /** @cond doxygenLibsbmlInternal */
-  static const std::string ELEMENT_NAME;
-  /** @endcond */
-
-public:
-
-  /**
-   * Creates and returns a deep copy of the ListOfLineEndings object.
-   *
-   * @return a (deep) copy of this ListOfLineEndings
-   */
-  virtual ListOfLineEndings* clone () const;
-
-  /**
-   * Creates a new ListOfLineEndings object from the given XMLNode object.
-   * The XMLNode object has to contain a valid XML representation of a 
-   * ListOfLineEndings object as defined in the render extension specification.
-   * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
-   *
-   * @param node the XMLNode object reference that describes the ListOfLineEndings
-   * object to be instantiated.
-   */
-  ListOfLineEndings(const XMLNode& node, unsigned int l2version=4);  
-
-  /**
-   * Constructor which instantiates an empty ListOfLineEndings object.
-   */
-  ListOfLineEndings(unsigned int level      = RenderExtension::getDefaultLevel(),
-                    unsigned int version    = RenderExtension::getDefaultVersion(),
-                    unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
-
-  /**
-   * Ctor.
-   */
-  ListOfLineEndings(RenderPkgNamespaces* renderns);
-
-
-
-  /**
-   * Copy constructor. Creates a copy of this ListOfLineEndings object.
-   */
-  ListOfLineEndings(const ListOfLineEndings& source);
-
-  /**
-   * Assignment operator for ListOfLineEndings objects.
-   */
-  ListOfLineEndings& operator=(const ListOfLineEndings& source);
-
-
-  /**
-   * Returns the XML element name of this object, which for
-   * ListOfLineEndings, is always @c "listOfLineEndings".
-   * 
-   * @return the name of this element, i.e., @c "listOfLineEndings".
-   */
-  virtual const std::string& getElementName () const;
-
-
-  /**
-   * Creates an XMLNode object from this ListOfLineEndings object.
-   *
-   * @return the XMLNode with the XML representation for the 
-   * ListOfLineEndings object.
-   */
-  XMLNode toXML() const;
-
-  /**
-   * Returns a pointer to the LineEnding with the given index or NULL if
-   * the index is invalid.
-   * 
-   * @param i index of the LineEnding object to be returned
-   * 
-   * @return pointer to the LineEnding at the given index or NULL.
-   */
-  LineEnding* get(unsigned int i);
-
-  /**
-   * Returns a const pointer to the LineEnding with the given index or NULL if
-   * the index is invalid.
-   * 
-   * @param i index of the LineEnding object to be returned
-   * 
-   * @return const pointer to the LineEnding at the given index or NULL.
-   */
-  const LineEnding* get(unsigned int i) const;
-
-  /**
-   * Returns a pointer to the LineEnding with the given @p id or @c NULL if
-   * the id is invalid.
-   * 
-   * @param id id of the LineEnding object to be returned
-   * 
-   * @return pointer to the LineEnding at the given @p id or @c NULL.
-   */
-  LineEnding* get(const std::string& id);
-
-  /**
-   * Returns a const pointer to the LineEnding with the given @p id or @c NULL if
-   * the id is invalid.
-   * 
-   * @param id id of the LineEnding object to be returned
-   * 
-   * @return const pointer to the LineEnding at the given @p id or @c NULL.
-   */
-  const LineEnding* get(const std::string& id) const;
-
-  /**
-   * Removes the nth item from this ListOfLineEndings items and returns a pointer to
-   * it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
-   * @param n the index of the item to remove
-   *
-   * @see size()
-   */
-  virtual LineEnding* remove (unsigned int n);
-
-
-  /**
-   * Removes item in this ListOfLineEndings items with the given identifier.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
-   *
-   * @param sid the identifier of the item to remove
-   *
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
-   */
-  virtual LineEnding* remove (const std::string& sid);
-
-
-  /**
-   * Get the type code of the objects contained in this ListOf.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   * 
-   * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   */
-  virtual int getItemTypeCode () const;
-
-protected:
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase* createObject (XMLInputStream& stream);
-  /** @endcond */
-};
 
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
 
-#endif /* LineEnding_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new LineEnding_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this LineEnding_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * LineEnding_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * LineEnding_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+LineEnding_t *
+LineEnding_create(unsigned int level,
+                  unsigned int version,
+                  unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this LineEnding_t object.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return a (deep) copy of this LineEnding_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+LineEnding_t*
+LineEnding_clone(const LineEnding_t* le);
+
+
+/**
+ * Frees this LineEnding_t object.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+void
+LineEnding_free(LineEnding_t* le);
+
+
+/**
+ * Returns the value of the "id" attribute of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this LineEnding_t as a pointer to
+ * a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+char *
+LineEnding_getId(const LineEnding_t * le);
+
+
+/**
+ * Returns the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
+ *
+ * @param le the LineEnding_t structure whose enableRotationalMapping is
+ * sought.
+ *
+ * @return the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t as a boolean.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_getEnableRotationalMapping(const LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if this LineEnding_t's "id" attribute is
+ * set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) if this LineEnding_t's "id" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetId(const LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if this LineEnding_t's
+ * "enableRotationalMapping" attribute is set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) if this LineEnding_t's "enableRotationalMapping"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetEnableRotationalMapping(const LineEnding_t * le);
+
+
+/**
+ * Sets the value of the "id" attribute of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling LineEnding_unsetId().
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setId(LineEnding_t * le, const char * id);
+
+
+/**
+ * Sets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @param enableRotationalMapping int value of the "enableRotationalMapping"
+ * attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setEnableRotationalMapping(LineEnding_t * le,
+                                      int enableRotationalMapping);
+
+
+/**
+ * Unsets the value of the "id" attribute of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetId(LineEnding_t * le);
+
+
+/**
+ * Unsets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetEnableRotationalMapping(LineEnding_t * le);
+
+
+/**
+ * Returns the value of the "group" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure whose group is sought.
+ *
+ * @return the value of the "group" element of this LineEnding_t as a
+ * RenderGroup*.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+const RenderGroup_t*
+LineEnding_getGroup(const LineEnding_t * le);
+
+
+/**
+ * Returns the value of the "boundingBox" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure whose boundingBox is sought.
+ *
+ * @return the value of the "boundingBox" element of this LineEnding_t as a
+ * BoundingBox*.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+const BoundingBox_t*
+LineEnding_getBoundingBox(const LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if this LineEnding_t's "group" element is
+ * set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) if this LineEnding_t's "group" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetGroup(const LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if this LineEnding_t's "boundingBox" element
+ * is set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) if this LineEnding_t's "boundingBox" element has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetBoundingBox(const LineEnding_t * le);
+
+
+/**
+ * Sets the value of the "group" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @param group RenderGroup_t* value of the "group" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setGroup(LineEnding_t * le, const RenderGroup_t* group);
+
+
+/**
+ * Sets the value of the "boundingBox" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @param boundingBox BoundingBox_t* value of the "boundingBox" element to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setBoundingBox(LineEnding_t * le,
+                          const BoundingBox_t* boundingBox);
+
+
+/**
+ * Creates a new RenderGroup_t object, adds it to this LineEnding_t object and
+ * returns the RenderGroup_t object created.
+ *
+ * @param le the LineEnding_t structure to which the RenderGroup_t should be
+ * added.
+ *
+ * @return a new RenderGroup_t object instance.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+RenderGroup_t*
+LineEnding_createGroup(LineEnding_t* le);
+
+
+/**
+ * Creates a new BoundingBox_t object, adds it to this LineEnding_t object and
+ * returns the BoundingBox_t object created.
+ *
+ * @param le the LineEnding_t structure to which the BoundingBox_t should be
+ * added.
+ *
+ * @return a new BoundingBox_t object instance.
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+BoundingBox_t*
+LineEnding_createBoundingBox(LineEnding_t* le);
+
+
+/**
+ * Unsets the value of the "group" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetGroup(LineEnding_t * le);
+
+
+/**
+ * Unsets the value of the "boundingBox" element of this LineEnding_t.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetBoundingBox(LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * LineEnding_t object have been set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * LineEnding_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the LineEnding_t object are:
+ * @li "id"
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_hasRequiredAttributes(const LineEnding_t * le);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * LineEnding_t object have been set.
+ *
+ * @param le the LineEnding_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * LineEnding_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the LineEnding_t object are:
+ *
+ * @memberof LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+LineEnding_hasRequiredElements(const LineEnding_t * le);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !LineEnding_H__ */
+
+

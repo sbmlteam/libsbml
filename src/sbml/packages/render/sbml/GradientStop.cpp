@@ -25,169 +25,77 @@
  *     Germany
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
- * ---------------------------------------------------------------------- -->*/
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ */
+#include <sbml/packages/render/sbml/GradientStop.h>
+#include <sbml/packages/render/sbml/ListOfGradientStops.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
 
-#include "GradientStop.h"
-#include <sbml/xml/XMLInputStream.h>
 
-#include <sstream>
-#include <assert.h>
+using namespace std;
+
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
+
 #include <sbml/packages/layout/util/LayoutAnnotation.h> 
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string ListOfGradientStops::ELEMENT_NAME="listOfGradientStops"; 
-const std::string GradientStop::ELEMENT_NAME="stop"; 
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new GradientStop object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new GradientStop using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-GradientStop::GradientStop (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    SBase(level,version)
+GradientStop::GradientStop(unsigned int level,
+                           unsigned int version,
+                           unsigned int pkgVersion)
+  : SBase(level, version)
+  , mOffset (NULL)
+  , mStopColor ("")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-
-  RenderPkgNamespaces* renderns = new RenderPkgNamespaces(level, version, pkgVersion);
-  setSBMLNamespacesAndOwn(renderns);  
-
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
+}
 
+
+/*
+ * Creates a new GradientStop using the given RenderPkgNamespaces object.
+ */
+GradientStop::GradientStop(RenderPkgNamespaces *renderns)
+  : SBase(renderns)
+  , mOffset (NULL)
+  , mStopColor ("")
+{
+  setElementNamespace(renderns->getURI());
+  connectToChild();
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new GradientStop object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
- */
-GradientStop::GradientStop (RenderPkgNamespaces* renderns):
-    SBase(renderns)
-{
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
-}
-/** @endcond */
-
-
-/*
- * Destroy this object.
- */
-GradientStop::~GradientStop ()
-{
-}
-
-
-
-/*
- * Ctor.
- */
-ListOfGradientStops::ListOfGradientStops(RenderPkgNamespaces* renderns)
- : ListOf(renderns)
-{
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(renderns->getURI());
-}
-
-
-/*
- * Ctor.
- */
-ListOfGradientStops::ListOfGradientStops(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level,version,pkgVersion));
-};
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new ListOfGradientStops object from the given XMLNode object.
- * The XMLNode object has to contain a valid XML representation of a 
- * ListOfGradientStops object as defined in the render extension specification.
- * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
- *
- * @param node the XMLNode object reference that describes the ListOfGradientStops
- * object to be instantiated.
- */
-ListOfGradientStops::ListOfGradientStops(const XMLNode& node, unsigned int l2version)
-  : ListOf(2, l2version)
-{
-    const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-    mURI = RenderExtension::getXmlnsL3V1V1();    
-
-    ExpectedAttributes ea;
-    addExpectedAttributes(ea);
-
-    this->readAttributes(attributes, ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
-    {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="gradientStop")
-        {
-            GradientStop* stop=new GradientStop(*child);
-            this->appendAndOwn(stop);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        ++n;
-    }
-
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(2,l2version));  
-
-  connectToChild();
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new GradientStop object from the given XMLNode object.
- * The XMLNode object has to contain a valid XML representation of a 
- * GradientStop object as defined in the render extension specification.
- * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
- *
- * @param node the XMLNode object reference that describes the GradientStop
- * object to be instantiated.
- */
+/**
+* Creates a new GradientStop object from the given XMLNode object.
+* The XMLNode object has to contain a valid XML representation of a
+* GradientStop object as defined in the render extension specification.
+* This method is normally called when render information is read from a file and
+* should normally not have to be called explicitely.
+*
+* @param node the XMLNode object reference that describes the GradientStop
+* object to be instantiated.
+*/
 GradientStop::GradientStop(const XMLNode& node, unsigned int l2version) : SBase(2, l2version)
 {
     const XMLAttributes& attributes=node.getAttributes();
@@ -219,58 +127,171 @@ GradientStop::GradientStop(const XMLNode& node, unsigned int l2version) : SBase(
 
   connectToChild();
 }
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void
-GradientStop::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-
-  attributes.add("offset");
-  attributes.add("stop-color");
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void GradientStop::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-    SBase::readAttributes(attributes, expectedAttributes);
-    std::string s;
-    attributes.readInto("offset", s, getErrorLog(), false, getLine(), getColumn());
-    this->mOffset=RelAbsVector(s);
-    attributes.readInto("stop-color", this->mStopColor, getErrorLog(), false, getLine(), getColumn());
-}
-/** @endcond */
-
-
-
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the offset of the gradient.
- *
- * @return a const reference to the offset of the gradient stop.
+ * Copy constructor for GradientStop.
  */
-const RelAbsVector& GradientStop::getOffset() const
+GradientStop::GradientStop(const GradientStop& orig)
+  : SBase( orig )
+  , mOffset ( NULL )
+  , mStopColor ( orig.mStopColor )
 {
-    return this->mOffset;
-}
-/** @endcond */
+  if (orig.mOffset != NULL)
+  {
+    mOffset = RelAbsVector(orig.mOffset);
+  }
 
-/** @cond doxygenLibsbmlInternal */
+  connectToChild();
+}
+
+
 /*
- * Returns the offset of the gradient.
- *
- * @return a reference to the offset of the gradient stop.
+ * Assignment operator for GradientStop.
  */
-RelAbsVector& GradientStop::getOffset()
+GradientStop&
+GradientStop::operator=(const GradientStop& rhs)
 {
-    return this->mOffset;
-}
-/** @endcond */
+  if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mStopColor = rhs.mStopColor;
+    if (rhs.mOffset != NULL)
+    {
+      mOffset = RelAbsVector(rhs.mOffset);
+    }
+    else
+    {
+      mOffset = NULL;
+    }
 
-/** @cond doxygenLibsbmlInternal */
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this GradientStop object.
+ */
+GradientStop*
+GradientStop::clone() const
+{
+  return new GradientStop(*this);
+}
+
+
+/*
+ * Destructor for GradientStop.
+ */
+GradientStop::~GradientStop()
+{
+}
+
+
+/*
+ * Returns the value of the "stop-color" attribute of this GradientStop.
+ */
+const std::string&
+GradientStop::getStopColor() const
+{
+  return mStopColor;
+}
+
+
+/*
+ * Predicate returning @c true if this GradientStop's "stop-color" attribute is
+ * set.
+ */
+bool
+GradientStop::isSetStopColor() const
+{
+  return (mStopColor.empty() == false);
+}
+
+
+/*
+ * Sets the value of the "stop-color" attribute of this GradientStop.
+ */
+int
+GradientStop::setStopColor(const std::string& stopColor)
+{
+  mStopColor = stopColor;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "stop-color" attribute of this GradientStop.
+ */
+int
+GradientStop::unsetStopColor()
+{
+  mStopColor.erase();
+
+  if (mStopColor.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Returns the value of the "offset" element of this GradientStop.
+ */
+const RelAbsVector&
+GradientStop::getOffset() const
+{
+  return mOffset;
+}
+
+
+/*
+ * Returns the value of the "offset" element of this GradientStop.
+ */
+RelAbsVector&
+GradientStop::getOffset()
+{
+  return mOffset;
+}
+
+
+/*
+ * Predicate returning @c true if this GradientStop's "offset" element is set.
+ */
+bool
+GradientStop::isSetOffset() const
+{
+  return true;
+}
+
+
+/*
+ * Sets the value of the "offset" element of this GradientStop.
+ */
+int
+GradientStop::setOffset(const RelAbsVector& offset)
+{
+  if (mOffset == offset)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (offset == NULL)
+  {
+    mOffset = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    mOffset = RelAbsVector(offset);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 /*
  * Sets the offset for the gradient stop.
  *
@@ -282,9 +303,8 @@ void GradientStop::setOffset(double abs,double rel)
 {
     this->mOffset=RelAbsVector(abs,rel);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the offset to the value specified by the given string.
  * The string has to represent a combination of an absolute 
@@ -305,184 +325,315 @@ void GradientStop::setOffset(const std::string& co)
 {
     this->mOffset=RelAbsVector(co);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the offset to the given vector object.
- *
- * @param offset The RelAbsVector object that specifies the
- * offset of the gradient stop.
+ * Unsets the value of the "offset" element of this GradientStop.
  */
-void GradientStop::setOffset(const RelAbsVector& co)
+int
+GradientStop::unsetOffset()
 {
-    this->mOffset=co;
+  mOffset = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the stop color id or the value string.
- * Since ids can not start with the '#' character,
- * this is the way to determine if the gradient stop 
- * uses a color value or a color id.
- *
- * @return the color id or value string
+ * Returns the XML element name of this GradientStop object.
  */
-const std::string& GradientStop::getStopColor() const
+const std::string&
+GradientStop::getElementName() const
 {
-    return this->mStopColor;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the stop color id or the stop color value.
- *
- * @param color Either the id of a ColorDefinition object, or a color
- * value string.
- */
-void GradientStop::setStopColor(const std::string& id)
-{
-    this->mStopColor=id;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a deep copy of the ListOfGradientStops object.
- *
- * @return a (deep) copy of this ListOfGradientStops
- */
-ListOfGradientStops* ListOfGradientStops::clone () const
-{
-    return new ListOfGradientStops(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Copy constructor; creates a copy of the given ListOfGradientStops object.
- *
- * @param the ListOfGradientStops object to be copied.
- */
-ListOfGradientStops::ListOfGradientStops(const ListOfGradientStops& source):ListOf(source)
-{
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Assignment operator for ListOfGradientStops objects.
- */
-ListOfGradientStops& ListOfGradientStops::operator=(const ListOfGradientStops& source)
-{
-    if(&source!=this)
-    {
-        this->ListOf::operator=(source);
-    }
-    return *this;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for the objects contained in this ListOf
- * (i.e., GradientStop objects, if the list is non-empty).
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- * 
- * @return the SBML type code for the objects contained in this ListOf
- * instance, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int ListOfGradientStops::getItemTypeCode () const
-{
-    return SBML_RENDER_GRADIENT_STOP;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * ListOfGradientStops, is always @c "listOfGradientStops".
- * 
- * @return the name of this element, i.e., @c "listOfGradientStops".
- */
-const std::string& ListOfGradientStops::getElementName () const
-{
-  static std::string name = ListOfGradientStops::ELEMENT_NAME;
+  static const string name = "stop";
   return name;
 }
-/** @endcond */
+
+
+/*
+ * Returns the libSBML type code for this GradientStop object.
+ */
+int
+GradientStop::getTypeCode() const
+{
+  return SBML_RENDER_GRADIENT_STOP;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * GradientStop object have been set.
+ */
+bool
+GradientStop::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  if (isSetStopColor() == false)
+  {
+    allPresent = false;
+  }
+  //render - FIX_ME
+
+    //result = result && 
+    //    (this->mOffset.getRelativeValue() == this->mOffset.getRelativeValue()) &&
+    //    (this->mOffset.getAbsoluteValue() == this->mOffset.getAbsoluteValue());
+    //result = result && (this->mStopColor.find_first_not_of(" \t\n\r") != std::string::npos);
+  return allPresent;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Creates an XMLNode object from this ListOfGradientStops object.
- *
- * @return the XMLNode with the XML representation for the 
- * ListOfGradientStops object.
+ * Accepts the given SBMLVisitor
  */
-XMLNode ListOfGradientStops::toXML() const
+bool
+GradientStop::accept(SBMLVisitor& v) const
 {
-  return getXmlNodeForSBase(this);
+  v.visit(*this);
+
+  v.leave(*this);
+  return true;
 }
+
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase* ListOfGradientStops::createObject (XMLInputStream& stream)
-{
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL;
 
-    if (name == "stop")
-    {
-      RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-      object = new GradientStop(renderns);
-      if(object != NULL) this->mItems.push_back(object);
-	 delete renderns;
-    }
-    return object;
+/*
+ * Gets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::getAttribute(const std::string& attributeName,
+                           bool& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
 }
+
 /** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
+ * Gets the value of the "attributeName" attribute of this GradientStop.
  */
-void GradientStop::writeAttributes (XMLOutputStream& stream) const
+int
+GradientStop::getAttribute(const std::string& attributeName, int& value) const
 {
-  SBase::writeAttributes(stream);
-  std::ostringstream os;
-  os << this->mOffset;
-  stream.writeAttribute("offset", getPrefix(), os.str());
-  stream.writeAttribute("stop-color", getPrefix(), this->mStopColor);
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
 }
+
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::getAttribute(const std::string& attributeName,
+                           double& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::getAttribute(const std::string& attributeName,
+                           unsigned int& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::getAttribute(const std::string& attributeName,
+                           std::string& value) const
+{
+  int return_value = SBase::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "stop-color")
+  {
+    value = getStopColor();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this GradientStop's attribute "attributeName"
+ * is set.
+ */
+bool
+GradientStop::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = SBase::isSetAttribute(attributeName);
+
+  if (attributeName == "stop-color")
+  {
+    value = isSetStopColor();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::setAttribute(const std::string& attributeName,
+                           unsigned int value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::setAttribute(const std::string& attributeName,
+                           const std::string& value)
+{
+  int return_value = SBase::setAttribute(attributeName, value);
+
+  if (attributeName == "stop-color")
+  {
+    return_value = setStopColor(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this GradientStop.
+ */
+int
+GradientStop::unsetAttribute(const std::string& attributeName)
+{
+  int value = SBase::unsetAttribute(attributeName);
+
+  if (attributeName == "stop-color")
+  {
+    value = unsetStopColor();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -498,138 +649,327 @@ XMLNode GradientStop::toXML() const
 }
 /** @endcond */
 
+
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
+ * Adds the expected attributes for this element
  */
-int GradientStop::getTypeCode() const
+void
+GradientStop::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-    return SBML_RENDER_GRADIENT_STOP;
+  SBase::addExpectedAttributes(attributes);
+
+  attributes.add("stop-color");
+  attributes.add("offset");
 }
+
 /** @endcond */
 
+
+
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Accepts the given SBMLVisitor for this instance of Group.
- *
- * @param v the SBMLVisitor instance to be used.
- *
- * @return the result of calling <code>v.visit()</code>.
+ * Reads the expected attributes into the member data variables
  */
-bool GradientStop::accept(SBMLVisitor& /*visitor*/) const
+void
+GradientStop::readAttributes(const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
 {
-    return false;
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfGradientStops*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = log->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderGradientStopAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderUnknown, pkgVersion, level,
+          version, details);
+      }
+    }
+  }
+
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderGradientStopAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderGradientStopAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  // 
+  // stop-color string (use = "required" )
+  // 
+
+  assigned = attributes.readInto("stop-color", mStopColor);
+
+  if (assigned == true)
+  {
+    if (mStopColor.empty() == true)
+    {
+      logEmptyString(mStopColor, level, version, "<GradientStop>");
+    }
+  }
+  else
+  {
+    std::string message = "Render attribute 'stop-color' is missing from the "
+      "<GradientStop> element.";
+    log->logPackageError("render", RenderGradientStopAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+
+  // 
+  // offset string (use = "required" )
+  // 
+
+  std::string offset;
+  assigned = attributes.readInto("offset", offset);
+
+  if (assigned == true)
+  {
+    mOffset = RelAbsVector(offset);
+  }
+  else
+  {
+    std::string message = "Render attribute 'offset' is missing from the "
+      "<GradientStop> element.";
+    log->logPackageError("render", RenderGradientStopAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+
 }
+
 /** @endcond */
 
+
+
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the XML element name of this object.
- *
- * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
- * CompartmentType defines it as returning "compartmentType", etc.
+ * Writes the attributes to the stream
  */
-const std::string& GradientStop::getElementName() const
+void
+GradientStop::writeAttributes(XMLOutputStream& stream) const
 {
-  static std::string name = GradientStop::ELEMENT_NAME;
-  return name;
+  SBase::writeAttributes(stream);
+
+  if (isSetOffset())
+  {
+    std::ostringstream os;
+    os << this->mOffset;
+    stream.writeAttribute("offset", getPrefix(), os.str());
+  }
+
+  if (isSetStopColor() == true)
+  {
+    stream.writeAttribute("stop-color", getPrefix(), mStopColor);
+  }
+
+  SBase::writeExtensionAttributes(stream);
 }
+
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+
+
+#endif /* __cplusplus */
+
+
 /*
- * Creates and returns a deep copy of this GradientStop object.
- * 
- * @return a (deep) copy of this GradientStop object
+ * Creates a new GradientStop_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-GradientStop* GradientStop::clone() const
+LIBSBML_EXTERN
+GradientStop_t *
+GradientStop_create(unsigned int level,
+                    unsigned int version,
+                    unsigned int pkgVersion)
 {
-    return new GradientStop(*this);
+  return new GradientStop(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a pointer to the GradientStop with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the GradientStop object to be returned
- * 
- * @return pointer to the GradientStop at the given index or NULL.
+ * Creates and returns a deep copy of this GradientStop_t object.
  */
-GradientStop* ListOfGradientStops::get(unsigned int i)
+LIBSBML_EXTERN
+GradientStop_t*
+GradientStop_clone(const GradientStop_t* gs)
 {
-    return static_cast<GradientStop*>(this->ListOf::get(i));
+  if (gs != NULL)
+  {
+    return static_cast<GradientStop_t*>(gs->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a const pointer to the GradientStop with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the GradientStop object to be returned
- * 
- * @return const pointer to the GradientStop at the given index or NULL.
+ * Frees this GradientStop_t object.
  */
-const GradientStop* ListOfGradientStops::get(unsigned int i) const
+LIBSBML_EXTERN
+void
+GradientStop_free(GradientStop_t* gs)
 {
-    return static_cast<const GradientStop*>(this->ListOf::get(i));
+  if (gs != NULL)
+  {
+    delete gs;
+  }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* Removes the nth item from this list */
-    GradientStop*
-ListOfGradientStops::remove (unsigned int n)
-{
-    return static_cast<GradientStop*>(ListOf::remove(n));
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+/*
+ * Returns the value of the "stop-color" attribute of this GradientStop_t.
  */
-bool GradientStop::hasRequiredAttributes() const
+LIBSBML_EXTERN
+char *
+GradientStop_getStopColor(const GradientStop_t * gs)
 {
-    bool result = this->SBase::hasRequiredAttributes();
-    result = result && 
-        (this->mOffset.getRelativeValue() == this->mOffset.getRelativeValue()) &&
-        (this->mOffset.getAbsoluteValue() == this->mOffset.getAbsoluteValue());
-    result = result && (this->mStopColor.find_first_not_of(" \t\n\r") != std::string::npos);
-    return result;
+  if (gs == NULL)
+  {
+    return NULL;
+  }
+
+  return gs->getStopColor().empty() ? NULL :
+    safe_strdup(gs->getStopColor().c_str());
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Predicate returning @c 1 (true) if this GradientStop_t's "stop-color"
+ * attribute is set.
  */
-bool GradientStop::hasRequiredElements() const 
+LIBSBML_EXTERN
+int
+GradientStop_isSetStopColor(const GradientStop_t * gs)
 {
-    bool result = this->SBase::hasRequiredElements();
-    return result;
+  return (gs != NULL) ? static_cast<int>(gs->isSetStopColor()) : 0;
 }
-/** @endcond */
 
 
-LIBSBML_CPP_NAMESPACE_END 
+/*
+ * Sets the value of the "stop-color" attribute of this GradientStop_t.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_setStopColor(GradientStop_t * gs, const char * stopColor)
+{
+  return (gs != NULL) ? gs->setStopColor(stopColor) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stop-color" attribute of this GradientStop_t.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_unsetStopColor(GradientStop_t * gs)
+{
+  return (gs != NULL) ? gs->unsetStopColor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "offset" element of this GradientStop_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+GradientStop_getOffset(const GradientStop_t * gs)
+{
+  if (gs == NULL)
+  {
+    return NULL;
+  }
+
+  return &(gs->getOffset());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this GradientStop_t's "offset" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_isSetOffset(const GradientStop_t * gs)
+{
+  return (gs != NULL) ? static_cast<int>(gs->isSetOffset()) : 0;
+}
+
+
+/*
+ * Sets the value of the "offset" element of this GradientStop_t.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_setOffset(GradientStop_t * gs, const RelAbsVector_t& offset)
+{
+  return (gs != NULL) ? gs->setOffset(offset) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "offset" element of this GradientStop_t.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_unsetOffset(GradientStop_t * gs)
+{
+  return (gs != NULL) ? gs->unsetOffset() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * GradientStop_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+GradientStop_hasRequiredAttributes(const GradientStop_t * gs)
+{
+  return (gs != NULL) ? static_cast<int>(gs->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

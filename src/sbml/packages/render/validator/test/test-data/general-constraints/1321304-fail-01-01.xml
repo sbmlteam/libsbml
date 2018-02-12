@@ -22,8 +22,20 @@
         <render:listOfRenderInformation>
           <render:renderInformation render:id="SBGN_default">
             <render:listOfColorDefinitions>
-              <render:colorDefinition render:value="#000000" />
+              <render:colorDefinition render:id="black" render:value="#000000" />
             </render:listOfColorDefinitions>
+            <render:listOfLineEndings>
+              <render:lineEnding render:id="le1">
+                <layout:boundingBox>
+                  <layout:position layout:x="-8" layout:y="-3"/>
+                  <layout:dimensions layout:width="10" layout:height="6"/>
+                </layout:boundingBox>
+                <layout:boundingBox>
+                  <layout:position layout:x="-8" layout:y="-3"/>
+                  <layout:dimensions layout:width="10" layout:height="6"/>
+                </layout:boundingBox>
+               </render:lineEnding>
+            </render:listOfLineEndings>
           </render:renderInformation>
           </render:listOfRenderInformation>
       </layout:layout>

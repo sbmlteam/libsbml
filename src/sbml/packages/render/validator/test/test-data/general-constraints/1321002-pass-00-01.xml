@@ -22,8 +22,23 @@
         <render:listOfRenderInformation>
           <render:renderInformation render:id="SBGN_default">
             <render:listOfColorDefinitions>
-              <render:colorDefinition render:value="#000000" />
+              <render:colorDefinition render:id="black" render:value="#000000" />
             </render:listOfColorDefinitions>
+            <render:listOfGradientDefinitions>
+              <render:radialGradient render:id="speciesGlyphGradient">
+                <render:stop render:offset="0" render:stop-color="white">
+                  <notes/>
+                  <annotation/>
+                </render:stop>
+                <render:stop render:offset="100%" render:stop-color="lightGray"/>
+              </render:radialGradient>
+            </render:listOfGradientDefinitions>
+            <render:listOfLineEndings>
+              <render:lineEnding render:id="simpleHead_black" metaid="__hh" sboTerm="SBO:0000001" render:enableRotationalMapping="true">
+                <notes/>
+                <annotation/>
+              </render:lineEnding>
+            </render:listOfLineEndings>
           </render:renderInformation>
           </render:listOfRenderInformation>
       </layout:layout>

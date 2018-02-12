@@ -100,7 +100,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
-//#include <sbml/packages/render/sbml/ListOfGradientStops.h>
+#include <sbml/packages/render/sbml/ListOfGradientStops.h>
 #include <sbml/packages/render/sbml/GradientStop.h>
 
 
@@ -275,7 +275,7 @@ public:
    * @li @c "repeat"
    * @li @c "invalid GradientBaseSpreadMethod"
    */
-  const std::string& getSpreadMethodAsString() const;
+  std::string getSpreadMethodAsString() const;
 
 
   /**
@@ -1350,7 +1350,7 @@ GradientBase_getSpreadMethod(const GradientBase_t * gb);
  * @memberof GradientBase_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 GradientBase_getSpreadMethodAsString(const GradientBase_t * gb);
 
 

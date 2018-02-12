@@ -138,7 +138,7 @@ int
 main (void) 
 { 
   int num_failed;
-  //SRunner *runner = srunner_create(create_suite_RenderWriting());
+//  SRunner *runner = srunner_create(create_suite_RenderWriting());
 
 
   SRunner *runner = srunner_create( create_suite_RenderExtension  () );

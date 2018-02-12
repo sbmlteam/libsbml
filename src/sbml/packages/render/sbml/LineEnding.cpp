@@ -31,170 +31,66 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "LineEnding.h"
-#include <algorithm>
-#include <functional>
-#include <sstream>
-#include <assert.h>
+#include <sbml/packages/render/sbml/LineEnding.h>
+#include <sbml/packages/render/sbml/ListOfLineEndings.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
-#include <sbml/xml/XMLInputStream.h>
 
-#include <sbml/packages/layout/util/LayoutAnnotation.h>
-#include <sbml/packages/layout/util/LayoutUtilities.h>
-#include <sbml/packages/render/extension/RenderExtension.h>
 
-#include <sbml/util/ElementFilter.h>
+using namespace std;
+
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string ListOfLineEndings::ELEMENT_NAME="listOfLineEndings";
-const std::string LineEnding::ELEMENT_NAME="lineEnding";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new LineEnding object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new LineEnding using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-LineEnding::LineEnding (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    GraphicalPrimitive2D(level,version, pkgVersion)
-////    ,mId("")
+LineEnding::LineEnding(unsigned int level,
+                       unsigned int version,
+                       unsigned int pkgVersion)
+  : GraphicalPrimitive2D(level, version)
     ,mEnableRotationalMapping(true)
-    ,mBoundingBox(level, version, pkgVersion)
-    ,mGroup(level,version, pkgVersion)
+  , mIsSetEnableRotationalMapping (true)
+  , mGroup (NULL)
+  , mBoundingBox (NULL)
 {
-    //this->mBoundingBox.setIsInRenderContext(true);
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-      connectToChild();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new LineEnding object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
- */
-LineEnding::LineEnding (RenderPkgNamespaces* renderns):
-    GraphicalPrimitive2D(renderns)
-////    ,mId("")
-    ,mEnableRotationalMapping(true)
-    ,mBoundingBox(renderns->getLevel(), renderns->getVersion())
-    ,mGroup(renderns)     
-{
-    //this->mBoundingBox.setIsInRenderContext(true);
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
+  mGroup = new RenderGroup(level, version, pkgVersion);
+  mBoundingBox = new BoundingBox(level, version, pkgVersion);
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
+}
 
-  // load package extensions bound with this object (if any) 
+
+/*
+ * Creates a new LineEnding using the given RenderPkgNamespaces object.
+ */
+LineEnding::LineEnding(RenderPkgNamespaces *renderns)
+  : GraphicalPrimitive2D(renderns)
+    ,mEnableRotationalMapping(true)
+  , mIsSetEnableRotationalMapping (true)
+  , mGroup (NULL)
+  , mBoundingBox (NULL)
+{
+  mGroup = new RenderGroup(renderns);
+  mBoundingBox = new BoundingBox(renderns->getLevel(), renderns->getVersion());
+  setElementNamespace(renderns->getURI());
+  connectToChild();
   loadPlugins(renderns);
 }
-/** @endcond */
 
-
-/*
- * Destroy this object.
- */
-LineEnding::~LineEnding ()
-{
-}
-
-
-List*
-LineEnding::getAllElements(ElementFilter *filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_ELEMENT(ret, sublist, mBoundingBox, filter);  
-  ADD_FILTERED_ELEMENT(ret, sublist, mGroup, filter);  
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
-}
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new ListOfLineEndings object from the given XMLNode object.
- * The XMLNode object has to contain a valid XML representation of a 
- * ListOfLineEndings object as defined in the render extension specification.
- * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
- *
- * @param node the XMLNode object reference that describes the ListOfLineEndings
- * object to be instantiated.
- */
-    ListOfLineEndings::ListOfLineEndings(const XMLNode& node, unsigned int l2version)       
-{
-    const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-    ExpectedAttributes ea;
-    addExpectedAttributes(ea);
-    this->readAttributes(attributes, ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
-    {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="lineEnding")
-        {
-            LineEnding* le=new LineEnding(*child, l2version);
-            this->appendAndOwn(le);
-        }
-        else if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(*child);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(*child);
-        }
-        ++n;
-    }
-
-    
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(2,l2version));  
-
-  connectToChild();
-}
-/** @endcond */
-
-
-/*
- * Ctor.
- */
-ListOfLineEndings::ListOfLineEndings(RenderPkgNamespaces* renderns)
- : ListOf(renderns)
-{
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(renderns->getURI());
-}
-
-
-/*
- * Ctor.
- */
-ListOfLineEndings::ListOfLineEndings(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level,version,pkgVersion));
-};
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -209,9 +105,11 @@ ListOfLineEndings::ListOfLineEndings(unsigned int level, unsigned int version, u
  */
 LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
   : GraphicalPrimitive2D(node, l2version)
-  , mBoundingBox(2, l2version)
-  , mGroup(2, l2version)
+  , mBoundingBox(NULL)
+  , mGroup(NULL)
 {
+  //mBoundingBox = new BoundingBox(2, l2version);
+  //mGroup = new RenderGroup(2, l2version);
     const XMLNode* child;
     const XMLAttributes& attributes=node.getAttributes();
      ExpectedAttributes ea;
@@ -224,12 +122,12 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
         const std::string& childName=child->getName();
         if(childName=="boundingBox")
         {
-            this->mBoundingBox=BoundingBox(*child);
+            this->mBoundingBox= new BoundingBox(*child);
             //this->mBoundingBox.setIsInRenderContext(true);
         }
         else if(childName=="g")
         {
-            this->mGroup=RenderGroup(*child);
+            this->mGroup=new RenderGroup(*child);
         }
         ++n;
     }
@@ -241,21 +139,6 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
 
 }
 /** @endcond */
-
-/*
- * Copy constructor.
- */
-LineEnding::LineEnding(const LineEnding& other) : 
-    GraphicalPrimitive2D(other)
-//  , mId(other.mId)
-  , mEnableRotationalMapping(other.mEnableRotationalMapping)
-  , mBoundingBox(other.mBoundingBox)
-  , mGroup(other.mGroup)
-{    
-  setId(other.mId);
-
-    connectToChild();
-}
 
 #ifndef OMIT_DEPRECATED
 /** @cond doxygenLibsbmlInternal */
@@ -278,8 +161,9 @@ LineEnding::LineEnding(RenderPkgNamespaces* renderns, const std::string& id) :
     GraphicalPrimitive2D(renderns)
 //    ,mId(id)
     ,mEnableRotationalMapping(true)
-    ,mGroup(renderns)    
+//    ,mGroup(renderns)    
 {
+  mGroup = new RenderGroup(renderns);
     //this->mBoundingBox.setParentSBMLObject(this);
     //this->mBoundingBox.setIsInRenderContext(true);
 #ifdef DEPRECATION_WARNINGS
@@ -299,21 +183,110 @@ LineEnding::LineEnding(RenderPkgNamespaces* renderns, const std::string& id) :
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets whether rotational mapping is to be done or not.
- * This flag determines whether the LineEnding is rotated
- * according to the direction of the curve when it is applied.
- * For details on this, see the render extension specification.
- *
- * @param enable Boolean flag that specifies whether rotational mapping
- * for the line ending is to be enabled or not.
+ * Copy constructor for LineEnding.
  */
-void LineEnding::setEnableRotationalMapping(bool enable)
+LineEnding::LineEnding(const LineEnding& orig)
+  : GraphicalPrimitive2D( orig )
+  , mEnableRotationalMapping ( orig.mEnableRotationalMapping )
+  , mIsSetEnableRotationalMapping ( orig.mIsSetEnableRotationalMapping )
+  , mGroup ( NULL )
+  , mBoundingBox ( NULL )
 {
-    this->mEnableRotationalMapping=enable;
+  if (orig.mGroup != NULL)
+  {
+    mGroup = orig.mGroup->clone();
+  }
+
+  if (orig.mBoundingBox != NULL)
+  {
+    mBoundingBox = orig.mBoundingBox->clone();
+  }
+
+  connectToChild();
 }
-/** @endcond */
+
+
+/*
+ * Assignment operator for LineEnding.
+ */
+LineEnding&
+LineEnding::operator=(const LineEnding& rhs)
+{
+  if (&rhs != this)
+  {
+    GraphicalPrimitive2D::operator=(rhs);
+    mEnableRotationalMapping = rhs.mEnableRotationalMapping;
+    mIsSetEnableRotationalMapping = rhs.mIsSetEnableRotationalMapping;
+    delete mGroup;
+    if (rhs.mGroup != NULL)
+    {
+      mGroup = rhs.mGroup->clone();
+    }
+    else
+    {
+      mGroup = NULL;
+    }
+
+    delete mBoundingBox;
+    if (rhs.mBoundingBox != NULL)
+    {
+      mBoundingBox = rhs.mBoundingBox->clone();
+    }
+    else
+    {
+      mBoundingBox = NULL;
+    }
+
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this LineEnding object.
+ */
+LineEnding*
+LineEnding::clone() const
+{
+  return new LineEnding(*this);
+}
+
+
+/*
+ * Destructor for LineEnding.
+ */
+LineEnding::~LineEnding()
+{
+  delete mGroup;
+  mGroup = NULL;
+  delete mBoundingBox;
+  mBoundingBox = NULL;
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this LineEnding.
+ */
+const std::string&
+LineEnding::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "enableRotationalMapping" attribute of this
+ * LineEnding.
+ */
+bool
+LineEnding::getEnableRotationalMapping() const
+{
+  return mEnableRotationalMapping;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -328,268 +301,978 @@ bool LineEnding::getIsEnabledRotationalMapping() const
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the viewport for the LineEnding.
- *
- * @param box The viewport bounding box for the LineEnding.
+ * Predicate returning @c true if this LineEnding's "id" attribute is set.
  */
-void LineEnding::setBoundingBox(const BoundingBox* box)
+bool
+LineEnding::isSetId() const
 {
-    this->mBoundingBox=*box;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the viewport bounding box.
- *
- * @return pointer to the viewport bounding box.
- */
-BoundingBox* LineEnding::getBoundingBox()
-{
-    return &this->mBoundingBox;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the viewport bounding box.
- *
- * @return const pointer to the viewport bounding box.
- */
-const BoundingBox* LineEnding::getBoundingBox() const
-{
-    return &this->mBoundingBox;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the group of the LineEnding to a copy of the given group.
- *
- * @param group const pointer to the group to be set for the bounding box.
- * The group object is copied.
- */
-void LineEnding::setGroup(const RenderGroup* group)
-{
-    this->mGroup=*group;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the group object.
- *
- * @return pointer to the group object
- */
-RenderGroup* LineEnding::getGroup()
-{
-    return &this->mGroup;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the group object.
- *
- * @return const pointer to the group object
- */
-const RenderGroup* LineEnding::getGroup() const
-{
-    return &this->mGroup;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of the ListOfLineEndings object.
- *
- * @return a (deep) copy of this ListOfLineEndings
- */
-ListOfLineEndings* ListOfLineEndings::clone () const
-{
-    return new ListOfLineEndings(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Copy constructor. Creates a copy of this ListOfLineEndings object.
- */
-ListOfLineEndings::ListOfLineEndings(const ListOfLineEndings& source):ListOf(source)
-{
+  return (mId.empty() == false);
 }
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Assignment operator for ListOfLineEndings objects.
+ * Predicate returning @c true if this LineEnding's "enableRotationalMapping"
+ * attribute is set.
  */
-ListOfLineEndings& ListOfLineEndings::operator=(const ListOfLineEndings& source)
+bool
+LineEnding::isSetEnableRotationalMapping() const
 {
-    if(&source!=this)
-    {
-        this->ListOf::operator=(source);
-    }
-    return *this;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for the objects contained in this ListOf
- * (i.e., LineEnding objects, if the list is non-empty).
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- * 
- * @return the SBML type code for the objects contained in this ListOf
- * instance, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int ListOfLineEndings::getItemTypeCode () const
-{
-    return SBML_RENDER_LINEENDING;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * ListOfLineEndings, is always @c "listOfLineEndings".
- * 
- * @return the name of this element, i.e., @c "listOfLineEndings".
- */
-const std::string& ListOfLineEndings::getElementName () const
-{
-  static std::string name = ListOfLineEndings::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates an XMLNode object from this ListOfLineEndings object.
- *
- * @return the XMLNode with the XML representation for the 
- * ListOfLineEndings object.
- */
-XMLNode ListOfLineEndings::toXML() const
-{
-  return getXmlNodeForSBase(this);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.  For example:
- *
- *   SBase::writeElements(stream);
- *   mReactants.write(stream);
- *   mProducts.write(stream);
- *   ...
- */
-void LineEnding::writeElements (XMLOutputStream& stream) const
-{
-    SBase::writeElements(stream);
-    this->mBoundingBox.write(stream);
-    this->mGroup.write(stream);
+  return mIsSetEnableRotationalMapping;
 }
 
-void 
-LineEnding::writeXMLNS (XMLOutputStream& stream) const
-{    
-  XMLNamespaces xmlns;
-  xmlns.add(mBoundingBox.getURI(), mBoundingBox.getPrefix());
-  stream << xmlns;
 
+/*
+ * Sets the value of the "id" attribute of this LineEnding.
+ */
+int
+LineEnding::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
-/** @endcond */
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Sets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding.
  */
-SBase* LineEnding::createObject (XMLInputStream& stream)
+int
+LineEnding::setEnableRotationalMapping(bool enableRotationalMapping)
 {
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL ;
-
-
-    if (name == "boundingBox")
-    {
-        object = &this->mBoundingBox;
-    }
-    else if (name == "g")
-    {
-        object = &this->mGroup;
-    }
-    return object;
+  mEnableRotationalMapping = enableRotationalMapping;
+  mIsSetEnableRotationalMapping = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Unsets the value of the "id" attribute of this LineEnding.
  */
-SBase* ListOfLineEndings::createObject (XMLInputStream& stream)
+int
+LineEnding::unsetId()
 {
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL;
+  mId.erase();
 
-
-    if (name == "lineEnding")
-    {
-      RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-      object = new LineEnding(renderns);
-      if (object != NULL) this->mItems.push_back(object);
-	 delete renderns;
-    }
-    return object;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
-void LineEnding::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-  stream.writeAttribute("id", getPrefix(), this->mId);
-  if(this->mEnableRotationalMapping==false)
+  if (mId.empty() == true)
   {
-      stream.writeAttribute("enableRotationalMapping", getPrefix(), std::string("false"));
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
   }
 }
+
+
+/*
+ * Unsets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding.
+ */
+int
+LineEnding::unsetEnableRotationalMapping()
+{
+  mEnableRotationalMapping = false;
+  mIsSetEnableRotationalMapping = false;
+
+  if (isSetEnableRotationalMapping() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Returns the value of the "group" element of this LineEnding.
+ */
+const RenderGroup*
+LineEnding::getGroup() const
+{
+  return mGroup;
+}
+
+
+/*
+ * Returns the value of the "group" element of this LineEnding.
+ */
+RenderGroup*
+LineEnding::getGroup()
+{
+  return mGroup;
+}
+
+
+/*
+ * Returns the value of the "boundingBox" element of this LineEnding.
+ */
+const BoundingBox*
+LineEnding::getBoundingBox() const
+{
+  return mBoundingBox;
+}
+
+
+/*
+ * Returns the value of the "boundingBox" element of this LineEnding.
+ */
+BoundingBox*
+LineEnding::getBoundingBox()
+{
+  return mBoundingBox;
+}
+
+
+/*
+ * Predicate returning @c true if this LineEnding's "group" element is set.
+ */
+bool
+LineEnding::isSetGroup() const
+{
+  return (mGroup != NULL);
+}
+
+
+/*
+ * Predicate returning @c true if this LineEnding's "boundingBox" element is
+ * set.
+ */
+bool
+LineEnding::isSetBoundingBox() const
+{
+  return (mBoundingBox != NULL);
+}
+
+
+/*
+ * Sets the value of the "group" element of this LineEnding.
+ */
+int
+LineEnding::setGroup(const RenderGroup* group)
+{
+  if (mGroup == group)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (group == NULL)
+  {
+    delete mGroup;
+    mGroup = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mGroup;
+    mGroup = (group != NULL) ? group->clone() : NULL;
+    if (mGroup != NULL)
+    {
+      //render - FIX_ME
+//      mGroup->setElementName("group");
+      mGroup->connectToParent(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the value of the "boundingBox" element of this LineEnding.
+ */
+int
+LineEnding::setBoundingBox(const BoundingBox* boundingBox)
+{
+  if (mBoundingBox == boundingBox)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (boundingBox == NULL)
+  {
+    delete mBoundingBox;
+    mBoundingBox = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    delete mBoundingBox;
+    mBoundingBox = (boundingBox != NULL) ? boundingBox->clone() : NULL;
+    if (mBoundingBox != NULL)
+    {
+      mBoundingBox->connectToParent(this);
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Creates a new RenderGroup object, adds it to this LineEnding object and
+ * returns the RenderGroup object created.
+ */
+RenderGroup*
+LineEnding::createGroup()
+{
+  if (mGroup != NULL)
+  {
+    delete mGroup;
+  }
+
+  RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+  mGroup = new RenderGroup(renderns);
+
+  //render - FIX_ME
+//  mGroup->setElementName("g");
+
+  delete renderns;
+
+  connectToChild();
+
+  return mGroup;
+}
+
+
+/*
+ * Creates a new BoundingBox object, adds it to this LineEnding object and
+ * returns the BoundingBox object created.
+ */
+BoundingBox*
+LineEnding::createBoundingBox()
+{
+  if (mBoundingBox != NULL)
+  {
+    delete mBoundingBox;
+  }
+
+  LAYOUT_CREATE_NS(layoutns, getSBMLNamespaces());
+  mBoundingBox = new BoundingBox(layoutns);
+
+  delete layoutns;
+
+  connectToChild();
+
+  return mBoundingBox;
+}
+
+
+/*
+ * Unsets the value of the "group" element of this LineEnding.
+ */
+int
+LineEnding::unsetGroup()
+{
+  delete mGroup;
+  mGroup = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "boundingBox" element of this LineEnding.
+ */
+int
+LineEnding::unsetBoundingBox()
+{
+  delete mBoundingBox;
+  mBoundingBox = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Returns the libSBML type code for this LineEnding object.
+ */
+int
+LineEnding::getTypeCode() const
+{
+  return SBML_RENDER_LINEENDING;
+}
+
+
+/*
+ * Returns the XML element name of this LineEnding object.
+ */
+const std::string&
+LineEnding::getElementName() const
+{
+  static const string name = "lineEnding";
+  return name;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * LineEnding object have been set.
+ */
+bool
+LineEnding::hasRequiredAttributes() const
+{
+  bool allPresent = GraphicalPrimitive2D::hasRequiredAttributes();
+
+  if (isSetId() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this LineEnding
+ * object have been set.
+ */
+bool
+LineEnding::hasRequiredElements() const
+{
+  bool allPresent = GraphicalPrimitive2D::hasRequiredElements();
+
+  return allPresent;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+LineEnding::writeElements(XMLOutputStream& stream) const
+{
+  GraphicalPrimitive2D::writeElements(stream);
+
+  if (isSetBoundingBox() == true)
+  {
+    mBoundingBox->write(stream);
+  }
+
+  if (isSetGroup() == true)
+  {
+    mGroup->write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+LineEnding::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+
+  if (mGroup != NULL)
+  {
+    mGroup->accept(v);
+  }
+
+  if (mBoundingBox != NULL)
+  {
+    mBoundingBox->accept(v);
+  }
+
+  v.leave(*this);
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+LineEnding::setSBMLDocument(SBMLDocument* d)
+{
+  GraphicalPrimitive2D::setSBMLDocument(d);
+
+  if (mGroup != NULL)
+  {
+    mGroup->setSBMLDocument(d);
+  }
+
+  if (mBoundingBox != NULL)
+  {
+    mBoundingBox->setSBMLDocument(d);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to child elements
+ */
+void
+LineEnding::connectToChild()
+{
+  GraphicalPrimitive2D::connectToChild();
+
+  if (mGroup != NULL)
+  {
+    mGroup->connectToParent(this);
+  }
+
+  if (mBoundingBox != NULL)
+  {
+    mBoundingBox->connectToParent(this);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+LineEnding::enablePackageInternal(const std::string& pkgURI,
+                                  const std::string& pkgPrefix,
+                                  bool flag)
+{
+  GraphicalPrimitive2D::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  if (isSetGroup())
+  {
+    mGroup->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+
+  if (isSetBoundingBox())
+  {
+    mBoundingBox->enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::getAttribute(const std::string& attributeName, bool& value) const
+{
+  int return_value = GraphicalPrimitive2D::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "enableRotationalMapping")
+  {
+    value = getEnableRotationalMapping();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::getAttribute(const std::string& attributeName, int& value) const
+{
+  int return_value = GraphicalPrimitive2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::getAttribute(const std::string& attributeName,
+                         double& value) const
+{
+  int return_value = GraphicalPrimitive2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::getAttribute(const std::string& attributeName,
+                         unsigned int& value) const
+{
+  int return_value = GraphicalPrimitive2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::getAttribute(const std::string& attributeName,
+                         std::string& value) const
+{
+  int return_value = GraphicalPrimitive2D::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this LineEnding's attribute "attributeName"
+ * is set.
+ */
+bool
+LineEnding::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = GraphicalPrimitive2D::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "enableRotationalMapping")
+  {
+    value = isSetEnableRotationalMapping();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::setAttribute(const std::string& attributeName, bool value)
+{
+  int return_value = GraphicalPrimitive2D::setAttribute(attributeName, value);
+
+  if (attributeName == "enableRotationalMapping")
+  {
+    return_value = setEnableRotationalMapping(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::setAttribute(const std::string& attributeName, int value)
+{
+  int return_value = GraphicalPrimitive2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::setAttribute(const std::string& attributeName, double value)
+{
+  int return_value = GraphicalPrimitive2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::setAttribute(const std::string& attributeName, unsigned int value)
+{
+  int return_value = GraphicalPrimitive2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::setAttribute(const std::string& attributeName,
+                         const std::string& value)
+{
+  int return_value = GraphicalPrimitive2D::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this LineEnding.
+ */
+int
+LineEnding::unsetAttribute(const std::string& attributeName)
+{
+  int value = GraphicalPrimitive2D::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "enableRotationalMapping")
+  {
+    value = unsetEnableRotationalMapping();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this LineEnding.
+ */
+SBase*
+LineEnding::createChildObject(const std::string& elementName)
+{
+  GraphicalPrimitive2D* obj = NULL;
+
+  if (elementName == "group")
+  {
+    return createGroup();
+  }
+  else if (elementName == "boundingBox")
+  {
+    return createBoundingBox();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this LineEnding.
+ */
+int
+LineEnding::addChildObject(const std::string& elementName,
+                           const SBase* element)
+{
+  if (elementName == "group" && element->getTypeCode() == SBML_RENDER_GROUP)
+  {
+    return setGroup((const RenderGroup*)(element));
+  }
+  else if (elementName == "boundingBox" && element->getTypeCode() ==
+    SBML_RENDER_GROUP)
+  {
+    return setBoundingBox((const BoundingBox*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * LineEnding.
+ */
+SBase*
+LineEnding::removeChildObject(const std::string& elementName,
+                              const std::string& id)
+{
+  if (elementName == "group")
+  {
+    RenderGroup * obj = getGroup();
+    if (unsetGroup() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "boundingBox")
+  {
+    BoundingBox * obj = getBoundingBox();
+    if (unsetBoundingBox() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this LineEnding.
+ */
+unsigned int
+LineEnding::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "group")
+  {
+    if (isSetGroup())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "boundingBox")
+  {
+    if (isSetBoundingBox())
+    {
+      return 1;
+    }
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this LineEnding.
+ */
+SBase*
+LineEnding::getObject(const std::string& elementName, unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "group")
+  {
+    return getGroup();
+  }
+  else if (elementName == "boundingBox")
+  {
+    return getBoundingBox();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+LineEnding::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mGroup != NULL)
+  {
+    if (mGroup->getId() == id)
+    {
+      return mGroup;
+    }
+
+    obj = mGroup->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  if (mBoundingBox != NULL)
+  {
+    if (mBoundingBox->getId() == id)
+    {
+      return mBoundingBox;
+    }
+
+    obj = mBoundingBox->getElementBySId(id);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+LineEnding::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mGroup != NULL)
+  {
+    if (mGroup->getMetaId() == metaid)
+    {
+      return mGroup;
+    }
+
+    obj = mGroup->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  if (mBoundingBox != NULL)
+  {
+    if (mBoundingBox->getMetaId() == metaid)
+    {
+      return mBoundingBox;
+    }
+
+    obj = mBoundingBox->getElementByMetaId(metaid);
+    if (obj != NULL)
+    {
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
+List*
+LineEnding::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_POINTER(ret, sublist, mGroup, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mBoundingBox, filter);
+
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -606,360 +1289,550 @@ XMLNode LineEnding::toXML() const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+LineEnding::createObject(XMLInputStream& stream)
+{
+  SBase* obj = GraphicalPrimitive2D::createObject(stream);
+
+  const std::string& name = stream.peek().getName();
+
+  RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+
+  LAYOUT_CREATE_NS(layoutns, getSBMLNamespaces());
+
+  if (name == "g")
+  {
+    //render - FIX_ME
+    //hack because original render code always creates a group when it create a line ending
+    //if (isSetGroup())
+    //{
+    //  getErrorLog()->logPackageError("render", RenderLineEndingAllowedElements,
+    //    getPackageVersion(), getLevel(), getVersion());
+    //}
+
+    delete mGroup;
+    mGroup = new RenderGroup(renderns);
+    //render - FIX_ME
+//    mGroup->setElementName(name);
+    obj = mGroup;
+  }
+  else if (name == "boundingBox")
+  {
+    //hack because original render code always creates a boundng box when it create a line ending
+    if (isSetBoundingBox() && mBoundingBox->getDimensionsExplicitlySet())
+    {
+      getErrorLog()->logPackageError("render", RenderLineEndingAllowedElements,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
+    delete mBoundingBox;
+    mBoundingBox = new BoundingBox(layoutns);
+    obj = mBoundingBox;
+  }
+
+  delete renderns;
+
+  delete layoutns;
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
 void
 LineEnding::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   GraphicalPrimitive2D::addExpectedAttributes(attributes);
 
   attributes.add("id");
+
   attributes.add("enableRotationalMapping");
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void LineEnding::readAttributes(const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-  GraphicalPrimitive2D::readAttributes(attributes, expectedAttributes);
-    attributes.readInto("id", this->mId, getErrorLog(), false, getLine(), getColumn());
-    if(!attributes.readInto("enableRotationalMapping", this->mEnableRotationalMapping, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mEnableRotationalMapping=true;
-    }
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int LineEnding::getTypeCode() const
-{
-    return SBML_RENDER_LINEENDING;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor for this instance of LineEnding.
- *
- * @param v the SBMLVisitor instance to be used.
- *
- * @return the result of calling <code>v.visit()</code>.
- */
-bool LineEnding::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object.
- *
- * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
- * CompartmentType defines it as returning "compartmentType", etc.
- */
-const std::string& LineEnding::getElementName() const
-{
-  static std::string name = LineEnding::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of this LineEnding object.
- * 
- * @return a (deep) copy of this LineEnding object
- */
-LineEnding* LineEnding::clone() const
-{
-    return new LineEnding(*this);
-}
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the value of the "id" attribute of this GraphicalPrimitive.
- *
- * @return the id of the GraphicalPrimitive
- */
-const std::string& LineEnding::getId () const
-{
-    return mId;
-}
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Predicate returning @c true or @c false depending on whether this
- * GraphicalPrimitive's "id" attribute has been set.
- *
- * @return returns true or false depending on whether the id on the 
- * GraphicalPrimitive has been set.
- */
-bool LineEnding::isSetId () const
-{
-    return (mId.empty() == false);
-}
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Sets the value of the "id" attribute of this GraphicalPrimitive.
- *
- * @param id the new id for the GraphicalPrimitive 
- *
- * @return status if the operation succeeded
- */
-int LineEnding::setId (const std::string& id)
-{
-    if (!(SyntaxChecker::isValidSBMLSId(id)))
-    {
-        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-        mId = id;
-        return LIBSBML_OPERATION_SUCCESS;
-    }
-}
-/** @endcond */
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * Unsets the value of the "id" attribute of this LineEnding.
+ * Reads the expected attributes into the member data variables
  */
-int LineEnding::unsetId ()
+void
+LineEnding::readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
-    mId.erase();
-    if (mId.empty())
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfLineEndings*>(getParentSBMLObject())->size() < 2)
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    numErrs = log->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderLineEndingAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderRenderInformationBaseLOLineEndingsAllowedCoreAttributes,
+            pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  GraphicalPrimitive2D::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderLineEndingAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderLineEndingAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  // 
+  // id SId (use = "required" )
+  // 
+
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true)
+  {
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, level, version, "<LineEnding>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
+    }
   }
   else
   {
-    return LIBSBML_OPERATION_FAILED;
+    std::string message = "Render attribute 'id' is missing from the "
+      "<LineEnding> element.";
+    log->logPackageError("render", RenderLineEndingAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+
+  // 
+  // enableRotationalMapping bool (use = "optional" )
+  // 
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+  }
+
+  mIsSetEnableRotationalMapping =
+    attributes.readInto("enableRotationalMapping", mEnableRotationalMapping);
+
+  if (mIsSetEnableRotationalMapping == false)
+  {
+    if (log && log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("render",
+        RenderLineEndingEnableRotationalMappingMustBeBoolean, pkgVersion, level,
+          version);
+    }
+    else
+    {
+      mEnableRotationalMapping = true;
+//      mIsSetEnableRotationalMapping = true;
+    }
   }
 }
+
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the LineEnding with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the LineEnding object to be returned
- * 
- * @return pointer to the LineEnding at the given index or NULL.
- */
-LineEnding* ListOfLineEndings::get(unsigned int i)
-{
-    return static_cast<LineEnding*>(this->ListOf::get(i));
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the LineEnding with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the LineEnding object to be returned
- * 
- * @return const pointer to the LineEnding at the given index or NULL.
- */
-const LineEnding* ListOfLineEndings::get(unsigned int i) const
-{
-    return static_cast<const LineEnding*>(this->ListOf::get(i));
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Used by ListOf::get() to lookup an SBase based by its id.
- */
-struct IdEqLineEnding : public std::unary_function<SBase*, bool>
-{
-    const std::string& id;
-
-    IdEqLineEnding (const std::string& id) : id(id) { }
-    bool operator() (SBase* sb) 
-    { return static_cast <LineEnding *> (sb)->getId() == id; }
-};
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the LineEnding with the given @p id or @c NULL if
- * the id is invalid.
- * 
- * @param id id of the LineEnding object to be returned
- * 
- * @return pointer to the LineEnding at the given @p id or @c NULL.
- */
-LineEnding* ListOfLineEndings::get(const std::string& id)
-{
-    return const_cast<LineEnding*>( 
-            static_cast<const ListOfLineEndings*>(this)->get(id) );
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the LineEnding with the given @p id or @c NULL if
- * the id is invalid.
- * 
- * @param id id of the LineEnding object to be returned
- * 
- * @return const pointer to the LineEnding at the given @p id or @c NULL.
- */
-const LineEnding* ListOfLineEndings::get(const std::string& id) const
-{
-    std::vector<SBase*>::const_iterator result;
-
-    result = std::find_if( mItems.begin(), mItems.end(), IdEqLineEnding(id) );
-    return (result == mItems.end()) ? 0 : static_cast <LineEnding*> (*result);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/* Removes the nth item from this list */
-    LineEnding*
-ListOfLineEndings::remove (unsigned int n)
-{
-    return static_cast<LineEnding*>(ListOf::remove(n));
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/* Removes item in this list by id */
-    LineEnding*
-ListOfLineEndings::remove (const std::string& sid)
-{
-    SBase* item = NULL;
-    std::vector<SBase*>::iterator result;
-
-    result = std::find_if( mItems.begin(), mItems.end(), IdEqLineEnding(sid) );
-
-    if (result != mItems.end())
-    {
-        item = *result;
-        mItems.erase(result);
-    }
-
-    return static_cast <LineEnding*> (item);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the parent SBMLDocument of this SBML object.
- *
- * @param d The SBMLDocument to set on the objects and it's children if there are any.
- */
-    void
-LineEnding::setSBMLDocument (SBMLDocument* d)
-{
-    GraphicalPrimitive2D::setSBMLDocument(d);
-    this->mBoundingBox.setSBMLDocument(d);
-    this->mGroup.setSBMLDocument(d);
-}
-/** @endcond */
 
 /*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
+ * Writes the attributes to the stream
  */
 void
-LineEnding::connectToChild()
+LineEnding::writeAttributes(XMLOutputStream& stream) const
 {
-  GraphicalPrimitive2D::connectToChild();
-  mBoundingBox.connectToParent(this);
-  mGroup.connectToParent(this);
+  GraphicalPrimitive2D::writeAttributes(stream);
+
+  //if (isSetId() == true)
+  //{
+  //  stream.writeAttribute("id", getPrefix(), mId);
+  //}
+
+  //render - FIX_ME
+  if (isSetEnableRotationalMapping() == true && getEnableRotationalMapping() == false)
+  {
+    stream.writeAttribute("enableRotationalMapping", getPrefix(),
+      mEnableRotationalMapping);
+  }
+
+  SBase::writeExtensionAttributes(stream);
 }
 
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
+
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Creates a new LineEnding_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
+LIBSBML_EXTERN
+LineEnding_t *
+LineEnding_create(unsigned int level,
+                  unsigned int version,
+                  unsigned int pkgVersion)
+{
+  return new LineEnding(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this LineEnding_t object.
+ */
+LIBSBML_EXTERN
+LineEnding_t*
+LineEnding_clone(const LineEnding_t* le)
+{
+  if (le != NULL)
+  {
+    return static_cast<LineEnding_t*>(le->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this LineEnding_t object.
+ */
+LIBSBML_EXTERN
 void
-LineEnding::enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag)
+LineEnding_free(LineEnding_t* le)
 {
-  GraphicalPrimitive2D::enablePackageInternal(pkgURI,pkgPrefix,flag);
-
-  mBoundingBox.enablePackageInternal(pkgURI,pkgPrefix,flag);
-  mGroup.enablePackageInternal(pkgURI,pkgPrefix,flag);
+  if (le != NULL)
+  {
+    delete le;
+  }
 }
 
 
-
-
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the parent SBML object of this SBML object.
- *
- * @param sb the SBML object to use
+ * Returns the value of the "id" attribute of this LineEnding_t.
  */
-    void 
-LineEnding::setParentSBMLObject (SBase* sb)
+LIBSBML_EXTERN
+char *
+LineEnding_getId(const LineEnding_t * le)
 {
-    this->mParentSBMLObject = sb;
-}
-/** @endcond */
+  if (le == NULL)
+  {
+    return NULL;
+  }
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+  return le->getId().empty() ? NULL : safe_strdup(le->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
  */
-bool LineEnding::hasRequiredAttributes() const
+LIBSBML_EXTERN
+int
+LineEnding_getEnableRotationalMapping(const LineEnding_t * le)
 {
-    bool result = this->GraphicalPrimitive2D::hasRequiredAttributes();
-    result = result &&
-        (mBoundingBox.getPosition()->x() == mBoundingBox.getPosition()->x()) &&
-        (mBoundingBox.getPosition()->y() == mBoundingBox.getPosition()->y()) &&
-        (mBoundingBox.getDimensions()->getWidth() == mBoundingBox.getDimensions()->getWidth()) &&
-        (mBoundingBox.getDimensions()->getHeight() == mBoundingBox.getDimensions()->getHeight());
-    result = result && this->isSetId();
-    return result;
+  return (le != NULL) ? static_cast<int>(le->getEnableRotationalMapping()) : 0;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Predicate returning @c 1 (true) if this LineEnding_t's "id" attribute is
+ * set.
  */
-bool LineEnding::hasRequiredElements() const 
+LIBSBML_EXTERN
+int
+LineEnding_isSetId(const LineEnding_t * le)
 {
-    bool result = this->GraphicalPrimitive2D::hasRequiredElements();
-    return result;
+  return (le != NULL) ? static_cast<int>(le->isSetId()) : 0;
 }
-/** @endcond */
+
+
+/*
+ * Predicate returning @c 1 (true) if this LineEnding_t's
+ * "enableRotationalMapping" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetEnableRotationalMapping(const LineEnding_t * le)
+{
+  return (le != NULL) ? static_cast<int>(le->isSetEnableRotationalMapping()) :
+    0;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setId(LineEnding_t * le, const char * id)
+{
+  return (le != NULL) ? le->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setEnableRotationalMapping(LineEnding_t * le,
+                                      int enableRotationalMapping)
+{
+  return (le != NULL) ? le->setEnableRotationalMapping(enableRotationalMapping)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetId(LineEnding_t * le)
+{
+  return (le != NULL) ? le->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "enableRotationalMapping" attribute of this
+ * LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetEnableRotationalMapping(LineEnding_t * le)
+{
+  return (le != NULL) ? le->unsetEnableRotationalMapping() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "group" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+const RenderGroup_t*
+LineEnding_getGroup(const LineEnding_t * le)
+{
+  if (le == NULL)
+  {
+    return NULL;
+  }
+
+  return (RenderGroup_t*)(le->getGroup());
+}
+
+
+/*
+ * Returns the value of the "boundingBox" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+const BoundingBox_t*
+LineEnding_getBoundingBox(const LineEnding_t * le)
+{
+  if (le == NULL)
+  {
+    return NULL;
+  }
+
+  return (BoundingBox_t*)(le->getBoundingBox());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LineEnding_t's "group" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetGroup(const LineEnding_t * le)
+{
+  return (le != NULL) ? static_cast<int>(le->isSetGroup()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LineEnding_t's "boundingBox" element
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_isSetBoundingBox(const LineEnding_t * le)
+{
+  return (le != NULL) ? static_cast<int>(le->isSetBoundingBox()) : 0;
+}
+
+
+/*
+ * Sets the value of the "group" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setGroup(LineEnding_t * le, const RenderGroup_t* group)
+{
+  return (le != NULL) ? le->setGroup(group) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "boundingBox" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_setBoundingBox(LineEnding_t * le, const BoundingBox_t* boundingBox)
+{
+  return (le != NULL) ? le->setBoundingBox(boundingBox) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Creates a new RenderGroup_t object, adds it to this LineEnding_t object and
+ * returns the RenderGroup_t object created.
+ */
+LIBSBML_EXTERN
+RenderGroup_t*
+LineEnding_createGroup(LineEnding_t* le)
+{
+  if (le == NULL)
+  {
+    return NULL;
+  }
+
+  return (RenderGroup_t*)(le->createGroup());
+}
+
+
+/*
+ * Creates a new BoundingBox_t object, adds it to this LineEnding_t object and
+ * returns the BoundingBox_t object created.
+ */
+LIBSBML_EXTERN
+BoundingBox_t*
+LineEnding_createBoundingBox(LineEnding_t* le)
+{
+  if (le == NULL)
+  {
+    return NULL;
+  }
+
+  return (BoundingBox_t*)(le->createBoundingBox());
+}
+
+
+/*
+ * Unsets the value of the "group" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetGroup(LineEnding_t * le)
+{
+  return (le != NULL) ? le->unsetGroup() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "boundingBox" element of this LineEnding_t.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_unsetBoundingBox(LineEnding_t * le)
+{
+  return (le != NULL) ? le->unsetBoundingBox() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * LineEnding_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_hasRequiredAttributes(const LineEnding_t * le)
+{
+  return (le != NULL) ? static_cast<int>(le->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * LineEnding_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LineEnding_hasRequiredElements(const LineEnding_t * le)
+{
+  return (le != NULL) ? static_cast<int>(le->hasRequiredElements()) : 0;
+}
 
 
 
-LIBSBML_CPP_NAMESPACE_END 
+
+LIBSBML_CPP_NAMESPACE_END
+
+

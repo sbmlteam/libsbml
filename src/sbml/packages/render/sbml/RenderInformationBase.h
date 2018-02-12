@@ -69,7 +69,7 @@
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/ListOfColorDefinitions.h>
 #include <sbml/packages/render/sbml/ListOfGradientDefinitions.h>
-//#include <sbml/packages/render/sbml/ListOfLineEndings.h>
+#include <sbml/packages/render/sbml/ListOfLineEndings.h>
 #include <sbml/packages/render/sbml/ColorDefinition.h>
 #include <sbml/packages/render/sbml/GradientBase.h>
 #include <sbml/packages/render/sbml/LinearGradient.h>
