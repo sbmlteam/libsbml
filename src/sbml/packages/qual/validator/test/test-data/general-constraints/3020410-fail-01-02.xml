@@ -17,7 +17,7 @@
         </qual:listOfQualitativeSpecies>
         <qual:listOfTransitions>
             <qual:transition metaid="_h" sboTerm="SBO:0000001" qual:id="tr_B">
-                <qual:listOfInputs metaid="_h" sboTerm="SBO:0000001" qual:constant="true">
+                <qual:listOfInputs metaid="_h1" sboTerm="SBO:0000001" qual:constant="true">
                     <qual:input qual:id="theta_B_A"     qual:qualitativeSpecies="A" 
                                 qual:thresholdLevel="1"  qual:transitionEffect="none" 
                                 qual:sign="positive"/>

@@ -43,7 +43,7 @@
             </qual:transition>
             <qual:transition qual:id="tr_A">
                 <qual:listOfInputs>
-                    <qual:input  metaid="_hh" sboTerm="SBO:0000001" constant="true"
+                    <qual:input  metaid="_hh1" sboTerm="SBO:0000001" constant="true"
                         qual:id="theta_A_A1"     qual:qualitativeSpecies="A" 
                                 qual:thresholdLevel="1"  qual:transitionEffect="none" 
                                 qual:sign="positive"/>

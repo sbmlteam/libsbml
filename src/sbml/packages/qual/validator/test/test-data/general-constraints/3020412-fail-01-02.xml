@@ -26,7 +26,7 @@
                     <qual:output qual:transitionEffect="assignmentLevel" 
                                  qual:qualitativeSpecies="B"/>
                 </qual:listOfOutputs>
-                <qual:listOfFunctionTerms metaid="_h" sboTerm="SBO:0000001" qual:constant="true">
+                <qual:listOfFunctionTerms metaid="_h1" sboTerm="SBO:0000001" qual:constant="true">
                     <qual:functionTerm qual:resultLevel="1">
                         <math xmlns="http://www.w3.org/1998/Math/MathML"> 
                             <!-- A >= 1-->
