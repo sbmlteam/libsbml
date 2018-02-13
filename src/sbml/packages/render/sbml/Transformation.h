@@ -224,22 +224,6 @@ public:
 
 
   /**
-   * Sets the value of the "transform" attribute of this Transformation.
-   *
-   * @param inArray double* array value of the "transform" attribute to be set.
-   *
-   * @param arrayLength int value for the length of the "transform" attribute
-   * to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setTransform(double* inArray, int arrayLength);
-
-
-  /**
    * Sets the value of the "name" attribute of this Transformation.
    *
    * @param name std::string& value of the "name" attribute to be set.
