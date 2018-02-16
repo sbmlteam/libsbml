@@ -1,6 +1,6 @@
 /**
  * @file    GraphicalPrimitive1D.h
- * @brief   abstract base class for 1D graphical objects
+ * @brief Definition of the GraphicalPrimitive1D class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,6 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalPrimitive1D
+ * @sbmlbrief{render}
  * @brief base class for all graphical primitives which implements all 1D attributes
  *
  * The GraphicalPrimitive1D class implements attributes and methods necessary for 1D objects
@@ -48,7 +49,10 @@
 #ifndef GraphicalPrimitive1D_H__
 #define GraphicalPrimitive1D_H__
 
+
+#include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
 
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/Transformation2D.h>
@@ -62,40 +66,61 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+class Ellipse;
+class Rectangle;
+class Polygon;
+class RenderGroup;
+class LineEnding;
+class Text;
+class RenderCurve;
+
 class LIBSBML_EXTERN GraphicalPrimitive1D : public Transformation2D
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-////   std::string mId;
+
    std::string mStroke;
    double mStrokeWidth;
+  bool mIsSetStrokeWidth;
    std::vector<unsigned int> mStrokeDashArray;
+
   /** @endcond */
 
 public:
-   /**
-    * Creates a new GraphicalPrimitive1D object with the given SBML level
-    * and SBML version.
-    *
-    * @param level SBML level of the new object
-    * @param level SBML version of the new object
-    */
-   GraphicalPrimitive1D (unsigned int level      = RenderExtension::getDefaultLevel(),
-                    unsigned int version    = RenderExtension::getDefaultVersion(),
-                    unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+
+  /**
+   * Creates a new GraphicalPrimitive1D using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this
+   * GraphicalPrimitive1D.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * GraphicalPrimitive1D.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this GraphicalPrimitive1D.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
+  GraphicalPrimitive1D(unsigned int level = RenderExtension::getDefaultLevel(),
+                       unsigned int version =
+                         RenderExtension::getDefaultVersion(),
+                       unsigned int pkgVersion =
+                         RenderExtension::getDefaultPackageVersion());
 
 
-   /**
-    * Creates a new GraphicalPrimitive1D object with the given SBMLNamespaces.
-    *
-    * @param sbmlns The SBML namespace for the object.
-    */
-   GraphicalPrimitive1D (RenderPkgNamespaces* renderns);
-
-   /**
-    * Copy constructor.
-    */
-   GraphicalPrimitive1D(const GraphicalPrimitive1D& other);
+  /**
+   * Creates a new GraphicalPrimitive1D using the given RenderPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
+  GraphicalPrimitive1D(RenderPkgNamespaces *renderns);
 
    /**
     * Creates a new GraphicalPrimitive1D object from the given XMLNode object.
@@ -108,13 +133,6 @@ public:
     * object to be instantiated.
     */
    GraphicalPrimitive1D(const XMLNode& node, unsigned int l2version=4);
-
-
-  /**
-   * Destroy this GraphicalPrimitive1D object.
-   */
-  virtual ~GraphicalPrimitive1D ();
-
 
 
 #ifndef OMIT_DEPRECATED
@@ -132,20 +150,205 @@ public:
   GraphicalPrimitive1D(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
 
+
   /**
-   * Sets the stroke color to the given color definition id or color value string.
-   * (@see ColorDefinition)
+   * Copy constructor for GraphicalPrimitive1D.
    *
-   * @param stroke id of a ColorDefinition object or a valid color value string.
+   * @param orig the GraphicalPrimitive1D instance to copy.
    */
-  void setStroke(const std::string& stroke);
+  GraphicalPrimitive1D(const GraphicalPrimitive1D& orig);
+
+
+  /**
+   * Assignment operator for GraphicalPrimitive1D.
+   *
+   * @param rhs the GraphicalPrimitive1D object whose values are to be used as
+   * the basis of the assignment.
+   */
+  GraphicalPrimitive1D& operator=(const GraphicalPrimitive1D& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this GraphicalPrimitive1D object.
+   *
+   * @return a (deep) copy of this GraphicalPrimitive1D object.
+   */
+  virtual GraphicalPrimitive1D* clone() const;
+
+
+  /**
+   * Destructor for GraphicalPrimitive1D.
+   */
+  virtual ~GraphicalPrimitive1D();
+
+
+  /**
+   * Returns the value of the "id" attribute of this GraphicalPrimitive1D.
+   *
+   * @return the value of the "id" attribute of this GraphicalPrimitive1D as a
+   * string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
+   *
+   * @return the value of the "stroke" attribute of this GraphicalPrimitive1D
+   * as a string.
+   */
+  const std::string& getStroke() const;
+
+
+  /**
+   * Returns the value of the "stroke-width" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @return the value of the "stroke-width" attribute of this
+   * GraphicalPrimitive1D as a double.
+   */
+  double getStrokeWidth() const;
+
+
+  /**
+   * Returns the value of the "stroke-dashArray" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param outArray unsignedint* array that will be used to return the value
+   * of the "stroke-dashArray" attribute of this GraphicalPrimitive1D.
+   *
+   * @note the value of the "stroke-dashArray" attribute of this
+   * GraphicalPrimitive1D is returned in the argument array.
+   */
+  const std::vector<unsigned int>& getStrokeDashArray() const;
+
+
+  /**
+   * Returns a const reference to the stroke dasharray.
+   *
+   * @return const reference to stroke dash array
+   */
+  const std::vector<unsigned int>& getDashArray() const;
+  
   
   /**
-   * Sets the stroke width.
+   * Returns a reference to the stroke dasharray.
    *
-   * @param width New width for strokes. Should be a positive value.
+   * @return reference to stroke dash array
    */
-  void setStrokeWidth(double width);
+  std::vector<unsigned int>& getDashArray();
+  
+
+  /**
+   * Predicate returning @c true if this GraphicalPrimitive1D's "id" attribute
+   * is set.
+   *
+   * @return @c true if this GraphicalPrimitive1D's "id" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this GraphicalPrimitive1D's "stroke"
+   * attribute is set.
+   *
+   * @return @c true if this GraphicalPrimitive1D's "stroke" attribute has been
+   * set, otherwise @c false is returned.
+   */
+  bool isSetStroke() const;
+
+
+  /**
+   * Predicate returning @c true if this GraphicalPrimitive1D's "stroke-width"
+   * attribute is set.
+   *
+   * @return @c true if this GraphicalPrimitive1D's "stroke-width" attribute
+   * has been set, otherwise @c false is returned.
+   */
+  bool isSetStrokeWidth() const;
+
+
+  /**
+   * Predicate returning @c true if this GraphicalPrimitive1D's
+   * "stroke-dashArray" attribute is set.
+   *
+   * @return @c true if this GraphicalPrimitive1D's "stroke-dashArray"
+   * attribute has been set, otherwise @c false is returned.
+   */
+  bool isSetStrokeDashArray() const;
+
+
+  /**
+   * Returns true is the dash array has been set or false otherwise.
+   * The array is considered set if it is not empty and if the first entry is
+   * not NaN.
+   *
+   * @true if the dasharray is set.
+   */
+  bool isSetDashArray() const;
+  
+  /**
+   * Sets the value of the "id" attribute of this GraphicalPrimitive1D.
+   *
+   * @param id std::string& value of the "id" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "stroke" attribute of this GraphicalPrimitive1D.
+   *
+   * @param stroke std::string& value of the "stroke" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p stroke = @c NULL or an empty string is
+   * equivalent to calling unsetStroke().
+   */
+  int setStroke(const std::string& stroke);
+
+
+  /**
+   * Sets the value of the "stroke-width" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param strokeWidth double value of the "stroke-width" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setStrokeWidth(double strokeWidth);
+
+
+  /**
+   * Sets the value of the "stroke-dashArray" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param inArray unsignedint* array value of the "stroke-dashArray"
+   * attribute to be set.
+   *
+   * @param arrayLength int value for the length of the "stroke-dashArray"
+   * attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setStrokeDashArray(const std::vector<unsigned int>& array);
+  
   
   /**
    * Sets the dasharray to the values in the given array.
@@ -168,60 +371,6 @@ public:
    */
   bool setDashArray(const std::string& arrayString);
   
-  
-  /**
-   * Returns the stroke color.
-   *
-   * @return the id of the color definition or a color value string.
-   */
-  const std::string& getStroke() const;
-  
-  /**
-   * Returns the stroke width.
-   *
-   * @return the stroke width
-   */
-  double getStrokeWidth() const;
-  
-  /**
-   * Returns a const reference to the stroke dasharray.
-   *
-   * @return const reference to stroke dash array
-   */
-  const std::vector<unsigned int>& getDashArray() const;
-  
-  
-  /**
-   * Returns a reference to the stroke dasharray.
-   *
-   * @return reference to stroke dash array
-   */
-  std::vector<unsigned int>& getDashArray();
-  
-  /**
-   * Returns true is the stroke width has been set or false otherwise.
-   * The stroke width is considered set if it is not NaN.
-   *
-   * @return true is the stroke width is set.
-   */
-  bool isSetStrokeWidth() const;
-  
-  /**
-   * Returns true is the stroke has been set or false otherwise.
-   * The stroke color is considered set if the string is not empty.
-   *
-   * @return true if the stroke color is set.
-   */
-  bool isSetStroke() const;
-  
-  /**
-   * Returns true is the dash array has been set or false otherwise.
-   * The array is considered set if it is not empty and if the first entry is
-   * not NaN.
-   *
-   * @true if the dasharray is set.
-   */
-  bool isSetDashArray() const;
   
   /** 
    * Returns the number of defined dashes.
@@ -260,6 +409,441 @@ public:
   void removeDash(unsigned int index);
 
   /**
+   * Unsets the value of the "id" attribute of this GraphicalPrimitive1D.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "stroke" attribute of this GraphicalPrimitive1D.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetStroke();
+
+
+  /**
+   * Unsets the value of the "stroke-width" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetStrokeWidth();
+
+
+  /**
+   * Unsets the value of the "stroke-dashArray" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetStrokeDashArray();
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type Ellipse
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * Ellipse, @c false otherwise
+   */
+  virtual bool isEllipse() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type Rectangle
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * Rectangle, @c false otherwise
+   */
+  virtual bool isRectangle() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type Polygon
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * Polygon, @c false otherwise
+   */
+  virtual bool isPolygon() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type RenderGroup
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * RenderGroup, @c false otherwise
+   */
+  virtual bool isRenderGroup() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type LineEnding
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * LineEnding, @c false otherwise
+   */
+  virtual bool isLineEnding() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * type Text
+   *
+   * @return @c true if this abstract "GraphicalPrimitive1D" is of type Text,
+   * @c false otherwise
+   */
+  virtual bool isText() const;
+
+
+  /**
+  * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+  * type RenderCurve
+  *
+  * @return @c true if this abstract "GraphicalPrimitive1D" is of type Text,
+  * @c false otherwise
+  */
+  virtual bool isRenderCurve() const;
+
+
+  /**
+   * Returns the libSBML type code for this GraphicalPrimitive1D object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_GRAPHICALPRIMITIVE1D, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * GraphicalPrimitive1D object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * GraphicalPrimitive1D have been set, otherwise @c false is returned.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this GraphicalPrimitive1D's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this GraphicalPrimitive1D's attribute "attributeName"
+   * has been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this
+   * GraphicalPrimitive1D.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
    * Creates an XMLNode object from this GraphicalPrimitive1D object.
    *
    * @return the XMLNode with the XML representation for the 
@@ -269,59 +853,52 @@ public:
    */
   virtual XMLNode toXML() const = 0;
   
-  /**
-   * Returns the value of the "id" attribute of this GraphicalPrimitive.
-   *
-   * @return the id of the GraphicalPrimitive
-   */
-  const std::string& getId () const;
-  
-  
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GraphicalPrimitive's "id" attribute has been set.
-   *
-   * @return returns true or false depending on whether the id on the 
-   * GraphicalPrimitive has been set.
-   */
-  bool isSetId () const;
-  
-  
-  /**
-   * Sets the value of the "id" attribute of this GraphicalPrimitive.
-   *
-   * @param id the new id for the GraphicalPrimitive 
-   *
-   * @return status if the operation succeeded
-   */
-  int setId (const std::string& id);
-  
-  
-  /**
-   * Unsets the value of the "id" attribute of this GraphicalPrimitive.
-   */
-  virtual int unsetId ();
-
 protected:
+
+
   /** @cond doxygenLibsbmlInternal */
-	/**
-	 * Subclasses should override this method to read values from the given
-	 * XMLAttributes set into their specific fields.  Be sure to call your
-	 * parents implementation of this method as well.
-	 */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
+
+  /**
+   * Creates a new object from the next XMLToken on the XMLInputStream
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -341,24 +918,659 @@ protected:
   static bool parseDashArray(const std::string& s,std::vector<unsigned int>& array);
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-	/**
-	 * Subclasses should override this method to write their XML attributes
-	 * to the XMLOutputStream.  Be sure to call your parents implementation
-	 * of this method as well.  For example:
-	 *
-	 *   SBase::writeAttributes(stream);
-	 *   stream.writeAttribute( "id"  , mId   );
-	 *   stream.writeAttribute( "name", mName );
-	 *   ...
-	 */
-	virtual void writeAttributes (XMLOutputStream& stream) const;
-        /** @endcond */
 };
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
 
-#endif /* GraphicalPrimitive1D_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Creates a new Ellipse (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createEllipse(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Rectangle (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRectangle(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Polygon (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createPolygon(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new RenderGroup (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRenderGroup(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new LineEnding (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createLineEnding(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Text (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createText(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new RenderCurve (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* GraphicalPrimitive1D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof GraphicalPrimitive1D_t
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRenderCurve(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this GraphicalPrimitive1D_t object.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return a (deep) copy of this GraphicalPrimitive1D_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t*
+GraphicalPrimitive1D_clone(const GraphicalPrimitive1D_t* gpd);
+
+
+/**
+ * Frees this GraphicalPrimitive1D_t object.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+void
+GraphicalPrimitive1D_free(GraphicalPrimitive1D_t* gpd);
+
+
+/**
+ * Returns the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this GraphicalPrimitive1D_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+char *
+GraphicalPrimitive1D_getId(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Returns the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure whose stroke is sought.
+ *
+ * @return the value of the "stroke" attribute of this GraphicalPrimitive1D_t
+ * as a pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+char *
+GraphicalPrimitive1D_getStroke(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Returns the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure whose stroke-width is
+ * sought.
+ *
+ * @return the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t as a double.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+double
+GraphicalPrimitive1D_getStrokeWidth(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's "id"
+ * attribute is set.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 (true) if this GraphicalPrimitive1D_t's "id" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetId(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's "stroke"
+ * attribute is set.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 (true) if this GraphicalPrimitive1D_t's "stroke" attribute has
+ * been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStroke(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
+ * "stroke-width" attribute is set.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 (true) if this GraphicalPrimitive1D_t's "stroke-width"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStrokeWidth(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
+ * "stroke-dashArray" attribute is set.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 (true) if this GraphicalPrimitive1D_t's "stroke-dashArray"
+ * attribute has been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStrokeDashArray(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Sets the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling GraphicalPrimitive1D_unsetId().
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setId(GraphicalPrimitive1D_t * gpd, const char * id);
+
+
+/**
+ * Sets the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @param stroke const char * value of the "stroke" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p stroke = @c NULL or an empty string is
+ * equivalent to calling GraphicalPrimitive1D_unsetStroke().
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStroke(GraphicalPrimitive1D_t * gpd,
+                               const char * stroke);
+
+
+/**
+ * Sets the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @param strokeWidth double value of the "stroke-width" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStrokeWidth(GraphicalPrimitive1D_t * gpd,
+                                    double strokeWidth);
+
+
+/**
+ * Sets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @param stroke-dashArray pointer value of the "stroke-dashArray" attribute to
+ * be set.
+ *
+ * @param arrayLength int value for the length of the "stroke-dashArray"
+ * attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStrokeDashArray(GraphicalPrimitive1D_t* gpd,
+                                        const char* strokeDash);
+
+
+/**
+ * Unsets the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetId(GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Unsets the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStroke(GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Unsets the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStrokeWidth(GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Unsets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D_t.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStrokeDashArray(GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Ellipse_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type Ellipse_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isEllipse(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * Rectangle_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type Rectangle_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRectangle(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Polygon_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type Polygon_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isPolygon(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * RenderGroup_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type RenderGroup_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRenderGroup(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * LineEnding_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type LineEnding_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isLineEnding(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Text_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type Text_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isText(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * RenderCurve_t
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 if this GraphicalPrimitive1D_t is of type RenderCurve_t, @c 0
+ * otherwise
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRenderCurve(const GraphicalPrimitive1D_t * gpd);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * GraphicalPrimitive1D_t object have been set.
+ *
+ * @param gpd the GraphicalPrimitive1D_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * GraphicalPrimitive1D_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GraphicalPrimitive1D_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_hasRequiredAttributes(const GraphicalPrimitive1D_t * gpd);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !GraphicalPrimitive1D_H__ */
+
+

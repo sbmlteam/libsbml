@@ -33,6 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ColorDefinition
+ * @sbmlbrief{render} TODO:Definition of the ColorDefinition class.
  * @brief LibSBML implementation for the %ColorDefinition construct from 
  * the SBML render extension.
  *

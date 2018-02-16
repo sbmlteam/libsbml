@@ -7,7 +7,7 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2013-2017 jointly by the following organizations:
+ * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  * 3. University of Heidelberg, Heidelberg, Germany
@@ -235,8 +235,8 @@ typedef enum
 , RenderGraphicalPrimitive1DAllowedCoreElements               = 1322602
 , RenderGraphicalPrimitive1DAllowedAttributes                 = 1322603
 , RenderGraphicalPrimitive1DStrokeMustBeString                = 1322604
-, RenderGraphicalPrimitive1DStrokeWidthMustBeString           = 1322605
-, RenderGraphicalPrimitive1DStrokeDasharrayMustBeString       = 1322606
+, RenderGraphicalPrimitive1DStrokeWidthMustBeDouble           = 1322605
+, RenderGraphicalPrimitive1DStrokeDashArrayMustBeString       = 1322606
 , RenderGraphicalPrimitive2DAllowedCoreAttributes             = 1322701
 , RenderGraphicalPrimitive2DAllowedCoreElements               = 1322702
 , RenderGraphicalPrimitive2DAllowedAttributes                 = 1322703

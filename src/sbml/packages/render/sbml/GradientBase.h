@@ -32,6 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GradientBase
+ * @sbmlbrief{render} TODO:Definition of the GradientBase class.
  * @brief abstract base class for linear and radial gradients
  * 
  * The base class implements common structures to both gradient classes.

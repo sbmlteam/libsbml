@@ -39,6 +39,7 @@
 #include <sbml/packages/render/sbml/Rectangle.h>
 #include <sbml/packages/render/sbml/Polygon.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
+#include <sbml/packages/render/sbml/LineEnding.h>
 #include <sbml/packages/render/sbml/Text.h>
 #include <sbml/packages/render/sbml/RenderCurve.h>
 
@@ -56,6 +57,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 const double Transformation::IDENTITY3D[12]={1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0};
+const double Transformation::NAN3D[12] = { std::numeric_limits<double>::quiet_NaN(),
+std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(), 
+std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(),
+std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(), 
+std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(),
+std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(),
+std::numeric_limits<double>::quiet_NaN() };
 
 #ifdef __cplusplus
 
@@ -68,13 +76,10 @@ Transformation::Transformation(unsigned int level,
                                unsigned int version,
                                unsigned int pkgVersion)
   : SBase(level, version)
+  , mTransformLength (12)
 {
     setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level,version,pkgVersion));  
-    unsigned int i;
-    for(i=0;i<12;++i)
-    {
-        mMatrix[i]=std::numeric_limits<double>::quiet_NaN();
-    }
+    setMatrix(NAN3D);
   connectToChild();
 }
 
@@ -84,13 +89,11 @@ Transformation::Transformation(unsigned int level,
  */
 Transformation::Transformation(RenderPkgNamespaces *renderns)
   : SBase(renderns)
+  , mTransformLength(12)
 {
-    unsigned int i;
-    for(i=0;i<12;++i)
-    {
-        mMatrix[i]=std::numeric_limits<double>::quiet_NaN();
-    }
-        // set the element namespace of this object
+  setMatrix(NAN3D);
+
+    // set the element namespace of this object
   setElementNamespace(renderns->getURI());
 
   // connect child elements to this element.
@@ -114,13 +117,10 @@ Transformation::Transformation(RenderPkgNamespaces *renderns)
  */
 Transformation::Transformation(const XMLNode& node, unsigned int l2version)
   : SBase(2, l2version)
+  , mTransformLength(12)
 {
   mURI = RenderExtension::getXmlnsL3V1V1();
-  unsigned int i;
-  for(i=0;i<12;++i)
-  {
-      mMatrix[i]=std::numeric_limits<double>::quiet_NaN();
-  }
+  setMatrix(NAN3D);
 
   
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(2,l2version));  
@@ -135,6 +135,7 @@ Transformation::Transformation(const XMLNode& node, unsigned int l2version)
  */
 Transformation::Transformation(const Transformation& orig)
   : SBase( orig )
+  , mTransformLength(12)
 {
   setMatrix(orig.getMatrix());
 }
@@ -180,12 +181,12 @@ Transformation::~Transformation()
 void
 Transformation::getTransform(double* outArray) const
 {
-  if (outArray == NULL || mMatrix == NULL)
+  if (outArray == NULL || !isSetTransform())
   {
     return;
   }
 
-  memcpy(outArray, mMatrix, sizeof(double)*12);
+  memcpy(outArray, mMatrix, sizeof(double)*mTransformLength);
 }
 
 
@@ -228,13 +229,7 @@ const double* Transformation::getIdentityMatrix()
 */
 bool Transformation::isSetTransform() const
 {
-  bool result = true;
-  unsigned int i;
-  for (i = 0; result && i<12; ++i)
-  {
-    result = (mMatrix[i] == mMatrix[i]);
-  }
-  return result;
+  return isSetMatrix();
 }
 
 
@@ -258,12 +253,31 @@ Transformation::isSetName() const
 bool Transformation::isSetMatrix() const
 {
   bool result=true;
-  unsigned int i;
-  for(i=0;result && i<12;++i)
+  
+  for(int i=0;result && i<mTransformLength;++i)
   {
       result=(mMatrix[i]==mMatrix[i]);
   }
   return result;
+}
+
+
+/*
+ * Sets the value of the "transform" attribute of this Transformation.
+ */
+int
+Transformation::setTransform(double* inArray)
+{
+  if (inArray == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  for (int i = 0; i<mTransformLength; ++i)
+  {
+    mMatrix[i] = inArray[i];
+  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -285,8 +299,7 @@ Transformation::setName(const std::string& name)
 */
 void Transformation::setMatrix(const double m[12])
 {
-  unsigned int i;
-  for (i = 0; i<12; ++i)
+  for (int i = 0; i<mTransformLength; ++i)
   {
     mMatrix[i] = m[i];
   }
@@ -299,11 +312,7 @@ void Transformation::setMatrix(const double m[12])
 int
 Transformation::unsetTransform()
 {
-  for (unsigned int i = 0; i < 12; ++i)
-  {
-    mMatrix[i] = std::numeric_limits<double>::quiet_NaN();
-  }
-  return LIBSBML_OPERATION_SUCCESS;
+  return unsetMatrix();
 }
 
 
@@ -397,6 +406,17 @@ Transformation::isRenderGroup() const
 
 /*
  * Predicate returning @c true if this abstract "Transformation" is of type
+ * LineEnding
+ */
+bool
+Transformation::isLineEnding() const
+{
+  return dynamic_cast<const LineEnding*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "Transformation" is of type
  * Text
  */
 bool
@@ -465,6 +485,33 @@ Transformation::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+/*
+ * used to write arrays
+ */
+//void
+//Transformation::write(XMLOutputStream& stream) const
+//{
+//  stream.startElement(getElementName(), getPrefix());
+//  writeAttributes(stream);
+//
+//  if (isSetTransform())
+//  {
+//    for (int i = 0; i < mTransformLength; ++i)
+//    {
+//      stream << (double)mMatrix[i] << " ";
+//    }
+//  }
+//
+//  stream.endElement(getElementName(), getPrefix());
+//}
 
 /** @endcond */
 
@@ -584,7 +631,7 @@ Transformation::isSetAttribute(const std::string& attributeName) const
 
   if (attributeName == "transform")
   {
-    value = isSetMatrix();
+    value = isSetTransform();
   }
   else if (attributeName == "name")
   {
@@ -702,7 +749,7 @@ Transformation::unsetAttribute(const std::string& attributeName)
 
   if (attributeName == "transform")
   {
-    value = unsetMatrix();
+    value = unsetTransform();
   }
   else if (attributeName == "name")
   {
@@ -745,7 +792,7 @@ Transformation::readAttributes(const XMLAttributes& attributes,
   unsigned int level = getLevel();
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
-  unsigned int numErrs;
+//  unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
@@ -891,6 +938,20 @@ Transformation_createRenderGroup(unsigned int level,
 
 
 /*
+ * Creates a new LineEnding (Transformation_t) using the given SBML Level,
+ * Version and &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+Transformation_t *
+Transformation_createLineEnding(unsigned int level,
+                                unsigned int version,
+                                unsigned int pkgVersion)
+{
+  return new LineEnding(level, version, pkgVersion);
+}
+
+
+/*
  * Creates a new Text (Transformation_t) using the given SBML Level, Version
  * and &ldquo;render&rdquo; package version.
  */
@@ -967,6 +1028,18 @@ Transformation_getName(const Transformation_t * t)
 
 
 /*
+ * Predicate returning @c 1 (true) if this Transformation_t's "transform"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+Transformation_isSetTransform(const Transformation_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetTransform()) : 0;
+}
+
+
+/*
  * Predicate returning @c 1 (true) if this Transformation_t's "name" attribute
  * is set.
  */
@@ -979,6 +1052,19 @@ Transformation_isSetName(const Transformation_t * t)
 
 
 /*
+ * Sets the value of the "transform" attribute of this Transformation_t.
+ */
+LIBSBML_EXTERN
+int
+Transformation_setTransform(Transformation_t* t,
+                            double* transform)
+{
+  return (t != NULL) ? t->setTransform(transform) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
  * Sets the value of the "name" attribute of this Transformation_t.
  */
 LIBSBML_EXTERN
@@ -986,6 +1072,17 @@ int
 Transformation_setName(Transformation_t * t, const char * name)
 {
   return (t != NULL) ? t->setName(name) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "transform" attribute of this Transformation_t.
+ */
+LIBSBML_EXTERN
+int
+Transformation_unsetTransform(Transformation_t * t)
+{
+  return (t != NULL) ? t->unsetTransform() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1052,6 +1149,17 @@ int
 Transformation_isRenderGroup(const Transformation_t * t)
 {
   return (t != NULL) ? static_cast<int>(t->isRenderGroup()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this Transformation_t is of type LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+Transformation_isLineEnding(const Transformation_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isLineEnding()) : 0;
 }
 
 

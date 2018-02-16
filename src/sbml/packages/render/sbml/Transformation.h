@@ -67,6 +67,7 @@ class Ellipse;
 class Rectangle;
 class Polygon;
 class RenderGroup;
+class LineEnding;
 class Text;
 class RenderCurve;
 
@@ -76,6 +77,8 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   double mMatrix[12];
   static const double IDENTITY3D[12];
+  static const double NAN3D[12];
+  int mTransformLength;
   /** @endcond */
 
 protected:
@@ -224,6 +227,19 @@ public:
 
 
   /**
+   * Sets the value of the "transform" attribute of this Transformation.
+   *
+   * @param inArray double* array value of the "transform" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setTransform(double* inArray);
+
+
+  /**
    * Sets the value of the "name" attribute of this Transformation.
    *
    * @param name std::string& value of the "name" attribute to be set.
@@ -326,6 +342,16 @@ public:
 
   /**
    * Predicate returning @c true if this abstract "Transformation" is of type
+   * LineEnding
+   *
+   * @return @c true if this abstract "Transformation" is of type LineEnding,
+   * @c false otherwise
+   */
+  virtual bool isLineEnding() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation" is of type
    * Text
    *
    * @return @c true if this abstract "Transformation" is of type Text,
@@ -389,6 +415,8 @@ public:
   virtual bool accept(SBMLVisitor& v) const;
 
   /** @endcond */
+
+
 
 
 
@@ -823,6 +851,32 @@ Transformation_createRenderGroup(unsigned int level,
 
 
 /**
+ * Creates a new LineEnding (Transformation_t) using the given SBML Level,
+ * Version and &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * Transformation_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Transformation_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * Transformation_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Transformation_t
+ */
+LIBSBML_EXTERN
+Transformation_t *
+Transformation_createLineEnding(unsigned int level,
+                                unsigned int version,
+                                unsigned int pkgVersion);
+
+
+/**
  * Creates a new Text (Transformation_t) using the given SBML Level, Version
  * and &ldquo;render&rdquo; package version.
  *
@@ -936,6 +990,22 @@ Transformation_isSetName(const Transformation_t * t);
 
 
 /**
+* Predicate returning @c 1 (true) if this Transformation_t's "transform" attribute
+* is set.
+*
+* @param t the Transformation_t structure.
+*
+* @return @c 1 (true) if this Transformation_t's "transform" attribute has been
+* set, otherwise @c 0 (false) is returned.
+*
+* @memberof Transformation_t
+*/
+LIBSBML_EXTERN
+int
+Transformation_isSetTranform(const Transformation_t * t);
+
+
+/**
  * Sets the value of the "name" attribute of this Transformation_t.
  *
  * @param t the Transformation_t structure.
@@ -954,6 +1024,24 @@ Transformation_isSetName(const Transformation_t * t);
 LIBSBML_EXTERN
 int
 Transformation_setName(Transformation_t * t, const char * name);
+
+
+/**
+* Sets the value of the "transform" attribute of this Transformation_t.
+*
+* @param t the Transformation_t structure.
+*
+* @param transform double * array of the "transform" attribute to be set.
+*
+* @copydetails doc_returns_success_code
+* @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+* @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+*
+* @memberof Transformation_t
+*/
+LIBSBML_EXTERN
+int
+Transformation_setTransform(Transformation_t * t, double* transform);
 
 
 /**
@@ -1042,6 +1130,21 @@ Transformation_isPolygon(const Transformation_t * t);
 LIBSBML_EXTERN
 int
 Transformation_isRenderGroup(const Transformation_t * t);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation_t is of type LineEnding_t
+ *
+ * @param t the Transformation_t structure.
+ *
+ * @return @c 1 if this Transformation_t is of type LineEnding_t, @c 0
+ * otherwise
+ *
+ * @memberof Transformation_t
+ */
+LIBSBML_EXTERN
+int
+Transformation_isLineEnding(const Transformation_t * t);
 
 
 /**

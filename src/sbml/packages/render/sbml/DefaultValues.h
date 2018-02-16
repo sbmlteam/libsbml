@@ -83,7 +83,7 @@ protected:
   RelAbsVector mRadialGradient_fy;
   RelAbsVector mRadialGradient_fz;
   std::string mFill;
-  GraphicalPrimitive2D::FILL_RULE mFillRule;
+  int mFillRule;
   RelAbsVector mDefault_z;
   std::string mStroke;
   double mStrokeWidth;
@@ -340,10 +340,10 @@ public:
    * Returns the value of the "fillRule" attribute of this DefaultValues.
    *
    * @return the value of the "fillRule" attribute of this DefaultValues as a
-   * GraphicalPrimitive2D::FILL_RULE.
+   * FileRule_t.
    *
    */
-  GraphicalPrimitive2D::FILL_RULE getFillRule() const;
+  int getFillRule() const;
 
 
   /**
@@ -1074,6 +1074,22 @@ public:
    * @copydetails doc_defaultvalues_fillRule
    */
   int setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule);
+
+
+  /**
+  * Sets the value of the "fillRule" attribute of this DefaultValues.
+  *
+  * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif value of the
+  * "fillRule" attribute to be set.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+  * OperationReturnValues_t}
+  *
+  * @copydetails doc_defaultvalues_fillRule
+  */
+  int setFillRule(FillRule_t fillRule);
 
 
   /**

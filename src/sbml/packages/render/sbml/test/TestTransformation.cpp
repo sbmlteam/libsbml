@@ -120,6 +120,40 @@ START_TEST (test_Transformation_setMatrix )
 END_TEST 
 
 
+START_TEST(test_Transformation_setTransform)
+{
+  fail_unless(!T->isSetTransform());
+  double transform[] = { 0.0 };
+  T->getTransform(transform);
+  fail_unless(util_isEqual(transform[0], 0.0));
+  
+  double newTransform[12] = { 12.0,11.0,10.0,9.0,8.0,7.0,6.0,5.0,4.0,3.0,2.0,1.0 };
+  T->setTransform(newTransform);
+  fail_unless(T->isSetTransform());
+  
+  double retTransform[12];
+  T->getTransform(retTransform);
+  fail_unless(retTransform != NULL);
+  // test the twelve values
+  fail_unless(util_isEqual(retTransform[0], 12.0));
+  fail_unless(util_isEqual(retTransform[1], 11.0));
+  fail_unless(util_isEqual(retTransform[2], 10.0));
+  fail_unless(util_isEqual(retTransform[3], 9.0));
+  fail_unless(util_isEqual(retTransform[4], 8.0));
+  fail_unless(util_isEqual(retTransform[5], 7.0));
+  fail_unless(util_isEqual(retTransform[6], 6.0));
+  fail_unless(util_isEqual(retTransform[7], 5.0));
+  fail_unless(util_isEqual(retTransform[8], 4.0));
+  fail_unless(util_isEqual(retTransform[9], 3.0));
+  fail_unless(util_isEqual(retTransform[10], 2.0));
+  fail_unless(util_isEqual(retTransform[11], 1.0));
+
+  fail_unless(T->unsetTransform() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(!T->isSetTransform());
+}
+END_TEST
+
+
 Suite *
 create_suite_Transformation (void)
 {
@@ -132,6 +166,7 @@ create_suite_Transformation (void)
                              TransformationTest_teardown );
 
   tcase_add_test( tcase, test_Transformation_setMatrix );
+  tcase_add_test(tcase, test_Transformation_setTransform);
 
   suite_add_tcase(suite, tcase);
 

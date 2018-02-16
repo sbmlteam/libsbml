@@ -32,6 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transformation2D
+ * @sbmlbrief{render} TODO:Definition of the Transformation2D class.
  * @brief implementation of a 2D transformation matrix.
  *
  * The Transformation2D class represents a 2D transformation. it is derived from Transformation 
@@ -48,52 +49,81 @@
 #ifndef Transformation2D_H__
 #define Transformation2D_H__
 
+
+#include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
+
+#ifdef __cplusplus
+
+
+#include <string>
+
 
 #include <sbml/packages/render/sbml/Transformation.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/xml/XMLNode.h>
 
-#ifdef __cplusplus
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+class Image;
+class Ellipse;
+class Rectangle;
+class Polygon;
+class RenderGroup;
+class LineEnding;
+class Text;
+class RenderCurve;
+
 class LIBSBML_EXTERN Transformation2D : public Transformation
 {
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  std::string mElementName;
+
+  /** @endcond */
+
   static const double IDENTITY2D[6];
+  double mMatrix2D[6];
 
 public:
 
-
   /**
-   * Returns a 2D identity matrix.
-   * The matrix contains 6 double values.
-   */
-  static const double* getIdentityMatrix2D();
-
-  /**
-   * Creates a new Transformation2D object with the given SBML level
-   * and SBML version.
+   * Creates a new Transformation2D using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
-   */
-  Transformation2D (unsigned int level      = RenderExtension::getDefaultLevel(),
-    unsigned int version    = RenderExtension::getDefaultVersion(),
-    unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new Transformation2D object with the given SBMLNamespaces.
+   * @param level an unsigned int, the SBML Level to assign to this
+   * Transformation2D.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @param version an unsigned int, the SBML Version to assign to this
+   * Transformation2D.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this Transformation2D.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Transformation2D (RenderPkgNamespaces* renderns);
+  Transformation2D(unsigned int level = RenderExtension::getDefaultLevel(),
+                   unsigned int version = RenderExtension::getDefaultVersion(),
+                   unsigned int pkgVersion =
+                     RenderExtension::getDefaultPackageVersion());
+
 
   /**
-   * Copy constructor.
+   * Creates a new Transformation2D using the given RenderPkgNamespaces object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Transformation2D(const Transformation2D& other);
+  Transformation2D(RenderPkgNamespaces *renderns);
 
   /**
    * Creates a new Transformation2D object from the given XMLNode object.
@@ -109,9 +139,34 @@ public:
 
 
   /**
-   * Destroy this Transformation2D object.
+   * Copy constructor for Transformation2D.
+   *
+   * @param orig the Transformation2D instance to copy.
    */
-  virtual ~Transformation2D ();
+  Transformation2D(const Transformation2D& orig);
+
+
+  /**
+   * Assignment operator for Transformation2D.
+   *
+   * @param rhs the Transformation2D object whose values are to be used as the
+   * basis of the assignment.
+   */
+  Transformation2D& operator=(const Transformation2D& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this Transformation2D object.
+   *
+   * @return a (deep) copy of this Transformation2D object.
+   */
+  virtual Transformation2D* clone() const;
+
+
+  /**
+   * Destructor for Transformation2D.
+   */
+  virtual ~Transformation2D();
 
 
 #ifndef OMIT_DEPRECATED
@@ -125,6 +180,92 @@ public:
    */
   Transformation2D(RenderPkgNamespaces* renderns, const double m[6]);
 #endif // OMIT_DEPRECATED
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * Image
+   *
+   * @return @c true if this abstract "Transformation2D" is of type Image,
+   * @c false otherwise
+   */
+  virtual bool isImage() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * Ellipse
+   *
+   * @return @c true if this abstract "Transformation2D" is of type Ellipse,
+   * @c false otherwise
+   */
+  virtual bool isEllipse() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * Rectangle
+   *
+   * @return @c true if this abstract "Transformation2D" is of type Rectangle,
+   * @c false otherwise
+   */
+  virtual bool isRectangle() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * Polygon
+   *
+   * @return @c true if this abstract "Transformation2D" is of type Polygon,
+   * @c false otherwise
+   */
+  virtual bool isPolygon() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * RenderGroup
+   *
+   * @return @c true if this abstract "Transformation2D" is of type
+   * RenderGroup, @c false otherwise
+   */
+  virtual bool isRenderGroup() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * LineEnding
+   *
+   * @return @c true if this abstract "Transformation2D" is of type LineEnding,
+   * @c false otherwise
+   */
+  virtual bool isLineEnding() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * Text
+   *
+   * @return @c true if this abstract "Transformation2D" is of type Text,
+   * @c false otherwise
+   */
+  virtual bool isText() const;
+
+
+  /**
+   * Predicate returning @c true if this abstract "Transformation2D" is of type
+   * RenderCurve
+   *
+   * @return @c true if this abstract "Transformation2D" is of type
+   * RenderCurve, @c false otherwise
+   */
+  virtual bool isRenderCurve() const;
+
+
+  /**
+   * Returns a 2D identity matrix.
+   * The matrix contains 6 double values.
+   */
+  static const double* getIdentityMatrix2D();
 
   /**
    * Sets the 2D matrix to the values given in the array.
@@ -150,6 +291,341 @@ public:
   const double* getMatrix2D() const;
 
   /**
+   * Returns the XML element name of this Transformation2D object.
+   *
+   * For Transformation2D, the XML element name is always
+   * @c "transformation2D".
+   *
+   * @return the name of this element, i.e. @c "transformation2D".
+   */
+  virtual const std::string& getElementName() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the XML name of this Transformation2D object.
+   */
+  virtual void setElementName(const std::string& name);
+
+  /** @endcond */
+
+
+  /**
+   * Returns the libSBML type code for this Transformation2D object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_TRANSFORMATION2D, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * Transformation2D object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * Transformation2D have been set, otherwise @c false is returned.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this Transformation2D's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this Transformation2D's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this
+   * Transformation2D.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
    * Creates an XMLNode object from this Transformation2D object.
    *
    * @return the XMLNode with the XML representation for the 
@@ -159,25 +635,53 @@ public:
    */
   virtual XMLNode toXML() const = 0;
 
+protected:
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
+  virtual SBase* createObject(XMLInputStream& stream);
+
   /** @endcond */
 
-protected:
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -205,16 +709,6 @@ protected:
   /** @endcond */
 
 
-  /**
-   * Returns the XML element name of this object.
-   *
-   * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning "model",
-   * CompartmentType defines it as returning "compartmentType", etc.
-   * 
-   * NOTE: this function is only ever going to be called from the constructor
-   */
-  virtual const std::string& getElementName () const;
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -238,30 +732,418 @@ protected:
   void updateMatrix2D();
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * the 2D matrix.
-   */
-  double mMatrix2D[6];
-  /** @endcond */
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-  /** @endcond */
 };
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+
+
 #endif /* __cplusplus */
 
-#endif /* Transformation2D_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+* Creates a new Image (Transformation2D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createImage(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Ellipse (Transformation2D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createEllipse(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Rectangle (Transformation2D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createRectangle(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Polygon (Transformation2D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createPolygon(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new RenderGroup (Transformation2D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createRenderGroup(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new Text (Transformation2D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createText(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new RenderCurve (Transformation2D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createRenderCurve(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+* Creates a new LineEnding (Transformation2D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*
+* @param level an unsigned int, the SBML Level to assign to this
+* Transformation2D_t.
+*
+* @param version an unsigned int, the SBML Version to assign to this
+* Transformation2D_t.
+*
+* @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+* Transformation2D_t.
+*
+* @copydetails doc_note_setting_lv_pkg
+*
+* @copydetails doc_returned_owned_pointer
+*
+* @memberof Transformation2D_t
+*/
+LIBSBML_EXTERN
+Transformation2D_t *
+Transformation2D_createLineEnding(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this Transformation2D_t object.
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return a (deep) copy of this Transformation2D_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+Transformation2D_t*
+Transformation2D_clone(const Transformation2D_t* td);
+
+
+/**
+ * Frees this Transformation2D_t object.
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+void
+Transformation2D_free(Transformation2D_t* td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type Image_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type Image_t, @c 0 otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isImage(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type Ellipse_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type Ellipse_t, @c 0 otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isEllipse(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type Rectangle_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type Rectangle_t, @c 0
+ * otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isRectangle(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type Polygon_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type Polygon_t, @c 0 otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isPolygon(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type RenderGroup_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type RenderGroup_t, @c 0
+ * otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isRenderGroup(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type LineEnding_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type LineEnding_t, @c 0
+ * otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isLineEnding(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type Text_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type Text_t, @c 0 otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isText(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 if this Transformation2D_t is of type RenderCurve_t
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 if this Transformation2D_t is of type RenderCurve_t, @c 0
+ * otherwise
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_isRenderCurve(const Transformation2D_t * td);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Transformation2D_t object have been set.
+ *
+ * @param td the Transformation2D_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Transformation2D_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof Transformation2D_t
+ */
+LIBSBML_EXTERN
+int
+Transformation2D_hasRequiredAttributes(const Transformation2D_t * td);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !Transformation2D_H__ */
+
+

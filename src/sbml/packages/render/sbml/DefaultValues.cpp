@@ -422,7 +422,7 @@ DefaultValues::getFill() const
 /*
  * Returns the value of the "fillRule" attribute of this DefaultValues.
  */
-GraphicalPrimitive2D::FILL_RULE
+int
 DefaultValues::getFillRule() const
 {
   return mFillRule;
@@ -435,7 +435,7 @@ DefaultValues::getFillRule() const
 std::string
 DefaultValues::getFillRuleAsString() const
 {
-  std::string code_str = FillRule_toString(mFillRule);
+  std::string code_str = FillRule_toString((FillRule_t)(mFillRule));
   return code_str;
 }
 
@@ -1120,6 +1120,17 @@ DefaultValues::setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule)
 {
     mFillRule = fillRule;
     return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "fillRule" attribute of this DefaultValues.
+*/
+int
+DefaultValues::setFillRule(FillRule_t fillRule)
+{
+  mFillRule = fillRule;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

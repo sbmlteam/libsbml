@@ -7,7 +7,7 @@
  * This file is part of libSBML. Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright (C) 2013-2017 jointly by the following organizations:
+ * Copyright (C) 2013-2018 jointly by the following organizations:
  * 1. California Institute of Technology, Pasadena, CA, USA
  * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  * 3. University of Heidelberg, Heidelberg, Germany
@@ -2199,10 +2199,9 @@ static const packageErrorTableEntry renderErrorTable[] =
     "Attributes allowed on <transformation>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <transformation> object must have the required attribute "
-    "'render:transform', and may have the optional attribute 'render:name'. No "
-    "other attributes from the SBML Level 3 Render namespaces are permitted on "
-    "a <transformation> object. ",
+    "A <transformation> object may have the optional attributes "
+    "'render:transform' and 'render:name'. No other attributes from the SBML "
+    "Level 3 Render namespaces are permitted on a <transformation> object. ",
     { "L3V1 Render V1 Section"
     }
   },
@@ -2260,7 +2259,7 @@ static const packageErrorTableEntry renderErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <graphicalPrimitive1D> object may have the optional attributes "
     "'render:id', 'render:stroke', 'render:stroke-width' and "
-    "'render:stroke-dasharray'. No other attributes from the SBML Level 3 "
+    "'render:stroke-dashArray'. No other attributes from the SBML Level 3 "
     "Render namespaces are permitted on a <graphicalPrimitive1D> object. ",
     { "L3V1 Render V1 Section"
     }
@@ -2278,23 +2277,24 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322605
-  { RenderGraphicalPrimitive1DStrokeWidthMustBeString,
-    "The 'strokeWidth' attribute must be String.",
+  { RenderGraphicalPrimitive1DStrokeWidthMustBeDouble,
+    "The 'strokeWidth' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:stroke-width' on a <graphicalPrimitive1D> must have "
-    "a value of data type 'string'.",
+    "a value of data type 'double'.",
     { "L3V1 Render V1 Section"
     }
   },
 
   // 1322606
-  { RenderGraphicalPrimitive1DStrokeDasharrayMustBeString,
-    "The 'strokeDasharray' attribute must be String.",
+  { RenderGraphicalPrimitive1DStrokeDashArrayMustBeString,
+    "The 'strokeDashArray' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'render:stroke-dasharray' on a <graphicalPrimitive1D> must "
-    "have a value of data type 'string'.",
+    "The value of the attribute 'render:stroke-dashArray' of a "
+    "<graphicalPrimitive1D> object must be an array of values of type "
+    "'unsignedint'.",
     { "L3V1 Render V1 Section"
     }
   },

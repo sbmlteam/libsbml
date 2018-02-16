@@ -31,7 +31,19 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "GraphicalPrimitive1D.h"
+#include <sbml/packages/render/sbml/GraphicalPrimitive1D.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
+#include <sbml/packages/render/sbml/Ellipse.h>
+#include <sbml/packages/render/sbml/Rectangle.h>
+#include <sbml/packages/render/sbml/Polygon.h>
+#include <sbml/packages/render/sbml/RenderGroup.h>
+#include <sbml/packages/render/sbml/LineEnding.h>
+#include <sbml/packages/render/sbml/Text.h>
+#include <sbml/packages/render/sbml/RenderCurve.h>
+
+
+using namespace std;
 
 #include <limits>
 #include <sstream>
@@ -44,36 +56,37 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
+
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new GraphicalPrimitive1D object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new GraphicalPrimitive1D using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-GraphicalPrimitive1D::GraphicalPrimitive1D (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    Transformation2D(level,version,pkgVersion)
-////    ,mId("")
+GraphicalPrimitive1D::GraphicalPrimitive1D(unsigned int level,
+                                           unsigned int version,
+                                           unsigned int pkgVersion)
+  : Transformation2D(level, version)
     ,mStroke("")
     ,mStrokeWidth(std::numeric_limits<double>::quiet_NaN())
+  , mIsSetStrokeWidth (false)
 {
-  
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new GraphicalPrimitive1D object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new GraphicalPrimitive1D using the given RenderPkgNamespaces
+ * object.
  */
-GraphicalPrimitive1D::GraphicalPrimitive1D (RenderPkgNamespaces* renderns):
-    Transformation2D(renderns)
-////    ,mId("")
-    ,mStroke("")
+GraphicalPrimitive1D::GraphicalPrimitive1D(RenderPkgNamespaces *renderns)
+  : Transformation2D(renderns)
+  , mStroke ("")
     ,mStrokeWidth(std::numeric_limits<double>::quiet_NaN())
+  , mIsSetStrokeWidth (false)
 {
       // set the element namespace of this object
   setElementNamespace(renderns->getURI());
@@ -84,31 +97,8 @@ GraphicalPrimitive1D::GraphicalPrimitive1D (RenderPkgNamespaces* renderns):
   // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
-
-/*
- * Copy constructor.
- */
-GraphicalPrimitive1D::GraphicalPrimitive1D(const GraphicalPrimitive1D& other)
-  : Transformation2D(other)
-//  , mId(other.mId)
-  , mStroke(other.mStroke)
-  , mStrokeWidth(other.mStrokeWidth)
-{
-  setId(other.mId);
-}
 
 
-/*
- * Destroy this object.
- */
-GraphicalPrimitive1D::~GraphicalPrimitive1D ()
-{
-}
-
-
-
-/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new GraphicalPrimitive1D object from the given XMLNode object.
  * The XMLNode object has to contain a valid XML representation of a 
@@ -149,45 +139,6 @@ GraphicalPrimitive1D::GraphicalPrimitive1D(const XMLNode& node, unsigned int l2v
 
   connectToChild();
 }
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void
-GraphicalPrimitive1D::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  Transformation2D::addExpectedAttributes(attributes);
-
-  attributes.add("id");
-  attributes.add("stroke");
-  attributes.add("stroke-width");
-  attributes.add("stroke-dasharray");
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void GraphicalPrimitive1D::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-  Transformation2D::readAttributes(attributes, expectedAttributes);
-    attributes.readInto("id", mId, getErrorLog(), false,getLine(), getColumn());
-    attributes.readInto("stroke", this->mStroke, getErrorLog(), false, getLine(), getColumn());
-    std::string s;
-    attributes.readInto("stroke-width", s, getErrorLog(), false, getLine(), getColumn());
-    if(s!="")
-    {
-        this->mStrokeWidth=strtod(s.c_str(),NULL);
-    }
-    else
-    {
-        this->mStrokeWidth=std::numeric_limits<double>::quiet_NaN();
-    }
-    // parse the stroke-dasharray
-    if(attributes.readInto("stroke-dasharray", s, getErrorLog(), false, getLine(), getColumn()) && !s.empty())
-    {
-        this->setDashArray(s);
-    }
-}
-/** @endcond */
-
 
 
 #ifndef OMIT_DEPRECATED
@@ -226,66 +177,98 @@ GraphicalPrimitive1D::GraphicalPrimitive1D(RenderPkgNamespaces* renderns, const 
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the stroke color to the given color definition id or color value string.
- * (@see ColorDefinition)
- *
- * @param stroke id of a ColorDefinition object or a valid color value string.
- */
-void GraphicalPrimitive1D::setStroke(const std::string& id)
-{
-    this->mStroke=id;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the stroke width.
- *
- * @param width New width for strokes. Should be a positive value.
+ * Copy constructor for GraphicalPrimitive1D.
  */
-void GraphicalPrimitive1D::setStrokeWidth(double width)
+GraphicalPrimitive1D::GraphicalPrimitive1D(const GraphicalPrimitive1D& orig)
+  : Transformation2D( orig )
+  , mStroke ( orig.mStroke )
+  , mStrokeWidth ( orig.mStrokeWidth )
+  , mIsSetStrokeWidth ( orig.mIsSetStrokeWidth )
+  , mStrokeDashArray (orig.mStrokeDashArray)
 {
-    this->mStrokeWidth=(width>0 || width!=width)?width:0.0;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the dasharray to the values in the given array.
- *
- * @param array Array of alternating stroke and gap length values.
- */
-void GraphicalPrimitive1D::setDashArray(const std::vector<unsigned int>& array)
-{
-    this->mStrokeDashArray=array;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the stroke color.
- *
- * @return the id of the color definition or a color value string.
+ * Assignment operator for GraphicalPrimitive1D.
  */
-const std::string& GraphicalPrimitive1D::getStroke() const
+GraphicalPrimitive1D&
+GraphicalPrimitive1D::operator=(const GraphicalPrimitive1D& rhs)
 {
-    return this->mStroke;
-}
-/** @endcond */
+  if (&rhs != this)
+  {
+    Transformation2D::operator=(rhs);
+    mStroke = rhs.mStroke;
+    mStrokeWidth = rhs.mStrokeWidth;
+    mIsSetStrokeWidth = rhs.mIsSetStrokeWidth;
+    mStrokeDashArray = rhs.mStrokeDashArray;
+  }
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the stroke width.
- *
- * @return the stroke width
- */
-double GraphicalPrimitive1D::getStrokeWidth() const
-{
-    return this->mStrokeWidth;
+  return *this;
 }
-/** @endcond */
+
+
+/*
+ * Creates and returns a deep copy of this GraphicalPrimitive1D object.
+ */
+GraphicalPrimitive1D*
+GraphicalPrimitive1D::clone() const
+{
+  return (GraphicalPrimitive1D*)(Transformation::clone());
+}
+
+
+/*
+ * Destructor for GraphicalPrimitive1D.
+ */
+GraphicalPrimitive1D::~GraphicalPrimitive1D()
+{
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this GraphicalPrimitive1D.
+ */
+const std::string&
+GraphicalPrimitive1D::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
+ */
+const std::string&
+GraphicalPrimitive1D::getStroke() const
+{
+  return mStroke;
+}
+
+
+/*
+ * Returns the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D.
+ */
+double
+GraphicalPrimitive1D::getStrokeWidth() const
+{
+  return mStrokeWidth;
+}
+
+
+/*
+ * Returns the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D.
+ */
+const std::vector<unsigned int>&
+GraphicalPrimitive1D::getStrokeDashArray() const
+{
+  return this->mStrokeDashArray;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -311,33 +294,54 @@ std::vector<unsigned int>& GraphicalPrimitive1D::getDashArray()
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns true is the stroke width has been set or false otherwise.
- * The stroke width is considered set if it is not NaN.
- *
- * @return true is the stroke width is set.
+ * Predicate returning @c true if this GraphicalPrimitive1D's "id" attribute is
+ * set.
  */
-bool GraphicalPrimitive1D::isSetStrokeWidth() const
+bool
+GraphicalPrimitive1D::isSetId() const
 {
-    return (mStrokeWidth==mStrokeWidth);
+  return (mId.empty() == false);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns true is the stroke has been set or false otherwise.
- * The stroke color is considered set if the string is not empty.
- *
- * @return true if the stroke color is set.
+ * Predicate returning @c true if this GraphicalPrimitive1D's "stroke"
+ * attribute is set.
  */
-bool GraphicalPrimitive1D::isSetStroke() const
+bool
+GraphicalPrimitive1D::isSetStroke() const
 {
-    return (!this->mStroke.empty()) && (this->mStroke != "none");
+  return (!this->mStroke.empty()) && (this->mStroke != "none");
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this GraphicalPrimitive1D's "stroke-width"
+ * attribute is set.
+ */
+bool
+GraphicalPrimitive1D::isSetStrokeWidth() const
+{
+  return mIsSetStrokeWidth;
+}
+
+
+/*
+ * Predicate returning @c true if this GraphicalPrimitive1D's
+ * "stroke-dashArray" attribute is set.
+ */
+bool
+GraphicalPrimitive1D::isSetStrokeDashArray() const
+{
+    bool result=true;
+    if(mStrokeDashArray.empty() || mStrokeDashArray[0]!=mStrokeDashArray[0])
+    {
+        result=false;
+    }
+    return result;
+}
+
 /*
  * Returns true is the dash array has been set or false otherwise.
  * The array is considered set if it is not empty and if the first entry is
@@ -351,6 +355,88 @@ bool GraphicalPrimitive1D::isSetDashArray() const
     if(mStrokeDashArray.empty() || mStrokeDashArray[0]!=mStrokeDashArray[0])
     {
         result=false;
+    }
+    return result;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "stroke" attribute of this GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setStroke(const std::string& stroke)
+{
+  mStroke = stroke;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setStrokeWidth(double strokeWidth)
+{
+  mStrokeWidth = strokeWidth;
+  mIsSetStrokeWidth = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setStrokeDashArray(const std::vector<unsigned int>& array)
+{
+  this->mStrokeDashArray = array;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the dasharray to the values in the given array.
+ *
+ * @param array Array of alternating stroke and gap length values.
+ */
+void GraphicalPrimitive1D::setDashArray(const std::vector<unsigned int>& array)
+{
+    this->mStrokeDashArray=array;
+}
+
+
+/*
+ * Sets the dasharray from the given string.
+ * If the string is not a valid dasharray string, false
+ * is returned and the dasharray remains in the state is was
+ * before the call.
+ *
+ * The individual numerical values in the string have to be separated by kommas.
+ *
+ * @param arrayString a string with number representing a dash array.
+ *
+ * @return true is setting the dasharray from the string succeed or false otherwise.
+ */
+bool GraphicalPrimitive1D::setDashArray(const std::string& arrayString)
+{
+    std::vector<unsigned int> array;
+    bool result=false;
+    if(this->parseDashArray(arrayString,array)==true)
+    {
+        this->mStrokeDashArray=array;
+        result=true;
     }
     return result;
 }
@@ -425,37 +511,697 @@ GraphicalPrimitive1D::insertDash(unsigned int index, unsigned int dash)
 }
 
 
-/** @endcond */
+/*
+ * Unsets the value of the "id" attribute of this GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "stroke" attribute of this GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::unsetStroke()
+{
+  mStroke.erase();
+
+  if (mStroke.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::unsetStrokeWidth()
+{
+  mStrokeWidth = util_NaN();
+  mIsSetStrokeWidth = false;
+
+  if (isSetStrokeWidth() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::unsetStrokeDashArray()
+{
+  mStrokeDashArray.clear();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type Ellipse
+ */
+bool
+GraphicalPrimitive1D::isEllipse() const
+{
+  return dynamic_cast<const Ellipse*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type Rectangle
+ */
+bool
+GraphicalPrimitive1D::isRectangle() const
+{
+  return dynamic_cast<const Rectangle*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type Polygon
+ */
+bool
+GraphicalPrimitive1D::isPolygon() const
+{
+  return dynamic_cast<const Polygon*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type RenderGroup
+ */
+bool
+GraphicalPrimitive1D::isRenderGroup() const
+{
+  return dynamic_cast<const RenderGroup*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type LineEnding
+ */
+bool
+GraphicalPrimitive1D::isLineEnding() const
+{
+  return dynamic_cast<const LineEnding*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type Text
+ */
+bool
+GraphicalPrimitive1D::isText() const
+{
+  return dynamic_cast<const Text*>(this) != NULL;
+}
+
+
+/*
+ * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+ * type RenderCurve
+ */
+bool
+GraphicalPrimitive1D::isRenderCurve() const
+{
+  return dynamic_cast<const RenderCurve*>(this) != NULL;
+}
+
+
+/*
+ * Returns the libSBML type code for this GraphicalPrimitive1D object.
+ */
+int
+GraphicalPrimitive1D::getTypeCode() const
+{
+  return SBML_RENDER_GRAPHICALPRIMITIVE1D;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * GraphicalPrimitive1D object have been set.
+ */
+bool
+GraphicalPrimitive1D::hasRequiredAttributes() const
+{
+  bool allPresent = Transformation2D::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
+ * Write any contained elements
  */
-void GraphicalPrimitive1D::writeAttributes (XMLOutputStream& stream) const
+void
+GraphicalPrimitive1D::writeElements(XMLOutputStream& stream) const
 {
-    Transformation2D::writeAttributes(stream);
-    if(this->isSetId())
+  Transformation2D::writeElements(stream);
+
+  SBase::writeExtensionElements(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+GraphicalPrimitive1D::accept(SBMLVisitor& v) const
+{
+  return v.visit(*this);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+GraphicalPrimitive1D::setSBMLDocument(SBMLDocument* d)
+{
+  Transformation2D::setSBMLDocument(d);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+GraphicalPrimitive1D::enablePackageInternal(const std::string& pkgURI,
+                                            const std::string& pkgPrefix,
+                                            bool flag)
+{
+  Transformation2D::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::getAttribute(const std::string& attributeName,
+                                   bool& value) const
+{
+  int return_value = Transformation2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::getAttribute(const std::string& attributeName,
+                                   int& value) const
+{
+  int return_value = Transformation2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::getAttribute(const std::string& attributeName,
+                                   double& value) const
+{
+  int return_value = Transformation2D::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "stroke-width")
+  {
+    value = getStrokeWidth();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::getAttribute(const std::string& attributeName,
+                                   unsigned int& value) const
+{
+  int return_value = Transformation2D::getAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Gets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::getAttribute(const std::string& attributeName,
+                                   std::string& value) const
+{
+  int return_value = Transformation2D::getAttribute(attributeName, value);
+
+  if (return_value == LIBSBML_OPERATION_SUCCESS)
+  {
+    return return_value;
+  }
+
+  if (attributeName == "id")
+  {
+    value = getId();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (attributeName == "stroke")
+  {
+    value = getStroke();
+    return_value = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Predicate returning @c true if this GraphicalPrimitive1D's attribute
+ * "attributeName" is set.
+ */
+bool
+GraphicalPrimitive1D::isSetAttribute(const std::string& attributeName) const
+{
+  bool value = Transformation2D::isSetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = isSetId();
+  }
+  else if (attributeName == "stroke")
+  {
+    value = isSetStroke();
+  }
+  else if (attributeName == "stroke-width")
+  {
+    value = isSetStrokeWidth();
+  }
+  else if (attributeName == "stroke-dashArray")
+  {
+    value = isSetStrokeDashArray();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setAttribute(const std::string& attributeName,
+                                   bool value)
+{
+  int return_value = Transformation2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setAttribute(const std::string& attributeName,
+                                   int value)
+{
+  int return_value = Transformation2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setAttribute(const std::string& attributeName,
+                                   double value)
+{
+  int return_value = Transformation2D::setAttribute(attributeName, value);
+
+  if (attributeName == "stroke-width")
+  {
+    return_value = setStrokeWidth(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setAttribute(const std::string& attributeName,
+                                   unsigned int value)
+{
+  int return_value = Transformation2D::setAttribute(attributeName, value);
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::setAttribute(const std::string& attributeName,
+                                   const std::string& value)
+{
+  int return_value = Transformation2D::setAttribute(attributeName, value);
+
+  if (attributeName == "id")
+  {
+    return_value = setId(value);
+  }
+  else if (attributeName == "stroke")
+  {
+    return_value = setStroke(value);
+  }
+
+  return return_value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Unsets the value of the "attributeName" attribute of this
+ * GraphicalPrimitive1D.
+ */
+int
+GraphicalPrimitive1D::unsetAttribute(const std::string& attributeName)
+{
+  int value = Transformation2D::unsetAttribute(attributeName);
+
+  if (attributeName == "id")
+  {
+    value = unsetId();
+  }
+  else if (attributeName == "stroke")
+  {
+    value = unsetStroke();
+  }
+  else if (attributeName == "stroke-width")
+  {
+    value = unsetStrokeWidth();
+  }
+  else if (attributeName == "stroke-dashArray")
+  {
+    value = unsetStrokeDashArray();
+  }
+
+  return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+GraphicalPrimitive1D::createObject(XMLInputStream& stream)
+{
+  SBase* obj = Transformation2D::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+void
+GraphicalPrimitive1D::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  Transformation2D::addExpectedAttributes(attributes);
+
+  attributes.add("id");
+
+  attributes.add("stroke");
+
+  attributes.add("stroke-width");
+
+  attributes.add("stroke-dasharray");
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+GraphicalPrimitive1D::readAttributes(const XMLAttributes& attributes,
+                                     const ExpectedAttributes&
+                                       expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  Transformation2D::readAttributes(attributes, expectedAttributes);
+
+  // 
+  // id SId (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true)
+  {
+    if (mId.empty() == true)
     {
-        stream.writeAttribute("id", getPrefix(), this->getId());
+      logEmptyString(mId, level, version, "<GraphicalPrimitive1D>");
     }
-    // stroke, stroke_width
-    if(this->isSetStroke())
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-        stream.writeAttribute("stroke", getPrefix(), this->getStroke());
+      log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
-    if(this->isSetStrokeWidth())
+  }
+
+  // 
+  // stroke string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("stroke", mStroke);
+
+  if (assigned == true)
+  {
+    if (mStroke.empty() == true)
     {
-        std::ostringstream os;
-        os << this->getStrokeWidth();
-        stream.writeAttribute("stroke-width", getPrefix(), os.str());
+      logEmptyString(mStroke, level, version, "<GraphicalPrimitive1D>");
     }
+  }
+
+  // 
+  // stroke-width double (use = "optional" )
+  // 
+  if (log)  numErrs = log->getNumErrors();
+  mIsSetStrokeWidth = attributes.readInto("stroke-width", mStrokeWidth);
+
+  if (log && mIsSetStrokeWidth == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Render attribute 'stroke-width' from the "
+        "<GraphicalPrimitive1D> element must be an integer.";
+      log->logPackageError("render",
+        RenderGraphicalPrimitive1DStrokeWidthMustBeDouble, pkgVersion, level,
+          version, message);
+    }
+  }
+
+
+    // parse the stroke-dasharray
+    std::string s;
+    if(attributes.readInto("stroke-dasharray", s, getErrorLog(), false, getLine(), getColumn()) && !s.empty())
+    {
+        this->setDashArray(s);
+    }
+}
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+GraphicalPrimitive1D::writeAttributes(XMLOutputStream& stream) const
+{
+  Transformation2D::writeAttributes(stream);
+
+  if (isSetId() == true)
+  {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
+
+  if (isSetStroke() == true)
+  {
+    stream.writeAttribute("stroke", getPrefix(), mStroke);
+  }
+
+  if (isSetStrokeWidth() == true)
+  {
+    stream.writeAttribute("stroke-width", getPrefix(), mStrokeWidth);
+  }
+
     if(this->isSetDashArray())
     {
         std::ostringstream os;
@@ -470,6 +1216,8 @@ void GraphicalPrimitive1D::writeAttributes (XMLOutputStream& stream) const
         }
         stream.writeAttribute("stroke-dasharray", getPrefix(), os.str());
     }
+
+  SBase::writeExtensionAttributes(stream);
 }
 /** @endcond */
 
@@ -584,101 +1332,427 @@ bool GraphicalPrimitive1D::parseDashArray(const std::string& s,std::vector<unsig
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+
+
+#endif /* __cplusplus */
+
+
 /*
- * Sets the dasharray from the given string.
- * If the string is not a valid dasharray string, false
- * is returned and the dasharray remains in the state is was
- * before the call.
- *
- * The individual numerical values in the string have to be separated by kommas.
- *
- * @param arrayString a string with number representing a dash array.
- *
- * @return true is setting the dasharray from the string succeed or false otherwise.
- */
-bool GraphicalPrimitive1D::setDashArray(const std::string& arrayString)
+* Creates a new Ellipse (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createEllipse(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
 {
-    std::vector<unsigned int> array;
-    bool result=false;
-    if(this->parseDashArray(arrayString,array)==true)
-    {
-        this->mStrokeDashArray=array;
-        result=true;
-    }
-    return result;
+  return new Ellipse(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the value of the "id" attribute of this GraphicalPrimitive.
- *
- * @return the id of the GraphicalPrimitive
- */
-const std::string& GraphicalPrimitive1D::getId () const
+* Creates a new Rectangle (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRectangle(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
 {
-    return mId;
+  return new Rectangle(level, version, pkgVersion);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Predicate returning @c true or @c false depending on whether this
- * GraphicalPrimitive's "id" attribute has been set.
- *
- * @return returns true or false depending on whether the id on the 
- * GraphicalPrimitive has been set.
- */
-bool GraphicalPrimitive1D::isSetId () const
+* Creates a new Polygon (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createPolygon(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
 {
-    return (mId.empty() == false);
+  return new Polygon(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the value of the "id" attribute of this GraphicalPrimitive.
- *
- * @param id the new id for the GraphicalPrimitive 
- *
- * @return status if the operation succeeded
- */
-int GraphicalPrimitive1D::setId (const std::string& id)
+* Creates a new RenderGroup (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRenderGroup(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
 {
-    if (!(SyntaxChecker::isValidSBMLSId(id)))
-    {
-        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-        mId = id;
-        return LIBSBML_OPERATION_SUCCESS;
-    }
+  return new RenderGroup(level, version, pkgVersion);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Unsets the value of the "id" attribute of this GraphicalPrimitive.
- */
-int GraphicalPrimitive1D::unsetId ()
+* Creates a new Text (GraphicalPrimitive1D_t) using the given SBML Level, Version
+* and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createText(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
 {
-    mId.erase();
-    if (mId.empty())
+  return new Text(level, version, pkgVersion);
+}
+
+
+/*
+* Creates a new RenderCurve (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createRenderCurve(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
+{
+  return new RenderCurve(level, version, pkgVersion);
+}
+
+
+/*
+* Creates a new LineEnding (GraphicalPrimitive1D_t) using the given SBML Level,
+* Version and &ldquo;render&rdquo; package version.
+*/
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t *
+GraphicalPrimitive1D_createLineEnding(unsigned int level,
+  unsigned int version,
+  unsigned int pkgVersion)
+{
+  return new LineEnding(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this GraphicalPrimitive1D_t object.
+ */
+LIBSBML_EXTERN
+GraphicalPrimitive1D_t*
+GraphicalPrimitive1D_clone(const GraphicalPrimitive1D_t* gpd)
+{
+  if (gpd != NULL)
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    return static_cast<GraphicalPrimitive1D_t*>(gpd->clone());
   }
   else
   {
-    return LIBSBML_OPERATION_FAILED;
+    return NULL;
   }
 }
-/** @endcond */
 
 
-LIBSBML_CPP_NAMESPACE_END 
+/*
+ * Frees this GraphicalPrimitive1D_t object.
+ */
+LIBSBML_EXTERN
+void
+GraphicalPrimitive1D_free(GraphicalPrimitive1D_t* gpd)
+{
+  if (gpd != NULL)
+  {
+    delete gpd;
+  }
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+char *
+GraphicalPrimitive1D_getId(const GraphicalPrimitive1D_t * gpd)
+{
+  if (gpd == NULL)
+  {
+    return NULL;
+  }
+
+  return gpd->getId().empty() ? NULL : safe_strdup(gpd->getId().c_str());
+}
+
+
+/*
+ * Returns the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+char *
+GraphicalPrimitive1D_getStroke(const GraphicalPrimitive1D_t * gpd)
+{
+  if (gpd == NULL)
+  {
+    return NULL;
+  }
+
+  return gpd->getStroke().empty() ? NULL :
+    safe_strdup(gpd->getStroke().c_str());
+}
+
+
+/*
+ * Returns the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+double
+GraphicalPrimitive1D_getStrokeWidth(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? gpd->getStrokeWidth() : util_NaN();
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's "id"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetId(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isSetId()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's "stroke"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStroke(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isSetStroke()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
+ * "stroke-width" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStrokeWidth(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isSetStrokeWidth()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
+ * "stroke-dashArray" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isSetStrokeDashArray(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isSetStrokeDashArray()) : 0;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setId(GraphicalPrimitive1D_t * gpd, const char * id)
+{
+  return (gpd != NULL) ? gpd->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStroke(GraphicalPrimitive1D_t * gpd,
+                               const char * stroke)
+{
+  return (gpd != NULL) ? gpd->setStroke(stroke) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStrokeWidth(GraphicalPrimitive1D_t * gpd,
+                                    double strokeWidth)
+{
+  return (gpd != NULL) ? gpd->setStrokeWidth(strokeWidth) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_setStrokeDashArray(GraphicalPrimitive1D_t* gpd,
+                                        const char* strokeDash)
+{
+  return (gpd != NULL) ? gpd->setDashArray(strokeDash)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetId(GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? gpd->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stroke" attribute of this GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStroke(GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? gpd->unsetStroke() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stroke-width" attribute of this
+ * GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStrokeWidth(GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? gpd->unsetStrokeWidth() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stroke-dashArray" attribute of this
+ * GraphicalPrimitive1D_t.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_unsetStrokeDashArray(GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? gpd->unsetStrokeDashArray() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isEllipse(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isEllipse()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * Rectangle_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRectangle(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isRectangle()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Polygon_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isPolygon(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isPolygon()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * RenderGroup_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRenderGroup(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isRenderGroup()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * LineEnding_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isLineEnding(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isLineEnding()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type Text_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isText(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isText()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this GraphicalPrimitive1D_t is of type
+ * RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_isRenderCurve(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->isRenderCurve()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * GraphicalPrimitive1D_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+GraphicalPrimitive1D_hasRequiredAttributes(const GraphicalPrimitive1D_t * gpd)
+{
+  return (gpd != NULL) ? static_cast<int>(gpd->hasRequiredAttributes()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
 
 
