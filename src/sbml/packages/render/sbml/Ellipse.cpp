@@ -58,7 +58,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-
+static RelAbsVector nullRef = RelAbsVector("");
 
 
 #ifdef __cplusplus
@@ -1076,7 +1076,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (!v.empty() && log) 
+      if (v.empty() && log) 
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cx' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1105,7 +1105,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (!v.empty() && log)
+      if (v.empty() && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cy' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1133,7 +1133,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (!v.empty() && log)
+      if (v.empty() && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cz' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1164,7 +1164,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {    
         v.setCoordinate(s);
-        if (!v.empty() && log)
+        if (v.empty() && log)
         {
           std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
             + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1199,7 +1199,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (!v.empty() && log)
+      if (v.empty() && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1267,4 +1267,437 @@ Ellipse::writeAttributes(XMLOutputStream& stream) const
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Creates a new Ellipse_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+Ellipse_t *
+Ellipse_create(unsigned int level,
+               unsigned int version,
+               unsigned int pkgVersion)
+{
+  return new Ellipse(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this Ellipse_t object.
+ */
+LIBSBML_EXTERN
+Ellipse_t*
+Ellipse_clone(const Ellipse_t* e)
+{
+  if (e != NULL)
+  {
+    return static_cast<Ellipse_t*>(e->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this Ellipse_t object.
+ */
+LIBSBML_EXTERN
+void
+Ellipse_free(Ellipse_t* e)
+{
+  if (e != NULL)
+  {
+    delete e;
+  }
+}
+
+
+/*
+ * Returns the value of the "ratio" attribute of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+double
+Ellipse_getRatio(const Ellipse_t * e)
+{
+  return (e != NULL) ? e->getRatio() : util_NaN();
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "ratio" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRatio(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetRatio()) : 0;
+}
+
+
+/*
+ * Sets the value of the "ratio" attribute of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRatio(Ellipse_t * e, double ratio)
+{
+  return (e != NULL) ? e->setRatio(ratio) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "ratio" attribute of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRatio(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetRatio() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "cx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCX(const Ellipse_t * e)
+{
+  if (e == NULL)
+  {
+    return nullRef;
+  }
+
+  return (RelAbsVector_t&)(e->getCX());
+}
+
+
+/*
+ * Returns the value of the "cy" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCY(const Ellipse_t * e)
+{
+  if (e == NULL)
+  {
+    return nullRef;
+  }
+
+  return (RelAbsVector_t&)(e->getCY());
+}
+
+
+/*
+ * Returns the value of the "cz" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCZ(const Ellipse_t * e)
+{
+  if (e == NULL)
+  {
+    return nullRef;
+  }
+
+  return (RelAbsVector_t&)(e->getCZ());
+}
+
+
+/*
+ * Returns the value of the "rx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getRX(const Ellipse_t * e)
+{
+  if (e == NULL)
+  {
+    return nullRef;
+  }
+
+  return (RelAbsVector_t&)(e->getRX());
+}
+
+
+/*
+ * Returns the value of the "ry" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getRY(const Ellipse_t * e)
+{
+  if (e == NULL)
+  {
+    return nullRef;
+  }
+
+  return (RelAbsVector_t&)(e->getRY());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cx" element is set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCX(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetCX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cy" element is set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCY(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetCY()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cz" element is set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCZ(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetCZ()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "rx" element is set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRX(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetRX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Ellipse_t's "ry" element is set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRY(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->isSetRY()) : 0;
+}
+
+
+/*
+ * Sets the value of the "cx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCX(Ellipse_t * e, const RelAbsVector_t& cx)
+{
+  if (e == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else 
+  {
+    e->setCX(cx);
+    if (e->isSetCX())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+}
+
+
+/*
+ * Sets the value of the "cy" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCY(Ellipse_t * e, const RelAbsVector_t& cy)
+{
+  if (e == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    e->setCY(cy);
+    if (e->isSetCY())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+}
+
+
+/*
+ * Sets the value of the "cz" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCZ(Ellipse_t * e, const RelAbsVector_t& cz)
+{
+  if (e == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    e->setCZ(cz);
+    if (e->isSetCZ())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+}
+
+
+/*
+ * Sets the value of the "rx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRX(Ellipse_t * e, const RelAbsVector_t& rx)
+{
+  if (e == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    e->setRX(rx);
+    if (e->isSetRX())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+}
+
+
+/*
+ * Sets the value of the "ry" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRY(Ellipse_t * e, const RelAbsVector_t& ry)
+{
+  if (e == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    e->setRY(ry);
+    if (e->isSetRY())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+  }
+}
+
+
+
+
+/*
+ * Unsets the value of the "cx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCX(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetCX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "cy" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCY(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetCY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "cz" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCZ(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetCZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "rx" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRX(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetRX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "ry" element of this Ellipse_t.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRY(Ellipse_t * e)
+{
+  return (e != NULL) ? e->unsetRY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Ellipse_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Ellipse_hasRequiredAttributes(const Ellipse_t * e)
+{
+  return (e != NULL) ? static_cast<int>(e->hasRequiredAttributes()) : 0;
+}
+
+
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+

@@ -700,9 +700,510 @@ protected:
 
 };
 
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+
 
 
 #endif /* __cplusplus */
 
-#endif /* Ellipse_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new Ellipse_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this Ellipse_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Ellipse_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * Ellipse_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+Ellipse_t *
+Ellipse_create(unsigned int level,
+               unsigned int version,
+               unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this Ellipse_t object.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return a (deep) copy of this Ellipse_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+Ellipse_t*
+Ellipse_clone(const Ellipse_t* e);
+
+
+/**
+ * Frees this Ellipse_t object.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+void
+Ellipse_free(Ellipse_t* e);
+
+
+/**
+ * Returns the value of the "ratio" attribute of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose ratio is sought.
+ *
+ * @return the value of the "ratio" attribute of this Ellipse_t as a double.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+double
+Ellipse_getRatio(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "ratio" attribute is
+ * set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "ratio" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRatio(const Ellipse_t * e);
+
+
+/**
+ * Sets the value of the "ratio" attribute of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param ratio double value of the "ratio" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRatio(Ellipse_t * e, double ratio);
+
+
+/**
+ * Unsets the value of the "ratio" attribute of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRatio(Ellipse_t * e);
+
+
+/**
+ * Returns the value of the "cx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose cx is sought.
+ *
+ * @return the value of the "cx" element of this Ellipse_t as a RelAbsVector&*.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCX(const Ellipse_t * e);
+
+
+/**
+ * Returns the value of the "cy" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose cy is sought.
+ *
+ * @return the value of the "cy" element of this Ellipse_t as a RelAbsVector*.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCY(const Ellipse_t * e);
+
+
+/**
+ * Returns the value of the "cz" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose cz is sought.
+ *
+ * @return the value of the "cz" element of this Ellipse_t as a RelAbsVector*.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getCZ(const Ellipse_t * e);
+
+
+/**
+ * Returns the value of the "rx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose rx is sought.
+ *
+ * @return the value of the "rx" element of this Ellipse_t as a RelAbsVector*.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getRX(const Ellipse_t * e);
+
+
+/**
+ * Returns the value of the "ry" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure whose ry is sought.
+ *
+ * @return the value of the "ry" element of this Ellipse_t as a RelAbsVector*.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t&
+Ellipse_getRY(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cx" element is set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "cx" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCX(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cy" element is set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "cy" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCY(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "cz" element is set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "cz" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetCZ(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "rx" element is set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "rx" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRX(const Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Ellipse_t's "ry" element is set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) if this Ellipse_t's "ry" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_isSetRY(const Ellipse_t * e);
+
+
+/**
+ * Sets the value of the "cx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param cx RelAbsVector&_t* value of the "cx" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCX(Ellipse_t * e, const RelAbsVector_t* cx);
+
+
+/**
+ * Sets the value of the "cy" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param cy RelAbsVector& value of the "cy" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCY(Ellipse_t * e, const RelAbsVector_t& cy);
+
+
+/**
+ * Sets the value of the "cz" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param cz RelAbsVector& value of the "cz" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setCZ(Ellipse_t * e, const RelAbsVector_t& cz);
+
+
+/**
+ * Sets the value of the "rx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param rx RelAbsVector& value of the "rx" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRX(Ellipse_t * e, const RelAbsVector_t& rx);
+
+
+/**
+ * Sets the value of the "ry" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @param ry RelAbsVector& value of the "ry" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_setRY(Ellipse_t * e, const RelAbsVector_t& ry);
+
+
+
+
+/**
+ * Unsets the value of the "cx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCX(Ellipse_t * e);
+
+
+/**
+ * Unsets the value of the "cy" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCY(Ellipse_t * e);
+
+
+/**
+ * Unsets the value of the "cz" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetCZ(Ellipse_t * e);
+
+
+/**
+ * Unsets the value of the "rx" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRX(Ellipse_t * e);
+
+
+/**
+ * Unsets the value of the "ry" element of this Ellipse_t.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_unsetRY(Ellipse_t * e);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Ellipse_t object have been set.
+ *
+ * @param e the Ellipse_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Ellipse_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof Ellipse_t
+ */
+LIBSBML_EXTERN
+int
+Ellipse_hasRequiredAttributes(const Ellipse_t * e);
+
+
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !Ellipse_H__ */
