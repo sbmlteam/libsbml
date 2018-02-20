@@ -1,7 +1,6 @@
 /**
  * @file    Rectangle.cpp
- * @brief   class for representing a rectangle with or
- *          without rounded corners
+ * @brief Implementation of the Rectangle class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,29 +31,37 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "Rectangle.h"
+#include <sbml/packages/render/sbml/Rectangle.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string Rectangle::ELEMENT_NAME="rectangle";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Rectangle object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new Rectangle using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-Rectangle::Rectangle (unsigned int level, unsigned int version, unsigned int pkgVersion) 
+Rectangle::Rectangle(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
   : GraphicalPrimitive2D(level,version, pkgVersion)
   , mX(RelAbsVector(0.0,0.0))
   , mY(RelAbsVector(0.0,0.0))
@@ -67,17 +74,13 @@ Rectangle::Rectangle (unsigned int level, unsigned int version, unsigned int pkg
   , mIsSetRatio(false)
 
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
+  connectToChild();
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new Rectangle object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new Rectangle using the given RenderPkgNamespaces object.
  */
 Rectangle::Rectangle (RenderPkgNamespaces* renderns)
   : GraphicalPrimitive2D(renderns)
@@ -91,18 +94,10 @@ Rectangle::Rectangle (RenderPkgNamespaces* renderns)
   , mRatio(util_NaN())
   , mIsSetRatio(false)
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
   setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -133,86 +128,6 @@ Rectangle::Rectangle(const XMLNode& node, unsigned int l2version)
 /** @endcond */
 
 
-/*
- * Destroy this object.
- */
-Rectangle::~Rectangle ()
-{
-}
-
-
-
-/** @cond doxygenLibsbmlInternal */
-void
-Rectangle::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  GraphicalPrimitive2D::addExpectedAttributes(attributes);
-
-  attributes.add("x");
-  attributes.add("y");
-  attributes.add("z");
-  attributes.add("width");
-  attributes.add("height");
-  attributes.add("rx");
-  attributes.add("ry");
-  attributes.add("ratio");
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void Rectangle::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-  this->GraphicalPrimitive2D::readAttributes(attributes, expectedAttributes);
-    bool rxSet=false;;  
-    std::string s;
-    attributes.readInto("x", s, getErrorLog(), false, getLine(), getColumn());
-    this->mX=RelAbsVector(s);
-    attributes.readInto("y", s, getErrorLog(), false, getLine(), getColumn());
-    this->mY=RelAbsVector(s);
-    if(attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mZ=RelAbsVector(s);
-    }
-    else
-    {
-        this->mZ=RelAbsVector(0.0,0.0);
-    }
-    attributes.readInto("width", s, getErrorLog(), false, getLine(), getColumn());
-    this->mWidth=RelAbsVector(s);
-    attributes.readInto("height", s, getErrorLog(), false, getLine(), getColumn());
-    this->mHeight=RelAbsVector(s);
-    if(attributes.readInto("rx", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        rxSet=true;  
-        this->mRX=RelAbsVector(s);
-    }
-    else
-    {
-        this->mRX=RelAbsVector(0.0,0.0);
-    }
-    if(attributes.readInto("ry", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mRY=RelAbsVector(s);
-        if(!rxSet)
-        {
-            this->mRX=this->mRY;
-        }
-    }
-    else
-    {
-        if(rxSet)
-        {
-            this->mRY=this->mRX;
-        }
-        else
-        {
-            this->mRY=RelAbsVector(0.0,0.0);
-        }
-    }
-
-    mIsSetRatio = attributes.readInto("ratio", mRatio);
-}
-/** @endcond */
 
 
 
@@ -355,6 +270,391 @@ Rectangle::Rectangle(RenderPkgNamespaces* renderns, const std::string& id,const 
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
+/*
+ * Copy constructor for Rectangle.
+ */
+Rectangle::Rectangle(const Rectangle& orig)
+  : GraphicalPrimitive2D( orig )
+  , mX ( orig.mX )
+  , mY ( orig.mY )
+  , mZ ( orig.mZ )
+  , mWidth ( orig.mWidth )
+  , mHeight ( orig.mHeight )
+  , mRX ( orig.mRX )
+  , mRY ( orig.mRY )
+  , mRatio ( orig.mRatio )
+  , mIsSetRatio ( orig.mIsSetRatio )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for Rectangle.
+ */
+Rectangle&
+Rectangle::operator=(const Rectangle& rhs)
+{
+  if (&rhs != this)
+  {
+    GraphicalPrimitive2D::operator=(rhs);
+    mRatio = rhs.mRatio;
+    mIsSetRatio = rhs.mIsSetRatio;
+    mX = rhs.mX;
+    mY = rhs.mY;
+    mZ = rhs.mZ;
+    mWidth = rhs.mWidth;
+    mHeight = rhs.mHeight;
+    mRX = rhs.mRX;
+    mRY = rhs.mRY;
+
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this Rectangle object.
+ */
+Rectangle*
+Rectangle::clone() const
+{
+  return new Rectangle(*this);
+}
+
+
+/*
+ * Destructor for Rectangle.
+ */
+Rectangle::~Rectangle()
+{
+}
+
+
+/*
+ * Returns the value of the "ratio" attribute of this Rectangle.
+ */
+double
+Rectangle::getRatio() const
+{
+  return mRatio;
+}
+
+
+/*
+ * Predicate returning @c true if this Rectangle's "ratio" attribute is set.
+ */
+bool
+Rectangle::isSetRatio() const
+{
+  return mIsSetRatio;
+}
+
+
+/*
+ * Sets the value of the "ratio" attribute of this Rectangle.
+ */
+int
+Rectangle::setRatio(double ratio)
+{
+  mRatio = ratio;
+  mIsSetRatio = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "ratio" attribute of this Rectangle.
+ */
+int
+Rectangle::unsetRatio()
+{
+  mRatio = util_NaN();
+  mIsSetRatio = false;
+
+  if (isSetRatio() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Returns the value of the "x" element of this Rectangle.
+ */
+const RelAbsVector& 
+Rectangle::getX() const
+{
+    return this->mX;
+}
+
+
+/*
+ * Returns the value of the "x" element of this Rectangle.
+ */
+RelAbsVector& 
+Rectangle::getX()
+{
+    return this->mX;
+}
+
+
+/*
+ * Returns the value of the "y" element of this Rectangle.
+ */
+const RelAbsVector& 
+Rectangle::getY() const
+{
+    return this->mY;
+}
+
+
+/*
+ * Returns the value of the "y" element of this Rectangle.
+ */
+RelAbsVector& 
+Rectangle::getY()
+{
+  return this->mY;
+}
+
+
+/*
+ * Returns the value of the "z" element of this Rectangle.
+ */
+const RelAbsVector& 
+Rectangle::getZ() const
+{
+    return this->mZ;
+}
+
+
+/*
+ * Returns the value of the "z" element of this Rectangle.
+ */
+RelAbsVector& 
+Rectangle::getZ()
+{
+  return this->mZ;
+}
+
+
+/*
+ * Returns the value of the "width" element of this Rectangle.
+ */
+const RelAbsVector& 
+Rectangle::getWidth() const
+{
+    return this->mWidth;
+}
+
+
+/*
+ * Returns the value of the "width" element of this Rectangle.
+ */
+RelAbsVector& 
+Rectangle::getWidth()
+{
+  return this->mWidth;
+}
+
+
+/*
+ * Returns the value of the "height" element of this Rectangle.
+ */
+const RelAbsVector& 
+Rectangle::getHeight() const
+{
+    return this->mHeight;
+}
+
+
+/*
+ * Returns the value of the "height" element of this Rectangle.
+ */
+RelAbsVector& 
+Rectangle::getHeight()
+{
+  return this->mHeight;
+}
+
+
+/*
+ * Returns the value of the "rX" element of this Rectangle.
+ */
+const RelAbsVector&
+Rectangle::getRX() const
+{
+  return mRX;
+}
+
+
+/*
+ * Returns the corner radius along the x axis
+ */
+const RelAbsVector& 
+Rectangle::getRadiusX() const
+{
+    return this->mRX;
+}
+
+
+/*
+ * Returns the value of the "rX" element of this Rectangle.
+ */
+RelAbsVector&
+Rectangle::getRX()
+{
+  return mRX;
+}
+
+
+/*
+* Returns the corner radius along the x axis
+*/
+RelAbsVector& 
+Rectangle::getRadiusX()
+{
+  return this->mRX;
+}
+
+
+/*
+ * Returns the value of the "rY" element of this Rectangle.
+ */
+const RelAbsVector&
+Rectangle::getRY() const
+{
+  return mRY;
+}
+
+
+/*
+ * Returns the corner radius along the y axis
+ */
+const RelAbsVector& 
+Rectangle::getRadiusY() const
+{
+    return this->mRY;
+}
+
+
+/*
+ * Returns the value of the "rY" element of this Rectangle.
+ */
+RelAbsVector&
+Rectangle::getRY()
+{
+  return mRY;
+}
+
+
+/*
+* Returns the corner radius along the y axis
+*/
+RelAbsVector& 
+Rectangle::getRadiusY()
+{
+  return this->mRY;
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "x" element is set.
+*/
+bool
+Rectangle::isSetX() const
+{
+  return mX.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "y" element is set.
+*/
+bool
+Rectangle::isSetY() const
+{
+  return mY.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "z" element is set.
+*/
+bool
+Rectangle::isSetZ() const
+{
+  return mZ.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "width" element is set.
+*/
+bool
+Rectangle::isSetWidth() const
+{
+  return mWidth.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "height" element is set.
+*/
+bool
+Rectangle::isSetHeight() const
+{
+  return mHeight.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "rX" element is set.
+*/
+bool
+Rectangle::isSetRX() const
+{
+  return mRX.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "rX" element is set.
+*/
+bool
+Rectangle::isSetRadiusX() const
+{
+  return isSetRX();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "rY" element is set.
+*/
+bool
+Rectangle::isSetRY() const
+{
+  return mRY.isSetCoordinate();
+}
+
+
+/*
+* Predicate returning @c true if this Rectangle's "rY" element is set.
+*/
+bool
+Rectangle::isSetRadiusY() const
+{
+  return isSetRY();
+}
+
+
 /** @cond doxygenLibsbmlInternal */
 /*
  * Sets the position and the size of the Rectangle within the viewport.
@@ -418,348 +718,296 @@ void Rectangle::setRadii(const RelAbsVector& rx,const RelAbsVector& ry)
 
 
 /*
-* Returns the value of the "ratio" attribute of this Rectangle.
-*/
-double
-Rectangle::getRatio() const
+ * Sets the x position of the Rectangle within the viewport.
+ */
+int 
+Rectangle::setX(const RelAbsVector& x)
 {
-  return mRatio;
-}
-
-
-/*
-* Predicate returning @c true if this Rectangle's "ratio" attribute is set.
-*/
-bool
-Rectangle::isSetRatio() const
-{
-  return mIsSetRatio;
-}
-
-
-/*
-* Sets the value of the "ratio" attribute of this Rectangle.
-*/
-int
-Rectangle::setRatio(double ratio)
-{
-  mRatio = ratio;
-  mIsSetRatio = true;
+  this->mX = x;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
-* Unsets the value of the "ratio" attribute of this Rectangle.
+* Sets the y position of the Rectangle within the viewport.
 */
+int 
+Rectangle::setY(const RelAbsVector& y)
+{
+  this->mY = y;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the z position of the Rectangle within the viewport.
+*
+* @param z z coordinate of the position
+*/
+int 
+Rectangle::setZ(const RelAbsVector& z)
+{
+  this->mZ = z;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the width of the Rectangle
+*/
+int 
+Rectangle::setWidth(const RelAbsVector& w)
+{
+  this->mWidth = w;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the height of the Rectangle
+*/
+int 
+Rectangle::setHeight(const RelAbsVector& h)
+{
+  this->mHeight = h;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the corner radius along the x axis
+*/
+int 
+Rectangle::setRadiusX(const RelAbsVector& rx)
+{
+  this->mRX = rx;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 int
-Rectangle::unsetRatio()
+Rectangle::setRX(const RelAbsVector& rx)
 {
-  mRatio = util_NaN();
-  mIsSetRatio = false;
-
-  if (isSetRatio() == false)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  this->mRX = rx;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the x coordinate of the rectangles position
- *
- * @return const reference to RelAbsVector that represents the x position
- */
-const RelAbsVector& Rectangle::getX() const
+* Sets the corner radius along the y axis
+*/
+int 
+Rectangle::setRadiusY(const RelAbsVector& ry)
 {
-    return this->mX;
+  this->mRY = ry;
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate of the rectangles position
- *
- * @return const reference to RelAbsVector that represents the y position
- */
-const RelAbsVector& Rectangle::getY() const
+
+int
+Rectangle::setRY(const RelAbsVector& ry)
 {
-    return this->mY;
+  this->mRY = ry;
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the z coordinate of the rectangles position
- *
- * @return const reference to RelAbsVector that represents the z position
+ * Unsets the value of the "x" element of this Rectangle.
  */
-const RelAbsVector& Rectangle::getZ() const
+int
+Rectangle::unsetX()
 {
-    return this->mZ;
+  mX.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the with of the rectangle
- *
- * @return const reference to the RelAbsVector that represents the width
+ * Unsets the value of the "y" element of this Rectangle.
  */
-const RelAbsVector& Rectangle::getWidth() const
+int
+Rectangle::unsetY()
 {
-    return this->mWidth;
+  mY.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the height of the rectangle
- *
- * @return const reference to the RelAbsVector that represents the height
+ * Unsets the value of the "z" element of this Rectangle.
  */
-const RelAbsVector& Rectangle::getHeight() const
+int
+Rectangle::unsetZ()
 {
-    return this->mHeight;
+  mZ.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the corner radius along the x axis
- *
- * @return const reference to the RelAbsVector that corner radius along the x axis
+ * Unsets the value of the "width" element of this Rectangle.
  */
-const RelAbsVector& Rectangle::getRadiusX() const
+int
+Rectangle::unsetWidth()
 {
-    return this->mRX;
+  mWidth.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the corner radius along the y axis
- *
- * @return const reference to the RelAbsVector that corner radius along the y axis
+ * Unsets the value of the "height" element of this Rectangle.
  */
-const RelAbsVector& Rectangle::getRadiusY() const
+int
+Rectangle::unsetHeight()
 {
-    return this->mRY;
+  mHeight.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the x coordinate of the rectangles position
- *
- * @return reference to RelAbsVector that represents the x position
+ * Unsets the value of the "rX" element of this Rectangle.
  */
-RelAbsVector& Rectangle::getX()
+int
+Rectangle::unsetRadiusX()
 {
-    return this->mX;
+  return unsetRX();
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate of the rectangles position
- *
- * @return reference to RelAbsVector that represents the y position
- */
-RelAbsVector& Rectangle::getY()
+
+int
+Rectangle::unsetRX()
 {
-    return this->mY;
+  mRX.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the z coordinate of the rectangles position
- *
- * @return reference to RelAbsVector that represents the z position
+ * Unsets the value of the "rY" element of this Rectangle.
  */
-RelAbsVector& Rectangle::getZ()
+int
+Rectangle::unsetRadiusY()
 {
-    return this->mZ;
+  return unsetRY();
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the with of the rectangle
- *
- * @return reference to the RelAbsVector that represents the width
- */
-RelAbsVector& Rectangle::getWidth()
+
+int
+Rectangle::unsetRY()
 {
-    return this->mWidth;
+  mRY.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the height of the rectangle
- *
- * @return reference to the RelAbsVector that represents the height
+ * Returns the XML element name of this Rectangle object.
  */
-RelAbsVector& Rectangle::getHeight()
+const std::string&
+Rectangle::getElementName() const
 {
-    return this->mHeight;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the corner radius along the x axis
- *
- * @return reference to the RelAbsVector that corner radius along the x axis
- */
-RelAbsVector& Rectangle::getRadiusX()
-{
-    return this->mRX;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the corner radius along the y axis
- *
- * @return reference to the RelAbsVector that corner radius along the y axis
- */
-RelAbsVector& Rectangle::getRadiusY()
-{
-    return this->mRY;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int Rectangle::getTypeCode() const
-{
-    return SBML_RENDER_RECTANGLE;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor for this instance of Rectangle.
- *
- * @param v the SBMLVisitor instance to be used.
- *
- * @return the result of calling <code>v.visit()</code>.
- */
-bool Rectangle::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object.
- *
- * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
- * CompartmentType defines it as returning "compartmentType", etc.
- */
-const std::string& Rectangle::getElementName() const
-{
-  static std::string name = Rectangle::ELEMENT_NAME;
+  static const string name = "rectangle";
   return name;
 }
-/** @endcond */
+
+
+/*
+ * Returns the libSBML type code for this Rectangle object.
+ */
+int
+Rectangle::getTypeCode() const
+{
+  return SBML_RENDER_RECTANGLE;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * Rectangle object have been set.
+ */
+bool
+Rectangle::hasRequiredAttributes() const
+{
+  bool allPresent = GraphicalPrimitive2D::hasRequiredAttributes();
+
+  if (isSetX() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetY() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetHeight() == false)
+  {
+    allPresent = false;
+  }
+  if (isSetWidth() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Creates and returns a deep copy of this Rectangle object.
- * 
- * @return a (deep) copy of this Rectangle object
+ * Accepts the given SBMLVisitor
  */
-Rectangle* Rectangle::clone() const
+bool
+Rectangle::accept(SBMLVisitor& v) const
 {
-    return new Rectangle(*this);
+  v.visit(*this);
+  //render - FIX_ME
+
+  //if (mX != NULL)
+  //{
+  //  mX->accept(v);
+  //}
+
+  //if (mY != NULL)
+  //{
+  //  mY->accept(v);
+  //}
+
+  //if (mZ != NULL)
+  //{
+  //  mZ->accept(v);
+  //}
+
+  //if (mWidth != NULL)
+  //{
+  //  mWidth->accept(v);
+  //}
+
+  //if (mHeight != NULL)
+  //{
+  //  mHeight->accept(v);
+  //}
+
+  //if (mRX != NULL)
+  //{
+  //  mRX->accept(v);
+  //}
+
+  //if (mRY != NULL)
+  //{
+  //  mRY->accept(v);
+  //}
+
+  v.leave(*this);
+  return true;
 }
+
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
-void Rectangle::writeAttributes (XMLOutputStream& stream) const
-{
-    GraphicalPrimitive2D::writeAttributes(stream);
-    std::ostringstream os;
-    os << this->mX;
-    stream.writeAttribute("x", getPrefix(), os.str());
-    os.str("");
-    os << this->mY;
-    stream.writeAttribute("y", getPrefix(), os.str());
-    os.str("");
-    os << this->mWidth;
-    stream.writeAttribute("width", getPrefix(), os.str());
-    os.str("");
-    os << this->mHeight;
-    stream.writeAttribute("height", getPrefix(), os.str());
-    RelAbsVector tmp(0.0,0.0);
-    if(this->mZ!=tmp)
-    {
-        os.str("");
-        os << this->mZ;
-        stream.writeAttribute("z", getPrefix(), os.str());
-    }
-    if(this->mRX!=tmp)
-    {
-        os.str("");
-        os << this->mRX;
-        stream.writeAttribute("rx", getPrefix(), os.str());
-    }
-    if(this->mRY!=tmp)
-    {
-        os.str("");
-        os << this->mRY;
-        stream.writeAttribute("ry", getPrefix(), os.str());
-    }
-
-    if (isSetRatio() == true)
-    {
-      stream.writeAttribute("ratio", getPrefix(), mRatio);
-    }
-
-}
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -775,137 +1023,822 @@ XMLNode Rectangle::toXML() const
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+void
+Rectangle::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  GraphicalPrimitive2D::addExpectedAttributes(attributes);
+
+  attributes.add("x");
+  attributes.add("y");
+  attributes.add("z");
+  attributes.add("width");
+  attributes.add("height");
+  attributes.add("rx");
+  attributes.add("ry");
+  attributes.add("ratio");
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+Rectangle::readAttributes(const XMLAttributes& attributes,
+                          const ExpectedAttributes& expectedAttributes)
+{
+    unsigned int level = getLevel();
+    unsigned int version = getVersion();
+    unsigned int pkgVersion = getPackageVersion();
+    unsigned int numErrs;
+    bool assigned = false;
+    SBMLErrorLog* log = getErrorLog();
+
+    GraphicalPrimitive2D::readAttributes(attributes, expectedAttributes);
+
+    if (log)
+    {
+      numErrs = log->getNumErrors();
+
+      for (int n = numErrs-1; n >= 0; n--)
+      {
+        if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+        {
+          const std::string details = log->getError(n)->getMessage();
+          log->remove(UnknownPackageAttribute);
+          log->logPackageError("render", RenderRectangleAllowedAttributes,
+            pkgVersion, level, version, details);
+        }
+        else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+        {
+          const std::string details = log->getError(n)->getMessage();
+          log->remove(UnknownCoreAttribute);
+          log->logPackageError("render", RenderRectangleAllowedCoreAttributes,
+            pkgVersion, level, version, details);
+        }
+      }
+    }
+
+    string elplusid = "<rectangle> element";
+    if (!getId().empty()) {
+      elplusid += " with the id '" + mId + "'";
+    }
+    // 
+    // ratio double (use = "optional" )
+    // 
+
+    if (log) numErrs = log->getNumErrors();
+    mIsSetRatio = attributes.readInto("ratio", mRatio);
+
+    if ( mIsSetRatio == false && log)
+    {
+      if (log->getNumErrors() == numErrs + 1 &&
+        log->contains(XMLAttributeTypeMismatch))
+      {
+        log->remove(XMLAttributeTypeMismatch);
+          std::string message = "Render attribute 'ratio' from the " + elplusid +
+            " must be a double.";
+        log->logPackageError("render", RenderRectangleRatioMustBeDouble,
+          pkgVersion, level, version, message);
+      }
+    }
+
+    std::string s;
+    RelAbsVector v = RelAbsVector();
+
+    //
+    // x RelAbsVector (use = required) 
+    //
+    s="";
+    assigned = attributes.readInto("x", s, this->getErrorLog(), false, getLine(), getColumn());
+    if (!assigned && log)
+    {
+      std::string message = "The required attribute 'x' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRectangleAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleXMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setX(v);
+      }
+      v.erase();
+    }
+
+    //
+    // y RelAbsVector (use = required) 
+    //
+    s = "";
+    assigned = attributes.readInto("y", s, this->getErrorLog(), false, getLine(), getColumn());
+    if (!assigned && log)
+    {
+      std::string message = "The required attribute 'y' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRectangleAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleYMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setY(v);
+      }
+      v.erase();
+    }
+
+    //
+    // z RelAbsVector (use = optional) 
+    //
+
+    s="";
+    assigned = attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn());
+    if (!assigned)
+    {
+        this->mZ=RelAbsVector(0.0,0.0);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'z' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleZMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setZ(v);
+      }
+      v.erase();
+    }
+
+    //
+    // height RelAbsVector (use = required) 
+    //
+    s = "";
+    assigned = attributes.readInto("height", s, this->getErrorLog(), false, getLine(), getColumn());
+    if (!assigned && log)
+    {
+      std::string message = "The required attribute 'height' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRectangleAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'height' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleHeightMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setHeight(v);
+      }
+      v.erase();
+    }
+
+
+    //
+    // width RelAbsVector (use = required) 
+    //
+    s = "";
+    assigned = attributes.readInto("width", s, this->getErrorLog(), false, getLine(), getColumn());
+    if (!assigned && log)
+    {
+      std::string message = "The required attribute 'width' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRectangleAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'width' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleWidthMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setWidth(v);
+      }
+      v.erase();
+    }
+
+    //
+    // rx RelAbsVector (use = optional) 
+    //
+
+    s = "";
+    assigned = attributes.readInto("rx", s, getErrorLog(), false, getLine(), getColumn());
+    if (!assigned)
+    {
+      this->mRX = RelAbsVector(0.0, 0.0);
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleRXMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setRX(v);
+      }
+      v.erase();
+    }
+
+    //
+    // ry RelAbsVector (use = optional) 
+    //
+
+    s = "";
+    assigned = attributes.readInto("ry", s, getErrorLog(), false, getLine(), getColumn());
+    if (!assigned)
+    {
+      if (isSetRX())
+      {
+        setRY(getRX());
+      }
+      else
+      {
+        this->mRY = RelAbsVector(0.0, 0.0);
+      }
+    }
+    else
+    {
+      v.setCoordinate(s);
+      if (!(v.isSetCoordinate()) && log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRectangleRYMustBeString,
+          pkgVersion, level, version, message);
+
+      }
+      else
+      {
+        this->setRY(v);
+        if (!isSetRX())
+        {
+          setRX(v);
+        }
+      }
+      v.erase();
+    }
+
+
+}
+/** @endcond */
+
 /** @cond doxygenLibsbmlInternal */
 /*
- * Sets the siwidth of the Rectangle 
- *
- * @param w w width
- */
-void Rectangle::setWidth(const RelAbsVector& w)
+* Subclasses should override this method to write their XML attributes
+* to the XMLOutputStream.  Be sure to call your parents implementation
+* of this method as well.  For example:
+*
+*   SBase::writeAttributes(stream);
+*   stream.writeAttribute( "id"  , mId   );
+*   stream.writeAttribute( "name", mName );
+*   ...
+*/
+void Rectangle::writeAttributes(XMLOutputStream& stream) const
 {
-    this->mWidth=w;
+  GraphicalPrimitive2D::writeAttributes(stream);
+  std::ostringstream os;
+  os << this->mX;
+  stream.writeAttribute("x", getPrefix(), os.str());
+  os.str("");
+  os << this->mY;
+  stream.writeAttribute("y", getPrefix(), os.str());
+  os.str("");
+  os << this->mWidth;
+  stream.writeAttribute("width", getPrefix(), os.str());
+  os.str("");
+  os << this->mHeight;
+  stream.writeAttribute("height", getPrefix(), os.str());
+  RelAbsVector tmp(0.0, 0.0);
+  if (this->mZ != tmp)
+  {
+    os.str("");
+    os << this->mZ;
+    stream.writeAttribute("z", getPrefix(), os.str());
+  }
+  if (this->mRX != tmp)
+  {
+    os.str("");
+    os << this->mRX;
+    stream.writeAttribute("rx", getPrefix(), os.str());
+  }
+  if (this->mRY != tmp)
+  {
+    os.str("");
+    os << this->mRY;
+    stream.writeAttribute("ry", getPrefix(), os.str());
+  }
+
+  if (isSetRatio() == true)
+  {
+    stream.writeAttribute("ratio", getPrefix(), mRatio);
+  }
+
 }
 /** @endcond */
 
+#endif /* __cplusplus */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the height of the Rectangle 
- *
- * @param h h height
+ * Creates a new Rectangle_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-void Rectangle::setHeight(const RelAbsVector& h)
+LIBSBML_EXTERN
+Rectangle_t *
+Rectangle_create(unsigned int level,
+                 unsigned int version,
+                 unsigned int pkgVersion)
 {
-    this->mHeight=h;
+  return new Rectangle(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the corner radius along the x axis
- *
- * @param rx corner radius along the x axis
+ * Creates and returns a deep copy of this Rectangle_t object.
  */
-void Rectangle::setRadiusX(const RelAbsVector& rx)
+LIBSBML_EXTERN
+Rectangle_t*
+Rectangle_clone(const Rectangle_t* r)
 {
-    this->mRX=rx;
+  if (r != NULL)
+  {
+    return static_cast<Rectangle_t*>(r->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the corner radius along the y axis
- *
- * @param ry corner radius along the y axis
+ * Frees this Rectangle_t object.
  */
-void Rectangle::setRadiusY(const RelAbsVector& ry)
+LIBSBML_EXTERN
+void
+Rectangle_free(Rectangle_t* r)
 {
-    this->mRY=ry;
+  if (r != NULL)
+  {
+    delete r;
+  }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the x position of the Rectangle within the viewport.
- *
- * @param x x coordinate of the position 
+ * Returns the value of the "ratio" attribute of this Rectangle_t.
  */
-void Rectangle::setX(const RelAbsVector& x)
+LIBSBML_EXTERN
+double
+Rectangle_getRatio(const Rectangle_t * r)
 {
-    this->mX=x;
+  return (r != NULL) ? r->getRatio() : util_NaN();
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the y position of the Rectangle within the viewport.
- *
- * @param y y coordinate of the position 
+ * Predicate returning @c 1 (true) if this Rectangle_t's "ratio" attribute is
+ * set.
  */
-void Rectangle::setY(const RelAbsVector& y)
+LIBSBML_EXTERN
+int
+Rectangle_isSetRatio(const Rectangle_t * r)
 {
-    this->mY=y;
+  return (r != NULL) ? static_cast<int>(r->isSetRatio()) : 0;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the z position of the Rectangle within the viewport.
- *
- * @param z z coordinate of the position 
+ * Sets the value of the "ratio" attribute of this Rectangle_t.
  */
-void Rectangle::setZ(const RelAbsVector& z)
+LIBSBML_EXTERN
+int
+Rectangle_setRatio(Rectangle_t * r, double ratio)
 {
-    this->mZ=z;
+  return (r != NULL) ? r->setRatio(ratio) : LIBSBML_INVALID_OBJECT;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+
+/*
+ * Unsets the value of the "ratio" attribute of this Rectangle_t.
  */
-bool Rectangle::hasRequiredAttributes() const
+LIBSBML_EXTERN
+int
+Rectangle_unsetRatio(Rectangle_t * r)
 {
-    bool result = this->GraphicalPrimitive2D::hasRequiredAttributes();
-    // the position should not contain NaN
-    result = result && 
-        (this->mX.getAbsoluteValue() == this->mX.getAbsoluteValue()) &&
-        (this->mX.getRelativeValue() == this->mX.getRelativeValue());
-    result = result && 
-        (this->mY.getAbsoluteValue() == this->mY.getAbsoluteValue()) &&
-        (this->mY.getRelativeValue() == this->mY.getRelativeValue());
-    result = result && 
-        (this->mZ.getAbsoluteValue() == this->mZ.getAbsoluteValue()) &&
-        (this->mZ.getRelativeValue() == this->mZ.getRelativeValue());
-    // the dimensions should not contain NaN
-    result = result && 
-        (this->mWidth.getAbsoluteValue() == this->mWidth.getAbsoluteValue()) &&
-        (this->mWidth.getRelativeValue() == this->mWidth.getRelativeValue());
-    result = result && 
-        (this->mHeight.getAbsoluteValue() == this->mHeight.getAbsoluteValue()) &&
-        (this->mHeight.getRelativeValue() == this->mHeight.getRelativeValue());
-    // the corner radii should not contain NaN
-    result = result && 
-        (this->mRX.getAbsoluteValue() == this->mRX.getAbsoluteValue()) &&
-        (this->mRX.getRelativeValue() == this->mRX.getRelativeValue());
-    result = result && 
-        (this->mRY.getAbsoluteValue() == this->mRY.getAbsoluteValue()) &&
-        (this->mRY.getRelativeValue() == this->mRY.getRelativeValue());
-    return result;
+  return (r != NULL) ? r->unsetRatio() : LIBSBML_INVALID_OBJECT;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Returns the value of the "x" element of this Rectangle_t.
  */
-bool Rectangle::hasRequiredElements() const 
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getX(const Rectangle_t * r)
 {
-    bool result = this->GraphicalPrimitive2D::hasRequiredElements();
-    return result;
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getX()));
 }
-/** @endcond */
 
 
-LIBSBML_CPP_NAMESPACE_END 
+/*
+ * Returns the value of the "y" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getY(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getY()));
+}
+
+
+/*
+ * Returns the value of the "z" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getZ(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getZ()));
+}
+
+
+/*
+ * Returns the value of the "width" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getWidth(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getWidth()));
+}
+
+
+/*
+ * Returns the value of the "height" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getHeight(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getHeight()));
+}
+
+
+/*
+ * Returns the value of the "rX" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getRX(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getRX()));
+}
+
+
+/*
+ * Returns the value of the "rY" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+Rectangle_getRY(const Rectangle_t * r)
+{
+  if (r == NULL)
+  {
+    return NULL;
+  }
+
+  return (const RelAbsVector_t*)(&(r->getRY()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "x" element is set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetX(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "y" element is set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetY(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetY()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "z" element is set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetZ(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetZ()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "width" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetWidth(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetWidth()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "height" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetHeight(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetHeight()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "rX" element is set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetRX(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetRX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Rectangle_t's "rY" element is set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_isSetRY(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->isSetRY()) : 0;
+}
+
+
+/*
+ * Sets the value of the "x" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setX(Rectangle_t * r, const RelAbsVector_t* x)
+{
+  return (r != NULL) ? r->setX(*x) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setY(Rectangle_t * r, const RelAbsVector_t* y)
+{
+  return (r != NULL) ? r->setY(*y) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setZ(Rectangle_t * r, const RelAbsVector_t* z)
+{
+  return (r != NULL) ? r->setZ(*z) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "width" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setWidth(Rectangle_t * r, const RelAbsVector_t* width)
+{
+  return (r != NULL) ? r->setWidth(*width) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "height" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setHeight(Rectangle_t * r, const RelAbsVector_t* height)
+{
+  return (r != NULL) ? r->setHeight(*height) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "rX" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setRX(Rectangle_t * r, const RelAbsVector_t* rX)
+{
+  return (r != NULL) ? r->setRX(*rX) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "rY" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_setRY(Rectangle_t * r, const RelAbsVector_t* rY)
+{
+  return (r != NULL) ? r->setRY(*rY) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetX(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetY(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetZ(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "width" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetWidth(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetWidth() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "height" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetHeight(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetHeight() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "rX" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetRX(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetRX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "rY" element of this Rectangle_t.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_unsetRY(Rectangle_t * r)
+{
+  return (r != NULL) ? r->unsetRY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Rectangle_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Rectangle_hasRequiredAttributes(const Rectangle_t * r)
+{
+  return (r != NULL) ? static_cast<int>(r->hasRequiredAttributes()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

@@ -27,10 +27,8 @@
             <render:listOfLineEndings>
               <render:lineEnding render:id="simpleHead_black" render:enableRotationalMapping="true">
                 <render:g render:stroke="#00FF00" render:stroke-width="2" render:stroke-dasharray="32 , 20">
-                    <render:ellipse render:id="e1" render:cx="2%" render:cy="2 3%" render:cz="2" render:rx="2 -7%" render:ry="56">
-                      <notes/>
-                      <annotation/>
-                    </render:ellipse>
+                    <render:rectangle render:x="0" render:y="0%" render:height="2" render:width="2 -7%" metaid="_ff" sboTerm="SBO:0000001" constant="true">
+                    </render:rectangle>
                   </render:g>
               </render:lineEnding>
             </render:listOfLineEndings>

@@ -597,57 +597,12 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write any contained elements
-   */
-  virtual void writeElements(XMLOutputStream& stream) const;
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Accepts the given SBMLVisitor
    */
   virtual bool accept(SBMLVisitor& v) const;
 
   /** @endcond */
 
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the parent SBMLDocument
-   */
-  virtual void setSBMLDocument(SBMLDocument* d);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Connects to child elements
-   */
-  virtual void connectToChild();
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Enables/disables the given package with this element
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix,
-                                     bool flag);
-
-  /** @endcond */
 
 
   /**

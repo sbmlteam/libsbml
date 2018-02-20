@@ -835,8 +835,6 @@ Ellipse::getTypeCode() const
 bool
 Ellipse::hasRequiredAttributes() const
 {
-  //render - FIX_ME
-  // old code used this to check that none of the values were NaN - but being
   bool allPresent = GraphicalPrimitive2D::hasRequiredAttributes();
 
   if (isSetCX() == false)
@@ -856,22 +854,6 @@ Ellipse::hasRequiredAttributes() const
 
   return allPresent;
 }
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Write any contained elements
- */
-void
-Ellipse::writeElements(XMLOutputStream& stream) const
-{
-  GraphicalPrimitive2D::writeElements(stream);
-
-  SBase::writeExtensionElements(stream);
-}
-
-/** @endcond */
 
 
 
@@ -916,55 +898,6 @@ Ellipse::accept(SBMLVisitor& v) const
 
 /** @endcond */
 
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the parent SBMLDocument
- */
-void
-Ellipse::setSBMLDocument(SBMLDocument* d)
-{
-  GraphicalPrimitive2D::setSBMLDocument(d);
-
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Connects to child elements
- */
-void
-Ellipse::connectToChild()
-{
-  GraphicalPrimitive2D::connectToChild();
-
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Enables/disables the given package with this element
- */
-void
-Ellipse::enablePackageInternal(const std::string& pkgURI,
-                               const std::string& pkgPrefix,
-                               bool flag)
-{
-  GraphicalPrimitive2D::enablePackageInternal(pkgURI, pkgPrefix, flag);
-
-}
-
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1060,8 +993,6 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     std::string s;
     RelAbsVector v = RelAbsVector();
 
-    //render - FIX_ME
-    // look at this wrt to errors
     //
     // cx RelAbsVector (use = required) 
     //
@@ -1076,7 +1007,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (v.empty() && log) 
+      if (!(v.isSetCoordinate()) && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cx' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1105,7 +1036,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (v.empty() && log)
+      if (!(v.isSetCoordinate()) && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cy' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1133,7 +1064,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (v.empty() && log)
+      if (!(v.isSetCoordinate()) && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cz' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1164,7 +1095,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {    
         v.setCoordinate(s);
-        if (v.empty() && log)
+        if (!(v.isSetCoordinate()) && log)
         {
           std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
             + elplusid + " does not conform to the syntax of a RelAbsVector type.";
@@ -1199,7 +1130,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
     else
     {
       v.setCoordinate(s);
-      if (v.empty() && log)
+      if (!(v.isSetCoordinate()) && log)
       {
         std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
