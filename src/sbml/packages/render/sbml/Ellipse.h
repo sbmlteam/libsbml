@@ -446,35 +446,35 @@ public:
    *
    * @param cx x value of the center point 
    */
-  void setCX(const RelAbsVector& cx);
+  int setCX(const RelAbsVector& cx);
 
   /**
    * Sets the y coordinates for the center point.
    *
    * @param cy y value of the center point 
    */
-  void setCY(const RelAbsVector& cy);
+  int setCY(const RelAbsVector& cy);
 
   /**
    * Sets the z coordinates for the center point.
    *
    * @param cz z value of the center point 
    */
-  void setCZ(const RelAbsVector& cz);
+  int setCZ(const RelAbsVector& cz);
 
   /**
    * Sets the radius along the x axis
    *
    * @param rx radius along the x axis
    */
-  void setRX(const RelAbsVector& rx);
+  int setRX(const RelAbsVector& rx);
 
   /**
    * Sets the radius along the y axis
    *
    * @param ry radius along the y axis
    */
-  void setRY(const RelAbsVector& ry);
+  int setRY(const RelAbsVector& ry);
 
   /**
    * Sets the 2D coordinates for the center point.
@@ -809,7 +809,7 @@ Ellipse_unsetRatio(Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCX(const Ellipse_t * e);
 
 
@@ -823,7 +823,7 @@ Ellipse_getCX(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCY(const Ellipse_t * e);
 
 
@@ -837,7 +837,7 @@ Ellipse_getCY(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCZ(const Ellipse_t * e);
 
 
@@ -851,7 +851,7 @@ Ellipse_getCZ(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getRX(const Ellipse_t * e);
 
 
@@ -865,7 +865,7 @@ Ellipse_getRX(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getRY(const Ellipse_t * e);
 
 

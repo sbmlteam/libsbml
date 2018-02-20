@@ -671,9 +671,10 @@ Ellipse::isSetRY() const
  *
  * @param cx x value of the center point 
  */
-void Ellipse::setCX(const RelAbsVector& cx)
+int Ellipse::setCX(const RelAbsVector& cx)
 {
     this->mCX=cx;
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -682,9 +683,10 @@ void Ellipse::setCX(const RelAbsVector& cx)
  *
  * @param cy y value of the center point 
  */
-void Ellipse::setCY(const RelAbsVector& cy)
+int Ellipse::setCY(const RelAbsVector& cy)
 {
     this->mCY=cy;
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -693,9 +695,10 @@ void Ellipse::setCY(const RelAbsVector& cy)
  *
  * @param cz z value of the center point 
  */
-void Ellipse::setCZ(const RelAbsVector& cz)
+int Ellipse::setCZ(const RelAbsVector& cz)
 {
     this->mCZ=cz;
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*
@@ -703,9 +706,10 @@ void Ellipse::setCZ(const RelAbsVector& cz)
  *
  * @param rx radius along the x axis
  */
-void Ellipse::setRX(const RelAbsVector& rx)
+int Ellipse::setRX(const RelAbsVector& rx)
 {
     this->mRX=rx;
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -714,9 +718,10 @@ void Ellipse::setRX(const RelAbsVector& rx)
  *
  * @param ry radius along the y axis
  */
-void Ellipse::setRY(const RelAbsVector& ry)
+int Ellipse::setRY(const RelAbsVector& ry)
 {
     this->mRY=ry;
+    return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1295,15 +1300,15 @@ Ellipse_unsetRatio(Ellipse_t * e)
  * Returns the value of the "cx" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCX(const Ellipse_t * e)
 {
   if (e == NULL)
   {
-    return nullRef;
+    return NULL;
   }
 
-  return (RelAbsVector_t&)(e->getCX());
+  return (const RelAbsVector_t*)(&(e->getCX()));
 }
 
 
@@ -1311,15 +1316,15 @@ Ellipse_getCX(const Ellipse_t * e)
  * Returns the value of the "cy" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCY(const Ellipse_t * e)
 {
   if (e == NULL)
   {
-    return nullRef;
+    return NULL;
   }
 
-  return (RelAbsVector_t&)(e->getCY());
+  return (const RelAbsVector_t*)(&(e->getCY()));
 }
 
 
@@ -1327,15 +1332,15 @@ Ellipse_getCY(const Ellipse_t * e)
  * Returns the value of the "cz" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getCZ(const Ellipse_t * e)
 {
   if (e == NULL)
   {
-    return nullRef;
+    return NULL;
   }
 
-  return (RelAbsVector_t&)(e->getCZ());
+  return (const RelAbsVector_t*)(&(e->getCZ()));
 }
 
 
@@ -1343,15 +1348,15 @@ Ellipse_getCZ(const Ellipse_t * e)
  * Returns the value of the "rx" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getRX(const Ellipse_t * e)
 {
   if (e == NULL)
   {
-    return nullRef;
+    return NULL;
   }
 
-  return (RelAbsVector_t&)(e->getRX());
+  return (const RelAbsVector_t*)(&(e->getRX()));
 }
 
 
@@ -1359,15 +1364,15 @@ Ellipse_getRX(const Ellipse_t * e)
  * Returns the value of the "ry" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t&
+const RelAbsVector_t*
 Ellipse_getRY(const Ellipse_t * e)
 {
   if (e == NULL)
   {
-    return nullRef;
+    return NULL;
   }
 
-  return (RelAbsVector_t&)(e->getRY());
+  return (const RelAbsVector_t*)(&(e->getRY()));
 }
 
 
@@ -1431,25 +1436,11 @@ Ellipse_isSetRY(const Ellipse_t * e)
  */
 LIBSBML_EXTERN
 int
-Ellipse_setCX(Ellipse_t * e, const RelAbsVector_t& cx)
+Ellipse_setCX(Ellipse_t * e, const RelAbsVector_t* cx)
 {
-  if (e == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else 
-  {
-    e->setCX(cx);
-    if (e->isSetCX())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-  }
+  return (e != NULL) ? e->setCX(*cx) : LIBSBML_INVALID_OBJECT;
 }
+
 
 
 /*
@@ -1457,50 +1448,19 @@ Ellipse_setCX(Ellipse_t * e, const RelAbsVector_t& cx)
  */
 LIBSBML_EXTERN
 int
-Ellipse_setCY(Ellipse_t * e, const RelAbsVector_t& cy)
+Ellipse_setCY(Ellipse_t * e, const RelAbsVector_t* cy)
 {
-  if (e == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    e->setCY(cy);
-    if (e->isSetCY())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-  }
+  return (e != NULL) ? e->setCY(*cy) : LIBSBML_INVALID_OBJECT;
 }
-
 
 /*
  * Sets the value of the "cz" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
 int
-Ellipse_setCZ(Ellipse_t * e, const RelAbsVector_t& cz)
+Ellipse_setCZ(Ellipse_t * e, const RelAbsVector_t* cz)
 {
-  if (e == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    e->setCZ(cz);
-    if (e->isSetCZ())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-  }
+  return (e != NULL) ? e->setCZ(*cz) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1509,24 +1469,9 @@ Ellipse_setCZ(Ellipse_t * e, const RelAbsVector_t& cz)
  */
 LIBSBML_EXTERN
 int
-Ellipse_setRX(Ellipse_t * e, const RelAbsVector_t& rx)
+Ellipse_setRX(Ellipse_t * e, const RelAbsVector_t* rx)
 {
-  if (e == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    e->setRX(rx);
-    if (e->isSetRX())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-  }
+  return (e != NULL) ? e->setRX(*rx) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1535,27 +1480,10 @@ Ellipse_setRX(Ellipse_t * e, const RelAbsVector_t& rx)
  */
 LIBSBML_EXTERN
 int
-Ellipse_setRY(Ellipse_t * e, const RelAbsVector_t& ry)
+Ellipse_setRY(Ellipse_t * e, const RelAbsVector_t* ry)
 {
-  if (e == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    e->setRY(ry);
-    if (e->isSetRY())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-  }
+  return (e != NULL) ? e->setRY(*ry) : LIBSBML_INVALID_OBJECT;
 }
-
-
 
 
 /*
