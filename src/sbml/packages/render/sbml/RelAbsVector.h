@@ -1,7 +1,6 @@
 /**
  * @file    RelAbsVector.h
- * @brief   class for representing coordinates that consist of relative 
- *          and absolute values.
+ * @brief Definition of the RelAbsVector class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -33,8 +32,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RelAbsVector
- * @sbmlbrief{render} TODO:Definition of the RelAbsVector class.
- * @brief This class represents a pair of numerical values where one value represents an absolute
+ * @sbmlbrief{render}
+ * This class represents a pair of numerical values where one value represents an absolute
  * value and the other value is a relative value in percent.
  *
  * For many elements in the render extension, it is necessary to specify coordinates not in terms
@@ -55,12 +54,13 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
-#include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/common/renderfwd.h>
 
 #ifdef __cplusplus
 
 #include <string>
 #include <ostream>
+#include <sbml/packages/render/extension/RenderExtension.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -68,8 +68,12 @@ class LIBSBML_EXTERN RelAbsVector
 {
 protected:
   /** @cond doxygenLibsbmlInternal */
-  double mAbs; // absolute coordinate value
-  double mRel; // relative coordinate value 
+  
+  double mAbs; 
+  bool mIsSetAbs;
+  double mRel;
+  bool mIsSetRel;
+  
   /** @endcond */
 
 public:
@@ -91,41 +95,35 @@ public:
 
   
   /**
+   * Copy constructor for RelAbsVector.
+   *
+   * @param orig the RelAbsVector instance to copy.
+   */
+  RelAbsVector(const RelAbsVector& orig);
+
+
+  /**
+   * Assignment operator for RelAbsVector.
+   *
+   * @param rhs the RelAbsVector object whose values are to be used as the
+   * basis of the assignment.
+   */
+  RelAbsVector& operator=(const RelAbsVector& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this RelAbsVector object.
+   *
+   * @return a (deep) copy of this RelAbsVector object.
+   */
+  virtual RelAbsVector* clone() const;
+
+
+  /**
    * Destroy this RelAbsVector object.
    */
   virtual ~RelAbsVector ();
 
-
-  /**
-   * Sets the relative and absolute value.
-   *
-   * @param abs absolute value
-   * @param rel relative value. If the relative value is omitted, it is set to 0.
-   */
-  void setCoordinate(double abs,double rel=0.0);
-
-  /**
-   * Sets the coordinates from the given string.
-   * If the string does not represent a valid value, the relative and the
-   * absolute component of the RelAbsVector are set to NaN.
-   *
-   * @param coordString value string
-   */
-  void setCoordinate(const std::string& coordString);
-
-  /**
-   * Sets the absolute coordinate value.
-   *
-   * @param abs absolute value to be set
-   */
-  void setAbsoluteValue(double abs);
-
-  /**
-   * Sets the relative coordinate value.
-   *
-   * @param rel relative value to be set
-   */
-  void setRelativeValue(double rel);
 
   /**
    * Returns the absolute coordinate value.
@@ -140,6 +138,103 @@ public:
    * @return absolute value
    */
   double getRelativeValue() const;
+
+  /**
+  * Returns the coordinate value.
+  *
+  * @return absolute value
+  */
+  std::string getCoordinate() const;
+
+  /**
+   * Predicate returning @c true if this RelAbsVector's "abs" attribute is set.
+   *
+   * @return @c true if this RelAbsVector's "abs" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetAbsoluteValue() const;
+
+
+  /**
+   * Predicate returning @c true if this RelAbsVector's "rel" attribute is set.
+   *
+   * @return @c true if this RelAbsVector's "rel" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetRelativeValue() const;
+
+
+  /**
+  * Predicate returning @c true if this RelAbsVector's coordinate attribute is set.
+  *
+  * @return @c true if this RelAbsVector's coordinate attribute has been set,
+  * otherwise @c false is returned.
+  */
+  bool isSetCoordinate() const;
+
+
+
+  /**
+   * Sets the absolute coordinate value.
+   *
+   * @param abs double value of the "abs" attribute to be set.
+   */
+  int setAbsoluteValue(double abs);
+
+  /**
+   * Sets the relative coordinate value.
+   *
+   * @param rel double value of the "rel" attribute to be set.
+   */
+  int setRelativeValue(double rel);
+
+  /**
+   * Sets the relative and absolute value.
+   *
+   * @param abs absolute value
+   * @param rel relative value. If the relative value is omitted, it is set to 0.
+   */
+  int setCoordinate(double abs,double rel=0.0);
+
+  /**
+   * Sets the coordinates from the given string.
+   * If the string does not represent a valid value, the relative and the
+   * absolute component of the RelAbsVector are set to NaN.
+   *
+   * @param coordString value string
+   */
+  int setCoordinate(const std::string& coordString);
+
+
+  /**
+   * Unsets the value of the "abs" attribute of this RelAbsVector.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetAbsoluteValue();
+
+
+  /**
+   * Unsets the value of the relative coordinate attribute of this RelAbsVector.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetRelativeValue();
+
+
+  /**
+  * Unsets the value of the "rel" attribute of this RelAbsVector.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  */
+  int unsetCoordinate();
+
 
   /**
    * addition operator for RelAbsVector objects
@@ -174,11 +269,6 @@ public:
   bool operator!=(const RelAbsVector& other) const;
 
   /**
-   * Assignment operator for RelAbsVector objects.
-   */
-  RelAbsVector& operator=(const RelAbsVector& src);
-
-  /**
    * @return an indication whether this element has been set 
    * (i.e., none zero entries for either relative or absolute coordinate)
    */
@@ -209,4 +299,215 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
-#endif // RelAbsVector_H__
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new RelAbsVector_t .
+ *
+ * @param abs a double, the absolute value to assign to this
+ * RelAbsVector_t.
+ *
+ * @param rel a double, the relative value to assign to this
+ * RelAbsVector_t.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t *
+RelAbsVector_create(double abs, double rel);
+
+
+/**
+ * Creates and returns a deep copy of this RelAbsVector_t object.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @return a (deep) copy of this RelAbsVector_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+RelAbsVector_clone(const RelAbsVector_t* rav);
+
+
+/**
+ * Frees this RelAbsVector_t object.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+void
+RelAbsVector_free(RelAbsVector_t* rav);
+
+
+/**
+ * Returns the value of the "abs" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure whose abs is sought.
+ *
+ * @return the value of the "abs" attribute of this RelAbsVector_t as a double.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+double
+RelAbsVector_getAbsoluteValue(const RelAbsVector_t * rav);
+
+
+/**
+ * Returns the value of the "rel" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure whose rel is sought.
+ *
+ * @return the value of the "rel" attribute of this RelAbsVector_t as a double.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+double
+RelAbsVector_getRelativeValue(const RelAbsVector_t * rav);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RelAbsVector_t's "abs" attribute is
+ * set.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @return @c 1 (true) if this RelAbsVector_t's "abs" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_isSetAbsoluteValue(const RelAbsVector_t * rav);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RelAbsVector_t's "rel" attribute is
+ * set.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @return @c 1 (true) if this RelAbsVector_t's "rel" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_isSetRelativeValue(const RelAbsVector_t * rav);
+
+
+/**
+ * Sets the value of the "abs" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @param abs double value of the "abs" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_setAbsoluteValue(RelAbsVector_t * rav, double abs);
+
+
+/**
+ * Sets the value of the "rel" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @param rel double value of the "rel" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_setRelativeValue(RelAbsVector_t * rav, double rel);
+
+
+/**
+ * Unsets the value of the "abs" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_unsetAbsoluteValue(RelAbsVector_t * rav);
+
+
+/**
+ * Unsets the value of the "rel" attribute of this RelAbsVector_t.
+ *
+ * @param rav the RelAbsVector_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RelAbsVector_t
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_unsetRelativeValue(RelAbsVector_t * rav);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !RelAbsVector_H__ */
+
+

@@ -810,7 +810,7 @@ Image* RenderGroup::createImage()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pImage = new Image(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -844,7 +844,7 @@ RenderGroup* RenderGroup::createGroup()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pRenderGroup = new RenderGroup(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -878,7 +878,7 @@ Rectangle* RenderGroup::createRectangle()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pRectangle = new Rectangle(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -912,7 +912,7 @@ Ellipse* RenderGroup::createEllipse()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pEllipse = new Ellipse(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -946,7 +946,7 @@ RenderCurve* RenderGroup::createCurve()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pRenderCurve = new RenderCurve(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -980,7 +980,7 @@ Polygon* RenderGroup::createPolygon()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pPolygon = new Polygon(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {
@@ -1014,7 +1014,7 @@ Text* RenderGroup::createText()
     {
       RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
       pText = new Text(renderns);
-	 delete renderns;
+   delete renderns;
     }
     catch (...)
     {

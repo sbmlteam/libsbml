@@ -1,6 +1,6 @@
 /**
  * @file    Ellipse.h
- * @brief   class for ellipse objects
+ * @brief Definition of the Ellipse class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,6 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Ellipse
+ * @sbmlbrief{render} TODO:Definition of the Ellipse class.
  * @brief graphical representation of an ellipse from the SBML render extension
  *
  * The ellipse class is derived from GraphicalPrimitive2D, so it inherits all its attributes
@@ -46,16 +47,23 @@
 #ifndef Ellipse_H__
 #define Ellipse_H__
 
-#include <sbml/common/sbmlfwd.h>
 
-#include <sbml/packages/render/sbml/GraphicalPrimitive2D.h>
-#include <sbml/packages/render/sbml/RelAbsVector.h>
-#include <sbml/xml/XMLNode.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
 
 #ifdef __cplusplus
 
-#include <sbml/packages/render/extension/RenderExtension.h>
+
 #include <string>
+
+
+#include <sbml/packages/render/sbml/GraphicalPrimitive2D.h>
+#include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/sbml/RelAbsVector.h>
+#include <sbml/xml/XMLNode.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -75,24 +83,37 @@ protected:
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new Ellipse object with the given SBML level
-   * and SBML version.
+   * Creates a new Ellipse using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this Ellipse.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * Ellipse.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this Ellipse.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Ellipse (unsigned int level      = RenderExtension::getDefaultLevel(),
-           unsigned int version    = RenderExtension::getDefaultVersion(),
-           unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  Ellipse(unsigned int level = RenderExtension::getDefaultLevel(),
+          unsigned int version = RenderExtension::getDefaultVersion(),
+          unsigned int pkgVersion =
+            RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new Ellipse object with the given SBMLNamespaces.
+   * Creates a new Ellipse using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Ellipse (RenderPkgNamespaces* renderns);
+  Ellipse(RenderPkgNamespaces *renderns);
 
   /**
    * Creates a new RadialGradient object from the given XMLNode object.
@@ -111,10 +132,6 @@ public:
   Ellipse(const XMLNode& node, unsigned int l2version=4);
 
 
-  /**
-   * Destroy this Ellipse object.
-   */
-  virtual ~Ellipse ();
 
 
 #ifndef OMIT_DEPRECATED
@@ -238,6 +255,77 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
+   * Copy constructor for Ellipse.
+   *
+   * @param orig the Ellipse instance to copy.
+   */
+  Ellipse(const Ellipse& orig);
+
+
+  /**
+   * Assignment operator for Ellipse.
+   *
+   * @param rhs the Ellipse object whose values are to be used as the basis of
+   * the assignment.
+   */
+  Ellipse& operator=(const Ellipse& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this Ellipse object.
+   *
+   * @return a (deep) copy of this Ellipse object.
+   */
+  virtual Ellipse* clone() const;
+
+
+  /**
+   * Destructor for Ellipse.
+   */
+  virtual ~Ellipse();
+
+
+  /**
+   * Returns the value of the "ratio" attribute of this Ellipse.
+   *
+   * @return the value of the "ratio" attribute of this Ellipse as a double.
+   */
+  double getRatio() const;
+
+
+  /**
+   * Predicate returning @c true if this Ellipse's "ratio" attribute is set.
+   *
+   * @return @c true if this Ellipse's "ratio" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetRatio() const;
+
+
+  /**
+   * Sets the value of the "ratio" attribute of this Ellipse.
+   *
+   * @param ratio double value of the "ratio" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setRatio(double ratio);
+
+
+  /**
+   * Unsets the value of the "ratio" attribute of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetRatio();
+
+
+  /**
    * Returns the x coordinate for the center point as a const reference.
    *
    * @return const reference to the x coordinatee of the center point.
@@ -307,6 +395,52 @@ public:
    */
   RelAbsVector& getRY();
 
+
+  /**
+   * Predicate returning @c true if this Ellipse's "cx" element is set.
+   *
+   * @return @c true if this Ellipse's "cx" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetCX() const;
+
+
+  /**
+   * Predicate returning @c true if this Ellipse's "cy" element is set.
+   *
+   * @return @c true if this Ellipse's "cy" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetCY() const;
+
+
+  /**
+   * Predicate returning @c true if this Ellipse's "cz" element is set.
+   *
+   * @return @c true if this Ellipse's "cz" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetCZ() const;
+
+
+  /**
+   * Predicate returning @c true if this Ellipse's "rx" element is set.
+   *
+   * @return @c true if this Ellipse's "rx" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetRX() const;
+
+
+  /**
+   * Predicate returning @c true if this Ellipse's "ry" element is set.
+   *
+   * @return @c true if this Ellipse's "ry" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetRY() const;
+
+
   /**
    * Sets the x coordinates for the center point.
    *
@@ -370,105 +504,150 @@ public:
 
 
   /**
-  * Returns the value of the "ratio" attribute of this Ellipse.
-  *
-  * @return the value of the "ratio" attribute of this Ellipse as a double.
-  */
-  double getRatio() const;
+   * Unsets the value of the "cx" element of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetCX();
 
 
   /**
-  * Predicate returning @c true if this Ellipse's "ratio" attribute is set.
-  *
-  * @return @c true if this Ellipse's "ratio" attribute has been set,
-  * otherwise @c false is returned.
-  */
-  bool isSetRatio() const;
+   * Unsets the value of the "cy" element of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetCY();
 
 
   /**
-  * Sets the value of the "ratio" attribute of this Ellipse.
-  *
-  * @param ratio double value of the "ratio" attribute to be set.
-  *
-  * @copydetails doc_returns_success_code
-  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-  * OperationReturnValues_t}
-  */
-  int setRatio(double ratio);
+   * Unsets the value of the "cz" element of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetCZ();
 
 
   /**
-  * Unsets the value of the "ratio" attribute of this Ellipse.
-  *
-  * @copydetails doc_returns_success_code
-  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-  */
-  int unsetRatio();
+   * Unsets the value of the "rx" element of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetRX();
+
+
+  /**
+   * Unsets the value of the "ry" element of this Ellipse.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetRY();
+
+
+  /**
+   * Returns the XML element name of this Ellipse object.
+   *
+   * For Ellipse, the XML element name is always @c "ellipse".
+   *
+   * @return the name of this element, i.e. @c "ellipse".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this Ellipse object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_ELLIPSE, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * Ellipse object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * Ellipse have been set, otherwise @c false is returned.
+   *
+   * @note The required attributes for the Ellipse object are:
+   * @li "cx"
+   * @li "cy"
+   * @li "rx"
+   */
+  virtual bool hasRequiredAttributes() const;
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactants.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * Write any contained elements
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
+  virtual void writeElements(XMLOutputStream& stream) const;
+
   /** @endcond */
 
 
-  /**
-   * Returns the XML element name of this object.
-   *
-   * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Ellipse defines it as returning "ellipse",
-   */
-  virtual const std::string& getElementName () const ;
 
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates and returns a deep copy of this Ellipse object.
-   * 
-   * @return a (deep) copy of this Ellipse object
+   * Accepts the given SBMLVisitor
    */
-  virtual Ellipse* clone () const;
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
-   *
-   * @see getElementName()
+   * Sets the parent SBMLDocument
    */
-  int getTypeCode () const;
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
+   * Connects to child elements
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
 
 
   /**
@@ -479,63 +658,43 @@ public:
    */
   XMLNode toXML() const;
 
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * attributes
-   */
-  virtual bool hasRequiredAttributes() const ;
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * elements
-   */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase* createObject (XMLInputStream& stream);
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
   /** @endcond */
 
 

@@ -32,7 +32,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "RelAbsVector.h"
+#include <sbml/packages/render/sbml/RelAbsVector.h>
 #include <iostream>
 
 #include <limits>
@@ -41,9 +41,19 @@
 #include <stdlib.h>
 
 
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
+
+
+
+#ifdef __cplusplus
+
+
+
 /*
  * Constructor with two values.
  * First value sets the absolute value, second sets the relative value (%). 
@@ -52,14 +62,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * @param a relative value in % (50 -> 50%)
  */
 RelAbsVector::RelAbsVector(double a, double r)
-  : mAbs(a)
-  , mRel(r)
+  : mAbs(0.0)
+  , mIsSetAbs(false)
+  , mRel(0.0)
+  , mIsSetRel(false)
 {
+  setAbsoluteValue(a);
+  setRelativeValue(r);
 }
 
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Constructor with a value string.
  * If the string does not represent a valid value, the relative and the
@@ -67,16 +79,57 @@ RelAbsVector::RelAbsVector(double a, double r)
  */
 RelAbsVector::RelAbsVector(const std::string& coordString)
   : mAbs(0.0)
+  , mIsSetAbs ( false )
   , mRel(0.0)
+  , mIsSetRel ( false )
 {
   if (!coordString.empty())
-  setCoordinate(coordString);
+  {
+    setCoordinate(coordString);
+  }
 }
-/** @endcond */
 
 
 /*
- * Destroy this object.
+* Copy constructor for RelAbsVector objects.
+*/
+RelAbsVector::RelAbsVector(const RelAbsVector& orig)
+{
+  mAbs = orig.mAbs;
+  mIsSetAbs = orig.mIsSetAbs;
+  mRel = orig.mRel;
+  mIsSetRel = orig.mIsSetRel;
+}
+
+
+/*
+ * Assignment operator for RelAbsVector objects.
+ */
+RelAbsVector& RelAbsVector::operator=(const RelAbsVector& rhs)
+{
+    if(&rhs!=this)
+    {
+        this->mAbs=rhs.mAbs;
+        mIsSetAbs = rhs.mIsSetAbs;
+        this->mRel=rhs.mRel;
+        mIsSetRel = rhs.mIsSetRel;
+    }
+    return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this RelAbsVector object.
+*/
+RelAbsVector*
+RelAbsVector::clone() const
+{
+  return new RelAbsVector(*this);
+}
+
+
+/*
+ * Destructor for RelAbsVector.
  */
 RelAbsVector::~RelAbsVector ()
 {
@@ -84,21 +137,125 @@ RelAbsVector::~RelAbsVector ()
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/*
+* Returns the absolute coordinate value.
+*
+* @return absolute value
+*/
+double 
+RelAbsVector::getAbsoluteValue() const
+{
+  return mAbs;
+}
+
+
+/*
+* Returns the relative coordinate value.
+*
+* @return absolute value
+*/
+double 
+RelAbsVector::getRelativeValue() const
+{
+  return mRel;
+}
+
+
+std::string
+RelAbsVector::getCoordinate() const
+{
+  return toString();
+}
+
+
+/*
+ * Predicate returning @c true if this RelAbsVector's "abs" attribute is set.
+ */
+bool
+RelAbsVector::isSetAbsoluteValue() const
+{
+  return mIsSetAbs;
+}
+
+
+/*
+ * Predicate returning @c true if this RelAbsVector's "rel" attribute is set.
+ */
+bool
+RelAbsVector::isSetRelativeValue() const
+{
+  return mIsSetRel;
+}
+
+
+/*
+* Predicate returning @c true if this RelAbsVector's "rel" attribute is set.
+*/
+bool
+RelAbsVector::isSetCoordinate() const
+{
+  return (!util_isNaN(mAbs) && !util_isNaN(mRel));
+}
+
+
+/*
+* Sets the absolute coordinate value.
+*
+* @param abs absolute value to be set
+*/
+int 
+RelAbsVector::setAbsoluteValue(double abs)
+{
+  this->mAbs = abs;
+  // values of 0 or Nan are considered unset
+  if (util_isEqual(abs, 0.0) || util_isNaN(abs))
+  {
+    mIsSetAbs = false;
+  }
+  else
+  {
+    mIsSetAbs = true;
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the relative coordinate value.
+*
+* @param rel relative value to be set
+*/
+int 
+RelAbsVector::setRelativeValue(double rel)
+{
+  this->mRel = rel;
+  // values of 0 or Nan are considered unset
+  if (util_isEqual(rel, 0.0) || util_isNaN(rel))
+  {
+    mIsSetRel = false;
+  }
+  else
+  {
+    mIsSetRel = true;
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the relative and absolute value.
  *
  * @param abs absolute value
  * @param rel relative value. If the relative value is omitted, it is set to 0.
  */
-void RelAbsVector::setCoordinate(double abs,double rel)
+int 
+RelAbsVector::setCoordinate(double abs,double rel)
 {
-    this->mAbs=abs;
-    this->mRel=rel;
+  setAbsoluteValue(abs);
+  return setRelativeValue(rel);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the coordinatees from the given string.
  * If the string does not represent a valid value, the relative and the
@@ -106,7 +263,8 @@ void RelAbsVector::setCoordinate(double abs,double rel)
  *
  * @param coordString value string
  */
-void RelAbsVector::setCoordinate(const std::string& coordString)
+int
+RelAbsVector::setCoordinate(const std::string& coordString)
 {
     bool result=true;
     // first we remove all whitespaces from the string
@@ -135,8 +293,8 @@ void RelAbsVector::setCoordinate(const std::string& coordString)
         if((*pp)=='%' && pp==(s+trimmed.size()-1))
         {
             // we only have a relative value
-            this->mAbs=0.0;
-            this->mRel=value;
+          setAbsoluteValue(0.0);
+          setRelativeValue(value);
         }
         else
         {
@@ -145,13 +303,13 @@ void RelAbsVector::setCoordinate(const std::string& coordString)
             // or we have an error
             if((*pp)=='\0')
             {
-                this->mAbs=value;
-                this->mRel=0.0;
+              setAbsoluteValue(value);
+              setRelativeValue(0.0);
             }
             else if((*pp)=='+' || (*pp)=='-')
             {
-                this->mAbs=value;
-                p=pp;
+              setAbsoluteValue(value);
+              p=pp;
                 double value=strtod(p,&pp);
                 // pp must point to the '%' character
                 if((*pp)!='%' || pp!=(s+trimmed.size()-1))
@@ -160,7 +318,7 @@ void RelAbsVector::setCoordinate(const std::string& coordString)
                 }
                 else
                 {
-                    this->mRel=value;
+                  setRelativeValue(value);
                 }
             }
             else
@@ -173,71 +331,61 @@ void RelAbsVector::setCoordinate(const std::string& coordString)
     if(result==false)
     {
         // set relative and absolute value to NaN
-        this->mAbs=std::numeric_limits<double>::quiet_NaN();
-        this->mRel=std::numeric_limits<double>::quiet_NaN();
+      setAbsoluteValue(std::numeric_limits<double>::quiet_NaN());
+      setRelativeValue(std::numeric_limits<double>::quiet_NaN());
     }
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the absolute coordinate value.
- *
- * @param abs absolute value to be set
- */
-void RelAbsVector::setAbsoluteValue(double abs)
+* unSets the absolute coordinate value.
+*
+*/
+int
+RelAbsVector::unsetAbsoluteValue()
 {
-    this->mAbs=abs;
+  setAbsoluteValue(0.0);
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the relative coordinate value.
- *
- * @param rel relative value to be set
- */
-void RelAbsVector::setRelativeValue(double rel)
+* UnSets the relative coordinate value.
+*/
+int
+RelAbsVector::unsetRelativeValue()
 {
-    this->mRel=rel;
+  setRelativeValue(0.0);
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the absolute coordinate value.
- *
- * @return absolute value
- */
-double RelAbsVector::getAbsoluteValue() const
+* Sets the relative and absolute value.
+*
+* @param abs absolute value
+* @param rel relative value. If the relative value is omitted, it is set to 0.
+*/
+int
+RelAbsVector::unsetCoordinate()
 {
-    return this->mAbs;
+  setRelativeValue(0.0);
+  setAbsoluteValue(0.0);
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the relative coordinate value.
- *
- * @return absolute value
- */
-double RelAbsVector::getRelativeValue() const
-{
-    return this->mRel;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * addition operator for RelAbsVector objects
  */
-RelAbsVector RelAbsVector::operator+(const RelAbsVector& other) const
+RelAbsVector 
+RelAbsVector::operator+(const RelAbsVector& other) const
 {
     return RelAbsVector(this->mAbs+other.mAbs,this->mRel+other.mRel);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Divides a RelAbsVector object by a double value.
  *
@@ -245,13 +393,13 @@ RelAbsVector RelAbsVector::operator+(const RelAbsVector& other) const
  *
  * @return result of division as a new RelAbsVector object
  */
-RelAbsVector RelAbsVector::operator/(double x) const
+RelAbsVector 
+RelAbsVector::operator/(double x) const
 {
     return RelAbsVector(this->mAbs/x,this->mRel/x);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Comparison operator.
  * Return true if two RelAbsVector objects are equal.
@@ -283,9 +431,8 @@ bool RelAbsVector::operator==(const RelAbsVector& other) const
     }
     return result;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Inverse comparison operator.
  * Return false if two RelAbsVector objects are equal.
@@ -293,14 +440,13 @@ bool RelAbsVector::operator==(const RelAbsVector& other) const
  * @return bool false if the two RelAbsValueObjects are equal and
  * true otherwise.
  */
-bool RelAbsVector::operator!=(const RelAbsVector& other) const
+bool 
+RelAbsVector::operator!=(const RelAbsVector& other) const
 {
     return !((*this)==other);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Output operator for RelAbsVector objects.
  */
@@ -324,25 +470,15 @@ std::ostream& operator<<(std::ostream& os,const RelAbsVector& v)
     }
     return os;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Assignment operator for RelAbsVector objects.
- */
-RelAbsVector& RelAbsVector::operator=(const RelAbsVector& src)
-{
-    if(&src!=this)
-    {
-        this->mAbs=src.mAbs;
-        this->mRel=src.mRel;
-    }
-    return *this;
-}
-bool RelAbsVector::empty() const
+
+bool 
+RelAbsVector::empty() const
 {
   return ((mAbs == 0.0 || util_isNaN(mAbs)) && (mRel == 0.0 || util_isNaN(mRel)));
 }
+
+
 std::string RelAbsVector::toString() const
 {
   std::stringstream str;
@@ -354,6 +490,148 @@ void RelAbsVector::erase()
   mAbs = 0;
   mRel = 0;
 }
-/** @endcond */
 
-LIBSBML_CPP_NAMESPACE_END 
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new RelAbsVector_t .
+ */
+LIBSBML_EXTERN
+RelAbsVector_t *
+RelAbsVector_create(double abs, double rel)
+{
+  return new RelAbsVector(abs, rel);
+}
+
+
+/*
+ * Creates and returns a deep copy of this RelAbsVector_t object.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+RelAbsVector_clone(const RelAbsVector_t* rav)
+{
+  if (rav != NULL)
+  {
+    return static_cast<RelAbsVector_t*>(rav->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this RelAbsVector_t object.
+ */
+LIBSBML_EXTERN
+void
+RelAbsVector_free(RelAbsVector_t* rav)
+{
+  if (rav != NULL)
+  {
+    delete rav;
+  }
+}
+
+
+/*
+ * Returns the value of the "abs" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+double
+RelAbsVector_getAbsoluteValue(const RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? rav->getAbsoluteValue() : util_NaN();
+}
+
+
+/*
+ * Returns the value of the "rel" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+double
+RelAbsVector_getRelativeValue(const RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? rav->getRelativeValue() : util_NaN();
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RelAbsVector_t's "abs" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_isSetAbsoluteValue(const RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? static_cast<int>(rav->isSetAbsoluteValue()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RelAbsVector_t's "rel" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_isSetRelativeValue(const RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? static_cast<int>(rav->isSetRelativeValue()) : 0;
+}
+
+
+/*
+ * Sets the value of the "abs" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_setAbsoluteValue(RelAbsVector_t * rav, double abs)
+{
+  return (rav != NULL) ? rav->setAbsoluteValue(abs) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "rel" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_setRelativeValue(RelAbsVector_t * rav, double rel)
+{
+  return (rav != NULL) ? rav->setRelativeValue(rel) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "abs" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_unsetAbsoluteValue(RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? rav->unsetAbsoluteValue() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "rel" attribute of this RelAbsVector_t.
+ */
+LIBSBML_EXTERN
+int
+RelAbsVector_unsetRelativeValue(RelAbsVector_t * rav)
+{
+  return (rav != NULL) ? rav->unsetRelativeValue() : LIBSBML_INVALID_OBJECT;
+}
+
+
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

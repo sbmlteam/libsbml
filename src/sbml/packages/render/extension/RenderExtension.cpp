@@ -32,6 +32,7 @@
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
 #include <sbml/packages/render/extension/RenderListOfLayoutsPlugin.h>
+#include <sbml/packages/render/validator/RenderSBMLErrorTable.h>
 #include <sbml/packages/render/extension/RenderGraphicalObjectPlugin.h>
 #include <sbml/packages/render/extension/RenderSBMLDocumentPlugin.h>
 #include <sbml/SBMLDocument.h>
@@ -320,17 +321,18 @@ RenderExtension::getPackageVersion(const std::string &uri) const
 SBMLNamespaces*
 RenderExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
-  LayoutPkgNamespaces* pkgns = NULL;
-  if ( uri == getXmlnsL3V1V1())
+  RenderPkgNamespaces* pkgns = NULL;
+
+  if (uri == getXmlnsL3V1V1())
   {
-    pkgns = new LayoutPkgNamespaces(3,1,1);    
-  }  
+    pkgns = new RenderPkgNamespaces(3, 1, 1);
+  }
   else if ( uri == getXmlnsL2())
   {
     //  
     // (NOTE) This should be harmless but may cause some problem.
     //
-    pkgns = new LayoutPkgNamespaces(2);
+    pkgns = new RenderPkgNamespaces(2);
   }  
   return pkgns;
 }
@@ -353,6 +355,64 @@ RenderExtension::getStringFromTypeCode(int typeCode) const
 
   return SBML_RENDER_TYPECODE_STRINGS[typeCode - min];
 }
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the entry in the error table at this index.
+ */
+packageErrorTableEntry
+RenderExtension::getErrorTable(unsigned int index) const
+{
+  return renderErrorTable[index];
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Return the index in the error table with the given errorId.
+ */
+unsigned int
+RenderExtension::getErrorTableIndex(unsigned int errorId) const
+{
+  unsigned int tableSize =
+    sizeof(renderErrorTable)/sizeof(renderErrorTable[0]);
+  unsigned int index = 0;
+
+  for (unsigned int i = 0; i < tableSize; i++)
+  {
+    if (errorId == renderErrorTable[i].code)
+    {
+      index = i;
+      break;
+    }
+  }
+
+  return index;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the offset for the errorId range for the "render" package.
+ */
+unsigned int
+RenderExtension::getErrorIdOffset() const
+{
+  return 1300000;
+}
+
+/** @endcond */
 
 
 /*

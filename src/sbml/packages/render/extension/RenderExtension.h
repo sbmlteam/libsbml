@@ -196,6 +196,52 @@ public:
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the entry in the error table at this index.
+   *
+   * @param index an unsigned integer representing the index of the error.
+   *
+   * @return packageErrorTableEntry object in the RenderSBMLErrorTable.
+   */
+  virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Return the index in the error table with the given errorId.
+   *
+   * @param errorId an unsigned integer representing the errorId of the error.
+   *
+   * @return unsigned int representing the index in the RenderSBMLErrorTable
+   * corresponding to the errorId given.
+   */
+  virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the offset for the errorId range for the "render" package.
+   *
+   * @return unsigned int representing the offset for errors in the
+   * RenderSBMLErrorTable.
+   */
+  virtual unsigned int getErrorIdOffset() const;
+
+  /** @endcond */
+
+
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Initializes layout extension by creating an object of this class with 
