@@ -284,7 +284,7 @@ public:
    * @li @c "collection"
    * @li @c "unknown"
    */
-  const std::string& getKindAsString() const;
+  std::string getKindAsString() const;
 
 
   /**

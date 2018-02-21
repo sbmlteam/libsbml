@@ -268,10 +268,17 @@ GradientBase::getSpreadMethodAsString() const
 /*
  * Returns the value of the "spreadMethod" attribute of this GradientBase.
  */
-const std::string&
+//const std::string&
+//GradientBase::getSpreadMethodString() const
+//{
+//  static const std::string code_str =
+//    SpreadMethod_toString((GradientBase::SPREADMETHOD)(mSpreadMethod));
+//  return code_str;
+//}
+std::string
 GradientBase::getSpreadMethodString() const
 {
-  static const std::string code_str =
+  std::string code_str = 
     SpreadMethod_toString((GradientBase::SPREADMETHOD)(mSpreadMethod));
   return code_str;
 }

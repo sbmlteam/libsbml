@@ -292,7 +292,7 @@ public:
    * @li @c "repeat"
    * @li @c "invalid GradientBaseSpreadMethod"
    */
-  const std::string& getSpreadMethodString() const;
+  std::string getSpreadMethodString() const;
 
 
   /**

@@ -159,13 +159,19 @@ Group::getKind() const
 /*
  * Returns the value of the "kind" attribute of this Group.
  */
-const std::string&
+
+//const std::string&
+//Group::getKindAsString() const
+//{
+//  static const std::string code_str = GroupKind_toString(mKind);
+//  return code_str;
+//}
+std::string
 Group::getKindAsString() const
 {
-  static const std::string code_str = GroupKind_toString(mKind);
+  std::string code_str = GroupKind_toString(mKind);
   return code_str;
 }
-
 
 /*
  * Predicate returning @c true if this Group's "id" attribute is set.
@@ -243,16 +249,22 @@ Group::setKind(const GroupKind_t kind)
 int
 Group::setKind(const std::string& kind)
 {
-  if (GroupKind_isValidString(kind.c_str()) == 0)
+  //if (GroupKind_isValidString(kind.c_str()) == 0)
+  //{
+  //  mKind = GROUP_KIND_UNKNOWN;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mKind = GroupKind_fromString(kind.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  mKind = GroupKind_fromString(kind.c_str());
+  if (mKind == GROUP_KIND_UNKNOWN)
   {
-    mKind = GROUP_KIND_UNKNOWN;
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mKind = GroupKind_fromString(kind.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
