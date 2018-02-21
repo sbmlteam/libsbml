@@ -75,9 +75,20 @@ def main(args):
 
             # sys.exit(1)
 
+    # strip non-FBC plugins
+    for p_ in range(sbmldoc.getNumPlugins()):
+        if sbmldoc.getPlugin(p_).getPackageName() != 'fbc':
+            props = libsbml.ConversionProperties()
+            props.addOption("stripPackage", True, "Strip SBML Level 3 package constructs from the model")
+            props.addOption("package", sbmldoc.getPlugin(p_).getPackageName(), "Name of the SBML Level 3 package to be stripped")
+            if sbmldoc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS:
+                print("[Error] Failed to remove package: {}".format(sbmldoc.getPlugin(p_).getPackageName()))
+
+    # convert to L2
     props = libsbml.ConversionProperties()
     props.addOption("convert fbc to cobra", True, "Convert FBC model to Cobra model")
     result = sbmldoc.convert(props)
+
     if result != libsbml.LIBSBML_OPERATION_SUCCESS:
         print("[Error] Conversion failed... (%d)" % result)
         sys.exit(1)
