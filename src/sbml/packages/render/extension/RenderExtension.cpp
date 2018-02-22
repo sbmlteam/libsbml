@@ -1008,7 +1008,7 @@ LIBSBML_EXTERN
 int
 FontWeight_isValid(FontWeight_t fw)
 {
-  int min = FONT_WEIGHT_BOLD;
+  int min = FONT_WEIGHT_NORMAL;
   int max = FONT_WEIGHT_INVALID;
 
   if (fw < min || fw >= max)
@@ -1095,7 +1095,7 @@ LIBSBML_EXTERN
 int
 FontStyle_isValid(FontStyle_t fs)
 {
-  int min = FONT_STYLE_ITALIC;
+  int min = FONT_STYLE_NORMAL;
   int max = FONT_STYLE_INVALID;
 
   if (fs < min || fs >= max)

@@ -1098,9 +1098,9 @@ Text::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  string elplusid = "<ellipse> element";
+  string elplusid = "<text> element ";
   if (!getId().empty()) {
-    elplusid += " with the id '" + mId + "'";
+    elplusid += "with the id '" + mId + "' ";
   }
 
   // 
