@@ -1016,7 +1016,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cx' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderEllipseCxMustBeString,
+        log->logPackageError("render", RenderEllipseCxMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1045,7 +1045,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cy' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderEllipseCyMustBeString,
+        log->logPackageError("render", RenderEllipseCyMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1073,7 +1073,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'cz' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderEllipseCzMustBeString,
+        log->logPackageError("render", RenderEllipseCzMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1104,7 +1104,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
         {
           std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
             + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-          log->logPackageError("render", RenderEllipseRxMustBeString,
+          log->logPackageError("render", RenderEllipseRxMustBeRelAbsVector,
             pkgVersion, level, version, message);
 
         }
@@ -1139,7 +1139,7 @@ void Ellipse::readAttributes (const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderEllipseRyMustBeString,
+        log->logPackageError("render", RenderEllipseRyMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1300,7 +1300,7 @@ Ellipse_unsetRatio(Ellipse_t * e)
  * Returns the value of the "cx" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCX(const Ellipse_t * e)
 {
   if (e == NULL)
@@ -1308,7 +1308,7 @@ Ellipse_getCX(const Ellipse_t * e)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(e->getCX()));
+  return (RelAbsVector_t*)(&(e->getCX()));
 }
 
 
@@ -1316,7 +1316,7 @@ Ellipse_getCX(const Ellipse_t * e)
  * Returns the value of the "cy" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCY(const Ellipse_t * e)
 {
   if (e == NULL)
@@ -1324,7 +1324,7 @@ Ellipse_getCY(const Ellipse_t * e)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(e->getCY()));
+  return (RelAbsVector_t*)(&(e->getCY()));
 }
 
 
@@ -1332,7 +1332,7 @@ Ellipse_getCY(const Ellipse_t * e)
  * Returns the value of the "cz" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCZ(const Ellipse_t * e)
 {
   if (e == NULL)
@@ -1340,7 +1340,7 @@ Ellipse_getCZ(const Ellipse_t * e)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(e->getCZ()));
+  return (RelAbsVector_t*)(&(e->getCZ()));
 }
 
 
@@ -1348,7 +1348,7 @@ Ellipse_getCZ(const Ellipse_t * e)
  * Returns the value of the "rx" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getRX(const Ellipse_t * e)
 {
   if (e == NULL)
@@ -1356,7 +1356,7 @@ Ellipse_getRX(const Ellipse_t * e)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(e->getRX()));
+  return (RelAbsVector_t*)(&(e->getRX()));
 }
 
 
@@ -1364,7 +1364,7 @@ Ellipse_getRX(const Ellipse_t * e)
  * Returns the value of the "ry" element of this Ellipse_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getRY(const Ellipse_t * e)
 {
   if (e == NULL)
@@ -1372,7 +1372,7 @@ Ellipse_getRY(const Ellipse_t * e)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(e->getRY()));
+  return (RelAbsVector_t*)(&(e->getRY()));
 }
 
 

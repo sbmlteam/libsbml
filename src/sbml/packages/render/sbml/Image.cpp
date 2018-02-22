@@ -1,6 +1,6 @@
 /**
  * @file    Image.cpp
- * @brief   class representing a bitmap image
+ * @brief Implementation of the Image class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,69 +31,67 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "Image.h"
+#include <sbml/packages/render/sbml/Image.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 
+
+
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string Image::ELEMENT_NAME="image";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Image object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new Image using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-Image::Image (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    Transformation2D(level,version, pkgVersion)
-////    ,mId("")
+Image::Image(unsigned int level,
+             unsigned int version,
+             unsigned int pkgVersion)
+  :  Transformation2D(level, version, pkgVersion)
     ,mX(RelAbsVector(0.0,0.0))
     ,mY(RelAbsVector(0.0,0.0))
     ,mZ(RelAbsVector(0.0,0.0))
     ,mWidth(RelAbsVector(0.0,0.0))
     ,mHeight(RelAbsVector(0.0,0.0))
-    ,mHRef("")
+    ,mHref("")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
+  connectToChild();
 }
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new Image object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new Image using the given RenderPkgNamespaces object.
  */
-Image::Image (RenderPkgNamespaces* renderns):
-    Transformation2D(renderns)
-////    ,mId("")
+Image::Image(RenderPkgNamespaces *renderns)
+  : Transformation2D(renderns)
     ,mX(RelAbsVector(0.0,0.0))
     ,mY(RelAbsVector(0.0,0.0))
     ,mZ(RelAbsVector(0.0,0.0))
     ,mWidth(RelAbsVector(0.0,0.0))
     ,mHeight(RelAbsVector(0.0,0.0))
-    ,mHRef("")
+    ,mHref("")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
   setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
 /** @endcond */
@@ -116,7 +114,7 @@ Image::Image(const XMLNode& node, unsigned int l2version):Transformation2D(node,
     ,mZ(RelAbsVector(0.0,0.0))
     ,mWidth(RelAbsVector(0.0,0.0))
                                   ,mHeight(RelAbsVector(0.0,0.0))
-                                  ,mHRef("")
+                                  ,mHref("")
 {
    ExpectedAttributes ea;
     addExpectedAttributes(ea);
@@ -130,57 +128,6 @@ Image::Image(const XMLNode& node, unsigned int l2version):Transformation2D(node,
 /** @endcond */
 
 
-/*
- * Destroy this object.
- */
-Image::~Image ()
-{
-}
-
-
-
-/** @cond doxygenLibsbmlInternal */
-void
-Image::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  Transformation2D::addExpectedAttributes(attributes);
-
-  attributes.add("id");
-  attributes.add("x");
-  attributes.add("y");
-  attributes.add("z");
-  attributes.add("width");
-  attributes.add("height");
-  attributes.add("href");
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void Image::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-    this->Transformation2D::readAttributes(attributes, expectedAttributes);
-    std::string s;
-    attributes.readInto("id", s, getErrorLog(), false, getLine(), getColumn());
-    this->setId(s);
-    attributes.readInto("x", s, getErrorLog(), false, getLine(), getColumn());
-    this->mX=RelAbsVector(s);
-    attributes.readInto("y", s, getErrorLog(), false, getLine(), getColumn());
-    this->mY=RelAbsVector(s);
-    if(attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mZ=RelAbsVector(s);
-    }
-    else
-    {
-        this->mZ=RelAbsVector(0.0,0.0);
-    }
-    attributes.readInto("width", s, getErrorLog(), false, getLine(), getColumn());
-    this->mWidth=RelAbsVector(s);
-    attributes.readInto("height", s, getErrorLog(), false, getLine(), getColumn());
-    this->mHeight=RelAbsVector(s);
-    attributes.readInto("href", this->mHRef, getErrorLog(), false, getLine(), getColumn());
-}
-/** @endcond */
 
 
 
@@ -206,7 +153,7 @@ void Image::readAttributes (const XMLAttributes& attributes, const ExpectedAttri
     ,mZ(RelAbsVector(0.0,0.0))
     ,mWidth(RelAbsVector(0.0,0.0))
      ,mHeight(RelAbsVector(0.0,0.0))
-     ,mHRef("")
+     ,mHref("")
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Image::Image(const std::string& id) is deprecated." << std::endl;
@@ -225,6 +172,356 @@ void Image::readAttributes (const XMLAttributes& attributes, const ExpectedAttri
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
+/*
+ * Copy constructor for Image.
+ */
+Image::Image(const Image& orig)
+  : Transformation2D( orig )
+  , mX ( orig.mX )
+  , mY ( orig.mY )
+  , mZ ( orig.mZ )
+  , mWidth ( orig.mWidth )
+  , mHeight ( orig.mHeight )
+  , mHref ( orig.mHref )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for Image.
+ */
+Image&
+Image::operator=(const Image& rhs)
+{
+  if (&rhs != this)
+  {
+    Transformation2D::operator=(rhs);
+    mHref = rhs.mHref;
+    mX = rhs.mX;
+    mY = rhs.mY;
+    mZ = rhs.mZ;
+    mWidth = rhs.mWidth;
+    mHeight = rhs.mHeight;
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this Image object.
+ */
+Image*
+Image::clone() const
+{
+  return new Image(*this);
+}
+
+
+/*
+ * Destructor for Image.
+ */
+Image::~Image()
+{
+}
+
+
+/*
+ * Returns the value of the "id" attribute of this Image.
+ */
+const std::string&
+Image::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "href" attribute of this Image.
+ */
+const std::string&
+Image::getHref() const
+{
+  return mHref;
+}
+
+
+/*
+ * Returns the value of the "href" attribute of this Image.
+ */
+const std::string&
+Image::getImageReference() const
+{
+  return mHref;
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "id" attribute is set.
+ */
+bool
+Image::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "href" attribute is set.
+ */
+bool
+Image::isSetHref() const
+{
+  return (mHref.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "href" attribute is set.
+ */
+bool
+Image::isSetImageReference() const
+{
+  return (mHref.empty() == false);
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this Image.
+ */
+int
+Image::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets the value of the "href" attribute of this Image.
+ */
+int
+Image::setHref(const std::string& href)
+{
+  mHref = href;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "href" attribute of this Image.
+ */
+int
+Image::setImageReference(const std::string& href)
+{
+  return setHref(href);
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this Image.
+ */
+int
+Image::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "href" attribute of this Image.
+ */
+int
+Image::unsetHref()
+{
+  mHref.erase();
+
+  if (mHref.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "href" attribute of this Image.
+ */
+int
+Image::unsetImageReference()
+{
+  return unsetHref();
+}
+
+
+/*
+* Returns a const reference to the x coordinate of the image position.
+*/
+const RelAbsVector& 
+Image::getX() const
+{
+  return this->mX;
+}
+
+
+RelAbsVector& 
+Image::getX()
+{
+  return this->mX;
+}
+
+
+/*
+* Returns a const reference to the y coordinate of the image position.
+*/
+const RelAbsVector& 
+Image::getY() const
+{
+  return this->mY;
+}
+
+
+RelAbsVector& 
+Image::getY()
+{
+  return this->mY;
+}
+
+
+/*
+* Returns a const reference to the z coordinate of the image position.
+*/
+const RelAbsVector& 
+Image::getZ() const
+{
+  return this->mZ;
+}
+
+
+RelAbsVector& 
+Image::getZ()
+{
+  return this->mZ;
+}
+
+
+/*
+* Returns a const reference to the width of the image.
+*/
+const RelAbsVector& 
+Image::getWidth() const
+{
+  return this->mWidth;
+}
+
+
+RelAbsVector&
+Image::getWidth()
+{
+  return this->mWidth;
+}
+
+
+/*
+* Returns a const reference to the height of the image.
+*/
+const RelAbsVector& 
+Image::getHeight() const
+{
+  return this->mHeight;
+}
+
+
+RelAbsVector& 
+Image::getHeight()
+{
+  return this->mHeight;
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "x" element is set.
+ */
+bool
+Image::isSetX() const
+{
+  return mX.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "y" element is set.
+ */
+bool
+Image::isSetY() const
+{
+  return mY.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "z" element is set.
+ */
+bool
+Image::isSetZ() const
+{
+  return mZ.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "width" element is set.
+ */
+bool
+Image::isSetWidth() const
+{
+  return mWidth.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Image's "height" element is set.
+ */
+bool
+Image::isSetHeight() const
+{
+  return mHeight.isSetCoordinate();
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Sets the position of the image relative to its viewport.
+* The position can either be specified in relative or in absolut coordinates
+* or a combination of both.
+* The z coordinatee can be omitted. In that case it is set to 0.
+*
+* @param x x coordinate of the image position
+* @param y y coordinate of the image position
+* @param z z coordinate of the image position
+*/
+void Image::setCoordinates(const RelAbsVector& x, const RelAbsVector& y, const RelAbsVector& z)
+{
+  this->mX = x;
+  this->mY = y;
+  this->mZ = z;
+}
+/** @endcond */
+
+
 /** @cond doxygenLibsbmlInternal */
 /*
  * Sets the dimensions of the image.
@@ -241,309 +538,487 @@ void Image::setDimensions(const RelAbsVector& width,const RelAbsVector& height)
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+* Sets the x coordinate of the image position.
+*/
+int
+Image::setX(const RelAbsVector& coord)
+{
+  this->mX = coord;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the y coordinate of the image position.
+*/
+int
+Image::setY(const RelAbsVector& coord)
+{
+  this->mY = coord;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the z coordinate of the image position.
+*/
+int
+Image::setZ(const RelAbsVector& coord)
+{
+  this->mZ = coord;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the width of the image when rendered.
- * The width can be set as relative values or absolute values, or 
- * a combination of both.
- *
- * @param width the width of the image when rendered
  */
-void Image::setWidth(const RelAbsVector& width)
+int 
+Image::setWidth(const RelAbsVector& width)
 {
     this->mWidth=width;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the height of the image when rendered.
- * The height can be set as relative values or absolute values, or 
- * a combination of both.
- *
- * @param height the height of the image when rendered
  */
-void Image::setHeight(const RelAbsVector& height)
+int 
+Image::setHeight(const RelAbsVector& height)
 {
     this->mHeight=height;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a reference to the width of the image.
- *
- * @return reference to the width
+ * Unsets the value of the "x" element of this Image.
  */
-RelAbsVector& Image::getWidth()
+int
+Image::unsetX()
 {
-    return this->mWidth;
+  mX.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a reference to the height of the image.
- *
- * @return reference to the height
+ * Unsets the value of the "y" element of this Image.
  */
-RelAbsVector& Image::getHeight()
+int
+Image::unsetY()
 {
-    return this->mHeight;
+  mY.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a const reference to the width of the image.
- *
- * @return const reference to the width
+ * Unsets the value of the "z" element of this Image.
  */
-const RelAbsVector& Image::getWidth() const
+int
+Image::unsetZ()
 {
-    return this->mWidth;
+  mZ.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns a const reference to the height of the image.
- *
- * @return const reference to the height
+ * Unsets the value of the "width" element of this Image.
  */
-const RelAbsVector& Image::getHeight() const
+int
+Image::unsetWidth()
 {
-    return this->mHeight;
+  mWidth.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the reference to the image location.
- * Relative paths are relative to the document that contains the render information.
- * The path should be the location to a JPEG or PNG bitmap image, other formats are
- * currently not supported.
- *
- * @param ref A URL string that specifies where the image is located on the disk.
+ * Unsets the value of the "height" element of this Image.
  */
-void Image::setImageReference(const std::string& ref)
+int
+Image::unsetHeight()
 {
-    this->mHRef=ref;
+  mHeight.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the image reference URL string.
- *
- * @return THe path to the image data as a string.
+ * Returns the XML element name of this Image object.
  */
-const std::string& Image::getImageReference() const
+const std::string&
+Image::getElementName() const
 {
-    return this->mHRef;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the position of the image relative to its viewport.
- * The position can either be specified in relative or in absolut coordinates
- * or a combination of both.
- * The z coordinatee can be omitted. In that case it is set to 0.
- *
- * @param x x coordinate of the image position
- * @param y y coordinate of the image position
- * @param z z coordinate of the image position
- */
-void Image::setCoordinates(const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z)
-{
-    this->mX=x;
-    this->mY=y;
-    this->mZ=z;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the x coordinate of the image position.
- * The position can either be specified in relative or in absolut coordinates
- * or a combination of both.
- *
- * @param x x coordinate of the image position
- */
-void Image::setX(const RelAbsVector& coord)
-{
-    this->mX=coord;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the y coordinate of the image position.
- * The position can either be specified in relative or in absolut coordinates
- * or a combination of both.
- *
- * @param y y coordinate of the image position
- */
-void Image::setY(const RelAbsVector& coord)
-{
-    this->mY=coord;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the z coordinate of the image position.
- * The position can either be specified in relative or in absolut coordinates
- * or a combination of both.
- *
- * @param z z coordinate of the image position
- */
-void Image::setZ(const RelAbsVector& coord)
-{
-    this->mZ=coord;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const reference to the x coordinate of the image position.
- *
- * @return const reference to the x coordinate of the image position.
- */
-const RelAbsVector& Image::getX() const
-{
-    return this->mX;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const reference to the y coordinate of the image position.
- *
- * @return const reference to the y coordinate of the image position.
- */
-const RelAbsVector& Image::getY() const
-{
-    return this->mY;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const reference to the z coordinate of the image position.
- *
- * @return const reference to the z coordinate of the image position.
- */
-const RelAbsVector& Image::getZ() const
-{
-    return this->mZ;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a reference to the x coordinate of the image position.
- *
- * @return reference to the x coordinate of the image position.
- */
-RelAbsVector& Image::getX()
-{
-    return this->mX;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a reference to the y coordinate of the image position.
- *
- * @return reference to the y coordinate of the image position.
- */
-RelAbsVector& Image::getY()
-{
-    return this->mY;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a reference to the z coordinate of the image position.
- *
- * @return reference to the z coordinate of the image position.
- */
-RelAbsVector& Image::getZ()
-{
-    return this->mZ;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int Image::getTypeCode() const
-{
-    return SBML_RENDER_IMAGE;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the SBML object's next
- * sibling object (if available).
- */
-bool Image::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * Image, is always @c "image".
- * 
- * @return the name of this element, i.e., @c "image".
- */
-const std::string& Image::getElementName() const
-{
-  static std::string name = Image::ELEMENT_NAME;
+  static const string name = "image";
   return name;
 }
+
+
+/*
+ * Returns the libSBML type code for this Image object.
+ */
+int
+Image::getTypeCode() const
+{
+  return SBML_RENDER_IMAGE;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this Image
+ * object have been set.
+ */
+bool
+Image::hasRequiredAttributes() const
+{
+  bool allPresent = Transformation2D::hasRequiredAttributes();
+
+  if (isSetHref() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetX() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetY() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetWidth() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetHeight() == false)
+  {
+    allPresent = false;
+  }
+  return allPresent;
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+Image::accept(SBMLVisitor& v) const
+{
+  //render - FIX_ME
+  v.visit(*this);
+
+  //if (mX != NULL)
+  //{
+  //  mX->accept(v);
+  //}
+
+  //if (mY != NULL)
+  //{
+  //  mY->accept(v);
+  //}
+
+  //if (mZ != NULL)
+  //{
+  //  mZ->accept(v);
+  //}
+
+  //if (mWidth != NULL)
+  //{
+  //  mWidth->accept(v);
+  //}
+
+  //if (mHeight != NULL)
+  //{
+  //  mHeight->accept(v);
+  //}
+
+  //v.leave(*this);
+  return true;
+}
+
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Creates and returns a deep copy of this Image object.
+ * Creates an XMLNode object from this Image object.
  *
- * @return a (deep) copy of this Image.
+ * @return the XMLNode with the XML representation for the 
+ * Image object.
  */
-Image* Image::clone() const
+XMLNode Image::toXML() const
 {
-    return new Image(*this);
+  return getXmlNodeForSBase(this);
 }
 /** @endcond */
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+void
+Image::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  Transformation2D::addExpectedAttributes(attributes);
+
+  attributes.add("id");
+  attributes.add("x");
+  attributes.add("y");
+  attributes.add("z");
+  attributes.add("width");
+  attributes.add("height");
+  attributes.add("href");
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+Image::readAttributes(const XMLAttributes& attributes,
+                      const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  Transformation2D::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderImageAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderImageAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  // 
+  // id SId (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true && log)
+  {
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, level, version, "<Image>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
+    }
+  }
+
+  string elplusid = "<image> element";
+  if (!getId().empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+
+  // 
+  // href string (use = "required" )
+  // 
+
+  assigned = attributes.readInto("href", mHref);
+
+  if (log)
+  {
+    if (assigned == true)
+    {
+      if (mHref.empty() == true)
+      {
+        logEmptyString(mHref, level, version, "<Image>");
+      }
+    }
+    else
+    {
+      std::string message = "Render attribute 'href' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderImageAllowedAttributes, pkgVersion,
+        level, version, message);
+    }
+  }
+ 
+  std::string s;
+  RelAbsVector v = RelAbsVector();
+
+  //
+  // x RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("x", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'x' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderImageAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderImageXMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setX(v);
+    }
+    v.erase();
+  }
+
+  //
+  // y RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("y", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'y' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderImageAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderImageYMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setY(v);
+    }
+    v.erase();
+  }
+
+  //
+  // z RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mZ = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'z' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderImageZMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setZ(v);
+    }
+    v.erase();
+  }
+
+  //
+  // width RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("width", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'width' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderImageAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'width' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderImageWidthMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setWidth(v);
+    }
+    v.erase();
+  }
+
+  //
+  // height RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("height", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'height' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderImageAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'heigth' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderImageHeightMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setHeight(v);
+    }
+    v.erase();
+  }
+
+}
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -582,148 +1057,417 @@ void Image::writeAttributes (XMLOutputStream& stream) const
     os.str("");
     os << this->mHeight;
     stream.writeAttribute("height", getPrefix(), os.str());
-    stream.writeAttribute("href", getPrefix(), mHRef);
+    stream.writeAttribute("href", getPrefix(), mHref);
 }
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+
+#endif /* __cplusplus */
+
+
 /*
- * Creates an XMLNode object from this Image object.
- *
- * @return the XMLNode with the XML representation for the 
- * Image object.
+ * Creates a new Image_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-XMLNode Image::toXML() const
+LIBSBML_EXTERN
+Image_t *
+Image_create(unsigned int level,
+             unsigned int version,
+             unsigned int pkgVersion)
 {
-  return getXmlNodeForSBase(this);
+  return new Image(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns true if the image reference has been set.
- * The image reference is considered set if the string does not
- * only contain whitespace characters.
- *
- * @return true if the image reference has been set.
+ * Creates and returns a deep copy of this Image_t object.
  */
-bool Image::isSetImageReference() const
+LIBSBML_EXTERN
+Image_t*
+Image_clone(const Image_t* i)
 {
-    std::string space=" \t\n\r";
-    // the string may not be empty and it may not only contain whitespaces
-    return (!this->mHRef.empty() && (this->mHRef.find_first_not_of(space)!=std::string::npos));
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the value of the "id" attribute of this Image.
- *
- * @return the id of the Image
- */
-const std::string& Image::getId () const
-{
-    return mId;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Predicate returning @c true or @c false depending on whether this
- * Image's "id" attribute has been set.
- *
- * @return returns true or false depending on whether the id on the 
- * Image has been set.
- */
-bool Image::isSetId () const
-{
-    return (mId.empty() == false);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the value of the "id" attribute of this Image.
- *
- * @param id the new id for the Image 
- *
- * @return status if the operation succeeded
- */
-int Image::setId (const std::string& id)
-{
-    if (!(SyntaxChecker::isValidSBMLSId(id)))
-    {
-        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-        mId = id;
-        return LIBSBML_OPERATION_SUCCESS;
-    }
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Unsets the value of the "id" attribute of this Image.
- */
-int Image::unsetId ()
-{
-    mId.erase();
-    if (mId.empty())
+  if (i != NULL)
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    return static_cast<Image_t*>(i->clone());
   }
   else
   {
-    return LIBSBML_OPERATION_FAILED;
+    return NULL;
   }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+
+/*
+ * Frees this Image_t object.
  */
-bool Image::hasRequiredAttributes() const
+LIBSBML_EXTERN
+void
+Image_free(Image_t* i)
 {
-    bool result = this->Transformation2D::hasRequiredAttributes();
-    // the position should not contain NaN
-    result = result && 
-        (this->mX.getAbsoluteValue() == this->mX.getAbsoluteValue()) &&
-        (this->mX.getRelativeValue() == this->mX.getRelativeValue());
-    result = result && 
-        (this->mY.getAbsoluteValue() == this->mY.getAbsoluteValue()) &&
-        (this->mY.getRelativeValue() == this->mY.getRelativeValue());
-    result = result && 
-        (this->mZ.getAbsoluteValue() == this->mZ.getAbsoluteValue()) &&
-        (this->mZ.getRelativeValue() == this->mZ.getRelativeValue());
-    // the dimensions should not contain NaN
-    result = result && 
-        (this->mWidth.getAbsoluteValue() == this->mWidth.getAbsoluteValue()) &&
-        (this->mWidth.getRelativeValue() == this->mWidth.getRelativeValue());
-    result = result && 
-        (this->mHeight.getAbsoluteValue() == this->mHeight.getAbsoluteValue()) &&
-        (this->mHeight.getRelativeValue() == this->mHeight.getRelativeValue());
-    result = result && (this->mHRef.find_first_not_of(" \n\r\t") != std::string::npos);
-    return result;
+  if (i != NULL)
+  {
+    delete i;
+  }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Returns the value of the "id" attribute of this Image_t.
  */
-bool Image::hasRequiredElements() const 
+LIBSBML_EXTERN
+char *
+Image_getId(const Image_t * i)
 {
-    bool result = this->Transformation2D::hasRequiredElements();
-    return result;
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return i->getId().empty() ? NULL : safe_strdup(i->getId().c_str());
 }
-/** @endcond */
 
 
-LIBSBML_CPP_NAMESPACE_END 
+/*
+ * Returns the value of the "href" attribute of this Image_t.
+ */
+LIBSBML_EXTERN
+char *
+Image_getHref(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return i->getHref().empty() ? NULL : safe_strdup(i->getHref().c_str());
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "id" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetId(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "href" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetHref(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetHref()) : 0;
+}
+
+
+/*
+ * Sets the value of the "id" attribute of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setId(Image_t * i, const char * id)
+{
+  return (i != NULL) ? i->setId(id) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "href" attribute of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setHref(Image_t * i, const char * href)
+{
+  return (i != NULL) ? i->setHref(href) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "id" attribute of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetId(Image_t * i)
+{
+  return (i != NULL) ? i->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "href" attribute of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetHref(Image_t * i)
+{
+  return (i != NULL) ? i->unsetHref() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "x" element of this Image_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getX(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(i->getX()));
+}
+
+
+/*
+ * Returns the value of the "y" element of this Image_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getY(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(i->getY()));
+}
+
+
+/*
+ * Returns the value of the "z" element of this Image_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getZ(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(i->getZ()));
+}
+
+
+/*
+ * Returns the value of the "width" element of this Image_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getWidth(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(i->getWidth()));
+}
+
+
+/*
+ * Returns the value of the "height" element of this Image_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getHeight(const Image_t * i)
+{
+  if (i == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(i->getHeight()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "x" element is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetX(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "y" element is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetY(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetY()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "z" element is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetZ(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetZ()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "width" element is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetWidth(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetWidth()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Image_t's "height" element is set.
+ */
+LIBSBML_EXTERN
+int
+Image_isSetHeight(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->isSetHeight()) : 0;
+}
+
+
+/*
+ * Sets the value of the "x" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setX(Image_t * i, const RelAbsVector_t* x)
+{
+  return (i != NULL) ? i->setX(*x) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setY(Image_t * i, const RelAbsVector_t* y)
+{
+  return (i != NULL) ? i->setY(*y) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setZ(Image_t * i, const RelAbsVector_t* z)
+{
+  return (i != NULL) ? i->setZ(*z) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "width" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setWidth(Image_t * i, const RelAbsVector_t* width)
+{
+  return (i != NULL) ? i->setWidth(*width) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "height" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_setHeight(Image_t * i, const RelAbsVector_t* height)
+{
+  return (i != NULL) ? i->setHeight(*height) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetX(Image_t * i)
+{
+  return (i != NULL) ? i->unsetX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetY(Image_t * i)
+{
+  return (i != NULL) ? i->unsetY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetZ(Image_t * i)
+{
+  return (i != NULL) ? i->unsetZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "width" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetWidth(Image_t * i)
+{
+  return (i != NULL) ? i->unsetWidth() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "height" element of this Image_t.
+ */
+LIBSBML_EXTERN
+int
+Image_unsetHeight(Image_t * i)
+{
+  return (i != NULL) ? i->unsetHeight() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Image_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Image_hasRequiredAttributes(const Image_t * i)
+{
+  return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
+}
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

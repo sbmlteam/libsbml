@@ -446,7 +446,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1320604
-  { RenderEllipseCxMustBeString,
+  { RenderEllipseCxMustBeRelAbsVector,
     "The 'cx' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -460,7 +460,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1320605
-  { RenderEllipseCyMustBeString,
+  { RenderEllipseCyMustBeRelAbsVector,
     "The 'cy' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -474,7 +474,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1320606
-  { RenderEllipseRxMustBeString,
+  { RenderEllipseRxMustBeRelAbsVector,
     "The 'rx' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -499,7 +499,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1320608
-  { RenderEllipseCzMustBeString,
+  { RenderEllipseCzMustBeRelAbsVector,
     "The 'cz' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -513,7 +513,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1320609
-  { RenderEllipseRyMustBeString,
+  { RenderEllipseRyMustBeRelAbsVector,
     "The 'ry' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -958,7 +958,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321205
-  { RenderImageXMustBeString,
+  { RenderImageXMustBeRelAbsVector,
     "The 'x' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -972,7 +972,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321206
-  { RenderImageYMustBeString,
+  { RenderImageYMustBeRelAbsVector,
     "The 'y' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -986,7 +986,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321207
-  { RenderImageWidthMustBeString,
+  { RenderImageWidthMustBeRelAbsVector,
     "The 'width' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1000,7 +1000,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321208
-  { RenderImageHeightMustBeString,
+  { RenderImageHeightMustBeRelAbsVector,
     "The 'height' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1014,7 +1014,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321209
-  { RenderImageZMustBeString,
+  { RenderImageZMustBeRelAbsVector,
     "The 'z' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1571,7 +1571,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321904
-  { RenderRectangleXMustBeString,
+  { RenderRectangleXMustBeRelAbsVector,
     "The 'x' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1585,7 +1585,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321905
-  { RenderRectangleYMustBeString,
+  { RenderRectangleYMustBeRelAbsVector,
     "The 'y' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1599,7 +1599,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321906
-  { RenderRectangleWidthMustBeString,
+  { RenderRectangleWidthMustBeRelAbsVector,
     "The 'width' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1613,7 +1613,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321907
-  { RenderRectangleHeightMustBeString,
+  { RenderRectangleHeightMustBeRelAbsVector,
     "The 'height' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1638,7 +1638,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321909
-  { RenderRectangleZMustBeString,
+  { RenderRectangleZMustBeRelAbsVector,
     "The 'z' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1652,7 +1652,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321910
-  { RenderRectangleRXMustBeString,
+  { RenderRectangleRXMustBeRelAbsVector,
     "The 'rX' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -1666,7 +1666,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321911
-  { RenderRectangleRYMustBeString,
+  { RenderRectangleRYMustBeRelAbsVector,
     "The 'rY' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -2028,7 +2028,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322304
-  { RenderTextXMustBeString,
+  { RenderTextXMustBeRelAbsVector,
     "The 'x' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -2042,7 +2042,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322305
-  { RenderTextYMustBeString,
+  { RenderTextYMustBeRelAbsVector,
     "The 'y' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -2119,7 +2119,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322311
-  { RenderTextZMustBeString,
+  { RenderTextZMustBeRelAbsVector,
     "The 'z' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
@@ -2133,7 +2133,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322312
-  { RenderTextFontSizeMustBeString,
+  { RenderTextFontSizeMustBeRelAbsVector,
     "The 'fontSize' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,

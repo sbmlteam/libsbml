@@ -1,6 +1,6 @@
 /**
  * @file    Text.cpp
- * @brief   class for representing a text element in the render extension
+ * @brief Implementation of the Text class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,7 +31,8 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "Text.h"
+#include <sbml/packages/render/sbml/Text.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
 
 #include <limits>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
@@ -45,65 +46,58 @@
 
 #include <sbml/xml/XMLInputStream.h>
 
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string Text::ELEMENT_NAME="text";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Text object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new Text using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-Text::Text (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    GraphicalPrimitive1D(level,version, pkgVersion),
+Text::Text(unsigned int level, unsigned int version, unsigned int pkgVersion)
+ :  GraphicalPrimitive1D(level,version, pkgVersion),
     mX(RelAbsVector(0.0,0.0)),
     mY(RelAbsVector(0.0,0.0)),
     mZ(RelAbsVector(0.0,0.0)),
     mFontFamily(""),
     mFontSize(RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN())),
-    mFontWeight(Text::WEIGHT_UNSET),
-    mFontStyle(Text::STYLE_UNSET),
-    mTextAnchor(Text::ANCHOR_UNSET),
-    mVTextAnchor(Text::ANCHOR_UNSET),
+    mFontWeight(FONT_WEIGHT_UNSET),
+    mFontStyle(FONT_STYLE_UNSET),
+    mTextAnchor(H_TEXTANCHOR_UNSET),
+    mVTextAnchor(V_TEXTANCHOR_UNSET),
     mText("")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
+  connectToChild();
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new Text object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new Text using the given RenderPkgNamespaces object.
  */
 Text::Text (RenderPkgNamespaces* renderns)
-  : GraphicalPrimitive1D(renderns)
-  , mX(RelAbsVector(0.0,0.0))
-  , mY(RelAbsVector(0.0,0.0))
-  , mZ(RelAbsVector(0.0,0.0))
-  , mFontFamily("")
-  , mFontSize(RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN()))
-  , mFontWeight(Text::WEIGHT_UNSET)
-  , mFontStyle(Text::STYLE_UNSET)
-  , mTextAnchor(Text::ANCHOR_UNSET)
-  , mVTextAnchor(Text::ANCHOR_UNSET)
-  , mText("")
+  : GraphicalPrimitive1D(renderns),
+  mX(RelAbsVector(0.0, 0.0)),
+  mY(RelAbsVector(0.0, 0.0)),
+  mZ(RelAbsVector(0.0, 0.0)),
+  mFontFamily(""),
+  mFontSize(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN())),
+  mFontWeight(FONT_WEIGHT_UNSET),
+  mFontStyle(FONT_STYLE_UNSET),
+  mTextAnchor(H_TEXTANCHOR_UNSET),
+  mVTextAnchor(V_TEXTANCHOR_UNSET),
+  mText("")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
   setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
 /** @endcond */
@@ -146,137 +140,6 @@ Text::Text(const XMLNode& node, unsigned int l2version):GraphicalPrimitive1D(nod
 /** @endcond */
 
 
-/*
- * Destroy this object.
- */
-Text::~Text ()
-{
-}
-
-
-
-/** @cond doxygenLibsbmlInternal */
-void
-Text::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  GraphicalPrimitive1D::addExpectedAttributes(attributes);
-
-  attributes.add("x");
-  attributes.add("y");
-  attributes.add("z");
-  attributes.add("font-family");
-  attributes.add("font-size");
-  attributes.add("font-weight");
-  attributes.add("font-style");
-  attributes.add("text-anchor");
-  attributes.add("vtext-anchor");
-
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void Text::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-    GraphicalPrimitive1D::readAttributes(attributes,expectedAttributes);
-    std::string s;
-    double NaN=std::numeric_limits<double>::quiet_NaN();
-    attributes.readInto("font-family", this->mFontFamily, getErrorLog(), false, getLine(), getColumn());
-    Text::FONT_WEIGHT fw=Text::WEIGHT_UNSET;
-    Text::FONT_STYLE fs=Text::STYLE_UNSET;
-    Text::TEXT_ANCHOR ta=Text::ANCHOR_UNSET;
-    Text::TEXT_ANCHOR vta=Text::ANCHOR_UNSET;
-    attributes.readInto("x",s, getErrorLog(), false, getLine(), getColumn());
-    this->mX=RelAbsVector(s);
-    attributes.readInto("y",s, getErrorLog(), false, getLine(), getColumn());
-    this->mY=RelAbsVector(s);
-    if(attributes.readInto("z",s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mZ=RelAbsVector(s);
-    }
-    else
-    {
-        this->mZ=RelAbsVector(0.0,0.0);
-    }
-    if(attributes.readInto("font-size", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        this->mFontSize=RelAbsVector(s);
-    }
-    else
-    {
-        this->mFontSize=RelAbsVector(NaN,NaN);
-    }
-    if(attributes.readInto("font-weight", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        if(s=="bold")
-        {
-            fw=Text::WEIGHT_BOLD;
-        }
-        else if (s == "normal")
-        {
-          fw = Text::WEIGHT_NORMAL;
-        }
-    }
-    if(attributes.readInto("font-style", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        if(s=="italic")
-        {
-            fs=Text::STYLE_ITALIC;
-        }
-        else if (s == "normal")
-        {
-          fs = Text::STYLE_NORMAL;
-        }
-    }
-    if(attributes.readInto("text-anchor", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        if(s=="end")
-        {
-            ta=Text::ANCHOR_END;
-        }
-        else if(s=="middle")
-        {
-            ta=Text::ANCHOR_MIDDLE;
-        }
-        else if(s=="start")
-        {
-            ta=Text::ANCHOR_START;
-        }
-    }
-    if(attributes.readInto("vtext-anchor", s, getErrorLog(), false, getLine(), getColumn()))
-    {
-        if(s=="bottom")
-        {
-            vta=Text::ANCHOR_BOTTOM;
-        }
-        else if(s=="middle")
-        {
-            vta=Text::ANCHOR_MIDDLE;
-        }
-        else if(s=="top")
-        {
-            vta=Text::ANCHOR_TOP;
-        }
-        
-        else if(s=="baseline")
-        {
-          vta=Text::ANCHOR_BASELINE;
-        }
-        
-    }
-    this->setTextAnchor(ta);
-    this->setVTextAnchor(vta);
-    this->setFontWeight(fw);
-    this->setFontStyle(fs);
-
-    
-}
-/** @endcond */
-
-void 
-Text::setElementText(const std::string &text) 
-{
-  this->setText(text);
-}
 
 #ifndef OMIT_DEPRECATED
 /** @cond doxygenLibsbmlInternal */
@@ -327,6 +190,606 @@ Text::Text(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVect
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
+
+
+/*
+ * Copy constructor for Text.
+ */
+Text::Text(const Text& orig)
+  : GraphicalPrimitive1D( orig )
+  , mX ( orig.mX )
+  , mY ( orig.mY )
+  , mZ ( orig.mZ )
+  , mFontFamily ( orig.mFontFamily )
+  , mFontWeight ( orig.mFontWeight )
+  , mFontStyle ( orig.mFontStyle )
+  , mTextAnchor ( orig.mTextAnchor )
+  , mVTextAnchor ( orig.mVTextAnchor )
+  , mFontSize ( orig.mFontSize )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for Text.
+ */
+Text&
+Text::operator=(const Text& rhs)
+{
+  if (&rhs != this)
+  {
+    GraphicalPrimitive1D::operator=(rhs);
+    mFontFamily = rhs.mFontFamily;
+    mFontWeight = rhs.mFontWeight;
+    mFontStyle = rhs.mFontStyle;
+    mTextAnchor = rhs.mTextAnchor;
+    mVTextAnchor = rhs.mVTextAnchor;
+    mX = rhs.mX;
+    mY = rhs.mY;
+    mZ = rhs.mZ;
+    mFontSize = rhs.mFontSize;
+
+      connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this Text object.
+ */
+Text*
+Text::clone() const
+{
+  return new Text(*this);
+}
+
+
+/*
+ * Destructor for Text.
+ */
+Text::~Text()
+{
+}
+
+
+/*
+ * Returns the value of the "font-family" attribute of this Text.
+ */
+const std::string&
+Text::getFontFamily() const
+{
+  return mFontFamily;
+}
+
+
+FontWeight_t
+Text::getFontWeight() const
+{
+  return (FontWeight_t)(mFontWeight);
+}
+
+
+/*
+ * Returns the value of the "font-weight" attribute of this Text.
+ */
+std::string
+Text::getFontWeightAsString() const
+{
+  std::string code_str = FontWeight_toString((FontWeight_t)(mFontWeight));
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this Text.
+ */
+FontStyle_t
+Text::getFontStyle() const
+{
+  return (FontStyle_t)(mFontStyle);
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this Text.
+ */
+std::string
+Text::getFontStyleAsString() const
+{
+  std::string code_str = FontStyle_toString((FontStyle_t)(mFontStyle));
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this Text.
+ */
+HTextAnchor_t
+Text::getTextAnchor() const
+{
+  return (HTextAnchor_t)(mTextAnchor);
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this Text.
+ */
+std::string
+Text::getTextAnchorAsString() const
+{
+  std::string code_str = HTextAnchor_toString((HTextAnchor_t)(mTextAnchor));
+  return code_str;
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this Text.
+ */
+VTextAnchor_t
+Text::getVTextAnchor() const
+{
+  return (VTextAnchor_t)(mVTextAnchor);
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this Text.
+ */
+std::string
+Text::getVTextAnchorAsString() const
+{
+  std::string code_str = VTextAnchor_toString((VTextAnchor_t)(mVTextAnchor));
+  return code_str;
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "font-family" attribute is set.
+ */
+bool
+Text::isSetFontFamily() const
+{
+  return (mFontFamily.empty() == false);
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "font-weight" attribute is set.
+ */
+bool 
+Text::isSetFontWeight() const
+{
+  return (mFontWeight != FONT_WEIGHT_INVALID && mFontWeight != FONT_WEIGHT_UNSET);
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "font-style" attribute is set.
+ */
+bool
+Text::isSetFontStyle() const
+{
+  return (mFontStyle != FONT_STYLE_INVALID && mFontStyle != FONT_STYLE_UNSET);
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "text-anchor" attribute is set.
+ */
+bool
+Text::isSetTextAnchor() const
+{
+  return (mTextAnchor != H_TEXTANCHOR_INVALID && mTextAnchor != H_TEXTANCHOR_UNSET);
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "vtext-anchor" attribute is set.
+ */
+bool
+Text::isSetVTextAnchor() const
+{
+  return (mVTextAnchor != V_TEXTANCHOR_INVALID && mVTextAnchor != V_TEXTANCHOR_UNSET);
+}
+
+
+/*
+ * Sets the value of the "font-family" attribute of this Text.
+ */
+int
+Text::setFontFamily(const std::string& fontFamily)
+{
+  mFontFamily = fontFamily;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this Text.
+ */
+int
+Text::setFontWeight(const FontWeight_t fontWeight)
+{
+  if (FontWeight_isValid(fontWeight) == 0)
+  {
+    mFontWeight = FONT_WEIGHT_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFontWeight = fontWeight;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Sets the font weight.
+* Valid values are Text::WEIGHT_UNSET, Text::WEIGHT_NORMAL or
+* Text::WEIGHT_BOLD.
+*
+* @param weight The new text weight to be set.
+*/
+void Text::setFontWeight(Text::FONT_WEIGHT weight)
+{
+  this->mFontWeight = weight;
+}
+/** @endcond */
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this Text.
+ */
+int
+Text::setFontWeight(const std::string& fontWeight)
+{
+  mFontWeight = FontWeight_fromString(fontWeight.c_str());
+
+  if (mFontWeight == FONT_WEIGHT_INVALID)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "font-style" attribute of this Text.
+ */
+int
+Text::setFontStyle(const FontStyle_t fontStyle)
+{
+  if (FontStyle_isValid(fontStyle) == 0)
+  {
+    mFontStyle = FONT_STYLE_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFontStyle = fontStyle;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Sets the font style.
+* Valid values are Text::STYLE_UNSET, Text::STYLE_NORMAL or
+* Text::STYLE_ITALIC
+*
+* @param style The new font style to be set.
+*/
+void Text::setFontStyle(Text::FONT_STYLE style)
+{
+  this->mFontStyle = style;
+}
+/** @endcond */
+
+/*
+ * Sets the value of the "font-style" attribute of this Text.
+ */
+int
+Text::setFontStyle(const std::string& fontStyle)
+{
+  mFontStyle = FontStyle_fromString(fontStyle.c_str());
+
+  if (mFontStyle == FONT_STYLE_INVALID)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this Text.
+ */
+int
+Text::setTextAnchor(const HTextAnchor_t textAnchor)
+{
+  if (HTextAnchor_isValid(textAnchor) == 0)
+  {
+    mTextAnchor = H_TEXTANCHOR_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mTextAnchor = textAnchor;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Sets the text anchor.
+* This is defines the horizontal text position.
+* Valid values are Text::ANCHOR_UNSET, Text::ANCHOR_START,
+* Text::ANCHOR_MIDDLE and Text_ANCHOR_END.
+* Text::ANCHOR_BASELINE is not a valid value
+* for the text-anchor attribute. If you set the text anchor to
+* Text::ANCHOR_BASELINE, it will be set to Text::ANCHOR_UNSET.
+*
+* @param anchor The new horizontal alignment flag.
+*/
+void Text::setTextAnchor(Text::TEXT_ANCHOR anchor)
+{
+
+  if (anchor == Text::ANCHOR_BASELINE)
+  {
+    this->mTextAnchor = Text::ANCHOR_UNSET;
+  }
+  else
+  {
+    this->mTextAnchor = anchor;
+  }
+}
+/** @endcond */
+
+/*
+ * Sets the value of the "text-anchor" attribute of this Text.
+ */
+int
+Text::setTextAnchor(const std::string& textAnchor)
+{
+  mTextAnchor = HTextAnchor_fromString(textAnchor.c_str());
+
+  if (mTextAnchor == H_TEXTANCHOR_INVALID)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this Text.
+ */
+int
+Text::setVTextAnchor(const VTextAnchor_t vtextAnchor)
+{
+  if (VTextAnchor_isValid(vtextAnchor) == 0)
+  {
+    mVTextAnchor = V_TEXTANCHOR_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mVTextAnchor = vtextAnchor;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+* Sets the vertical text anchor.
+* This is defines the vertical text position.
+* Valid values are Text::ANCHOR_UNSET, Text::ANCHOR_TOP,
+* Text::ANCHOR_MIDDLE, Text::ANCHOR_BOTTOM and
+* Text::ANCHOR_BASELINE.
+*
+* @param anchor The new vertical alignment flag.
+*/
+void Text::setVTextAnchor(Text::TEXT_ANCHOR anchor)
+{
+  this->mVTextAnchor = anchor;
+}
+/** @endcond */
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this Text.
+ */
+int
+Text::setVTextAnchor(const std::string& vtextAnchor)
+{
+  mVTextAnchor = VTextAnchor_fromString(vtextAnchor.c_str());
+
+  if (mVTextAnchor == V_TEXTANCHOR_INVALID)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "font-family" attribute of this Text.
+ */
+int
+Text::unsetFontFamily()
+{
+  mFontFamily.erase();
+
+  if (mFontFamily.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the value of the "font-weight" attribute of this Text.
+ */
+int
+Text::unsetFontWeight()
+{
+  mFontWeight = FONT_WEIGHT_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "font-style" attribute of this Text.
+ */
+int
+Text::unsetFontStyle()
+{
+  mFontStyle = FONT_STYLE_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "text-anchor" attribute of this Text.
+ */
+int
+Text::unsetTextAnchor()
+{
+  mTextAnchor = H_TEXTANCHOR_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "vtext-anchor" attribute of this Text.
+ */
+int
+Text::unsetVTextAnchor()
+{
+  mVTextAnchor = V_TEXTANCHOR_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Returns the x position offset as a const reference.
+*/
+const RelAbsVector& 
+Text::getX() const
+{
+  return this->mX;
+}
+
+
+RelAbsVector& 
+Text::getX()
+{
+  return this->mX;
+}
+
+
+/*
+* Returns the y position offset as a const reference.
+*/
+const RelAbsVector& 
+Text::getY() const
+{
+  return this->mY;
+}
+
+
+RelAbsVector& 
+Text::getY()
+{
+  return this->mY;
+}
+
+
+/*
+* Returns the z position offset as a const reference.
+*/
+const RelAbsVector& 
+Text::getZ() const
+{
+  return this->mZ;
+}
+
+
+RelAbsVector& Text::getZ()
+{
+  return this->mZ;
+}
+
+
+/*
+* Returns the font size as a const reference.
+*
+* @return const reference to the size to be used for rendering text.
+*/
+const RelAbsVector& 
+Text::getFontSize() const
+{
+  return this->mFontSize;
+}
+
+
+RelAbsVector&
+Text::getFontSize()
+{
+  return this->mFontSize;
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "x" element is set.
+ */
+bool
+Text::isSetX() const
+{
+  return mX.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "y" element is set.
+ */
+bool
+Text::isSetY() const
+{
+  return mY.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "z" element is set.
+ */
+bool
+Text::isSetZ() const
+{
+  return mZ.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this Text's "font-size" element is set.
+ */
+bool
+Text::isSetFontSize() const
+{
+  return mFontSize.isSetCoordinate();
+}
+
+
 /** @cond doxygenLibsbmlInternal */
 /*
  * Sets the position of the text within the viewport.
@@ -345,484 +808,576 @@ void Text::setCoordinates(const RelAbsVector& x,const RelAbsVector& y,const RelA
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the x position of the text within the viewport.
- * This is like an offset that is applied after alignment.
- *
- * @param x x coordinate of the position offset
  */
-void Text::setX(const RelAbsVector& coord)
+int 
+Text::setX(const RelAbsVector& coord)
 {
     this->mX=coord;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the y position of the text within the viewport.
- * This is like an offset that is applied after alignment.
- *
- * @param y y coordinate of the position offset
  */
-void Text::setY(const RelAbsVector& coord)
+int
+Text::setY(const RelAbsVector& coord)
 {
     this->mY=coord;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Sets the z position of the text within the viewport.
- * This is like an offset that is applied after alignment.
- *
- * @param z z coordinate of the position offset
  */
-void Text::setZ(const RelAbsVector& coord)
+int 
+Text::setZ(const RelAbsVector& coord)
 {
     this->mZ=coord;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x position offset as a const reference.
- * This offset is applied after alignment.
- *
- * @return const reference of x position offset
- */
-const RelAbsVector& Text::getX() const
-{
-    return this->mX;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y position offset as a const reference.
- * This offset is applied after alignment.
- *
- * @return const reference of y position offset
- */
-const RelAbsVector& Text::getY() const
-{
-    return this->mY;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z position offset as a const reference.
- * This offset is applied after alignment.
- *
- * @return const reference of z position offset
- */
-const RelAbsVector& Text::getZ() const
-{
-    return this->mZ;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x position offset as a reference.
- * This offset is applied after alignment.
- *
- * @return reference of x position offset
- */
-RelAbsVector& Text::getX()
-{
-    return this->mX;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y position offset as a reference.
- * This offset is applied after alignment.
- *
- * @return reference of y position offset
- */
-RelAbsVector& Text::getY()
-{
-    return this->mY;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z position offset as a reference.
- * This offset is applied after alignment.
- *
- * @return reference of z position offset
- */
-RelAbsVector& Text::getZ()
-{
-    return this->mZ;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the font family.
- *
- * @param family The name of the font family, e.g. Helvetica
- */
-void Text::setFontFamily(const std::string& family)
-{
-    this->mFontFamily=family;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the font size.
- * Normally this is an absolute value, e.g. 18 for a 18pt font.
- * It is however allowed the specify the font size in terms of relative values
- * in relation to the current viewport. In most cases the viewport will be the 
- * dimensions of a bounding box of a layout object.
- *
- * @param size the new font size.
  */
-void Text::setFontSize(const RelAbsVector& size)
+int
+Text::setFontSize(const RelAbsVector& size)
 {
     this->mFontSize=size;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the font weight.
- * Valid values are Text::WEIGHT_UNSET, Text::WEIGHT_NORMAL or
- * Text::WEIGHT_BOLD.
- *
- * @param weight The new text weight to be set.
+ * Unsets the value of the "x" element of this Text.
  */
-void Text::setFontWeight(Text::FONT_WEIGHT weight)
+int
+Text::unsetX()
 {
-    this->mFontWeight=weight;
+  mX.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the font style.
- * Valid values are Text::STYLE_UNSET, Text::STYLE_NORMAL or
- * Text::STYLE_ITALIC
- *
- * @param style The new font style to be set.
+ * Unsets the value of the "y" element of this Text.
  */
-void Text::setFontStyle(Text::FONT_STYLE style)
+int
+Text::unsetY()
 {
-    this->mFontStyle=style;
+  mY.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the text anchor.
- * This is defines the horizontal text position.
- * Valid values are Text::ANCHOR_UNSET, Text::ANCHOR_START,
- * Text::ANCHOR_MIDDLE and Text_ANCHOR_END.
- * Text::ANCHOR_BASELINE is not a valid value
- * for the text-anchor attribute. If you set the text anchor to 
- * Text::ANCHOR_BASELINE, it will be set to Text::ANCHOR_UNSET.
- *
- * @param anchor The new horizontal alignment flag.
+ * Unsets the value of the "z" element of this Text.
  */
-void Text::setTextAnchor(Text::TEXT_ANCHOR anchor)
+int
+Text::unsetZ()
 {
-    
-   if(anchor == Text::ANCHOR_BASELINE)
-   {
-     this->mTextAnchor=Text::ANCHOR_UNSET;
-   }
-   else   
-   {
-     this->mTextAnchor=anchor;
-   }
+  mZ.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the vertical text anchor.
- * This is defines the vertical text position.
- * Valid values are Text::ANCHOR_UNSET, Text::ANCHOR_TOP,
- * Text::ANCHOR_MIDDLE, Text::ANCHOR_BOTTOM and
- * Text::ANCHOR_BASELINE.
- *
- * @param anchor The new vertical alignment flag.
+ * Unsets the value of the "font-size" element of this Text.
  */
-void Text::setVTextAnchor(Text::TEXT_ANCHOR anchor)
+int
+Text::unsetFontSize()
 {
-    this->mVTextAnchor=anchor;
+  mFontSize.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the font family.
- *
- * @return The name of the font family to be used for text rendering.
- */
-const std::string& Text::getFontFamily() const
+* Returns the text for the Text object.
+*/
+const std::string& 
+Text::getText() const
 {
-    return this->mFontFamily;
+  return this->mText;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the font size as a reference.
- *
- * @return A reference to the size to be used for rendering text.
- */
-RelAbsVector& Text::getFontSize()
+* Returns true if the text is set to something else than the empty string.
+*/
+bool 
+Text::isSetText() const
 {
-    return this->mFontSize;
+  return !this->mText.empty();
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the font size as a const reference.
- *
- * @return const reference to the size to be used for rendering text.
- */
-const RelAbsVector& Text::getFontSize() const
+* Sets the text for the text element.
+*/
+int 
+Text::setText(const std::string& text)
 {
-    return this->mFontSize;
+  this->mText = text;
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the font weight.
- *
- * @return font weight used to render text children
- */
-Text::FONT_WEIGHT Text::getFontWeight() const
+* Unsets the text for the text element.
+*/
+int
+Text::unsetText()
 {
-    return this->mFontWeight;
+  this->mText.clear();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the font style.
- *
- * @return font style used to render text children
- */
-Text::FONT_STYLE Text::getFontStyle() const
-{
-    return this->mFontStyle;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the text anchor.
- *
- * @return the horizontal text alignment flag
+ * Returns the XML element name of this Text object.
  */
-Text::TEXT_ANCHOR Text::getTextAnchor() const
+const std::string&
+Text::getElementName() const
 {
-    return this->mTextAnchor;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the vertical text anchor.
- *
- * @return the vertical text alignment flag
- */
-Text::TEXT_ANCHOR Text::getVTextAnchor() const
-{
-    return this->mVTextAnchor;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * This method is purely abstract and has to be implemented by derived
- * classes.
- *
- * @see getElementName()
- */
-int Text::getTypeCode() const
-{
-    return SBML_RENDER_TEXT;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor for this instance of Group.
- *
- * @param v the SBMLVisitor instance to be used.
- *
- * @return the result of calling <code>v.visit()</code>.
- */
-bool Text::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of this Text object.
- * 
- * @return a (deep) copy of this Text object
- */
-Text* Text::clone() const
-{
-    return new Text(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * Text, is always @c "text".
- * 
- * @return the name of this element, i.e., @c "text".
- */
-const std::string& Text::getElementName() const
-{
-  static std::string name = Text::ELEMENT_NAME;
+  static const string name = "text";
   return name;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the text for the Text object.
- *
- * @return the text string to be rendered for the Text object.
- */
-const std::string& Text::getText() const
-{
-    return this->mText;
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the text for the text element.
- *
- * @param text The text to be rendered for the Text object.
+ * Returns the libSBML type code for this Text object.
  */
-void Text::setText(const std::string& text)
+int
+Text::getTypeCode() const
 {
-    this->mText=text;
+  return SBML_RENDER_TEXT;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns true if the text is set to something else than the empty string.
- *
- * @return true if the text is not empty.
+ * Predicate returning @c true if all the required attributes for this Text
+ * object have been set.
  */
-bool Text::isSetText() const
+bool
+Text::hasRequiredAttributes() const
 {
-    return !this->mText.empty();
+  bool allPresent = GraphicalPrimitive1D::hasRequiredAttributes();
+
+  if (isSetX() == false)
+  {
+    allPresent = false;
+  }
+
+  if (isSetY() == false)
+  {
+    allPresent = false;
+  }
+
+  return allPresent;
 }
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns true if the font family has been set or false otherwise.
- *
- * @return true if the font family string is not empty
+ * Accepts the given SBMLVisitor
  */
-bool Text::isSetFontFamily() const
+bool
+Text::accept(SBMLVisitor& v) const
 {
-    return !this->mFontFamily.empty();
+  v.visit(*this);
+  //render - FIX_ME
+
+  //if (mX != NULL)
+  //{
+  //  mX->accept(v);
+  //}
+
+  //if (mY != NULL)
+  //{
+  //  mY->accept(v);
+  //}
+
+  //if (mZ != NULL)
+  //{
+  //  mZ->accept(v);
+  //}
+
+  //if (mFontSize != NULL)
+  //{
+  //  mFontSize->accept(v);
+  //}
+
+  v.leave(*this);
+  return true;
 }
+
 /** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Returns true if the font size has been set or false otherwise.
- *
- * @return true if the RelAbsVector specifying the font size does not
- * contain NaN either as the absolute or the relative value.
- */
-bool Text::isSetFontSize() const
+* Creates an Text object from this Group object.
+*
+* @return the XMLNode with the XML representation for the
+* Text object.
+*/
+XMLNode Text::toXML() const
 {
-    return (this->mFontSize.getAbsoluteValue()==this->mFontSize.getAbsoluteValue() && this->mFontSize.getRelativeValue()==this->mFontSize.getRelativeValue());
+  return getXmlNodeForSBase(this);
 }
 /** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
-/*
- * Returns true if the font weight has been set or false otherwise.
- *
- * @return true is the flag is not Text::WEIGHT_UNSET
- */
-bool Text::isSetFontWeight() const
+void
+Text::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-    return (this->mFontWeight!=Text::WEIGHT_UNSET);
+  GraphicalPrimitive1D::addExpectedAttributes(attributes);
+
+  attributes.add("x");
+  attributes.add("y");
+  attributes.add("z");
+  attributes.add("font-family");
+  attributes.add("font-size");
+  attributes.add("font-weight");
+  attributes.add("font-style");
+  attributes.add("text-anchor");
+  attributes.add("vtext-anchor");
+
 }
+
 /** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns true if the font style has been set or false otherwise.
- *
- * @return true is the flag is not Text::STYLE_UNSET
+ * Reads the expected attributes into the member data variables
  */
-bool Text::isSetFontStyle() const
+void
+Text::readAttributes(const XMLAttributes& attributes,
+                     const ExpectedAttributes& expectedAttributes)
 {
-    return (this->mFontStyle!=Text::STYLE_UNSET);
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  GraphicalPrimitive1D::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderTextAllowedAttributes, pkgVersion,
+          level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderTextAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  string elplusid = "<ellipse> element";
+  if (!getId().empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+
+  // 
+  // font-family string (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("font-family", mFontFamily);
+
+  if (assigned == true)
+  {
+    if (mFontFamily.empty() == true)
+    {
+      if (log)
+        logEmptyString(mFontFamily, level, version, "<Text>");
+    }
+  }
+
+  // 
+  // font-weight enum (use = "optional" )
+  // 
+
+  std::string fontWeight;
+  assigned = attributes.readInto("font-weight", fontWeight);
+
+  mFontWeight = FONT_WEIGHT_UNSET;
+  if (assigned == true)
+  {
+    if (fontWeight.empty() == true)
+    {
+      if (log) 
+        logEmptyString(fontWeight, level, version, "<Text>");
+      mFontWeight = FONT_WEIGHT_UNSET;
+    }
+    else
+    {
+      mFontWeight = FontWeight_fromString(fontWeight.c_str());
+
+      if (FontWeight_isValid((FontWeight_t)(mFontWeight)) == 0)
+      {
+        mFontWeight = FONT_WEIGHT_UNSET;
+        std::string msg = "The font-weight on the ";
+        msg += elplusid;
+        msg += "is '" + fontWeight + "', which is not a valid option.";
+
+        if (log) 
+          log->logPackageError("render",
+          RenderTextFontWeightMustBeFontWeightEnum, pkgVersion, level, version,
+            msg);
+        mFontWeight = FONT_WEIGHT_UNSET;
+      }
+    }
+  }
+
+  // 
+  // font-style enum (use = "optional" )
+  // 
+
+  std::string fontStyle;
+  assigned = attributes.readInto("font-style", fontStyle);
+
+  mFontStyle = FONT_STYLE_UNSET;
+  if (assigned == true)
+  {
+    if (fontStyle.empty() == true)
+    {
+      if (log) 
+        logEmptyString(fontStyle, level, version, "<Text>");
+      mFontStyle = FONT_STYLE_UNSET;
+    }
+    else
+    {
+      mFontStyle = FontStyle_fromString(fontStyle.c_str());
+
+      if (FontStyle_isValid((FontStyle_t)(mFontStyle)) == 0)
+      {
+        std::string msg = "The font-style on the ";
+        msg += elplusid;
+        msg += "is '" + fontStyle + "', which is not a valid option.";
+
+        if (log) 
+          log->logPackageError("render", RenderTextFontStyleMustBeFontStyleEnum,
+          pkgVersion, level, version, msg);
+        mFontStyle = FONT_STYLE_UNSET;
+      }
+    }
+  }
+
+  // 
+  // text-anchor enum (use = "optional" )
+  // 
+
+  mTextAnchor = H_TEXTANCHOR_UNSET;
+  std::string textAnchor;
+  assigned = attributes.readInto("text-anchor", textAnchor);
+
+  if (assigned == true)
+  {
+    if (textAnchor.empty() == true)
+    {
+      if (log) 
+        logEmptyString(textAnchor, level, version, "<Text>");
+      mTextAnchor = H_TEXTANCHOR_UNSET;
+    }
+    else
+    {
+      mTextAnchor = HTextAnchor_fromString(textAnchor.c_str());
+
+      if (HTextAnchor_isValid((HTextAnchor_t)(mTextAnchor)) == 0)
+      {
+        std::string msg = "The text-anchor on the ";
+        msg += elplusid;
+        msg += "is '" + textAnchor + "', which is not a valid option.";
+
+        if (log)
+          log->logPackageError("render",
+          RenderTextTextAnchorMustBeHTextAnchorEnum, pkgVersion, level, version,
+            msg);
+        mTextAnchor = H_TEXTANCHOR_UNSET;
+      }
+    }
+  }
+
+  // 
+  // vtext-anchor enum (use = "optional" )
+  // 
+
+  std::string vtextAnchor;
+  assigned = attributes.readInto("vtext-anchor", vtextAnchor);
+
+  mVTextAnchor = V_TEXTANCHOR_UNSET;
+  if (assigned == true)
+  {
+    if (vtextAnchor.empty() == true)
+    {
+      if (log)
+        logEmptyString(vtextAnchor, level, version, "<Text>");
+      mVTextAnchor = V_TEXTANCHOR_UNSET;
+    }
+    else
+    {
+      mVTextAnchor = VTextAnchor_fromString(vtextAnchor.c_str());
+
+      if (VTextAnchor_isValid((VTextAnchor_t)(mVTextAnchor)) == 0)
+      {
+        std::string msg = "The vtext-anchor on the ";
+        msg += elplusid;
+        msg += "is '" + vtextAnchor + "', which is not a valid option.";
+
+        if (log)
+          log->logPackageError("render",
+          RenderTextVtextAnchorMustBeVTextAnchorEnum, pkgVersion, level, version,
+            msg);
+        mVTextAnchor = V_TEXTANCHOR_UNSET;
+      }
+    }
+  }
+ 
+  std::string s;
+  RelAbsVector v = RelAbsVector();
+  
+  //
+  // x RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("x", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'x' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderTextAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderTextXMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setX(v);
+    }
+    v.erase();
+  }
+
+  
+  //
+  // y RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("y", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'y' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderTextAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderTextYMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setY(v);
+    }
+    v.erase();
+  }
+
+  //
+  // z RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mZ = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'z' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderTextZMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setZ(v);
+    }
+    v.erase();
+  }
+
+  //
+  // font-size RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("font-size", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mFontSize = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), 
+      std::numeric_limits<double>::quiet_NaN());
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'font-size' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderTextFontSizeMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setFontSize(v);
+    }
+    v.erase();
+  }
 }
 /** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns true if the horizonal alignment attribute has been set.
- *
- * @return true is flag is not Text::ANCHOR_UNSET
- */
-bool Text::isSetTextAnchor() const
-{
-    return this->mTextAnchor!=Text::ANCHOR_UNSET;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns true if the vertical alignment attribute has been set.
- *
- * @return true is flag is not Text::ANCHOR_UNSET
- */
-bool Text::isSetVTextAnchor() const
-{
-    return this->mVTextAnchor!=Text::ANCHOR_UNSET;
-}
-/** @endcond */
-
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -925,12 +1480,6 @@ void Text::addTextAttributes(const Text& text,XMLAttributes& att)
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
  *   ...
  */
 void Text::writeAttributes (XMLOutputStream& stream) const
@@ -1061,29 +1610,9 @@ Text::write (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates an Text object from this Group object.
- *
- * @return the XMLNode with the XML representation for the 
- * Text object.
- */
-XMLNode Text::toXML() const
-{
-  return getXmlNodeForSBase(this);
-}
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.  For example:
- *
- *   SBase::writeElements(stream);
- *   mReactants.write(stream);
- *   mProducts.write(stream);
- *   ...
  */
 void Text::writeElements (XMLOutputStream& stream) const
 {
@@ -1093,57 +1622,15 @@ void Text::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
- */
-bool Text::hasRequiredAttributes() const
-{
-    bool result = this->GraphicalPrimitive1D::hasRequiredAttributes();
-    // the position should not contain NaN
-    result = result && 
-        (this->mX.getAbsoluteValue() == this->mX.getAbsoluteValue()) &&
-        (this->mX.getRelativeValue() == this->mX.getRelativeValue());
-    result = result && 
-        (this->mY.getAbsoluteValue() == this->mY.getAbsoluteValue()) &&
-        (this->mY.getRelativeValue() == this->mY.getRelativeValue());
-    result = result && 
-        (this->mZ.getAbsoluteValue() == this->mZ.getAbsoluteValue()) &&
-        (this->mZ.getRelativeValue() == this->mZ.getRelativeValue());
 
-    return result;
+void
+Text::setElementText(const std::string &text)
+{
+  this->setText(text);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
- */
-bool Text::hasRequiredElements() const 
-{
-    bool result = this->GraphicalPrimitive1D::hasRequiredElements();
-    return result;
-}
-/** @endcond */
-
-const char* FONT_WEIGHT_STRINGS[] =
-{
-  "unset",
-  "normal",
-  "bold",
-  "invalid"
-};
-
-
-const char* FONT_STYLE_STRINGS[] =
-{
-  "unset",
-  "normal",
-  "italic",
-  "invalid"
-};
-
+#endif /* __cplusplus */
 const char* TEXT_ANCHOR_STRINGS[] =
 {
   "unset",
@@ -1184,60 +1671,6 @@ TextAnchor_toString(Text::TEXT_ANCHOR anchor)
   return TEXT_ANCHOR_STRINGS[anchor];
 }
 
-
-LIBSBML_EXTERN 
-Text::FONT_WEIGHT 
-FontWeight_fromString(const char * name)
-{
-  if (name != NULL)
-  {
-    const Text::FONT_WEIGHT  lo = Text::WEIGHT_UNSET;
-    const Text::FONT_WEIGHT  hi = Text::WEIGHT_BOLD;
-
-    return (Text::FONT_WEIGHT)util_bsearchStringsI(FONT_WEIGHT_STRINGS, name, lo, hi);
-  }
-
-  return Text::WEIGHT_UNSET;
-}
-
-LIBSBML_EXTERN 
-const char *
-FontWeight_toString(Text::FONT_WEIGHT weight)
-{
-  if ((weight < Text::WEIGHT_UNSET) || (weight > Text::WEIGHT_BOLD))
-  {
-    weight = Text::WEIGHT_UNSET;
-  }
-
-  return FONT_WEIGHT_STRINGS[weight];
-}
-
-LIBSBML_EXTERN 
-Text::FONT_STYLE 
-FontStyle_fromString(const char * name)
-{
-  if (name != NULL)
-  {
-    const Text::FONT_STYLE  lo = Text::STYLE_UNSET;
-    const Text::FONT_STYLE  hi = Text::STYLE_ITALIC;
-
-    return (Text::FONT_STYLE) util_bsearchStringsI(FONT_STYLE_STRINGS, name, lo, hi);
-  }
-
-  return Text::STYLE_UNSET;
-}
-
-LIBSBML_EXTERN
-const char * 
-FontStyle_toString(Text::FONT_STYLE style)
-{
-  if ((style < Text::STYLE_UNSET) || (style > Text::STYLE_ITALIC))
-  {
-    style = Text::STYLE_UNSET;
-  }
-
-  return FONT_STYLE_STRINGS[style];
-}
 
 
 LIBSBML_CPP_NAMESPACE_END

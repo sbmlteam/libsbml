@@ -809,7 +809,7 @@ Ellipse_unsetRatio(Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCX(const Ellipse_t * e);
 
 
@@ -823,7 +823,7 @@ Ellipse_getCX(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCY(const Ellipse_t * e);
 
 
@@ -837,7 +837,7 @@ Ellipse_getCY(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getCZ(const Ellipse_t * e);
 
 
@@ -851,7 +851,7 @@ Ellipse_getCZ(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getRX(const Ellipse_t * e);
 
 
@@ -865,7 +865,7 @@ Ellipse_getRX(const Ellipse_t * e);
  * @memberof Ellipse_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Ellipse_getRY(const Ellipse_t * e);
 
 

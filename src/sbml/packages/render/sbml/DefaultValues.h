@@ -68,7 +68,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   std::string mBackgroundColor;
-  GradientBase::SPREADMETHOD mSpreadMethod;
+  int mSpreadMethod;
   RelAbsVector mLinearGradient_x1;
   RelAbsVector mLinearGradient_y1;
   RelAbsVector mLinearGradient_z1;
@@ -90,10 +90,10 @@ protected:
   bool mIsSetStrokeWidth;
   std::string mFontFamily;
   RelAbsVector mFontSize;
-  Text::FONT_WEIGHT mFontWeight;
-  Text::FONT_STYLE mFontStyle;
-  Text::TEXT_ANCHOR mTextAnchor;
-  Text::TEXT_ANCHOR mVTextAnchor;
+  int mFontWeight;
+  int mFontStyle;
+  int mTextAnchor;
+  int mVTextAnchor;
   std::string mStartHead;
   std::string mEndHead;
   bool mEnableRotationalMapping;
@@ -184,7 +184,7 @@ public:
    * a GradientBase::SPREADMETHOD.
    *
    */
-  GradientBase::SPREADMETHOD getSpreadMethod() const;
+  GradientSpreadMethod_t getSpreadMethod() const;
 
 
   /**
@@ -408,7 +408,7 @@ public:
    * Text::FONT_WEIGHT.
    *
    */
-  Text::FONT_WEIGHT getFontWeight() const;
+  FontWeight_t getFontWeight() const;
 
 
   /**
@@ -428,7 +428,7 @@ public:
    * Text::FONT_STYLE.
    *
    */
-  Text::FONT_STYLE getFontStyle() const;
+  FontStyle_t getFontStyle() const;
 
 
   /**
@@ -448,7 +448,7 @@ public:
    * Text::TEXT_ANCHOR.
    *
    */
-  Text::TEXT_ANCHOR getTextAnchor() const;
+  HTextAnchor_t getTextAnchor() const;
 
 
   /**
@@ -468,7 +468,7 @@ public:
    * a Text::TEXT_ANCHOR.
    *
    */
-  Text::TEXT_ANCHOR getVTextAnchor() const;
+  VTextAnchor_t getVTextAnchor() const;
 
 
   /**

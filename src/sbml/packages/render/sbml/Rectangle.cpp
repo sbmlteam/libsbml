@@ -1131,7 +1131,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleXMustBeString,
+        log->logPackageError("render", RenderRectangleXMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1161,7 +1161,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleYMustBeString,
+        log->logPackageError("render", RenderRectangleYMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1189,7 +1189,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'z' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleZMustBeString,
+        log->logPackageError("render", RenderRectangleZMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1219,7 +1219,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'height' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleHeightMustBeString,
+        log->logPackageError("render", RenderRectangleHeightMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1250,7 +1250,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'width' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleWidthMustBeString,
+        log->logPackageError("render", RenderRectangleWidthMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1278,7 +1278,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'rx' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleRXMustBeString,
+        log->logPackageError("render", RenderRectangleRXMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1313,7 +1313,7 @@ Rectangle::readAttributes(const XMLAttributes& attributes,
       {
         std::string message = "The syntax '" + s + "' of the attribute 'ry' on the "
           + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-        log->logPackageError("render", RenderRectangleRYMustBeString,
+        log->logPackageError("render", RenderRectangleRYMustBeRelAbsVector,
           pkgVersion, level, version, message);
 
       }
@@ -1484,7 +1484,7 @@ Rectangle_unsetRatio(Rectangle_t * r)
  * Returns the value of the "x" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getX(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1492,7 +1492,7 @@ Rectangle_getX(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getX()));
+  return (RelAbsVector_t*)(&(r->getX()));
 }
 
 
@@ -1500,7 +1500,7 @@ Rectangle_getX(const Rectangle_t * r)
  * Returns the value of the "y" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getY(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1508,7 +1508,7 @@ Rectangle_getY(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getY()));
+  return (RelAbsVector_t*)(&(r->getY()));
 }
 
 
@@ -1516,7 +1516,7 @@ Rectangle_getY(const Rectangle_t * r)
  * Returns the value of the "z" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getZ(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1524,7 +1524,7 @@ Rectangle_getZ(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getZ()));
+  return (RelAbsVector_t*)(&(r->getZ()));
 }
 
 
@@ -1532,7 +1532,7 @@ Rectangle_getZ(const Rectangle_t * r)
  * Returns the value of the "width" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getWidth(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1540,7 +1540,7 @@ Rectangle_getWidth(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getWidth()));
+  return (RelAbsVector_t*)(&(r->getWidth()));
 }
 
 
@@ -1548,7 +1548,7 @@ Rectangle_getWidth(const Rectangle_t * r)
  * Returns the value of the "height" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getHeight(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1556,7 +1556,7 @@ Rectangle_getHeight(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getHeight()));
+  return (RelAbsVector_t*)(&(r->getHeight()));
 }
 
 
@@ -1564,7 +1564,7 @@ Rectangle_getHeight(const Rectangle_t * r)
  * Returns the value of the "rX" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getRX(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1572,7 +1572,7 @@ Rectangle_getRX(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getRX()));
+  return (RelAbsVector_t*)(&(r->getRX()));
 }
 
 
@@ -1580,7 +1580,7 @@ Rectangle_getRX(const Rectangle_t * r)
  * Returns the value of the "rY" element of this Rectangle_t.
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getRY(const Rectangle_t * r)
 {
   if (r == NULL)
@@ -1588,7 +1588,7 @@ Rectangle_getRY(const Rectangle_t * r)
     return NULL;
   }
 
-  return (const RelAbsVector_t*)(&(r->getRY()));
+  return (RelAbsVector_t*)(&(r->getRY()));
 }
 
 

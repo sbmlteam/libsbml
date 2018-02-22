@@ -1,6 +1,6 @@
 /**
  * @file    Image.h
- * @brief   class representing a bitmap image
+ * @brief Definition of the Image class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Image
- * @brief implementation of the Image concept from the SBML
+ * @sbmlbrief{render} implementation of the Image concept from the SBML
  * render extension
  *
  * The image class represents a bitmap image representation. It is derived from Transformation2D
@@ -51,16 +51,23 @@
 #ifndef Image_H__
 #define Image_H__
 
-#include <sbml/common/sbmlfwd.h>
 
-#include <sbml/packages/render/sbml/Transformation2D.h>
-#include <sbml/packages/render/sbml/RelAbsVector.h>
-#include <sbml/xml/XMLNode.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
 
 #ifdef __cplusplus
 
+
 #include <string>
+
+
+#include <sbml/packages/render/sbml/Transformation2D.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/sbml/RelAbsVector.h>
+#include <sbml/xml/XMLNode.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -68,36 +75,49 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class LIBSBML_EXTERN Image : public Transformation2D
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
-////  std::string mId;
+
   RelAbsVector mX;
   RelAbsVector mY;
   RelAbsVector mZ;
   RelAbsVector mWidth;
   RelAbsVector mHeight;
-  std::string mHRef;
-  static const std::string ELEMENT_NAME;
+  std::string mHref;
+
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new Image object with the given SBML level
-   * and SBML version.
+   * Creates a new Image using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this Image.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Image.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this Image.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Image (unsigned int level      = RenderExtension::getDefaultLevel(),
-         unsigned int version    = RenderExtension::getDefaultVersion(),
-         unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  Image(unsigned int level = RenderExtension::getDefaultLevel(),
+        unsigned int version = RenderExtension::getDefaultVersion(),
+        unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new Image object with the given SBMLNamespaces.
+   * Creates a new Image using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  Image (RenderPkgNamespaces* renderns);
+  Image(RenderPkgNamespaces *renderns);
+
 
   /**
    * Creates a new Image object from the given XMLNode object.
@@ -112,10 +132,6 @@ public:
   Image(const XMLNode& node, unsigned int l2version=4);
 
 
-  /**
-   * Destroy this Image object.
-   */
-  virtual ~Image ();
 
 
 #ifndef OMIT_DEPRECATED
@@ -135,6 +151,278 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
+   * Copy constructor for Image.
+   *
+   * @param orig the Image instance to copy.
+   */
+  Image(const Image& orig);
+
+
+  /**
+   * Assignment operator for Image.
+   *
+   * @param rhs the Image object whose values are to be used as the basis of
+   * the assignment.
+   */
+  Image& operator=(const Image& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this Image object.
+   *
+   * @return a (deep) copy of this Image object.
+   */
+  virtual Image* clone() const;
+
+
+  /**
+   * Destructor for Image.
+   */
+  virtual ~Image();
+
+
+  /**
+   * Returns the value of the "id" attribute of this Image.
+   *
+   * @return the value of the "id" attribute of this Image as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "href" attribute of this Image.
+   *
+   * @return the value of the "href" attribute of this Image as a string.
+   */
+  const std::string& getHref() const;
+
+  /**
+   * Returns the image reference URL string.
+   *
+   * @return THe path to the image data as a string.
+   */
+  const std::string& getImageReference() const;
+
+  /**
+   * Predicate returning @c true if this Image's "id" attribute is set.
+   *
+   * @return @c true if this Image's "id" attribute has been set, otherwise
+   * @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true if this Image's "href" attribute is set.
+   *
+   * @return @c true if this Image's "href" attribute has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetHref() const;
+
+
+  /**
+   * Returns true if the image reference has been set.
+   * The image reference is considered set if the string does not
+   * only contain whitespace characters.
+   *
+   * @return true if the image reference has been set.
+   */
+  bool isSetImageReference() const;
+
+  /**
+   * Sets the value of the "id" attribute of this Image.
+   *
+   * @param id std::string& value of the "id" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * Calling this function with @p id = @c NULL or an empty string is
+   * equivalent to calling unsetId().
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "href" attribute of this Image.
+   *
+   * @param href std::string& value of the "href" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p href = @c NULL or an empty string is
+   * equivalent to calling unsetHref().
+   */
+  int setHref(const std::string& href);
+
+
+
+  /**
+   * Sets the reference to the image location.
+   * Relative paths are relative to the document that contains the render information.
+   * The path should be the location to a JPEG or PNG bitmap image, other formats are
+   * currently not supported.
+   *
+   * @param ref A URL string that specifies where the image is located on the disk.
+   */
+  int setImageReference(const std::string& ref);
+
+  /**
+   * Unsets the value of the "id" attribute of this Image.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "href" attribute of this Image.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetHref();
+
+
+  /**
+   * Unsets the reference to the image location.
+   */
+  int unsetImageReference();
+
+
+  /**
+   * Returns a const reference to the x coordinate of the image position.
+   *
+   * @return const reference to the x coordinate of the image position.
+   */
+  const RelAbsVector& getX() const;
+
+
+  /**
+   * Returns a reference to the x coordinate of the image position.
+   *
+   * @return reference to the x coordinate of the image position.
+   */
+  RelAbsVector& getX();
+
+
+  /**
+   * Returns a const reference to the y coordinate of the image position.
+   *
+   * @return const reference to the y coordinate of the image position.
+   */
+  const RelAbsVector& getY() const;
+
+
+  /**
+   * Returns a reference to the y coordinate of the image position.
+   *
+   * @return reference to the y coordinate of the image position.
+   */
+  RelAbsVector& getY();
+
+
+  /**
+   * Returns a const reference to the z coordinate of the image position.
+   *
+   * @return const reference to the z coordinate of the image position.
+   */
+  const RelAbsVector& getZ() const;
+
+
+  /**
+   * Returns a reference to the z coordinate of the image position.
+   *
+   * @return reference to the z coordinate of the image position.
+   */
+  RelAbsVector& getZ();
+
+
+  /**
+   * Returns a const reference to the width of the image.
+   *
+   * @return const reference to the width
+   */
+  const RelAbsVector& getWidth() const;
+
+
+  /**
+   * Returns a reference to the width of the image.
+   *
+   * @return reference to the width
+   */
+  RelAbsVector& getWidth();
+
+
+  /**
+   * Returns a const reference to the height of the image.
+   *
+   * @return const reference to the height
+   */
+  const RelAbsVector& getHeight() const;
+
+
+  /**
+   * Returns a reference to the height of the image.
+   *
+   * @return reference to the height
+   */
+  RelAbsVector& getHeight();
+
+
+  /**
+   * Predicate returning @c true if this Image's "x" element is set.
+   *
+   * @return @c true if this Image's "x" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetX() const;
+
+
+  /**
+   * Predicate returning @c true if this Image's "y" element is set.
+   *
+   * @return @c true if this Image's "y" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetY() const;
+
+
+  /**
+   * Predicate returning @c true if this Image's "z" element is set.
+   *
+   * @return @c true if this Image's "z" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetZ() const;
+
+
+  /**
+   * Predicate returning @c true if this Image's "width" element is set.
+   *
+   * @return @c true if this Image's "width" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetWidth() const;
+
+
+  /**
+   * Predicate returning @c true if this Image's "height" element is set.
+   *
+   * @return @c true if this Image's "height" element has been set, otherwise
+   * @c false is returned.
+   */
+  bool isSetHeight() const;
+
+
+  /**
    * Sets the position of the image relative to its viewport.
    * The position can either be specified in relative or in absolut coordinates
    * or a combination of both.
@@ -147,75 +435,6 @@ public:
   void setCoordinates(const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z=RelAbsVector(0.0,0.0));
 
   /**
-   * Sets the x coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
-   * or a combination of both.
-   *
-   * @param x x coordinate of the image position
-   */
-  void setX(const RelAbsVector& coord);
-
-  /**
-   * Sets the y coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
-   * or a combination of both.
-   *
-   * @param y y coordinate of the image position
-   */
-  void setY(const RelAbsVector& coord);
-
-  /**
-   * Sets the z coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
-   * or a combination of both.
-   *
-   * @param z z coordinate of the image position
-   */
-  void setZ(const RelAbsVector& coord);
-
-  /**
-   * Returns a reference to the x coordinate of the image position.
-   *
-   * @return reference to the x coordinate of the image position.
-   */
-  RelAbsVector& getX();
-
-  /**
-   * Returns a reference to the y coordinate of the image position.
-   *
-   * @return reference to the y coordinate of the image position.
-   */
-  RelAbsVector& getY();
-
-  /**
-   * Returns a reference to the z coordinate of the image position.
-   *
-   * @return reference to the z coordinate of the image position.
-   */
-  RelAbsVector& getZ();
-
-  /**
-   * Returns a const reference to the x coordinate of the image position.
-   *
-   * @return const reference to the x coordinate of the image position.
-   */
-  const RelAbsVector& getX() const;
-
-  /**
-   * Returns a const reference to the y coordinate of the image position.
-   *
-   * @return const reference to the y coordinate of the image position.
-   */
-  const RelAbsVector& getY() const;
-
-  /**
-   * Returns a const reference to the z coordinate of the image position.
-   *
-   * @return const reference to the z coordinate of the image position.
-   */
-  const RelAbsVector& getZ() const;
-
-  /**
    * Sets the dimensions of the image.
    * The dimensions can be set as relative values or absolute values, or 
    * a combination of both.
@@ -226,13 +445,40 @@ public:
   void setDimensions(const RelAbsVector& width,const RelAbsVector& height);
 
   /**
+   * Sets the x coordinate of the image position.
+   * The position can either be specified in relative or in absolut coordinates
+   * or a combination of both.
+   *
+   * @param x x coordinate of the image position
+   */
+  int setX(const RelAbsVector& coord);
+
+  /**
+   * Sets the y coordinate of the image position.
+   * The position can either be specified in relative or in absolut coordinates
+   * or a combination of both.
+   *
+   * @param y y coordinate of the image position
+   */
+  int setY(const RelAbsVector& coord);
+
+  /**
+   * Sets the z coordinate of the image position.
+   * The position can either be specified in relative or in absolut coordinates
+   * or a combination of both.
+   *
+   * @param z z coordinate of the image position
+   */
+  int setZ(const RelAbsVector& coord);
+
+  /**
    * Sets the width of the image when rendered.
    * The width can be set as relative values or absolute values, or 
    * a combination of both.
    *
    * @param width the width of the image when rendered
    */
-  void setWidth(const RelAbsVector& width);
+  int setWidth(const RelAbsVector& width);
 
   /**
    * Sets the height of the image when rendered.
@@ -241,106 +487,113 @@ public:
    *
    * @param height the height of the image when rendered
    */
-  void setHeight(const RelAbsVector& height);
+  int setHeight(const RelAbsVector& height);
+
 
   /**
-   * Returns a reference to the width of the image.
+   * Unsets the value of the "x" element of this Image.
    *
-   * @return reference to the width
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  RelAbsVector& getWidth();
+  int unsetX();
+
 
   /**
-   * Returns a reference to the height of the image.
+   * Unsets the value of the "y" element of this Image.
    *
-   * @return reference to the height
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  RelAbsVector& getHeight();
+  int unsetY();
+
 
   /**
-   * Returns a const reference to the width of the image.
+   * Unsets the value of the "z" element of this Image.
    *
-   * @return const reference to the width
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getWidth() const;
+  int unsetZ();
+
 
   /**
-   * Returns a const reference to the height of the image.
+   * Unsets the value of the "width" element of this Image.
    *
-   * @return const reference to the height
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getHeight() const;
+  int unsetWidth();
+
 
   /**
-   * Sets the reference to the image location.
-   * Relative paths are relative to the document that contains the render information.
-   * The path should be the location to a JPEG or PNG bitmap image, other formats are
-   * currently not supported.
+   * Unsets the value of the "height" element of this Image.
    *
-   * @param ref A URL string that specifies where the image is located on the disk.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  void setImageReference(const std::string& ref);
+  int unsetHeight();
+
 
   /**
-   * Returns the image reference URL string.
+   * Returns the XML element name of this Image object.
    *
-   * @return THe path to the image data as a string.
-   */
-  const std::string& getImageReference() const;
-
-  /**
-   * Returns true if the image reference has been set.
-   * The image reference is considered set if the string does not
-   * only contain whitespace characters.
+   * For Image, the XML element name is always @c "image".
    *
-   * @return true if the image reference has been set.
+   * @return the name of this element, i.e. @c "image".
    */
-  bool isSetImageReference() const;
+  virtual const std::string& getElementName() const;
+
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Returns the libSBML type code for this Image object.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
-   */
-  bool accept(SBMLVisitor& visitor) const;
-
-  /**
-   * Creates and returns a deep copy of this Image object.
+   * @copydetails doc_what_are_typecodes
    *
-   * @return a (deep) copy of this Image.
-   */
-  Image* clone() const;
-
-  /**
-   * Returns the XML element name of this object, which for
-   * Image, is always @c "image".
-   * 
-   * @return the name of this element, i.e., @c "image".
-   */
-  const std::string& getElementName() const;
-
-  /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_IMAGE, SBMLRenderTypeCode_t}.
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this Image
+   * object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this Image
+   * have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the Image object are:
+   * @li "x"
+   * @li "y"
+   * @li "width"
+   * @li "height"
+   * @li "href"
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
 
   /**
    * Creates an XMLNode object from this Image object.
@@ -350,90 +603,41 @@ public:
    */
   virtual XMLNode toXML() const;
 
-  /**
-   * Returns the value of the "id" attribute of this Image.
-   *
-   * @return the id of the Image
-   */
-  const std::string& getId () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Image's "id" attribute has been set.
-   *
-   * @return returns true or false depending on whether the id on the 
-   * Image has been set.
-   */
-  bool isSetId () const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this Image.
-   *
-   * @param id the new id for the Image 
-   *
-   * @return status if the operation succeeded
-   */
-  int setId (const std::string& id);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this Image.
-   */
-  virtual int unsetId ();
-
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * attributes
-   */
-  virtual bool hasRequiredAttributes() const ;
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * elements
-   */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
-
-
 protected:
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
 
 };
 
@@ -442,4 +646,582 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
-#endif /* Image_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new Image_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this Image_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this Image_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * Image_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+Image_t *
+Image_create(unsigned int level,
+             unsigned int version,
+             unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this Image_t object.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return a (deep) copy of this Image_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+Image_t*
+Image_clone(const Image_t* i);
+
+
+/**
+ * Frees this Image_t object.
+ *
+ * @param i the Image_t structure.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+void
+Image_free(Image_t* i);
+
+
+/**
+ * Returns the value of the "id" attribute of this Image_t.
+ *
+ * @param i the Image_t structure whose id is sought.
+ *
+ * @return the value of the "id" attribute of this Image_t as a pointer to a
+ * string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+char *
+Image_getId(const Image_t * i);
+
+
+/**
+ * Returns the value of the "href" attribute of this Image_t.
+ *
+ * @param i the Image_t structure whose href is sought.
+ *
+ * @return the value of the "href" attribute of this Image_t as a pointer to a
+ * string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+char *
+Image_getHref(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "id" attribute is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "id" attribute has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetId(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "href" attribute is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "href" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetHref(const Image_t * i);
+
+
+/**
+ * Sets the value of the "id" attribute of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param id const char * value of the "id" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p id = @c NULL or an empty string is equivalent
+ * to calling Image_unsetId().
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setId(Image_t * i, const char * id);
+
+
+/**
+ * Sets the value of the "href" attribute of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param href const char * value of the "href" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p href = @c NULL or an empty string is
+ * equivalent to calling Image_unsetHref().
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setHref(Image_t * i, const char * href);
+
+
+/**
+ * Unsets the value of the "id" attribute of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetId(Image_t * i);
+
+
+/**
+ * Unsets the value of the "href" attribute of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetHref(Image_t * i);
+
+
+/**
+ * Returns the value of the "x" element of this Image_t.
+ *
+ * @param i the Image_t structure whose x is sought.
+ *
+ * @return the value of the "x" element of this Image_t as a RelAbsVector*.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getX(const Image_t * i);
+
+
+/**
+ * Returns the value of the "y" element of this Image_t.
+ *
+ * @param i the Image_t structure whose y is sought.
+ *
+ * @return the value of the "y" element of this Image_t as a RelAbsVector*.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getY(const Image_t * i);
+
+
+/**
+ * Returns the value of the "z" element of this Image_t.
+ *
+ * @param i the Image_t structure whose z is sought.
+ *
+ * @return the value of the "z" element of this Image_t as a RelAbsVector*.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getZ(const Image_t * i);
+
+
+/**
+ * Returns the value of the "width" element of this Image_t.
+ *
+ * @param i the Image_t structure whose width is sought.
+ *
+ * @return the value of the "width" element of this Image_t as a RelAbsVector*.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getWidth(const Image_t * i);
+
+
+/**
+ * Returns the value of the "height" element of this Image_t.
+ *
+ * @param i the Image_t structure whose height is sought.
+ *
+ * @return the value of the "height" element of this Image_t as a
+ * RelAbsVector*.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Image_getHeight(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "x" element is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "x" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetX(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "y" element is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "y" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetY(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "z" element is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "z" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetZ(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "width" element is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "width" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetWidth(const Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Image_t's "height" element is set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) if this Image_t's "height" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_isSetHeight(const Image_t * i);
+
+
+/**
+ * Sets the value of the "x" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param x RelAbsVector_t* value of the "x" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setX(Image_t * i, const RelAbsVector_t* x);
+
+
+/**
+ * Sets the value of the "y" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param y RelAbsVector_t* value of the "y" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setY(Image_t * i, const RelAbsVector_t* y);
+
+
+/**
+ * Sets the value of the "z" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param z RelAbsVector_t* value of the "z" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setZ(Image_t * i, const RelAbsVector_t* z);
+
+
+/**
+ * Sets the value of the "width" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param width RelAbsVector_t* value of the "width" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setWidth(Image_t * i, const RelAbsVector_t* width);
+
+
+/**
+ * Sets the value of the "height" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @param height RelAbsVector_t* value of the "height" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_setHeight(Image_t * i, const RelAbsVector_t* height);
+
+
+/**
+ * Unsets the value of the "x" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetX(Image_t * i);
+
+
+/**
+ * Unsets the value of the "y" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetY(Image_t * i);
+
+
+/**
+ * Unsets the value of the "z" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetZ(Image_t * i);
+
+
+/**
+ * Unsets the value of the "width" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetWidth(Image_t * i);
+
+
+/**
+ * Unsets the value of the "height" element of this Image_t.
+ *
+ * @param i the Image_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_unsetHeight(Image_t * i);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Image_t object have been set.
+ *
+ * @param i the Image_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Image_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the Image_t object are:
+ * @li "href"
+ * @li "x"
+ * @li "y"
+ * @li "width"
+ * @li "height"
+ *
+ * @memberof Image_t
+ */
+LIBSBML_EXTERN
+int
+Image_hasRequiredAttributes(const Image_t * i);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !Image_H__ */
+
+

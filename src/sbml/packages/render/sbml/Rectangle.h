@@ -920,7 +920,7 @@ Rectangle_unsetRatio(Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getX(const Rectangle_t * r);
 
 
@@ -934,7 +934,7 @@ Rectangle_getX(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getY(const Rectangle_t * r);
 
 
@@ -948,7 +948,7 @@ Rectangle_getY(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getZ(const Rectangle_t * r);
 
 
@@ -963,7 +963,7 @@ Rectangle_getZ(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getWidth(const Rectangle_t * r);
 
 
@@ -978,7 +978,7 @@ Rectangle_getWidth(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getHeight(const Rectangle_t * r);
 
 
@@ -993,7 +993,7 @@ Rectangle_getHeight(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getRX(const Rectangle_t * r);
 
 
@@ -1008,7 +1008,7 @@ Rectangle_getRX(const Rectangle_t * r);
  * @memberof Rectangle_t
  */
 LIBSBML_EXTERN
-const RelAbsVector_t*
+RelAbsVector_t*
 Rectangle_getRY(const Rectangle_t * r);
 
 

@@ -860,441 +860,445 @@ FillRule_isValidString(const char* code)
 }
 
 
-//static
-//const char* SBML_FONT_FAMILY_STRINGS[] =
-//{
-//  "serif"
-//, "sans-serif"
-//, "monospace"
-//, "invalid FontFamily"
-//};
-//
-//
-///*
-// * Returns the string version of the provided #FontFamily_t enumeration.
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontFamily_toString(FontFamily_t ff)
-//{
-//  int min = FONT_FAMILY_SERIF;
-//  int max = FONT_FAMILY_INVALID;
-//
-//  if (ff < min || ff > max)
-//  {
-//    return "(Unknown FontFamily value)";
-//  }
-//
-//  return SBML_FONT_FAMILY_STRINGS[ff - min];
-//}
-//
-//
-///*
-// * Returns the #FontFamily_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if there is no such match.
-// */
-//LIBSBML_EXTERN
-//FontFamily_t
-//FontFamily_fromString(const char* code)
-//{
-//  static int size =
-//    sizeof(SBML_FONT_FAMILY_STRINGS)/sizeof(SBML_FONT_FAMILY_STRINGS[0]);
-//  std::string type(code);
-//
-//  for (int i = 0; i < size; i++)
-//  {
-//    if (type == SBML_FONT_FAMILY_STRINGS[i])
-//    {
-//      return (FontFamily_t)(i);
-//    }
-//  }
-//
-//  return FONT_FAMILY_INVALID;
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontFamily_t is valid.
-// */
-//LIBSBML_EXTERN
-//int
-//FontFamily_isValid(FontFamily_t ff)
-//{
-//  int min = FONT_FAMILY_SERIF;
-//  int max = FONT_FAMILY_INVALID;
-//
-//  if (ff < min || ff >= max)
-//  {
-//    return 0;
-//  }
-//  else
-//  {
-//    return 1;
-//  }
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontFamily_t.
-// */
-//LIBSBML_EXTERN
-//int
-//FontFamily_isValidString(const char* code)
-//{
-//  return FontFamily_isValid(FontFamily_fromString(code));
-//}
-//
-//
-//static
-//const char* SBML_FONT_WEIGHT_STRINGS[] =
-//{
-//  "bold"
-//, "normal"
-//, "invalid FontWeight"
-//};
-//
-//
-///*
-// * Returns the string version of the provided #FontWeight_t enumeration.
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontWeight_toString(FontWeight_t fw)
-//{
-//  int min = FONT_WEIGHT_BOLD;
-//  int max = FONT_WEIGHT_INVALID;
-//
-//  if (fw < min || fw > max)
-//  {
-//    return "(Unknown FontWeight value)";
-//  }
-//
-//  return SBML_FONT_WEIGHT_STRINGS[fw - min];
-//}
-//
-//
-///*
-// * Returns the #FontWeight_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if there is no such match.
-// */
-//LIBSBML_EXTERN
-//FontWeight_t
-//FontWeight_fromString(const char* code)
-//{
-//  static int size =
-//    sizeof(SBML_FONT_WEIGHT_STRINGS)/sizeof(SBML_FONT_WEIGHT_STRINGS[0]);
-//  std::string type(code);
-//
-//  for (int i = 0; i < size; i++)
-//  {
-//    if (type == SBML_FONT_WEIGHT_STRINGS[i])
-//    {
-//      return (FontWeight_t)(i);
-//    }
-//  }
-//
-//  return FONT_WEIGHT_INVALID;
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontWeight_t is valid.
-// */
-//LIBSBML_EXTERN
-//int
-//FontWeight_isValid(FontWeight_t fw)
-//{
-//  int min = FONT_WEIGHT_BOLD;
-//  int max = FONT_WEIGHT_INVALID;
-//
-//  if (fw < min || fw >= max)
-//  {
-//    return 0;
-//  }
-//  else
-//  {
-//    return 1;
-//  }
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontWeight_t.
-// */
-//LIBSBML_EXTERN
-//int
-//FontWeight_isValidString(const char* code)
-//{
-//  return FontWeight_isValid(FontWeight_fromString(code));
-//}
-//
-//
-//static
-//const char* SBML_FONT_STYLE_STRINGS[] =
-//{
-//  "italic"
-//, "normal"
-//, "invalid FontStyle"
-//};
-//
-//
-///*
-// * Returns the string version of the provided #FontStyle_t enumeration.
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontStyle_toString(FontStyle_t fs)
-//{
-//  int min = FONT_STYLE_ITALIC;
-//  int max = FONT_STYLE_INVALID;
-//
-//  if (fs < min || fs > max)
-//  {
-//    return "(Unknown FontStyle value)";
-//  }
-//
-//  return SBML_FONT_STYLE_STRINGS[fs - min];
-//}
-//
-//
-///*
-// * Returns the #FontStyle_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} if there is no such match.
-// */
-//LIBSBML_EXTERN
-//FontStyle_t
-//FontStyle_fromString(const char* code)
-//{
-//  static int size =
-//    sizeof(SBML_FONT_STYLE_STRINGS)/sizeof(SBML_FONT_STYLE_STRINGS[0]);
-//  std::string type(code);
-//
-//  for (int i = 0; i < size; i++)
-//  {
-//    if (type == SBML_FONT_STYLE_STRINGS[i])
-//    {
-//      return (FontStyle_t)(i);
-//    }
-//  }
-//
-//  return FONT_STYLE_INVALID;
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontStyle_t is valid.
-// */
-//LIBSBML_EXTERN
-//int
-//FontStyle_isValid(FontStyle_t fs)
-//{
-//  int min = FONT_STYLE_ITALIC;
-//  int max = FONT_STYLE_INVALID;
-//
-//  if (fs < min || fs >= max)
-//  {
-//    return 0;
-//  }
-//  else
-//  {
-//    return 1;
-//  }
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontStyle_t.
-// */
-//LIBSBML_EXTERN
-//int
-//FontStyle_isValidString(const char* code)
-//{
-//  return FontStyle_isValid(FontStyle_fromString(code));
-//}
-//
-//
-//static
-//const char* SBML_V_TEXT_ANCHOR_STRINGS[] =
-//{
-//  "top"
-//, "middle"
-//, "bottom"
-//, "baseline"
-//, "invalid VTextAnchor"
-//};
-//
-//
-///*
-// * Returns the string version of the provided #VTextAnchor_t enumeration.
-// */
-//LIBSBML_EXTERN
-//const char*
-//VTextAnchor_toString(VTextAnchor_t vta)
-//{
-//  int min = V_TEXTANCHOR_ANCHOR_TOP;
-//  int max = V_TEXTANCHOR_ANCHOR_INVALID;
-//
-//  if (vta < min || vta > max)
-//  {
-//    return "(Unknown VTextAnchor value)";
-//  }
-//
-//  return SBML_V_TEXT_ANCHOR_STRINGS[vta - min];
-//}
-//
-//
-///*
-// * Returns the #VTextAnchor_t enumeration corresponding to the given string or
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID, VTextAnchor_t} if there is no
-// * such match.
-// */
-//LIBSBML_EXTERN
-//VTextAnchor_t
-//VTextAnchor_fromString(const char* code)
-//{
-//  static int size =
-//    sizeof(SBML_V_TEXT_ANCHOR_STRINGS)/sizeof(SBML_V_TEXT_ANCHOR_STRINGS[0]);
-//  std::string type(code);
-//
-//  for (int i = 0; i < size; i++)
-//  {
-//    if (type == SBML_V_TEXT_ANCHOR_STRINGS[i])
-//    {
-//      return (VTextAnchor_t)(i);
-//    }
-//  }
-//
-//  return V_TEXTANCHOR_ANCHOR_INVALID;
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #VTextAnchor_t is valid.
-// */
-//LIBSBML_EXTERN
-//int
-//VTextAnchor_isValid(VTextAnchor_t vta)
-//{
-//  int min = V_TEXTANCHOR_ANCHOR_TOP;
-//  int max = V_TEXTANCHOR_ANCHOR_INVALID;
-//
-//  if (vta < min || vta >= max)
-//  {
-//    return 0;
-//  }
-//  else
-//  {
-//    return 1;
-//  }
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #VTextAnchor_t.
-// */
-//LIBSBML_EXTERN
-//int
-//VTextAnchor_isValidString(const char* code)
-//{
-//  return VTextAnchor_isValid(VTextAnchor_fromString(code));
-//}
-//
-//
-//static
-//const char* SBML_H_TEXT_ANCHOR_STRINGS[] =
-//{
-//  "start"
-//, "middle"
-//, "end"
-//, "invalid HTextAnchor"
-//};
-//
-//
-///*
-// * Returns the string version of the provided #HTextAnchor_t enumeration.
-// */
-//LIBSBML_EXTERN
-//const char*
-//HTextAnchor_toString(HTextAnchor_t hta)
-//{
-//  int min = H_TEXTANCHOR_START;
-//  int max = H_TEXTANCHOR_INVALID;
-//
-//  if (hta < min || hta > max)
-//  {
-//    return "(Unknown HTextAnchor value)";
-//  }
-//
-//  return SBML_H_TEXT_ANCHOR_STRINGS[hta - min];
-//}
-//
-//
-///*
-// * Returns the #HTextAnchor_t enumeration corresponding to the given string or
-// * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if there is no such
-// * match.
-// */
-//LIBSBML_EXTERN
-//HTextAnchor_t
-//HTextAnchor_fromString(const char* code)
-//{
-//  static int size =
-//    sizeof(SBML_H_TEXT_ANCHOR_STRINGS)/sizeof(SBML_H_TEXT_ANCHOR_STRINGS[0]);
-//  std::string type(code);
-//
-//  for (int i = 0; i < size; i++)
-//  {
-//    if (type == SBML_H_TEXT_ANCHOR_STRINGS[i])
-//    {
-//      return (HTextAnchor_t)(i);
-//    }
-//  }
-//
-//  return H_TEXTANCHOR_INVALID;
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #HTextAnchor_t is valid.
-// */
-//LIBSBML_EXTERN
-//int
-//HTextAnchor_isValid(HTextAnchor_t hta)
-//{
-//  int min = H_TEXTANCHOR_START;
-//  int max = H_TEXTANCHOR_INVALID;
-//
-//  if (hta < min || hta >= max)
-//  {
-//    return 0;
-//  }
-//  else
-//  {
-//    return 1;
-//  }
-//}
-//
-//
-///*
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #HTextAnchor_t.
-// */
-//LIBSBML_EXTERN
-//int
-//HTextAnchor_isValidString(const char* code)
-//{
-//  return HTextAnchor_isValid(HTextAnchor_fromString(code));
-//}
-//
+static
+const char* SBML_FONT_FAMILY_STRINGS[] =
+{
+  "serif"
+, "sans-serif"
+, "monospace"
+, "invalid FontFamily"
+};
+
+
+/*
+ * Returns the string version of the provided #FontFamily_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+FontFamily_toString(FontFamily_t ff)
+{
+  int min = FONT_FAMILY_SERIF;
+  int max = FONT_FAMILY_INVALID;
+
+  if (ff < min || ff > max)
+  {
+    return "(Unknown FontFamily value)";
+  }
+
+  return SBML_FONT_FAMILY_STRINGS[ff - min];
+}
+
+
+/*
+ * Returns the #FontFamily_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if there is no such match.
+ */
+LIBSBML_EXTERN
+FontFamily_t
+FontFamily_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_FONT_FAMILY_STRINGS)/sizeof(SBML_FONT_FAMILY_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_FONT_FAMILY_STRINGS[i])
+    {
+      return (FontFamily_t)(i);
+    }
+  }
+
+  return FONT_FAMILY_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontFamily_t is valid.
+ */
+LIBSBML_EXTERN
+int
+FontFamily_isValid(FontFamily_t ff)
+{
+  int min = FONT_FAMILY_SERIF;
+  int max = FONT_FAMILY_INVALID;
+
+  if (ff < min || ff >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontFamily_t.
+ */
+LIBSBML_EXTERN
+int
+FontFamily_isValidString(const char* code)
+{
+  return FontFamily_isValid(FontFamily_fromString(code));
+}
+
+
+static
+const char* SBML_FONT_WEIGHT_STRINGS[] =
+{
+  "unset"
+, "normal"
+, "bold"
+, "invalid FontWeight"
+};
+
+
+/*
+ * Returns the string version of the provided #FontWeight_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+FontWeight_toString(FontWeight_t fw)
+{
+  int min = FONT_WEIGHT_UNSET;
+  int max = FONT_WEIGHT_INVALID;
+
+  if (fw < min || fw > max)
+  {
+    return "(Unknown FontWeight value)";
+  }
+
+  return SBML_FONT_WEIGHT_STRINGS[fw - min];
+}
+
+
+/*
+ * Returns the #FontWeight_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if there is no such match.
+ */
+LIBSBML_EXTERN
+FontWeight_t
+FontWeight_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_FONT_WEIGHT_STRINGS)/sizeof(SBML_FONT_WEIGHT_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_FONT_WEIGHT_STRINGS[i])
+    {
+      return (FontWeight_t)(i);
+    }
+  }
+
+  return FONT_WEIGHT_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontWeight_t is valid.
+ */
+LIBSBML_EXTERN
+int
+FontWeight_isValid(FontWeight_t fw)
+{
+  int min = FONT_WEIGHT_BOLD;
+  int max = FONT_WEIGHT_INVALID;
+
+  if (fw < min || fw >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontWeight_t.
+ */
+LIBSBML_EXTERN
+int
+FontWeight_isValidString(const char* code)
+{
+  return FontWeight_isValid(FontWeight_fromString(code));
+}
+
+
+static
+const char* SBML_FONT_STYLE_STRINGS[] =
+{
+  "unset"
+, "normal"
+,  "italic"
+, "invalid FontStyle"
+};
+
+
+/*
+ * Returns the string version of the provided #FontStyle_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+FontStyle_toString(FontStyle_t fs)
+{
+  int min = FONT_STYLE_UNSET;
+  int max = FONT_STYLE_INVALID;
+
+  if (fs < min || fs > max)
+  {
+    return "(Unknown FontStyle value)";
+  }
+
+  return SBML_FONT_STYLE_STRINGS[fs - min];
+}
+
+
+/*
+ * Returns the #FontStyle_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} if there is no such match.
+ */
+LIBSBML_EXTERN
+FontStyle_t
+FontStyle_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_FONT_STYLE_STRINGS)/sizeof(SBML_FONT_STYLE_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_FONT_STYLE_STRINGS[i])
+    {
+      return (FontStyle_t)(i);
+    }
+  }
+
+  return FONT_STYLE_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontStyle_t is valid.
+ */
+LIBSBML_EXTERN
+int
+FontStyle_isValid(FontStyle_t fs)
+{
+  int min = FONT_STYLE_ITALIC;
+  int max = FONT_STYLE_INVALID;
+
+  if (fs < min || fs >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontStyle_t.
+ */
+LIBSBML_EXTERN
+int
+FontStyle_isValidString(const char* code)
+{
+  return FontStyle_isValid(FontStyle_fromString(code));
+}
+
+
+static
+const char* SBML_V_TEXT_ANCHOR_STRINGS[] =
+{
+  "unset"
+, "top"
+, "middle"
+, "bottom"
+, "baseline"
+, "invalid VTextAnchor"
+};
+
+
+/*
+ * Returns the string version of the provided #VTextAnchor_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+VTextAnchor_toString(VTextAnchor_t vta)
+{
+  int min = V_TEXTANCHOR_UNSET;
+  int max = V_TEXTANCHOR_INVALID;
+
+  if (vta < min || vta > max)
+  {
+    return "(Unknown VTextAnchor value)";
+  }
+
+  return SBML_V_TEXT_ANCHOR_STRINGS[vta - min];
+}
+
+
+/*
+ * Returns the #VTextAnchor_t enumeration corresponding to the given string or
+ * @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t} if there is no
+ * such match.
+ */
+LIBSBML_EXTERN
+VTextAnchor_t
+VTextAnchor_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_V_TEXT_ANCHOR_STRINGS)/sizeof(SBML_V_TEXT_ANCHOR_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_V_TEXT_ANCHOR_STRINGS[i])
+    {
+      return (VTextAnchor_t)(i);
+    }
+  }
+
+  return V_TEXTANCHOR_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #VTextAnchor_t is valid.
+ */
+LIBSBML_EXTERN
+int
+VTextAnchor_isValid(VTextAnchor_t vta)
+{
+  int min = V_TEXTANCHOR_TOP;
+  int max = V_TEXTANCHOR_INVALID;
+
+  if (vta < min || vta >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #VTextAnchor_t.
+ */
+LIBSBML_EXTERN
+int
+VTextAnchor_isValidString(const char* code)
+{
+  return VTextAnchor_isValid(VTextAnchor_fromString(code));
+}
+
+
+static
+const char* SBML_H_TEXT_ANCHOR_STRINGS[] =
+{
+  "unset"
+, "start"
+, "middle"
+, "end"
+, "invalid HTextAnchor"
+};
+
+
+/*
+ * Returns the string version of the provided #HTextAnchor_t enumeration.
+ */
+LIBSBML_EXTERN
+const char*
+HTextAnchor_toString(HTextAnchor_t hta)
+{
+  int min = H_TEXTANCHOR_UNSET;
+  int max = H_TEXTANCHOR_INVALID;
+
+  if (hta < min || hta > max)
+  {
+    return "(Unknown HTextAnchor value)";
+  }
+
+  return SBML_H_TEXT_ANCHOR_STRINGS[hta - min];
+}
+
+
+/*
+ * Returns the #HTextAnchor_t enumeration corresponding to the given string or
+ * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if there is no such
+ * match.
+ */
+LIBSBML_EXTERN
+HTextAnchor_t
+HTextAnchor_fromString(const char* code)
+{
+  static int size =
+    sizeof(SBML_H_TEXT_ANCHOR_STRINGS)/sizeof(SBML_H_TEXT_ANCHOR_STRINGS[0]);
+  std::string type(code);
+
+  for (int i = 0; i < size; i++)
+  {
+    if (type == SBML_H_TEXT_ANCHOR_STRINGS[i])
+    {
+      return (HTextAnchor_t)(i);
+    }
+  }
+
+  return H_TEXTANCHOR_INVALID;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #HTextAnchor_t is valid.
+ */
+LIBSBML_EXTERN
+int
+HTextAnchor_isValid(HTextAnchor_t hta)
+{
+  int min = H_TEXTANCHOR_START;
+  int max = H_TEXTANCHOR_INVALID;
+
+  if (hta < min || hta >= max)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #HTextAnchor_t.
+ */
+LIBSBML_EXTERN
+int
+HTextAnchor_isValidString(const char* code)
+{
+  return HTextAnchor_isValid(HTextAnchor_fromString(code));
+}
+
 
 
 

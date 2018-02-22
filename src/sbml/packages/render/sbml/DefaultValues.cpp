@@ -248,10 +248,10 @@ DefaultValues::getBackgroundColor() const
 /*
  * Returns the value of the "spreadMethod" attribute of this DefaultValues.
  */
-GradientBase::SPREADMETHOD
+GradientSpreadMethod_t
 DefaultValues::getSpreadMethod() const
 {
-  return mSpreadMethod;
+  return (GradientSpreadMethod_t)(mSpreadMethod);
 }
 
 
@@ -262,7 +262,7 @@ std::string
 DefaultValues::getSpreadMethodAsString() const
 {
   std::string code_str =
-    SpreadMethod_toString(mSpreadMethod);
+    GradientSpreadMethod_toString((GradientSpreadMethod_t)(mSpreadMethod));
   return code_str;
 }
 
@@ -493,10 +493,10 @@ DefaultValues::getFontSize() const
 /*
  * Returns the value of the "fontWeight" attribute of this DefaultValues.
  */
-Text::FONT_WEIGHT
+FontWeight_t
 DefaultValues::getFontWeight() const
 {
-  return mFontWeight;
+  return (FontWeight_t)(mFontWeight);
 }
 
 
@@ -506,7 +506,7 @@ DefaultValues::getFontWeight() const
 std::string
 DefaultValues::getFontWeightAsString() const
 {
-  std::string code_str = FontWeight_toString(mFontWeight);
+  std::string code_str = FontWeight_toString((FontWeight_t)(mFontWeight));
   return code_str;
 }
 
@@ -514,10 +514,10 @@ DefaultValues::getFontWeightAsString() const
 /*
  * Returns the value of the "fontStyle" attribute of this DefaultValues.
  */
-Text::FONT_STYLE
+FontStyle_t
 DefaultValues::getFontStyle() const
 {
-  return mFontStyle;
+  return (FontStyle_t)(mFontStyle);
 }
 
 
@@ -527,7 +527,7 @@ DefaultValues::getFontStyle() const
 std::string
 DefaultValues::getFontStyleAsString() const
 {
-  std::string code_str = FontStyle_toString(mFontStyle);
+  std::string code_str = FontStyle_toString((FontStyle_t)(mFontStyle));
   return code_str;
 }
 
@@ -535,10 +535,10 @@ DefaultValues::getFontStyleAsString() const
 /*
  * Returns the value of the "textAnchor" attribute of this DefaultValues.
  */
-Text::TEXT_ANCHOR
+HTextAnchor_t
 DefaultValues::getTextAnchor() const
 {
-  return mTextAnchor;
+  return (HTextAnchor_t)(mTextAnchor);
 }
 
 
@@ -548,7 +548,7 @@ DefaultValues::getTextAnchor() const
 std::string
 DefaultValues::getTextAnchorAsString() const
 {
-  std::string code_str = TextAnchor_toString(mTextAnchor);
+  std::string code_str = HTextAnchor_toString((HTextAnchor_t)(mTextAnchor));
   return code_str;
 }
 
@@ -556,10 +556,10 @@ DefaultValues::getTextAnchorAsString() const
 /*
  * Returns the value of the "vtextAnchor" attribute of this DefaultValues.
  */
-Text::TEXT_ANCHOR
+VTextAnchor_t
 DefaultValues::getVTextAnchor() const
 {
-  return mVTextAnchor;
+  return (VTextAnchor_t)(mVTextAnchor);
 }
 
 
@@ -569,7 +569,7 @@ DefaultValues::getVTextAnchor() const
 std::string
 DefaultValues::getVTextAnchorAsString() const
 {
-  std::string code_str = TextAnchor_toString(mVTextAnchor);
+  std::string code_str = VTextAnchor_toString((VTextAnchor_t)(mVTextAnchor));
   return code_str;
 }
 

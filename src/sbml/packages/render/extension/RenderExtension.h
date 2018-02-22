@@ -721,584 +721,588 @@ int
 FillRule_isValidString(const char* code);
 
 
-///**
-// * @enum FontFamily_t
-// * @brief Enumeration of values permitted as the value of the "family"
-// * attribute on Font objects.
-// *
-// * @if conly
-// * @see Font_getFamily()
-// * @see Font_setFamily()
-// * @elseif java
-// * @see Font::getFamily()
-// * @see Font::setFamily(long)
-// * @else
-// * @see Font::getFamily()
-// * @see Font::setFamily()
-// * @endif
-// */
-//typedef enum
-//{
-//  FONT_FAMILY_SERIF            /*!< The font family is @c "serif". */
-//, FONT_FAMILY_SANS_SERIF       /*!< The font family is @c "sans-serif". */
-//, FONT_FAMILY_MONOSPACE        /*!< The font family is @c "monospace". */
-//, FONT_FAMILY_INVALID          /*!< Invalid FontFamily value. */
-//} FontFamily_t;
-//
-//
-///**
-// * Returns the string version of the provided #FontFamily_t enumeration.
-// *
-// * @param ff the #FontFamily_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "serif",
-// * "sans-serif",
-// * "monospace",
-// * or @c NULL if the value is @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}
-// * or another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontFamily_toString(FontFamily_t ff);
-//
-//
-///**
-// * Returns the #FontFamily_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if there is no such match.
-// *
-// * @param code the string to convert to a #FontFamily_t.
-// *
-// * @return the corresponding #FontFamily_t or
-// * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if no match is found.
-// *
-// * @note The matching is case-sensitive: "serif" will return
-// * @sbmlconstant{FONT_FAMILY_SERIF, FontFamily_t}, but "Serif" will return
-// * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}.
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//FontFamily_t
-//FontFamily_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontFamily_t is valid.
-// *
-// * @param ff the #FontFamily_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #FontFamily_t is
-// * @sbmlconstant{FONT_FAMILY_SERIF, FontFamily_t},
-// * @sbmlconstant{FONT_FAMILY_SANS_SERIF, FontFamily_t}, or
-// * @sbmlconstant{FONT_FAMILY_MONOSPACE, FontFamily_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{FONT_FAMILY_INVALID,
-// * FontFamily_t}).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontFamily_isValid(FontFamily_t ff);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontFamily_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "serif",
-// * "sans-serif", or
-// * "monospace";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "serif" will return @c 1 (true), but
-// * "Serif" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontFamily_isValidString(const char* code);
-//
-//
-///**
-// * @enum FontWeight_t
-// * @brief Enumeration of values permitted as the value of the "weight"
-// * attribute on Font objects.
-// *
-// * @if conly
-// * @see Font_getWeight()
-// * @see Font_setWeight()
-// * @elseif java
-// * @see Font::getWeight()
-// * @see Font::setWeight(long)
-// * @else
-// * @see Font::getWeight()
-// * @see Font::setWeight()
-// * @endif
-// */
-//typedef enum
-//{
-//  FONT_WEIGHT_BOLD          /*!< The font weight is @c "bold". */
-//, FONT_WEIGHT_NORMAL        /*!< The font weight is @c "normal". */
-//, FONT_WEIGHT_INVALID       /*!< Invalid FontWeight value. */
-//} FontWeight_t;
-//
-//
-///**
-// * Returns the string version of the provided #FontWeight_t enumeration.
-// *
-// * @param fw the #FontWeight_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "bold",
-// * "normal",
-// * or @c NULL if the value is @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
-// * or another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontWeight_toString(FontWeight_t fw);
-//
-//
-///**
-// * Returns the #FontWeight_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if there is no such match.
-// *
-// * @param code the string to convert to a #FontWeight_t.
-// *
-// * @return the corresponding #FontWeight_t or
-// * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if no match is found.
-// *
-// * @note The matching is case-sensitive: "bold" will return
-// * @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}, but "Bold" will return
-// * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}.
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//FontWeight_t
-//FontWeight_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontWeight_t is valid.
-// *
-// * @param fw the #FontWeight_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #FontWeight_t is
-// * @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}, or
-// * @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{FONT_WEIGHT_INVALID,
-// * FontWeight_t}).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontWeight_isValid(FontWeight_t fw);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontWeight_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "bold", or
-// * "normal";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "bold" will return @c 1 (true), but
-// * "Bold" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontWeight_isValidString(const char* code);
-//
-//
-///**
-// * @enum FontStyle_t
-// * @brief Enumeration of values permitted as the value of the "style" attribute
-// * on Font objects.
-// *
-// * @if conly
-// * @see Font_getStyle()
-// * @see Font_setStyle()
-// * @elseif java
-// * @see Font::getStyle()
-// * @see Font::setStyle(long)
-// * @else
-// * @see Font::getStyle()
-// * @see Font::setStyle()
-// * @endif
-// */
-//typedef enum
-//{
-//  FONT_STYLE_ITALIC        /*!< The font style is @c "italic". */
-//, FONT_STYLE_NORMAL        /*!< The font style is @c "normal". */
-//, FONT_STYLE_INVALID       /*!< Invalid FontStyle value. */
-//} FontStyle_t;
-//
-//
-///**
-// * Returns the string version of the provided #FontStyle_t enumeration.
-// *
-// * @param fs the #FontStyle_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "italic",
-// * "normal",
-// * or @c NULL if the value is @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} or
-// * another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//FontStyle_toString(FontStyle_t fs);
-//
-//
-///**
-// * Returns the #FontStyle_t enumeration corresponding to the given string or
-// * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} if there is no such match.
-// *
-// * @param code the string to convert to a #FontStyle_t.
-// *
-// * @return the corresponding #FontStyle_t or @sbmlconstant{FONT_STYLE_INVALID,
-// * FontStyle_t} if no match is found.
-// *
-// * @note The matching is case-sensitive: "italic" will return
-// * @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}, but "Italic" will return
-// * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}.
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//FontStyle_t
-//FontStyle_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #FontStyle_t is valid.
-// *
-// * @param fs the #FontStyle_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #FontStyle_t is
-// * @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}, or
-// * @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{FONT_STYLE_INVALID,
-// * FontStyle_t}).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontStyle_isValid(FontStyle_t fs);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #FontStyle_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "italic", or
-// * "normal";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "italic" will return @c 1 (true), but
-// * "Italic" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof Font_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//FontStyle_isValidString(const char* code);
-//
-//
-///**
-// * @enum VTextAnchor_t
-// * @brief Enumeration of values permitted as the value of the "textanchor"
-// * attribute on V objects.
-// *
-// * @if conly
-// * @see V_getTextanchor()
-// * @see V_setTextanchor()
-// * @elseif java
-// * @see V::getTextanchor()
-// * @see V::setTextanchor(long)
-// * @else
-// * @see V::getTextanchor()
-// * @see V::setTextanchor()
-// * @endif
-// */
-//typedef enum
-//{
-//  V_TEXTANCHOR_ANCHOR_TOP            /*!< The v textanchor is @c "top". */
-//, V_TEXTANCHOR_ANCHOR_MIDDLE         /*!< The v textanchor is @c "middle". */
-//, V_TEXTANCHOR_ANCHOR_BOTTOM         /*!< The v textanchor is @c "bottom". */
-//, V_TEXTANCHOR_ANCHOR_BASELINE       /*!< The v textanchor is @c "baseline". */
-//, V_TEXTANCHOR_ANCHOR_INVALID        /*!< Invalid VTextAnchor value. */
-//} VTextAnchor_t;
-//
-//
-///**
-// * Returns the string version of the provided #VTextAnchor_t enumeration.
-// *
-// * @param vta the #VTextAnchor_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "top",
-// * "middle",
-// * "bottom",
-// * "baseline",
-// * or @c NULL if the value is @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID,
-// * VTextAnchor_t} or another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof V_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//VTextAnchor_toString(VTextAnchor_t vta);
-//
-//
-///**
-// * Returns the #VTextAnchor_t enumeration corresponding to the given string or
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID, VTextAnchor_t} if there is no
-// * such match.
-// *
-// * @param code the string to convert to a #VTextAnchor_t.
-// *
-// * @return the corresponding #VTextAnchor_t or
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID, VTextAnchor_t} if no match is
-// * found.
-// *
-// * @note The matching is case-sensitive: "top" will return
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t}, but "Top" will return
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID, VTextAnchor_t}.
-// *
-// * @if conly
-// * @memberof V_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//VTextAnchor_t
-//VTextAnchor_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #VTextAnchor_t is valid.
-// *
-// * @param vta the #VTextAnchor_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #VTextAnchor_t is
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t},
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_MIDDLE, VTextAnchor_t},
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_BOTTOM, VTextAnchor_t}, or
-// * @sbmlconstant{V_TEXTANCHOR_ANCHOR_BASELINE, VTextAnchor_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{V_TEXTANCHOR_ANCHOR_INVALID,
-// * VTextAnchor_t}).
-// *
-// * @if conly
-// * @memberof V_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//VTextAnchor_isValid(VTextAnchor_t vta);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #VTextAnchor_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "top",
-// * "middle",
-// * "bottom", or
-// * "baseline";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "top" will return @c 1 (true), but
-// * "Top" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof V_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//VTextAnchor_isValidString(const char* code);
-//
-//
-///**
-// * @enum HTextAnchor_t
-// * @brief Enumeration of values permitted as the value of the "textanchor"
-// * attribute on H objects.
-// *
-// * @if conly
-// * @see H_getTextanchor()
-// * @see H_setTextanchor()
-// * @elseif java
-// * @see H::getTextanchor()
-// * @see H::setTextanchor(long)
-// * @else
-// * @see H::getTextanchor()
-// * @see H::setTextanchor()
-// * @endif
-// */
-//typedef enum
-//{
-//  H_TEXTANCHOR_START         /*!< The h textanchor is @c "start". */
-//, H_TEXTANCHOR_MIDDLE        /*!< The h textanchor is @c "middle". */
-//, H_TEXTANCHOR_END           /*!< The h textanchor is @c "end". */
-//, H_TEXTANCHOR_INVALID       /*!< Invalid HTextAnchor value. */
-//} HTextAnchor_t;
-//
-//
-///**
-// * Returns the string version of the provided #HTextAnchor_t enumeration.
-// *
-// * @param hta the #HTextAnchor_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "start",
-// * "middle",
-// * "end",
-// * or @c NULL if the value is @sbmlconstant{H_TEXTANCHOR_INVALID,
-// * HTextAnchor_t} or another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof H_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//HTextAnchor_toString(HTextAnchor_t hta);
-//
-//
-///**
-// * Returns the #HTextAnchor_t enumeration corresponding to the given string or
-// * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if there is no such
-// * match.
-// *
-// * @param code the string to convert to a #HTextAnchor_t.
-// *
-// * @return the corresponding #HTextAnchor_t or
-// * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if no match is found.
-// *
-// * @note The matching is case-sensitive: "start" will return
-// * @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}, but "Start" will return
-// * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}.
-// *
-// * @if conly
-// * @memberof H_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//HTextAnchor_t
-//HTextAnchor_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #HTextAnchor_t is valid.
-// *
-// * @param hta the #HTextAnchor_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #HTextAnchor_t is
-// * @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t},
-// * @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}, or
-// * @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{H_TEXTANCHOR_INVALID,
-// * HTextAnchor_t}).
-// *
-// * @if conly
-// * @memberof H_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//HTextAnchor_isValid(HTextAnchor_t hta);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #HTextAnchor_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "start",
-// * "middle", or
-// * "end";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "start" will return @c 1 (true), but
-// * "Start" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof H_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//HTextAnchor_isValidString(const char* code);
-//
+/**
+ * @enum FontFamily_t
+ * @brief Enumeration of values permitted as the value of the "family"
+ * attribute on Font objects.
+ *
+ * @if conly
+ * @see Font_getFamily()
+ * @see Font_setFamily()
+ * @elseif java
+ * @see Font::getFamily()
+ * @see Font::setFamily(long)
+ * @else
+ * @see Font::getFamily()
+ * @see Font::setFamily()
+ * @endif
+ */
+typedef enum
+{
+  FONT_FAMILY_SERIF            /*!< The font family is @c "serif". */
+, FONT_FAMILY_SANS_SERIF       /*!< The font family is @c "sans-serif". */
+, FONT_FAMILY_MONOSPACE        /*!< The font family is @c "monospace". */
+, FONT_FAMILY_INVALID          /*!< Invalid FontFamily value. */
+} FontFamily_t;
+
+
+/**
+ * Returns the string version of the provided #FontFamily_t enumeration.
+ *
+ * @param ff the #FontFamily_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "serif",
+ * "sans-serif",
+ * "monospace",
+ * or @c NULL if the value is @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}
+ * or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+FontFamily_toString(FontFamily_t ff);
+
+
+/**
+ * Returns the #FontFamily_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if there is no such match.
+ *
+ * @param code the string to convert to a #FontFamily_t.
+ *
+ * @return the corresponding #FontFamily_t or
+ * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "serif" will return
+ * @sbmlconstant{FONT_FAMILY_SERIF, FontFamily_t}, but "Serif" will return
+ * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}.
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+FontFamily_t
+FontFamily_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontFamily_t is valid.
+ *
+ * @param ff the #FontFamily_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #FontFamily_t is
+ * @sbmlconstant{FONT_FAMILY_SERIF, FontFamily_t},
+ * @sbmlconstant{FONT_FAMILY_SANS_SERIF, FontFamily_t}, or
+ * @sbmlconstant{FONT_FAMILY_MONOSPACE, FontFamily_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{FONT_FAMILY_INVALID,
+ * FontFamily_t}).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontFamily_isValid(FontFamily_t ff);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontFamily_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "serif",
+ * "sans-serif", or
+ * "monospace";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "serif" will return @c 1 (true), but
+ * "Serif" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontFamily_isValidString(const char* code);
+
+
+/**
+ * @enum FontWeight_t
+ * @brief Enumeration of values permitted as the value of the "weight"
+ * attribute on Font objects.
+ *
+ * @if conly
+ * @see Font_getWeight()
+ * @see Font_setWeight()
+ * @elseif java
+ * @see Font::getWeight()
+ * @see Font::setWeight(long)
+ * @else
+ * @see Font::getWeight()
+ * @see Font::setWeight()
+ * @endif
+ */
+typedef enum
+{
+  FONT_WEIGHT_UNSET         /*!< The font weight is @c "unset". */
+, FONT_WEIGHT_NORMAL        /*!< The font weight is @c "normal". */
+, FONT_WEIGHT_BOLD          /*!< The font weight is @c "bold". */
+, FONT_WEIGHT_INVALID       /*!< Invalid FontWeight value. */
+} FontWeight_t;
+
+
+/**
+ * Returns the string version of the provided #FontWeight_t enumeration.
+ *
+ * @param fw the #FontWeight_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "bold",
+ * "normal",
+ * or @c NULL if the value is @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
+ * or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+FontWeight_toString(FontWeight_t fw);
+
+
+/**
+ * Returns the #FontWeight_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if there is no such match.
+ *
+ * @param code the string to convert to a #FontWeight_t.
+ *
+ * @return the corresponding #FontWeight_t or
+ * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "bold" will return
+ * @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}, but "Bold" will return
+ * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}.
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+FontWeight_t
+FontWeight_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontWeight_t is valid.
+ *
+ * @param fw the #FontWeight_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #FontWeight_t is
+ * @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}, or
+ * @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{FONT_WEIGHT_INVALID,
+ * FontWeight_t}).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontWeight_isValid(FontWeight_t fw);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontWeight_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "bold", or
+ * "normal";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "bold" will return @c 1 (true), but
+ * "Bold" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontWeight_isValidString(const char* code);
+
+
+/**
+ * @enum FontStyle_t
+ * @brief Enumeration of values permitted as the value of the "style" attribute
+ * on Font objects.
+ *
+ * @if conly
+ * @see Font_getStyle()
+ * @see Font_setStyle()
+ * @elseif java
+ * @see Font::getStyle()
+ * @see Font::setStyle(long)
+ * @else
+ * @see Font::getStyle()
+ * @see Font::setStyle()
+ * @endif
+ */
+typedef enum
+{
+  FONT_STYLE_UNSET         /*!< The font style is @c "unset". */
+, FONT_STYLE_NORMAL        /*!< The font style is @c "normal". */
+, FONT_STYLE_ITALIC        /*!< The font style is @c "italic". */
+, FONT_STYLE_INVALID       /*!< Invalid FontStyle value. */
+} FontStyle_t;
+
+
+/**
+ * Returns the string version of the provided #FontStyle_t enumeration.
+ *
+ * @param fs the #FontStyle_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "italic",
+ * "normal",
+ * or @c NULL if the value is @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} or
+ * another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+FontStyle_toString(FontStyle_t fs);
+
+
+/**
+ * Returns the #FontStyle_t enumeration corresponding to the given string or
+ * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} if there is no such match.
+ *
+ * @param code the string to convert to a #FontStyle_t.
+ *
+ * @return the corresponding #FontStyle_t or @sbmlconstant{FONT_STYLE_INVALID,
+ * FontStyle_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "italic" will return
+ * @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}, but "Italic" will return
+ * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}.
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+FontStyle_t
+FontStyle_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #FontStyle_t is valid.
+ *
+ * @param fs the #FontStyle_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #FontStyle_t is
+ * @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}, or
+ * @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{FONT_STYLE_INVALID,
+ * FontStyle_t}).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontStyle_isValid(FontStyle_t fs);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #FontStyle_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "italic", or
+ * "normal";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "italic" will return @c 1 (true), but
+ * "Italic" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof Font_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+FontStyle_isValidString(const char* code);
+
+
+/**
+ * @enum VTextAnchor_t
+ * @brief Enumeration of values permitted as the value of the "textanchor"
+ * attribute on V objects.
+ *
+ * @if conly
+ * @see V_getTextanchor()
+ * @see V_setTextanchor()
+ * @elseif java
+ * @see V::getTextanchor()
+ * @see V::setTextanchor(long)
+ * @else
+ * @see V::getTextanchor()
+ * @see V::setTextanchor()
+ * @endif
+ */
+typedef enum
+{
+  V_TEXTANCHOR_UNSET          /*!< The v textanchor is @c "unset". */
+, V_TEXTANCHOR_TOP            /*!< The v textanchor is @c "top". */
+, V_TEXTANCHOR_MIDDLE         /*!< The v textanchor is @c "middle". */
+, V_TEXTANCHOR_BOTTOM         /*!< The v textanchor is @c "bottom". */
+, V_TEXTANCHOR_BASELINE       /*!< The v textanchor is @c "baseline". */
+, V_TEXTANCHOR_INVALID        /*!< Invalid VTextAnchor value. */
+} VTextAnchor_t;
+
+
+/**
+ * Returns the string version of the provided #VTextAnchor_t enumeration.
+ *
+ * @param vta the #VTextAnchor_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "top",
+ * "middle",
+ * "bottom",
+ * "baseline",
+ * or @c NULL if the value is @sbmlconstant{V_TEXTANCHOR_INVALID,
+ * VTextAnchor_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof V_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+VTextAnchor_toString(VTextAnchor_t vta);
+
+
+/**
+ * Returns the #VTextAnchor_t enumeration corresponding to the given string or
+ * @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t} if there is no
+ * such match.
+ *
+ * @param code the string to convert to a #VTextAnchor_t.
+ *
+ * @return the corresponding #VTextAnchor_t or
+ * @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t} if no match is
+ * found.
+ *
+ * @note The matching is case-sensitive: "top" will return
+ * @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}, but "Top" will return
+ * @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}.
+ *
+ * @if conly
+ * @memberof V_t
+ * @endif
+ */
+LIBSBML_EXTERN
+VTextAnchor_t
+VTextAnchor_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #VTextAnchor_t is valid.
+ *
+ * @param vta the #VTextAnchor_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #VTextAnchor_t is
+ * @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t},
+ * @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t},
+ * @sbmlconstant{V_TEXTANCHOR_BOTTOM, VTextAnchor_t}, or
+ * @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{V_TEXTANCHOR_INVALID,
+ * VTextAnchor_t}).
+ *
+ * @if conly
+ * @memberof V_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+VTextAnchor_isValid(VTextAnchor_t vta);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #VTextAnchor_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "top",
+ * "middle",
+ * "bottom", or
+ * "baseline";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "top" will return @c 1 (true), but
+ * "Top" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof V_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+VTextAnchor_isValidString(const char* code);
+
+
+/**
+ * @enum HTextAnchor_t
+ * @brief Enumeration of values permitted as the value of the "textanchor"
+ * attribute on H objects.
+ *
+ * @if conly
+ * @see H_getTextanchor()
+ * @see H_setTextanchor()
+ * @elseif java
+ * @see H::getTextanchor()
+ * @see H::setTextanchor(long)
+ * @else
+ * @see H::getTextanchor()
+ * @see H::setTextanchor()
+ * @endif
+ */
+typedef enum
+{
+  H_TEXTANCHOR_UNSET         /*!< The h textanchor is @c "unset". */
+, H_TEXTANCHOR_START         /*!< The h textanchor is @c "start". */
+, H_TEXTANCHOR_MIDDLE        /*!< The h textanchor is @c "middle". */
+, H_TEXTANCHOR_END           /*!< The h textanchor is @c "end". */
+, H_TEXTANCHOR_INVALID       /*!< Invalid HTextAnchor value. */
+} HTextAnchor_t;
+
+
+/**
+ * Returns the string version of the provided #HTextAnchor_t enumeration.
+ *
+ * @param hta the #HTextAnchor_t enumeration value to convert.
+ *
+ * @return A string corresponding to the given type:
+ * "start",
+ * "middle",
+ * "end",
+ * or @c NULL if the value is @sbmlconstant{H_TEXTANCHOR_INVALID,
+ * HTextAnchor_t} or another invalid enumeration value.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @if conly
+ * @memberof H_t
+ * @endif
+ */
+LIBSBML_EXTERN
+const char*
+HTextAnchor_toString(HTextAnchor_t hta);
+
+
+/**
+ * Returns the #HTextAnchor_t enumeration corresponding to the given string or
+ * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if there is no such
+ * match.
+ *
+ * @param code the string to convert to a #HTextAnchor_t.
+ *
+ * @return the corresponding #HTextAnchor_t or
+ * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t} if no match is found.
+ *
+ * @note The matching is case-sensitive: "start" will return
+ * @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}, but "Start" will return
+ * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}.
+ *
+ * @if conly
+ * @memberof H_t
+ * @endif
+ */
+LIBSBML_EXTERN
+HTextAnchor_t
+HTextAnchor_fromString(const char* code);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given #HTextAnchor_t is valid.
+ *
+ * @param hta the #HTextAnchor_t enumeration to query.
+ *
+ * @return @c 1 (true) if the #HTextAnchor_t is
+ * @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t},
+ * @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}, or
+ * @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t};
+ * @c 0 (false) otherwise (including @sbmlconstant{H_TEXTANCHOR_INVALID,
+ * HTextAnchor_t}).
+ *
+ * @if conly
+ * @memberof H_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+HTextAnchor_isValid(HTextAnchor_t hta);
+
+
+/**
+ * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
+ * given string is a valid #HTextAnchor_t.
+ *
+ * @param code the string to query.
+ *
+ * @return @c 1 (true) if the string is
+ * "start",
+ * "middle", or
+ * "end";
+ * @c 0 (false) otherwise.
+ *
+ * @note The matching is case-sensitive: "start" will return @c 1 (true), but
+ * "Start" will return @c 0 (false).
+ *
+ * @if conly
+ * @memberof H_t
+ * @endif
+ */
+LIBSBML_EXTERN
+int
+HTextAnchor_isValidString(const char* code);
+
 
 
 LIBSBML_CPP_NAMESPACE_END
