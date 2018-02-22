@@ -1631,6 +1631,599 @@ Text::setElementText(const std::string &text)
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Creates a new Text_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+Text_t *
+Text_create(unsigned int level, unsigned int version, unsigned int pkgVersion)
+{
+  return new Text(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this Text_t object.
+ */
+LIBSBML_EXTERN
+Text_t*
+Text_clone(const Text_t* t)
+{
+  if (t != NULL)
+  {
+    return static_cast<Text_t*>(t->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this Text_t object.
+ */
+LIBSBML_EXTERN
+void
+Text_free(Text_t* t)
+{
+  if (t != NULL)
+  {
+    delete t;
+  }
+}
+
+
+/*
+ * Returns the value of the "font-family" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontFamily(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return NULL;
+  }
+
+  return t->getFontFamily().empty() ? NULL :
+    safe_strdup(t->getFontFamily().c_str());
+}
+
+
+/*
+ * Returns the value of the "font-weight" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+FontWeight_t
+Text_getFontWeight(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return FONT_WEIGHT_INVALID;
+  }
+
+  return t->getFontWeight();
+}
+
+
+/*
+ * Returns the value of the "font-weight" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontWeightAsString(const Text_t * t)
+{
+  return (char*)(FontWeight_toString(t->getFontWeight()));
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+FontStyle_t
+Text_getFontStyle(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return FONT_STYLE_INVALID;
+  }
+
+  return t->getFontStyle();
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontStyleAsString(const Text_t * t)
+{
+  return (char*)(FontStyle_toString(t->getFontStyle()));
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+HTextAnchor_t
+Text_getTextAnchor(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return H_TEXTANCHOR_INVALID;
+  }
+
+  return t->getTextAnchor();
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+char *
+Text_getTextAnchorAsString(const Text_t * t)
+{
+  return (char*)(HTextAnchor_toString(t->getTextAnchor()));
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+VTextAnchor_t
+Text_getVTextAnchor(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return V_TEXTANCHOR_INVALID;
+  }
+
+  return t->getVTextAnchor();
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+char *
+Text_getVTextAnchorAsString(const Text_t * t)
+{
+  return (char*)(VTextAnchor_toString(t->getVTextAnchor()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "font-family" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontFamily(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetFontFamily()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "font-weight" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontWeight(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetFontWeight()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "font-style" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontStyle(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetFontStyle()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "text-anchor" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetTextAnchor(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetTextAnchor()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "vtext-anchor" attribute is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetVTextAnchor(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetVTextAnchor()) : 0;
+}
+
+
+/*
+ * Sets the value of the "font-family" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontFamily(Text_t * t, const char * fontFamily)
+{
+  return (t != NULL) ? t->setFontFamily(fontFamily) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontWeight(Text_t * t, FontWeight_t fontWeight)
+{
+  return (t != NULL) ? t->setFontWeight(fontWeight) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontWeightAsString(Text_t * t, const char * fontWeight)
+{
+  return (t != NULL) ? t->setFontWeight(fontWeight): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-style" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontStyle(Text_t * t, FontStyle_t fontStyle)
+{
+  return (t != NULL) ? t->setFontStyle(fontStyle) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-style" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontStyleAsString(Text_t * t, const char * fontStyle)
+{
+  return (t != NULL) ? t->setFontStyle(fontStyle): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setTextAnchor(Text_t * t, HTextAnchor_t textAnchor)
+{
+  return (t != NULL) ? t->setTextAnchor(textAnchor) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setTextAnchorAsString(Text_t * t, const char * textAnchor)
+{
+  return (t != NULL) ? t->setTextAnchor(textAnchor): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setVTextAnchor(Text_t * t, VTextAnchor_t vtextAnchor)
+{
+  return (t != NULL) ? t->setVTextAnchor(vtextAnchor) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setVTextAnchorAsString(Text_t * t, const char * vtextAnchor)
+{
+  return (t != NULL) ? t->setVTextAnchor(vtextAnchor): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-family" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontFamily(Text_t * t)
+{
+  return (t != NULL) ? t->unsetFontFamily() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-weight" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontWeight(Text_t * t)
+{
+  return (t != NULL) ? t->unsetFontWeight() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-style" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontStyle(Text_t * t)
+{
+  return (t != NULL) ? t->unsetFontStyle() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "text-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetTextAnchor(Text_t * t)
+{
+  return (t != NULL) ? t->unsetTextAnchor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "vtext-anchor" attribute of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetVTextAnchor(Text_t * t)
+{
+  return (t != NULL) ? t->unsetVTextAnchor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "x" element of this Text_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getX(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(t->getX()));
+}
+
+
+/*
+ * Returns the value of the "y" element of this Text_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getY(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(t->getY()));
+}
+
+
+/*
+ * Returns the value of the "z" element of this Text_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getZ(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(t->getZ()));
+}
+
+
+/*
+ * Returns the value of the "font-size" element of this Text_t.
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getFontSize(const Text_t * t)
+{
+  if (t == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(t->getFontSize()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "x" element is set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetX(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "y" element is set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetY(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetY()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "z" element is set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetZ(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetZ()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this Text_t's "font-size" element is set.
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontSize(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->isSetFontSize()) : 0;
+}
+
+
+/*
+ * Sets the value of the "x" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setX(Text_t * t, const RelAbsVector_t* x)
+{
+  return (t != NULL) ? t->setX(*x) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setY(Text_t * t, const RelAbsVector_t* y)
+{
+  return (t != NULL) ? t->setY(*y) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setZ(Text_t * t, const RelAbsVector_t* z)
+{
+  return (t != NULL) ? t->setZ(*z) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-size" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_setFontSize(Text_t * t, const RelAbsVector_t* fontSize)
+{
+  return (t != NULL) ? t->setFontSize(*fontSize) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetX(Text_t * t)
+{
+  return (t != NULL) ? t->unsetX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetY(Text_t * t)
+{
+  return (t != NULL) ? t->unsetY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetZ(Text_t * t)
+{
+  return (t != NULL) ? t->unsetZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-size" element of this Text_t.
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontSize(Text_t * t)
+{
+  return (t != NULL) ? t->unsetFontSize() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Text_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Text_hasRequiredAttributes(const Text_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->hasRequiredAttributes()) : 0;
+}
+
+
 const char* TEXT_ANCHOR_STRINGS[] =
 {
   "unset",
@@ -1674,3 +2267,5 @@ TextAnchor_toString(Text::TEXT_ANCHOR anchor)
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+

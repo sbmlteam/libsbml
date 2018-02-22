@@ -1052,6 +1052,941 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new Text_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this Text_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this Text_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * Text_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+Text_t *
+Text_create(unsigned int level,
+            unsigned int version,
+            unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this Text_t object.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return a (deep) copy of this Text_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+Text_t*
+Text_clone(const Text_t* t);
+
+
+/**
+ * Frees this Text_t object.
+ *
+ * @param t the Text_t structure.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+void
+Text_free(Text_t* t);
+
+
+/**
+ * Returns the value of the "font-family" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose font-family is sought.
+ *
+ * @return the value of the "font-family" attribute of this Text_t as a pointer
+ * to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontFamily(const Text_t * t);
+
+
+/**
+ * Returns the value of the "font-weight" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose font-weight is sought.
+ *
+ * @return the value of the "font-weight" attribute of this Text_t as a
+ * FontWeight_t.
+ *
+ * @copydetails doc_text_font-weight
+ * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
+ * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
+ * @li @sbmlconstant{TEXT_FONT-WEIGHT_INVALID, FontWeight_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+FontWeight_t
+Text_getFontWeight(const Text_t * t);
+
+
+/**
+ * Returns the value of the "font-weight" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose font-weight is sought.
+ *
+ * @return the value of the "font-weight" attribute of this Text_t as a const
+ * char *.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_text_font-weight
+ * The possible values returned by this method are:
+ * @li @c "bold"
+ * @li @c "normal"
+ * @li @c "invalid TextFont-weight"
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontWeightAsString(const Text_t * t);
+
+
+/**
+ * Returns the value of the "font-style" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose font-style is sought.
+ *
+ * @return the value of the "font-style" attribute of this Text_t as a
+ * FontStyle_t.
+ *
+ * @copydetails doc_text_font-style
+ * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
+ * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
+ * @li @sbmlconstant{TEXT_FONT-STYLE_INVALID, FontStyle_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+FontStyle_t
+Text_getFontStyle(const Text_t * t);
+
+
+/**
+ * Returns the value of the "font-style" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose font-style is sought.
+ *
+ * @return the value of the "font-style" attribute of this Text_t as a const
+ * char *.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_text_font-style
+ * The possible values returned by this method are:
+ * @li @c "italic"
+ * @li @c "normal"
+ * @li @c "invalid TextFont-style"
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+char *
+Text_getFontStyleAsString(const Text_t * t);
+
+
+/**
+ * Returns the value of the "text-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose text-anchor is sought.
+ *
+ * @return the value of the "text-anchor" attribute of this Text_t as a
+ * HTextAnchor_t.
+ *
+ * @copydetails doc_text_text-anchor
+ * @if clike The value is drawn from the enumeration @ref HTextAnchor_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
+ * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
+ * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
+ * @li @sbmlconstant{TEXT_TEXT-ANCHOR_INVALID, HTextAnchor_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+HTextAnchor_t
+Text_getTextAnchor(const Text_t * t);
+
+
+/**
+ * Returns the value of the "text-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose text-anchor is sought.
+ *
+ * @return the value of the "text-anchor" attribute of this Text_t as a const
+ * char *.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_text_text-anchor
+ * The possible values returned by this method are:
+ * @li @c "start"
+ * @li @c "middle"
+ * @li @c "end"
+ * @li @c "invalid TextText-anchor"
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+char *
+Text_getTextAnchorAsString(const Text_t * t);
+
+
+/**
+ * Returns the value of the "vtext-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose vtext-anchor is sought.
+ *
+ * @return the value of the "vtext-anchor" attribute of this Text_t as a
+ * VTextAnchor_t.
+ *
+ * @copydetails doc_text_vtext-anchor
+ * @if clike The value is drawn from the enumeration @ref VTextAnchor_t @endif
+ * The possible values returned by this method are:
+ * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_MIDDLE, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BOTTOM, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BASELINE, VTextAnchor_t}
+ * @li @sbmlconstant{TEXT_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+VTextAnchor_t
+Text_getVTextAnchor(const Text_t * t);
+
+
+/**
+ * Returns the value of the "vtext-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure whose vtext-anchor is sought.
+ *
+ * @return the value of the "vtext-anchor" attribute of this Text_t as a const
+ * char *.
+ *
+ * @copydetails doc_returned_unowned_char
+ *
+ * @copydetails doc_text_vtext-anchor
+ * The possible values returned by this method are:
+ * @li @c "top"
+ * @li @c "middle"
+ * @li @c "bottom"
+ * @li @c "baseline"
+ * @li @c "invalid TextVtext-anchor"
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+char *
+Text_getVTextAnchorAsString(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "font-family" attribute is
+ * set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "font-family" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontFamily(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "font-weight" attribute is
+ * set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "font-weight" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_text_font-weight
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontWeight(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "font-style" attribute is
+ * set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "font-style" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_text_font-style
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontStyle(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "text-anchor" attribute is
+ * set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "text-anchor" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_text_text-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetTextAnchor(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "vtext-anchor" attribute is
+ * set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "vtext-anchor" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @copydetails doc_text_vtext-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetVTextAnchor(const Text_t * t);
+
+
+/**
+ * Sets the value of the "font-family" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param fontFamily const char * value of the "font-family" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p fontFamily = @c NULL or an empty string is
+ * equivalent to calling Text_unsetFontFamily().
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontFamily(Text_t * t, const char * fontFamily);
+
+
+/**
+ * Sets the value of the "font-weight" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param fontWeight FontWeight_t value of the "font-weight" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-weight
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontWeight(Text_t * t, FontWeight_t fontWeight);
+
+
+/**
+ * Sets the value of the "font-weight" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param font-weight const char * of the "font-weight" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-weight
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontWeightAsString(Text_t * t, const char * fontWeight);
+
+
+/**
+ * Sets the value of the "font-style" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param fontStyle FontStyle_t value of the "font-style" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-style
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontStyle(Text_t * t, FontStyle_t fontStyle);
+
+
+/**
+ * Sets the value of the "font-style" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param font-style const char * of the "font-style" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-style
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontStyleAsString(Text_t * t, const char * fontStyle);
+
+
+/**
+ * Sets the value of the "text-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param textAnchor HTextAnchor_t value of the "text-anchor" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_text-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setTextAnchor(Text_t * t, HTextAnchor_t textAnchor);
+
+
+/**
+ * Sets the value of the "text-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param text-anchor const char * of the "text-anchor" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_text-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setTextAnchorAsString(Text_t * t, const char * textAnchor);
+
+
+/**
+ * Sets the value of the "vtext-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param vtextAnchor VTextAnchor_t value of the "vtext-anchor" attribute to be
+ * set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_vtext-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setVTextAnchor(Text_t * t, VTextAnchor_t vtextAnchor);
+
+
+/**
+ * Sets the value of the "vtext-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param vtext-anchor const char * of the "vtext-anchor" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_vtext-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setVTextAnchorAsString(Text_t * t, const char * vtextAnchor);
+
+
+/**
+ * Unsets the value of the "font-family" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontFamily(Text_t * t);
+
+
+/**
+ * Unsets the value of the "font-weight" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-weight
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontWeight(Text_t * t);
+
+
+/**
+ * Unsets the value of the "font-style" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_font-style
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontStyle(Text_t * t);
+
+
+/**
+ * Unsets the value of the "text-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_text-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetTextAnchor(Text_t * t);
+
+
+/**
+ * Unsets the value of the "vtext-anchor" attribute of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @copydetails doc_text_vtext-anchor
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetVTextAnchor(Text_t * t);
+
+
+/**
+ * Returns the value of the "x" element of this Text_t.
+ *
+ * @param t the Text_t structure whose x is sought.
+ *
+ * @return the value of the "x" element of this Text_t as a RelAbsVector*.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getX(const Text_t * t);
+
+
+/**
+ * Returns the value of the "y" element of this Text_t.
+ *
+ * @param t the Text_t structure whose y is sought.
+ *
+ * @return the value of the "y" element of this Text_t as a RelAbsVector*.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getY(const Text_t * t);
+
+
+/**
+ * Returns the value of the "z" element of this Text_t.
+ *
+ * @param t the Text_t structure whose z is sought.
+ *
+ * @return the value of the "z" element of this Text_t as a RelAbsVector*.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getZ(const Text_t * t);
+
+
+/**
+ * Returns the value of the "font-size" element of this Text_t.
+ *
+ * @param t the Text_t structure whose font-size is sought.
+ *
+ * @return the value of the "font-size" element of this Text_t as a
+ * RelAbsVector*.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+RelAbsVector_t*
+Text_getFontSize(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "x" element is set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "x" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetX(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "y" element is set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "y" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetY(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "z" element is set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "z" element has been set, otherwise
+ * @c 0 (false) is returned.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetZ(const Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if this Text_t's "font-size" element is set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) if this Text_t's "font-size" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_isSetFontSize(const Text_t * t);
+
+
+/**
+ * Sets the value of the "x" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param x RelAbsVector_t* value of the "x" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setX(Text_t * t, const RelAbsVector_t* x);
+
+
+/**
+ * Sets the value of the "y" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param y RelAbsVector_t* value of the "y" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setY(Text_t * t, const RelAbsVector_t* y);
+
+
+/**
+ * Sets the value of the "z" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param z RelAbsVector_t* value of the "z" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setZ(Text_t * t, const RelAbsVector_t* z);
+
+
+/**
+ * Sets the value of the "font-size" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @param fontSize RelAbsVector_t* value of the "font-size" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_setFontSize(Text_t * t, const RelAbsVector_t* fontSize);
+
+
+/**
+ * Unsets the value of the "x" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetX(Text_t * t);
+
+
+/**
+ * Unsets the value of the "y" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetY(Text_t * t);
+
+
+/**
+ * Unsets the value of the "z" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetZ(Text_t * t);
+
+
+/**
+ * Unsets the value of the "font-size" element of this Text_t.
+ *
+ * @param t the Text_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_unsetFontSize(Text_t * t);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Text_t object have been set.
+ *
+ * @param t the Text_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * Text_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @note The required attributes for the Text_t object are:
+ * @li "x"
+ * @li "y"
+ *
+ * @memberof Text_t
+ */
+LIBSBML_EXTERN
+int
+Text_hasRequiredAttributes(const Text_t * t);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
