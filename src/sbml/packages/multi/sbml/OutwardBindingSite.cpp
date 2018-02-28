@@ -240,15 +240,22 @@ int
 OutwardBindingSite::setBindingStatus(const std::string& bindingStatus)
 {
   if (OutwardBindingSite_isValidBindingStatusString(bindingStatus.c_str()) == 0)
+  //{
+  //  mBindingStatus = MULTI_BINDING_STATUS_UNKNOWN;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mBindingStatus = BindingStatus_fromString(bindingStatus.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mBindingStatus = BindingStatus_fromString(bindingStatus.c_str());
+  if (mBindingStatus == MULTI_BINDING_STATUS_UNKNOWN)
   {
-    mBindingStatus = MULTI_BINDING_STATUS_UNKNOWN;
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mBindingStatus = BindingStatus_fromString(bindingStatus.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

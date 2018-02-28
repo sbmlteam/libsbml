@@ -166,6 +166,7 @@ Group::getKind() const
 //  static const std::string code_str = GroupKind_toString(mKind);
 //  return code_str;
 //}
+//bgoli22
 std::string
 Group::getKindAsString() const
 {
@@ -259,10 +260,11 @@ Group::setKind(const std::string& kind)
   //  mKind = GroupKind_fromString(kind.c_str());
   //  return LIBSBML_OPERATION_SUCCESS;
   //}
+  //bgoli22
   mKind = GroupKind_fromString(kind.c_str());
   if (mKind == GROUP_KIND_UNKNOWN)
   {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   return LIBSBML_OPERATION_SUCCESS;
 }

@@ -404,16 +404,23 @@ SubListOfSpeciesFeatures::setRelation(Relation_t relation)
 int
 SubListOfSpeciesFeatures::setRelation(const std::string& relation)
 {
-  if (SubListOfSpeciesFeatures_isValidRelationString(relation.c_str()) == 0)
+  //if (SubListOfSpeciesFeatures_isValidRelationString(relation.c_str()) == 0)
+  //{
+  //  mRelation = MULTI_RELATION_UNKNOWN;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mRelation = Relation_fromString(relation.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mRelation = Relation_fromString(relation.c_str());
+  if (mRelation == MULTI_RELATION_UNKNOWN)
   {
-    mRelation = MULTI_RELATION_UNKNOWN;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mRelation = Relation_fromString(relation.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

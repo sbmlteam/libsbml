@@ -275,6 +275,7 @@ GradientBase::getSpreadMethodAsString() const
 //    SpreadMethod_toString((GradientBase::SPREADMETHOD)(mSpreadMethod));
 //  return code_str;
 //}
+//bgoli22
 std::string
 GradientBase::getSpreadMethodString() const
 {
