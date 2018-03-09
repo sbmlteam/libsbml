@@ -174,7 +174,8 @@ public:
    * @return the value of the "dataType" attribute of this SampledField as a
    * string.
    */
-  const std::string& getDataTypeAsString() const;
+  std::string getDataTypeAsString() const;
+  //bgoli22
 
 
   /**
@@ -221,7 +222,8 @@ public:
    * @return the value of the "interpolationType" attribute of this
    * SampledField as a string.
    */
-  const std::string& getInterpolationTypeAsString() const;
+  std::string getInterpolationTypeAsString() const;
+  //bgoli22
 
 
   /**
@@ -239,8 +241,9 @@ public:
    * @return the value of the "compression" attribute of this SampledField as a
    * string.
    */
-  const std::string& getCompressionAsString() const;
-
+  std::string getCompressionAsString() const;
+  //bgoli22
+  
 
   /**
    * Returns the value of the "samples" attribute of this SampledField.

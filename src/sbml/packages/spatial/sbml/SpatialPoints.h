@@ -207,8 +207,8 @@ public:
    * @return the value of the "dataType" attribute of this SpatialPoints as a
    * string.
    */
-  const std::string& getDataTypeAsString() const;
-
+  std::string getDataTypeAsString() const;
+  //bgoli22
 
   /**
    * Predicate returning @c true if this SpatialPoints's "id" attribute is set.

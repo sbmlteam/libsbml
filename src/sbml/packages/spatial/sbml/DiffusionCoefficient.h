@@ -170,7 +170,9 @@ public:
    * @return the value of the "type" attribute of this DiffusionCoefficient as
    * a string.
    */
-  const std::string& getTypeAsString() const;
+  std::string getTypeAsString() const;
+  //bgoli22
+
 
 
   /**
@@ -210,7 +212,9 @@ public:
    * @return the value of the "coordinateReference2" attribute of this
    * DiffusionCoefficient as a string.
    */
-  const std::string& getCoordinateReference2AsString() const;
+  std::string getCoordinateReference2AsString() const;
+  //bgoli22
+
 
 
   /**

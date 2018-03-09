@@ -158,6 +158,7 @@ BoundaryCondition::getTypeAsString() const
   static const std::string code_str = BoundaryConditionKind_toString(mType);
   return code_str;
 }
+//bgoli22
 
 
 /*
@@ -279,6 +280,7 @@ BoundaryCondition::setType(const std::string& type)
     mType = BoundaryConditionKind_fromString(type.c_str());
     return LIBSBML_OPERATION_SUCCESS;
   }
+  //bgoli22
 }
 
 

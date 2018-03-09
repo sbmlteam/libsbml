@@ -158,7 +158,8 @@ public:
    * @return the value of the "operationType" attribute of this CSGSetOperator
    * as a string.
    */
-  const std::string& getOperationTypeAsString() const;
+  std::string getOperationTypeAsString() const;
+  //bgoli22
 
 
   /**

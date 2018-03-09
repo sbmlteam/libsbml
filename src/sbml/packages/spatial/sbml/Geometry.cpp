@@ -179,10 +179,17 @@ Geometry::getCoordinateSystem() const
 /*
  * Returns the value of the "coordinateSystem" attribute of this Geometry.
  */
-const std::string&
+//const std::string&
+//Geometry::getCoordinateSystemAsString() const
+//{
+//  static const std::string code_str = GeometryKind_toString(mCoordinateSystem);
+//  return code_str;
+//}
+//bgoli22
+std::string
 Geometry::getCoordinateSystemAsString() const
 {
-  static const std::string code_str = GeometryKind_toString(mCoordinateSystem);
+  std::string code_str = GeometryKind_toString(mCoordinateSystem);
   return code_str;
 }
 
@@ -243,16 +250,23 @@ Geometry::setCoordinateSystem(const GeometryKind_t coordinateSystem)
 int
 Geometry::setCoordinateSystem(const std::string& coordinateSystem)
 {
-  if (GeometryKind_isValidString(coordinateSystem.c_str()) == 0)
+  //if (GeometryKind_isValidString(coordinateSystem.c_str()) == 0)
+  //{
+  //  mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
+  if (mCoordinateSystem == SPATIAL_GEOMETRYKIND_INVALID)
   {
-    mCoordinateSystem = SPATIAL_GEOMETRYKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mCoordinateSystem = GeometryKind_fromString(coordinateSystem.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

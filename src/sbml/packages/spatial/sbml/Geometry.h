@@ -174,7 +174,8 @@ public:
    * @return the value of the "coordinateSystem" attribute of this Geometry as
    * a string.
    */
-  const std::string& getCoordinateSystemAsString() const;
+  std::string getCoordinateSystemAsString() const;
+  //bgoli22
 
 
   /**

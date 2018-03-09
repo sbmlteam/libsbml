@@ -178,13 +178,19 @@ ParametricObject::getPolygonType() const
 /*
  * Returns the value of the "polygonType" attribute of this ParametricObject.
  */
-const std::string&
+//const std::string&
+//ParametricObject::getPolygonTypeAsString() const
+//{
+//  static const std::string code_str = PolygonKind_toString(mPolygonType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 ParametricObject::getPolygonTypeAsString() const
 {
-  static const std::string code_str = PolygonKind_toString(mPolygonType);
+  std::string code_str = PolygonKind_toString(mPolygonType);
   return code_str;
 }
-
 
 /*
  * Returns the value of the "domainType" attribute of this ParametricObject.
@@ -256,13 +262,19 @@ ParametricObject::getDataType() const
 /*
  * Returns the value of the "dataType" attribute of this ParametricObject.
  */
-const std::string&
+//const std::string&
+//ParametricObject::getDataTypeAsString() const
+//{
+//  static const std::string code_str = DataKind_toString(mDataType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 ParametricObject::getDataTypeAsString() const
 {
-  static const std::string code_str = DataKind_toString(mDataType);
+  std::string code_str = DataKind_toString(mDataType);
   return code_str;
 }
-
 
 /*
  * Predicate returning @c true if this ParametricObject's "id" attribute is
@@ -469,16 +481,23 @@ ParametricObject::setCompression(const CompressionKind_t compression)
 int
 ParametricObject::setCompression(const std::string& compression)
 {
-  if (CompressionKind_isValidString(compression.c_str()) == 0)
+  //if (CompressionKind_isValidString(compression.c_str()) == 0)
+  //{
+  //  mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mCompression = CompressionKind_fromString(compression.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mCompression = CompressionKind_fromString(compression.c_str());
+  if (mCompression == SPATIAL_COMPRESSIONKIND_INVALID)
   {
-    mCompression = SPATIAL_COMPRESSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mCompression = CompressionKind_fromString(compression.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -507,16 +526,23 @@ ParametricObject::setDataType(const DataKind_t dataType)
 int
 ParametricObject::setDataType(const std::string& dataType)
 {
-  if (DataKind_isValidString(dataType.c_str()) == 0)
+  //if (DataKind_isValidString(dataType.c_str()) == 0)
+  //{
+  //  mDataType = SPATIAL_DATAKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mDataType = DataKind_fromString(dataType.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mDataType = DataKind_fromString(dataType.c_str());
+  if (mDataType == SPATIAL_DATAKIND_INVALID)
   {
-    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mDataType = DataKind_fromString(dataType.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

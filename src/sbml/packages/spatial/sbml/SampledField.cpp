@@ -217,10 +217,17 @@ SampledField::getDataType() const
 /*
  * Returns the value of the "dataType" attribute of this SampledField.
  */
-const std::string&
+//const std::string&
+//SampledField::getDataTypeAsString() const
+//{
+//  static const std::string code_str = DataKind_toString(mDataType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 SampledField::getDataTypeAsString() const
 {
-  static const std::string code_str = DataKind_toString(mDataType);
+  std::string code_str = DataKind_toString(mDataType);
   return code_str;
 }
 
@@ -268,14 +275,20 @@ SampledField::getInterpolationType() const
 /*
  * Returns the value of the "interpolationType" attribute of this SampledField.
  */
-const std::string&
+//const std::string&
+//SampledField::getInterpolationTypeAsString() const
+//{
+//  static const std::string code_str =
+//    InterpolationKind_toString(mInterpolationType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 SampledField::getInterpolationTypeAsString() const
 {
-  static const std::string code_str =
-    InterpolationKind_toString(mInterpolationType);
+  std::string code_str = InterpolationKind_toString(mInterpolationType);
   return code_str;
 }
-
 
 /*
  * Returns the value of the "compression" attribute of this SampledField.
@@ -290,10 +303,17 @@ SampledField::getCompression() const
 /*
  * Returns the value of the "compression" attribute of this SampledField.
  */
-const std::string&
+//const std::string&
+//SampledField::getCompressionAsString() const
+//{
+//  static const std::string code_str = CompressionKind_toString(mCompression);
+//  return code_str;
+//}
+//bgoli22
+std::string
 SampledField::getCompressionAsString() const
 {
-  static const std::string code_str = CompressionKind_toString(mCompression);
+  std::string code_str = CompressionKind_toString(mCompression);
   return code_str;
 }
 
@@ -456,16 +476,23 @@ SampledField::setDataType(const DataKind_t dataType)
 int
 SampledField::setDataType(const std::string& dataType)
 {
-  if (DataKind_isValidString(dataType.c_str()) == 0)
+  //if (DataKind_isValidString(dataType.c_str()) == 0)
+  //{
+  //  mDataType = SPATIAL_DATAKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mDataType = DataKind_fromString(dataType.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mDataType = DataKind_fromString(dataType.c_str());
+  if (mDataType == SPATIAL_DATAKIND_INVALID)
   {
-    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mDataType = DataKind_fromString(dataType.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -530,17 +557,24 @@ SampledField::setInterpolationType(const InterpolationKind_t interpolationType)
 int
 SampledField::setInterpolationType(const std::string& interpolationType)
 {
-  if (InterpolationKind_isValidString(interpolationType.c_str()) == 0)
+  //if (InterpolationKind_isValidString(interpolationType.c_str()) == 0)
+  //{
+  //  mInterpolationType = SPATIAL_INTERPOLATIONKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mInterpolationType =
+  //    InterpolationKind_fromString(interpolationType.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mInterpolationType = InterpolationKind_fromString(interpolationType.c_str());
+  if (mInterpolationType == SPATIAL_INTERPOLATIONKIND_INVALID)
   {
-    mInterpolationType = SPATIAL_INTERPOLATIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mInterpolationType =
-      InterpolationKind_fromString(interpolationType.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -579,6 +613,13 @@ SampledField::setCompression(const std::string& compression)
     mCompression = CompressionKind_fromString(compression.c_str());
     return LIBSBML_OPERATION_SUCCESS;
   }
+  //bgoli22
+  mCompression = CompressionKind_fromString(compression.c_str());
+  if (mCompression == SPATIAL_COMPRESSIONKIND_INVALID)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

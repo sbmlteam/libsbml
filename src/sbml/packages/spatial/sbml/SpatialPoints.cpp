@@ -215,10 +215,17 @@ SpatialPoints::getDataType() const
 /*
  * Returns the value of the "dataType" attribute of this SpatialPoints.
  */
-const std::string&
+//const std::string&
+//SpatialPoints::getDataTypeAsString() const
+//{
+//  static const std::string code_str = DataKind_toString(mDataType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 SpatialPoints::getDataTypeAsString() const
 {
-  static const std::string code_str = DataKind_toString(mDataType);
+  std::string code_str = DataKind_toString(mDataType);
   return code_str;
 }
 
@@ -387,16 +394,23 @@ SpatialPoints::setDataType(const DataKind_t dataType)
 int
 SpatialPoints::setDataType(const std::string& dataType)
 {
-  if (DataKind_isValidString(dataType.c_str()) == 0)
+  //if (DataKind_isValidString(dataType.c_str()) == 0)
+  //{
+  //  mDataType = SPATIAL_DATAKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mDataType = DataKind_fromString(dataType.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mDataType = DataKind_fromString(dataType.c_str());
+  if (mDataType == SPATIAL_DATAKIND_INVALID)
   {
-    mDataType = SPATIAL_DATAKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mDataType = DataKind_fromString(dataType.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

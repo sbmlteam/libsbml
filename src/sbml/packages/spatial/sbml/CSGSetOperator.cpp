@@ -154,10 +154,17 @@ CSGSetOperator::getOperationType() const
 /*
  * Returns the value of the "operationType" attribute of this CSGSetOperator.
  */
-const std::string&
+//const std::string&
+//CSGSetOperator::getOperationTypeAsString() const
+//{
+//  static const std::string code_str = SetOperation_toString(mOperationType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 CSGSetOperator::getOperationTypeAsString() const
 {
-  static const std::string code_str = SetOperation_toString(mOperationType);
+  std::string code_str = SetOperation_toString(mOperationType);
   return code_str;
 }
 
@@ -240,16 +247,23 @@ CSGSetOperator::setOperationType(const SetOperation_t operationType)
 int
 CSGSetOperator::setOperationType(const std::string& operationType)
 {
-  if (SetOperation_isValidString(operationType.c_str()) == 0)
+  //if (SetOperation_isValidString(operationType.c_str()) == 0)
+  //{
+  //  mOperationType = SPATIAL_SETOPERATION_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mOperationType = SetOperation_fromString(operationType.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mOperationType = SetOperation_fromString(operationType.c_str());
+  if (mOperationType == SPATIAL_SETOPERATION_INVALID)
   {
-    mOperationType = SPATIAL_SETOPERATION_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mOperationType = SetOperation_fromString(operationType.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

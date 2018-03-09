@@ -153,10 +153,17 @@ DiffusionCoefficient::getType() const
 /*
  * Returns the value of the "type" attribute of this DiffusionCoefficient.
  */
-const std::string&
+//const std::string&
+//DiffusionCoefficient::getTypeAsString() const
+//{
+//  static const std::string code_str = DiffusionKind_toString(mType);
+//  return code_str;
+//}
+//bgoli22
+std::string
 DiffusionCoefficient::getTypeAsString() const
 {
-  static const std::string code_str = DiffusionKind_toString(mType);
+  std::string code_str = DiffusionKind_toString(mType);
   return code_str;
 }
 
@@ -200,14 +207,20 @@ DiffusionCoefficient::getCoordinateReference2() const
  * Returns the value of the "coordinateReference2" attribute of this
  * DiffusionCoefficient.
  */
-const std::string&
+//const std::string&
+//DiffusionCoefficient::getCoordinateReference2AsString() const
+//{
+//  static const std::string code_str =
+//    CoordinateKind_toString(mCoordinateReference2);
+//  return code_str;
+//}
+//bgoli22
+std::string
 DiffusionCoefficient::getCoordinateReference2AsString() const
 {
-  static const std::string code_str =
-    CoordinateKind_toString(mCoordinateReference2);
+  std::string code_str = CoordinateKind_toString(mCoordinateReference2);
   return code_str;
 }
-
 
 /*
  * Predicate returning @c true if this DiffusionCoefficient's "variable"
@@ -296,16 +309,23 @@ DiffusionCoefficient::setType(const DiffusionKind_t type)
 int
 DiffusionCoefficient::setType(const std::string& type)
 {
-  if (DiffusionKind_isValidString(type.c_str()) == 0)
+  //if (DiffusionKind_isValidString(type.c_str()) == 0)
+  //{
+  //  mType = SPATIAL_DIFFUSIONKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mType = DiffusionKind_fromString(type.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mType = DiffusionKind_fromString(type.c_str());
+  if (mType == SPATIAL_DIFFUSIONKIND_INVALID)
   {
-    mType = SPATIAL_DIFFUSIONKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mType = DiffusionKind_fromString(type.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -381,17 +401,25 @@ int
 DiffusionCoefficient::setCoordinateReference2(const std::string&
   coordinateReference2)
 {
-  if (CoordinateKind_isValidString(coordinateReference2.c_str()) == 0)
+  //if (CoordinateKind_isValidString(coordinateReference2.c_str()) == 0)
+  //{
+  //  mCoordinateReference2 = SPATIAL_COORDINATEKIND_INVALID;
+  //  return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  //}
+  //else
+  //{
+  //  mCoordinateReference2 =
+  //    CoordinateKind_fromString(coordinateReference2.c_str());
+  //  return LIBSBML_OPERATION_SUCCESS;
+  //}
+  //bgoli22
+  mCoordinateReference2 = 
+    CoordinateKind_fromString(coordinateReference2.c_str());
+  if (mCoordinateReference2 == SPATIAL_COORDINATEKIND_INVALID)
   {
-    mCoordinateReference2 = SPATIAL_COORDINATEKIND_INVALID;
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else
-  {
-    mCoordinateReference2 =
-      CoordinateKind_fromString(coordinateReference2.c_str());
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

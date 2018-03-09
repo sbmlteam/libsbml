@@ -202,6 +202,7 @@ CoordinateComponent::getTypeAsString() const
   static const std::string code_str = CoordinateKind_toString(mType);
   return code_str;
 }
+//bgoli22
 
 
 /*
@@ -292,6 +293,7 @@ CoordinateComponent::setType(const std::string& type)
     mType = CoordinateKind_fromString(type.c_str());
     return LIBSBML_OPERATION_SUCCESS;
   }
+  //bgoli22
 }
 
 

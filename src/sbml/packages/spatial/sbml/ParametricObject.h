@@ -172,7 +172,8 @@ public:
    * @return the value of the "polygonType" attribute of this ParametricObject
    * as a string.
    */
-  const std::string& getPolygonTypeAsString() const;
+  std::string getPolygonTypeAsString() const;
+  //bgoli22
 
 
   /**
@@ -239,7 +240,8 @@ public:
    * @return the value of the "dataType" attribute of this ParametricObject as
    * a string.
    */
-  const std::string& getDataTypeAsString() const;
+  std::string getDataTypeAsString() const;
+  //bgoli22
 
 
   /**
