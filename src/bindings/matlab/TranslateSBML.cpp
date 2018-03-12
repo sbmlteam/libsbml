@@ -375,6 +375,7 @@ bool getRequiredStatus(const std::string& prefix)
 
 const std::string getPackagePrefix(const std::string& name)
 {
+  // TO DO -look at this and how many times the function is used
   std::ostringstream prefix;
   size_t pos = name.find("_");
   if (pos == std::string::npos)
@@ -393,7 +394,7 @@ const std::string getPackagePrefix(const std::string& name)
       prefix << reqdPkgPrefixes.at(i);
       break;
     }
-    i++;
+    ++i;
   }
 
   i = 0;
@@ -405,7 +406,7 @@ const std::string getPackagePrefix(const std::string& name)
       prefix << unreqdPkgPrefixes.at(i);
       break;
     }
-    i++;
+    ++i;
   }
   if (!match)
   {
@@ -489,10 +490,7 @@ StructureFields::~StructureFields()
 {
   // must not do this as it can be a part of a larger model
 //  delete mSBase;
-  //mxDestroyArray(mxStructure);
-  //mxDestroyArray(mxFieldnames);
-  //mxDestroyArray(mxDefaultValues);
-  //mxDestroyArray(mxValueTypes);
+
   // MATLAB says dont call destroy array in a destructor
   // https://uk.mathworks.com/help/matlab/matlab_external/memory-management-issues.html
   //mxDestroyArray(mxStructure);
@@ -512,6 +510,7 @@ StructureFields::freeStructureMemory()
 bool
 isUnknownType(std::string tc)
 {
+  // TO DO 
   if (tc == "(Unknown SBML Type)")
     return true;
   else if (tc == "(Unknown SBML Fbc Type)")
@@ -690,6 +689,7 @@ bool
 StructureFields::isValidSBMLAttribute(const std::string& name, SBase* base)
 {
   bool valid = true;
+  // TO DO look at this
   // some fields used in matlab do not relate the sbml attributes/objects
   if (name.find("isSet") != std::string::npos)
   {
@@ -740,7 +740,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
 
   size_t n = mxGetNumberOfElements(mxFieldnames);
   char **field_names = (char**)(safe_malloc(n * sizeof(char*)));
-  for (unsigned int i = 0; i < n; i++)
+  for (unsigned int i = 0; i < n; ++i)
   {
     fieldname = getFieldname(i, functionId);
     field_names[i] = (char*)(safe_malloc((fieldname.size() * sizeof(char))+ 1));
@@ -750,7 +750,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   mxStructure = mxCreateStructArray(2, dims, n, (const char**)(field_names));
   safe_free(field_names);
 
-  for (unsigned int i = 0; i < total_no; i++)
+  for (unsigned int i = 0; i < total_no; ++i)
   {
     SBase* child = base->getObject(sbmlTC, i);
     if (usePlugin)
@@ -772,7 +772,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
 
   size_t n = mxGetNumberOfElements(mxFieldnames);
 
-  for (unsigned int i = 0; i < n; i++)
+  for (unsigned int i = 0; i < n; ++i)
   {
     fieldname = getFieldname(i, functionId);
     type = getValueType(i, functionId);
@@ -856,7 +856,7 @@ StructureFields::getNamespacesStructure()
 
   mxNSReturn = mxCreateStructArray(2, dims, nNoFields, field_names);
 
-  for (i = 0; i < n; i++)
+  for (i = 0; i < n; ++i)
   {
     pacPrefix = safe_strdup(NS->getPrefix(i).c_str());
     pacURI    = safe_strdup(NS->getURI(i).c_str());
@@ -991,7 +991,7 @@ StructureFields::getCVTermsStructure(SBase* base)
     mxCVTermReturn = createCVTermStructure(n);
   }
 
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < n; ++i)
   {
     CVTerm * cv = base->getCVTerm(i);
     addCVTerm(mxCVTermReturn, i, cv);
@@ -1058,6 +1058,7 @@ StructureFields::getStringValue(const std::string& functionId, SBase* base,
                                 bool usePlugin, const std::string& prefix)
 {
   std::string value;
+  // TO DO could this be quicker
   if (isValidSBMLAttribute(fieldname, base))
   {
     if (!usePlugin && base->isSetAttribute(fieldname))
@@ -1366,36 +1367,53 @@ StructureFields::lookForCSymbols(ASTNode* math)
   if (math == NULL) return;
 
   unsigned int nChild = math->getNumChildren();
-  ASTNodeType_t type;
+  ASTNodeType_t type = math->getType();
 
-  if (nChild == 0)
+  switch (type)
   {
-    type = math->getType();
-
-    if (type == AST_NAME_AVOGADRO)
-    {
-      dealWithAvogadroSymbol(math);
-    }
-    else if (type == AST_NAME_TIME)
-    {
-      dealWithTimeSymbol(math);
-    }
+  case AST_NAME_AVOGADRO:
+    dealWithAvogadroSymbol(math);
+    break;
+  case AST_NAME_TIME:
+    dealWithTimeSymbol(math);
+    break;
+  case AST_FUNCTION_DELAY:
+    dealWithDelaySymbol(math);
+    break;
+  case AST_FUNCTION_RATE_OF:
+    dealWithRateOfSymbol(math);
+    break;
+  default:
+    break;
   }
-  else
-  {
-    type = math->getType();
+  //if (nChild == 0)
+  //{
+  //  type = math->getType();
 
-    if (type == AST_FUNCTION_DELAY)
-    {
-      dealWithDelaySymbol(math);
-    }
-    else if (type == AST_FUNCTION_RATE_OF)
-    {
-      dealWithRateOfSymbol(math);
-    }
-  }
+  //  if (type == AST_NAME_AVOGADRO)
+  //  {
+  //    dealWithAvogadroSymbol(math);
+  //  }
+  //  else if (type == AST_NAME_TIME)
+  //  {
+  //    dealWithTimeSymbol(math);
+  //  }
+  //}
+  //else
+  //{
+  //  type = math->getType();
 
-  for (unsigned int i = 0; i < nChild; i++)
+  //  if (type == AST_FUNCTION_DELAY)
+  //  {
+  //    dealWithDelaySymbol(math);
+  //  }
+  //  else if (type == AST_FUNCTION_RATE_OF)
+  //  {
+  //    dealWithRateOfSymbol(math);
+  //  }
+  //}
+
+  for (unsigned int i = 0; i < nChild; ++i)
   {
     ASTNode* child = math->getChild(i);
     lookForCSymbols(child);
@@ -1493,7 +1511,7 @@ StructureFields::addAttributes(const std::string& functionId, unsigned int index
 
   size_t n = mxGetNumberOfElements(mxFieldnames);
 
-  for (unsigned int i = 0; i < n; i++)
+  for (unsigned int i = 0; i < n; ++i)
   {
     fieldname = getFieldname(i, functionId);
     if (!isValidSBMLAttribute(fieldname))
@@ -1583,7 +1601,7 @@ StructureFields::addCVTerms(const std::string& name, unsigned int index)
 
   size_t numCV = mxGetNumberOfElements(mxCVTerms);
 
-  for (unsigned int i = 0; i < numCV; i++)
+  for (unsigned int i = 0; i < numCV; ++i)
   {
     CVTerm *cv = getCVTerm(mxCVTerms, i);
     if (!mSBase->isSetMetaId())
@@ -1610,7 +1628,7 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
   {
     attName = removePackagePrefix(name);
   }
-  for (unsigned int i = 0; i < n; i++)
+  for (unsigned int i = 0; i < n; ++i)
   {
     // hack for rules - since a list of rules contains assignmentRule etc..
     if (name == "rule")
@@ -1698,8 +1716,10 @@ StructureFields::adjustForCSymbols(ASTNode * math)
     return;
   }
 
-  if (math->getType() == AST_FUNCTION)
+  ASTNodeType_t type = math->getType();
+  switch (type)
   {
+  case AST_FUNCTION:
     if (math->getName() == details->getDelaySymbol())
     {
       math->setType(AST_FUNCTION_DELAY);
@@ -1707,10 +1727,9 @@ StructureFields::adjustForCSymbols(ASTNode * math)
     else if (math->getName() == details->getRateOfSymbol())
     {
       math->setType(AST_FUNCTION_RATE_OF);
-    }  
-  }
-  else if (math->getType() == AST_NAME)
-  {
+    }
+    break;
+  case AST_NAME:
     if (math->getName() == details->getTimeSymbol())
     {
       math->setType(AST_NAME_TIME);
@@ -1719,9 +1738,12 @@ StructureFields::adjustForCSymbols(ASTNode * math)
     {
       math->setType(AST_NAME_AVOGADRO);
     }
+    break;
+  default:
+    break;
   }
 
-  for (unsigned int i = 0; i < math->getNumChildren(); i++)
+  for (unsigned int i = 0; i < math->getNumChildren(); ++i)
   {
     adjustForCSymbols(math->getChild(i));
   }
@@ -1952,15 +1974,16 @@ StructureFields::getRuleTypeCode(SBase* base)
       Model *m = static_cast<Model*>(base->getAncestorOfType(SBML_MODEL));
       if (m != NULL)
       {
-        if (m->getCompartment(static_cast<Rule*>(base)->getVariable()) != NULL)
+        std::string var = static_cast<Rule*>(base)->getVariable();
+        if (m->getCompartment(var) != NULL)
         {
           retvalue = "SBML_COMPARTMENT_VOLUME_RULE";
         }
-        if (m->getSpecies(static_cast<Rule*>(base)->getVariable()) != NULL)
+        if (m->getSpecies(var) != NULL)
         {
           retvalue = "SBML_SPECIES_CONCENTRATION_RULE";
         }
-        if (m->getParameter(static_cast<Rule*>(base)->getVariable()) != NULL)
+        if (m->getParameter(var) != NULL)
         {
           retvalue = "SBML_PARAMETER_RULE";
         }
@@ -2012,14 +2035,14 @@ int
 StructureFields::readInt(const std::string& name, unsigned int index, unsigned int total_no)
 {
   mxArray * mxField;
-  int value;
+  int value = 0;
   int nStatus = 1;
 
   /* get field */
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField)) 
+    if (!mxIsEmpty(mxField))
     {
       if (mxIsNumeric(mxField))
       {
@@ -2032,11 +2055,10 @@ StructureFields::readInt(const std::string& name, unsigned int index, unsigned i
       value = 0;
       nStatus = 0;
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("Int", name, index, total_no);
-    }
+  }
+  if (nStatus != 0)
+  {
+    reportReadError("Int", name, index, total_no);
   }
   return value;
 }
@@ -2046,14 +2068,14 @@ int
 StructureFields::readInt(mxArray* mxArray1, const std::string& name, unsigned int index)
 {
   mxArray * mxField;
-  int value;
+  int value = 0;
   int nStatus = 1;
 
   /* get field */
   mxField = mxGetField(mxArray1, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField)) 
+    if (!mxIsEmpty(mxField))
     {
       if (mxIsNumeric(mxField))
       {
@@ -2066,11 +2088,10 @@ StructureFields::readInt(mxArray* mxArray1, const std::string& name, unsigned in
       value = 0;
       nStatus = 0;
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("Int", name, index, 0, "static");
-    }
+  }
+  if (nStatus != 0)
+  {
+    reportReadError("Int", name, index, 0, "static");
   }
 
   return value;
@@ -2080,7 +2101,7 @@ double
 StructureFields::readDouble(const std::string& name, unsigned int index, unsigned int total_no)
 {
   mxArray * mxField;
-  double value;
+  double value = 0;
   int nStatus = 1;
 
   /* get field */
@@ -2100,13 +2121,11 @@ StructureFields::readDouble(const std::string& name, unsigned int index, unsigne
       value = util_NaN();
       nStatus = 0;
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("Double", name, index, total_no);
-    }
   }
-
+  if (nStatus != 0)
+  {
+    reportReadError("Double", name, index, total_no);
+  }
 
   return value;
 }
@@ -2153,11 +2172,10 @@ StructureFields::readString(mxArray* mxArray1, const std::string& name, unsigned
       nStatus = 0;
       f = std::string(value);
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("String", name, index, 0, "static");
-    }
+  }
+  if (nStatus != 0)
+  {
+    reportReadError("String", name, index, 0, "static");
   }
   return f;
 }
@@ -2166,14 +2184,14 @@ unsigned int
 StructureFields::readUint(const std::string& name, unsigned int index, unsigned int total_no)
 {
   mxArray * mxField;
-  unsigned int value;
+  unsigned int value = 0;
   int nStatus = 1;
 
   /* get field */
   mxField = mxGetField(mxStructure, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField)) 
+    if (!mxIsEmpty(mxField))
     {
       if (mxIsNumeric(mxField))
       {
@@ -2186,11 +2204,10 @@ StructureFields::readUint(const std::string& name, unsigned int index, unsigned 
       value = 0;
       nStatus = 0;
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("Uint", name, index, total_no);
-    }
+  }
+  if (nStatus != 0)
+  {
+    reportReadError("Uint", name, index, total_no);
   }
 
   return value;
@@ -2209,7 +2226,7 @@ StructureFields::readUint(mxArray* mxArray1, const std::string& name,
   mxField = mxGetField(mxArray1, index, name.c_str());
   if (mxField != NULL)
   {
-    if (!mxIsEmpty(mxField)) 
+    if (!mxIsEmpty(mxField))
     {
       if (mxIsNumeric(mxField))
       {
@@ -2222,13 +2239,11 @@ StructureFields::readUint(mxArray* mxArray1, const std::string& name,
       value = 0;
       nStatus = 0;
     }
-
-    if (nStatus != 0)
-    {
-      reportReadError("Uint", name, index, 0, "static");
-    }
   }
-
+  if (nStatus != 0)
+  {
+    reportReadError("Uint", name, index, 0, "static");
+  }
   return value;
 }
 
@@ -2362,7 +2377,7 @@ ModelDetails::populateNamespaces()
   mxArray* mxNamespaces = mxGetField(modelArray, 0, "namespaces");
   size_t nNoNamespaces = mxGetNumberOfElements(mxNamespaces);
 
-  for (unsigned int i = 0; i < nNoNamespaces; i++)
+  for (unsigned int i = 0; i < nNoNamespaces; ++i)
   {
     std::string uri = StructureFields::readString(mxNamespaces, "uri", i);
     std::string prefix = StructureFields::readString(mxNamespaces, "prefix", i);
@@ -2381,7 +2396,7 @@ ModelDetails::populateNamespaces(SBMLDocument* doc)
 void
 ModelDetails::populateSupportedPackages()
 {
-  for (unsigned int i = 0; i <  SBMLExtensionRegistry::getNumRegisteredPackages(); i++)
+  for (unsigned int i = 0; i <  SBMLExtensionRegistry::getNumRegisteredPackages(); ++i)
   {
     mSupportedPackages.append(SBMLExtensionRegistry::getRegisteredPackageName(i));
   }
@@ -2392,7 +2407,7 @@ ModelDetails::populatePkgMap()
 {
   populateSupportedPackages();
   XMLNamespaces *xmlns = mSBMLns->getNamespaces();
-  for (int i = 0; i < xmlns->getNumNamespaces(); i++)
+  for (int i = 0; i < xmlns->getNumNamespaces(); ++i)
   {
     if (isSupportedPackageNS(xmlns->getURI(i), xmlns->getPrefix(i)))
     {
@@ -2409,7 +2424,7 @@ ModelDetails::populatePkgMap(SBMLDocument* doc)
 {
   populateSupportedPackages();
   XMLNamespaces *xmlns = mSBMLns->getNamespaces();
-  for (int i = 0; i < xmlns->getNumNamespaces(); i++)
+  for (int i = 0; i < xmlns->getNumNamespaces(); ++i)
   {
     if (isSupportedPackageNS(xmlns->getURI(i), xmlns->getPrefix(i)))
     {
@@ -3041,55 +3056,56 @@ getFilename(int nrhs, const mxArray* prhs[], unsigned int& validateFlag,
 {
   FILE_CHAR filename = NULL;
 
-  if (nrhs > 0)
+  double *pr = 0;
+  switch (nrhs)
   {
+  case 4:
+    // arg 3
+    pr = mxGetPr(prhs[3]);
+
+    if (*pr == 0)
+    {
+      fbcUsingId = false;
+    }
+    else
+    {
+      fbcUsingId = true;
+    }
+    pr++;
+    if (*pr == 0)
+    {
+      fbcAddGeneProducts = false;
+    }
+    else
+    {
+      fbcAddGeneProducts = true;
+    }
+    // arg 2
+    verboseFlag = (int)mxGetScalar(prhs[2]);
+    // arg 1
+    validateFlag = (int)mxGetScalar(prhs[1]);
+    // arg 0
     filename = getGivenFilename(prhs);
-
-    /* if a second argument has been given this is the flag indicating
-    * whether to validate the Model or not
-    */
-    if (nrhs > 1)
-    {
-      validateFlag = (int) mxGetScalar(prhs[1]);   
-    }
-
-    /* if a third argument has been given this is the flag indicating
-    * whether to print out errors or not
-    */
-    if (nrhs > 2)
-    {
-      verboseFlag = (int) mxGetScalar(prhs[2]);   
-    }
-
-    /* a fourth argument is an array indicating whether to use geneProduct 
-    * labels or ids for expressing the association 
-    * and whether to add missing geneProducts when parsing the association
-    */
-    if (nrhs > 3)
-    {
-      double *pr = mxGetPr(prhs[3]); 
-  
-      if (*pr == 0)
-      {
-        fbcUsingId = false;
-      }
-      else
-      {
-        fbcUsingId = true;
-      }
-      pr++;
-      if (*pr == 0)
-      {
-        fbcAddGeneProducts = false;
-      }
-      else
-      {
-        fbcAddGeneProducts = true;
-      }
-    }
-  }
-  else
-  {
+    break;
+  case 3: 
+    // arg 2
+    verboseFlag = (int)mxGetScalar(prhs[2]);
+    // arg 1
+    validateFlag = (int)mxGetScalar(prhs[1]);
+    // arg 0
+    filename = getGivenFilename(prhs);
+    break;
+  case 2:
+    // arg 1
+    validateFlag = (int)mxGetScalar(prhs[1]);
+    // arg 0
+    filename = getGivenFilename(prhs);
+    break;
+  case 1:
+    // arg 0
+    filename = getGivenFilename(prhs);
+    break;
+  case 0:
     filename = browseForFilename();
     if (answerYesToQuestion("Do you want to validate the model? Enter y/n "))
     {
@@ -3097,8 +3113,10 @@ getFilename(int nrhs, const mxArray* prhs[], unsigned int& validateFlag,
     }
     fbcUsingId = false;
     fbcAddGeneProducts = true;
+    break;
+  default:
+    break;
   }
-
   return filename;
 }
 
@@ -3166,7 +3184,7 @@ OutputVersionInformation(mxArray *plhs[])
 
   while (isLibSBMLCompiledWith(parser) == 0 && i < 3)
   {
-    i++;
+    ++i;
     parser = xml_parsers[i];
   }
 
@@ -3240,7 +3258,7 @@ OutputErrorInformation(mxArray *plhs[], SBMLDocument* doc)
   errordims[0] = 1;
   errordims[1] = totalerrors;
   plhs[1] = mxCreateStructArray(2, errordims, 4, error_struct);
-  for (unsigned int i = 0; i < totalerrors; i++)
+  for (unsigned int i = 0; i < totalerrors; ++i)
   {
     const XMLError* e = (const XMLError*)(doc->getError(i));
     mxSetField(plhs[1], i, "line", CreateIntScalar(e->getLine()));
@@ -3273,7 +3291,7 @@ displayErrors(SBMLDocument* doc, unsigned int warnings, unsigned int errors,
 
   displayLine(numErrs.str());
 
-  if (warnings > 0 && verboseFlag == 1)
+  if (verboseFlag == 1 && warnings > 0)
   {
     if (!answerYesToQuestion("Do you want to exclude the warnings from the list? Enter y/n ") )
     {
@@ -3290,7 +3308,7 @@ displayErrors(SBMLDocument* doc, unsigned int warnings, unsigned int errors,
 
     displayLine(numErrs.str());
   
-    for (unsigned int i = 0; i < doc->getNumErrors(); i++)
+    for (unsigned int i = 0; i < doc->getNumErrors(); ++i)
     {
       const XMLError* e = (const XMLError_t *) doc->getError(i);
 
@@ -3333,7 +3351,7 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
   /* divide the totalerrors into errors 
   * and warnings
   */
-  for (unsigned int i = 0; i < totalerrors; i++)
+  for (unsigned int i = 0; i < totalerrors; ++i)
   {
     const XMLError * e = (const XMLError *) doc->getError(i);
     if (e->getSeverity() < 2)
