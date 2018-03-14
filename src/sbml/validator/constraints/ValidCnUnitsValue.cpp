@@ -173,11 +173,14 @@ ValidCnUnitsValue::checkValidUnits (const Model& m, const ASTNode& node,
  * in  conflict with an object previously defined.
  */
 const string
-ValidCnUnitsValue::getMessage (const ASTNode& , const SBase& )
+ValidCnUnitsValue::getMessage (const ASTNode& node, const SBase& object)
 {
 
   ostringstream oss_msg;
 
+  oss_msg << "The MathML of the <" << object.getElementName() << "> element "
+    "with id '" << object.getId() << "' contains a <cn> element with an "
+    "unknown unit definition: '" << node.getUnits() << "'.\n";
 
   return oss_msg.str();
 }
