@@ -56,11 +56,11 @@ if (nargin > 3)
     end;
     packages = varargin{4};
     pkgVersion = varargin{5};
-    [fieldnames, num] = getStructureFieldnames(typecode, level, version, packages, pkgVersion);
+    [fieldnames, num] = getStructureEnum(typecode, level, version, packages, pkgVersion);
     defaults = getDefaultValues(typecode, level, version, packages, pkgVersion);
     valuetypes = getValueType(typecode, level, version, packages, pkgVersion);
 else
-    [fieldnames, num] = getStructureFieldnames(typecode, level, version);
+    [fieldnames, num] = getStructureEnum(typecode, level, version);
     defaults = getDefaultValues(typecode, level, version);
     valuetypes = getValueType(typecode, level, version);
 end;

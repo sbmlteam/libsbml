@@ -79,205 +79,43 @@ const char* FIELDTYPE_STRINGS[] =
 };
 
 typedef enum {
-  // non sbml names
-    OTHER_NAME_AVOGADRO_SYMBOL
-  , OTHER_NAME_DELAY_SYMBOL
-  , OTHER_NAME_ISSET_CHARGE
-  , OTHER_NAME_ISSET_FAST
-  , OTHER_NAME_ISSET_INITIALAMOUNT
-  , OTHER_NAME_ISSET_INITIALCONCENTRATION
-  , OTHER_NAME_ISSET_SIZE
-  , OTHER_NAME_ISSET_SPATIALDIMENSIONS
-  , OTHER_NAME_ISSET_STOICHIOMETRY
-  , OTHER_NAME_ISSET_VALUE
-  , OTHER_NAME_ISSET_VOLUME
-  , OTHER_NAME_NAMESPACES
-  , OTHER_NAME_RATEOF_SYMBOL
-  , OTHER_NAME_SBML_LEVEL
-  , OTHER_NAME_SBML_VERSION
-  , OTHER_NAME_TIME_SYMBOL
-  , OTHER_NAME_TYPE
-  , OTHER_NAME_TYPECODE
-} OtherFieldnames_t;
+    OTHER_NAME = 0
+  , SBML_NOTES
+  , SBML_ANNOT
+  , OTHER_NAMESPACES
+  , OTHER_CVTERMS
+  , SBML_MATH
+  , SBML_RULE_TYPE
+  , SBML_ISSET
+  , SBML_MESSAGE
+  , OTHER_TIME_SYMBOL
+  , OTHER_DELAY_SYMBOL
+  , OTHER_AVOGADRO_SYMBOL
+  , OTHER_RATEOF_SYMBOL
+  , OTHER_ANOMALOUS_MATH
+  , FBC_ASSOCIATION
 
-const char * OTHER_FIELDNAMES[] =
-{
-    "avogadro_symbol"
-  , "delay_symbol"
-  , "isSetCharge"
-  , "isSetFast"
-  , "isSetInitialAmount"
-  , "isSetInitialConcentration"
-  , "isSetSize"
-  , "isSetSpatialDimensions"
-  , "isSetStoichiometry"
-  , "isSetValue"
-  , "isSetVolume"
-  , "namespaces"
-  , "rateOf_symbol"
-  , "SBML_level"
-  , "SBML_version"
-  , "time_symbol"
-  , "type"
-  , "typecode"
-};
+  , SBML_KNOWN_ATT_ELEM = 20
 
-typedef enum {
-  // sbml names
-    SBML_NAME_ANNOTATION
-  , SBML_NAME_AREA_UNITS
-  , SBML_NAME_BOUNDARY_CONDITION
-  , SBML_NAME_CHARGE
-  , SBML_NAME_COMPARTMENT
-  , SBML_NAME_COMPARTMENT_TYPE
-  , SBML_NAME_CONSTANT
-  , SBML_NAME_CONSTRAINT
-  , SBML_NAME_CONVERSION_FACTOR
-  , SBML_NAME_CVTERMS
-  , SBML_NAME_DELAY
-  , SBML_NAME_DENOMINATOR
-  , SBML_NAME_EVENT
-  , SBML_NAME_EVENT_ASSIGNMENT
-  , SBML_NAME_EXPONENT
-  , SBML_NAME_EXTENT_UNITS
-  , SBML_NAME_FAST
-  , SBML_NAME_FUNCTION_DEFINITION
-  , SBML_NAME_FORMULA
-  , SBML_NAME_HOSU
-  , SBML_NAME_ID
-  , SBML_NAME_INITIAL_AMOUNT
-  , SBML_NAME_INITIAL_ASSIGNMENT
-  , SBML_NAME_INITIAL_CONCENTRATION
-  , SBML_NAME_INITIAL_VALUE
-  , SBML_NAME_KINETIC_LAW
-  , SBML_NAME_KIND
-  , SBML_NAME_LENGTH_UNITS
-  , SBML_NAME_LOCAL_PARAMETER
-  , SBML_NAME_MATH
-  , SBML_NAME_MESSAGE
-  , SBML_NAME_METAID
-  , SBML_NAME_MODIFIER
-  , SBML_NAME_MULTIPLIER
-  , SBML_NAME_NAME
-  , SBML_NAME_NOTES
-  , SBML_NAME_OFFSET
-  , SBML_NAME_OUTSIDE
-  , SBML_NAME_PARAMETER
-  , SBML_NAME_PERSISTENT
-  , SBML_NAME_PRIORITY
-  , SBML_NAME_PRODUCT
-  , SBML_NAME_REACTION
-  , SBML_NAME_REVERSIBLE
-  , SBML_NAME_RULE
-  , SBML_NAME_SBOTERM
-  , SBML_NAME_SCALE
-  , SBML_NAME_SIZE
-  , SBML_NAME_SPATIAL_DIMENSIONS
-  , SBML_NAME_SPATIALSIZE_UNITS
-  , SBML_NAME_SPECIES
-  , SBML_NAME_SPECIES_TYPE
-  , SBML_NAME_STOICHIOMETRY
-  , SBML_NAME_STOICHIOMETRY_MATH
-  , SBML_NAME_SUBSTANCE_UNITS
-  , SBML_NAME_SYMBOL
-  , SBML_NAME_TIME_UNITS
-  , SBML_NAME_TRIGGER
-  , SBML_NAME_UNIT
-  , SBML_NAME_UNIT_DEFINITION
-  , SBML_NAME_UNITS
-  , SBML_NAME_UVFTT
-  , SBML_NAME_VALUE
-  , SBML_NAME_VARIABLE
-  , SBML_NAME_VOLUME
-  , SBML_NAME_VOLUME_UNITS
-} SBMLFieldnames_t;
+} FieldnamesType_t;
 
-const char * SBML_FIELDNAMES[] =
-{
-    "annotation"
-  , "areaUnits"
-  , "boundaryCondition"
-  , "charge"
-  , "compartment"
-  , "compartmentType"
-  , "constant"
-  , "constraint"
-  , "conversionFactor"
-  , "cvterms"
-  , "delay"
-  , "denominator"
-  , "event"
-  , "eventAssignment"
-  , "exponent"
-  , "extentUnits"
-  , "fast"
-  , "functionDefinition"
-  , "formula"
-  , "hasOnlySubstanceUnits"
-  , "id"
-  , "initialAmount"
-  , "initialAssignment"
-  , "initialConcentration"
-  , "initialValue"
-  , "kind"
-  , "kineticLaw"
-  , "lengthUnits"
-  , "localParameter"
-  , "math"
-  , "message"
-  , "metaid"
-  , "modifier"
-  , "multiplier"
-  , "name"
-  , "notes"
-  , "offset"
-  , "outside"
-  , "parameter"
-  , "persistent"
-  , "priority"
-  , "product"
-  , "reactant"
-  , "reaction"
-  , "reversible"
-  , "rule"
-  , "sboTerm"
-  , "scale"
-  , "size"
-  , "spatialDimensions"
-  , "spatialSizeUnits"
-  , "species"
-  , "speciesType"
-  , "stoichiometry"
-  , "stoichiometryMath"
-  , "substanceUnits"
-  , "symbol"
-  , "timeUnits"
-  , "trigger"
-  , "unit"
-  , "unitDefinition"
-  , "units"
-  , "useValuesFromTriggerTime"
-  , "value"
-  , "variable"
-  , "volume"
-  , "volumeUnits"
-};
-
-typedef union {
-  OtherFieldnames_t other;
-  SBMLFieldnames_t sbml;
-
-} attNameIndex;
+//union DefaultValue_t {
+//  std::string strValue;
+//  int iValue;
+//  double dValue;
+//} ;
 
 struct FieldValues_t {
   std::string fieldName;
-  std::string attName;
+  std::string sbmlName;
   std::string prefix;
   FieldType_t type;
   bool isSBMLAttribute;
-  attNameIndex nameIndex;
-
-};
+  FieldnamesType_t fieldnameType;
+  std::string strValue;
+  int iValue;
+  double dValue;
+ };
 
 
 class StructureFields
@@ -323,15 +161,8 @@ private:
   void populateStructure(const std::string& functionId, SBase* base, 
                          unsigned int index);
 
-  void addStructureField(const std::string& functionId, SBase* base, 
-                         std::string& fieldname, FieldType_t type, 
-                         unsigned int index, unsigned int fieldIndex,
-                         bool usePlugin, const std::string& prefix, 
-                         const std::string& attName);
-
-  void addStructureFieldNew(const std::string& functionId, SBase* base,
-    unsigned int index, unsigned int fieldIndex,
-    bool usePlugin);
+  void addStructureField(const std::string& functionId, SBase* base,
+    unsigned int index, FieldValues_t field, bool usePlugin);
 
   void addChildElement(const std::string& name, unsigned int index);
 
@@ -345,8 +176,9 @@ private:
   void getDefaultValue(unsigned int i, const std::string& id, int& value);
   const FieldType_t getValueType(unsigned int i, const std::string& id);
   bool getIsSBMLAttribute(unsigned int i, const std::string& id);
-  const std::string getAttPrefix(unsigned int i, const std::string& id);
-  const std::string getAttName(unsigned int i, const std::string& id);
+  const std::string getSBMLPrefix(unsigned int i, const std::string& id);
+  const std::string getSBMLName(unsigned int i, const std::string& id);
+  const FieldnamesType_t getNameEnumType(unsigned int i, const std::string& id);
 
   // read values from structure
   int readInt(const std::string& name, unsigned int index, unsigned int total_no);
@@ -369,8 +201,7 @@ private:
   void addAnomalousChild(const std::string& fieldname, unsigned int index);
 
   void addAnomalousChildStructure(const std::string& functionId, SBase* base, 
-                         std::string& fieldname, 
-                         unsigned int index, unsigned int fieldIndex);
+                          unsigned int index, FieldValues_t field);
 
   const ASTNode* getMathChild(const std::string& value);
 
@@ -379,29 +210,20 @@ private:
   void adjustForCSymbols(ASTNode * math);
 
   // read values from model or default
-  const std::string getStringValue(const std::string& functionId, SBase* base, 
-                                   std::string& fieldname, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix);
-
-  const std::string getStringValueNew(const std::string& functionId, SBase* base,
-    unsigned int fieldIndex,
-    bool usePlugin);
+  const std::string getStringValue(const std::string& functionId, SBase* base,
+    FieldValues_t field, bool usePlugin);
 
   double getDoubleValue(const std::string& functionId, SBase* base,
-                                   std::string& fieldname, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix);
-  bool getBoolValue(const std::string& functionId, SBase* base, 
-                                   std::string& fieldname, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix);
-  unsigned int getUintValue(const std::string& functionId, SBase* base, 
-                                   std::string& fieldname, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix);
-  unsigned int getUintValueNew(const std::string& functionId, SBase* base,
-    unsigned int fieldIndex,
-    bool usePlugin);
+    FieldValues_t field, bool usePlugin);
+
+  bool getBoolValue(const std::string& functionId, SBase* base,
+    FieldValues_t field, bool usePlugin);
+
+  unsigned int getUintValue(const std::string& functionId, SBase* base,
+    FieldValues_t field, bool usePlugin);
+
   int getIntValue(const std::string& functionId, SBase* base,
-                                   std::string& fieldname, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix);
+    FieldValues_t field, bool usePlugin);
 
   std::string getMathString(SBase* base);
 
@@ -440,7 +262,6 @@ protected:
   mxArray* mxFieldnames;
   mxArray* mxDefaultValues;
   mxArray* mxValueTypes;
-  mxArray* mxFieldEnum;
 
   size_t nNumberFields;
 
@@ -582,6 +403,7 @@ getFieldType(const char* type)
     return TYPE_UNKNOWN;
 }
 
+// only used by OutputSBML
 bool getRequiredStatus(const std::string& prefix)
 {
   bool required = false;
@@ -594,6 +416,7 @@ bool getRequiredStatus(const std::string& prefix)
   return required;
 }
 
+// only used by OutputSBML
 const std::string getPackagePrefix(const std::string& name)
 {
   // TO DO -look at this and how many times the function is used
@@ -637,7 +460,7 @@ const std::string getPackagePrefix(const std::string& name)
   return prefix.str();
 }
 
-
+// only used by OutputSBML
 std::string removePackagePrefix(const std::string& name)
 {
   size_t len = getPackagePrefix(name).size();
@@ -670,11 +493,28 @@ void populatePackageLists()
   unreqdPkgPrefixes.append("groups");
 }
 
+// only used by OutputSBML
+bool
+isUnknownType(std::string tc)
+{
+  // TO DO 
+  if (tc == "(Unknown SBML Type)")
+    return true;
+  else if (tc == "(Unknown SBML Fbc Type)")
+    return true;
+  else if (tc == "(Unknown SBML Groups Type)")
+    return true;
+  else if (tc == "(Unknown SBML Qual Type)")
+    return true;
+  else
+    return false;
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
 // class to store the structure/retrieve fields and write the SBML Model
 
+// only used by OutputSBML
 StructureFields::StructureFields(SBase* obj, mxArray* structure) :
     mSBase ( NULL)
   , mxStructure ( NULL )
@@ -687,6 +527,7 @@ StructureFields::StructureFields(SBase* obj, mxArray* structure) :
   populateFields();
 }
 
+// only used by OutputSBML
 StructureFields::StructureFields(SBase* obj) :
     mSBase ( NULL)
   , mxStructure ( NULL )
@@ -698,6 +539,7 @@ StructureFields::StructureFields(SBase* obj) :
   populateFields();
 }
 
+// only used by TranslateSBML
 StructureFields::StructureFields(std::string& tc) :
     mSBase ( NULL)
   , mxStructure ( NULL )
@@ -709,6 +551,7 @@ StructureFields::StructureFields(std::string& tc) :
 
 StructureFields::~StructureFields()
 {
+  mFields.clear();
   // must not do this as it can be a part of a larger model
 //  delete mSBase;
 
@@ -728,21 +571,6 @@ StructureFields::freeStructureMemory()
   mxDestroyArray(mxValueTypes);
 }
 
-bool
-isUnknownType(std::string tc)
-{
-  // TO DO 
-  if (tc == "(Unknown SBML Type)")
-    return true;
-  else if (tc == "(Unknown SBML Fbc Type)")
-    return true;
-  else if (tc == "(Unknown SBML Groups Type)")
-    return true;
-  else if (tc == "(Unknown SBML Qual Type)")
-    return true;
-  else
-    return false;
-}
 void
 StructureFields::determineTypeCode()
 {
@@ -820,29 +648,6 @@ StructureFields::populateFields()
 
     reportError(id, "Failed to get fieldnames");
   }
-  //exception = mexCallMATLABWithTrap(1, &mxFieldnames, numberInputs, mxInput, "getStructureFieldnames");
-  //if (exception != 0)
-  //{
-  //  mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
-
-  //  reportError(id, "Failed to get fieldnames");
-  //}
-
-  //exception = mexCallMATLABWithTrap(1, &mxDefaultValues, numberInputs, mxInput, "getDefaultValues");
-  //if (exception != 0)
-  //{
-  //    mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
-
-  //    reportError(id, "Failed to get default value");
-  //}
-
-  //exception = mexCallMATLABWithTrap(1, &mxValueTypes, numberInputs, mxInput, "getValueType");
-  //if (exception != 0)
-  //{
-  //    mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
-
-  //    reportError(id, "Failed to get value types");
-  //}
 
   mxFieldnames = mxDuplicateArray(mxOutputs[0]);
   mxDefaultValues = mxDuplicateArray(mxOutputs[1]);
@@ -861,19 +666,48 @@ StructureFields::populateFields()
   mxDestroyArray(mxOutputs[1]);
   mxDestroyArray(mxOutputs[2]);
   mxDestroyArray(mxOutputs[3]);
+
+  for (unsigned int i = 0; i < nNumberFields; ++i)
+  {
+    FieldValues_t field;
+    field.fieldName = getFieldname(i, "populate");
+    field.type = getValueType(i, "populate");
+    field.sbmlName = getSBMLName(i, "populate");
+    field.prefix = getSBMLPrefix(i, "populate");
+    field.isSBMLAttribute = getIsSBMLAttribute(i, "populate");
+    field.fieldnameType = getNameEnumType(i, "populate");
+    switch (field.type)
+    {
+    case TYPE_BOOL:
+    case TYPE_INT:
+    case TYPE_UINT:
+      getDefaultValue(i, "populate", field.iValue);
+      break;
+    case TYPE_CHAR:
+    case TYPE_UNKNOWN:
+      field.strValue = getDefaultValue(i, "populate");
+      break;
+    case TYPE_DOUBLE:
+      getDefaultValue(i, "populate", field.dValue);
+      break;
+    default:
+      break;
+    }
+    mFields.push_back(field);
+  }
 }
 
 
 const std::string
-StructureFields::getAttPrefix(unsigned int i, const std::string& id)
+StructureFields::getSBMLPrefix(unsigned int i, const std::string& id)
 {
-  mxArray* mxField = mxGetCell(mxFieldEnum, i);
+  mxArray* mxField = mxGetCell(mxFieldnames, i);
   mxArray* mxAttPrefix = mxGetCell(mxField, 2);
   size_t nBuflen = (mxGetM(mxAttPrefix)*mxGetN(mxAttPrefix) + 1);
   char * fieldname = (char *)mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxAttPrefix, (char *)fieldname, (mwSize)(nBuflen)) != 0)
   {
-    reportError(id, "Failed in getAttPrefix");
+    reportError(id, "Failed in getSBMLPrefix");
   }
   const std::string f = std::string(fieldname);
   mxFree(fieldname);
@@ -881,15 +715,15 @@ StructureFields::getAttPrefix(unsigned int i, const std::string& id)
 }
 
 const std::string
-StructureFields::getAttName(unsigned int i, const std::string& id)
+StructureFields::getSBMLName(unsigned int i, const std::string& id)
 {
-  mxArray* mxField = mxGetCell(mxFieldEnum, i);
+  mxArray* mxField = mxGetCell(mxFieldnames, i);
   mxArray* mxAttPrefix = mxGetCell(mxField, 1);
   size_t nBuflen = (mxGetM(mxAttPrefix)*mxGetN(mxAttPrefix) + 1);
   char * fieldname = (char *)mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxAttPrefix, (char *)fieldname, (mwSize)(nBuflen)) != 0)
   {
-    reportError(id, "Failed in getAttName");
+    reportError(id, "Failed in getSBMLName");
   }
   const std::string f = std::string(fieldname);
   mxFree(fieldname);
@@ -899,17 +733,28 @@ StructureFields::getAttName(unsigned int i, const std::string& id)
 bool
 StructureFields::getIsSBMLAttribute(unsigned int i, const std::string& id)
 {
-  mxArray* mxField = mxGetCell(mxFieldEnum, i);
-  mxArray* mxSBMLAtt = mxGetCell(mxField, 1);
+  mxArray* mxField = mxGetCell(mxFieldnames, i);
+  mxArray* mxSBMLAtt = mxGetCell(mxField, 3);
   int value = (int)mxGetScalar(mxSBMLAtt);
   if (value == 0) return false;
   else return true;
 }
 
+const FieldnamesType_t 
+StructureFields::getNameEnumType(unsigned int i, const std::string& id)
+{
+  mxArray* mxField = mxGetCell(mxFieldnames, i);
+  mxArray* mxSBMLAtt = mxGetCell(mxField, 4);
+  int value = (int)mxGetScalar(mxSBMLAtt);
+  return (FieldnamesType_t)(value);
+
+}
+
 const std::string
 StructureFields::getFieldname(unsigned int i, const std::string& id)
 {
-  mxArray* mxName = mxGetCell(mxFieldnames, i);
+  mxArray* mxField = mxGetCell(mxFieldnames, i);
+  mxArray* mxName = mxGetCell(mxField, 0);
   size_t nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
   char * fieldname = (char *) mxCalloc(nBuflen, sizeof(char));
   if (mxGetString(mxName, (char *) fieldname, (mwSize)(nBuflen)) != 0)
@@ -966,6 +811,7 @@ StructureFields::getValueType(unsigned int i, const std::string& id)
   return ft;
 }
 
+// only used by OutputSBML
 bool
 StructureFields::isValidSBMLAttribute(const std::string& name, SBase* base)
 {
@@ -1022,7 +868,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   char **field_names = (char**)(safe_malloc(nNumberFields * sizeof(char*)));
   for (unsigned int i = 0; i < nNumberFields; ++i)
   {
-    fieldname = getFieldname(i, functionId);
+    fieldname = mFields.at(i).fieldName;    //getFieldname(i, functionId);
     field_names[i] = (char*)(safe_malloc((fieldname.size() * sizeof(char))+ 1));
     field_names[i] = safe_strdup(fieldname.c_str());
   }
@@ -1047,50 +893,40 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
 {
   if (base == NULL) return;
 
-  std::string fieldname;
   FieldType_t type;
+  FieldnamesType_t nameType;
 
   for (unsigned int i = 0; i < nNumberFields; ++i)
   {
-    //FieldValues_t field = mFields.at(i);
-    //fieldname = field.fieldName;
-    //type = field.type;
-    //std::string prefix = field.prefix;
-    //std::string attName = field.attName;
-    fieldname = getFieldname(i, functionId);
-    type = getValueType(i, functionId);
-    std::string prefix = getPackagePrefix(fieldname);
-    std::string attName = fieldname;
-    bool usePlugin = usingPlugin(prefix, base);
-    if (prefix.size() > 0)
-    {
-      attName = removePackagePrefix(fieldname);
-    }
+    FieldValues_t field = mFields.at(i);
+    type = field.type;
+    nameType = field.fieldnameType;
+    bool usePlugin = usingPlugin(field.prefix, base);
+
     if (type == TYPE_ELEMENT)
     {
-      if (fieldname == "namespaces")
-      {
-        mxSetField(mxStructure, index, fieldname.c_str(), getNamespacesStructure());
-      }
-      else if (fieldname == "cvterms")
-      {
-        mxSetField(mxStructure, index, fieldname.c_str(), getCVTermsStructure(base));
-      }
-      else
-      {
-        StructureFields *sf = new StructureFields(attName);
-        sf->createStructure(functionId + ":" + fieldname, base, usePlugin, prefix);
-        mxSetField(mxStructure, index, fieldname.c_str(), mxDuplicateArray(sf->getStructure()));
-        delete sf;
+      switch (nameType) {
+      case OTHER_NAMESPACES:
+          mxSetField(mxStructure, index, field.fieldName.c_str(), getNamespacesStructure());
+          break;
+      case OTHER_CVTERMS:
+          mxSetField(mxStructure, index, field.fieldName.c_str(), getCVTermsStructure(base));
+          break;
+      default:
+          StructureFields *sf = new StructureFields(field.sbmlName);
+          sf->createStructure(functionId + ":" + field.fieldName, base, usePlugin, field.prefix);
+          mxSetField(mxStructure, index, field.fieldName.c_str(), mxDuplicateArray(sf->getStructure()));
+          delete sf;
+          break;
       }
     }
-    else if (anomalousMathStructures(fieldname, type))
+    else if (field.fieldnameType == OTHER_ANOMALOUS_MATH)
     {
-      addAnomalousChildStructure(functionId, base, fieldname, index, i);
+      addAnomalousChildStructure(functionId, base, index, field);
     }
     else
     {
-      addStructureField(functionId, base, fieldname, type, index, i, usePlugin, prefix, attName);
+      addStructureField(functionId, base, index, field, usePlugin);
     }
 
   }
@@ -1098,21 +934,20 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
 
 void 
 StructureFields::addAnomalousChildStructure(const std::string& functionId, SBase* base, 
-                         std::string& fieldname, 
-                         unsigned int index, unsigned int fieldIndex)
+                         unsigned int index, FieldValues_t field)
 {
   std::string value;
-  SBase* child = base->getObject(fieldname, 0);
+  SBase* child = base->getObject(field.fieldName, 0);
   if (child == NULL)
   {
-    value = getDefaultValue(fieldIndex, functionId);
+    value = field.strValue;
   }
   else
   {
     value = getMathString(child);
   }
   
-  mxSetField(mxStructure, index, fieldname.c_str() ,mxCreateString(value.c_str())); 
+  mxSetField(mxStructure, index, field.fieldName.c_str() ,mxCreateString(value.c_str())); 
 }
 
 mxArray* 
@@ -1285,59 +1120,8 @@ StructureFields::getCVTermsStructure(SBase* base)
 
 
 void
-StructureFields::addStructureField(const std::string& functionId, SBase* base, 
-                                   std::string& fieldname, FieldType_t type, 
-                                   unsigned int index, unsigned int fieldIndex,
-                                   bool usePlugin, const std::string& prefix,
-                                   const std::string& attName)
-{
-  std::string value;
-  int ivalue;
-  unsigned int uvalue;
-  bool bvalue;
-  double dvalue;
-  std::string name = fieldname;
-  if (usePlugin)
-  {
-    name = attName;
-  }
-  else if (base->getPackageName() == prefix)
-  {
-    name = attName;
-  }
-  switch(type)
-  {
-   case TYPE_UNKNOWN:
-
-   case TYPE_CHAR:
-    value = getStringValue(functionId, base, name, fieldIndex, usePlugin, prefix);
-    mxSetField(mxStructure, index, fieldname.c_str() ,mxCreateString(value.c_str())); 
-    break;
-  case TYPE_BOOL:
-    bvalue = getBoolValue(functionId, base, name, fieldIndex, usePlugin, prefix);
-    mxSetField(mxStructure, index, fieldname.c_str(), CreateIntScalar(bvalue));
-    break;
-  case TYPE_UINT:
-    uvalue = getUintValue(functionId, base, name, fieldIndex, usePlugin, prefix);
-    mxSetField(mxStructure, index, fieldname.c_str(), CreateIntScalar(uvalue));
-    break;
-  case TYPE_INT:
-    ivalue = getIntValue(functionId, base, name, fieldIndex, usePlugin, prefix);
-    mxSetField(mxStructure, index, fieldname.c_str(), CreateIntScalar(ivalue));
-    break;
-  case TYPE_DOUBLE:
-    dvalue = getDoubleValue(functionId, base, name, fieldIndex, usePlugin, prefix);
-    mxSetField(mxStructure, index, fieldname.c_str(), mxCreateDoubleScalar(dvalue));
-    break;
-  case TYPE_ELEMENT:
-  default:
-    break;
-  }
-}
-
-void
-StructureFields::addStructureFieldNew(const std::string& functionId, SBase* base,
-  unsigned int index, unsigned int fieldIndex,
+StructureFields::addStructureField(const std::string& functionId, SBase* base,
+  unsigned int index, FieldValues_t field,
   bool usePlugin)
 {
   std::string value;
@@ -1345,34 +1129,28 @@ StructureFields::addStructureFieldNew(const std::string& functionId, SBase* base
   unsigned int uvalue;
   bool bvalue;
   double dvalue;
-  FieldValues_t field = mFields.at(fieldIndex);
-  std::string name = field.fieldName;
-  if (usePlugin || base->getPackageName() == field.prefix)
-  {
-    name = field.attName;
-  }
   switch (field.type)
   {
   case TYPE_UNKNOWN:
 
   case TYPE_CHAR:
-    value = getStringValueNew(functionId, base, fieldIndex, usePlugin);
+    value = getStringValue(functionId, base, field, usePlugin);
     mxSetField(mxStructure, index, field.fieldName.c_str(), mxCreateString(value.c_str()));
     break;
   case TYPE_BOOL:
-    bvalue = getBoolValue(functionId, base, name, fieldIndex, usePlugin, field.prefix);
+    bvalue = getBoolValue(functionId, base, field, usePlugin);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(bvalue));
     break;
   case TYPE_UINT:
-    uvalue = getUintValueNew(functionId, base, fieldIndex, usePlugin);
+    uvalue = getUintValue(functionId, base, field, usePlugin);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(uvalue));
     break;
   case TYPE_INT:
-    ivalue = getIntValue(functionId, base, name, fieldIndex, usePlugin, field.prefix);
+    ivalue = getIntValue(functionId, base, field, usePlugin);
     mxSetField(mxStructure, index, field.fieldName.c_str(), CreateIntScalar(ivalue));
     break;
   case TYPE_DOUBLE:
-    dvalue = getDoubleValue(functionId, base, name, fieldIndex, usePlugin, field.prefix);
+    dvalue = getDoubleValue(functionId, base, field, usePlugin);
     mxSetField(mxStructure, index, field.fieldName.c_str(), mxCreateDoubleScalar(dvalue));
     break;
   case TYPE_ELEMENT:
@@ -1382,156 +1160,42 @@ StructureFields::addStructureFieldNew(const std::string& functionId, SBase* base
 }
 
 const std::string
-StructureFields::getStringValue(const std::string& functionId, SBase* base, 
-                                std::string& fieldname, unsigned int fieldIndex,
-                                bool usePlugin, const std::string& prefix)
-{
-  std::string value;
-  // TO DO could this be quicker
-  if (isValidSBMLAttribute(fieldname, base))
-  {
-    if (!usePlugin && base->isSetAttribute(fieldname))
-    {
-      base->getAttribute(fieldname, value);
-    }
-    else if (usePlugin && base->getPlugin(prefix)->isSetAttribute(fieldname))
-    {
-      base->getPlugin(prefix)->getAttribute(fieldname, value);
-    }
-    else if (fieldname == "notes")
-    {
-      value = base->getNotesString();
-    }
-    else if (fieldname == "annotation")
-    {
-      value = base->getAnnotationString();
-    }
-    else if (fieldname == "message")
-    {
-      value = base->getMessageString();
-    }
-    else if (fieldname == "math" || fieldname == "formula")
-    {
-      value = getMathString(base);
-    }
-#ifdef USE_FBC
-
-    else if (fieldname == "association")
-    {
-      value = static_cast<FbcAssociation*>(base)->toInfix(fbcUsingId);//FbcAssociation_toInfix(static_cast<FbcAssociation*>(base));
-    }
-#endif
-
-    else
-    {
-      value = getDefaultValue(fieldIndex, functionId);
-      if (fieldname == "type" && base->getTypeCode() == SBML_RATE_RULE)
-      {
-        value = "rate";
-      }
-    }
-  }
-  else if (fieldname == "avogadro_symbol")
-  {
-    if (!details->getAvogadroSymbol().empty())
-    {
-      value = details->getAvogadroSymbol();
-    }
-    else
-    {
-      value = getDefaultValue(fieldIndex, functionId);
-    }
-
-  }
-  else if (fieldname == "delay_symbol")
-  {
-    if (!details->getDelaySymbol().empty())
-    {
-      value = details->getDelaySymbol();
-    }
-    else
-    {
-      value = getDefaultValue(fieldIndex, functionId);
-    }
-  }
-  else if (fieldname == "time_symbol")
-  {
-    if (!details->getTimeSymbol().empty())
-    {
-      value = details->getTimeSymbol();
-    }
-    else
-    {
-      value = getDefaultValue(fieldIndex, functionId);
-    }
-  }
-  else if (fieldname == "rateOf_symbol")
-  {
-    if (!details->getRateOfSymbol().empty())
-    {
-      value = details->getRateOfSymbol();
-    }
-    else
-    {
-      value = getDefaultValue(fieldIndex, functionId);
-    }
-  }
-  else
-  {
-    value = getDefaultValue(fieldIndex, functionId);
-    /* hack for rules that all use the same fieldnames/defaults */
-    if (value == "SBML_ALGEBRAIC_RULE")
-    {
-      value = getRuleTypeCode(base);
-    }
-    else if (value == "SBML_FBC_ASSOCIATION")
-    {
-      value = getAssociationTypeCode(base);
-    }
-  }
-
-  return (const std::string)(value);
-}
-
-const std::string
-StructureFields::getStringValueNew(const std::string& functionId, SBase* base,
-  unsigned int fieldIndex,
+StructureFields::getStringValue(const std::string& functionId, SBase* base,
+  FieldValues_t field,
   bool usePlugin)
 {
   std::string value;
-  FieldValues_t field = mFields.at(fieldIndex);
 
   if (field.isSBMLAttribute)
   {
     bool useDefault = true;
-    switch (field.nameIndex.sbml)
+    switch (field.fieldnameType)
     {
-    case SBML_NAME_NOTES:
+    case SBML_NOTES:
       value = base->getNotesString();
       useDefault = false;
       break;
-    case SBML_NAME_ANNOTATION:
+    case SBML_ANNOT:
       value = base->getAnnotationString();
       useDefault = false;
       break;
-    case SBML_NAME_MESSAGE:
+    case SBML_MESSAGE:
       value = base->getMessageString();
       useDefault = false;
       break;
-    case SBML_NAME_MATH:
-    case SBML_NAME_FORMULA:
+    case SBML_MATH:
       value = getMathString(base);
       useDefault = false;
       break;
     default:
-      if (!usePlugin && base->isSetAttribute(field.fieldName))
+      if (!usePlugin && base->isSetAttribute(field.sbmlName))
       {
-        base->getAttribute(field.fieldName, value);
+        base->getAttribute(field.sbmlName, value);
         useDefault = false;
       }
-      else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.fieldName))
+      else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName))
       {
-        base->getPlugin(field.prefix)->getAttribute(field.fieldName, value);
+        base->getPlugin(field.prefix)->getAttribute(field.sbmlName, value);
         useDefault = false;
       }
       break;
@@ -1539,68 +1203,72 @@ StructureFields::getStringValueNew(const std::string& functionId, SBase* base,
     }
 #ifdef USE_FBC
 
-    if (field.fieldName == "association")
+    if (field.fieldnameType == FBC_ASSOCIATION)
     {
       value = static_cast<FbcAssociation*>(base)->toInfix(fbcUsingId);//FbcAssociation_toInfix(static_cast<FbcAssociation*>(base));
+      useDefault = false;
     }
 #endif
 
     if (useDefault)
     {
-      value = getDefaultValue(fieldIndex, functionId);
-      if (field.fieldName == "type" && base->getTypeCode() == SBML_RATE_RULE)
-      {
-        value = "rate";
-      }
+      value = field.strValue;// getDefaultValue(fieldIndex, functionId);
     }
   }
   else 
   {
-    switch (field.nameIndex.other)
+    switch (field.fieldnameType)
     {
-    case OTHER_NAME_AVOGADRO_SYMBOL:
+    case SBML_RULE_TYPE:
+      value = field.strValue;// getDefaultValue(fieldIndex, functionId);
+      if (field.fieldName == "type" && base->getTypeCode() == SBML_RATE_RULE)
+      {
+        value = "rate";
+      }
+      break;
+    case OTHER_AVOGADRO_SYMBOL:
       if (!details->getAvogadroSymbol().empty())
       {
         value = details->getAvogadroSymbol();
       }
       else
       {
-        value = getDefaultValue(fieldIndex, functionId);
+        value = field.strValue;// getDefaultValue(fieldIndex, functionId);
       }
       break;
-    case OTHER_NAME_DELAY_SYMBOL:
+    case OTHER_DELAY_SYMBOL:
       if (!details->getDelaySymbol().empty())
       {
         value = details->getDelaySymbol();
       }
       else
       {
-        value = getDefaultValue(fieldIndex, functionId);
+        value = field.strValue;// getDefaultValue(fieldIndex, functionId);
       }
       break;
-    case OTHER_NAME_TIME_SYMBOL:
+    case OTHER_TIME_SYMBOL:
       if (!details->getTimeSymbol().empty())
       {
         value = details->getTimeSymbol();
       }
       else
       {
-        value = getDefaultValue(fieldIndex, functionId);
+        value = field.strValue;// getDefaultValue(fieldIndex, functionId);
       }
       break;
-    case OTHER_NAME_RATEOF_SYMBOL:
+    case OTHER_RATEOF_SYMBOL:
       if (!details->getRateOfSymbol().empty())
       {
         value = details->getRateOfSymbol();
       }
       else
       {
-        value = getDefaultValue(fieldIndex, functionId);
+        value = field.strValue;// getDefaultValue(fieldIndex, functionId);
       }
       break;
     default:
-      value = getDefaultValue(fieldIndex, functionId);
-      /* hack for rules that all use the same fieldnames/defaults */
+      value = field.strValue;// getDefaultValue(fieldIndex, functionId);
+     /* hack for rules that all use the same fieldnames/defaults */
       if (value == "SBML_ALGEBRAIC_RULE")
       {
         value = getRuleTypeCode(base);
@@ -1617,29 +1285,30 @@ StructureFields::getStringValueNew(const std::string& functionId, SBase* base,
 }
 
 double
-StructureFields::getDoubleValue(const std::string& functionId, SBase* base, 
-                                std::string& fieldname, unsigned int fieldIndex, 
-                                bool usePlugin, const std::string& prefix)
+StructureFields::getDoubleValue(const std::string& functionId, SBase* base,
+  FieldValues_t field,
+  bool usePlugin)
 {
   double value;
-  if (isValidSBMLAttribute(fieldname))
+
+  if (field.isSBMLAttribute)
   {
-    if (!usePlugin && base->isSetAttribute(fieldname))
+    if (!usePlugin && base->isSetAttribute(field.sbmlName))
     {
-      base->getAttribute(fieldname, value);
+      base->getAttribute(field.sbmlName, value);
     }
-    else if (usePlugin && base->getPlugin(prefix)->isSetAttribute(fieldname))
+    else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName))
     {
-      base->getPlugin(prefix)->getAttribute(fieldname, value);
+      base->getPlugin(field.prefix)->getAttribute(field.sbmlName, value);
     }
     else
     {
-      getDefaultValue(fieldIndex, functionId, value);
+      value = field.dValue;
     }
   }
   else
   {
-    getDefaultValue(fieldIndex, functionId, value);
+    value = field.dValue;
   }
 
   return value;
@@ -1647,29 +1316,30 @@ StructureFields::getDoubleValue(const std::string& functionId, SBase* base,
 
 
 int
-StructureFields::getIntValue(const std::string& functionId, SBase* base, 
-                             std::string& fieldname, unsigned int fieldIndex, 
-                             bool usePlugin, const std::string& prefix)
+StructureFields::getIntValue(const std::string& functionId, SBase* base,
+  FieldValues_t field,
+  bool usePlugin)
 {
   int value;
-  if (isValidSBMLAttribute(fieldname))
+
+  if (field.isSBMLAttribute)
   {
-    if (!usePlugin && base->isSetAttribute(fieldname))
+    if (!usePlugin && base->isSetAttribute(field.sbmlName))
     {
-      base->getAttribute(fieldname, value);
+      base->getAttribute(field.sbmlName, value);
     }
-    else if (usePlugin && base->getPlugin(prefix)->isSetAttribute(fieldname))
+    else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName))
     {
-      base->getPlugin(prefix)->getAttribute(fieldname, value);
+      base->getPlugin(field.prefix)->getAttribute(field.sbmlName, value);
     }
     else
     {
-      getDefaultValue(fieldIndex, functionId, value);
+      value = field.iValue;
     }
   }
   else
   {
-    getDefaultValue(fieldIndex, functionId, value);
+    value = field.iValue;
   }
 
   return value;
@@ -1677,74 +1347,32 @@ StructureFields::getIntValue(const std::string& functionId, SBase* base,
 
 
 unsigned int
-StructureFields::getUintValue(const std::string& functionId, SBase* base, 
-                              std::string& fieldname, unsigned int fieldIndex, 
-                              bool usePlugin, const std::string& prefix)
-{
-  unsigned int value;
-  int ivalue;
-  bool useDefault = false;
-  if (isValidSBMLAttribute(fieldname))
-  {
-    if (!usePlugin && base->isSetAttribute(fieldname))
-    {
-      base->getAttribute(fieldname, value);
-    }
-    else if (usePlugin && base->getPlugin(prefix)->isSetAttribute(fieldname))
-    {
-      base->getPlugin(prefix)->getAttribute(fieldname, value);
-    }
-    else
-    {
-      getDefaultValue(fieldIndex, functionId, ivalue);
-      useDefault = true;
-    }
-  }
-  else
-  {
-    getDefaultValue(fieldIndex, functionId, ivalue);
-    useDefault = true;
-  }
-
-  if (useDefault)
-  {
-    return (unsigned int)(ivalue);
-  }
-  else
-  {
-    return value;
-  }
-}
-
-
-unsigned int
-StructureFields::getUintValueNew(const std::string& functionId, SBase* base,
-  unsigned int fieldIndex,
+StructureFields::getUintValue(const std::string& functionId, SBase* base,
+  FieldValues_t field,
   bool usePlugin)
 {
   unsigned int value;
   int ivalue;
   bool useDefault = false;
-  FieldValues_t field = mFields.at(fieldIndex);
   if (field.isSBMLAttribute)
   {
-    if (!usePlugin && base->isSetAttribute(field.fieldName))
+    if (!usePlugin && base->isSetAttribute(field.sbmlName))
     {
-      base->getAttribute(field.fieldName, value);
+      base->getAttribute(field.sbmlName, value);
     }
-    else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.fieldName))
+    else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName))
     {
-      base->getPlugin(field.prefix)->getAttribute(field.fieldName, value);
+      base->getPlugin(field.prefix)->getAttribute(field.sbmlName, value);
     }
     else
     {
-      getDefaultValue(fieldIndex, functionId, ivalue);
+      ivalue = field.iValue;// getDefaultValue(fieldIndex, functionId, ivalue);
       useDefault = true;
     }
   }
   else
   {
-    getDefaultValue(fieldIndex, functionId, ivalue);
+    ivalue = field.iValue;
     useDefault = true;
   }
 
@@ -1760,45 +1388,43 @@ StructureFields::getUintValueNew(const std::string& functionId, SBase* base,
 
 
 bool
-StructureFields::getBoolValue(const std::string& functionId, SBase* base, 
-                              std::string& fieldname, unsigned int fieldIndex, 
-                              bool usePlugin, const std::string& prefix)
+StructureFields::getBoolValue(const std::string& functionId, SBase* base,
+  FieldValues_t field,
+  bool usePlugin)
 {
   bool bvalue;
   int value;
-  if (isValidSBMLAttribute(fieldname))
+  if (field.isSBMLAttribute)
   {
-    if (!usePlugin && base->isSetAttribute(fieldname))
+    if (!usePlugin && base->isSetAttribute(field.sbmlName))
     {
-      base->getAttribute(fieldname, bvalue);
+      base->getAttribute(field.sbmlName, bvalue);
       return bvalue;
     }
-    else if (usePlugin && base->getPlugin(prefix)->isSetAttribute(fieldname))
+    else if (usePlugin && base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName))
     {
-      base->getPlugin(prefix)->getAttribute(fieldname, bvalue);
+      base->getPlugin(field.prefix)->getAttribute(field.sbmlName, bvalue);
       return bvalue;
     }
     else
     {
-      getDefaultValue(fieldIndex, functionId, value);
+      value = field.iValue;// getDefaultValue(fieldIndex, functionId, value);
     }
   }
-  else if (fieldname.find("isSet") != std::string::npos)
+  else if (field.fieldnameType == SBML_ISSET)
   {
-    std::string name = fieldname.substr(5);
-    name[0] = tolower(name[0]);
     if (!usePlugin)
     {
-      value = base->isSetAttribute(name);
+      value = base->isSetAttribute(field.sbmlName);
     }
-    else 
+    else
     {
-      value = base->getPlugin(prefix)->isSetAttribute(name);
+      value = base->getPlugin(field.prefix)->isSetAttribute(field.sbmlName);
     }
   }
   else
   {
-    getDefaultValue(fieldIndex, functionId, value);
+    value = field.iValue;// getDefaultValue(fieldIndex, functionId, value);
   }
 
   return (value == 0) ? false : true;
@@ -2114,11 +1740,11 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
   if (mxChild == NULL) return;
   else if (n == 0) return;
   std::string prefix = getPackagePrefix(name);
-  std::string attName = name;
+  std::string sbmlName = name;
   bool usePlugin = usingPlugin(prefix);
   if (prefix.size() > 0)
   {
-    attName = removePackagePrefix(name);
+    sbmlName = removePackagePrefix(name);
   }
   for (unsigned int i = 0; i < n; ++i)
   {
@@ -2131,11 +1757,11 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
     {
       if (usePlugin)
       {
-        pChild = mSBase->getPlugin(prefix)->createChildObject(attName);
+        pChild = mSBase->getPlugin(prefix)->createChildObject(sbmlName);
       }
       else
       {
-        pChild = mSBase->createChildObject(attName);
+        pChild = mSBase->createChildObject(sbmlName);
       }
     }
 
@@ -2252,11 +1878,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
   bool bvalue;
   double dvalue;
   std::string prefix = getPackagePrefix(name);
-  std::string attName = name;
+  std::string sbmlName = name;
   bool usePlugin = usingPlugin(prefix);
   if (prefix.size() > 0)
   {
-    attName = removePackagePrefix(name);
+    sbmlName = removePackagePrefix(name);
   }
   switch(type)
   {
@@ -2283,11 +1909,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(attName, value);
+        mSBase->getPlugin(prefix)->setAttribute(sbmlName, value);
       }
       else
       {
-        mSBase->setAttribute(attName, value);
+        mSBase->setAttribute(sbmlName, value);
       }
     }
     break;
@@ -2298,11 +1924,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(attName, ivalue);
+        mSBase->getPlugin(prefix)->setAttribute(sbmlName, ivalue);
       }
       else
       {
-        mSBase->setAttribute(attName, ivalue);
+        mSBase->setAttribute(sbmlName, ivalue);
       }
     }
     break;
@@ -2313,11 +1939,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(attName, uvalue);
+        mSBase->getPlugin(prefix)->setAttribute(sbmlName, uvalue);
       }
       else
       {
-        mSBase->setAttribute(attName, uvalue);
+        mSBase->setAttribute(sbmlName, uvalue);
       }
     }
     break;
@@ -2328,11 +1954,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(attName, dvalue);
+        mSBase->getPlugin(prefix)->setAttribute(sbmlName, dvalue);
       }
       else
       {
-        mSBase->setAttribute(attName, dvalue);
+        mSBase->setAttribute(sbmlName, dvalue);
       }
     }
     break;
@@ -2344,11 +1970,11 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(attName, bvalue);
+        mSBase->getPlugin(prefix)->setAttribute(sbmlName, bvalue);
       }
       else
       {
-        mSBase->setAttribute(attName, bvalue);
+        mSBase->setAttribute(sbmlName, bvalue);
       }
     }
 
