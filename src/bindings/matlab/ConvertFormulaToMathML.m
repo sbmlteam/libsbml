@@ -157,6 +157,7 @@ subIndex = 1;
 for i = 1:length(Index)
     if (LogTypes(i) == 1)
       % get x and n from (log(x)/log(n))
+      % but what if we have pow((log(x)/log(n),y)
       pairs = PairBrackets(Formula);
       for j=1:length(pairs)
         if (pairs(j,1) == Index(i))
@@ -164,11 +165,17 @@ for i = 1:length(Index)
         end;
       end;
       subFormula{subIndex} = Formula(Index(i):pairs(j,2));
-      ff = subFormula{subIndex};
-      subPairs = PairBrackets(ff);
-      x = ff(subPairs(2,1)+1:subPairs(2,2)-1);
-      n = ff(subPairs(3,1)+1:subPairs(3,2)-1);
-      newFormula{subIndex} = sprintf('log(%s,%s)', n, x);
+      comma = find(subFormula{subIndex} == ',', 1);
+      if (~isempty(comma))
+          doReplace(subIndex) = 0;
+      else
+          ff = subFormula{subIndex};
+          subPairs = PairBrackets(ff);
+          x = ff(subPairs(2,1)+1:subPairs(2,2)-1);
+          n = ff(subPairs(3,1)+1:subPairs(3,2)-1);
+          newFormula{subIndex} = sprintf('log(%s,%s)', n, x);
+          doReplace(subIndex) = 1;
+      end;
       subIndex = subIndex+1;
     end;
 
@@ -177,7 +184,9 @@ if (subIndex-1 > num)
   error('Problem');
 end;
 for i=1:num
-  y = strrep(y, subFormula{i}, newFormula{i});
+    if (doReplace(i) == 1)
+        y = strrep(y, subFormula{i}, newFormula{i});
+    end;
 end;
 function y = IsItLogBase(Formula)
 

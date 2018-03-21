@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfFunctionDefinitions>
+      <functionDefinition id="function_6" name="Function for ATP_SYN_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> ADP </ci>
+            </bvar>
+            <bvar>
+              <ci> ATP </ci>
+            </bvar>
+            <bvar>
+              <ci> Hin </ci>
+            </bvar>
+            <bvar>
+              <ci> Hout </ci>
+            </bvar>
+            <bvar>
+              <ci> Keq </ci>
+            </bvar>
+            <bvar>
+              <ci> P </ci>
+            </bvar>
+            <bvar>
+              <ci> Vmax </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Vmax </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> Hout </ci>
+                          <ci> Hin </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <cn type="integer"> 10 </cn>
+                      </apply>
+                    </apply>
+                    <cn type="integer"> 4 </cn>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> Hout </ci>
+                          <ci> Hin </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <cn type="integer"> 10 </cn>
+                      </apply>
+                    </apply>
+                    <cn type="integer"> 4 </cn>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> ADP </ci>
+                  <ci> P </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> ATP </ci>
+                  <ci> Keq </ci>
+                </apply>
+              </apply>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+  </model>
+</sbml>

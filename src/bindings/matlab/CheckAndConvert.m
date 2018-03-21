@@ -201,13 +201,13 @@ else
         else
 
             % find the opening bracket
-            Open = ismember(OpenBracket, LogIndex(i)+3) == 1;
+            Open = find(ismember(OpenBracket, LogIndex(i)+3) == 1,1);
 
             % find closing bracket
             Close = find(CloseBracket > LogIndex(i)+3, 1);
 
             % is there a comma between
-            Greater = find(Comma > OpenBracket(Open));
+            Greater = find(Comma > OpenBracket(Open),1);
             Less = find(Comma < CloseBracket(Close));
 
             if (isempty(Greater) || isempty(Less))
