@@ -72,6 +72,14 @@ public:
    * @return @c true if id is already in this IdList, @c false otherwise.
    */
   bool contains (const std::string& id) const;
+  
+  /**
+   * Returns @c true if this IdList is empty, @c false otherwise.
+   * 
+   * @return @c true if this IdList is empty, @c false otherwise.
+   */
+  bool empty() const;
+  
 
   /**
    * Removes all ids in this IdList before the given @p id.

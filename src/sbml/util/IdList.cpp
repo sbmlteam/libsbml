@@ -123,6 +123,15 @@ IdList::end () const
   return mIds.end();
 }
 #endif
+
+
+bool
+IdList::empty() const
+{
+  return mIds.empty();
+}
+
+
 /**
  * @return true if id is already in this IdList, false otherwise.
  */
