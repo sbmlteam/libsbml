@@ -118,7 +118,7 @@ class ListIterator;
  * This class implements the children of the List class, storing the 
  * item itself, and a pointer to the next item in the list.
  */
-class ListNode
+class LIBSBML_EXTERN ListNode
 {
 public:
   ListNode (void* x): item(x), next(NULL) { }
@@ -133,7 +133,7 @@ public:
   void * getItem() { return item;} ;
 };
 
-class ListIterator
+class LIBSBML_EXTERN ListIterator
 {
 	/* Helper class to provide pointer like facilities around a node */
 	friend class List;
