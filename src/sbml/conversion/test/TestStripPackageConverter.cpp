@@ -120,7 +120,7 @@ START_TEST (test_strip_comp)
 }
 END_TEST
 
-START_TEST(test_strip_unkown)
+START_TEST(test_strip_unknown)
 {
   const std::string model =
     "<?xml version='1.0' encoding='UTF-8'?>\n"
@@ -146,6 +146,36 @@ START_TEST(test_strip_unkown)
 }
 END_TEST
 
+START_TEST(test_strip_unknown_1)
+{
+  const std::string model =
+    "<?xml version='1.0' encoding='UTF-8'?>\n"
+    "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' level='3' version='1' "
+    "xmlns:pkg1='http://www.sbml.org/sbml/level3/version1/pkg1/version1' pkg1:required='true' "
+    "xmlns:pkg2='http://www.sbml.org/sbml/level3/version1/pkg2/version1' pkg2:required='true' "
+    "xmlns:pkg3='http://www.sbml.org/sbml/level3/version1/pkg3/version1' pkg3:required='false' "
+    ">\n\t<model/>\n"
+    "</sbml>";
+
+  SBMLDocument* doc = readSBMLFromString(model.c_str());
+  fail_unless(doc->getNumUnknownPackages() == 3);
+
+  ConversionProperties props;
+  props.addOption("stripPackage", true);
+
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(doc->getNumUnknownPackages() == 3);
+
+  props.addOption("package", "pkg1,pkg3");
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(doc->getNumUnknownPackages() == 1);
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestStripPackageConverter (void)
 { 
@@ -155,7 +185,8 @@ create_suite_TestStripPackageConverter (void)
 
   tcase_add_test(tcase, test_strip_unknownreq);
   tcase_add_test(tcase, test_strip_comp);
-  tcase_add_test(tcase, test_strip_unkown);
+  tcase_add_test(tcase, test_strip_unknown);
+  tcase_add_test(tcase, test_strip_unknown_1);
 
   suite_add_tcase(suite, tcase);
 
