@@ -240,7 +240,24 @@ public:
    */
   bool getContainsUndeclaredUnits();
 
-  /** 
+  /**
+  * Get the current value of the "containsInconsistentUnits" flag for this
+  * UnitFormulaFormatter.
+  *
+  * @return @c true if the math last processed by the UnitFormulaFormatter
+  * includes an expression for which units are inconsistent e.g., mole + second.
+.
+  *
+  * @note Each time the getUnitDefinition function is called by the
+  * UnitFormulaFormatter the value of the "containsInconsistentUnits"
+  * flag may change. These flags
+  * are specific to the ASTNode for which units are being derived.
+  *
+  * @see resetFlags()
+  */
+  bool getContainsInconsistentUnits();
+
+  /**
    * Resets the "containsUndeclaredUnits" and "canIgnoreUndeclaredUnits" flags
    * to their initial values.
    *
@@ -362,6 +379,7 @@ private:
   /* @cond doxygenLibsbmlInternal */
   const Model * model;
   bool mContainsUndeclaredUnits;
+  bool mContainsInconsistentUnits;
   unsigned int mCanIgnoreUndeclaredUnits;
 
   /* a depth of recursive call of getUnitDefinition()*/
@@ -369,7 +387,8 @@ private:
 
   std::map<const ASTNode*, UnitDefinition*> unitDefinitionMap;
   std::map<const ASTNode*, bool>            undeclaredUnitsMap;
-  std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;  
+  std::map<const ASTNode*, bool>            inconsistentUnitsMap;
+  std::map<const ASTNode*, unsigned int>    canIgnoreUndeclaredUnitsMap;
 
   UnitDefinition * inverseFunctionOnUnits(UnitDefinition* expectedUD,
     const ASTNode * math, ASTNodeType_t functionType, bool inKL, int reactNo, 

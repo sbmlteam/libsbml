@@ -292,7 +292,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   ud = unitFormat->getUnitDefinition(node.getChild(i), inKL, reactNo);
 
   /* get the first child that is not a parameter with undeclared units */
-  while (unitFormat->getContainsUndeclaredUnits() && 
+  while ((unitFormat->getContainsUndeclaredUnits() || (ud != NULL && ud->getNumUnits() == 0)) && 
     i < node.getNumChildren()-1)
   {
     delete ud; 

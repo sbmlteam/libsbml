@@ -49,6 +49,7 @@ FormulaUnitsData::FormulaUnitsData()
   mUnitReferenceId = "";
   mContainsUndeclaredUnits = false;
   mCanIgnoreUndeclaredUnits = true;
+  mContainsInconsistency = false;
   mTypeOfElement = SBML_UNKNOWN;
   mUnitDefinition = 
     new UnitDefinition(SBMLDocument::getDefaultLevel(), 
@@ -71,6 +72,7 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
   : mUnitReferenceId ( orig.mUnitReferenceId )
   , mContainsUndeclaredUnits ( orig.mContainsUndeclaredUnits )
   , mCanIgnoreUndeclaredUnits ( orig.mCanIgnoreUndeclaredUnits )
+  , mContainsInconsistency ( orig.mContainsInconsistency)
   , mTypeOfElement ( orig.mTypeOfElement )
   , mUnitDefinition ( NULL )
   , mPerTimeUnitDefinition ( NULL )
@@ -120,6 +122,7 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
     mContainsUndeclaredUnits = 
                             rhs.mContainsUndeclaredUnits;
     mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
+    mContainsInconsistency = rhs.mContainsInconsistency;
     mTypeOfElement = rhs.mTypeOfElement;
 
     delete mUnitDefinition;
@@ -272,13 +275,29 @@ FormulaUnitsData::getCanIgnoreUndeclaredUnits()
 }
 
 /**
-  * @return @c true if the parameters/numbers 
-  * with undeclared units can be ignored, @c false otherwise.
   */
 bool 
-FormulaUnitsData::getCanIgnoreUndeclaredUnits() const 
+FormulaUnitsData::getContainsInconsistency() const 
 { 
-  return mCanIgnoreUndeclaredUnits; 
+  return mContainsInconsistency; 
+}
+
+/**
+*/
+bool
+FormulaUnitsData::getContainsInconsistency()
+{
+  return mContainsInconsistency;
+}
+
+/**
+* @return @c true if the parameters/numbers
+* with undeclared units can be ignored, @c false otherwise.
+*/
+bool
+FormulaUnitsData::getCanIgnoreUndeclaredUnits() const
+{
+  return mCanIgnoreUndeclaredUnits;
 }
 
 /**
@@ -446,6 +465,13 @@ void
 FormulaUnitsData::setCanIgnoreUndeclaredUnits(bool flag)
 { 
   mCanIgnoreUndeclaredUnits = flag; 
+}
+
+
+void
+FormulaUnitsData::setContainsInconsistency(bool flag)
+{
+  mContainsInconsistency = flag;
 }
 
 /**

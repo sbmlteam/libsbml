@@ -852,7 +852,7 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
     if (getLevel() == 1) 
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "SBML Level 1 does not support MathML.");
+         "SBML Level 1 does not support MathML.");
       delete mMath;
       return false;
     }
@@ -862,8 +862,8 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
       if (getLevel() < 3) 
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <math> element is permitted inside a "
-	        "particular containing element.");
+          "Only one <math> element is permitted inside a "
+          "particular containing element.");
       }
       else
       {
@@ -937,13 +937,13 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes,
   {
   case 1:
     logError(NotSchemaConformant, level, version,
-	      "InitialAssignment is not a valid component for this level/version.");
+        "InitialAssignment is not a valid component for this level/version.");
     break;
   case 2:
     if (version == 1)
     {
       logError(NotSchemaConformant, level, version,
-	        "InitialAssignment is not a valid component for this level/version.");
+          "InitialAssignment is not a valid component for this level/version.");
     }
     else
     {
@@ -988,7 +988,7 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version == 2)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
 }
 /** @endcond */
 

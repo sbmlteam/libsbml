@@ -6640,6 +6640,7 @@ Model::createUnitsDataFromMath(UnitFormulaFormatter * unitFormatter,
                               (unitFormatter->getContainsUndeclaredUnits());
     fud->setCanIgnoreUndeclaredUnits
                                 (unitFormatter->canIgnoreUndeclaredUnits());
+    fud->setContainsInconsistency(unitFormatter->getContainsInconsistentUnits());
   }
 
   fud->setUnitDefinition(ud);

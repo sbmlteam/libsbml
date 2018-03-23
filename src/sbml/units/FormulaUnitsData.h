@@ -228,6 +228,26 @@ public:
 
 
   /**
+  * Get the value of the "containsInconsistency" flag for this
+  * FormulaUnitsData.
+  *
+  * @return @c true if the FormulaUnitsData includes a math expression
+  * for which units are inconsistent e.g., mole + second, @c false otherwise.
+  */
+  bool getContainsInconsistency();
+
+
+  /**
+  * Get the value of the "containsInconsistency" flag for this
+  * FormulaUnitsData.
+  *
+  * @return @c true if the FormulaUnitsData includes a math expression
+  * for which units are inconsistent e.g., mole + second, @c false otherwise.
+  */
+  bool getContainsInconsistency() const;
+
+
+  /**
    * Get the unit definition for this FormulaUnitsData.
    * 
    * @return the UnitDefinition object of this FormulaUnitsData.
@@ -344,6 +364,17 @@ public:
 
 
   /**
+  * Sets the value of the "containsInconsistency" flag for this
+  * FormulaUnitsData.
+  *
+  * @param flag boolean value indicating whether the FormulaUnitsData
+  * includes includes a math expression
+  * for which units are inconsistent e.g., mole + second.
+  */
+  void setContainsInconsistency(bool flag);
+
+
+  /**
    * Set the unit definition for this FormulaUnitsData.
    * 
    * @param ud the UnitDefinition object constructed to represent
@@ -381,6 +412,7 @@ protected:
 
     bool mContainsUndeclaredUnits;
     bool mCanIgnoreUndeclaredUnits;
+    bool mContainsInconsistency;
 
     int mTypeOfElement;
 

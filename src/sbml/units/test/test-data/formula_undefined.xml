@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+<model id="undefinedUnits">
+  <listOfParameters>
+    <parameter id="p" value="1" constant="true"/>
+    <parameter id="p1" units="mole" value="1" constant="true"/>
+    <parameter id="p2" units="second" value="1" constant="true"/>
+    <parameter id="k1" constant="false"/>
+    <parameter id="k2" constant="false"/>
+    <parameter id="k3" constant="false"/>
+    <parameter id="k4" constant="false"/>
+    <parameter id="k5" constant="false"/>
+    <parameter id="k6" constant="false"/>
+    <parameter id="k7" constant="false"/>
+    <parameter id="m1" constant="false"/>
+    <parameter id="m2" constant="false"/>
+    <parameter id="m3" constant="false"/>
+    <parameter id="m4" constant="false"/>
+    <parameter id="m5" constant="false"/>
+    <parameter id="m6" constant="false"/>
+    <parameter id="m7" constant="false"/>
+  </listOfParameters>
+	<listOfInitialAssignments>
+		<initialAssignment symbol="k1">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<apply>
+					<plus/>
+					<ci> p1 </ci>
+					<cn> 2 </cn>
+				</apply>
+			</math>
+		</initialAssignment>
+	  <initialAssignment symbol="k2">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p2 </ci>
+	        <ci> p1 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="k3">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p1 </ci>
+	        <ci> p2 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="k4">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p1 </ci>
+	        <ci> p2 </ci>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="k5">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p2 </ci>
+	        <ci> p1 </ci>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="k6">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="k7">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <plus/>
+	        <ci> p </ci>
+	        <ci> p2 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m1">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p1 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m2">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p2 </ci>
+	        <ci> p1 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m3">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p1 </ci>
+	        <ci> p2 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m4">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p1 </ci>
+	        <ci> p2 </ci>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m5">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p2 </ci>
+	        <ci> p1 </ci>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m6">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>
+	  <initialAssignment symbol="m7">
+	    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	      <apply>
+	        <times/>
+	        <ci> p </ci>
+	        <ci> p2 </ci>
+	        <cn> 2 </cn>
+	      </apply>
+	    </math>
+	  </initialAssignment>	</listOfInitialAssignments>        
+</model>
+</sbml>
