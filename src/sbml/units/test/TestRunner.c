@@ -107,21 +107,21 @@ main (void)
   int num_failed;
 
   setTestDataDirectory();
-  SRunner *runner = srunner_create( create_suite_DerivedUnitDefinitionUndefined() );
+//  SRunner *runner = srunner_create( create_suite_DerivedUnitDefinitionUndefined() );
 
 
-  //SRunner *runner = srunner_create( create_suite_UtilsUnit() );
+  SRunner *runner = srunner_create( create_suite_UtilsUnit() );
 
-  //srunner_add_suite( runner, create_suite_UtilsUnitDefinition  () );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter () );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
-  //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
-  //srunner_add_suite( runner, create_suite_FormulaUnitsDataMap());
-  //srunner_add_suite( runner, create_suite_DerivedUnitDefinition() );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter2() );
-  //srunner_add_suite( runner, create_suite_CalcUnitDefinition() );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter3() );
-  //srunner_add_suite( runner, create_suite_DerivedUnitDefinitionUndefined() );
+  srunner_add_suite( runner, create_suite_UtilsUnitDefinition  () );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter () );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
+  srunner_add_suite( runner, create_suite_FormulaUnitsData() );
+  srunner_add_suite( runner, create_suite_FormulaUnitsDataMap());
+  srunner_add_suite( runner, create_suite_DerivedUnitDefinition() );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter2() );
+  srunner_add_suite( runner, create_suite_CalcUnitDefinition() );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter3() );
+  srunner_add_suite( runner, create_suite_DerivedUnitDefinitionUndefined() );
   
 
 

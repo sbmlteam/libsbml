@@ -1460,11 +1460,7 @@ Unit::areIdentical(Unit * unit1, Unit * unit2)
   if (!strcmp(UnitKind_toString(unit1->getKind()), 
               UnitKind_toString(unit2->getKind())))
   {
-    if (unit1->getKind() == UNIT_KIND_DIMENSIONLESS)
-    {
-      identical = true;
-    }
-    else if ((isEqual(unit1->getMultiplier(), unit2->getMultiplier()))
+    if ((isEqual(unit1->getMultiplier(), unit2->getMultiplier()))
       && (unit1->getScale()     == unit2->getScale())
       && (unit1->getOffset()    == unit2->getOffset())
       && (unit1->getExponent()  == unit2->getExponent()))
