@@ -385,15 +385,16 @@ START_TEST (test_getUnitDefinition_power_nondim_param_exponent)
   UnitDefinition * ud = NULL;
     
   ud = uff->getUnitDefinition(node);
+  fail_unless(uff->getContainsInconsistentUnits() == true);
   
-  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
   fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud != NULL);
-  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getNumUnits() == 0);
 
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-  fail_unless(util_isEqual(ud->getUnit(0)->getExponentAsDouble(), 1));
+  //fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  //fail_unless(util_isEqual(ud->getUnit(0)->getExponentAsDouble(), 1));
 
   delete node;
   delete ud;

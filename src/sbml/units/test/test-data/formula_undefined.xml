@@ -3,9 +3,11 @@
 <model id="undefinedUnits">
   <listOfParameters>
     <parameter id="p" value="1" constant="true"/>
-    <parameter id="p1" units="mole" value="1" constant="true"/>
+  	<parameter id="bad_num" units="dimensionless" constant="true"/>
+  	<parameter id="p1" units="mole" value="1" constant="true"/>
     <parameter id="p2" units="second" value="1" constant="true"/>
-    <parameter id="k1" constant="false"/>
+  	<parameter id="p3" units="volt" value="1" constant="true"/>
+  	<parameter id="k1" constant="false"/>
     <parameter id="k2" constant="false"/>
     <parameter id="k3" constant="false"/>
     <parameter id="k4" constant="false"/>
@@ -19,8 +21,60 @@
     <parameter id="m5" constant="false"/>
     <parameter id="m6" constant="false"/>
     <parameter id="m7" constant="false"/>
+  	<parameter id="o1" constant="false"/>
+  	<parameter id="o2" constant="false"/>
+  	<parameter id="o3" constant="false"/>
+  	<parameter id="o4" constant="false"/>
   </listOfParameters>
 	<listOfInitialAssignments>
+		<initialAssignment symbol="o4">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<apply>
+					<root/>
+					<ci> bad_num </ci>
+					
+					
+					<ci> p1 </ci>
+					
+					
+				</apply>
+			</math>
+		</initialAssignment>
+		<initialAssignment symbol="o3">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<apply>
+					<root/>
+					<ci> p1 </ci>
+					<apply>
+						<plus/>
+						<ci> p2 </ci>
+						<ci> p3 </ci>
+						</apply>
+				</apply>
+			</math>
+		</initialAssignment>
+		<initialAssignment symbol="o2">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<apply>
+					<root/>
+					<ci> p1 </ci>
+
+
+						<ci> p2 </ci>
+
+					
+				</apply>
+			</math>
+		</initialAssignment>
+				<initialAssignment symbol="o1">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<apply>
+					<power/>
+					<ci> p1 </ci>
+					<ci> p2 </ci>
+				</apply>
+			</math>
+		</initialAssignment>
 		<initialAssignment symbol="k1">
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 				<apply>

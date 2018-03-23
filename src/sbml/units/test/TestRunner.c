@@ -107,7 +107,7 @@ main (void)
   int num_failed;
 
   setTestDataDirectory();
-//  SRunner *runner = srunner_create( create_suite_DerivedUnitDefinitionUndefined() );
+  //SRunner *runner = srunner_create( create_suite_DerivedUnitDefinitionUndefined() );
 
 
   SRunner *runner = srunner_create( create_suite_UtilsUnit() );

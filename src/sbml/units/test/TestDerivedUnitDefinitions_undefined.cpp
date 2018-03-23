@@ -306,6 +306,53 @@ START_TEST(test_DerivedUnitDefinitionUndefined_p_times_p2_times_2)
 END_TEST
 
 
+START_TEST(test_DerivedUnitDefinitionUndefined_p1_power_p2)
+{
+  const UnitDefinition *fud = m->getInitialAssignment("o1")
+    ->getDerivedUnitDefinition();
+
+  fail_unless(fud->getNumUnits() == 0);
+
+  fail_unless(m->getInitialAssignment("o1")->containsUndeclaredUnits() == false);
+}
+END_TEST
+
+
+START_TEST(test_DerivedUnitDefinitionUndefined_p1_root_p2)
+{
+  const UnitDefinition *fud = m->getInitialAssignment("o2")
+    ->getDerivedUnitDefinition();
+
+  fail_unless(fud->getNumUnits() == 0);
+
+  fail_unless(m->getInitialAssignment("o2")->containsUndeclaredUnits() == false);
+}
+END_TEST
+
+
+START_TEST(test_DerivedUnitDefinitionUndefined_p1_root_p2_plus_p3)
+{
+  const UnitDefinition *fud = m->getInitialAssignment("o3")
+    ->getDerivedUnitDefinition();
+
+  fail_unless(fud->getNumUnits() == 0);
+
+  fail_unless(m->getInitialAssignment("o3")->containsUndeclaredUnits() == false);
+}
+END_TEST
+
+
+START_TEST(test_DerivedUnitDefinitionUndefined_p1_root_bad_num)
+{
+  const UnitDefinition *fud = m->getInitialAssignment("o4")
+    ->getDerivedUnitDefinition();
+
+  fail_unless(fud->getNumUnits() == 0);
+
+  fail_unless(m->getInitialAssignment("o4")->containsUndeclaredUnits() == false);
+}
+END_TEST
+
 Suite *
 create_suite_DerivedUnitDefinitionUndefined (void)
 {
@@ -330,6 +377,10 @@ create_suite_DerivedUnitDefinitionUndefined (void)
   tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p2_times_p1);
   tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p_times_2);
   tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p_times_p2_times_2);
+  tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p1_power_p2);
+  tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p1_root_p2);
+  tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p1_root_p2_plus_p3);
+  tcase_add_test(tcase, test_DerivedUnitDefinitionUndefined_p1_root_bad_num);
   suite_add_tcase(suite, tcase);
 
   return suite;

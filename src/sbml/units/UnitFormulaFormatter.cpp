@@ -622,6 +622,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   ASTNode * exponentNode = node->getRightChild();
 
   // is the exponent dimensionless or a number because if not it is a problem
+  bool inconsistent = false;
   UnitDefinition* exponentUD = getUnitDefinition(exponentNode, inKL, reactNo);
   UnitDefinition::simplify(exponentUD);
 
@@ -643,12 +644,24 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     mContainsUndeclaredUnits = varHasUndeclared;
     mCanIgnoreUndeclaredUnits = varCanIgnoreUndeclared;
   }
+  else if (exponentUD != NULL && exponentUD->getNumUnits() > 0)
+  {
+    inconsistent = true;
+  }
   else
   {
     mContainsUndeclaredUnits = true;
   }
   
   delete exponentUD;
+  if (inconsistent)
+  {
+    for (unsigned int n = variableUD->getNumUnits(); n > 0; --n)
+    {
+      variableUD->removeUnit(n-1);
+    }
+    mContainsInconsistentUnits = true;
+  }
 
   return variableUD;
 
@@ -738,6 +751,8 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
     child = node->getLeftChild();
   }
 
+  bool inconsistent = false;
+
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
     unit = tempUD->getUnit(i);
@@ -765,37 +780,51 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
       {
 
         tempUD2 = getUnitDefinition(child, inKL, reactNo);
-        UnitDefinition::simplify(tempUD2);
-
-        if (tempUD2->isVariantOfDimensionless())
+        if (tempUD2 && tempUD2->getNumUnits() > 0)
         {
-          SBMLTransforms::mapComponentValues(model);
-          double value = SBMLTransforms::evaluateASTNode(child);
-          SBMLTransforms::clearComponentValues();
-          if (!util_isNaN(value))
+          UnitDefinition::simplify(tempUD2);
+
+          if (tempUD2->isVariantOfDimensionless())
           {
-            double doubleExponent = 
-                                double(unit->getExponent())/value;
-            //if (floor(doubleExponent) != doubleExponent)
+            SBMLTransforms::mapComponentValues(model);
+            double value = SBMLTransforms::evaluateASTNode(child);
+            SBMLTransforms::clearComponentValues();
+            if (!util_isNaN(value))
+            {
+              double doubleExponent =
+                double(unit->getExponent()) / value;
+              //if (floor(doubleExponent) != doubleExponent)
               unit->setExponentUnitChecking(doubleExponent);
-//              mContainsUndeclaredUnits = true;
-//            unit->setExponentUnitChecking((int)(unit->getExponent()/value));
+              //              mContainsUndeclaredUnits = true;
+              //            unit->setExponentUnitChecking((int)(unit->getExponent()/value));
+            }
+            else
+            {
+              inconsistent = true;
+            }
           }
           else
           {
-            mContainsUndeclaredUnits = true;
+            /* here the child is an expression with units
+            * flag the expression as not checked
+            */
+            inconsistent = true;
           }
         }
         else
         {
-          /* here the child is an expression with units
-          * flag the expression as not checked
-          */
           mContainsUndeclaredUnits = true;
         }
       }
     }
-    ud->addUnit(unit);
+    if (!inconsistent)
+    {
+      ud->addUnit(unit);
+    }
+    else
+    {
+      mContainsInconsistentUnits = true;
+    }
   }
 
   delete tempUD;
