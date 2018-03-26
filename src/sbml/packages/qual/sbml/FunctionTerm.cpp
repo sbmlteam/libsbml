@@ -33,6 +33,7 @@
 
 
 #include <sbml/packages/qual/sbml/FunctionTerm.h>
+#include <sbml/packages/qual/sbml/Transition.h>
 #include <sbml/packages/qual/validator/QualSBMLError.h>
 #include <sbml/math/MathML.h>
 #include <sbml/util/ElementFilter.h>
@@ -706,14 +707,35 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
               getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
+        std::stringstream msg;
+        msg << "The resultLevel of the <functionTerm> ";
+        if (isSetId()) {
+          msg << "with id '" << getId() << "' ";
+        }
+        Transition* t = static_cast<Transition*>(getAncestorOfType(SBML_QUAL_TRANSITION, "qual"));
+        if (t != NULL && t->isSetId())
+        {
+          msg << "listed in the <transition> with id '" << t->getId() << "' ";
+        }
+        msg << "is not an integer.";
         getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeInteger,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
       }
       else
       {
-        std::string message = "Qual attribute 'resultLevel' is missing.";
+        std::stringstream msg;
+        msg << "Qual attribute 'resultLevel' is missing on the <functionTerm> ";
+        if (isSetId()) {
+          msg << "with id '" << getId() << "' ";
+        }
+        Transition* t = static_cast<Transition*>(getAncestorOfType(SBML_QUAL_TRANSITION, "qual"));
+        if (t != NULL && t->isSetId())
+        {
+          msg << "listed in the <transition> with id '" << t->getId() << "' ";
+        }
+        msg << ".";
         getErrorLog()->logPackageError("qual", QualFuncTermAllowedAttributes,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
       }
     }
   }
