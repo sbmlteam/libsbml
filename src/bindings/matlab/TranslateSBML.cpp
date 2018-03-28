@@ -569,6 +569,7 @@ StructureFields::freeStructureMemory()
   mxDestroyArray(mxFieldnames);
   mxDestroyArray(mxDefaultValues);
   mxDestroyArray(mxValueTypes);
+  if (mxStructure) mxDestroyArray(mxStructure);
 }
 
 void
@@ -594,41 +595,38 @@ StructureFields::determineTypeCode()
 void
 StructureFields::populateFields()
 {
-  int numberInputs = 3;
   // the array size will need to accomadate all packages
   PkgMap pm = details->getPackages();
-  mxArray *mxInput[5];
   mxArray *mxOutputs[4];
-
-  std::string id = std::string("StructureFields:populateFields:") + sbmlTC;
-
-  // hack for level 1 rules
-  if (sbmlTC == "AssignmentRule" || sbmlTC == "RateRule")
-  {
-    int L1TC = ((Rule*)(mSBase))->getL1TypeCode();
-    if (L1TC == SBML_UNKNOWN)
-    {
-      mxInput[0] = mxCreateString(sbmlTC.c_str());
-    }
-    else
-    {
-      mxInput[0] = mxCreateString(SBMLTypeCode_toString(L1TC, "core"));
-    }
-  }
-  else
-  {
-    mxInput[0] = mxCreateString(sbmlTC.c_str());
-  }
-  mxInput[1] = CreateIntScalar(details->getLevel());
-  mxInput[2] = CreateIntScalar(details->getVersion());
-
-  // need to add inputs for any plugins
   unsigned int numPlugins = (unsigned int)(pm.size());
   if (numPlugins > 0)
   {
-    mwSize dims[1] = {numPlugins};
-    numberInputs = 5;
+    int numberInputs = 5;
 
+    mxArray *mxInput[5];
+
+    std::string id = std::string("StructureFields:populateFields:") + sbmlTC;
+
+    // hack for level 1 rules
+    if (sbmlTC == "AssignmentRule" || sbmlTC == "RateRule")
+    {
+      int L1TC = ((Rule*)(mSBase))->getL1TypeCode();
+      if (L1TC == SBML_UNKNOWN)
+      {
+        mxInput[0] = mxCreateString(sbmlTC.c_str());
+      }
+      else
+      {
+        mxInput[0] = mxCreateString(SBMLTypeCode_toString(L1TC, "core"));
+      }
+    }
+    else
+    {
+      mxInput[0] = mxCreateString(sbmlTC.c_str());
+    }
+    mxInput[1] = CreateIntScalar(details->getLevel());
+    mxInput[2] = CreateIntScalar(details->getVersion());
+    mwSize dims[1] = { numPlugins };
     mxInput[3] = mxCreateCellArray(1, dims);
     mxInput[4] = mxCreateDoubleMatrix(1, numPlugins, mxREAL);
     double *pinput4 = mxGetPr(mxInput[4]);
@@ -639,14 +637,60 @@ StructureFields::populateFields()
       pinput4[inputCount] = it->second;
       inputCount++;
     }
-  }
-  mxArray * exception = NULL;
-  exception = mexCallMATLABWithTrap(4, mxOutputs, numberInputs, mxInput, "getStructure");
-  if (exception != 0)
-  {
-    mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
 
-    reportError(id, "Failed to get fieldnames");
+    mxArray * exception = NULL;
+    exception = mexCallMATLABWithTrap(4, mxOutputs, numberInputs, mxInput, "getStructure");
+    if (exception != 0)
+    {
+      mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
+
+      reportError(id, "Failed to get fieldnames");
+    }
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxInput[1]);
+    mxDestroyArray(mxInput[2]);
+    mxDestroyArray(mxInput[3]);
+    mxDestroyArray(mxInput[4]);
+  }
+  else
+  {
+    int numberInputs = 3;
+
+    mxArray *mxInput[3];
+
+    std::string id = std::string("StructureFields:populateFields:") + sbmlTC;
+
+    // hack for level 1 rules
+    if (sbmlTC == "AssignmentRule" || sbmlTC == "RateRule")
+    {
+      int L1TC = ((Rule*)(mSBase))->getL1TypeCode();
+      if (L1TC == SBML_UNKNOWN)
+      {
+        mxInput[0] = mxCreateString(sbmlTC.c_str());
+      }
+      else
+      {
+        mxInput[0] = mxCreateString(SBMLTypeCode_toString(L1TC, "core"));
+      }
+    }
+    else
+    {
+      mxInput[0] = mxCreateString(sbmlTC.c_str());
+    }
+    mxInput[1] = CreateIntScalar(details->getLevel());
+    mxInput[2] = CreateIntScalar(details->getVersion());
+
+    mxArray * exception = NULL;
+    exception = mexCallMATLABWithTrap(4, mxOutputs, numberInputs, mxInput, "getStructure");
+    if (exception != 0)
+    {
+      mexCallMATLAB(0, (mxArray **)NULL, 1, &exception, "throw");
+
+      reportError(id, "Failed to get fieldnames");
+    }
+    mxDestroyArray(mxInput[0]);
+    mxDestroyArray(mxInput[1]);
+    mxDestroyArray(mxInput[2]);
   }
 
   mxFieldnames = mxDuplicateArray(mxOutputs[0]);
@@ -654,14 +698,6 @@ StructureFields::populateFields()
   mxValueTypes = mxDuplicateArray(mxOutputs[2]);
   nNumberFields = (int)mxGetScalar(mxOutputs[3]);
 
-  mxDestroyArray(mxInput[0]);
-  mxDestroyArray(mxInput[1]);
-  mxDestroyArray(mxInput[2]);
-  if (numPlugins > 0)
-  {
-    mxDestroyArray(mxInput[3]);
-    mxDestroyArray(mxInput[4]);
-  }
   mxDestroyArray(mxOutputs[0]);
   mxDestroyArray(mxOutputs[1]);
   mxDestroyArray(mxOutputs[2]);
@@ -868,7 +904,7 @@ StructureFields::createStructure(const std::string& functionId, SBase* base,
   char **field_names = (char**)(safe_malloc(nNumberFields * sizeof(char*)));
   for (unsigned int i = 0; i < nNumberFields; ++i)
   {
-    fieldname = mFields.at(i).fieldName;    //getFieldname(i, functionId);
+    fieldname = mFields.at(i).fieldName;
     field_names[i] = (char*)(safe_malloc((fieldname.size() * sizeof(char))+ 1));
     field_names[i] = safe_strdup(fieldname.c_str());
   }
@@ -916,6 +952,7 @@ StructureFields::populateStructure(const std::string& functionId, SBase* base, u
           StructureFields *sf = new StructureFields(field.sbmlName);
           sf->createStructure(functionId + ":" + field.fieldName, base, usePlugin, field.prefix);
           mxSetField(mxStructure, index, field.fieldName.c_str(), mxDuplicateArray(sf->getStructure()));
+          sf->freeStructureMemory();
           delete sf;
           break;
       }
