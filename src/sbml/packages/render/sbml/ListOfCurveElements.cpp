@@ -31,21 +31,54 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "ListOfCurveElements.h"
-#include "RenderPoint.h"
-#include "RenderCubicBezier.h"
+#include <sbml/packages/render/sbml/ListOfCurveElements.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
+#include <sbml/packages/render/sbml/RenderCubicBezier.h>
+#include <sbml/packages/render/sbml/RenderPoint.h>
 
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 
 #include <assert.h>
+using namespace std;
+
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string ListOfCurveElements::ELEMENT_NAME="listOfElements";
+
+
+
+#ifdef __cplusplus
+
+
+/*
+ * Creates a new ListOfCurveElements using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+ListOfCurveElements::ListOfCurveElements(unsigned int level,
+                                         unsigned int version,
+                                         unsigned int pkgVersion)
+  : ListOf(level, version)
+{
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
+}
+
+
+/*
+ * Creates a new ListOfCurveElements using the given RenderPkgNamespaces
+ * object.
+ */
+ListOfCurveElements::ListOfCurveElements(RenderPkgNamespaces *renderns)
+  : ListOf(renderns)
+{
+  setElementNamespace(renderns->getURI());
+}
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
  * Creates a new ListOfCurveElements object from the given XMLNode object.
  * The XMLNode object has to contain a valid XML representation of a 
@@ -108,68 +141,230 @@ ListOfCurveElements::ListOfCurveElements(const XMLNode& node, unsigned int l2ver
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of the ListOfCurveElements object.
- *
- * @return a (deep) copy of this ListOfCurveElements
- */
-ListOfCurveElements* ListOfCurveElements::clone () const
-{
-    return new ListOfCurveElements(*this);
-}
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Copy constructor for ListOfCurveElements objects.
+ * Copy constructor for ListOfCurveElements.
  */
-ListOfCurveElements::ListOfCurveElements(const ListOfCurveElements& source):ListOf(source)
+ListOfCurveElements::ListOfCurveElements(const ListOfCurveElements& orig)
+  : ListOf( orig )
 {
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Assignment operator for ListOfCurveElements objects.
+ * Assignment operator for ListOfCurveElements.
  */
-ListOfCurveElements& ListOfCurveElements::operator=(const ListOfCurveElements& source)
+ListOfCurveElements&
+ListOfCurveElements::operator=(const ListOfCurveElements& rhs)
 {
-    if(&source!=this)
-    {
-        this->ListOf::operator=(source);
-    }
-    return *this;
-}
-/** @endcond */
+  if (&rhs != this)
+  {
+    ListOf::operator=(rhs);
+  }
 
-/** @cond doxygenLibsbmlInternal */
+  return *this;
+}
+
+
 /*
- * Returns the libSBML type code for the objects contained in this ListOf
- * (i.e., GradientDefinition objects, if the list is non-empty).
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- * 
- * @return the SBML type code for the objects contained in this ListOf
- * instance, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
+ * Creates and returns a deep copy of this ListOfCurveElements object.
  */
-int ListOfCurveElements::getItemTypeCode () const
+ListOfCurveElements*
+ListOfCurveElements::clone() const
+{
+  return new ListOfCurveElements(*this);
+}
+
+
+/*
+ * Destructor for ListOfCurveElements.
+ */
+ListOfCurveElements::~ListOfCurveElements()
+{
+}
+
+
+/*
+ * Get a RenderPoint from the ListOfCurveElements.
+ */
+RenderPoint*
+ListOfCurveElements::get(unsigned int n)
+{
+  return static_cast<RenderPoint*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a RenderPoint from the ListOfCurveElements.
+ */
+const RenderPoint*
+ListOfCurveElements::get(unsigned int n) const
+{
+  return static_cast<const RenderPoint*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a RenderPoint from the ListOfCurveElements based on its identifier.
+ */
+RenderPoint*
+ListOfCurveElements::get(const std::string& sid)
+{
+  return const_cast<RenderPoint*>(static_cast<const
+    ListOfCurveElements&>(*this).get(sid));
+}
+
+
+/*
+ * Get a RenderPoint from the ListOfCurveElements based on its identifier.
+ */
+const RenderPoint*
+ListOfCurveElements::get(const std::string& sid) const
+{
+  vector<SBase*>::const_iterator result;
+  result = find_if(mItems.begin(), mItems.end(), IdEq<RenderPoint>(sid));
+  return (result == mItems.end()) ? 0 : static_cast <const RenderPoint*>
+    (*result);
+}
+
+
+/*
+ * Removes the nth RenderPoint from this ListOfCurveElements and returns a
+ * pointer to it.
+ */
+RenderPoint*
+ListOfCurveElements::remove(unsigned int n)
+{
+  return static_cast<RenderPoint*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the RenderPoint from this ListOfCurveElements based on its
+ * identifier and returns a pointer to it.
+ */
+RenderPoint*
+ListOfCurveElements::remove(const std::string& sid)
+{
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
+
+  result = find_if(mItems.begin(), mItems.end(), IdEq<RenderPoint>(sid));
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+  return static_cast <RenderPoint*> (item);
+}
+
+
+/*
+ * Adds a copy of the given RenderPoint to this ListOfCurveElements.
+ */
+int
+ListOfCurveElements::addRenderPoint(const RenderPoint* rp)
+{
+  if (rp == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (rp->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != rp->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != rp->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(rp)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return append(rp);
+  }
+}
+
+
+/*
+ * Get the number of RenderPoint objects in this ListOfCurveElements.
+ */
+unsigned int
+ListOfCurveElements::getNumRenderPoints() const
+{
+  return size();
+}
+
+
+/*
+ * Creates a new RenderCubicBezier object, adds it to this ListOfCurveElements
+ * object and returns the RenderCubicBezier object created.
+ */
+RenderCubicBezier*
+ListOfCurveElements::createCubicBezier()
+{
+  RenderCubicBezier* rcb = NULL;
+
+  try
+  {
+    RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+    rcb = new RenderCubicBezier(renderns);
+    delete renderns;
+  }
+  catch (...)
+  {
+  }
+
+  if (rcb != NULL)
+  {
+    appendAndOwn(rcb);
+  }
+
+  return rcb;
+}
+
+
+
+
+/*
+ * Returns the XML element name of this ListOfCurveElements object.
+ */
+const std::string&
+ListOfCurveElements::getElementName() const
+{
+  static const string name = "listOfElements";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this ListOfCurveElements object.
+ */
+int
+ListOfCurveElements::getTypeCode() const
+{
+  return SBML_LIST_OF;
+}
+
+
+/*
+ * Returns the libSBML type code for the SBML objects contained in this
+ * ListOfCurveElements object.
+ */
+int
+ListOfCurveElements::getItemTypeCode() const
 {
     return SBML_RENDER_LINESEGMENT;
 }
-/** @endcond */
 
 
 bool ListOfCurveElements::isValidTypeForList(SBase * item)
@@ -183,46 +378,7 @@ bool ListOfCurveElements::isValidTypeForList(SBase * item)
   return false;
 }
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * ListOfCurveElements, is always @c "listOfCurveElements".
- * 
- * @return the name of this element, i.e., @c "listOfCurveElements".
- */
-const std::string& ListOfCurveElements::getElementName () const
-{
-  static std::string name = ListOfCurveElements::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
 
-
-/*
- * Ctor.
- */
-ListOfCurveElements::ListOfCurveElements(RenderPkgNamespaces* renderns)
- : ListOf(renderns)
-{
-     // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
-}
-
-
-/*
- * Ctor.
- */
-ListOfCurveElements::ListOfCurveElements(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level,version,pkgVersion));
-};
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -240,15 +396,14 @@ XMLNode ListOfCurveElements::toXML() const
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Creates a new RenderPoint in this ListOfCurveElements
  */
-SBase* ListOfCurveElements::createObject (XMLInputStream& stream)
+SBase*
+ListOfCurveElements::createObject(XMLInputStream& stream)
 {
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL;
-    
-    RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
+  const std::string& name = stream.peek().getName();
+  SBase* object = NULL;
+  RENDER_CREATE_NS(renderns, getSBMLNamespaces());
 
     if (name == "element")
     {
@@ -278,60 +433,113 @@ SBase* ListOfCurveElements::createObject (XMLInputStream& stream)
         }
         if(object) this->mItems.push_back(object);
     }
-    delete renderns;
-    return object;
+  delete renderns;
+  return object;
 }
+
 /** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Removes the RenderPoint with the given index and returns a pointer to the 
- * removed object. The caller is responsible for freeing the associated memory.
- * 
- * @param i index of the RenderPoint object to be removed
- * 
- * @return pointer to the removed RenderPoint or NULL if the index
- *  was not valid.
+ * Writes the namespace for the Render package
  */
-RenderPoint* ListOfCurveElements::remove(unsigned int i)
+void
+ListOfCurveElements::writeXMLNS(XMLOutputStream& stream) const
 {
-    return static_cast<RenderPoint*>(this->ListOf::remove(i));
+  XMLNamespaces xmlns;
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    const XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(RenderExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(RenderExtension::getXmlnsL3V1V1(), prefix);
+    }
+  }
+
+  stream << xmlns;
 }
+
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+#endif /* __cplusplus */
+
+
 /*
- * Returns a pointer to the RenderPoint with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the RenderPoint object to be returned
- * 
- * @return pointer to the RenderPoint at the given index or NULL.
+ * Get a RenderPoint_t from the ListOf_t.
  */
-RenderPoint* ListOfCurveElements::get(unsigned int i)
+LIBSBML_EXTERN
+RenderPoint_t*
+ListOfCurveElements_getRenderPoint(ListOf_t* lo, unsigned int n)
 {
-    return static_cast<RenderPoint*>(this->ListOf::get(i));
-}
-/** @endcond */
+  if (lo == NULL)
+  {
+    return NULL;
+  }
 
-/** @cond doxygenLibsbmlInternal */
+  return static_cast <ListOfCurveElements*>(lo)->get(n);
+}
+
+
 /*
- * Returns a const pointer to the RenderPoint with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the RenderPoint object to be returned
- * 
- * @return const pointer to the RenderPoint at the given index or NULL.
+ * Get a RenderPoint_t from the ListOf_t based on its identifier.
  */
-const RenderPoint* ListOfCurveElements::get(unsigned int i) const
+LIBSBML_EXTERN
+RenderPoint_t*
+ListOfCurveElements_getById(ListOf_t* lo, const char *sid)
 {
-    return static_cast<const RenderPoint*>(this->ListOf::get(i));
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfCurveElements*>(lo)->get(sid) :
+    NULL;
 }
-/** @endcond */
+
+
+/*
+ * Removes the nth RenderPoint_t from this ListOf_t and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+ListOfCurveElements_remove(ListOf_t* lo, unsigned int n)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return static_cast <ListOfCurveElements*>(lo)->remove(n);
+}
+
+
+/*
+ * Removes the RenderPoint_t from this ListOf_t based on its identifier and
+ * returns a pointer to it.
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+ListOfCurveElements_removeById(ListOf_t* lo, const char* sid)
+{
+  if (lo == NULL)
+  {
+    return NULL;
+  }
+
+  return (sid != NULL) ? static_cast <ListOfCurveElements*>(lo)->remove(sid) :
+    NULL;
+}
 
 
 
 
-LIBSBML_CPP_NAMESPACE_END 
+LIBSBML_CPP_NAMESPACE_END
+
+
