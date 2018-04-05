@@ -1,6 +1,6 @@
 /**
  * @file    Polygon.cpp
- * @brief   class for representing a polygon
+ * @brief Implementation of the Polygon class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,9 +31,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "Polygon.h"
-#include "RenderPoint.h"
-#include "RenderCubicBezier.h"
+#include <sbml/packages/render/sbml/Polygon.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 
@@ -45,53 +43,53 @@
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 
-#include <sbml/xml/XMLInputStream.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+
+#include <sbml/packages/render/sbml/RenderPoint.h>
+#include <sbml/packages/render/sbml/RenderCubicBezier.h>
+
+
+using namespace std;
+
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string Polygon::ELEMENT_NAME="polygon";
 
-/** @cond doxygenLibsbmlInternal */
+#include <sbml/xml/XMLInputStream.h>
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new Polygon object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new Polygon using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-Polygon::Polygon (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : GraphicalPrimitive2D(level,version, pkgVersion)
-  , mListOfElements(level, version, pkgVersion)
+Polygon::Polygon(unsigned int level,
+                 unsigned int version,
+                 unsigned int pkgVersion)
+  : GraphicalPrimitive2D(level, version)
+  , mRenderPoints (level, version, pkgVersion)
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-      connectToChild();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new Polygon object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
- */
-Polygon::Polygon (RenderPkgNamespaces* renderns)
-  : GraphicalPrimitive2D(renderns)
-  , mListOfElements(renderns)
-{
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
+}
 
-  // load package extensions bound with this object (if any) 
+
+/*
+ * Creates a new Polygon using the given RenderPkgNamespaces object.
+ */
+Polygon::Polygon(RenderPkgNamespaces *renderns)
+  : GraphicalPrimitive2D(renderns)
+  , mRenderPoints (renderns)
+{
+  setElementNamespace(renderns->getURI());
+  connectToChild();
   loadPlugins(renderns);
 }
-/** @endcond */
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -107,7 +105,7 @@ Polygon::Polygon (RenderPkgNamespaces* renderns)
  */
 Polygon::Polygon(const XMLNode& node, unsigned int l2version)
   : GraphicalPrimitive2D(node, l2version)
-  , mListOfElements(node, l2version)
+  , mRenderPoints(node, l2version)
 {
    ExpectedAttributes ea;
     addExpectedAttributes(ea);
@@ -121,7 +119,7 @@ Polygon::Polygon(const XMLNode& node, unsigned int l2version)
         const std::string& childName=child->getName();
         if(childName=="listOfElements")
         {
-            this->mListOfElements=ListOfCurveElements(*child);
+            this->mRenderPoints=ListOfCurveElements(*child);
         }
         // keep to read old version
         else if(childName=="listOfCurveSegments")
@@ -203,22 +201,22 @@ Polygon::Polygon(const XMLNode& node, unsigned int l2version)
                         // TODO this is an error
                         continue;
                     }
-                    if(this->mListOfElements.size()==0)
+                    if(this->mRenderPoints.size()==0)
                     {
                         // add the start point
-                        this->mListOfElements.appendAndOwn(new RenderPoint(start));
+                        this->mRenderPoints.appendAndOwn(new RenderPoint(start));
                     }
                     // add the end point
-                    this->mListOfElements.appendAndOwn(end);                    
+                    this->mRenderPoints.appendAndOwn(end);                    
 
                 }
                 else if(childName2=="annotation")
                 {
-                    this->mListOfElements.setAnnotation(new XMLNode(*child));
+                    this->mRenderPoints.setAnnotation(new XMLNode(*child));
                 }
                 else if(childName2=="notes")
                 {
-                    this->mListOfElements.setNotes(new XMLNode(*child));
+                    this->mRenderPoints.setNotes(new XMLNode(*child));
                 }
                 ++i;
             }
@@ -235,12 +233,6 @@ Polygon::Polygon(const XMLNode& node, unsigned int l2version)
 /** @endcond */
 
 
-/*
- * Destroy this object.
- */
-Polygon::~Polygon ()
-{
-}
 
 
 #ifndef OMIT_DEPRECATED
@@ -258,7 +250,7 @@ Polygon::~Polygon ()
  */
 Polygon::Polygon(RenderPkgNamespaces* renderns, const std::string& id)
   : GraphicalPrimitive2D(renderns, id)
-  , mListOfElements(renderns)
+  , mRenderPoints(renderns)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Polygon::Polygon(const std::string& id) is deprecated." << std::endl;
@@ -275,331 +267,482 @@ Polygon::Polygon(RenderPkgNamespaces* renderns, const std::string& id)
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
+
+/*
+ * Copy constructor for Polygon.
+ */
+Polygon::Polygon(const Polygon& orig)
+  : GraphicalPrimitive2D( orig )
+  , mRenderPoints ( orig.mRenderPoints )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for Polygon.
+ */
+Polygon&
+Polygon::operator=(const Polygon& rhs)
+{
+  if (&rhs != this)
+  {
+    GraphicalPrimitive2D::operator=(rhs);
+    mRenderPoints = rhs.mRenderPoints;
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this Polygon object.
+ */
+Polygon*
+Polygon::clone() const
+{
+  return new Polygon(*this);
+}
+
+
+/*
+ * Destructor for Polygon.
+ */
+Polygon::~Polygon()
+{
+}
+
+
+/*
+ * Returns the ListOfCurveElements from this Polygon.
+ */
+const ListOfCurveElements*
+Polygon::getListOfElements() const
+{
+  return &mRenderPoints;
+}
+
+
+/*
+ * Returns the ListOfCurveElements from this Polygon.
+ */
+ListOfCurveElements*
+Polygon::getListOfElements()
+{
+  return &mRenderPoints;
+}
+
+
+/*
+ * Get a RenderPoint from the Polygon.
+ */
+RenderPoint*
+Polygon::getElement(unsigned int n)
+{
+  return mRenderPoints.get(n);
+}
+
+
+/*
+ * Get a RenderPoint from the Polygon.
+ */
+const RenderPoint*
+Polygon::getElement(unsigned int n) const
+{
+  return mRenderPoints.get(n);
+}
+
+
+/*
+ * Adds a copy of the given RenderPoint to this Polygon.
+ */
+int
+Polygon::addElement(const RenderPoint* rp)
+{
+  if (rp == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (rp->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (rp->hasRequiredElements() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != rp->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != rp->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(rp)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return mRenderPoints.append(rp);
+  }
+}
+
+
+/*
+ * Get the number of RenderPoint objects in this Polygon.
+ */
+unsigned int
+Polygon::getNumElements() const
+{
+  return mRenderPoints.size();
+}
+
+
+/*
+ * Creates a new RenderPoint object, adds it to this Polygon object and returns
+ * the RenderPoint object created.
+ */
+RenderPoint*
+Polygon::createPoint()
+{
+  RenderPoint* rp = NULL;
+
+  try
+  {
+    RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+    rp = new RenderPoint(renderns);
+    delete renderns;
+  }
+  catch (...)
+  {
+  }
+
+  if (rp != NULL)
+  {
+    mRenderPoints.appendAndOwn(rp);
+  }
+
+  return rp;
+}
+
+
+/*
+ * Creates a new RenderCubicBezier object, adds it to this Polygon object and
+ * returns the RenderCubicBezier object created.
+ */
+RenderCubicBezier*
+Polygon::createCubicBezier()
+{
+  RenderCubicBezier* rcb = NULL;
+
+  try
+  {
+    RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+    rcb = new RenderCubicBezier(renderns);
+    delete renderns;
+  }
+  catch (...)
+  {
+  }
+
+  if (rcb != NULL)
+  {
+    mRenderPoints.appendAndOwn(rcb);
+  }
+
+  return rcb;
+}
+
+
+/*
+ * Removes the nth RenderPoint from this Polygon and returns a pointer to it.
+ */
+RenderPoint*
+Polygon::removeElement(unsigned int n)
+{
+  return mRenderPoints.remove(n);
+}
+
+
+/*
+ * Returns the XML element name of this Polygon object.
+ */
+const std::string&
+Polygon::getElementName() const
+{
+  static const string name = "polygon";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this Polygon object.
+ */
+int
+Polygon::getTypeCode() const
+{
+  return SBML_RENDER_POLYGON;
+}
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+Polygon::writeElements(XMLOutputStream& stream) const
+{
+  GraphicalPrimitive2D::writeElements(stream);
+
+  if (getNumElements() > 0)
+  {
+    mRenderPoints.write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+Polygon::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+
+  mRenderPoints.accept(v);
+
+  v.leave(*this);
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+Polygon::setSBMLDocument(SBMLDocument* d)
+{
+  GraphicalPrimitive2D::setSBMLDocument(d);
+
+  mRenderPoints.setSBMLDocument(d);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to child elements
+ */
+void
+Polygon::connectToChild()
+{
+  GraphicalPrimitive2D::connectToChild();
+
+  mRenderPoints.connectToParent(this);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+Polygon::enablePackageInternal(const std::string& pkgURI,
+                               const std::string& pkgPrefix,
+                               bool flag)
+{
+  GraphicalPrimitive2D::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  mRenderPoints.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this Polygon.
+ */
+SBase*
+Polygon::createChildObject(const std::string& elementName)
+{
+  GraphicalPrimitive2D* obj = NULL;
+
+  // TO DO
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this Polygon.
+ */
+int
+Polygon::addChildObject(const std::string& elementName, const SBase* element)
+{
+  // TO DO
+
+  return -1;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * Polygon.
+ */
+SBase*
+Polygon::removeChildObject(const std::string& elementName,
+                           const std::string& id)
+{
+  // TO DO
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this Polygon.
+ */
+unsigned int
+Polygon::getNumObjects(const std::string& elementName)
+{
+  // TO DO
+
+  return 0;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this Polygon.
+ */
+SBase*
+Polygon::getObject(const std::string& elementName, unsigned int index)
+{
+  // TO DO
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+Polygon::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mRenderPoints.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+Polygon::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mRenderPoints.getMetaId() == metaid)
+  {
+    return &mRenderPoints;
+  }
+
+  obj = mRenderPoints.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
 List*
 Polygon::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_LIST(ret, sublist, mListOfElements, filter);
+
+  ADD_FILTERED_LIST(ret, sublist, mRenderPoints, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
   return ret;
 }
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the number of segments.
- *
- * @return number of elements in the polygon.
- */
-unsigned int Polygon::getNumElements() const
-{
-    return this->mListOfElements.size();
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the list of segments.
- *
- * @return const pointer to the ListOfCurveElements object for the Polygon.
- */
-ListOfCurveElements* Polygon::getListOfElements()
-{
-    return &(this->mListOfElements);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the list of segments.
- *
- * @return pointer to the ListOfCurveElements object for the Polygon.
- */
-const ListOfCurveElements* Polygon::getListOfElements() const
-{
-    return &(this->mListOfElements);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new point element.
- * The element is added to and owned by the polygon.
- *
- * @return The newly created RenderCubicBezier object.
- */
-RenderPoint* Polygon::createPoint()
-{
-    RenderPoint* pRenderPoint=NULL;
-    try
-    {
-      RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-      pRenderPoint = new RenderPoint(renderns);
-	 delete renderns;
-    }
-    catch (...)
-    {
-        /* here we do not create a default object as the level/version must
-         * match the parent object
-         *
-         * so do nothing
-         */
-    }
-
-
-    if(pRenderPoint != NULL)
-    {
-        this->mListOfElements.appendAndOwn(pRenderPoint);
-    }
-    return pRenderPoint;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new bezier element.
- * The element is added to and owned by the polygon.
- *
- * @return The newly created RenderCubicBezier object.
- */
-RenderCubicBezier* Polygon::createCubicBezier()
-{
-    RenderCubicBezier* pRenderCubicBezier=NULL;
-    try
-    {
-      RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-      pRenderCubicBezier = new RenderCubicBezier(renderns);
-	 delete renderns;
-    }
-    catch (...)
-    {
-        /* here we do not create a default object as the level/version must
-         * match the parent object
-         *
-         * so do nothing
-         */
-    }
-
-
-    if(pRenderCubicBezier != NULL)
-    {
-        this->mListOfElements.appendAndOwn(pRenderCubicBezier);
-    }
-    return pRenderCubicBezier;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the segment with the given index or NULL if
- * the id is invalid.
- *
- * @param index the index of the element to be returned
- *
- * @return a pointer to the element with the given index or NULL 
- * if the index was out of bounds.
- */
-RenderPoint* Polygon::getElement(unsigned int index)
-{
-    return (index<this->mListOfElements.size())?static_cast<RenderPoint*>(this->mListOfElements.get(index)):NULL;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the segment with the given index or NULL if
- * the id is invalid.
- *
- * @param index the index of the element to be returned
- *
- * @return a const pointer to the element with the given index or NULL 
- * if the index was out of bounds.
- */
-const RenderPoint* Polygon::getElement(unsigned int index) const
-{
-    return (index<this->mListOfElements.size())?static_cast<const RenderPoint*>(this->mListOfElements.get(index)):NULL;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Adds a copy of the given segment to the end of the list of
- * segments.
- *
- * @param cs pointer to the RenderPoint object to be added to the end of the elements list.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_OPERATION_FAILED
- *
- * @note This method should be used with some caution.  The fact that
- * this method @em copies the object passed to it means that the caller
- * will be left holding a physically different object instance than the
- * one contained in this Polygon.  Changes made to the original object
- * instance (such as resetting attribute values) will <em>not affect the
- * instance in the Polygon</em>.  In addition, the caller should make
- * sure to free the original object if it is no longer being used, or
- * else a memory leak will result.  Please see Polygon::createPoint()
- * or Polygon::createCubicBezier()
- * for methods that do not lead to these issues.
- *
- * @see createPoint()
- * @see createCubicBezier()
- */
-int Polygon::addElement(const RenderPoint* ls)
-{
-    if (ls == NULL)
-    {
-        return LIBSBML_OPERATION_FAILED;
-    }
-    else if (!(ls->hasRequiredAttributes()) || !(ls->hasRequiredElements()))
-    {
-        return LIBSBML_INVALID_OBJECT;
-    }
-    else if (getLevel() != ls->getLevel())
-    {
-        return LIBSBML_LEVEL_MISMATCH;
-    }
-    else if (getVersion() != ls->getVersion())
-    {
-        return LIBSBML_VERSION_MISMATCH;
-    }
-    else
-    {
-
-        this->mListOfElements.append(ls);
-
-        return LIBSBML_OPERATION_SUCCESS;
-    }
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */     
-int Polygon::getTypeCode() const
-{
-    return SBML_RENDER_POLYGON;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the SBML object's next
- * sibling object (if available).
- */
-bool Polygon::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * Polygon, is always @c "polygon".
- * 
- * @return the name of this element, i.e., @c "polygon".
- */	
-const std::string& Polygon::getElementName() const
-{
-  static std::string name = Polygon::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of the Polygon object.
- *
- * @return a (deep) copy of this Polygon
- */
-Polygon* Polygon::clone() const
-{
-    return new Polygon(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void
-Polygon::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  GraphicalPrimitive2D::addExpectedAttributes(attributes);
-
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void Polygon::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-    this->GraphicalPrimitive2D::readAttributes(attributes,expectedAttributes);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase* Polygon::createObject (XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase*        object = NULL;
-
-  if (name == "listOfElements")
-  {
-    object = &this->mListOfElements;
-  }
-  return object;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
-void Polygon::writeAttributes (XMLOutputStream& stream) const
-{
-  GraphicalPrimitive2D::writeAttributes(stream);
-}
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -615,79 +758,273 @@ XMLNode Polygon::toXML() const
 }
 /** @endcond */
 
+
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.  For example:
- *
- *   SBase::writeElements(stream);
- *   mReactants.write(stream);
- *   mProducts.write(stream);
- *   ...
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
-void Polygon::writeElements (XMLOutputStream& stream) const
+SBase*
+Polygon::createObject(XMLInputStream& stream)
 {
-    GraphicalPrimitive2D::writeElements(stream);
-    this->mListOfElements.write(stream);
+  SBase* obj = GraphicalPrimitive2D::createObject(stream);
+
+  const std::string& name = stream.peek().getName();
+
+  if (name == "listOfElements")
+  {
+    if (mRenderPoints.size() != 0)
+    {
+      getErrorLog()->logPackageError("render", RenderPolygonAllowedElements,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
+    obj = &mRenderPoints;
+  }
+
+  connectToChild();
+
+  return obj;
 }
+
 /** @endcond */
 
 
+
 /** @cond doxygenLibsbmlInternal */
-/*
- * Sets the parent SBMLDocument of this SBML object.
- *
- * @param d The SBMLDocument to set on the objects and it's children if there are any.
- */
-    void
-Polygon::setSBMLDocument (SBMLDocument* d)
-{
-    SBase::setSBMLDocument(d);
-    this->mListOfElements.setSBMLDocument(d);
-}
-/** @endcond */
-
 
 /*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
+ * Adds the expected attributes for this element
  */
 void
-Polygon::connectToChild()
+Polygon::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  GraphicalPrimitive2D::connectToChild();
-  mListOfElements.connectToParent(this);
+  GraphicalPrimitive2D::addExpectedAttributes(attributes);
 }
 
-/*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
- */
-void
-Polygon::enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag)
-{
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
-
-  mListOfElements.enablePackageInternal(pkgURI,pkgPrefix,flag);
-}
+/** @endcond */
 
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBML object of this SBML object.
- *
- * @param sb the SBML object to use
+ * Reads the expected attributes into the member data variables
  */
-    void 
-Polygon::setParentSBMLObject (SBase* sb)
+void
+Polygon::readAttributes(const XMLAttributes& attributes,
+                        const ExpectedAttributes& expectedAttributes)
 {
-    this->mParentSBMLObject = sb;
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  GraphicalPrimitive2D::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderPolygonAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
 }
+
 /** @endcond */
 
 
-LIBSBML_CPP_NAMESPACE_END 
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+Polygon::writeAttributes(XMLOutputStream& stream) const
+{
+  GraphicalPrimitive2D::writeAttributes(stream);
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new Polygon_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+Polygon_t *
+Polygon_create(unsigned int level,
+               unsigned int version,
+               unsigned int pkgVersion)
+{
+  return new Polygon(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this Polygon_t object.
+ */
+LIBSBML_EXTERN
+Polygon_t*
+Polygon_clone(const Polygon_t* p)
+{
+  if (p != NULL)
+  {
+    return static_cast<Polygon_t*>(p->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this Polygon_t object.
+ */
+LIBSBML_EXTERN
+void
+Polygon_free(Polygon_t* p)
+{
+  if (p != NULL)
+  {
+    delete p;
+  }
+}
+
+
+/*
+ * Returns a ListOf_t * containing RenderPoint_t objects from this Polygon_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+Polygon_getListOfElements(Polygon_t* p)
+{
+  return (p != NULL) ? p->getListOfElements() : NULL;
+}
+
+
+/*
+ * Get a RenderPoint_t from the Polygon_t.
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+Polygon_getElement(Polygon_t* p, unsigned int n)
+{
+  return (p != NULL) ? p->getElement(n) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given RenderPoint_t to this Polygon_t.
+ */
+LIBSBML_EXTERN
+int
+Polygon_addElement(Polygon_t* p, const RenderPoint_t* rp)
+{
+  return (p != NULL) ? p->addElement(rp) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of RenderPoint_t objects in this Polygon_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+Polygon_getNumElements(Polygon_t* p)
+{
+  return (p != NULL) ? p->getNumElements() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new RenderPoint_t object, adds it to this Polygon_t object and
+ * returns the RenderPoint_t object created.
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+Polygon_createPoint(Polygon_t* p)
+{
+  return (p != NULL) ? p->createPoint() : NULL;
+}
+
+
+/*
+ * Creates a new RenderCubicBezier_t object, adds it to this Polygon_t object
+ * and returns the RenderCubicBezier_t object created.
+ */
+LIBSBML_EXTERN
+RenderCubicBezier_t*
+Polygon_createCubicBezier(Polygon_t* p)
+{
+  return (p != NULL) ? p->createCubicBezier() : NULL;
+}
+
+
+/*
+ * Removes the nth RenderPoint_t from this Polygon_t and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+Polygon_removeElement(Polygon_t* p, unsigned int n)
+{
+  return (p != NULL) ? p->removeElement(n) : NULL;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * Polygon_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Polygon_hasRequiredAttributes(const Polygon_t * p)
+{
+  return (p != NULL) ? static_cast<int>(p->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * Polygon_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+Polygon_hasRequiredElements(const Polygon_t * p)
+{
+  return (p != NULL) ? static_cast<int>(p->hasRequiredElements()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
