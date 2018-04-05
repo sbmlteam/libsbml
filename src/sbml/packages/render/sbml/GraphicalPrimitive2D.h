@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalPrimitive2D
- * @sbmlbrief{render} TODO:Definition of the GraphicalPrimitive2D class.
- * @brief base class for all graphical primitives which implements all 2D attributes
+ * @sbmlbrief{render} base class for all graphical primitives which implements all 2D attributes
  *
  * The GraphicalPrimitive2D class implements attributes and methods necessary for 2D objects
  * like rectangles, polygons or ellipses. The attributes that are implemented are a fill color

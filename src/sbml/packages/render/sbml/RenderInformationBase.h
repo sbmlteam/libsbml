@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderInformationBase
- * @sbmlbrief{render} TODO:Definition of the RenderInformationBase class.
- * @brief abstract base class for local and global render information.
+ * @sbmlbrief{render} abstract base class for local and global render information.
  *
  * In the SBML render extension, local and global render information representations
  * share many attributes. These are implemented in this abstract base class.

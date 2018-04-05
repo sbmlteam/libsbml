@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalPrimitive1D
- * @sbmlbrief{render}
- * @brief base class for all graphical primitives which implements all 1D attributes
+ * @sbmlbrief{render} base class for all graphical primitives which implements all 1D attributes
  *
  * The GraphicalPrimitive1D class implements attributes and methods necessary for 1D objects
  * like lines. The attributes that are implemented are a stroke color, a stroke width and 

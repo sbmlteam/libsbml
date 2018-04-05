@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GradientStop
- * @sbmlbrief{render} TODO:Definition of the GradientStop class.
- * @brief LibSBML implementation of the gradient stop concept from the
+ * @sbmlbrief{render} LibSBML implementation of the gradient stop concept from the
  *
  * SBML render extension. The gradient stop concept was more or less taken from 
  * the corresponding concept in SVG.

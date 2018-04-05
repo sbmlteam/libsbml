@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transformation2D
- * @sbmlbrief{render} TODO:Definition of the Transformation2D class.
- * @brief implementation of a 2D transformation matrix.
+ * @sbmlbrief{render} implementation of a 2D transformation matrix.
  *
  * The Transformation2D class represents a 2D transformation. it is derived from Transformation 
  * and inherits all the attributes of a 3D transformation. In addition is provides new methods to 

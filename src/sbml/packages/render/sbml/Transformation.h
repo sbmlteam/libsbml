@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transformation
- * @sbmlbrief{render} TODO:Definition of the Transformation class.
- * @brief implementation of a 3D transformation matrix.
+ * @sbmlbrief{render} implementation of a 3D transformation matrix.
  *
  * The Transformation class represents a 3D transformation which normally is a 4x4 matrix.
  * Since the last row is always 0 0 0 1 for affine transformations, we leave out those values

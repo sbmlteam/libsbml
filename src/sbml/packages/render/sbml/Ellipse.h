@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Ellipse
- * @sbmlbrief{render} TODO:Definition of the Ellipse class.
- * @brief graphical representation of an ellipse from the SBML render extension
+ * @sbmlbrief{render} graphical representation of an ellipse from the SBML render extension
  *
  * The ellipse class is derived from GraphicalPrimitive2D, so it inherits all its attributes
  * and methods. Therefore ellipses can have a transformation, a stroke and a stroke with to draw the edge

@@ -32,9 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LineEnding
- * @sbmlbrief{render} TODO:Definition of the LineEnding class.
-
- * @brief a LineEnding is a decoration element for the start and/or end
+ * @sbmlbrief{render} a LineEnding is a decoration element for the start and/or end
  * of curves in the SBML render extension, e.g. arrow heads
  *
  * LineEndings in the SBML render extension are used to apply certain decorations
