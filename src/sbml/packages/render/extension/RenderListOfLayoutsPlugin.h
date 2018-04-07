@@ -44,6 +44,7 @@
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/GlobalRenderInformation.h>
 #include <sbml/packages/render/sbml/LocalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfGlobalRenderInformation.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

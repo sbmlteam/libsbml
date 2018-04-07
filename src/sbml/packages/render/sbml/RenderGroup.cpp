@@ -63,7 +63,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string RenderGroup::ELEMENT_NAME="g";
-const std::string ListOfDrawables::ELEMENT_NAME="listOfDrawables";
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -265,7 +264,7 @@ void RenderGroup::readAttributes (const XMLAttributes& attributes, const Expecte
  */
 RenderGroup::RenderGroup(const XMLNode& node, unsigned int l2version)
   : GraphicalPrimitive2D(node, l2version)
-  , mElements(2, l2version)
+  , mElements()
 {  
     ExpectedAttributes ea;
     addExpectedAttributes(ea);
@@ -684,20 +683,6 @@ const ListOfDrawables* RenderGroup::getListOfElements() const
     return &this->mElements;
 }
 /** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the name of this element.
- * 
- * @return the name of the element, in this case "listOfDrawables"
- */
-const std::string& ListOfDrawables::getElementName() const
-{
-  static std::string name = ListOfDrawables::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
-
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -1601,190 +1586,6 @@ bool RenderGroup::isSetVTextAnchor() const
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Creates and returns a deep copy of the ListOfDrawables object.
- *
- * @return a (deep) copy of this ListOfDrawables
- */
-ListOfDrawables* ListOfDrawables::clone () const
-{
-    return new ListOfDrawables(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Copy constructor. Creates a copy of this ListOfDrawables object.
- */
-ListOfDrawables::ListOfDrawables(const ListOfDrawables& source)
-  : ListOf(source)
-{
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Assignment operator for ListOfColroDefinitions objects.
- */
-ListOfDrawables& ListOfDrawables::operator=(const ListOfDrawables& source)
-{
-    if(&source!=this)
-    {
-        this->ListOf::operator=(source);
-    }
-    return *this;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the Transformation2D with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the Transformation2D object to be returned
- * 
- * @return pointer to the Transformation2D at the given index or NULL.
- */
-Transformation2D* ListOfDrawables::get(unsigned int i)
-{
-    return static_cast<Transformation2D*>(this->ListOf::get(i));
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the Transformation2D with the given index or NULL if
- * the index is invalid.
- * 
- * @param i index of the Transformation2D object to be returned
- * 
- * @return const pointer to the Transformation2D at the given index or NULL.
- */
-const Transformation2D* ListOfDrawables::get(unsigned int i) const
-{
-    return static_cast<const Transformation2D*>(this->ListOf::get(i));
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Used by ListOf::get() to lookup an SBase based by its id.
- */
-struct IdEqTransformation2D : public std::unary_function<SBase*, bool>
-{
-    const std::string& id;
-
-    IdEqTransformation2D (const std::string& id) : id(id) { }
-    bool operator() (SBase* sb) 
-    {
-        const GraphicalPrimitive1D* pP=dynamic_cast<const GraphicalPrimitive1D*>(sb);
-        if(pP != NULL)
-        {
-          return pP->getId() == id;
-        }
-        else
-        {
-            const Image* pI=dynamic_cast<const Image*>(sb);
-            if(pI != NULL)
-            {
-                return pI->getId() == id;
-            }
-        }
-        return false;
-    }
-};
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the Transformation2D with the given @p id or @c NULL if
- * the id is invalid.
- * 
- * @param id id of the Transformation2D object to be returned
- * 
- * @return pointer to the Transformation2D at the given @p id or @c NULL.
- */
-Transformation2D* ListOfDrawables::get(const std::string& id)
-{
-    return const_cast<Transformation2D*>( 
-            static_cast<const ListOfDrawables*>(this)->get(id) );
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the Transformation2D with the given @p id or @c NULL if
- * the id is invalid.
- * 
- * @param id id of the Transformation2D object to be returned
- * 
- * @return const pointer to the Transformation2D at the given @p id or @c NULL.
- */
-const Transformation2D* ListOfDrawables::get(const std::string& id) const
-{
-    std::vector<SBase*>::const_iterator result;
-
-    result = std::find_if( mItems.begin(), mItems.end(), IdEqTransformation2D(id) );
-    return (result == mItems.end()) ? 0 : static_cast <Transformation2D*> (*result);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/* Removes the nth item from this list */
-    Transformation2D*
-ListOfDrawables::remove (unsigned int n)
-{
-    return static_cast<Transformation2D*>(ListOf::remove(n));
-}
-/** @endcond */
-
-
-
-/*
- * Ctor.
- */
-ListOfDrawables::ListOfDrawables(RenderPkgNamespaces* renderns)
- : ListOf(renderns)
-{
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(renderns->getURI());
-}
-
-
-/*
- * Ctor.
- */
-ListOfDrawables::ListOfDrawables(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level,version,pkgVersion));
-};
-/** @cond doxygenLibsbmlInternal */
-/* Removes item in this list by id */
-    Transformation2D*
-ListOfDrawables::remove (const std::string& sid)
-{
-    SBase* item = NULL;
-    std::vector<SBase*>::iterator result;
-
-    result = std::find_if( mItems.begin(), mItems.end(), IdEqTransformation2D(sid) );
-
-    if (result != mItems.end())
-    {
-        item = *result;
-        mItems.erase(result);
-    }
-
-    return static_cast <Transformation2D*> (item);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
  * Sets the parent SBMLDocument of this SBML object.
  *
  * @param d The SBMLDocument to set on the objects and it's children if there are any.
@@ -1844,53 +1645,6 @@ RenderGroup::setParentSBMLObject (SBase* sb)
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
-SBase* ListOfDrawables::createObject (XMLInputStream& stream)
-{
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL;
-    
-    RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-
-    if (name == "g")
-    {
-       object = new RenderGroup(renderns);
-    }
-    else if(name=="curve")
-    {
-       // only newstyle cures will be supported for L3 
-       object = new RenderCurve(renderns);
-    }
-    else if(name=="polygon")
-    {
-       object = new Polygon(renderns);
-    }
-    else if(name=="rectangle")
-    {
-       object = new Rectangle(renderns);
-    }
-    else if(name=="ellipse")
-    {
-       object = new Ellipse(renderns);
-    }
-    else if(name=="text")
-    {
-       object = new Text(renderns);
-    }
-    else if(name=="image")
-    {
-       object = new Image(renderns);
-    } 
-    if(object) this->mItems.push_back(object);
-    delete renderns;
-    return object;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
 SBase* RenderGroup::createObject (XMLInputStream& stream)
 {
     // the actual objects are created in the corresponding method
@@ -1926,49 +1680,6 @@ RenderGroup::getTypeCode () const
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for the objects contained in this ListOf
- * (i.e., GradientDefinition objects, if the list is non-empty).
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- * 
- * @return the SBML type code for the objects contained in this ListOf
- * instance, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int ListOfDrawables::getItemTypeCode () const
-{
-    return SBML_RENDER_TRANSFORMATION2D;
-}
-/** @endcond */
 
-
-bool ListOfDrawables::isValidTypeForList(SBase * item)
-{
-  if (item == NULL) return false;
-  int typeCode = item->getTypeCode();
-
-  return (
-    typeCode == SBML_RENDER_CURVE ||
-    typeCode == SBML_RENDER_ELLIPSE ||
-    typeCode == SBML_RENDER_GROUP ||
-    typeCode == SBML_RENDER_IMAGE ||
-    typeCode == SBML_RENDER_POLYGON ||
-    typeCode == SBML_RENDER_RECTANGLE ||
-    typeCode == SBML_RENDER_TEXT    
-    );
-}
 
 LIBSBML_CPP_NAMESPACE_END 

@@ -33,7 +33,7 @@
 
 #include <sbml/packages/render/sbml/Transformation2D.h>
 
- //render - FIX_ME #include <sbml/packages/render/sbml/ListOfDrawables.h>
+#include <sbml/packages/render/sbml/ListOfDrawables.h>
 #include <sbml/packages/render/validator/RenderSBMLError.h>
 
 #include <sbml/packages/render/sbml/Image.h>

@@ -1152,16 +1152,16 @@ RenderInformationBase::renameSIdRefs(const std::string& oldid,
   }
 }
 
-
+// render FIX ME
 /*
  * Returns the XML element name of this RenderInformationBase object.
  */
-const std::string&
-RenderInformationBase::getElementName() const
-{
-  static const string name = "renderInformationBase";
-  return name;
-}
+//const std::string&
+//RenderInformationBase::getElementName() const
+//{
+//  static const string name = "renderInformationBase";
+//  return name;
+//}
 
 
 /*

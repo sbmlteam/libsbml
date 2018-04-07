@@ -42,6 +42,7 @@
 #include <sbml/extension/SBasePlugin.h>
 
 #include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/sbml/ListOfLocalRenderInformation.h>
 #include <sbml/packages/render/sbml/LocalRenderInformation.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN

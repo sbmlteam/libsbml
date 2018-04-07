@@ -69,11 +69,14 @@
 
 #include <sbml/packages/render/sbml/ListOfColorDefinitions.h>
 #include <sbml/packages/render/sbml/ListOfCurveElements.h>
+#include <sbml/packages/render/sbml/ListOfDrawables.h>
+#include <sbml/packages/render/sbml/ListOfGlobalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfGlobalStyles.h>
 #include <sbml/packages/render/sbml/ListOfGradientDefinitions.h>
 #include <sbml/packages/render/sbml/ListOfGradientStops.h>
 #include <sbml/packages/render/sbml/ListOfLineEndings.h>
-
-
+#include <sbml/packages/render/sbml/ListOfLocalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfLocalStyles.h>
 #define FillMeInAsSizeCannotBeDeterminedAutomatically 12
 
 #endif

@@ -1317,7 +1317,7 @@ LineEnding::createObject(XMLInputStream& stream)
     delete mGroup;
     mGroup = new RenderGroup(renderns);
     //render - FIX_ME
-//    mGroup->setElementName(name);
+    mGroup->setElementName(name);
     obj = mGroup;
   }
   else if (name == "boundingBox")

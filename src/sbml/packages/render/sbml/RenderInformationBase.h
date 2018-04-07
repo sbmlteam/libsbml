@@ -1234,7 +1234,7 @@ public:
   virtual void renameSIdRefs(const std::string& oldid,
                              const std::string& newid);
 
-
+// render FIX ME
   /**
    * Returns the XML element name of this RenderInformationBase object.
    *
@@ -1243,7 +1243,7 @@ public:
    *
    * @return the name of this element, i.e. @c "renderInformationBase".
    */
-  virtual const std::string& getElementName() const;
+  //virtual const std::string& getElementName() const;
 
 
   /**
