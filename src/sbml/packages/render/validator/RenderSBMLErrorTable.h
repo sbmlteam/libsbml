@@ -1125,8 +1125,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321404
-  { RenderLinearGradientX1MustBeString,
-    "The 'x1' attribute must be String.",
+  { RenderLinearGradientX1MustBeRelAbsVector,
+    "The 'x1' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:x1' of a <linearGradient> object must "
@@ -1139,8 +1139,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321405
-  { RenderLinearGradientY1MustBeString,
-    "The 'y1' attribute must be String.",
+  { RenderLinearGradientY1MustBeRelAbsVector,
+    "The 'y1' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:y1' of a <linearGradient> object must "
@@ -1153,8 +1153,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321406
-  { RenderLinearGradientZ1MustBeString,
-    "The 'z1' attribute must be String.",
+  { RenderLinearGradientZ1MustBeRelAbsVector,
+    "The 'z1' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:z1' of a <linearGradient> object must "
@@ -1167,8 +1167,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321407
-  { RenderLinearGradientX2MustBeString,
-    "The 'x2' attribute must be String.",
+  { RenderLinearGradientX2MustBeRelAbsVector,
+    "The 'x2' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:x2' of a <linearGradient> object must "
@@ -1181,8 +1181,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321408
-  { RenderLinearGradientY2MustBeString,
-    "The 'y2' attribute must be String.",
+  { RenderLinearGradientY2MustBeRelAbsVector,
+    "The 'y2' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:y2' of a <linearGradient> object must "
@@ -1195,8 +1195,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321409
-  { RenderLinearGradientZ2MustBeString,
-    "The 'z2' attribute must be String.",
+  { RenderLinearGradientZ2MustBeRelAbsVector,
+    "The 'z2' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:z2' of a <linearGradient> object must "
