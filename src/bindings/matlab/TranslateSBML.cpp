@@ -99,12 +99,6 @@ typedef enum {
 
 } FieldnamesType_t;
 
-//union DefaultValue_t {
-//  std::string strValue;
-//  int iValue;
-//  double dValue;
-//} ;
-
 struct FieldValues_t {
   std::string fieldName;
   std::string sbmlName;
@@ -164,9 +158,9 @@ private:
   void addStructureField(const std::string& functionId, SBase* base,
     unsigned int index, FieldValues_t field, bool usePlugin);
 
-  void addChildElement(const std::string& name, unsigned int index);
+  void addChildElement(FieldValues_t field, unsigned int index);
 
-  void setAttribute(const std::string& name, const FieldType_t type, 
+  void setAttribute(FieldValues_t field,
                     unsigned int index = 0, unsigned int total_no = 0);
 
 
@@ -194,11 +188,8 @@ private:
   std::string getRuleTypeCode(SBase* base);
   std::string getAssociationTypeCode(SBase* base);
 
-  // for some levels/versions some elements where coded as strings rather than structures
-  // eg trigger/stoichiometryMath
-  bool anomalousMathStructures(const std::string& fieldname, FieldType_t type);
 
-  void addAnomalousChild(const std::string& fieldname, unsigned int index);
+  void addAnomalousChild(FieldValues_t field);
 
   void addAnomalousChildStructure(const std::string& functionId, SBase* base, 
                           unsigned int index, FieldValues_t field);
@@ -247,13 +238,11 @@ private:
 
   bool usingPlugin(const std::string& prefix, SBase* base = NULL);
 
-  bool isValidSBMLAttribute(const std::string& name, SBase* base = NULL);
-
   mxArray* getNamespacesStructure();
 
   mxArray* getCVTermsStructure(SBase* base);
 
-  void addCVTerms(const std::string& name, unsigned int index);
+  void addCVTerms(unsigned int index);
 
   void freeStructureMemory();
 
@@ -416,73 +405,6 @@ bool getRequiredStatus(const std::string& prefix)
   return required;
 }
 
-// only used by OutputSBML
-const std::string getPackagePrefix(const std::string& name)
-{
-  // TO DO -look at this and how many times the function is used
-  std::ostringstream prefix;
-  size_t pos = name.find("_");
-  if (pos == std::string::npos)
-  {
-    prefix << "";
-    return prefix.str();
-  }
-  bool match = false;
-
-  unsigned int i = 0;
-  while (!match && i < reqdPkgPrefixes.size())
-  {
-    if (name.find(reqdPkgPrefixes.at(i)) != std::string::npos)
-    {
-      match = true;
-      prefix << reqdPkgPrefixes.at(i);
-      break;
-    }
-    ++i;
-  }
-
-  i = 0;
-  while (!match && i < unreqdPkgPrefixes.size())
-  {
-    if (name.find(unreqdPkgPrefixes.at(i)) != std::string::npos)
-    {
-      match = true;
-      prefix << unreqdPkgPrefixes.at(i);
-      break;
-    }
-    ++i;
-  }
-  if (!match)
-  {
-    prefix << "";
-  }
-
-  return prefix.str();
-}
-
-// only used by OutputSBML
-std::string removePackagePrefix(const std::string& name)
-{
-  size_t len = getPackagePrefix(name).size();
-  size_t pos = name.find("isSet");
-  std::string cpname = "";
-  cpname = name;
-
-  if (len > 0)
-  {
-    if (pos == std::string::npos)
-    {
-      cpname.replace(0, len+1, "");
-    }
-    else
-    {
-      cpname.replace(5, len+1, "");
-    }
-  }
-
-  return cpname;
-}
-
 void populatePackageLists()
 {
   //reqdPkgPrefixes.append("comp");
@@ -569,6 +491,7 @@ StructureFields::freeStructureMemory()
   mxDestroyArray(mxFieldnames);
   mxDestroyArray(mxDefaultValues);
   mxDestroyArray(mxValueTypes);
+  // do not delete in output as the structure is being recursively used
   if (mxStructure) mxDestroyArray(mxStructure);
 }
 
@@ -845,44 +768,6 @@ StructureFields::getValueType(unsigned int i, const std::string& id)
   FieldType_t ft = getFieldType(fieldname); 
   mxFree(fieldname);
   return ft;
-}
-
-// only used by OutputSBML
-bool
-StructureFields::isValidSBMLAttribute(const std::string& name, SBase* base)
-{
-  bool valid = true;
-  // TO DO look at this
-  // some fields used in matlab do not relate the sbml attributes/objects
-  if (name.find("isSet") != std::string::npos)
-  {
-    valid = false;
-  }
-  else if (name.find("SBML_") != std::string::npos)
-  {
-    valid = false;
-  }
-  else if (name.find("_version") != std::string::npos)
-  {
-    valid = false;
-  }
-  else if (name.find("typecode") != std::string::npos)
-  {
-    valid = false;
-  }
-  else if (name.find("_symbol") != std::string::npos)
-  {
-    valid = false;
-  }
-  if (valid && base != NULL)
-  {
-    if (name.find("variable") != std::string::npos && base->getLevel() == 1)
-    {
-      valid = false;
-    }
-  }
- 
-  return valid;
 }
 
 //////////////////////////
@@ -1543,32 +1428,6 @@ StructureFields::lookForCSymbols(ASTNode* math)
   default:
     break;
   }
-  //if (nChild == 0)
-  //{
-  //  type = math->getType();
-
-  //  if (type == AST_NAME_AVOGADRO)
-  //  {
-  //    dealWithAvogadroSymbol(math);
-  //  }
-  //  else if (type == AST_NAME_TIME)
-  //  {
-  //    dealWithTimeSymbol(math);
-  //  }
-  //}
-  //else
-  //{
-  //  type = math->getType();
-
-  //  if (type == AST_FUNCTION_DELAY)
-  //  {
-  //    dealWithDelaySymbol(math);
-  //  }
-  //  else if (type == AST_FUNCTION_RATE_OF)
-  //  {
-  //    dealWithRateOfSymbol(math);
-  //  }
-  //}
 
   for (unsigned int i = 0; i < nChild; ++i)
   {
@@ -1663,42 +1522,43 @@ void
 StructureFields::addAttributes(const std::string& functionId, unsigned int index,
                                unsigned int total_no)
 {
-  std::string fieldname;
   FieldType_t type;
+  FieldnamesType_t nameType;
 
   for (unsigned int i = 0; i < nNumberFields; ++i)
   {
-    fieldname = getFieldname(i, functionId);
-    if (!isValidSBMLAttribute(fieldname))
+    FieldValues_t field = mFields.at(i);
+    type = field.type;
+    nameType = field.fieldnameType;
+    if (nameType != OTHER_CVTERMS && !field.isSBMLAttribute)
     {
       continue;
     }
-    type = getValueType(i, functionId);
     if (type == TYPE_ELEMENT)
     {
-      if (fieldname == "cvterms")
+      if (nameType == OTHER_CVTERMS)
       {
-        addCVTerms(fieldname, index);
+        addCVTerms(index);
       }
       else 
       {
-       addChildElement(fieldname, index);
+       addChildElement(field, index);
       }
     }
-    else if (anomalousMathStructures(fieldname, type))
+    else if (field.fieldnameType == OTHER_ANOMALOUS_MATH)
     {
-      addAnomalousChild(fieldname, i);
+      addAnomalousChild(field);
     }
     else 
     {
-      setAttribute(fieldname, type, index, total_no);
+      setAttribute(field, index, total_no);
     }
 
   }
 }
 
 CVTerm *
-  getCVTerm(mxArray* mxCVTerms, unsigned int i)
+getCVTerm(mxArray* mxCVTerms, unsigned int i)
 {
   CVTerm *cv;
   std::string qualType = StructureFields::readString(mxCVTerms, "qualifierType", i);
@@ -1748,7 +1608,7 @@ CVTerm *
 }
 
 void
-StructureFields::addCVTerms(const std::string& name, unsigned int index)
+StructureFields::addCVTerms(unsigned int index)
 {
   mxArray* mxCVTerms = mxGetField(mxStructure, index, "cvterms");
   if (mxCVTerms == NULL)
@@ -1768,25 +1628,21 @@ StructureFields::addCVTerms(const std::string& name, unsigned int index)
 }
 
 void
-StructureFields::addChildElement(const std::string& name, unsigned int index)
+StructureFields::addChildElement(FieldValues_t field, unsigned int index)
 {
-  mxArray* mxChild = mxGetField(mxStructure, index, name.c_str());
+  mxArray* mxChild = mxGetField(mxStructure, index, field.fieldName.c_str());
   SBase *pChild = NULL;
 
   size_t n = mxGetNumberOfElements(mxChild);
   if (mxChild == NULL) return;
   else if (n == 0) return;
-  std::string prefix = getPackagePrefix(name);
-  std::string sbmlName = name;
-  bool usePlugin = usingPlugin(prefix);
-  if (prefix.size() > 0)
-  {
-    sbmlName = removePackagePrefix(name);
-  }
+
+  bool usePlugin = usingPlugin(field.prefix);
+
   for (unsigned int i = 0; i < n; ++i)
   {
     // hack for rules - since a list of rules contains assignmentRule etc..
-    if (name == "rule")
+    if (field.fieldName == "rule")
     {
       pChild = mSBase->createChildObject(getRuleType(mxChild, i));
     }
@@ -1794,11 +1650,11 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
     {
       if (usePlugin)
       {
-        pChild = mSBase->getPlugin(prefix)->createChildObject(sbmlName);
+        pChild = mSBase->getPlugin(field.prefix)->createChildObject(field.sbmlName);
       }
       else
       {
-        pChild = mSBase->createChildObject(sbmlName);
+        pChild = mSBase->createChildObject(field.sbmlName);
       }
     }
 
@@ -1814,36 +1670,17 @@ StructureFields::addChildElement(const std::string& name, unsigned int index)
   }
 }
 
-bool
-StructureFields::anomalousMathStructures(const std::string& fieldname, FieldType_t type)
-{
-  bool isAnomaly = false;
-
-  // cases where the field was stored as a string rather than a structure
-  if (type == TYPE_CHAR)
-  {
-    if (fieldname == "trigger" ||
-      fieldname == "delay" ||
-      fieldname == "stoichiometryMath")
-    {
-      isAnomaly = true;
-    }    
-  }
-
-  return isAnomaly;
-}
-
 void 
-StructureFields::addAnomalousChild(const std::string& fieldname, unsigned int index)
+StructureFields::addAnomalousChild(FieldValues_t field)
 {
-  std::string value = readString(fieldname, 0, 0);
+  std::string value = readString(field.fieldName, 0, 0);
 
   if (!value.empty())
   {
-    SBase *pChild = mSBase->createChildObject(fieldname);
+    SBase *pChild = mSBase->createChildObject(field.fieldName);
     if (pChild != NULL)
     {
-      std::string value = readString(fieldname, 0, 0);
+      std::string value = readString(field.fieldName, 0, 0);
       const ASTNode* ast = getMathChild(value);
       pChild->setMath(ast);
    }
@@ -1906,7 +1743,7 @@ StructureFields::adjustForCSymbols(ASTNode * math)
 
 
 void
-StructureFields::setAttribute(const std::string& name, const FieldType_t type,
+StructureFields::setAttribute(FieldValues_t field,
                               unsigned int index, unsigned int total_no)
 {
   std::string value;
@@ -1914,104 +1751,97 @@ StructureFields::setAttribute(const std::string& name, const FieldType_t type,
   unsigned int uvalue;
   bool bvalue;
   double dvalue;
-  std::string prefix = getPackagePrefix(name);
-  std::string sbmlName = name;
-  bool usePlugin = usingPlugin(prefix);
-  if (prefix.size() > 0)
-  {
-    sbmlName = removePackagePrefix(name);
-  }
-  switch(type)
+  bool usePlugin = usingPlugin(field.prefix);
+  const ASTNode *ast = NULL;
+
+  switch(field.type)
   {
   case TYPE_CHAR:
-    value = readString(name, index, total_no);
-    if (name == "math" || name == "formula")
-    {
-      const ASTNode *ast = getMathChild(value);
+    value = readString(field.fieldName, index, total_no);
+    switch (field.fieldnameType) {
+    case SBML_MATH:
+      ast = getMathChild(value);
       mSBase->setMath(ast);
-    }
-    else if (name == "notes")
-    {
+      break;
+    case SBML_NOTES:
       mSBase->setNotes(value);
-    }
-    else if (name == "annotation")
-    {
+      break;
+    case SBML_ANNOT:
       mSBase->setAnnotation(value);
-    }
-    else if (name == "message")
-    {
+      break;
+    case SBML_MESSAGE:
       mSBase->setMessage(value);
-    }
-    else
-    {
+      break;
+    default:
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(sbmlName, value);
+        mSBase->getPlugin(field.prefix)->setAttribute(field.sbmlName, value);
       }
       else
       {
-        mSBase->setAttribute(sbmlName, value);
+        mSBase->setAttribute(field.sbmlName, value);
       }
+      break;
     }
     break;
 
   case TYPE_INT:
-    ivalue = readInt(name, index, total_no);
-    if (determineStatus(name, index))
+    ivalue = readInt(field.fieldName, index, total_no);
+    if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(sbmlName, ivalue);
+        mSBase->getPlugin(field.prefix)->setAttribute(field.sbmlName, ivalue);
       }
       else
       {
-        mSBase->setAttribute(sbmlName, ivalue);
+        mSBase->setAttribute(field.sbmlName, ivalue);
       }
     }
     break;
 
   case TYPE_UINT:
-    uvalue = readUint(name, index, total_no);
-    if (determineStatus(name, index))
+    uvalue = readUint(field.fieldName, index, total_no);
+    if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(sbmlName, uvalue);
+        mSBase->getPlugin(field.prefix)->setAttribute(field.sbmlName, uvalue);
       }
       else
       {
-        mSBase->setAttribute(sbmlName, uvalue);
+        mSBase->setAttribute(field.sbmlName, uvalue);
       }
     }
     break;
 
   case TYPE_DOUBLE:
-    dvalue = readDouble(name, index, total_no);
-    if (determineStatus(name, index))
+    dvalue = readDouble(field.fieldName, index, total_no);
+    if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(sbmlName, dvalue);
+        mSBase->getPlugin(field.prefix)->setAttribute(field.sbmlName, dvalue);
       }
       else
       {
-        mSBase->setAttribute(sbmlName, dvalue);
+        mSBase->setAttribute(field.sbmlName, dvalue);
       }
     }
     break;
 
   case TYPE_BOOL:
-    ivalue = readInt(name, index, total_no);
+    ivalue = readInt(field.fieldName, index, total_no);
     bvalue = true ? ivalue == 1 : false;
-    if (determineStatus(name, index))
+    if (determineStatus(field.fieldName, index))
     {
       if (usePlugin)
       {
-        mSBase->getPlugin(prefix)->setAttribute(sbmlName, bvalue);
+        mSBase->getPlugin(field.prefix)->setAttribute(field.sbmlName, bvalue);
       }
       else
       {
-        mSBase->setAttribute(sbmlName, bvalue);
+        mSBase->setAttribute(field.sbmlName, bvalue);
       }
     }
 
@@ -2210,10 +2040,11 @@ StructureFields::readInt(const std::string& name, unsigned int index, unsigned i
       value = 0;
       nStatus = 0;
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("Int", name, index, total_no);
+
+    if (nStatus != 0)
+    {
+      reportReadError("Int", name, index, total_no);
+    }
   }
   return value;
 }
@@ -2243,10 +2074,11 @@ StructureFields::readInt(mxArray* mxArray1, const std::string& name, unsigned in
       value = 0;
       nStatus = 0;
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("Int", name, index, 0, "static");
+
+    if (nStatus != 0)
+    {
+      reportReadError("Int", name, index, 0, "static");
+    }
   }
 
   return value;
@@ -2276,12 +2108,12 @@ StructureFields::readDouble(const std::string& name, unsigned int index, unsigne
       value = util_NaN();
       nStatus = 0;
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("Double", name, index, total_no);
-  }
 
+    if (nStatus != 0)
+    {
+      reportReadError("Double", name, index, total_no);
+    }
+  }
   return value;
 }
 
@@ -2291,21 +2123,24 @@ StructureFields::readString(const std::string& name, unsigned int index, unsigne
   mxArray * mxField;
   char *value = NULL;
   int nStatus = 1;
+  std::string f = "";
 
   /* get field */
   mxField = mxGetField(mxStructure, index, name.c_str());
-  value = mxArrayToString(mxField);
-  if (value != NULL)
+  if (mxField != NULL)
   {
-    nStatus = 0;
-  }
+    value = mxArrayToString(mxField);
+    if (value != NULL)
+    {
+      nStatus = 0;
+      f = std::string(value);
+    }
 
-  if (nStatus != 0)
-  {
-    reportReadError("String", name, index, total_no);
+    if (nStatus != 0)
+    {
+      reportReadError("String", name, index, total_no);
+    }
   }
-
-  const std::string f = std::string(value); 
   return f;
 }
 
@@ -2327,10 +2162,10 @@ StructureFields::readString(mxArray* mxArray1, const std::string& name, unsigned
       nStatus = 0;
       f = std::string(value);
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("String", name, index, 0, "static");
+    if (nStatus != 0)
+    {
+      reportReadError("String", name, index, 0, "static");
+    }
   }
   return f;
 }
@@ -2359,10 +2194,11 @@ StructureFields::readUint(const std::string& name, unsigned int index, unsigned 
       value = 0;
       nStatus = 0;
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("Uint", name, index, total_no);
+
+    if (nStatus != 0)
+    {
+      reportReadError("Uint", name, index, total_no);
+    }
   }
 
   return value;
@@ -2394,10 +2230,11 @@ StructureFields::readUint(mxArray* mxArray1, const std::string& name,
       value = 0;
       nStatus = 0;
     }
-  }
-  if (nStatus != 0)
-  {
-    reportReadError("Uint", name, index, 0, "static");
+
+    if (nStatus != 0)
+    {
+      reportReadError("Uint", name, index, 0, "static");
+    }
   }
   return value;
 }
@@ -2409,7 +2246,7 @@ StructureFields::determineStatus(const std::string& name, unsigned int index)
   mxArray * mxField;
   // if the field itself is empty then it is clearly not set
   mxField = mxGetField(mxStructure, index, name.c_str());
-  if (mxIsEmpty(mxField))
+  if (mxField == NULL || mxIsEmpty(mxField))
   {
     return false;
   }
@@ -2823,54 +2660,61 @@ answerYesToQuestion(const std::string& question)
 // functions used to check arguments for OutputSBML
 
 void
-validateNumberOfInputsForOutput(int nrhs, const mxArray *prhs[], unsigned int usingOctave)
+validateNumberOfInputsForOutput(int nrhs, const mxArray *prhs[], 
+  unsigned int usingOctave, unsigned int& outputVersion, int nlhs)
 {
-  if (nrhs < 1)
+  if (nlhs > 0 && nrhs == 0)
   {
-    reportError("OutputSBML:inputArgs", 
-      "Must supply at least the model as an input argument\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    outputVersion = 1;
   }
-  if (usingOctave == 1 && nrhs < 2)
+  else
   {
-    reportError("OutputSBML:Octave:needFilename", 
-      "Octave requires the filename to be specified\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
-  }
-  if (nrhs > 5)
-  {
-    reportError("OutputSBML:inputArguments", "Too many input arguments\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
-  }
+    if (nrhs < 1)
+    {
+      reportError("OutputSBML:inputArgs",
+        "Must supply at least the model as an input argument\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
+    if (usingOctave == 1 && nrhs < 2)
+    {
+      reportError("OutputSBML:Octave:needFilename",
+        "Octave requires the filename to be specified\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
+    if (nrhs > 5)
+    {
+      reportError("OutputSBML:inputArguments", "Too many input arguments\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
 
-  if (nrhs > 1 && ((mxIsChar(prhs[1]) != 1) || (mxGetM(prhs[1]) != 1)))
-  {
-    reportError("OutputSBML:inputArguments:invalidFilename", 
-      "Second argument must be a filename\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
-  }
-  if (nrhs > 2 && !mxIsNumeric(prhs[2]))
-  {
-    reportError("OutputSBML:inputArguments:exclusiveFlag", 
-      "exclusiveFlag is an optional argument but must be a number\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
-  }
+    if (nrhs > 1 && ((mxIsChar(prhs[1]) != 1) || (mxGetM(prhs[1]) != 1)))
+    {
+      reportError("OutputSBML:inputArguments:invalidFilename",
+        "Second argument must be a filename\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
+    if (nrhs > 2 && !mxIsNumeric(prhs[2]))
+    {
+      reportError("OutputSBML:inputArguments:exclusiveFlag",
+        "exclusiveFlag is an optional argument but must be a number\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
 
-  if (nrhs > 3 && !mxIsNumeric(prhs[3]))
-  {
-    reportError("OutputSBML:inputArguments:applyUserValidation", 
-      "applyUserValidation is an optional argument but must be a number\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    if (nrhs > 3 && !mxIsNumeric(prhs[3]))
+    {
+      reportError("OutputSBML:inputArguments:applyUserValidation",
+        "applyUserValidation is an optional argument but must be a number\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
+
+    if (nrhs > 4 && (!mxIsNumeric(prhs[4]) || (mxGetM(prhs[4]) != 1) || (mxGetN(prhs[4]) != 2)))
+    {
+      reportError("OutputSBML:inputArguments:fbcGeneProductOptions",
+        "fbcGeneProductOptions is an optional argument but must be an array with two numbers\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
+    }
+
   }
-
-  if (nrhs > 4 && (!mxIsNumeric(prhs[4]) || (mxGetM(prhs[4]) != 1) || (mxGetN(prhs[4]) != 2)))
-  {
-    reportError("OutputSBML:inputArguments:fbcGeneProductOptions", 
-      "fbcGeneProductOptions is an optional argument but must be an array with two numbers\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag), (applyUserValidation), (fbcGeneProductOptions))");
-  }
-
-
 
 }
 
@@ -3280,13 +3124,18 @@ getFilename(int nrhs, const mxArray* prhs[], unsigned int& validateFlag,
 // functions called by main functions 
 FILE_CHAR
 validateInputOutputForOutput(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[], 
-                    unsigned int usingOctave)
+                    unsigned int usingOctave, unsigned int& outputVersion)
 {
-  validateNumberOfInputsForOutput(nrhs, prhs, usingOctave);
-  validateNumberOfOutputsForOutput(nlhs);
-  populateModelArray(nrhs, prhs);
-  validateModel();
-  FILE_CHAR filename = validateFilenameForOutput(nrhs, prhs);
+  FILE_CHAR filename = NULL;
+  validateNumberOfInputsForOutput(nrhs, prhs, usingOctave, outputVersion, nlhs);
+  if (outputVersion == 0)
+  {
+    validateNumberOfOutputsForOutput(nlhs);
+
+    populateModelArray(nrhs, prhs);
+    validateModel();
+    filename = validateFilenameForOutput(nrhs, prhs);
+  }
   return filename;
 }
 
@@ -3303,9 +3152,8 @@ validateInputOutputForTranslate(int nlhs, mxArray *plhs[], int nrhs, const mxArr
 
   return filename;
 }
-////////////////////////////////////////////////////////////////////////////
-//
-// TranslateSBML.cpp
+
+
 void
 OutputVersionInformation(mxArray *plhs[])
 {
@@ -3315,7 +3163,8 @@ OutputVersionInformation(mxArray *plhs[])
     "libSBML_version_string",
     "XML_parser",
     "XML_parser_version",
-    "isFBCEnabled"
+    "isFBCEnabled",
+    "packagesEnabled"
   };
 
   const char *xml_parsers[] =
@@ -3332,7 +3181,7 @@ OutputVersionInformation(mxArray *plhs[])
   unsigned int i = 0;
 
 
-  plhs[2] = mxCreateStructArray(2, dims, 5, version_struct);
+  plhs[2] = mxCreateStructArray(2, dims, 6, version_struct);
 
   mxSetField(plhs[2], 0, "libSBML_version", CreateIntScalar(getLibSBMLVersion()));
   mxSetField(plhs[2], 0, "libSBML_version_string", mxCreateString(getLibSBMLDottedVersion()));
@@ -3353,8 +3202,29 @@ OutputVersionInformation(mxArray *plhs[])
   mxSetField(plhs[2], 0, "isFBCEnabled", mxCreateString("disabled"));
 
 #endif
+  std::ostringstream oss;
+  bool first = true;
+  for (unsigned int i = 0; i < SBMLExtensionRegistry::getNumRegisteredPackages(); ++i)
+  {
+    std::string name = SBMLExtensionRegistry::getRegisteredPackageName(i);
+    if (reqdPkgPrefixes.contains(name) || unreqdPkgPrefixes.contains(name))
+    {
+      if (!first) 
+      {
+        oss << ";";
+      }
+      oss << name;
+      first = false;
+    }
+  }
+
+  std::string msg = oss.str();
+  mxSetField(plhs[2], 0, "packagesEnabled", mxCreateString(msg.c_str()));
 }
 
+////////////////////////////////////////////////////////////////////////////
+//
+// TranslateSBML.cpp
 SBMLDocument*
 readSBMLDocument(FILE_CHAR filename)
 {
@@ -3519,6 +3389,8 @@ validateDocument(SBMLDocument* doc, unsigned int validateFlag, unsigned int verb
   return totalerrors;
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
 /**
  * NAME:    mexFunction
  *

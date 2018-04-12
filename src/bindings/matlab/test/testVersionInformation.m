@@ -1,28 +1,47 @@
 function Totalfail = testVersionInformation(FbcEnabled)
 
 Totalfail = 0;
-test = 9;
+test = 0;
 
 filename = fullfile(pwd,'test-data', 'errors.xml');
 
 [m, e, v] = TranslateSBML(filename);
 
-Totalfail = Totalfail + fail_unless(~isempty(m));
-Totalfail = Totalfail + fail_unless(isempty(e));
-Totalfail = Totalfail + fail_unless(~isempty(v));
+[test,Totalfail]=doTest (~isempty(m), test, Totalfail);
+[test,Totalfail]=doTest (isempty(e), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v), test, Totalfail);
 
-Totalfail = Totalfail + fail_unless(~isempty(v.libSBML_version));
-Totalfail = Totalfail + fail_unless(~isempty(v.libSBML_version_string));
-Totalfail = Totalfail + fail_unless(~isempty(v.XML_parser));
-Totalfail = Totalfail + fail_unless(~isempty(v.XML_parser_version));
-Totalfail = Totalfail + fail_unless(~isempty(v.isFBCEnabled));
+[test,Totalfail]=doTest (~isempty(v.libSBML_version), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v.libSBML_version_string), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v.XML_parser), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v.XML_parser_version), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v.isFBCEnabled), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(v.packagesEnabled), test, Totalfail);
 
 if (FbcEnabled == 1)
-    test = 10;
-    Totalfail = Totalfail + fail_unless(strcmp(v.isFBCEnabled, 'enabled'));
+    [test,Totalfail]=doTest (strcmp(v.isFBCEnabled, 'enabled'), test, Totalfail);
 else
-    Totalfail = Totalfail + fail_unless(strcmp(v.isFBCEnabled, 'disabled'));
+    [test,Totalfail]=doTest (strcmp(v.isFBCEnabled, 'disabled'), test, Totalfail);
 end;
+
+newv = OutputSBML();
+
+[test,Totalfail]=doTest (~isempty(newv), test, Totalfail);
+
+[test,Totalfail]=doTest (~isempty(newv.libSBML_version), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(newv.libSBML_version_string), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(newv.XML_parser), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(newv.XML_parser_version), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(newv.isFBCEnabled), test, Totalfail);
+[test,Totalfail]=doTest (~isempty(newv.packagesEnabled), test, Totalfail);
+
+if (FbcEnabled == 1)
+    [test,Totalfail]=doTest (strcmp(newv.isFBCEnabled, 'enabled'), test, Totalfail);
+else
+    [test,Totalfail]=doTest (strcmp(newv.isFBCEnabled, 'disabled'), test, Totalfail);
+end;
+
+
 
 v
 
@@ -30,6 +49,10 @@ disp('TestingVersionInformation:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+
+function [test, Totalfail] = doTest(arg, test, Totalfail)
+test = test + 1;
+Totalfail = Totalfail + fail_unless(arg);
 
 function y = fail_unless(arg)
 

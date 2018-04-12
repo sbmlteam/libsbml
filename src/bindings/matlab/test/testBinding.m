@@ -71,6 +71,7 @@ try
     Totalfail = Totalfail + testVersionInformation(FbcEnabled);
     Totalfail = Totalfail + testMissingOutput('Out-test1', 0, FbcEnabled);    
     Totalfail = Totalfail + testCVTerms('Out-test1', 0, FbcEnabled);
+    Totalfail = Totalfail + testGetSBMLDefaultStruct();
 
   end;
 
