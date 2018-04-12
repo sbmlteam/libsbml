@@ -100,6 +100,7 @@ endif()
 
 # finally compile the library
 # 
+message("${NODE_GYP_EXECUTABLE} rebuild ${NODE_GYP_ARGS}")
 set(ENV{PYTHON} ${PYTHON_EXECUTABLE}) 
 execute_process(
     COMMAND "${NODE_GYP_EXECUTABLE}"
