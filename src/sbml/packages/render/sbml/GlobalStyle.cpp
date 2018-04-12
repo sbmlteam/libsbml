@@ -1,6 +1,6 @@
 /**
  * @file    GlobalStyle.cpp
- * @brief   class representing a global style object
+ * @brief Implementation of the GlobalStyle class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,55 +31,50 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "GlobalStyle.h"
+#include <sbml/packages/render/sbml/GlobalStyle.h>
+#include <sbml/packages/render/sbml/ListOfGlobalStyles.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 
 #include <assert.h>
 #include <algorithm>
 
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string GlobalStyle::ELEMENT_NAME="style";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new GlobalStyle object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new GlobalStyle using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-GlobalStyle::GlobalStyle (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    Style(level,version,pkgVersion)
+GlobalStyle::GlobalStyle(unsigned int level,
+                         unsigned int version,
+                         unsigned int pkgVersion)
+  : Style(level, version)
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new GlobalStyle object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new GlobalStyle using the given RenderPkgNamespaces object.
  */
-GlobalStyle::GlobalStyle (RenderPkgNamespaces* renderns):
-    Style(renderns)
+GlobalStyle::GlobalStyle(RenderPkgNamespaces *renderns)
+  : Style(renderns)
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
   setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -97,16 +92,6 @@ GlobalStyle::GlobalStyle(const XMLNode& node, unsigned int l2version)
 {
 }
 /** @endcond */
-
-
-/*
- * Destroy this object.
- */
-GlobalStyle::~GlobalStyle ()
-{
-}
-
-
 #ifndef OMIT_DEPRECATED
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -138,61 +123,215 @@ GlobalStyle::GlobalStyle(RenderPkgNamespaces* renderns, const std::string& id):S
 
 
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Copy constructor for GlobalStyle.
+ */
+GlobalStyle::GlobalStyle(const GlobalStyle& orig)
+  : Style( orig )
+{
+}
+
+
+/*
+ * Assignment operator for GlobalStyle.
+ */
+GlobalStyle&
+GlobalStyle::operator=(const GlobalStyle& rhs)
+{
+  if (&rhs != this)
+  {
+    Style::operator=(rhs);
+  }
+
+  return *this;
+}
+
+
 /*
  * Creates and returns a deep copy of this GlobalStyle object.
- *
- * @return a (deep) copy of this GlobalStyle.
  */
-GlobalStyle* GlobalStyle::clone() const
+GlobalStyle*
+GlobalStyle::clone() const
 {
-    return new GlobalStyle(*this);
+  return new GlobalStyle(*this);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the XML element name of this object, which for
- * GlobalStyle, is always @c "renderInformation".
- * 
- * @return the name of this element, i.e., @c "renderInformation".
+ * Destructor for GlobalStyle.
  */
-const std::string& GlobalStyle::getElementName() const
+GlobalStyle::~GlobalStyle()
 {
-  static std::string name = GlobalStyle::ELEMENT_NAME;
+}
+
+
+/*
+ * Returns the XML element name of this GlobalStyle object.
+ */
+const std::string&
+GlobalStyle::getElementName() const
+{
+  static const string name = "style";
   return name;
 }
-/** @endcond */
+
+
+/*
+ * Returns the libSBML type code for this GlobalStyle object.
+ */
+int
+GlobalStyle::getTypeCode() const
+{
+  return SBML_RENDER_GLOBALSTYLE;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * This method is purely abstract and has to be implemented by derived
- * classes.
- *
- * @see getElementName()
+ * Adds the expected attributes for this element
  */
-int GlobalStyle::getTypeCode() const
+void
+GlobalStyle::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-    return SBML_RENDER_GLOBALSTYLE;
+  Style::addExpectedAttributes(attributes);
 }
+
 /** @endcond */
 
 
 
-LIBSBML_CPP_NAMESPACE_END 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+GlobalStyle::readAttributes(const XMLAttributes& attributes,
+                            const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfGlobalStyles*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = log->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderGlobalRenderInformationLOGlobalStylesAllowedCoreAttributes,
+            pkgVersion, level, version, details);
+      }
+    }
+  }
+
+  Style::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render", RenderGlobalStyleAllowedCoreAttributes,
+          pkgVersion, level, version, details);
+      }
+    }
+  }
+}
+
+/** @endcond */
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new GlobalStyle_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+GlobalStyle_t *
+GlobalStyle_create(unsigned int level,
+                   unsigned int version,
+                   unsigned int pkgVersion)
+{
+  return new GlobalStyle(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this GlobalStyle_t object.
+ */
+LIBSBML_EXTERN
+GlobalStyle_t*
+GlobalStyle_clone(const GlobalStyle_t* gs)
+{
+  if (gs != NULL)
+  {
+    return static_cast<GlobalStyle_t*>(gs->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this GlobalStyle_t object.
+ */
+LIBSBML_EXTERN
+void
+GlobalStyle_free(GlobalStyle_t* gs)
+{
+  if (gs != NULL)
+  {
+    delete gs;
+  }
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * GlobalStyle_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+GlobalStyle_hasRequiredAttributes(const GlobalStyle_t * gs)
+{
+  return (gs != NULL) ? static_cast<int>(gs->hasRequiredAttributes()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

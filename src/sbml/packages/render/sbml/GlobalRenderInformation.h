@@ -1,6 +1,6 @@
 /**
  * @file    GlobalRenderInformation.h
- * @brief   class for representing global render information
+ * @brief Definition of the GlobalRenderInformation class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GlobalRenderInformation
- * @brief GlobalRenderInformation is the render information stored in the ListOfLayouts. GlobalRenderInformation can be
+ * @sbmlbrief{render} GlobalRenderInformation is the render information stored in the ListOfLayouts. GlobalRenderInformation can be
  *  applied to all layouts.
  *
  * GlobalRenderInformation is one of the subclasses of RenderInformationBase. A global render information object
@@ -51,64 +51,74 @@
 #ifndef GlobalRenderInformation_H__
 #define GlobalRenderInformation_H__
 
-#include <sbml/common/sbmlfwd.h>
 
-#include <sbml/packages/render/sbml/RenderInformationBase.h>
-#include <sbml/packages/render/sbml/GlobalStyle.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
 #include <sbml/xml/XMLNode.h>
 
 #ifdef __cplusplus
 
+
 #include <string>
+
+
+#include <sbml/packages/render/sbml/RenderInformationBase.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/ListOfGlobalStyles.h>
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 class LIBSBML_EXTERN GlobalRenderInformation : public RenderInformationBase
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
-  ListOfGlobalStyles mListOfStyles;
-  static const std::string ELEMENT_NAME;
+
+  ListOfGlobalStyles mGlobalStyles;
+
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new GlobalRenderInformation object with the given SBML level
-   * and SBML version.
+   * Creates a new GlobalRenderInformation using the given SBML Level, Version
+   * and &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
-   */
-  GlobalRenderInformation (unsigned int level      = RenderExtension::getDefaultLevel(),
-    unsigned int version    = RenderExtension::getDefaultVersion(),
-    unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new GlobalRenderInformation object with the given SBMLNamespaces.
+   * @param level an unsigned int, the SBML Level to assign to this
+   * GlobalRenderInformation.
    *
-   * @param sbmlns The SBML namespace for the object.
-   */
-  GlobalRenderInformation (RenderPkgNamespaces* renderns);
-
-
-  /**
-   * Destroy this GlobalRenderInformation object.
-   */
-  virtual ~GlobalRenderInformation ();
-
-
-  /**
-   * Parses the xml information in the given node and sets the attributes.
-   * This method should never be called by the user. It is only used to read render 
-   * information from annotations.
+   * @param version an unsigned int, the SBML Version to assign to this
+   * GlobalRenderInformation.
    *
-   * @param node the XMLNode object reference that describes the GlobalRenderInformation
-   * object to be instantiated.
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this GlobalRenderInformation.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  void parseXML(const XMLNode& node);
+  GlobalRenderInformation(
+                          unsigned int level =
+                            RenderExtension::getDefaultLevel(),
+                          unsigned int version =
+                            RenderExtension::getDefaultVersion(),
+                          unsigned int pkgVersion =
+                            RenderExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new GlobalRenderInformation using the given RenderPkgNamespaces
+   * object.
+   *
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
+   */
+  GlobalRenderInformation(RenderPkgNamespaces *renderns);
 
 
 #ifndef OMIT_DEPRECATED
@@ -126,175 +136,583 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
-   * Returns the number of styles.
+   * Copy constructor for GlobalRenderInformation.
    *
-   * @return the number of global styles in the global render information object
+   * @param orig the GlobalRenderInformation instance to copy.
    */
-  unsigned int getNumStyles() const;
+  GlobalRenderInformation(const GlobalRenderInformation& orig);
+
 
   /**
-   * Returns a pointer to the ListOfGlobalStyles object.
+   * Assignment operator for GlobalRenderInformation.
    *
-   * @return pointer to the list of global styles.
+   * @param rhs the GlobalRenderInformation object whose values are to be used
+   * as the basis of the assignment.
    */
-  ListOfGlobalStyles* getListOfStyles();
-
-  /**
-   * Returns a const pointer to the ListOfGlobalStyles object.
-   *
-   * @return const pointer to the list of global styles.
-   */
-  const ListOfGlobalStyles* getListOfStyles() const;
-
-  /**
-   * Returns a pointer to the style with the given index.
-   * If the index is invalid, @c NULL is returned.
-   * 
-   * @param i index of the GlobalStyle to be returned.
-   * 
-   * @return pointer to the style with the given index or NULL
-   */
-  GlobalStyle* getStyle(unsigned int i);
-
-  /**
-   * Returns a const pointer to the style with the given index.
-   * If the index is invalid, @c NULL is returned.
-   * 
-   * @param i index of the GlobalStyle to be returned.
-   * 
-   * @return const pointer to the style with the given index or NULL
-   */
-  const GlobalStyle* getStyle(unsigned int i) const;
-
-  /**
-   * Returns a pointer to the style with the given @p id.
-   * If the id is invalid, @c NULL is returned.
-   * 
-   * @param id id of the GlobalStyle to be returned.
-   * 
-   * @return pointer to the style with the given @p id or @c NULL
-   */
-  GlobalStyle* getStyle(const std::string& id);
-
-  /**
-   * Returns a pointer to the style with the given @p id.
-   * If the id is invalid, @c NULL is returned.
-   * 
-   * @param id id of the GlobalStyle to be returned.
-   * 
-   * @return const pointer to the style with the given @p id or @c NULL
-   */
-  const GlobalStyle* getStyle(const std::string& id) const;
-
-
-  /**
-   * Creates a new GlobalStyle object. The object is added to and owned
-   * by the GlobalRenderInformation object.
-   * 
-   * @param id for the new style.
-   * 
-   * @ return a pointer to the newly created GlobalStyle object.
-   */
-  GlobalStyle* createStyle(const std::string& id);
-
-  /**
-   * Adds a copy of a GlobalStyle to the GlobalRenderInformation object.
-   * The style is only added if it is valid, i.e. it has to have an id and
-   * a valid group.
-   *
-   * @param pointer to the global style object to be added.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
-   *
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this GlobalRenderInformation.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the GlobalRenderInformation</em>.  In addition, the caller should make
-   * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see GlobalRenderInformation::createStyle()
-   * for a method that does not lead to these issues.
-   *
-   * @see createStyle()
-   */
-  int addStyle(const GlobalStyle* pStyle);
-
-  /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
-   *
-   * @return a List* of pointers to all children objects.
-   */
-  virtual List* getAllElements(ElementFilter* filter=NULL);
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactants.write(stream);
-   *   mProducts.write(stream);
-   *   ...
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond */
-
-  /**
-   * Returns the XML element name of this object, which for
-   * GlobalRenderInformation, is always @c "renderInformation".
-   * 
-   * @return the name of this element, i.e., @c "renderInformation".
-   */
-  virtual const std::string& getElementName () const ;
+  GlobalRenderInformation& operator=(const GlobalRenderInformation& rhs);
 
 
   /**
    * Creates and returns a deep copy of this GlobalRenderInformation object.
    *
-   * @return a (deep) copy of this GlobalRenderInformation.
+   * @return a (deep) copy of this GlobalRenderInformation object.
    */
-  virtual GlobalRenderInformation* clone () const;
+  virtual GlobalRenderInformation* clone() const;
+
 
   /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
+   * Destructor for GlobalRenderInformation.
+   */
+  virtual ~GlobalRenderInformation();
+
+
+  /**
+   * Returns the ListOfGlobalStyles from this GlobalRenderInformation.
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the ListOfGlobalStyles from this GlobalRenderInformation.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  const ListOfGlobalStyles* getListOfGlobalStyles() const;
+
+
+  /**
+  * Returns the ListOfGlobalStyles from this GlobalRenderInformation.
+  *
+  * @return the ListOfGlobalStyles from this GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  const ListOfGlobalStyles* getListOfStyles() const;
+
+
+  /**
+   * Returns the ListOfGlobalStyles from this GlobalRenderInformation.
+   *
+   * @return the ListOfGlobalStyles from this GlobalRenderInformation.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  ListOfGlobalStyles* getListOfGlobalStyles();
+
+
+  /**
+  * Returns the ListOfGlobalStyles from this GlobalRenderInformation.
+  *
+  * @return the ListOfGlobalStyles from this GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  ListOfGlobalStyles* getListOfStyles();
+ 
+  
+ /**
+   * Get a GlobalStyle from the GlobalRenderInformation.
+   *
+   * @param n an unsigned int representing the index of the GlobalStyle to
+   * retrieve.
+   *
+   * @return the nth GlobalStyle in the ListOfGlobalStyles within this
+   * GlobalRenderInformation.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  GlobalStyle* getGlobalStyle(unsigned int n);
+
+
+  /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param n an unsigned int representing the index of the GlobalStyle to
+  * retrieve.
+  *
+  * @return the nth GlobalStyle in the ListOfGlobalStyles within this
+  * GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  GlobalStyle* getStyle(unsigned int n);
+
+
+  /**
+   * Get a GlobalStyle from the GlobalRenderInformation.
+   *
+   * @param n an unsigned int representing the index of the GlobalStyle to
+   * retrieve.
+   *
+   * @return the nth GlobalStyle in the ListOfGlobalStyles within this
+   * GlobalRenderInformation.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  const GlobalStyle* getGlobalStyle(unsigned int n) const;
+
+
+  /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param n an unsigned int representing the index of the GlobalStyle to
+  * retrieve.
+  *
+  * @return the nth GlobalStyle in the ListOfGlobalStyles within this
+  * GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  const GlobalStyle* getStyle(unsigned int n) const;
+
+
+  /**
+   * Adds a copy of the given GlobalStyle to this GlobalRenderInformation.
+   *
+   * @param gs the GlobalStyle object to add.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  int addGlobalStyle(const GlobalStyle* gs);
+
+
+  /**
+  * Adds a copy of the given GlobalStyle to this GlobalRenderInformation.
+  *
+  * @param gs the GlobalStyle object to add.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+  *
+  * @copydetails doc_note_object_is_copied
+  *
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  int addStyle(const GlobalStyle* gs);
+
+
+  /**
+   * Get the number of GlobalStyle objects in this GlobalRenderInformation.
+   *
+   * @return the number of GlobalStyle objects in this GlobalRenderInformation.
+   *
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  unsigned int getNumGlobalStyles() const;
+
+
+  /**
+  * Get the number of GlobalStyle objects in this GlobalRenderInformation.
+  *
+  * @return the number of GlobalStyle objects in this GlobalRenderInformation.
+  *
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  unsigned int getNumStyles() const;
+
+
+  /**
+   * Creates a new GlobalStyle object, adds it to this GlobalRenderInformation
+   * object and returns the GlobalStyle object created.
+   *
+   * @return a new GlobalStyle object instance.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   * @see removeGlobalStyle(unsigned int n)
+   */
+  GlobalStyle* createGlobalStyle();
+
+
+  /**
+  * Creates a new GlobalStyle object with the given id, adds it to this GlobalRenderInformation
+  * object and returns the GlobalStyle object created.
+  *
+  * @return a new GlobalStyle object instance.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  GlobalStyle* createStyle(const std::string& id);
+
+
+  /**
+   * Removes the nth GlobalStyle from this GlobalRenderInformation and returns
+   * a pointer to it.
+   *
+   * @param n an unsigned int representing the index of the GlobalStyle to
+   * remove.
+   *
+   * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
+   *
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addGlobalStyle(const GlobalStyle* object)
+   * @see createGlobalStyle()
+   * @see getGlobalStyle(const std::string& sid)
+   * @see getGlobalStyle(unsigned int n)
+   * @see getNumGlobalStyles()
+   * @see removeGlobalStyle(const std::string& sid)
+   */
+  GlobalStyle* removeGlobalStyle(unsigned int n);
+
+
+  /**
+  * Removes the nth GlobalStyle from this GlobalRenderInformation and returns
+  * a pointer to it.
+  *
+  * @param n an unsigned int representing the index of the GlobalStyle to
+  * remove.
+  *
+  * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  */
+  GlobalStyle* removeStyle(unsigned int n);
+
+
+  /**
+   * Returns the XML element name of this GlobalRenderInformation object.
+   *
+   * For GlobalRenderInformation, the XML element name is always
+   * @c "renderInformation".
+   *
+   * @return the name of this element, i.e. @c "renderInformation".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this GlobalRenderInformation object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_GLOBALRENDERINFORMATION, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
+   * Write any contained elements
    */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+
+
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this
+   * GlobalRenderInformation.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @return pointer to the element created.
+   */
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this GlobalRenderInformation.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * GlobalRenderInformation.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this GlobalRenderInformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this GlobalRenderInformation.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int the index of the object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
+   *
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
+   */
+  virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
+   * Parses the xml information in the given node and sets the attributes.
+   * This method should never be called by the user. It is only used to read render 
+   * information from annotations.
+   *
+   * @param node the XMLNode object reference that describes the GlobalRenderInformation
+   * object to be instantiated.
+   */
+  void parseXML(const XMLNode& node);
 
 
   /**
@@ -306,99 +724,322 @@ public:
    */
   XMLNode toXML() const;
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
 
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-    const std::string& pkgPrefix, bool flag);
-  /** @endcond */
 
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase* createObject (XMLInputStream& stream);
-  /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Creates a new object from the next XMLToken on the XMLInputStream
    */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
+  virtual SBase* createObject(XMLInputStream& stream);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
   /** @endcond */
 
 
 };
 
-class DefaultValues;
+
 
 LIBSBML_CPP_NAMESPACE_END
 
 
+
+
 #endif /* __cplusplus */
 
-#endif /* GlobalRenderInformation_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new GlobalRenderInformation_t using the given SBML Level, Version
+ * and &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * GlobalRenderInformation_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * GlobalRenderInformation_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * GlobalRenderInformation_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+GlobalRenderInformation_t *
+GlobalRenderInformation_create(unsigned int level,
+                               unsigned int version,
+                               unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this GlobalRenderInformation_t object.
+ *
+ * @param gri the GlobalRenderInformation_t structure.
+ *
+ * @return a (deep) copy of this GlobalRenderInformation_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+GlobalRenderInformation_t*
+GlobalRenderInformation_clone(const GlobalRenderInformation_t* gri);
+
+
+/**
+ * Frees this GlobalRenderInformation_t object.
+ *
+ * @param gri the GlobalRenderInformation_t structure.
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+void
+GlobalRenderInformation_free(GlobalRenderInformation_t* gri);
+
+
+/**
+ * Returns a ListOf_t * containing GlobalStyle_t objects from this
+ * GlobalRenderInformation_t.
+ *
+ * @param gri the GlobalRenderInformation_t structure whose ListOfGlobalStyles
+ * is sought.
+ *
+ * @return the ListOfGlobalStyles from this GlobalRenderInformation_t as a
+ * ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see GlobalRenderInformation_addGlobalStyle()
+ * @see GlobalRenderInformation_createGlobalStyle()
+ * @see GlobalRenderInformation_getGlobalStyleById()
+ * @see GlobalRenderInformation_getGlobalStyle()
+ * @see GlobalRenderInformation_getNumGlobalStyles()
+ * @see GlobalRenderInformation_removeGlobalStyleById()
+ * @see GlobalRenderInformation_removeGlobalStyle()
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+GlobalRenderInformation_getListOfGlobalStyles(GlobalRenderInformation_t* gri);
+
+
+/**
+ * Get a GlobalStyle_t from the GlobalRenderInformation_t.
+ *
+ * @param gri the GlobalRenderInformation_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the GlobalStyle_t to
+ * retrieve.
+ *
+ * @return the nth GlobalStyle_t in the ListOfGlobalStyles within this
+ * GlobalRenderInformation.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+GlobalStyle_t*
+GlobalRenderInformation_getGlobalStyle(GlobalRenderInformation_t* gri,
+                                       unsigned int n);
+
+
+/**
+ * Adds a copy of the given GlobalStyle_t to this GlobalRenderInformation_t.
+ *
+ * @param gri the GlobalRenderInformation_t structure to which the
+ * GlobalStyle_t should be added.
+ *
+ * @param gs the GlobalStyle_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+int
+GlobalRenderInformation_addGlobalStyle(GlobalRenderInformation_t* gri,
+                                       const GlobalStyle_t* gs);
+
+
+/**
+ * Get the number of GlobalStyle_t objects in this GlobalRenderInformation_t.
+ *
+ * @param gri the GlobalRenderInformation_t structure to query.
+ *
+ * @return the number of GlobalStyle_t objects in this
+ * GlobalRenderInformation_t.
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+unsigned int
+GlobalRenderInformation_getNumGlobalStyles(GlobalRenderInformation_t* gri);
+
+
+/**
+ * Creates a new GlobalStyle_t object, adds it to this
+ * GlobalRenderInformation_t object and returns the GlobalStyle_t object
+ * created.
+ *
+ * @param gri the GlobalRenderInformation_t structure to which the
+ * GlobalStyle_t should be added.
+ *
+ * @return a new GlobalStyle_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+GlobalStyle_t*
+GlobalRenderInformation_createGlobalStyle(GlobalRenderInformation_t* gri);
+
+
+/**
+ * Removes the nth GlobalStyle_t from this GlobalRenderInformation_t and
+ * returns a pointer to it.
+ *
+ * @param gri the GlobalRenderInformation_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the GlobalStyle_t to
+ * remove.
+ *
+ * @return a pointer to the nth GlobalStyle_t in this
+ * GlobalRenderInformation_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+GlobalStyle_t*
+GlobalRenderInformation_removeGlobalStyle(GlobalRenderInformation_t* gri,
+                                          unsigned int n);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * GlobalRenderInformation_t object have been set.
+ *
+ * @param gri the GlobalRenderInformation_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * GlobalRenderInformation_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+int
+GlobalRenderInformation_hasRequiredAttributes(const GlobalRenderInformation_t *
+  gri);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * GlobalRenderInformation_t object have been set.
+ *
+ * @param gri the GlobalRenderInformation_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * GlobalRenderInformation_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the GlobalRenderInformation_t object are:
+ *
+ * @memberof GlobalRenderInformation_t
+ */
+LIBSBML_EXTERN
+int
+GlobalRenderInformation_hasRequiredElements(const GlobalRenderInformation_t *
+  gri);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !GlobalRenderInformation_H__ */
+
+

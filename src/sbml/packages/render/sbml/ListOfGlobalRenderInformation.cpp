@@ -901,7 +901,9 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Render attribute 'versionMajor' from the "
         "<ListOfGlobalRenderInformation> element must be an integer.";
-      log->logPackageError("render", RenderUnknown, pkgVersion, level, version,
+      log->logPackageError("render", 
+        RenderListOfLayoutsVersionMajorMustBeNonNegativeInteger, pkgVersion, 
+        level, version,
         message);
     }
   }
@@ -921,7 +923,9 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Render attribute 'versionMinor' from the "
         "<ListOfGlobalRenderInformation> element must be an integer.";
-      log->logPackageError("render", RenderUnknown, pkgVersion, level, version,
+      log->logPackageError("render", 
+        RenderListOfLayoutsVersionMinorMustBeNonNegativeInteger, pkgVersion, 
+        level, version,
         message);
     }
   }

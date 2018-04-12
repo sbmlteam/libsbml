@@ -1,6 +1,6 @@
 /**
  * @file    LocalStyle.h
- * @brief   class representing a local style object
+ * @brief Definition of the LocalStyle class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LocalStyle
- * @brief implementation of the LocalStyle concept of the SBML render extension.
+ * @sbmlbrief{render} implementation of the LocalStyle concept of the SBML render extension.
  *
  * Local styles are the style information objects used in LocalRenderInformation (@see LocalRenderInformation).
  * Local styles can be associated with layout objects by role and type as well as by 
@@ -40,21 +40,18 @@
  *
  * Since LocalStyle is derived from Styles, it inherits all of the methods and attributes from Style. (@see Style) 
  *
- * @class ListOfLocalStyles
- * @brief ListOfLocalStyles is the container class that stores LocalStyles in LocalRenderInformation objects.
- *
- * Each LocalRenderInformation object contains a ListOfLocalStyles which contains zero or
- * more local style objects. 
  */
 
 #ifndef LocalStyle_H__
 #define LocalStyle_H__
 
-#include <sbml/common/sbmlfwd.h>
 
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
 #include <sbml/packages/render/sbml/Style.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
-#include <sbml/ListOf.h>
+
 #include <sbml/xml/XMLNode.h>
 
 #ifdef __cplusplus
@@ -62,37 +59,55 @@
 #include <set>
 #include <string>
 
-LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN LocalStyle : public Style
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
+
   std::set<std::string> mIdList;
-  static const std::string ELEMENT_NAME;
+
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new LocalStyle object with the given SBML level
-   * and SBML version.
+   * Creates a new LocalStyle using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this LocalStyle.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * LocalStyle.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this LocalStyle.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  LocalStyle (unsigned int level      = RenderExtension::getDefaultLevel(),
-              unsigned int version    = RenderExtension::getDefaultVersion(),
-              unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  LocalStyle(unsigned int level = RenderExtension::getDefaultLevel(),
+             unsigned int version = RenderExtension::getDefaultVersion(),
+             unsigned int pkgVersion =
+               RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new LocalStyle object with the given SBMLNamespaces.
+   * Creates a new LocalStyle using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  LocalStyle (RenderPkgNamespaces* renderns);
+  LocalStyle(RenderPkgNamespaces *renderns);
+
 
   /**
    * Creates a new LocalStyle object from the given XMLNode object.
@@ -105,12 +120,6 @@ public:
    * object to be instantiated.
    */
   LocalStyle(const XMLNode& node, unsigned int l2version=4);
-
-
-  /**
-   * Destroy this LocalStyle object.
-   */
-  virtual ~LocalStyle ();
 
 
 #ifndef OMIT_DEPRECATED
@@ -128,45 +137,59 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
+   * Copy constructor for LocalStyle.
+   *
+   * @param orig the LocalStyle instance to copy.
+   */
+  LocalStyle(const LocalStyle& orig);
+
+
+  /**
+   * Assignment operator for LocalStyle.
+   *
+   * @param rhs the LocalStyle object whose values are to be used as the basis
+   * of the assignment.
+   */
+  LocalStyle& operator=(const LocalStyle& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this LocalStyle object.
+   *
+   * @return a (deep) copy of this LocalStyle object.
+   */
+  virtual LocalStyle* clone() const;
+
+
+  /**
+   * Destructor for LocalStyle.
+   */
+  virtual ~LocalStyle();
+
+
+  /**
+   * Returns the value of the "idList" attribute of this LocalStyle.
+   *
+   * @return the value of the "idList" attribute of this LocalStyle as a
+   * string.
+   */
+  std::set<std::string>& getIdList();
+
+  /**
+   * Returns the value of the "idList" attribute of this LocalStyle.
+   *
+   * @return the value of the "idList" attribute of this LocalStyle as a
+   * string.
+   */
+  const std::set<std::string>& getIdList() const;
+
+  /**
    * Returns the number of ids in the id set.
    *
    * @return the number of ids in the id set
    */
   unsigned int getNumIds() const;
 
-  /**
-   * Returns the id list.
-   *
-   * @return the reference to the list of ids for the local style.
-   */
-  std::set<std::string>& getIdList();
-
-  /**
-   * Returns the id list.
-   *
-   * @return the const reference to the list of ids for the local style.
-   */
-  const std::set<std::string>& getIdList() const;
-
-  /**
-   * Sets the id list.
-   *
-   * @param idList The list of ids to be set on the local style.
-   */
-  void setIdList(const std::set<std::string>& idList);
-
-  /**
-   * Adds another id to the set.
-   *
-   * @param id the id string to be added to the id list.
-   */
-  void addId(const std::string& id);
-
-
-  /** 
-   * @return the string of all roles
-   */
-  std::string createIdString() const;
 
   /**
    * Checks whether a given @p id is in the id list.
@@ -177,49 +200,63 @@ public:
    */
   bool isInIdList(const std::string& id) const;
 
+
+  /**
+   * Adds another id to the set.
+   *
+   * @param id the id string to be added to the id list.
+   */
+  int addId(const std::string& id);
+
+
+  /** 
+   * @return the string of all roles
+   */
+  std::string createIdString() const;
+
+
   /**
    * Removes an id from the set.
    *
    * @param the id to be removed from the id list.
    */
-  void removeId(const std::string& id);
+  int removeId(const std::string& id);
+
 
   /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
+   * Sets the id list.
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @param idList The list of ids to be set on the local style.
+   */
+  int setIdList(const std::set<std::string>& idList);
+
+ 
+  /**
+   * Returns the XML element name of this LocalStyle object.
+   *
+   * For LocalStyle, the XML element name is always @c "style".
+   *
+   * @return the name of this element, i.e. @c "style".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this LocalStyle object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_LOCALSTYLE, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  int getTypeCode() const; 
+  virtual int getTypeCode() const;
 
-  /**
-   * Creates and returns a deep copy of this LocalStyle object.
-   * 
-   * @return a (deep) copy of this LocalStyle object
-   */
-  LocalStyle* clone() const;
 
-  /**
-   * Returns the XML element name of this object.
-   *
-   * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning "model",
-   * CompartmentType defines it as returning "compartmentType", etc.
-   */
-  const std::string& getElementName() const;
 
   /**
    * Creates an XMLNode object from this LocalStyle object.
@@ -228,25 +265,40 @@ public:
    * LocalStyle object.
    */
   XMLNode toXML() const;
+
+
 protected:
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Adds the expected attributes for this element
    */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Reads the expected attributes into the member data variables
    */
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
   /** @endcond */
 
 
@@ -260,19 +312,6 @@ protected:
   void addListOfIds(XMLToken& node) const;
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -287,4 +326,179 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
-#endif /* LocalStyle_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new LocalStyle_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this LocalStyle_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * LocalStyle_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * LocalStyle_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+LocalStyle_t *
+LocalStyle_create(unsigned int level,
+                  unsigned int version,
+                  unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this LocalStyle_t object.
+ *
+ * @param ls the LocalStyle_t structure.
+ *
+ * @return a (deep) copy of this LocalStyle_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+LocalStyle_t*
+LocalStyle_clone(const LocalStyle_t* ls);
+
+
+/**
+ * Frees this LocalStyle_t object.
+ *
+ * @param ls the LocalStyle_t structure.
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+void
+LocalStyle_free(LocalStyle_t* ls);
+
+// render FIX_ME
+///**
+// * Returns the value of the "idList" attribute of this LocalStyle_t.
+// *
+// * @param ls the LocalStyle_t structure whose idList is sought.
+// *
+// * @return the value of the "idList" attribute of this LocalStyle_t as a
+// * pointer to a string.
+// *
+// * @copydetails doc_returned_owned_char
+// *
+// * @memberof LocalStyle_t
+// */
+//LIBSBML_EXTERN
+//char *
+//LocalStyle_getIdList(const LocalStyle_t * ls);
+//
+//
+/**
+ * Predicate returning @c 1 (true) if this LocalStyle_t's "idList" attribute is
+ * set.
+ *
+ * @param ls the LocalStyle_t structure.
+ *
+ * @return @c 1 (true) if this LocalStyle_t's "idList" attribute has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+int
+LocalStyle_isSetIdList(const LocalStyle_t * ls);
+
+
+/**
+ * Sets the value of the "idList" attribute of this LocalStyle_t.
+ *
+ * @param ls the LocalStyle_t structure.
+ *
+ * @param idList const char * value of the "idList" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * Calling this function with @p idList = @c NULL or an empty string is
+ * equivalent to calling LocalStyle_unsetIdList().
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+int
+LocalStyle_setIdList(LocalStyle_t * ls, const char * idList);
+
+
+///**
+// * Unsets the value of the "idList" attribute of this LocalStyle_t.
+// *
+// * @param ls the LocalStyle_t structure.
+// *
+// * @copydetails doc_returns_success_code
+// * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+// * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+// * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+// *
+// * @memberof LocalStyle_t
+// */
+//LIBSBML_EXTERN
+//int
+//LocalStyle_unsetIdList(LocalStyle_t * ls);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * LocalStyle_t object have been set.
+ *
+ * @param ls the LocalStyle_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * LocalStyle_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof LocalStyle_t
+ */
+LIBSBML_EXTERN
+int
+LocalStyle_hasRequiredAttributes(const LocalStyle_t * ls);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !LocalStyle_H__ */
+
+

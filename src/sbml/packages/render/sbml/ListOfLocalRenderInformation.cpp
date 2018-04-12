@@ -867,7 +867,8 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Render attribute 'versionMajor' from the "
         "<ListOfLocalRenderInformation> element must be an integer.";
-      log->logPackageError("render", RenderUnknown, pkgVersion, level, version,
+      log->logPackageError("render", 
+        RenderLayoutVersionMajorMustBeNonNegativeInteger, pkgVersion, level, version,
         message);
     }
   }
@@ -887,7 +888,8 @@ ListOfLocalRenderInformation::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       std::string message = "Render attribute 'versionMinor' from the "
         "<ListOfLocalRenderInformation> element must be an integer.";
-      log->logPackageError("render", RenderUnknown, pkgVersion, level, version,
+      log->logPackageError("render", 
+        RenderLayoutVersionMinorMustBeNonNegativeInteger, pkgVersion, level, version,
         message);
     }
   }

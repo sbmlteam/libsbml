@@ -227,7 +227,7 @@ static const packageErrorTableEntry renderErrorTable[] =
     "VersionMajor attribute must be NonNegativeInteger.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'render:versionMajor' on a <layout> must have a value of "
+    "The attribute 'render:versionMajor' on a <listOfLocalRenderInformation> must have a value of "
     "data type 'integer', and must be non negative.",
     { "L3V1 Render V1 Section"
     }
@@ -238,7 +238,7 @@ static const packageErrorTableEntry renderErrorTable[] =
     "VersionMinor attribute must be NonNegativeInteger.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The attribute 'render:versionMinor' on a <layout> must have a value of "
+    "The attribute 'render:versionMinor' on a <listOfLocalRenderInformation> must have a value of "
     "data type 'integer', and must be non negative.",
     { "L3V1 Render V1 Section"
     }
@@ -309,7 +309,7 @@ static const packageErrorTableEntry renderErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "A <listOfGlobalRenderInformation> object may have the optional attributes "
-    "'render:versionMajor', 'render:versionMinor' and 'render:defaultValues'. "
+    "'render:versionMajor', and 'render:versionMinor'. "
     "No other attributes from the SBML Level 3 Render namespaces are permitted "
     "on a <listOfGlobalRenderInformation> object. ",
     { "L3V1 Render V1 Section"
