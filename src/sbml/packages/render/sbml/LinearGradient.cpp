@@ -1,6 +1,6 @@
 /**
  * @file    LinearGradient.cpp
- * @brief   class representing a linear gradient
+ * @brief Implementation of the LinearGradient class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,7 +31,10 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "LinearGradient.h"
+#include <sbml/packages/render/sbml/LinearGradient.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
+
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
@@ -41,20 +44,27 @@
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 
+
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-const std::string LinearGradient::ELEMENT_NAME="linearGradient";
 
-/** @cond doxygenLibsbmlInternal */
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new LinearGradient object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new LinearGradient using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-LinearGradient::LinearGradient (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    GradientBase(level,version, pkgVersion)
+LinearGradient::LinearGradient(unsigned int level,
+                               unsigned int version,
+                               unsigned int pkgVersion)
+:    GradientBase(level,version, pkgVersion)
     ,mX1(RelAbsVector(0.0,0.0))
     ,mY1(RelAbsVector(0.0,0.0))
     ,mZ1(RelAbsVector(0.0,0.0))
@@ -62,39 +72,27 @@ LinearGradient::LinearGradient (unsigned int level, unsigned int version, unsign
     ,mY2(RelAbsVector(0.0,100.0))
     ,mZ2(RelAbsVector(0.0,100.0))
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new LinearGradient object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
- */
-LinearGradient::LinearGradient (RenderPkgNamespaces* renderns):
-    GradientBase(renderns)
-    ,mX1(RelAbsVector(0.0,0.0))
-    ,mY1(RelAbsVector(0.0,0.0))
-    ,mZ1(RelAbsVector(0.0,0.0))
-    ,mX2(RelAbsVector(0.0,100.0))
-    ,mY2(RelAbsVector(0.0,100.0))
-    ,mZ2(RelAbsVector(0.0,100.0))
-{
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
+}
 
-  // load package extensions bound with this object (if any) 
+
+/*
+ * Creates a new LinearGradient using the given RenderPkgNamespaces object.
+ */
+LinearGradient::LinearGradient(RenderPkgNamespaces *renderns)
+:    GradientBase(renderns)
+    ,mX1(RelAbsVector(0.0,0.0))
+    ,mY1(RelAbsVector(0.0,0.0))
+    ,mZ1(RelAbsVector(0.0,0.0))
+    ,mX2(RelAbsVector(0.0,100.0))
+    ,mY2(RelAbsVector(0.0,100.0))
+    ,mZ2(RelAbsVector(0.0,100.0))
+{
+  setElementNamespace(renderns->getURI());
+  connectToChild();
   loadPlugins(renderns);
 }
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -120,14 +118,6 @@ LinearGradient::LinearGradient(const XMLNode& node, unsigned int l2version):Grad
 }
 /** @endcond */
 
-
-
-/*
- * Destroy this object.
- */
-LinearGradient::~LinearGradient ()
-{
-}
 
 
 #ifndef OMIT_DEPRECATED
@@ -169,6 +159,370 @@ LinearGradient::~LinearGradient ()
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
+
+
+/*
+ * Copy constructor for LinearGradient.
+ */
+LinearGradient::LinearGradient(const LinearGradient& orig)
+  : GradientBase( orig )
+  , mX1 ( orig.mX1 )
+  , mY1 ( orig.mY1 )
+  , mZ1 ( orig.mZ1 )
+  , mX2 ( orig.mX2 )
+  , mY2 ( orig.mY2 )
+  , mZ2 ( orig.mZ2 )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for LinearGradient.
+ */
+LinearGradient&
+LinearGradient::operator=(const LinearGradient& rhs)
+{
+  if (&rhs != this)
+  {
+    GradientBase::operator=(rhs);
+    mX1 = rhs.mX1;
+    mY1 = rhs.mY1;
+    mZ1 = rhs.mZ1;
+    mX2 = rhs.mX2;
+    mY2 = rhs.mY2;
+    mZ2 = rhs.mZ2;
+
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this LinearGradient object.
+ */
+LinearGradient*
+LinearGradient::clone() const
+{
+  return new LinearGradient(*this);
+}
+
+
+/*
+ * Destructor for LinearGradient.
+ */
+LinearGradient::~LinearGradient()
+{
+}
+
+
+/*
+ * Returns the value of the "x1" element of this LinearGradient.
+ */
+const RelAbsVector&
+LinearGradient::getX1() const
+{
+  return this->mX1;
+}
+
+
+/*
+ * Returns the value of the "x1" element of this LinearGradient.
+ */
+RelAbsVector&
+LinearGradient::getX1()
+{
+  return this->mX1;
+}
+
+
+/*
+ * Returns the x coordinate for the start point as a const reference.
+ */
+const RelAbsVector& 
+LinearGradient::getXPoint1() const
+{
+    return this->mX1;
+}
+
+
+/*
+* Returns the value of the "y1" element of this LinearGradient.
+*/
+const RelAbsVector&
+LinearGradient::getY1() const
+{
+  return this->mY1;
+}
+
+
+/*
+* Returns the value of the "y1" element of this LinearGradient.
+*/
+RelAbsVector&
+LinearGradient::getY1()
+{
+  return this->mY1;
+}
+
+
+/*
+* Returns the y coordinate for the start point as a const reference.
+*/
+const RelAbsVector&
+LinearGradient::getYPoint1() const
+{
+  return this->mY1;
+}
+
+
+/*
+* Returns the value of the "z1" element of this LinearGradient.
+*/
+const RelAbsVector&
+LinearGradient::getZ1() const
+{
+  return this->mZ1;
+}
+
+
+/*
+* Returns the value of the "z1" element of this LinearGradient.
+*/
+RelAbsVector&
+LinearGradient::getZ1()
+{
+  return this->mZ1;
+}
+
+
+/*
+* Returns the z coordinate for the start point as a const reference.
+*/
+const RelAbsVector&
+LinearGradient::getZPoint1() const
+{
+  return this->mZ1;
+}
+
+
+/*
+* Returns the value of the "x2" element of this LinearGradient.
+*/
+const RelAbsVector&
+LinearGradient::getX2() const
+{
+  return this->mX2;
+}
+
+
+/*
+* Returns the value of the "x2" element of this LinearGradient.
+*/
+RelAbsVector&
+LinearGradient::getX2()
+{
+  return this->mX2;
+}
+
+
+/*
+* Returns the x coordinate for the start point as a const reference.
+*/
+const RelAbsVector&
+LinearGradient::getXPoint2() const
+{
+  return this->mX2;
+}
+
+
+/*
+* Returns the value of the "y2" element of this LinearGradient.
+*/
+const RelAbsVector&
+LinearGradient::getY2() const
+{
+  return this->mY2;
+}
+
+
+/*
+* Returns the value of the "y2" element of this LinearGradient.
+*/
+RelAbsVector&
+LinearGradient::getY2()
+{
+  return this->mY2;
+}
+
+
+/*
+* Returns the y coordinate for the start point as a const reference.
+*/
+const RelAbsVector&
+LinearGradient::getYPoint2() const
+{
+  return this->mY2;
+}
+
+
+/*
+* Returns the value of the "z2" element of this LinearGradient.
+*/
+const RelAbsVector&
+LinearGradient::getZ2() const
+{
+  return this->mZ2;
+}
+
+
+/*
+* Returns the value of the "z2" element of this LinearGradient.
+*/
+RelAbsVector&
+LinearGradient::getZ2()
+{
+  return this->mZ2;
+}
+
+
+/*
+* Returns the z coordinate for the start point as a const reference.
+*/
+const RelAbsVector&
+LinearGradient::getZPoint2() const
+{
+  return this->mZ2;
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "x1" element is set.
+ */
+bool
+LinearGradient::isSetX1() const
+{
+  return mX1.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "y1" element is set.
+ */
+bool
+LinearGradient::isSetY1() const
+{
+  return mY1.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "z1" element is set.
+ */
+bool
+LinearGradient::isSetZ1() const
+{
+  return mZ1.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "x2" element is set.
+ */
+bool
+LinearGradient::isSetX2() const
+{
+  return mX2.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "y2" element is set.
+ */
+bool
+LinearGradient::isSetY2() const
+{
+  return mY2.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this LinearGradient's "z2" element is set.
+ */
+bool
+LinearGradient::isSetZ2() const
+{
+  return mZ2.isSetCoordinate();
+}
+
+
+/*
+ * Sets the value of the "x1" element of this LinearGradient.
+ */
+int
+LinearGradient::setX1(const RelAbsVector& x1)
+{
+  this->mX1 = x1;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "y1" element of this LinearGradient.
+*/
+int
+LinearGradient::setY1(const RelAbsVector& y1)
+{
+  this->mY1 = y1;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "z1" element of this LinearGradient.
+*/
+int
+LinearGradient::setZ1(const RelAbsVector& z1)
+{
+  this->mZ1 = z1;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "x2" element of this LinearGradient.
+*/
+int
+LinearGradient::setX2(const RelAbsVector& x2)
+{
+  this->mX2 = x2;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "y2" element of this LinearGradient.
+*/
+int
+LinearGradient::setY2(const RelAbsVector& y2)
+{
+  this->mY2 = y2;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the value of the "z2" element of this LinearGradient.
+*/
+int
+LinearGradient::setZ2(const RelAbsVector& z2)
+{
+  this->mZ2 = z2;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -253,147 +607,115 @@ void LinearGradient::setPoint2(const RelAbsVector& x,const RelAbsVector& y,const
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the x coordinate for the start point as a const reference.
- *
- * @return RelAbsVector that represents the x value of the start point.
+ * Unsets the value of the "x1" element of this LinearGradient.
  */
-const RelAbsVector& LinearGradient::getXPoint1() const
+int
+LinearGradient::unsetX1()
 {
-    return this->mX1;
+  mX1.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+/*
+* Unsets the value of the "y1" element of this LinearGradient.
+*/
+int
+LinearGradient::unsetY1()
+{
+  mY1.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Unsets the value of the "z1" element of this LinearGradient.
+*/
+int
+LinearGradient::unsetZ1()
+{
+  mZ1.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Unsets the value of the "x2" element of this LinearGradient.
+*/
+int
+LinearGradient::unsetX2()
+{
+  mX2.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Unsets the value of the "y2" element of this LinearGradient.
+*/
+int
+LinearGradient::unsetY2()
+{
+  mY2.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Unsets the value of the "z2" element of this LinearGradient.
+*/
+int
+LinearGradient::unsetZ2()
+{
+  mZ2.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Returns the XML element name of this LinearGradient object.
+ */
+const std::string&
+LinearGradient::getElementName() const
+{
+  static const string name = "linearGradient";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this LinearGradient object.
+ */
+int
+LinearGradient::getTypeCode() const
+{
+  return SBML_RENDER_LINEARGRADIENT;
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+LinearGradient::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+  v.leave(*this);
+  return true;
+}
+
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Returns the y coordinate for the start point as a const reference.
- *
- * @return RelAbsVector that represents the y value of the start point.
- */
-const RelAbsVector& LinearGradient::getYPoint1() const
+* Creates an XMLNode object from this LinearGradient object.
+*/
+XMLNode LinearGradient::toXML() const
 {
-    return this->mY1;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z coordinate for the start point as a const reference.
- *
- * @return RelAbsVector that represents the z value of the start point.
- */
-const RelAbsVector& LinearGradient::getZPoint1() const
-{
-    return this->mZ1;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x coordinate for the end point as a const reference.
- *
- * @return RelAbsVector that represents the x value of the start point.
- */
-const RelAbsVector& LinearGradient::getXPoint2() const
-{
-    return this->mX2;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate for the end point as a const reference.
- *
- * @return RelAbsVector that represents the y value of the start point.
- */
-const RelAbsVector& LinearGradient::getYPoint2() const
-{
-    return this->mY2;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z coordinate for the end point as a const reference.
- *
- * @return RelAbsVector that represents the z value of the start point.
- */
-const RelAbsVector& LinearGradient::getZPoint2() const
-{
-    return this->mZ2;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x coordinate for the start point as a reference.
- *
- * @return RelAbsVector that represents the x value of the start point.
- */
-RelAbsVector& LinearGradient::getXPoint1()
-{
-    return this->mX1;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate for the start point as a reference.
- *
- * @return RelAbsVector that represents the y value of the start point.
- */
-RelAbsVector& LinearGradient::getYPoint1()
-{
-    return this->mY1;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z coordinate for the start point as a reference.
- *
- * @return RelAbsVector that represents the z value of the start point.
- */
-RelAbsVector& LinearGradient::getZPoint1()
-{
-    return this->mZ1;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x coordinate for the end point as a reference.
- *
- * @return RelAbsVector that represents the x value of the start point.
- */
-RelAbsVector& LinearGradient::getXPoint2()
-{
-    return this->mX2;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate for the end point as a reference.
- *
- * @return RelAbsVector that represents the y value of the start point.
- */
-RelAbsVector& LinearGradient::getYPoint2()
-{
-    return this->mY2;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z coordinate for the end point as a reference.
- *
- * @return RelAbsVector that represents the z value of the start point.
- */
-RelAbsVector& LinearGradient::getZPoint2()
-{
-    return this->mZ2;
+  return getXmlNodeForSBase(this);
 }
 /** @endcond */
 
@@ -413,133 +735,224 @@ LinearGradient::addExpectedAttributes(ExpectedAttributes& attributes)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-void LinearGradient::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
+void
+LinearGradient::readAttributes(const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes)
 {
-    this->GradientBase::readAttributes(attributes, expectedAttributes);
-    std::string s;
-    std::string delim(" \t\r\n");
-    if(!attributes.readInto("x1",s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 0%
-        this->mX1=RelAbsVector(0.0,0.0);   
-    }
-    else
-    {
-        this->mX1=RelAbsVector(s);
-    }
-    if(!attributes.readInto("y1",s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 0%
-        this->mY1=RelAbsVector(0.0,0.0);   
-    }
-    else
-    {
-        this->mY1=RelAbsVector(s);
-    }
-    if(!attributes.readInto("z1", s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 0%
-        this->mZ1=RelAbsVector(0.0,0.0);   
-    }
-    else
-    {
-        this->mZ1=RelAbsVector(s);
-    }
-    if(!attributes.readInto("x2",s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 100%
-        this->mX2=RelAbsVector(0.0,100.0);   
-    }
-    else
-    {
-        this->mX2=RelAbsVector(s);
-    }
-    if(!attributes.readInto("y2",s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 100%
-        this->mY2=RelAbsVector(0.0,100.0);   
-    }
-    else
-    {
-        this->mY2=RelAbsVector(s);
-    }
-    if(!attributes.readInto("z2", s, getErrorLog(), false, getLine(), getColumn()) || s.find_first_not_of(delim)==std::string::npos)
-    {
-        // default 100%
-        this->mZ2=RelAbsVector(0.0,100.0);   
-    }
-    else
-    {
-        this->mZ2=RelAbsVector(s);
-    }
-}
-/** @endcond */
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int LinearGradient::getTypeCode() const
-{
-    return SBML_RENDER_LINEARGRADIENT;
-}
-/** @endcond */
+  GradientBase::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderLinearGradientAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderLinearGradientAllowedCoreAttributes, pkgVersion, level, version,
+            details);
+      }
+    }
+  }
+
+  string elplusid = "<linearGradient> element";
+  if (!getId().empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+
+  std::string s;
+  RelAbsVector v = RelAbsVector();
+
+  //
+  // x1 RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("x1", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mX1 = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'x1' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientX1MustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setX1(v);
+    }
+    v.erase();
+  }
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor for this instance of LinearGradient.
- *
- * @param v the SBMLVisitor instance to be used.
- *
- * @return the result of calling <code>v.visit()</code>.
- */
-bool LinearGradient::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
+  //
+  // y1 RelAbsVector (use = optional) 
+  //
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object.
- *
- * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
- * CompartmentType defines it as returning "compartmentType", etc.
- */
-const std::string& LinearGradient::getElementName() const
-{
-  static std::string name = LinearGradient::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
+  s = "";
+  assigned = attributes.readInto("y1", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mY1 = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'y1' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientY1MustBeRelAbsVector,
+        pkgVersion, level, version, message);
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of this LinearGradient object.
- * 
- * @return a (deep) copy of this LinearGradient object
- */
-LinearGradient* LinearGradient::clone() const
-{
-    return new LinearGradient(*this);
+    }
+    else
+    {
+      this->setY1(v);
+    }
+    v.erase();
+  }
+
+
+  //
+  // z1 RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("z1", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mZ1 = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'z1' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientZ1MustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setZ1(v);
+    }
+    v.erase();
+  }
+
+
+  //
+  // x2 RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("x2", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mX2 = RelAbsVector(0.0, 100.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'x2' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientX2MustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setX2(v);
+    }
+    v.erase();
+  }
+
+
+  //
+  // y2 RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("y2", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mY2 = RelAbsVector(0.0, 100.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'y2' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientY2MustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setY2(v);
+    }
+    v.erase();
+  }
+
+
+  //
+  // z2 RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("z2", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mZ2 = RelAbsVector(0.0, 100.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'z2' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderLinearGradientZ2MustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setZ2(v);
+    }
+    v.erase();
+  }
+
 }
 /** @endcond */
 
@@ -599,17 +1012,381 @@ void LinearGradient::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates an XMLNode object from this LinearGradient object.
- *
- * @return the XMLNode with the XML representation for the 
- * LinearGradient object.
- */
-XMLNode LinearGradient::toXML() const
-{
-  return getXmlNodeForSBase(this);
-}
-/** @endcond */
+#endif /* __cplusplus */
 
-LIBSBML_CPP_NAMESPACE_END  
+
+/*
+ * Creates a new LinearGradient_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+LinearGradient_t *
+LinearGradient_create(unsigned int level,
+                      unsigned int version,
+                      unsigned int pkgVersion)
+{
+  return new LinearGradient(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this LinearGradient_t object.
+ */
+LIBSBML_EXTERN
+LinearGradient_t*
+LinearGradient_clone(const LinearGradient_t* lg)
+{
+  if (lg != NULL)
+  {
+    return static_cast<LinearGradient_t*>(lg->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this LinearGradient_t object.
+ */
+LIBSBML_EXTERN
+void
+LinearGradient_free(LinearGradient_t* lg)
+{
+  if (lg != NULL)
+  {
+    delete lg;
+  }
+}
+
+
+/*
+ * Returns the value of the "x1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getX1(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getX1()));
+}
+
+
+/*
+ * Returns the value of the "y1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getY1(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getY1()));
+}
+
+
+/*
+ * Returns the value of the "z1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getZ1(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getZ1()));
+}
+
+
+/*
+ * Returns the value of the "x2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getX2(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getX2()));
+}
+
+
+/*
+ * Returns the value of the "y2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getY2(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getY2()));
+}
+
+
+/*
+ * Returns the value of the "z2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+LinearGradient_getZ2(const LinearGradient_t * lg)
+{
+  if (lg == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(lg->getZ2()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "x1" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetX1(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetX1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "y1" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetY1(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetY1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "z1" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetZ1(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetZ1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "x2" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetX2(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetX2()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "y2" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetY2(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetY2()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this LinearGradient_t's "z2" element is
+ * set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_isSetZ2(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->isSetZ2()) : 0;
+}
+
+
+/*
+ * Sets the value of the "x1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setX1(LinearGradient_t * lg, const RelAbsVector_t* x1)
+{
+  return (lg != NULL) ? lg->setX1(*x1) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setY1(LinearGradient_t * lg, const RelAbsVector_t* y1)
+{
+  return (lg != NULL) ? lg->setY1(*y1) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setZ1(LinearGradient_t * lg, const RelAbsVector_t* z1)
+{
+  return (lg != NULL) ? lg->setZ1(*z1) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "x2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setX2(LinearGradient_t * lg, const RelAbsVector_t* x2)
+{
+  return (lg != NULL) ? lg->setX2(*x2) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setY2(LinearGradient_t * lg, const RelAbsVector_t* y2)
+{
+  return (lg != NULL) ? lg->setY2(*y2) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_setZ2(LinearGradient_t * lg, const RelAbsVector_t* z2)
+{
+  return (lg != NULL) ? lg->setZ2(*z2) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetX1(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetX1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetY1(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetY1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z1" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetZ1(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetZ1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetX2(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetX2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetY2(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetY2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z2" element of this LinearGradient_t.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_unsetZ2(LinearGradient_t * lg)
+{
+  return (lg != NULL) ? lg->unsetZ2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * LinearGradient_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_hasRequiredAttributes(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * LinearGradient_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LinearGradient_hasRequiredElements(const LinearGradient_t * lg)
+{
+  return (lg != NULL) ? static_cast<int>(lg->hasRequiredElements()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

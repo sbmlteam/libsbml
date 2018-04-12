@@ -1,6 +1,6 @@
 /**
  * @file    LocalRenderInformation.cpp
- * @brief   class for local render information
+ * @brief Implementation of the LocalRenderInformation class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -31,7 +31,10 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "LocalRenderInformation.h"
+#include <sbml/packages/render/sbml/LocalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfLocalRenderInformation.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 #include <sbml/xml/XMLInputStream.h>
 
 #include <algorithm>
@@ -42,65 +45,46 @@
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
-#include <sbml/packages/render/extension/RenderExtension.h>
-#include <sbml/packages/render/sbml/DefaultValues.h>
 
-#include <sbml/util/ElementFilter.h>
+
+using namespace std;
+
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-const std::string LocalRenderInformation::ELEMENT_NAME="renderInformation";
 
-/** @cond doxygenLibsbmlInternal */
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new LocalRenderInformation object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new LocalRenderInformation using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-LocalRenderInformation::LocalRenderInformation (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : RenderInformationBase(level,version, pkgVersion)
-  , mListOfStyles(level, version, pkgVersion)
-
+LocalRenderInformation::LocalRenderInformation(unsigned int level,
+                                               unsigned int version,
+                                               unsigned int pkgVersion)
+  : RenderInformationBase(level, version)
+  , mLocalStyles (level, version, pkgVersion)
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-      connectToChild();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new LocalRenderInformation object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
- */
-LocalRenderInformation::LocalRenderInformation (RenderPkgNamespaces* renderns)
-  : RenderInformationBase(renderns)
-  , mListOfStyles(renderns)
-{
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
 }
-/** @endcond */
 
 
 /*
- * Destroy this object.
+ * Creates a new LocalRenderInformation using the given RenderPkgNamespaces
+ * object.
  */
-LocalRenderInformation::~LocalRenderInformation ()
+LocalRenderInformation::LocalRenderInformation(RenderPkgNamespaces *renderns)
+  : RenderInformationBase(renderns)
+  , mLocalStyles (renderns)
 {
+  setElementNamespace(renderns->getURI());
+  connectToChild();
+  loadPlugins(renderns);
 }
 
 
@@ -118,7 +102,7 @@ LocalRenderInformation::~LocalRenderInformation ()
  */
 LocalRenderInformation::LocalRenderInformation(RenderPkgNamespaces* renderns, const std::string& id)
   : RenderInformationBase(renderns, id)
-  , mListOfStyles(renderns)
+  , mLocalStyles(renderns)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. LocalRenderInformation::LocalRenderInformation(const std::string& id) is deprecated." << std::endl;
@@ -135,18 +119,553 @@ LocalRenderInformation::LocalRenderInformation(RenderPkgNamespaces* renderns, co
 /** @endcond */
 #endif // OMIT_DEPRECATED
 
+
+/*
+ * Copy constructor for LocalRenderInformation.
+ */
+LocalRenderInformation::LocalRenderInformation(const LocalRenderInformation&
+  orig)
+  : RenderInformationBase( orig )
+  , mLocalStyles ( orig.mLocalStyles )
+{
+  connectToChild();
+}
+
+
+/*
+ * Assignment operator for LocalRenderInformation.
+ */
+LocalRenderInformation&
+LocalRenderInformation::operator=(const LocalRenderInformation& rhs)
+{
+  if (&rhs != this)
+  {
+    RenderInformationBase::operator=(rhs);
+    mLocalStyles = rhs.mLocalStyles;
+    connectToChild();
+  }
+
+  return *this;
+}
+
+
+/*
+ * Creates and returns a deep copy of this LocalRenderInformation object.
+ */
+LocalRenderInformation*
+LocalRenderInformation::clone() const
+{
+  return new LocalRenderInformation(*this);
+}
+
+
+/*
+ * Destructor for LocalRenderInformation.
+ */
+LocalRenderInformation::~LocalRenderInformation()
+{
+}
+
+
+/*
+ * Returns the ListOfLocalStyles from this LocalRenderInformation.
+ */
+const ListOfLocalStyles*
+LocalRenderInformation::getListOfLocalStyles() const
+{
+  return &mLocalStyles;
+}
+
+
+const ListOfLocalStyles*
+LocalRenderInformation::getListOfStyles() const
+{
+  return &mLocalStyles;
+}
+
+
+/*
+ * Returns the ListOfLocalStyles from this LocalRenderInformation.
+ */
+ListOfLocalStyles*
+LocalRenderInformation::getListOfLocalStyles()
+{
+  return &mLocalStyles;
+}
+
+
+ListOfLocalStyles*
+LocalRenderInformation::getListOfStyles()
+{
+  return &mLocalStyles;
+}
+
+
+/*
+ * Get a LocalStyle from the LocalRenderInformation.
+ */
+LocalStyle*
+LocalRenderInformation::getLocalStyle(unsigned int n)
+{
+  return mLocalStyles.get(n);
+}
+
+
+LocalStyle*
+LocalRenderInformation::getStyle(unsigned int n)
+{
+  return mLocalStyles.get(n);
+}
+
+/*
+ * Get a LocalStyle from the LocalRenderInformation.
+ */
+const LocalStyle*
+LocalRenderInformation::getLocalStyle(unsigned int n) const
+{
+  return mLocalStyles.get(n);
+}
+
+const LocalStyle*
+LocalRenderInformation::getStyle(unsigned int n) const
+{
+  return mLocalStyles.get(n);
+}
+
+
+/*
+ * Adds a copy of the given LocalStyle to this LocalRenderInformation.
+ */
+int
+LocalRenderInformation::addLocalStyle(const LocalStyle* ls)
+{
+  if (ls == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (ls->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != ls->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != ls->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(ls)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return mLocalStyles.append(ls);
+  }
+}
+
+int
+LocalRenderInformation::addStyle(const LocalStyle* ls)
+{
+  return addLocalStyle(ls);
+}
+
+
+/*
+ * Get the number of LocalStyle objects in this LocalRenderInformation.
+ */
+unsigned int
+LocalRenderInformation::getNumLocalStyles() const
+{
+  return mLocalStyles.size();
+}
+
+
+
+unsigned int
+LocalRenderInformation::getNumStyles() const
+{
+  return mLocalStyles.size();
+}
+
+/*
+ * Creates a new LocalStyle object, adds it to this LocalRenderInformation
+ * object and returns the LocalStyle object created.
+ */
+LocalStyle*
+LocalRenderInformation::createLocalStyle()
+{
+  LocalStyle* ls = NULL;
+
+  try
+  {
+    RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+    ls = new LocalStyle(renderns);
+    delete renderns;
+  }
+  catch (...)
+  {
+  }
+
+  if (ls != NULL)
+  {
+    mLocalStyles.appendAndOwn(ls);
+  }
+
+  return ls;
+}
+
+LocalStyle*
+LocalRenderInformation::createStyle(const std::string& id)
+{
+  LocalStyle* ls = NULL;
+
+  try
+  {
+    RENDER_CREATE_NS(renderns, getSBMLNamespaces());
+    ls = new LocalStyle(renderns);
+    delete renderns;
+  }
+  catch (...)
+  {
+  }
+
+  if (ls != NULL)
+  {
+    ls->setId(id);
+    mLocalStyles.appendAndOwn(ls);
+  }
+
+  return ls;
+
+}
+
+/*
+ * Removes the nth LocalStyle from this LocalRenderInformation and returns a
+ * pointer to it.
+ */
+LocalStyle*
+LocalRenderInformation::removeLocalStyle(unsigned int n)
+{
+  return mLocalStyles.remove(n);
+}
+
+
+LocalStyle*
+LocalRenderInformation::removeStyle(unsigned int n)
+{
+  return mLocalStyles.remove(n);
+}
+
+
+/*
+ * Returns the XML element name of this LocalRenderInformation object.
+ */
+const std::string&
+LocalRenderInformation::getElementName() const
+{
+  static const string name = "renderInformation";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this LocalRenderInformation object.
+ */
+int
+LocalRenderInformation::getTypeCode() const
+{
+  return SBML_RENDER_LOCALRENDERINFORMATION;
+}
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write any contained elements
+ */
+void
+LocalRenderInformation::writeElements(XMLOutputStream& stream) const
+{
+  RenderInformationBase::writeElements(stream);
+
+  if (getNumLocalStyles() > 0)
+  {
+    mLocalStyles.write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor
+ */
+bool
+LocalRenderInformation::accept(SBMLVisitor& v) const
+{
+  v.visit(*this);
+
+  mLocalStyles.accept(v);
+
+  v.leave(*this);
+  return true;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument
+ */
+void
+LocalRenderInformation::setSBMLDocument(SBMLDocument* d)
+{
+  RenderInformationBase::setSBMLDocument(d);
+
+  mLocalStyles.setSBMLDocument(d);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Connects to child elements
+ */
+void
+LocalRenderInformation::connectToChild()
+{
+  RenderInformationBase::connectToChild();
+
+  mLocalStyles.connectToParent(this);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/disables the given package with this element
+ */
+void
+LocalRenderInformation::enablePackageInternal(const std::string& pkgURI,
+                                              const std::string& pkgPrefix,
+                                              bool flag)
+{
+  RenderInformationBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+  mLocalStyles.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates and returns an new "elementName" object in this
+ * LocalRenderInformation.
+ */
+SBase*
+LocalRenderInformation::createChildObject(const std::string& elementName)
+{
+  RenderInformationBase* obj = NULL;
+
+  if (elementName == "localStyle")
+  {
+    return createLocalStyle();
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds a new "elementName" object to this LocalRenderInformation.
+ */
+int
+LocalRenderInformation::addChildObject(const std::string& elementName,
+                                       const SBase* element)
+{
+  if (elementName == "localStyle" && element->getTypeCode() ==
+    SBML_RENDER_LOCALSTYLE)
+  {
+    return addLocalStyle((const LocalStyle*)(element));
+  }
+
+  return LIBSBML_OPERATION_FAILED;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Removes and returns the new "elementName" object with the given id in this
+ * LocalRenderInformation.
+ */
+SBase*
+LocalRenderInformation::removeChildObject(const std::string& elementName,
+                                          const std::string& id)
+{
+  if (elementName == "localStyle")
+  {
+    for (unsigned int i = 0; i < getNumLocalStyles(); i++)
+    {
+      if (getLocalStyle(i)->getId() == id)
+      {
+        return removeLocalStyle(i);
+      }
+    }
+  }
+
+  return NULL;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the number of "elementName" in this LocalRenderInformation.
+ */
+unsigned int
+LocalRenderInformation::getNumObjects(const std::string& elementName)
+{
+  unsigned int n = 0;
+
+  if (elementName == "localStyle")
+  {
+    return getNumLocalStyles();
+  }
+
+  return n;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Returns the nth object of "objectName" in this LocalRenderInformation.
+ */
+SBase*
+LocalRenderInformation::getObject(const std::string& elementName,
+                                  unsigned int index)
+{
+  SBase* obj = NULL;
+
+  if (elementName == "localStyle")
+  {
+    return getLocalStyle(index);
+  }
+
+  return obj;
+}
+
+/** @endcond */
+
+
+/*
+ * Returns the first child element that has the given @p id in the model-wide
+ * SId namespace, or @c NULL if no such object is found.
+ */
+SBase*
+LocalRenderInformation::getElementBySId(const std::string& id)
+{
+  if (id.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  obj = mLocalStyles.getElementBySId(id);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns the first child element that has the given @p metaid, or @c NULL if
+ * no such object is found.
+ */
+SBase*
+LocalRenderInformation::getElementByMetaId(const std::string& metaid)
+{
+  if (metaid.empty())
+  {
+    return NULL;
+  }
+
+  SBase* obj = NULL;
+
+  if (mLocalStyles.getMetaId() == metaid)
+  {
+    return &mLocalStyles;
+  }
+
+  obj = mLocalStyles.getElementByMetaId(metaid);
+
+  if (obj != NULL)
+  {
+    return obj;
+  }
+
+  return obj;
+}
+
+
+/*
+ * Returns a List of all child SBase objects, including those nested to an
+ * arbitrary depth.
+ */
 List*
 LocalRenderInformation::getAllElements(ElementFilter* filter)
 {
-  List* ret = RenderInformationBase::getAllElements(filter);
+  List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_LIST(ret, sublist, mListOfStyles, filter);
+
+  ADD_FILTERED_LIST(ret, sublist, mLocalStyles, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
   return ret;
 }
+
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -173,31 +692,13 @@ void LocalRenderInformation::parseXML(const XMLNode& node)
         const std::string& childName=child->getName();
         if(childName=="listOfStyles")
         {
-            this->mListOfStyles=ListOfLocalStyles(*child);
-            this->mListOfStyles.setSBMLDocument(this->mSBML);
+            this->mLocalStyles=ListOfLocalStyles(*child);
+            this->mLocalStyles.setSBMLDocument(this->mSBML);
         }
         ++n;
     }
 }
 /** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.  For example:
- *
- *   SBase::writeAttributes(stream);
- *   stream.writeAttribute( "id"  , mId   );
- *   stream.writeAttribute( "name", mName );
- *   ...
- */
-void LocalRenderInformation::writeAttributes (XMLOutputStream& stream) const
-{
-  RenderInformationBase::writeAttributes(stream);
-}
-/** @endcond */
-
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -213,378 +714,295 @@ XMLNode LocalRenderInformation::toXML() const
 }
 /** @endcond */
 
-
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.  For example:
- *
- *   SBase::writeElements(stream);
- *   mReactants.write(stream);
- *   mProducts.write(stream);
- *   ...
+ * Creates a new object from the next XMLToken on the XMLInputStream
  */
-void LocalRenderInformation::writeElements (XMLOutputStream& stream) const
+SBase*
+LocalRenderInformation::createObject(XMLInputStream& stream)
 {
-    RenderInformationBase::writeElements(stream);
-    if(this->mListOfStyles.size() > 0)
+  SBase* obj = RenderInformationBase::createObject(stream);
+
+  const std::string& name = stream.peek().getName();
+
+  if (name == "listOfStyles")
+  {
+    if (mLocalStyles.size() != 0)
     {
-        this->mListOfStyles.write(stream);
+      getErrorLog()->logPackageError("render",
+        RenderLocalRenderInformationAllowedElements, getPackageVersion(),
+          getLevel(), getVersion());
     }
+
+    obj = &mLocalStyles;
+  }
+
+  connectToChild();
+
+  return obj;
 }
+
 /** @endcond */
 
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the number of styles.
- *
- * @return the number of local styles in the global render information object
+ * Adds the expected attributes for this element
  */
-unsigned int LocalRenderInformation::getNumStyles() const
-{
-    return this->mListOfStyles.size();
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the ListOfLocalStyles object.
- *
- * @return pointer to the list of local styles.
- */
-ListOfLocalStyles* LocalRenderInformation::getListOfStyles()
-{
-    return &(this->mListOfStyles);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a const pointer to the ListOfLocalStyles object.
- *
- * @return const pointer to the list of local styles.
- */
-const ListOfLocalStyles* LocalRenderInformation::getListOfStyles() const
-{
-    return &(this->mListOfStyles);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the style with the given index.
- * If the index is invalid, @c NULL is returned.
- * 
- * @param i index of the LocalStyle to be returned.
- * 
- * @return pointer to the style with the given index or NULL
- */
-LocalStyle* LocalRenderInformation::getStyle(unsigned int i)
-{
-    return (i<this->mListOfStyles.size())?static_cast<LocalStyle*>(this->mListOfStyles.get(i)):NULL;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the style with the given index.
- * If the index is invalid, @c NULL is returned.
- * 
- * @param i index of the LocalStyle to be returned.
- * 
- * @return const pointer to the style with the given index or NULL
- */
-const LocalStyle* LocalRenderInformation::getStyle(unsigned int i) const
-{
-    return (i<this->mListOfStyles.size())?static_cast<const LocalStyle*>(this->mListOfStyles.get(i)):NULL;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the style with the given @p id.
- * If the id is invalid, @c NULL is returned.
- * 
- * @param id id of the LocalStyle to be returned.
- * 
- * @return pointer to the style with the given @p id or @c NULL
- */
-LocalStyle* LocalRenderInformation::getStyle(const std::string& id)
-{
-    return this->mListOfStyles.get(id);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns a pointer to the style with the given @p id.
- * If the id is invalid, @c NULL is returned.
- * 
- * @param id id of the LocalStyle to be returned.
- * 
- * @return const pointer to the style with the given @p id or @c NULL
- */
-const LocalStyle* LocalRenderInformation::getStyle(const std::string& id) const
-{
-    return this->mListOfStyles.get(id);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new LocalStyle object. The object is added to and owned
- * by the LocalRenderInformation object.
- * 
- * @param id for the new style.
- * 
- * @ return a pointer to the newly created LocalStyle object.
- */
-LocalStyle* LocalRenderInformation::createStyle(const std::string& id)
-{
-    LocalStyle* pStyle=NULL;
-    try
-    {
-      RENDER_CREATE_NS(renderns, this->getSBMLNamespaces());
-      pStyle = new LocalStyle(renderns);
-      pStyle->setId(id);
-   delete renderns;
-    }
-    catch (...)
-    {
-        /* here we do not create a default object as the level/version must
-         * match the parent object
-         *
-         * so do nothing
-         */
-    }
-
-
-    if(pStyle != NULL)
-    {
-        this->mListOfStyles.appendAndOwn(pStyle);
-    }
-    return pStyle;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Adds a copy of a LocalStyle to the GlobalRenderInformation object.
- * The style is only added if it is valid, i.e. it has to have an id and
- * a valid group.
- *
- * @param pointer to the local style object to be added.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_LEVEL_MISMATCH
- * @li LIBSBML_VERSION_MISMATCH
- * @li LIBSBML_OPERATION_FAILED
- *
- * @note This method should be used with some caution.  The fact that
- * this method @em copies the object passed to it means that the caller
- * will be left holding a physically different object instance than the
- * one contained in this LocalRenderInformation.  Changes made to the original object
- * instance (such as resetting attribute values) will <em>not affect the
- * instance in the LocalRenderInformation</em>.  In addition, the caller should make
- * sure to free the original object if it is no longer being used, or
- * else a memory leak will result.  Please see LocalRenderInformation::createStyle()
- * for a method that does not lead to these issues.
- *
- * @see createStyle()
- */
-int LocalRenderInformation::addStyle(const LocalStyle* pStyle)
-{
-    if (pStyle == NULL)
-    {
-        return LIBSBML_OPERATION_FAILED;
-    }
-    else if (!(pStyle->hasRequiredAttributes()) || !(pStyle->hasRequiredElements()))
-    {
-        return LIBSBML_INVALID_OBJECT;
-    }
-    else if (getLevel() != pStyle->getLevel())
-    {
-        return LIBSBML_LEVEL_MISMATCH;
-    }
-    else if (getVersion() != pStyle->getVersion())
-    {
-        return LIBSBML_VERSION_MISMATCH;
-    }
-    else if (pStyle->isSetId() 
-            && (getListOfStyles()->get(pStyle->getId())) != NULL)
-    {
-        // an object with this id already exists
-        return LIBSBML_DUPLICATE_OBJECT_ID;
-    }
-    else
-    {
-
-        this->mListOfStyles.append(pStyle);
-
-        return LIBSBML_OPERATION_SUCCESS;
-    }
-}
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase* LocalRenderInformation::createObject (XMLInputStream& stream)
-{
-    const std::string& name   = stream.peek().getName();
-    SBase*        object = NULL;
-
-
-    if (name == "listOfStyles")
-    {
-        object = &this->mListOfStyles;
-    }
-    else
-    {
-        object=this->RenderInformationBase::createObject(stream);
-    }
-    return object;
-}
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
 void
 LocalRenderInformation::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   RenderInformationBase::addExpectedAttributes(attributes);
-
 }
+
 /** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
-void LocalRenderInformation::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
-{
-   ExpectedAttributes ea;
-   addExpectedAttributes(ea);
-   this->RenderInformationBase::readAttributes(attributes, ea);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * LocalRenderInformation, is always @c "renderInformation".
- * 
- * @return the name of this element, i.e., @c "renderInformation".
- */
-const std::string& LocalRenderInformation::getElementName () const
-{
-  static std::string name = LocalRenderInformation::ELEMENT_NAME;
-  return name;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the libSBML type code for this %SBML object.
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- *
- * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */
-int LocalRenderInformation::getTypeCode() const
-{
-    return SBML_RENDER_LOCALRENDERINFORMATION;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the SBML object's next
- * sibling object (if available).
- */
-bool LocalRenderInformation::accept(SBMLVisitor& /*visitor*/) const
-{
-    return false;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of this LocalRenderInformation object.
- *
- * @return a (deep) copy of this LocalRenderInformation.
- */
-LocalRenderInformation* LocalRenderInformation::clone() const
-{
-    return new LocalRenderInformation(*this);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the parent SBMLDocument of this SBML object.
- *
- * @param d The SBMLDocument to set on the objects and it's children if there are any.
- */
-    void
-LocalRenderInformation::setSBMLDocument (SBMLDocument* d)
-{
-    RenderInformationBase::setSBMLDocument(d);
-    mListOfStyles.setSBMLDocument(d);
-}
-/** @endcond */
-
 
 /*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
+ * Reads the expected attributes into the member data variables
  */
 void
-LocalRenderInformation::connectToChild()
+LocalRenderInformation::readAttributes(const XMLAttributes& attributes,
+                                       const ExpectedAttributes&
+                                         expectedAttributes)
 {
-  RenderInformationBase::connectToChild();
-  mListOfStyles.connectToParent(this);
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  if (log && getParentSBMLObject() &&
+    static_cast<ListOfLocalRenderInformation*>(getParentSBMLObject())->size() <
+      2)
+  {
+    numErrs = log->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render",
+          RenderLayoutLOLocalRenderInformationAllowedAttributes, pkgVersion,
+            level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderLayoutLOLocalRenderInformationAllowedCoreAttributes, pkgVersion,
+            level, version, details);
+      }
+    }
+  }
+
+  RenderInformationBase::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderLocalRenderInformationAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
+    }
+  }
 }
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Writes the attributes to the stream
  */
 void
-LocalRenderInformation::enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag)
+LocalRenderInformation::writeAttributes(XMLOutputStream& stream) const
 {
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  RenderInformationBase::writeAttributes(stream);
 
-  mListOfStyles.enablePackageInternal(pkgURI,pkgPrefix,flag);
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+
+#endif /* __cplusplus */
+
+
+/*
+ * Creates a new LocalRenderInformation_t using the given SBML Level, Version
+ * and &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+LocalRenderInformation_t *
+LocalRenderInformation_create(unsigned int level,
+                              unsigned int version,
+                              unsigned int pkgVersion)
+{
+  return new LocalRenderInformation(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this LocalRenderInformation_t object.
+ */
+LIBSBML_EXTERN
+LocalRenderInformation_t*
+LocalRenderInformation_clone(const LocalRenderInformation_t* lri)
+{
+  if (lri != NULL)
+  {
+    return static_cast<LocalRenderInformation_t*>(lri->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this LocalRenderInformation_t object.
+ */
+LIBSBML_EXTERN
+void
+LocalRenderInformation_free(LocalRenderInformation_t* lri)
+{
+  if (lri != NULL)
+  {
+    delete lri;
+  }
+}
+
+
+/*
+ * Returns a ListOf_t * containing LocalStyle_t objects from this
+ * LocalRenderInformation_t.
+ */
+LIBSBML_EXTERN
+ListOf_t*
+LocalRenderInformation_getListOfLocalStyles(LocalRenderInformation_t* lri)
+{
+  return (lri != NULL) ? lri->getListOfLocalStyles() : NULL;
+}
+
+
+/*
+ * Get a LocalStyle_t from the LocalRenderInformation_t.
+ */
+LIBSBML_EXTERN
+LocalStyle_t*
+LocalRenderInformation_getLocalStyle(LocalRenderInformation_t* lri,
+                                     unsigned int n)
+{
+  return (lri != NULL) ? lri->getLocalStyle(n) : NULL;
+}
+
+
+/*
+ * Adds a copy of the given LocalStyle_t to this LocalRenderInformation_t.
+ */
+LIBSBML_EXTERN
+int
+LocalRenderInformation_addLocalStyle(LocalRenderInformation_t* lri,
+                                     const LocalStyle_t* ls)
+{
+  return (lri != NULL) ? lri->addLocalStyle(ls) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Get the number of LocalStyle_t objects in this LocalRenderInformation_t.
+ */
+LIBSBML_EXTERN
+unsigned int
+LocalRenderInformation_getNumLocalStyles(LocalRenderInformation_t* lri)
+{
+  return (lri != NULL) ? lri->getNumLocalStyles() : SBML_INT_MAX;
+}
+
+
+/*
+ * Creates a new LocalStyle_t object, adds it to this LocalRenderInformation_t
+ * object and returns the LocalStyle_t object created.
+ */
+LIBSBML_EXTERN
+LocalStyle_t*
+LocalRenderInformation_createLocalStyle(LocalRenderInformation_t* lri)
+{
+  return (lri != NULL) ? lri->createLocalStyle() : NULL;
+}
+
+
+/*
+ * Removes the nth LocalStyle_t from this LocalRenderInformation_t and returns
+ * a pointer to it.
+ */
+LIBSBML_EXTERN
+LocalStyle_t*
+LocalRenderInformation_removeLocalStyle(LocalRenderInformation_t* lri,
+                                        unsigned int n)
+{
+  return (lri != NULL) ? lri->removeLocalStyle(n) : NULL;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * LocalRenderInformation_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LocalRenderInformation_hasRequiredAttributes(const LocalRenderInformation_t *
+  lri)
+{
+  return (lri != NULL) ? static_cast<int>(lri->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * LocalRenderInformation_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+LocalRenderInformation_hasRequiredElements(const LocalRenderInformation_t *
+  lri)
+{
+  return (lri != NULL) ? static_cast<int>(lri->hasRequiredElements()) : 0;
 }
 
 
 
-LIBSBML_CPP_NAMESPACE_END 
+
+LIBSBML_CPP_NAMESPACE_END
+
+
