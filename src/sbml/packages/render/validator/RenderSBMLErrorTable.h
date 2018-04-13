@@ -1435,8 +1435,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321804
-  { RenderRadialGradientCxMustBeString,
-    "The 'cx' attribute must be String.",
+  { RenderRadialGradientCxMustBeRelAbsVector,
+    "The 'cx' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:cx' of a <radialGradient> object must "
@@ -1449,8 +1449,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321805
-  { RenderRadialGradientCyMustBeString,
-    "The 'cy' attribute must be String.",
+  { RenderRadialGradientCyMustBeRelAbsVector,
+    "The 'cy' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:cy' of a <radialGradient> object must "
@@ -1463,8 +1463,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321806
-  { RenderRadialGradientCzMustBeString,
-    "The 'cz' attribute must be String.",
+  { RenderRadialGradientCzMustBeRelAbsVector,
+    "The 'cz' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:cz' of a <radialGradient> object must "
@@ -1477,8 +1477,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321807
-  { RenderRadialGradientRMustBeString,
-    "The 'r' attribute must be String.",
+  { RenderRadialGradientRMustBeRelAbsVector,
+    "The 'r' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:r' of a <radialGradient> object must "
@@ -1491,8 +1491,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321808
-  { RenderRadialGradientFxMustBeString,
-    "The 'fx' attribute must be String.",
+  { RenderRadialGradientFxMustBeRelAbsVector,
+    "The 'fx' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:fx' of a <radialGradient> object must "
@@ -1505,8 +1505,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321809
-  { RenderRadialGradientFyMustBeString,
-    "The 'fy' attribute must be String.",
+  { RenderRadialGradientFyMustBeRelAbsVector,
+    "The 'fy' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:fy' of a <radialGradient> object must "
@@ -1519,8 +1519,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321810
-  { RenderRadialGradientFzMustBeString,
-    "The 'fz' attribute must be String.",
+  { RenderRadialGradientFzMustBeRelAbsVector,
+    "The 'fz' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:fz' of a <radialGradient> object must "

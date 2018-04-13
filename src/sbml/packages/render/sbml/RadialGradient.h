@@ -1,6 +1,6 @@
 /**
  * @file    RadialGradient.h
- * @brief   class representing a radial gradient
+ * @brief Definition of the RadialGradient class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RadialGradient
- * @brief Representation of a radial gradient object from the SBML render extension.
+ * @sbmlbrief{render} Representation of a radial gradient object from the SBML render extension.
  *
  * The concept of a radial gradient is more or or less taken from SVG.
  * A radial gradient is defined by a center point, a radius and an optional focal point.
@@ -52,22 +52,31 @@
 #ifndef RadialGradient_H__
 #define RadialGradient_H__
 
-#include <sbml/common/sbmlfwd.h>
 
-#include <sbml/packages/render/sbml/GradientBase.h>
-#include <sbml/packages/render/sbml/RelAbsVector.h>
-#include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
 #include <sbml/xml/XMLNode.h>
 
 #ifdef __cplusplus
 
+
 #include <string>
 
+
+#include <sbml/packages/render/sbml/GradientBase.h>
+#include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/sbml/RelAbsVector.h>
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 class LIBSBML_EXTERN RadialGradient : public GradientBase
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
   RelAbsVector mCX;
   RelAbsVector mCY;
@@ -76,28 +85,41 @@ protected:
   RelAbsVector mFX;
   RelAbsVector mFY;
   RelAbsVector mFZ;
-  static const std::string ELEMENT_NAME;
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new RadialGradient object with the given SBML level
-   * and SBML version.
+   * Creates a new RadialGradient using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this
+   * RadialGradient.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * RadialGradient.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this RadialGradient.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  RadialGradient (unsigned int level      = RenderExtension::getDefaultLevel(),
-                  unsigned int version    = RenderExtension::getDefaultVersion(),
-                  unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  RadialGradient(unsigned int level = RenderExtension::getDefaultLevel(),
+                 unsigned int version = RenderExtension::getDefaultVersion(),
+                 unsigned int pkgVersion =
+                   RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new RadialGradient object with the given SBMLNamespaces.
+   * Creates a new RadialGradient using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  RadialGradient (RenderPkgNamespaces* renderns);
+  RadialGradient(RenderPkgNamespaces *renderns);
 
   /**
    * Creates a new RadialGradient object from the given XMLNode object.
@@ -110,12 +132,6 @@ public:
    * object to be instantiated.
    */
   RadialGradient(const XMLNode& node, unsigned int l2version);
-
-
-  /**
-   * Destroy this RadialGradient object.
-   */
-  virtual ~RadialGradient ();
 
 
 #ifndef OMIT_DEPRECATED
@@ -135,6 +151,425 @@ public:
    */
   RadialGradient(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
+
+
+  /**
+   * Copy constructor for RadialGradient.
+   *
+   * @param orig the RadialGradient instance to copy.
+   */
+  RadialGradient(const RadialGradient& orig);
+
+
+  /**
+   * Assignment operator for RadialGradient.
+   *
+   * @param rhs the RadialGradient object whose values are to be used as the
+   * basis of the assignment.
+   */
+  RadialGradient& operator=(const RadialGradient& rhs);
+
+
+  /**
+   * Creates and returns a deep copy of this RadialGradient object.
+   *
+   * @return a (deep) copy of this RadialGradient object.
+   */
+  virtual RadialGradient* clone() const;
+
+
+  /**
+   * Destructor for RadialGradient.
+   */
+  virtual ~RadialGradient();
+
+
+  /**
+   * Returns the value of the "cx" element of this RadialGradient.
+   *
+   * @return the value of the "cx" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  const RelAbsVector& getCx() const;
+
+
+  /**
+   * Returns the value of the "cx" element of this RadialGradient.
+   *
+   * @return the value of the "cx" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  RelAbsVector& getCx();
+
+
+  /**
+   * Returns the x coordinate for the start point as a const reference.
+   *
+   * @return RelAbsVector that represents the x value of the start point.
+   */
+  const RelAbsVector& getCenterX() const;
+
+
+  /**
+  * Returns the x coordinate for the start point as a reference.
+  *
+  * @return RelAbsVector that represents the x value of the start point.
+  */
+  RelAbsVector& getCenterX();
+
+  /**
+   * Returns the value of the "cy" element of this RadialGradient.
+   *
+   * @return the value of the "cy" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  const RelAbsVector& getCy() const;
+
+
+  /**
+   * Returns the value of the "cy" element of this RadialGradient.
+   *
+   * @return the value of the "cy" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  RelAbsVector& getCy();
+
+
+  /**
+   * Returns the y coordinate for the start point as a const reference.
+   *
+   * @return RelAbsVector that represents the y value of the start point.
+   */
+  const RelAbsVector& getCenterY() const;
+
+
+  /**
+  * Returns the y coordinate for the start point as a reference.
+  *
+  * @return RelAbsVector that represents the y value of the start point.
+  */
+  RelAbsVector& getCenterY();
+
+  /**
+   * Returns the value of the "cz" element of this RadialGradient.
+   *
+   * @return the value of the "cz" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  const RelAbsVector& getCz() const;
+
+
+  /**
+   * Returns the value of the "cz" element of this RadialGradient.
+   *
+   * @return the value of the "cz" element of this RadialGradient as a
+   * RelAbsVector*.
+   */
+  RelAbsVector& getCz();
+
+
+  /**
+   * Returns the z coordinate for the start point as a const reference.
+   *
+   * @return RelAbsVector that represents the z value of the start point.
+   */
+  const RelAbsVector& getCenterZ() const;
+
+  /**
+  * Returns the z coordinate for the start point as a reference.
+  *
+  * @return RelAbsVector that represents the z value of the start point.
+  */
+  RelAbsVector& getCenterZ();
+
+  /**
+  * Returns the value of the "r" element of this RadialGradient.
+  *
+  * @return the value of the "r" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  const RelAbsVector& getR() const;
+
+
+  /**
+  * Returns the value of the "r" element of this RadialGradient.
+  *
+  * @return the value of the "r" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  RelAbsVector& getR();
+
+
+  /**
+   * Returns the radius as a const reference.
+   *
+   * @return const reference to the radius 
+   */
+  const RelAbsVector& getRadius() const;
+  
+  /**
+   * Returns the radius as a reference.
+   *
+   * @return reference to the radius 
+   */
+  RelAbsVector& getRadius();
+
+  /**
+  * Returns the value of the "fx" element of this RadialGradient.
+  *
+  * @return the value of the "fx" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  const RelAbsVector& getFx() const;
+
+
+  /**
+  * Returns the value of the "fx" element of this RadialGradient.
+  *
+  * @return the value of the "fx" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  RelAbsVector& getFx();
+
+
+  /**
+  * Returns the x coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the x value of the start point.
+  */
+  const RelAbsVector& getFocalPointX() const;
+
+  /**
+  * Returns the x coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the x value of the start point.
+  */
+  RelAbsVector& getFocalPointX();
+
+  /**
+  * Returns the value of the "fy" element of this RadialGradient.
+  *
+  * @return the value of the "fy" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  const RelAbsVector& getFy() const;
+
+
+  /**
+  * Returns the value of the "fy" element of this RadialGradient.
+  *
+  * @return the value of the "fy" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  RelAbsVector& getFy();
+
+
+  /**
+  * Returns the y coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the y value of the start point.
+  */
+  const RelAbsVector& getFocalPointY() const;
+
+  /**
+  * Returns the y coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the y value of the start point.
+  */
+  RelAbsVector& getFocalPointY();
+
+  /**
+  * Returns the value of the "fz" element of this RadialGradient.
+  *
+  * @return the value of the "fz" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  const RelAbsVector& getFz() const;
+
+
+  /**
+  * Returns the value of the "fz" element of this RadialGradient.
+  *
+  * @return the value of the "fz" element of this RadialGradient as a
+  * RelAbsVector*.
+  */
+  RelAbsVector& getFz();
+
+
+  /**
+  * Returns the z coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the z value of the start point.
+  */
+  const RelAbsVector& getFocalPointZ() const;
+
+  /**
+  * Returns the z coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the z value of the start point.
+  */
+  RelAbsVector& getFocalPointZ();
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "cx" element is set.
+   *
+   * @return @c true if this RadialGradient's "cx" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetCx() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "cy" element is set.
+   *
+   * @return @c true if this RadialGradient's "cy" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetCy() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "cz" element is set.
+   *
+   * @return @c true if this RadialGradient's "cz" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetCz() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "r" element is set.
+   *
+   * @return @c true if this RadialGradient's "r" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetR() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "fx" element is set.
+   *
+   * @return @c true if this RadialGradient's "fx" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetFx() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "fy" element is set.
+   *
+   * @return @c true if this RadialGradient's "fy" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetFy() const;
+
+
+  /**
+   * Predicate returning @c true if this RadialGradient's "fz" element is set.
+   *
+   * @return @c true if this RadialGradient's "fz" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetFz() const;
+
+
+  /**
+   * Sets the value of the "cx" element of this RadialGradient.
+   *
+   * @param cx RelAbsVector& value of the "cx" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setCx(const RelAbsVector& cx);
+
+
+  /**
+   * Sets the value of the "cy" element of this RadialGradient.
+   *
+   * @param cy RelAbsVector& value of the "cy" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setCy(const RelAbsVector& cy);
+
+
+  /**
+   * Sets the value of the "cz" element of this RadialGradient.
+   *
+   * @param cz RelAbsVector& value of the "cz" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setCz(const RelAbsVector& cz);
+
+
+  /**
+   * Sets the value of the "r" element of this RadialGradient.
+   *
+   * @param r RelAbsVector* value of the "r" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setR(const RelAbsVector& r);
+
+
+  /**
+   * Sets the radius of the radial gradient.
+   *
+   * @param r radius of the radial gradient vector.
+   */
+  int setRadius(const RelAbsVector& r);
+
+  /**
+   * Sets the value of the "fx" element of this RadialGradient.
+   *
+   * @param fx RelAbsVector& value of the "fx" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setFx(const RelAbsVector& fx);
+
+
+  /**
+   * Sets the value of the "fy" element of this RadialGradient.
+   *
+   * @param fy RelAbsVector& value of the "fy" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setFy(const RelAbsVector& fy);
+
+
+  /**
+   * Sets the value of the "fz" element of this RadialGradient.
+   *
+   * @param fz RelAbsVector& value of the "fz" element to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setFz(const RelAbsVector& fz);
+
 
   /**
    * Sets the 3D coordinates for the center and the focal
@@ -187,156 +622,113 @@ public:
    */
   void setFocalPoint(const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z=RelAbsVector(0.0,0.0));
 
-  /**
-   * Sets the radius of the radial gradient.
-   *
-   * @param r radius of the radial gradient vector.
-   */
-  void setRadius(const RelAbsVector& r);
 
   /**
-   * Returns the x coordinate for the center point as a const reference.
+   * Unsets the value of the "cx" element of this RadialGradient.
    *
-   * @return const reference to the x coordinatee of the center point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getCenterX() const;
+  int unsetCx();
+
 
   /**
-   * Returns the y coordinate for the center point as a const reference.
+   * Unsets the value of the "cy" element of this RadialGradient.
    *
-   * @return const reference to the y coordinatee of the center point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getCenterY() const;
+  int unsetCy();
+
 
   /**
-   * Returns the z coordinate for the center point as a const reference.
+   * Unsets the value of the "cz" element of this RadialGradient.
    *
-   * @return const reference to the z coordinatee of the center point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getCenterZ() const;
+  int unsetCz();
+
 
   /**
-   * Returns the x coordinate for the focal point as a const reference.
+   * Unsets the value of the "r" element of this RadialGradient.
    *
-   * @return const reference to the x coordinatee of the focal point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getFocalPointX() const;
+  int unsetR();
+
 
   /**
-   * Returns the y coordinate for the focal point as a const reference.
+   * Unsets the value of the "fx" element of this RadialGradient.
    *
-   * @return const reference to the y coordinatee of the focal point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getFocalPointY() const;
+  int unsetFx();
+
 
   /**
-   * Returns the z coordinate for the focal point as a const reference.
+   * Unsets the value of the "fy" element of this RadialGradient.
    *
-   * @return const reference to the z coordinatee of the focal point.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getFocalPointZ() const;
+  int unsetFy();
+
 
   /**
-   * Returns the radius as a const reference.
+   * Unsets the value of the "fz" element of this RadialGradient.
    *
-   * @return const reference to the radius 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
-  const RelAbsVector& getRadius() const;
+  int unsetFz();
+
 
   /**
-   * Returns the x coordinate for the center point as a reference.
+   * Returns the XML element name of this RadialGradient object.
    *
-   * @return reference to the x coordinatee of the center point.
+   * For RadialGradient, the XML element name is always @c "radialGradient".
+   *
+   * @return the name of this element, i.e. @c "radialGradient".
    */
-  RelAbsVector& getCenterX();
+  virtual const std::string& getElementName() const;
+
 
   /**
-   * Returns the y coordinate for the center point as a reference.
+   * Returns the libSBML type code for this RadialGradient object.
    *
-   * @return reference to the y coordinatee of the center point.
-   */
-  RelAbsVector& getCenterY();
-
-  /**
-   * Returns the z coordinate for the center point as a reference.
+   * @copydetails doc_what_are_typecodes
    *
-   * @return reference to the z coordinatee of the center point.
-   */
-  RelAbsVector& getCenterZ();
-
-  /**
-   * Returns the x coordinate for the focal point as a reference.
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_RADIALGRADIENT, SBMLRenderTypeCode_t}.
    *
-   * @return reference to the x coordinatee of the focal point.
-   */
-  RelAbsVector& getFocalPointX();
-
-  /**
-   * Returns the y coordinate for the focal point as a reference.
-   *
-   * @return reference to the y coordinatee of the focal point.
-   */
-  RelAbsVector& getFocalPointY();
-
-  /**
-   * Returns the z coordinate for the focal point as a reference.
-   *
-   * @return reference to the z coordinatee of the focal point.
-   */
-  RelAbsVector& getFocalPointZ();
-
-  /**
-   * Returns the radius as a reference.
-   *
-   * @return reference to the radius 
-   */
-  RelAbsVector& getRadius();
-
-  /**
-   * Accepts the given SBMLVisitor for this instance of RadialGradient.
-   *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-  /**
-   * Creates and returns a deep copy of this RadialGradient object.
-   * 
-   * @return a (deep) copy of this RadialGradient object
-   */
-  virtual RadialGradient* clone () const;
-
-  /**
-   * Returns the XML element name of this object.
-   *
-   * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning "model",
-   * CompartmentType defines it as returning "compartmentType", etc.
-   */
-  virtual const std::string& getElementName () const;
-
-  /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.
-   * The set of possible type codes is defined in the enumeration
-   * #SBMLTypeCode_t.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if java LibSBML attaches an
-   * identifying code to every kind of SBML object.  These are known as
-   * <em>SBML type codes</em>.  In other languages, the set of type codes
-   * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
-   * interface class {@link libsbmlConstants}.  The names of the type codes
-   * all begin with the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
-  int getTypeCode() const;
+  virtual int getTypeCode() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
 
   /**
    * Creates an XMLNode object from this RadialGradient object.
@@ -347,43 +739,640 @@ public:
   XMLNode toXML() const;
 protected:
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
 
-
-  /** @cond doxygenLibsbmlInternal */
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Reads the expected attributes into the member data variables
    */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
 };
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+
+
 #endif /* __cplusplus */
 
-#endif /* RadialGradient_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new RadialGradient_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * RadialGradient_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * RadialGradient_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * RadialGradient_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+RadialGradient_t *
+RadialGradient_create(unsigned int level,
+                      unsigned int version,
+                      unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this RadialGradient_t object.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return a (deep) copy of this RadialGradient_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+RadialGradient_t*
+RadialGradient_clone(const RadialGradient_t* rg);
+
+
+/**
+ * Frees this RadialGradient_t object.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+void
+RadialGradient_free(RadialGradient_t* rg);
+
+
+/**
+ * Returns the value of the "cx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose cx is sought.
+ *
+ * @return the value of the "cx" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getCx(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "cy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose cy is sought.
+ *
+ * @return the value of the "cy" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getCy(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "cz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose cz is sought.
+ *
+ * @return the value of the "cz" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getCz(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "r" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose r is sought.
+ *
+ * @return the value of the "r" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getR(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "fx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose fx is sought.
+ *
+ * @return the value of the "fx" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getFx(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "fy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose fy is sought.
+ *
+ * @return the value of the "fy" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getFy(const RadialGradient_t * rg);
+
+
+/**
+ * Returns the value of the "fz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure whose fz is sought.
+ *
+ * @return the value of the "fz" element of this RadialGradient_t as a
+ * RelAbsVector*.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RadialGradient_getFz(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "cx" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "cx" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetCx(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "cy" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "cy" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetCy(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "cz" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "cz" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetCz(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "r" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "r" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetR(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "fx" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "fx" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetFx(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "fy" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "fy" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetFy(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RadialGradient_t's "fz" element is
+ * set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) if this RadialGradient_t's "fz" element has been set,
+ * otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_isSetFz(const RadialGradient_t * rg);
+
+
+/**
+ * Sets the value of the "cx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param cx RelAbsVector_t* value of the "cx" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setCx(RadialGradient_t * rg, const RelAbsVector_t* cx);
+
+
+/**
+ * Sets the value of the "cy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param cy RelAbsVector_t* value of the "cy" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setCy(RadialGradient_t * rg, const RelAbsVector_t* cy);
+
+
+/**
+ * Sets the value of the "cz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param cz RelAbsVector_t* value of the "cz" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setCz(RadialGradient_t * rg, const RelAbsVector_t* cz);
+
+
+/**
+ * Sets the value of the "r" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param r RelAbsVector_t* value of the "r" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setR(RadialGradient_t * rg, const RelAbsVector_t* r);
+
+
+/**
+ * Sets the value of the "fx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param fx RelAbsVector_t* value of the "fx" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setFx(RadialGradient_t * rg, const RelAbsVector_t* fx);
+
+
+/**
+ * Sets the value of the "fy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param fy RelAbsVector_t* value of the "fy" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setFy(RadialGradient_t * rg, const RelAbsVector_t* fy);
+
+
+/**
+ * Sets the value of the "fz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @param fz RelAbsVector_t* value of the "fz" element to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_setFz(RadialGradient_t * rg, const RelAbsVector_t* fz);
+
+
+/**
+ * Unsets the value of the "cx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetCx(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "cy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetCy(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "cz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetCz(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "r" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetR(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "fx" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetFx(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "fy" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetFy(RadialGradient_t * rg);
+
+
+/**
+ * Unsets the value of the "fz" element of this RadialGradient_t.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_unsetFz(RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * RadialGradient_t object have been set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * RadialGradient_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_hasRequiredAttributes(const RadialGradient_t * rg);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * RadialGradient_t object have been set.
+ *
+ * @param rg the RadialGradient_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * RadialGradient_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the RadialGradient_t object are:
+ *
+ * @memberof RadialGradient_t
+ */
+LIBSBML_EXTERN
+int
+RadialGradient_hasRequiredElements(const RadialGradient_t * rg);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !RadialGradient_H__ */
+
+

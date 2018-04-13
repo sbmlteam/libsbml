@@ -79,7 +79,6 @@ protected:
   RelAbsVector mX2;
   RelAbsVector mY2;
   RelAbsVector mZ2;
-  static const std::string ELEMENT_NAME;
   /** @endcond */
 
 public:
@@ -204,6 +203,14 @@ public:
    */
   const RelAbsVector& getXPoint1() const;
 
+
+  /**
+  * Returns the x coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the x value of the start point.
+  */
+  RelAbsVector& getXPoint1();
+
   /**
    * Returns the value of the "y1" element of this LinearGradient.
    *
@@ -228,6 +235,13 @@ public:
    * @return RelAbsVector that represents the y value of the start point.
    */
   const RelAbsVector& getYPoint1() const;
+
+  /**
+  * Returns the y coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the y value of the start point.
+  */
+  RelAbsVector& getYPoint1();
 
   /**
    * Returns the value of the "z1" element of this LinearGradient.
@@ -255,6 +269,13 @@ public:
   const RelAbsVector& getZPoint1() const;
 
   /**
+  * Returns the z coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the z value of the start point.
+  */
+  RelAbsVector& getZPoint1();
+
+  /**
   * Returns the value of the "x2" element of this LinearGradient.
   *
   * @return the value of the "x2" element of this LinearGradient as a
@@ -278,6 +299,13 @@ public:
   * @return RelAbsVector that represents the x value of the start point.
   */
   const RelAbsVector& getXPoint2() const;
+
+  /**
+  * Returns the x coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the x value of the start point.
+  */
+  RelAbsVector& getXPoint2();
 
   /**
   * Returns the value of the "y2" element of this LinearGradient.
@@ -305,6 +333,13 @@ public:
   const RelAbsVector& getYPoint2() const;
 
   /**
+  * Returns the y coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the y value of the start point.
+  */
+  RelAbsVector& getYPoint2();
+
+  /**
   * Returns the value of the "z2" element of this LinearGradient.
   *
   * @return the value of the "z2" element of this LinearGradient as a
@@ -328,6 +363,13 @@ public:
   * @return RelAbsVector that represents the z value of the start point.
   */
   const RelAbsVector& getZPoint2() const;
+
+  /**
+  * Returns the z coordinate for the start point as a const reference.
+  *
+  * @return RelAbsVector that represents the z value of the start point.
+  */
+  RelAbsVector& getZPoint2();
 
   /**
    * Predicate returning @c true if this LinearGradient's "x1" element is set.

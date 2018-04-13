@@ -248,6 +248,13 @@ LinearGradient::getXPoint1() const
 }
 
 
+RelAbsVector&
+LinearGradient::getXPoint1()
+{
+  return this->mX1;
+}
+
+
 /*
 * Returns the value of the "y1" element of this LinearGradient.
 */
@@ -273,6 +280,13 @@ LinearGradient::getY1()
 */
 const RelAbsVector&
 LinearGradient::getYPoint1() const
+{
+  return this->mY1;
+}
+
+
+RelAbsVector&
+LinearGradient::getYPoint1()
 {
   return this->mY1;
 }
@@ -308,6 +322,13 @@ LinearGradient::getZPoint1() const
 }
 
 
+RelAbsVector&
+LinearGradient::getZPoint1()
+{
+  return this->mZ1;
+}
+
+
 /*
 * Returns the value of the "x2" element of this LinearGradient.
 */
@@ -337,6 +358,11 @@ LinearGradient::getXPoint2() const
   return this->mX2;
 }
 
+RelAbsVector&
+LinearGradient::getXPoint2()
+{
+  return this->mX2;
+}
 
 /*
 * Returns the value of the "y2" element of this LinearGradient.
@@ -368,6 +394,12 @@ LinearGradient::getYPoint2() const
 }
 
 
+RelAbsVector&
+LinearGradient::getYPoint2()
+{
+  return this->mY2;
+}
+
 /*
 * Returns the value of the "z2" element of this LinearGradient.
 */
@@ -393,6 +425,13 @@ LinearGradient::getZ2()
 */
 const RelAbsVector&
 LinearGradient::getZPoint2() const
+{
+  return this->mZ2;
+}
+
+
+RelAbsVector&
+LinearGradient::getZPoint2()
 {
   return this->mZ2;
 }
