@@ -422,7 +422,7 @@ SBMLExtension::getErrorTableIndex(unsigned int) const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-SBMLExtension::hasMultipleVersions() const
+SBMLExtension::hasMutiplePackageVersions() const
 {
   return false;
 }
@@ -444,7 +444,7 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
   // I know this is messy but I need to think through multiple versions of 
   // packages
-  if (hasMultipleVersions() == false)
+  if (hasMutiplePackageVersions() == false)
   {
     packageErrorTableEntry pkgErr = getErrorTable(index);
     switch (pkgVersion)
@@ -475,7 +475,7 @@ SBMLExtension::getCategory(unsigned int index) const
 {
   // I know this is messy but I need to think through multiple versions of 
   // packages
-  if (hasMultipleVersions() == false)
+  if (hasMutiplePackageVersions() == false)
   {
     packageErrorTableEntry pkgErr = getErrorTable(index);
     return pkgErr.category;
@@ -498,7 +498,7 @@ SBMLExtension::getMessage(unsigned int index,
 
   // I know this is messy but I need to think through multiple versions of 
   // packages
-  if (hasMultipleVersions() == false)
+  if (hasMutiplePackageVersions() == false)
   {
     packageErrorTableEntry pkgErr = getErrorTable(index);
 
@@ -553,7 +553,7 @@ SBMLExtension::getShortMessage(unsigned int index) const
 {
   // I know this is messy but I need to think through multiple versions of 
   // packages
-  if (hasMultipleVersions() == false)
+  if (hasMutiplePackageVersions() == false)
   {
     packageErrorTableEntry pkgErr = getErrorTable(index);
     return pkgErr.shortMessage;

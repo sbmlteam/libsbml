@@ -350,7 +350,7 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-  virtual bool hasMultipleVersions() const;
+  virtual bool hasMutiplePackageVersions() const;
   /** @endcond */
 
 

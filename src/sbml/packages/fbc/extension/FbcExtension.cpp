@@ -318,7 +318,7 @@ FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-FbcExtension::hasMultipleVersions() const
+FbcExtension::hasMutiplePackageVersions() const
 {
   return true;
 }

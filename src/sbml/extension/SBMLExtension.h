@@ -592,7 +592,7 @@ if (doc->getLevel() == 2)
 
   /** @cond doxygenLibsbmlInternal */
 
-  virtual bool hasMultipleVersions() const;
+  virtual bool hasMutiplePackageVersions() const;
 
   /** @endcond */
 
