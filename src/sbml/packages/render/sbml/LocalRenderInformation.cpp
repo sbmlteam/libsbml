@@ -232,6 +232,35 @@ LocalRenderInformation::getStyle(unsigned int n) const
   return mLocalStyles.get(n);
 }
 
+/*
+* Returns a pointer to the style with the given @p id.
+*/
+const LocalStyle* LocalRenderInformation::getLocalStyle(const std::string& id) const
+{
+  return this->mLocalStyles.get(id);
+}
+
+
+
+LocalStyle* LocalRenderInformation::getLocalStyle(const std::string& id)
+{
+  return this->mLocalStyles.get(id);
+}
+
+
+const LocalStyle* LocalRenderInformation::getStyle(const std::string& id) const
+{
+  return this->mLocalStyles.get(id);
+}
+
+
+
+LocalStyle* LocalRenderInformation::getStyle(const std::string& id)
+{
+  return this->mLocalStyles.get(id);
+}
+
+
 
 /*
  * Adds a copy of the given LocalStyle to this LocalRenderInformation.
@@ -357,6 +386,24 @@ LocalStyle*
 LocalRenderInformation::removeStyle(unsigned int n)
 {
   return mLocalStyles.remove(n);
+}
+
+
+/*
+* Removes the LocalStyle from this LocalRenderInformation based on its
+* identifier and returns a pointer to it.
+*/
+LocalStyle*
+LocalRenderInformation::removeLocalStyle(const std::string& id)
+{
+  return mLocalStyles.remove(id);
+}
+
+
+LocalStyle*
+LocalRenderInformation::removeStyle(const std::string& id)
+{
+  return mLocalStyles.remove(id);
 }
 
 

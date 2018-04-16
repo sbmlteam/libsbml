@@ -161,6 +161,22 @@ ListOfLocalStyles::get(unsigned int n) const
   return static_cast<const LocalStyle*>(ListOf::get(n));
 }
 
+/** @cond doxygenLibsbmlInternal */
+/*
+* Used by ListOf::get() to lookup an SBase based by its id.
+*/
+struct IdEqLocalStyle : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  IdEqLocalStyle(const std::string& id) : id(id) { }
+  bool operator() (SBase* sb)
+  {
+    return static_cast <LocalStyle *> (sb)->getId() == id;
+  }
+};
+/** @endcond */
+
 
 /*
  * Get a LocalStyle from the ListOfLocalStyles based on its identifier.
@@ -180,7 +196,7 @@ const LocalStyle*
 ListOfLocalStyles::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEq<LocalStyle>(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqLocalStyle(sid));
   return (result == mItems.end()) ? 0 : static_cast <const LocalStyle*>
     (*result);
 }
@@ -207,7 +223,7 @@ ListOfLocalStyles::remove(const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if(mItems.begin(), mItems.end(), IdEq<LocalStyle>(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEqLocalStyle(sid));
 
   if (result != mItems.end())
   {

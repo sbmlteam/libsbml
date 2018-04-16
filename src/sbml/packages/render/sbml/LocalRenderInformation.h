@@ -512,6 +512,50 @@ public:
 
 
   /**
+  * Removes the LocalStyle from this LocalRenderInformation based on its
+  * identifier and returns a pointer to it.
+  *
+  * @param sid a string representing the identifier of the LocalStyle to
+  * remove.
+  *
+  * @return the LocalStyle in this LocalRenderInformation based on the
+  * identifier or NULL if no such LocalStyle exists.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addLocalStyle(const LocalStyle* object)
+  * @see createLocalStyle()
+  * @see getLocalStyle(const std::string& sid)
+  * @see getLocalStyle(unsigned int n)
+  * @see getNumLocalStyles()
+  * @see removeLocalStyle(const std::string& sid)
+  */
+  LocalStyle* removeLocalStyle(const std::string& id);
+
+
+  /**
+  * Removes the LocalStyle from this LocalRenderInformation based on its
+  * identifier and returns a pointer to it.
+  *
+  * @param sid a string representing the identifier of the LocalStyle to
+  * remove.
+  *
+  * @return the LocalStyle in this LocalRenderInformation based on the
+  * identifier or NULL if no such LocalStyle exists.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addStyle(const LocalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getStyle(unsigned int n)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  */
+  LocalStyle* removeStyle(const std::string& id);
+
+
+  /**
    * Returns the XML element name of this LocalRenderInformation object.
    *
    * For LocalRenderInformation, the XML element name is always
