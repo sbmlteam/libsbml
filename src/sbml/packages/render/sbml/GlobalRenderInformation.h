@@ -323,6 +323,93 @@ public:
 
 
   /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param sid a string representing the identifier of the ColorDefinition to
+  * remove.
+  *
+  * @return the GlobalStyle in this GlobalRenderInformation based on the
+  * identifier or NULL if no such GlobalStyle exists.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addGlobalStyle(const GlobalStyle* object)
+  * @see createGlobalStyle()
+  * @see getGlobalStyle(const std::string& sid)
+  * @see getNumGlobalStyles()
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
+  */
+  GlobalStyle* getGlobalStyle(const std::string& id);
+
+
+  /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param sid a string representing the identifier of the ColorDefinition to
+  * remove.
+  *
+  * @return the GlobalStyle in this GlobalRenderInformation based on the
+  * identifier or NULL if no such GlobalStyle exists.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  GlobalStyle* getStyle(const std::string& id);
+
+
+  /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param sid a string representing the identifier of the ColorDefinition to
+  * remove.
+  *
+  * @return the GlobalStyle in this GlobalRenderInformation based on the
+  * identifier or NULL if no such GlobalStyle exists.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addGlobalStyle(const GlobalStyle* object)
+  * @see createGlobalStyle()
+  * @see getGlobalStyle(const std::string& sid)
+  * @see getNumGlobalStyles()
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
+  */
+  const GlobalStyle* getGlobalStyle(const std::string& id) const;
+
+
+  /**
+  * Get a GlobalStyle from the GlobalRenderInformation.
+  *
+  * @param sid a string representing the identifier of the ColorDefinition to
+  * remove.
+  *
+  * @return the GlobalStyle in this GlobalRenderInformation based on the
+  * identifier or NULL if no such GlobalStyle exists.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addStyle(const GlobalStyle* object)
+  * @see createStyle()
+  * @see getStyle(const std::string& sid)
+  * @see getNumStyles()
+  * @see removeStyle(const std::string& sid)
+  * @see removeStyle(unsigned int n)
+  */
+  const GlobalStyle* getStyle(const std::string& id) const;
+
+
+  /**
    * Adds a copy of the given GlobalStyle to this GlobalRenderInformation.
    *
    * @param gs the GlobalStyle object to add.

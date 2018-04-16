@@ -242,6 +242,46 @@ GlobalRenderInformation::getStyle(unsigned int n) const
 
 
 /*
+* Get a GlobalStyle from the GlobalRenderInformation.
+*/
+GlobalStyle*
+GlobalRenderInformation::getGlobalStyle(const std::string& id)
+{
+  return mGlobalStyles.get(id);
+}
+
+
+/*
+* Get a GlobalStyle from the GlobalRenderInformation.
+*/
+GlobalStyle*
+GlobalRenderInformation::getStyle(const std::string& id)
+{
+  return mGlobalStyles.get(id);
+}
+
+
+/*
+* Get a GlobalStyle from the GlobalRenderInformation.
+*/
+const GlobalStyle*
+GlobalRenderInformation::getGlobalStyle(const std::string& id) const
+{
+  return mGlobalStyles.get(id);
+}
+
+
+/*
+* Get a GlobalStyle from the GlobalRenderInformation.
+*/
+const GlobalStyle*
+GlobalRenderInformation::getStyle(const std::string& id) const
+{
+  return mGlobalStyles.get(id);
+}
+
+
+/*
  * Adds a copy of the given GlobalStyle to this GlobalRenderInformation.
  */
 int

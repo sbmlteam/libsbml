@@ -443,6 +443,22 @@ ListOfGlobalRenderInformation::get(unsigned int n) const
   return static_cast<const GlobalRenderInformation*>(ListOf::get(n));
 }
 
+/** @cond doxygenLibsbmlInternal */
+/*
+* Used by ListOf::get() to lookup an SBase based by its id.
+*/
+struct IdEqGlobalRenderInformation : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  IdEqGlobalRenderInformation(const std::string& id) : id(id) { }
+  bool operator() (SBase* sb)
+  {
+    return static_cast <GlobalRenderInformation *> (sb)->getId() == id;
+  }
+};
+/** @endcond */
+
 
 /*
  * Get a GlobalRenderInformation from the ListOfGlobalRenderInformation based
@@ -465,7 +481,7 @@ ListOfGlobalRenderInformation::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(),
-    IdEq<GlobalRenderInformation>(sid));
+    IdEqGlobalRenderInformation(sid));
   return (result == mItems.end()) ? 0 : static_cast <const
     GlobalRenderInformation*> (*result);
 }
@@ -493,7 +509,7 @@ ListOfGlobalRenderInformation::remove(const std::string& sid)
   vector<SBase*>::iterator result;
 
   result = find_if(mItems.begin(), mItems.end(),
-    IdEq<GlobalRenderInformation>(sid));
+    IdEqGlobalRenderInformation(sid));
 
   if (result != mItems.end())
   {
