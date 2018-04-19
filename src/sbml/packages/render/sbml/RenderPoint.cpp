@@ -675,7 +675,7 @@ void RenderPoint::readAttributes (const XMLAttributes& attributes, const Expecte
   RelAbsVector v = RelAbsVector();
 
   //
-  // cx RelAbsVector (use = required) 
+  // x RelAbsVector (use = required) 
   //
   assigned = attributes.readInto("x", s, this->getErrorLog(), false, getLine(), getColumn());
   if (!assigned && log)

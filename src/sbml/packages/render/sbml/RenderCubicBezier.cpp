@@ -1,7 +1,6 @@
 /**
  * @file    RenderCubicBezier.cpp
- * @brief   class for representing cubic bezier elements within a
- *          render curve.
+ * @brief Implementation of the RenderCubicBezier class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,13 +31,10 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#include "RenderCubicBezier.h"
+#include <sbml/packages/render/sbml/RenderCubicBezier.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
 
 #include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
 #include <iostream>
@@ -48,35 +44,43 @@
 #include <sbml/packages/render/extension/RenderExtension.h>
 
 
+
+using namespace std;
+
+
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates a new RenderCubicBezier object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
- */
-RenderCubicBezier::RenderCubicBezier (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    RenderPoint(level,version,pkgVersion)
-{
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
 
+
+#ifdef __cplusplus
+
+
+/*
+ * Creates a new RenderCubicBezier using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+RenderCubicBezier::RenderCubicBezier(unsigned int level,
+                                     unsigned int version,
+                                     unsigned int pkgVersion)
+:    RenderPoint(level,version,pkgVersion)
+      , mBasePoint1_X(RelAbsVector(0.0,0.0))
+      , mBasePoint1_Y(RelAbsVector(0.0,0.0))
+      , mBasePoint1_Z(RelAbsVector(0.0,0.0))
+      , mBasePoint2_X(RelAbsVector(0.0,0.0))
+      , mBasePoint2_Y(RelAbsVector(0.0,0.0))
+      , mBasePoint2_Z(RelAbsVector(0.0,0.0))
+{
   RenderPkgNamespaces* renderns = new RenderPkgNamespaces(level, version, pkgVersion);
-  setSBMLNamespacesAndOwn(renderns);  
+  setSBMLNamespacesAndOwn(renderns);
 
   connectToChild();
 
   loadPlugins(renderns);
-
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new RenderCubicBezier object with the given SBMLNamespaces.
  *
@@ -84,9 +88,13 @@ RenderCubicBezier::RenderCubicBezier (unsigned int level, unsigned int version, 
  */
 RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns):
     RenderPoint(renderns)
+  , mBasePoint1_X(RelAbsVector(0.0, 0.0))
+  , mBasePoint1_Y(RelAbsVector(0.0, 0.0))
+  , mBasePoint1_Z(RelAbsVector(0.0, 0.0))
+  , mBasePoint2_X(RelAbsVector(0.0, 0.0))
+  , mBasePoint2_Y(RelAbsVector(0.0, 0.0))
+  , mBasePoint2_Z(RelAbsVector(0.0, 0.0))
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
         // set the element namespace of this object
   setElementNamespace(renderns->getURI());
 
@@ -96,10 +104,8 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns):
   // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a CubicBezier with the given points.
  *
@@ -130,13 +136,58 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAb
   // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+* Creates a new RenderCubicBezier object from the given XMLNode object.
+* The XMLNode object has to contain a valid XML representation of a
+* RenderCubicBezier object as defined in the render extension specification.
+* This method is normally called when render information is read from a file and
+* should normally not have to be called explicitely.
+*
+* @param node the XMLNode object reference that describes the RenderCubicBezier
+* object to be instantiated.
+*/
+RenderCubicBezier::RenderCubicBezier(const XMLNode& node, unsigned int l2version)
+  :RenderPoint(node, l2version)
+{
+  const XMLAttributes& attributes = node.getAttributes();
+  const XMLNode* child;
+  ExpectedAttributes ea;
+  addExpectedAttributes(ea);
+  this->readAttributes(attributes, ea);
+  unsigned int n = 0, nMax = node.getNumChildren();
+  while (n<nMax)
+  {
+    child = &node.getChild(n);
+    const std::string& childName = child->getName();
+    if (childName == "annotation")
+    {
+      this->mAnnotation = new XMLNode(node);
+    }
+    else if (childName == "notes")
+    {
+      this->mNotes = new XMLNode(node);
+    }
+    else
+    {
+      //throw;
+    }
+    ++n;
+  }
+
+
+  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(2, l2version));
+
+  connectToChild();
+}
+
+
 /*
  * Copy constructor for RenderCubicBezier objects.
  */
-RenderCubicBezier::RenderCubicBezier(const RenderCubicBezier& orig):RenderPoint(orig)
+RenderCubicBezier::RenderCubicBezier(const RenderCubicBezier& orig)
+  :RenderPoint(orig)
 {
     mBasePoint1_X=orig.mBasePoint1_X;
     mBasePoint1_Y=orig.mBasePoint1_Y;
@@ -145,10 +196,9 @@ RenderCubicBezier::RenderCubicBezier(const RenderCubicBezier& orig):RenderPoint(
     mBasePoint2_Y=orig.mBasePoint2_Y;
     mBasePoint2_Z=orig.mBasePoint2_Z;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Assignment operator for RenderCubicBezier objects.
  */
@@ -166,9 +216,8 @@ RenderCubicBezier& RenderCubicBezier::operator=(const RenderCubicBezier& orig)
     }
     return *this;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Comparison operator for RenderCubicBezier objects.
  */
@@ -183,333 +232,552 @@ bool RenderCubicBezier::operator==(const RenderCubicBezier& left) const
             this->mBasePoint2_Z == left.mBasePoint2_Z
            );
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new RenderCubicBezier object from the given XMLNode object.
- * The XMLNode object has to contain a valid XML representation of a 
- * RenderCubicBezier object as defined in the render extension specification.
- * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
- *
- * @param node the XMLNode object reference that describes the RenderCubicBezier
- * object to be instantiated.
- */
-RenderCubicBezier::RenderCubicBezier(const XMLNode& node, unsigned int l2version)
-:RenderPoint(node, l2version)
+* Creates and returns a deep copy of the RenderCubicBezier object.
+*/
+RenderCubicBezier*
+RenderCubicBezier::clone() const
 {
-    const XMLAttributes& attributes=node.getAttributes();
-    const XMLNode* child;
-     ExpectedAttributes ea;
-    addExpectedAttributes(ea);
-    this->readAttributes(attributes, ea);
-    unsigned int n=0,nMax = node.getNumChildren();
-    while(n<nMax)
-    {
-        child=&node.getChild(n);
-        const std::string& childName=child->getName();
-        if(childName=="annotation")
-        {
-            this->mAnnotation=new XMLNode(node);
-        }
-        else if(childName=="notes")
-        {
-            this->mNotes=new XMLNode(node);
-        }
-        else
-        {
-            //throw;
-        }
-        ++n;
-    }    
-
-    
-  setSBMLNamespacesAndOwn(new RenderPkgNamespaces(2,l2version));  
-
-  connectToChild();
+  return new RenderCubicBezier(*this);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Destroys the RenderCubicBezier object.
  */ 
 RenderCubicBezier::~RenderCubicBezier ()
 {
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Returns the x value of the first base point of the curve (the one closer to the
- * starting point) as a const reference.
- *
- * @return const reference to x value of first base point
  */ 
+const RelAbsVector& RenderCubicBezier::getBasePoint1_x() const
+{
+  return this->mBasePoint1_X;
+}
+
+
+RelAbsVector& RenderCubicBezier::getBasePoint1_x()
+{
+  return this->mBasePoint1_X;
+}
+
+
 const RelAbsVector& RenderCubicBezier::basePoint1_X() const
 {
     return this->mBasePoint1_X;
 }
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y value of the first base point of the curve (the one closer to the
- * starting point) as a const reference.
- *
- * @return const reference to y value of first base point
- */ 
-const RelAbsVector& RenderCubicBezier::basePoint1_Y() const
-{
-    return this->mBasePoint1_Y;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z value of the first base point of the curve (the one closer to the
- * starting point) as a const reference.
- *
- * @return const reference to z value of first base point
- */ 
-const RelAbsVector& RenderCubicBezier::basePoint1_Z() const
-{
-    return this->mBasePoint1_Z;
-}
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x value of the second base point of the curve (the one further from the
- * starting point) as a const reference.
- *
- * @return const reference to x value of second base point
- */ 
-const RelAbsVector& RenderCubicBezier::basePoint2_X() const
-{
-    return this->mBasePoint2_X;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y value of the second base point of the curve (the one further from the
- * starting point) as a const reference.
- *
- * @return const reference to y value of second base point
- */ 
-const RelAbsVector& RenderCubicBezier::basePoint2_Y() const
-{
-    return this->mBasePoint2_Y;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z value of the second base point of the curve (the one further from the
- * starting point) as a const reference.
- *
- * @return const reference to z value of second base point
- */ 
-const RelAbsVector& RenderCubicBezier::basePoint2_Z() const
-{
-    return this->mBasePoint2_Z;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the x value of the first base point of the curve (the one closer to the
- * starting point) as a reference.
- *
- * @return reference to x value of first base point
- */ 
 RelAbsVector& RenderCubicBezier::basePoint1_X()
 {
-    return this->mBasePoint1_X;
+  return this->mBasePoint1_X;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
  * Returns the y value of the first base point of the curve (the one closer to the
- * starting point) as a reference.
- *
- * @return reference to y value of first base point
  */ 
-RelAbsVector& RenderCubicBezier::basePoint1_Y()
+const RelAbsVector& RenderCubicBezier::getBasePoint1_y() const
 {
     return this->mBasePoint1_Y;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+RelAbsVector& RenderCubicBezier::getBasePoint1_y()
+{
+  return this->mBasePoint1_Y;
+}
+
+
+const RelAbsVector& RenderCubicBezier::basePoint1_Y() const
+{
+  return this->mBasePoint1_Y;
+}
+
+
+RelAbsVector& RenderCubicBezier::basePoint1_Y()
+{
+  return this->mBasePoint1_Y;
+}
+
+
 /*
  * Returns the z value of the first base point of the curve (the one closer to the
- * starting point) as a reference.
- *
- * @return reference to z value of first base point
  */ 
-RelAbsVector& RenderCubicBezier::basePoint1_Z()
+const RelAbsVector& RenderCubicBezier::getBasePoint1_z() const
 {
     return this->mBasePoint1_Z;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+RelAbsVector& RenderCubicBezier::getBasePoint1_z()
+{
+  return this->mBasePoint1_Z;
+}
+
+
+const RelAbsVector& RenderCubicBezier::basePoint1_Z() const
+{
+  return this->mBasePoint1_Z;
+}
+
+
+RelAbsVector& RenderCubicBezier::basePoint1_Z()
+{
+  return this->mBasePoint1_Z;
+}
+
+
 /*
  * Returns the x value of the second base point of the curve (the one further from the
- * starting point) as a reference.
- *
- * @return reference to x value of second base point
  */ 
-RelAbsVector& RenderCubicBezier::basePoint2_X()
+const RelAbsVector& RenderCubicBezier::getBasePoint2_x() const
 {
     return this->mBasePoint2_X;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+RelAbsVector& RenderCubicBezier::getBasePoint2_x()
+{
+  return this->mBasePoint2_X;
+}
+
+
+const RelAbsVector& RenderCubicBezier::basePoint2_X() const
+{
+  return this->mBasePoint2_X;
+}
+
+
+RelAbsVector& RenderCubicBezier::basePoint2_X()
+{
+  return this->mBasePoint2_X;
+}
+
+
+
 /*
  * Returns the y value of the second base point of the curve (the one further from the
- * starting point) as a reference.
- *
- * @return reference to y value of second base point
+ * @return const reference to y value of second base point
  */ 
-RelAbsVector& RenderCubicBezier::basePoint2_Y()
+const RelAbsVector& RenderCubicBezier::getBasePoint2_y() const
 {
     return this->mBasePoint2_Y;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+RelAbsVector& RenderCubicBezier::getBasePoint2_y()
+{
+  return this->mBasePoint2_Y;
+}
+
+
+const RelAbsVector& RenderCubicBezier::basePoint2_Y() const
+{
+  return this->mBasePoint2_Y;
+}
+
+
+RelAbsVector& RenderCubicBezier::basePoint2_Y()
+{
+  return this->mBasePoint2_Y;
+}
+
+
 /*
  * Returns the z value of the second base point of the curve (the one further from the
- * starting point) as a reference.
- *
- * @return reference to z value of second base point
  */ 
-RelAbsVector& RenderCubicBezier::basePoint2_Z()
+RelAbsVector& RenderCubicBezier::getBasePoint2_z()
 {
     return this->mBasePoint2_Z;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+const RelAbsVector& RenderCubicBezier::getBasePoint2_z() const
+{
+  return this->mBasePoint2_Z;
+}
+
+
+const RelAbsVector& RenderCubicBezier::basePoint2_Z() const
+{
+  return this->mBasePoint2_Z;
+}
+
+
+RelAbsVector& RenderCubicBezier::basePoint2_Z()
+{
+  return this->mBasePoint2_Z;
+}
+
+
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint1_x"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint1_x() const
+{
+  return mBasePoint1_X.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint1_y"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint1_y() const
+{
+  return mBasePoint1_Y.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint1_z"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint1_z() const
+{
+  return mBasePoint1_Z.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint2_x"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint2_x() const
+{
+  return mBasePoint2_X.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint2_y"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint2_y() const
+{
+  return mBasePoint2_Y.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderCubicBezier's "basePoint2_z"
+ * element is set.
+ */
+bool
+RenderCubicBezier::isSetBasePoint2_z() const
+{
+  return mBasePoint2_Z.isSetCoordinate();
+}
+
+
 /*
  * Sets the x value of the first base point of the curve (the one closer to the
  * starting point).
  *
  * @param x x coordinate of first base point.
  */ 
-void RenderCubicBezier::setBasePoint1_X(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint1_X(const RelAbsVector& v)
 {
     this->mBasePoint1_X=v;;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+int RenderCubicBezier::setBasePoint1_x(const RelAbsVector& v)
+{
+  this->mBasePoint1_X = v;;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the y value of the first base point of the curve (the one closer to the
  * starting point).
  *
  * @param y y coordinate of first base point.
  */ 
-void RenderCubicBezier::setBasePoint1_Y(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint1_Y(const RelAbsVector& v)
 {
     this->mBasePoint1_Y=v;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+int RenderCubicBezier::setBasePoint1_y(const RelAbsVector& v)
+{
+  this->mBasePoint1_Y = v;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the z value of the first base point of the curve (the one closer to the
  * starting point).
  *
  * @param z z coordinate of first base point.
  */ 
-void RenderCubicBezier::setBasePoint1_Z(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint1_Z(const RelAbsVector& v)
 {
     this->mBasePoint1_Z=v;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+int RenderCubicBezier::setBasePoint1_z(const RelAbsVector& v)
+{
+  this->mBasePoint1_Z = v;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the x value of the second base point of the curve (the one further from the
  * starting point).
  *
  * @param x value of second base point.
  */ 
-void RenderCubicBezier::setBasePoint2_X(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint2_X(const RelAbsVector& v)
 {
     this->mBasePoint2_X=v;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+int RenderCubicBezier::setBasePoint2_x(const RelAbsVector& v)
+{
+  this->mBasePoint2_X = v;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the y value of the second base point of the curve (the one further from the
  * starting point).
  *
  * @param y value of second base point.
  */ 
-void RenderCubicBezier::setBasePoint2_Y(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint2_Y(const RelAbsVector& v)
 {
     this->mBasePoint2_Y=v;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+int RenderCubicBezier::setBasePoint2_y(const RelAbsVector& v)
+{
+  this->mBasePoint2_Y = v;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Sets the z value of the second base point of the curve (the one further from the
  * starting point).
  *
  * @param z value of second base point.
  */ 
-void RenderCubicBezier::setBasePoint2_Z(const RelAbsVector& v)
+int RenderCubicBezier::setBasePoint2_Z(const RelAbsVector& v)
 {
     this->mBasePoint2_Z=v;
+    return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * RenderCubicBezier, is always @c "element".
- * 
- * @return the name of this element, i.e., @c "element".
- */
-const std::string& RenderCubicBezier::getElementName () const 
+int RenderCubicBezier::setBasePoint2_z(const RelAbsVector& v)
 {
-  static std::string name = "element";
+  this->mBasePoint2_Z = v;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+* Sets the first basepoint to the given coordinatees.
+*
+* @param x coordinate of second base point.
+* @param y coordinate of second base point.
+* @param z coordinate of second base point.
+* If the z coodinate is omitted, it is set to 0.
+*/
+void RenderCubicBezier::setBasePoint1(const RelAbsVector& x, const RelAbsVector& y, const RelAbsVector& z)
+{
+  this->mBasePoint1_X = x;
+  this->mBasePoint1_Y = y;
+  this->mBasePoint1_Z = z;
+}
+
+
+/*
+* Sets the second basepoint to the given coordinatees.
+*
+* @param x coordinate of second base point.
+* @param y coordinate of second base point.
+* @param z coordinate of second base point.
+* If the z coodinate is omitted, it is set to 0.
+*/
+void RenderCubicBezier::setBasePoint2(const RelAbsVector& x, const RelAbsVector& y, const RelAbsVector& z)
+{
+  this->mBasePoint2_X = x;
+  this->mBasePoint2_Y = y;
+  this->mBasePoint2_Z = z;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_x" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint1_x()
+{
+  mBasePoint1_X.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_y" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint1_y()
+{
+  mBasePoint1_Y.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_z" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint1_z()
+{
+  mBasePoint1_Z.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_x" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint2_x()
+{
+  mBasePoint2_X.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_y" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint2_y()
+{
+  mBasePoint2_Y.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_z" element of this RenderCubicBezier.
+ */
+int
+RenderCubicBezier::unsetBasePoint2_z()
+{
+  mBasePoint2_Z.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Returns the XML element name of this RenderCubicBezier object.
+ */
+const std::string&
+RenderCubicBezier::getElementName() const
+{
+  static const string name = "element";
   return name;
 }
-/** @endcond */
+
+
+/*
+ * Returns the libSBML type code for this RenderCubicBezier object.
+ */
+int
+RenderCubicBezier::getTypeCode() const
+{
+  return SBML_RENDER_CUBICBEZIER;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * RenderCubicBezier object have been set.
+ */
+bool
+RenderCubicBezier::hasRequiredAttributes() const
+{
+  bool result = this->RenderPoint::hasRequiredAttributes();
+  if (!isSetBasePoint1_x())
+  {
+    result = false;
+  }
+
+  if (!isSetBasePoint1_y())
+  {
+    result = false;
+  }
+
+  if (!isSetBasePoint2_x())
+  {
+    result = false;
+  }
+
+  if (!isSetBasePoint2_y())
+  {
+    result = false;
+  }
+
+  // z must not be nan
+  result = result &&
+    (this->mBasePoint1_Z.getAbsoluteValue() == this->mBasePoint1_Z.getAbsoluteValue()) &&
+    (this->mBasePoint1_Z.getRelativeValue() == this->mBasePoint1_Z.getRelativeValue());
+
+  // z must not be nan
+  result = result &&
+    (this->mBasePoint2_Z.getAbsoluteValue() == this->mBasePoint2_Z.getAbsoluteValue()) &&
+    (this->mBasePoint2_Z.getRelativeValue() == this->mBasePoint2_Z.getRelativeValue());
+  return result;
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Creates and returns a deep copy of the RenderCubicBezier object.
- *
- * @return a (deep) copy of this RenderCubicBezier
- */
-RenderCubicBezier* 
-RenderCubicBezier::clone () const
+* Creates an XMLNode object from this RenderCubicBezier object.
+*
+* @return the XMLNode with the XML representation for the
+* RenderCubicBezier object.
+*/
+XMLNode RenderCubicBezier::toXML(const std::string& name) const
 {
-    return new RenderCubicBezier(*this);
+  return getXmlNodeForSBase(this);
 }
 /** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -529,68 +797,226 @@ RenderCubicBezier::addExpectedAttributes(ExpectedAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
 {
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
 
   RenderPoint::readAttributes(attributes, expectedAttributes);
-    std::string s;
-    if(attributes.readInto("basePoint1_x",s, getErrorLog(), false, getLine(), getColumn()))
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs - 1; n >= 0; n--)
     {
-        this->mBasePoint1_X=RelAbsVector(s);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderRenderCubicBezierAllowedCoreAttributes, pkgVersion, level, version,
+          details);
+      }
+    }
+  }
+
+  string elplusid = "<renderCubicBezier> element";
+  if (!getId().empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+
+  std::string s;
+  RelAbsVector v = RelAbsVector();
+
+  //
+  // basepoint1_x RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("basePoint1_x", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'basePoint1_x' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+      pkgVersion, level, version, message);
+    this->mBasePoint1_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_x' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint1_xMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+      this->mBasePoint1_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
     {
-        this->mBasePoint1_X=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setBasePoint1_x(v);
     }
-    if(attributes.readInto("basePoint1_y",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // basepoint1_y RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("basePoint1_y", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'basePoint1_y' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+      pkgVersion, level, version, message);
+    this->mBasePoint1_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mBasePoint1_Y=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_y' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint1_yMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+      this->mBasePoint1_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
     {
-        this->mBasePoint1_Y=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setBasePoint1_y(v);
     }
-    if(attributes.readInto("basePoint1_z",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // basepoint1_z RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("basePoint1_z", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mBasePoint1_Z = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mBasePoint1_Z=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_z' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint1_zMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
     }
     else
     {
-        this->mBasePoint1_Z=RelAbsVector(0.0,0.0);
+      this->setBasePoint1_z(v);
     }
-    if(attributes.readInto("basePoint2_x",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // basepoint2_x RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("basePoint2_x", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'basePoint2_x' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+      pkgVersion, level, version, message);
+    this->mBasePoint2_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mBasePoint2_X=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_x' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint2_xMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+      this->mBasePoint2_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
     {
-        this->mBasePoint2_X=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setBasePoint2_x(v);
     }
-    if(attributes.readInto("basePoint2_y",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // basepoint2_y RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("basePoint2_y", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'basePoint2_y' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+      pkgVersion, level, version, message);
+    this->mBasePoint2_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mBasePoint2_Y=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_y' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint2_yMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+      this->mBasePoint2_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
     {
-        this->mBasePoint2_Y=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setBasePoint2_y(v);
     }
-    if(attributes.readInto("basePoint2_z",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // basepoint2_z RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("basePoint2_z", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mBasePoint2_Z = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mBasePoint2_Z=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_z' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderRenderCubicBezierBasePoint2_zMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
     }
-    else
+    //else
     {
-        this->mBasePoint2_Z=RelAbsVector(0.0,0.0);
+      this->setBasePoint2_z(v);
     }
+    v.erase();
+  }
+
 }
 /** @endcond */
 
-
-void 
-RenderCubicBezier::writeXMLNS (XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
-  stream << xmlns;
-}
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -647,122 +1073,401 @@ void RenderCubicBezier::writeAttributes (XMLOutputStream& stream) const
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+void
+RenderCubicBezier::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
+  stream << xmlns;
+}
+
+#endif /* __cplusplus */
+
+
 /*
- * Returns the libSBML type code for the objects contained in this ListOf
- * (i.e., ColorDefinition objects, if the list is non-empty).
- * 
- * @if clike LibSBML attaches an identifying code to every
- * kind of SBML object.  These are known as <em>SBML type codes</em>.
- * The set of possible type codes is defined in the enumeration
- * #SBMLTypeCode_t.  The names of the type codes all begin with the
- * characters @c SBML_. @endif@if java LibSBML attaches an
- * identifying code to every kind of SBML object.  These are known as
- * <em>SBML type codes</em>.  In other languages, the set of type codes
- * is stored in an enumeration; in the Java language interface for
- * libSBML, the type codes are defined as static integer constants in
- * interface class {@link libsbmlConstants}.  The names of the type codes
- * all begin with the characters @c SBML_. @endif
- * 
- * @return the SBML type code for the objects contained in this ListOf
- * instance, or @c SBML_UNKNOWN (default).
- *
- * @see getElementName()
- */ 
+ * Creates a new RenderCubicBezier_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+RenderCubicBezier_t *
+RenderCubicBezier_create(unsigned int level,
+                         unsigned int version,
+                         unsigned int pkgVersion)
+{
+  return new RenderCubicBezier(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this RenderCubicBezier_t object.
+ */
+LIBSBML_EXTERN
+RenderCubicBezier_t*
+RenderCubicBezier_clone(const RenderCubicBezier_t* rcb)
+{
+  if (rcb != NULL)
+  {
+    return static_cast<RenderCubicBezier_t*>(rcb->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this RenderCubicBezier_t object.
+ */
+LIBSBML_EXTERN
+void
+RenderCubicBezier_free(RenderCubicBezier_t* rcb)
+{
+  if (rcb != NULL)
+  {
+    delete rcb;
+  }
+}
+
+
+/*
+ * Returns the value of the "basePoint1_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint1_x(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint1_x()));
+}
+
+
+/*
+ * Returns the value of the "basePoint1_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint1_y(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint1_y()));
+}
+
+
+/*
+ * Returns the value of the "basePoint1_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint1_z(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint1_z()));
+}
+
+
+/*
+ * Returns the value of the "basePoint2_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint2_x(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint2_x()));
+}
+
+
+/*
+ * Returns the value of the "basePoint2_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint2_y(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint2_y()));
+}
+
+
+/*
+ * Returns the value of the "basePoint2_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderCubicBezier_getBasePoint2_z(const RenderCubicBezier_t * rcb)
+{
+  if (rcb == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rcb->getBasePoint2_z()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint1_x"
+ * element is set.
+ */
+LIBSBML_EXTERN
 int
-RenderCubicBezier::getTypeCode () const
+RenderCubicBezier_isSetBasePoint1_x(const RenderCubicBezier_t * rcb)
 {
-    return SBML_RENDER_CUBICBEZIER;
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint1_x()) : 0;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates an XMLNode object from this RenderCubicBezier object.
- *
- * @return the XMLNode with the XML representation for the 
- * RenderCubicBezier object.
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint1_y"
+ * element is set.
  */
-XMLNode RenderCubicBezier::toXML(const std::string& name) const
+LIBSBML_EXTERN
+int
+RenderCubicBezier_isSetBasePoint1_y(const RenderCubicBezier_t * rcb)
 {
-  return getXmlNodeForSBase(this);
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint1_y()) : 0;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the first basepoint to the given coordinatees.
- *
- * @param x coordinate of second base point.
- * @param y coordinate of second base point.
- * @param z coordinate of second base point.
- * If the z coodinate is omitted, it is set to 0.
- */ 
-void RenderCubicBezier::setBasePoint1(const RelAbsVector& x, const RelAbsVector& y, const RelAbsVector& z)
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint1_z"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_isSetBasePoint1_z(const RenderCubicBezier_t * rcb)
 {
-    this->mBasePoint1_X=x;
-    this->mBasePoint1_Y=y;
-    this->mBasePoint1_Z=z;
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint1_z()) : 0;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the second basepoint to the given coordinatees.
- *
- * @param x coordinate of second base point.
- * @param y coordinate of second base point.
- * @param z coordinate of second base point.
- * If the z coodinate is omitted, it is set to 0.
- */ 
-void RenderCubicBezier::setBasePoint2(const RelAbsVector& x, const RelAbsVector& y, const RelAbsVector& z)
-{
-    this->mBasePoint2_X=x;
-    this->mBasePoint2_Y=y;
-    this->mBasePoint2_Z=z;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint2_x"
+ * element is set.
  */
-bool RenderCubicBezier::hasRequiredAttributes() const
+LIBSBML_EXTERN
+int
+RenderCubicBezier_isSetBasePoint2_x(const RenderCubicBezier_t * rcb)
 {
-    bool result = this->RenderPoint::hasRequiredAttributes();
-    result = result && 
-        (this->mBasePoint1_X.getAbsoluteValue() == this->mBasePoint1_X.getAbsoluteValue()) &&
-        (this->mBasePoint1_X.getRelativeValue() == this->mBasePoint1_X.getRelativeValue());
-    result = result && 
-        (this->mBasePoint1_Y.getAbsoluteValue() == this->mBasePoint1_Y.getAbsoluteValue()) &&
-        (this->mBasePoint1_Y.getRelativeValue() == this->mBasePoint1_Y.getRelativeValue());
-    result = result && 
-        (this->mBasePoint1_Z.getAbsoluteValue() == this->mBasePoint1_Z.getAbsoluteValue()) &&
-        (this->mBasePoint1_Z.getRelativeValue() == this->mBasePoint1_Z.getRelativeValue());
-    result = result && 
-        (this->mBasePoint2_X.getAbsoluteValue() == this->mBasePoint2_X.getAbsoluteValue()) &&
-        (this->mBasePoint2_X.getRelativeValue() == this->mBasePoint2_X.getRelativeValue());
-    result = result && 
-        (this->mBasePoint2_Y.getAbsoluteValue() == this->mBasePoint2_Y.getAbsoluteValue()) &&
-        (this->mBasePoint2_Y.getRelativeValue() == this->mBasePoint2_Y.getRelativeValue());
-    result = result && 
-        (this->mBasePoint2_Z.getAbsoluteValue() == this->mBasePoint2_Z.getAbsoluteValue()) &&
-        (this->mBasePoint2_Z.getRelativeValue() == this->mBasePoint2_Z.getRelativeValue());
-    return result;
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint2_x()) : 0;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint2_y"
+ * element is set.
  */
-bool RenderCubicBezier::hasRequiredElements() const 
+LIBSBML_EXTERN
+int
+RenderCubicBezier_isSetBasePoint2_y(const RenderCubicBezier_t * rcb)
 {
-    bool result = this->RenderPoint::hasRequiredElements();
-    return result;
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint2_y()) : 0;
 }
-/** @endcond */
 
-LIBSBML_CPP_NAMESPACE_END  
+
+/*
+ * Predicate returning @c 1 (true) if this RenderCubicBezier_t's "basePoint2_z"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_isSetBasePoint2_z(const RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? static_cast<int>(rcb->isSetBasePoint2_z()) : 0;
+}
+
+
+/*
+ * Sets the value of the "basePoint1_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint1_x(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint1_x)
+{
+  return (rcb != NULL) ? rcb->setBasePoint1_x(*basePoint1_x) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "basePoint1_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint1_y(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint1_y)
+{
+  return (rcb != NULL) ? rcb->setBasePoint1_y(*basePoint1_y) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "basePoint1_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint1_z(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint1_z)
+{
+  return (rcb != NULL) ? rcb->setBasePoint1_z(*basePoint1_z) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "basePoint2_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint2_x(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint2_x)
+{
+  return (rcb != NULL) ? rcb->setBasePoint2_x(*basePoint2_x) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "basePoint2_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint2_y(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint2_y)
+{
+  return (rcb != NULL) ? rcb->setBasePoint2_y(*basePoint2_y) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "basePoint2_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_setBasePoint2_z(RenderCubicBezier_t * rcb,
+                                  const RelAbsVector_t* basePoint2_z)
+{
+  return (rcb != NULL) ? rcb->setBasePoint2_z(*basePoint2_z) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint1_x(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint1_x() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint1_y(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint1_y() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint1_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint1_z(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint1_z() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_x" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint2_x(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint2_x() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_y" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint2_y(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint2_y() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "basePoint2_z" element of this RenderCubicBezier_t.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_unsetBasePoint2_z(RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? rcb->unsetBasePoint2_z() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * RenderCubicBezier_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_hasRequiredAttributes(const RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? static_cast<int>(rcb->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * RenderCubicBezier_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+RenderCubicBezier_hasRequiredElements(const RenderCubicBezier_t * rcb)
+{
+  return (rcb != NULL) ? static_cast<int>(rcb->hasRequiredElements()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+

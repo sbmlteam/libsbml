@@ -1719,8 +1719,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322004
-  { RenderRenderCubicBezierBasePoint1_xMustBeString,
-    "The 'basePoint1_x' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint1_xMustBeRelAbsVector,
+    "The 'basePoint1_x' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint1_x' of a <renderCubicBezier> "
@@ -1733,8 +1733,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322005
-  { RenderRenderCubicBezierBasePoint1_yMustBeString,
-    "The 'basePoint1_y' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint1_yMustBeRelAbsVector,
+    "The 'basePoint1_y' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint1_y' of a <renderCubicBezier> "
@@ -1747,8 +1747,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322006
-  { RenderRenderCubicBezierBasePoint2_xMustBeString,
-    "The 'basePoint2_x' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint2_xMustBeRelAbsVector,
+    "The 'basePoint2_x' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint2_x' of a <renderCubicBezier> "
@@ -1761,8 +1761,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322007
-  { RenderRenderCubicBezierBasePoint2_yMustBeString,
-    "The 'basePoint2_y' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint2_yMustBeRelAbsVector,
+    "The 'basePoint2_y' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint2_y' of a <renderCubicBezier> "
@@ -1775,8 +1775,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322008
-  { RenderRenderCubicBezierBasePoint1_zMustBeString,
-    "The 'basePoint1_z' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint1_zMustBeRelAbsVector,
+    "The 'basePoint1_z' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint1_z' of a <renderCubicBezier> "
@@ -1789,8 +1789,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322009
-  { RenderRenderCubicBezierBasePoint2_zMustBeString,
-    "The 'basePoint2_z' attribute must be String.",
+  { RenderRenderCubicBezierBasePoint2_zMustBeRelAbsVector,
+    "The 'basePoint2_z' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:basePoint2_z' of a <renderCubicBezier> "
@@ -1947,8 +1947,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322204
-  { RenderRenderPointXMustBeString,
-    "The 'x' attribute must be String.",
+  { RenderRenderPointXMustBeRelAbsVector,
+    "The 'x' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:x' of a <renderPoint> object must "
@@ -1961,8 +1961,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322205
-  { RenderRenderPointYMustBeString,
-    "The 'y' attribute must be String.",
+  { RenderRenderPointYMustBeRelAbsVector,
+    "The 'y' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:y' of a <renderPoint> object must "
@@ -1975,8 +1975,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1322206
-  { RenderRenderPointZMustBeString,
-    "The 'z' attribute must be String.",
+  { RenderRenderPointZMustBeRelAbsVector,
+    "The 'z' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:z' of a <renderPoint> object must "
