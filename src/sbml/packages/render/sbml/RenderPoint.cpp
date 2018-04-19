@@ -1,6 +1,6 @@
 /**
  * @file    RenderPoint.cpp
- * @brief   class for representing points in the render extension.
+ * @brief Implementation of the RenderPoint class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,6 +32,16 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sstream>
+#include <sbml/packages/render/sbml/RenderPoint.h>
+#include <sbml/packages/render/sbml/ListOfCurveElements.h>
+#include <sbml/packages/render/validator/RenderSBMLError.h>
+
+#include <sbml/packages/render/sbml/RenderPoint.h>
+#include <sbml/packages/render/sbml/RenderCubicBezier.h>
+
+
+using namespace std;
+
 #include <limits>
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
@@ -39,109 +49,57 @@
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 
-#include "RenderPoint.h"
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
 #include <sbml/packages/layout/util/LayoutUtilities.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
-#include <sbml/SBMLErrorLog.h>
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygenLibsbmlInternal */
+
+
+
+#ifdef __cplusplus
+
+
 /*
- * Creates a new RenderPoint object with the given SBML level
- * and SBML version.
- *
- * @param level SBML level of the new object
- * @param level SBML version of the new object
+ * Creates a new RenderPoint using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
  */
-RenderPoint::RenderPoint (unsigned int level, unsigned int version, unsigned int pkgVersion) : 
-    SBase(level,version)
+RenderPoint::RenderPoint(unsigned int level,
+                         unsigned int version,
+                         unsigned int pkgVersion)
+  : SBase(level, version)
     ,mXOffset(RelAbsVector(0.0,0.0))
     ,mYOffset(RelAbsVector(0.0,0.0))
     ,mZOffset(RelAbsVector(0.0,0.0))
     ,mElementName("element")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-
   RenderPkgNamespaces* renderns = new RenderPkgNamespaces(level, version, pkgVersion);
-  setSBMLNamespacesAndOwn(renderns);  
+  setSBMLNamespacesAndOwn(renderns);
 
   connectToChild();
 
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Creates a new RenderPoint object with the given SBMLNamespaces.
- *
- * @param sbmlns The SBML namespace for the object.
+ * Creates a new RenderPoint using the given RenderPkgNamespaces object.
  */
-RenderPoint::RenderPoint (RenderPkgNamespaces* renderns):
-    SBase(renderns)
+RenderPoint::RenderPoint(RenderPkgNamespaces *renderns)
+  : SBase(renderns)
     ,mXOffset(RelAbsVector(0.0,0.0))
     ,mYOffset(RelAbsVector(0.0,0.0))
     ,mZOffset(RelAbsVector(0.0,0.0))
     ,mElementName("element")
 {
-    if (!hasValidLevelVersionNamespaceCombination())
-        throw SBMLConstructorException();
-        // set the element namespace of this object
   setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Copy constructor for RenderPoint objects.
- */
-RenderPoint::RenderPoint(const RenderPoint& orig):SBase(orig)
-{
-    this->mXOffset=orig.mXOffset;
-    this->mYOffset=orig.mYOffset;
-    this->mZOffset=orig.mZOffset;
-    this->mElementName=orig.mElementName;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Assignment operator for RenderPoint objects.
- */
-RenderPoint& RenderPoint::operator=(const RenderPoint& orig)
-{
-    if(&orig!=this)
-    {
-        this->SBase::operator=(orig);
-        this->mXOffset=orig.mXOffset;
-        this->mYOffset=orig.mYOffset;
-        this->mZOffset=orig.mZOffset;
-        this->mElementName=orig.mElementName;
-    }
-    return *this;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new point with the given ccordinates.
  *
@@ -166,20 +124,8 @@ RenderPoint::RenderPoint(RenderPkgNamespaces* renderns, const RelAbsVector& x, c
   // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the Z offset to 0.0.
- */
-void RenderPoint::initDefaults ()
-{
-    this->setZ(0.0);
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new RenderPoint object from the given XMLNode object.
  * The XMLNode object has to contain a valid XML representation of a 
@@ -222,17 +168,256 @@ RenderPoint::RenderPoint(const XMLNode& node, unsigned int l2version) : SBase(2,
 
   connectToChild();
 }
-/** @endcond */
+/*
+ * Copy constructor for RenderPoint.
+ */
+RenderPoint::RenderPoint(const RenderPoint& orig)
+  : SBase( orig )
+{
+    this->mXOffset=orig.mXOffset;
+    this->mYOffset=orig.mYOffset;
+    this->mZOffset=orig.mZOffset;
+    this->mElementName=orig.mElementName;
+}
+
+
+/*
+ * Assignment operator for RenderPoint.
+ */
+RenderPoint&
+RenderPoint::operator=(const RenderPoint& rhs)
+{
+    if(&rhs!=this)
+    {
+        this->SBase::operator=(rhs);
+        this->mXOffset= rhs.mXOffset;
+        this->mYOffset= rhs.mYOffset;
+        this->mZOffset= rhs.mZOffset;
+        this->mElementName= rhs.mElementName;
+    }
+    return *this;
+}
+
+
+/*
+* Comparison operator for RenderPoint objects.
+*/
+bool RenderPoint::operator==(const RenderPoint& left) const
+{
+  return (this->mXOffset == left.mXOffset 
+    && this->mYOffset == left.mYOffset 
+    && this->mZOffset == left.mZOffset);
+}
+
+
+/*
+ * Creates and returns a deep copy of this RenderPoint object.
+ */
+RenderPoint*
+RenderPoint::clone() const
+{
+  return new RenderPoint(*this);
+}
+
+
+/*
+ * Destructor for RenderPoint.
+ */
+RenderPoint::~RenderPoint()
+{
+}
 
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Destroys the RenderPoint object.
- */ 
-RenderPoint::~RenderPoint()
+ * Sets the Z offset to 0.0.
+ */
+void RenderPoint::initDefaults ()
 {
+    this->setZ(0.0);
 }
 /** @endcond */
+
+
+/*
+* Returns the value of the "x" element of this RenderPoint.
+*/
+const RelAbsVector&
+RenderPoint::getX() const
+{
+  return this->mXOffset;
+}
+
+
+/*
+* Returns the value of the "x" element of this RenderPoint.
+*/
+RelAbsVector&
+RenderPoint::getX()
+{
+  return this->mXOffset;
+}
+
+
+/*
+ * Returns the value of the "x" element of this RenderPoint.
+ */
+const RelAbsVector&
+RenderPoint::x() const
+{
+  return this->mXOffset;
+}
+
+
+/*
+ * Returns the value of the "x" element of this RenderPoint.
+ */
+RelAbsVector&
+RenderPoint::x()
+{
+  return this->mXOffset;
+}
+
+
+/*
+* Returns the value of the "y" element of this RenderPoint.
+*/
+const RelAbsVector&
+RenderPoint::getY() const
+{
+  return this->mYOffset;
+}
+
+
+/*
+* Returns the value of the "y" element of this RenderPoint.
+*/
+RelAbsVector&
+RenderPoint::getY()
+{
+  return this->mYOffset;
+}
+
+
+/*
+ * Returns the value of the "y" element of this RenderPoint.
+*/
+const RelAbsVector&
+RenderPoint::y() const
+{
+  return this->mYOffset;
+}
+
+
+/*
+ * Returns the value of the "y" element of this RenderPoint.
+*/
+RelAbsVector&
+RenderPoint::y()
+{
+  return this->mYOffset;
+}
+
+
+/*
+* Returns the value of the "z" element of this RenderPoint.
+*/
+const RelAbsVector&
+RenderPoint::getZ() const
+{
+  return this->mZOffset;
+}
+
+/*
+* Returns the value of the "z" element of this RenderPoint.
+*/
+RelAbsVector&
+RenderPoint::getZ()
+{
+  return this->mZOffset;
+}
+
+
+/*
+ * Returns the value of the "z" element of this RenderPoint.
+*/
+const RelAbsVector&
+RenderPoint::z() const
+{
+  return this->mZOffset;
+}
+
+/*
+ * Returns the value of the "z" element of this RenderPoint.
+*/
+RelAbsVector&
+RenderPoint::z()
+{
+  return this->mZOffset;
+}
+
+
+/*
+ * Predicate returning @c true if this RenderPoint's "x" element is set.
+ */
+bool
+RenderPoint::isSetX() const
+{
+  return mXOffset.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderPoint's "y" element is set.
+ */
+bool
+RenderPoint::isSetY() const
+{
+  return mYOffset.isSetCoordinate();
+}
+
+
+/*
+ * Predicate returning @c true if this RenderPoint's "z" element is set.
+ */
+bool
+RenderPoint::isSetZ() const
+{
+  return mZOffset.isSetCoordinate();
+}
+
+
+/*
+ * Sets the value of the "x" element of this RenderPoint.
+ */
+int
+RenderPoint::setX(const RelAbsVector& x)
+{
+  this->mXOffset = x;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "y" element of this RenderPoint.
+ */
+int
+RenderPoint::setY(const RelAbsVector& y)
+{
+  this->mYOffset = y;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "z" element of this RenderPoint.
+ */
+int
+RenderPoint::setZ(const RelAbsVector& z)
+{
+  this->mZOffset = z;
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -274,131 +459,121 @@ RenderPoint::setOffsets (const RelAbsVector& x, const RelAbsVector& y, const Rel
 #endif // OMIT_DEPRECATED
 
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the x ccordiante of the RenderPoint object.
- *
- * @param x x coordinate to be set.
- */ 
-    void
-RenderPoint::setX (const RelAbsVector& x)
+ * Unsets the value of the "x" element of this RenderPoint.
+ */
+int
+RenderPoint::unsetX()
 {
-    this->mXOffset = x;
+  mXOffset.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the y ccordiante of the RenderPoint object.
- *
- * @param y y coordinate to be set.
- */ 
-    void
-RenderPoint::setY (const RelAbsVector& y)
+ * Unsets the value of the "y" element of this RenderPoint.
+ */
+int
+RenderPoint::unsetY()
 {
-    this->mYOffset = y;
+  mYOffset.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Sets the z ccordiante of the RenderPoint object.
- *
- * @param z z coordinate to be set.
- */ 
-    void
-RenderPoint::setZ (const RelAbsVector& z)
+ * Unsets the value of the "z" element of this RenderPoint.
+ */
+int
+RenderPoint::unsetZ()
 {
-    this->mZOffset = z;
+  mZOffset.unsetCoordinate();
+  return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the x coordinate of the RenderPoint as a const reference.
- *
- * @return const reference to x coordinate.
- */ 
-const RelAbsVector&
-RenderPoint::x() const
+ * Predicate returning @c true if this abstract "RenderPoint" is of type
+ * RenderPoint
+ */
+bool
+RenderPoint::isRenderPoint() const
 {
-    return this->mXOffset;
+  return dynamic_cast<const RenderPoint*>(this) != NULL;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the y coordinate of the RenderPoint as a const reference.
- *
- * @return const reference to y coordinate.
- */ 
-const RelAbsVector&
-RenderPoint::y() const
+ * Predicate returning @c true if this abstract "RenderPoint" is of type
+ * RenderCubicBezier
+ */
+bool
+RenderPoint::isRenderCubicBezier() const
 {
-    return this->mYOffset;
+  return dynamic_cast<const RenderCubicBezier*>(this) != NULL;
 }
-/** @endcond */
+
+
+/*
+ * Returns the XML element name of this RenderPoint object.
+ */
+const std::string&
+RenderPoint::getElementName() const
+{
+  static std::string name = "element";
+  return name;
+}
+
 
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Returns the z coordinate of the RenderPoint as a const reference.
- *
- * @return const reference to z coordinate.
- */ 
-const RelAbsVector&
-RenderPoint::z() const
+ * Sets the XML name of this RenderPoint object.
+ */
+void
+RenderPoint::setElementName(const std::string& name)
 {
-    return this->mZOffset;
+  mElementName = name;
 }
+
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Returns the x coordinate of the RenderPoint as a reference.
- *
- * @return reference to x coordinate.
- */ 
-    RelAbsVector&
-RenderPoint::x()
+ * Returns the libSBML type code for this RenderPoint object.
+ */
+int
+RenderPoint::getTypeCode() const
 {
-    return this->mXOffset;
+  return SBML_RENDER_POINT;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the y coordinate of the RenderPoint as a reference.
- *
- * @return reference to y coordinate.
- */ 
-    RelAbsVector&
-RenderPoint::y()
+/* function returns true if component has all the required
+* attributes
+*/
+bool 
+RenderPoint::hasRequiredAttributes() const
 {
-    return this->mYOffset;
-}
-/** @endcond */
+  bool result = this->SBase::hasRequiredAttributes();
+  // the offsets should not be NaN
+  if (!isSetX())
+  {
+    result = false;
+  }
 
+  if (!isSetY())
+  {
+    result = false;
+  }
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the z coordinate of the RenderPoint as a reference.
- *
- * @return reference to z coordinate.
- */ 
-    RelAbsVector&
-RenderPoint::z()
-{
-    return this->mZOffset;
+  // z must not be nan
+  result = result &&
+    (this->mZOffset.getAbsoluteValue() == this->mZOffset.getAbsoluteValue()) &&
+    (this->mZOffset.getRelativeValue() == this->mZOffset.getRelativeValue());
+  return result;
 }
-/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -418,58 +593,28 @@ void RenderPoint::writeElements (XMLOutputStream& stream) const
 }
 /** @endcond */
 
+
+
 /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the element name which is returned by getElementName.
- * RenderPoint objects can have different element names depending on context.
- *
- * @param name the string with the element name to be set.
+ * Accepts the given SBMLVisitor
  */
-void RenderPoint::setElementName(const std::string& name)
+bool
+RenderPoint::accept(SBMLVisitor& v) const
 {
-    this->mElementName=name;
+  //v.visit(*this);
+  return false;
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/*
- * Returns the XML element name of this object, which for
- * RenderPoint, depends on the context.
- * The name that is returned has to be set with 
- * setElementName.
- * 
- * @return the name of this element  (@see setElementName)
- */
-const std::string& RenderPoint::getElementName () const 
-{
-  static std::string name = "element";
-  return name;
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Creates and returns a deep copy of this RenderPoint object.
- * 
- * @return a (deep) copy of this RenderPoint object
- */
-RenderPoint* 
-RenderPoint::clone () const
-{
-    return new RenderPoint(*this);
-}
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-SBase*
-RenderPoint::createObject (XMLInputStream& stream)
+XMLNode RenderPoint::toXML(const std::string& name) const
 {
-    SBase*        object = NULL;
-
-    return object;
+  return getXmlNodeForSBase(this);
 }
-/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -484,45 +629,137 @@ RenderPoint::addExpectedAttributes(ExpectedAttributes& attributes)
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void 
-RenderPoint::writeXMLNS (XMLOutputStream& stream) const
-{
-  XMLNamespaces xmlns;
-  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
-  stream << xmlns;
-}
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void RenderPoint::readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes)
 {
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
   SBase::readAttributes(attributes, expectedAttributes);
-    std::string s;
-    if(attributes.readInto("x",s, getErrorLog(), false, getLine(), getColumn()))
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs - 1; n >= 0; n--)
     {
-        this->mXOffset=RelAbsVector(s);
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("render", RenderRenderPointAllowedAttributes,
+          pkgVersion, level, version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("render",
+          RenderRenderPointAllowedCoreAttributes, pkgVersion, level, version,
+          details);
+      }
+    }
+  }
+
+  string elplusid = "<renderPoint> element";
+  if (!getId().empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+
+  std::string s;
+  RelAbsVector v = RelAbsVector();
+
+  //
+  // cx RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("x", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'x' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderPointAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'x' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderEllipseCxMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
     }
     else
     {
-        this->mXOffset=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setX(v);
     }
-    if(attributes.readInto("y",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+  //
+  // y RelAbsVector (use = required) 
+  //
+  s = "";
+  assigned = attributes.readInto("y", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
+  {
+    std::string message = "The required attribute 'y' is missing from the "
+      + elplusid + ".";
+    log->logPackageError("render", RenderRenderPointAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mYOffset=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'y' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderEllipseCyMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
     }
     else
     {
-        this->mYOffset=RelAbsVector(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());   
+      this->setY(v);
     }
-    if(attributes.readInto("z",s, getErrorLog(), false, getLine(), getColumn()))
+    v.erase();
+  }
+
+  //
+  // z RelAbsVector (use = optional) 
+  //
+
+  s = "";
+  assigned = attributes.readInto("z", s, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    this->mZOffset = RelAbsVector(0.0, 0.0);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
     {
-        this->mZOffset=RelAbsVector(s);
+      std::string message = "The syntax '" + s + "' of the attribute 'c' on the "
+        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderEllipseCzMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
     }
     else
     {
-        this->mZOffset=RelAbsVector(0.0,0.0);
+      this->setZ(v);
     }
+    v.erase();
+  }
+
 }
 /** @endcond */
 
@@ -548,68 +785,265 @@ void RenderPoint::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-XMLNode RenderPoint::toXML(const std::string& name) const
+void
+RenderPoint::writeXMLNS(XMLOutputStream& stream) const
 {
-  return getXmlNodeForSBase(this);
+  XMLNamespaces xmlns;
+  xmlns.add(LayoutExtension::getXmlnsXSI(), "xsi");
+  stream << xmlns;
 }
 /** @endcond */
 
 
-int
-RenderPoint::getTypeCode () const
-{
-    return SBML_RENDER_POINT;
-}
 
 
-bool RenderPoint::accept (SBMLVisitor& v) const
-{
-    //v.visit(*this);
-    return false;
-}
+#endif /* __cplusplus */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
- * Comparison operator for RenderPoint objects.
+ * Creates a new RenderPoint (RenderPoint_t) using the given SBML Level,
+ * Version and &ldquo;render&rdquo; package version.
  */
-bool RenderPoint::operator==(const RenderPoint& left) const
+LIBSBML_EXTERN
+RenderPoint_t *
+RenderPoint_createRenderPoint(unsigned int level,
+                              unsigned int version,
+                              unsigned int pkgVersion)
 {
-    return (this->mXOffset == left.mXOffset && this->mYOffset == left.mYOffset && this->mZOffset == left.mZOffset);
+  return new RenderPoint(level, version, pkgVersion);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * attributes
+
+/*
+ * Creates a new RenderCubicBezier (RenderPoint_t) using the given SBML Level,
+ * Version and &ldquo;render&rdquo; package version.
  */
-bool RenderPoint::hasRequiredAttributes() const
+LIBSBML_EXTERN
+RenderPoint_t *
+RenderPoint_createRenderCubicBezier(unsigned int level,
+                                    unsigned int version,
+                                    unsigned int pkgVersion)
 {
-    bool result = this->SBase::hasRequiredAttributes();
-    // the offsets should not be NaN
-    result = result && 
-        (this->mXOffset.getAbsoluteValue() == this->mXOffset.getAbsoluteValue()) &&
-        (this->mXOffset.getRelativeValue() == this->mXOffset.getRelativeValue());
-    result = result && 
-        (this->mYOffset.getAbsoluteValue() == this->mYOffset.getAbsoluteValue()) &&
-        (this->mYOffset.getRelativeValue() == this->mYOffset.getRelativeValue());
-    result = result && 
-        (this->mZOffset.getAbsoluteValue() == this->mZOffset.getAbsoluteValue()) &&
-        (this->mZOffset.getRelativeValue() == this->mZOffset.getRelativeValue());
-    return result;
+  return new RenderCubicBezier(level, version, pkgVersion);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* function returns true if component has all the required
- * elements
+/*
+ * Creates and returns a deep copy of this RenderPoint_t object.
  */
-bool RenderPoint::hasRequiredElements() const 
+LIBSBML_EXTERN
+RenderPoint_t*
+RenderPoint_clone(const RenderPoint_t* rp)
 {
-    bool result = this->SBase::hasRequiredElements();
-    return result;
+  if (rp != NULL)
+  {
+    return static_cast<RenderPoint_t*>(rp->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
-/** @endcond */
 
-LIBSBML_CPP_NAMESPACE_END 
+
+/*
+ * Frees this RenderPoint_t object.
+ */
+LIBSBML_EXTERN
+void
+RenderPoint_free(RenderPoint_t* rp)
+{
+  if (rp != NULL)
+  {
+    delete rp;
+  }
+}
+
+
+/*
+ * Returns the value of the "x" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderPoint_getX(const RenderPoint_t * rp)
+{
+  if (rp == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rp->getX()));
+}
+
+
+/*
+ * Returns the value of the "y" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderPoint_getY(const RenderPoint_t * rp)
+{
+  if (rp == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rp->getY()));
+}
+
+
+/*
+ * Returns the value of the "z" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+RenderPoint_getZ(const RenderPoint_t * rp)
+{
+  if (rp == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(rp->getZ()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RenderPoint_t's "x" element is set.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_isSetX(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->isSetX()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RenderPoint_t's "y" element is set.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_isSetY(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->isSetY()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this RenderPoint_t's "z" element is set.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_isSetZ(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->isSetZ()) : 0;
+}
+
+
+/*
+ * Sets the value of the "x" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_setX(RenderPoint_t * rp, const RelAbsVector_t* x)
+{
+  return (rp != NULL) ? rp->setX(*x) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "y" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_setY(RenderPoint_t * rp, const RelAbsVector_t* y)
+{
+  return (rp != NULL) ? rp->setY(*y) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "z" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_setZ(RenderPoint_t * rp, const RelAbsVector_t* z)
+{
+  return (rp != NULL) ? rp->setZ(*z) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "x" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_unsetX(RenderPoint_t * rp)
+{
+  return (rp != NULL) ? rp->unsetX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "y" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_unsetY(RenderPoint_t * rp)
+{
+  return (rp != NULL) ? rp->unsetY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "z" element of this RenderPoint_t.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_unsetZ(RenderPoint_t * rp)
+{
+  return (rp != NULL) ? rp->unsetZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 if this RenderPoint_t is of type RenderPoint_t
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_isRenderPoint(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->isRenderPoint()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 if this RenderPoint_t is of type
+ * RenderCubicBezier_t
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_isRenderCubicBezier(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->isRenderCubicBezier()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * RenderPoint_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+RenderPoint_hasRequiredAttributes(const RenderPoint_t * rp)
+{
+  return (rp != NULL) ? static_cast<int>(rp->hasRequiredAttributes()) : 0;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
