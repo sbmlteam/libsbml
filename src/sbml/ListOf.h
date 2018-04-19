@@ -573,6 +573,14 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
+  virtual void updateSBMLNamespace(const std::string& package,
+    unsigned int level, unsigned int version);
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 
   virtual bool hasOptionalElements() const;
 

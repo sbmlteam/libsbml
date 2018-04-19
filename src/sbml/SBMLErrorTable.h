@@ -10277,7 +10277,33 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
-  //99104
+      //99102
+   {
+     InvalidPackageLevelVersion,
+     "Invalid package Level+Version combination of SBML.",
+      LIBSBML_CAT_SBML,
+      LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+     LIBSBML_SEV_NOT_APPLICABLE,
+      LIBSBML_SEV_ERROR,
+      LIBSBML_SEV_ERROR,
+      "A particular version of an L3V1 package can only be used in an L3V2 "
+      "document if there is no L3V2 package specification with the same version.",
+      { "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "" }
+   },
+
+      //99104
   {
     AnnotationNotesNotAllowedLevel1,
     "Annotation objects on the SBML container element are not permitted in SBML Level 1",

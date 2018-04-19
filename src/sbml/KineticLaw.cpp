@@ -1071,6 +1071,22 @@ KineticLaw::enablePackageInternal(const std::string& pkgURI,
     mLocalParameters.enablePackageInternal(pkgURI,pkgPrefix,flag);
   }
 }
+
+void
+KineticLaw::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+  
+  if (getLevel() < 3)
+  {
+    mParameters.updateSBMLNamespace(pkg, level, version);
+  }
+  else
+  {
+    mLocalParameters.updateSBMLNamespace(pkg, level, version);
+  }
+}
 /** @endcond */
 
 /*

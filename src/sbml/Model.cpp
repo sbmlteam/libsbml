@@ -3439,6 +3439,28 @@ Model::enablePackageInternal(const std::string& pkgURI,
   mReactions          .enablePackageInternal(pkgURI,pkgPrefix,flag);
   mEvents             .enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+
+
+void
+Model::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+
+  mFunctionDefinitions.updateSBMLNamespace(pkg, level, version);
+  mUnitDefinitions.updateSBMLNamespace(pkg, level, version);
+  mCompartmentTypes.updateSBMLNamespace(pkg, level, version);
+  mSpeciesTypes.updateSBMLNamespace(pkg, level, version);
+  mCompartments.updateSBMLNamespace(pkg, level, version);
+  mSpecies.updateSBMLNamespace(pkg, level, version);
+  mParameters.updateSBMLNamespace(pkg, level, version);
+  mInitialAssignments.updateSBMLNamespace(pkg, level, version);
+  mRules.updateSBMLNamespace(pkg, level, version);
+  mConstraints.updateSBMLNamespace(pkg, level, version);
+  mReactions.updateSBMLNamespace(pkg, level, version);
+  mEvents.updateSBMLNamespace(pkg, level, version);
+
+}
 /** @endcond */
 
 

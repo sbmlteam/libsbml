@@ -829,6 +829,12 @@ public:
 
 #endif
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void updateSBMLNamespace(const std::string& package, unsigned int level,
+    unsigned int version);
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */

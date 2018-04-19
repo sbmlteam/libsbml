@@ -38,6 +38,7 @@
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
+#include <sbml/extension/SBasePlugin.h>
 
 #ifdef USE_COMP
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
@@ -1054,6 +1055,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           currentModel->convertFromL3V2(strict);
         }
         currentModel->dealWithL3Fast(targetVersion);
+        updatePackages(targetVersion);
 
 #ifdef USE_COMP
         CompSBMLDocumentPlugin* compPlug = 
@@ -1080,6 +1082,36 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
   return conversion;
 
 }
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+SBMLLevelVersionConverter::updatePackages(unsigned int targetVersion)
+{
+  // this will only work if we have a package with version 1 for both l3v1 and l3v2
+  //std::string sbml = writeSBMLToStdString(mDocument);
+  //SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
+  //if (!tempdoc->getErrorLog()->contains(InvalidPackageLevelVersion))
+  //{
+  //  delete tempdoc;
+  //  return;
+  //}
+  //delete tempdoc;
+
+//  const SBMLExtension* sbmlext = NULL;
+  XMLNamespaces *xmlns = mDocument->getNamespaces();
+  int numxmlns = xmlns->getLength();
+  for (int i = numxmlns - 1; i >= 0; i--)
+  {
+    const std::string &prefix = xmlns->getPrefix(i);
+    if (!prefix.empty())
+      mDocument->updateSBMLNamespace(prefix, 3, targetVersion);
+  }
+}
+
+
 /** @endcond */
 
 

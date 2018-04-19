@@ -938,6 +938,140 @@ SBasePlugin::getObject(const std::string& elementName, unsigned int index)
   return NULL;
 }
 
+
+void
+SBasePlugin::updateSBMLNamespace(const std::string& package, unsigned int level,
+  unsigned int version)
+{
+  if (package.empty() || package == "core")
+  {
+    std::string uri;
+
+    switch (level)
+    {
+    case 1:
+      uri = SBML_XMLNS_L1;
+      break;
+    case 2:
+      switch (version)
+      {
+      case 1:
+        uri = SBML_XMLNS_L2V1;
+        break;
+      case 2:
+        uri = SBML_XMLNS_L2V2;
+        break;
+      case 3:
+        uri = SBML_XMLNS_L2V3;
+        break;
+      case 4:
+        uri = SBML_XMLNS_L2V4;
+        break;
+      case 5:
+      default:
+        uri = SBML_XMLNS_L2V5;
+        break;
+      }
+      break;
+    case 3:
+    default:
+      switch (version)
+      {
+      case 1:
+        uri = SBML_XMLNS_L3V1;
+        break;
+      case 2:
+      default:
+        uri = SBML_XMLNS_L3V2;
+        break;
+      }
+      break;
+    }
+    // is there a prefix on the sbml namespace
+    std::string currentSBMLCoreURI =
+      SBMLNamespaces::getSBMLNamespaceURI(getLevel(),
+        getVersion());
+    std::string currentSBMLCorePrefix = "";
+
+    if (mSBMLNS == NULL)
+    {
+      mSBMLNS = new SBMLNamespaces(level, version);
+    }
+
+
+    if (mSBMLNS->getNamespaces() != NULL &&
+      mSBMLNS->getNamespaces()->getLength() > 0)
+    {
+      currentSBMLCorePrefix = mSBMLNS->getNamespaces()->
+        getPrefix(currentSBMLCoreURI);
+      mSBMLNS->getNamespaces()->remove(currentSBMLCorePrefix);
+      mSBMLNS->getNamespaces()->add(uri, currentSBMLCorePrefix);
+      
+      // it is possible that the ns exists unprefixed as well as prefixed
+      // the code will return the first it encounters
+      // so check if the original ns is still there
+      if (mSBMLNS->getNamespaces()->containsUri(currentSBMLCoreURI) == true)
+      {
+        currentSBMLCorePrefix = mSBMLNS->getNamespaces()
+          ->getPrefix(currentSBMLCoreURI);
+        mSBMLNS->getNamespaces()->remove(currentSBMLCorePrefix);
+        mSBMLNS->getNamespaces()->add(uri, currentSBMLCorePrefix);
+      }
+    }
+    else
+    {
+      mSBMLNS->addNamespace(uri, currentSBMLCorePrefix);
+    }
+
+    mSBMLNS->setLevel(level);
+    mSBMLNS->setVersion(version);
+    if (this->getPackageName().empty() || this->getPackageName() == "core")
+      setElementNamespace(uri);
+  }
+  else
+  {
+    std::string uri = this->getSBMLNamespaces()->getNamespaces()->getURI(package);
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtension(uri);
+    // so we have a plugin for this package already enabled
+    // if there are two version 1 of this package
+    // we want is to change the uri being used
+    if (sbmlext && sbmlext->isEnabled())
+    {
+      std::string newURI;
+      newURI.assign(uri);
+      size_t pos = newURI.find("level3");
+      if (version == 1)
+      {
+        newURI.replace(pos, 15, "level3/version1");
+      }
+      else if (version == 2)
+      {
+        newURI.replace(pos, 15, "level3/version2");
+      }
+
+      bool found = false;
+      unsigned int count = 0;
+      while (!found && count < sbmlext->getNumOfSupportedPackageURI())
+      {
+        if (newURI == sbmlext->getSupportedPackageURI(count))
+        {
+          found = true;
+        }
+        count++;
+      }
+
+      if (found)
+      {
+        mSBMLNS->getNamespaces()->remove(uri);
+        mSBMLNS->getNamespaces()->add(newURI, package);
+        if (this->getPackageName() == package)
+          setElementNamespace(newURI);
+      }
+    }
+
+  }
+}
+
   /** @endcond */
 
 

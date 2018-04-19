@@ -53,7 +53,7 @@ BEGIN_C_DECLS
 #define NS_COMP     "xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" "
 #define SBML_END    "</sbml>\n"
 
-#define wrapSBML_L3v1(s)  XML_START SBML_START NS_COMP NS_L3v1 LV_L3v1 s SBML_END
+#define wrapSBML_L3v1(s)  XML_START SBML_START NS_L3v1 NS_COMP LV_L3v1 s SBML_END
 #define wrapSBML_L3v2(s)  XML_START SBML_START NS_COMP NS_L3v2 LV_L3v2 s SBML_END
 
 
@@ -68,6 +68,7 @@ equals(const char* expected, const char* actual)
 
   return false;
 }
+
 
 
 

@@ -276,6 +276,8 @@ private:
    */
   bool performConversion(bool strict, bool strictUnits, bool duplicateAnn);
 
+  void updatePackages(unsigned int targetVersion);
+
   unsigned int validateConvertedDocument();
 
   bool has_fatal_errors(unsigned int level, unsigned int version);

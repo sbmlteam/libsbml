@@ -450,6 +450,20 @@ ListOf::enablePackageInternal(const std::string& pkgURI, const std::string& pkgP
     ++it;
   }
 }
+
+void
+ListOf::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+  
+  ListItemIter it = mItems.begin();
+  while (it != mItems.end())
+  {
+    (*it)->updateSBMLNamespace(pkg, level, version);
+    ++it;
+  }
+}
 /** @endcond */
 
 

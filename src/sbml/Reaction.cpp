@@ -1424,6 +1424,20 @@ Reaction::enablePackageInternal(const std::string& pkgURI,
 
   if (mKineticLaw) mKineticLaw->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+
+
+void
+Reaction::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+
+  mReactants.updateSBMLNamespace(pkg, level, version);
+  mProducts.updateSBMLNamespace(pkg, level, version);
+  mModifiers.updateSBMLNamespace(pkg, level, version);
+
+  if (mKineticLaw) mKineticLaw->updateSBMLNamespace(pkg, level, version);
+}
 /** @endcond */
 
 

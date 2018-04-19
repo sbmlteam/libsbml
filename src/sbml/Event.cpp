@@ -1163,6 +1163,19 @@ Event::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
   if (mDelay)   mDelay->enablePackageInternal(pkgURI,pkgPrefix,flag);
   if (mPriority)   mPriority->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+
+void
+Event::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+
+  mEventAssignments.updateSBMLNamespace(pkg, level, version);
+  if (mTrigger) mTrigger->updateSBMLNamespace(pkg, level, version);
+  if (mDelay)   mDelay->updateSBMLNamespace(pkg, level, version);
+  if (mPriority)   mPriority->updateSBMLNamespace(pkg, level, version);
+
+}
 /** @endcond */
 
 

@@ -792,6 +792,16 @@ UnitDefinition::enablePackageInternal(const std::string& pkgURI,
 
   mUnits.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
+
+
+void
+UnitDefinition::updateSBMLNamespace(const std::string& pkg, unsigned int level,
+  unsigned int version)
+{
+  SBase::updateSBMLNamespace(pkg, level, version);
+
+  mUnits.updateSBMLNamespace(pkg, level, version);
+}
 /** @endcond */
 
 

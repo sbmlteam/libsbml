@@ -566,92 +566,20 @@ SBMLDocument::setInvalidLevel()
 
 /** @cond doxygenLibsbmlInternal */
 void 
-SBMLDocument::updateSBMLNamespace(const std::string&, unsigned int level,
+SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level,
                             unsigned int version)
 {
-  // is there a prefix on the sbml namespace
-  std::string currentSBMLCoreURI = 
-                        SBMLNamespaces::getSBMLNamespaceURI(getLevel(), 
-                                                            getVersion()); 
-  std::string currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()->
-    getPrefix(currentSBMLCoreURI);
-
-  //bool sbmlDecl = false;
-
-  //if (currentSBMLCorePrefix.empty() == false)
-  //  sbmlDecl = true;
-
-  mLevel   = level;
-  mVersion = version;
-
-  if (mSBMLNamespaces == NULL) 
-    mSBMLNamespaces = new SBMLNamespaces(mLevel, mVersion);
-
-  std::string uri;
-
-  switch (mLevel)
+  SBase::updateSBMLNamespace(package, level, version);
+  if (package.empty() || package == "core")
   {
-    case 1:
-      uri = SBML_XMLNS_L1;
-      break;
-    case 2:
-      switch (mVersion)
-      {
-      case 1:
-        uri = SBML_XMLNS_L2V1;
-        break;
-      case 2:
-        uri = SBML_XMLNS_L2V2;
-        break;
-      case 3:
-        uri = SBML_XMLNS_L2V3;
-        break;
-      case 4:
-        uri = SBML_XMLNS_L2V4;
-        break;
-      case 5:
-      default:
-        uri = SBML_XMLNS_L2V5;
-        break;
-      }
-      break;
-    case 3:
-    default:
-      switch (mVersion)
-      {
-      case 1:
-        uri = SBML_XMLNS_L3V1;
-        break;
-      case 2:
-      default:
-        uri = SBML_XMLNS_L3V2;
-        break;
-      }
-      break;
+    mLevel = level;
+    mVersion = version;
   }
 
-
-  mSBMLNamespaces->getNamespaces()->remove(currentSBMLCorePrefix);
-  mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
-  // it is possible that the ns exists unprefixed as well as prefixed
-  // the code will return the first it encounters
-  // so check if the original ns is still there
-  if (mSBMLNamespaces->getNamespaces()->containsUri(currentSBMLCoreURI) == true)
+  if (isSetModel())
   {
-    currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()
-      ->getPrefix(currentSBMLCoreURI);
-    mSBMLNamespaces->getNamespaces()->remove(currentSBMLCorePrefix);
-    mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
+    mModel->updateSBMLNamespace(package, level, version);
   }
-
-
-  //if (sbmlDecl)
-  //{
-  //  mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
-  //}
-  mSBMLNamespaces->setLevel(mLevel);
-  mSBMLNamespaces->setVersion(mVersion);
-  setElementNamespace(uri); // this needs to propagate
 }
 /** @endcond */
 
@@ -1378,8 +1306,8 @@ SBMLDocument::createObject (XMLInputStream& stream)
       if (getLevel() < 3 || (getLevel() == 3 && getVersion() < 2)) 
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <model> element is permitted inside a "
-	        "document.");
+          "Only one <model> element is permitted inside a "
+          "document.");
       }
       else
       {
@@ -1797,6 +1725,29 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
 
       if (sbmlext && sbmlext->isEnabled())
       {
+        // if we are in l3v2 and there exists an l3v2 version for the package
+        // we wont accept the l3v1 version
+        if (sbmlext->getVersion(uri) < 2 && this->getVersion() > 1)
+        {
+          std::string dummyURI;
+          dummyURI.assign(uri);
+          size_t pos = dummyURI.find("level3");
+          dummyURI.replace(pos, 15, "level3/version2");
+          if (sbmlext->getVersion(dummyURI) == 2)
+          {
+            ostringstream msg;
+
+            msg << "Package '" << xmlns->getPrefix(i) <<
+                "' has a L3V2V1 specification which must be used in an L3V2 document.";
+            logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
+            return;
+
+
+          }
+        }
+
+
+
         const std::string &prefix = xmlns->getPrefix(i);
         SBaseExtensionPoint extPoint(getPackageName(), SBML_DOCUMENT);
         const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
@@ -1821,7 +1772,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
         //     if the value is true.
         //  4) Added a check that the uri could possibly be a l3 ns
         //
-        size_t pos = uri.find("http://www.sbml.org/sbml/level3/version1");
+        size_t pos = uri.find("http://www.sbml.org/sbml/level3/version");
         std::string requiredAttr = attributes.getValue("required",uri);
         if (pos == 0 && !requiredAttr.empty())
         {

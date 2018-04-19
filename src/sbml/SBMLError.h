@@ -839,6 +839,7 @@ typedef enum
 , FastReactionsNotSupported             = 98010 /*!< Conversion of reactions employing the 'fast' attribute is not supported. */
 , SpeciesRefIdInMathMLNotSupported      = 98011 /*!< This MathML element is only permitted in L3V2. */
 , InvalidSBMLLevelVersion               = 99101 /*!< Unknown Level+Version combination of SBML. */
+, InvalidPackageLevelVersion            = 99102 /*!< Invalid package Level+Version combination of SBML. */
 , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation objects on the SBML container element are not permitted in SBML Level 1. */
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
 , RequiredPackagePresent                = 99107 /*!< The SBML document requires an SBML Level 3 package unavailable in this software. */

@@ -3223,6 +3223,14 @@ newModel.addSpecies(s1);
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void updateSBMLNamespace(const std::string& package, unsigned int level,
+    unsigned int version);
+  /** @endcond */
+
+
+
 
 protected:
 

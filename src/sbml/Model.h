@@ -4134,6 +4134,15 @@ public:
   virtual void enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void updateSBMLNamespace(const std::string& package,
+    unsigned int level, unsigned int version);
+
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
