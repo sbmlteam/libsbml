@@ -32,6 +32,7 @@
  */
 #include <sbml/packages/render/sbml/ListOfLocalRenderInformation.h>
 #include <sbml/packages/render/validator/RenderSBMLError.h>
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 
 using namespace std;

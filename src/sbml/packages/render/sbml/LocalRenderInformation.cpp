@@ -45,6 +45,7 @@
 #endif // DEPRECATION_WARNINGS
 #endif // OMIT_DEPRECATED
 #include <sbml/packages/layout/util/LayoutAnnotation.h>
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 
 using namespace std;

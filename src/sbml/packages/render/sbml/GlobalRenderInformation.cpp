@@ -35,6 +35,7 @@
 #include <sbml/packages/render/sbml/ListOfGlobalRenderInformation.h>
 #include <sbml/packages/render/validator/RenderSBMLError.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 
 using namespace std;

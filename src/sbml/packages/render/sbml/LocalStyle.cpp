@@ -34,6 +34,7 @@
 #include <sbml/packages/render/sbml/LocalStyle.h>
 #include <sbml/packages/render/sbml/ListOfLocalStyles.h>
 #include <sbml/packages/render/validator/RenderSBMLError.h>
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 #include <sbml/xml/XMLInputStream.h>
 

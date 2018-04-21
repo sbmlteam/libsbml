@@ -34,6 +34,7 @@
 #include <sbml/packages/render/sbml/LineEnding.h>
 #include <sbml/packages/render/sbml/ListOfLineEndings.h>
 #include <sbml/packages/render/validator/RenderSBMLError.h>
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 #ifndef OMIT_DEPRECATED
 #ifdef DEPRECATION_WARNINGS
