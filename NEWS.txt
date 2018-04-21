@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.16.1 (Current SVN)
+5.17.0 (2018-05-09)
 ====================================================================
 
 STABLE RELEASE
@@ -25,58 +25,80 @@ STABLE RELEASE
 
 * New features
 
+  - The libSBML-matlab interface function TranslateSBML has been
+    optimized for speed.
+
+  - The libSBML-matlab interface function OutputSBML can now be called
+    with an output argument and no inputs to return information about 
+    the libSBML version and enabled packages used to build the 
+    binary files.
+
+  - A new function getDefaultSBMLStruct has been added to the 
+    libSBML-matlab interface. This function takes a string name of the
+    element with level and version information and returns the relevant
+    MATLAB-SBML structure for the element. Many thanks go to Thomas Pfau
+    for supplying this function.
+
+  - On occasion the functions 'getDerivedUnitDefinition' that return
+    calculated units were reporting incorrect units without flagging
+    any issues. This has been made less ambiguous and a derived 
+    UnitDefinition will not contain any units if it cannot be correctly 
+    determined.
+
   - Unit validation has been optimized and significantly speeded up for
     larger models. 
-	
+  
   - 'comp' package-specific updates:
 
     - The C API for comp has been completed.
 
   - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
+
+    - SourceForge Tracker item #455: Error messages have been improved.
+        
   - 'multi' package-specific updates:
 
     - The C API for multi has been completed.
 
   - 'qual' package-specific updates:
+
+    - SourceForge Tracker item #455: Error messages have been improved.
+
   - 'render' package-specific updates:
+
+    - A full C API for the render package has been added.
 
 * Bug fixes
 
+  - SourceForge Tracker item #459: An error in the function that
+    converts libsbml-infix to matlab infix was failing when log
+    functions were failing. This is fixed. Thanks to Sven Thiele
+    for reporting the issue.
+
+  - The validation check for duplicate values of the 'metaid'
+    attribute was not being extended to all packages. This has
+    been fixed. 
+
   - Python examples have been updated to work with Python v3.
 
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
 
-* Configuration/build system changes
-
-
-* Miscellaneous
+    - SourceForge Tracker item #457: Validation of rule qual-20311
+      was producing an error when it should have been a warning.
+      Thanks to Justin McManus for reporting the problem.
 
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
+    - The 'distrib' package has undergone significant changes.
+      The code has been fully updated to match this. We have also 
+      used a Distrib prefix on all classes to prevent clashes with
+      other packages or even other libraries. We welcome feedback 
+      on this approach.
 
 
 ====================================================================
@@ -111,7 +133,7 @@ STABLE RELEASE
     A new function XMLNode::writeToStream(XMLOutputStream&) checks
     the indentation is correctly recovered after writing out the
     XMLNode.
-	
+  
   - 'comp' package-specific updates:
 
     - There has been some improvements made to the reporting of line
