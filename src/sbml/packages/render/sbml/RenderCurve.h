@@ -1,6 +1,6 @@
 /**
  * @file    RenderCurve.h
- * @brief   class for representing a curve in the render extension
+ * @brief Definition of the RenderCurve class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
  *
@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderCurve
- * @brief implementation of the Curve concept from the SBML render extension
+ * @sbmlbrief{render} implementation of the Curve concept from the SBML render extension
  *
  * The curve concept in the SBML render extension is similar to the curves in the SBML layout.
  * Each curve consists of a number of either straight line segments or cubic bezier elements.
@@ -50,51 +50,72 @@
 #ifndef RenderCurve_H__
 #define RenderCurve_H__
 
-#include <sbml/common/sbmlfwd.h>
 
-#include <sbml/packages/render/sbml/GraphicalPrimitive1D.h>
-#include <sbml/packages/render/sbml/ListOfCurveElements.h>
-#include <sbml/packages/render/extension/RenderExtension.h>
-#include <sbml/xml/XMLNode.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/packages/render/common/renderfwd.h>
+
 
 #ifdef __cplusplus
 
+
 #include <string>
+
+
+#include <sbml/packages/render/sbml/GraphicalPrimitive1D.h>
+#include <sbml/packages/render/extension/RenderExtension.h>
+#include <sbml/packages/render/sbml/ListOfCurveElements.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class RenderCubicBezier;
-class RenderPoint;
 
 class LIBSBML_EXTERN RenderCurve : public GraphicalPrimitive1D
 {
 protected:
+
   /** @cond doxygenLibsbmlInternal */
+
   std::string mStartHead;
   std::string mEndHead;
-  ListOfCurveElements mListOfElements;
-  static const std::string ELEMENT_NAME;
+  ListOfCurveElements mRenderPoints;
+
   /** @endcond */
 
 public:
+
   /**
-   * Creates a new RenderCurve object with the given SBML level
-   * and SBML version.
+   * Creates a new RenderCurve using the given SBML Level, Version and
+   * &ldquo;render&rdquo; package version.
    *
-   * @param level SBML level of the new object
-   * @param level SBML version of the new object
+   * @param level an unsigned int, the SBML Level to assign to this
+   * RenderCurve.
+   *
+   * @param version an unsigned int, the SBML Version to assign to this
+   * RenderCurve.
+   *
+   * @param pkgVersion an unsigned int, the SBML Render Version to assign to
+   * this RenderCurve.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  RenderCurve (unsigned int level      = RenderExtension::getDefaultLevel(),
-                   unsigned int version    = RenderExtension::getDefaultVersion(),
-                   unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  RenderCurve(unsigned int level = RenderExtension::getDefaultLevel(),
+              unsigned int version = RenderExtension::getDefaultVersion(),
+              unsigned int pkgVersion =
+                RenderExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new RenderCurve object with the given SBMLNamespaces.
+   * Creates a new RenderCurve using the given RenderPkgNamespaces object.
    *
-   * @param sbmlns The SBML namespace for the object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @param renderns the RenderPkgNamespaces object.
+   *
+   * @copydetails doc_note_setting_lv_pkg
    */
-  RenderCurve (RenderPkgNamespaces* renderns);
+  RenderCurve(RenderPkgNamespaces *renderns);
+
 
   /**
    * Creates a new RenderCurve object from the given XMLNode object.
@@ -107,12 +128,6 @@ public:
    * object to be instantiated.
    */
   RenderCurve(const XMLNode& node, unsigned int l2version=4);
-
-
-  /**
-   * Destroy this RenderCurve object.
-   */
-  virtual ~RenderCurve ();
 
 
 #ifndef OMIT_DEPRECATED
@@ -128,67 +143,198 @@ public:
 #endif // OMIT_DEPRECATED
 
   /**
-   * Sets the id of the start head.
+   * Copy constructor for RenderCurve.
    *
-   * @param The id of a LineEnding object to be applied to the start of the curve.
+   * @param orig the RenderCurve instance to copy.
    */
-  void setStartHead(const std::string& startHead);
+  RenderCurve(const RenderCurve& orig);
+
 
   /**
-   * Sets the id of the end head.
+   * Assignment operator for RenderCurve.
    *
-   * @param The id of a LineEnding object to be applied to the end of the curve.
+   * @param rhs the RenderCurve object whose values are to be used as the basis
+   * of the assignment.
    */
-  void setEndHead(const std::string& endHead);
+  RenderCurve& operator=(const RenderCurve& rhs);
+
 
   /**
-   * Returns the id of the LineEnding object to be applied to the start of the curve.
+   * Creates and returns a deep copy of this RenderCurve object.
    *
-   * @return id of the LineEnding for the start of the curve.
+   * @return a (deep) copy of this RenderCurve object.
+   */
+  virtual RenderCurve* clone() const;
+
+
+  /**
+   * Destructor for RenderCurve.
+   */
+  virtual ~RenderCurve();
+
+
+  /**
+   * Returns the value of the "startHead" attribute of this RenderCurve.
+   *
+   * @return the value of the "startHead" attribute of this RenderCurve as a
+   * string.
    */
   const std::string& getStartHead() const;
 
+
   /**
-   * Returns the id of the LineEnding object to be applied to the end of the curve.
+   * Returns the value of the "endHead" attribute of this RenderCurve.
    *
-   * @return id of the LineEnding for the end of the curve.
+   * @return the value of the "endHead" attribute of this RenderCurve as a
+   * string.
    */
   const std::string& getEndHead() const;
 
-  /**
-   * Returns the number of curve segments.
-   *
-   * @return number of elements in the curve.
-   */
-  unsigned int getNumElements() const;
 
   /**
-   * Creates a new bezier element.
-   * The element is added to and owned by the curve.
+   * Predicate returning @c true if this RenderCurve's "startHead" attribute is
+   * set.
    *
-   * @return The newly created RenderCubicBezier object.
+   * @return @c true if this RenderCurve's "startHead" attribute has been set,
+   * otherwise @c false is returned.
    */
-  RenderCubicBezier* createCubicBezier();
-
-  /**
-   * Creates a new point element.
-   * The element is added to and owned by the curve.
-   *
-   * @return The newly created RenderCubicBezier object.
-   */
-  RenderPoint* createPoint();
+  bool isSetStartHead() const;
 
 
   /**
-   * Returns a const pointer to the curve segment with the given index or NULL if
-   * the id is invalid.
+   * Predicate returning @c true if this RenderCurve's "endHead" attribute is
+   * set.
    *
-   * @param index the index of the curve element to be returned
-   *
-   * @return a const pointer to the curve element with the given index or NULL 
-   * if the index was out of bounds.
+   * @return @c true if this RenderCurve's "endHead" attribute has been set,
+   * otherwise @c false is returned.
    */
-  const RenderPoint* getElement(unsigned int index) const;
+  bool isSetEndHead() const;
+
+
+  /**
+   * Sets the value of the "startHead" attribute of this RenderCurve.
+   *
+   * @param startHead std::string& value of the "startHead" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setStartHead(const std::string& startHead);
+
+
+  /**
+   * Sets the value of the "endHead" attribute of this RenderCurve.
+   *
+   * @param endHead std::string& value of the "endHead" attribute to be set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   */
+  int setEndHead(const std::string& endHead);
+
+
+  /**
+   * Unsets the value of the "startHead" attribute of this RenderCurve.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetStartHead();
+
+
+  /**
+   * Unsets the value of the "endHead" attribute of this RenderCurve.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetEndHead();
+
+
+  /**
+   * Returns the ListOfCurveElements from this RenderCurve.
+   *
+   * @return the ListOfCurveElements from this RenderCurve.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
+   */
+  const ListOfCurveElements* getListOfElements() const;
+
+
+  /**
+   * Returns the ListOfCurveElements from this RenderCurve.
+   *
+   * @return the ListOfCurveElements from this RenderCurve.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
+   */
+  ListOfCurveElements* getListOfElements();
+
+
+  /**
+   * Get a RenderPoint from the RenderCurve.
+   *
+   * @param n an unsigned int representing the index of the RenderPoint to
+   * retrieve.
+   *
+   * @return the nth RenderPoint in the ListOfCurveElements within this
+   * RenderCurve.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
+   */
+  RenderPoint* getElement(unsigned int n);
+
+
+  /**
+   * Get a RenderPoint from the RenderCurve.
+   *
+   * @param n an unsigned int representing the index of the RenderPoint to
+   * retrieve.
+   *
+   * @return the nth RenderPoint in the ListOfCurveElements within this
+   * RenderCurve.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
+   */
+  const RenderPoint* getElement(unsigned int n) const;
+
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -220,162 +366,594 @@ public:
   const RenderPoint* getCurveElement(unsigned int index) const;
 #endif // OMIT_DEPRECATED
 
+
   /**
-   * Returns a pointer to the curve segment with the given index or NULL if
-   * the id is invalid.
+   * Adds a copy of the given RenderPoint to this RenderCurve.
    *
-   * @param index the index of the curve element to be returned
+   * @param rp the RenderPoint object to add.
    *
-   * @return a pointer to the curve element with the given index or NULL 
-   * if the index was out of bounds.
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
    */
-  RenderPoint* getElement(unsigned int index);
+  int addElement(const RenderPoint* rp);
 
 
   /**
-   * Adds a copy of the given curve segment to the end of the list of
-   * curve segments.
+   * Get the number of RenderPoint objects in this RenderCurve.
    *
-   * @param cs pointer to the RenderPoint object to be added to the end of the curve elements list.
+   * @return the number of RenderPoint objects in this RenderCurve.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
    *
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this RenderCurve.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the RenderCurve</em>.  In addition, the caller should make
-   * sure to free the original object if it is no longer being used, or
-   * else a memory leak will result.  Please see RenderCurve::createPoint()
-   * or RenderCurve::createCubicBezier()
-   * for methods that do not lead to these issues.
-   *
-   * @see createPoint()
-   * @see createCubicBezier()
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
    */
-  int addElement(const RenderPoint* cs);
+  unsigned int getNumElements() const;
+
 
   /**
-   * Removes the curve segment with the given index.
-   * If the index is valid, a pointer to the removed element is returned
-   * and the caller is responsible for deleting the object.
-   * If the index is not valid, @c NULL is returned.
+   * Creates a new RenderPoint object, adds it to this RenderCurve object and
+   * returns the RenderPoint object created.
    *
-   * @param i index of element to be removed.
+   * @return a new RenderPoint object instance.
    *
-   * @return pointer to removed element.
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
    */
-  RenderPoint* removeElement(unsigned int i);
+  RenderPoint* createPoint();
+
 
   /**
-   * Returns a const pointer to the list of curve segments.
+   * Creates a new RenderCubicBezier object, adds it to this RenderCurve object
+   * and returns the RenderCubicBezier object created.
    *
-   * @return const pointer to the ListOfCurveElements object for the RenderCurve.
+   * @return a new RenderCubicBezier object instance.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
+   * @see removeElement(unsigned int n)
    */
-  const ListOfCurveElements* getListOfElements() const;
+  RenderCubicBezier* createCubicBezier();
+
 
   /**
-   * Returns a pointer to the list of curve segments.
+   * Removes the nth RenderPoint from this RenderCurve and returns a pointer to
+   * it.
    *
-   * @return pointer to the ListOfCurveElements object for the RenderCurve.
+   * @param n an unsigned int representing the index of the RenderPoint to
+   * remove.
+   *
+   * @return a pointer to the nth RenderPoint in this RenderCurve.
+   *
+   * @copydetails doc_returned_owned_pointer
+   *
+   * @see addElement(const RenderPoint* object)
+   * @see createElement()
+   * @see getElement(const std::string& sid)
+   * @see getElement(unsigned int n)
+   * @see getNumElements()
+   * @see removeElement(const std::string& sid)
    */
-  ListOfCurveElements* getListOfElements();
+  RenderPoint* removeElement(unsigned int n);
+
+
+  /**
+   * @copydoc doc_renamesidref_common
+   */
+  virtual void renameSIdRefs(const std::string& oldid,
+                             const std::string& newid);
+
+
+  /**
+   * Returns the XML element name of this RenderCurve object.
+   *
+   * For RenderCurve, the XML element name is always @c "curve".
+   *
+   * @return the name of this element, i.e. @c "curve".
+   */
+  virtual const std::string& getElementName() const;
+
+
+  /**
+   * Returns the libSBML type code for this RenderCurve object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_RENDER_CURVE, SBMLRenderTypeCode_t}.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getElementName()
+   * @see getPackageName()
+   */
+  virtual int getTypeCode() const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * RenderCurve object have been set.
+   *
+   * @return @c true to indicate that all the required attributes of this
+   * RenderCurve have been set, otherwise @c false is returned.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * RenderCurve object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * RenderCurve have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the RenderCurve object are:
+   */
+  virtual bool hasRequiredElements() const;
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write any contained elements
+   */
+  virtual void writeElements(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  virtual bool accept(SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  virtual void setSBMLDocument(SBMLDocument* d);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements
+   */
+  virtual void connectToChild();
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix,
+                                     bool flag);
+
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+ /**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+  virtual void setParentSBMLObject(SBase* sb);
+
+  /** @endcond */
+
+  
+  #ifndef SWIG
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, bool& value)
+    const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName, int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           double& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           unsigned int& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Gets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to retrieve.
+   *
+   * @param value, the address of the value to record.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int getAttribute(const std::string& attributeName,
+                           std::string& value) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Predicate returning @c true if this RenderCurve's attribute
+   * "attributeName" is set.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @return @c true if this RenderCurve's attribute "attributeName" has been
+   * set, otherwise @c false is returned.
+   */
+  virtual bool isSetAttribute(const std::string& attributeName) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, bool value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName, double value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           unsigned int value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to set.
+   *
+   * @param value, the value of the attribute to set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int setAttribute(const std::string& attributeName,
+                           const std::string& value);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Unsets the value of the "attributeName" attribute of this RenderCurve.
+   *
+   * @param attributeName, the name of the attribute to query.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates and returns an new "elementName" object in this RenderCurve.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @return pointer to the element created.
+   */
+  virtual SBase* createChildObject(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Adds a new "elementName" object to this RenderCurve.
+   *
+   * @param elementName, the name of the element to create.
+   *
+   * @param element, pointer to the element to be added.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int addChildObject(const std::string& elementName,
+                             const SBase* element);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Removes and returns the new "elementName" object with the given id in this
+   * RenderCurve.
+   *
+   * @param elementName, the name of the element to remove.
+   *
+   * @param id, the id of the element to remove.
+   *
+   * @return pointer to the element removed.
+   */
+  virtual SBase* removeChildObject(const std::string& elementName,
+                                   const std::string& id);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this RenderCurve.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this RenderCurve.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int the index of the object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
+
+  /** @endcond */
+
+
+
+
+  #endif /* !SWIG */
+
+
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id a string representing the id attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p id. If no such
+   * object is found, this method returns @c NULL.
+   */
+  virtual SBase* getElementBySId(const std::string& id);
+
+
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   *
+   * @param metaid a string representing the metaid attribute of the object to
+   * retrieve.
+   *
+   * @return a pointer to the SBase element with the given @p metaid. If no
+   * such object is found this method returns @c NULL.
+   */
+  virtual SBase* getElementByMetaId(const std::string& metaid);
 
 
   /**
    * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
+   * arbitrary depth.
    *
-   * @return a List* of pointers to all children objects.
+   * @param filter an ElementFilter that may impose restrictions on the objects
+   * to be retrieved.
+   *
+   * @return a List* pointer of pointers to all SBase child objects with any
+   * restriction imposed.
    */
-  virtual List* getAllElements(ElementFilter* filter=NULL);
+  virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
-/**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
-   */
-  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
-
-
-	/**
-	 * Accepts the given SBMLVisitor.
-	 *
-	 * @return the result of calling <code>v.visit()</code>, which indicates
-	 * whether or not the Visitor would like to visit the SBML object's next
-	 * sibling object (if available).
-	 */
-	bool accept(SBMLVisitor& visitor) const;
-
- /**
-  * Creates and returns a deep copy of the RenderCurve object.
-  *
-  * @return a (deep) copy of this RenderCurve
-  */
-	RenderCurve* clone() const;
-
- /**
-  * Returns the XML element name of this object, which for
-  * RenderCurve, is always @c "curve".
-  * 
-  * @return the name of this element, i.e., @c "curve".
-  */
-	const std::string& getElementName() const;
-        
- /**
-  * Returns the libSBML type code for this %SBML object.
-  * 
-  * @if clike LibSBML attaches an identifying code to every
-  * kind of SBML object.  These are known as <em>SBML type codes</em>.
-  * The set of possible type codes is defined in the enumeration
-  * #SBMLTypeCode_t.  The names of the type codes all begin with the
-  * characters @c SBML_. @endif@if java LibSBML attaches an
-  * identifying code to every kind of SBML object.  These are known as
-  * <em>SBML type codes</em>.  In other languages, the set of type codes
-  * is stored in an enumeration; in the Java language interface for
-  * libSBML, the type codes are defined as static integer constants in
-  * interface class {@link libsbmlConstants}.  The names of the type codes
-  * all begin with the characters @c SBML_. @endif
-  *
-  * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
-  *
-  * @see getElementName()
-  */
- virtual int getTypeCode() const;
-
- /**
-  * Returns true if the start head is set or false otherwise.
-  * The start decoration is considered set if the string is not empty and if
-  * it is not the string "none"
-  *
-  * @return true is the start decoration id is set
-  */
- bool isSetStartHead() const;
-
- /**
-  * Returns true if the end head is set or false otherwise.
-  * The end decoration is considered set if the string is not empty and if
-  * it is not the string "none"
-  *
-  * @return true is the end decoration id is set
-  */
- bool isSetEndHead() const;
 
  /**
   * Creates an XMLNode object from this RenderCurve object.
@@ -385,122 +963,464 @@ public:
   */
  virtual XMLNode toXML() const;
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
-  /** @endcond */
-
-
-  /**
-   * Sets the parent SBML object of this SBML object.
-   *
-   * @param sb the SBML object to use
-   */
-   virtual void setParentSBMLObject (SBase* sb);
-
-
 protected:
-  /** @cond doxygenLibsbmlInternal */
-	/**
-	 * Subclasses should override this method to read values from the given
-	 * XMLAttributes set into their specific fields.  Be sure to call your
-	 * parents implementation of this method as well.
-	 */
-  virtual void readAttributes (const XMLAttributes& attributes, const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
-   */
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-  /** @endcond */
-
 
   friend class RenderGroup;
 
   /** @cond doxygenLibsbmlInternal */
-	/**
-	 * Subclasses should override this method to write their XML attributes
-	 * to the XMLOutputStream.  Be sure to call your parents implementation
-	 * of this method as well.  For example:
-	 *
-	 *   SBase::writeAttributes(stream);
-	 *   stream.writeAttribute( "id"  , mId   );
-	 *   stream.writeAttribute( "name", mName );
-	 *   ...
-	 */
-	virtual void writeAttributes (XMLOutputStream& stream) const;
+
+  /**
+   * Creates a new object from the next XMLToken on the XMLInputStream
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
 
   /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
-	/**
-	 * @return the SBML object corresponding to next XMLToken in the
-	 * XMLInputStream or NULL if the token was not recognized.
-	 */
-	virtual SBase* createObject (XMLInputStream& stream);
+
+  /**
+   * Adds the expected attributes for this element
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
   /** @endcond */
+
 
 
   /** @cond doxygenLibsbmlInternal */
-	/**
-	 * Subclasses should override this method to write out their contained
-	 * SBML objects as XML elements.  Be sure to call your parents
-	 * implementation of this method as well.  For example:
-	 *
-	 *   SBase::writeElements(stream);
-	 *   mReactants.write(stream);
-	 *   mProducts.write(stream);
-	 *   ...
-	 */
-	virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  virtual void readAttributes(const XMLAttributes& attributes,
+                              const ExpectedAttributes& expectedAttributes);
+
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
 };
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+
 
 
 #endif /* __cplusplus */
 
-#endif /* RenderCurve_H__ */
+
+
+
+#ifndef SWIG
+
+
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new RenderCurve_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this
+ * RenderCurve_t.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * RenderCurve_t.
+ *
+ * @param pkgVersion an unsigned int, the SBML Render Version to assign to this
+ * RenderCurve_t.
+ *
+ * @copydetails doc_note_setting_lv_pkg
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderCurve_t *
+RenderCurve_create(unsigned int level,
+                   unsigned int version,
+                   unsigned int pkgVersion);
+
+
+/**
+ * Creates and returns a deep copy of this RenderCurve_t object.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @return a (deep) copy of this RenderCurve_t object.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderCurve_t*
+RenderCurve_clone(const RenderCurve_t* rc);
+
+
+/**
+ * Frees this RenderCurve_t object.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+void
+RenderCurve_free(RenderCurve_t* rc);
+
+
+/**
+ * Returns the value of the "startHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure whose startHead is sought.
+ *
+ * @return the value of the "startHead" attribute of this RenderCurve_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+char *
+RenderCurve_getStartHead(const RenderCurve_t * rc);
+
+
+/**
+ * Returns the value of the "endHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure whose endHead is sought.
+ *
+ * @return the value of the "endHead" attribute of this RenderCurve_t as a
+ * pointer to a string.
+ *
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+char *
+RenderCurve_getEndHead(const RenderCurve_t * rc);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RenderCurve_t's "startHead"
+ * attribute is set.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @return @c 1 (true) if this RenderCurve_t's "startHead" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_isSetStartHead(const RenderCurve_t * rc);
+
+
+/**
+ * Predicate returning @c 1 (true) if this RenderCurve_t's "endHead" attribute
+ * is set.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @return @c 1 (true) if this RenderCurve_t's "endHead" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_isSetEndHead(const RenderCurve_t * rc);
+
+
+/**
+ * Sets the value of the "startHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @param startHead const char * value of the "startHead" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_setStartHead(RenderCurve_t * rc, const char * startHead);
+
+
+/**
+ * Sets the value of the "endHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @param endHead const char * value of the "endHead" attribute to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_setEndHead(RenderCurve_t * rc, const char * endHead);
+
+
+/**
+ * Unsets the value of the "startHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_unsetStartHead(RenderCurve_t * rc);
+
+
+/**
+ * Unsets the value of the "endHead" attribute of this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_unsetEndHead(RenderCurve_t * rc);
+
+
+/**
+ * Returns a ListOf_t * containing RenderPoint_t objects from this
+ * RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure whose ListOfCurveElements is sought.
+ *
+ * @return the ListOfCurveElements from this RenderCurve_t as a ListOf_t *.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @see RenderCurve_addElement()
+ * @see RenderCurve_createElement()
+ * @see RenderCurve_getElementById()
+ * @see RenderCurve_getElement()
+ * @see RenderCurve_getNumElements()
+ * @see RenderCurve_removeElementById()
+ * @see RenderCurve_removeElement()
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+ListOf_t*
+RenderCurve_getListOfElements(RenderCurve_t* rc);
+
+
+/**
+ * Get a RenderPoint_t from the RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the RenderPoint_t to
+ * retrieve.
+ *
+ * @return the nth RenderPoint_t in the ListOfCurveElements within this
+ * RenderCurve.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+RenderCurve_getElement(RenderCurve_t* rc, unsigned int n);
+
+
+/**
+ * Adds a copy of the given RenderPoint_t to this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure to which the RenderPoint_t should be
+ * added.
+ *
+ * @param rp the RenderPoint_t object to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_addElement(RenderCurve_t* rc, const RenderPoint_t* rp);
+
+
+/**
+ * Get the number of RenderPoint_t objects in this RenderCurve_t.
+ *
+ * @param rc the RenderCurve_t structure to query.
+ *
+ * @return the number of RenderPoint_t objects in this RenderCurve_t.
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+unsigned int
+RenderCurve_getNumElements(RenderCurve_t* rc);
+
+
+/**
+ * Creates a new RenderPoint_t object, adds it to this RenderCurve_t object and
+ * returns the RenderPoint_t object created.
+ *
+ * @param rc the RenderCurve_t structure to which the RenderPoint_t should be
+ * added.
+ *
+ * @return a new RenderPoint_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+RenderCurve_createPoint(RenderCurve_t* rc);
+
+
+/**
+ * Creates a new RenderCubicBezier_t object, adds it to this RenderCurve_t
+ * object and returns the RenderCubicBezier_t object created.
+ *
+ * @param rc the RenderCurve_t structure to which the RenderCubicBezier_t
+ * should be added.
+ *
+ * @return a new RenderCubicBezier_t object instance.
+ *
+ * @copydetails doc_returned_unowned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderCubicBezier_t*
+RenderCurve_createCubicBezier(RenderCurve_t* rc);
+
+
+/**
+ * Removes the nth RenderPoint_t from this RenderCurve_t and returns a pointer
+ * to it.
+ *
+ * @param rc the RenderCurve_t structure to search.
+ *
+ * @param n an unsigned int representing the index of the RenderPoint_t to
+ * remove.
+ *
+ * @return a pointer to the nth RenderPoint_t in this RenderCurve_t.
+ *
+ * @copydetails doc_returned_owned_pointer
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+RenderPoint_t*
+RenderCurve_removeElement(RenderCurve_t* rc, unsigned int n);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * RenderCurve_t object have been set.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required attributes of this
+ * RenderCurve_t have been set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_hasRequiredAttributes(const RenderCurve_t * rc);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * RenderCurve_t object have been set.
+ *
+ * @param rc the RenderCurve_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * RenderCurve_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the RenderCurve_t object are:
+ *
+ * @memberof RenderCurve_t
+ */
+LIBSBML_EXTERN
+int
+RenderCurve_hasRequiredElements(const RenderCurve_t * rc);
+
+
+
+
+END_C_DECLS
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+
+
+#endif /* !SWIG */
+
+
+
+
+#endif /* !RenderCurve_H__ */
+
 

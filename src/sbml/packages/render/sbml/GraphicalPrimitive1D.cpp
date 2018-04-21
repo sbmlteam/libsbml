@@ -69,7 +69,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 GraphicalPrimitive1D::GraphicalPrimitive1D(unsigned int level,
                                            unsigned int version,
                                            unsigned int pkgVersion)
-  : Transformation2D(level, version)
+  : Transformation2D(level, version, pkgVersion)
     ,mStroke("")
     ,mStrokeWidth(std::numeric_limits<double>::quiet_NaN())
   , mIsSetStrokeWidth (false)

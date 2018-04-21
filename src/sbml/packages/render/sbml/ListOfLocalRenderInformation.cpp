@@ -62,6 +62,8 @@ ListOfLocalRenderInformation::ListOfLocalRenderInformation(unsigned int level,
   , mIsSetMinorVersion (false)
   , mDefaultValues (NULL)
 {
+  if (level == 3)
+    mDefaultValues = new DefaultValues(level, version, pkgVersion);
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
 }
@@ -80,6 +82,8 @@ ListOfLocalRenderInformation::ListOfLocalRenderInformation(RenderPkgNamespaces
   , mIsSetMinorVersion (false)
   , mDefaultValues (NULL)
 {
+  if (getLevel() == 3)
+    mDefaultValues = new DefaultValues(renderns);
   setElementNamespace(renderns->getURI());
   connectToChild();
 }

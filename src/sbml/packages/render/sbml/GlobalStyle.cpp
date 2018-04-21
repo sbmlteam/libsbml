@@ -59,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 GlobalStyle::GlobalStyle(unsigned int level,
                          unsigned int version,
                          unsigned int pkgVersion)
-  : Style(level, version)
+  : Style(level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
 }

@@ -895,8 +895,8 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321112
-  { RenderRenderGroupFontSizeMustBeString,
-    "The 'fontSize' attribute must be String.",
+  { RenderRenderGroupFontSizeMustBeRelAbsVector,
+    "The 'fontSize' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-size' of a <renderGroup> object "

@@ -70,7 +70,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 Polygon::Polygon(unsigned int level,
                  unsigned int version,
                  unsigned int pkgVersion)
-  : GraphicalPrimitive2D(level, version)
+  : GraphicalPrimitive2D(level, version, pkgVersion)
   , mRenderPoints (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));

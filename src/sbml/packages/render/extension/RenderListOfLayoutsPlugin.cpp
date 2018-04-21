@@ -245,6 +245,10 @@ void
 {
   SBasePlugin::setSBMLDocument(d);
   mGlobalRenderInformation.setSBMLDocument(d);  
+  if (mGlobalRenderInformation.isSetDefaultValues())
+  {
+    mGlobalRenderInformation.getDefaultValues()->setSBMLDocument(d);
+  }
 
 }
 

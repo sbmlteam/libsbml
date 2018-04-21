@@ -127,7 +127,7 @@ typedef enum
 , RenderRenderGroupFontStyleMustBeFontStyleEnum               = 1321109
 , RenderRenderGroupTextAnchorMustBeHTextAnchorEnum            = 1321110
 , RenderRenderGroupVtextAnchorMustBeVTextAnchorEnum           = 1321111
-, RenderRenderGroupFontSizeMustBeString                       = 1321112
+, RenderRenderGroupFontSizeMustBeRelAbsVector                       = 1321112
 , RenderImageAllowedCoreAttributes                            = 1321201
 , RenderImageAllowedCoreElements                              = 1321202
 , RenderImageAllowedAttributes                                = 1321203

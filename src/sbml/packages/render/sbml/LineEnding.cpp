@@ -61,7 +61,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 LineEnding::LineEnding(unsigned int level,
                        unsigned int version,
                        unsigned int pkgVersion)
-  : GraphicalPrimitive2D(level, version)
+  : GraphicalPrimitive2D(level, version, pkgVersion)
     ,mEnableRotationalMapping(true)
   , mIsSetEnableRotationalMapping (true)
   , mGroup (NULL)

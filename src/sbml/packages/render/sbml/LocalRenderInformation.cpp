@@ -66,7 +66,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 LocalRenderInformation::LocalRenderInformation(unsigned int level,
                                                unsigned int version,
                                                unsigned int pkgVersion)
-  : RenderInformationBase(level, version)
+  : RenderInformationBase(level, version, pkgVersion)
   , mLocalStyles (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));

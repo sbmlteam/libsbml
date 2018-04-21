@@ -275,6 +275,10 @@ void
 {
   SBasePlugin::setSBMLDocument(d);
   mLocalRenderInformation.setSBMLDocument(d);
+  if (mLocalRenderInformation.isSetDefaultValues())
+  {
+    mLocalRenderInformation.getDefaultValues()->setSBMLDocument(d);
+  }
 }
 
 
@@ -512,8 +516,8 @@ RenderLayoutPlugin::readOtherXML (XMLInputStream& stream)
       if (getLevel() < 3) 
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <annotation> element is permitted inside a "
-	        "particular containing element.");
+          "Only one <annotation> element is permitted inside a "
+          "particular containing element.");
       }
       else
       {
@@ -530,7 +534,7 @@ RenderLayoutPlugin::readOtherXML (XMLInputStream& stream)
       mLocalRenderInformation.setSBMLDocument(mSBML);  
       parseLocalRenderAnnotation(mAnnotation,this);
     }
-	
+  
     read = true;
   }
 

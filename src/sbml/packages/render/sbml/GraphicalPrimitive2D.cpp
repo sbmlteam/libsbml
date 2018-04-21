@@ -67,7 +67,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 GraphicalPrimitive2D::GraphicalPrimitive2D(unsigned int level,
                                            unsigned int version,
                                            unsigned int pkgVersion)
-  : GraphicalPrimitive1D(level, version)
+  : GraphicalPrimitive1D(level, version, pkgVersion)
   , mFill ("")
   , mFillRule (FILL_RULE_UNSET)
 {
