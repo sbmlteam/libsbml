@@ -265,10 +265,10 @@ Text::getFontFamily() const
 }
 
 
-FontWeight_t
+int
 Text::getFontWeight() const
 {
-  return (FontWeight_t)(mFontWeight);
+  return mFontWeight;
 }
 
 
@@ -286,10 +286,10 @@ Text::getFontWeightAsString() const
 /*
  * Returns the value of the "font-style" attribute of this Text.
  */
-FontStyle_t
+int
 Text::getFontStyle() const
 {
-  return (FontStyle_t)(mFontStyle);
+  return mFontStyle;
 }
 
 
@@ -307,10 +307,10 @@ Text::getFontStyleAsString() const
 /*
  * Returns the value of the "text-anchor" attribute of this Text.
  */
-HTextAnchor_t
+int
 Text::getTextAnchor() const
 {
-  return (HTextAnchor_t)(mTextAnchor);
+  return mTextAnchor;
 }
 
 
@@ -328,10 +328,10 @@ Text::getTextAnchorAsString() const
 /*
  * Returns the value of the "vtext-anchor" attribute of this Text.
  */
-VTextAnchor_t
+int
 Text::getVTextAnchor() const
 {
-  return (VTextAnchor_t)(mVTextAnchor);
+  return mVTextAnchor;
 }
 
 
@@ -1706,7 +1706,7 @@ Text_getFontWeight(const Text_t * t)
     return FONT_WEIGHT_INVALID;
   }
 
-  return t->getFontWeight();
+  return (FontWeight_t)(t->getFontWeight());
 }
 
 
@@ -1717,7 +1717,7 @@ LIBSBML_EXTERN
 char *
 Text_getFontWeightAsString(const Text_t * t)
 {
-  return (char*)(FontWeight_toString(t->getFontWeight()));
+  return (char*)(FontWeight_toString((FontWeight_t)(t->getFontWeight())));
 }
 
 
@@ -1733,7 +1733,7 @@ Text_getFontStyle(const Text_t * t)
     return FONT_STYLE_INVALID;
   }
 
-  return t->getFontStyle();
+  return (FontStyle_t)(t->getFontStyle());
 }
 
 
@@ -1744,7 +1744,7 @@ LIBSBML_EXTERN
 char *
 Text_getFontStyleAsString(const Text_t * t)
 {
-  return (char*)(FontStyle_toString(t->getFontStyle()));
+  return (char*)(FontStyle_toString((FontStyle_t)(t->getFontStyle())));
 }
 
 
@@ -1760,7 +1760,7 @@ Text_getTextAnchor(const Text_t * t)
     return H_TEXTANCHOR_INVALID;
   }
 
-  return t->getTextAnchor();
+  return (HTextAnchor_t)(t->getTextAnchor());
 }
 
 
@@ -1771,7 +1771,7 @@ LIBSBML_EXTERN
 char *
 Text_getTextAnchorAsString(const Text_t * t)
 {
-  return (char*)(HTextAnchor_toString(t->getTextAnchor()));
+  return (char*)(HTextAnchor_toString((HTextAnchor_t)(t->getTextAnchor())));
 }
 
 
@@ -1787,7 +1787,7 @@ Text_getVTextAnchor(const Text_t * t)
     return V_TEXTANCHOR_INVALID;
   }
 
-  return t->getVTextAnchor();
+  return (VTextAnchor_t)(t->getVTextAnchor());
 }
 
 
@@ -1798,7 +1798,7 @@ LIBSBML_EXTERN
 char *
 Text_getVTextAnchorAsString(const Text_t * t)
 {
-  return (char*)(VTextAnchor_toString(t->getVTextAnchor()));
+  return (char*)(VTextAnchor_toString((VTextAnchor_t)(t->getVTextAnchor())));
 }
 
 

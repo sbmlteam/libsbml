@@ -313,7 +313,7 @@ public:
    * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
    * @li @sbmlconstant{TEXT_FONT-WEIGHT_INVALID, FontWeight_t}
    */
-  FontWeight_t getFontWeight() const;
+  int getFontWeight() const;
 
 
   /**
@@ -343,7 +343,7 @@ public:
    * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
    * @li @sbmlconstant{TEXT_FONT-STYLE_INVALID, FontStyle_t}
    */
-  FontStyle_t getFontStyle() const;
+  int getFontStyle() const;
 
 
   /**
@@ -375,7 +375,7 @@ public:
    * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
    * @li @sbmlconstant{TEXT_TEXT-ANCHOR_INVALID, HTextAnchor_t}
    */
-  HTextAnchor_t getTextAnchor() const;
+  int getTextAnchor() const;
 
 
   /**
@@ -409,7 +409,7 @@ public:
    * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
    * @li @sbmlconstant{TEXT_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
    */
-  VTextAnchor_t getVTextAnchor() const;
+  int getVTextAnchor() const;
 
 
   /**
@@ -515,7 +515,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  void setFontWeight(Text::FONT_WEIGHT);
+  void setFontWeight(Text::FONT_WEIGHT weight);
 
   /** @endcond */
 
@@ -553,7 +553,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  void setFontStyle(Text::FONT_STYLE);
+  void setFontStyle(Text::FONT_STYLE style);
 
   /** @endcond */
   /**
@@ -589,7 +589,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  void setTextAnchor(Text::TEXT_ANCHOR);
+  void setTextAnchor(Text::TEXT_ANCHOR anchor);
 
   /** @endcond */
   
@@ -626,7 +626,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  void setVTextAnchor(Text::TEXT_ANCHOR);
+  void setVTextAnchor(Text::TEXT_ANCHOR anchor);
 
   /** @endcond */
 
