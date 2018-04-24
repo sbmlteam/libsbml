@@ -92,6 +92,7 @@ distfiles =                  \
     testReadWriteGeneProductIds.m \
     testReadWriteGeneProducts.m   \
 		testVersionInformation.m \
+		testGetSBMLDefaultStruct.m \
     test-data/missing_out.mat \
         $(test_data_files)
 

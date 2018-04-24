@@ -76,6 +76,7 @@ test_sources =                  \
   TestUnitFormulaFormatter1.cpp \
   TestUnitFormulaFormatter2.cpp \
   TestFormulaUnitsData.cpp      \
+  TestFormulaUnitsData_map.cpp  \
   TestDerivedUnitDefinitions.cpp      \
   TestDerivedUnitDefinitions_undefined.cpp      \
   TestUnitFormulaFormatter3.cpp  \

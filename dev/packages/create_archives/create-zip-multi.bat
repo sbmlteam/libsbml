@@ -42,7 +42,7 @@ mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
-mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\math-constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\mathml-constraints
 
 copy /y %PACKAGE_DIR%\%PACKAGE_NAME%-package.cmake .
 copy /y %PACKAGE_DIR%\src\%PACKAGE_NAME%-package.cmake src
@@ -85,7 +85,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.txt src\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\*.in src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
-copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\math-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\math-constraints
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\mathml-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\mathml-constraints
 
 mkdir src\bindings
 mkdir src\bindings\csharp

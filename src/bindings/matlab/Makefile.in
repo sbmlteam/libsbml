@@ -75,6 +75,9 @@ distfiles =                      \
   		getDefaultValues.m       \
 		getStructureFieldnames.m     \
 		getValueType.m           \
+		getStructure.m           \
+		getStructureEnum.m       \
+		getSBMLDefaultStruct.m   \
         isSBML_Model.m           \
         installSBML.m            \
         isoctave.m               \
