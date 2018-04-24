@@ -111,13 +111,14 @@ copy /y %PACKAGE_DIR%\src\bindings\php\*-%PACKAGE_NAME%.i           src\bindings
 
 
 mkdir examples
+mkdir examples\sample-models
+mkdir examples\sample-models\%PACKAGE_NAME%
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
 mkdir examples\java
 mkdir examples\java\%PACKAGE_NAME%
 mkdir examples\python
 mkdir examples\python\%PACKAGE_NAME%
-mkdir examples\sample-models\%PACKAGE_NAME%
 
 copy /y %PACKAGE_DIR%\examples\%PACKAGE_NAME%-package.cmake       examples\
 

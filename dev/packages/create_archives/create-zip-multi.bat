@@ -117,6 +117,8 @@ copy /y %PACKAGE_DIR%\src\bindings\php\*-%PACKAGE_NAME%.i           src\bindings
 
 
 mkdir examples
+mkdir examples\sample-models
+mkdir examples\sample-models\%PACKAGE_NAME%
 mkdir examples\cpp
 mkdir examples\cpp\%PACKAGE_NAME%
 mkdir examples\csharp
@@ -136,6 +138,7 @@ copy /y %PACKAGE_DIR%\examples\csharp\%PACKAGE_NAME%\*.txt      examples\csharp\
 copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.java       examples\java\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\java\%PACKAGE_NAME%\*.txt        examples\java\%PACKAGE_NAME%\
 copy /y %PACKAGE_DIR%\examples\python\%PACKAGE_NAME%\*.py       examples\python\%PACKAGE_NAME%\
+copy /y %PACKAGE_DIR%\examples\sample-models\%PACKAGE_NAME%\*.xml        examples\sample-models\%PACKAGE_NAME%\
 
 cd examples
 rename cpp "c++"
