@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1" >
+	<model>
+		<notes>
+			<p xmlns="http://www.w3.org/1999/xhtml">
+				Simple Model one compartment, with two species, and a reaction.		
+				It also contains one Layout for the model, but no render 
+				information and so tools are free to display it as needed.
+			</p>
+		</notes>
+		<annotation>
+			<listOfLayouts xmlns="http://projects.eml.org/bcb/sbml/level2">
+				<layout id="JDesigner2_0" xmlns="http://projects.eml.org/bcb/sbml/level2">
+					<!--Created by SBW SBML LayoutViewer/Manipulator-->
+					<dimensions width="436" height="232" />
+					<listOfCompartmentGlyphs>
+						<compartmentGlyph id="cGlyph_0" compartment="vol1">
+							<boundingBox>
+								<position x="48" y="21" />
+								<dimensions width="340" height="190" />
+							</boundingBox>
+						</compartmentGlyph>
+					</listOfCompartmentGlyphs>
+					<listOfSpeciesGlyphs>
+						<speciesGlyph id="sGlyph_0" species="Node0">
+							<boundingBox>
+								<position x="79" y="91" />
+								<dimensions width="62" height="40" />
+							</boundingBox>
+						</speciesGlyph>
+						<speciesGlyph id="sGlyph_1" species="Node1">
+							<boundingBox>
+								<position x="297" y="91" />
+								<dimensions width="62" height="40" />
+							</boundingBox>
+						</speciesGlyph>
+					</listOfSpeciesGlyphs>
+					<listOfReactionGlyphs>
+						<reactionGlyph id="rGlyph_0" reaction="J0">
+							<boundingBox>
+								<position x="0" y="0" />
+								<dimensions width="0" height="0" />
+							</boundingBox>
+							<curve>
+								<listOfCurveSegments />
+							</curve>
+							<listOfSpeciesReferenceGlyphs>
+								<speciesReferenceGlyph id="SpeciesReference_J0_0" speciesReference="Node1" speciesGlyph="sGlyph_1" role="product" objectRole="product">
+									<curve>
+										<listOfCurveSegments>
+											<curveSegment xsi:type="CubicBezier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+												<start x="149" y="111" />
+												<end x="289" y="111" />
+												<basePoint1 x="219" y="111" />
+												<basePoint2 x="219" y="111" />
+											</curveSegment>
+										</listOfCurveSegments>
+									</curve>
+								</speciesReferenceGlyph>
+								<speciesReferenceGlyph id="SpeciesReference_J0_2" speciesReference="Node0" speciesGlyph="sGlyph_0" role="substrate" objectRole="substrate">
+									<curve>
+										<listOfCurveSegments />
+									</curve>
+								</speciesReferenceGlyph>
+							</listOfSpeciesReferenceGlyphs>
+						</reactionGlyph>
+					</listOfReactionGlyphs>
+					<listOfTextGlyphs>
+						<textGlyph id="tGlyph_0" graphicalObject="sGlyph_0" text="Node0">
+							<boundingBox>
+								<position x="79" y="91" />
+								<dimensions width="62" height="40" />
+							</boundingBox>
+						</textGlyph>
+						<textGlyph id="tGlyph_1" graphicalObject="sGlyph_1" text="Node1">
+							<boundingBox>
+								<position x="297" y="91" />
+								<dimensions width="62" height="40" />
+							</boundingBox>
+						</textGlyph>
+					</listOfTextGlyphs>
+				</layout>
+			</listOfLayouts>
+		</annotation>
+		<listOfCompartments>
+			<compartment id="compartment" size="1" />
+			<compartment id="vol1" size="1" />
+		</listOfCompartments>
+		<listOfSpecies>
+			<species id="Node0" boundaryCondition="false" initialConcentration="0" compartment="vol1" />
+			<species id="Node1" boundaryCondition="false" initialConcentration="0" compartment="vol1" />
+		</listOfSpecies>
+		<listOfParameters>
+			<parameter id="J0_k" value="0.1" />
+		</listOfParameters>
+		<listOfReactions>
+			<reaction id="J0" reversible="false">
+				<listOfReactants>
+					<speciesReference species="Node0" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="Node1" stoichiometry="1" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci>
+                           J0_k
+                     </ci>
+							<ci>
+                           Node0
+                     </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+		</listOfReactions>
+	</model>
+</sbml>

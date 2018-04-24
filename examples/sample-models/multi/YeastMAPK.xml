@@ -1,0 +1,2327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="micron_square_per_sec">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="-6" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_sec">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_sec">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="free_diffusing" name="free diffusing" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="membrane" name="membrane" spatialDimensions="2" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:compartment="outside_membrane"/>
+          <multi:compartmentReference multi:compartment="inside_membrane"/>
+        </multi:listOfCompartmentReferences>
+      </compartment>
+      <compartment id="outside_membrane" name="Outside membrane" constant="true" multi:isType="true"/>
+      <compartment id="inside_membrane" name="inside membrane" constant="true" multi:isType="true"/>
+      <compartment id="any" name="any" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="sp_cpx_000001" name="Gbg" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000001">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000001"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000002" name="Spa2p" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000002">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000002"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000003" name="Ste20_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000004" name="Gbg_Ste20_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000013">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000005" name="Ste5_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000006" name="Gbg_Ste5_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000014">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000007" name="Ste7_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000008" name="Spa2p_Ste7_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000015">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000009" name="Ste5_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000010" name="Ste11_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000011" name="Ste5_Ste11_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000016">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000012" name="Ste20_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000013" name="Ste5_Ste11_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000016">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000014" name="Ste11.Ste20.Ste5_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000017">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000015" name="Fus3_anchor_basal" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000012">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000019"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000016" name="Gbg_Fusanch_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000018">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000017" name="Fus3_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000018" name="Fus3_anchor_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000012">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000019"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000019" name="Fus3_Fus_anchor_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000019">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000020" name="Ste5_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000021" name="Ste7_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000022" name="Ste5_Ste7_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000021">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000023" name="Ste5_Ste7_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000021">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000024" name="Fus3_basal" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000025" name="Fus3.Ste5.Ste7_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000022">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000026" name="Dig" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000011">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000018"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000027" name="Fus3_Dig_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000023">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000028" name="pFus3_free" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000029" name="Msg5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000010">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000017"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000030" name="Msg5_Fus3_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000024">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000031" name="Ste5_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000032" name="Ste5_Fus3_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000025">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000033" name="pSte11_unbound" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000034" name="MP2C" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000009">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000016"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000035" name="MP2C_Ste11_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000026">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000036" name="Ste7_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000037" name="Cdc14" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000008">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000015"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000038" name="Cdc14_Ste7_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000027">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000039" name="Fus3_anchor_act" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000012">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000019"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000040" name="Fus3_anchor_basal_pattern" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000012">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000019"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000012_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000012_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000041" name="Msg5_Fus3_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000024">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000042" name="Msg5_Fus3_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000024">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000043" name="Cdc14_pSte7" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000027">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000044" name="Cdc14_Ste7_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000027">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000045" name="MP2C_pSte11" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000026">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000046" name="MP2C_Ste11_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000026">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000047" name="Ste20_Ste11_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000028">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000048" name="Ste20_Ste11_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000028">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000049" name="Ste5_Ste11_Ste7_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000029">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000050" name="Ste5_Ste11_Ste7_12" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000029">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000051" name="scaffold_bnd_pSte7_Fus3_unphos" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000022">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000052" name="Fus3.Ste5.Ste7_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000022">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000053" name="Gbg_Fusanch_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000018"/>
+      <species id="sp_cpx_000054" name="Fus3_anchor_5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000012">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000019"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000055" name="Fus3_Fus_anchor_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000019">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000056" name="Fus3_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000057" name="Spa2p_Ste7_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000015">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="bound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000058" name="Ste11_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000059" name="Ste20_Ste11_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000028">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000060" name="Ste20_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000061" name="Ste11_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000062" name="Ste20_Ste11_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000028">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000063" name="Ste20_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000064" name="Ste11_5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000065" name="Ste5_Ste11_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000016">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000066" name="Ste11_6" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000067" name="Ste5_Ste11_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000016">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000068" name="Ste11_7" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000069" name="Ste5_Fus3_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000025">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000070" name="Ste7_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000071" name="Ste7_5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000072" name="Fus3_5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000073" name="Ste7_Fus3_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000030">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000074" name="Ste7_6" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000076" name="Ste7_7" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000077" name="Ste7_Fus3_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000030">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000078" name="Ste5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000079" name="Ste11_basal" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000009"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000010"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000005_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000005_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000080" name="Ste7_basal" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000006_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000006_phosphorylated_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000081" name="Ste20_inactive" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000003"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000003_active" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000003_active_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000082" name="Ste7_9" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000083" name="Spa2p_Ste7_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000015">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000084" name="Fus3_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000085" name="pFus3_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000007">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000013"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000014"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="sft_mcp_000007_phosphorylated" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="sfv_mcp_000007_phosphorylated_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_cpx_000086" name="Ste5_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000005"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000006"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000007"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="sp_cpx_000087" name="Ste7_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000011"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="st_bst_000012"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="par_1" value="30" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_2" value="100" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_3" value="4" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_4" value="0.03" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_5" value="1e-20" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_6" value="3" units="micron_square_per_sec" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="rc_trn_000002" name="Fus3 dephosphorylation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000041" species="sp_cpx_000041" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000042" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000041 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000007" name="Fus3 phosphorylation at scaffold" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000051" species="sp_cpx_000051" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000052" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000051 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="7.5" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000001" name="Fus3_anchor deactivation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000039" species="sp_cpx_000039" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000040" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000039 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000005" name="phosphorylation of Ste11 by Ste20" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000047" species="sp_cpx_000047" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000048" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000047 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="3" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000006" name="phosphorylation of Ste7 in scaffold by Ste11" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000049" species="sp_cpx_000049" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000050" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000049 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="3" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000004" name="Ste11 dephosphorylation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000045" species="sp_cpx_000045" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000046" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000045 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_trn_000003" name="Ste7 dephosphorylation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000043" species="sp_cpx_000043" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000044" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000043 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000014" name="Cdc14_pSte7 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000036" name="Ste7_3" species="sp_cpx_000036" constant="false"/>
+          <speciesReference id="spr2_cpx_000037" name="Cdc14" species="sp_cpx_000037" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Cdc14_Ste7_1" species="sp_cpx_000038" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000036 </ci>
+              <ci> sp_cpx_000037 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000010" name="Fus3_Dig assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000017" name="Fus3_1" species="sp_cpx_000017" constant="false"/>
+          <speciesReference id="spr2_cpx_000026" name="Dig" species="sp_cpx_000026" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_Dig_1" species="sp_cpx_000027" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000017 </ci>
+              <ci> sp_cpx_000026 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="15000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000007" name="Fus3_Fus_anchor assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_0000171" name="Fus3_1" species="sp_cpx_000017" constant="false"/>
+          <speciesReference id="spr2_cpx_000018" name="Fus3_anchor_2" species="sp_cpx_000018" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_Fus_anchor_1" species="sp_cpx_000019" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000017 </ci>
+              <ci> sp_cpx_000018 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000006" name="Gbg_Fusanch assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000001" name="Gbg" species="sp_cpx_000001" constant="false"/>
+          <speciesReference id="spr2_cpx_000015" name="Fus3_anchor_basal" species="sp_cpx_000015" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Gbg_Fusanch_1" species="sp_cpx_000016" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000001 </ci>
+              <ci> sp_cpx_000015 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000001" name="Gbg_Ste20 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_0000011" name="Gbg" species="sp_cpx_000001" constant="false"/>
+          <speciesReference id="spr2_cpx_000003" name="Ste20_1" species="sp_cpx_000003" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Gbg_Ste20_1" species="sp_cpx_000004" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000001 </ci>
+              <ci> sp_cpx_000003 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000002" name="Gbg_Ste5 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_0000012" name="Gbg" species="sp_cpx_000001" constant="false"/>
+          <speciesReference id="spr2_cpx_000005" name="Ste5_1" species="sp_cpx_000005" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Gbg_Ste5_1" species="sp_cpx_000006" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000001 </ci>
+              <ci> sp_cpx_000005 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="2000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000013" name="MP2C_pSte11 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000033" name="pSte11_unbound" species="sp_cpx_000033" constant="false"/>
+          <speciesReference id="spr2_cpx_000034" name="MP2C" species="sp_cpx_000034" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="MP2C_Ste11_1" species="sp_cpx_000035" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000033 </ci>
+              <ci> sp_cpx_000034 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000011" name="Msg5_pFus3 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000028" name="pFus3_free" species="sp_cpx_000028" constant="false"/>
+          <speciesReference id="spr2_cpx_000029" name="Msg5" species="sp_cpx_000029" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Msg5_Fus3_1" species="sp_cpx_000030" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000028 </ci>
+              <ci> sp_cpx_000029 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000003" name="Spa2p_Ste7 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000002" name="Spa2p" species="sp_cpx_000002" constant="false"/>
+          <speciesReference id="spr2_cpx_000082" name="Ste7_9" species="sp_cpx_000082" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Spa2p_Ste7_3" species="sp_cpx_000083" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000002 </ci>
+              <ci> sp_cpx_000082 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000005" name="Ste20_Ste11_unphos assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000012" name="Ste20_2" species="sp_cpx_000012" constant="false"/>
+          <speciesReference id="spr2_cpx_000013" name="Ste5_Ste11_2" species="sp_cpx_000013" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000014" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000012 </ci>
+              <ci> sp_cpx_000013 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="5000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000012" name="Ste5_Fus3 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000031" name="Ste5_4" species="sp_cpx_000031" constant="false"/>
+          <speciesReference id="spr2_cpx_000024" name="Fus3_basal" species="sp_cpx_000024" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_Fus3_1" species="sp_cpx_000032" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000031 </ci>
+              <ci> sp_cpx_000024 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="27000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000004" name="Ste5_Ste11 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000009" name="Ste5_2" species="sp_cpx_000009" constant="false"/>
+          <speciesReference id="spr2_cpx_000010" name="Ste11_1" species="sp_cpx_000010" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_Ste11_all" species="sp_cpx_000011" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000009 </ci>
+              <ci> sp_cpx_000010 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="3000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000008" name="Ste5_Ste7 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000020" name="Ste5_3" species="sp_cpx_000020" constant="false"/>
+          <speciesReference id="spr2_cpx_000021" name="Ste7_2" species="sp_cpx_000021" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_Ste7_all" species="sp_cpx_000022" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000020 </ci>
+              <ci> sp_cpx_000021 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpi_000009" name="Ste7_Fus3 assoc" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000023" name="Ste5_Ste7_2" species="sp_cpx_000023" constant="false"/>
+          <speciesReference id="spr2_cpx_0000241" name="Fus3_basal" species="sp_cpx_000024" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sp_cpx_000025" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000023 </ci>
+              <ci> sp_cpx_000024 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000016" name="Cdc14_pSte7 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_0000431" name="Cdc14_pSte7" species="sp_cpx_000043" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste7_4" species="sp_cpx_000070" constant="false"/>
+          <speciesReference name="Cdc14" species="sp_cpx_000037" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000043 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000017" name="Cdc14_Ste7_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000044" name="Cdc14_Ste7_2" species="sp_cpx_000044" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste7_5" species="sp_cpx_000071" constant="false"/>
+          <speciesReference name="Cdc14" species="sp_cpx_000037" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000044 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000020" name="Fus3_Dig dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000027" name="Fus3_Dig_1" species="sp_cpx_000027" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_4" species="sp_cpx_000056" constant="false"/>
+          <speciesReference name="Dig" species="sp_cpx_000026" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000027 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000002" name="Fus3_Fus_anchor dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000055" name="Fus3_Fus_anchor_2" species="sp_cpx_000055" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_4" species="sp_cpx_000056" constant="false"/>
+          <speciesReference name="Fus3_anchor_5" species="sp_cpx_000054" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000055 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.15" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000001" name="Gbg_Fusanch dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000053" name="Gbg_Fusanch_2" species="sp_cpx_000053" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_anchor_5" species="sp_cpx_000054" constant="false"/>
+          <speciesReference name="Gbg" species="sp_cpx_000001" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000053 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000004" name="Gbg_Ste20 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000004" name="Gbg_Ste20_1" species="sp_cpx_000004" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Gbg" species="sp_cpx_000001" constant="false"/>
+          <speciesReference name="Ste20_1" species="sp_cpx_000003" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000004 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000003" name="Gbg_Ste5 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000006" name="Gbg_Ste5_1" species="sp_cpx_000006" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Gbg" species="sp_cpx_000001" constant="false"/>
+          <speciesReference name="Ste5_1" species="sp_cpx_000005" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000006 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000014" name="MP2C_pSte11 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_0000451" name="MP2C_pSte11" species="sp_cpx_000045" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste11_7" species="sp_cpx_000068" constant="false"/>
+          <speciesReference name="MP2C" species="sp_cpx_000034" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000045 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000015" name="MP2C_Ste11_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000046" name="MP2C_Ste11_2" species="sp_cpx_000046" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste11_6" species="sp_cpx_000066" constant="false"/>
+          <speciesReference name="MP2C" species="sp_cpx_000034" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000046 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000019" name="Msg5_Fus3_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000042" name="Msg5_Fus3_3" species="sp_cpx_000042" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_5" species="sp_cpx_000072" constant="false"/>
+          <speciesReference name="Msg5" species="sp_cpx_000029" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000042 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000018" name="Msg5_pFus3 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_0000411" name="Msg5_Fus3_2" species="sp_cpx_000041" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Fus3_1" species="sp_cpx_000017" constant="false"/>
+          <speciesReference name="Msg5" species="sp_cpx_000029" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000041 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000021" name="pSte7_Fus3_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000073" name="Ste7_Fus3_1" species="sp_cpx_000073" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste7_6" species="sp_cpx_000074" constant="false"/>
+          <speciesReference name="Fus3_basal" species="sp_cpx_000024" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000073 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000005" name="Spa2p_Ste7 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000083" name="Spa2p_Ste7_3" species="sp_cpx_000083" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Spa2p" species="sp_cpx_000002" constant="false"/>
+          <speciesReference name="Ste7_1" species="sp_cpx_000007" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000083 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000006" name="Spa2p_Ste7_bnd2 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000057" name="Spa2p_Ste7_2" species="sp_cpx_000057" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Spa2p" species="sp_cpx_000002" constant="false"/>
+          <speciesReference name="Ste7_1" species="sp_cpx_000007" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000057 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="100" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000008" name="Ste20_inactive_Ste11 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000059" name="Ste20_Ste11_3" species="sp_cpx_000059" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste20_3" species="sp_cpx_000060" constant="false"/>
+          <speciesReference name="Ste11_4" species="sp_cpx_000061" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000059 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000009" name="Ste20_pSte11 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000062" name="Ste20_Ste11_4" species="sp_cpx_000062" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste20_4" species="sp_cpx_000063" constant="false"/>
+          <speciesReference name="Ste11_5" species="sp_cpx_000064" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000062 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000007" name="Ste20_Ste11_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_0000471" name="Ste20_Ste11_1" species="sp_cpx_000047" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste20_2" species="sp_cpx_000012" constant="false"/>
+          <speciesReference name="Ste11_3" species="sp_cpx_000058" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000047 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000013" name="Ste5_Fus3 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000069" name="Ste5_Fus3_2" species="sp_cpx_000069" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_4" species="sp_cpx_000031" constant="false"/>
+          <speciesReference name="Fus3_4" species="sp_cpx_000056" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000069 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000011" name="Ste5_pSte11 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000067" name="Ste5_Ste11_4" species="sp_cpx_000067" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_2" species="sp_cpx_000009" constant="false"/>
+          <speciesReference name="Ste11_7" species="sp_cpx_000068" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000067 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.4" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000010" name="Ste5_Ste11_unphos dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000065" name="Ste5_Ste11_3" species="sp_cpx_000065" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_2" species="sp_cpx_000009" constant="false"/>
+          <speciesReference name="Ste11_6" species="sp_cpx_000066" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000065 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.03" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000012" name="Ste5_Ste7 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000022" name="Ste5_Ste7_all" species="sp_cpx_000022" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste5_3" species="sp_cpx_000020" constant="false"/>
+          <speciesReference name="Ste7_2" species="sp_cpx_000021" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000022 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="rc_cpd_000023" name="Ste7_pFus3 dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000077" name="Ste7_Fus3_2" species="sp_cpx_000077" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Ste7_1" species="sp_cpx_000007" constant="false"/>
+          <speciesReference name="Fus3_1" species="sp_cpx_000017" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sp_cpx_000077 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="100" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="st_mol_000008" multi:name="Cdc14" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000008" multi:name="mcp-000008" multi:speciesType="st_mcp_000008"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000008" multi:name="mcp-000008" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000015" multi:name="bst-000015" multi:speciesType="st_bst_000015"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000015" multi:name="bst-000015"/>
+      <multi:speciesType multi:id="st_mol_000011" multi:name="Dig" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_2</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000011" multi:name="mcp-000011" multi:speciesType="st_mcp_000011"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000011" multi:name="mcp-000011" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000018" multi:name="bst-000018" multi:speciesType="st_bst_000018"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000018" multi:name="bst-000018"/>
+      <multi:speciesType multi:id="st_mol_000007" multi:name="Fus3" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_3</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000007" multi:name="mcp-000007" multi:speciesType="st_mcp_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000007" multi:name="mcp-000007" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_mcp_000007_phosphorylated" multi:name="phosphorylated" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000007_phosphorylated_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000007_phosphorylated_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000013" multi:name="Ste7 binding site" multi:speciesType="st_bst_000013"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000014" multi:name="Ste5 binding site" multi:speciesType="st_bst_000014"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000013" multi:name="Ste7 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000014" multi:name="Ste5 binding site"/>
+      <multi:speciesType multi:id="st_mol_000012" multi:name="Fus3_anchor" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_4</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000012" multi:name="mcp-000012" multi:speciesType="st_mcp_000012"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000012" multi:name="mcp-000012" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_mcp_000012_active" multi:name="active" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000012_active_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000012_active_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000019" multi:name="bst-000019" multi:speciesType="st_bst_000019"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000019" multi:name="bst-000019"/>
+      <multi:speciesType multi:id="st_mol_000001" multi:name="Gbg" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_5</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000001" multi:name="mcp-000001" multi:speciesType="st_mcp_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000001" multi:name="mcp-000001" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000001" multi:name="bst-000001" multi:speciesType="st_bst_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000001" multi:name="bst-000001"/>
+      <multi:speciesType multi:id="st_mol_000009" multi:name="MP2C" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000009" multi:name="mcp-000009" multi:speciesType="st_mcp_000009"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000009" multi:name="mcp-000009" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000016" multi:name="bst-000016" multi:speciesType="st_bst_000016"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000016" multi:name="bst-000016"/>
+      <multi:speciesType multi:id="st_mol_000010" multi:name="Msg5" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000010" multi:name="mcp-000010" multi:speciesType="st_mcp_000010"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000010" multi:name="mcp-000010" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000017" multi:name="bst-000017" multi:speciesType="st_bst_000017"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000017" multi:name="bst-000017"/>
+      <multi:speciesType multi:id="st_mol_000002" multi:name="Spa2p" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_5</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000002" multi:name="mcp-000002" multi:speciesType="st_mcp_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000002" multi:name="mcp-000002" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000002" multi:name="bst-000002" multi:speciesType="st_bst_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000002" multi:name="bst-000002"/>
+      <multi:speciesType multi:id="st_mol_000005" multi:name="Ste11" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_3</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000005" multi:name="mcp-000005" multi:speciesType="st_mcp_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000005" multi:name="mcp-000005" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_mcp_000005_phosphorylated" multi:name="phosphorylated" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000005_phosphorylated_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000005_phosphorylated_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000009" multi:name="activation site" multi:speciesType="st_bst_000009"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000010" multi:name="Ste5 binding site" multi:speciesType="st_bst_000010"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000009" multi:name="activation site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000010" multi:name="Ste5 binding site"/>
+      <multi:speciesType multi:id="st_mol_000003" multi:name="Ste20" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000003" multi:name="mcp-000003" multi:speciesType="st_mcp_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000003" multi:name="mcp-000003" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_mcp_000003_active" multi:name="active" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000003_active_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000003_active_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000003" multi:name="Gbg binding site" multi:speciesType="st_bst_000003"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000004" multi:name="kinase site" multi:speciesType="st_bst_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000003" multi:name="Gbg binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000004" multi:name="kinase site"/>
+      <multi:speciesType multi:id="st_mol_000004" multi:name="Ste5" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_6</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000004" multi:name="mcp-000004" multi:speciesType="st_mcp_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000004" multi:name="mcp-000004" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000005" multi:name="Gbg binding site" multi:speciesType="st_bst_000005"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000006" multi:name="Ste11 binding site" multi:speciesType="st_bst_000006"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000007" multi:name="Ste7 binding site" multi:speciesType="st_bst_000007"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000008" multi:name="Fus3 binding site" multi:speciesType="st_bst_000008"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000005" multi:name="Gbg binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000006" multi:name="Ste11 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000007" multi:name="Ste7 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000008" multi:name="Fus3 binding site"/>
+      <multi:speciesType multi:id="st_mol_000006" multi:name="Ste7" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_3</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000006" multi:name="mcp-000006" multi:speciesType="st_mcp_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_mcp_000006" multi:name="mcp-000006" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_mcp_000006_phosphorylated" multi:name="phosphorylated" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000006_phosphorylated_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="sfv_mcp_000006_phosphorylated_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000011" multi:name="activation site" multi:speciesType="st_bst_000011"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000012" multi:name="Ste5 binding site" multi:speciesType="st_bst_000012"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000011" multi:name="activation site"/>
+      <multi:bindingSiteSpeciesType multi:id="st_bst_000012" multi:name="Ste5 binding site"/>
+      <multi:speciesType multi:id="st_cps_000008" multi:name="Cdc14">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000008_1_mol_000008" multi:name="Cdc14" multi:speciesType="st_mol_000008"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000027" multi:name="Cdc14_Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000027_1_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000027_2_mol_000008" multi:name="Cdc14" multi:speciesType="st_mol_000008"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000015" multi:bindingSite2="sti_bst_000012"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000011" multi:name="Dig">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000011_1_mol_000011" multi:name="Dig" multi:speciesType="st_mol_000011"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000007" multi:name="Fus3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000007_1_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000022" multi:name="Fus3.Ste5.Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000022_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000022_2_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000022_3_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000012" multi:bindingSite2="sti_bst_000007"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000014" multi:bindingSite2="sti_bst_000011"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000012" multi:name="Fus3_anchor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000012_1_mol_000012" multi:name="Fus3_anchor" multi:speciesType="st_mol_000012"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000023" multi:name="Fus3_Dig">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000023_1_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000023_2_mol_000011" multi:name="Dig" multi:speciesType="st_mol_000011"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000018" multi:bindingSite2="sti_bst_000014"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000019" multi:name="Fus3_Fus_anchor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000019_1_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000019_2_mol_000012" multi:name="Fus3_anchor" multi:speciesType="st_mol_000012"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000019" multi:bindingSite2="sti_bst_000014"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000001" multi:name="Gbg">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000001_1_mol_000001" multi:name="Gbg" multi:speciesType="st_mol_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000018" multi:name="Gbg_Fusanch">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000018_1_mol_000001" multi:name="Gbg" multi:speciesType="st_mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000018_2_mol_000012" multi:name="Fus3_anchor" multi:speciesType="st_mol_000012"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000001" multi:bindingSite2="sti_bst_000019"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000013" multi:name="Gbg_Ste20">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000013_1_mol_000001" multi:name="Gbg" multi:speciesType="st_mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000013_2_mol_000003" multi:name="Ste20" multi:speciesType="st_mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000003" multi:bindingSite2="sti_bst_000001"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000014" multi:name="Gbg_Ste5">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000014_1_mol_000001" multi:name="Gbg" multi:speciesType="st_mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000014_2_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000005" multi:bindingSite2="sti_bst_000001"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000009" multi:name="MP2C">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000009_1_mol_000009" multi:name="MP2C" multi:speciesType="st_mol_000009"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000026" multi:name="MP2C_Ste11">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000026_1_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000026_2_mol_000009" multi:name="MP2C" multi:speciesType="st_mol_000009"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000016" multi:bindingSite2="sti_bst_000010"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000010" multi:name="Msg5">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000010_1_mol_000010" multi:name="Msg5" multi:speciesType="st_mol_000010"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000024" multi:name="Msg5_Fus3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000024_1_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000024_2_mol_000010" multi:name="Msg5" multi:speciesType="st_mol_000010"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000017" multi:bindingSite2="sti_bst_000014"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000002" multi:name="Spa2p">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000002_1_mol_000002" multi:name="Spa2p" multi:speciesType="st_mol_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000015" multi:name="Spa2p_Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000015_1_mol_000002" multi:name="Spa2p" multi:speciesType="st_mol_000002"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000015_2_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000011" multi:bindingSite2="sti_bst_000002"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000005" multi:name="Ste11">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000005_1_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000017" multi:name="Ste11.Ste20.Ste5">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000017_1_mol_000003" multi:name="Ste20" multi:speciesType="st_mol_000003"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000017_2_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000017_3_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000010" multi:bindingSite2="sti_bst_000006"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000004" multi:bindingSite2="sti_bst_000009"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000003" multi:name="Ste20">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000003_1_mol_000003" multi:name="Ste20" multi:speciesType="st_mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000028" multi:name="Ste20_Ste11">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000028_1_mol_000003" multi:name="Ste20" multi:speciesType="st_mol_000003"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000028_2_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000009" multi:bindingSite2="sti_bst_000004"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000004" multi:name="Ste5">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000004_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000025" multi:name="Ste5_Fus3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000025_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000025_2_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000014" multi:bindingSite2="sti_bst_000008"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000016" multi:name="Ste5_Ste11">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000016_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000016_2_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000010" multi:bindingSite2="sti_bst_000006"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000029" multi:name="Ste5_Ste11_Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000029_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000029_2_mol_000005" multi:name="Ste11" multi:speciesType="st_mol_000005"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000029_3_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000010" multi:bindingSite2="sti_bst_000006"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000012" multi:bindingSite2="sti_bst_000007"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000021" multi:name="Ste5_Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000021_1_mol_000004" multi:name="Ste5" multi:speciesType="st_mol_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000021_2_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000012" multi:bindingSite2="sti_bst_000007"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000006" multi:name="Ste7">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000006_1_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_cps_000030" multi:name="Ste7_Fus3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000030_1_mol_000006" multi:name="Ste7" multi:speciesType="st_mol_000006"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000030_2_mol_000007" multi:name="Fus3" multi:speciesType="st_mol_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000014" multi:bindingSite2="sti_bst_000011"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>
