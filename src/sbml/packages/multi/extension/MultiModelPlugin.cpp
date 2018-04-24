@@ -483,7 +483,6 @@ MultiModelPlugin::accept(SBMLVisitor& v) const
 
 
 
-LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* __cplusplus */

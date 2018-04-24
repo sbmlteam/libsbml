@@ -35,9 +35,10 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/packages/layout/sbml/GraphicalObject.h>
 
-#ifdef __cplusplus
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifdef __cplusplus
 
 /**
  * Converts the given SBase* object to an XMLNode, with the appropriate namespace defined.
@@ -60,8 +61,9 @@ LIBSBML_EXTERN void addGraphicalObjectAttributes(const GraphicalObject& object,X
  */
 LIBSBML_EXTERN void copySBaseAttributes(const SBase& source,SBase& target);
 
-LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /*LAYOUTUTILITIES_H_*/

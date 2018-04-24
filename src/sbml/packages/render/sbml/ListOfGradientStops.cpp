@@ -36,12 +36,12 @@
 
 using namespace std;
 
+#include <sbml/packages/layout/util/LayoutAnnotation.h> 
+#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-#include <sbml/packages/layout/util/LayoutAnnotation.h> 
-#include <sbml/packages/layout/util/LayoutUtilities.h>
 
 
 
