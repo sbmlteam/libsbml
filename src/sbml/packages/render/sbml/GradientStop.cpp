@@ -64,7 +64,7 @@ GradientStop::GradientStop(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
   : SBase(level, version)
-  , mOffset (RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()))
+  , mOffset (RelAbsVector(0.0, 0.0))
   , mStopColor ("")
 {
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
@@ -77,7 +77,7 @@ GradientStop::GradientStop(unsigned int level,
  */
 GradientStop::GradientStop(RenderPkgNamespaces *renderns)
   : SBase(renderns)
-  , mOffset (RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()))
+  , mOffset(RelAbsVector(0.0, 0.0))
   , mStopColor ("")
 {
   setElementNamespace(renderns->getURI());
