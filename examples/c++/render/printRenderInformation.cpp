@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <string>
-#include <strstream>
+#include <stringstream>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
@@ -43,7 +43,7 @@ if (argc != 3)
   {
     cerr << "Encountered errors while reading the file. " << endl;
     cerr << "Please correct the following errors and try again." << endl;
-	  doc->printErrors();
+    doc->printErrors();
     return 2;
   }
   
@@ -54,7 +54,7 @@ if (argc != 3)
   if (plugin == NULL || plugin->getNumLayouts() == 0)
   {
     cerr << "The loaded model contains no layout information, please add these first." << endl;
-	return 3;
+  return 3;
   }
   
   RenderListOfLayoutsPlugin *lolPlugin = (RenderListOfLayoutsPlugin*) plugin->getListOfLayouts()->getPlugin("render");
@@ -135,7 +135,7 @@ if (argc != 3)
   if (rPlugin != NULL && rPlugin->getNumLocalRenderInformationObjects() > 0)
   {
     cout << "The loaded model contains local Render information. " << endl;
-	// here we would do the same as above for the local render information ...
+  // here we would do the same as above for the local render information ...
   }
 
   return 0;
