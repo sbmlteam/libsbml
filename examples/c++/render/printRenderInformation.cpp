@@ -14,7 +14,8 @@
 
 #include <iostream>
 #include <string>
-#include <stringstream>
+#include <sstream>
+
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
@@ -26,8 +27,7 @@ string toString(RelAbsVector& vec)
   return str.str();
 }
 
-int main(int argc,char** argv){
-if (argc != 3)
+int main(int argc,char** argv){if (argc != 3)
   {
     cerr << "usage: printRenderInformation <input file> " << endl;
     cerr << "       prints a summary of the render information object." << endl;
