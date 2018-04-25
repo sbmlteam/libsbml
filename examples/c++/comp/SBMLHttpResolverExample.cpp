@@ -54,6 +54,7 @@
 #include <sbml/packages/comp/util/SBMLResolverRegistry.h>
 #include <sbml/packages/comp/util/SBMLUri.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 using namespace std;
 
 
