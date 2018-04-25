@@ -325,7 +325,7 @@ public:
   /**
   * Get a GlobalStyle from the GlobalRenderInformation.
   *
-  * @param sid a string representing the identifier of the ColorDefinition to
+  * @param id a string representing the identifier of the ColorDefinition to
   * remove.
   *
   * @return the GlobalStyle in this GlobalRenderInformation based on the
@@ -349,7 +349,7 @@ public:
   /**
   * Get a GlobalStyle from the GlobalRenderInformation.
   *
-  * @param sid a string representing the identifier of the ColorDefinition to
+  * @param id a string representing the identifier of the ColorDefinition to
   * remove.
   *
   * @return the GlobalStyle in this GlobalRenderInformation based on the
@@ -370,7 +370,7 @@ public:
   /**
   * Get a GlobalStyle from the GlobalRenderInformation.
   *
-  * @param sid a string representing the identifier of the ColorDefinition to
+  * @param id a string representing the identifier of the ColorDefinition to
   * remove.
   *
   * @return the GlobalStyle in this GlobalRenderInformation based on the
@@ -391,7 +391,7 @@ public:
   /**
   * Get a GlobalStyle from the GlobalRenderInformation.
   *
-  * @param sid a string representing the identifier of the ColorDefinition to
+  * @param id a string representing the identifier of the ColorDefinition to
   * remove.
   *
   * @return the GlobalStyle in this GlobalRenderInformation based on the

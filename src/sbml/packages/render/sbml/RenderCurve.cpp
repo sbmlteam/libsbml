@@ -129,19 +129,8 @@ RenderCurve::RenderCurve(const XMLNode& node, unsigned int l2version)
 
   connectToChild();
 }
-#ifndef OMIT_DEPRECATED
 /** @cond doxygenLibsbmlInternal */
-/*
- * Constructor with id.
- */
-/*
- * Instantiates an empty curve object with the given @p id.
- * The decorations  are unset and there are no curve elements.
- *
- * This constructor is deprecated. The new libsbml API only has
- * constructors which take the SBML level and version or one that takes
- * an SBMLNamespaces object.
- */
+#ifndef OMIT_DEPRECATED
 RenderCurve::RenderCurve(RenderPkgNamespaces* renderns, const std::string& id)
   : GraphicalPrimitive1D(renderns, id)
   , mStartHead("")
@@ -160,8 +149,8 @@ RenderCurve::RenderCurve(RenderPkgNamespaces* renderns, const std::string& id)
   // load package extensions bound with this object (if any) 
   loadPlugins(renderns);
 }
-/** @endcond */
 #endif // OMIT_DEPRECATED
+/** @endcond */
 
 
 /*

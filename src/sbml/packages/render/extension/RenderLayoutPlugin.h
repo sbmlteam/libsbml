@@ -23,6 +23,13 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ *
+ * @class RenderLayoutPlugin
+ * @sbmlbrief{render} LibSBML implementation for the extension to the
+ * Layout class by the Render extension.
+ *
+ * The Render package extends the Layout object from the Layout package 
+ * with the addition of an optional ListOfLocalRenderInformation object.
  */
 
 #ifndef RenderLayoutPlugin_h

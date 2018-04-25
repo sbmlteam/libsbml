@@ -268,7 +268,7 @@ public:
    * The possible values returned by this method are:
    * @li @c "nonzero"
    * @li @c "evenodd"
-   * @li @c "invalid GraphicalPrimitive2DFill-rule"
+   * @li @c "(Unknown FillRule value)"
    */
   std::string getFillRuleAsString() const;
 
@@ -1071,7 +1071,7 @@ GraphicalPrimitive2D_getFillRule(const GraphicalPrimitive2D_t * gpd);
  * The possible values returned by this method are:
  * @li @c "nonzero"
  * @li @c "evenodd"
- * @li @c "invalid GraphicalPrimitive2DFill-rule"
+ * @li @c "(Unknown FillRule value)"
  *
  * @memberof GraphicalPrimitive2D_t
  */

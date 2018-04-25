@@ -23,6 +23,12 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ * @class RenderGraphicalObjectPlugin
+ * @sbmlbrief{render} The Render extension of the layout GraphicalObject class.
+ *
+ * The Render package extends the GraphicalObject object from the Layout package 
+ * with the addition of the objectRole attribute, which specifies with which Style
+ * the object should be rendered.
  */
 
 #ifndef RenderGraphicalObjectPlugin_h

@@ -46,87 +46,6 @@
  *
  */
 
-/**
- * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file. The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality. Symbols
- * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
- *
- *
- * @class doc_rendergroup_font-weight
- *
- * @par
- * The attribute "font-weight" on a RenderGroup object is used to TODO:add
- * explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "font-weight":
- * <ul>
- * <li> @c "bold", TODO:add description
- *
- * <li> @c "normal", TODO:add description
- *
- * </ul>
- *
- * @class doc_rendergroup_font-style
- *
- * @par
- * The attribute "font-style" on a RenderGroup object is used to TODO:add
- * explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "font-style":
- * <ul>
- * <li> @c "italic", TODO:add description
- *
- * <li> @c "normal", TODO:add description
- *
- * </ul>
- *
- * @class doc_rendergroup_text-anchor
- *
- * @par
- * The attribute "text-anchor" on a RenderGroup object is used to TODO:add
- * explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "text-anchor":
- * <ul>
- * <li> @c "start", TODO:add description
- *
- * <li> @c "middle", TODO:add description
- *
- * <li> @c "end", TODO:add description
- *
- * </ul>
- *
- * @class doc_rendergroup_vtext-anchor
- *
- * @par
- * The attribute "vtext-anchor" on a RenderGroup object is used to TODO:add
- * explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "vtext-anchor":
- * <ul>
- * <li> @c "top", TODO:add description
- *
- * <li> @c "middle", TODO:add description
- *
- * <li> @c "bottom", TODO:add description
- *
- * <li> @c "baseline", TODO:add description
- *
- * </ul>
- */
-
-
 #ifndef RenderGroup_H__
 #define RenderGroup_H__
 
@@ -214,8 +133,9 @@ public:
    * This method is normally called when render information is read from a file and 
    * should normally not have to be called explicitely.
    *
-   * @param node the XMLNode object reference that describes the RenderGroup
+   * @param group the XMLNode object reference that describes the RenderGroup
    * object to be instantiated.
+   * @param l2version the version of SBML Level&nbsp;2 to target.
    */
   RenderGroup(const XMLNode& group, unsigned int l2version=4);
 
@@ -228,6 +148,7 @@ public:
    * are unset. The id is set to the given string.
    *
    * @param id the id for the RenderGroup object.
+   * @param renderns the RenderPkgNamespaces object.
    *
    * This constructor is deprecated. The new libsbml API only has
    * constructors which take the SBML level and version or one that takes
@@ -300,12 +221,12 @@ public:
    * @return the value of the "font-weight" attribute of this RenderGroup as a
    * FontWeight_t.
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
    * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
-   * @li @sbmlconstant{RENDER_GROUP_FONT-WEIGHT_INVALID, FontWeight_t}
+   * @li @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
    */
   int getFontWeight() const;
 
@@ -316,11 +237,11 @@ public:
    * @return the value of the "font-weight" attribute of this RenderGroup as a
    * string.
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    * The possible values returned by this method are:
    * @li @c "bold"
    * @li @c "normal"
-   * @li @c "invalid RenderGroupFont-weight"
+   * @li @c "(Unknown FontWeight value)"
    */
   std::string getFontWeightAsString() const;
 
@@ -331,12 +252,12 @@ public:
    * @return the value of the "font-style" attribute of this RenderGroup as a
    * FontStyle_t.
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
    * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
-   * @li @sbmlconstant{RENDER_GROUP_FONT-STYLE_INVALID, FontStyle_t}
+   * @li @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}
    */
   int getFontStyle() const;
 
@@ -347,11 +268,11 @@ public:
    * @return the value of the "font-style" attribute of this RenderGroup as a
    * string.
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    * The possible values returned by this method are:
    * @li @c "italic"
    * @li @c "normal"
-   * @li @c "invalid RenderGroupFont-style"
+   * @li @c "(Unknown FontStyle value)"
    */
   std::string getFontStyleAsString() const;
 
@@ -362,14 +283,14 @@ public:
    * @return the value of the "text-anchor" attribute of this RenderGroup as a
    * HTextAnchor_t.
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    * @if clike The value is drawn from the enumeration @ref HTextAnchor_t
    * @endif
    * The possible values returned by this method are:
    * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
    * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
    * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
-   * @li @sbmlconstant{RENDER_GROUP_TEXT-ANCHOR_INVALID, HTextAnchor_t}
+   * @li @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}
    */
   int getTextAnchor() const;
 
@@ -380,12 +301,12 @@ public:
    * @return the value of the "text-anchor" attribute of this RenderGroup as a
    * string.
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    * The possible values returned by this method are:
    * @li @c "start"
    * @li @c "middle"
    * @li @c "end"
-   * @li @c "invalid RenderGroupText-anchor"
+   * @li @c "(Unknown HTextAnchor value)"
    */
   std::string getTextAnchorAsString() const;
 
@@ -396,15 +317,15 @@ public:
    * @return the value of the "vtext-anchor" attribute of this RenderGroup as a
    * VTextAnchor_t.
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    * @if clike The value is drawn from the enumeration @ref VTextAnchor_t
    * @endif
    * The possible values returned by this method are:
-   * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t}
-   * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_MIDDLE, VTextAnchor_t}
-   * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BOTTOM, VTextAnchor_t}
-   * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BASELINE, VTextAnchor_t}
-   * @li @sbmlconstant{RENDER_GROUP_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
+   * @li @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}
+   * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
+   * @li @sbmlconstant{V_TEXTANCHOR_BOTTOM, VTextAnchor_t}
+   * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
+   * @li @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}
    */
   int getVtextAnchor() const;
 
@@ -420,13 +341,13 @@ public:
    * @return the value of the "vtext-anchor" attribute of this RenderGroup as a
    * string.
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    * The possible values returned by this method are:
    * @li @c "top"
    * @li @c "middle"
    * @li @c "bottom"
    * @li @c "baseline"
-   * @li @c "invalid RenderGroupVtext-anchor"
+   * @li @c "(Unknown VTextAnchor value)"
    */
   std::string getVtextAnchorAsString() const;
 
@@ -484,7 +405,7 @@ public:
    * @return @c true if this RenderGroup's "font-weight" attribute has been
    * set, otherwise @c false is returned.
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    */
   bool isSetFontWeight() const;
 
@@ -496,7 +417,7 @@ public:
    * @return @c true if this RenderGroup's "font-style" attribute has been set,
    * otherwise @c false is returned.
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    */
   bool isSetFontStyle() const;
 
@@ -508,7 +429,7 @@ public:
    * @return @c true if this RenderGroup's "text-anchor" attribute has been
    * set, otherwise @c false is returned.
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    */
   bool isSetTextAnchor() const;
 
@@ -520,7 +441,7 @@ public:
    * @return @c true if this RenderGroup's "vtext-anchor" attribute has been
    * set, otherwise @c false is returned.
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    */
   bool isSetVtextAnchor() const;
 
@@ -595,7 +516,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    */
   int setFontWeight(const FontWeight_t fontWeight);
 
@@ -609,14 +530,14 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this RenderGroup.
    *
-   * @param font-weight std::string& of the "font-weight" attribute to be set.
+   * @param fontWeight std::string& of the "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    */
   int setFontWeight(const std::string& fontWeight);
 
@@ -632,7 +553,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    */
   int setFontStyle(const FontStyle_t fontStyle);
 
@@ -646,14 +567,14 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this RenderGroup.
    *
-   * @param font-style std::string& of the "font-style" attribute to be set.
+   * @param fontStyle std::string& of the "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    */
   int setFontStyle(const std::string& fontStyle);
 
@@ -669,7 +590,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    */
   int setTextAnchor(const HTextAnchor_t textAnchor);
 
@@ -683,14 +604,14 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this RenderGroup.
    *
-   * @param text-anchor std::string& of the "text-anchor" attribute to be set.
+   * @param textAnchor std::string& of the "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    */
   int setTextAnchor(const std::string& textAnchor);
 
@@ -706,7 +627,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    */
   int setVtextAnchor(const VTextAnchor_t vtextAnchor);
 
@@ -720,7 +641,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
    *
-   * @param vtext-anchor std::string& of the "vtext-anchor" attribute to be
+   * @param vtextAnchor std::string& of the "vtext-anchor" attribute to be
    * set.
    *
    * @copydetails doc_returns_success_code
@@ -728,7 +649,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    */
   int setVtextAnchor(const std::string& vtextAnchor);
 
@@ -781,7 +702,7 @@ public:
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-weight
+   * @copydetails doc_render_font_weight
    */
   int unsetFontWeight();
 
@@ -792,7 +713,7 @@ public:
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_font-style
+   * @copydetails doc_render_font_style
    */
   int unsetFontStyle();
 
@@ -803,7 +724,7 @@ public:
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_text-anchor
+   * @copydetails doc_render_text_anchor
    */
   int unsetTextAnchor();
 
@@ -814,7 +735,7 @@ public:
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @copydetails doc_rendergroup_vtext-anchor
+   * @copydetails doc_render_vtext_anchor
    */
   int unsetVtextAnchor();
 
@@ -1873,12 +1794,12 @@ RenderGroup_getFontFamily(const RenderGroup_t * rg);
  * @return the value of the "font-weight" attribute of this RenderGroup_t as a
  * FontWeight_t.
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
  * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
- * @li @sbmlconstant{RENDER_GROUP_FONT-WEIGHT_INVALID, FontWeight_t}
+ * @li @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
  *
  * @memberof RenderGroup_t
  */
@@ -1897,11 +1818,11 @@ RenderGroup_getFontWeight(const RenderGroup_t * rg);
  *
  * @copydetails doc_returned_unowned_char
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  * The possible values returned by this method are:
  * @li @c "bold"
  * @li @c "normal"
- * @li @c "invalid RenderGroupFont-weight"
+ * @li @c "Unknown FontWeight value"
  *
  * @memberof RenderGroup_t
  */
@@ -1918,12 +1839,12 @@ RenderGroup_getFontWeightAsString(const RenderGroup_t * rg);
  * @return the value of the "font-style" attribute of this RenderGroup_t as a
  * FontStyle_t.
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
  * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
- * @li @sbmlconstant{RENDER_GROUP_FONT-STYLE_INVALID, FontStyle_t}
+ * @li @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}
  *
  * @memberof RenderGroup_t
  */
@@ -1942,11 +1863,11 @@ RenderGroup_getFontStyle(const RenderGroup_t * rg);
  *
  * @copydetails doc_returned_unowned_char
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  * The possible values returned by this method are:
  * @li @c "italic"
  * @li @c "normal"
- * @li @c "invalid RenderGroupFont-style"
+ * @li @c "(Unknown FontStyle value)"
  *
  * @memberof RenderGroup_t
  */
@@ -1963,13 +1884,13 @@ RenderGroup_getFontStyleAsString(const RenderGroup_t * rg);
  * @return the value of the "text-anchor" attribute of this RenderGroup_t as a
  * HTextAnchor_t.
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  * @if clike The value is drawn from the enumeration @ref HTextAnchor_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
- * @li @sbmlconstant{RENDER_GROUP_TEXT-ANCHOR_INVALID, HTextAnchor_t}
+ * @li @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}
  *
  * @memberof RenderGroup_t
  */
@@ -1988,12 +1909,12 @@ RenderGroup_getTextAnchor(const RenderGroup_t * rg);
  *
  * @copydetails doc_returned_unowned_char
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  * The possible values returned by this method are:
  * @li @c "start"
  * @li @c "middle"
  * @li @c "end"
- * @li @c "invalid RenderGroupText-anchor"
+ * @li @c "(Unknown HTextAnchor value)"
  *
  * @memberof RenderGroup_t
  */
@@ -2010,14 +1931,14 @@ RenderGroup_getTextAnchorAsString(const RenderGroup_t * rg);
  * @return the value of the "vtext-anchor" attribute of this RenderGroup_t as a
  * VTextAnchor_t.
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  * @if clike The value is drawn from the enumeration @ref VTextAnchor_t @endif
  * The possible values returned by this method are:
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_MIDDLE, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BOTTOM, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BASELINE, VTextAnchor_t}
- * @li @sbmlconstant{RENDER_GROUP_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_BOTTOM, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}
  *
  * @memberof RenderGroup_t
  */
@@ -2036,13 +1957,13 @@ RenderGroup_getVtextAnchor(const RenderGroup_t * rg);
  *
  * @copydetails doc_returned_unowned_char
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  * The possible values returned by this method are:
  * @li @c "top"
  * @li @c "middle"
  * @li @c "bottom"
  * @li @c "baseline"
- * @li @c "invalid RenderGroupVtext-anchor"
+ * @li @c "(Unknown VTextAnchor value)"
  *
  * @memberof RenderGroup_t
  */
@@ -2108,7 +2029,7 @@ RenderGroup_isSetFontFamily(const RenderGroup_t * rg);
  * @return @c 1 (true) if this RenderGroup_t's "font-weight" attribute has been
  * set, otherwise @c 0 (false) is returned.
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  *
  * @memberof RenderGroup_t
  */
@@ -2126,7 +2047,7 @@ RenderGroup_isSetFontWeight(const RenderGroup_t * rg);
  * @return @c 1 (true) if this RenderGroup_t's "font-style" attribute has been
  * set, otherwise @c 0 (false) is returned.
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  *
  * @memberof RenderGroup_t
  */
@@ -2144,7 +2065,7 @@ RenderGroup_isSetFontStyle(const RenderGroup_t * rg);
  * @return @c 1 (true) if this RenderGroup_t's "text-anchor" attribute has been
  * set, otherwise @c 0 (false) is returned.
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2162,7 +2083,7 @@ RenderGroup_isSetTextAnchor(const RenderGroup_t * rg);
  * @return @c 1 (true) if this RenderGroup_t's "vtext-anchor" attribute has
  * been set, otherwise @c 0 (false) is returned.
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2244,7 +2165,7 @@ RenderGroup_setFontFamily(RenderGroup_t * rg, const char * fontFamily);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  *
  * @memberof RenderGroup_t
  */
@@ -2258,14 +2179,14 @@ RenderGroup_setFontWeight(RenderGroup_t * rg, FontWeight_t fontWeight);
  *
  * @param rg the RenderGroup_t structure.
  *
- * @param font-weight const char * of the "font-weight" attribute to be set.
+ * @param fontWeight const char * of the "font-weight" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  *
  * @memberof RenderGroup_t
  */
@@ -2287,7 +2208,7 @@ RenderGroup_setFontWeightAsString(RenderGroup_t * rg,
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  *
  * @memberof RenderGroup_t
  */
@@ -2301,14 +2222,14 @@ RenderGroup_setFontStyle(RenderGroup_t * rg, FontStyle_t fontStyle);
  *
  * @param rg the RenderGroup_t structure.
  *
- * @param font-style const char * of the "font-style" attribute to be set.
+ * @param fontStyle const char * of the "font-style" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  *
  * @memberof RenderGroup_t
  */
@@ -2330,7 +2251,7 @@ RenderGroup_setFontStyleAsString(RenderGroup_t * rg, const char * fontStyle);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2344,14 +2265,14 @@ RenderGroup_setTextAnchor(RenderGroup_t * rg, HTextAnchor_t textAnchor);
  *
  * @param rg the RenderGroup_t structure.
  *
- * @param text-anchor const char * of the "text-anchor" attribute to be set.
+ * @param textAnchor const char * of the "text-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2374,7 +2295,7 @@ RenderGroup_setTextAnchorAsString(RenderGroup_t * rg,
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2388,14 +2309,14 @@ RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor);
  *
  * @param rg the RenderGroup_t structure.
  *
- * @param vtext-anchor const char * of the "vtext-anchor" attribute to be set.
+ * @param vtextAnchor const char * of the "vtext-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2465,7 +2386,7 @@ RenderGroup_unsetFontFamily(RenderGroup_t * rg);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-weight
+ * @copydetails doc_render_font_weight
  *
  * @memberof RenderGroup_t
  */
@@ -2483,7 +2404,7 @@ RenderGroup_unsetFontWeight(RenderGroup_t * rg);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_font-style
+ * @copydetails doc_render_font_style
  *
  * @memberof RenderGroup_t
  */
@@ -2501,7 +2422,7 @@ RenderGroup_unsetFontStyle(RenderGroup_t * rg);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_text-anchor
+ * @copydetails doc_render_text_anchor
  *
  * @memberof RenderGroup_t
  */
@@ -2519,7 +2440,7 @@ RenderGroup_unsetTextAnchor(RenderGroup_t * rg);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_rendergroup_vtext-anchor
+ * @copydetails doc_render_vtext_anchor
  *
  * @memberof RenderGroup_t
  */

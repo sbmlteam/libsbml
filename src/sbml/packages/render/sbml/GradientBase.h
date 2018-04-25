@@ -273,7 +273,7 @@ public:
    * @li @c "pad"
    * @li @c "reflect"
    * @li @c "repeat"
-   * @li @c "invalid GradientBaseSpreadMethod"
+   * @li @c "(Unknown GradientSpreadMethod value)"
    */
   std::string getSpreadMethodAsString() const;
 
@@ -289,7 +289,7 @@ public:
    * @li @c "pad"
    * @li @c "reflect"
    * @li @c "repeat"
-   * @li @c "invalid GradientBaseSpreadMethod"
+   * @li @c "invalid"
    */
   std::string getSpreadMethodString() const;
 
@@ -1345,7 +1345,7 @@ GradientBase_getSpreadMethod(const GradientBase_t * gb);
  * @li @c "pad"
  * @li @c "reflect"
  * @li @c "repeat"
- * @li @c "invalid GradientBaseSpreadMethod"
+ * @li @c "invalid"
  *
  * @memberof GradientBase_t
  */

@@ -422,7 +422,7 @@ DefaultValues::getFill() const
 
 
 /*
- * Returns the value of the "fillRule" attribute of this DefaultValues.
+ * Returns the value of the "fill-rule" attribute of this DefaultValues.
  */
 int
 DefaultValues::getFillRule() const
@@ -432,7 +432,7 @@ DefaultValues::getFillRule() const
 
 
 /*
- * Returns the value of the "fillRule" attribute of this DefaultValues.
+ * Returns the value of the "fill-rule" attribute of this DefaultValues.
  */
 std::string
 DefaultValues::getFillRuleAsString() const
@@ -473,7 +473,7 @@ DefaultValues::getStrokeWidth() const
 
 
 /*
- * Returns the value of the "fontFamily" attribute of this DefaultValues.
+ * Returns the value of the "font-family" attribute of this DefaultValues.
  */
 const std::string&
 DefaultValues::getFontFamily() const
@@ -483,7 +483,7 @@ DefaultValues::getFontFamily() const
 
 
 /*
- * Returns the value of the "fontSize" attribute of this DefaultValues.
+ * Returns the value of the "font-size" attribute of this DefaultValues.
  */
 const RelAbsVector&
 DefaultValues::getFontSize() const
@@ -493,7 +493,7 @@ DefaultValues::getFontSize() const
 
 
 /*
- * Returns the value of the "fontWeight" attribute of this DefaultValues.
+ * Returns the value of the "font-weight" attribute of this DefaultValues.
  */
 FontWeight_t
 DefaultValues::getFontWeight() const
@@ -503,7 +503,7 @@ DefaultValues::getFontWeight() const
 
 
 /*
- * Returns the value of the "fontWeight" attribute of this DefaultValues.
+ * Returns the value of the "font-weight" attribute of this DefaultValues.
  */
 std::string
 DefaultValues::getFontWeightAsString() const
@@ -514,7 +514,7 @@ DefaultValues::getFontWeightAsString() const
 
 
 /*
- * Returns the value of the "fontStyle" attribute of this DefaultValues.
+ * Returns the value of the "font-style" attribute of this DefaultValues.
  */
 FontStyle_t
 DefaultValues::getFontStyle() const
@@ -524,7 +524,7 @@ DefaultValues::getFontStyle() const
 
 
 /*
- * Returns the value of the "fontStyle" attribute of this DefaultValues.
+ * Returns the value of the "font-style" attribute of this DefaultValues.
  */
 std::string
 DefaultValues::getFontStyleAsString() const
@@ -535,7 +535,7 @@ DefaultValues::getFontStyleAsString() const
 
 
 /*
- * Returns the value of the "textAnchor" attribute of this DefaultValues.
+ * Returns the value of the "text-anchor" attribute of this DefaultValues.
  */
 HTextAnchor_t
 DefaultValues::getTextAnchor() const
@@ -545,7 +545,7 @@ DefaultValues::getTextAnchor() const
 
 
 /*
- * Returns the value of the "textAnchor" attribute of this DefaultValues.
+ * Returns the value of the "text-anchor" attribute of this DefaultValues.
  */
 std::string
 DefaultValues::getTextAnchorAsString() const
@@ -556,7 +556,7 @@ DefaultValues::getTextAnchorAsString() const
 
 
 /*
- * Returns the value of the "vtextAnchor" attribute of this DefaultValues.
+ * Returns the value of the "vtext-anchor" attribute of this DefaultValues.
  */
 VTextAnchor_t
 DefaultValues::getVTextAnchor() const
@@ -566,7 +566,7 @@ DefaultValues::getVTextAnchor() const
 
 
 /*
- * Returns the value of the "vtextAnchor" attribute of this DefaultValues.
+ * Returns the value of the "vtext-anchor" attribute of this DefaultValues.
  */
 std::string
 DefaultValues::getVTextAnchorAsString() const
@@ -783,7 +783,7 @@ DefaultValues::isSetFill() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "fillRule" attribute is
+ * Predicate returning @c true if this DefaultValues's "fill-rule" attribute is
  * set.
  */
 bool
@@ -827,7 +827,7 @@ DefaultValues::isSetStrokeWidth() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "fontFamily" attribute
+ * Predicate returning @c true if this DefaultValues's "font-family" attribute
  * is set.
  */
 bool
@@ -838,7 +838,7 @@ DefaultValues::isSetFontFamily() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "fontSize" attribute is
+ * Predicate returning @c true if this DefaultValues's "font-size" attribute is
  * set.
  */
 bool
@@ -849,7 +849,7 @@ DefaultValues::isSetFontSize() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "fontWeight" attribute
+ * Predicate returning @c true if this DefaultValues's "font-weight" attribute
  * is set.
  */
 bool
@@ -860,7 +860,7 @@ DefaultValues::isSetFontWeight() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "fontStyle" attribute is
+ * Predicate returning @c true if this DefaultValues's "font-style" attribute is
  * set.
  */
 bool
@@ -871,7 +871,7 @@ DefaultValues::isSetFontStyle() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "textAnchor" attribute
+ * Predicate returning @c true if this DefaultValues's "text-anchor" attribute
  * is set.
  */
 bool
@@ -882,7 +882,7 @@ DefaultValues::isSetTextAnchor() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "vtextAnchor" attribute
+ * Predicate returning @c true if this DefaultValues's "vtext-anchor" attribute
  * is set.
  */
 bool
@@ -1115,7 +1115,7 @@ DefaultValues::setFill(const std::string& fill)
 
 
 /*
- * Sets the value of the "fillRule" attribute of this DefaultValues.
+ * Sets the value of the "fill-rule" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule)
@@ -1126,7 +1126,7 @@ DefaultValues::setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule)
 
 
 /*
-* Sets the value of the "fillRule" attribute of this DefaultValues.
+* Sets the value of the "fill-rule" attribute of this DefaultValues.
 */
 int
 DefaultValues::setFillRule(FillRule_t fillRule)
@@ -1137,7 +1137,7 @@ DefaultValues::setFillRule(FillRule_t fillRule)
 
 
 /*
- * Sets the value of the "fillRule" attribute of this DefaultValues.
+ * Sets the value of the "fill-rule" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFillRule(const std::string& fillRule)
@@ -1185,7 +1185,7 @@ DefaultValues::setStrokeWidth(double strokeWidth)
 
 
 /*
- * Sets the value of the "fontFamily" attribute of this DefaultValues.
+ * Sets the value of the "font-family" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontFamily(const std::string& fontFamily)
@@ -1196,7 +1196,7 @@ DefaultValues::setFontFamily(const std::string& fontFamily)
 
 
 /*
- * Sets the value of the "fontSize" attribute of this DefaultValues.
+ * Sets the value of the "font-size" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontSize(const std::string& fontSize)
@@ -1207,7 +1207,7 @@ DefaultValues::setFontSize(const std::string& fontSize)
 
 
 /*
- * Sets the value of the "fontWeight" attribute of this DefaultValues.
+ * Sets the value of the "font-weight" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontWeight(const Text::FONT_WEIGHT fontWeight)
@@ -1218,7 +1218,7 @@ DefaultValues::setFontWeight(const Text::FONT_WEIGHT fontWeight)
 
 
 /*
- * Sets the value of the "fontWeight" attribute of this DefaultValues.
+ * Sets the value of the "font-weight" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontWeight(const std::string& fontWeight)
@@ -1234,7 +1234,7 @@ DefaultValues::setFontWeight(const std::string& fontWeight)
 
 
 /*
- * Sets the value of the "fontStyle" attribute of this DefaultValues.
+ * Sets the value of the "font-style" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontStyle(const Text::FONT_STYLE fontStyle)
@@ -1245,7 +1245,7 @@ DefaultValues::setFontStyle(const Text::FONT_STYLE fontStyle)
 
 
 /*
- * Sets the value of the "fontStyle" attribute of this DefaultValues.
+ * Sets the value of the "font-style" attribute of this DefaultValues.
  */
 int
 DefaultValues::setFontStyle(const std::string& fontStyle)
@@ -1261,7 +1261,7 @@ DefaultValues::setFontStyle(const std::string& fontStyle)
 
 
 /*
- * Sets the value of the "textAnchor" attribute of this DefaultValues.
+ * Sets the value of the "text-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::setTextAnchor(const Text::TEXT_ANCHOR textAnchor)
@@ -1272,7 +1272,7 @@ DefaultValues::setTextAnchor(const Text::TEXT_ANCHOR textAnchor)
 
 
 /*
- * Sets the value of the "textAnchor" attribute of this DefaultValues.
+ * Sets the value of the "text-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::setTextAnchor(const std::string& textAnchor)
@@ -1286,7 +1286,7 @@ DefaultValues::setTextAnchor(const std::string& textAnchor)
 
 
 /*
- * Sets the value of the "vtextAnchor" attribute of this DefaultValues.
+ * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::setVTextAnchor(const Text::TEXT_ANCHOR vtextAnchor)
@@ -1297,7 +1297,7 @@ DefaultValues::setVTextAnchor(const Text::TEXT_ANCHOR vtextAnchor)
 
 
 /*
- * Sets the value of the "vtextAnchor" attribute of this DefaultValues.
+ * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::setVTextAnchor(const std::string& vtextAnchor)
@@ -1656,7 +1656,7 @@ DefaultValues::unsetFill()
 
 
 /*
- * Unsets the value of the "fillRule" attribute of this DefaultValues.
+ * Unsets the value of the "fill-rule" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetFillRule()
@@ -1725,7 +1725,7 @@ DefaultValues::unsetStrokeWidth()
 
 
 /*
- * Unsets the value of the "fontFamily" attribute of this DefaultValues.
+ * Unsets the value of the "font-family" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetFontFamily()
@@ -1744,7 +1744,7 @@ DefaultValues::unsetFontFamily()
 
 
 /*
- * Unsets the value of the "fontSize" attribute of this DefaultValues.
+ * Unsets the value of the "font-size" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetFontSize()
@@ -1763,7 +1763,7 @@ DefaultValues::unsetFontSize()
 
 
 /*
- * Unsets the value of the "fontWeight" attribute of this DefaultValues.
+ * Unsets the value of the "font-weight" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetFontWeight()
@@ -1774,7 +1774,7 @@ DefaultValues::unsetFontWeight()
 
 
 /*
- * Unsets the value of the "fontStyle" attribute of this DefaultValues.
+ * Unsets the value of the "font-style" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetFontStyle()
@@ -1785,7 +1785,7 @@ DefaultValues::unsetFontStyle()
 
 
 /*
- * Unsets the value of the "textAnchor" attribute of this DefaultValues.
+ * Unsets the value of the "text-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetTextAnchor()
@@ -1796,7 +1796,7 @@ DefaultValues::unsetTextAnchor()
 
 
 /*
- * Unsets the value of the "vtextAnchor" attribute of this DefaultValues.
+ * Unsets the value of the "vtext-anchor" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetVTextAnchor()
@@ -2168,7 +2168,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
     value = getFill();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "fillRule")
+  else if (attributeName == "fill-rule")
   {
     value = getFillRuleAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -2183,32 +2183,32 @@ DefaultValues::getAttribute(const std::string& attributeName,
     value = getStroke();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "fontFamily")
+  else if (attributeName == "font-family")
   {
     value = getFontFamily();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "fontSize")
+  else if (attributeName == "font-size")
   {
     value = getFontSize().toString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "fontWeight")
+  else if (attributeName == "font-weight")
   {
     value = getFontWeightAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "fontStyle")
+  else if (attributeName == "font-style")
   {
     value = getFontStyleAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "textAnchor")
+  else if (attributeName == "text-anchor")
   {
     value = getTextAnchorAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "vtextAnchor")
+  else if (attributeName == "vtext-anchor")
   {
     value = getVTextAnchorAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -2306,7 +2306,7 @@ DefaultValues::isSetAttribute(const std::string& attributeName) const
   {
     value = isSetFill();
   }
-  else if (attributeName == "fillRule")
+  else if (attributeName == "fill-rule")
   {
     value = isSetFillRule();
   }
@@ -2322,27 +2322,27 @@ DefaultValues::isSetAttribute(const std::string& attributeName) const
   {
     value = isSetStrokeWidth();
   }
-  else if (attributeName == "fontFamily")
+  else if (attributeName == "font-family")
   {
     value = isSetFontFamily();
   }
-  else if (attributeName == "fontSize")
+  else if (attributeName == "font-size")
   {
     value = isSetFontSize();
   }
-  else if (attributeName == "fontWeight")
+  else if (attributeName == "font-weight")
   {
     value = isSetFontWeight();
   }
-  else if (attributeName == "fontStyle")
+  else if (attributeName == "font-style")
   {
     value = isSetFontStyle();
   }
-  else if (attributeName == "textAnchor")
+  else if (attributeName == "text-anchor")
   {
     value = isSetTextAnchor();
   }
-  else if (attributeName == "vtextAnchor")
+  else if (attributeName == "vtext-anchor")
   {
     value = isSetVTextAnchor();
   }
@@ -2520,7 +2520,7 @@ DefaultValues::setAttribute(const std::string& attributeName,
   {
     return_value = setFill(value);
   }
-  else if (attributeName == "fillRule")
+  else if (attributeName == "fill-rule")
   {
     return_value = setFillRule(value);
   }
@@ -2532,27 +2532,27 @@ DefaultValues::setAttribute(const std::string& attributeName,
   {
     return_value = setStroke(value);
   }
-  else if (attributeName == "fontFamily")
+  else if (attributeName == "font-family")
   {
     return_value = setFontFamily(value);
   }
-  else if (attributeName == "fontSize")
+  else if (attributeName == "font-size")
   {
     return_value = setFontSize(value);
   }
-  else if (attributeName == "fontWeight")
+  else if (attributeName == "font-weight")
   {
     return_value = setFontWeight(value);
   }
-  else if (attributeName == "fontStyle")
+  else if (attributeName == "font-style")
   {
     return_value = setFontStyle(value);
   }
-  else if (attributeName == "textAnchor")
+  else if (attributeName == "text-anchor")
   {
     return_value = setTextAnchor(value);
   }
-  else if (attributeName == "vtextAnchor")
+  else if (attributeName == "vtext-anchor")
   {
     return_value = setVTextAnchor(value);
   }
@@ -2649,7 +2649,7 @@ DefaultValues::unsetAttribute(const std::string& attributeName)
   {
     value = unsetFill();
   }
-  else if (attributeName == "fillRule")
+  else if (attributeName == "fill-rule")
   {
     value = unsetFillRule();
   }
@@ -2665,27 +2665,27 @@ DefaultValues::unsetAttribute(const std::string& attributeName)
   {
     value = unsetStrokeWidth();
   }
-  else if (attributeName == "fontFamily")
+  else if (attributeName == "font-family")
   {
     value = unsetFontFamily();
   }
-  else if (attributeName == "fontSize")
+  else if (attributeName == "font-size")
   {
     value = unsetFontSize();
   }
-  else if (attributeName == "fontWeight")
+  else if (attributeName == "font-weight")
   {
     value = unsetFontWeight();
   }
-  else if (attributeName == "fontStyle")
+  else if (attributeName == "font-style")
   {
     value = unsetFontStyle();
   }
-  else if (attributeName == "textAnchor")
+  else if (attributeName == "text-anchor")
   {
     value = unsetTextAnchor();
   }
-  else if (attributeName == "vtextAnchor")
+  else if (attributeName == "vtext-anchor")
   {
     value = unsetVTextAnchor();
   }

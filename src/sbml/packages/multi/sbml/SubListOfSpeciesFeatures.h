@@ -837,7 +837,7 @@ SubListOfSpeciesFeatures_getRelation(const SubListOfSpeciesFeatures_t * slosf);
  * @li @c "and"
  * @li @c "or"
  * @li @c "not"
- * @li @c "invalid SubListOfSpeciesFeaturesRelation"
+ * @li @c NULL
  *
  * @memberof SubListOfSpeciesFeatures_t
  */

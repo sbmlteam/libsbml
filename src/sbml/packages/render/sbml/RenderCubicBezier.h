@@ -133,15 +133,16 @@ public:
   /**
   * Creates a CubicBezier with the given points.
   *
+  * @param renderns the RenderPkgNamespaces object.
   * @param bp1_x x coordinatee of the first base point.
   * @param bp1_y y coordinatee of the first base point.
   * @param bp1_z z coordinatee of the first base point.
-  * @param bp1_x x coordinatee of the second base point.
-  * @param bp1_y y coordinatee of the second base point.
-  * @param bp1_z z coordinatee of the second base point.
-  * @param bp1_x x coordinatee of the end point.
-  * @param bp1_y y coordinatee of the end point.
-  * @param bp1_z z coordinatee of the end point.
+  * @param bp2_x x coordinatee of the second base point.
+  * @param bp2_y y coordinatee of the second base point.
+  * @param bp2_z z coordinatee of the second base point.
+  * @param end_x x coordinatee of the end point.
+  * @param end_y y coordinatee of the end point.
+  * @param end_z z coordinatee of the end point.
   */
   RenderCubicBezier(RenderPkgNamespaces* renderns,
     const RelAbsVector& bp1_x,
@@ -164,6 +165,7 @@ public:
   *
   * @param node the XMLNode object reference that describes the RenderCubicBezier
   * object to be instantiated.
+  * @param l2version the version of SBML Level&nbsp;2 to target.
   */
   RenderCubicBezier(const XMLNode& node, unsigned int l2version = 4);
 

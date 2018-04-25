@@ -904,7 +904,7 @@ OutwardBindingSite_getBindingStatus(const OutwardBindingSite_t * obs);
  * @li @c "bound"
  * @li @c "unbound"
  * @li @c "either"
- * @li @c "invalid OutwardBindingSiteBindingStatus"
+ * @li @c NULL
  *
  * @memberof OutwardBindingSite_t
  */

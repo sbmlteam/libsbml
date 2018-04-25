@@ -7160,8 +7160,9 @@ SBase::setSBaseFields (const XMLToken& element)
     setNamespaces(NULL);
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  * (Extension)
@@ -7182,7 +7183,9 @@ SBase::setElementNamespace(const std::string &uri)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void
 SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
   unsigned int version)
@@ -7323,6 +7326,7 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Gets the XML namespace to which this element belongs to.
  */

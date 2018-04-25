@@ -1065,8 +1065,8 @@ FontStyle_isValidString(const char* code);
 
 /**
  * @enum VTextAnchor_t
- * @brief Enumeration of values permitted as the value of the "textanchor"
- * attribute on V objects.
+ * @brief Enumeration of values permitted as the value of the "vtext-anchor"
+ * attribute on various objects.
  *
  * @if conly
  * @see V_getTextanchor()
@@ -1081,11 +1081,11 @@ FontStyle_isValidString(const char* code);
  */
 typedef enum
 {
-  V_TEXTANCHOR_UNSET          /*!< The v textanchor is @c "unset". */
-, V_TEXTANCHOR_TOP            /*!< The v textanchor is @c "top". */
-, V_TEXTANCHOR_MIDDLE         /*!< The v textanchor is @c "middle". */
-, V_TEXTANCHOR_BOTTOM         /*!< The v textanchor is @c "bottom". */
-, V_TEXTANCHOR_BASELINE       /*!< The v textanchor is @c "baseline". */
+  V_TEXTANCHOR_UNSET          /*!< The vertical text anchor is @c "unset". */
+, V_TEXTANCHOR_TOP            /*!< The vertical text anchor is @c "top". */
+, V_TEXTANCHOR_MIDDLE         /*!< The vertical text anchor is @c "middle". */
+, V_TEXTANCHOR_BOTTOM         /*!< The vertical text anchor is @c "bottom". */
+, V_TEXTANCHOR_BASELINE       /*!< The vertical text anchor is @c "baseline". */
 , V_TEXTANCHOR_INVALID        /*!< Invalid VTextAnchor value. */
 } VTextAnchor_t;
 
@@ -1188,8 +1188,8 @@ VTextAnchor_isValidString(const char* code);
 
 /**
  * @enum HTextAnchor_t
- * @brief Enumeration of values permitted as the value of the "textanchor"
- * attribute on H objects.
+ * @brief Enumeration of values permitted as the value of the "text-anchor"
+ * attribute on various objects.
  *
  * @if conly
  * @see H_getTextanchor()
@@ -1204,10 +1204,10 @@ VTextAnchor_isValidString(const char* code);
  */
 typedef enum
 {
-  H_TEXTANCHOR_UNSET         /*!< The h textanchor is @c "unset". */
-, H_TEXTANCHOR_START         /*!< The h textanchor is @c "start". */
-, H_TEXTANCHOR_MIDDLE        /*!< The h textanchor is @c "middle". */
-, H_TEXTANCHOR_END           /*!< The h textanchor is @c "end". */
+  H_TEXTANCHOR_UNSET         /*!< The horizontal textanchor is @c "unset". */
+, H_TEXTANCHOR_START         /*!< The horizontal textanchor is @c "start". */
+, H_TEXTANCHOR_MIDDLE        /*!< The horizontal textanchor is @c "middle". */
+, H_TEXTANCHOR_END           /*!< The horizontal textanchor is @c "end". */
 , H_TEXTANCHOR_INVALID       /*!< Invalid HTextAnchor value. */
 } HTextAnchor_t;
 

@@ -3752,4 +3752,92 @@ if (lmp != null)
  * constructs in Level&nbsp;2 and Level&nbsp;1 are Parameter objects instead.
  *
  * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_font_weight
+ *
+ * @par
+ * The attribute "font-weight" is used to specify whether 
+ * the text is to be "normal" or "bold".  If omitted, the text may be rendered
+ * in either way.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable values for "font-weight":
+ * <ul>
+ * <li> @c "bold", darker and/or thicker than normal print.
+ *
+ * <li> @c "normal", the typical print weight; lighter and/or thinner than "bold".
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_font_style
+ *
+ * @par
+ * The attribute "font-style" is used to specify whether 
+ * the text is to be "normal" or "italic".  If omitted, the text may be rendered
+ * in either way.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable values for "font-style":
+ * <ul>
+ * <li> @c "italic", slanted print
+ *
+ * <li> @c "normal", upright print
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_text_anchor
+ *
+ * @par
+ * The attribute "text-anchor" is used to specify the 
+ * horizontal alignment of the text.  If omitted, the text may be aligned
+ * in any way.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable values for "text-anchor":
+ * <ul>
+ * <li> @c "start", the start of the text is aligned to the  horizontal center 
+ * of the box.
+ *
+ * <li> @c "middle", the horizontal center of the text is aligned to the
+ * horizontal center of the box.
+ *
+ * <li> @c "end", the end of the text is aligned to the horizontal center of 
+ * the box.
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_vtext_anchor
+ *
+ * @par
+ * The attribute "vtext-anchor" is used to specify the 
+ * vertical alignment of the text.  If omitted, the text may be aligned
+ * in any way.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable values for "vtext-anchor":
+ * <ul>
+ * <li> @c "top", the top of the text is aligned to the vertical center of
+ * the box.
+ *
+ * <li> @c "middle", the vertical center of the text is aligned with the 
+ * vertical center of the box.
+ *
+ * <li> @c "bottom", the bottom of the text (i.e. the very bottom of any 
+ * descending letter like 'y' or 'p') is aligned with the vertical 
+ * center of the box.
+ *
+ * <li> @c "baseline", the baseline of the text (i.e. the bottom of any 
+ * non-descending letter like 'a' or e') is aligned with the vertical center
+ * of the box.
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
  */

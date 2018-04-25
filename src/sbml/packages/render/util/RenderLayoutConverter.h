@@ -22,6 +22,27 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ *
+ * @class RenderLayoutConverter
+ * @sbmlbrief{core} Converts an SBML document with Layout and Render information 
+ * between the Level 3 package version and the Level 2 annotation version.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This SBML converter interconverts Layout and Render information between the 
+ * Level 3 package version and the Level 2 annotation version.
+ *
+ * RenderLayoutConverter is enabled by creating a ConversionProperties
+ * object with the option @c "convert layout", and passing this
+ * properties object to SBMLDocument::convert(@if java
+ * ConversionProperties@endif).  If the target namespace is not set,
+ * this converter will automatically detect whether the source document
+ * has the Level 2 or Level 3 version of the layout and render information,
+ * and converts it to the other format.  If the target namespace is set,
+ * the converter only attempts to translate the information in that
+ * direction.
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef RenderLayoutConverter_h
@@ -100,7 +121,7 @@ public:
 
   
   /** 
-   * the actual conversion 
+   * Perform the conversion.
    * 
    * @return status code represeting success/failure/conversion impossible
    */

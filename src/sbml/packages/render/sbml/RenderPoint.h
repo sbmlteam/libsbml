@@ -117,6 +117,7 @@ public:
   /**
    * Creates a new point with the given ccordinates.
    *
+   * @param renderns the RenderPkgNamespaces object.
    * @param x x coordinate of the RenderPoint object
    * @param y y coordinate of the RenderPoint object
    * @param z z coordinate of the RenderPoint object
@@ -134,6 +135,7 @@ public:
    *
    * @param node the XMLNode object reference that describes the RenderPoint
    * object to be instantiated.
+   * @param l2version the version of SBML Level&nbsp;2 to target.
    */
    RenderPoint(const XMLNode& node, unsigned int l2version=4);
 

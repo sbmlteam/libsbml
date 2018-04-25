@@ -515,7 +515,7 @@ public:
   * Removes the LocalStyle from this LocalRenderInformation based on its
   * identifier and returns a pointer to it.
   *
-  * @param sid a string representing the identifier of the LocalStyle to
+  * @param id a string representing the identifier of the LocalStyle to
   * remove.
   *
   * @return the LocalStyle in this LocalRenderInformation based on the
@@ -537,7 +537,7 @@ public:
   * Removes the LocalStyle from this LocalRenderInformation based on its
   * identifier and returns a pointer to it.
   *
-  * @param sid a string representing the identifier of the LocalStyle to
+  * @param id a string representing the identifier of the LocalStyle to
   * remove.
   *
   * @return the LocalStyle in this LocalRenderInformation based on the

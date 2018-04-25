@@ -420,14 +420,13 @@ RenderGroup::getVtextAnchor() const
 }
 
 
-/*
-* Returns the value of the "vtext-anchor" attribute of this RenderGroup.
-*/
+/** @cond doxygenLibsbmlInternal */
 int
 RenderGroup::getVTextAnchor() const
 {
   return mVTextAnchor;
 }
+/** @endcond */
 
 /*
  * Returns the value of the "vtext-anchor" attribute of this RenderGroup.
@@ -441,7 +440,7 @@ RenderGroup::getVtextAnchorAsString() const
 
 
 /*
-* Returns the value of the "fontsize" element of this RenderPoint.
+* Returns the value of the "font-size" element of this RenderPoint.
 */
 const RelAbsVector&
 RenderGroup::getFontSize() const
@@ -451,7 +450,7 @@ RenderGroup::getFontSize() const
 
 
 /*
-* Returns the value of the "fontsize" element of this RenderPoint.
+* Returns the value of the "font-size" element of this RenderPoint.
 */
 RelAbsVector&
 RenderGroup::getFontSize()
@@ -537,15 +536,13 @@ RenderGroup::isSetVtextAnchor() const
 }
 
 
-/*
-* Predicate returning @c true if this RenderGroup's "vtext-anchor" attribute
-* is set.
-*/
+/** @cond doxygenLibsbmlInternal */
 bool
 RenderGroup::isSetVTextAnchor() const
 {
   return isSetVtextAnchor();
 }
+/** @endcond */
 
 
 /*

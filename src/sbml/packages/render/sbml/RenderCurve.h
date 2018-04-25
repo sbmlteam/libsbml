@@ -126,6 +126,7 @@ public:
    *
    * @param node the XMLNode object reference that describes the RenderCurve
    * object to be instantiated.
+   * @param l2version the version of SBML Level&nbsp;2 to target.
    */
   RenderCurve(const XMLNode& node, unsigned int l2version=4);
 

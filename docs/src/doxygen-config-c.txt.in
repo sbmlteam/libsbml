@@ -155,7 +155,12 @@ INPUT =                                    \
   ../../src/sbml/packages/qual/common      \
   ../../src/sbml/packages/qual/extension   \
   ../../src/sbml/packages/qual/sbml        \
-  ../../src/sbml/packages/qual/validator
+  ../../src/sbml/packages/qual/validator   \
+  ../../src/sbml/packages/render/common    \
+  ../../src/sbml/packages/render/extension \
+  ../../src/sbml/packages/render/sbml      \
+  ../../src/sbml/packages/render/util      \ 
+  ../../src/sbml/packages/render/validator 
 
 EXCLUDE += ../../src/sbml/common/sbmlfwd.h \
            ../../src/sbml/packages/comp/common/compfwd.h
