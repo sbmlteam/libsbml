@@ -64,7 +64,7 @@ GradientStop::GradientStop(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
   : SBase(level, version)
-  , mOffset (NULL)
+  , mOffset (RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()))
   , mStopColor ("")
 {
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
@@ -77,7 +77,7 @@ GradientStop::GradientStop(unsigned int level,
  */
 GradientStop::GradientStop(RenderPkgNamespaces *renderns)
   : SBase(renderns)
-  , mOffset (NULL)
+  , mOffset (RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN()))
   , mStopColor ("")
 {
   setElementNamespace(renderns->getURI());
@@ -132,14 +132,9 @@ GradientStop::GradientStop(const XMLNode& node, unsigned int l2version) : SBase(
  */
 GradientStop::GradientStop(const GradientStop& orig)
   : SBase( orig )
-  , mOffset ( NULL )
+  , mOffset ( orig.mOffset )
   , mStopColor ( orig.mStopColor )
 {
-  if (orig.mOffset != NULL)
-  {
-    mOffset = RelAbsVector(orig.mOffset);
-  }
-
   connectToChild();
 }
 
@@ -154,14 +149,7 @@ GradientStop::operator=(const GradientStop& rhs)
   {
     SBase::operator=(rhs);
     mStopColor = rhs.mStopColor;
-    if (rhs.mOffset != NULL)
-    {
-      mOffset = RelAbsVector(rhs.mOffset);
-    }
-    else
-    {
-      mOffset = NULL;
-    }
+    mOffset = rhs.mOffset;
 
     connectToChild();
   }
@@ -275,20 +263,8 @@ GradientStop::isSetOffset() const
 int
 GradientStop::setOffset(const RelAbsVector& offset)
 {
-  if (mOffset == offset)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (offset == NULL)
-  {
-    mOffset = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    mOffset = RelAbsVector(offset);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mOffset = offset;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -333,7 +309,7 @@ void GradientStop::setOffset(const std::string& co)
 int
 GradientStop::unsetOffset()
 {
-  mOffset = NULL;
+  mOffset.unsetCoordinate();
   return LIBSBML_OPERATION_SUCCESS;
 }
 
