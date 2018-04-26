@@ -69,6 +69,7 @@
 #include <sbml/packages/render/sbml/GraphicalPrimitive2D.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
+#include <sbml/packages/render/sbml/ListOfDrawables.h>
 #include <sbml/packages/layout/sbml/BoundingBox.h>
 #include <sbml/xml/XMLNode.h>
 

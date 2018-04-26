@@ -39,6 +39,7 @@
 #include <sbml/packages/render/sbml/RadialGradient.h>
 #include <sbml/packages/render/sbml/GlobalRenderInformation.h>
 #include <sbml/packages/render/sbml/LocalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfLocalRenderInformation.h>
 
 
 using namespace std;

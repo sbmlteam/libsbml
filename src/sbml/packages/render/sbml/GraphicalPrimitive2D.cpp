@@ -37,7 +37,9 @@
 #include <sbml/packages/render/sbml/Rectangle.h>
 #include <sbml/packages/render/sbml/Polygon.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
+#include <sbml/packages/render/sbml/ListOfDrawables.h>
 #include <sbml/packages/render/sbml/LineEnding.h>
+#include <sbml/packages/render/sbml/ListOfLineEndings.h>
 
 #include <sbml/packages/render/extension/RenderExtension.h>
 

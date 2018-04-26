@@ -37,7 +37,9 @@
 #include <sbml/packages/render/validator/RenderSBMLError.h>
 
 #include <sbml/packages/render/sbml/GlobalStyle.h>
+#include <sbml/packages/render/sbml/ListOfGlobalStyles.h>
 #include <sbml/packages/render/sbml/LocalStyle.h>
+#include <sbml/packages/render/sbml/ListOfLocalStyles.h>
 
 #include <sbml/util/ElementFilter.h>
 

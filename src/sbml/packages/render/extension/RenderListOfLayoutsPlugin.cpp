@@ -30,6 +30,7 @@
 #include <sbml/packages/layout/common/LayoutExtensionTypes.h>
 #include <sbml/packages/render/util/RenderUtilities.h>
 #include <sbml/packages/render/sbml/GlobalRenderInformation.h>
+#include <sbml/packages/render/sbml/ListOfGlobalRenderInformation.h>
 #include <sbml/util/ElementFilter.h>
 
 

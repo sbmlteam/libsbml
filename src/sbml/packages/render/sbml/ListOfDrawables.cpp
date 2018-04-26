@@ -39,6 +39,7 @@
 #include <sbml/packages/render/sbml/Polygon.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
 #include <sbml/packages/render/sbml/LineEnding.h>
+#include <sbml/packages/render/sbml/ListOfLineEndings.h>
 #include <sbml/packages/render/sbml/Text.h>
 #include <sbml/packages/render/sbml/RenderCurve.h>
 

@@ -61,6 +61,7 @@
 #include <sbml/SBase.h>
 #include <sbml/packages/render/extension/RenderExtension.h>
 #include <sbml/packages/render/sbml/RenderGroup.h>
+#include <sbml/packages/render/sbml/ListOfDrawables.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
