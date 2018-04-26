@@ -1138,7 +1138,7 @@ RenderCurve::createObject(XMLInputStream& stream)
 
   if (name == "listOfCurveElements")
   {
-    if (mRenderPoints.size() != 0)
+    if (mRenderPoints.size() != 0 && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderCurveAllowedElements, getPackageVersion(), getLevel(),
@@ -1225,11 +1225,11 @@ RenderCurve::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mStartHead.empty() == true)
+    if (mStartHead.empty() == true && log)
     {
       logEmptyString(mStartHead, level, version, "<RenderCurve>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mStartHead) == false)
+    else if (SyntaxChecker::isValidSBMLSId(mStartHead) == false && log)
     {
       std::string msg = "The startHead attribute on the <" + getElementName() +
         ">";
@@ -1251,7 +1251,7 @@ RenderCurve::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("endHead", mEndHead);
 
-  if (assigned == true)
+  if (assigned == true && log)
   {
     if (mEndHead.empty() == true)
     {

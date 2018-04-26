@@ -1949,7 +1949,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
 
   if (name == "listOfColorDefinitions")
   {
-    if (mColorDefinitions.size() != 0)
+    if (mColorDefinitions.size() != 0 && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
@@ -1960,7 +1960,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
   }
   else if (name == "listOfGradientDefinitions")
   {
-    if (mGradientBases.size() != 0)
+    if (mGradientBases.size() != 0 && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
@@ -1971,7 +1971,7 @@ RenderInformationBase::createObject(XMLInputStream& stream)
   }
   else if (name == "listOfLineEndings")
   {
-    if (mLineEndings.size() != 0)
+    if (mLineEndings.size() != 0 && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render",
         RenderRenderInformationBaseAllowedElements, getPackageVersion(),
@@ -2065,29 +2065,30 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
   // 
 
   assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
+  if (log)
   {
-    if (mId.empty() == true)
+    if (assigned == true)
     {
-      logEmptyString(mId, level, version, "<RenderInformationBase>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+      if (mId.empty() == true)
+      {
+        logEmptyString(mId, level, version, "<RenderInformationBase>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      {
+        log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
+          version, "The id on the <" + getElementName() + "> is '" + mId + "', "
           "which does not conform to the syntax.", getLine(), getColumn());
+      }
+    }
+    else
+    {
+      std::string message = "Render attribute 'id' is missing from the "
+        "<RenderInformationBase> element.";
+      log->logPackageError("render",
+        RenderRenderInformationBaseAllowedAttributes, pkgVersion, level, version,
+        message);
     }
   }
-  else
-  {
-    std::string message = "Render attribute 'id' is missing from the "
-      "<RenderInformationBase> element.";
-    log->logPackageError("render",
-      RenderRenderInformationBaseAllowedAttributes, pkgVersion, level, version,
-        message);
-  }
-
   // 
   // name string (use = "optional" )
   // 
@@ -2096,7 +2097,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mName.empty() == true)
+    if (log && mName.empty() == true)
     {
       logEmptyString(mName, level, version, "<RenderInformationBase>");
     }
@@ -2108,7 +2109,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("programName", mProgramName);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mProgramName.empty() == true)
     {
@@ -2124,7 +2125,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mProgramVersion.empty() == true)
+    if (log && mProgramVersion.empty() == true)
     {
       logEmptyString(mProgramVersion, level, version,
         "<RenderInformationBase>");
@@ -2138,7 +2139,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
   assigned = attributes.readInto("referenceRenderInformation",
     mReferenceRenderInformation);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mReferenceRenderInformation.empty() == true)
     {
@@ -2169,7 +2170,7 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("backgroundColor", mBackgroundColor);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mBackgroundColor.empty() == true)
     {

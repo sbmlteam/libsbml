@@ -1324,7 +1324,7 @@ LineEnding::createObject(XMLInputStream& stream)
   else if (name == "boundingBox")
   {
     //hack because original render code always creates a boundng box when it create a line ending
-    if (isSetBoundingBox() && mBoundingBox->getDimensionsExplicitlySet())
+    if (isSetBoundingBox() && mBoundingBox->getDimensionsExplicitlySet() && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render", RenderLineEndingAllowedElements,
         getPackageVersion(), getLevel(), getVersion());
@@ -1440,11 +1440,11 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mId.empty() == true)
+    if (log && mId.empty() == true)
     {
       logEmptyString(mId, level, version, "<LineEnding>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    else if (log && SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
         version, "The id on the <" + getElementName() + "> is '" + mId + "', "
@@ -1455,8 +1455,11 @@ LineEnding::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Render attribute 'id' is missing from the "
       "<LineEnding> element.";
-    log->logPackageError("render", RenderLineEndingAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      log->logPackageError("render", RenderLineEndingAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
   }
 
   // 

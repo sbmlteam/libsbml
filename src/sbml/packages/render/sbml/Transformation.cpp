@@ -828,7 +828,7 @@ Transformation::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("name", mName);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mName.empty() == true)
     {

@@ -1340,11 +1340,11 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mId.empty() == true)
+    if (log && mId.empty() == true)
     {
       logEmptyString(mId, level, version, "<GradientBase>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    else if (log && SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
         version, "The id on the <" + getElementName() + "> is '" + mId + "', "
@@ -1355,8 +1355,11 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Render attribute 'id' is missing from the "
       "<GradientBase> element.";
-    log->logPackageError("render", RenderGradientBaseAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      log->logPackageError("render", RenderGradientBaseAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
   }
 
   // 
@@ -1367,7 +1370,7 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mName.empty() == true)
+    if (log && mName.empty() == true)
     {
       logEmptyString(mName, level, version, "<GradientBase>");
     }
@@ -1382,7 +1385,7 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (spreadMethod.empty() == true)
+    if (log && spreadMethod.empty() == true)
     {
       logEmptyString(spreadMethod, level, version, "<GradientBase>");
     }
@@ -1390,7 +1393,7 @@ GradientBase::readAttributes(const XMLAttributes& attributes,
     {
       mSpreadMethod = GradientSpreadMethod_fromString(spreadMethod.c_str());
 
-      if (GradientSpreadMethod_isValid((GradientSpreadMethod_t)(mSpreadMethod)) == 0)
+      if (log && GradientSpreadMethod_isValid((GradientSpreadMethod_t)(mSpreadMethod)) == 0)
       {
         std::string msg = "The spreadMethod on the <GradientBase> ";
 

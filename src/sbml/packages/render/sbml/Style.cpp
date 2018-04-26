@@ -1353,7 +1353,7 @@ Style::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("id", mId);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mId.empty() == true)
     {
@@ -1373,7 +1373,7 @@ Style::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("name", mName);
 
-  if (assigned == true)
+  if (log && assigned == true)
   {
     if (mName.empty() == true)
     {

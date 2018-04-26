@@ -115,7 +115,7 @@ typedef enum
 , RenderGradientStopAllowedCoreElements                       = 1321002
 , RenderGradientStopAllowedAttributes                         = 1321003
 , RenderGradientStopStopColorMustBeString                     = 1321004
-, RenderGradientStopOffsetMustBeString                        = 1321005
+, RenderGradientStopOffsetMustBeRelAbsVector                        = 1321005
 , RenderRenderGroupAllowedCoreAttributes                      = 1321101
 , RenderRenderGroupAllowedCoreElements                        = 1321102
 , RenderRenderGroupAllowedAttributes                          = 1321103

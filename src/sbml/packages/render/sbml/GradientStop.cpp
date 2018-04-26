@@ -716,7 +716,7 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mStopColor.empty() == true)
+    if (log && mStopColor.empty() == true)
     {
       logEmptyString(mStopColor, level, version, "<GradientStop>");
     }
@@ -725,27 +725,46 @@ GradientStop::readAttributes(const XMLAttributes& attributes,
   {
     std::string message = "Render attribute 'stop-color' is missing from the "
       "<GradientStop> element.";
-    log->logPackageError("render", RenderGradientStopAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      log->logPackageError("render", RenderGradientStopAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
   }
 
   // 
   // offset string (use = "required" )
   // 
+  std::string s;
+  RelAbsVector v = RelAbsVector();
 
-  std::string offset;
-  assigned = attributes.readInto("offset", offset);
-
-  if (assigned == true)
-  {
-    mOffset = RelAbsVector(offset);
-  }
-  else
+  //
+  // offset RelAbsVector (use = required) 
+  //
+  assigned = attributes.readInto("offset", s, this->getErrorLog(), false, getLine(), getColumn());
+  if (!assigned && log)
   {
     std::string message = "Render attribute 'offset' is missing from the "
       "<GradientStop> element.";
     log->logPackageError("render", RenderGradientStopAllowedAttributes,
       pkgVersion, level, version, message);
+  }
+  else
+  {
+    v.setCoordinate(s);
+    if (!(v.isSetCoordinate()) && log)
+    {
+      std::string message = "The syntax '" + s + "' of the attribute 'offset' on the "
+        "<GradientStop> does not conform to the syntax of a RelAbsVector type.";
+      log->logPackageError("render", RenderGradientStopOffsetMustBeRelAbsVector,
+        pkgVersion, level, version, message);
+
+    }
+    else
+    {
+      this->setOffset(v);
+    }
+    v.erase();
   }
 
 }

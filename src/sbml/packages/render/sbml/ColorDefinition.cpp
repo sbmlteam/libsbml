@@ -1165,11 +1165,11 @@ ColorDefinition::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mId.empty() == true)
+    if (log && mId.empty() == true)
     {
       logEmptyString(mId, level, version, "<ColorDefinition>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    else if (log && SyntaxChecker::isValidSBMLSId(mId) == false)
     {
       log->logPackageError("render", RenderIdSyntaxRule, pkgVersion, level,
         version, "The id on the <" + getElementName() + "> is '" + mId + "', "
@@ -1192,7 +1192,7 @@ ColorDefinition::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mName.empty() == true)
+    if (log && mName.empty() == true)
     {
       logEmptyString(mName, level, version, "<ColorDefinition>");
     }
@@ -1206,7 +1206,7 @@ ColorDefinition::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mValue.empty() == true)
+    if (log && mValue.empty() == true)
     {
       logEmptyString(mValue, level, version, "<ColorDefinition>");
     }
@@ -1217,10 +1217,13 @@ ColorDefinition::readAttributes(const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Render attribute 'value' is missing from the "
-      "<ColorDefinition> element.";
-    log->logPackageError("render", RenderColorDefinitionAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      std::string message = "Render attribute 'value' is missing from the "
+        "<ColorDefinition> element.";
+      log->logPackageError("render", RenderColorDefinitionAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
   }
 }
 

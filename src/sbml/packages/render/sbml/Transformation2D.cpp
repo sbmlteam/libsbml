@@ -759,7 +759,7 @@ Transformation2D::readAttributes(const XMLAttributes& attributes,
   //  }
   //}
     std::string s;
-    attributes.readInto("transform", s, getErrorLog(), false, getLine(), getColumn());
+    attributes.readInto("transform", s);
     if(!s.empty())
     {
         this->parseTransformation(s);

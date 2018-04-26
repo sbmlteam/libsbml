@@ -2809,7 +2809,7 @@ DefaultValues::readAttributes(const XMLAttributes& attributes,
 
   if (assigned == true)
   {
-    if (mBackgroundColor.empty() == true)
+    if (log && mBackgroundColor.empty() == true)
     {
       logEmptyString(mBackgroundColor, level, version, "<DefaultValues>");
     }

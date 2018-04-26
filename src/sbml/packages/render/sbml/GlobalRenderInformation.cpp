@@ -778,7 +778,7 @@ GlobalRenderInformation::createObject(XMLInputStream& stream)
 
   if (name == "listOfStyles")
   {
-    if (mGlobalStyles.size() != 0)
+    if (mGlobalStyles.size() != 0 && getErrorLog() != NULL)
     {
       getErrorLog()->logPackageError("render",
         RenderGlobalRenderInformationAllowedElements, getPackageVersion(),

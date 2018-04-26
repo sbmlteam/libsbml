@@ -743,7 +743,7 @@ static const packageErrorTableEntry renderErrorTable[] =
   },
 
   // 1321005
-  { RenderGradientStopOffsetMustBeString,
+  { RenderGradientStopOffsetMustBeRelAbsVector,
     "The 'offset' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,

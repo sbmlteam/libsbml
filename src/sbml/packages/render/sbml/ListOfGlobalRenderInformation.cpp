@@ -911,10 +911,13 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
   // majorVersion uint (use = "optional" )
   // 
 
-  numErrs = log->getNumErrors();
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+  }
   mIsSetMajorVersion = attributes.readInto("versionMajor", mMajorVersion);
 
-  if ( mIsSetMajorVersion == false)
+  if ( mIsSetMajorVersion == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
@@ -933,10 +936,13 @@ ListOfGlobalRenderInformation::readAttributes(const XMLAttributes& attributes,
   // minorVersion uint (use = "optional" )
   // 
 
-  numErrs = log->getNumErrors();
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+  }
   mIsSetMinorVersion = attributes.readInto("versionMinor", mMinorVersion);
 
-  if ( mIsSetMinorVersion == false)
+  if ( mIsSetMinorVersion == false && log)
   {
     if (log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
