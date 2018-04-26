@@ -2171,13 +2171,17 @@ RenderInformationBase::readAttributes(const XMLAttributes& attributes,
 
   assigned = attributes.readInto("backgroundColor", mBackgroundColor);
 
-  if (log && assigned == true)
+  if (assigned == true)
   {
-    if (mBackgroundColor.empty() == true)
+    if (log && mBackgroundColor.empty() == true)
     {
       logEmptyString(mBackgroundColor, level, version,
         "<RenderInformationBase>");
     }
+  }
+  else
+  {
+    mBackgroundColor = "#FFFFFFFF";
   }
 }
 

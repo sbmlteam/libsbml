@@ -1132,7 +1132,6 @@ Text::readAttributes(const XMLAttributes& attributes,
     {
       if (log) 
         logEmptyString(fontWeight, level, version, "<Text>");
-      mFontWeight = FONT_WEIGHT_UNSET;
     }
     else
     {
@@ -1140,7 +1139,6 @@ Text::readAttributes(const XMLAttributes& attributes,
 
       if (FontWeight_isValid((FontWeight_t)(mFontWeight)) == 0)
       {
-        mFontWeight = FONT_WEIGHT_UNSET;
         std::string msg = "The font-weight on the ";
         msg += elplusid;
         msg += "is '" + fontWeight + "', which is not a valid option.";

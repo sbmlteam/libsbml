@@ -1153,9 +1153,9 @@ GraphicalPrimitive1D::readAttributes(const XMLAttributes& attributes,
   if (log)  numErrs = log->getNumErrors();
   mIsSetStrokeWidth = attributes.readInto("stroke-width", mStrokeWidth);
 
-  if (log && mIsSetStrokeWidth == false)
+  if (mIsSetStrokeWidth == false)
   {
-    if (log->getNumErrors() == numErrs + 1 &&
+    if (log && log->getNumErrors() == numErrs + 1 &&
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
@@ -1165,6 +1165,7 @@ GraphicalPrimitive1D::readAttributes(const XMLAttributes& attributes,
         RenderGraphicalPrimitive1DStrokeWidthMustBeDouble, pkgVersion, level,
           version, message);
     }
+    mStrokeWidth = std::numeric_limits<double>::quiet_NaN();
   }
 
 

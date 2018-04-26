@@ -842,23 +842,28 @@ void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const E
   // basepoint1_x RelAbsVector (use = required) 
   //
   assigned = attributes.readInto("basePoint1_x", s, this->getErrorLog(), false, getLine(), getColumn());
-  if (!assigned && log)
+  if (!assigned)
   {
     std::string message = "The required attribute 'basePoint1_x' is missing from the "
       + elplusid + ".";
-    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log) {
+      log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
     this->mBasePoint1_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
   }
   else
   {
     v.setCoordinate(s);
-    if (!(v.isSetCoordinate()) && log)
+    if (!(v.isSetCoordinate()))
     {
       std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_x' on the "
         + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-      log->logPackageError("render", RenderRenderCubicBezierBasePoint1_xMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+      if (log)
+      {
+        log->logPackageError("render", RenderRenderCubicBezierBasePoint1_xMustBeRelAbsVector,
+          pkgVersion, level, version, message);
+      }
       this->mBasePoint1_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
@@ -872,23 +877,29 @@ void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const E
   // basepoint1_y RelAbsVector (use = required) 
   //
   assigned = attributes.readInto("basePoint1_y", s, this->getErrorLog(), false, getLine(), getColumn());
-  if (!assigned && log)
+  if (!assigned)
   {
     std::string message = "The required attribute 'basePoint1_y' is missing from the "
       + elplusid + ".";
-    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
     this->mBasePoint1_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
   }
   else
   {
     v.setCoordinate(s);
-    if (!(v.isSetCoordinate()) && log)
+    if (!(v.isSetCoordinate()))
     {
-      std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_y' on the "
-        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-      log->logPackageError("render", RenderRenderCubicBezierBasePoint1_yMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+      if (log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'basePoint1_y' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRenderCubicBezierBasePoint1_yMustBeRelAbsVector,
+          pkgVersion, level, version, message);
+      }
       this->mBasePoint1_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
@@ -919,7 +930,7 @@ void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const E
         pkgVersion, level, version, message);
 
     }
-    else
+ //   else
     {
       this->setBasePoint1_z(v);
     }
@@ -930,23 +941,29 @@ void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const E
   // basepoint2_x RelAbsVector (use = required) 
   //
   assigned = attributes.readInto("basePoint2_x", s, this->getErrorLog(), false, getLine(), getColumn());
-  if (!assigned && log)
+  if (!assigned)
   {
-    std::string message = "The required attribute 'basePoint2_x' is missing from the "
-      + elplusid + ".";
-    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      std::string message = "The required attribute 'basePoint2_x' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
     this->mBasePoint2_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
   }
   else
   {
     v.setCoordinate(s);
-    if (!(v.isSetCoordinate()) && log)
+    if (!(v.isSetCoordinate()))
     {
-      std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_x' on the "
-        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-      log->logPackageError("render", RenderRenderCubicBezierBasePoint2_xMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+      if (log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_x' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRenderCubicBezierBasePoint2_xMustBeRelAbsVector,
+          pkgVersion, level, version, message);
+      }
       this->mBasePoint2_X = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else
@@ -960,23 +977,29 @@ void RenderCubicBezier::readAttributes (const XMLAttributes& attributes, const E
   // basepoint2_y RelAbsVector (use = required) 
   //
   assigned = attributes.readInto("basePoint2_y", s, this->getErrorLog(), false, getLine(), getColumn());
-  if (!assigned && log)
+  if (!assigned)
   {
-    std::string message = "The required attribute 'basePoint2_y' is missing from the "
-      + elplusid + ".";
-    log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
-      pkgVersion, level, version, message);
+    if (log)
+    {
+      std::string message = "The required attribute 'basePoint2_y' is missing from the "
+        + elplusid + ".";
+      log->logPackageError("render", RenderRenderCubicBezierAllowedAttributes,
+        pkgVersion, level, version, message);
+    }
     this->mBasePoint2_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
   }
   else
   {
     v.setCoordinate(s);
-    if (!(v.isSetCoordinate()) && log)
+    if (!(v.isSetCoordinate()))
     {
-      std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_y' on the "
-        + elplusid + " does not conform to the syntax of a RelAbsVector type.";
-      log->logPackageError("render", RenderRenderCubicBezierBasePoint2_yMustBeRelAbsVector,
-        pkgVersion, level, version, message);
+      if (log)
+      {
+        std::string message = "The syntax '" + s + "' of the attribute 'basePoint2_y' on the "
+          + elplusid + " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRenderCubicBezierBasePoint2_yMustBeRelAbsVector,
+          pkgVersion, level, version, message);
+      }
       this->mBasePoint2_Y = RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN());
     }
     else

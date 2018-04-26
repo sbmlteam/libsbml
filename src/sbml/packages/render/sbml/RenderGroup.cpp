@@ -2469,16 +2469,19 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
   else
   {
     v.setCoordinate(s);
-    if (!(v.isSetCoordinate()) && log)
+    if (!(v.isSetCoordinate()))
     {
-      std::string message = "The syntax '" + s + "' of the attribute 'font-size' on the ";
-      if (isSetId())
+      if (log)
       {
-        message += "with id '" + getId() + "'";
+        std::string message = "The syntax '" + s + "' of the attribute 'font-size' on the ";
+        if (isSetId())
+        {
+          message += "with id '" + getId() + "'";
+        }
+        message += " does not conform to the syntax of a RelAbsVector type.";
+        log->logPackageError("render", RenderRenderGroupFontSizeMustBeRelAbsVector,
+          pkgVersion, level, version, message);
       }
-      message += " does not conform to the syntax of a RelAbsVector type.";
-      log->logPackageError("render", RenderRenderGroupFontSizeMustBeRelAbsVector,
-        pkgVersion, level, version, message);
 
     }
     else
