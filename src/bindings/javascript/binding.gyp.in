@@ -22,13 +22,12 @@
     "defines": [ @NODE_JS_DEFINES@
     ],
 
-    "cflags": ["-fPIC"],
+    "cflags": ["-fPIC", "-fexceptions"],
     
     "cflags!": [ "-fno-exceptions" ],
-    "cflags_cc!": [ "-fno-exceptions" ],
-    "cflags_cc+": [ "-fexceptions" ],
-    'cflags_cc!': ['-fno-rtti'],
-    'cflags_cc+': ['-frtti'],
+    "cflags+": [ "-fexceptions" ],
+    "cflags_cc!": [ "-fno-exceptions", "-fno-rtti" ],
+    "cflags_cc+": [ "-fexceptions", "-frtti" ],    
     "conditions": [
         ['OS=="mac"', {
           "xcode_settings": {
