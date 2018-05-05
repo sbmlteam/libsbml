@@ -217,6 +217,7 @@ distfiles =                                                  \
         common-text/libsbml-group-layout-intro.html.in       \
         common-text/libsbml-group-multi-intro.html.in        \
         common-text/libsbml-group-qual-intro.html.in         \
+        common-text/libsbml-group-render-intro.html.in       \
         common-text/libsbml-import-for-c-cpp.html	     \
         common-text/libsbml-import-for-csharp.html	     \
         common-text/libsbml-import-for-java.html	     \
@@ -252,6 +253,8 @@ distfiles =                                                  \
         common-text/pkg-marker-layout.txt                    \
         common-text/pkg-marker-qual.html                     \
         common-text/pkg-marker-qual.txt                      \
+        common-text/pkg-marker-render.html                   \
+        common-text/pkg-marker-render.txt                    \
         common-text/plain-font-off.html                      \
         common-text/plain-font-on.html                       \
         common-text/predefined-units.html                    \
@@ -496,6 +499,7 @@ expanded-html-files = \
   common-text/libsbml-group-layout-intro.html \
   common-text/libsbml-group-multi-intro.html  \
   common-text/libsbml-group-qual-intro.html   \
+  common-text/libsbml-group-render-intro.html \
   common-text/libsbml-installation.html	      \
   common-text/libsbml-version.html	      \
   common-text/sbml-specifications-table.html

@@ -1,0 +1,55 @@
+<p> The libSBML &ldquo;render&rdquo; extension implements support for the SBML
+Level&nbsp;3 <em>Graphical Rendering</em> ("render") package.  It can be used
+in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
+
+<h2>Introduction</h2>
+
+<p> The graphical depiction of a reaction network diagram should be described
+  as graphical representations of species and reactions, and not as arbitrary
+  drawing or graph.  While it may seem unnecessary to invent a new language
+  when an existing one like SVG could in principle be used to describe the
+  layout of a reaction network, there are good reasons to have a language
+  tailored specifically for the layout of SBML models.  For example, most
+  programs that will use this SBML extension are primarily programs dealing
+  with biochemical models.  Internally, they will have data structures for
+  species and reactions, so it will also be natural for them to depict the
+  reaction network in terms of species and reactions (and not in terms of,
+  e.g., polygons or splines).
+
+  <p> The Graphical Rendering ("render") package for SBML Level&nbsp;3 is a
+  companion to the Graphical Layout ("layout") package.  Together, they
+  provide a complete format for describing the layout of a diagram
+  and the visual rendition of the entities within it.
+
+ <h2>Authors</h2>
+
+ The primary authors of the SBML Level&nbsp;3 Render specification are Frank
+ T. Bergmann, Sarah M. Keating, Ralph Gauges, Sven Sahle and Katja Wengler.
+
+ <h2>The specification for this SBML package</h2>
+
+ <p style="color: #880000"> This API documentation for libSBML does not
+   provide a complete explanation of the SBML Level&nbsp;3
+   &ldquo;render&rdquo; package.  If you are developing software that uses
+   &ldquo;render&rdquo;, you are strongly urged to read the actual
+   specification for the package.  A link to the specification document
+   current is provided below, along with a link to the page of known issues
+   (if any).
+
+   <table border="0" class="centered text-table normal-font alt-row-colors" style="padding-bottom: 0.5em">
+     <caption class="top-caption">Specification for SBML Level&nbsp;3 Render,
+       current at the time of this libSBML release (@PACKAGE_VERSION@).  Note:
+       an Internet connection is required to access these documents.</caption>
+     <tr>
+       <th style="text-align: left">Specification (in PDF format)</th>
+       <th style="text-align: left">Known issues</th>
+     </tr>
+
+     <tr><td>
+       <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_SPEC_URL@">
+         <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Render package, Version&nbsp;@PACKAGE_RENDER_VERSION@ Release&nbsp;@PACKAGE_RENDER_RELEASE@</a>
+     </td><td>
+       <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_ERRATA_URL@">
+         <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+     </td></tr>
+   </table>

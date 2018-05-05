@@ -3,9 +3,9 @@ SBML Level&nbsp;3 <em>Layout</em> package.  It can be used in SBML Level&nbsp;3 
 
 <h2>Introduction</h2>
 
-<p> The layout of a reaction network diagram should be described as graphical
-representations of species and reactions (and not as arbitrary drawing or
-graph). This means that existing languages for the description of vector
+<p> The layout of a reaction network diagram should be described as a graphical
+representation of species and reactions, and not as an arbitrary drawing or
+graph. This means that existing languages for the description of vector
 drawings (SVG) or general graphs cannot be used.  While it may seem
 unnecessary to invent a new language when an existing one like SVG could in
 principle be used to describe the layout of a reaction network, there are

@@ -567,6 +567,11 @@ INPUT =                                    \
   ../../src/sbml/packages/layout/sbml      \
   ../../src/sbml/packages/layout/util      \ 
   ../../src/sbml/packages/layout/validator \
+  ../../src/sbml/packages/render/common    \
+  ../../src/sbml/packages/render/extension \
+  ../../src/sbml/packages/render/sbml      \
+  ../../src/sbml/packages/render/util      \ 
+  ../../src/sbml/packages/render/validator \
   ../../src/sbml/packages/multi/common    \
   ../../src/sbml/packages/multi/extension \
   ../../src/sbml/packages/multi/sbml      \

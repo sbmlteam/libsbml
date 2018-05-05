@@ -57,8 +57,9 @@
 <p> LibSBML supports two build systems: <a target="_blank"
 href="http://www.cmake.org/">CMake</a>, and GNU autoconf plus GNU make.
 CMake is preferred and is the <b>only one supported for building SBML Level&nbsp;3
-  package extensions</b>; the use of GNU autoconf and GNU make is deprecated
-but is currently still used to build the documentation.
+package extensions</b>; <span class="warning">the use of GNU autoconf and 
+GNU make is <strong>deprecated</strong></span> but is currently still 
+used to build the documentation.
 
 In all cases below, you will need to download the libSBML source code archive
 from the
@@ -204,6 +205,12 @@ href="#unix-compiling"><i>Compiling and installing LibSBML</i></a>.
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-gnumake">1.2 Configuring using GNU Make</a></h3>
+
+<p class="warning"> Warning: the use of GNU autoconf and GNU make is <strong>deprecated</strong>. 
+It cannot be used to properly build the libSBML packages, and it has only been
+retained to build the libSBML documentation.  Please use 
+<a href="#detailed-unix">the CMake-based build system</a> unless you are 
+attempting to build the documentation.
 
 <p> First, in a shell (terminal), <code>cd</code>
 into the directory where you unpacked the libSBML source code

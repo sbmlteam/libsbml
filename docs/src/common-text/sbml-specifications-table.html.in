@@ -210,6 +210,20 @@ See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Spe
 
 <tr class="align-text-bottom">
   <td style="white-space: nowrap">
+    <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_V1_SPEC_URL@">
+      <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Render</a>
+  </td>
+  <td style="white-space: nowrap">
+    <a class="spec-link" target="_blank" href="@PACKAGE_RENDER_V1_ERRATA_URL@">
+      <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+  </td>
+  <td>
+    See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/render">activity page for 'render'</a> for more information
+  </td>
+</tr>
+
+<tr class="align-text-bottom">
+  <td style="white-space: nowrap">
     <a class="spec-link" target="_blank" href="@PACKAGE_MULTI_SPEC_URL@"">
       <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Multistate, Multicomponent and Multicompartment Species</a>
   </td>

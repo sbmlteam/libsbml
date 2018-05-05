@@ -3255,6 +3255,14 @@ InvalidSBMLLevelVersion = _libsbml.InvalidSBMLLevelVersion
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+InvalidSBMLLevelVersion = _libsbml.InvalidSBMLLevelVersion
+    ## @var long InvalidSBMLLevelVersion
+    ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 AnnotationNotesNotAllowedLevel1 = _libsbml.AnnotationNotesNotAllowedLevel1
     ## @var long AnnotationNotesNotAllowedLevel1
     ## 

@@ -178,4 +178,5 @@ EXCLUDE_SYMBOLS +=                     \
 EXAMPLE_PATH           = common-text . ../.. ../../examples/python \
                          ../../examples/python/comp ../../examples/python/layout \
                          ../../examples/python/fbc ../../examples/python/groups \
-                         ../../examples/python/qual ../../examples/python/multi
+                         ../../examples/python/qual ../../examples/python/multi \
+                         ../../examples/python/render

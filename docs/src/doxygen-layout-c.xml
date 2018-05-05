@@ -11,6 +11,7 @@
       <tab type="user" url="@ref groups" title="Groups"/>
       <tab type="user" url="@ref multi"  title="Multistate/Multicomp. Species"/>
       <tab type="user" url="@ref layout" title="Layout"/>
+      <tab type="user" url="@ref render" title="Render"/>
       <tab type="user" url="@ref qual"   title="Qualitative Models"/>
     </tab>
     <tab type="namespaces" visible="yes" title="">

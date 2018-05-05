@@ -34,6 +34,12 @@
 
 */
 
+/** @defgroup render Render
+
+@htmlinclude libsbml-group-render-intro.html
+
+*/
+
 /** @defgroup qual Qualitative Models
 
 @htmlinclude libsbml-group-qual-intro.html
