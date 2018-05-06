@@ -951,6 +951,25 @@ DefaultValues::setSpreadMethod(const GradientBase::SPREADMETHOD spreadMethod)
  * Sets the value of the "spreadMethod" attribute of this DefaultValues.
  */
 int
+DefaultValues::setSpreadMethod(const GradientSpreadMethod_t spreadMethod)
+{
+  if (GradientSpreadMethod_isValid(spreadMethod) == 0)
+  {
+    mSpreadMethod = GRADIENT_SPREAD_METHOD_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpreadMethod = spreadMethod;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the value of the "spreadMethod" attribute of this DefaultValues.
+ */
+int
 DefaultValues::setSpreadMethod(const std::string& spreadMethod)
 {
   mSpreadMethod = SpreadMethod_fromString(spreadMethod.c_str());
@@ -964,7 +983,7 @@ DefaultValues::setSpreadMethod(const std::string& spreadMethod)
  * Sets the value of the "linearGradient_x1" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_x1(const std::string& linearGradient_x1)
+DefaultValues::setLinearGradient_x1(const RelAbsVector& linearGradient_x1)
 {
   mLinearGradient_x1 = linearGradient_x1;
   return LIBSBML_OPERATION_SUCCESS;
@@ -975,7 +994,7 @@ DefaultValues::setLinearGradient_x1(const std::string& linearGradient_x1)
  * Sets the value of the "linearGradient_y1" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_y1(const std::string& linearGradient_y1)
+DefaultValues::setLinearGradient_y1(const RelAbsVector& linearGradient_y1)
 {
   mLinearGradient_y1 = linearGradient_y1;
   return LIBSBML_OPERATION_SUCCESS;
@@ -986,7 +1005,7 @@ DefaultValues::setLinearGradient_y1(const std::string& linearGradient_y1)
  * Sets the value of the "linearGradient_z1" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_z1(const std::string& linearGradient_z1)
+DefaultValues::setLinearGradient_z1(const RelAbsVector& linearGradient_z1)
 {
   mLinearGradient_z1 = linearGradient_z1;
   return LIBSBML_OPERATION_SUCCESS;
@@ -997,7 +1016,7 @@ DefaultValues::setLinearGradient_z1(const std::string& linearGradient_z1)
  * Sets the value of the "linearGradient_x2" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_x2(const std::string& linearGradient_x2)
+DefaultValues::setLinearGradient_x2(const RelAbsVector& linearGradient_x2)
 {
   mLinearGradient_x2 = linearGradient_x2;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1008,7 +1027,7 @@ DefaultValues::setLinearGradient_x2(const std::string& linearGradient_x2)
  * Sets the value of the "linearGradient_y2" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_y2(const std::string& linearGradient_y2)
+DefaultValues::setLinearGradient_y2(const RelAbsVector& linearGradient_y2)
 {
   mLinearGradient_y2 = linearGradient_y2;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1019,7 +1038,7 @@ DefaultValues::setLinearGradient_y2(const std::string& linearGradient_y2)
  * Sets the value of the "linearGradient_z2" attribute of this DefaultValues.
  */
 int
-DefaultValues::setLinearGradient_z2(const std::string& linearGradient_z2)
+DefaultValues::setLinearGradient_z2(const RelAbsVector& linearGradient_z2)
 {
   mLinearGradient_z2 = linearGradient_z2;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1030,7 +1049,7 @@ DefaultValues::setLinearGradient_z2(const std::string& linearGradient_z2)
  * Sets the value of the "radialGradient_cx" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_cx(const std::string& radialGradient_cx)
+DefaultValues::setRadialGradient_cx(const RelAbsVector& radialGradient_cx)
 {
   mRadialGradient_cx = radialGradient_cx;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1041,7 +1060,7 @@ DefaultValues::setRadialGradient_cx(const std::string& radialGradient_cx)
  * Sets the value of the "radialGradient_cy" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_cy(const std::string& radialGradient_cy)
+DefaultValues::setRadialGradient_cy(const RelAbsVector& radialGradient_cy)
 {
   mRadialGradient_cy = radialGradient_cy;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1052,7 +1071,7 @@ DefaultValues::setRadialGradient_cy(const std::string& radialGradient_cy)
  * Sets the value of the "radialGradient_cz" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_cz(const std::string& radialGradient_cz)
+DefaultValues::setRadialGradient_cz(const RelAbsVector& radialGradient_cz)
 {
   mRadialGradient_cz = radialGradient_cz;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1063,7 +1082,7 @@ DefaultValues::setRadialGradient_cz(const std::string& radialGradient_cz)
  * Sets the value of the "radialGradient_r" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_r(const std::string& radialGradient_r)
+DefaultValues::setRadialGradient_r(const RelAbsVector& radialGradient_r)
 {
   mRadialGradient_r = radialGradient_r;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1074,7 +1093,7 @@ DefaultValues::setRadialGradient_r(const std::string& radialGradient_r)
  * Sets the value of the "radialGradient_fx" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_fx(const std::string& radialGradient_fx)
+DefaultValues::setRadialGradient_fx(const RelAbsVector& radialGradient_fx)
 {
   mRadialGradient_fx = radialGradient_fx;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1085,7 +1104,7 @@ DefaultValues::setRadialGradient_fx(const std::string& radialGradient_fx)
  * Sets the value of the "radialGradient_fy" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_fy(const std::string& radialGradient_fy)
+DefaultValues::setRadialGradient_fy(const RelAbsVector& radialGradient_fy)
 {
   mRadialGradient_fy = radialGradient_fy;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1096,7 +1115,7 @@ DefaultValues::setRadialGradient_fy(const std::string& radialGradient_fy)
  * Sets the value of the "radialGradient_fz" attribute of this DefaultValues.
  */
 int
-DefaultValues::setRadialGradient_fz(const std::string& radialGradient_fz)
+DefaultValues::setRadialGradient_fz(const RelAbsVector& radialGradient_fz)
 {
   mRadialGradient_fz = radialGradient_fz;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1126,13 +1145,21 @@ DefaultValues::setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule)
 
 
 /*
-* Sets the value of the "fill-rule" attribute of this DefaultValues.
-*/
+ * Sets the value of the "fill-rule" attribute of this DefaultValues.
+ */
 int
-DefaultValues::setFillRule(FillRule_t fillRule)
+DefaultValues::setFillRule(const FillRule_t fillRule)
 {
-  mFillRule = fillRule;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (FillRule_isValid(fillRule) == 0)
+  {
+    mFillRule = FILL_RULE_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFillRule = fillRule;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -1154,7 +1181,7 @@ DefaultValues::setFillRule(const std::string& fillRule)
  * Sets the value of the "default_z" attribute of this DefaultValues.
  */
 int
-DefaultValues::setDefault_z(const std::string& default_z)
+DefaultValues::setDefault_z(const RelAbsVector& default_z)
 {
   mDefault_z = default_z;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1199,7 +1226,7 @@ DefaultValues::setFontFamily(const std::string& fontFamily)
  * Sets the value of the "font-size" attribute of this DefaultValues.
  */
 int
-DefaultValues::setFontSize(const std::string& fontSize)
+DefaultValues::setFontSize(const RelAbsVector& fontSize)
 {
   mFontSize = fontSize;
   return LIBSBML_OPERATION_SUCCESS;
@@ -1214,6 +1241,25 @@ DefaultValues::setFontWeight(const Text::FONT_WEIGHT fontWeight)
 {
   mFontWeight = fontWeight;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this DefaultValues.
+ */
+int
+DefaultValues::setFontWeight(const FontWeight_t fontWeight)
+{
+  if (FontWeight_isValid(fontWeight) == 0)
+  {
+    mFontWeight = FONT_WEIGHT_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFontWeight = fontWeight;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -1248,6 +1294,24 @@ DefaultValues::setFontStyle(const Text::FONT_STYLE fontStyle)
  * Sets the value of the "font-style" attribute of this DefaultValues.
  */
 int
+DefaultValues::setFontStyle(const FontStyle_t fontStyle)
+{
+  if (FontStyle_isValid(fontStyle) == 0)
+  {
+    mFontStyle = FONT_STYLE_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFontStyle = fontStyle;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+/*
+ * Sets the value of the "font-style" attribute of this DefaultValues.
+ */
+int
 DefaultValues::setFontStyle(const std::string& fontStyle)
 {
   mFontStyle = FontStyle_fromString(fontStyle.c_str());
@@ -1275,6 +1339,25 @@ DefaultValues::setTextAnchor(const Text::TEXT_ANCHOR textAnchor)
  * Sets the value of the "text-anchor" attribute of this DefaultValues.
  */
 int
+DefaultValues::setTextAnchor(const HTextAnchor_t textAnchor)
+{
+  if (HTextAnchor_isValid(textAnchor) == 0)
+  {
+    mTextAnchor = H_TEXTANCHOR_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mTextAnchor = textAnchor;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this DefaultValues.
+ */
+int
 DefaultValues::setTextAnchor(const std::string& textAnchor)
 {
   mTextAnchor = TextAnchor_fromString(textAnchor.c_str());
@@ -1293,6 +1376,25 @@ DefaultValues::setVTextAnchor(const Text::TEXT_ANCHOR vtextAnchor)
 {
   mVTextAnchor = vtextAnchor;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
+ */
+int
+DefaultValues::setVTextAnchor(const VTextAnchor_t vtextAnchor)
+{
+  if (VTextAnchor_isValid(vtextAnchor) == 0)
+  {
+    mVTextAnchor = V_TEXTANCHOR_INVALID;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mVTextAnchor = vtextAnchor;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -3533,6 +3635,1702 @@ DefaultValues::writeAttributes(XMLOutputStream& stream) const
 
 
 #endif /* __cplusplus */
+
+
+/*
+ * Creates a new DefaultValues_t using the given SBML Level, Version and
+ * &ldquo;render&rdquo; package version.
+ */
+LIBSBML_EXTERN
+DefaultValues_t *
+DefaultValues_create(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
+{
+  return new DefaultValues(level, version, pkgVersion);
+}
+
+
+/*
+ * Creates and returns a deep copy of this DefaultValues_t object.
+ */
+LIBSBML_EXTERN
+DefaultValues_t*
+DefaultValues_clone(const DefaultValues_t* dv)
+{
+  if (dv != NULL)
+  {
+    return static_cast<DefaultValues_t*>(dv->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+/*
+ * Frees this DefaultValues_t object.
+ */
+LIBSBML_EXTERN
+void
+DefaultValues_free(DefaultValues_t* dv)
+{
+  if (dv != NULL)
+  {
+    delete dv;
+  }
+}
+
+
+/*
+ * Returns the value of the "backgroundColor" attribute of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getBackgroundColor(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getBackgroundColor().empty() ? NULL :
+    safe_strdup(dv->getBackgroundColor().c_str());
+}
+
+
+/*
+ * Returns the value of the "spreadMethod" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+GradientSpreadMethod_t
+DefaultValues_getSpreadMethod(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return GRADIENT_SPREAD_METHOD_INVALID;
+  }
+
+  return dv->getSpreadMethod();
+}
+
+
+/*
+ * Returns the value of the "spreadMethod" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getSpreadMethodAsString(const DefaultValues_t * dv)
+{
+  return (char*)(GradientSpreadMethod_toString(dv->getSpreadMethod()));
+}
+
+
+/*
+ * Returns the value of the "fill" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getFill(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getFill().empty() ? NULL : safe_strdup(dv->getFill().c_str());
+}
+
+
+/*
+ * Returns the value of the "fill-rule" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+FillRule_t
+DefaultValues_getFillRule(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return FILL_RULE_INVALID;
+  }
+
+  return (FillRule_t)(dv->getFillRule());
+}
+
+
+/*
+ * Returns the value of the "fill-rule" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getFillRuleAsString(const DefaultValues_t * dv)
+{
+  return (char *)(dv->getFillRuleAsString()).c_str();
+}
+
+
+/*
+ * Returns the value of the "stroke" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getStroke(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getStroke().empty() ? NULL : safe_strdup(dv->getStroke().c_str());
+}
+
+
+/*
+ * Returns the value of the "stroke-width" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+double
+DefaultValues_getStrokeWidth(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->getStrokeWidth() : util_NaN();
+}
+
+
+/*
+ * Returns the value of the "font-family" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getFontFamily(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getFontFamily().empty() ? NULL :
+    safe_strdup(dv->getFontFamily().c_str());
+}
+
+
+/*
+ * Returns the value of the "font-weight" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+FontWeight_t
+DefaultValues_getFontWeight(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return FONT_WEIGHT_INVALID;
+  }
+
+  return dv->getFontWeight();
+}
+
+
+/*
+ * Returns the value of the "font-weight" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getFontWeightAsString(const DefaultValues_t * dv)
+{
+  return (char*)(FontWeight_toString(dv->getFontWeight()));
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+FontStyle_t
+DefaultValues_getFontStyle(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return FONT_STYLE_INVALID;
+  }
+
+  return dv->getFontStyle();
+}
+
+
+/*
+ * Returns the value of the "font-style" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getFontStyleAsString(const DefaultValues_t * dv)
+{
+  return (char*)(FontStyle_toString(dv->getFontStyle()));
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+HTextAnchor_t
+DefaultValues_getTextAnchor(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return H_TEXTANCHOR_INVALID;
+  }
+
+  return dv->getTextAnchor();
+}
+
+
+/*
+ * Returns the value of the "text-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getTextAnchorAsString(const DefaultValues_t * dv)
+{
+  return (char*)(HTextAnchor_toString(dv->getTextAnchor()));
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+VTextAnchor_t
+DefaultValues_getVtextAnchor(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return V_TEXTANCHOR_INVALID;
+  }
+
+  return dv->getVTextAnchor();
+}
+
+
+/*
+ * Returns the value of the "vtext-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getVtextAnchorAsString(const DefaultValues_t * dv)
+{
+  return (char*)(VTextAnchor_toString(dv->getVTextAnchor()));
+}
+
+
+/*
+ * Returns the value of the "startHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getStartHead(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getStartHead().empty() ? NULL :
+    safe_strdup(dv->getStartHead().c_str());
+}
+
+
+/*
+ * Returns the value of the "endHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+char *
+DefaultValues_getEndHead(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return dv->getEndHead().empty() ? NULL :
+    safe_strdup(dv->getEndHead().c_str());
+}
+
+
+/*
+ * Returns the value of the "enableRotationalMapping" attribute of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_getEnableRotationalMapping(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->getEnableRotationalMapping()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "backgroundColor"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetBackgroundColor(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetBackgroundColor()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "spreadMethod"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetSpreadMethod(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetSpreadMethod()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "fill" attribute
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFill(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFill()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "fill-rule"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFillRule(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFillRule()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "stroke" attribute
+ * is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetStroke(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetStroke()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "stroke-width"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetStrokeWidth(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetStrokeWidth()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "font-family"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFontFamily(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFontFamily()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "font-weight"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFontWeight(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFontWeight()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "font-style"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFontStyle(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFontStyle()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "text-anchor"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetTextAnchor(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetTextAnchor()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "vtext-anchor"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetVtextAnchor(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetVTextAnchor()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "startHead"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetStartHead(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetStartHead()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "endHead"
+ * attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetEndHead(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetEndHead()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "enableRotationalMapping" attribute is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetEnableRotationalMapping(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetEnableRotationalMapping()) :
+    0;
+}
+
+
+/*
+ * Sets the value of the "backgroundColor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setBackgroundColor(DefaultValues_t * dv,
+                                 const char * backgroundColor)
+{
+  return (dv != NULL) ? dv->setBackgroundColor(backgroundColor) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "spreadMethod" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setSpreadMethod(DefaultValues_t * dv,
+                              GradientSpreadMethod_t spreadMethod)
+{
+  return (dv != NULL) ? dv->setSpreadMethod(spreadMethod) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "spreadMethod" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setSpreadMethodAsString(DefaultValues_t * dv,
+                                      const char * spreadMethod)
+{
+  return (dv != NULL) ? dv->setSpreadMethod(spreadMethod):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "fill" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFill(DefaultValues_t * dv, const char * fill)
+{
+  return (dv != NULL) ? dv->setFill(fill) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "fill-rule" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFillRule(DefaultValues_t * dv, FillRule_t fillRule)
+{
+  return (dv != NULL) ? dv->setFillRule(fillRule) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "fill-rule" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFillRuleAsString(DefaultValues_t * dv, const char * fillRule)
+{
+  return (dv != NULL) ? dv->setFillRule(fillRule): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "stroke" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setStroke(DefaultValues_t * dv, const char * stroke)
+{
+  return (dv != NULL) ? dv->setStroke(stroke) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "stroke-width" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setStrokeWidth(DefaultValues_t * dv, double strokeWidth)
+{
+  return (dv != NULL) ? dv->setStrokeWidth(strokeWidth) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-family" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontFamily(DefaultValues_t * dv, const char * fontFamily)
+{
+  return (dv != NULL) ? dv->setFontFamily(fontFamily) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontWeight(DefaultValues_t * dv, FontWeight_t fontWeight)
+{
+  return (dv != NULL) ? dv->setFontWeight(fontWeight) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-weight" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontWeightAsString(DefaultValues_t * dv,
+                                    const char * fontWeight)
+{
+  return (dv != NULL) ? dv->setFontWeight(fontWeight): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-style" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontStyle(DefaultValues_t * dv, FontStyle_t fontStyle)
+{
+  return (dv != NULL) ? dv->setFontStyle(fontStyle) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-style" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontStyleAsString(DefaultValues_t * dv,
+                                   const char * fontStyle)
+{
+  return (dv != NULL) ? dv->setFontStyle(fontStyle): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setTextAnchor(DefaultValues_t * dv, HTextAnchor_t textAnchor)
+{
+  return (dv != NULL) ? dv->setTextAnchor(textAnchor) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "text-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setTextAnchorAsString(DefaultValues_t * dv,
+                                    const char * textAnchor)
+{
+  return (dv != NULL) ? dv->setTextAnchor(textAnchor): LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setVtextAnchor(DefaultValues_t * dv, VTextAnchor_t vtextAnchor)
+{
+  return (dv != NULL) ? dv->setVTextAnchor(vtextAnchor) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "vtext-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setVtextAnchorAsString(DefaultValues_t * dv,
+                                     const char * vtextAnchor)
+{
+  return (dv != NULL) ? dv->setVTextAnchor(vtextAnchor):
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "startHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setStartHead(DefaultValues_t * dv, const char * startHead)
+{
+  return (dv != NULL) ? dv->setStartHead(startHead) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "endHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setEndHead(DefaultValues_t * dv, const char * endHead)
+{
+  return (dv != NULL) ? dv->setEndHead(endHead) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "enableRotationalMapping" attribute of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setEnableRotationalMapping(DefaultValues_t * dv,
+                                         int enableRotationalMapping)
+{
+  return (dv != NULL) ? dv->setEnableRotationalMapping(enableRotationalMapping)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "backgroundColor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetBackgroundColor(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetBackgroundColor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "spreadMethod" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetSpreadMethod(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetSpreadMethod() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "fill" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFill(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFill() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "fill-rule" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFillRule(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFillRule() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stroke" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetStroke(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetStroke() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "stroke-width" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetStrokeWidth(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetStrokeWidth() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-family" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFontFamily(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFontFamily() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-weight" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFontWeight(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFontWeight() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-style" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFontStyle(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFontStyle() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "text-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetTextAnchor(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetTextAnchor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "vtext-anchor" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetVtextAnchor(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetVTextAnchor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "startHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetStartHead(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetStartHead() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "endHead" attribute of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetEndHead(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetEndHead() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "enableRotationalMapping" attribute of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetEnableRotationalMapping(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetEnableRotationalMapping() :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Returns the value of the "linearGradient_x1" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_x1(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_x1()));
+}
+
+
+/*
+ * Returns the value of the "linearGradient_y1" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_y1(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_y1()));
+}
+
+
+/*
+ * Returns the value of the "linearGradient_z1" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_z1(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_z1()));
+}
+
+
+/*
+ * Returns the value of the "linearGradient_x2" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_x2(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_x2()));
+}
+
+
+/*
+ * Returns the value of the "linearGradient_y2" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_y2(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_y2()));
+}
+
+
+/*
+ * Returns the value of the "linearGradient_z2" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getLinearGradient_z2(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getLinearGradient_z2()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_cx" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_cx(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_cx()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_cy" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_cy(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_cy()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_cz" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_cz(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_cz()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_r" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_r(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_r()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_fx" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_fx(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_fx()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_fy" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_fy(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_fy()));
+}
+
+
+/*
+ * Returns the value of the "radialGradient_fz" element of this
+ * DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getRadialGradient_fz(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getRadialGradient_fz()));
+}
+
+
+/*
+ * Returns the value of the "default_z" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getDefault_z(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getDefault_z()));
+}
+
+
+/*
+ * Returns the value of the "font-size" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+const RelAbsVector_t*
+DefaultValues_getFontSize(const DefaultValues_t * dv)
+{
+  if (dv == NULL)
+  {
+    return NULL;
+  }
+
+  return (RelAbsVector_t*)(&(dv->getFontSize()));
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_x1" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_x1(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_x1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_y1" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_y1(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_y1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_z1" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_z1(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_z1()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_x2" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_x2(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_x2()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_y2" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_y2(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_y2()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "linearGradient_z2" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetLinearGradient_z2(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetLinearGradient_z2()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_cx" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_cx(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_cx()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_cy" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_cy(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_cy()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_cz" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_cz(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_cz()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "radialGradient_r"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_r(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_r()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_fx" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_fx(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_fx()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_fy" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_fy(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_fy()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's
+ * "radialGradient_fz" element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetRadialGradient_fz(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetRadialGradient_fz()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "default_z"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetDefault_z(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetDefault_z()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if this DefaultValues_t's "font-size"
+ * element is set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_isSetFontSize(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->isSetFontSize()) : 0;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_x1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_x1(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_x1)
+{
+  return (dv != NULL) ? dv->setLinearGradient_x1(*linearGradient_x1) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_y1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_y1(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_y1)
+{
+  return (dv != NULL) ? dv->setLinearGradient_y1(*linearGradient_y1) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_z1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_z1(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_z1)
+{
+  return (dv != NULL) ? dv->setLinearGradient_z1(*linearGradient_z1) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_x2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_x2(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_x2)
+{
+  return (dv != NULL) ? dv->setLinearGradient_x2(*linearGradient_x2) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_y2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_y2(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_y2)
+{
+  return (dv != NULL) ? dv->setLinearGradient_y2(*linearGradient_y2) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "linearGradient_z2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setLinearGradient_z2(DefaultValues_t * dv,
+                                   const RelAbsVector_t* linearGradient_z2)
+{
+  return (dv != NULL) ? dv->setLinearGradient_z2(*linearGradient_z2) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_cx" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_cx(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_cx)
+{
+  return (dv != NULL) ? dv->setRadialGradient_cx(*radialGradient_cx) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_cy" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_cy(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_cy)
+{
+  return (dv != NULL) ? dv->setRadialGradient_cy(*radialGradient_cy) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_cz" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_cz(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_cz)
+{
+  return (dv != NULL) ? dv->setRadialGradient_cz(*radialGradient_cz) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_r" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_r(DefaultValues_t * dv,
+                                  const RelAbsVector_t* radialGradient_r)
+{
+  return (dv != NULL) ? dv->setRadialGradient_r(*radialGradient_r) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_fx" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_fx(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_fx)
+{
+  return (dv != NULL) ? dv->setRadialGradient_fx(*radialGradient_fx) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_fy" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_fy(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_fy)
+{
+  return (dv != NULL) ? dv->setRadialGradient_fy(*radialGradient_fy) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "radialGradient_fz" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setRadialGradient_fz(DefaultValues_t * dv,
+                                   const RelAbsVector_t* radialGradient_fz)
+{
+  return (dv != NULL) ? dv->setRadialGradient_fz(*radialGradient_fz) :
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "default_z" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setDefault_z(DefaultValues_t * dv,
+                           const RelAbsVector_t* default_z)
+{
+  return (dv != NULL) ? dv->setDefault_z(*default_z) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Sets the value of the "font-size" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_setFontSize(DefaultValues_t * dv,
+                          const RelAbsVector_t* fontSize)
+{
+  return (dv != NULL) ? dv->setFontSize(*fontSize) : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_x1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_x1(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_x1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_y1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_y1(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_y1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_z1" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_z1(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_z1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_x2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_x2(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_x2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_y2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_y2(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_y2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "linearGradient_z2" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetLinearGradient_z2(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetLinearGradient_z2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_cx" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_cx(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_cx() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_cy" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_cy(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_cy() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_cz" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_cz(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_cz() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_r" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_r(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_r() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_fx" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_fx(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_fx() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_fy" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_fy(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_fy() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "radialGradient_fz" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetRadialGradient_fz(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetRadialGradient_fz() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "default_z" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetDefault_z(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetDefault_z() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Unsets the value of the "font-size" element of this DefaultValues_t.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_unsetFontSize(DefaultValues_t * dv)
+{
+  return (dv != NULL) ? dv->unsetFontSize() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * DefaultValues_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+DefaultValues_hasRequiredAttributes(const DefaultValues_t * dv)
+{
+  return (dv != NULL) ? static_cast<int>(dv->hasRequiredAttributes()) : 0;
+}
+
 
 
 
