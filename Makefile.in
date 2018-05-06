@@ -287,6 +287,7 @@ examples =                                                          \
   examples/python/printUnits.py                                     \
   examples/python/promoteParameters.py                              \
   examples/python/readSBML.py                                       \
+  examples/python/renameSId.py                                      \
   examples/python/stringInput.py                                    \
   examples/python/setIdFromNames.py                                 \
   examples/python/translateMath.py                                  \
