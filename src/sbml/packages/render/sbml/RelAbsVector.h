@@ -32,21 +32,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RelAbsVector
- * @sbmlbrief{render}
- * This class represents a pair of numerical values where one value represents an absolute
- * value and the other value is a relative value in percent.
+ * @sbmlbrief{render} Vectors with an absolute value and a relative value.
  *
- * For many elements in the render extension, it is necessary to specify coordinates not in terms
- * of absolute values, but rather in terms of relative values or even a combination of absolute
- * and relative values.
- * Such a pair of values where one represents an absolute value and the other represents a relative
- * value can be expressed by a RelAbsVector.
+ * For many elements in the render extension, it is necessary to specify
+ * coordinates not in terms of absolute values, but rather in terms of
+ * relative values or even a combination of absolute and relative values.
+ * Such a pair of values where one represents an absolute value and the other
+ * represents a relative value can be expressed by a RelAbsVector.  The
+ * RelAbsVector class represents a pair of numerical values where one value
+ * represents an absolute value and the other value is a relative value in
+ * percent.
  *
- * The relative and absolute values to initialize a RelAbsVector object can either be given as
- * numerical datatypes (double) or as a valid value string.
- * A value string is a combination of an absolute value and a relative value and the absolute
- * value if given has to come first. So valid value strings would be: "5.0e3+20%", or "100%" or "4".
- * 
+ * The relative and absolute values to initialize a RelAbsVector object can
+ * either be given as numerical datatypes (double) or as a valid value
+ * string.  A value string is a combination of an absolute value and a
+ * relative value and the absolute value if given has to come first. So valid
+ * value strings would be: "5.0e3+20%", or "100%" or "4".
  */
 
 #ifndef RelAbsVector_H__
@@ -82,14 +83,17 @@ public:
    * First value sets the absolute value, second sets the relative value (%). 
    *
    * @param a absolute value
-   * @param a relative value in % (50 -> 50%)
+   * @param r relative value in % (50 -> 50%)
    */
   RelAbsVector(double a=0.0, double r=0.0);
+
 
   /**
    * Constructor with a value string.
    * If the string does not represent a valid value, the relative and the
    * absolute component of the RelAbsVector are set to NaN.
+   *
+   * @param coordString value as a string
    */
   RelAbsVector(const std::string& coordString);
 

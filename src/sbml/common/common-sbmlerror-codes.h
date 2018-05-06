@@ -8411,7 +8411,7 @@
 <td class="s-error"></td>
 </tr>
 <tr><td class="code">@sbmlconstant{GroupsGroupKindMustBeGroupKindEnum, SBMLErrorCode_t}</td>
-<td class="meaning">Kind attribute must be GroupKindEnum.</td>
+<td class="meaning">Kind attribute must be GroupKind.</td>
 <td class="s-na"></td>
 <td class="s-na"></td>
 <td class="s-na"></td>

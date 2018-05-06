@@ -32,18 +32,21 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderGroup
- * @sbmlbrief{render} The RenderGroup concept from the SBML render extension is used to group graphical primitives together
- * to create composite representations from simple primitives.
+ * @sbmlbrief{render} A group of graphical primitives creating a composite.
  *
- * The RenderGroup class is derived from GrphicalPrimitive2D and inherits all its methods and attributes.
- * In addition to those, the class defines attributes to specify text render properties (@see Text),
- * curve decorations (@see RenderCurve) an id and a list of child elements which can be any 
- * graphical primitive or other groups.
+ * The RenderGroup concept from the SBML Level&nbsp;3 Render package is used
+ * to to create composite representations from simple primitives. The
+ * RenderGroup class is derived from GrphicalPrimitive2D and inherits all its
+ * methods and attributes.  In addition to those, the class defines
+ * attributes to specify text render properties, curve decorations an id and
+ * a list of child elements which can be any graphical primitive or other
+ * groups.
  *
- * The attributes of a group are inherited by all children of the group unless they specify 
- * the attribute themselves.
+ * The attributes of a group are inherited by all children of the group
+ * unless they specify the attribute themselves.
  *
- *
+ * @see Text
+ * @see RenderCurve
  */
 
 #ifndef RenderGroup_H__
@@ -150,9 +153,7 @@ public:
    * @param id the id for the RenderGroup object.
    * @param renderns the RenderPkgNamespaces object.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   RenderGroup(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -327,13 +328,11 @@ public:
    * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
    * @li @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}
    */
-  int getVtextAnchor() const;
+  int getVTextAnchor() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
-  int getVTextAnchor() const;
-
+  int getVtextAnchor() const;
   /** @endcond */
   /**
    * Returns the value of the "vtext-anchor" attribute of this RenderGroup.
@@ -349,7 +348,11 @@ public:
    * @li @c "baseline"
    * @li @c "(Unknown VTextAnchor value)"
    */
+  std::string getVTextAnchorAsString() const;
+
+  /** @cond doxygenLibsbmlInternal */
   std::string getVtextAnchorAsString() const;
+  /** @endcond */
 
 
   /**
@@ -434,23 +437,23 @@ public:
   bool isSetTextAnchor() const;
 
 
-  /**
-   * Predicate returning @c true if this RenderGroup's "vtext-anchor" attribute
-   * is set.
-   *
-   * @return @c true if this RenderGroup's "vtext-anchor" attribute has been
-   * set, otherwise @c false is returned.
-   *
-   * @copydetails doc_render_vtext_anchor
-   */
-  bool isSetVtextAnchor() const;
-
-
   /** @cond doxygenLibsbmlInternal */
+  bool isSetVtextAnchor() const;
+  /** @endcond */
 
+
+
+  /**
+  * Predicate returning @c true if this RenderGroup's "vtext-anchor" attribute
+  * is set.
+  *
+  * @return @c true if this RenderGroup's "vtext-anchor" attribute has been
+  * set, otherwise @c false is returned.
+  *
+  * @copydetails doc_render_vtext_anchor
+  */
   bool isSetVTextAnchor() const;
 
-  /** @endcond */
 
 
   /**
@@ -508,7 +511,7 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this RenderGroup.
    *
-   * @param fontWeight @if clike FontWeight_t@else int@endif value of the
+   * @param fontWeight @if clike @ref FontWeight_t@else int@endif@~ value of the
    * "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -545,7 +548,7 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this RenderGroup.
    *
-   * @param fontStyle @if clike FontStyle_t@else int@endif value of the
+   * @param fontStyle @if clike @ref FontStyle_t@else int@endif@~ value of the
    * "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -582,7 +585,7 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this RenderGroup.
    *
-   * @param textAnchor @if clike HTextAnchor_t@else int@endif value of the
+   * @param textAnchor @if clike @ref HTextAnchor_t@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -619,7 +622,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
    *
-   * @param vtextAnchor @if clike VTextAnchor_t@else int@endif value of the
+   * @param anchor @if clike @ref VTextAnchor_t@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -629,13 +632,11 @@ public:
    *
    * @copydetails doc_render_vtext_anchor
    */
-  int setVtextAnchor(const VTextAnchor_t vtextAnchor);
+  int setVTextAnchor(Text::TEXT_ANCHOR  anchor);
 
 
   /** @cond doxygenLibsbmlInternal */
-
-  int setVTextAnchor(Text::TEXT_ANCHOR  anchor);
-
+  int setVtextAnchor(Text::TEXT_ANCHOR  anchor);
   /** @endcond */
 
   /**
@@ -651,8 +652,31 @@ public:
    *
    * @copydetails doc_render_vtext_anchor
    */
-  int setVtextAnchor(const std::string& vtextAnchor);
+  int setVTextAnchor(const std::string& vtextAnchor);
 
+  /** @cond doxygenLibsbmlInternal */
+  int setVtextAnchor(const std::string& vtextAnchor);
+  /** @endcond */
+
+
+  /**
+   * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
+   *
+   * @param vtextAnchor std::string& of the "vtext-anchor" attribute to be
+   * set.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * OperationReturnValues_t}
+   *
+   * @copydetails doc_render_vtext_anchor
+   */
+  int setVTextAnchor(const VTextAnchor_t vtextAnchor);
+
+  /** @cond doxygenLibsbmlInternal */
+  int setVtextAnchor(const VTextAnchor_t vtextAnchor);
+  /** @endcond */
 
   /**
    * Sets the font size.
@@ -737,8 +761,11 @@ public:
    *
    * @copydetails doc_render_vtext_anchor
    */
-  int unsetVtextAnchor();
+  int unsetVTextAnchor();
 
+  /** @cond doxygenLibsbmlInternal */
+  int unsetVtextAnchor();
+  /** @endcond */
 
   /**
    * Unsets the value of the "font-size" element of this RenderGroup.
@@ -1944,7 +1971,14 @@ RenderGroup_getTextAnchorAsString(const RenderGroup_t * rg);
  */
 LIBSBML_EXTERN
 VTextAnchor_t
+RenderGroup_getVTextAnchor(const RenderGroup_t * rg);
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+VTextAnchor_t
 RenderGroup_getVtextAnchor(const RenderGroup_t * rg);
+/** @endcond */
 
 
 /**
@@ -1969,8 +2003,13 @@ RenderGroup_getVtextAnchor(const RenderGroup_t * rg);
  */
 LIBSBML_EXTERN
 char *
-RenderGroup_getVtextAnchorAsString(const RenderGroup_t * rg);
+RenderGroup_getVTextAnchorAsString(const RenderGroup_t * rg);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+char *
+RenderGroup_getVtextAnchorAsString(const RenderGroup_t * rg);
+/** @endcond */
 
 /**
  * Predicate returning @c 1 (true) if this RenderGroup_t's "startHead"
@@ -2089,8 +2128,13 @@ RenderGroup_isSetTextAnchor(const RenderGroup_t * rg);
  */
 LIBSBML_EXTERN
 int
-RenderGroup_isSetVtextAnchor(const RenderGroup_t * rg);
+RenderGroup_isSetVTextAnchor(const RenderGroup_t * rg);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_isSetVtextAnchor(const RenderGroup_t * rg);
+/** @endcond */
 
 /**
  * Sets the value of the "startHead" attribute of this RenderGroup_t.
@@ -2301,8 +2345,13 @@ RenderGroup_setTextAnchorAsString(RenderGroup_t * rg,
  */
 LIBSBML_EXTERN
 int
-RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor);
+RenderGroup_setVTextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor);
+/** @endcond */
 
 /**
  * Sets the value of the "vtext-anchor" attribute of this RenderGroup_t.
@@ -2322,9 +2371,15 @@ RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor);
  */
 LIBSBML_EXTERN
 int
-RenderGroup_setVtextAnchorAsString(RenderGroup_t * rg,
+RenderGroup_setVTextAnchorAsString(RenderGroup_t * rg,
                                    const char * vtextAnchor);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_setVtextAnchorAsString(RenderGroup_t * rg,
+  const char * vtextAnchor);
+/** @endcond */
 
 /**
  * Unsets the value of the "startHead" attribute of this RenderGroup_t.
@@ -2446,8 +2501,13 @@ RenderGroup_unsetTextAnchor(RenderGroup_t * rg);
  */
 LIBSBML_EXTERN
 int
-RenderGroup_unsetVtextAnchor(RenderGroup_t * rg);
+RenderGroup_unsetVTextAnchor(RenderGroup_t * rg);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_unsetVtextAnchor(RenderGroup_t * rg);
+/** @endcond */
 
 /**
  * Returns the value of the "font-size" element of this RenderGroup_t.

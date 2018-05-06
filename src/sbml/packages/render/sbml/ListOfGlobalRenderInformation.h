@@ -31,8 +31,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGlobalRenderInformation
- * @sbmlbrief{render} TODO:Definition of the ListOfGlobalRenderInformation
- * class.
+ * @sbmlbrief{render} A list of GlobalRenderInformation objects.
+ *
+ * The ListOfGlobalRenderInformation is a container for the
+ * GlobalRenderInformation elements of a ListOfLayouts object.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see GlobalRenderInformation
  */
 
 

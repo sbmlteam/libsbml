@@ -411,14 +411,13 @@ RenderGroup::getTextAnchorAsString() const
 }
 
 
-/*
- * Returns the value of the "vtext-anchor" attribute of this RenderGroup.
- */
+/** @cond doxygenLibsbmlInternal */
 int
 RenderGroup::getVtextAnchor() const
 {
   return mVTextAnchor;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -433,11 +432,20 @@ RenderGroup::getVTextAnchor() const
  * Returns the value of the "vtext-anchor" attribute of this RenderGroup.
  */
 std::string
-RenderGroup::getVtextAnchorAsString() const
+RenderGroup::getVTextAnchorAsString() const
 {
   std::string code_str = VTextAnchor_toString((VTextAnchor_t)(mVTextAnchor));
   return code_str;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+std::string
+RenderGroup::getVtextAnchorAsString() const
+{
+  return getVTextAnchorAsString();
+}
+/** @endcond */
 
 
 /*
@@ -531,7 +539,7 @@ RenderGroup::isSetTextAnchor() const
  * is set.
  */
 bool
-RenderGroup::isSetVtextAnchor() const
+RenderGroup::isSetVTextAnchor() const
 {
   return (mVTextAnchor != V_TEXTANCHOR_INVALID && mVTextAnchor != V_TEXTANCHOR_UNSET);
 }
@@ -539,9 +547,9 @@ RenderGroup::isSetVtextAnchor() const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-RenderGroup::isSetVTextAnchor() const
+RenderGroup::isSetVtextAnchor() const
 {
-  return isSetVtextAnchor();
+  return isSetVTextAnchor();
 }
 /** @endcond */
 
@@ -758,7 +766,7 @@ RenderGroup::setTextAnchor(const std::string& textAnchor)
  * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
  */
 int
-RenderGroup::setVtextAnchor(const VTextAnchor_t vtextAnchor)
+RenderGroup::setVTextAnchor(const VTextAnchor_t vtextAnchor)
 {
   if (VTextAnchor_isValid(vtextAnchor) == 0)
   {
@@ -772,15 +780,24 @@ RenderGroup::setVtextAnchor(const VTextAnchor_t vtextAnchor)
   }
 }
 
-
 /** @cond doxygenLibsbmlInternal */
-/*
-* Sets the vertical text anchor.
-*/
+int
+RenderGroup::setVtextAnchor(const VTextAnchor_t vtextAnchor)
+{
+  return setVTextAnchor(vtextAnchor);
+}
+/** @endcond */
+
 int RenderGroup::setVTextAnchor(Text::TEXT_ANCHOR anchor)
 {
   mVTextAnchor = anchor;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+/** @cond doxygenLibsbmlInternal */
+int RenderGroup::setVtextAnchor(Text::TEXT_ANCHOR anchor)
+{
+  return setVTextAnchor(anchor);
 }
 /** @endcond */
 
@@ -789,7 +806,7 @@ int RenderGroup::setVTextAnchor(Text::TEXT_ANCHOR anchor)
  * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
  */
 int
-RenderGroup::setVtextAnchor(const std::string& vtextAnchor)
+RenderGroup::setVTextAnchor(const std::string& vtextAnchor)
 {
   mVTextAnchor = VTextAnchor_fromString(vtextAnchor.c_str());
 
@@ -800,6 +817,15 @@ RenderGroup::setVtextAnchor(const std::string& vtextAnchor)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+int
+RenderGroup::setVtextAnchor(const std::string& vtextAnchor)
+{
+  return setVTextAnchor(vtextAnchor);
+}
+/** @endcond */
 
 
 /*
@@ -906,11 +932,20 @@ RenderGroup::unsetTextAnchor()
  * Unsets the value of the "vtext-anchor" attribute of this RenderGroup.
  */
 int
-RenderGroup::unsetVtextAnchor()
+RenderGroup::unsetVTextAnchor()
 {
   mVTextAnchor = V_TEXTANCHOR_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+int
+RenderGroup::unsetVtextAnchor()
+{
+  return unsetVTextAnchor();
+}
+/** @endcond */
 
 
 /*
@@ -1589,7 +1624,7 @@ RenderGroup::getAttribute(const std::string& attributeName,
   }
   else if (attributeName == "vtext-anchor")
   {
-    value = getVtextAnchorAsString();
+    value = getVTextAnchorAsString();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -1637,7 +1672,7 @@ RenderGroup::isSetAttribute(const std::string& attributeName) const
   }
   else if (attributeName == "vtext-anchor")
   {
-    value = isSetVtextAnchor();
+    value = isSetVTextAnchor();
   }
 
   return value;
@@ -1753,7 +1788,7 @@ RenderGroup::setAttribute(const std::string& attributeName,
   }
   else if (attributeName == "vtext-anchor")
   {
-    return_value = setVtextAnchor(value);
+    return_value = setVTextAnchor(value);
   }
 
   return return_value;
@@ -1799,7 +1834,7 @@ RenderGroup::unsetAttribute(const std::string& attributeName)
   }
   else if (attributeName == "vtext-anchor")
   {
-    value = unsetVtextAnchor();
+    value = unsetVTextAnchor();
   }
 
   return value;
@@ -2452,7 +2487,7 @@ RenderGroup::readAttributes(const XMLAttributes& attributes,
   }
   else
   {
-    setVtextAnchor(V_TEXTANCHOR_UNSET);
+    setVTextAnchor(V_TEXTANCHOR_UNSET);
   }
 
   //
@@ -2540,7 +2575,7 @@ RenderGroup::writeAttributes(XMLOutputStream& stream) const
       HTextAnchor_toString((HTextAnchor_t)(mTextAnchor)));
   }
 
-  if (isSetVtextAnchor() == true)
+  if (isSetVTextAnchor() == true)
   {
     stream.writeAttribute("vtext-anchor", getPrefix(),
       VTextAnchor_toString((VTextAnchor_t)(mVTextAnchor)));
@@ -3013,15 +3048,25 @@ RenderGroup_getTextAnchorAsString(const RenderGroup_t * rg)
  */
 LIBSBML_EXTERN
 VTextAnchor_t
-RenderGroup_getVtextAnchor(const RenderGroup_t * rg)
+RenderGroup_getVTextAnchor(const RenderGroup_t * rg)
 {
   if (rg == NULL)
   {
     return V_TEXTANCHOR_INVALID;
   }
 
-  return (VTextAnchor_t)(rg->getVtextAnchor());
+  return (VTextAnchor_t)(rg->getVTextAnchor());
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+VTextAnchor_t
+RenderGroup_getVtextAnchor(const RenderGroup_t * rg)
+{
+  return RenderGroup_getVTextAnchor(rg);
+}
+/** @endcond */
 
 
 /*
@@ -3029,10 +3074,19 @@ RenderGroup_getVtextAnchor(const RenderGroup_t * rg)
  */
 LIBSBML_EXTERN
 char *
+RenderGroup_getVTextAnchorAsString(const RenderGroup_t * rg)
+{
+  return (char*)(VTextAnchor_toString((VTextAnchor_t)(rg->getVTextAnchor())));
+}
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+char *
 RenderGroup_getVtextAnchorAsString(const RenderGroup_t * rg)
 {
-  return (char*)(VTextAnchor_toString((VTextAnchor_t)(rg->getVtextAnchor())));
+  return RenderGroup_getVTextAnchorAsString(rg);
 }
+/** @endcond */
 
 
 /*
@@ -3113,10 +3167,19 @@ RenderGroup_isSetTextAnchor(const RenderGroup_t * rg)
  */
 LIBSBML_EXTERN
 int
+RenderGroup_isSetVTextAnchor(const RenderGroup_t * rg)
+{
+  return (rg != NULL) ? static_cast<int>(rg->isSetVTextAnchor()) : 0;
+}
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
 RenderGroup_isSetVtextAnchor(const RenderGroup_t * rg)
 {
-  return (rg != NULL) ? static_cast<int>(rg->isSetVtextAnchor()) : 0;
+  return RenderGroup_isSetVTextAnchor(rg);
 }
+/** @endcond */
 
 
 /*
@@ -3223,11 +3286,21 @@ RenderGroup_setTextAnchorAsString(RenderGroup_t * rg, const char * textAnchor)
  */
 LIBSBML_EXTERN
 int
-RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor)
+RenderGroup_setVTextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor)
 {
-  return (rg != NULL) ? rg->setVtextAnchor(vtextAnchor) :
+  return (rg != NULL) ? rg->setVTextAnchor(vtextAnchor) :
     LIBSBML_INVALID_OBJECT;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor)
+{
+  return RenderGroup_setVTextAnchor(rg, vtextAnchor);
+}
+/** @endcond */
 
 
 /*
@@ -3235,12 +3308,23 @@ RenderGroup_setVtextAnchor(RenderGroup_t * rg, VTextAnchor_t vtextAnchor)
  */
 LIBSBML_EXTERN
 int
-RenderGroup_setVtextAnchorAsString(RenderGroup_t * rg,
+RenderGroup_setVTextAnchorAsString(RenderGroup_t * rg,
                                    const char * vtextAnchor)
 {
-  return (rg != NULL) ? rg->setVtextAnchor(vtextAnchor):
+  return (rg != NULL) ? rg->setVTextAnchor(vtextAnchor):
     LIBSBML_INVALID_OBJECT;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+RenderGroup_setVtextAnchorAsString(RenderGroup_t * rg,
+  const char * vtextAnchor)
+{
+  return RenderGroup_setVTextAnchorAsString(rg, vtextAnchor);
+}
+/** @endcond */
 
 
 /*
@@ -3314,10 +3398,20 @@ RenderGroup_unsetTextAnchor(RenderGroup_t * rg)
  */
 LIBSBML_EXTERN
 int
+RenderGroup_unsetVTextAnchor(RenderGroup_t * rg)
+{
+  return (rg != NULL) ? rg->unsetVTextAnchor() : LIBSBML_INVALID_OBJECT;
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
 RenderGroup_unsetVtextAnchor(RenderGroup_t * rg)
 {
-  return (rg != NULL) ? rg->unsetVtextAnchor() : LIBSBML_INVALID_OBJECT;
+  return RenderGroup_unsetVTextAnchor(rg);
 }
+/** @endcond */
 
 
 /*

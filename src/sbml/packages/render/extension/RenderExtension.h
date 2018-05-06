@@ -22,6 +22,23 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
+ *
+ * @class RenderExtension
+ * @sbmlbrief{render} Base extension class for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * @class RenderPkgNamespaces
+ * @sbmlbrief{render} SBMLNamespaces extension for the package.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * There is currently exactly one namespace defined for the Graphical
+ * Rendering ("render") package.
+ * @c "http://www.sbml.org/sbml/level3/version1/render/version1".  Despite
+ * referencing SBML Level&nbsp;3 Version&nbsp;1 explicitly, this package
+ * (and all such packages) can be used without change in SBML Level&nbsp;3
+ * Version&nbsp;2 documents.
  */
 
 #ifndef RenderExtension_h
@@ -121,8 +138,6 @@ public:
 
   /**
    * Returns the name of this package ("fbc")
-   *
-   * @pram the name of this package ("fbc")
    */
   virtual const std::string& getName() const;
 
@@ -309,192 +324,64 @@ public:
 //
 typedef SBMLExtensionNamespaces<RenderExtension> RenderPkgNamespaces; 
 
+/**
+* @enum SBMLRenderTypeCode_t
+* @brief SBMLRenderTypeCode_t Enumeration of possible types in the libSBML
+* &ldquo;render&rdquo; package implementation.
+*
+* @copydetails doc_what_are_typecodes
+*
+* @copydetails doc_additional_typecode_details
+*/
 typedef enum
 {
-    SBML_RENDER_COLORDEFINITION = 1000
-  , SBML_RENDER_ELLIPSE = 1001
-  , SBML_RENDER_GLOBALRENDERINFORMATION = 1002
-  , SBML_RENDER_GLOBALSTYLE = 1003
-  , SBML_RENDER_GRADIENTDEFINITION = 1004
-  , SBML_RENDER_GRADIENT_STOP = 1005
-  , SBML_RENDER_GROUP = 1006
-  , SBML_RENDER_IMAGE = 1007
-  , SBML_RENDER_LINEENDING = 1008
-  , SBML_RENDER_LINEARGRADIENT = 1009
-  , SBML_RENDER_LINESEGMENT = 1010
-  , SBML_RENDER_LISTOFGLOBALSTYLES = 1011
-  , SBML_RENDER_LISTOFLOCALSTYLES = 1012
-  , SBML_RENDER_LOCALRENDERINFORMATION = 1013
-  , SBML_RENDER_LOCALSTYLE = 1014
-  , SBML_RENDER_POLYGON = 1015
-  , SBML_RENDER_RADIALGRADIENT = 1016
-  , SBML_RENDER_RECTANGLE = 1017
-  , SBML_RENDER_RELABSVECTOR = 1018
-  , SBML_RENDER_CUBICBEZIER = 1019
-  , SBML_RENDER_CURVE = 1020
-  , SBML_RENDER_POINT = 1021
-  , SBML_RENDER_TEXT = 1022
-  , SBML_RENDER_TRANSFORMATION2D = 1023
-  , SBML_RENDER_DEFAULTS = 1024
-, SBML_RENDER_TRANSFORMATION              =  1025  /*!<Transformation */
-, SBML_RENDER_GRAPHICALPRIMITIVE1D        =  1026  /*!<GraphicalPrimitive1D */
-, SBML_RENDER_GRAPHICALPRIMITIVE2D        =  1027  /*!<GraphicalPrimitive2D */
-, SBML_RENDER_STYLE_BASE                  =  1028  /*!<Style */
-, SBML_RENDER_RENDERINFORMATION_BASE      =  1029  /*!<RenderInformationBase */
+    SBML_RENDER_COLORDEFINITION         = 1000  /*!<ColorDefinition */
+  , SBML_RENDER_ELLIPSE                 = 1001  /*!<Ellipse */
+  , SBML_RENDER_GLOBALRENDERINFORMATION = 1002  /*!<GlobalRenderInformation */
+  , SBML_RENDER_GLOBALSTYLE             = 1003  /*!<GlobalStyle */
+  , SBML_RENDER_GRADIENTDEFINITION      = 1004  /*!<GradientBase */
+  , SBML_RENDER_GRADIENT_STOP           = 1005  /*!<GradientStop */
+  , SBML_RENDER_GROUP                   = 1006  /*!<RenderGroup */
+  , SBML_RENDER_IMAGE                   = 1007  /*!<Image */
+  , SBML_RENDER_LINEENDING              = 1008  /*!<LineEnding */
+  , SBML_RENDER_LINEARGRADIENT          = 1009  /*!<LinearGradient */
+  , SBML_RENDER_LINESEGMENT             = 1010  /*!<LineSegment */
+  , SBML_RENDER_LISTOFGLOBALSTYLES      = 1011  /*!<ListOfGlobalStyles */
+  , SBML_RENDER_LISTOFLOCALSTYLES       = 1012  /*!<ListOfLocalStyles */
+  , SBML_RENDER_LOCALRENDERINFORMATION  = 1013  /*!<LocalRenderInformation */
+  , SBML_RENDER_LOCALSTYLE              = 1014  /*!<LocalStyle */
+  , SBML_RENDER_POLYGON                 = 1015  /*!<Polygon */
+  , SBML_RENDER_RADIALGRADIENT          = 1016  /*!<RadialGradient */
+  , SBML_RENDER_RECTANGLE               = 1017  /*!<Rectangle */
+  , SBML_RENDER_RELABSVECTOR            = 1018  /*!<RelAbsVector */
+  , SBML_RENDER_CUBICBEZIER             = 1019  /*!<CubicBezier */
+  , SBML_RENDER_CURVE                   = 1020  /*!<RenderCurve */
+  , SBML_RENDER_POINT                   = 1021  /*!<RenderPoint */
+  , SBML_RENDER_TEXT                    = 1022  /*!<Text */
+  , SBML_RENDER_TRANSFORMATION2D        = 1023  /*!<Transformation2D */
+  , SBML_RENDER_DEFAULTS                = 1024  /*!<DefaultValues */
+  , SBML_RENDER_TRANSFORMATION          = 1025  /*!<Transformation */
+  , SBML_RENDER_GRAPHICALPRIMITIVE1D    = 1026  /*!<GraphicalPrimitive1D */
+  , SBML_RENDER_GRAPHICALPRIMITIVE2D    = 1027  /*!<GraphicalPrimitive2D */
+  , SBML_RENDER_STYLE_BASE              = 1028  /*!<Style */
+  , SBML_RENDER_RENDERINFORMATION_BASE  = 1029  /*!<RenderInformationBase */
 } SBMLRenderTypeCode_t;
 
 
-///**
-// * @enum StyleType_t
-// * @brief Enumeration of values permitted as the value of the "type" attribute
-// * on Style objects.
-// *
-// * @if conly
-// * @see Style_getType()
-// * @see Style_setType()
-// * @elseif java
-// * @see Style::getType()
-// * @see Style::setType(long)
-// * @else
-// * @see Style::getType()
-// * @see Style::setType()
-// * @endif
-// */
-//typedef enum
-//{
-//  STYLE_TYPE_COMPARTMENTGLYPH            /*!< The style type is @c "COMPARTMENTGLYPH". */
-//, STYLE_TYPE_SPECIESGLYPH                /*!< The style type is @c "SPECIESGLYPH". */
-//, STYLE_TYPE_REACTIONGLYPH               /*!< The style type is @c "REACTIONGLYPH". */
-//, STYLE_TYPE_SPECIESREFERENCEGLYPH       /*!< The style type is @c "SPECIESREFERENCEGLYPH". */
-//, STYLE_TYPE_TEXTGLYPH                   /*!< The style type is @c "TEXTGLYPH". */
-//, STYLE_TYPE_GENERALGLYPH                /*!< The style type is @c "GENERALGLYPH". */
-//, STYLE_TYPE_GRAPHICALOBJECT             /*!< The style type is @c "GRAPHICALOBJECT". */
-//, STYLE_TYPE_ANY                         /*!< The style type is @c "ANY". */
-//, STYLE_TYPE_INVALID                     /*!< Invalid StyleType value. */
-//} StyleType_t;
-//
-//
-///**
-// * Returns the string version of the provided #StyleType_t enumeration.
-// *
-// * @param st the #StyleType_t enumeration value to convert.
-// *
-// * @return A string corresponding to the given type:
-// * "COMPARTMENTGLYPH",
-// * "SPECIESGLYPH",
-// * "REACTIONGLYPH",
-// * "SPECIESREFERENCEGLYPH",
-// * "TEXTGLYPH",
-// * "GENERALGLYPH",
-// * "GRAPHICALOBJECT",
-// * "ANY",
-// * or @c NULL if the value is @sbmlconstant{STYLE_TYPE_INVALID, StyleType_t} or
-// * another invalid enumeration value.
-// *
-// * @copydetails doc_returned_unowned_char
-// *
-// * @if conly
-// * @memberof Style_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//const char*
-//StyleType_toString(StyleType_t st);
-//
-//
-///**
-// * Returns the #StyleType_t enumeration corresponding to the given string or
-// * @sbmlconstant{STYLE_TYPE_INVALID, StyleType_t} if there is no such match.
-// *
-// * @param code the string to convert to a #StyleType_t.
-// *
-// * @return the corresponding #StyleType_t or @sbmlconstant{STYLE_TYPE_INVALID,
-// * StyleType_t} if no match is found.
-// *
-// * @note The matching is case-sensitive: "COMPARTMENTGLYPH" will return
-// * @sbmlconstant{STYLE_TYPE_COMPARTMENTGLYPH, StyleType_t}, but
-// * "COMPARTMENTGLYPH" will return @sbmlconstant{STYLE_TYPE_INVALID,
-// * StyleType_t}.
-// *
-// * @if conly
-// * @memberof Style_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//StyleType_t
-//StyleType_fromString(const char* code);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given #StyleType_t is valid.
-// *
-// * @param st the #StyleType_t enumeration to query.
-// *
-// * @return @c 1 (true) if the #StyleType_t is
-// * @sbmlconstant{STYLE_TYPE_COMPARTMENTGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_SPECIESGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_REACTIONGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_SPECIESREFERENCEGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_TEXTGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_GENERALGLYPH, StyleType_t},
-// * @sbmlconstant{STYLE_TYPE_GRAPHICALOBJECT, StyleType_t}, or
-// * @sbmlconstant{STYLE_TYPE_ANY, StyleType_t};
-// * @c 0 (false) otherwise (including @sbmlconstant{STYLE_TYPE_INVALID,
-// * StyleType_t}).
-// *
-// * @if conly
-// * @memberof Style_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//StyleType_isValid(StyleType_t st);
-//
-//
-///**
-// * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
-// * given string is a valid #StyleType_t.
-// *
-// * @param code the string to query.
-// *
-// * @return @c 1 (true) if the string is
-// * "COMPARTMENTGLYPH",
-// * "SPECIESGLYPH",
-// * "REACTIONGLYPH",
-// * "SPECIESREFERENCEGLYPH",
-// * "TEXTGLYPH",
-// * "GENERALGLYPH",
-// * "GRAPHICALOBJECT", or
-// * "ANY";
-// * @c 0 (false) otherwise.
-// *
-// * @note The matching is case-sensitive: "COMPARTMENTGLYPH" will return @c 1
-// * (true), but "COMPARTMENTGLYPH" will return @c 0 (false).
-// *
-// * @if conly
-// * @memberof Style_t
-// * @endif
-// */
-//LIBSBML_EXTERN
-//int
-//StyleType_isValidString(const char* code);
-//
-//
 /**
  * @enum GradientSpreadMethod_t
  * @brief Enumeration of values permitted as the value of the "spreadmethod"
  * attribute on Gradient objects.
  *
  * @if conly
- * @see Gradient_getSpreadmethod()
- * @see Gradient_setSpreadmethod()
+ * @see GradientBase_getSpreadMethod()
+ * @see GradientBase_setSpreadMethod()
  * @elseif java
- * @see Gradient::getSpreadmethod()
- * @see Gradient::setSpreadmethod(long)
+ * @see GradientBase::getSpreadMethod()
+ * @see GradientBase::setSpreadMethod(long)
  * @else
- * @see Gradient::getSpreadmethod()
- * @see Gradient::setSpreadmethod()
+ * @see GradientBase::getSpreadMethod()
+ * @see GradientBase::setSpreadMethod()
  * @endif
  */
 typedef enum
@@ -516,13 +403,14 @@ typedef enum
  * "pad",
  * "reflect",
  * "repeat",
- * or @c NULL if the value is @sbmlconstant{GRADIENT_SPREAD_METHOD_INVALID,
- * GradientSpreadMethod_t} or another invalid enumeration value.
+ * "invalid"
+ * or "(Unknown GradientSpreadMethod value)" if the value is an unknown 
+ * enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Gradient_t
+ * @memberof GradientBase_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -547,7 +435,7 @@ GradientSpreadMethod_toString(GradientSpreadMethod_t gsm);
  * GradientSpreadMethod_t}.
  *
  * @if conly
- * @memberof Gradient_t
+ * @memberof GradientBase_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -569,7 +457,7 @@ GradientSpreadMethod_fromString(const char* code);
  * @sbmlconstant{GRADIENT_SPREAD_METHOD_INVALID, GradientSpreadMethod_t}).
  *
  * @if conly
- * @memberof Gradient_t
+ * @memberof GradientBase_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -593,7 +481,7 @@ GradientSpreadMethod_isValid(GradientSpreadMethod_t gsm);
  * "Pad" will return @c 0 (false).
  *
  * @if conly
- * @memberof Gradient_t
+ * @memberof GradientBase_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -637,13 +525,13 @@ typedef enum
  * "nonzero",
  * "evenodd",
  * "inherit",
- * or @c NULL if the value is @sbmlconstant{FILL_RULE_INVALID, FillRule_t} or
- * another invalid enumeration value.
+ * "invalid FillRule",
+ * or "(Unknown FillRule value)" if the value is an invalid enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Fill_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -660,12 +548,12 @@ FillRule_toString(FillRule_t fr);
  * @return the corresponding #FillRule_t or @sbmlconstant{FILL_RULE_INVALID,
  * FillRule_t} if no match is found.
  *
- * @note The matching is case-sensitive: "unset" will return
- * @sbmlconstant{FILL_RULE_UNSET, FillRule_t}, but "Unset" will return
+ * @note The matching is case-sensitive: "nonzero" will return
+ * @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}, but "NonZero" will return
  * @sbmlconstant{FILL_RULE_INVALID, FillRule_t}.
  *
  * @if conly
- * @memberof Fill_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -680,15 +568,14 @@ FillRule_fromString(const char* code);
  * @param fr the #FillRule_t enumeration to query.
  *
  * @return @c 1 (true) if the #FillRule_t is
- * @sbmlconstant{FILL_RULE_UNSET, FillRule_t},
  * @sbmlconstant{FILL_RULE_NONZERO, FillRule_t},
  * @sbmlconstant{FILL_RULE_EVENODD, FillRule_t}, or
  * @sbmlconstant{FILL_RULE_INHERIT, FillRule_t};
  * @c 0 (false) otherwise (including @sbmlconstant{FILL_RULE_INVALID,
- * FillRule_t}).
+ * FillRule_t} or  @sbmlconstant{FILL_RULE_UNSET, FillRule_t}).
  *
  * @if conly
- * @memberof Fill_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -703,17 +590,16 @@ FillRule_isValid(FillRule_t fr);
  * @param code the string to query.
  *
  * @return @c 1 (true) if the string is
- * "unset",
  * "nonzero",
  * "evenodd", or
  * "inherit";
  * @c 0 (false) otherwise.
  *
- * @note The matching is case-sensitive: "unset" will return @c 1 (true), but
- * "Unset" will return @c 0 (false).
+ * @note The matching is case-sensitive: "nonzero" will return @c 1 (true), but
+ * "NonZero" will return @c 0 (false).
  *
  * @if conly
- * @memberof Fill_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -755,13 +641,13 @@ typedef enum
  * "serif",
  * "sans-serif",
  * "monospace",
- * or @c NULL if the value is @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}
- * or another invalid enumeration value.
+ * "invalid FontFamily",
+ * or "(Unknown FontFamily value)" if the value is an unknown enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -783,7 +669,7 @@ FontFamily_toString(FontFamily_t ff);
  * @sbmlconstant{FONT_FAMILY_INVALID, FontFamily_t}.
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -805,7 +691,7 @@ FontFamily_fromString(const char* code);
  * FontFamily_t}).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -829,7 +715,7 @@ FontFamily_isValid(FontFamily_t ff);
  * "Serif" will return @c 0 (false).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -855,7 +741,7 @@ FontFamily_isValidString(const char* code);
  */
 typedef enum
 {
-  FONT_WEIGHT_UNSET         /*!< The font weight is @c "unset". */
+  FONT_WEIGHT_UNSET         /*!< The font weight is unset. */
 , FONT_WEIGHT_NORMAL        /*!< The font weight is @c "normal". */
 , FONT_WEIGHT_BOLD          /*!< The font weight is @c "bold". */
 , FONT_WEIGHT_INVALID       /*!< Invalid FontWeight value. */
@@ -868,15 +754,16 @@ typedef enum
  * @param fw the #FontWeight_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
+ * "unset",
  * "bold",
  * "normal",
- * or @c NULL if the value is @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
- * or another invalid enumeration value.
+ * "invalid FontWeight",
+ * or "(Unknown FontWeight value)" if the value is an unknown enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -898,7 +785,7 @@ FontWeight_toString(FontWeight_t fw);
  * @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}.
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -919,7 +806,7 @@ FontWeight_fromString(const char* code);
  * FontWeight_t}).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -942,7 +829,7 @@ FontWeight_isValid(FontWeight_t fw);
  * "Bold" will return @c 0 (false).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -968,7 +855,7 @@ FontWeight_isValidString(const char* code);
  */
 typedef enum
 {
-  FONT_STYLE_UNSET         /*!< The font style is @c "unset". */
+  FONT_STYLE_UNSET         /*!< The font style is unset. */
 , FONT_STYLE_NORMAL        /*!< The font style is @c "normal". */
 , FONT_STYLE_ITALIC        /*!< The font style is @c "italic". */
 , FONT_STYLE_INVALID       /*!< Invalid FontStyle value. */
@@ -981,15 +868,16 @@ typedef enum
  * @param fs the #FontStyle_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
+ * "unset",
  * "italic",
  * "normal",
- * or @c NULL if the value is @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t} or
- * another invalid enumeration value.
+ * "invalid FontStyle",
+ * or "(Unknown FontStyle value)" if the value is an unknown enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1011,7 +899,7 @@ FontStyle_toString(FontStyle_t fs);
  * @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}.
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1032,7 +920,7 @@ FontStyle_fromString(const char* code);
  * FontStyle_t}).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1055,7 +943,7 @@ FontStyle_isValid(FontStyle_t fs);
  * "Italic" will return @c 0 (false).
  *
  * @if conly
- * @memberof Font_t
+ * @memberof DefaultValues_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1069,14 +957,26 @@ FontStyle_isValidString(const char* code);
  * attribute on various objects.
  *
  * @if conly
- * @see V_getTextanchor()
- * @see V_setTextanchor()
+ * @see DefaultValues_getVTextAnchor()
+ * @see DefaultValues_setVTextAnchor()
+ * @see RenderGroup_getVTextAnchor()
+ * @see RenderGroup_setVTextAnchor()
+ * @see Text_getVTextAnchor()
+ * @see Text_setVTextAnchor()
  * @elseif java
- * @see V::getTextanchor()
- * @see V::setTextanchor(long)
+ * @see DefaultValues::getVTextAnchor()
+ * @see DefaultValues::setVTextAnchor(long)
+ * @see RenderGroup::getVTextAnchor()
+ * @see RenderGroup::setVTextAnchor(long)
+ * @see Text::getVTextAnchor()
+ * @see Text::setVTextAnchor(long)
  * @else
- * @see V::getTextanchor()
- * @see V::setTextanchor()
+ * @see DefaultValues::getVTextAnchor()
+ * @see DefaultValues::setVTextAnchor()
+ * @see RenderGroup::getVTextAnchor()
+ * @see RenderGroup::setVTextAnchor()
+ * @see Text::getVTextAnchor()
+ * @see Text::setVTextAnchor()
  * @endif
  */
 typedef enum
@@ -1096,17 +996,19 @@ typedef enum
  * @param vta the #VTextAnchor_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
+ * "unset",
  * "top",
  * "middle",
  * "bottom",
  * "baseline",
- * or @c NULL if the value is @sbmlconstant{V_TEXTANCHOR_INVALID,
- * VTextAnchor_t} or another invalid enumeration value.
+ * "invalid VTextAnchor"
+ * or "(Unknown VTextAnchor value)" if the value is an unknown 
+ * enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof V_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1130,7 +1032,7 @@ VTextAnchor_toString(VTextAnchor_t vta);
  * @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}.
  *
  * @if conly
- * @memberof V_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1153,7 +1055,7 @@ VTextAnchor_fromString(const char* code);
  * VTextAnchor_t}).
  *
  * @if conly
- * @memberof V_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1178,7 +1080,7 @@ VTextAnchor_isValid(VTextAnchor_t vta);
  * "Top" will return @c 0 (false).
  *
  * @if conly
- * @memberof V_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1192,14 +1094,26 @@ VTextAnchor_isValidString(const char* code);
  * attribute on various objects.
  *
  * @if conly
- * @see H_getTextanchor()
- * @see H_setTextanchor()
+ * @see DefaultValues_getTextAnchor()
+ * @see DefaultValues_setTextAnchor()
+ * @see RenderGroup_getTextAnchor()
+ * @see RenderGroup_setTextAnchor()
+ * @see Text_getTextAnchor()
+ * @see Text_setTextAnchor()
  * @elseif java
- * @see H::getTextanchor()
- * @see H::setTextanchor(long)
+ * @see DefaultValues::getTextAnchor()
+ * @see DefaultValues::setTextAnchor(long)
+ * @see RenderGroup::getTextAnchor()
+ * @see RenderGroup::setTextAnchor(long)
+ * @see Text::getTextAnchor()
+ * @see Text::setTextAnchor(long)
  * @else
- * @see H::getTextanchor()
- * @see H::setTextanchor()
+ * @see DefaultValues::getTextAnchor()
+ * @see DefaultValues::setTextAnchor()
+ * @see RenderGroup::getTextAnchor()
+ * @see RenderGroup::setTextAnchor()
+ * @see Text::getTextAnchor()
+ * @see Text::setTextAnchor()
  * @endif
  */
 typedef enum
@@ -1218,16 +1132,18 @@ typedef enum
  * @param hta the #HTextAnchor_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
+ * "unset",
  * "start",
  * "middle",
  * "end",
- * or @c NULL if the value is @sbmlconstant{H_TEXTANCHOR_INVALID,
- * HTextAnchor_t} or another invalid enumeration value.
+ * "invalid HTextAnchor"
+ * or "(Unknown HTextAnchor value)" if the value is an unknown 
+ * enumeration value.
  *
  * @copydetails doc_returned_unowned_char
  *
  * @if conly
- * @memberof H_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1250,7 +1166,7 @@ HTextAnchor_toString(HTextAnchor_t hta);
  * @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}.
  *
  * @if conly
- * @memberof H_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1272,7 +1188,7 @@ HTextAnchor_fromString(const char* code);
  * HTextAnchor_t}).
  *
  * @if conly
- * @memberof H_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN
@@ -1296,7 +1212,7 @@ HTextAnchor_isValid(HTextAnchor_t hta);
  * "Start" will return @c 0 (false).
  *
  * @if conly
- * @memberof H_t
+ * @memberof DefaultValue_t
  * @endif
  */
 LIBSBML_EXTERN

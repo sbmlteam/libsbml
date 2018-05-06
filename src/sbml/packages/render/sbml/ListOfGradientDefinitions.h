@@ -31,7 +31,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGradientDefinitions
- * @sbmlbrief{render} TODO:Definition of the ListOfGradientDefinitions class.
+ * @sbmlbrief{render} A list of GradientBase objects.
+ * 
+ * The ListOfGradientDefinitions is a container for the GradientBase elements 
+ * of a RenderInformationBase object.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see GradientBase
  */
 
 
@@ -112,8 +119,11 @@ public:
    *
    * @param node the XMLNode object reference that describes the ListOfGradientDefinitions
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
-  ListOfGradientDefinitions(const XMLNode& node, unsigned int l2version=4);  
+  ListOfGradientDefinitions(const XMLNode& node, unsigned int l2version=4);
+
 
   /**
    * Copy constructor for ListOfGradientDefinitions.

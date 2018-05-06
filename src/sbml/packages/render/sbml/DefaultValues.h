@@ -31,7 +31,25 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class DefaultValues
- * @sbmlbrief{render} TODO:Definition of the DefaultValues class.
+ * @sbmlbrief{render} Encoding of default values.
+ *
+ * Previously, the render package specified default values and inheritance in a 
+ * similar fashion to the specification used by SVG. However, in order to comply 
+ * with the SBML development guidelines for Level 3 packages, we introduced a new 
+ * class DefaultValues to encode these values within the model. The DefaultValues 
+ * class can occur as a child of either the ListOfGlobalRenderInformation or a
+ * ListOfLocalRenderInformation. 
+ * 
+ * The values from the DefaultValues class are to be 
+ * taken as default source for the values of any optional attribute that is not 
+ * explicitly declared. An example on how to use the DefaultValues class is below. 
+ * For the meaning of the individual attributes, please see the corresponding sections 
+ * later in this document. If an attribute has not been declared, either explicitly 
+ * on an element or using the DefaultValues class then software reading the XML may 
+ * chose how they handle the attribute.
+ * 
+ * Note that the DefaultValues associated with a ListOfLocalRenderInformation will 
+ * override DefaultValues declared on the ListOfGlobalRenderInformation.
  */
 
 
@@ -342,6 +360,7 @@ public:
    * @return the value of the "fill-rule" attribute of this DefaultValues as a
    * FileRule_t.
    *
+   * @copydetails doc_render_fill_rule
    */
   int getFillRule() const;
 
@@ -352,6 +371,7 @@ public:
    * @return the value of the "fill-rule" attribute of this DefaultValues as a
    * string.
    *
+   * @copydetails doc_render_fill_rule
    */
   std::string getFillRuleAsString() const;
 
@@ -693,6 +713,7 @@ public:
    * @return @c true if this DefaultValues's "fill-rule" attribute has been set,
    * otherwise @c false is returned.
    *
+   * @copydetails doc_render_fill_rule
    */
   bool isSetFillRule() const;
 
@@ -846,7 +867,7 @@ public:
   /**
    * Sets the value of the "spreadMethod" attribute of this DefaultValues.
    *
-   * @param spreadMethod @if clike GradientBase::SPREADMETHOD@else int@endif value
+   * @param spreadMethod @if clike GradientBase::SPREADMETHOD@else int@endif@~ value
    * of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -1085,15 +1106,15 @@ public:
   /**
    * Sets the value of the "fill-rule" attribute of this DefaultValues.
    *
-   * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif value of the
+   * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif@~ value of the
    * "fill-rule" attribute to be set.
+   *
+   * @copydetails doc_render_fill_rule
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fillRule
    */
   int setFillRule(const GraphicalPrimitive2D::FILL_RULE fillRule);
 
@@ -1101,15 +1122,15 @@ public:
   /**
   * Sets the value of the "fill-rule" attribute of this DefaultValues.
   *
-  * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif value of the
+  * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif@~ value of the
   * "fill-rule" attribute to be set.
+  *
+  * @copydetails doc_render_fill_rule
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
   * OperationReturnValues_t}
-  *
-  * @copydetails doc_defaultvalues_fillRule
   */
   int setFillRule(FillRule_t fillRule);
 
@@ -1119,12 +1140,12 @@ public:
    *
    * @param fillRule std::string& of the "fill-rule" attribute to be set.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fillRule
    */
   int setFillRule(const std::string& fillRule);
 
@@ -1205,7 +1226,7 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this DefaultValues.
    *
-   * @param fontWeight @if clike Text::FONT_WEIGHT@else int@endif value of the
+   * @param fontWeight @if clike Text::FONT_WEIGHT@else int@endif@~ value of the
    * "font-weight" attribute to be set.
    *
    * @copydetails doc_render_font_weight
@@ -1214,8 +1235,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fontWeight
    */
   int setFontWeight(const Text::FONT_WEIGHT fontWeight);
 
@@ -1231,8 +1250,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fontWeight
    */
   int setFontWeight(const std::string& fontWeight);
 
@@ -1240,7 +1257,7 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this DefaultValues.
    *
-   * @param fontStyle @if clike Text::FONT_STYLE@else int@endif value of the
+   * @param fontStyle @if clike Text::FONT_STYLE@else int@endif@~ value of the
    * "font-style" attribute to be set.
    *
    * @copydetails doc_render_font_style
@@ -1249,8 +1266,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fontStyle
    */
   int setFontStyle(const Text::FONT_STYLE fontStyle);
 
@@ -1266,8 +1281,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fontStyle
    */
   int setFontStyle(const std::string& fontStyle);
 
@@ -1275,7 +1288,7 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this DefaultValues.
    *
-   * @param textAnchor @if clike Text::TEXT_ANCHOR@else int@endif value of the
+   * @param textAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
    *
    * @copydetails doc_render_text_anchor
@@ -1284,8 +1297,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_textAnchor
    */
   int setTextAnchor(const Text::TEXT_ANCHOR textAnchor);
 
@@ -1301,8 +1312,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_textAnchor
    */
   int setTextAnchor(const std::string& textAnchor);
 
@@ -1310,7 +1319,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
    *
-   * @param vtextAnchor @if clike Text::TEXT_ANCHOR@else int@endif value of the
+   * @param vtextAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
    *
    * @copydetails doc_render_vtext_anchor
@@ -1319,8 +1328,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_vtextAnchor
    */
   int setVTextAnchor(const Text::TEXT_ANCHOR vtextAnchor);
 
@@ -1336,8 +1343,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_vtextAnchor
    */
   int setVTextAnchor(const std::string& vtextAnchor);
 
@@ -1399,8 +1404,6 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_spreadMethod
    */
   int unsetSpreadMethod();
 
@@ -1561,10 +1564,10 @@ public:
   /**
    * Unsets the value of the "fill-rule" attribute of this DefaultValues.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_fillRule
    */
   int unsetFillRule();
 
@@ -1648,8 +1651,6 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_textAnchor
    */
   int unsetTextAnchor();
 
@@ -1661,8 +1662,6 @@ public:
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_defaultvalues_vtextAnchor
    */
   int unsetVTextAnchor();
 

@@ -347,6 +347,7 @@ LocalRenderInformation::createLocalStyle()
   return ls;
 }
 
+/** @cond doxygenLibsbmlInternal */
 LocalStyle*
 LocalRenderInformation::createStyle(const std::string& id)
 {
@@ -371,6 +372,8 @@ LocalRenderInformation::createStyle(const std::string& id)
   return ls;
 
 }
+/** @endcond */
+
 
 /*
  * Removes the nth LocalStyle from this LocalRenderInformation and returns a
@@ -987,6 +990,7 @@ LocalRenderInformation_addLocalStyle(LocalRenderInformation_t* lri,
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get the number of LocalStyle_t objects in this LocalRenderInformation_t.
  */
@@ -996,6 +1000,7 @@ LocalRenderInformation_getNumLocalStyles(LocalRenderInformation_t* lri)
 {
   return (lri != NULL) ? lri->getNumLocalStyles() : SBML_INT_MAX;
 }
+/** @endcond */
 
 
 /*
@@ -1021,6 +1026,7 @@ LocalRenderInformation_removeLocalStyle(LocalRenderInformation_t* lri,
 {
   return (lri != NULL) ? lri->removeLocalStyle(n) : NULL;
 }
+/** @endcond */
 
 
 /*

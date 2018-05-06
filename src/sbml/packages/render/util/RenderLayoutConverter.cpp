@@ -48,14 +48,17 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-  /*
-  * SBML Converter stuff below
-  */
+/** @cond doxygenLibsbmlInternal */
+/*
+* SBML Converter stuff below
+*/
 
-  void RenderLayoutConverter::init()
+void RenderLayoutConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new RenderLayoutConverter());
 }
+/** @endcond */
+
 
 RenderLayoutConverter::RenderLayoutConverter() 
   : SBMLConverter("Layout Converter L2 <=> L3")
@@ -100,6 +103,8 @@ bool
     return false;
   return true;
 }
+
+/** @cond doxygenLibsbmlInternal */
 int 
 RenderLayoutConverter::convertToL3()
   {
@@ -147,7 +152,9 @@ RenderLayoutConverter::convertToL3()
 
     return LIBSBML_OPERATION_SUCCESS;
   }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int 
 RenderLayoutConverter::convertToL2()
   {
@@ -186,6 +193,7 @@ RenderLayoutConverter::convertToL2()
 
     return LIBSBML_OPERATION_SUCCESS;
   }
+/** @endcond */
 
 int 
 RenderLayoutConverter::convert()

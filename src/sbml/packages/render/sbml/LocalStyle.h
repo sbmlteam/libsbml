@@ -32,14 +32,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LocalStyle
- * @sbmlbrief{render} implementation of the LocalStyle concept of the SBML render extension.
+ * @sbmlbrief{render} %Style information object used in LocalRenderInformation.
  *
- * Local styles are the style information objects used in LocalRenderInformation (@see LocalRenderInformation).
- * Local styles can be associated with layout objects by role and type as well as by 
- * id of layout objects from the layout the local style belongs to.
+ * Local styles are the style information objects used in
+ * LocalRenderInformation.  Local styles can be associated with layout
+ * objects by role and type as well as by id of layout objects from the
+ * layout the local style belongs to.
  *
- * Since LocalStyle is derived from Styles, it inherits all of the methods and attributes from Style. (@see Style) 
+ * Since LocalStyle is derived from Styles, it inherits all of the methods
+ * and attributes from Style.
  *
+ * @see LocalRenderInformation
+ * @see Style
  */
 
 #ifndef LocalStyle_H__
@@ -118,6 +122,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the LocalStyle
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   LocalStyle(const XMLNode& node, unsigned int l2version=4);
 
@@ -129,9 +135,7 @@ public:
    * The group has to be filled before the
    * object is valid.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   LocalStyle(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -218,7 +222,7 @@ public:
   /**
    * Removes an id from the set.
    *
-   * @param the id to be removed from the id list.
+   * @param id the id to be removed from the id list.
    */
   int removeId(const std::string& id);
 

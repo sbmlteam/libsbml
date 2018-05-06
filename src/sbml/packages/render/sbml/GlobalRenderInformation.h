@@ -32,20 +32,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GlobalRenderInformation
- * @sbmlbrief{render} GlobalRenderInformation is the render information stored in the ListOfLayouts. GlobalRenderInformation can be
- *  applied to all layouts.
+ * @sbmlbrief{render} Render information stored in a ListOfLayouts.
  *
- * GlobalRenderInformation is one of the subclasses of RenderInformationBase. A global render information object
- * contains color definitions, gradient definitions and line endings as defined in RenderInformationBase.
- * Additionally it has a list of global styles which specifies type and role based render information.
- * Global render information can not specify id based render information because it does not belong to a certain layout
- * but it belongs to all layouts.
- *
- * @class ListOfGlobalRenderInformation
- * @brief container class that stores GlobalRenderInformation objects.
- *
- * The ListOfLayouts in the SBML model contains a ListOfGlobalRenderInformation which holds all GlobalRenderInformation
- * objects.
+ * GlobalRenderInformation is one of the subclasses of RenderInformationBase.
+ * A global render information object contains color definitions, gradient
+ * definitions and line endings as defined in RenderInformationBase.
+ * Additionally it has a list of global styles which specifies type and role
+ * based render information.  This class of objects cannot specify id-based
+ * render information because it does not belong to a certain layout but it
+ * belongs to all layouts.  GlobalRenderInformation can be applied to all
+ * layouts.
  */
 
 #ifndef GlobalRenderInformation_H__
@@ -126,11 +122,10 @@ public:
    * Constructor which creates a GlobalRenderInformation with the given @p id
    * and all lists empty.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id the new id for the GlobalRenderInformation.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   GlobalRenderInformation(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

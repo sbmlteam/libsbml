@@ -32,17 +32,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transformation2D
- * @sbmlbrief{render} implementation of a 2D transformation matrix.
+ * @sbmlbrief{render} Implementation of a 2D transformation matrix.
  *
- * The Transformation2D class represents a 2D transformation. it is derived from Transformation 
- * and inherits all the attributes of a 3D transformation. In addition is provides new methods to 
- * explicitly get and set 2D transformation properties.
- * A 2D transformation normally consists of a 3x3 matrix, but since the last row is always 0 0 1,
- * this is reduced to a 6 value array.
+ * The Transformation2D class represents a 2D transformation. it is derived
+ * from Transformation and inherits all the attributes of a 3D
+ * transformation. In addition is provides new methods to explicitly get and
+ * set 2D transformation properties.  A 2D transformation normally consists
+ * of a 3x3 matrix, but since the last row is always 0 0 1, this is reduced
+ * to a 6 value array.
  *
- * Using one of the new 2D specific functions to set the matrix always updates the 3D matrix
- * automatically and vice versa, so the 2D data and the 3D data inherited from Transformation should 
- * always be consistent. 
+ * Using one of the new 2D specific functions to set the matrix always
+ * updates the 3D matrix automatically and vice versa, so the 2D data and the
+ * 3D data inherited from Transformation should always be consistent.
  */
 
 #ifndef Transformation2D_H__
@@ -84,11 +85,10 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   std::string mElementName;
-
-  /** @endcond */
-
   static const double IDENTITY2D[6];
   double mMatrix2D[6];
+
+  /** @endcond */
 
 public:
 
@@ -133,6 +133,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the Transformation2D
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Transformation2D(const XMLNode& node, unsigned int l2version=4);
 
@@ -173,9 +175,7 @@ public:
    * Instantiates a Transformation with all numerical values set to 
    * the values in the given array.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Transformation2D(RenderPkgNamespaces* renderns, const double m[6]);
 #endif // OMIT_DEPRECATED

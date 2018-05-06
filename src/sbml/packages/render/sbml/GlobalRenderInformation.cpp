@@ -766,6 +766,9 @@ XMLNode GlobalRenderInformation::toXML() const
   return getXmlNodeForSBase(this);
 }
 /** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new object from the next XMLToken on the XMLInputStream
  */
@@ -792,7 +795,6 @@ GlobalRenderInformation::createObject(XMLInputStream& stream)
 
   return obj;
 }
-
 /** @endcond */
 
 
@@ -937,6 +939,7 @@ GlobalRenderInformation_clone(const GlobalRenderInformation_t* gri)
     return NULL;
   }
 }
+/** @endcond */
 
 
 /*
@@ -963,6 +966,7 @@ GlobalRenderInformation_getListOfGlobalStyles(GlobalRenderInformation_t* gri)
 {
   return (gri != NULL) ? gri->getListOfGlobalStyles() : NULL;
 }
+/** @endcond */
 
 
 /*

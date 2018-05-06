@@ -1,5 +1,5 @@
 /**
- * @file    Polygon
+ * @file    Polygon.h
  * @brief   class representing a polygon
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
@@ -32,17 +32,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Polygon
- * @sbmlbrief{render} class representing a polygon from the SBML render extension
+ * @sbmlbrief{render} Representation of a Polygon
  *
- * The Polygon is very similar to the RenderCurve class. The only difference is that in the 
- * polygon the end point of the last element in the curve segment list is
- * automatically connected to the start point of the first element.
+ * The Polygon is very similar to the RenderCurve class. The only difference
+ * is that in the polygon the end point of the last element in the curve
+ * segment list is automatically connected to the start point of the first
+ * element.
  *
- * Since a polygon is a closed shape and doesn't really have a start or an end, it does not get
- * decorations as the RenderCurve does.
- *
- * So a polygon is always closed and can therefor have a fill style and fill style related attributes.
- * Those attributes are inherited from Polygons base class GraphicalPrimitive2D. 
+ * Since a polygon is a closed shape and doesn't really have a start or an
+ * end, it does not get decorations as the RenderCurve does.  So, a polygon
+ * is always closed and can therefore have a fill style and fill style related
+ * attributes.  Those attributes are inherited from Polygons base class
+ * GraphicalPrimitive2D.
  */
 
 #ifndef Polygon_H__
@@ -122,6 +123,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the Polygon
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Polygon(const XMLNode& node, unsigned int l2version=4);
 
@@ -132,11 +135,10 @@ public:
    * All attributes inherited from GraphicalPrimitive are set as described
    * in the corresponding constructor of that class (@see GraphicalPrimitive2D)
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id id string for the polygon
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Polygon(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

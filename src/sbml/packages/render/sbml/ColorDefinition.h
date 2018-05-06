@@ -1,9 +1,9 @@
 /**
  * @file    ColorDefinition.h
- * @brief Definition of the ColorDefinition class.
+ * @brief   Definition of the ColorDefinition class.
  * @author  Ralph Gauges
  * @author  Frank T. Bergmann
- * @author SBMLTeam
+ * @author  SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,30 +33,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ColorDefinition
- * @sbmlbrief{render} LibSBML implementation for the %ColorDefinition construct from 
- * the SBML render extension.
+ * @sbmlbrief{render} Definition of an identifier for an RGBA color value.
  *
- * A @em ColorDefinition specifies an id for a certain RGBA value which can
- * then be referenced by this id in other render extension constructs.
- * The use of ids like e.g. "lightyellow" might be more descriptive than the
- * corresponding RGBA value.
+ * A @em ColorDefinition defines an identifier representing an RGBA value,
+ * which can then be referenced in other render extension constructs.  For
+ * example, an identifier can be defined for "lightyellow" and this may be
+ * more descriptive to use in graphs of models than the corresponding RGBA
+ * value.
  *
- * A ColorDefinition has two mandatory attributes which are the id for the
- * color definition and the corresponding RGBA value. The RGBA value has the 
- * same notation as in HTML files or CSS style sheets. It starts with the '#'
- * character followed by 8 digit hexadecimal string. Optionally the alpha part
- * can be omited in which case it defaults to FF.
+ * A ColorDefinition has two mandatory attributes: the id for the color
+ * definition and the corresponding RGBA value. The RGBA value has the same
+ * notation as in HTML files or CSS style sheets. It starts with the @c #
+ * character followed by 8 digit hexadecimal string.  Optionally the alpha
+ * part can be omitted, in which case it defaults to @c FF.
  *
- * Valid value string are e.g. "#000000" or "#000000FF" for fully opaque black
- * or "#FF000010" for an almost completly transparent red.
+ * Examples of valid values strings are @c "#000000" and @c "#000000FF" for
+ * fully opaque black, and @c "#FF000010" for an almost completly transparent
+ * red.
  *
- * Internally the RGBA components are stored as integer values in the range of 0 to 255
- * and most methods use integer values instead of the hexadecimal value string.
- *
- * 
- * @class ListOfColorDefinitions
- * @brief LibSBML implementation for a container which holds zero or more ColorDefinition
- * objects.
+ * Internally, the RGBA components are stored as integer values in the range
+ * of 0 to 255 and most methods in the implementation of the libSBML
+ * &ldquo;render&rdquo; extension use integer values instead of the
+ * hexadecimal value string.
  */
 
 #ifndef ColorDefinition_H__
@@ -118,7 +116,7 @@ public:
   ColorDefinition(unsigned int level = RenderExtension::getDefaultLevel(),
                   unsigned int version = RenderExtension::getDefaultVersion(),
                   unsigned int pkgVersion =
-                    RenderExtension::getDefaultPackageVersion());
+                  RenderExtension::getDefaultPackageVersion());
 
 
   /**
@@ -135,32 +133,36 @@ public:
 
   /**
    * Creates a new ColorDefinition object from the given XMLNode object.
-   * The XMLNode object has to contain a valid XML representation of a 
-   * ColorDefinition object as defined in the render extension specification.
-   * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
    *
+   * The XMLNode object must contain a valid XML representation of a
+   * ColorDefinition object as defined in the &ldquo;render&rdquo; package
+   * specification.  This method is normally called when &ldquo;render&rdquo;
+   * information is read from a file and should normally not have to be
+   * called explicitely.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *
    * @param node the XMLNode object reference that describes the ColorDefinition
    * object to be instantiated.
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   ColorDefinition(const XMLNode& node, unsigned int l2version=4);
+
 
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor which sets the ColorDefinition to the given RGBA values.
    *
+   * @param renderns The namespace object for the Render package.
    * @param r Red component value. Has to be in the range of 0 to 255.
    * @param g Green component value. Has to be in the range of 0 to 255.
    * @param b Blue component value. Has to be in the range of 0 to 255.
    * @param a Alpha component value. Has to be in the range of 0 to 255. 
    * The alpha component can be omitted. In that case it has a default value of 255.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @copydetails doc_warning_deprecated_constructor
    */
   ColorDefinition(RenderPkgNamespaces* renderns, unsigned char r,unsigned char g,unsigned char b,unsigned char a=255);
 #endif // OMIT_DEPRECATED
@@ -170,12 +172,13 @@ public:
    * Constructor which sets the ColorDefinition to completely opaque
    * black and sets the id to the given string.
    *
+   * @param renderns The namespace object for the Render package.
    * @param id the id of the color definition. The user has to make sure 
    * that the id is unique within the given set of color definitions. 
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @copydetails doc_warning_deprecated_constructor
    */
   ColorDefinition(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -185,6 +188,7 @@ public:
    * Constructor which sets the ColorDefinition to the given RGBA values
    * and sets the id.
    *
+   * @param renderns The namespace object for the Render package.
    * @param id the id of the color definition. The user has to make sure 
    * that the id is unique within the given set of color definitions. 
    * @param r Red component value. Has to be in the range of 0 to 255.
@@ -193,9 +197,9 @@ public:
    * @param a Alpha component value. Has to be in the range of 0 to 255. 
    * The alpha component can be omitted. In that case it has a default value of 255.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_what_are_sbml_package_namespaces
+   *
+   * @copydetails doc_warning_deprecated_constructor
    */
   ColorDefinition(RenderPkgNamespaces* renderns, const std::string& id,unsigned char r,unsigned char g,unsigned char b,unsigned char a=255);
 #endif // OMIT_DEPRECATED
@@ -266,6 +270,7 @@ public:
    */
   unsigned char getRed() const;
 
+
   /**
    * Returns the green color component.
    *
@@ -273,12 +278,14 @@ public:
    */
   unsigned char getGreen() const;
 
+
   /**
    * Returns the blue color component.
    *
    * @return the blue color component for the ColorDefinition.
    */
   unsigned char getBlue() const;
+
 
   /**
    * Returns the alpha color component.
@@ -369,12 +376,14 @@ public:
    */
   void setRed(unsigned char c);
 
+
   /**
    * Sets the green color component.
    *
    * @param c the new green component value for the color definition.
    */
   void setGreen(unsigned char c);
+
 
   /**
    * Sets the blue color component.
@@ -383,12 +392,14 @@ public:
    */
   void setBlue(unsigned char c);
 
+
   /**
    * Sets alpha red color component.
    *
    * @param c the new alpha component value for the color definition.
    */
   void setAlpha(unsigned char c);
+
 
   /**
    * Sets the red green, blue and alpha color component.
@@ -401,25 +412,29 @@ public:
    */
   void setRGBA(unsigned char r,unsigned char g,unsigned char b,unsigned char a=255);
 
+
   /**
    * Sets the color value from a given value string.
+   *
    * If the string is not a valid value string, the color value is set to
-   * black and false is returned.
+   * black and @c false is returned.
    *
-   * @param valueString A const reference to a string that represents a valid color value,
-   * e.g. "#FFFFFFFF" for fully opaque white.
+   * @param valueString A const reference to a string that represents a valid
+   * color value, e.g. @c "#FFFFFFFF" for fully opaque white.
    *
-   * @return true or false depending on whether setting the color value from the string
-   * was successfull.
+   * @return @c true or @c false depending on whether setting the color value
+   * from the string was successfull.
    */
   bool setColorValue(const std::string& valueString);
 
+
   /**
-   * Creates a string the represents the current color value.
+   * Creates a string that represents the current color value.
    *
    * @return The string representation of the color value.
    */
   std::string createValueString() const;
+
 
   /**
    * Unsets the value of the "id" attribute of this ColorDefinition.
@@ -501,70 +516,54 @@ public:
   * @return @c true to indicate that all the required attributes of this
   * ColorDefinition have been set, otherwise @c false is returned.
   *
-  *
   * @note The required attributes for the ColorDefinition object are:
   * @li "id"
   * @li "value" (default)
   */
   bool hasRequiredAttributesNoDefaults() const;
-
   /** @endcond */
 
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write any contained elements
    */
   virtual void writeElements(XMLOutputStream& stream) const;
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor
    */
   virtual bool accept(SBMLVisitor& v) const;
-
   /** @endcond */
 
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument
    */
   virtual void setSBMLDocument(SBMLDocument* d);
-
   /** @endcond */
 
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/disables the given package with this element
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix,
                                      bool flag);
-
   /** @endcond */
-
-
 
 
   #ifndef SWIG
 
-
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -578,13 +577,11 @@ public:
    */
   virtual int getAttribute(const std::string& attributeName, bool& value)
     const;
-
   /** @endcond */
 
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -597,13 +594,11 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int getAttribute(const std::string& attributeName, int& value) const;
-
   /** @endcond */
 
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -617,13 +612,10 @@ public:
    */
   virtual int getAttribute(const std::string& attributeName,
                            double& value) const;
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -637,13 +629,10 @@ public:
    */
   virtual int getAttribute(const std::string& attributeName,
                            unsigned int& value) const;
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -657,13 +646,10 @@ public:
    */
   virtual int getAttribute(const std::string& attributeName,
                            std::string& value) const;
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Predicate returning @c true if this ColorDefinition's attribute
    * "attributeName" is set.
@@ -674,13 +660,10 @@ public:
    * been set, otherwise @c false is returned.
    */
   virtual bool isSetAttribute(const std::string& attributeName) const;
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -693,13 +676,10 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int setAttribute(const std::string& attributeName, bool value);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -712,13 +692,10 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int setAttribute(const std::string& attributeName, int value);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -731,13 +708,10 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int setAttribute(const std::string& attributeName, double value);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -751,13 +725,10 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            unsigned int value);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -771,13 +742,10 @@ public:
    */
   virtual int setAttribute(const std::string& attributeName,
                            const std::string& value);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Unsets the value of the "attributeName" attribute of this ColorDefinition.
    *
@@ -788,15 +756,10 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetAttribute(const std::string& attributeName);
-
   /** @endcond */
 
 
-
-
   #endif /* !SWIG */
-
-
 
 
   /**
@@ -812,37 +775,28 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Reads the expected attributes into the member data variables
    */
   virtual void readAttributes(const XMLAttributes& attributes,
                               const ExpectedAttributes& expectedAttributes);
-
   /** @endcond */
 
 
-
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
-
   /** @endcond */
-
 
 };
 
@@ -1178,5 +1132,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* !ColorDefinition_H__ */
-
-

@@ -31,9 +31,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfLineEndings
- * @sbmlbrief{render} TODO:Definition of the ListOfLineEndings class.
+ * @sbmlbrief{render} A list of LineEnding objects.
  *
- * Each RenderInformation object can contain its own ListOfLineEndings object.
+ * The ListOfLineEndings is a container for the LineEnding elements 
+ * of a RenderInformationBase object. Each RenderInformation object that 
+ * inherits from RenderInformationBase can contain its own ListOfLineEndings object.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see LineEnding
+ * @see RenderInformationBase
  */
 
 
@@ -109,8 +116,11 @@ public:
    *
    * @param node the XMLNode object reference that describes the ListOfLineEndings
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
-  ListOfLineEndings(const XMLNode& node, unsigned int l2version=4);  
+  ListOfLineEndings(const XMLNode& node, unsigned int l2version=4);
+
 
   /**
    * Copy constructor for ListOfLineEndings.

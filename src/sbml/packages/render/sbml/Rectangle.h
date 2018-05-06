@@ -32,9 +32,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Rectangle
- * @sbmlbrief{render} TODO:Definition of the Rectangle class.
+ * @sbmlbrief{render} Representation of a rectangle.
+ *
+ * Rectangle allows the definition of rectangles with or without rounded
+ * edges.  The Rectangle object derives from the GraphicalPrimitive2D class
+ * and thus inherits any attributes and elements that are present on this
+ * class.  In addition, the Rectangle object has the required attributes x,
+ * y, height, and width as well as the optional attributes z, rx, ry and
+ * ratio.
  */
-
 
 #ifndef Rectangle_H__
 #define Rectangle_H__
@@ -121,6 +127,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the Rectangle
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Rectangle(const XMLNode& node, unsigned int l2version=4);
 
@@ -134,11 +142,10 @@ public:
    *
    * The id is set to the given string and all rectangle specific attributes are set to 0.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id id string for the rectangle
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Rectangle(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -153,6 +160,7 @@ public:
    * The id is set to the given string and all rectangle specific attributes
    * are set to the given values.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id id string for the rectangle
    * @param x x coordinate of the position 
    * @param y y coordinate of the position 
@@ -160,9 +168,7 @@ public:
    * @param w w width
    * @param h h height
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Rectangle(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z,const RelAbsVector& w,const RelAbsVector& h);
 #endif // OMIT_DEPRECATED
@@ -176,15 +182,14 @@ public:
    * The id is set to the given string and all rectangle specific attributes
    * are set to the given values. The z coordinate of the position is set to 0.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id id string for the rectangle
    * @param x x coordinate of the position 
    * @param y y coordinate of the position 
    * @param w w width
    * @param h h height
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Rectangle(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& w,const RelAbsVector& h);
 #endif // OMIT_DEPRECATED

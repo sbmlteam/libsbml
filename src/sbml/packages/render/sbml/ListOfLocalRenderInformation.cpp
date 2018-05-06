@@ -202,11 +202,13 @@ ListOfLocalRenderInformation::isSetMajorVersion() const
   return mIsSetMajorVersion;
 }
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ListOfLocalRenderInformation::isSetVersionMajor() const
 {
   return mIsSetMajorVersion;
 }
+/** @endcond */
 
 
 /*
@@ -220,11 +222,13 @@ ListOfLocalRenderInformation::isSetMinorVersion() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 ListOfLocalRenderInformation::isSetVersionMinor() const
 {
   return mIsSetMinorVersion;
 }
+/** @endcond */
 
 
 /*
@@ -239,11 +243,13 @@ ListOfLocalRenderInformation::setMajorVersion(unsigned int majorVersion)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+/** @cond doxygenLibsbmlInternal */
 int
 ListOfLocalRenderInformation::setVersionMajor(unsigned int majorVersion)
 {
   return setMajorVersion(majorVersion);
 }
+/** @endcond */
 
 /*
  * Sets the value of the "minorVersion" attribute of this
@@ -257,11 +263,13 @@ ListOfLocalRenderInformation::setMinorVersion(unsigned int minorVersion)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+/** @cond doxygenLibsbmlInternal */
 int
 ListOfLocalRenderInformation::setVersionMinor(unsigned int minorVersion)
 {
   return setMinorVersion(minorVersion);
 }
+/** @endcond */
 
 
 void ListOfLocalRenderInformation::setVersion(unsigned int major, unsigned int minor)
@@ -291,11 +299,13 @@ ListOfLocalRenderInformation::unsetMajorVersion()
   }
 }
 
+/** @cond doxygenLibsbmlInternal */
 int
 ListOfLocalRenderInformation::unsetVersionMajor()
 {
   return unsetMajorVersion();
 }
+/** @endcond */
 
 /*
  * Unsets the value of the "minorVersion" attribute of this
@@ -317,11 +327,13 @@ ListOfLocalRenderInformation::unsetMinorVersion()
   }
 }
 
+/** @cond doxygenLibsbmlInternal */
 int
 ListOfLocalRenderInformation::unsetVersionMinor()
 {
   return unsetMinorVersion();
 }
+/** @endcond */
 
 
 /*

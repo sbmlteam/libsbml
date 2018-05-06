@@ -32,46 +32,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalPrimitive2D
- * @sbmlbrief{render} base class for all graphical primitives which implements all 2D attributes
+ * @sbmlbrief{render} Base class for graphical primitives implementing 2D attributes.
  *
- * The GraphicalPrimitive2D class implements attributes and methods necessary for 2D objects
- * like rectangles, polygons or ellipses. The attributes that are implemented are a fill color
- * and a fill rule that specifies how the fill color is applied.
+ * The GraphicalPrimitive2D class implements attributes and methods necessary
+ * for 2D objects like rectangles, polygons or ellipses. The attributes that
+ * are implemented are a fill color and a fill rule that specifies how the
+ * fill color is applied.
  *
- * The GraphicalPrimitive2D class is derived from GraphicalPrimitive1D and inherits all its methods
- * and attributes.
+ * The GraphicalPrimitive2D class is derived from GraphicalPrimitive1D and
+ * inherits all its methods and attributes.
  */
-
-/**
- * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file. The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality. Symbols
- * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -->
- *
- *
- * @class doc_graphicalprimitive2d_fill-rule
- *
- * @par
- * The attribute "fill-rule" on a GraphicalPrimitive2D object is used to
- * TODO:add explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "fill-rule":
- * <ul>
- * <li> @c "unset", TODO:add description
- *
- * <li> @c "nonzero", TODO:add description
- *
- * <li> @c "evenodd", TODO:add description
- *
- * <li> @c "inherit", TODO:add description
- *
- * </ul>
- */
-
 
 #ifndef GraphicalPrimitive2D_H__
 #define GraphicalPrimitive2D_H__
@@ -169,6 +139,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the GraphicalPrimitive2D
    * object to be instantiated.
+   *
+   * @param l2Version an integer indicating the version of SBML Level&nbsp;2
    */
   GraphicalPrimitive2D(const XMLNode& node, unsigned int l2Version=4);
 
@@ -182,11 +154,8 @@ public:
    * in the corresponding constructor for GraphicalPrimitive1D (@see GraphicalPrimitive1D).
    *
    * The fill and the fill rule are unset.
-   * 
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   GraphicalPrimitive2D(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -247,12 +216,11 @@ public:
    * @return the value of the "fill-rule" attribute of this
    * GraphicalPrimitive2D as a FillRule_t.
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    * @if clike The value is drawn from the enumeration @ref FillRule_t @endif
    * The possible values returned by this method are:
    * @li @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}
    * @li @sbmlconstant{FILL_RULE_EVENODD, FillRule_t}
-   * @li @sbmlconstant{GRAPHICAL_PRIMITIVE2_D_FILL-RULE_INVALID, FillRule_t}
    */
   int getFillRule() const;
 
@@ -264,7 +232,7 @@ public:
    * @return the value of the "fill-rule" attribute of this
    * GraphicalPrimitive2D as a string.
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    * The possible values returned by this method are:
    * @li @c "nonzero"
    * @li @c "evenodd"
@@ -299,7 +267,7 @@ public:
    * @return @c true if this GraphicalPrimitive2D's "fill-rule" attribute has
    * been set, otherwise @c false is returned.
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    */
   bool isSetFillRule() const;
 
@@ -330,7 +298,7 @@ public:
   /**
   * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
   *
-  * @param fillRule @if clike FillRule_t@else int@endif value of the
+  * @param rule @if clike @ref FillRule_t@else int@endif@~ value of the
   * "fill-rule" attribute to be set.
   *
   * @copydetails doc_returns_success_code
@@ -338,7 +306,7 @@ public:
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
   * OperationReturnValues_t}
   *
-  * @copydetails doc_graphicalprimitive2d_fill-rule
+  * @copydetails doc_render_fill_rule
   */
   void setFillRule(FILL_RULE rule);
   
@@ -346,7 +314,7 @@ public:
   /**
    * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
    *
-   * @param fillRule @if clike FillRule_t@else int@endif value of the
+   * @param fillRule @if clike @ref FillRule_t@else int@endif@~ value of the
    * "fill-rule" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -354,7 +322,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    */
   int setFillRule(const FillRule_t fillRule);
 
@@ -362,14 +330,14 @@ public:
   /**
    * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
    *
-   * @param fill-rule std::string& of the "fill-rule" attribute to be set.
+   * @param fillRule std::string& of the "fill-rule" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    */
   int setFillRule(const std::string& fillRule);
 
@@ -391,7 +359,7 @@ public:
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @copydetails doc_graphicalprimitive2d_fill-rule
+   * @copydetails doc_render_fill_rule
    */
   int unsetFillRule();
 
@@ -1042,7 +1010,7 @@ GraphicalPrimitive2D_getFill(const GraphicalPrimitive2D_t * gpd);
  * @return the value of the "fill-rule" attribute of this
  * GraphicalPrimitive2D_t as a FillRule_t.
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  * @if clike The value is drawn from the enumeration @ref FillRule_t @endif
  * The possible values returned by this method are:
  * @li @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}
@@ -1067,7 +1035,7 @@ GraphicalPrimitive2D_getFillRule(const GraphicalPrimitive2D_t * gpd);
  *
  * @copydetails doc_returned_unowned_char
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  * The possible values returned by this method are:
  * @li @c "nonzero"
  * @li @c "evenodd"
@@ -1105,7 +1073,7 @@ GraphicalPrimitive2D_isSetFill(const GraphicalPrimitive2D_t * gpd);
  * @return @c 1 (true) if this GraphicalPrimitive2D_t's "fill-rule" attribute
  * has been set, otherwise @c 0 (false) is returned.
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1147,7 +1115,7 @@ GraphicalPrimitive2D_setFill(GraphicalPrimitive2D_t * gpd, const char * fill);
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1162,14 +1130,14 @@ GraphicalPrimitive2D_setFillRule(GraphicalPrimitive2D_t * gpd,
  *
  * @param gpd the GraphicalPrimitive2D_t structure.
  *
- * @param fill-rule const char * of the "fill-rule" attribute to be set.
+ * @param fillRule const char * of the "fill-rule" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1206,7 +1174,7 @@ GraphicalPrimitive2D_unsetFill(GraphicalPrimitive2D_t * gpd);
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @copydetails doc_graphicalprimitive2d_fill-rule
+ * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */

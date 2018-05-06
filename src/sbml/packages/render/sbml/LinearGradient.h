@@ -32,18 +32,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LinearGradient
- * @sbmlbrief{render} Representation of a linear gradient object from the SBML render extension.
+ * @sbmlbrief{render} Representation of a linear gradient.
  *
- * The concept of a linear gradient is more or or less taken from SVG.
- * A linear gradient is defined by a vector which determines the direction and the length 
- * of the gradient. So for a valid gradient this vector should have a length different from 0.
- * Otherwise all restrictions for the GradientBase class apply. (@see GradientBase)
+ * The concept of a linear gradient is more or or less taken from SVG.  A
+ * linear gradient is defined by a vector which determines the direction and
+ * the length of the gradient.  So for a valid gradient, this vector should
+ * have a length different from 0.  Otherwise, all restrictions for the
+ * GradientBase class apply.
  *
- * The vector for a linear gradient is defined by a start and an endpoint and each point consists
- * of three absolute-relative value pairs (@see RelAbsVector)
+ * The vector for a linear gradient is defined by a start and an endpoint and
+ * each point consists of three absolute-relative value pairs.
  *
- * For examples of LinearGradients see the render extension specification and/or
- * the SVG specification.
+ * For examples of LinearGradient objects, see the SBML Render package
+ * specification and/or the SVG specification.
+ *
+ * @see GradientBase
+ * @see RelAbsVector
  */
 
 #ifndef LinearGradient_H__
@@ -124,6 +128,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the LinearGradient
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   LinearGradient(const XMLNode& node, unsigned int l2version=4);
 
@@ -137,11 +143,10 @@ public:
    * The start and the end of the linear gradient vector are set to (0,0,0).
    * A linear gradient with a vector of length zero should also be considered invalid.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id the new id for the LinearGradient.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   LinearGradient(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

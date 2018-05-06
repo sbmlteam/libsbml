@@ -1452,6 +1452,7 @@ GradientBase::writeAttributes(XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Converts the given string into a spread method.
  * If the string does not represnt a valid spread method, PAD is

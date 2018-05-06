@@ -32,15 +32,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderPoint
- * @sbmlbrief{render} Represents a point where the coordinates can be made up of absolute
- * as well as relative values (@see RelAbsVector)
+ * @sbmlbrief{render} A point with both absolute and relative values
  *
- * Render objects are often specified relative to the current viewport, i.e. we need
- * a way to specify relative coordinate values in curves. For this we introduced the RenderPoint
- * and the RenderCubicBezier class in the render extension.
- * Those two classes are used to specify curve and polygon elements (@see RenderCurve or @see Polygon).
+ * Render objects are often specified relative to the current viewport,
+ * i.e. we need a way to specify relative coordinate values in curves. For
+ * this we introduced the RenderPoint and the RenderCubicBezier class in the
+ * render extension.  Those two classes are used to specify curve and polygon
+ * elements.
  *
- *
+ * @see RenderCurve
+ * @see Polygon
  */
 
 #ifndef RenderPoint_H__

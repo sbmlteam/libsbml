@@ -31,7 +31,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfLocalStyles
- * @sbmlbrief{render} TODO:Definition of the ListOfLocalStyles class.
+ * @sbmlbrief{render} A list of LocalStyle objects.
+ * 
+ * The ListOfLocalStyles is a container for the LocalStyle elements 
+ * of a LocalRenderInformation object.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see LocalStyle
+ * @see LocalRenderInformation
  */
 
 

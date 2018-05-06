@@ -1621,11 +1621,13 @@ void Text::writeElements (XMLOutputStream& stream) const
 
 
 
+/** @cond doxygenLibsbmlInternal */
 void
 Text::setElementText(const std::string &text)
 {
   this->setText(text);
 }
+/** @endcond */
 
 
 #endif /* __cplusplus */

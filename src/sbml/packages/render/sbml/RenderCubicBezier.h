@@ -32,22 +32,25 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderCubicBezier
- * @sbmlbrief{render} CubicBezier representation for RenderCurve objects and Polygon objects.
+ * @sbmlbrief{render} Representation of cubic Bezier curves.
  *
- * The RenderCubicBezier is derived from RenderPoint and is the second element needed to 
- * represent arbitrary curves with relative coordinates as they can appear in RenderCurves
- * and Polygon objects.
- * In addition to the attributes inherited from RenderPoint, RenderCubicBezier has two additional
- * attributes for the two base points that define a cubic bezier curve.
+ * The RenderCubicBezier is derived from RenderPoint and is the second
+ * element needed to represent arbitrary curves with relative coordinates as
+ * they can appear in RenderCurves and Polygon objects.  In addition to the
+ * attributes inherited from RenderPoint, RenderCubicBezier has two
+ * additional attributes for the two base points that define a cubic bezier
+ * curve.
  *
- * Segments in a RenderCurve or a Polygon are always defined by two consecutive RenderPoint or 
- * RenderCubicBezier elements. The first element in a list of RenderPoints has to be a RenderPoint 
- * object, all following elements can either be RenderPoints or RenderCubicBezier elements.
- * If the second element is a RenderPoint, the two elements represent a straight line segement,
- * if the second element if a RenderCubicBezier, the two elements represent a cubic bezier curve
- * segment.
+ * Segments in a RenderCurve or a Polygon are always defined by two
+ * consecutive RenderPoint or RenderCubicBezier elements. The first element
+ * in a list of RenderPoints has to be a RenderPoint object, all following
+ * elements can either be RenderPoints or RenderCubicBezier elements.  If the
+ * second element is a RenderPoint, the two elements represent a straight
+ * line segement, if the second element if a RenderCubicBezier, the two
+ * elements represent a cubic bezier curve segment.
  *
- * For further  details please have a look at the SBML render extension specification.
+ * For further details please have a look at the SBML Level&nbsp;3 Render
+ * package specification.
  */
 
 #ifndef RenderCubicBezier_H__

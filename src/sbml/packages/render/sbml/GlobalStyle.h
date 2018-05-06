@@ -32,14 +32,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GlobalStyle
- * @sbmlbrief{render} implementation of the GlobalStyle concept of the SBML render extension.
+ * @sbmlbrief{render} A style that can be associated with a layout.
  *
- * Global styles are the style information objects used in GlobalRenderInformation (@see GlobalRenderInformation).
- * Global styles can be associated with layout objects by role and type, but not by id, otherwise global 
- * styles and local styles are equivalent.
+ * Global styles are the style information objects used in
+ * GlobalRenderInformation.  Global styles can be associated with layout
+ * objects by role and type, but not by id; in other respects, global styles
+ * and local styles are equivalent.
  *
- * Since GlobalStyle is derived from Styles, it inherits all of the methods and attributes from Style. (@see Style) 
+ * Since GlobalStyle is derived from Styles, it inherits all of the methods
+ * and attributes from Style.
  *
+ * @see GlobalRenderInformation
+ * @see Style
  */
 
 #ifndef GlobalStyle_H__
@@ -112,6 +116,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the GlobalStyle
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   GlobalStyle(const XMLNode& node, unsigned int l2version=4);
 
@@ -121,11 +127,10 @@ public:
    * Constructor which creates a GlobalStyle with the given @p id
    * and all lists empty.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id the new id for the GlobalStyle.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   GlobalStyle(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

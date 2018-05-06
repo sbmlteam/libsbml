@@ -32,13 +32,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LocalRenderInformation
- * @sbmlbrief{render} LocalRenderInformation is the render information stored in Layouts.
- *  LocalRenderInformation can be applied to all layouts.
+ * @sbmlbrief{render} Rendering information stored in Layouts.
  *
- * LocalRenderInformation is one of the subclasses of RenderInformationBase. A local render information object
- * contains color definitions, gradient definitions and line endings as defined in RenderInformationBase.
- * Additionally it has a list of local styles which specifies type, role and id based render information.
- * Local render information can specify id based render information because it does belong to a certain layout and it can reference ids of object in that layout.
+ * LocalRenderInformation is one of the subclasses of
+ * RenderInformationBase. A "local rendering information" object contains color
+ * definitions, gradient definitions and line endings as defined in
+ * RenderInformationBase.  Additionally it has a list of local styles which
+ * specifies type, role and id based render information.  Local render
+ * information can specify id based render information because it does belong
+ * to a certain layout and it can reference ids of object in that layout.
  */
 
 #ifndef LocalRenderInformation_H__
@@ -110,11 +112,10 @@ public:
    * Constructor which creates a LocalRenderInformation with the given @p id
    * and all lists empty.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id the new id for the LocalRenderInformation.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   LocalRenderInformation(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

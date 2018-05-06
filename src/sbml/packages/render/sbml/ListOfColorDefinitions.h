@@ -31,7 +31,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfColorDefinitions
- * @sbmlbrief{render} TODO:Definition of the ListOfColorDefinitions class.
+ * @sbmlbrief{render} A list of ColorDefinition objects.
+ * 
+ * The ListOfColorDefinitions is a container for the ColorDefinition elements 
+ * of a RenderInformationBase object.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see ColorDefinition
  */
 
 

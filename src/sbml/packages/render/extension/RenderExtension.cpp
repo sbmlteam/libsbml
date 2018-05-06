@@ -414,7 +414,7 @@ RenderExtension::getErrorIdOffset() const
 
 /** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
  *
  * Initialization function of groups extension module which is automatically invoked 
@@ -521,6 +521,7 @@ RenderExtension::init()
   RenderLayoutConverter rlc;
   SBMLConverterRegistry::getInstance().addConverter(&rlc);
 }
+/** @endcond */
 
 
 /*
@@ -834,7 +835,7 @@ LIBSBML_EXTERN
 int
 FillRule_isValid(FillRule_t fr)
 {
-  int min = FILL_RULE_UNSET;
+  int min = FILL_RULE_NONZERO;
   int max = FILL_RULE_INVALID;
 
   if (fr < min || fr >= max)

@@ -58,6 +58,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+/** @cond doxygenLibsbmlInternal */
 const double Transformation::IDENTITY3D[12]={1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0};
 const double Transformation::NAN3D[12] = { std::numeric_limits<double>::quiet_NaN(),
 std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(), 
@@ -66,6 +67,7 @@ std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN
 std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(),
 std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN(),
 std::numeric_limits<double>::quiet_NaN() };
+/** @endcond */
 
 #ifdef __cplusplus
 

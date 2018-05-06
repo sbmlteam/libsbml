@@ -32,11 +32,12 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transformation
- * @sbmlbrief{render} implementation of a 3D transformation matrix.
+ * @sbmlbrief{render} Implementation of a 3D transformation matrix.
  *
- * The Transformation class represents a 3D transformation which normally is a 4x4 matrix.
- * Since the last row is always 0 0 0 1 for affine transformations, we leave out those values
- * and store the matrix as an array of 4x3 columns
+ * The Transformation class represents a 3D transformation which normally is
+ * a 4x4 matrix.  Since the last row is always 0 0 0 1 for affine
+ * transformations, we leave out those values and store the matrix as an
+ * array of 4x3 columns
  */
 
 #ifndef Transformation_H__
@@ -81,6 +82,7 @@ protected:
   /** @endcond */
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Creates a new Transformation object from the given XMLNode object.
    * The XMLNode object has to contain a valid XML representation of a 
@@ -90,8 +92,11 @@ protected:
    *
    * @param node the XMLNode object reference that describes the Transformation
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Transformation(const XMLNode& node, unsigned int l2version=4);
+  /** @endcond */
 
 public:
 

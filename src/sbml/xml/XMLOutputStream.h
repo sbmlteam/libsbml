@@ -296,6 +296,7 @@ public:
    * Writes the given element to the stream.
    *
    * @param triple the XML element to write.
+   * @param text the text to put
    */
   void endElement (const XMLTriple& triple, bool text = false);
 

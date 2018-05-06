@@ -32,20 +32,23 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RadialGradient
- * @sbmlbrief{render} Representation of a radial gradient object from the SBML render extension.
+ * @sbmlbrief{render} Representation of a radial gradient.
  *
- * The concept of a radial gradient is more or or less taken from SVG.
- * A radial gradient is defined by a center point, a radius and an optional focal point.
- * So for a valid gradient the radius should have a positive length different from 0 and
- * the focal point should be within the circle defined by the center point and the radius.
- * Otherwise all restrictions for the GradientBase class apply. (@see GradientBase)
+ * The concept of a radial gradient is more or or less taken from SVG.  A
+ * radial gradient is defined by a center point, a radius and an optional
+ * focal point.  So for a valid gradient the radius should have a positive
+ * length different from 0 and the focal point should be within the circle
+ * defined by the center point and the radius.  Otherwise all restrictions
+ * for the GradientBase class apply.
  *
- * The center and the focal point of a radial gradient are defined by three pairs of
- * absolute-relative value. (@see RelAbsVector)
- * The radius is also defined asn an absolute-relative value pair.
+ * The center and the focal point of a radial gradient are defined by three
+ * pairs of absolute-relative value.  The radius is also defined asn an
+ * absolute-relative value pair.  For examples of RadialGradient object
+ * definitions, see the SBML Render package specification and/or the SVG
+ * specification.
  *
- * For examples of RadialGradients see the render extension specification and/or
- * the SVG specification.
+ * @see GradientBase
+ * @see RelAbsVector
  */
 
 
@@ -130,6 +133,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the RadialGradient
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   RadialGradient(const XMLNode& node, unsigned int l2version);
 
@@ -143,11 +148,10 @@ public:
    * The start and the end of the linear gradient vector are set to (0,0,0).
    * A linear gradient with a vector of length zero should also be considered invalid.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id the new id for the RadialGradient.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   RadialGradient(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

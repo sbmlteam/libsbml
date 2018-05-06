@@ -262,7 +262,7 @@ GraphicalPrimitive1D::getStrokeWidth() const
 
 
 /*
- * Returns the value of the "stroke-dashArray" attribute of this
+ * Returns the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D.
  */
 const std::vector<unsigned int>&
@@ -331,7 +331,7 @@ GraphicalPrimitive1D::isSetStrokeWidth() const
 
 /*
  * Predicate returning @c true if this GraphicalPrimitive1D's
- * "stroke-dashArray" attribute is set.
+ * "stroke-dasharray" attribute is set.
  */
 bool
 GraphicalPrimitive1D::isSetStrokeDashArray() const
@@ -396,7 +396,7 @@ GraphicalPrimitive1D::setStrokeWidth(double strokeWidth)
 
 
 /*
- * Sets the value of the "stroke-dashArray" attribute of this
+ * Sets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D.
  */
 int
@@ -573,7 +573,7 @@ GraphicalPrimitive1D::unsetStrokeWidth()
 
 
 /*
- * Unsets the value of the "stroke-dashArray" attribute of this
+ * Unsets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D.
  */
 int
@@ -896,7 +896,7 @@ GraphicalPrimitive1D::isSetAttribute(const std::string& attributeName) const
   {
     value = isSetStrokeWidth();
   }
-  else if (attributeName == "stroke-dashArray")
+  else if (attributeName == "stroke-dasharray")
   {
     value = isSetStrokeDashArray();
   }
@@ -1040,7 +1040,7 @@ GraphicalPrimitive1D::unsetAttribute(const std::string& attributeName)
   {
     value = unsetStrokeWidth();
   }
-  else if (attributeName == "stroke-dashArray")
+  else if (attributeName == "stroke-dasharray")
   {
     value = unsetStrokeDashArray();
   }
@@ -1554,7 +1554,7 @@ GraphicalPrimitive1D_isSetStrokeWidth(const GraphicalPrimitive1D_t * gpd)
 
 /*
  * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
- * "stroke-dashArray" attribute is set.
+ * "stroke-dasharray" attribute is set.
  */
 LIBSBML_EXTERN
 int
@@ -1602,7 +1602,7 @@ GraphicalPrimitive1D_setStrokeWidth(GraphicalPrimitive1D_t * gpd,
 
 
 /*
- * Sets the value of the "stroke-dashArray" attribute of this
+ * Sets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D_t.
  */
 LIBSBML_EXTERN
@@ -1650,7 +1650,7 @@ GraphicalPrimitive1D_unsetStrokeWidth(GraphicalPrimitive1D_t * gpd)
 
 
 /*
- * Unsets the value of the "stroke-dashArray" attribute of this
+ * Unsets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D_t.
  */
 LIBSBML_EXTERN

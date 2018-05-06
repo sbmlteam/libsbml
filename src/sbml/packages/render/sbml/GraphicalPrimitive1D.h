@@ -32,17 +32,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalPrimitive1D
- * @sbmlbrief{render} base class for all graphical primitives which implements all 1D attributes
+ * @sbmlbrief{render} Base class for graphical primitives implementing 1D attributes.
  *
- * The GraphicalPrimitive1D class implements attributes and methods necessary for 1D objects
- * like lines. The attributes that are implemented are a stroke color, a stroke width and 
- * a stroke dasharray for dashed line drawing.
+ * The GraphicalPrimitive1D class implements attributes and methods necessary
+ * for 1D objects like lines. The attributes that are implemented are a
+ * stroke color, a stroke width and a stroke dasharray for dashed line
+ * drawing.  Additionally, this class adds an id attribute with which all
+ * graphical primitives can be referenced.
  *
- * Additionally this class adds an id attribute with which all graphical primitives can be
- * referenced.
- *
- * The GraphicalPrimitive1D class is derived from Transformation2D and inherits all its methods
- * and attributes.
+ * The GraphicalPrimitive1D class is derived from Transformation2D and
+ * inherits all its methods and attributes.
  */
 
 #ifndef GraphicalPrimitive1D_H__
@@ -130,6 +129,8 @@ public:
     *
     * @param node the XMLNode object reference that describes the GraphicalPrimitive1D
     * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
     */
    GraphicalPrimitive1D(const XMLNode& node, unsigned int l2version=4);
 
@@ -140,11 +141,10 @@ public:
    * The transformation properties are not set, neither is the stroke or the stroke width.
    * The id is set to the given string.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id The id for the GraphicalPrimitive1D object
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   GraphicalPrimitive1D(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -210,13 +210,10 @@ public:
 
 
   /**
-   * Returns the value of the "stroke-dashArray" attribute of this
+   * Returns the value of the "stroke-dasharray" attribute of this
    * GraphicalPrimitive1D.
    *
-   * @param outArray unsignedint* array that will be used to return the value
-   * of the "stroke-dashArray" attribute of this GraphicalPrimitive1D.
-   *
-   * @note the value of the "stroke-dashArray" attribute of this
+   * @note the value of the "stroke-dasharray" attribute of this
    * GraphicalPrimitive1D is returned in the argument array.
    */
   const std::vector<unsigned int>& getStrokeDashArray() const;
@@ -270,9 +267,9 @@ public:
 
   /**
    * Predicate returning @c true if this GraphicalPrimitive1D's
-   * "stroke-dashArray" attribute is set.
+   * "stroke-dasharray" attribute is set.
    *
-   * @return @c true if this GraphicalPrimitive1D's "stroke-dashArray"
+   * @return @c true if this GraphicalPrimitive1D's "stroke-dasharray"
    * attribute has been set, otherwise @c false is returned.
    */
   bool isSetStrokeDashArray() const;
@@ -283,7 +280,7 @@ public:
    * The array is considered set if it is not empty and if the first entry is
    * not NaN.
    *
-   * @true if the dasharray is set.
+   * @return @c true if the dasharray is set, @c false otherwise.
    */
   bool isSetDashArray() const;
   
@@ -332,13 +329,10 @@ public:
 
 
   /**
-   * Sets the value of the "stroke-dashArray" attribute of this
+   * Sets the value of the "stroke-dasharray" attribute of this
    * GraphicalPrimitive1D.
    *
-   * @param inArray unsignedint* array value of the "stroke-dashArray"
-   * attribute to be set.
-   *
-   * @param arrayLength int value for the length of the "stroke-dashArray"
+   * @param array value of the "stroke-dasharray"
    * attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -439,7 +433,7 @@ public:
 
 
   /**
-   * Unsets the value of the "stroke-dashArray" attribute of this
+   * Unsets the value of the "stroke-dasharray" attribute of this
    * GraphicalPrimitive1D.
    *
    * @copydetails doc_returns_success_code
@@ -1255,11 +1249,11 @@ GraphicalPrimitive1D_isSetStrokeWidth(const GraphicalPrimitive1D_t * gpd);
 
 /**
  * Predicate returning @c 1 (true) if this GraphicalPrimitive1D_t's
- * "stroke-dashArray" attribute is set.
+ * "stroke-dasharray" attribute is set.
  *
  * @param gpd the GraphicalPrimitive1D_t structure.
  *
- * @return @c 1 (true) if this GraphicalPrimitive1D_t's "stroke-dashArray"
+ * @return @c 1 (true) if this GraphicalPrimitive1D_t's "stroke-dasharray"
  * attribute has been set, otherwise @c 0 (false) is returned.
  *
  * @memberof GraphicalPrimitive1D_t
@@ -1335,16 +1329,13 @@ GraphicalPrimitive1D_setStrokeWidth(GraphicalPrimitive1D_t * gpd,
 
 
 /**
- * Sets the value of the "stroke-dashArray" attribute of this
+ * Sets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D_t.
  *
  * @param gpd the GraphicalPrimitive1D_t structure.
  *
- * @param stroke-dashArray pointer value of the "stroke-dashArray" attribute to
+ * @param strokeDash pointer value of the "stroke-dasharray" attribute to
  * be set.
- *
- * @param arrayLength int value for the length of the "stroke-dashArray"
- * attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1411,7 +1402,7 @@ GraphicalPrimitive1D_unsetStrokeWidth(GraphicalPrimitive1D_t * gpd);
 
 
 /**
- * Unsets the value of the "stroke-dashArray" attribute of this
+ * Unsets the value of the "stroke-dasharray" attribute of this
  * GraphicalPrimitive1D_t.
  *
  * @param gpd the GraphicalPrimitive1D_t structure.

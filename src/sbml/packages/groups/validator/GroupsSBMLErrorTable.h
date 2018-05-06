@@ -236,7 +236,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
 
   // 4020305
   { GroupsGroupKindMustBeGroupKindEnum,
-    "The 'kind' attribute must be GroupKindEnum.",
+    "The 'kind' attribute must be GroupKind.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'groups:kind' of a <group> object must conform "

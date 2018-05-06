@@ -32,22 +32,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderInformationBase
- * @sbmlbrief{render} abstract base class for local and global render information.
+ * @sbmlbrief{render} Abstract base class for local and global rendering information.
  *
- * In the SBML render extension, local and global render information representations
- * share many attributes. These are implemented in this abstract base class.
- *
- * GlobalRenderInformation and LocalRenderInformation are the classes that are derived
- * from this base class.
+ * In the SBML Level&nbsp;3 Render package, local and global render
+ * information representations share many attributes. These are implemented
+ * in this abstract base class.  GlobalRenderInformation and
+ * LocalRenderInformation are the classes that are derived from this base
+ * class.
  *
  * All render information objects have the following things in common:
  *
- * a) a set of color definitions
- * b) a set of gradient definitions
- * c) a set of line endings
+ * @li a set of color definitions
+ * @li a set of gradient definitions
+ * @li a set of line endings
  *
- * In addition to those, they share attributes for background color and some meta information
- * as to which program created the render information etc.
+ * In addition to those, they share attributes for background color and some
+ * meta information as to which program created the render information etc.
  */
 
 #ifndef RenderInformationBase_H__
@@ -170,11 +170,11 @@ public:
 
 
   /**
-   * Parses the xml information in the given node and sets the attributes.
+   * Parses the XML information in the given node and sets the attributes.
    * This method should never be called by the user. It is only used to read render 
    * information from annotations.
    *
-   * @param node the XMLNode object reference that describes the RenderinformationBase
+   * @param pNode the XMLNode object reference that describes the RenderinformationBase
    * object to be instantiated.
    */
   void parseXML(const XMLNode& pNode); 
@@ -188,9 +188,7 @@ public:
    * and line endings set.
    * For the object to be valid a valid background color value.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   RenderInformationBase(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -403,8 +401,7 @@ public:
    * The user has to make sure that render information referencing 
    * does not create loops.
    *
-   * @param referenceRenderInformation std::string& value of the
-   * "referenceRenderInformation" attribute to be set.
+   * @param id the value for the "referenceRenderInformation" attribute
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

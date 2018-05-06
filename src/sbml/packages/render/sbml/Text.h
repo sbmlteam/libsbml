@@ -32,15 +32,18 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Text
- * @sbmlbrief{render} Text element from the SBML render extension. Is used to represent text render information.
+ * @sbmlbrief{render} Representation of text elements.
  *
  * The Text class represents text to be rendered in the context of a style.
- * The Text class inherits all attributes and methods from its base class GraphicalPrimitive1D.
- * 
- * The text also holds a string for the actual text that is to be rendered for the Text object.
+ * The Text class inherits all attributes and methods from its base class
+ * GraphicalPrimitive1D.
  *
- * Additional attributes specify how the text is to be rendered, e.g. which font family is to be used
- * and how the text is to be aligned within the viewport.
+ * The text also holds a string for the actual text that is to be rendered
+ * for the Text object.
+ *
+ * Additional attributes specify how the text is to be rendered, for example
+ * which font family is to be used and how the text is to be aligned within
+ * the viewport.
  */
 
 #ifndef Text_H__
@@ -73,30 +76,30 @@ class LIBSBML_EXTERN Text : public GraphicalPrimitive1D
 public:
   enum FONT_WEIGHT
   {
-    WEIGHT_UNSET, /** The weight is not set, and may be anything.*/
-    WEIGHT_NORMAL, /** The weight is 'normal', thinner and/or lighter than bold text.*/
-    WEIGHT_BOLD, /** The weight is 'bold', thicker and/or darker than normal text.*/
-    WEIGHT_INVALID /** The weight is an unknown or invalid value.*/
+    WEIGHT_UNSET,  /*!<The weight is not set, and may be anything.*/
+    WEIGHT_NORMAL, /*!<The weight is 'normal', thinner and/or lighter than bold text.*/
+    WEIGHT_BOLD,   /*!<The weight is 'bold', thicker and/or darker than normal text.*/
+    WEIGHT_INVALID /*!<The weight is an unknown or invalid value.*/
   };
 
   enum FONT_STYLE
   {
-    STYLE_UNSET, /** The font style is not set, and may be anything. */
-    STYLE_NORMAL, /** The font style is 'normal', or upright and not slanted. */
-    STYLE_ITALIC, /** The font style is 'italic', or slanted. */
-    STYLE_INVALID /** The font style is an unknown or invalid value. */
+    STYLE_UNSET,  /*!<The font style is not set, and may be anything. */
+    STYLE_NORMAL, /*!<The font style is 'normal', or upright and not slanted. */
+    STYLE_ITALIC, /*!<The font style is 'italic', or slanted. */
+    STYLE_INVALID /*!<The font style is an unknown or invalid value. */
   };
 
   enum TEXT_ANCHOR 
   {
-    ANCHOR_UNSET=0, /** The text anchor is unset. */
-    ANCHOR_START=1, /** The text anchor is "start": the start of the text is aligned to the horizontal center of the box.*/
-    ANCHOR_MIDDLE=2, /** The text anchor is unset. */
-    ANCHOR_END=3, /** The text anchor is unset. */
-    ANCHOR_TOP=1, /** The text anchor is unset. */
-    ANCHOR_BOTTOM=3, /** The text anchor is unset. */
-    ANCHOR_BASELINE=4, /** The text anchor is unset. */
-    ANCHOR_INVALID /** The text anchor is an unknown or invalid value. */
+    ANCHOR_UNSET=0,  /*!<The text anchor is unset. */
+    ANCHOR_START=1,  /*!<The text anchor is "start": the start of the text is aligned to the horizontal center of the box.*/
+    ANCHOR_MIDDLE=2, /*!<The text anchor is "middle": the horizontal center of the text is aligned with the horizontal center of the box. */
+    ANCHOR_END=3,    /*!<The text anchor is "end": the end of the text is aligned with the horizontal center of the box. */
+    ANCHOR_TOP=1,    /*!<The text anchor is "top": the top of the text is aligned with the vertical center of the box. */
+    ANCHOR_BOTTOM=3, /*!<The text anchor is "bottom": the bottom of the text is aligned with the vertical center of the box. */
+    ANCHOR_BASELINE=4, /*!<The text anchor is "baseline": the baseline of the text is aligned with the vertical center of the box. */
+    ANCHOR_INVALID   /*!<The text anchor is an unknown or invalid value. */
   };
 
 
@@ -156,6 +159,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the Text
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Text(const XMLNode& node, unsigned int l2version=4);
 
@@ -171,14 +176,13 @@ public:
    * All the font rendering attributes as well 
    * as the text to be rendered are unset.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id id string for the Text object
    * @param x x coordinate of the position offset
    * @param y y coordinate of the position offset
    * @param z z coordinate of the position offset
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Text(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& x=RelAbsVector(0.0,0.0),const RelAbsVector& y=RelAbsVector(0.0,0.0),const RelAbsVector& z=RelAbsVector(0.0,0.0));
 #endif // OMIT_DEPRECATED
@@ -233,7 +237,6 @@ public:
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
    * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
-   * @li @sbmlconstant{TEXT_FONT-WEIGHT_INVALID, FontWeight_t}
    */
   int getFontWeight() const;
 
@@ -247,7 +250,7 @@ public:
    * The possible values returned by this method are:
    * @li @c "bold"
    * @li @c "normal"
-   * @li @c "Unknown FontWeight value"
+   * @li @c "(Unknown FontWeight value)"
    */
   std::string getFontWeightAsString() const;
 
@@ -263,7 +266,6 @@ public:
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
    * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
-   * @li @sbmlconstant{TEXT_FONT-STYLE_INVALID, FontStyle_t}
    */
   int getFontStyle() const;
 
@@ -286,7 +288,7 @@ public:
    * Returns the value of the "text-anchor" attribute of this Text.
    *
    * @return the value of the "text-anchor" attribute of this Text as a
-   * HTextAnchor_t.
+   * @ref HTextAnchor_t.
    *
    * @copydetails doc_render_text_anchor
    * @if clike The value is drawn from the enumeration @ref HTextAnchor_t
@@ -295,7 +297,6 @@ public:
    * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
    * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
    * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
-   * @li @sbmlconstant{TEXT_TEXT-ANCHOR_INVALID, HTextAnchor_t}
    */
   int getTextAnchor() const;
 
@@ -329,7 +330,6 @@ public:
    * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
    * @li @sbmlconstant{V_TEXTANCHOR_BOTTOM, VTextAnchor_t}
    * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
-   * @li @sbmlconstant{TEXT_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
    */
   int getVTextAnchor() const;
 
@@ -423,7 +423,7 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this Text.
    *
-   * @param fontWeight @if clike FontWeight_t@else int@endif value of the
+   * @param fontWeight @if clike @ref FontWeight_t@else int@endif@~ value of the
    * "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -445,7 +445,7 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this Text.
    *
-   * @param font-weight std::string& of the "font-weight" attribute to be set.
+   * @param fontWeight the value of the "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -460,7 +460,7 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this Text.
    *
-   * @param fontStyle @if clike FontStyle_t@else int@endif value of the
+   * @param fontStyle @if clike @ref FontStyle_t@else int@endif@~ value of the
    * "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -481,7 +481,7 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this Text.
    *
-   * @param font-style std::string& of the "font-style" attribute to be set.
+   * @param fontStyle the "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -496,7 +496,7 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this Text.
    *
-   * @param textAnchor @if clike HTextAnchor_t@else int@endif value of the
+   * @param textAnchor @if clike @ref HTextAnchor_t@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -518,7 +518,7 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this Text.
    *
-   * @param text-anchor std::string& of the "text-anchor" attribute to be set.
+   * @param textAnchor the value of the "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -533,7 +533,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this Text.
    *
-   * @param vtextAnchor @if clike VTextAnchor_t@else int@endif value of the
+   * @param vtextAnchor @if clike @ref VTextAnchor_t@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -555,7 +555,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this Text.
    *
-   * @param vtext-anchor std::string& of the "vtext-anchor" attribute to be
+   * @param vtextAnchor the value of the "vtext-anchor" attribute to be
    * set.
    *
    * @copydetails doc_returns_success_code
@@ -1382,7 +1382,7 @@ Text_setFontWeight(Text_t * t, FontWeight_t fontWeight);
  *
  * @param t the Text_t structure.
  *
- * @param font-weight const char * of the "font-weight" attribute to be set.
+ * @param fontWeight const char * of the "font-weight" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1424,7 +1424,7 @@ Text_setFontStyle(Text_t * t, FontStyle_t fontStyle);
  *
  * @param t the Text_t structure.
  *
- * @param font-style const char * of the "font-style" attribute to be set.
+ * @param fontStyle const char * of the "font-style" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1467,7 +1467,7 @@ Text_setTextAnchor(Text_t * t, HTextAnchor_t textAnchor);
  *
  * @param t the Text_t structure.
  *
- * @param text-anchor const char * of the "text-anchor" attribute to be set.
+ * @param textAnchor const char * of the "text-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1510,7 +1510,7 @@ Text_setVTextAnchor(Text_t * t, VTextAnchor_t vtextAnchor);
  *
  * @param t the Text_t structure.
  *
- * @param vtext-anchor const char * of the "vtext-anchor" attribute to be set.
+ * @param vtextAnchor const char * of the "vtext-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

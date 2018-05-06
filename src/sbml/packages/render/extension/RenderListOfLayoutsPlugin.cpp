@@ -216,6 +216,7 @@ RenderListOfLayoutsPlugin::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
   RenderListOfLayoutsPlugin::hasRequiredElements() const
@@ -224,6 +225,7 @@ bool
 
   return allPresent;
 }
+/** @endcond */
 
 
 
@@ -236,6 +238,7 @@ bool
 
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBMLDocument of this SBML object.
 *
@@ -252,8 +255,10 @@ void
   }
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBML object of this plugin object to
 * this object and child elements (if any).
@@ -265,8 +270,10 @@ void
   SBasePlugin::connectToParent(sbase);
   mGlobalRenderInformation.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Enables/Disables the given package with child elements in this plugin
 * object (if any).
@@ -277,6 +284,7 @@ void
 {
   mGlobalRenderInformation.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -295,13 +303,18 @@ RenderListOfLayoutsPlugin::readOtherXML (SBase* parentObject, XMLInputStream& st
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 void RenderListOfLayoutsPlugin::parseAnnotation()
 {
   ListOfLayouts* lol = (ListOfLayouts*)getParentSBMLObject();
 
   parseGlobalRenderAnnotation(lol->getAnnotation(), lol);
 }
+/** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 /* 
  * Parse L2 annotation if supported
  *
@@ -312,6 +325,8 @@ RenderListOfLayoutsPlugin::parseAnnotation(SBase *parentObject, XMLNode *annotat
   mGlobalRenderInformation.setSBMLDocument(mSBML);  
   parseGlobalRenderAnnotation(annotation,(ListOfLayouts*)parentObject);  
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*

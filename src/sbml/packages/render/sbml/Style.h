@@ -32,14 +32,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Style
- * @sbmlbrief{render} abstract base class for local and global styles
+ * @sbmlbrief{render} Abstract base class for local and global styles.
  *
- * Local and global styles in the SBML render extension have many attributes and methods in common.
- * These have been implemented in the abstract base class Style.
+ * Local and global styles in the SBML Level&nbsp;3 Render package have many
+ * attributes and methods in common.  These have been implemented in the
+ * abstract base class Style.
  *
- * A style is a graphical representation for certain layout objects. The assignment of styles to
- * individual layout objects can either be done through layout object ids (local styles only), 
- * layout object types (SPECIES, COMPARTMENT, etc.) or layout object roles.
+ * A style is a graphical representation for certain layout objects. The
+ * assignment of styles to individual layout objects can either be done
+ * through layout object ids (local styles only), layout object types
+ * (SPECIES, COMPARTMENT, etc.) or layout object roles.
  */
 
 #ifndef Style_H__
@@ -83,6 +85,7 @@ protected:
   /** @endcond */
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Creates a new Style using the given SBML Level, Version and
    * &ldquo;render&rdquo; package version.
@@ -99,8 +102,9 @@ protected:
   Style(unsigned int level = RenderExtension::getDefaultLevel(),
         unsigned int version = RenderExtension::getDefaultVersion(),
         unsigned int pkgVersion = RenderExtension::getDefaultPackageVersion());
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Creates a new Style using the given RenderPkgNamespaces object.
    *
@@ -111,8 +115,9 @@ protected:
    * @copydetails doc_note_setting_lv_pkg
    */
   Style(RenderPkgNamespaces *renderns);
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Creates a new Style object from the given XMLNode object.
    * The XMLNode object has to contain a valid XML representation of a 
@@ -122,22 +127,24 @@ protected:
    *
    * @param node the XMLNode object reference that describes the Style
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Style(const XMLNode& node, unsigned int l2version);
+  /** @endcond */
 
-
+  /** @cond doxygenLibsbmlInternal */
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor which creates a Style with an empty group
    * and empty role and type list.
    * The group has to be filled before the * object is valid.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Style(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
+  /** @endcond */
 
 public:
 
@@ -322,6 +329,8 @@ public:
    * Returns the type list.
    *
    * @return const reference to the type list.
+   *
+   * @copydetails doc_render_style_type
    */
   const std::set<std::string>& getTypeList() const;
 
@@ -329,6 +338,8 @@ public:
    * Returns the value of the "typeList" attribute of this Style.
    *
    * @return the value of the "typeList" attribute of this Style as a string.
+   *
+   * @copydetails doc_render_style_type
    */
   std::set<std::string>& getTypeList();
 
@@ -348,6 +359,8 @@ public:
    *
    * @return true or false depending on whether the given string was
    * found in the type list.
+   *
+   * @copydetails doc_render_style_type
    */
   bool isInTypeList(const std::string& type) const;
 
@@ -378,6 +391,8 @@ public:
    * Sets the complete type list to a copy of the given list.
    *
    * @param typeList the list of types to be set for the style.
+   *
+   * @copydetails doc_render_style_type
    */
   int setTypeList(const std::set<std::string>& typeList);
 
@@ -1297,6 +1312,8 @@ Style_setRoleList(Style_t * s, const char * roleList);
  *
  * @param typeList const char * value of the "typeList" attribute to be set.
  *
+ * @copydetails doc_render_style_type
+ *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -1366,6 +1383,8 @@ Style_unsetRoleList(Style_t * s);
  * Unsets the value of the "typeList" attribute of this Style_t.
  *
  * @param s the Style_t structure.
+ *
+ * @copydetails doc_render_style_type
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

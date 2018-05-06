@@ -31,13 +31,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGradientStops
- * @sbmlbrief{render} TODO:Definition of the ListOfGradientStops class.
- * @brief a container that holds zero or more GradientStop objects.
+ * @sbmlbrief{render} A list of one or more GradientStop objects.
  *
- * The ListOfGradientStops is used in linear and radial gradient objects to store the 
- * GradientStop objects that define the gradient. A valid gradient should have two or more 
- * gradient stops. 
+ * The ListOfGradientStops is used in linear and radial gradient objects to
+ * store the GradientStop objects that define the gradient. A valid gradient
+ * should have two or more gradient stops.
  *
+ * The ListOfGradientStops is a container for the GradientStop elements of a
+ * GradientBase object.
+ *
+ * Note that the ListOfGradientStops class is only defined in libsbml for
+ * convenience: GradientStop objects are actually direct children of
+ * GradientBase-derived objects (i.e., LinearGradient or RadialGradient
+ * objects).
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * @see GradientStop
+ * @see GradientBase
+ * @see LinearGradient
+ * @see RadialGradient
  */
 
 
@@ -113,6 +128,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the ListOfGradientStops
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   ListOfGradientStops(const XMLNode& node, unsigned int l2version=4);
 

@@ -31,7 +31,19 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfDrawables
- * @sbmlbrief{render} TODO:Definition of the ListOfDrawables class.
+ * @sbmlbrief{render} A list of Transformation2D objects.
+ * 
+ * The ListOfDrawables is a container for Transformation2D elements.  It is
+ * implemented in libSBML only, and does not appear in the "render"
+ * specification, where the RenderGroup object contains child
+ * Transformation2D objects directly.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * @see Transformation2D
+ * @see RenderGroup
  */
 
 

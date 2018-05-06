@@ -171,6 +171,8 @@ void
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
 /* 
  * Parse L2 annotation if supported
  *
@@ -181,6 +183,8 @@ RenderLayoutPlugin::parseAnnotation(SBase *parentObject, XMLNode *annotation)
   mLocalRenderInformation.setSBMLDocument(mSBML);  
   parseLocalRenderAnnotation(annotation,(Layout*)parentObject);
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*
@@ -245,6 +249,8 @@ RenderLayoutPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
 /* default for components that have no required elements */
 bool
   RenderLayoutPlugin::hasRequiredElements() const
@@ -253,6 +259,7 @@ bool
 
   return allPresent;
 }
+/** @endcond */
 
 
 
@@ -264,7 +271,7 @@ bool
 
 
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBMLDocument of this SBML object.
 *
@@ -280,8 +287,10 @@ void
     mLocalRenderInformation.getDefaultValues()->setSBMLDocument(d);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Sets the parent SBML object of this plugin object to
 * this object and child elements (if any).
@@ -293,8 +302,10 @@ void
   SBasePlugin::connectToParent(sbase);
   mLocalRenderInformation.connectToParent(sbase);
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
 * Enables/Disables the given package with child elements in this plugin
 * object (if any).
@@ -305,6 +316,7 @@ void
 {
   mLocalRenderInformation.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
 /*

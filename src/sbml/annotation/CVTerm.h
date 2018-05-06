@@ -989,7 +989,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
-   * @note If the @if clike #QualifierType_t value@else qualifier type@endif of this object is not
+   * @note If the @if clike #QualifierType_t value@else qualifier type@endif@~ of this object is not
    * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, then the
    * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * will default to @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.

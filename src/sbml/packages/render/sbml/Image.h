@@ -32,20 +32,21 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Image
- * @sbmlbrief{render} implementation of the Image concept from the SBML
- * render extension
+ * @sbmlbrief{render} Representation of images.
  *
- * The image class represents a bitmap image representation. It is derived from Transformation2D
- * and inherits all its attributes.
+ * The image class represents a bitmap image representation.  It is derived
+ * from Transformation2D and inherits all its attributes.
  *
- * There is an attribute that can be used to specify a file URL where that specifies where the image 
- * data can be found. If the URL is a relative path, it is considered to be relative to
- * the document that contains the render extension info.
- * The path should be the location of a JPEG or PNG image, other image formats are currently not supported
- * by the SBML render extension.
+ * There is an attribute that can be used to specify a file URL where that
+ * specifies where the image data can be found. If the URL is a relative
+ * path, it is considered to be relative to the document that contains the
+ * render extension info.  The path should be the location of a JPEG or PNG
+ * image, other image formats are currently not supported by the SBML
+ * Level&nbsp;3 Render package.
  *
- * Additionally it provides an id attribute as well as attributes that determine the dimensions
- * and the position of the image relative to its viewport.
+ * Additionally it provides an id attribute as well as attributes that
+ * determine the dimensions and the position of the image relative to its
+ * viewport.
  */
 
 #ifndef Image_H__
@@ -128,6 +129,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the Image
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   Image(const XMLNode& node, unsigned int l2version=4);
 
@@ -143,9 +146,7 @@ public:
    * For the image to be valid, the reference has to be set and it has to 
    * have dimensions different from and larger than 0.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Image(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -434,6 +435,7 @@ public:
    */
   void setCoordinates(const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z=RelAbsVector(0.0,0.0));
 
+
   /**
    * Sets the dimensions of the image.
    * The dimensions can be set as relative values or absolute values, or 
@@ -444,32 +446,36 @@ public:
    */
   void setDimensions(const RelAbsVector& width,const RelAbsVector& height);
 
+
   /**
    * Sets the x coordinate of the image position.
    * The position can either be specified in relative or in absolut coordinates
    * or a combination of both.
    *
-   * @param x x coordinate of the image position
+   * @param coord x-coordinate of the image position
    */
   int setX(const RelAbsVector& coord);
+
 
   /**
    * Sets the y coordinate of the image position.
    * The position can either be specified in relative or in absolut coordinates
    * or a combination of both.
    *
-   * @param y y coordinate of the image position
+   * @param coord y-coordinate of the image position
    */
   int setY(const RelAbsVector& coord);
+
 
   /**
    * Sets the z coordinate of the image position.
    * The position can either be specified in relative or in absolut coordinates
    * or a combination of both.
    *
-   * @param z z coordinate of the image position
+   * @param coord z-coordinate of the image position
    */
   int setZ(const RelAbsVector& coord);
+
 
   /**
    * Sets the width of the image when rendered.
@@ -479,6 +485,7 @@ public:
    * @param width the width of the image when rendered
    */
   int setWidth(const RelAbsVector& width);
+
 
   /**
    * Sets the height of the image when rendered.

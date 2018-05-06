@@ -32,10 +32,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfCurveElements
- * @sbmlbrief{render} A container to store curve elements (RenderPoint and RenderCubicBezier). Use in RenderCurve and Polygon
+ * @sbmlbrief{render} A list of curve elements.
  *
- * The ListOfCurveElements is a container class to store the curve elements of RenderCurve 
- * objects and Polygon objects.
+ * The ListOfCurveElements is a container class to store the curve elements
+ * of RenderCurve objects and Polygon objects.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see RenderPoint
+ * @see RenderCubicBezier
  */
 
 #ifndef ListOfCurveElements_H__
@@ -114,6 +119,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the ListOfCurveElements
    * object to be instantiated.
+   *
+   * @param l2version The version of SBML Level&nbsp;2.
    */
   ListOfCurveElements(const XMLNode& node, unsigned int l2version=4);
 

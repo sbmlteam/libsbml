@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class RenderListOfLayoutsPlugin
- * @sbmlbrief{render} LibSBML implementation for the extension to the
- * ListOfLayouts class by the Render extension.
+ * @sbmlbrief{render} List of layout objects used by the "render" extension.
  *
  * The Render package extends the ListOfLayouts object from the Layout package 
  * with the addition of an optional ListOfGlobalRenderInformation object.
@@ -344,10 +343,13 @@ public:
                                      const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
-  void parseAnnotation();
 
   /** @cond doxygenLibsbmlInternal */
+  void parseAnnotation();
+  /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -356,7 +358,6 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-
   /** @endcond */
 
 protected:

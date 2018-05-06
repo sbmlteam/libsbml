@@ -527,6 +527,13 @@
  * invoke both getTypeCode() and getPackageName()</strong>.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_warning_deprecated_constructor
+ *
+ * @warning <span class="warning">This constructor is deprecated. The new
+ * libSBML API uses constructors that either take the SBML Level and Version,
+ * @em or take an SBMLNamespaces object.</span>
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_plugins
  *
  * @par
@@ -3836,6 +3843,82 @@ if (lmp != null)
  * <li> @c "baseline", the baseline of the text (i.e. the bottom of any 
  * non-descending letter like 'a' or e') is aligned with the vertical center
  * of the box.
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_fill_rule
+ *
+ * @par
+ * The attribute "fill-rule" is used to define how polygons should be filled.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable values for "fill-rule":
+ * <ul>
+ * <li> @c "nonzero": This value determines the "insideness" of a point in 
+ * the shape by drawing a ray from that point to infinity in any direction 
+ * and then examining the places where a segment of the shape crosses the ray. 
+ * Starting with a count of zero, add one each time a path segment crosses 
+ * the ray from left to right and subtract one each time a path segment crosses 
+ * the ray from right to left. After counting the crossings, if the result is 
+ * zero then the point is outside the path. Otherwise, it is inside.
+ *
+ * <li> @c "evenodd":  This value determines the "insideness" of a point in 
+ * the shape by drawing a ray from that point to infinity in any direction 
+ * and counting the number of path segments from the given shape that the ray
+ * crosses. If this number is odd, the point is inside; if even, the point is 
+ * outside.
+ *
+ * <li> @c "inherit": This value declares the "insideness" of a point 
+ * in the shape by declaring that the property takes the same computed value 
+ * as the property for the element's parent. The inherited value, which is 
+ * normally only used as a fallback value, can be clarified by setting 
+ * 'inherit' explicitly.  NOTE:  This value is NOT in the Level&nbsp;3 
+ * Version&nbsp;1 Render specification, but was left out due to an oversight:
+ * the value has long been part of the codebase.  It is provided here as
+ * a convenience.  Elements with a fill-rule set to "inherit" actually
+ * behave identicaly to elements without a fill-rule attribute at all, since
+ * this attribute always takes the value of a parent element if not 
+ * defined explicitly.
+ *
+ * </ul>
+ * <!-- ------------------------------------------------------------------- -->
+ *
+ * @class doc_render_style_type
+ *
+ * @par
+ * The attribute "typeList" for LocalStyle and GlobalStyle objects contains
+ * a list of StyleType entries that describe what sorts of object to apply
+ * the style to.
+ *
+ * In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
+ * allowable entries in a whitespace-separated "typeList":
+ * <ul>
+ * <li> @c "COMPARTMENTGLYPH": The style is to be applied to all compartment
+ * glyphs.
+ *
+ * <li> @c "SPECIESGLYPH": The style is to be applied to all species
+ * glyphs.
+ *
+ * <li> @c "REACTIONGLYPH": The style is to be applied to all reaction
+ * glyphs.
+ *
+ * <li> @c "SPECIESREFERENCEGLYPH": The style is to be applied to all
+ * species reference glyphs.
+ *
+ * <li> @c "TEXTGLYPH": The style is to be applied to all text
+ * glyphs.
+ *
+ * <li> @c "GENERALGLYPH": The style is to be applied to all general
+ * glyphs.
+ *
+ * <li> @c "GRAPHICALOBJECT": The style is to be applied to all graphical
+ * objects.
+ *
+ * <li> @c "ANY": The style is to be applied to any and all glyphs and 
+ * graphical objects.  Equivalent to explicitly listing all other keywords.
  *
  * </ul>
  * <!-- ------------------------------------------------------------------- -->

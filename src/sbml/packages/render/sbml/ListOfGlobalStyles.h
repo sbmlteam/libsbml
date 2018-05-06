@@ -31,7 +31,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGlobalStyles
- * @sbmlbrief{render} TODO:Definition of the ListOfGlobalStyles class.
+ * @sbmlbrief{render} A list of GlobalStyle objects.
+ *
+ * The ListOfGlobalStyles is a container for the GlobalStyle elements of a
+ * GlobalRenderInformation object.
+ *
+ * @copydetails doc_what_is_listof
+ *
+ * @see GlobalStyle
  */
 
 

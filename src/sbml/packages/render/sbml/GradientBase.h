@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GradientBase
- * @sbmlbrief{render} abstract base class for linear and radial gradients
+ * @sbmlbrief{render} Abstract base class for linear and radial gradients.
  * 
  * The base class implements common structures to both gradient classes.
  * Both gradients have an id attribute which is used to reference a gradient
@@ -43,15 +43,6 @@
  * the GradientStop objects that define the gradient and bothe classes have an 
  * attribute called spreadMethod which defines how a gradient is applied to an
  * object.
- *
- *
- * @class ListOfGradientDefinitions
- * @brief a container class that holds a list of gradient definitions.
- * There are two types of gradient definitions: LinearGradient and
- * RadialGradient
- *
- * Each RenderInformation object can have it's own list of gradient definitions.
- *
  */
 
 /**
@@ -66,18 +57,18 @@
  * @class doc_gradientbase_spreadMethod
  *
  * @par
- * The attribute "spreadMethod" on a GradientBase object is used to TODO:add
- * explanation
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "spreadMethod":
+ * The attribute "spreadMethod" on a GradientBase object is used by GradientBase 
+ * elements to decide how gradients propagate over the whole element they are 
+ * applied to.  The following are the allowable values for "spreadMethod":
  * <ul>
- * <li> @c "pad", TODO:add description
+ * <li> @c "pad", the gradient color at the endpoint of the vector defines how 
+ * the gradient is continued beyond that point (default value).
  *
- * <li> @c "reflect", TODO:add description
+ * <li> @c "reflect", the gradient continues from end to start and then from 
+ * start to end again and again.
  *
- * <li> @c "repeat", TODO:add description
+ * <li> @c "repeat", the gradient pattern is repeated from start to end over 
+ * and over again.
  *
  * </ul>
  */
@@ -175,6 +166,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the GradientBase
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   GradientBase(const XMLNode& node, unsigned int l2version=4);
 
@@ -186,11 +179,10 @@ public:
    * set to the given value.
    * This object is not valid until it gets at least two gradient stops.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id The id for the gradient definition object
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   GradientBase(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
@@ -247,7 +239,7 @@ public:
    * Returns the value of the "spreadMethod" attribute of this GradientBase.
    *
    * @return the value of the "spreadMethod" attribute of this GradientBase as
-   * a GradientSpreadMethod_t.
+   * a @ref GradientSpreadMethod_t.
    *
    * @copydetails doc_gradientbase_spreadMethod
    * @if clike The value is drawn from the enumeration @ref
@@ -256,8 +248,7 @@ public:
    * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
    * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}
    * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REPEAT, GradientSpreadMethod_t}
-   * @li @sbmlconstant{GRADIENT_BASE_SPREAD_METHOD_INVALID,
-   * GradientSpreadMethod_t}
+   * @li @sbmlconstant{GRADIENT_SPREAD_METHOD_INVALID, GradientSpreadMethod_t}
    */
   int getSpreadMethod() const;
 
@@ -358,7 +349,7 @@ public:
   /**
    * Sets the value of the "spreadMethod" attribute of this GradientBase.
    *
-   * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif value
+   * @param spreadMethod @if clike @ref GradientSpreadMethod_t@else int@endif@~ value
    * of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -374,7 +365,7 @@ public:
   /**
    * Sets the value of the "spreadMethod" attribute of this GradientBase.
    *
-   * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif value
+   * @param spreadMethod @if clike @ref GradientSpreadMethod_t@else int@endif@~ value
    * of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -1166,28 +1157,14 @@ protected:
 
 };
 
-
-
 LIBSBML_CPP_NAMESPACE_END
-
-
-
 
 #endif /* __cplusplus */
 
 
-
-
 #ifndef SWIG
 
-
-
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-
-
-
 BEGIN_C_DECLS
 
 
@@ -1311,7 +1288,7 @@ GradientBase_getName(const GradientBase_t * gb);
  * @param gb the GradientBase_t structure whose spreadMethod is sought.
  *
  * @return the value of the "spreadMethod" attribute of this GradientBase_t as
- * a GradientSpreadMethod_t.
+ * a @ref GradientSpreadMethod_t.
  *
  * @copydetails doc_gradientbase_spreadMethod
  * @if clike The value is drawn from the enumeration @ref
@@ -1320,8 +1297,7 @@ GradientBase_getName(const GradientBase_t * gb);
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REPEAT, GradientSpreadMethod_t}
- * @li @sbmlconstant{GRADIENT_BASE_SPREAD_METHOD_INVALID,
- * GradientSpreadMethod_t}
+ * @li @sbmlconstant{GRADIENT_SPREAD_METHOD_INVALID, GradientSpreadMethod_t}
  *
  * @memberof GradientBase_t
  */
@@ -1331,7 +1307,7 @@ GradientBase_getSpreadMethod(const GradientBase_t * gb);
 
 
 /**
- * Returns the value of the "spreadMethod" attribute of this GradientBase_t.
+ * Returns the value of the "spreadMethod" attribute of this @ref GradientBase_t.
  *
  * @param gb the GradientBase_t structure whose spreadMethod is sought.
  *

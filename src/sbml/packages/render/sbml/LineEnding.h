@@ -32,24 +32,23 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LineEnding
- * @sbmlbrief{render} a LineEnding is a decoration element for the start and/or end
- * of curves in the SBML render extension, e.g. arrow heads
+ * @sbmlbrief{render} Decoration element for the start and/or end of curves.
  *
- * LineEndings in the SBML render extension are used to apply certain decorations
- * to the end of curves. Since many curves in layout diagrams use the same decoration 
- * for the beginnings and start of a line, it would be highly redundant to encode
- * those decorations with each line. Therefor LineEnding objects can be defined which are 
- * then applied to the beginning or the ends of several curve objects.
+ * LineEndings in the SBML Level&nbsp;3 Render package are used to apply
+ * certain decorations to the end of curves. Since many curves in layout
+ * diagrams use the same decoration for the beginnings and start of a line,
+ * it would be highly redundant to encode those decorations with each
+ * line. Therefore, LineEnding objects can be defined which are then applied
+ * to the beginning or the ends of several curve objects.
  *
- * A LineEnding contains an id by which it can be referenced from curve styles, it contains
- * a visual representation of the decoration in the form of a render extension Group object
- * and it has some attributes that define the viewport and how the LineEnding is to be applied 
- * to a curve.
+ * A LineEnding contains an id by which it can be referenced from curve
+ * styles, it contains a visual representation of the decoration in the form
+ * of a render extension Group object and it has some attributes that define
+ * the viewport and how the LineEnding is to be applied to a curve.
  *
- * A LineEnding object is only valid if it has an id, a viewport that has an area which is not 0
- * and a valid group object.
+ * A LineEnding object is only valid if it has an id, a viewport that has an
+ * area which is not 0 and a valid group object.
  */
-
 
 #ifndef LineEnding_H__
 #define LineEnding_H__
@@ -133,8 +132,11 @@ public:
    *
    * @param node the XMLNode object reference that describes the LineEnding
    * object to be instantiated.
+   *
+   * @param l2version The version of SBML Level&nbsp;2.
    */
   LineEnding(const XMLNode& node, unsigned int l2version);
+
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -145,12 +147,10 @@ public:
    * the group object has to have descendants other than groups and
    * the viewport has to have a positive size.
    *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
    * @param id The id for the LineEnding.
    *
-   *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   LineEnding(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

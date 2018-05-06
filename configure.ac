@@ -622,6 +622,7 @@ AC_CONFIG_FILES([docs/src/common-text/libsbml-group-groups-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-layout-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-multi-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-group-qual-intro.html])
+AC_CONFIG_FILES([docs/src/common-text/libsbml-group-render-intro.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-installation.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
                 [tr -d '\n' < docs/src/common-text/libsbml-version.html > libsbmlversiontmp;

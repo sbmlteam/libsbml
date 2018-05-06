@@ -832,7 +832,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321107
   { RenderRenderGroupFontFamilyMustBeString,
-    "The 'fontFamily' attribute must be String.",
+    "The 'font-family' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:font-family' on a <renderGroup> must have a value of "
@@ -843,7 +843,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321108
   { RenderRenderGroupFontWeightMustBeFontWeightEnum,
-    "The 'fontWeight' attribute must be FontWeightEnum.",
+    "The 'font-weight' attribute must be FontWeight.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-weight' of a <renderGroup> object "
@@ -856,7 +856,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321109
   { RenderRenderGroupFontStyleMustBeFontStyleEnum,
-    "The 'fontStyle' attribute must be FontStyleEnum.",
+    "The 'font-style' attribute must be FontStyle.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-style' of a <renderGroup> object "
@@ -869,7 +869,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321110
   { RenderRenderGroupTextAnchorMustBeHTextAnchorEnum,
-    "The 'textAnchor' attribute must be HTextAnchorEnum.",
+    "The 'text-anchor' attribute must be HTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:text-anchor' of a <renderGroup> object "
@@ -882,7 +882,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321111
   { RenderRenderGroupVtextAnchorMustBeVTextAnchorEnum,
-    "The 'vtextAnchor' attribute must be VTextAnchorEnum.",
+    "The 'vtext-anchor' attribute must be VTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:vtext-anchor' of a <renderGroup> object "
@@ -896,7 +896,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1321112
   { RenderRenderGroupFontSizeMustBeRelAbsVector,
-    "The 'fontSize' attribute must be RelAbsVector.",
+    "The 'font-size' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-size' of a <renderGroup> object "
@@ -2057,7 +2057,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322306
   { RenderTextFontFamilyMustBeString,
-    "The 'fontFamily' attribute must be String.",
+    "The 'font-family' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:font-family' on a <text> must have a value of data "
@@ -2068,7 +2068,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322307
   { RenderTextFontWeightMustBeFontWeightEnum,
-    "The 'fontWeight' attribute must be FontWeightEnum.",
+    "The 'font-weight' attribute must be FontWeight.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-weight' of a <text> object must "
@@ -2081,7 +2081,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322308
   { RenderTextFontStyleMustBeFontStyleEnum,
-    "The 'fontStyle' attribute must be FontStyleEnum.",
+    "The 'font-style' attribute must be FontStyle.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-style' of a <text> object must "
@@ -2094,7 +2094,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322309
   { RenderTextTextAnchorMustBeHTextAnchorEnum,
-    "The 'textAnchor' attribute must be HTextAnchorEnum.",
+    "The 'text-anchor' attribute must be HTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:text-anchor' of a <text> object must "
@@ -2107,7 +2107,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322310
   { RenderTextVtextAnchorMustBeVTextAnchorEnum,
-    "The 'vtextAnchor' attribute must be VTextAnchorEnum.",
+    "The 'vtext-anchor' attribute must be VTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:vtext-anchor' of a <text> object must "
@@ -2134,7 +2134,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322312
   { RenderTextFontSizeMustBeRelAbsVector,
-    "The 'fontSize' attribute must be String.",
+    "The 'font-size' attribute must be RelAbsVector.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-size' of a <text> object must "
@@ -2259,7 +2259,7 @@ static const packageErrorTableEntry renderErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <graphicalPrimitive1D> object may have the optional attributes "
     "'render:id', 'render:stroke', 'render:stroke-width' and "
-    "'render:stroke-dashArray'. No other attributes from the SBML Level 3 "
+    "'render:stroke-dasharray'. No other attributes from the SBML Level 3 "
     "Render namespaces are permitted on a <graphicalPrimitive1D> object. ",
     { "L3V1 Render V1 Section"
     }
@@ -2278,7 +2278,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322605
   { RenderGraphicalPrimitive1DStrokeWidthMustBeDouble,
-    "The 'strokeWidth' attribute must be Double.",
+    "The 'stroke-width' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:stroke-width' on a <graphicalPrimitive1D> must have "
@@ -2289,10 +2289,10 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322606
   { RenderGraphicalPrimitive1DStrokeDashArrayMustBeString,
-    "The 'strokeDashArray' attribute must be String.",
+    "The 'stroke-dasharray' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'render:stroke-dashArray' of a "
+    "The value of the attribute 'render:stroke-dasharray' of a "
     "<graphicalPrimitive1D> object must be an array of values of type "
     "'unsignedint'.",
     { "L3V1 Render V1 Section"
@@ -2349,7 +2349,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1322705
   { RenderGraphicalPrimitive2DFillRuleMustBeFillRuleEnum,
-    "The 'fillRule' attribute must be FillRuleEnum.",
+    "The 'fill-rule' attribute must be FillRule.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:fill-rule' of a <graphicalPrimitive2D> "
@@ -2727,7 +2727,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323007
   { RenderDefaultValuesFillRuleMustBeFillRuleEnum,
-    "The 'fillRule' attribute must be FillRuleEnum.",
+    "The 'fill-rule' attribute must be FillRule.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:fill-rule' of a <defaultValues> object "
@@ -2751,7 +2751,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323009
   { RenderDefaultValuesStrokeWidthMustBeDouble,
-    "The 'strokeWidth' attribute must be Double.",
+    "The 'stroke-width' attribute must be Double.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:stroke-width' on a <defaultValues> must have a value "
@@ -2762,7 +2762,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323010
   { RenderDefaultValuesFontFamilyMustBeString,
-    "The 'fontFamily' attribute must be String.",
+    "The 'font-family' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'render:font-family' on a <defaultValues> must have a value "
@@ -2773,7 +2773,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323011
   { RenderDefaultValuesFontWeightMustBeFontWeightEnum,
-    "The 'fontWeight' attribute must be FontWeightEnum.",
+    "The 'font-weight' attribute must be FontWeight.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-weight' of a <defaultValues> "
@@ -2786,7 +2786,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323012
   { RenderDefaultValuesFontStyleMustBeFontStyleEnum,
-    "The 'fontStyle' attribute must be FontStyleEnum.",
+    "The 'font-style' attribute must be FontStyle.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-style' of a <defaultValues> object "
@@ -2799,7 +2799,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323013
   { RenderDefaultValuesTextAnchorMustBeHTextAnchorEnum,
-    "The 'textAnchor' attribute must be HTextAnchorEnum.",
+    "The 'text-anchor' attribute must be HTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:text-anchor' of a <defaultValues> "
@@ -2812,7 +2812,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323014
   { RenderDefaultValuesVtextAnchorMustBeVTextAnchorEnum,
-    "The 'vtextAnchor' attribute must be VTextAnchorEnum.",
+    "The 'vtext-anchor' attribute must be VTextAnchor.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:vtext-anchor' of a <defaultValues> "
@@ -3057,7 +3057,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323032
   { RenderDefaultValuesFontSizeMustBeString,
-    "The 'fontSize' attribute must be String.",
+    "The 'font-size' attribute must be String.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:font-size' of a <defaultValues> object "

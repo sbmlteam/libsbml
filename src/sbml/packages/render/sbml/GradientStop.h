@@ -32,26 +32,28 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GradientStop
- * @sbmlbrief{render} LibSBML implementation of the gradient stop concept from the
+ * @sbmlbrief{render} A color at a certain location in a color gradient.
  *
- * SBML render extension. The gradient stop concept was more or less taken from 
- * the corresponding concept in SVG.
- * A GradientStop object represents the color at a certain location in a linear or
- * radial gradient.
- * Each gradient should contain two or more gradient stops which mark the edges of a region
- * within this region color are interpolated based on the distance of the location to the
- * edges of the region.
+ * The gradient stop concept was more or less taken from the corresponding
+ * concept in SVG.  A GradientStop object represents the color at a certain
+ * location in a linear or radial gradient.  Each gradient should contain two
+ * or more gradient stops which mark the edges of a region within this region
+ * color are interpolated based on the distance of the location to the edges
+ * of the region.
  *
- * A gradient stop has two attributes. The first attribute is an offset which determines the 
- * location for the gradient stop within the object the gradient is appllied to.
- * The offset can either be ab absolute value or a relative value or a combination of absolute 
- * and relative value. E.g. a value of "50%" for the offset means that the gradient stop is located
- * at 50% of the gradient vector. For more information and examples, see the render extension 
- * specification or the SVG specification.
+ * A gradient stop has two attributes. The first attribute is an offset which
+ * determines the location for the gradient stop within the object the
+ * gradient is applied to.  The offset can either be ab absolute value or a
+ * relative value or a combination of absolute and relative value.  For
+ * example, a value of "50%" for the offset means that the gradient stop is
+ * located at 50% of the gradient vector. For more information and examples,
+ * see the render extension specification or the SVG specification.
  *
- * The second attribute defines the color for the gradient stop. The color can either be defined
- * be a color value string or by the id of a ColorDefinition object. (@see ColorDefinition) 
+ * The second attribute defines the color for the gradient stop. The color
+ * can either be defined be a color value string or by the id of a
+ * ColorDefinition object.
  *
+ * @see ColorDefinition
  */
 
 #ifndef GradientStop_H__
@@ -132,6 +134,8 @@ public:
    *
    * @param node the XMLNode object reference that describes the GradientStop
    * object to be instantiated.
+   *
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    */
   GradientStop(const XMLNode& node, unsigned int l2version=4);
 
@@ -275,9 +279,10 @@ public:
    * If the given string is not valid, the offset will have an absolute 
    * and a relative value of NaN.
    *
-   * @param a string representing a valid offset value.
+   * @param co a string representing a valid offset value.
    */
-  void setOffset(const std::string&);
+  void setOffset(const std::string& co);
+
 
   /**
    * Unsets the value of the "offset" element of this GradientStop.

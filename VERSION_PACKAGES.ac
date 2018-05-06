@@ -95,6 +95,15 @@ AC_SUBST(PACKAGE_LAYOUT_SPEC_URL, [http://identifiers.org/combine.specifications
 AC_SUBST(PACKAGE_LAYOUT_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Layout_%28layout%29/Confirmed_issues_in_the_Layout_package_specification])
 
 # -----------------------------------------------------------------------------
+# 'render' package
+# -----------------------------------------------------------------------------
+
+AC_SUBST(PACKAGE_RENDER_VERSION, 1)
+AC_SUBST(PACKAGE_RENDER_RELEASE, 1)
+AC_SUBST(PACKAGE_RENDER_SPEC_URL, [http://identifiers.org/combine.specifications/sbml.level-3.version-1.render.version-1.release-1])
+AC_SUBST(PACKAGE_RENDER_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Render_%28render%29/Confirmed_issues_in_the_Render_package_specification])
+
+# -----------------------------------------------------------------------------
 # 'qual' package
 # -----------------------------------------------------------------------------
 

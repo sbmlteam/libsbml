@@ -32,6 +32,16 @@
  *
  * @class RenderSBMLDocumentPlugin
  * @sbmlbrief{render} Extension of SBMLDocument.
+ *
+ * The RenderSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extensions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref render (&ldquo;comp&rdquo;) package.  
+ *
+ * The RenderSBMLDocumentPlugin defines a
+ * required flag named <code>required</code>, which indicates whether 
+ * &ldquo;render&rdquo; constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Because they cannot, this attribute must be set @c false.
  */
 
 

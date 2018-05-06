@@ -31,8 +31,15 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfLocalRenderInformation
- * @sbmlbrief{render} TODO:Definition of the ListOfLocalRenderInformation
- * class.
+ * @sbmlbrief{render} A list of LocalRenderInformation objects.
+ * 
+ * The ListOfLocalRenderInformation is a container for the 
+ * LocalRenderInformation elements of a RenderLayoutPlugin object.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see LocalRenderInformation
+ * @see RenderLayoutPlugin
  */
 
 

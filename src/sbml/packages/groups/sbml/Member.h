@@ -31,7 +31,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Member
- * @sbmlbrief{groups} TODO:Definition of the Member class.
+ * @sbmlbrief{groups} The Member class defines what objects are parts of
+ * a Group.
+ *
+ * The Member class has four optional attributes: id and name, which identify 
+ * the element, and idRef and metaIdRef which reference the identifiers of 
+ * other elements. There must be exactly one (and only one) method used to 
+ * reference another element: either idRef or metaIdRef may be defined, but 
+ * not both. (Multiple attributes are needed to account for the different types 
+ * of identifiers that a given object may have.) The referenced object 
+ * (including, potentially, another Group object) is thus made a member of the 
+ * group in which the Member object is contained.
+ * 
+ * Since Member is derived from SBase and, as mentioned above, SBase provides 
+ * both the ability to attach SBO terms as well as MIRIAM annotations, the 
+ * semantics of a given member in a model can be made more precise by reference 
+ * to external controlled vocabularies and ontologies.
  */
 
 

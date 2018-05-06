@@ -32,19 +32,25 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RenderCurve
- * @sbmlbrief{render} implementation of the Curve concept from the SBML render extension
+ * @sbmlbrief{render} Representation of curves.
  *
- * The curve concept in the SBML render extension is similar to the curves in the SBML layout.
- * Each curve consists of a number of either straight line segments or cubic bezier elements.
- * The two element types can also by mixed in a single curve object.
+ * The curve concept in the SBML Level&nbsp;3 Render package is similar to
+ * the curves in the SBML layout.  Each curve consists of a number of either
+ * straight line segments or cubic bezier elements.  The two element types
+ * can also by mixed in a single curve object.
  *
- * In contrast to layout curves, render curves can not have gaps and the individual coordinates of the 
- * curve elements can be specified as a combination of absolute and relative values.
+ * In contrast to layout curves, render curves can not have gaps and the
+ * individual coordinates of the curve elements can be specified as a
+ * combination of absolute and relative values.
  *
- * Another difference to layout curves is the fact that render curves can specify decorations to be applied
- * to the start and/or the end of the curve (@see LineEnding).
+ * Another difference to layout curves is the fact that render curves can
+ * specify decorations to be applied to the start and/or the end of the
+ * curve.
  *
- * Since RenderCurve is derived from GraphicalPrimitive1D, it inherits all its attributes and methods. 
+ * Since RenderCurve is derived from GraphicalPrimitive1D, it inherits all
+ * its attributes and methods.
+ *
+ * @see LineEnding
  */
 
 #ifndef RenderCurve_H__
@@ -136,9 +142,7 @@ public:
    * Instantiates an empty curve object with the given @p id.
    * The decorations  are unset and there are no curve elements.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   RenderCurve(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED

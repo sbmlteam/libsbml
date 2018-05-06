@@ -71,8 +71,10 @@ protected:
   /** @endcond */
 
 protected:
+  /** @cond doxygenLibsbmlInternal */
   int convertToL3();
   int convertToL2();
+  /** @endcond */
 
 public:
 

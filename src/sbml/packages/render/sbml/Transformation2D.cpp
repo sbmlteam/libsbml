@@ -69,7 +69,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifdef __cplusplus
 
+/** @cond doxygenLibsbmlInternal */
 const double Transformation2D::IDENTITY2D[6]={1.0,0.0,0.0,1.0,0.0,0.0};
+/** @endcond */
 
 /*
  * Creates a new Transformation2D using the given SBML Level, Version and

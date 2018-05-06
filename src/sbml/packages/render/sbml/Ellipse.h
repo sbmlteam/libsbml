@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Ellipse
- * @sbmlbrief{render} graphical representation of an ellipse from the SBML render extension
+ * @sbmlbrief{render} Graphical representation of an ellipse.
  *
  * The ellipse class is derived from GraphicalPrimitive2D, so it inherits all its attributes
  * and methods. Therefore ellipses can have a transformation, a stroke and a stroke with to draw the edge
@@ -123,14 +123,12 @@ public:
    *
    * @param node the XMLNode object reference that describes the RadialGradient
    * object to be instantiated.
+
+   * @param l2version an integer indicating the version of SBML Level&nbsp;2
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(const XMLNode& node, unsigned int l2version=4);
-
-
 
 
 #ifndef OMIT_DEPRECATED
@@ -139,14 +137,14 @@ public:
    * and the radii also set to 0.
    * The id is set to the given string.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param id the id of the ellipse.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
+
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -155,13 +153,12 @@ public:
    * The z coordinate of the center is set to 0.
    * The id is unset and both radii are set to the given radius.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param cx x value of the center point 
    * @param cy y value of the center point 
    * @param r radius along both axis
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r);
 #endif // OMIT_DEPRECATED
@@ -170,9 +167,7 @@ public:
   /**
    * Constructor with 2D center and radii.
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
@@ -183,15 +178,14 @@ public:
    * instantiates a new ellipse object with the center and radii.
    * The id is unset.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param cx x value of the center point 
    * @param cy y value of the center point 
    * @param cz z value of the center point 
    * @param rx radius along the x axis
    * @param ry radius along the y axis
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
@@ -202,14 +196,13 @@ public:
    * instantiates a new ellipse object with the given @p id and center.
    * Both radii are set to the given radius r. This actually yields a circle.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param id id for the ellipse
    * @param cx x value of the center point 
    * @param cy y value of the center point 
    * @param r radius along both axis
    *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r);
 #endif // OMIT_DEPRECATED
@@ -219,16 +212,14 @@ public:
    * Constructor with id, 2D center and radii.
    * instantiates a new ellipse object with the given @p id, center and radii.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param id id for the ellipse
    * @param cx x value of the center point 
    * @param cy y value of the center point 
    * @param rx radius along the x axis
    * @param ry radius along the y axis
    *
-   *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
@@ -238,6 +229,7 @@ public:
    * Constructor with id, 3D center and radii.
    * instantiates a new ellipse object with the given @p id, center and radii.
    *
+   * @param renderns SBMLNamespaces object for the SBML Render package
    * @param id id for the ellipse
    * @param cx x value of the center point 
    * @param cy y value of the center point 
@@ -245,10 +237,7 @@ public:
    * @param rx radius along the x axis
    * @param ry radius along the y axis
    *
-   *
-   * This constructor is deprecated. The new libsbml API only has
-   * constructors which take the SBML level and version or one that takes
-   * an SBMLNamespaces object.
+   * @copydetails doc_warning_deprecated_constructor
    */
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED

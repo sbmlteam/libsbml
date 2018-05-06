@@ -1815,6 +1815,7 @@ Style_setGroup(Style_t * s, const RenderGroup_t* group)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Creates a new RenderGroup_t object, adds it to this Style_t object and
  * returns the RenderGroup_t object created.
@@ -1830,6 +1831,7 @@ Style_createGroup(Style_t* s)
 
   return (RenderGroup_t*)(s->createGroup());
 }
+/** @endcond */
 
 
 /*
@@ -1841,6 +1843,7 @@ Style_unsetGroup(Style_t * s)
 {
   return (s != NULL) ? s->unsetGroup() : LIBSBML_INVALID_OBJECT;
 }
+/** @endcond */
 
 
 /*
