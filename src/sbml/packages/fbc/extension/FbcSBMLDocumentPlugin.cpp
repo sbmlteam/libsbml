@@ -103,12 +103,12 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->contains(XMLAttributeTypeMismatch))
     {
       getErrorLog()->logPackageError("fbc", FbcAttributeRequiredMustBeBoolean,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     else
     {
       getErrorLog()->logPackageError("fbc", FbcAttributeRequiredMissing,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
   else
@@ -117,7 +117,7 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     if (mRequired == true)
     {
       getErrorLog()->logPackageError("fbc", FbcRequiredFalse,
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
   }
 }

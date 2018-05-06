@@ -91,7 +91,9 @@ isWellFormedChemicalFormula(const std::string& chemicalFormula)
 static void
 parseChemicalFormula(std::string& chemicalFormula, 
                      SBMLErrorLog& errLog, unsigned int packageVersion, 
-                     unsigned int level, unsigned int version)
+                     unsigned int level, unsigned int version, 
+                     unsigned int line=0, unsigned int col=0,
+                     Species* species = NULL)
 {
   std::vector< std::pair< std::string, int > > chemicalSymbols;
 
@@ -113,11 +115,22 @@ parseChemicalFormula(std::string& chemicalFormula,
       std::string message = "Encountered '";
       message += c;
       message += "' when expecting a capital letter.";
+      if (species)
+      {
+        message += "The chemicalFormula '";
+        message += chemicalFormula;
+        if (species->isSetId())
+        {
+          message += "' for the species with id '";
+          message += species->getId();
+        }
+        message += "' has incorrect syntax.";
+      }
       errLog.logPackageError("fbc", FbcSpeciesFormulaMustBeString, 
-        packageVersion, level, version, message);
+        packageVersion, level, version, message, line, col);
 
       // at this point we already *know* the formula is bad, at this point
-      // the map generated woudl be invalid in any case, so we quit here.
+      // the map generated would be invalid in any case, so we quit here.
       return;
 
     }
@@ -329,16 +342,19 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeInteger,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
       }
     }
+
+    
 
     XMLTriple tripleChemicalFormula("chemicalFormula", mURI, mPrefix);
     bool assigned = attributes.readInto(tripleChemicalFormula, mChemicalFormula);
     if (assigned == true)
     {
+      Species * s = static_cast<Species*>(getParentSBMLObject());
       parseChemicalFormula(mChemicalFormula, *(getErrorLog()), getPackageVersion(),
-        getLevel(), getVersion());
+        getLevel(), getVersion(), getLine(), getColumn(), s);
     }
 
   }
