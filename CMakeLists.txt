@@ -59,6 +59,17 @@ include (CheckCCompilerFlag)
 include (CheckCSourceRuns)
 include (CheckSymbolExists)
 include (CheckTypeSize)
+if (${CMAKE_VERSION} VERSION_GREATER 3.0.1)
+include(GNUInstallDirs)
+else ()
+set (CMAKE_INSTALL_DATADIR "share/libsbml/")
+set (CMAKE_INSTALL_LIBDIR "lib")
+set (CMAKE_INSTALL_INCLUDEDIR "include")
+set (CMAKE_INSTALL_BINDIR "bin")
+set (CMAKE_INSTALL_DATADIR "share")
+set (CMAKE_INSTALL_FULL_LIBDIR "${CMAKE_INSTALL_PREFIX}/lib")
+set (CMAKE_INSTALL_FULL_INCLUDEDIR "${CMAKE_INSTALL_PREFIX}/include")
+endif ()
 
 ###############################################################################
 #
@@ -94,7 +105,7 @@ MATH(EXPR LIBSBML_VERSION_NUMERIC "${LIBSBML_VERSION_MAJOR} * 10000 + ${LIBSBML_
 set(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
 set(PACKAGE_NAME "libSBML")
 
-set(PACKAGE_CONFIG_DIR lib/cmake CACHE PATH
+set(PACKAGE_CONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/cmake" CACHE PATH
     "Path into which the cmake config files should be installed")
 
 
@@ -864,10 +875,10 @@ set( MISC_PREFIX )
 if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
     set(FILE_SEP ":")
-    set( MISC_PREFIX "share/libsbml/" )
+    set( MISC_PREFIX "${CMAKE_INSTALL_DATADIR}/libsbml/" )
     set(LIBSBML_LIBRARY sbml)
 else()
-    set( MISC_PREFIX "" )
+    set( MISC_PREFIX "." )
     set(PATH_SEP "\\")
     set(FILE_SEP ";")
     if(MINGW)
@@ -1178,7 +1189,7 @@ set(DOCUMENTATION_FILES
         VERSION.txt
 )
 
-install(FILES ${DOCUMENTATION_FILES} DESTINATION ${MISC_PREFIX}.)
+install(FILES ${DOCUMENTATION_FILES} DESTINATION ${MISC_PREFIX})
 
 ###############################################################################
 #
@@ -1202,19 +1213,14 @@ if (WITH_XERCES)
 set (PRIVATE_LIBS "${XERCES_LIBRARY} ${PRIVATE_LIBS}")
 endif()
 
-SET (PC_LIBDIR ${CMAKE_INSTALL_LIBDIR})
-if ("${CMAKE_INSTALL_LIBDIR}" STREQUAL "lib")
-SET (PC_LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-endif()
-
 file(WRITE  "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Name: ${PACKAGE_NAME}\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Description: A library for reading/writing/manipulating SBML\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "URL: http://sbml.org/Software/libSBML\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Version: ${PACKAGE_VERSION}\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "prefix=${CMAKE_INSTALL_PREFIX}\n")
-file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "libdir=${PC_LIBDIR}\n")
-file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "includedir=${CMAKE_INSTALL_PREFIX}/include\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "libdir=${CMAKE_INSTALL_FULL_LIBDIR}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "includedir=${CMAKE_INSTALL_FULL_INCLUDEDIR}\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Libs: -L\${libdir} -lsbml\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Libs.private:        ${PRIVATE_LIBS}\n")
