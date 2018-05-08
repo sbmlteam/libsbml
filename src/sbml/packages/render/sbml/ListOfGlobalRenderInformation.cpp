@@ -65,8 +65,8 @@ ListOfGlobalRenderInformation::ListOfGlobalRenderInformation(
   , mIsSetMinorVersion (false)
   , mDefaultValues (NULL)
 {
-  if (level == 3)
-    mDefaultValues = new DefaultValues(level, version, pkgVersion);
+  //if (level == 3)
+  //  mDefaultValues = new DefaultValues(level, version, pkgVersion);
   setSBMLNamespacesAndOwn(new RenderPkgNamespaces(level, version, pkgVersion));
   connectToChild();
 }
@@ -85,8 +85,8 @@ ListOfGlobalRenderInformation::ListOfGlobalRenderInformation(RenderPkgNamespaces
   , mIsSetMinorVersion (false)
   , mDefaultValues (NULL)
 {
-  if (getLevel() == 3)
-    mDefaultValues = new DefaultValues(renderns);
+  //if (getLevel() == 3)
+  //  mDefaultValues = new DefaultValues(renderns);
   setElementNamespace(renderns->getURI());
   connectToChild();
 }
