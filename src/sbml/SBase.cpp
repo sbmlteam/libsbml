@@ -6498,6 +6498,14 @@ SBase::checkListOfPopulated(SBase* object)
   // will need to check for defaultTerm but will
   // have to pass that to the multi extension
       }
+      if (object->getPackageName() == "render" &&
+        (object->getElementName() == "listOfRenderInformation" ||
+          object->getElementName() == "listOfGlobalRenderInformation"))
+      {
+        // do nothing
+        // will need to check for defaultTerm but will
+        // have to pass that to the qual extension
+      }
       else
       {
         ostringstream errMsg;
