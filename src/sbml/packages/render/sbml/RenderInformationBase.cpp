@@ -949,7 +949,7 @@ RenderInformationBase::removeGradientDefinition(unsigned int n)
  * identifier and returns a pointer to it.
  */
 GradientBase*
-RenderInformationBase::removeGradientBase(const std::string& sid)
+RenderInformationBase::removeGradientDefinition(const std::string& sid)
 {
   return mGradientBases.remove(sid);
 }
@@ -1743,11 +1743,11 @@ RenderInformationBase::removeChildObject(const std::string& elementName,
   }
   else if (elementName == "linearGradient")
   {
-    return removeGradientBase(id);
+    return removeGradientDefinition(id);
   }
   else if (elementName == "radialGradient")
   {
-    return removeGradientBase(id);
+    return removeGradientDefinition(id);
   }
   else if (elementName == "lineEnding")
   {
@@ -2841,10 +2841,10 @@ RenderInformationBase_removeGradientDefinition(RenderInformationBase_t* rib,
  */
 LIBSBML_EXTERN
 GradientBase_t*
-RenderInformationBase_removeGradientBaseById(RenderInformationBase_t* rib,
+RenderInformationBase_removeGradientDefinitionById(RenderInformationBase_t* rib,
                                              const char* sid)
 {
-  return (rib != NULL && sid != NULL) ? rib->removeGradientBase(sid) : NULL;
+  return (rib != NULL && sid != NULL) ? rib->removeGradientDefinition (sid) : NULL;
 }
 
 

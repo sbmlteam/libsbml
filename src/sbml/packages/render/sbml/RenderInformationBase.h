@@ -970,14 +970,14 @@ public:
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
-   * @see getGradientBase(const std::string& sid)
-   * @see getGradientBase(unsigned int n)
+   * @see addGradientDefinition(const GradientBase* object)
+   * @see createGradientDefinition()
+   * @see getGradientDefinition(const std::string& sid)
+   * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
-   * @see removeGradientBase(unsigned int n)
+   * @see removeGradientDefinition(unsigned int n)
    */
-  GradientBase* removeGradientBase(const std::string& sid);
+  GradientBase* removeGradientDefinition(const std::string& sid);
 
 
   /**
@@ -2682,7 +2682,7 @@ RenderInformationBase_removeGradientDefinition(RenderInformationBase_t* rib,
  */
 LIBSBML_EXTERN
 GradientBase_t*
-RenderInformationBase_removeGradientBaseById(RenderInformationBase_t* rib,
+RenderInformationBase_removeGradientDefinitionById(RenderInformationBase_t* rib,
                                              const char* sid);
 
 
