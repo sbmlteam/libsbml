@@ -832,6 +832,7 @@ public:
    * @param n the index number of the Constraint to get.
    * 
    * @return the nth Constraint in this ListOfConstraints.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -844,6 +845,7 @@ public:
    * @param n the index number of the Constraint to get.
    * 
    * @return the nth Constraint in this ListOfConstraints.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

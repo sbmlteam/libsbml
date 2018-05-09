@@ -329,6 +329,7 @@ public:
    * 
    * @return the nth argument (bound variable) passed to this
    * FunctionDefinition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumArguments()
    */
@@ -906,6 +907,7 @@ public:
    * @param n the index number of the FunctionDefinition to get.
    * 
    * @return the nth FunctionDefinition in this ListOfFunctionDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -918,6 +920,7 @@ public:
    * @param n the index number of the FunctionDefinition to get.
    * 
    * @return the nth FunctionDefinition in this ListOfFunctionDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

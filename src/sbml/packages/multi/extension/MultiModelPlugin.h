@@ -161,7 +161,7 @@ public:
    * to return only elements that match a particular set of constraints.  
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -189,6 +189,7 @@ public:
    * @param n the index number of the MultiSpeciesType to get
    *
    * @return the nth MultiSpeciesType in the ListOfMultiSpeciesTypes
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const MultiSpeciesType* getMultiSpeciesType(unsigned int n) const;
 
@@ -200,6 +201,7 @@ public:
    * @param n the index number of the MultiSpeciesType to get
    *
    * @return the nth MultiSpeciesType in the ListOfMultiSpeciesTypes
+   * If the index @p n is invalid, @c NULL is returned.
    */
   MultiSpeciesType* getMultiSpeciesType(unsigned int n);
 
@@ -407,6 +409,7 @@ MultiModelPlugin_getListOfMultiSpeciesTypes(MultiModelPlugin_t* mmp);
  *
  * @return the nth MultiSpeciesType_t in the ListOfMultiSpeciesTypes within
  * this MultiModelPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

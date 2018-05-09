@@ -503,6 +503,7 @@ public:
    * @param n the index number of the Deletion to get.
    *
    * @return the nth Deletion in the ListOfDeletions.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Deletion* getDeletion (unsigned int n);
 
@@ -514,6 +515,7 @@ public:
    * @param n the index number of the Deletion to get.
    *
    * @return the nth Deletion in the ListOfDeletions.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Deletion* getDeletion (unsigned int n) const;
 

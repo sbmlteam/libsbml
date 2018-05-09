@@ -105,6 +105,7 @@ public:
    * @param n the index number of the ModelDefinition to get.
    * 
    * @return the nth ModelDefinition in this ListOfModelDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -117,6 +118,7 @@ public:
    * @param n the index number of the ModelDefinition to get.
    * 
    * @return the nth ModelDefinition in this ListOfModelDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -243,6 +245,7 @@ BEGIN_C_DECLS
  * retrieve.
  *
  * @return the nth ModelDefinition_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

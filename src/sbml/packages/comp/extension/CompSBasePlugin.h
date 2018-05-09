@@ -530,7 +530,7 @@ CompSBasePlugin_getListOfReplacedElements(CompSBasePlugin_t* csbp);
  * retrieve.
  *
  * @return the nth ReplacedElement_t in the ListOfReplacedElements within this
- * CompSBasePlugin.
+ * CompSBasePlugin or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

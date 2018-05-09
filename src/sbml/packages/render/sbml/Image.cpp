@@ -102,7 +102,7 @@ Image::Image(RenderPkgNamespaces *renderns)
  * The XMLNode object has to contain a valid XML representation of a 
  * Image object as defined in the render extension specification.
  * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
+ * should normally not have to be called explicitly.
  *
  * @param node the XMLNode object reference that describes the Image
  * object to be instantiated.
@@ -507,7 +507,7 @@ Image::isSetHeight() const
 * Sets the position of the image relative to its viewport.
 * The position can either be specified in relative or in absolut coordinates
 * or a combination of both.
-* The z coordinatee can be omitted. In that case it is set to 0.
+* The z coordinate can be omitted. In that case it is set to 0.
 *
 * @param x x coordinate of the image position
 * @param y y coordinate of the image position

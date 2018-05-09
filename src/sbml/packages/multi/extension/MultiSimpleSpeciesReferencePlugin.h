@@ -207,7 +207,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 

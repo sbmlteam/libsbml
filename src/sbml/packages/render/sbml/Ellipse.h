@@ -34,13 +34,14 @@
  * @class Ellipse
  * @sbmlbrief{render} Graphical representation of an ellipse.
  *
- * The ellipse class is derived from GraphicalPrimitive2D, so it inherits all its attributes
- * and methods. Therefore ellipses can have a transformation, a stroke and a stroke with to draw the edge
- * as well as a fill style and fill style related settings.
- *
- * Besides those inherited attributes, an ellipse if defined by its center point which can be specified 
- * as a combination of absolute and relative values and its radii for the two axes. The radii can also be
- * specified in terms absolute and/or relative values.
+ * The Ellipse class is derived from GraphicalPrimitive2D, so it inherits all
+ * the attributes and methods of the latter.  This means ellipses can have a
+ * transformation, a stroke and a stroke with to draw the edge as well as a
+ * fill style and fill style related settings.  Besides those inherited
+ * attributes, an ellipse if defined by its center point which can be
+ * specified as a combination of absolute and relative values and its radii
+ * for the two axes. The radii can also be specified in terms absolute and/or
+ * relative values.
  */
 
 #ifndef Ellipse_H__
@@ -114,12 +115,14 @@ public:
    */
   Ellipse(RenderPkgNamespaces *renderns);
 
+
   /**
    * Creates a new RadialGradient object from the given XMLNode object.
-   * The XMLNode object has to contain a valid XML representation of a 
+   *
+   * The XMLNode object must contain a valid XML representation of a
    * RadialGradient object as defined in the render extension specification.
-   * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * This method is normally called when render information is read from a
+   * file and should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the RadialGradient
    * object to be instantiated.
@@ -163,6 +166,7 @@ public:
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r);
 #endif // OMIT_DEPRECATED
 
+
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor with 2D center and radii.
@@ -171,6 +175,7 @@ public:
    */
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
+
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -190,6 +195,7 @@ public:
   Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
 
+
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor with id, 2D center and radius.
@@ -207,6 +213,7 @@ public:
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r);
 #endif // OMIT_DEPRECATED
 
+
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor with id, 2D center and radii.
@@ -223,6 +230,7 @@ public:
    */
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
+
 
 #ifndef OMIT_DEPRECATED
   /**
@@ -242,6 +250,7 @@ public:
   Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry);
 #endif // OMIT_DEPRECATED
 
+
   /**
    * Copy constructor for Ellipse.
    *
@@ -253,8 +262,8 @@ public:
   /**
    * Assignment operator for Ellipse.
    *
-   * @param rhs the Ellipse object whose values are to be used as the basis of
-   * the assignment.
+   * @param rhs the Ellipse object whose values are to be used as the basis
+   * of the assignment.
    */
   Ellipse& operator=(const Ellipse& rhs);
 
@@ -316,23 +325,26 @@ public:
   /**
    * Returns the x coordinate for the center point as a const reference.
    *
-   * @return const reference to the x coordinatee of the center point.
+   * @return const reference to the x coordinate of the center point.
    */
   const RelAbsVector& getCX() const;
+
 
   /**
    * Returns the y coordinate for the center point as a const reference.
    *
-   * @return const reference to the y coordinatee of the center point.
+   * @return const reference to the y coordinate of the center point.
    */
   const RelAbsVector& getCY() const;
+
 
   /**
    * Returns the z coordinate for the center point as a const reference.
    *
-   * @return const reference to the z coordinatee of the center point.
+   * @return const reference to the z coordinate of the center point.
    */
   const RelAbsVector& getCZ() const;
+
 
   /**
    * Returns the radius along the x axis as a const reference.
@@ -341,6 +353,7 @@ public:
    */
   const RelAbsVector& getRX() const;
 
+
   /**
    * Returns the radius along the y axis as a const reference.
    *
@@ -348,26 +361,30 @@ public:
    */
   const RelAbsVector& getRY() const;
 
+
   /**
    * Returns the x coordinate for the center point as a reference.
    *
-   * @return reference to the x coordinatee of the center point.
+   * @return reference to the x coordinate of the center point.
    */
   RelAbsVector& getCX();
+
 
   /**
    * Returns the y coordinate for the center point as a reference.
    *
-   * @return reference to the y coordinatee of the center point.
+   * @return reference to the y coordinate of the center point.
    */
   RelAbsVector& getCY();
+
 
   /**
    * Returns the z coordinate for the center point as a reference.
    *
-   * @return reference to the z coordinatee of the center point.
+   * @return reference to the z coordinate of the center point.
    */
   RelAbsVector& getCZ();
+
 
   /**
    * Returns the radius along the x axis as a reference.
@@ -375,6 +392,7 @@ public:
    * @return reference to the radius along the x axis
    */
   RelAbsVector& getRX();
+
 
   /**
    * Returns the radius along the y axis as a reference.
@@ -433,36 +451,56 @@ public:
    * Sets the x coordinates for the center point.
    *
    * @param cx x value of the center point 
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setCX(const RelAbsVector& cx);
+
 
   /**
    * Sets the y coordinates for the center point.
    *
    * @param cy y value of the center point 
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setCY(const RelAbsVector& cy);
+
 
   /**
    * Sets the z coordinates for the center point.
    *
    * @param cz z value of the center point 
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setCZ(const RelAbsVector& cz);
+
 
   /**
    * Sets the radius along the x axis
    *
    * @param rx radius along the x axis
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setRX(const RelAbsVector& rx);
+
 
   /**
    * Sets the radius along the y axis
    *
    * @param ry radius along the y axis
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setRY(const RelAbsVector& ry);
+
 
   /**
    * Sets the 2D coordinates for the center point.
@@ -473,6 +511,7 @@ public:
    */
   void setCenter2D(const RelAbsVector& cx,const RelAbsVector& cy);
 
+
   /**
    * Sets the 3D coordinates for the center point.
    *
@@ -481,6 +520,7 @@ public:
    * @param cz z value of the center point 
    */
   void setCenter3D(const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz);
+
 
   /**
    * Sets the radii of the ellipse
@@ -496,7 +536,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCX();
 
@@ -506,7 +545,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCY();
 
@@ -516,7 +554,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCZ();
 
@@ -526,7 +563,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetRX();
 
@@ -536,7 +572,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetRY();
 
@@ -583,14 +618,11 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor
    */
   virtual bool accept(SBMLVisitor& v) const;
-
   /** @endcond */
-
 
 
   /**
@@ -602,11 +634,7 @@ public:
   XMLNode toXML() const;
 
 
-
-
 protected:
-
-
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -792,7 +820,7 @@ Ellipse_unsetRatio(Ellipse_t * e);
  *
  * @param e the Ellipse_t structure whose cx is sought.
  *
- * @return the value of the "cx" element of this Ellipse_t as a RelAbsVector&*.
+ * @return the value of the "cx" element of this Ellipse_t as a RelAbsVector_t.
  *
  * @memberof Ellipse_t
  */
@@ -806,7 +834,7 @@ Ellipse_getCX(const Ellipse_t * e);
  *
  * @param e the Ellipse_t structure whose cy is sought.
  *
- * @return the value of the "cy" element of this Ellipse_t as a RelAbsVector*.
+ * @return the value of the "cy" element of this Ellipse_t as a RelAbsVector_t.
  *
  * @memberof Ellipse_t
  */
@@ -820,7 +848,7 @@ Ellipse_getCY(const Ellipse_t * e);
  *
  * @param e the Ellipse_t structure whose cz is sought.
  *
- * @return the value of the "cz" element of this Ellipse_t as a RelAbsVector*.
+ * @return the value of the "cz" element of this Ellipse_t as a RelAbsVector_t.
  *
  * @memberof Ellipse_t
  */
@@ -834,7 +862,7 @@ Ellipse_getCZ(const Ellipse_t * e);
  *
  * @param e the Ellipse_t structure whose rx is sought.
  *
- * @return the value of the "rx" element of this Ellipse_t as a RelAbsVector*.
+ * @return the value of the "rx" element of this Ellipse_t as a RelAbsVector_t.
  *
  * @memberof Ellipse_t
  */
@@ -848,7 +876,7 @@ Ellipse_getRX(const Ellipse_t * e);
  *
  * @param e the Ellipse_t structure whose ry is sought.
  *
- * @return the value of the "ry" element of this Ellipse_t as a RelAbsVector*.
+ * @return the value of the "ry" element of this Ellipse_t as a RelAbsVector_t.
  *
  * @memberof Ellipse_t
  */

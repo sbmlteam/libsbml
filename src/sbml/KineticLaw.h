@@ -637,6 +637,7 @@ public:
    * @param n the index of the Parameter object sought.
    * 
    * @return the nth Parameter of this KineticLaw.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Parameter* getParameter (unsigned int n) const;
 
@@ -649,6 +650,7 @@ public:
    * @param n the index of the Parameter object sought.
    * 
    * @return the nth Parameter of this KineticLaw.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Parameter* getParameter (unsigned int n);
 
@@ -661,6 +663,7 @@ public:
    * @param n the index of the LocalParameter object sought.
    * 
    * @return the nth LocalParameter of this KineticLaw.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const LocalParameter* getLocalParameter (unsigned int n) const;
 
@@ -673,6 +676,7 @@ public:
    * @param n the index of the LocalParameter object sought.
    * 
    * @return the nth LocalParameter of this KineticLaw.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   LocalParameter* getLocalParameter (unsigned int n);
 

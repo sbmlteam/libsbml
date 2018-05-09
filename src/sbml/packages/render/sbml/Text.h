@@ -155,7 +155,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * Text object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the Text
    * object to be instantiated.
@@ -1620,7 +1620,7 @@ Text_unsetVTextAnchor(Text_t * t);
  *
  * @param t the Text_t structure whose x is sought.
  *
- * @return the value of the "x" element of this Text_t as a RelAbsVector*.
+ * @return the value of the "x" element of this Text_t as a RelAbsVector_t.
  *
  * @memberof Text_t
  */
@@ -1634,7 +1634,7 @@ Text_getX(const Text_t * t);
  *
  * @param t the Text_t structure whose y is sought.
  *
- * @return the value of the "y" element of this Text_t as a RelAbsVector*.
+ * @return the value of the "y" element of this Text_t as a RelAbsVector_t.
  *
  * @memberof Text_t
  */
@@ -1648,7 +1648,7 @@ Text_getY(const Text_t * t);
  *
  * @param t the Text_t structure whose z is sought.
  *
- * @return the value of the "z" element of this Text_t as a RelAbsVector*.
+ * @return the value of the "z" element of this Text_t as a RelAbsVector_t.
  *
  * @memberof Text_t
  */
@@ -1663,7 +1663,7 @@ Text_getZ(const Text_t * t);
  * @param t the Text_t structure whose font-size is sought.
  *
  * @return the value of the "font-size" element of this Text_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Text_t
  */

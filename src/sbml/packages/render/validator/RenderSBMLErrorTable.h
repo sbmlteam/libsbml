@@ -683,7 +683,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1320906
   { RenderGradientBaseSpreadMethodMustBeGradientSpreadMethodEnum,
-    "The 'spreadMethod' attribute must be GradientSpreadMethodEnum.",
+    "The 'spreadMethod' attribute must be GradientSpreadMethod.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:spreadMethod' of a <gradientBase> "
@@ -2702,7 +2702,7 @@ static const packageErrorTableEntry renderErrorTable[] =
 
   // 1323005
   { RenderDefaultValuesSpreadMethodMustBeGradientSpreadMethodEnum,
-    "The 'spreadMethod' attribute must be GradientSpreadMethodEnum.",
+    "The 'spreadMethod' attribute must be GradientSpreadMethod.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'render:spreadMethod' of a <defaultValues> "

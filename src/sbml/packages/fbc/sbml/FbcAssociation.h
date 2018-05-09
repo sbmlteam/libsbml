@@ -666,6 +666,7 @@ public:
    * @param n the index number of the FbcAssociation to get.
    *
    * @return the nth FbcAssociation in this ListOfFbcAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    * @see getNumFbcAssociations()
@@ -679,6 +680,7 @@ public:
    * @param n the index number of the FbcAssociation to get.
    *
    * @return the nth FbcAssociation in this ListOfFbcAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    * @see getNumFbcAssociations()

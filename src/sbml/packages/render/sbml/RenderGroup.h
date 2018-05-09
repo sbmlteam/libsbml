@@ -36,11 +36,11 @@
  *
  * The RenderGroup concept from the SBML Level&nbsp;3 Render package is used
  * to to create composite representations from simple primitives. The
- * RenderGroup class is derived from GrphicalPrimitive2D and inherits all its
+ * RenderGroup class is derived from GraphicalPrimitive2D and inherits all its
  * methods and attributes.  In addition to those, the class defines
- * attributes to specify text render properties, curve decorations an id and
+ * attributes to specify text render properties, curve decorations, an id, and
  * a list of child elements which can be any graphical primitive or other
- * groups.
+ * group.
  *
  * The attributes of a group are inherited by all children of the group
  * unless they specify the attribute themselves.
@@ -134,7 +134,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * RenderGroup object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param group the XMLNode object reference that describes the RenderGroup
    * object to be instantiated.
@@ -359,7 +359,7 @@ public:
   * Returns the value of the "font-size" element of this RenderGroup.
   *
   * @return the value of the "font-size" element of this RenderGroup as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getFontSize() const;
 
@@ -367,7 +367,7 @@ public:
    * Returns the value of the "font-size" element of this RenderGroup.
    *
    * @return the value of the "font-size" element of this RenderGroup as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getFontSize();
 
@@ -785,7 +785,12 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
@@ -803,7 +808,12 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
@@ -821,11 +831,17 @@ public:
    *
    * @return the nth Transformation2D in the ListOfDrawables within this
    * RenderGroup.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getNumElements()
    * @see removeElement(const std::string& sid)
@@ -842,11 +858,17 @@ public:
    *
    * @return the nth Transformation2D in the ListOfDrawables within this
    * RenderGroup.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getNumElements()
    * @see removeElement(const std::string& sid)
@@ -898,7 +920,12 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
@@ -915,10 +942,11 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -935,7 +963,6 @@ public:
    * @see createPolygon()
    * @see createText()
    * @see createCurve()
-   * @see createRenderGroup()
    * @see createImage()
    */
   int addChildElement(const Transformation2D* pChild);
@@ -947,7 +974,12 @@ public:
    *
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see removeElement(const std::string& sid)
@@ -1112,13 +1144,44 @@ public:
    * @copydetails doc_returned_owned_pointer
    *
    * @see addElement(const Transformation2D* object)
-   * @see createElement()
+   * @see createEllipse()
+   * @see createRectangle()
+   * @see createPolygon()
+   * @see createText()
+   * @see createCurve()
+   * @see createImage()
    * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
    * @see removeElement(const std::string& sid)
    */
   Transformation2D* removeElement(unsigned int n);
+
+
+  /**
+  * Removes the Transformation2D with the given id from this RenderGroup and returns a
+  * pointer to it.
+  *
+  * @param sid the ID of the Transformation2D to remove.
+  *
+  * @return a pointer to the removed Transformation2D in this RenderGroup, or 
+  * @c NULL if no such Transformation2D exists.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addElement(const Transformation2D* object)
+  * @see createEllipse()
+  * @see createRectangle()
+  * @see createPolygon()
+  * @see createText()
+  * @see createCurve()
+  * @see createImage()
+  * @see getElement(const std::string& sid)
+  * @see getElement(unsigned int n)
+  * @see getNumElements()
+  * @see removeElement(unsigned int n)
+  */
+  Transformation2D* removeElement(const std::string& sid);
 
 
   /**
@@ -1604,7 +1667,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1909,7 +1972,7 @@ RenderGroup_getFontStyleAsString(const RenderGroup_t * rg);
  * @param rg the RenderGroup_t structure whose text-anchor is sought.
  *
  * @return the value of the "text-anchor" attribute of this RenderGroup_t as a
- * HTextAnchor_t.
+ * #HTextAnchor_t.
  *
  * @copydetails doc_render_text_anchor
  * @if clike The value is drawn from the enumeration @ref HTextAnchor_t @endif
@@ -2515,7 +2578,7 @@ RenderGroup_unsetVtextAnchor(RenderGroup_t * rg);
  * @param rg the RenderGroup_t structure whose font-size is sought.
  *
  * @return the value of the "font-size" element of this RenderGroup_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RenderGroup_t
  */
@@ -2627,6 +2690,7 @@ RenderGroup_getListOfElements(RenderGroup_t* rg);
  *
  * @return the nth Transformation2D_t in the ListOfDrawables within this
  * RenderGroup.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

@@ -827,6 +827,7 @@ XMLNode_getURI (const XMLNode_t *node);
  * @param n the index of the node to return.
  *
  * @return the nth child of this XMLNode_t structure.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof XMLNode_t
  */

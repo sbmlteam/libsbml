@@ -116,7 +116,7 @@ public:
 
 
   /**
-   * Creates a new point with the given ccordinates.
+   * Creates a new point with the given coordinates.
    *
    * @param renderns the RenderPkgNamespaces object.
    * @param x x coordinate of the RenderPoint object
@@ -132,7 +132,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * RenderPoint object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the RenderPoint
    * object to be instantiated.
@@ -311,7 +311,7 @@ public:
   /**
    * Sets the value of the "x" element of this RenderPoint.
    *
-   * @param x RelAbsVector* value of the "x" element to be set.
+   * @param x RelAbsVector value of the "x" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -324,7 +324,7 @@ public:
   /**
    * Sets the value of the "y" element of this RenderPoint.
    *
-   * @param y RelAbsVector* value of the "y" element to be set.
+   * @param y RelAbsVector value of the "y" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -337,7 +337,7 @@ public:
   /**
    * Sets the value of the "z" element of this RenderPoint.
    *
-   * @param z RelAbsVector* value of the "z" element to be set.
+   * @param z RelAbsVector value of the "z" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -660,7 +660,7 @@ RenderPoint_free(RenderPoint_t* rp);
  * @param rp the RenderPoint_t structure whose x is sought.
  *
  * @return the value of the "x" element of this RenderPoint_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RenderPoint_t
  */
@@ -675,7 +675,7 @@ RenderPoint_getX(const RenderPoint_t * rp);
  * @param rp the RenderPoint_t structure whose y is sought.
  *
  * @return the value of the "y" element of this RenderPoint_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RenderPoint_t
  */
@@ -690,7 +690,7 @@ RenderPoint_getY(const RenderPoint_t * rp);
  * @param rp the RenderPoint_t structure whose z is sought.
  *
  * @return the value of the "z" element of this RenderPoint_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RenderPoint_t
  */

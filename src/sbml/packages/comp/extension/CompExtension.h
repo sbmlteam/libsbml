@@ -246,12 +246,12 @@ public:
 
 
   /**
-   * Returns an CompPkgNamespaces object.
+   * Returns a CompPkgNamespaces object.
    *
    * @param uri a URI that represents one of the valid versions of the
    * &ldquo;comp&rdquo; package.
    *
-   * @return an CompPkgNamespace object corresponding to the given @p uri, or
+   * @return an CompPkgNamespaces object corresponding to the given @p uri, or
    * @c NULL if the URI is not defined in the Hierarchical %Model Composition
    * package.
    */

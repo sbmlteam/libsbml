@@ -208,7 +208,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -639,6 +639,7 @@ MultiSpeciesPlugin_getListOfSpeciesFeatures(MultiSpeciesPlugin_t* msp);
  *
  * @return the nth SpeciesFeature_t in the ListOfSpeciesFeatures within this
  * MultiSpeciesPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -810,6 +811,7 @@ MultiSpeciesPlugin_getListOfOutwardBindingSites(MultiSpeciesPlugin_t* msp);
  *
  * @return the nth OutwardBindingSite_t in the ListOfOutwardBindingSites within
  * this MultiSpeciesPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

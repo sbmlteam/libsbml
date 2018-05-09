@@ -232,6 +232,7 @@ public:
    *
    * @return the nth LocalStyle in the ListOfLocalStyles within this
    * LocalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -253,6 +254,7 @@ public:
   *
   * @return the nth LocalStyle in the ListOfLocalStyles within this
   * LocalRenderInformation.
+  * If the index @p n is invalid, @c NULL is returned.
   *
   * @copydetails doc_returned_unowned_pointer
   *
@@ -274,6 +276,7 @@ public:
    *
    * @return the nth LocalStyle in the ListOfLocalStyles within this
    * LocalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -295,6 +298,7 @@ public:
   *
   * @return the nth LocalStyle in the ListOfLocalStyles within this
   * LocalRenderInformation.
+  * If the index @p n is invalid, @c NULL is returned.
   *
   * @copydetails doc_returned_unowned_pointer
   *
@@ -770,7 +774,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -961,6 +965,7 @@ LocalRenderInformation_getListOfLocalStyles(LocalRenderInformation_t* lri);
  *
  * @return the nth LocalStyle_t in the ListOfLocalStyles within this
  * LocalRenderInformation.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

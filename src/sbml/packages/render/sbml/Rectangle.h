@@ -123,7 +123,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * Rectangle object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the Rectangle
    * object to be instantiated.
@@ -345,7 +345,7 @@ public:
    * Returns the value of the "rX" element of this Rectangle.
    *
    * @return the value of the "rX" element of this Rectangle as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getRX() const;
 
@@ -362,7 +362,7 @@ public:
    * Returns the value of the "rX" element of this Rectangle.
    *
    * @return the value of the "rX" element of this Rectangle as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getRX();
 
@@ -379,7 +379,7 @@ public:
   * Returns the value of the "rY" element of this Rectangle.
   *
   * @return the value of the "rY" element of this Rectangle as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getRY() const;
 
@@ -396,7 +396,7 @@ public:
   * Returns the value of the "rY" element of this Rectangle.
   *
   * @return the value of the "rY" element of this Rectangle as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getRY();
 
@@ -920,7 +920,7 @@ Rectangle_unsetRatio(Rectangle_t * r);
  *
  * @param r the Rectangle_t structure whose x is sought.
  *
- * @return the value of the "x" element of this Rectangle_t as a RelAbsVector*.
+ * @return the value of the "x" element of this Rectangle_t as a RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -934,7 +934,7 @@ Rectangle_getX(const Rectangle_t * r);
  *
  * @param r the Rectangle_t structure whose y is sought.
  *
- * @return the value of the "y" element of this Rectangle_t as a RelAbsVector*.
+ * @return the value of the "y" element of this Rectangle_t as a RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -948,7 +948,7 @@ Rectangle_getY(const Rectangle_t * r);
  *
  * @param r the Rectangle_t structure whose z is sought.
  *
- * @return the value of the "z" element of this Rectangle_t as a RelAbsVector*.
+ * @return the value of the "z" element of this Rectangle_t as a RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -963,7 +963,7 @@ Rectangle_getZ(const Rectangle_t * r);
  * @param r the Rectangle_t structure whose width is sought.
  *
  * @return the value of the "width" element of this Rectangle_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -978,7 +978,7 @@ Rectangle_getWidth(const Rectangle_t * r);
  * @param r the Rectangle_t structure whose height is sought.
  *
  * @return the value of the "height" element of this Rectangle_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -993,7 +993,7 @@ Rectangle_getHeight(const Rectangle_t * r);
  * @param r the Rectangle_t structure whose rX is sought.
  *
  * @return the value of the "rX" element of this Rectangle_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */
@@ -1008,7 +1008,7 @@ Rectangle_getRX(const Rectangle_t * r);
  * @param r the Rectangle_t structure whose rY is sought.
  *
  * @return the value of the "rY" element of this Rectangle_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Rectangle_t
  */

@@ -1219,6 +1219,7 @@ public:
    * @param n the index number of the Rule to get.
    * 
    * @return the nth Rule in this ListOfRules.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1231,6 +1232,7 @@ public:
    * @param n the index number of the Rule to get.
    * 
    * @return the nth Rule in this ListOfRules.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

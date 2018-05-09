@@ -162,7 +162,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * GradientBase object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the GradientBase
    * object to be instantiated.
@@ -469,6 +469,7 @@ public:
    *
    * @return the nth GradientStop in the ListOfGradientStops within this
    * GradientBase.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -490,6 +491,7 @@ public:
    *
    * @return the nth GradientStop in the ListOfGradientStops within this
    * GradientBase.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1080,7 +1082,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1555,6 +1557,7 @@ GradientBase_getListOfGradientStops(GradientBase_t* gb);
  *
  * @return the nth GradientStop_t in the ListOfGradientStops within this
  * GradientBase.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

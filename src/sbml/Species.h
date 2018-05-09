@@ -1793,6 +1793,7 @@ public:
    * @param n the index number of the Species to get.
    * 
    * @return the nth Species in this ListOfSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1805,6 +1806,7 @@ public:
    * @param n the index number of the Species to get.
    * 
    * @return the nth Species in this ListOfSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

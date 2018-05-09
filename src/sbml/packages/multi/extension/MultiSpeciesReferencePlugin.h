@@ -162,7 +162,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -389,6 +389,7 @@ MultiSpeciesReferencePlugin_getListOfSpeciesTypeComponentMapInProducts(MultiSpec
  * @return the nth SpeciesTypeComponentMapInProduct_t in the
  * ListOfSpeciesTypeComponentMapsInProduct within this
  * MultiSpeciesReferencePlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

@@ -115,7 +115,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * ListOfGradientDefinitions object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the ListOfGradientDefinitions
    * object to be instantiated.
@@ -163,6 +163,7 @@ public:
    * retrieve.
    *
    * @return the nth GradientBase in this ListOfGradientDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -183,6 +184,7 @@ public:
    * retrieve.
    *
    * @return the nth GradientBase in this ListOfGradientDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -496,6 +498,7 @@ BEGIN_C_DECLS
  * retrieve.
  *
  * @return the nth GradientBase_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

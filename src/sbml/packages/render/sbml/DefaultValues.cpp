@@ -1974,6 +1974,7 @@ void
 DefaultValues::renameSIdRefs(const std::string& oldid,
                              const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetStartHead() && mStartHead == oldid)
   {
     setStartHead(newid);

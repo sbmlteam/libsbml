@@ -109,15 +109,15 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns):
 /*
  * Creates a CubicBezier with the given points.
  *
- * @param bp1_x x coordinatee of the first base point.
- * @param bp1_y y coordinatee of the first base point.
- * @param bp1_z z coordinatee of the first base point.
- * @param bp1_x x coordinatee of the second base point.
- * @param bp1_y y coordinatee of the second base point.
- * @param bp1_z z coordinatee of the second base point.
- * @param bp1_x x coordinatee of the end point.
- * @param bp1_y y coordinatee of the end point.
- * @param bp1_z z coordinatee of the end point.
+ * @param bp1_x x coordinate of the first base point.
+ * @param bp1_y y coordinate of the first base point.
+ * @param bp1_z z coordinate of the first base point.
+ * @param bp1_x x coordinate of the second base point.
+ * @param bp1_y y coordinate of the second base point.
+ * @param bp1_z z coordinate of the second base point.
+ * @param bp1_x x coordinate of the end point.
+ * @param bp1_y y coordinate of the end point.
+ * @param bp1_z z coordinate of the end point.
  */
 RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAbsVector& bp1_x,const RelAbsVector& bp1_y,const RelAbsVector& bp1_z,const RelAbsVector& bp2_x,const RelAbsVector& bp2_y,const RelAbsVector& bp2_z,const RelAbsVector& end_x,const RelAbsVector& end_y,const RelAbsVector& end_z):RenderPoint(renderns, end_x,end_y,end_z),
     mBasePoint1_X(bp1_x),
@@ -143,7 +143,7 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAb
 * The XMLNode object has to contain a valid XML representation of a
 * RenderCubicBezier object as defined in the render extension specification.
 * This method is normally called when render information is read from a file and
-* should normally not have to be called explicitely.
+* should normally not have to be called explicitly.
 *
 * @param node the XMLNode object reference that describes the RenderCubicBezier
 * object to be instantiated.

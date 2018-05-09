@@ -124,7 +124,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * LinearGradient object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the LinearGradient
    * object to be instantiated.
@@ -187,7 +187,7 @@ public:
    * Returns the value of the "x1" element of this LinearGradient.
    *
    * @return the value of the "x1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getX1() const;
 
@@ -196,7 +196,7 @@ public:
    * Returns the value of the "x1" element of this LinearGradient.
    *
    * @return the value of the "x1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getX1();
 
@@ -220,7 +220,7 @@ public:
    * Returns the value of the "y1" element of this LinearGradient.
    *
    * @return the value of the "y1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getY1() const;
 
@@ -229,7 +229,7 @@ public:
    * Returns the value of the "y1" element of this LinearGradient.
    *
    * @return the value of the "y1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getY1();
 
@@ -252,7 +252,7 @@ public:
    * Returns the value of the "z1" element of this LinearGradient.
    *
    * @return the value of the "z1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getZ1() const;
 
@@ -261,7 +261,7 @@ public:
    * Returns the value of the "z1" element of this LinearGradient.
    *
    * @return the value of the "z1" element of this LinearGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getZ1();
 
@@ -284,7 +284,7 @@ public:
   * Returns the value of the "x2" element of this LinearGradient.
   *
   * @return the value of the "x2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getX2() const;
 
@@ -293,7 +293,7 @@ public:
   * Returns the value of the "x2" element of this LinearGradient.
   *
   * @return the value of the "x2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getX2();
 
@@ -316,7 +316,7 @@ public:
   * Returns the value of the "y2" element of this LinearGradient.
   *
   * @return the value of the "y2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getY2() const;
 
@@ -325,7 +325,7 @@ public:
   * Returns the value of the "y2" element of this LinearGradient.
   *
   * @return the value of the "y2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getY2();
 
@@ -348,7 +348,7 @@ public:
   * Returns the value of the "z2" element of this LinearGradient.
   *
   * @return the value of the "z2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getZ2() const;
 
@@ -357,7 +357,7 @@ public:
   * Returns the value of the "z2" element of this LinearGradient.
   *
   * @return the value of the "z2" element of this LinearGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getZ2();
 
@@ -787,7 +787,7 @@ LinearGradient_free(LinearGradient_t* lg);
  * @param lg the LinearGradient_t structure whose x1 is sought.
  *
  * @return the value of the "x1" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */
@@ -802,7 +802,7 @@ LinearGradient_getX1(const LinearGradient_t * lg);
  * @param lg the LinearGradient_t structure whose y1 is sought.
  *
  * @return the value of the "y1" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */
@@ -817,7 +817,7 @@ LinearGradient_getY1(const LinearGradient_t * lg);
  * @param lg the LinearGradient_t structure whose z1 is sought.
  *
  * @return the value of the "z1" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */
@@ -832,7 +832,7 @@ LinearGradient_getZ1(const LinearGradient_t * lg);
  * @param lg the LinearGradient_t structure whose x2 is sought.
  *
  * @return the value of the "x2" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */
@@ -847,7 +847,7 @@ LinearGradient_getX2(const LinearGradient_t * lg);
  * @param lg the LinearGradient_t structure whose y2 is sought.
  *
  * @return the value of the "y2" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */
@@ -862,7 +862,7 @@ LinearGradient_getY2(const LinearGradient_t * lg);
  * @param lg the LinearGradient_t structure whose z2 is sought.
  *
  * @return the value of the "z2" element of this LinearGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof LinearGradient_t
  */

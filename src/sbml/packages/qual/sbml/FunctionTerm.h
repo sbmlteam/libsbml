@@ -676,6 +676,7 @@ public:
    * @param n the index number of the FunctionTerm to get.
    *
    * @return the nth FunctionTerm in this ListOfFunctionTerms.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -688,6 +689,7 @@ public:
    * @param n the index number of the FunctionTerm to get.
    *
    * @return the nth FunctionTerm in this ListOfFunctionTerms.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

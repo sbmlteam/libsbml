@@ -135,6 +135,7 @@ public:
    * @param n the index number of the ReferenceGlyph to get.
    * 
    * @return the nth ReferenceGlyph in this ListOfReferenceGlyphs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -147,6 +148,7 @@ public:
    * @param n the index number of the ReferenceGlyph to get.
    * 
    * @return the nth ReferenceGlyph in this ListOfReferenceGlyphs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

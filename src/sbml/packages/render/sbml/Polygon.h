@@ -119,7 +119,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * Polygon object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the Polygon
    * object to be instantiated.
@@ -217,7 +217,7 @@ public:
    * retrieve.
    *
    * @return the nth RenderPoint in the ListOfCurveElements within this
-   * Polygon.
+   * Polygon or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -238,7 +238,7 @@ public:
    * retrieve.
    *
    * @return the nth RenderPoint in the ListOfCurveElements within this
-   * Polygon.
+   * Polygon or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -560,7 +560,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -736,7 +736,7 @@ Polygon_getListOfElements(Polygon_t* p);
  * retrieve.
  *
  * @return the nth RenderPoint_t in the ListOfCurveElements within this
- * Polygon.
+ * Polygon or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

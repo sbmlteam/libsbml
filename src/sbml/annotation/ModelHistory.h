@@ -278,7 +278,7 @@ public:
    * storing a list of "modified date" values.
    * 
    * @return the nth Date in the list of ModifiedDates of this
-   * ModelHistory.
+   * ModelHistory or @c NULL if no such object exists.
    */
   Date* getModifiedDate(unsigned int n);
 
@@ -334,7 +334,7 @@ public:
    * creators.  The libSBML ModelHistory class supports this by storing a
    * list of "model creator" values.
    * 
-   * @return the nth ModelCreator object.
+   * @return the nth ModelCreator object or @c NULL if no such object exists.
    */
   ModelCreator* getCreator(unsigned int n);
 
@@ -492,7 +492,8 @@ List_t * ModelHistory_getListCreators(ModelHistory_t * mh);
  * @param mh the ModelHistory_t structure.
  * @param n an unsigned int indicating which ModelCreator_t.
  *
- * @return the nth ModelCreator of this ModelHistory_t.
+ * @return the nth ModelCreator of this ModelHistory_t or @c NULL 
+ * if no such object exists.
  *
  * @memberof ModelHistory_t
  */
@@ -644,7 +645,7 @@ ModelHistory_getNumModifiedDates(ModelHistory_t * mh);
  * @param n an unsigned int indicating which Date_t.
  *
  * @return the nth Date_t in the list of ModifiedDates
- * of this ModelHistory_t.
+ * of this ModelHistory_t or @c NULL if no such object exists.
  *
  * @note A bug in libSBML meant that originally a ModelHistory_t structure
  * contained only one instance of a Date_t.  In fact the MIRIAM

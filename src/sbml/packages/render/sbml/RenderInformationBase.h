@@ -550,7 +550,7 @@ public:
    * retrieve.
    *
    * @return the nth ColorDefinition in the ListOfColorDefinitions within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such ColorDefinition exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -571,7 +571,7 @@ public:
    * retrieve.
    *
    * @return the nth ColorDefinition in the ListOfColorDefinitions within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such ColorDefinition exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -745,11 +745,12 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
-   * @see removeGradientDefinition(const std::string& sid)
+   * @see removeGraidentBase(const std::string& sid)
    * @see removeGradientDefinition(unsigned int n)
    */
   const ListOfGradientDefinitions* getListOfGradientDefinitions() const;
@@ -763,7 +764,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
@@ -780,12 +782,13 @@ public:
    * retrieve.
    *
    * @return the nth GradientBase in the ListOfGradientDefinitions within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such GradientBase exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getNumGradientDefinitions()
    * @see removeGradientDefinition(const std::string& sid)
@@ -801,12 +804,13 @@ public:
    * retrieve.
    *
    * @return the nth GradientBase in the ListOfGradientDefinitions within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such GradientBase exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getNumGradientDefinitions()
    * @see removeGradientDefinition(const std::string& sid)
@@ -828,7 +832,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
    * @see removeGradientDefinition(const std::string& sid)
@@ -850,7 +855,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
    * @see removeGradientDefinition(const std::string& sid)
@@ -875,7 +881,8 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
@@ -892,7 +899,8 @@ public:
    *
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see removeGradientDefinition(const std::string& sid)
@@ -949,7 +957,8 @@ public:
    * @copydetails doc_returned_owned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
@@ -971,7 +980,8 @@ public:
    * @copydetails doc_returned_owned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
-   * @see createGradientDefinition()
+   * @see createLinearGradientDefinition()
+   * @see createRadialGradientDefinition()
    * @see getGradientDefinition(const std::string& sid)
    * @see getGradientDefinition(unsigned int n)
    * @see getNumGradientDefinitions()
@@ -1023,7 +1033,7 @@ public:
    * retrieve.
    *
    * @return the nth LineEnding in the ListOfLineEndings within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such LineEnding exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1044,7 +1054,7 @@ public:
    * retrieve.
    *
    * @return the nth LineEnding in the ListOfLineEndings within this
-   * RenderInformationBase.
+   * RenderInformationBase or @c NULL if no such LineEnding exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1701,7 +1711,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -2355,7 +2365,7 @@ RenderInformationBase_getListOfColorDefinitions(RenderInformationBase_t* rib);
  * retrieve.
  *
  * @return the nth ColorDefinition_t in the ListOfColorDefinitions within this
- * RenderInformationBase.
+ * RenderInformationBase or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -2506,7 +2516,8 @@ RenderInformationBase_removeColorDefinitionById(RenderInformationBase_t* rib,
  * @copydetails doc_returned_unowned_pointer
  *
  * @see RenderInformationBase_addGradientDefinition()
- * @see RenderInformationBase_createGradientDefinition()
+ * @see RenderInformationBase_createLinearGradientDefinition()
+ * @see RenderInformationBase_createRadialGradientDefinition()
  * @see RenderInformationBase_getGradientDefinitionById()
  * @see RenderInformationBase_getGradientDefinition()
  * @see RenderInformationBase_getNumGradientDefinitions()
@@ -2530,7 +2541,7 @@ RenderInformationBase_getListOfGradientDefinitions(RenderInformationBase_t*
  * retrieve.
  *
  * @return the nth GradientBase_t in the ListOfGradientDefinitions within this
- * RenderInformationBase.
+ * RenderInformationBase or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -2722,7 +2733,7 @@ RenderInformationBase_getListOfLineEndings(RenderInformationBase_t* rib);
  * retrieve.
  *
  * @return the nth LineEnding_t in the ListOfLineEndings within this
- * RenderInformationBase.
+ * RenderInformationBase or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

@@ -456,6 +456,7 @@ XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error);
  * @param n unsigned int number of the error to retrieve.
  *
  * @return the nth XMLError_t in this log.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof XMLErrorLog_t
  */

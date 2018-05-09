@@ -1610,6 +1610,7 @@ public:
    * @param n the index number of the Unit to get.
    * 
    * @return the nth Unit in this ListOfUnits.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1622,6 +1623,7 @@ public:
    * @param n the index number of the Unit to get.
    * 
    * @return the nth Unit in this ListOfUnits.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

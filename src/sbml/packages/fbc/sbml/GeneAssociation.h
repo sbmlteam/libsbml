@@ -450,6 +450,7 @@ public:
    * @param n the index number of the GeneAssociation to get.
    * 
    * @return the nth GeneAssociation in this ListOfGeneAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -462,6 +463,7 @@ public:
    * @param n the index number of the GeneAssociation to get.
    * 
    * @return the nth GeneAssociation in this ListOfGeneAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

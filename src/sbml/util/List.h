@@ -268,6 +268,7 @@ public:
    * If @p n > <code>List.size()</code>, this method returns @c 0.
    *
    * @return the nth item in this List.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see remove()
    */
@@ -288,6 +289,7 @@ public:
    * If @p n > <code>List.size()</code>, this method returns @c 0.
    *
    * @return the nth item in this List.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see get()
    */

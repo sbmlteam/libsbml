@@ -172,6 +172,7 @@ public:
    *
    * @return the nth FbcAssociation in the ListOfFbcAssociations within this
    * FbcAnd.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumAssociations()
    */
@@ -185,6 +186,7 @@ public:
    *
    * @return the nth FbcAssociation in the ListOfFbcAssociations within this
    * FbcAnd.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumAssociations()
    */
@@ -943,6 +945,7 @@ FbcAnd_getListOfFbcAssociations(FbcAnd_t* fa);
  * retrieve.
  *
  * @return the nth FbcAssociation_t in the ListOfAssociations within this FbcAnd.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

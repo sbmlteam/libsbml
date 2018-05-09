@@ -147,6 +147,7 @@ public:
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in this ListOfGroups.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -166,6 +167,7 @@ public:
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in this ListOfGroups.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -428,6 +430,7 @@ BEGIN_C_DECLS
  * @param n an unsigned int representing the index of the Group_t to retrieve.
  *
  * @return the nth Group_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

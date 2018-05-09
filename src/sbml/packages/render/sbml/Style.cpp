@@ -96,7 +96,7 @@ Style::Style(RenderPkgNamespaces *renderns)
  * The XMLNode object has to contain a valid XML representation of a 
  * Style object as defined in the render extension specification.
  * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
+ * should normally not have to be called explicitly.
  *
  * @param node the XMLNode object reference that describes the Style
  * object to be instantiated.

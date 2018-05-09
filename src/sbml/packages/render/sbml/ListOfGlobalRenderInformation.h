@@ -414,6 +414,7 @@ public:
    *
    * @return the nth GlobalRenderInformation in this
    * ListOfGlobalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -435,6 +436,7 @@ public:
    *
    * @return the nth GlobalRenderInformation in this
    * ListOfGlobalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -725,7 +727,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -983,6 +985,7 @@ ListOfGlobalRenderInformation_unsetMinorVersion(ListOf_t * lo);
  * GlobalRenderInformation_t to retrieve.
  *
  * @return the nth GlobalRenderInformation_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

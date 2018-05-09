@@ -548,6 +548,7 @@ public:
    * @param n the index number of the GraphicalObject to get.
    * 
    * @return the nth GraphicalObject in this ListOfGraphicalObjects.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -560,6 +561,7 @@ public:
    * @param n the index number of the GraphicalObject to get.
    * 
    * @return the nth GraphicalObject in this ListOfGraphicalObjects.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

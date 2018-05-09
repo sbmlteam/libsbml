@@ -819,6 +819,7 @@ public:
    * @param n the index number of the QualitativeSpecies to get.
    *
    * @return the nth QualitativeSpecies in this ListOfQualitativeSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -831,6 +832,7 @@ public:
    * @param n the index number of the QualitativeSpecies to get.
    *
    * @return the nth QualitativeSpecies in this ListOfQualitativeSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1007,7 +1009,7 @@ QualitativeSpecies_clone(QualitativeSpecies_t * qs);
 
 
 /**
- * Takes an QualitativeSpecies_t structure and returns its identifier.
+ * Takes a QualitativeSpecies_t structure and returns its identifier.
  *
  * @param qs the QualitativeSpecies_t structure whose identifier is sought.
  * 
@@ -1188,7 +1190,7 @@ QualitativeSpecies_isSetMaxLevel(QualitativeSpecies_t * qs);
 
 
 /**
- * Assigns the identifier of an QualitativeSpecies_t structure.
+ * Assigns the identifier of a QualitativeSpecies_t structure.
  *
  * This makes a copy of the string passed in the parameter @p sid.
  *

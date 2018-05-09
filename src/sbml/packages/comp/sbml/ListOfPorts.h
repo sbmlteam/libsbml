@@ -101,6 +101,7 @@ public:
    * @param n the index number of the Port to get.
    * 
    * @return the nth Port in this ListOfPorts.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -113,6 +114,7 @@ public:
    * @param n the index number of the Port to get.
    * 
    * @return the nth Port in this ListOfPorts.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -251,6 +253,7 @@ BEGIN_C_DECLS
  * @param n an unsigned int representing the index of the Port_t to retrieve.
  *
  * @return the nth Port_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

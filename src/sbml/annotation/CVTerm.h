@@ -1194,7 +1194,8 @@ public:
    *
    * @param n unsigned int the index of the CVTerm to retrieve.
    *
-   * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
+   * @return the nth CVTerm in the list of CVTerms for this CVTerm object
+   * or @c NULL if no such object exists.
    */
   CVTerm * getNestedCVTerm(unsigned int n);
 
@@ -1205,7 +1206,8 @@ public:
    *
    * @param n unsigned int the index of the CVTerm to retrieve.
    *
-   * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
+   * @return the nth CVTerm in the list of CVTerms for this CVTerm object
+   * or @c NULL if no such object exists.
    */
   const CVTerm * getNestedCVTerm(unsigned int n) const;
 
@@ -1734,7 +1736,8 @@ CVTerm_getNumNestedCVTerms(const CVTerm_t* cvt);
  * @param cvt the structure to get CVTerm_t's from.
  * @param n unsigned int the index of the CVTerm_t to retrieve.
  *
- * @return the nth CVTerm_t in the list of CVTerm_t's for this CVTerm_t structure.
+ * @return the nth CVTerm_t in the list of CVTerm_t's for this CVTerm_t structure
+ * or @c NULL if no such object exists.
  *
  * @memberof CVTerm_t
  */

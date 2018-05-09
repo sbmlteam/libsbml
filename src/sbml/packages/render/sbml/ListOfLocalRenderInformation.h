@@ -418,6 +418,7 @@ public:
    *
    * @return the nth LocalRenderInformation in this
    * ListOfLocalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -439,6 +440,7 @@ public:
    *
    * @return the nth LocalRenderInformation in this
    * ListOfLocalRenderInformation.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -723,7 +725,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -969,7 +971,8 @@ ListOfLocalRenderInformation_unsetMinorVersion(ListOf_t * lo);
  * @param n an unsigned int representing the index of the
  * LocalRenderInformation_t to retrieve.
  *
- * @return the nth LocalRenderInformation_t in this ListOf_t.
+ * @return the nth LocalRenderInformation_t in this ListOf_t
+ * or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

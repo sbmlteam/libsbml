@@ -436,14 +436,13 @@ public:
    * or the "variable" attribute of a Rule, or the "symbol" attribute of
    * an InitialAssignment.
    *
-   * @note Because of the inconsistent behavior of this function with 
-   * respect to assignments and rules, it is now recommended to
-   * use the getIdAttribute() function instead.
-   *
    * @copydetails doc_id_attribute
    *
-   * @return the id of this SBML object, or the "variable" if the object 
-   * is a Rule, or the "symbol" if the object is an InitialAssignment.
+   * @return the id of this SBML object, or the "variable" if the object is a
+   * Rule, or the "symbol" if the object is an InitialAssignment.
+   *
+   * @note Because of the inconsistent behavior of this function with respect
+   * to assignments and rules, callers should use getIdAttribute() instead.
    *
    * @see getIdAttribute()
    * @see setIdAttribute(const std::string& sid)
@@ -452,23 +451,24 @@ public:
    */
   virtual const std::string& getId () const;
 
+
   /**
    * Returns the value of the "id" attribute of this SBML object.
    *
-   * @note Because of the inconsistent behavior of the old SBase::getId()
-   * function with respect to assignments and rules, it is now 
-   * recommended to use this getIdAttribute() function instead.
-   * 
    * @copydetails doc_id_attribute
    *
    * @return the id of this SBML object, if set and valid for this
    * level and version of SBML; an empty string otherwise.
+   *
+   * @note Because of the inconsistent behavior of this function with respect
+   * to assignments and rules, callers should use getIdAttribute() instead.
    *
    * @see setIdAttribute(const std::string& sid)
    * @see isSetIdAttribute()
    * @see unsetIdAttribute()
    */
   const std::string& getIdAttribute() const;
+
 
   /**
    * Returns the value of the "name" attribute of this SBML object.
@@ -994,25 +994,26 @@ public:
 
 
   /**
-   * Predicate returning @c true if a call to getId() returns a 
-   * non-empty string.  This means that for most objects, this 
-   * function will return @c true if its "id" attribute is set, and
-   * @c false if it is not, or if the object has no "id" attribute
-   * at all.  However, for an EventAssignment or a Rule, isSetId() 
-   * checks whether the "variable" attribute is set, and for an
-   * InitialAssignment, it checks whether the "symbol" attribute
-   * is set.  Because those elements will also have an "id"
-   * attribute in SBML Level&nbsp;3 Version&nbsp;2 which isSetId()
-   * will not check, the function itself is deprecated, and it
-   * is recommended to use isSetIdAttribute() in all cases where
-   * one needs to know whether the "id" attribute is set, and
-   * to use EventAssignment::isSetVariable(), Rule::isSetVariable()
-   * and InitialAssignment::isSetSymbol() when the status of the
-   * "variable" or "symbol" attributes need to be checked.
+   * Predicate returning @c true if a call to getId() returns a
+   * non-empty string.
+   *
+   * For most objects, this function will return @c true if its "id"
+   * attribute is set, and @c false if it is not, or if the object has no
+   * "id" attribute at all.  However, for an EventAssignment or a Rule,
+   * isSetId() checks whether the "variable" attribute is set, and for an
+   * InitialAssignment, it checks whether the "symbol" attribute is set.
+   * Because those elements will also have an "id" attribute in SBML
+   * Level&nbsp;3 Version&nbsp;2 which isSetId() will not check, the function
+   * itself is deprecated, and it is recommended to use isSetIdAttribute() in
+   * all cases where one needs to know whether the "id" attribute is set, and
+   * to use EventAssignment::isSetVariable(), Rule::isSetVariable() and
+   * InitialAssignment::isSetSymbol() when the status of the "variable" or
+   * "symbol" attributes need to be checked.
    *
    * @copydetails doc_isset_id
    */
   virtual bool isSetId () const;
+
 
   /**
    * Predicate returning @c true if this object's "id" attribute is set.
@@ -1027,6 +1028,7 @@ public:
    * @see unsetIdAttribute()
    */
   bool isSetIdAttribute() const;
+
 
   /**
    * Predicate returning @c true if this
@@ -1977,6 +1979,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param n unsigned int the index of the CVTerm to retrieve.
    *
    * @return the nth CVTerm in the list of CVTerms for this SBML object.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   CVTerm* getCVTerm(unsigned int n);
 
@@ -2565,6 +2568,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the nth plug-in object (the libSBML extension interface) of a
    * package extension.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumPlugins()
    * @see getPlugin(const std::string& package)
@@ -2587,6 +2591,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the nth plug-in object (the libSBML extension interface) of a
    * package extension.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumPlugins()
    * @see getPlugin(const std::string& package)
@@ -2606,6 +2611,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the nth disabled plug-in object (the libSBML extension interface) of a
    * package extension.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumDisabledPlugins()
    * @see getPlugin(const std::string& package)
@@ -2625,6 +2631,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the nth disabled plug-in object (the libSBML extension interface) of a
    * package extension.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumDisabledPlugins()
    * @see getPlugin(const std::string& package)
@@ -3301,11 +3308,12 @@ protected:
    * @param typecode the typecode for this element.
    * @param xmlns the namespaces used by this element.
    *
-   * @note  This function is provided as convenience method to be called from constructors. This 
-   *        allows to use it in scenarios where the namespaces or typecode have not yet been initialized. 
-   * 
    * @return @c true if the level, version and namespace values of this 
    * SBML object correspond to a valid set of values, @c false otherwise.
+   *
+   * @note This function is provided as convenience method to be called from
+   * constructors. This allows to use it in scenarios where the namespaces or
+   * typecode have not yet been initialized.
    */
   bool hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns);
 
@@ -4764,6 +4772,7 @@ SBase_getNumCVTerms(SBase_t *sb);
  * @param n unsigned int the index of the CVTerm_t to retrieve.
  *
  * @return the nth CVTerm_t in the list of CVTerm_t's for this SBML structure.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof SBase_t
  */

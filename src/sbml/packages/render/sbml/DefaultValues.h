@@ -33,25 +33,24 @@
  * @class DefaultValues
  * @sbmlbrief{render} Encoding of default values.
  *
- * Previously, the render package specified default values and inheritance in a 
- * similar fashion to the specification used by SVG. However, in order to comply 
- * with the SBML development guidelines for Level 3 packages, we introduced a new 
- * class DefaultValues to encode these values within the model. The DefaultValues 
- * class can occur as a child of either the ListOfGlobalRenderInformation or a
- * ListOfLocalRenderInformation. 
- * 
- * The values from the DefaultValues class are to be 
- * taken as default source for the values of any optional attribute that is not 
- * explicitly declared. An example on how to use the DefaultValues class is below. 
- * For the meaning of the individual attributes, please see the corresponding sections 
- * later in this document. If an attribute has not been declared, either explicitly 
- * on an element or using the DefaultValues class then software reading the XML may 
- * chose how they handle the attribute.
- * 
- * Note that the DefaultValues associated with a ListOfLocalRenderInformation will 
- * override DefaultValues declared on the ListOfGlobalRenderInformation.
+ * The SBMl Render package originally (pre-SBML Level 3) specified default
+ * values and inheritance in a similar fashion to the specification used by
+ * SVG. However, in order to comply with the SBML development guidelines for
+ * Level&nbsp;3 packages, the Render package specification introduced a new
+ * class of objects, DefaultValues, to encode these values within a
+ * model. The DefaultValues class objets can occur as a child of either the
+ * ListOfGlobalRenderInformation or a ListOfLocalRenderInformation.
+ *
+ * The values from DefaultValues objects are to be taken as default source
+ * for the values of any optional attribute that is not explicitly declared.
+ * If an attribute has not been declared, either explicitly on an element or
+ * using the DefaultValues class then software reading the XML may chose how
+ * they handle the attribute.  Please see the SBML Level&nbsp;3 Render package
+ * specification for more information.
+ *
+ * Note that the DefaultValues associated with a ListOfLocalRenderInformation
+ * will override DefaultValues declared on the ListOfGlobalRenderInformation.
  */
-
 
 #ifndef DefaultValues_H__
 #define DefaultValues_H__
@@ -122,7 +121,7 @@ protected:
 public:
 
   /**
-   * Creates a new DefaultValues using the given SBML Level, Version and
+   * Creates a DefaultValues object using the given SBML Level, Version and
    * &ldquo;render&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
@@ -143,7 +142,8 @@ public:
 
 
   /**
-   * Creates a new DefaultValues using the given RenderPkgNamespaces object.
+   * Creates a DefaultValues object using the given RenderPkgNamespaces
+   * object.
    *
    * @copydetails doc_what_are_sbml_package_namespaces
    *
@@ -187,29 +187,31 @@ public:
 
   /**
    * Returns the value of the "backgroundColor" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
-   * @return the value of the "backgroundColor" attribute of this DefaultValues
-   * as a string.
+   * @return the value of the "backgroundColor" attribute of this
+   * DefaultValues as a string.
    */
   const std::string& getBackgroundColor() const;
 
 
   /**
-   * Returns the value of the "spreadMethod" attribute of this DefaultValues.
+   * Returns the value of the "spreadMethod" attribute of this DefaultValues
+   * object.
    *
-   * @return the value of the "spreadMethod" attribute of this DefaultValues as
-   * a GradientBase::SPREADMETHOD.
+   * @return the value of the "spreadMethod" attribute of this DefaultValues
+   * object as a GradientBase::SPREADMETHOD.
    *
    */
   GradientSpreadMethod_t getSpreadMethod() const;
 
 
   /**
-   * Returns the value of the "spreadMethod" attribute of this DefaultValues.
+   * Returns the value of the "spreadMethod" attribute of this DefaultValues
+   * object.
    *
-   * @return the value of the "spreadMethod" attribute of this DefaultValues as
-   * a string.
+   * @return the value of the "spreadMethod" attribute of this DefaultValues
+   * object as a string.
    *
    */
   std::string getSpreadMethodAsString() const;
@@ -217,501 +219,509 @@ public:
 
   /**
    * Returns the value of the "linearGradient_x1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_x1" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_x1() const;
 
 
   /**
    * Returns the value of the "linearGradient_y1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_y1" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_y1() const;
 
 
   /**
    * Returns the value of the "linearGradient_z1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_z1" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_z1() const;
 
 
   /**
    * Returns the value of the "linearGradient_x2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_x2" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_x2() const;
 
 
   /**
    * Returns the value of the "linearGradient_y2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_y2" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_y2() const;
 
 
   /**
    * Returns the value of the "linearGradient_z2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "linearGradient_z2" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getLinearGradient_z2() const;
 
 
   /**
    * Returns the value of the "radialGradient_cx" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_cx" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_cx() const;
 
 
   /**
    * Returns the value of the "radialGradient_cy" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_cy" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_cy() const;
 
 
   /**
    * Returns the value of the "radialGradient_cz" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_cz" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_cz() const;
 
 
   /**
    * Returns the value of the "radialGradient_r" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_r" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_r() const;
 
 
   /**
    * Returns the value of the "radialGradient_fx" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_fx" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_fx() const;
 
 
   /**
    * Returns the value of the "radialGradient_fy" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_fy" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_fy() const;
 
 
   /**
    * Returns the value of the "radialGradient_fz" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "radialGradient_fz" attribute of this
-   * DefaultValues as a string.
+   * DefaultValues object as a string.
    */
   const RelAbsVector& getRadialGradient_fz() const;
 
 
   /**
-   * Returns the value of the "fill" attribute of this DefaultValues.
+   * Returns the value of the "fill" attribute of this DefaultValues object.
    *
-   * @return the value of the "fill" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "fill" attribute of this DefaultValues object
+   * as a string.
    */
   const std::string& getFill() const;
 
 
   /**
-   * Returns the value of the "fill-rule" attribute of this DefaultValues.
-   *
-   * @return the value of the "fill-rule" attribute of this DefaultValues as a
-   * FileRule_t.
+   * Returns the value of the "fill-rule" attribute of this DefaultValues object.
    *
    * @copydetails doc_render_fill_rule
+   *
+   * @return the value of the "fill-rule" attribute of this DefaultValues
+   * object as a FileRule_t.
    */
   int getFillRule() const;
 
 
   /**
-   * Returns the value of the "fill-rule" attribute of this DefaultValues.
-   *
-   * @return the value of the "fill-rule" attribute of this DefaultValues as a
-   * string.
+   * Returns the value of the "fill-rule" attribute of this DefaultValues object.
    *
    * @copydetails doc_render_fill_rule
+   *
+   * @return the value of the "fill-rule" attribute of this DefaultValues
+   * object as a string.
    */
   std::string getFillRuleAsString() const;
 
 
   /**
-   * Returns the value of the "default_z" attribute of this DefaultValues.
+   * Returns the value of the "default_z" attribute of this DefaultValues object.
    *
-   * @return the value of the "default_z" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "default_z" attribute of this DefaultValues
+   * object as a string.
    */
   const RelAbsVector& getDefault_z() const;
 
 
   /**
-   * Returns the value of the "stroke" attribute of this DefaultValues.
+   * Returns the value of the "stroke" attribute of this DefaultValues object.
    *
-   * @return the value of the "stroke" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "stroke" attribute of this DefaultValues object
+   * as a string.
    */
   const std::string& getStroke() const;
 
 
   /**
-   * Returns the value of the "strokeWidth" attribute of this DefaultValues.
+   * Returns the value of the "strokeWidth" attribute of this DefaultValues object.
    *
-   * @return the value of the "strokeWidth" attribute of this DefaultValues as
-   * a string.
+   * @return the value of the "strokeWidth" attribute of this DefaultValues
+   * object as a string.
    */
   double getStrokeWidth() const;
 
 
   /**
-   * Returns the value of the "font-family" attribute of this DefaultValues.
+   * Returns the value of the "font-family" attribute of this DefaultValues object.
    *
-   * @return the value of the "font-family" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "font-family" attribute of this DefaultValues
+   * object as a string.
    */
   const std::string& getFontFamily() const;
 
 
   /**
-   * Returns the value of the "font-size" attribute of this DefaultValues.
+   * Returns the value of the "font-size" attribute of this DefaultValues object.
    *
-   * @return the value of the "font-size" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "font-size" attribute of this DefaultValues
+   * object as a string.
    */
   const RelAbsVector& getFontSize() const;
 
 
   /**
-   * Returns the value of the "font-weight" attribute of this DefaultValues.
-   *
-   * @return the value of the "font-weight" attribute of this DefaultValues as a
-   * Text::FONT_WEIGHT.
+   * Returns the value of the "font-weight" attribute of this DefaultValues object.
    *
    * @copydetails doc_render_font_weight
+   *
+   * @return the value of the "font-weight" attribute of this DefaultValues
+   * object as a Text::FONT_WEIGHT.
    *
    */
   FontWeight_t getFontWeight() const;
 
 
   /**
-   * Returns the value of the "font-weight" attribute of this DefaultValues.
-   *
-   * @return the value of the "font-weight" attribute of this DefaultValues as a
-   * string.
+   * Returns the value of the "font-weight" attribute of this DefaultValues object.
    *
    * @copydetails doc_render_font_weight
+   *
+   * @return the value of the "font-weight" attribute of this DefaultValues
+   * object as a string.
    *
    */
   std::string getFontWeightAsString() const;
 
 
   /**
-   * Returns the value of the "font-style" attribute of this DefaultValues.
-   *
-   * @return the value of the "font-style" attribute of this DefaultValues as a
-   * Text::FONT_STYLE.
+   * Returns the value of the "font-style" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_font_style
+   *
+   * @return the value of the "font-style" attribute of this DefaultValues
+   * object as a Text::FONT_STYLE.
    *
    */
   FontStyle_t getFontStyle() const;
 
 
   /**
-   * Returns the value of the "font-style" attribute of this DefaultValues.
-   *
-   * @return the value of the "font-style" attribute of this DefaultValues as a
-   * string.
+   * Returns the value of the "font-style" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_font_style
+   *
+   * @return the value of the "font-style" attribute of this DefaultValues
+   * object as a string.
    *
    */
   std::string getFontStyleAsString() const;
 
 
   /**
-   * Returns the value of the "text-anchor" attribute of this DefaultValues.
-   *
-   * @return the value of the "text-anchor" attribute of this DefaultValues as a
-   * Text::TEXT_ANCHOR.
+   * Returns the value of the "text-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_text_anchor
+   *
+   * @return the value of the "text-anchor" attribute of this DefaultValues
+   * object as a Text::TEXT_ANCHOR.
    *
    */
   HTextAnchor_t getTextAnchor() const;
 
 
   /**
-   * Returns the value of the "text-anchor" attribute of this DefaultValues.
-   *
-   * @return the value of the "text-anchor" attribute of this DefaultValues as a
-   * string.
+   * Returns the value of the "text-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_text_anchor
+   *
+   * @return the value of the "text-anchor" attribute of this DefaultValues
+   * object as a string.
    *
    */
   std::string getTextAnchorAsString() const;
 
 
   /**
-   * Returns the value of the "vtext-anchor" attribute of this DefaultValues.
-   *
-   * @return the value of the "vtext-anchor" attribute of this DefaultValues as
-   * a Text::TEXT_ANCHOR.
+   * Returns the value of the "vtext-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_vtext_anchor
+   *
+   * @return the value of the "vtext-anchor" attribute of this DefaultValues
+   * object as a Text::TEXT_ANCHOR.
    *
    */
   VTextAnchor_t getVTextAnchor() const;
 
 
   /**
-   * Returns the value of the "vtext-anchor" attribute of this DefaultValues.
-   *
-   * @return the value of the "vtext-anchor" attribute of this DefaultValues as
-   * a string.
+   * Returns the value of the "vtext-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_vtext_anchor
+   *
+   * @return the value of the "vtext-anchor" attribute of this DefaultValues
+   * object as a string.
    *
    */
   std::string getVTextAnchorAsString() const;
 
 
   /**
-   * Returns the value of the "startHead" attribute of this DefaultValues.
+   * Returns the value of the "startHead" attribute of this DefaultValues
+   * object.
    *
-   * @return the value of the "startHead" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "startHead" attribute of this DefaultValues
+   * object as a string.
    */
   const std::string& getStartHead() const;
 
 
   /**
-   * Returns the value of the "endHead" attribute of this DefaultValues.
+   * Returns the value of the "endHead" attribute of this DefaultValues
+   * object.
    *
-   * @return the value of the "endHead" attribute of this DefaultValues as a
-   * string.
+   * @return the value of the "endHead" attribute of this DefaultValues
+   * object as a string.
    */
   const std::string& getEndHead() const;
 
 
   /**
    * Returns the value of the "enableRotationalMapping" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @return the value of the "enableRotationalMapping" attribute of this
-   * DefaultValues as a boolean.
+   * DefaultValues object as a boolean.
    */
   bool getEnableRotationalMapping() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "backgroundColor"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "backgroundColor" attribute is set.
    *
-   * @return @c true if this DefaultValues's "backgroundColor" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "backgroundColor"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetBackgroundColor() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "spreadMethod"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "spreadMethod" attribute is set.
    *
-   * @return @c true if this DefaultValues's "spreadMethod" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "spreadMethod" attribute
+   * has been set, otherwise @c false is returned.
    *
    */
   bool isSetSpreadMethod() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_x1"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_x1" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_x1" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_x1"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_x1() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_y1"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_y1" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_y1" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_y1"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_y1() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_z1"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_z1" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_z1" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_z1"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_z1() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_x2"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_x2" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_x2" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_x2"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_x2() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_y2"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_y2" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_y2" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_y2"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_y2() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "linearGradient_z2"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "linearGradient_z2" attribute is set.
    *
-   * @return @c true if this DefaultValues's "linearGradient_z2" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "linearGradient_z2"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetLinearGradient_z2() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_cx"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_cx" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_cx" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_cx"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_cx() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_cy"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_cy" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_cy" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_cy"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_cy() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_cz"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_cz" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_cz" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_cz"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_cz() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_r"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_r" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_r" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_r"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_r() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_fx"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_fx" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_fx" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_fx"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_fx() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_fy"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_fy" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_fy" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_fy"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_fy() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "radialGradient_fz"
-   * attribute is set.
+   * Predicate returning @c true if this DefaultValues object's
+   * "radialGradient_fz" attribute is set.
    *
-   * @return @c true if this DefaultValues's "radialGradient_fz" attribute has
-   * been set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "radialGradient_fz"
+   * attribute has been set, otherwise @c false is returned.
    */
   bool isSetRadialGradient_fz() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "fill" attribute is
-   * set.
+   * Predicate returning @c true if this DefaultValues object's "fill"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "fill" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "fill" attribute has been
+   * set, otherwise @c false is returned.
    */
   bool isSetFill() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "fill-rule" attribute
-   * is set.
+   * Predicate returning @c true if this DefaultValues object's "fill-rule"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "fill-rule" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "fill-rule" attribute has
+   * been set, otherwise @c false is returned.
    *
    * @copydetails doc_render_fill_rule
    */
@@ -719,156 +729,158 @@ public:
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "default_z" attribute
-   * is set.
+   * Predicate returning @c true if this DefaultValues object's "default_z"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "default_z" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "default_z" attribute has
+   * been set, otherwise @c false is returned.
    */
   bool isSetDefault_z() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "stroke" attribute is
-   * set.
+   * Predicate returning @c true if this DefaultValues object's "stroke"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "stroke" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "stroke" attribute has
+   * been set, otherwise @c false is returned.
    */
   bool isSetStroke() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "strokeWidth"
+   * Predicate returning @c true if this DefaultValues object's "strokeWidth"
    * attribute is set.
    *
-   * @return @c true if this DefaultValues's "strokeWidth" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "strokeWidth" attribute
+   * has been set, otherwise @c false is returned.
    */
   bool isSetStrokeWidth() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "font-family" attribute
-   * is set.
+   * Predicate returning @c true if this DefaultValues object's "font-family"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "font-family" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "font-family" attribute
+   * has been set, otherwise @c false is returned.
    */
   bool isSetFontFamily() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "font-size" attribute
-   * is set.
+   * Predicate returning @c true if this DefaultValues object's "font-size"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "font-size" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "font-size" attribute has
+   * been set, otherwise @c false is returned.
    */
   bool isSetFontSize() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "font-weight" attribute
-   * is set.
-   *
-   * @return @c true if this DefaultValues's "font-weight" attribute has been
-   * set, otherwise @c false is returned.
+   * Predicate returning @c true if this DefaultValues object's "font-weight"
+   * attribute is set.
    *
    * @copydetails doc_render_font_weight
+   *
+   * @return @c true if this DefaultValues object's "font-weight" attribute
+   * has been set, otherwise @c false is returned.
    */
   bool isSetFontWeight() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "font-style" attribute
-   * is set.
-   *
-   * @return @c true if this DefaultValues's "font-style" attribute has been
-   * set, otherwise @c false is returned.
+   * Predicate returning @c true if this DefaultValues object's "font-style"
+   * attribute is set.
    *
    * @copydetails doc_render_font_style
+   *
+   * @return @c true if this DefaultValues object's "font-style" attribute
+   * has been set, otherwise @c false is returned.
    *
    */
   bool isSetFontStyle() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "text-anchor" attribute
-   * is set.
-   *
-   * @return @c true if this DefaultValues's "text-anchor" attribute has been
-   * set, otherwise @c false is returned.
+   * Predicate returning @c true if this DefaultValues object's "text-anchor"
+   * attribute is set.
    *
    * @copydetails doc_render_text_anchor
+   *
+   * @return @c true if this DefaultValues object's "text-anchor" attribute
+   * has been set, otherwise @c false is returned.
    *
    */
   bool isSetTextAnchor() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "vtext-anchor"
-   * attribute is set.
-   *
-   * @return @c true if this DefaultValues's "vtext-anchor" attribute has been
-   * set, otherwise @c false is returned.
+   * Predicate returning @c true if this DefaultValues object's
+   * "vtext-anchor" attribute is set.
    *
    * @copydetails doc_render_vtext_anchor
+   *
+   * @return @c true if this DefaultValues object's "vtext-anchor" attribute
+   * has been set, otherwise @c false is returned.
    *
    */
   bool isSetVTextAnchor() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "startHead" attribute
-   * is set.
+   * Predicate returning @c true if this DefaultValues object's "startHead"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "startHead" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "startHead" attribute has
+   * been set, otherwise @c false is returned.
    */
   bool isSetStartHead() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's "endHead" attribute is
-   * set.
+   * Predicate returning @c true if this DefaultValues object's "endHead"
+   * attribute is set.
    *
-   * @return @c true if this DefaultValues's "endHead" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this DefaultValues object's "endHead" attribute has
+   * been set, otherwise @c false is returned.
    */
   bool isSetEndHead() const;
 
 
   /**
-   * Predicate returning @c true if this DefaultValues's
+   * Predicate returning @c true if this DefaultValues object's
    * "enableRotationalMapping" attribute is set.
    *
-   * @return @c true if this DefaultValues's "enableRotationalMapping"
+   * @return @c true if this DefaultValues object's "enableRotationalMapping"
    * attribute has been set, otherwise @c false is returned.
    */
   bool isSetEnableRotationalMapping() const;
 
 
   /**
-   * Sets the value of the "backgroundColor" attribute of this DefaultValues.
+   * Sets the value of the "backgroundColor" attribute of this DefaultValues
+   * object.
    *
    * @param backgroundColor std::string& value of the "backgroundColor"
    * attribute to be set.
    *
+   * Calling this function with @p backgroundColor = @c NULL or an empty
+   * string is equivalent to calling unsetBackgroundColor().
+   *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p backgroundColor = @c NULL or an empty string
-   * is equivalent to calling unsetBackgroundColor().
    */
   int setBackgroundColor(const std::string& backgroundColor);
 
 
   /**
-   * Sets the value of the "spreadMethod" attribute of this DefaultValues.
+   * Sets the value of the "spreadMethod" attribute of this DefaultValues
+   * object.
    *
-   * @param spreadMethod @if clike GradientBase::SPREADMETHOD@else int@endif@~ value
-   * of the "spreadMethod" attribute to be set.
+   * @param spreadMethod @if clike GradientBase::SPREADMETHOD@else
+   * int@endif@~ value of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -896,6 +908,7 @@ public:
 
   /**
    * Sets the value of the "spreadMethod" attribute of this DefaultValues.
+   * Sets the value of the "spreadMethod" attribute of this DefaultValues object.
    *
    * @param spreadMethod std::string& of the "spreadMethod" attribute to be
    * set.
@@ -910,7 +923,8 @@ public:
 
 
   /**
-   * Sets the value of the "linearGradient_x1" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_x1" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_x1 RelAbsVector& value of the "linearGradient_x1"
    * attribute to be set.
@@ -922,7 +936,8 @@ public:
 
 
   /**
-   * Sets the value of the "linearGradient_y1" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_y1" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_y1 RelAbsVector& value of the "linearGradient_y1"
    * attribute to be set.
@@ -934,19 +949,21 @@ public:
 
 
   /**
-   * Sets the value of the "linearGradient_z1" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_z1" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_z1 RelAbsVector& value of the "linearGradient_z1"
    * attribute to be set.
    *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @copydetails doc_returns_one_success_code @li
+   * @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setLinearGradient_z1(const RelAbsVector& linearGradient_z1);
 
 
   /**
-   * Sets the value of the "linearGradient_x2" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_x2" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_x2 RelAbsVector& value of the "linearGradient_x2"
    * attribute to be set.
@@ -958,7 +975,8 @@ public:
 
 
   /**
-   * Sets the value of the "linearGradient_y2" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_y2" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_y2 RelAbsVector& value of the "linearGradient_y2"
    * attribute to be set.
@@ -970,7 +988,8 @@ public:
 
 
   /**
-   * Sets the value of the "linearGradient_z2" attribute of this DefaultValues.
+   * Sets the value of the "linearGradient_z2" attribute of this
+   * DefaultValues object.
    *
    * @param linearGradient_z2 RelAbsVector& value of the "linearGradient_z2"
    * attribute to be set.
@@ -982,7 +1001,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_cx" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_cx" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_cx RelAbsVector& value of the "radialGradient_cx"
    * attribute to be set.
@@ -994,7 +1014,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_cy" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_cy" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_cy RelAbsVector& value of the "radialGradient_cy"
    * attribute to be set.
@@ -1006,7 +1027,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_cz" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_cz" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_cz RelAbsVector& value of the "radialGradient_cz"
    * attribute to be set.
@@ -1018,7 +1040,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_r" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_r" attribute of this DefaultValues
+   * object.
    *
    * @param radialGradient_r RelAbsVector& value of the "radialGradient_r"
    * attribute to be set.
@@ -1030,7 +1053,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_fx" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_fx" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_fx RelAbsVector& value of the "radialGradient_fx"
    * attribute to be set.
@@ -1042,7 +1066,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_fy" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_fy" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_fy RelAbsVector& value of the "radialGradient_fy"
    * attribute to be set.
@@ -1054,7 +1079,8 @@ public:
 
 
   /**
-   * Sets the value of the "radialGradient_fz" attribute of this DefaultValues.
+   * Sets the value of the "radialGradient_fz" attribute of this
+   * DefaultValues object.
    *
    * @param radialGradient_fz RelAbsVector& value of the "radialGradient_fz"
    * attribute to be set.
@@ -1066,24 +1092,25 @@ public:
 
 
   /**
-   * Sets the value of the "fill" attribute of this DefaultValues.
+   * Sets the value of the "fill" attribute of this DefaultValues object.
    *
    * @param fill std::string& value of the "fill" attribute to be set.
    *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
    * Calling this function with @p fill = @c NULL or an empty string is
    * equivalent to calling unsetFill().
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setFill(const std::string& fill);
 
 
   /**
-   * Sets the value of the "fill-rule" attribute of this DefaultValues.
+   * Sets the value of the "fill-rule" attribute of this DefaultValues
+   * object.
    *
-   * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif@~ value of the
-   * "fill-rule" attribute to be set.
+   * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else
+   * int@endif@~ value of the "fill-rule" attribute to be set.
    *
    * @copydetails doc_render_fill_rule
    *
@@ -1096,10 +1123,10 @@ public:
 
 
   /**
-  * Sets the value of the "fill-rule" attribute of this DefaultValues.
+  * Sets the value of the "fill-rule" attribute of this DefaultValues object.
   *
-  * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else int@endif@~ value of the
-  * "fill-rule" attribute to be set.
+  * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else
+  * int@endif@~ value of the "fill-rule" attribute to be set.
   *
   * @copydetails doc_render_fill_rule
   *
@@ -1112,7 +1139,8 @@ public:
 
 
   /**
-   * Sets the value of the "fill-rule" attribute of this DefaultValues.
+   * Sets the value of the "fill-rule" attribute of this DefaultValues
+   * object.
    *
    * @param fillRule std::string& of the "fill-rule" attribute to be set.
    *
@@ -1127,7 +1155,8 @@ public:
 
 
   /**
-   * Sets the value of the "default_z" attribute of this DefaultValues.
+   * Sets the value of the "default_z" attribute of this DefaultValues
+   * object.
    *
    * @param default_z RelAbsVector& value of the "default_z" attribute to be
    * set.
@@ -1139,51 +1168,54 @@ public:
 
 
   /**
-   * Sets the value of the "stroke" attribute of this DefaultValues.
+   * Sets the value of the "stroke" attribute of this DefaultValues object.
    *
    * @param stroke std::string& value of the "stroke" attribute to be set.
    *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
    * Calling this function with @p stroke = @c NULL or an empty string is
    * equivalent to calling unsetStroke().
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setStroke(const std::string& stroke);
 
 
   /**
-   * Sets the value of the "strokeWidth" attribute of this DefaultValues.
+   * Sets the value of the "strokeWidth" attribute of this DefaultValues
+   * object.
    *
-   * @param strokeWidth std::string& value of the "strokeWidth" attribute to be
-   * set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @param strokeWidth std::string& value of the "strokeWidth" attribute to
+   * be set.
    *
    * Calling this function with @p strokeWidth = @c NULL or an empty string is
    * equivalent to calling unsetStrokeWidth().
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setStrokeWidth(double strokeWidth);
 
 
   /**
-   * Sets the value of the "font-family" attribute of this DefaultValues.
+   * Sets the value of the "font-family" attribute of this DefaultValues
+   * object.
    *
-   * @param fontFamily std::string& value of the "font-family" attribute to be
-   * set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @param fontFamily std::string& value of the "font-family" attribute to
+   * be set.
    *
    * Calling this function with @p fontFamily = @c NULL or an empty string is
    * equivalent to calling unsetFontFamily().
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setFontFamily(const std::string& fontFamily);
 
 
   /**
-   * Sets the value of the "font-size" attribute of this DefaultValues.
+   * Sets the value of the "font-size" attribute of this DefaultValues
+   * object.
    *
    * @param fontSize RelAbsVector& value of the "font-size" attribute to be set.
    *
@@ -1194,10 +1226,11 @@ public:
 
 
   /**
-   * Sets the value of the "font-weight" attribute of this DefaultValues.
+   * Sets the value of the "font-weight" attribute of this DefaultValues
+   * object.
    *
-   * @param fontWeight @if clike Text::FONT_WEIGHT@else int@endif@~ value of the
-   * "font-weight" attribute to be set.
+   * @param fontWeight @if clike Text::FONT_WEIGHT@else int@endif@~ value of
+   * the "font-weight" attribute to be set.
    *
    * @copydetails doc_render_font_weight
    *
@@ -1241,7 +1274,8 @@ public:
 
 
   /**
-   * Sets the value of the "font-style" attribute of this DefaultValues.
+   * Sets the value of the "font-style" attribute of this DefaultValues
+   * object.
    *
    * @param fontStyle @if clike Text::FONT_STYLE@else int@endif@~ value of the
    * "font-style" attribute to be set.
@@ -1288,7 +1322,8 @@ public:
 
 
   /**
-   * Sets the value of the "text-anchor" attribute of this DefaultValues.
+   * Sets the value of the "text-anchor" attribute of this DefaultValues
+   * object.
    *
    * @param textAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
@@ -1335,7 +1370,8 @@ public:
 
 
   /**
-   * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
+   * Sets the value of the "vtext-anchor" attribute of this DefaultValues
+   * object.
    *
    * @param vtextAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
@@ -1382,7 +1418,8 @@ public:
 
 
   /**
-   * Sets the value of the "startHead" attribute of this DefaultValues.
+   * Sets the value of the "startHead" attribute of this DefaultValues
+   * object.
    *
    * @param startHead std::string& value of the "startHead" attribute to be
    * set.
@@ -1396,7 +1433,7 @@ public:
 
 
   /**
-   * Sets the value of the "endHead" attribute of this DefaultValues.
+   * Sets the value of the "endHead" attribute of this DefaultValues object.
    *
    * @param endHead std::string& value of the "endHead" attribute to be set.
    *
@@ -1410,10 +1447,10 @@ public:
 
   /**
    * Sets the value of the "enableRotationalMapping" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
-   * @param enableRotationalMapping bool value of the "enableRotationalMapping"
-   * attribute to be set.
+   * @param enableRotationalMapping bool value of the
+   * "enableRotationalMapping" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1424,7 +1461,8 @@ public:
 
 
   /**
-   * Unsets the value of the "backgroundColor" attribute of this DefaultValues.
+   * Unsets the value of the "backgroundColor" attribute of this
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1434,7 +1472,8 @@ public:
 
 
   /**
-   * Unsets the value of the "spreadMethod" attribute of this DefaultValues.
+   * Unsets the value of the "spreadMethod" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1444,7 +1483,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_x1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1455,7 +1494,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_y1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1466,7 +1505,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_z1" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1477,7 +1516,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_x2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1488,7 +1527,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_y2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1499,7 +1538,7 @@ public:
 
   /**
    * Unsets the value of the "linearGradient_z2" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1510,7 +1549,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_cx" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1521,7 +1560,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_cy" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1532,7 +1571,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_cz" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1543,7 +1582,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_r" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1554,7 +1593,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_fx" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1565,7 +1604,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_fy" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1576,7 +1615,7 @@ public:
 
   /**
    * Unsets the value of the "radialGradient_fz" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1586,7 +1625,7 @@ public:
 
 
   /**
-   * Unsets the value of the "fill" attribute of this DefaultValues.
+   * Unsets the value of the "fill" attribute of this DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1596,7 +1635,8 @@ public:
 
 
   /**
-   * Unsets the value of the "fill-rule" attribute of this DefaultValues.
+   * Unsets the value of the "fill-rule" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_fill_rule
    *
@@ -1607,7 +1647,8 @@ public:
 
 
   /**
-   * Unsets the value of the "default_z" attribute of this DefaultValues.
+   * Unsets the value of the "default_z" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1617,7 +1658,7 @@ public:
 
 
   /**
-   * Unsets the value of the "stroke" attribute of this DefaultValues.
+   * Unsets the value of the "stroke" attribute of this DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1627,7 +1668,8 @@ public:
 
 
   /**
-   * Unsets the value of the "strokeWidth" attribute of this DefaultValues.
+   * Unsets the value of the "strokeWidth" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1637,7 +1679,8 @@ public:
 
 
   /**
-   * Unsets the value of the "font-family" attribute of this DefaultValues.
+   * Unsets the value of the "font-family" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1647,7 +1690,8 @@ public:
 
 
   /**
-   * Unsets the value of the "font-size" attribute of this DefaultValues.
+   * Unsets the value of the "font-size" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1657,29 +1701,32 @@ public:
 
 
   /**
-   * Unsets the value of the "font-weight" attribute of this DefaultValues.
+   * Unsets the value of the "font-weight" attribute of this DefaultValues
+   * object.
+   *
+   * @copydetails doc_render_font_weight
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_render_font_weight
    */
   int unsetFontWeight();
 
 
   /**
-   * Unsets the value of the "font-style" attribute of this DefaultValues.
+   * Unsets the value of the "font-style" attribute of this DefaultValues
+   * object.
+   *
+   * @copydetails doc_render_font_style
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_render_font_style
    */
   int unsetFontStyle();
 
 
   /**
-   * Unsets the value of the "text-anchor" attribute of this DefaultValues.
+   * Unsets the value of the "text-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_text_anchor
    *
@@ -1690,7 +1737,8 @@ public:
 
 
   /**
-   * Unsets the value of the "vtext-anchor" attribute of this DefaultValues.
+   * Unsets the value of the "vtext-anchor" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_render_vtext_anchor
    *
@@ -1701,7 +1749,8 @@ public:
 
 
   /**
-   * Unsets the value of the "startHead" attribute of this DefaultValues.
+   * Unsets the value of the "startHead" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1711,7 +1760,8 @@ public:
 
 
   /**
-   * Unsets the value of the "endHead" attribute of this DefaultValues.
+   * Unsets the value of the "endHead" attribute of this DefaultValues
+   * object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1722,7 +1772,7 @@ public:
 
   /**
    * Unsets the value of the "enableRotationalMapping" attribute of this
-   * DefaultValues.
+   * DefaultValues object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1741,7 +1791,8 @@ public:
   /**
    * Returns the XML element name of this DefaultValues object.
    *
-   * For DefaultValues, the XML element name is always @c "defaultValues".
+   * For DefaultValues object, the XML element name is always @c
+   * "defaultValues".
    *
    * @return the name of this element, i.e. @c "defaultValues".
    */
@@ -1769,7 +1820,7 @@ public:
    * DefaultValues object have been set.
    *
    * @return @c true to indicate that all the required attributes of this
-   * DefaultValues have been set, otherwise @c false is returned.
+   * DefaultValues object have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -1829,7 +1880,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DefaultValues.
+   * Gets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1849,7 +1900,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DefaultValues.
+   * Gets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1868,7 +1919,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DefaultValues.
+   * Gets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1888,7 +1939,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DefaultValues.
+   * Gets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1908,7 +1959,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DefaultValues.
+   * Gets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -1926,12 +1977,12 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Predicate returning @c true if this DefaultValues's attribute
+   * Predicate returning @c true if this DefaultValues object's attribute
    * "attributeName" is set.
    *
    * @param attributeName, the name of the attribute to query.
    *
-   * @return @c true if this DefaultValues's attribute "attributeName" has been
+   * @return @c true if this DefaultValues object's attribute "attributeName" has been
    * set, otherwise @c false is returned.
    */
   virtual bool isSetAttribute(const std::string& attributeName) const;
@@ -1943,7 +1994,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DefaultValues.
+   * Sets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -1962,7 +2013,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DefaultValues.
+   * Sets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -1981,7 +2032,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DefaultValues.
+   * Sets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -2000,7 +2051,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DefaultValues.
+   * Sets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -2020,7 +2071,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DefaultValues.
+   * Sets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -2040,7 +2091,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Unsets the value of the "attributeName" attribute of this DefaultValues.
+   * Unsets the value of the "attributeName" attribute of this DefaultValues object.
    *
    * @param attributeName, the name of the attribute to query.
    *
@@ -3511,7 +3562,7 @@ DefaultValues_unsetEnableRotationalMapping(DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_x1 is sought.
  *
  * @return the value of the "linearGradient_x1" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3527,7 +3578,7 @@ DefaultValues_getLinearGradient_x1(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_y1 is sought.
  *
  * @return the value of the "linearGradient_y1" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3543,7 +3594,7 @@ DefaultValues_getLinearGradient_y1(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_z1 is sought.
  *
  * @return the value of the "linearGradient_z1" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3559,7 +3610,7 @@ DefaultValues_getLinearGradient_z1(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_x2 is sought.
  *
  * @return the value of the "linearGradient_x2" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3575,7 +3626,7 @@ DefaultValues_getLinearGradient_x2(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_y2 is sought.
  *
  * @return the value of the "linearGradient_y2" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3591,7 +3642,7 @@ DefaultValues_getLinearGradient_y2(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose linearGradient_z2 is sought.
  *
  * @return the value of the "linearGradient_z2" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3607,7 +3658,7 @@ DefaultValues_getLinearGradient_z2(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_cx is sought.
  *
  * @return the value of the "radialGradient_cx" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3623,7 +3674,7 @@ DefaultValues_getRadialGradient_cx(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_cy is sought.
  *
  * @return the value of the "radialGradient_cy" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3639,7 +3690,7 @@ DefaultValues_getRadialGradient_cy(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_cz is sought.
  *
  * @return the value of the "radialGradient_cz" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3654,7 +3705,7 @@ DefaultValues_getRadialGradient_cz(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_r is sought.
  *
  * @return the value of the "radialGradient_r" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3670,7 +3721,7 @@ DefaultValues_getRadialGradient_r(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_fx is sought.
  *
  * @return the value of the "radialGradient_fx" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3686,7 +3737,7 @@ DefaultValues_getRadialGradient_fx(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_fy is sought.
  *
  * @return the value of the "radialGradient_fy" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3702,7 +3753,7 @@ DefaultValues_getRadialGradient_fy(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose radialGradient_fz is sought.
  *
  * @return the value of the "radialGradient_fz" element of this DefaultValues_t
- * as a RelAbsVector*.
+ * as a RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3717,7 +3768,7 @@ DefaultValues_getRadialGradient_fz(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose default_z is sought.
  *
  * @return the value of the "default_z" element of this DefaultValues_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */
@@ -3732,7 +3783,7 @@ DefaultValues_getDefault_z(const DefaultValues_t * dv);
  * @param dv the DefaultValues_t structure whose font-size is sought.
  *
  * @return the value of the "font-size" element of this DefaultValues_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof DefaultValues_t
  */

@@ -568,6 +568,7 @@ public:
    * @param n the index number of the OutwardBindingSite to get.
    *
    * @return the nth OutwardBindingSite in this ListOfOutwardBindingSites.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -580,6 +581,7 @@ public:
    * @param n the index number of the OutwardBindingSite to get.
    *
    * @return the nth OutwardBindingSite in this ListOfOutwardBindingSites.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

@@ -125,7 +125,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * Image object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the Image
    * object to be instantiated.
@@ -427,7 +427,7 @@ public:
    * Sets the position of the image relative to its viewport.
    * The position can either be specified in relative or in absolut coordinates
    * or a combination of both.
-   * The z coordinatee can be omitted. In that case it is set to 0.
+   * The z coordinate can be omitted. In that case it is set to 0.
    *
    * @param x x coordinate of the image position
    * @param y y coordinate of the image position
@@ -867,7 +867,7 @@ Image_unsetHref(Image_t * i);
  *
  * @param i the Image_t structure whose x is sought.
  *
- * @return the value of the "x" element of this Image_t as a RelAbsVector*.
+ * @return the value of the "x" element of this Image_t as a RelAbsVector_t.
  *
  * @memberof Image_t
  */
@@ -881,7 +881,7 @@ Image_getX(const Image_t * i);
  *
  * @param i the Image_t structure whose y is sought.
  *
- * @return the value of the "y" element of this Image_t as a RelAbsVector*.
+ * @return the value of the "y" element of this Image_t as a RelAbsVector_t.
  *
  * @memberof Image_t
  */
@@ -895,7 +895,7 @@ Image_getY(const Image_t * i);
  *
  * @param i the Image_t structure whose z is sought.
  *
- * @return the value of the "z" element of this Image_t as a RelAbsVector*.
+ * @return the value of the "z" element of this Image_t as a RelAbsVector_t.
  *
  * @memberof Image_t
  */
@@ -909,7 +909,7 @@ Image_getZ(const Image_t * i);
  *
  * @param i the Image_t structure whose width is sought.
  *
- * @return the value of the "width" element of this Image_t as a RelAbsVector*.
+ * @return the value of the "width" element of this Image_t as a RelAbsVector_t.
  *
  * @memberof Image_t
  */
@@ -924,7 +924,7 @@ Image_getWidth(const Image_t * i);
  * @param i the Image_t structure whose height is sought.
  *
  * @return the value of the "height" element of this Image_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof Image_t
  */

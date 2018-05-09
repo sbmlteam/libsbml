@@ -726,6 +726,7 @@ public:
    * @param n the index number of the CompartmentType object to get.
    *
    * @return the nth CompartmentType object in this ListOfCompartmentTypes.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -738,6 +739,7 @@ public:
    * @param n the index number of the CompartmentType object to get.
    *
    * @return the nth CompartmentType object in this ListOfCompartmentTypes.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

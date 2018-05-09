@@ -409,7 +409,7 @@ CubicBezier::setBasePoint1 (const Point* p)
 
 
 /*
- * Initializes first base point with the given ccordinates.
+ * Initializes first base point with the given coordinates.
  */
 void
 CubicBezier::setBasePoint1 (double x, double y, double z)
@@ -458,7 +458,7 @@ void CubicBezier::setBasePoint2 (const Point* p)
 
 
 /*
- * Initializes second base point with the given ccordinates.
+ * Initializes second base point with the given coordinates.
  */
 void
 CubicBezier::setBasePoint2 (double x, double y, double z)

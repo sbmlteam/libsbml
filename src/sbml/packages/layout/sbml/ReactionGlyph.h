@@ -141,6 +141,7 @@ public:
    * @param n the index number of the SpeciesReferenceGlyph to get.
    * 
    * @return the nth SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -153,6 +154,7 @@ public:
    * @param n the index number of the SpeciesReferenceGlyph to get.
    * 
    * @return the nth SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

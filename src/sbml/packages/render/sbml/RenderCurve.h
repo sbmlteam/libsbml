@@ -37,7 +37,7 @@
  * The curve concept in the SBML Level&nbsp;3 Render package is similar to
  * the curves in the SBML layout.  Each curve consists of a number of either
  * straight line segments or cubic bezier elements.  The two element types
- * can also by mixed in a single curve object.
+ * can also be mixed in a single curve object.
  *
  * In contrast to layout curves, render curves can not have gaps and the
  * individual coordinates of the curve elements can be specified as a
@@ -128,7 +128,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * RenderCurve object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the RenderCurve
    * object to be instantiated.
@@ -271,11 +271,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   const ListOfCurveElements* getListOfElements() const;
@@ -289,11 +286,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   ListOfCurveElements* getListOfElements();
@@ -306,15 +300,12 @@ public:
    * retrieve.
    *
    * @return the nth RenderPoint in the ListOfCurveElements within this
-   * RenderCurve.
+   * RenderCurve or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   RenderPoint* getElement(unsigned int n);
@@ -327,15 +318,12 @@ public:
    * retrieve.
    *
    * @return the nth RenderPoint in the ListOfCurveElements within this
-   * RenderCurve.
+   * RenderCurve or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   const RenderPoint* getElement(unsigned int n) const;
@@ -388,11 +376,8 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   int addElement(const RenderPoint* rp);
@@ -405,10 +390,7 @@ public:
    *
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   unsigned int getNumElements() const;
@@ -423,10 +405,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   RenderPoint* createPoint();
@@ -441,10 +421,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    * @see removeElement(unsigned int n)
    */
   RenderCubicBezier* createCubicBezier();
@@ -462,11 +440,8 @@ public:
    * @copydetails doc_returned_owned_pointer
    *
    * @see addElement(const RenderPoint* object)
-   * @see createElement()
-   * @see getElement(const std::string& sid)
    * @see getElement(unsigned int n)
    * @see getNumElements()
-   * @see removeElement(const std::string& sid)
    */
   RenderPoint* removeElement(unsigned int n);
 
@@ -953,7 +928,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1246,11 +1221,8 @@ RenderCurve_unsetEndHead(RenderCurve_t * rc);
  * @copydetails doc_returned_unowned_pointer
  *
  * @see RenderCurve_addElement()
- * @see RenderCurve_createElement()
- * @see RenderCurve_getElementById()
  * @see RenderCurve_getElement()
  * @see RenderCurve_getNumElements()
- * @see RenderCurve_removeElementById()
  * @see RenderCurve_removeElement()
  *
  * @memberof RenderCurve_t
@@ -1269,7 +1241,7 @@ RenderCurve_getListOfElements(RenderCurve_t* rc);
  * retrieve.
  *
  * @return the nth RenderPoint_t in the ListOfCurveElements within this
- * RenderCurve.
+ * RenderCurve or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

@@ -390,6 +390,7 @@ public:
    * @param n the index number of the FluxBound to get.
    *
    * @return the nth FluxBound in the ListOfFluxBounds.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const FluxBound* getFluxBound (unsigned int n) const;
 
@@ -403,6 +404,7 @@ public:
    * @param n the index number of the FluxBound to get.
    *
    * @return the nth FluxBound in the ListOfFluxBounds.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   FluxBound* getFluxBound (unsigned int n);
 
@@ -554,6 +556,7 @@ public:
    * @param n the index number of the Objective to get.
    *
    * @return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumObjectives()
    */
@@ -566,6 +569,7 @@ public:
    * @param n the index number of the Objective to get.
    *
    * @return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumObjectives()
    */
@@ -742,6 +746,7 @@ public:
    * @param n the index number of the GeneProduct to get.
    *
    * @return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumGeneProducts()
    */
@@ -756,6 +761,7 @@ public:
    * @param n the index number of the GeneProduct to get.
    *
    * @return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumGeneProducts()
    */
@@ -921,6 +927,7 @@ public:
    * @param n the index number of the GeneAssociation annotation to get.
    *
    * @return the nth GeneAssociation annotation in the ListOfGeneAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const GeneAssociation* getGeneAssociation (unsigned int n) const;
 
@@ -933,6 +940,7 @@ public:
    * @param n the index number of the GeneAssociation annotation to get.
    *
    * @return the nth GeneAssociation annotation in the ListOfGeneAssociations.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   GeneAssociation* getGeneAssociation (unsigned int n);
 

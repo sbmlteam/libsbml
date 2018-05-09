@@ -885,6 +885,7 @@ public:
    * 
    * @return the nth reactant (as a SpeciesReference object) of this
    * Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const SpeciesReference* getReactant (unsigned int n) const;
 
@@ -900,6 +901,7 @@ public:
    * 
    * @return the nth reactant (as a SpeciesReference object) of this
    * Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   SpeciesReference* getReactant (unsigned int n);
 
@@ -941,6 +943,7 @@ public:
    * 
    * @return the nth product (as a SpeciesReference object) of this
    * Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const SpeciesReference* getProduct (unsigned int n) const;
 
@@ -956,6 +959,7 @@ public:
    * 
    * @return the nth product (as a SpeciesReference object) of this
    * Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   SpeciesReference* getProduct (unsigned int n);
 
@@ -997,6 +1001,7 @@ public:
    * 
    * @return the nth modifier (as a ModifierSpeciesReference object) of
    * this Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const ModifierSpeciesReference* getModifier (unsigned int n) const;
 
@@ -1012,6 +1017,7 @@ public:
    * 
    * @return the nth modifier (as a ModifierSpeciesReference object) of
    * this Reaction.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   ModifierSpeciesReference* getModifier (unsigned int n);
 
@@ -1783,6 +1789,7 @@ public:
    * @param n the index number of the Reaction to get.
    * 
    * @return the nth Reaction in this ListOfReactions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1795,6 +1802,7 @@ public:
    * @param n the index number of the Reaction to get.
    * 
    * @return the nth Reaction in this ListOfReactions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -2527,6 +2535,7 @@ Reaction_getListOfModifiers (Reaction_t *r);
 
 /**
  * @return the nth reactant (SpeciesReference_t) of this Reaction_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof Reaction_t
  */
@@ -2548,6 +2557,7 @@ Reaction_getReactantBySpecies (Reaction_t *r, const char *species);
 
 /**
  * @return the nth product (SpeciesReference_t) of this Reaction_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof Reaction_t
  */
@@ -2569,6 +2579,7 @@ Reaction_getProductBySpecies (Reaction_t *r, const char *species);
 
 /**
  * @return the nth modifier (modifier SpeciesReference_t) of this Reaction_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof Reaction_t
  */

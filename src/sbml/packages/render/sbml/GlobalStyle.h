@@ -36,8 +36,8 @@
  *
  * Global styles are the style information objects used in
  * GlobalRenderInformation.  Global styles can be associated with layout
- * objects by role and type, but not by id; in other respects, global styles
- * and local styles are equivalent.
+ * objects by role and type, but not by identifier; in other respects, global
+ * styles and local styles are equivalent.
  *
  * Since GlobalStyle is derived from Styles, it inherits all of the methods
  * and attributes from Style.
@@ -112,7 +112,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * GlobalStyle object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the GlobalStyle
    * object to be instantiated.
@@ -134,7 +134,8 @@ public:
    */
   GlobalStyle(RenderPkgNamespaces* renderns, const std::string& id);
 #endif // OMIT_DEPRECATED
-  
+
+
   /**
    * Copy constructor for GlobalStyle.
    *

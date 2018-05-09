@@ -336,7 +336,7 @@ public:
  *
  * Required typedef definitions
  *
- * GroupsPkgNamespace is derived from SBMLNamespaces class and used when
+ * GroupsPkgNamespaces is derived from SBMLNamespaces class and used when
  * creating an object of SBase derived classes defined in the groups package
  *
  * SBMLExtensionNamespaces<GroupsExtension> must be instantiated in

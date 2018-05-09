@@ -272,7 +272,6 @@
  *   idChar ::= letter | digit | '_'
  *   SId    ::= ( letter | '_' ) idChar*
  * </pre>
- *
  * The characters <code>(</code> and <code>)</code> are used for grouping, the
  * character <code>*</code> "zero or more times", and the character
  * <code>|</code> indicates logical "or".  The equality of SBML identifiers is
@@ -413,14 +412,14 @@
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_isset_id
  *
- * @note Because of the inconsistent behavior of this function with 
- * respect to assignments and rules, it is now recommended to
- * use the isSetIdAttribute() function instead.
- *
  * @copydetails doc_id_attribute
- * 
+ *
  * @return @c true if the "id" attribute of this SBML object is
  * set, @c false otherwise.
+ *
+ * @note Because of the inconsistent behavior of this function with
+ * respect to assignments and rules, it is recommended that callers
+ * use isSetIdAttribute() instead.
  *
  * @see getIdAttribute()
  * @see setIdAttribute(const std::string& sid)
@@ -3766,7 +3765,6 @@ if (lmp != null)
  * The attribute "font-weight" is used to specify whether 
  * the text is to be "normal" or "bold".  If omitted, the text may be rendered
  * in either way.
- *
  * In the SBML
  * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
  * allowable values for "font-weight":
@@ -3784,7 +3782,6 @@ if (lmp != null)
  * The attribute "font-style" is used to specify whether 
  * the text is to be "normal" or "italic".  If omitted, the text may be rendered
  * in either way.
- *
  * In the SBML
  * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
  * allowable values for "font-style":
@@ -3802,7 +3799,6 @@ if (lmp != null)
  * The attribute "text-anchor" is used to specify the 
  * horizontal alignment of the text.  If omitted, the text may be aligned
  * in any way.
- *
  * In the SBML
  * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
  * allowable values for "text-anchor":
@@ -3825,7 +3821,6 @@ if (lmp != null)
  * The attribute "vtext-anchor" is used to specify the 
  * vertical alignment of the text.  If omitted, the text may be aligned
  * in any way.
- *
  * In the SBML
  * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
  * allowable values for "vtext-anchor":
@@ -3851,10 +3846,8 @@ if (lmp != null)
  *
  * @par
  * The attribute "fill-rule" is used to define how polygons should be filled.
- *
- * In the SBML
- * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
- * allowable values for "fill-rule":
+ * In the SBML Level&nbsp;3 Version&nbsp;1 Render specification, the 
+ * following are the allowable values for "fill-rule":
  * <ul>
  * <li> @c "nonzero": This value determines the "insideness" of a point in 
  * the shape by drawing a ray from that point to infinity in any direction 
@@ -3891,7 +3884,6 @@ if (lmp != null)
  * The attribute "typeList" for LocalStyle and GlobalStyle objects contains
  * a list of StyleType entries that describe what sorts of object to apply
  * the style to.
- *
  * In the SBML
  * Level&nbsp;3 Version&nbsp;1 Render specification, the following are the
  * allowable entries in a whitespace-separated "typeList":

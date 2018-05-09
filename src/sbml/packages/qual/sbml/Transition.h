@@ -283,6 +283,7 @@ public:
    * @param n the index number of the Input to get.
    *
    * @return the nth Input in the ListOfInputs within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumInputs()
    */
@@ -295,6 +296,7 @@ public:
    * @param n the index number of the Input to get.
    *
    * @return the nth Input in the ListOfInputs within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumInputs()
    */
@@ -454,6 +456,7 @@ public:
    * @param n the index number of the Output to get.
    *
    * @return the nth Output in the ListOfOutputs within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumOutputs()
    */
@@ -466,6 +469,7 @@ public:
    * @param n the index number of the Output to get.
    *
    * @return the nth Output in the ListOfOutputs within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumOutputs()
    */
@@ -626,6 +630,7 @@ public:
    * @param n the index number of the FunctionTerm to get.
    *
    * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumFunctionTerms()
    */
@@ -638,6 +643,7 @@ public:
    * @param n the index number of the FunctionTerm to get.
    *
    * @return the nth FunctionTerm in the ListOfFunctionTerms within this Transition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumFunctionTerms()
    */
@@ -1298,6 +1304,7 @@ public:
    * @param n the index number of the Transition to get.
    *
    * @return the nth Transition in this ListOfTransitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1310,6 +1317,7 @@ public:
    * @param n the index number of the Transition to get.
    *
    * @return the nth Transition in this ListOfTransitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

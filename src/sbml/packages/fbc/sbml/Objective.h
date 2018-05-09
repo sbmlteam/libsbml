@@ -377,6 +377,7 @@ public:
    *
    * @return the nth FluxObjective in the ListOfFluxObjectives within this
    * Objective.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumFluxObjectives()
    */
@@ -390,6 +391,7 @@ public:
    *
    * @return the nth FluxObjective in the ListOfFluxObjectives within this
    * Objective.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumFluxObjectives()
    */
@@ -1009,6 +1011,7 @@ public:
    * @param n the index number of the Objective to get.
    *
    * @return the nth Objective in this ListOfObjectives.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1021,6 +1024,7 @@ public:
    * @param n the index number of the Objective to get.
    *
    * @return the nth Objective in this ListOfObjectives.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

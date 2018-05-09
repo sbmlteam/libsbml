@@ -98,7 +98,7 @@ GraphicalPrimitive2D::GraphicalPrimitive2D(RenderPkgNamespaces *renderns)
  * The XMLNode object has to contain a valid XML representation of a 
  * GraphicalPrimitive2D object as defined in the render extension specification.
  * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
+ * should normally not have to be called explicitly.
  *
  * @param node the XMLNode object reference that describes the GraphicalPrimitive2D
  * object to be instantiated.
@@ -953,7 +953,7 @@ void GraphicalPrimitive2D::addGraphicalPrimitive2DAttributes(const GraphicalPrim
             att.add("fill-rule","inherit");
             break;
         case GraphicalPrimitive2D::NONZERO:
-            // if the fill rule has been set explicitely,
+            // if the fill rule has been set explicitly,
             // we have to write it because otherwise
             // it is assumed to be inherited.
             att.add("fill-rule","nonzero");

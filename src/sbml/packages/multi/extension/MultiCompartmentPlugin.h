@@ -254,7 +254,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -520,6 +520,7 @@ MultiCompartmentPlugin_getListOfCompartmentReferences(MultiCompartmentPlugin_t*
  *
  * @return the nth CompartmentReference_t in the ListOfCompartmentReferences
  * within this MultiCompartmentPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

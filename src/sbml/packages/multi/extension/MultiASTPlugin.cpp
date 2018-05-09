@@ -392,6 +392,7 @@ MultiASTPlugin::writeXMLNS(XMLOutputStream& stream) const
 void 
 MultiASTPlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  ASTBasePlugin::renameSIdRefs(oldid, newid);
   if (!mSpeciesReference.empty() && mSpeciesReference == oldid) {
     mSpeciesReference = newid;
   }

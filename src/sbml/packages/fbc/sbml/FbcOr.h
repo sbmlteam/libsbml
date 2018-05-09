@@ -170,6 +170,7 @@ public:
    * @param n the index number of the Association to get.
    *
    * @return the nth Association in the ListOfFbcAssociations within this FbcOr.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumAssociations()
    */
@@ -182,6 +183,7 @@ public:
    * @param n the index number of the Association to get.
    *
    * @return the nth Association in the ListOfFbcAssociations within this FbcOr.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumAssociations()
    */
@@ -937,6 +939,7 @@ FbcOr_getListOfFbcAssociations(FbcOr_t* fo);
  * retrieve.
  *
  * @return the nth FbcAssociation_t in the ListOfAssociations within this FbcOr.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

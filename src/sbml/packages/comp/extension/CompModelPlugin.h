@@ -234,7 +234,8 @@ public:
    *
    * @param n the index number of the Submodel to get.
    *
-   * @return the nth Submodel in the ListOfSubmodels.
+   * @return the nth Submodel in the ListOfSubmodels or @c NULL if 
+   * no such object exists.
    */
   Submodel* getSubmodel (unsigned int n);
 
@@ -813,7 +814,7 @@ CompModelPlugin_getListOfSubmodels(CompModelPlugin_t* cmp);
  * retrieve.
  *
  * @return the nth Submodel_t in the ListOfSubmodels within this
- * CompModelPlugin.
+ * CompModelPlugin or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -931,7 +932,8 @@ CompModelPlugin_getListOfPorts(CompModelPlugin_t* cmp);
  *
  * @param n an unsigned int representing the index of the Port_t to retrieve.
  *
- * @return the nth Port_t in the ListOfPorts within this CompModelPlugin.
+ * @return the nth Port_t in the ListOfPorts within this CompModelPlugin
+ * or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

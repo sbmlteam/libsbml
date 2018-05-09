@@ -253,12 +253,12 @@ public:
 
 
   /**
-   * Returns an MultiPkgNamespaces object.
+   * Returns a MultiPkgNamespaces object.
    *
    * @param uri a URI that represents one of the valid versions of the
    * "multi" package.
    *
-   * @return an MultiPkgNamespace object corresponding to the given @p uri,
+   * @return a MultiPkgNamespaces object corresponding to the given @p uri,
    * or @c NULL if the URI is not defined in the Multi package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;

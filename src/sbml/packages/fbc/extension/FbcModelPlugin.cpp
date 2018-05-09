@@ -711,6 +711,7 @@ ListOfFluxBounds*
  * @param n the index number of the FluxBound to get.
  *
  * @return the nth FluxBound in the ListOfFluxBounds.
+ * If the index @p n is invalid, @c NULL is returned.
  */
 const FluxBound* 
   FbcModelPlugin::getFluxBound (unsigned int n) const
@@ -726,6 +727,7 @@ const FluxBound*
  * @param n the index number of the FluxBound to get.
  *
  * @return the nth FluxBound in the ListOfFluxBounds.
+ * If the index @p n is invalid, @c NULL is returned.
  */
 FluxBound* 
   FbcModelPlugin::getFluxBound (unsigned int n)
@@ -1367,6 +1369,7 @@ ListOfGeneAssociations*
  * @param n the index number of the GeneAssociation to get.
  *
  * @return the nth GeneAssociation in the ListOfGeneAssociations.
+ * If the index @p n is invalid, @c NULL is returned.
  */
 const GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (unsigned int n) const
@@ -1381,6 +1384,7 @@ const GeneAssociation*
  * @param n the index number of the GeneAssociation to get.
  *
  * @return the nth GeneAssociation in the ListOfGeneAssociations.
+ * If the index @p n is invalid, @c NULL is returned.
  */
 GeneAssociation* 
   FbcModelPlugin::getGeneAssociation (unsigned int n)

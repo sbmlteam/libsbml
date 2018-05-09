@@ -129,7 +129,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * RadialGradient object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the RadialGradient
    * object to be instantiated.
@@ -192,7 +192,7 @@ public:
    * Returns the value of the "cx" element of this RadialGradient.
    *
    * @return the value of the "cx" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getCx() const;
 
@@ -201,7 +201,7 @@ public:
    * Returns the value of the "cx" element of this RadialGradient.
    *
    * @return the value of the "cx" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getCx();
 
@@ -225,7 +225,7 @@ public:
    * Returns the value of the "cy" element of this RadialGradient.
    *
    * @return the value of the "cy" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getCy() const;
 
@@ -234,7 +234,7 @@ public:
    * Returns the value of the "cy" element of this RadialGradient.
    *
    * @return the value of the "cy" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getCy();
 
@@ -258,7 +258,7 @@ public:
    * Returns the value of the "cz" element of this RadialGradient.
    *
    * @return the value of the "cz" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getCz() const;
 
@@ -267,7 +267,7 @@ public:
    * Returns the value of the "cz" element of this RadialGradient.
    *
    * @return the value of the "cz" element of this RadialGradient as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getCz();
 
@@ -290,7 +290,7 @@ public:
   * Returns the value of the "r" element of this RadialGradient.
   *
   * @return the value of the "r" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getR() const;
 
@@ -299,7 +299,7 @@ public:
   * Returns the value of the "r" element of this RadialGradient.
   *
   * @return the value of the "r" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getR();
 
@@ -322,7 +322,7 @@ public:
   * Returns the value of the "fx" element of this RadialGradient.
   *
   * @return the value of the "fx" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getFx() const;
 
@@ -331,7 +331,7 @@ public:
   * Returns the value of the "fx" element of this RadialGradient.
   *
   * @return the value of the "fx" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getFx();
 
@@ -354,7 +354,7 @@ public:
   * Returns the value of the "fy" element of this RadialGradient.
   *
   * @return the value of the "fy" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getFy() const;
 
@@ -363,7 +363,7 @@ public:
   * Returns the value of the "fy" element of this RadialGradient.
   *
   * @return the value of the "fy" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getFy();
 
@@ -386,7 +386,7 @@ public:
   * Returns the value of the "fz" element of this RadialGradient.
   *
   * @return the value of the "fz" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   const RelAbsVector& getFz() const;
 
@@ -395,7 +395,7 @@ public:
   * Returns the value of the "fz" element of this RadialGradient.
   *
   * @return the value of the "fz" element of this RadialGradient as a
-  * RelAbsVector*.
+  * RelAbsVector.
   */
   RelAbsVector& getFz();
 
@@ -519,7 +519,7 @@ public:
   /**
    * Sets the value of the "r" element of this RadialGradient.
    *
-   * @param r RelAbsVector* value of the "r" element to be set.
+   * @param r RelAbsVector value of the "r" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -862,7 +862,7 @@ RadialGradient_free(RadialGradient_t* rg);
  * @param rg the RadialGradient_t structure whose cx is sought.
  *
  * @return the value of the "cx" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -877,7 +877,7 @@ RadialGradient_getCx(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose cy is sought.
  *
  * @return the value of the "cy" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -892,7 +892,7 @@ RadialGradient_getCy(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose cz is sought.
  *
  * @return the value of the "cz" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -907,7 +907,7 @@ RadialGradient_getCz(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose r is sought.
  *
  * @return the value of the "r" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -922,7 +922,7 @@ RadialGradient_getR(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose fx is sought.
  *
  * @return the value of the "fx" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -937,7 +937,7 @@ RadialGradient_getFx(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose fy is sought.
  *
  * @return the value of the "fy" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */
@@ -952,7 +952,7 @@ RadialGradient_getFy(const RadialGradient_t * rg);
  * @param rg the RadialGradient_t structure whose fz is sought.
  *
  * @return the value of the "fz" element of this RadialGradient_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof RadialGradient_t
  */

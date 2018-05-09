@@ -602,6 +602,7 @@ public:
    * @param n an integer, the index of the Unit to be returned.
    * 
    * @return the nth Unit of this UnitDefinition.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumUnits()
    */
@@ -614,6 +615,7 @@ public:
    * @param n an integer, the index of the Unit to be returned.
    * 
    * @return the nth Unit of this UnitDefinition.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Unit* getUnit (unsigned int n) const;
 
@@ -1448,6 +1450,7 @@ public:
    * @param n the index number of the UnitDefinition to get.
    * 
    * @return the nth UnitDefinition in this ListOfUnitDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1460,6 +1463,7 @@ public:
    * @param n the index number of the UnitDefinition to get.
    * 
    * @return the nth UnitDefinition in this ListOfUnitDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1987,6 +1991,7 @@ UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
  * @param n an integer, the index of the Unit_t structure to be returned.
  * 
  * @return the nth Unit_t of this UnitDefinition_t structure.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @see UnitDefinition_getNumUnits()
  *

@@ -310,6 +310,7 @@ public:
    *
    * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes
    * within this MultiSpeciesType.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumSpeciesFeatureTypes()
    */
@@ -324,6 +325,7 @@ public:
    *
    * @return the nth SpeciesFeatureType in the ListOfSpeciesFeatureTypes
    * within this MultiSpeciesType.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see getNumSpeciesFeatureTypes()
    */
@@ -853,7 +855,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -1500,6 +1502,7 @@ MultiSpeciesType_getListOfSpeciesFeatureTypes(MultiSpeciesType_t* mst);
  *
  * @return the nth SpeciesFeatureType_t in the ListOfSpeciesFeatureTypes within
  * this MultiSpeciesType.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1674,6 +1677,7 @@ MultiSpeciesType_getListOfSpeciesTypeInstances(MultiSpeciesType_t* mst);
  *
  * @return the nth SpeciesTypeInstance_t in the ListOfSpeciesTypeInstances
  * within this MultiSpeciesType.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1848,6 +1852,7 @@ MultiSpeciesType_getListOfSpeciesTypeComponentIndexes(MultiSpeciesType_t* mst);
  *
  * @return the nth SpeciesTypeComponentIndex_t in the
  * ListOfSpeciesTypeComponentIndexes within this MultiSpeciesType.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -2026,6 +2031,7 @@ MultiSpeciesType_getListOfInSpeciesTypeBonds(MultiSpeciesType_t* mst);
  *
  * @return the nth InSpeciesTypeBond_t in the ListOfInSpeciesTypeBonds within
  * this MultiSpeciesType.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

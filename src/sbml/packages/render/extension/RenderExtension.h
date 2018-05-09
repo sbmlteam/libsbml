@@ -95,6 +95,10 @@ public:
    * Returns URI of supported versions of this package.
    */
   static const std::string&  getXmlnsL3V1V1();
+
+  /**
+   * Returns URI of L2 version of supported versions of this package.
+   */
   static const std::string&  getXmlnsL2();
 
   //
@@ -137,7 +141,7 @@ public:
 
 
   /**
-   * Returns the name of this package ("fbc")
+   * Returns the name of this package ("render")
    */
   virtual const std::string& getName() const;
 
@@ -160,7 +164,7 @@ public:
   /**
    * Returns the SBML level with the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of layout package
+   * @param uri the string of URI that represents one of the versions of the render package
    *
    * @return the SBML level with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
@@ -172,7 +176,7 @@ public:
   /**
    * Returns the SBML version with the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of layout package
+   * @param uri the string of URI that represents one of the versions of the render package
    *
    * @return the SBML version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
@@ -183,7 +187,7 @@ public:
   /**
    * Returns the package version with the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of layout package
+   * @param uri the string of URI that represents one of the versions of the render package
    *
    * @return the package version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
@@ -192,14 +196,13 @@ public:
 
 
   /**
-   * Returns an SBMLExtensionNamespaces<GroupsExtension> object whose alias type is 
-   * LayoutPkgNamespace.
-   * Null will be returned if the given uri is not defined in the layout package.
+   * Returns a RenderPkgNamespaces object.
+   * @c NULL will be returned if the given uri is not defined in the render package.
    *
-   * @param uri the string of URI that represents one of versions of layout package
+   * @param uri the string of URI that represents one of the versions of the render package
    *
-   * @return an LayoutPkgNamespace object corresponding to the given uri. NULL will
-   * be returned if the given URI is not defined in layout package.
+   * @return a RenderPkgNamespaces object corresponding to the given uri. @c NULL will
+   * be returned if the given URI is not defined in render package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
@@ -277,7 +280,7 @@ public:
   /**
    * Removes the L2 Namespace from a document. 
    *
-   * This method should be overridden by all extensions that want to serialize
+   * This method is overridden here since Render does serialize
    * to an L2 annotation.
    */
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
@@ -286,7 +289,7 @@ public:
   /**
    * adds all L2 Extension namespaces to the namespace list. 
    * 
-   * This method should be overridden by all extensions that want to serialize
+   * This method is overridden here since Render does serialize
    * to an L2 annotation.
    */
   virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
@@ -294,8 +297,8 @@ public:
   /**
    * Adds the L2 Namespace to the document and enables the extension.
    *
-   * If the extension supports serialization to SBML L2 Annotations, this 
-   * method should be overrridden, so it will be activated.
+   * This method is overridden here since Render does serialize
+   * to an L2 annotation.
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 

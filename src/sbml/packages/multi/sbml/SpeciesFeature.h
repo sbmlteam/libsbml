@@ -512,7 +512,7 @@ public:
    * to return only elements that match a particular set of constraints.
    * If NULL (the default), the function will return all child objects.
    *
-   * @return a List* of pointers to all child objects.
+   * @return a List of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
@@ -714,6 +714,7 @@ public:
     * @param n the index number of the SpeciesFeature to get.
     *
     * @return the nth SpeciesFeature in this ListOfSpeciesFeatures.
+    * If the index @p n is invalid, @c NULL is returned.
     *
     * @see size()
     */
@@ -726,6 +727,7 @@ public:
     * @param n the index number of the SpeciesFeature to get.
     *
     * @return the nth SpeciesFeature in this ListOfSpeciesFeatures.
+    * If the index @p n is invalid, @c NULL is returned.
     *
     * @see size()
     */
@@ -804,6 +806,7 @@ public:
    * @param n the index number of the SubListOfSpeciesFeatures to get.
    *
    * @return the nth SubListOfSpeciesFeatures in this ListOfSpeciesFeatures.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -816,6 +819,7 @@ public:
    * @param n the index number of the SubListOfSpeciesFeatures to get.
    *
    * @return the nth SubListOfSpeciesFeatures in this ListOfSpeciesFeatures.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1541,6 +1545,7 @@ SpeciesFeature_getListOfSpeciesFeatureValues(SpeciesFeature_t* sf);
  *
  * @return the nth SpeciesFeatureValue_t in the ListOfSpeciesFeatureValues
  * within this SpeciesFeature.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

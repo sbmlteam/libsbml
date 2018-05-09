@@ -25,7 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class RenderListOfLayoutsPlugin
- * @sbmlbrief{render} List of layout objects used by the "render" extension.
+ * @sbmlbrief{render} A list of layout objects used by the "render" extension.
  *
  * The Render package extends the ListOfLayouts object from the Layout package 
  * with the addition of an optional ListOfGlobalRenderInformation object.
@@ -118,7 +118,7 @@ public:
   /** @endcond */
 
 
-  /** ------------------------------------------------------------------
+  /* ------------------------------------------------------------------
    *
    *  Additional public functions
    *
@@ -205,7 +205,7 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth
    *
-   * @return a List* of pointers to all children objects.
+   * @return a List of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
 

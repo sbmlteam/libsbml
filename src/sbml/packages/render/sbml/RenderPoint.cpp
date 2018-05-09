@@ -101,7 +101,7 @@ RenderPoint::RenderPoint(RenderPkgNamespaces *renderns)
 
 
 /*
- * Creates a new point with the given ccordinates.
+ * Creates a new point with the given coordinates.
  *
  * @param x x coordinate of the RenderPoint object
  * @param y y coordinate of the RenderPoint object
@@ -131,7 +131,7 @@ RenderPoint::RenderPoint(RenderPkgNamespaces* renderns, const RelAbsVector& x, c
  * The XMLNode object has to contain a valid XML representation of a 
  * RenderPoint object as defined in the render extension specification.
  * This method is normally called when render information is read from a file and 
- * should normally not have to be called explicitely.
+ * should normally not have to be called explicitly.
  *
  * @param node the XMLNode object reference that describes the RenderPoint
  * object to be instantiated.

@@ -1982,6 +1982,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth FunctionDefinition of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const FunctionDefinition* getFunctionDefinition (unsigned int n) const;
 
@@ -1992,6 +1993,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth FunctionDefinition of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   FunctionDefinition* getFunctionDefinition (unsigned int n);
 
@@ -2025,6 +2027,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth UnitDefinition of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const UnitDefinition* getUnitDefinition (unsigned int n) const;
 
@@ -2035,6 +2038,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth UnitDefinition of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   UnitDefinition* getUnitDefinition (unsigned int n);
 
@@ -2067,6 +2071,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth CompartmentType of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2081,6 +2086,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth CompartmentType of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2125,6 +2131,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth SpeciesType of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2139,6 +2146,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth SpeciesType of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2183,6 +2191,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Compartment of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Compartment* getCompartment (unsigned int n) const;
 
@@ -2193,6 +2202,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Compartment of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Compartment* getCompartment (unsigned int n);
 
@@ -2225,6 +2235,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Species of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Species* getSpecies (unsigned int n) const;
 
@@ -2235,6 +2246,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Species of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Species* getSpecies (unsigned int n);
 
@@ -2267,6 +2279,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Parameter of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Parameter* getParameter (unsigned int n) const;
 
@@ -2277,6 +2290,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Parameter of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Parameter* getParameter (unsigned int n);
 
@@ -2309,6 +2323,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth InitialAssignment of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const InitialAssignment* getInitialAssignment (unsigned int n) const;
 
@@ -2319,6 +2334,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth InitialAssignment of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   InitialAssignment* getInitialAssignment (unsigned int n);
 
@@ -2379,6 +2395,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Rule of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Rule* getRule (unsigned int n) const;
 
@@ -2389,6 +2406,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Rule of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Rule* getRule (unsigned int n);
 
@@ -2530,6 +2548,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Constraint of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Constraint* getConstraint (unsigned int n) const;
 
@@ -2540,6 +2559,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Constraint of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Constraint* getConstraint (unsigned int n);
 
@@ -2550,6 +2570,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Reaction of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Reaction* getReaction (unsigned int n) const;
 
@@ -2560,6 +2581,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Reaction of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Reaction* getReaction (unsigned int n);
 
@@ -2640,6 +2662,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Event of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Event* getEvent (unsigned int n) const;
 
@@ -2650,6 +2673,7 @@ public:
    * @param n the index of the object to return.
    *
    * @return the nth Event of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Event* getEvent (unsigned int n);
 
@@ -3543,6 +3567,7 @@ public:
    * Get the nth FormulaUnitsData object in this Model.
    *
    * @return the nth FormulaUnitsData of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const FormulaUnitsData* getFormulaUnitsData (unsigned int n) const;
 
@@ -3551,6 +3576,7 @@ public:
    * Get the nth FormulaUnitsData object in this Model.
    *
    * @return the nth FormulaUnitsData of this Model.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   FormulaUnitsData* getFormulaUnitsData (unsigned int n);
 

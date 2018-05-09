@@ -240,7 +240,7 @@ public:
    * retrieve.
    *
    * @return the nth GlobalStyle in the ListOfGlobalStyles within this
-   * GlobalRenderInformation.
+   * GlobalRenderInformation or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -261,7 +261,7 @@ public:
   * retrieve.
   *
   * @return the nth GlobalStyle in the ListOfGlobalStyles within this
-  * GlobalRenderInformation.
+  * GlobalRenderInformation or @c NULL if no such object exists.
   *
   * @copydetails doc_returned_unowned_pointer
   *
@@ -282,7 +282,7 @@ public:
    * retrieve.
    *
    * @return the nth GlobalStyle in the ListOfGlobalStyles within this
-   * GlobalRenderInformation.
+   * GlobalRenderInformation or @c NULL if no such object exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -304,6 +304,7 @@ public:
   *
   * @return the nth GlobalStyle in the ListOfGlobalStyles within this
   * GlobalRenderInformation.
+  * If the index @p n is invalid, @c NULL is returned.
   *
   * @copydetails doc_returned_unowned_pointer
   *
@@ -780,7 +781,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -975,7 +976,7 @@ GlobalRenderInformation_getListOfGlobalStyles(GlobalRenderInformation_t* gri);
  * retrieve.
  *
  * @return the nth GlobalStyle_t in the ListOfGlobalStyles within this
- * GlobalRenderInformation.
+ * GlobalRenderInformation or @c NULL if no such object exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *

@@ -116,7 +116,7 @@ Point& Point::operator=(const Point& orig)
 
 
 /*
- * Creates a new point with the given ccordinates.
+ * Creates a new point with the given coordinates.
  */ 
 Point::Point(LayoutPkgNamespaces* layoutns, double x, double y, double z)
   : SBase  (layoutns)

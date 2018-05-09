@@ -286,12 +286,12 @@ public:
 
 
   /**
-   * Returns an LayoutPkgNamespaces object.
+   * Returns a LayoutPkgNamespaces object.
    *
    * @param uri a URI that represents one of the valid versions of the
    * &ldquo;layout&rdquo; package.
    *
-   * @return an LayoutPkgNamespace object corresponding to the given @p uri,
+   * @return a LayoutPkgNamespaces object corresponding to the given @p uri,
    * or @c NULL if the URI is not defined in the Layout package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
@@ -316,7 +316,7 @@ public:
   /**
    * Removes the L2 Namespace from a document. 
    *
-   * This method should be overridden by all extensions that want to serialize
+   * This method is overridden here since Layout does serialize
    * to an L2 annotation.
    */
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
@@ -325,7 +325,7 @@ public:
   /**
    * adds all L2 Extension namespaces to the namespace list. 
    * 
-   * This method should be overridden by all extensions that want to serialize
+   * This method is overridden here since Layout does serialize
    * to an L2 annotation.
    */
   virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
@@ -334,8 +334,8 @@ public:
   /**
    * Adds the L2 Namespace to the document and enables the extension.
    *
-   * If the extension supports serialization to SBML L2 Annotations, this 
-   * method should be overrridden, so it will be activated.
+   * This method is overridden here since Layout does serialize
+   * to an L2 annotation.
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 

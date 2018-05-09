@@ -759,6 +759,7 @@ CompSBMLDocumentPlugin_getListOfExternalModelDefinitions(CompSBMLDocumentPlugin_
  *
  * @return the nth ExternalModelDefinition_t in the
  * ListOfExternalModelDefinitions within this CompSBMLDocumentPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -950,6 +951,7 @@ CompSBMLDocumentPlugin_getListOfModelDefinitions(CompSBMLDocumentPlugin_t*
  *
  * @return the nth ModelDefinition_t in the ListOfModelDefinitions within this
  * CompSBMLDocumentPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

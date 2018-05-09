@@ -341,6 +341,7 @@ Member::unsetMetaIdRef()
 void
 Member::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetIdRef() && mIdRef == oldid)
   {
     setIdRef(newid);

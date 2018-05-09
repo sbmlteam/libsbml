@@ -130,7 +130,7 @@ public:
    * The XMLNode object has to contain a valid XML representation of a 
    * GradientStop object as defined in the render extension specification.
    * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitely.
+   * should normally not have to be called explicitly.
    *
    * @param node the XMLNode object reference that describes the GradientStop
    * object to be instantiated.
@@ -219,7 +219,7 @@ public:
    * Returns the value of the "offset" element of this GradientStop.
    *
    * @return the value of the "offset" element of this GradientStop as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   const RelAbsVector& getOffset() const;
 
@@ -228,7 +228,7 @@ public:
    * Returns the value of the "offset" element of this GradientStop.
    *
    * @return the value of the "offset" element of this GradientStop as a
-   * RelAbsVector*.
+   * RelAbsVector.
    */
   RelAbsVector& getOffset();
 
@@ -246,7 +246,7 @@ public:
   /**
    * Sets the value of the "offset" element of this GradientStop.
    *
-   * @param offset RelAbsVector* value of the "offset" element to be set.
+   * @param offset RelAbsVector value of the "offset" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -786,7 +786,7 @@ GradientStop_unsetStopColor(GradientStop_t * gs);
  * @param gs the GradientStop_t structure whose offset is sought.
  *
  * @return the value of the "offset" element of this GradientStop_t as a
- * RelAbsVector*.
+ * RelAbsVector_t.
  *
  * @memberof GradientStop_t
  */
@@ -816,7 +816,7 @@ GradientStop_isSetOffset(const GradientStop_t * gs);
  *
  * @param gs the GradientStop_t structure.
  *
- * @param offset RelAbsVector_t* value of the "offset" element to be set.
+ * @param offset RelAbsVector_t value of the "offset" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

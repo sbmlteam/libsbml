@@ -121,7 +121,7 @@ RenderGroup::RenderGroup(RenderPkgNamespaces *renderns)
 * The XMLNode object has to contain a valid XML representation of a
 * RenderGroup object as defined in the render extension specification.
 * This method is normally called when render information is read from a file and
-* should normally not have to be called explicitely.
+* should normally not have to be called explicitly.
 *
 * @param node the XMLNode object reference that describes the RenderGroup
 * object to be instantiated.
@@ -1331,11 +1331,23 @@ RenderGroup::removeElement(unsigned int n)
 
 
 /*
+* Removes the nth Transformation2D from this RenderGroup and returns a pointer
+* to it.
+*/
+Transformation2D*
+RenderGroup::removeElement(const std::string& sid)
+{
+  return mElements.remove(sid);
+}
+
+
+/*
  * @copydoc doc_renamesidref_common
  */
 void
 RenderGroup::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetStartHead() && mStartHead == oldid)
   {
     setStartHead(newid);

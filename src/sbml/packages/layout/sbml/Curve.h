@@ -148,6 +148,7 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
    * @param n the index number of the LineSegment to get.
    * 
    * @return the nth LineSegment in this ListOfLineSegments.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -160,6 +161,7 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
    * @param n the index number of the LineSegment to get.
    * 
    * @return the nth LineSegment in this ListOfLineSegments.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

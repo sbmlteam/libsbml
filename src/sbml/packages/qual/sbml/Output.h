@@ -773,6 +773,7 @@ public:
    * @param n the index number of the Output to get.
    *
    * @return the nth Output in this ListOfOutputs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -785,6 +786,7 @@ public:
    * @param n the index number of the Output to get.
    *
    * @return the nth Output in this ListOfOutputs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

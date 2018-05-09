@@ -138,7 +138,7 @@ public:
    * ColorDefinition object as defined in the &ldquo;render&rdquo; package
    * specification.  This method is normally called when &ldquo;render&rdquo;
    * information is read from a file and should normally not have to be
-   * called explicitely.
+   * called explicitly.
    *
    * (FOR BACKWARD COMPATIBILITY)
    *

@@ -107,6 +107,7 @@ public:
    * 
    * @return the nth ExternalModelDefinition in this
    * ListOfExternalModelDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -120,6 +121,7 @@ public:
    * 
    * @return the nth ExternalModelDefinition in this
    * ListOfExternalModelDefinitions.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -262,6 +264,7 @@ BEGIN_C_DECLS
  * ExternalModelDefinition_t to retrieve.
  *
  * @return the nth ExternalModelDefinition_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

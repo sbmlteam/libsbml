@@ -468,6 +468,7 @@ public:
    * @param n an unsigned int representing the index of the Member to retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -487,6 +488,7 @@ public:
    * @param n an unsigned int representing the index of the Member to retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1124,7 +1126,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the objects
    * to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
@@ -1541,6 +1543,7 @@ Group_getListOfMembers(Group_t* g);
  * @param n an unsigned int representing the index of the Member_t to retrieve.
  *
  * @return the nth Member_t in the ListOfMembers within this Group.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

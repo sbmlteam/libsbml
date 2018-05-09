@@ -823,6 +823,7 @@ public:
    * @param n the index number of the Input to get.
    *
    * @return the nth Input in this ListOfInputs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -835,6 +836,7 @@ public:
    * @param n the index number of the Input to get.
    *
    * @return the nth Input in this ListOfInputs.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

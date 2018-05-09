@@ -753,6 +753,7 @@ public:
    * @param n the index number of the FluxObjective to get.
    *
    * @return the nth FluxObjective in this ListOfFluxObjectives.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -765,6 +766,7 @@ public:
    * @param n the index number of the FluxObjective to get.
    *
    * @return the nth FluxObjective in this ListOfFluxObjectives.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

@@ -241,12 +241,12 @@ public:
 
 
   /**
-   * Returns an QualPkgNamespaces object.
+   * Returns a QualPkgNamespaces object.
    *
    * @param uri a URI that represents one of the valid versions of the
    * &ldquo;qual&rdquo; package.
    *
-   * @return an QualPkgNamespace object corresponding to the given @p uri, or
+   * @return a QualPkgNamespaces object corresponding to the given @p uri, or
    * @c NULL if the URI is not defined in the Qual
    * package.
    */

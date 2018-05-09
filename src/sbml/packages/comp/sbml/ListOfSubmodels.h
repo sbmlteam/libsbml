@@ -103,6 +103,7 @@ public:
    * @param n the index number of the Submodel to get.
    * 
    * @return the nth Submodel in this ListOfSubmodels.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -115,6 +116,7 @@ public:
    * @param n the index number of the Submodel to get.
    * 
    * @return the nth Submodel in this ListOfSubmodels.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -241,6 +243,7 @@ BEGIN_C_DECLS
  * retrieve.
  *
  * @return the nth Submodel_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

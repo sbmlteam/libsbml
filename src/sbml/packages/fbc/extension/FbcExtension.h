@@ -266,7 +266,7 @@ public:
    * @param uri a URI that represents one of the valid versions of the
    * &ldquo;fbc&rdquo; package.
    *
-   * @return an FbcPkgNamespace object corresponding to the given @p uri, or
+   * @return an FbcPkgNamespaces object corresponding to the given @p uri, or
    * @c NULL if the URI is not defined in the &ldquo;fbc&rdquo; package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;

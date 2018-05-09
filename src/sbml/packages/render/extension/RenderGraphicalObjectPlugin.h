@@ -121,7 +121,7 @@ public:
   virtual void writeAttributes (XMLOutputStream& stream) const;
   /** @endcond */
 
-  /** ------------------------------------------------------------------
+  /* ------------------------------------------------------------------
    *
    *  Additional public functions
    *

@@ -133,7 +133,7 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
-  /** ------------------------------------------------------------------
+  /* ------------------------------------------------------------------
    *
    *  Additional public functions
    *
@@ -179,6 +179,7 @@ public:
    * @param n the index number of the QualitativeSpecies to get.
    *
    * @return the nth QualitativeSpecies in the ListOfQualitativeSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const QualitativeSpecies* getQualitativeSpecies (unsigned int n) const;
 
@@ -190,6 +191,7 @@ public:
    * @param n the index number of the QualitativeSpecies to get.
    *
    * @return the nth QualitativeSpecies in the ListOfQualitativeSpecies.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   QualitativeSpecies* getQualitativeSpecies (unsigned int n);
 
@@ -306,6 +308,7 @@ public:
    * @param n the index number of the Transition to get.
    *
    * @return the nth Transition in the ListOfTransitions.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   const Transition* getTransition (unsigned int n) const;
 
@@ -317,6 +320,7 @@ public:
    * @param n the index number of the Transition to get.
    *
    * @return the nth Transition in the ListOfTransitions.
+   * If the index @p n is invalid, @c NULL is returned.
    */
   Transition* getTransition (unsigned int n);
 
@@ -896,6 +900,7 @@ QualModelPlugin_getListOfQualitativeSpecies(QualModelPlugin_t* qmp);
  *
  * @return the nth QualitativeSpecies_t in the ListOfQualitativeSpecies within
  * this QualModelPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof QualModelPlugin_t
  */
@@ -1062,6 +1067,7 @@ QualModelPlugin_getListOfTransitions(QualModelPlugin_t* qmp);
  *
  * @return the nth Transition_t in the ListOfTransitions within this
  * QualModelPlugin.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @memberof QualModelPlugin_t
  */

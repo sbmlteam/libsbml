@@ -840,6 +840,7 @@ public:
    * @param n the index number of the FluxBound to get.
    *
    * @return the nth FluxBound in this ListOfFluxBounds.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -852,6 +853,7 @@ public:
    * @param n the index number of the FluxBound to get.
    *
    * @return the nth FluxBound in this ListOfFluxBounds.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

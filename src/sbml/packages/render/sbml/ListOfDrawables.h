@@ -155,6 +155,7 @@ public:
    * retrieve.
    *
    * @return the nth Transformation2D in this ListOfDrawables.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -175,6 +176,7 @@ public:
    * retrieve.
    *
    * @return the nth Transformation2D in this ListOfDrawables.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -582,6 +584,7 @@ BEGIN_C_DECLS
  * retrieve.
  *
  * @return the nth Transformation2D_t in this ListOf_t.
+ * If the index @p n is invalid, @c NULL is returned.
  *
  * @copydetails doc_returned_unowned_pointer
  *

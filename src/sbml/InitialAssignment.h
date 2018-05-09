@@ -1053,6 +1053,7 @@ public:
    * @param n the index number of the InitialAssignment to get.
    * 
    * @return the nth InitialAssignment in this ListOfInitialAssignments.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -1065,6 +1066,7 @@ public:
    * @param n the index number of the InitialAssignment to get.
    * 
    * @return the nth InitialAssignment in this ListOfInitialAssignments.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */

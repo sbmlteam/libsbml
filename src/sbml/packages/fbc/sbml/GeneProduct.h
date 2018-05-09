@@ -738,6 +738,7 @@ public:
    * @param n the index number of the GeneProduct to get.
    *
    * @return the nth GeneProduct in this ListOfGeneProducts.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
@@ -750,6 +751,7 @@ public:
    * @param n the index number of the GeneProduct to get.
    *
    * @return the nth GeneProduct in this ListOfGeneProducts.
+   * If the index @p n is invalid, @c NULL is returned.
    *
    * @see size()
    */
