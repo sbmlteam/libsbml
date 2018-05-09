@@ -6498,7 +6498,7 @@ SBase::checkListOfPopulated(SBase* object)
   // will need to check for defaultTerm but will
   // have to pass that to the multi extension
       }
-      if (object->getPackageName() == "render" &&
+      else if (object->getPackageName() == "render" &&
         (object->getElementName() == "listOfRenderInformation" ||
           object->getElementName() == "listOfGlobalRenderInformation"))
       {
