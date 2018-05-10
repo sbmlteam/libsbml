@@ -37,9 +37,9 @@
  * Rectangle allows the definition of rectangles with or without rounded
  * edges.  The Rectangle object derives from the GraphicalPrimitive2D class
  * and thus inherits any attributes and elements that are present on this
- * class.  In addition, the Rectangle object has the required attributes x,
- * y, height, and width as well as the optional attributes z, rx, ry and
- * ratio.
+ * class.  In addition, the Rectangle object has the required attributes "x",
+ * "y", "height", and "width" as well as the optional attributes "z", "rx", "ry" and
+ * "ratio".
  */
 
 #ifndef Rectangle_H__
@@ -248,9 +248,8 @@ public:
    *
    * @param ratio double value of the "ratio" attribute to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setRatio(double ratio);
@@ -267,14 +266,14 @@ public:
 
 
   /**
-   * Returns the x coordinate of the rectangles position
+   * Returns the x coordinate of the rectangle's position
    *
    * @return const reference to RelAbsVector that represents the x position
    */
   const RelAbsVector& getX() const;
 
   /**
-   * Returns the x coordinate of the rectangles position
+   * Returns the x coordinate of the rectangle's position
    *
    * @return reference to RelAbsVector that represents the x position
    */
@@ -282,7 +281,7 @@ public:
 
 
   /**
-   * Returns the y coordinate of the rectangles position
+   * Returns the y coordinate of the rectangle's position
    *
    * @return const reference to RelAbsVector that represents the y position
    */
@@ -290,14 +289,14 @@ public:
 
 
   /**
-   * Returns the y coordinate of the rectangles position
+   * Returns the y coordinate of the rectangle's position
    *
    * @return reference to RelAbsVector that represents the y position
    */
   RelAbsVector& getY();
 
   /**
-   * Returns the z coordinate of the rectangles position
+   * Returns the z coordinate of the rectangle's position
    *
    * @return const reference to RelAbsVector that represents the z position
    */
@@ -305,7 +304,7 @@ public:
 
 
   /**
-   * Returns the z coordinate of the rectangles position
+   * Returns the z coordinate of the rectangle's position
    *
    * @return reference to RelAbsVector that represents the z position
    */
@@ -532,6 +531,9 @@ public:
    * Sets the x position of the Rectangle within the viewport.
    *
    * @param x x coordinate of the position 
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setX(const RelAbsVector& x);
 
@@ -539,6 +541,9 @@ public:
    * Sets the y position of the Rectangle within the viewport.
    *
    * @param y y coordinate of the position 
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setY(const RelAbsVector& y);
 
@@ -546,12 +551,18 @@ public:
    * Sets the z position of the Rectangle within the viewport.
    *
    * @param z z coordinate of the position 
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setZ(const RelAbsVector& z);
   /**
-   * Sets the siwidth of the Rectangle 
+   * Sets the width of the Rectangle 
    *
    * @param w w width
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setWidth(const RelAbsVector& w);
 
@@ -559,6 +570,9 @@ public:
    * Sets the height of the Rectangle 
    *
    * @param h h height
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setHeight(const RelAbsVector& h);
 
@@ -566,6 +580,9 @@ public:
    * Sets the corner radius along the x axis
    *
    * @param rx corner radius along the x axis
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setRadiusX(const RelAbsVector& rx);
 
@@ -573,6 +590,9 @@ public:
   * Sets the corner radius along the x axis
   *
   * @param rx corner radius along the x axis
+  *
+  * @copydetails doc_returns_one_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   */
   int setRX(const RelAbsVector& rx);
 
@@ -580,6 +600,9 @@ public:
    * Sets the corner radius along the y axis
    *
    * @param ry corner radius along the y axis
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setRadiusY(const RelAbsVector& ry);
 
@@ -587,6 +610,9 @@ public:
   * Sets the corner radius along the y axis
   *
   * @param ry corner radius along the y axis
+  *
+  * @copydetails doc_returns_one_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   */
   int setRY(const RelAbsVector& ry);
 
@@ -595,9 +621,8 @@ public:
   /**
    * Unsets the value of the "x" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetX();
 
@@ -605,9 +630,8 @@ public:
   /**
    * Unsets the value of the "y" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetY();
 
@@ -615,9 +639,8 @@ public:
   /**
    * Unsets the value of the "z" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetZ();
 
@@ -625,9 +648,8 @@ public:
   /**
    * Unsets the value of the "width" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetWidth();
 
@@ -635,9 +657,8 @@ public:
   /**
    * Unsets the value of the "height" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetHeight();
 
@@ -645,9 +666,8 @@ public:
   /**
    * Unsets the value of the "rX" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetRadiusX();
 
@@ -656,9 +676,8 @@ public:
   /**
   * Unsets the value of the "rX" attribute of this Rectangle.
   *
-  * @copydetails doc_returns_success_code
+  * @copydetails doc_returns_one_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
   */
   int unsetRX();
 
@@ -666,9 +685,8 @@ public:
   /**
    * Unsets the value of the "rY" attribute of this Rectangle.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetRadiusY();
 
@@ -676,9 +694,8 @@ public:
   /**
   * Unsets the value of the "rY" attribute of this Rectangle.
   *
-  * @copydetails doc_returns_success_code
+  * @copydetails doc_returns_one_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
   */
   int unsetRY();
 

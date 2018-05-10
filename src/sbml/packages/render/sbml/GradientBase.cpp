@@ -482,6 +482,13 @@ GradientBase::getGradientStop(unsigned int n)
 }
 
 
+GradientStop*
+GradientBase::getGradientStop(const std::string& sid)
+{
+  return mGradientStops.get(sid);
+}
+
+
 /*
  * Get a GradientStop from the GradientBase.
  */
@@ -576,6 +583,13 @@ GradientStop*
 GradientBase::removeGradientStop(unsigned int n)
 {
   return mGradientStops.remove(n);
+}
+
+
+GradientStop*
+GradientBase::removeGradientStop(const std::string& sid)
+{
+  return mGradientStops.remove(sid);
 }
 
 

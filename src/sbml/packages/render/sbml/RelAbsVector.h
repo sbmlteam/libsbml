@@ -181,6 +181,9 @@ public:
   /**
    * Sets the absolute coordinate value.
    *
+   * Calling this function with an argument of @c 0.0 or @c NaN is
+   * equivalent to unsetting the value.
+   *
    * @param abs double value of the "abs" attribute to be set.
    */
   int setAbsoluteValue(double abs);
@@ -188,12 +191,18 @@ public:
   /**
    * Sets the relative coordinate value.
    *
+   * Calling this function with an argument of @c 0.0 or @c NaN is
+   * equivalent to unsetting the value.
+   *
    * @param rel double value of the "rel" attribute to be set.
    */
   int setRelativeValue(double rel);
 
   /**
    * Sets the relative and absolute value.
+   *
+   * Calling this function with an argument of @c 0.0 or @c NaN is
+   * equivalent to unsetting the value.
    *
    * @param abs absolute value
    * @param rel relative value. If the relative value is omitted, it is set to 0.
@@ -205,6 +214,9 @@ public:
    * If the string does not represent a valid value, the relative and the
    * absolute component of the RelAbsVector are set to NaN.
    *
+   * Calling this function with either cooredinate having a value of @c "0.0" 
+   * or @c "NaN" is equivalent to unsetting the value.
+   *
    * @param coordString value string
    */
   int setCoordinate(const std::string& coordString);
@@ -213,9 +225,8 @@ public:
   /**
    * Unsets the value of the "abs" attribute of this RelAbsVector.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetAbsoluteValue();
 
@@ -223,9 +234,8 @@ public:
   /**
    * Unsets the value of the relative coordinate attribute of this RelAbsVector.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetRelativeValue();
 
@@ -233,9 +243,8 @@ public:
   /**
   * Unsets the value of the "rel" attribute of this RelAbsVector.
   *
-  * @copydetails doc_returns_success_code
+  * @copydetails doc_returns_one_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
   */
   int unsetCoordinate();
 
@@ -274,7 +283,7 @@ public:
 
   /**
    * @return an indication whether this element has been set 
-   * (i.e., none zero entries for either relative or absolute coordinate)
+   * (i.e., no zero entries for either relative or absolute coordinate)
    */
   bool empty() const;
 
@@ -284,7 +293,7 @@ public:
   std::string toString() const;
 
   /** 
-   * resets this element by setting its component to 0
+   * resets this element by setting the two coordinates to @c 0.0
    */
   void erase();
 

@@ -39,7 +39,7 @@
  * objects by role and type as well as by id of layout objects from the
  * layout the local style belongs to.
  *
- * Since LocalStyle is derived from Styles, it inherits all of the methods
+ * Since LocalStyle is derived from Style, it inherits all of the methods
  * and attributes from Style.
  *
  * @see LocalRenderInformation

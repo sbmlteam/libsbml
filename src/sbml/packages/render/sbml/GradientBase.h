@@ -462,7 +462,7 @@ public:
 
 
   /**
-   * Get a GradientStop from the GradientBase.
+   * Get the nth GradientStop from the GradientBase.
    *
    * @param n an unsigned int representing the index of the GradientStop to
    * retrieve.
@@ -481,6 +481,27 @@ public:
    * @see removeGradientStop(unsigned int n)
    */
   GradientStop* getGradientStop(unsigned int n);
+
+
+  /**
+  * Get the GradientStop with the given id from the GradientBase.
+  *
+  * @param sid the id of the GradientStop to retrieve.
+  *
+  * @return the GradientStop in the ListOfGradientStops with 
+  * the given @p id from this GradientBase.
+  * If no such GradientStop exists, @c NULL is returned.
+  *
+  * @copydetails doc_returned_unowned_pointer
+  *
+  * @see addGradientStop(const GradientStop* object)
+  * @see createGradientStop()
+  * @see getGradientStop(unsigned int n)
+  * @see getNumGradientStops()
+  * @see removeGradientStop(const std::string& sid)
+  * @see removeGradientStop(unsigned int n)
+  */
+  GradientStop* getGradientStop(const std::string& sid);
 
 
   /**
@@ -584,6 +605,26 @@ public:
    * @see removeGradientStop(const std::string& sid)
    */
   GradientStop* removeGradientStop(unsigned int n);
+
+
+  /**
+  * Removes the GradientStop with the given id from this GradientBase 
+  * and returns a pointer to it.
+  *
+  * @param sid the id of the GradientStop to remove.
+  *
+  * @return a pointer to the nth GradientStop in this GradientBase.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addGradientStop(const GradientStop* object)
+  * @see createGradientStop()
+  * @see getGradientStop(const std::string& sid)
+  * @see getGradientStop(unsigned int n)
+  * @see getNumGradientStops()
+  * @see removeGradientStop(unsigned int n)
+  */
+  GradientStop* removeGradientStop(const std::string& sid);
 
 
   /**

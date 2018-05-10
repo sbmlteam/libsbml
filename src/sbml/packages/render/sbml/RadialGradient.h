@@ -36,13 +36,13 @@
  *
  * The concept of a radial gradient is more or or less taken from SVG.  A
  * radial gradient is defined by a center point, a radius and an optional
- * focal point.  So for a valid gradient the radius should have a positive
- * length different from 0 and the focal point should be within the circle
+ * focal point.  A valid gradient will have a positive radius 
+ * greater than 0, and the focal point should be within the circle
  * defined by the center point and the radius.  Otherwise all restrictions
  * for the GradientBase class apply.
  *
  * The center and the focal point of a radial gradient are defined by three
- * pairs of absolute-relative value.  The radius is also defined asn an
+ * pairs of absolute-relative value.  The radius is also defined as an
  * absolute-relative value pair.  For examples of RadialGradient object
  * definitions, see the SBML Render package specification and/or the SVG
  * specification.
@@ -344,7 +344,7 @@ public:
   const RelAbsVector& getFocalPointX() const;
 
   /**
-  * Returns the x coordinate for the start point as a const reference.
+  * Returns the x coordinate for the start point as a reference.
   *
   * @return RelAbsVector that represents the x value of the start point.
   */
@@ -376,7 +376,7 @@ public:
   const RelAbsVector& getFocalPointY() const;
 
   /**
-  * Returns the y coordinate for the start point as a const reference.
+  * Returns the y coordinate for the start point as a reference.
   *
   * @return RelAbsVector that represents the y value of the start point.
   */
@@ -408,7 +408,7 @@ public:
   const RelAbsVector& getFocalPointZ() const;
 
   /**
-  * Returns the z coordinate for the start point as a const reference.
+  * Returns the z coordinate for the start point as a reference.
   *
   * @return RelAbsVector that represents the z value of the start point.
   */
@@ -482,10 +482,8 @@ public:
    *
    * @param cx RelAbsVector& value of the "cx" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setCx(const RelAbsVector& cx);
 
@@ -495,10 +493,8 @@ public:
    *
    * @param cy RelAbsVector& value of the "cy" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setCy(const RelAbsVector& cy);
 
@@ -508,10 +504,8 @@ public:
    *
    * @param cz RelAbsVector& value of the "cz" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setCz(const RelAbsVector& cz);
 
@@ -521,10 +515,8 @@ public:
    *
    * @param r RelAbsVector value of the "r" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setR(const RelAbsVector& r);
 
@@ -533,6 +525,9 @@ public:
    * Sets the radius of the radial gradient.
    *
    * @param r radius of the radial gradient vector.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setRadius(const RelAbsVector& r);
 
@@ -541,10 +536,8 @@ public:
    *
    * @param fx RelAbsVector& value of the "fx" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setFx(const RelAbsVector& fx);
 
@@ -554,10 +547,8 @@ public:
    *
    * @param fy RelAbsVector& value of the "fy" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setFy(const RelAbsVector& fy);
 
@@ -567,10 +558,8 @@ public:
    *
    * @param fz RelAbsVector& value of the "fz" element to be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setFz(const RelAbsVector& fz);
 
@@ -630,9 +619,8 @@ public:
   /**
    * Unsets the value of the "cx" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCx();
 
@@ -640,9 +628,8 @@ public:
   /**
    * Unsets the value of the "cy" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCy();
 
@@ -650,9 +637,8 @@ public:
   /**
    * Unsets the value of the "cz" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetCz();
 
@@ -660,9 +646,8 @@ public:
   /**
    * Unsets the value of the "r" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetR();
 
@@ -670,9 +655,8 @@ public:
   /**
    * Unsets the value of the "fx" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetFx();
 
@@ -680,9 +664,8 @@ public:
   /**
    * Unsets the value of the "fy" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetFy();
 
@@ -690,9 +673,8 @@ public:
   /**
    * Unsets the value of the "fz" element of this RadialGradient.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetFz();
 

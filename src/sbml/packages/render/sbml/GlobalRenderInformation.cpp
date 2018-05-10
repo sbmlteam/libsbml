@@ -398,6 +398,12 @@ GlobalRenderInformation::removeGlobalStyle(unsigned int n)
   return mGlobalStyles.remove(n);
 }
 
+GlobalStyle*
+GlobalRenderInformation::removeGlobalStyle(const std::string& sid)
+{
+  return mGlobalStyles.remove(sid);
+}
+
 /*
 * Removes the nth GlobalStyle from this GlobalRenderInformation and returns a
 * pointer to it.

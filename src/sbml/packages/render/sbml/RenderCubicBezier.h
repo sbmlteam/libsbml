@@ -484,10 +484,8 @@ public:
    * @param basePoint1_x RelAbsVector& value of the "basePoint1_x" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint1_x(const RelAbsVector& basePoint1_x);
 
@@ -497,6 +495,9 @@ public:
    * starting point).
    *
    * @param x x coordinate of first base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint1_X(const RelAbsVector& x);
 
@@ -506,10 +507,8 @@ public:
    * @param basePoint1_y RelAbsVector& value of the "basePoint1_y" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint1_y(const RelAbsVector& basePoint1_y);
 
@@ -520,6 +519,9 @@ public:
    * starting point).
    *
    * @param y y coordinate of first base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint1_Y(const RelAbsVector& y);
 
@@ -529,10 +531,8 @@ public:
    * @param basePoint1_z RelAbsVector& value of the "basePoint1_z" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint1_z(const RelAbsVector& basePoint1_z);
 
@@ -543,6 +543,9 @@ public:
    * starting point).
    *
    * @param z z coordinate of first base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint1_Z(const RelAbsVector& z);
 
@@ -553,10 +556,8 @@ public:
    * @param basePoint2_x RelAbsVector& value of the "basePoint2_x" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint2_x(const RelAbsVector& basePoint2_x);
 
@@ -566,6 +567,9 @@ public:
    * starting point).
    *
    * @param x value of second base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint2_X(const RelAbsVector& x);
 
@@ -575,10 +579,8 @@ public:
    * @param basePoint2_y RelAbsVector& value of the "basePoint2_y" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint2_y(const RelAbsVector& basePoint2_y);
 
@@ -588,6 +590,9 @@ public:
    * starting point).
    *
    * @param y value of second base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint2_Y(const RelAbsVector& y);
 
@@ -597,10 +602,8 @@ public:
    * @param basePoint2_z RelAbsVector& value of the "basePoint2_z" element to
    * be set.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setBasePoint2_z(const RelAbsVector& basePoint2_z);
 
@@ -610,6 +613,9 @@ public:
    * starting point).
    *
    * @param z value of second base point.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int setBasePoint2_Z(const RelAbsVector& z);
 
@@ -636,9 +642,8 @@ public:
   /**
    * Unsets the value of the "basePoint1_x" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint1_x();
 
@@ -646,9 +651,8 @@ public:
   /**
    * Unsets the value of the "basePoint1_y" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint1_y();
 
@@ -656,9 +660,8 @@ public:
   /**
    * Unsets the value of the "basePoint1_z" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint1_z();
 
@@ -666,9 +669,8 @@ public:
   /**
    * Unsets the value of the "basePoint2_x" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint2_x();
 
@@ -676,9 +678,8 @@ public:
   /**
    * Unsets the value of the "basePoint2_y" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint2_y();
 
@@ -686,9 +687,8 @@ public:
   /**
    * Unsets the value of the "basePoint2_z" element of this RenderCubicBezier.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetBasePoint2_z();
 

@@ -468,6 +468,13 @@ Polygon::removeElement(unsigned int n)
 }
 
 
+RenderPoint*
+Polygon::removeElement(const std::string& sid)
+{
+  return mRenderPoints.remove(sid);
+}
+
+
 /*
  * Returns the XML element name of this Polygon object.
  */

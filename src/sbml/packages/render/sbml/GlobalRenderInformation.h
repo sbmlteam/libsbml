@@ -191,8 +191,8 @@ public:
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   const ListOfGlobalStyles* getListOfStyles() const;
 
@@ -227,8 +227,8 @@ public:
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   ListOfGlobalStyles* getListOfStyles();
  
@@ -269,8 +269,8 @@ public:
   * @see createStyle()
   * @see getStyle(const std::string& sid)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   GlobalStyle* getStyle(unsigned int n);
 
@@ -312,8 +312,8 @@ public:
   * @see createStyle()
   * @see getStyle(const std::string& sid)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   const GlobalStyle* getStyle(unsigned int n) const;
 
@@ -357,8 +357,8 @@ public:
   * @see createStyle()
   * @see getStyle(const std::string& sid)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   GlobalStyle* getStyle(const std::string& id);
 
@@ -399,8 +399,8 @@ public:
   * @see createStyle()
   * @see getStyle(const std::string& sid)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   const GlobalStyle* getStyle(const std::string& id) const;
 
@@ -451,8 +451,8 @@ public:
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   int addStyle(const GlobalStyle* gs);
 
@@ -483,8 +483,8 @@ public:
   * @see createStyle()
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   unsigned int getNumStyles() const;
 
@@ -519,8 +519,8 @@ public:
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
-  * @see removeStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
   */
   GlobalStyle* createStyle(const std::string& id);
 
@@ -547,6 +547,26 @@ public:
 
 
   /**
+  * Removes the GlobalStyle with the given id from this GlobalRenderInformation 
+  * and returns a pointer to it.
+  *
+  * @param sid the id of the GlobalStyle to remove.
+  *
+  * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
+  *
+  * @copydetails doc_returned_owned_pointer
+  *
+  * @see addGlobalStyle(const GlobalStyle* object)
+  * @see createGlobalStyle()
+  * @see getGlobalStyle(const std::string& sid)
+  * @see getGlobalStyle(unsigned int n)
+  * @see getNumGlobalStyles()
+  * @see removeGlobalStyle(unsigned int n)
+  */
+  GlobalStyle* removeGlobalStyle(const std::string& sid);
+
+
+  /**
   * Removes the nth GlobalStyle from this GlobalRenderInformation and returns
   * a pointer to it.
   *
@@ -562,7 +582,8 @@ public:
   * @see getStyle(const std::string& sid)
   * @see getStyle(unsigned int n)
   * @see getNumStyles()
-  * @see removeStyle(const std::string& sid)
+  * @see removeGlobalStyle(unsigned int n)
+  * @see removeGlobalStyle(const std::string& sid)
   */
   GlobalStyle* removeStyle(unsigned int n);
 
