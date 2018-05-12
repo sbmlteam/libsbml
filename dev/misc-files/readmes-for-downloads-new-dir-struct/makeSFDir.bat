@@ -3,8 +3,10 @@ REM
 REM This script creates the directory structure for SF
 REM 
 
+if "%~1"=="" GOTO NO_VERSION_NO
+
 SET THIS_DIR=%~dp0
-set VERSION=5.16.0
+set VERSION=%~1
 SET DIST_DIR=%~dp0\%VERSION%
 SET TEST_DIR=%~dp0\stable
 
@@ -79,6 +81,12 @@ goto DONE
 echo. 
 echo The directory %TEST_DIR% could not be found. 
 echo We are in the wrong starting directory.
+echo.
+goto COMPLETE
+
+:NO_VERSION_NO
+echo.
+echo No version number supplied
 echo.
 goto COMPLETE
 
