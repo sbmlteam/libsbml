@@ -49,6 +49,7 @@
 #include <sbml/packages/distrib/sbml/DistribStudentTDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribUniformDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribWeibullDistribution.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

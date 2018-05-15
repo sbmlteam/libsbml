@@ -33,6 +33,7 @@
 #include <sbml/packages/distrib/sbml/DistribCategory.h>
 #include <sbml/packages/distrib/sbml/ListOfCategories.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

@@ -32,6 +32,7 @@
  */
 #include <sbml/packages/distrib/sbml/DistribBetaDistribution.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

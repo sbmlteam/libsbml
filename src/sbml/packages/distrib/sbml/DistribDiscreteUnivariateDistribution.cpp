@@ -38,6 +38,7 @@
 #include <sbml/packages/distrib/sbml/DistribHypergeometricDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribNegativeBinomialDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribPoissonDistribution.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;

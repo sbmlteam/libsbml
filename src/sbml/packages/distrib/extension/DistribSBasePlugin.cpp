@@ -33,6 +33,7 @@
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 #include <sbml/Model.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
