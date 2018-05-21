@@ -603,7 +603,7 @@ Model::getConversionFactor () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return @c true if the id of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -614,7 +614,7 @@ Model::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -3320,7 +3320,7 @@ int Model::removeFromParentAndDelete()
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true if the given ASTNode is a boolean.  Often times, this
+ * @return @c true if the given ASTNode is a boolean.  Often times, this
  * question can be answered with the ASTNode's own isBoolean() method,
  * but if the AST is an expression that calls a function defined in the
  * Model's ListOf FunctionDefinitions, the model is needed for lookup
@@ -4743,7 +4743,7 @@ Model::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 Model::readOtherXML (XMLInputStream& stream)

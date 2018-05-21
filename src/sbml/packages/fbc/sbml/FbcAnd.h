@@ -801,7 +801,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcAnd_t
  */
@@ -1000,7 +1000,7 @@ FbcAnd_getNumAssociations(FbcAnd_t* fa);
  *
  * @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcAnd_t
  */
@@ -1020,7 +1020,7 @@ FbcAnd_removeAssociation(FbcAnd_t* fa, unsigned int n);
  *
  * @return a pointer to the nth FbcAssociation_t in this FbcAnd_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  */
 LIBSBML_EXTERN

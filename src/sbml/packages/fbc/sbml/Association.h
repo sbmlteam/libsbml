@@ -164,30 +164,30 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "Association" is of type
+   * Predicate returning @c true if this abstract Association is of type
    * FbcAnd
    *
-   * @return @c true if this abstract "Association" is of type FbcAnd, @c false
+   * @return @c true if this abstract Association is of type FbcAnd, @c false
    * otherwise
    */
   virtual bool isFbcAnd() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "Association" is of type
+   * Predicate returning @c true if this abstract Association is of type
    * FbcOr
    *
-   * @return @c true if this abstract "Association" is of type FbcOr, @c false
+   * @return @c true if this abstract Association is of type FbcOr, @c false
    * otherwise
    */
   virtual bool isFbcOr() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "Association" is of type
+   * Predicate returning @c true if this abstract Association is of type
    * GeneProductRef
    *
-   * @return @c true if this abstract "Association" is of type GeneProductRef,
+   * @return @c true if this abstract Association is of type GeneProductRef,
    * @c false otherwise
    */
   virtual bool isGeneProductRef() const;
@@ -789,7 +789,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Association_t
  */
@@ -815,7 +815,7 @@ Association_createFbcAnd(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Association_t
  */
@@ -841,7 +841,7 @@ Association_createFbcOr(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Association_t
  */
@@ -859,7 +859,7 @@ Association_createGeneProductRef(unsigned int level,
  *
  * @return a (deep) copy of this Association_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Association_t
  */

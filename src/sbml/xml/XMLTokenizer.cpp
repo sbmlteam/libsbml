@@ -96,7 +96,7 @@ XMLTokenizer::getVersion ()
 
 
 /*
- * @return true if this XMLTokenizer has at least one XMLToken ready to
+ * @return @c true if this XMLTokenizer has at least one XMLToken ready to
  * deliver, false otherwise.
  *
  * Note that hasNext() == false does not imply isEOF() == true.  The
@@ -111,7 +111,7 @@ XMLTokenizer::hasNext () const
 
 
 /*
- * @return true if the end of the XML file (document) has been reached
+ * @return @c true if the end of the XML file (document) has been reached
  * and there are no more tokens to consume, false otherwise.
  */
 bool

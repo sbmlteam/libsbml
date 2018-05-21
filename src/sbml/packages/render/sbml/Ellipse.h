@@ -710,7 +710,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Ellipse_t
  */
@@ -728,7 +728,7 @@ Ellipse_create(unsigned int level,
  *
  * @return a (deep) copy of this Ellipse_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Ellipse_t
  */
@@ -965,7 +965,7 @@ Ellipse_isSetRY(const Ellipse_t * e);
  *
  * @param e the Ellipse_t structure.
  *
- * @param cx RelAbsVector&_t* value of the "cx" element to be set.
+ * @param cx RelAbsVector&_t value of the "cx" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

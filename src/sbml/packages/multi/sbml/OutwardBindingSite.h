@@ -33,8 +33,7 @@
  * two required attributes, "bindingStatus" and "component". A binding site
  * not involved in any InSpeciesTypeBond object in the MultiSpeciesType
  * referenced by a Species is an OutwardBindingSite. The bindingStatus
- * attribute is of type @if java {@link BindingStatus_t} @else @link
- * BindingStatus_t BindingStatus_t@endlink@endif.  The component attribute,
+ * attribute is of type BindingStatus_t.  The component attribute,
  * of type SIdRef, references a component which ultimately references a
  * BindingSiteSpeciesType object. The attribute value must be the identifier
  * of a SpeciesTypeInstance, SpeciesTypeComponentIndex or MultiSpeciesType
@@ -793,7 +792,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof OutwardBindingSite_t
  */
@@ -822,7 +821,7 @@ OutwardBindingSite_free(OutwardBindingSite_t * obs);
  *
  * @return a (deep) copy of this OutwardBindingSite_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof OutwardBindingSite_t
  */
@@ -839,7 +838,7 @@ OutwardBindingSite_clone(OutwardBindingSite_t * obs);
  * @return the value of the "id" attribute of this OutwardBindingSite_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof OutwardBindingSite_t
  */
@@ -856,7 +855,7 @@ OutwardBindingSite_getId(const OutwardBindingSite_t * obs);
  * @return the value of the "name" attribute of this OutwardBindingSite_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof OutwardBindingSite_t
  */
@@ -923,7 +922,7 @@ OutwardBindingSite_getBindingStatusAsString(const OutwardBindingSite_t * obs);
  * @return the value of the "component" attribute of this OutwardBindingSite_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof OutwardBindingSite_t
  */

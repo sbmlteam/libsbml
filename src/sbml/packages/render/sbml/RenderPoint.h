@@ -399,20 +399,20 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "RenderPoint" is of type
+   * Predicate returning @c true if this abstract RenderPoint is of type
    * RenderPoint
    *
-   * @return @c true if this abstract "RenderPoint" is of type RenderPoint,
+   * @return @c true if this abstract RenderPoint is of type RenderPoint,
    * @c false otherwise
    */
   virtual bool isRenderPoint() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "RenderPoint" is of type
+   * Predicate returning @c true if this abstract RenderPoint is of type
    * RenderCubicBezier
    *
-   * @return @c true if this abstract "RenderPoint" is of type
+   * @return @c true if this abstract RenderPoint is of type
    * RenderCubicBezier, @c false otherwise
    */
   virtual bool isRenderCubicBezier() const;
@@ -589,7 +589,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderPoint_t
  */
@@ -615,7 +615,7 @@ RenderPoint_createRenderPoint(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderPoint_t
  */
@@ -633,7 +633,7 @@ RenderPoint_createRenderCubicBezier(unsigned int level,
  *
  * @return a (deep) copy of this RenderPoint_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderPoint_t
  */
@@ -749,7 +749,7 @@ RenderPoint_isSetZ(const RenderPoint_t * rp);
  *
  * @param rp the RenderPoint_t structure.
  *
- * @param x RelAbsVector_t* value of the "x" element to be set.
+ * @param x RelAbsVector_t value of the "x" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -768,7 +768,7 @@ RenderPoint_setX(RenderPoint_t * rp, const RelAbsVector_t* x);
  *
  * @param rp the RenderPoint_t structure.
  *
- * @param y RelAbsVector_t* value of the "y" element to be set.
+ * @param y RelAbsVector_t value of the "y" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -787,7 +787,7 @@ RenderPoint_setY(RenderPoint_t * rp, const RelAbsVector_t* y);
  *
  * @param rp the RenderPoint_t structure.
  *
- * @param z RelAbsVector_t* value of the "z" element to be set.
+ * @param z RelAbsVector_t value of the "z" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

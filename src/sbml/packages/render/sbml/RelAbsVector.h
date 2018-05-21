@@ -351,7 +351,7 @@ RelAbsVector_create(double abs, double rel);
  *
  * @return a (deep) copy of this RelAbsVector_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RelAbsVector_t
  */

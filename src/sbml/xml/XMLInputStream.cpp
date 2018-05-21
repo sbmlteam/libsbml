@@ -143,7 +143,7 @@ XMLInputStream::getErrorLog ()
 
 
 /*
- * @return true if end of file (stream) has been reached, false otherwise.
+ * @return @c true if end of file (stream) has been reached, false otherwise.
  */
 bool
 XMLInputStream::isEOF () const
@@ -153,7 +153,7 @@ XMLInputStream::isEOF () const
 
 
 /*
- * @return true if a fatal error occurred while reading from this stream.
+ * @return @c true if a fatal error occurred while reading from this stream.
  */
 bool
 XMLInputStream::isError () const
@@ -163,7 +163,7 @@ XMLInputStream::isError () const
 
 
 /*
- * @return true if the stream is in a good state (i.e. isEOF() and
+ * @return @c true if the stream is in a good state (i.e. isEOF() and
  * isError() are both false), false otherwise.
  */
 bool

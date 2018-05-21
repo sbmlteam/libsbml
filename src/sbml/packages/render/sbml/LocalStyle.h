@@ -200,7 +200,7 @@ public:
    *
    * @param id the id to be searched for
    *
-   * @return true or false depending on whether the given @p id is in the id list or not.
+   * @return @c true or @c false depending on whether the given @p id is in the id list or not.
    */
   bool isInIdList(const std::string& id) const;
 
@@ -360,7 +360,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LocalStyle_t
  */
@@ -378,7 +378,7 @@ LocalStyle_create(unsigned int level,
  *
  * @return a (deep) copy of this LocalStyle_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LocalStyle_t
  */
@@ -407,7 +407,7 @@ LocalStyle_free(LocalStyle_t* ls);
 // * @return the value of the "idList" attribute of this LocalStyle_t as a
 // * pointer to a string.
 // *
-// * @copydetails doc_returned_owned_char
+// * @copydetails doc_warning_returns_owned_char
 // *
 // * @memberof LocalStyle_t
 // */

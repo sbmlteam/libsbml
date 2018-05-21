@@ -223,7 +223,7 @@ public:
    * FontWeight_t.
    *
    * @copydetails doc_render_font_weight
-   * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
+   * @if clike The value is drawn from the enumeration FontWeight_t.@endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
    * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
@@ -254,7 +254,7 @@ public:
    * FontStyle_t.
    *
    * @copydetails doc_render_font_style
-   * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
+   * @if clike The value is drawn from the enumeration FontStyle_t.@endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
    * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
@@ -285,8 +285,8 @@ public:
    * HTextAnchor_t.
    *
    * @copydetails doc_render_text_anchor
-   * @if clike The value is drawn from the enumeration @ref HTextAnchor_t
-   * @endif
+   * @if clike The value is drawn from the enumeration HTextAnchor_t.
+   * @endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
    * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
@@ -319,8 +319,8 @@ public:
    * VTextAnchor_t.
    *
    * @copydetails doc_render_vtext_anchor
-   * @if clike The value is drawn from the enumeration @ref VTextAnchor_t
-   * @endif
+   * @if clike The value is drawn from the enumeration VTextAnchor_t.
+   * @endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}
    * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
@@ -511,7 +511,7 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this RenderGroup.
    *
-   * @param fontWeight @if clike @ref FontWeight_t@else int@endif@~ value of the
+   * @param fontWeight @if clike FontWeight_t@else int@endif@~ value of the
    * "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -548,7 +548,7 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this RenderGroup.
    *
-   * @param fontStyle @if clike @ref FontStyle_t@else int@endif@~ value of the
+   * @param fontStyle @if clike FontStyle_t@else int@endif@~ value of the
    * "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -585,7 +585,7 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this RenderGroup.
    *
-   * @param textAnchor @if clike @ref HTextAnchor_t@else int@endif@~ value of the
+   * @param textAnchor @if clike HTextAnchor_t@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -622,7 +622,7 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this RenderGroup.
    *
-   * @param anchor @if clike @ref VTextAnchor_t@else int@endif@~ value of the
+   * @param anchor @if clike VTextAnchor_t@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -940,7 +940,7 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * enumeration OperationReturnValues_t.@endif@~ The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1141,7 +1141,7 @@ public:
    *
    * @return a pointer to the nth Transformation2D in this RenderGroup.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addElement(const Transformation2D* object)
    * @see createEllipse()
@@ -1167,7 +1167,7 @@ public:
   * @return a pointer to the removed Transformation2D in this RenderGroup, or 
   * @c NULL if no such Transformation2D exists.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addElement(const Transformation2D* object)
   * @see createEllipse()
@@ -1786,7 +1786,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderGroup_t
  */
@@ -1804,7 +1804,7 @@ RenderGroup_create(unsigned int level,
  *
  * @return a (deep) copy of this RenderGroup_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderGroup_t
  */
@@ -1833,7 +1833,7 @@ RenderGroup_free(RenderGroup_t* rg);
  * @return the value of the "startHead" attribute of this RenderGroup_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderGroup_t
  */
@@ -1850,7 +1850,7 @@ RenderGroup_getStartHead(const RenderGroup_t * rg);
  * @return the value of the "endHead" attribute of this RenderGroup_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderGroup_t
  */
@@ -1867,7 +1867,7 @@ RenderGroup_getEndHead(const RenderGroup_t * rg);
  * @return the value of the "font-family" attribute of this RenderGroup_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderGroup_t
  */
@@ -1885,7 +1885,7 @@ RenderGroup_getFontFamily(const RenderGroup_t * rg);
  * FontWeight_t.
  *
  * @copydetails doc_render_font_weight
- * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
+ * @if clike The value is drawn from the enumeration FontWeight_t.@endif@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
  * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
@@ -1930,7 +1930,7 @@ RenderGroup_getFontWeightAsString(const RenderGroup_t * rg);
  * FontStyle_t.
  *
  * @copydetails doc_render_font_style
- * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
+ * @if clike The value is drawn from the enumeration FontStyle_t.@endif@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
  * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
@@ -1975,7 +1975,7 @@ RenderGroup_getFontStyleAsString(const RenderGroup_t * rg);
  * #HTextAnchor_t.
  *
  * @copydetails doc_render_text_anchor
- * @if clike The value is drawn from the enumeration @ref HTextAnchor_t @endif
+ * @if clike The value is drawn from the enumeration HTextAnchor_t.@endif@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
@@ -2022,7 +2022,7 @@ RenderGroup_getTextAnchorAsString(const RenderGroup_t * rg);
  * VTextAnchor_t.
  *
  * @copydetails doc_render_vtext_anchor
- * @if clike The value is drawn from the enumeration @ref VTextAnchor_t @endif
+ * @if clike The value is drawn from the enumeration VTextAnchor_t.@endif@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}
  * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
@@ -2608,7 +2608,7 @@ RenderGroup_isSetFontSize(const RenderGroup_t * rg);
  *
  * @param rg the RenderGroup_t structure.
  *
- * @param fontSize RelAbsVector_t* value of the "font-size" element to be set.
+ * @param fontSize RelAbsVector_t value of the "font-size" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2892,7 +2892,7 @@ RenderGroup_createCurve(RenderGroup_t* rg);
  *
  * @return a pointer to the nth Transformation2D_t in this RenderGroup_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderGroup_t
  */

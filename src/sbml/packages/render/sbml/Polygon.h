@@ -338,7 +338,7 @@ public:
    *
    * @return a pointer to the nth RenderPoint in this Polygon.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addElement(const RenderPoint* object)
    * @see createCubicBezier()
@@ -358,7 +358,7 @@ public:
   *
   * @return a pointer to the removed RenderPoint.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addElement(const RenderPoint* object)
   * @see createCubicBezier()
@@ -684,7 +684,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Polygon_t
  */
@@ -702,7 +702,7 @@ Polygon_create(unsigned int level,
  *
  * @return a (deep) copy of this Polygon_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Polygon_t
  */
@@ -850,7 +850,7 @@ Polygon_createCubicBezier(Polygon_t* p);
  *
  * @return a pointer to the nth RenderPoint_t in this Polygon_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Polygon_t
  */

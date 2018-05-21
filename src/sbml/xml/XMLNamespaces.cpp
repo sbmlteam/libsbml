@@ -315,7 +315,7 @@ XMLNamespaces::getURI (const std::string& prefix) const
 
 
 /*
- * @return true if this XMLNamespaces set is empty, false otherwise.
+ * @return @c true if this XMLNamespaces set is empty, false otherwise.
  */
 bool
 XMLNamespaces::isEmpty () const

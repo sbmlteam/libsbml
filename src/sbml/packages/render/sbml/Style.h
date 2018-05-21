@@ -357,7 +357,7 @@ public:
    *
    * @param type string to be searched for in the type list
    *
-   * @return true or false depending on whether the given string was
+   * @return @c true or @c false depending on whether the given string was
    * found in the type list.
    *
    * @copydetails doc_render_style_type
@@ -400,7 +400,7 @@ public:
   /**
    * Returns the value of the "group" element of this Style.
    *
-   * @return the value of the "group" element of this Style as a RenderGroup*.
+   * @return the value of the "group" element of this Style as a RenderGroup.
    */
   const RenderGroup* getGroup() const;
 
@@ -408,7 +408,7 @@ public:
   /**
    * Returns the value of the "group" element of this Style.
    *
-   * @return the value of the "group" element of this Style as a RenderGroup*.
+   * @return the value of the "group" element of this Style as a RenderGroup.
    */
   RenderGroup* getGroup();
 
@@ -425,7 +425,7 @@ public:
   /**
    * Sets the value of the "group" element of this Style.
    *
-   * @param group RenderGroup* value of the "group" element to be set.
+   * @param group RenderGroup value of the "group" element to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -455,19 +455,19 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "Style" is of type
+   * Predicate returning @c true if this abstract Style is of type
    * GlobalStyle
    *
-   * @return @c true if this abstract "Style" is of type GlobalStyle, @c false
+   * @return @c true if this abstract Style is of type GlobalStyle, @c false
    * otherwise
    */
   virtual bool isGlobalStyle() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "Style" is of type LocalStyle
+   * Predicate returning @c true if this abstract Style is of type LocalStyle
    *
-   * @return @c true if this abstract "Style" is of type LocalStyle, @c false
+   * @return @c true if this abstract Style is of type LocalStyle, @c false
    * otherwise
    */
   virtual bool isLocalStyle() const;
@@ -1080,7 +1080,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Style_t
  */
@@ -1104,7 +1104,7 @@ Style_createGlobalStyle(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Style_t
  */
@@ -1122,7 +1122,7 @@ Style_createLocalStyle(unsigned int level,
  *
  * @return a (deep) copy of this Style_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Style_t
  */
@@ -1151,7 +1151,7 @@ Style_free(Style_t* s);
  * @return the value of the "id" attribute of this Style_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Style_t
  */
@@ -1168,7 +1168,7 @@ Style_getId(const Style_t * s);
  * @return the value of the "name" attribute of this Style_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Style_t
  */
@@ -1185,7 +1185,7 @@ Style_getName(const Style_t * s);
 // * @return the value of the "roleList" attribute of this Style_t as a pointer
 // * to a string.
 // *
-// * @copydetails doc_returned_owned_char
+// * @copydetails doc_warning_returns_owned_char
 // *
 // * @memberof Style_t
 // */
@@ -1202,7 +1202,7 @@ Style_getName(const Style_t * s);
 // * @return the value of the "typeList" attribute of this Style_t as a pointer
 // * to a string.
 // *
-// * @copydetails doc_returned_owned_char
+// * @copydetails doc_warning_returns_owned_char
 // *
 // * @memberof Style_t
 // */
@@ -1403,7 +1403,7 @@ Style_unsetTypeList(Style_t * s);
  *
  * @param s the Style_t structure whose group is sought.
  *
- * @return the value of the "group" element of this Style_t as a RenderGroup*.
+ * @return the value of the "group" element of this Style_t as a RenderGroup.
  *
  * @memberof Style_t
  */
@@ -1432,7 +1432,7 @@ Style_isSetGroup(const Style_t * s);
  *
  * @param s the Style_t structure.
  *
- * @param group RenderGroup_t* value of the "group" element to be set.
+ * @param group RenderGroup_t value of the "group" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

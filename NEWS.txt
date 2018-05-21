@@ -1,22 +1,22 @@
-           libSBML NEWS -- History of user-visible changes
+﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.17.0 (2018-05-09)
+5.17.0 (2018-05-21)
 ====================================================================
 
 STABLE RELEASE
 
-* Render
+* Addition of support for the SBML Render package
 
-  - The first official version of the specification of the Render
-    package is now available, and thus the 
-    libSBML code for 'render' is now included in the stable release of 
-    libSBML.  This means that all prebuilt binaries for the stable 
-    release will include the 'render' package code. The src archive 
-    containing libSBML core code will continue to be available, with
-    additional src archives available in the stable branch: one
-    containing libSBML core plus all stable packages and additional
-    archives of the individual package code.
+  - Now that the first official version of the specification for the
+    SBML Level 3 Rendering package is available, the libSBML API for
+    'render' is now included in the stable release of libSBML.  This
+    means that all prebuilt binaries for the stable release will
+    include the 'render' package code. The src archive containing
+    libSBML core code will continue to be available, with additional
+    src archives available in the stable branch: one containing
+    libSBML core plus all stable packages and additional archives of
+    the individual package code.
     
     NOTE: The libSBML GNU make-based build system has not been updated
           for packages. Thus, to build from src, it is necessary to
@@ -25,25 +25,25 @@ STABLE RELEASE
 
 * New features
 
-  - The libSBML-matlab interface function TranslateSBML has been
+  - The MATLAB language interface function TranslateSBML has been
     optimized for speed.
 
-  - The libSBML-matlab interface function OutputSBML can now be called
-    with an output argument and no inputs to return information about 
-    the libSBML version and enabled packages used to build the 
+  - The MATLAB interface function OutputSBML can now be called with an
+    output argument and no inputs; doing so will return information
+    about the libSBML version and enabled packages used to build the
     binary files.
 
-  - A new function getDefaultSBMLStruct has been added to the 
-    libSBML-matlab interface. This function takes a string name of the
-    element with level and version information and returns the relevant
-    MATLAB-SBML structure for the element. Many thanks go to Thomas Pfau
-    for supplying this function.
+  - A new function getDefaultSBMLStruct has been added to the MATLAB
+    interface. This function takes a string name of the element with
+    level and version information and returns the relevant MATLAB-SBML
+    structure for the element. Many thanks go to Thomas Pfau for
+    supplying this function.
 
-  - On occasion the functions 'getDerivedUnitDefinition' that return
-    calculated units were reporting incorrect units without flagging
-    any issues. This has been made less ambiguous and a derived 
-    UnitDefinition will not contain any units if it cannot be correctly 
-    determined.
+  - On occasion, the function getDerivedUnitDefinition that returns
+    calculated units would report incorrect units without flagging any
+    issues. This has been made less ambiguous and a derived
+    UnitDefinition will not contain any units if it cannot be
+    correctly determined.
 
   - Unit validation has been optimized and significantly speeded up for
     larger models. 
@@ -71,8 +71,8 @@ STABLE RELEASE
 * Bug fixes
 
   - SourceForge Tracker item #459: An error in the function that
-    converts libsbml-infix to matlab infix was failing when log
-    functions were failing. This is fixed. Thanks to Sven Thiele
+    converts libSBML infix notation to MATLAB infix notation failed
+    when log functions failed. This is fixed. Thanks to Sven Thiele
     for reporting the issue.
 
   - The validation check for duplicate values of the 'metaid'

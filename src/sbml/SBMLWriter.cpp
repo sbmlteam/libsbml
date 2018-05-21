@@ -124,7 +124,7 @@ SBMLWriter::setProgramVersion (const std::string& version)
  * SBMLWriter::hasZlib() and SBMLWriter::hasBzip2() can be used to check whether
  * underlying libSBML is linked with the library.
  *
- * @return true on success and false if the filename could not be opened
+ * @return @c true on success and false if the filename could not be opened
  * for writing.
  */
 bool
@@ -222,7 +222,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 /*
  * Writes the given SBML document to the output stream.
  *
- * @return true on success and false if one of the underlying parser
+ * @return @c true on success and false if one of the underlying parser
  * components fail (rare).
  */
 bool

@@ -1214,7 +1214,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1243,7 +1243,7 @@ MultiSpeciesType_free(MultiSpeciesType_t * mst);
  *
  * @return a (deep) copy of this MultiSpeciesType_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1260,7 +1260,7 @@ MultiSpeciesType_clone(MultiSpeciesType_t * mst);
  * @return the value of the "id" attribute of this MultiSpeciesType_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1277,7 +1277,7 @@ MultiSpeciesType_getId(const MultiSpeciesType_t * mst);
  * @return the value of the "name" attribute of this MultiSpeciesType_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1294,7 +1294,7 @@ MultiSpeciesType_getName(const MultiSpeciesType_t * mst);
  * @return the value of the "compartment" attribute of this MultiSpeciesType_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1608,7 +1608,7 @@ MultiSpeciesType_createSpeciesFeatureType(MultiSpeciesType_t* mst);
  * @return a pointer to the nth SpeciesFeatureType_t in this
  * MultiSpeciesType_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1630,7 +1630,7 @@ MultiSpeciesType_removeSpeciesFeatureType(MultiSpeciesType_t* mst,
  * @return the SpeciesFeatureType_t in this MultiSpeciesType_t based on the
  * identifier or NULL if no such SpeciesFeatureType_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1783,7 +1783,7 @@ MultiSpeciesType_createSpeciesTypeInstance(MultiSpeciesType_t* mst);
  * @return a pointer to the nth SpeciesTypeInstance_t in this
  * MultiSpeciesType_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1805,7 +1805,7 @@ MultiSpeciesType_removeSpeciesTypeInstance(MultiSpeciesType_t* mst,
  * @return the SpeciesTypeInstance_t in this MultiSpeciesType_t based on the
  * identifier or NULL if no such SpeciesTypeInstance_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1962,7 +1962,7 @@ MultiSpeciesType_createSpeciesTypeComponentIndex(MultiSpeciesType_t* mst);
  * @return a pointer to the nth SpeciesTypeComponentIndex_t in this
  * MultiSpeciesType_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -1984,7 +1984,7 @@ MultiSpeciesType_removeSpeciesTypeComponentIndex(MultiSpeciesType_t* mst,
  * @return the SpeciesTypeComponentIndex_t in this MultiSpeciesType_t based on
  * the identifier or NULL if no such SpeciesTypeComponentIndex_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -2135,7 +2135,7 @@ MultiSpeciesType_createInSpeciesTypeBond(MultiSpeciesType_t* mst);
  *
  * @return a pointer to the nth InSpeciesTypeBond_t in this MultiSpeciesType_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */
@@ -2157,7 +2157,7 @@ MultiSpeciesType_removeInSpeciesTypeBond(MultiSpeciesType_t* mst,
  * @return the InSpeciesTypeBond_t in this MultiSpeciesType_t based on the
  * identifier or NULL if no such InSpeciesTypeBond_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesType_t
  */

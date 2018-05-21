@@ -89,7 +89,7 @@ XMLMemoryBuffer::copyTo (void* destination, unsigned int bytes)
 
 
 /*
- * @return true if there was an error reading from the underlying buffer
+ * @return @c true if there was an error reading from the underlying buffer
  * (i.e. it's null), false otherwise.
  */
 bool

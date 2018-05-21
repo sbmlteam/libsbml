@@ -417,7 +417,7 @@ Event::getUseValuesFromTriggerTime () const
 
   
 /*
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -428,7 +428,7 @@ Event::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -440,7 +440,7 @@ Event::isSetName () const
 
 
 /*
- * @return true if the trigger of this Event is set, false otherwise.
+ * @return @c true if the trigger of this Event is set, false otherwise.
  */
 bool
 Event::isSetTrigger () const
@@ -450,7 +450,7 @@ Event::isSetTrigger () const
 
 
 /*
- * @return true if the delay of this Event is set, false otherwise.
+ * @return @c true if the delay of this Event is set, false otherwise.
  */
 bool
 Event::isSetDelay () const
@@ -460,7 +460,7 @@ Event::isSetDelay () const
 
 
 /*
- * @return true if the priority of this Event is set, false otherwise.
+ * @return @c true if the priority of this Event is set, false otherwise.
  */
 bool
 Event::isSetPriority () const
@@ -470,7 +470,7 @@ Event::isSetPriority () const
 
 
 /*
- * @return true if the timeUnits of this Event is set, false
+ * @return @c true if the timeUnits of this Event is set, false
  * otherwise.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -487,7 +487,7 @@ Event::isSetTimeUnits () const
 
 
 /*
- * @return true if the mUseValuesFromTriggerTime of this Event is set, false otherwise.
+ * @return @c true if the mUseValuesFromTriggerTime of this Event is set, false otherwise.
  */
 bool
 Event::isSetUseValuesFromTriggerTime () const

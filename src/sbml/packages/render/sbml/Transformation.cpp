@@ -229,7 +229,7 @@ const double* Transformation::getIdentityMatrix()
 * Returns true if the matrix has been set or false otherwise.
 * The matrix is considered as set if none of the values in the matrix is NaN.
 *
-* @return true or false depending on whether a NaN was found.
+* @return @c true or false depending on whether a NaN was found.
 */
 bool Transformation::isSetTransform() const
 {
@@ -252,7 +252,7 @@ Transformation::isSetName() const
  * Returns true if the matrix has been set or false otherwise.
  * The matrix is considered as set if none of the values in the matrix is NaN.
  *
- * @return true or false depending on whether a NaN was found.
+ * @return @c true or false depending on whether a NaN was found.
  */
 bool Transformation::isSetMatrix() const
 {
@@ -354,7 +354,7 @@ Transformation::unsetMatrix()
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * Image
  */
 bool
@@ -365,7 +365,7 @@ Transformation::isImage() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * Ellipse
  */
 bool
@@ -376,7 +376,7 @@ Transformation::isEllipse() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * Rectangle
  */
 bool
@@ -387,7 +387,7 @@ Transformation::isRectangle() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * Polygon
  */
 bool
@@ -398,7 +398,7 @@ Transformation::isPolygon() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * RenderGroup
  */
 bool
@@ -409,7 +409,7 @@ Transformation::isRenderGroup() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * LineEnding
  */
 bool
@@ -420,7 +420,7 @@ Transformation::isLineEnding() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * Text
  */
 bool
@@ -431,7 +431,7 @@ Transformation::isText() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation" is of type
+ * Predicate returning @c true if this abstract Transformation is of type
  * RenderCurve
  */
 bool

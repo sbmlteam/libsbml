@@ -220,7 +220,7 @@ ListOfReplacedElements_getReplacedElement(ListOf_t* lo, unsigned int n);
  *
  * @return a pointer to the nth ReplacedElement_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfReplacedElements_t
  */

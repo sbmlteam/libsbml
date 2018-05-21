@@ -505,7 +505,7 @@ Image::isSetHeight() const
 /** @cond doxygenLibsbmlInternal */
 /*
 * Sets the position of the image relative to its viewport.
-* The position can either be specified in relative or in absolut coordinates
+* The position can either be specified in relative or in absolute coordinates
 * or a combination of both.
 * The z coordinate can be omitted. In that case it is set to 0.
 *

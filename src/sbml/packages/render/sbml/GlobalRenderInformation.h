@@ -327,7 +327,7 @@ public:
   * @return the GlobalStyle in this GlobalRenderInformation based on the
   * identifier or NULL if no such GlobalStyle exists.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   *
   * @copydetails doc_returned_unowned_pointer
@@ -534,7 +534,7 @@ public:
    *
    * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGlobalStyle(const GlobalStyle* object)
    * @see createGlobalStyle()
@@ -554,7 +554,7 @@ public:
   *
   * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addGlobalStyle(const GlobalStyle* object)
   * @see createGlobalStyle()
@@ -575,7 +575,7 @@ public:
   *
   * @return a pointer to the nth GlobalStyle in this GlobalRenderInformation.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addStyle(const GlobalStyle* object)
   * @see createStyle()
@@ -922,7 +922,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GlobalRenderInformation_t
  */
@@ -940,7 +940,7 @@ GlobalRenderInformation_create(unsigned int level,
  *
  * @return a (deep) copy of this GlobalRenderInformation_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GlobalRenderInformation_t
  */
@@ -1080,7 +1080,7 @@ GlobalRenderInformation_createGlobalStyle(GlobalRenderInformation_t* gri);
  * @return a pointer to the nth GlobalStyle_t in this
  * GlobalRenderInformation_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GlobalRenderInformation_t
  */

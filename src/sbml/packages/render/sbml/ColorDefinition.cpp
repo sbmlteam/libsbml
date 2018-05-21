@@ -531,7 +531,7 @@ void ColorDefinition::setRGBA(unsigned char r,unsigned char g,unsigned char b,un
  * @param valueString A const reference to a string that represents a valid color value,
  * e.g. "#FFFFFFFF" for fully opaque white.
  *
- * @return true or false depending on whether setting the color value from the string
+ * @return @c true or false depending on whether setting the color value from the string
  * was successfull.
  */
 bool ColorDefinition::setColorValue(const std::string& valueString)

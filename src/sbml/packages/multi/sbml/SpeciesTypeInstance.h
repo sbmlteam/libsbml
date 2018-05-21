@@ -669,7 +669,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeInstance_t
  */
@@ -698,7 +698,7 @@ SpeciesTypeInstance_free(SpeciesTypeInstance_t * sti);
  *
  * @return a (deep) copy of this SpeciesTypeInstance_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeInstance_t
  */
@@ -715,7 +715,7 @@ SpeciesTypeInstance_clone(SpeciesTypeInstance_t * sti);
  * @return the value of the "id" attribute of this SpeciesTypeInstance_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeInstance_t
  */
@@ -732,7 +732,7 @@ SpeciesTypeInstance_getId(SpeciesTypeInstance_t * sti);
  * @return the value of the "name" attribute of this SpeciesTypeInstance_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeInstance_t
  */
@@ -750,7 +750,7 @@ SpeciesTypeInstance_getName(SpeciesTypeInstance_t * sti);
  * @return the value of the "speciesType" attribute of this
  * SpeciesTypeInstance_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeInstance_t
  */
@@ -769,7 +769,7 @@ SpeciesTypeInstance_getSpeciesType(SpeciesTypeInstance_t * sti);
  * @return the value of the "compartmentReference" attribute of this
  * SpeciesTypeInstance_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeInstance_t
  */

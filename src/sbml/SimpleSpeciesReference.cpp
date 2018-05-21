@@ -148,7 +148,7 @@ SimpleSpeciesReference::getSpecies () const
 
 
 /*
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -159,7 +159,7 @@ SimpleSpeciesReference::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -171,7 +171,7 @@ SimpleSpeciesReference::isSetName () const
 
 
 /*
- * @return true if the species for this SimpleSpeciesReference is 
+ * @return @c true if the species for this SimpleSpeciesReference is 
  * set, false otherwise.
  */
 bool
@@ -349,7 +349,7 @@ SimpleSpeciesReference::unsetSpecies ()
   }
 }
 /*
- * @return true if this SpeciesReference is a ModiferSpeciesReference,
+ * @return @c true if this SpeciesReference is a ModiferSpeciesReference,
  * false otherwise.
  */
 bool

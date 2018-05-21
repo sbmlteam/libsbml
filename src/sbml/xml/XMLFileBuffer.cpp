@@ -135,7 +135,7 @@ XMLFileBuffer::copyTo (void* destination, unsigned int bytes)
 
 
 /*
- * @return true if there was an error reading from the underlying buffer,
+ * @return @c true if there was an error reading from the underlying buffer,
  * false otherwise.
  */
 bool

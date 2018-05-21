@@ -45,7 +45,7 @@ using std::vector;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
- * @return true if UnitKind is already in this UnitKindList, false otherwise.
+ * @return @c true if UnitKind is already in this UnitKindList, false otherwise.
  */
 bool
 UnitKindList::contains (const std::string UnitKind) const

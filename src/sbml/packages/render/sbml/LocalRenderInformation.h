@@ -485,7 +485,7 @@ public:
    *
    * @return a pointer to the nth LocalStyle in this LocalRenderInformation.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLocalStyle(const LocalStyle* object)
    * @see createLocalStyle()
@@ -506,7 +506,7 @@ public:
   *
   * @return a pointer to the nth LocalStyle in this LocalRenderInformation.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addStyle(const LocalStyle* object)
   * @see createLocalStyle()
@@ -528,7 +528,7 @@ public:
   * @return the LocalStyle in this LocalRenderInformation based on the
   * identifier or NULL if no such LocalStyle exists.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addLocalStyle(const LocalStyle* object)
   * @see createLocalStyle()
@@ -550,7 +550,7 @@ public:
   * @return the LocalStyle in this LocalRenderInformation based on the
   * identifier or NULL if no such LocalStyle exists.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addStyle(const LocalStyle* object)
   * @see createLocalStyle()
@@ -891,7 +891,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LocalRenderInformation_t
  */
@@ -909,7 +909,7 @@ LocalRenderInformation_create(unsigned int level,
  *
  * @return a (deep) copy of this LocalRenderInformation_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LocalRenderInformation_t
  */
@@ -1047,7 +1047,7 @@ LocalRenderInformation_createLocalStyle(LocalRenderInformation_t* lri);
  *
  * @return a pointer to the nth LocalStyle_t in this LocalRenderInformation_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LocalRenderInformation_t
  */

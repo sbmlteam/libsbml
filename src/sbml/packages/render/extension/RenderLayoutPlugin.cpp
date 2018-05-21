@@ -238,7 +238,7 @@ RenderLayoutPlugin::syncAnnotation (SBase *parentObject, XMLNode *pAnnotation)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 RenderLayoutPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
@@ -511,7 +511,7 @@ RenderLayoutPlugin::accept (SBMLVisitor& v) const
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 RenderLayoutPlugin::readOtherXML (XMLInputStream& stream)

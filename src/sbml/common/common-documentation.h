@@ -272,44 +272,49 @@
  *   idChar ::= letter | digit | '_'
  *   SId    ::= ( letter | '_' ) idChar*
  * </pre>
- * The characters <code>(</code> and <code>)</code> are used for grouping, the
- * character <code>*</code> "zero or more times", and the character
- * <code>|</code> indicates logical "or".  The equality of SBML identifiers is
- * determined by an exact character sequence match; i.e., comparisons must be
- * performed in a case-sensitive manner.  This applies to all uses of <code>SId</code>, 
- * <code>SIdRef</code>, and derived types.
+ * The characters <code>(</code> and <code>)</code> are used for grouping,
+ * the character <code>*</code> "zero or more times", and the character
+ * <code>|</code> indicates logical "or".  The equality of SBML identifiers
+ * is determined by an exact character sequence match; i.e., comparisons must
+ * be performed in a case-sensitive manner.  This applies to all uses of
+ * <code>SId</code>, <code>SIdRef</code>, and derived types.
  *
- * In SBML Level&nbsp;3 Version&nbsp;2, the "id" and "name" attributes were
- * moved to SBase directly, instead of being defined individually for many
- * (but not all) objects.  Libsbml has for a long time provided functions
- * defined on SBase itself to get, set, check, and unset those attributes, which 
- * would fail or otherwise return empty strings if executed on any object 
- * for which those attributes were not defined.  Now that all SBase objects 
- * define those attributes, those functions now succeed for any object with 
- * the appropriate level and version.
+ * Users need to be aware of some important API issues that are the result of
+ * the history of SBML and libSBML.  Prior to SBML Level&nbsp;3
+ * Version&nbsp;2, SBML defined "id" and "name" attributes on only a subset
+ * of SBML objects.  To simplify the work of programmers, libSBML's API
+ * provided get, set, check, and unset on the SBase object class itself
+ * instead of on individual subobject classes. This made the
+ * get/set/etc. methods uniformly available on all objects in the libSBML
+ * API.  LibSBML simply returned empty strings or otherwise did not act when
+ * the methods were applied to SBML objects that were not defined by the SBML
+ * specification to have "id" or "name" attributes.  Additional complications
+ * arose with the rule and assignment objects: InitialAssignment,
+ * EventAssignment, AssignmentRule, and RateRule.  In early versions of SBML,
+ * the rule object hierarchy was different, and in addition, then as now,
+ * they possess different attributes: "variable" (for the rules and event
+ * assignments), "symbol" (for initial assignments), or neither (for
+ * algebraic rules).  Prior to SBML Level&nbsp;3 Version&nbsp;2, getId()
+ * would always return an empty string, and isSetId() would always return @c
+ * false for objects of these classes.
  *
- * The exception to this rule is that for InitialAssignment, EventAssignment, 
- * AssignmentRule, and RateRule objects, the getId() function and the isSetId() 
- * functions (though not the setId() or unsetId() functions) would instead 
- * reference the value of the "variable" attribute (for the rules and event 
- * assignments) or the "symbol" attribute (for initial assignments).  
- * The AlgebraicRule fell into this category as well, though because it 
- * contained neither a "variable" nor a "symbol" attribute, getId() would 
- * always return an empty string, and isSetId() would always return @c false.
- * For this reason, four new functions are now provided 
- * (getIdAttribute(), setIdAttribute(@if java String@endif), 
- * isSetIdAttribute(), and unsetIdAttribute()) that will always
- * act on the actual "id" attribute, regardless of the object's type.  The
- * new functions should be used instead of the old ones unless the old behavior
- * is somehow necessary.
- * 
- * Regardless of the level and version of the SBML, these functions allow
- * client applications to use more generalized code in some situations 
- * (for instance, when manipulating objects that are all known to have 
- * identifiers).  If the object in question does not posess an "id" attribute 
- * according to the SBML specification for the Level and Version in use,
- * libSBML will not allow the identifier to be set, nor will it read or 
- * write "id" attributes for those objects.
+ * With the addition of "id" and "name" attributes on SBase in Level&nbsp;3
+ * Version&nbsp;2, it became necessary to introduce a new way to interact
+ * with the attributes more consistently in libSBML to avoid breaking
+ * backward compatibility in the behavior of the original "id" methods.  For
+ * this reason, libSBML provides four functions (getIdAttribute(),
+ * setIdAttribute(@if java String@endif), isSetIdAttribute(), and
+ * unsetIdAttribute()) that always act on the actual "id" attribute inherited
+ * from SBase, regardless of the object's type.  <strong>These new methods
+ * should be used instead of the older getId()/setId()/etc. methods</strong>
+ * unless the old behavior is somehow necessary.  Regardless of the Level and
+ * Version of the SBML, these functions allow client applications to use more
+ * generalized code in some situations (for instance, when manipulating
+ * objects that are all known to have identifiers).  If the object in
+ * question does not posess an "id" attribute according to the SBML
+ * specification for the Level and Version in use, libSBML will not allow the
+ * identifier to be set, nor will it read or write "id" attributes for those
+ * objects.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_name_attribute
@@ -317,7 +322,7 @@
  * @par
  * In SBML Level&nbsp;3 Version&nbsp;2, the "id" and "name" attributes were
  * moved to SBase directly, instead of being defined individually for many
- * (but not all) objects.  Libsbml has for a long time provided functions
+ * (but not all) objects.  LibSBML has for a long time provided functions
  * defined on SBase itself to get, set, and unset those attributes, which 
  * would fail or otherwise return empty strings if executed on any object 
  * for which those attributes were not defined.  Now that all SBase objects 
@@ -517,13 +522,18 @@
  * @endif</code>
  * method on the object.
  *
+ * The exception to this is lists:  all SBML-style list elements have the type 
+ * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}, regardless of what package they 
+ * are from.
+ *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_typecodes_not_unique
  *
  * @warning <span class="warning">The specific integer values of the possible
  * type codes may be reused by different libSBML plug-ins for SBML Level&nbsp;3.
  * packages,  To fully identify the correct code, <strong>it is necessary to
- * invoke both getTypeCode() and getPackageName()</strong>.</span>
+ * invoke both getPackageName() and getTypeCode()</strong> (or 
+ * ListOf::getItemTypeCode()).</span>
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_deprecated_constructor
@@ -3704,7 +3714,7 @@ if (lmp != null)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_returned_unowned_pointer
  *
- * @par
+ * @note
  * The pointer that is returned by this function is not owned by the caller,
  * but may be queried and modified.  Any changes made will be reflected in any
  * resulting SBML document containing the pointer's parent.
@@ -3712,36 +3722,36 @@ if (lmp != null)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_returned_unowned_char
  *
- * @par
+ * @note
  * The string returned by this function is a pointer to a string literal
- * defined in the libsbml library, and may not be modified or deleted.
+ * defined in the libSBML library, and may not be modified or deleted.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_returned_owned_pointer
+ * @class doc_warning_returns_owned_pointer
  *
- * @par
- * The pointer that is returned by this function is owned by the caller,
- * who is responsible for deleting it.  Any changes made to the element
- * will not be reflected in any resulting SBML document unless the element
- * is added to an SBML Document.  Even in this case, the element's deletion is
- * still the responsibility of the caller with two exceptions: if it is used
- * as the "disownedItem" in the @if conly ListOf_appendAndOwn() or 
+ * @warning
+ * <span class="warning">The pointer that is returned by this function is owned
+ * by the caller, who is responsible for deleting it.  Any changes made to the
+ * element will not be reflected in any resulting SBML document unless the
+ * element is added to an SBML Document.  Even in this case, the element's
+ * deletion is still the responsibility of the caller with two exceptions: if
+ * it is used as the "disownedItem" in the @if conly ListOf_appendAndOwn() or
  * ListOf_insertAndOwn() @elseif java
- * ListOf::appendAndOwn(SBase) or ListOf::insertAndOwn(int, SBase) @else 
+ * ListOf::appendAndOwn(SBase) or ListOf::insertAndOwn(int, SBase) @else
  * ListOf::appendAndOwn() or ListOf::insertAndOwn() @endif
- * functions.  All other functions in libsbml add a copy of the element, 
- * and do not transfer ownership of the pointer.
+ * functions.  All other functions in libsbml add a copy of the element,
+ * and do not transfer ownership of the pointer.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class doc_returned_owned_char
+ * @class doc_warning_returns_owned_char
  *
- * @par
- * The string returned by this function is owned by the caller,
- * who is responsible for deleting it.  Any changes made to the string will
- * not be reflected in any resulting SBML document unless the string
+ * @warning
+ * <span class="warning">The string returned by this function is owned by the
+ * caller, who is responsible for deleting it.  Any changes made to the string
+ * will not be reflected in any resulting SBML document unless the string
  * is added to an SBML Document.  Even in this case, the string should be
  * deleted, as adding a string to an SBML Document adds a copy of the string,
- * and does not transfer ownership of that string.
+ * and does not transfer ownership of that string.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_use_param_in_l2

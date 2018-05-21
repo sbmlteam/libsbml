@@ -133,7 +133,7 @@ IdList::empty() const
 
 
 /**
- * @return true if id is already in this IdList, false otherwise.
+ * @return @c true if id is already in this IdList, false otherwise.
  */
 bool
 IdList::contains (const std::string& id) const

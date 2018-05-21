@@ -260,7 +260,7 @@ FluxBound::getReaction () const
 
 
 /*
- * @return true if the reaction of this SBML object has been set, false
+ * @return @c true if the reaction of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -348,7 +348,7 @@ FluxBound::getFluxBoundOperation () const
 
 
 /*
- * @return true if the operation of this SBML object has been set, false
+ * @return @c true if the operation of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -391,7 +391,7 @@ FluxBound::getValue () const
 
 
 /*
- * @return true if the value of this SBML object has been set, false
+ * @return @c true if the value of this SBML object has been set, false
  * otherwise.
  */
 bool

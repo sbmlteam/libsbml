@@ -174,7 +174,7 @@ InitialAssignment::getMath () const
 
 
 /*
- * @return true if the symbol of this InitialAssignment is set,
+ * @return @c true if the symbol of this InitialAssignment is set,
  * false otherwise.
  */
 bool
@@ -185,7 +185,7 @@ InitialAssignment::isSetSymbol () const
 
 
 /*
- * @return true if the math for this InitialAssignment is set,
+ * @return @c true if the math for this InitialAssignment is set,
  * false otherwise.
  */
 bool
@@ -838,7 +838,7 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 InitialAssignment::readOtherXML (XMLInputStream& stream)

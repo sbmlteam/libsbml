@@ -198,7 +198,7 @@ Constraint::getMath () const
 
 
 /*
- * @return true if the message of this Constraint is set,
+ * @return @c true if the message of this Constraint is set,
  * false otherwise.
  */
 bool
@@ -209,7 +209,7 @@ Constraint::isSetMessage () const
 
 
 /*
- * @return true if the math for this Constraint is set,
+ * @return @c true if the math for this Constraint is set,
  * false otherwise.
  */
 bool
@@ -745,7 +745,7 @@ Constraint::setInternalId(std::string id)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 Constraint::readOtherXML (XMLInputStream& stream)

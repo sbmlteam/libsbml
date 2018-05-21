@@ -168,7 +168,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see getNumGradientBases()
    * @see remove(const std::string& sid)
@@ -189,7 +190,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see getNumGradientBases()
    * @see remove(const std::string& sid)
@@ -211,7 +213,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(unsigned int n)
    * @see getNumGradientBases()
    * @see remove(const std::string& sid)
@@ -233,7 +236,8 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(unsigned int n)
    * @see getNumGradientBases()
    * @see remove(const std::string& sid)
@@ -252,10 +256,11 @@ public:
    * @return a pointer to the nth GradientBase in this
    * ListOfGradientDefinitions.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumGradientBases()
@@ -274,10 +279,11 @@ public:
    * @return the GradientBase in this ListOfGradientDefinitions based on the
    * identifier or NULL if no such GradientBase exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumGradientBases()
@@ -302,7 +308,8 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumGradientBases()
@@ -320,7 +327,8 @@ public:
    *
    *
    * @see addGradientBase(const GradientBase* object)
-   * @see createGradientBase()
+   * @see createLinearGradient() 
+   * @see createRadialGradient
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see remove(const std::string& sid)
@@ -540,7 +548,7 @@ ListOfGradientDefinitions_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth GradientBase_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGradientDefinitions_t
  */
@@ -561,7 +569,7 @@ ListOfGradientDefinitions_remove(ListOf_t* lo, unsigned int n);
  * @return the GradientBase_t in this ListOf_t based on the identifier or NULL
  * if no such GradientBase_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGradientDefinitions_t
  */

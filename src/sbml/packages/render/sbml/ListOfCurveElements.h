@@ -34,8 +34,9 @@
  * @class ListOfCurveElements
  * @sbmlbrief{render} A list of curve elements.
  *
- * The ListOfCurveElements is a container class to store the curve elements
- * of RenderCurve objects and Polygon objects.
+ * The ListOfCurveElements is libSBML's implementation of what is called
+ * %ListOfElements in the SBML Render specification.  It provides an
+ * alternative way of specifying curves and polygons.
  *
  * @copydetails doc_what_is_listof
  *
@@ -79,6 +80,9 @@ public:
    * Creates a new ListOfCurveElements using the given SBML Level, Version and
    * &ldquo;render&rdquo; package version.
    *
+   * The ListOfCurveElements is libSBML's implementation of what is called
+   * %ListOfElements in the SBML Render specification.
+   *
    * @param level an unsigned int, the SBML Level to assign to this
    * ListOfCurveElements.
    *
@@ -101,6 +105,9 @@ public:
    * Creates a new ListOfCurveElements using the given RenderPkgNamespaces
    * object.
    *
+   * The ListOfCurveElements is libSBML's implementation of what is called
+   * %ListOfElements in the SBML Render specification.
+   *
    * @copydetails doc_what_are_sbml_package_namespaces
    *
    * @param renderns the RenderPkgNamespaces object.
@@ -112,10 +119,11 @@ public:
 
   /**
    * Creates a new ListOfCurveElements object from the given XMLNode object.
-   * The XMLNode object has to contain a valid XML representation of a 
-   * ListOfCurveElements object as defined in the render extension specification.
-   * This method is normally called when render information is read from a file and 
-   * should normally not have to be called explicitly.
+   *
+   * This method is normally called when Render information is read from a
+   * file and should normally not have to be called explicitly.  The XMLNode
+   * object @p node must contain a valid XML representation of a
+   * ListOfElements object as defined in the Render package specification.
    *
    * @param node the XMLNode object reference that describes the ListOfCurveElements
    * object to be instantiated.
@@ -123,6 +131,7 @@ public:
    * @param l2version The version of SBML Level&nbsp;2.
    */
   ListOfCurveElements(const XMLNode& node, unsigned int l2version=4);
+
 
   /**
    * Copy constructor for ListOfCurveElements.
@@ -248,7 +257,7 @@ public:
    *
    * @return a pointer to the nth RenderPoint in this ListOfCurveElements.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
    * @see createRenderPoint()
@@ -270,7 +279,7 @@ public:
    * @return the RenderPoint in this ListOfCurveElements based on the
    * identifier or NULL if no such RenderPoint exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
    * @see createRenderPoint()
@@ -390,8 +399,6 @@ public:
    */
   virtual bool isValidTypeForList(SBase* item);
 
-  /** @endcond */
-
 
   /**
    * Creates an XMLNode object from this ListOfCurveElements object.
@@ -505,7 +512,7 @@ ListOfCurveElements_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth RenderPoint_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfCurveElements_t
  */
@@ -526,7 +533,7 @@ ListOfCurveElements_remove(ListOf_t* lo, unsigned int n);
  * @return the RenderPoint_t in this ListOf_t based on the identifier or NULL
  * if no such RenderPoint_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfCurveElements_t
  */

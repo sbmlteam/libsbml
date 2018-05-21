@@ -691,7 +691,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof InSpeciesTypeBond_t
  */
@@ -720,7 +720,7 @@ InSpeciesTypeBond_free(InSpeciesTypeBond_t * istb);
  *
  * @return a (deep) copy of this InSpeciesTypeBond_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof InSpeciesTypeBond_t
  */
@@ -737,7 +737,7 @@ InSpeciesTypeBond_clone(InSpeciesTypeBond_t * istb);
  * @return the value of the "id" attribute of this InSpeciesTypeBond_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof InSpeciesTypeBond_t
  */
@@ -754,7 +754,7 @@ InSpeciesTypeBond_getId(const InSpeciesTypeBond_t * istb);
  * @return the value of the "name" attribute of this InSpeciesTypeBond_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof InSpeciesTypeBond_t
  */
@@ -772,7 +772,7 @@ InSpeciesTypeBond_getName(const InSpeciesTypeBond_t * istb);
  * @return the value of the "bindingSite1" attribute of this
  * InSpeciesTypeBond_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof InSpeciesTypeBond_t
  */
@@ -790,7 +790,7 @@ InSpeciesTypeBond_getBindingSite1(const InSpeciesTypeBond_t * istb);
  * @return the value of the "bindingSite2" attribute of this
  * InSpeciesTypeBond_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof InSpeciesTypeBond_t
  */

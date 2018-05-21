@@ -776,7 +776,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureType_t
  */
@@ -805,7 +805,7 @@ SpeciesFeatureType_free(SpeciesFeatureType_t * sft);
  *
  * @return a (deep) copy of this SpeciesFeatureType_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureType_t
  */
@@ -822,7 +822,7 @@ SpeciesFeatureType_clone(SpeciesFeatureType_t * sft);
  * @return the value of the "id" attribute of this SpeciesFeatureType_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeatureType_t
  */
@@ -839,7 +839,7 @@ SpeciesFeatureType_getId(const SpeciesFeatureType_t * sft);
  * @return the value of the "name" attribute of this SpeciesFeatureType_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeatureType_t
  */
@@ -1166,7 +1166,7 @@ SpeciesFeatureType_getNumPossibleSpeciesFeatureValues(SpeciesFeatureType_t * sft
  * @return a pointer to the nth PossibleSpeciesFeatureValue_t in this
  * SpeciesFeatureType_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureType_t
  */
@@ -1187,7 +1187,7 @@ SpeciesFeatureType_removePossibleSpeciesFeatureValue(SpeciesFeatureType_t * sft,
  * @return the PossibleSpeciesFeatureValue_t in this SpeciesFeatureType_t based
  * on the identifier or NULL if no such PossibleSpeciesFeatureValue_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureType_t
  */

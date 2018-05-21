@@ -302,7 +302,7 @@ public:
    *
    * @return a pointer to the nth Group in this GroupsModelPlugin.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGroup(const Group* object)
    * @see createGroup()
@@ -323,7 +323,7 @@ public:
    * @return the Group in this GroupsModelPlugin based on the identifier or
    * NULL if no such Group exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGroup(const Group* object)
    * @see createGroup()
@@ -966,7 +966,7 @@ GroupsModelPlugin_createGroup(GroupsModelPlugin_t* gmp);
  *
  * @return a pointer to the nth Group_t in this GroupsModelPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GroupsModelPlugin_t
  */
@@ -986,7 +986,7 @@ GroupsModelPlugin_removeGroup(GroupsModelPlugin_t* gmp, unsigned int n);
  * @return the Group_t in this GroupsModelPlugin_t based on the identifier or
  * NULL if no such Group_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GroupsModelPlugin_t
  */

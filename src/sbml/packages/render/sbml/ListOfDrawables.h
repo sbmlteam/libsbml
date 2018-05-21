@@ -160,7 +160,14 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see getNumTransformation2Ds()
    * @see remove(const std::string& sid)
@@ -181,7 +188,14 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see getNumTransformation2Ds()
    * @see remove(const std::string& sid)
@@ -202,7 +216,14 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
    * @see remove(const std::string& sid)
@@ -223,7 +244,14 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
    * @see remove(const std::string& sid)
@@ -241,10 +269,17 @@ public:
    *
    * @return a pointer to the nth Transformation2D in this ListOfDrawables.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -263,10 +298,17 @@ public:
    * @return the Transformation2D in this ListOfDrawables based on the
    * identifier or NULL if no such Transformation2D exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve()
+   * @see createEllipse()
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -291,7 +333,14 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle()
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -308,7 +357,14 @@ public:
    *
    *
    * @see addTransformation2D(const Transformation2D* object)
-   * @see createTransformation2D()
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle()
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see remove(const std::string& sid)
@@ -326,6 +382,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -344,6 +407,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -362,6 +432,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -380,6 +457,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -398,6 +482,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -416,6 +507,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -434,6 +532,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createCurve() 
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -452,6 +557,13 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addTransformation2D(const Transformation2D* object)
+   * @see createEllipse() 
+   * @see createGroup() 
+   * @see createImage() 
+   * @see createLineEnding() 
+   * @see createPolygon() 
+   * @see createRectangle() 
+   * @see createText()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumTransformation2Ds()
@@ -626,7 +738,7 @@ ListOfDrawables_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Transformation2D_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfDrawables_t
  */
@@ -647,7 +759,7 @@ ListOfDrawables_remove(ListOf_t* lo, unsigned int n);
  * @return the Transformation2D_t in this ListOf_t based on the identifier or
  * NULL if no such Transformation2D_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfDrawables_t
  */

@@ -1092,7 +1092,7 @@ XMLToken::getURI () const
 
 
 /*
- * @return true if this XMLToken is an XML element.
+ * @return @c true if this XMLToken is an XML element.
  */
 bool
 XMLToken::isElement () const
@@ -1102,7 +1102,7 @@ XMLToken::isElement () const
 
  
 /*
- * @return true if this XMLToken is an XML end element, false
+ * @return @c true if this XMLToken is an XML end element, false
  * otherwise.
  */
 bool
@@ -1113,7 +1113,7 @@ XMLToken::isEnd () const
 
 
 /*
- * @return true if this XMLToken is an XML end element for the given XML
+ * @return @c true if this XMLToken is an XML end element for the given XML
  * start element, false otherwise.
  */
 bool
@@ -1129,7 +1129,7 @@ XMLToken::isEndFor (const XMLToken& element) const
 
 
 /*
- * @return true if this XMLToken is an end of file (input) marker, false
+ * @return @c true if this XMLToken is an end of file (input) marker, false
  * otherwise.
  */
 bool
@@ -1140,7 +1140,7 @@ XMLToken::isEOF () const
 
 
 /*
- * @return true if this XMLToken is an XML start element, false
+ * @return @c true if this XMLToken is an XML start element, false
  * otherwise.
  */
 bool
@@ -1151,7 +1151,7 @@ XMLToken::isStart () const
 
 
 /*
- * @return true if this XMLToken is text, false otherwise.
+ * @return @c true if this XMLToken is text, false otherwise.
  */
 bool
 XMLToken::isText () const

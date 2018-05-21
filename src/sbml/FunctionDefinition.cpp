@@ -177,7 +177,7 @@ FunctionDefinition::getMath () const
 
 
 /*
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -188,7 +188,7 @@ FunctionDefinition::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -200,7 +200,7 @@ FunctionDefinition::isSetName () const
 
 
 /*
- * @return true if the math of this FunctionDefinition is set, false
+ * @return @c true if the math of this FunctionDefinition is set, false
  * otherwise.
  */
 bool
@@ -879,7 +879,7 @@ FunctionDefinition::unsetAttribute(const std::string& attributeName)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 FunctionDefinition::readOtherXML (XMLInputStream& stream)

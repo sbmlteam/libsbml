@@ -276,11 +276,11 @@ public:
 
 
   /**
-   * Returns true is the dash array has been set or false otherwise.
+   * Returns @c true if the dash array has been set or @c false otherwise.
    * The array is considered set if it is not empty and if the first entry is
-   * not NaN.
+   * not @c NaN.
    *
-   * @return @c true if the dasharray is set, @c false otherwise.
+   * @return @c true if the stroke-dasharray is set, @c false otherwise.
    */
   bool isSetDashArray() const;
   
@@ -344,60 +344,91 @@ public:
   
   
   /**
-   * Sets the dasharray to the values in the given array.
+   * Sets the 'stroke-dasharray' attribute to have the values 
+   * in the given array.
    *
    * @param array Array of alternating stroke and gap length values.
    */
   void setDashArray(const std::vector<unsigned int>& array);
   
   /**
-   * Sets the dasharray from the given string.
-   * If the string is not a valid dasharray string, false
+   * Sets the 'stroke-dasharray' attribute from the given string.
+   * If the string is not a valid dasharray string, @c false
    * is returned and the dasharray remains in the state is was
    * before the call.
    *
-   * The individual numerical values in the string have to be separated by kommas.
+   * The individual numerical values in the string have to be separated by commas.
    *
    * @param arrayString a string with number representing a dash array.
    *
-   * @return true is setting the dasharray from the string succeed or false otherwise.
+   * @return @c true if setting 'stroke-dasharray' from the string succeeds or @c false otherwise.
    */
   bool setDashArray(const std::string& arrayString);
   
   
   /** 
-   * Returns the number of defined dashes.
+   * Returns the number of defined dashes in the 'stroke-dasharray' attribute.
+   *
+   * @return the number of dashes in the 'stroke-dasharray' attribute.
    */
   unsigned int getNumDashes() const;
 
   /**
-   * Returns the dash at the given index. 
+   * Returns the dash at the given index of the 'stroke-dasharray' attribute. 
+   *
+   * @param index the index of the dash length to return from the 
+   * 'stroke-dasharray' attribute.
+   *
+   * @return the value of the dash length from the 'stroke-dasharray'
+   * attribute at the given index, or -1 (cast to an unsigned int)
+   * if no such index exists.
    */
   unsigned int getDashByIndex(unsigned int index) const;
   
   /**
-   * Adds a dash at the end of the current list
-   */
+  * Adds a new length of a dash to the 'stroke-dasharray' attribute.
+  *
+  * @param dash the integer length of the dash to add to the end
+  * of the 'stroke-dasharray' attribute.
+  */
   void addDash(unsigned int dash);
 
   /**
-   * Clears all defined dashes.
-   */
+  * Unsets the value of the "stroke-dasharray" attribute of this
+  * GraphicalPrimitive1D.
+  */
   void clearDashes();
 
   /** 
-   * Sets the dash at the given position.
+   * Sets the integer value of the dash at the given position.
+   *
+   * @param index the index of the dash length to replace in the 
+   * 'stroke-dasharray' attribute.  The function will fail silently 
+   * if no such index exists.
+   *
+   * @param dash the integer length to set the indexed dash to.
    */
   void setDashByIndex(unsigned int index, unsigned int dash);
 
   /** 
-   * Inserts the dash at the given position.
+   * Inserts the given integer value for the dash length at the 
+   * given position.
+   *
+   * @param index the index of the dash length at which the new dash is
+   * to be inserted in the 'stroke-dasharray' attribute.  The function
+   * will fail silently if no such index exists.
+   *
+   * @param dash the integer length to set the inserted dash to.
    */
   void insertDash(unsigned int index, unsigned int dash);
 
 
   /**
-   * Removes the dash at the given index
+   * Removes the dash length at the given index.
+   *
+   * @param index the index of the dash length to remove from the
+   * 'stroke-dasharray' attribute.
+   * The function will fail silently if no such index exists.
    */
   void removeDash(unsigned int index);
 
@@ -444,70 +475,70 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type Ellipse
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * @return @c true if this abstract GraphicalPrimitive1D is of type
    * Ellipse, @c false otherwise
    */
   virtual bool isEllipse() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type Rectangle
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * @return @c true if this abstract GraphicalPrimitive1D is of type
    * Rectangle, @c false otherwise
    */
   virtual bool isRectangle() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type Polygon
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * @return @c true if this abstract GraphicalPrimitive1D is of type
    * Polygon, @c false otherwise
    */
   virtual bool isPolygon() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type RenderGroup
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * @return @c true if this abstract GraphicalPrimitive1D is of type
    * RenderGroup, @c false otherwise
    */
   virtual bool isRenderGroup() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type LineEnding
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type
+   * @return @c true if this abstract GraphicalPrimitive1D is of type
    * LineEnding, @c false otherwise
    */
   virtual bool isLineEnding() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
    * type Text
    *
-   * @return @c true if this abstract "GraphicalPrimitive1D" is of type Text,
+   * @return @c true if this abstract GraphicalPrimitive1D is of type Text,
    * @c false otherwise
    */
   virtual bool isText() const;
 
 
   /**
-  * Predicate returning @c true if this abstract "GraphicalPrimitive1D" is of
+  * Predicate returning @c true if this abstract GraphicalPrimitive1D is of
   * type RenderCurve
   *
-  * @return @c true if this abstract "GraphicalPrimitive1D" is of type Text,
+  * @return @c true if this abstract GraphicalPrimitive1D is of type Text,
   * @c false otherwise
   */
   virtual bool isRenderCurve() const;
@@ -953,7 +984,7 @@ BEGIN_C_DECLS
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -979,7 +1010,7 @@ GraphicalPrimitive1D_createEllipse(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1005,7 +1036,7 @@ GraphicalPrimitive1D_createRectangle(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1031,7 +1062,7 @@ GraphicalPrimitive1D_createPolygon(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1057,7 +1088,7 @@ GraphicalPrimitive1D_createRenderGroup(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1083,7 +1114,7 @@ GraphicalPrimitive1D_createLineEnding(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1109,7 +1140,7 @@ GraphicalPrimitive1D_createText(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive1D_t
 */
@@ -1127,7 +1158,7 @@ GraphicalPrimitive1D_createRenderCurve(unsigned int level,
  *
  * @return a (deep) copy of this GraphicalPrimitive1D_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GraphicalPrimitive1D_t
  */
@@ -1156,7 +1187,7 @@ GraphicalPrimitive1D_free(GraphicalPrimitive1D_t* gpd);
  * @return the value of the "id" attribute of this GraphicalPrimitive1D_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GraphicalPrimitive1D_t
  */
@@ -1173,7 +1204,7 @@ GraphicalPrimitive1D_getId(const GraphicalPrimitive1D_t * gpd);
  * @return the value of the "stroke" attribute of this GraphicalPrimitive1D_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GraphicalPrimitive1D_t
  */

@@ -105,8 +105,8 @@ public:
    * Subclasses should override this function if they have their specific
    * elements.
    *
-   * @return true if this pugin object has all the required elements,
-   * otherwise false will be returned.
+   * @return @c true if this pugin object has all the required elements,
+   * otherwise @c false will be returned.
    */
   virtual bool hasRequiredElements() const ;
   /** @endcond */
@@ -396,7 +396,7 @@ protected:
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass read from the stream, @c false otherwise.
    */
   virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
   /** @endcond */

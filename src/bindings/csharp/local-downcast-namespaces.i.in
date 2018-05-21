@@ -15,3 +15,6 @@
 #ifdef USE_MULTI
 %include "local-downcast-namespaces-multi.i"
 #endif
+#ifdef USE_RENDER
+%include "local-downcast-namespaces-render.i"
+#endif

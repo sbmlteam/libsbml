@@ -475,7 +475,7 @@ XMLAttributes::hasAttribute (const XMLTriple& triple) const
 
 
 /*
- * @return true if this XMLAttributes set is empty, false otherwise.
+ * @return @c true if this XMLAttributes set is empty, false otherwise.
  */
 bool
 XMLAttributes::isEmpty () const

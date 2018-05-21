@@ -250,7 +250,7 @@ Parameter::getUnits () const
 
 
 /*
- * @return true if this Parameter is constant, false otherwise.
+ * @return @c true if this Parameter is constant, false otherwise.
  */
 bool
 Parameter::getConstant () const
@@ -260,7 +260,7 @@ Parameter::getConstant () const
 
 
 /*
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -271,7 +271,7 @@ Parameter::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -283,7 +283,7 @@ Parameter::isSetName () const
 
 
 /*
- * @return true if the value of this Parameter is set, false
+ * @return @c true if the value of this Parameter is set, false
  * otherwise.
  *
  * In SBML L1v1, a Parameter value is required and therefore <b>should
@@ -298,7 +298,7 @@ Parameter::isSetValue () const
 
 
 /*
- * @return true if the units of this Parameter is set, false
+ * @return @c true if the units of this Parameter is set, false
  * otherwise.
  */
 bool
@@ -309,7 +309,7 @@ Parameter::isSetUnits () const
 
 
 /*
- * @return true if the constant of this Parameter is set, false
+ * @return @c true if the constant of this Parameter is set, false
  * otherwise.
  */
 bool

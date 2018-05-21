@@ -282,7 +282,7 @@ ListOfDeletions_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Deletion_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfDeletions_t
  */
@@ -302,7 +302,7 @@ ListOfDeletions_remove(ListOf_t* lo, unsigned int n);
  * @return the Deletion_t in this ListOf_t based on the identifier or NULL if
  * no such Deletion_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfDeletions_t
  */

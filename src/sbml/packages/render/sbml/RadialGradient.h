@@ -799,7 +799,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RadialGradient_t
  */
@@ -817,7 +817,7 @@ RadialGradient_create(unsigned int level,
  *
  * @return a (deep) copy of this RadialGradient_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RadialGradient_t
  */
@@ -1060,7 +1060,7 @@ RadialGradient_isSetFz(const RadialGradient_t * rg);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param cx RelAbsVector_t* value of the "cx" element to be set.
+ * @param cx RelAbsVector_t value of the "cx" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1079,7 +1079,7 @@ RadialGradient_setCx(RadialGradient_t * rg, const RelAbsVector_t* cx);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param cy RelAbsVector_t* value of the "cy" element to be set.
+ * @param cy RelAbsVector_t value of the "cy" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1098,7 +1098,7 @@ RadialGradient_setCy(RadialGradient_t * rg, const RelAbsVector_t* cy);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param cz RelAbsVector_t* value of the "cz" element to be set.
+ * @param cz RelAbsVector_t value of the "cz" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1117,7 +1117,7 @@ RadialGradient_setCz(RadialGradient_t * rg, const RelAbsVector_t* cz);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param r RelAbsVector_t* value of the "r" element to be set.
+ * @param r RelAbsVector_t value of the "r" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1136,7 +1136,7 @@ RadialGradient_setR(RadialGradient_t * rg, const RelAbsVector_t* r);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param fx RelAbsVector_t* value of the "fx" element to be set.
+ * @param fx RelAbsVector_t value of the "fx" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1155,7 +1155,7 @@ RadialGradient_setFx(RadialGradient_t * rg, const RelAbsVector_t* fx);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param fy RelAbsVector_t* value of the "fy" element to be set.
+ * @param fy RelAbsVector_t value of the "fy" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1174,7 +1174,7 @@ RadialGradient_setFy(RadialGradient_t * rg, const RelAbsVector_t* fy);
  *
  * @param rg the RadialGradient_t structure.
  *
- * @param fz RelAbsVector_t* value of the "fz" element to be set.
+ * @param fz RelAbsVector_t value of the "fz" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

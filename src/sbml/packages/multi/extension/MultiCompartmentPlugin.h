@@ -633,7 +633,7 @@ MultiCompartmentPlugin_createCompartmentReference(MultiCompartmentPlugin_t*
  * @return a pointer to the nth CompartmentReference_t in this
  * MultiCompartmentPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiCompartmentPlugin_t
  */
@@ -657,7 +657,7 @@ MultiCompartmentPlugin_removeCompartmentReference(
  * @return the CompartmentReference_t in this MultiCompartmentPlugin_t based on
  * the identifier or NULL if no such CompartmentReference_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiCompartmentPlugin_t
  */
@@ -679,7 +679,7 @@ MultiCompartmentPlugin_removeCompartmentReferenceById(
  * @return the value of the "compartmentType" attribute of this
  * MultiCompartmentPlugin_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiCompartmentPlugin_t
  */

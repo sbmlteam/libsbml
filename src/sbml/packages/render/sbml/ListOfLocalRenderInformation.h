@@ -349,7 +349,7 @@ public:
    * ListOfLocalRenderInformation.
    *
    * @return the value of the "defaultValues" element of this
-   * ListOfLocalRenderInformation as a DefaultValues*.
+   * ListOfLocalRenderInformation as a DefaultValues.
    */
   const DefaultValues* getDefaultValues() const;
 
@@ -359,7 +359,7 @@ public:
    * ListOfLocalRenderInformation.
    *
    * @return the value of the "defaultValues" element of this
-   * ListOfLocalRenderInformation as a DefaultValues*.
+   * ListOfLocalRenderInformation as a DefaultValues.
    */
   DefaultValues* getDefaultValues();
 
@@ -378,7 +378,7 @@ public:
    * Sets the value of the "defaultValues" element of this
    * ListOfLocalRenderInformation.
    *
-   * @param defaultValues DefaultValues* value of the "defaultValues" element
+   * @param defaultValues DefaultValues value of the "defaultValues" element
    * to be set.
    *
    * @copydetails doc_returns_success_code
@@ -508,7 +508,7 @@ public:
    * @return a pointer to the nth LocalRenderInformation in this
    * ListOfLocalRenderInformation.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLocalRenderInformation(const LocalRenderInformation* object)
    * @see createLocalRenderInformation()
@@ -530,7 +530,7 @@ public:
    * @return the LocalRenderInformation in this ListOfLocalRenderInformation
    * based on the identifier or NULL if no such LocalRenderInformation exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLocalRenderInformation(const LocalRenderInformation* object)
    * @see createLocalRenderInformation()
@@ -1015,7 +1015,7 @@ ListOfLocalRenderInformation_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth LocalRenderInformation_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfLocalRenderInformation_t
  */
@@ -1036,7 +1036,7 @@ ListOfLocalRenderInformation_remove(ListOf_t* lo, unsigned int n);
  * @return the LocalRenderInformation_t in this ListOf_t based on the
  * identifier or NULL if no such LocalRenderInformation_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfLocalRenderInformation_t
  */

@@ -517,7 +517,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureValue_t
  */
@@ -546,7 +546,7 @@ SpeciesFeatureValue_free(SpeciesFeatureValue_t * sfv);
  *
  * @return a (deep) copy of this SpeciesFeatureValue_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeatureValue_t
  */
@@ -563,7 +563,7 @@ SpeciesFeatureValue_clone(SpeciesFeatureValue_t * sfv);
  * @return the value of the "value" attribute of this SpeciesFeatureValue_t as
  * a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeatureValue_t
  */

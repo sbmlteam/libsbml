@@ -610,7 +610,7 @@ Style::unsetGroup()
 
 
 /*
- * Predicate returning @c true if this abstract "Style" is of type GlobalStyle
+ * Predicate returning @c true if this abstract Style is of type GlobalStyle
  */
 bool
 Style::isGlobalStyle() const
@@ -620,7 +620,7 @@ Style::isGlobalStyle() const
 
 
 /*
- * Predicate returning @c true if this abstract "Style" is of type LocalStyle
+ * Predicate returning @c true if this abstract Style is of type LocalStyle
  */
 bool
 Style::isLocalStyle() const

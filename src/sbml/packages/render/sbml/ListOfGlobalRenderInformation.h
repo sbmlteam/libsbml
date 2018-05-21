@@ -345,7 +345,7 @@ public:
    * ListOfGlobalRenderInformation.
    *
    * @return the value of the "defaultValues" element of this
-   * ListOfGlobalRenderInformation as a DefaultValues*.
+   * ListOfGlobalRenderInformation as a DefaultValues.
    */
   const DefaultValues* getDefaultValues() const;
 
@@ -355,7 +355,7 @@ public:
    * ListOfGlobalRenderInformation.
    *
    * @return the value of the "defaultValues" element of this
-   * ListOfGlobalRenderInformation as a DefaultValues*.
+   * ListOfGlobalRenderInformation as a DefaultValues.
    */
   DefaultValues* getDefaultValues();
 
@@ -374,7 +374,7 @@ public:
    * Sets the value of the "defaultValues" element of this
    * ListOfGlobalRenderInformation.
    *
-   * @param defaultValues DefaultValues* value of the "defaultValues" element
+   * @param defaultValues DefaultValues value of the "defaultValues" element
    * to be set.
    *
    * @copydetails doc_returns_success_code
@@ -506,7 +506,7 @@ public:
    * @return a pointer to the nth GlobalRenderInformation in this
    * ListOfGlobalRenderInformation.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGlobalRenderInformation(const GlobalRenderInformation* object)
    * @see createGlobalRenderInformation()
@@ -529,7 +529,7 @@ public:
    * @return the GlobalRenderInformation in this ListOfGlobalRenderInformation
    * based on the identifier or NULL if no such GlobalRenderInformation exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGlobalRenderInformation(const GlobalRenderInformation* object)
    * @see createGlobalRenderInformation()
@@ -648,6 +648,15 @@ public:
   virtual int getItemTypeCode() const;
 
 
+  /**
+  * Returns whether the given item can be added to this ListOfGlobalRenderInformation.
+  *
+  * @param item the SBase element to check.
+  *
+  * @return @c true if @p item is not @c NULL, and is of type 
+  * @sbmlconstant{SBML_RENDER_GLOBALRENDERINFORMATION, SBMLRenderTypeCode_t};
+  * @c false otherwise.
+  */
   virtual bool isValidTypeForList(SBase * item);
 
 
@@ -1028,7 +1037,7 @@ ListOfGlobalRenderInformation_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth GlobalRenderInformation_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGlobalRenderInformation_t
  */
@@ -1049,7 +1058,7 @@ ListOfGlobalRenderInformation_remove(ListOf_t* lo, unsigned int n);
  * @return the GlobalRenderInformation_t in this ListOf_t based on the
  * identifier or NULL if no such GlobalRenderInformation_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGlobalRenderInformation_t
  */

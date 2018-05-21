@@ -893,7 +893,7 @@ CompModelPlugin_getNumSubmodels(CompModelPlugin_t* cmp);
  *
  * @return a pointer to the nth Submodel_t in this CompModelPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompModelPlugin_t
  */
@@ -1029,7 +1029,7 @@ CompModelPlugin_createPort(CompModelPlugin_t* cmp);
  *
  * @return a pointer to the nth Port_t in this CompModelPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompModelPlugin_t
  */

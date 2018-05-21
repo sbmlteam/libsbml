@@ -283,7 +283,7 @@ KineticLaw::getSubstanceUnits () const
 
 
 /*
- * @return true if the formula (or equivalently the math) of this
+ * @return @c true if the formula (or equivalently the math) of this
  * KineticLaw is set, false otherwise.
  */
 bool
@@ -294,7 +294,7 @@ KineticLaw::isSetFormula () const
 
 
 /*
- * @return true if the math (or equivalently the formula) of this
+ * @return @c true if the math (or equivalently the formula) of this
  * KineticLaw is set, false otherwise.
  */
 bool
@@ -320,7 +320,7 @@ KineticLaw::isSetMath () const
 
 
 /*
- * @return true if the timeUnits of this KineticLaw is set, false
+ * @return @c true if the timeUnits of this KineticLaw is set, false
  * otherwise.
  */
 bool
@@ -331,7 +331,7 @@ KineticLaw::isSetTimeUnits () const
 
 
 /*
- * @return true if the substanceUnits of this KineticLaw is set,
+ * @return @c true if the substanceUnits of this KineticLaw is set,
  * false otherwise.
  */
 bool
@@ -1764,7 +1764,7 @@ KineticLaw::createObject (XMLInputStream& stream)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 KineticLaw::readOtherXML (XMLInputStream& stream)

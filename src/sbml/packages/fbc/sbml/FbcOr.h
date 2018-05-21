@@ -794,7 +794,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcOr_t
  */
@@ -823,7 +823,7 @@ FbcOr_free(FbcOr_t* fo);
  *
  * @return a (deep) copy of this FbcOr_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcOr_t
  */
@@ -993,7 +993,7 @@ FbcOr_getNumAssociations(FbcOr_t* fo);
  *
  * @return a pointer to the nth FbcAssociation_t in this FbcOr_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcOr_t
  */
@@ -1012,7 +1012,7 @@ FbcOr_removeAssociation(FbcOr_t* fo, unsigned int n);
  *
  * @return a pointer to the removed FbcAssociation_t in this FbcOr_t, or NULL if no FbcAssociation_t was found.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof FbcOr_t
  */

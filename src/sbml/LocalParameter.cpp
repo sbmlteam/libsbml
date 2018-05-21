@@ -148,7 +148,7 @@ LocalParameter::clone () const
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true as a localParameter is always constant.
+ * @return @c true as a localParameter is always constant.
  */
 bool
 LocalParameter::getConstant () const

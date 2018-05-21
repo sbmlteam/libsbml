@@ -159,7 +159,7 @@ StoichiometryMath::getMath () const
 
 
 /*
- * @return true if the math (or equivalently the formula) of this
+ * @return @c true if the math (or equivalently the formula) of this
  * StoichiometryMath is set, false otherwise.
  */
 bool
@@ -320,7 +320,7 @@ StoichiometryMath::setInternalId(std::string id)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 StoichiometryMath::readOtherXML (XMLInputStream& stream)

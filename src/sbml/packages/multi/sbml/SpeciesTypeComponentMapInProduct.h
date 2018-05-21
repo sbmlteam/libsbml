@@ -716,7 +716,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -746,7 +746,7 @@ SpeciesTypeComponentMapInProduct_free(SpeciesTypeComponentMapInProduct_t * stcmi
  *
  * @return a (deep) copy of this SpeciesTypeComponentMapInProduct_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -765,7 +765,7 @@ SpeciesTypeComponentMapInProduct_clone(SpeciesTypeComponentMapInProduct_t * stcm
  * @return the value of the "id" attribute of this
  * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -784,7 +784,7 @@ SpeciesTypeComponentMapInProduct_getId(SpeciesTypeComponentMapInProduct_t * stcm
  * @return the value of the "name" attribute of this
  * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -803,7 +803,7 @@ SpeciesTypeComponentMapInProduct_getName(SpeciesTypeComponentMapInProduct_t * st
  * @return the value of the "reactant" attribute of this
  * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -822,7 +822,7 @@ SpeciesTypeComponentMapInProduct_getReactant(SpeciesTypeComponentMapInProduct_t 
  * @return the value of the "reactantComponent" attribute of this
  * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */
@@ -841,7 +841,7 @@ SpeciesTypeComponentMapInProduct_getReactantComponent(SpeciesTypeComponentMapInP
  * @return the value of the "productComponent" attribute of this
  * SpeciesTypeComponentMapInProduct_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentMapInProduct_t
  */

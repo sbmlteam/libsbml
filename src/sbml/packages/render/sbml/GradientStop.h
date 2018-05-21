@@ -43,7 +43,7 @@
  *
  * A gradient stop has two attributes. The first attribute is an offset which
  * determines the location for the gradient stop within the object the
- * gradient is applied to.  The offset can either be ab absolute value or a
+ * gradient is applied to.  The offset can either be an absolute value or a
  * relative value or a combination of absolute and relative value.  For
  * example, a value of "50%" for the offset means that the gradient stop is
  * located at 50% of the gradient vector. For more information and examples,
@@ -670,7 +670,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientStop_t
  */
@@ -688,7 +688,7 @@ GradientStop_create(unsigned int level,
  *
  * @return a (deep) copy of this GradientStop_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientStop_t
  */
@@ -717,7 +717,7 @@ GradientStop_free(GradientStop_t* gs);
  * @return the value of the "stop-color" attribute of this GradientStop_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GradientStop_t
  */

@@ -200,7 +200,7 @@ public:
   /**
    * Returns the image reference URL string.
    *
-   * @return THe path to the image data as a string.
+   * @return The path to the image data as a string.
    */
   const std::string& getImageReference() const;
 
@@ -223,11 +223,11 @@ public:
 
 
   /**
-   * Returns true if the image reference has been set.
+   * Returns @c true if the image reference has been set.
    * The image reference is considered set if the string does not
    * only contain whitespace characters.
    *
-   * @return true if the image reference has been set.
+   * @return @c true if the image reference has been set.
    */
   bool isSetImageReference() const;
 
@@ -265,7 +265,7 @@ public:
   /**
    * Sets the reference to the image location.
    * Relative paths are relative to the document that contains the render information.
-   * The path should be the location to a JPEG or PNG bitmap image, other formats are
+   * The path should be the location to a JPEG or PNG bitmap image; other formats are
    * currently not supported.
    *
    * @param ref A URL string that specifies where the image is located on the disk.
@@ -294,6 +294,10 @@ public:
 
   /**
    * Unsets the reference to the image location.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetImageReference();
 
@@ -425,7 +429,7 @@ public:
 
   /**
    * Sets the position of the image relative to its viewport.
-   * The position can either be specified in relative or in absolut coordinates
+   * The position can either be specified in relative or in absolute coordinates
    * or a combination of both.
    * The z coordinate can be omitted. In that case it is set to 0.
    *
@@ -449,7 +453,7 @@ public:
 
   /**
    * Sets the x coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
+   * The position can either be specified in relative or in absolute coordinates
    * or a combination of both.
    *
    * @param coord x-coordinate of the image position
@@ -459,7 +463,7 @@ public:
 
   /**
    * Sets the y coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
+   * The position can either be specified in relative or in absolute coordinates
    * or a combination of both.
    *
    * @param coord y-coordinate of the image position
@@ -469,7 +473,7 @@ public:
 
   /**
    * Sets the z coordinate of the image position.
-   * The position can either be specified in relative or in absolut coordinates
+   * The position can either be specified in relative or in absolute coordinates
    * or a combination of both.
    *
    * @param coord z-coordinate of the image position
@@ -682,7 +686,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Image_t
  */
@@ -700,7 +704,7 @@ Image_create(unsigned int level,
  *
  * @return a (deep) copy of this Image_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Image_t
  */
@@ -729,7 +733,7 @@ Image_free(Image_t* i);
  * @return the value of the "id" attribute of this Image_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Image_t
  */
@@ -746,7 +750,7 @@ Image_getId(const Image_t * i);
  * @return the value of the "href" attribute of this Image_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Image_t
  */
@@ -1013,7 +1017,7 @@ Image_isSetHeight(const Image_t * i);
  *
  * @param i the Image_t structure.
  *
- * @param x RelAbsVector_t* value of the "x" element to be set.
+ * @param x RelAbsVector_t value of the "x" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1032,7 +1036,7 @@ Image_setX(Image_t * i, const RelAbsVector_t* x);
  *
  * @param i the Image_t structure.
  *
- * @param y RelAbsVector_t* value of the "y" element to be set.
+ * @param y RelAbsVector_t value of the "y" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1051,7 +1055,7 @@ Image_setY(Image_t * i, const RelAbsVector_t* y);
  *
  * @param i the Image_t structure.
  *
- * @param z RelAbsVector_t* value of the "z" element to be set.
+ * @param z RelAbsVector_t value of the "z" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1070,7 +1074,7 @@ Image_setZ(Image_t * i, const RelAbsVector_t* z);
  *
  * @param i the Image_t structure.
  *
- * @param width RelAbsVector_t* value of the "width" element to be set.
+ * @param width RelAbsVector_t value of the "width" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1089,7 +1093,7 @@ Image_setWidth(Image_t * i, const RelAbsVector_t* width);
  *
  * @param i the Image_t structure.
  *
- * @param height RelAbsVector_t* value of the "height" element to be set.
+ * @param height RelAbsVector_t value of the "height" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

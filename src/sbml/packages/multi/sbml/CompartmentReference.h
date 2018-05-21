@@ -641,7 +641,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompartmentReference_t
  */
@@ -669,7 +669,7 @@ CompartmentReference_free(CompartmentReference_t * cr);
  *
  * @return a (deep) copy of this CompartmentReference_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompartmentReference_t
  */
@@ -686,7 +686,7 @@ CompartmentReference_clone(CompartmentReference_t * cr);
  * @return the value of the "id" attribute of this CompartmentReference_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof CompartmentReference_t
  */
@@ -703,7 +703,7 @@ CompartmentReference_getId(const CompartmentReference_t * cr);
  * @return the value of the "name" attribute of this CompartmentReference_t as
  * a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof CompartmentReference_t
  */
@@ -721,7 +721,7 @@ CompartmentReference_getName(const CompartmentReference_t * cr);
  * @return the value of the "compartment" attribute of this
  * CompartmentReference_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof CompartmentReference_t
  */

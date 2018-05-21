@@ -362,7 +362,7 @@ public:
    * @copydetails doc_render_fill_rule
    *
    * @return the value of the "fill-rule" attribute of this DefaultValues
-   * object as a FileRule_t.
+   * object as @if clike a #FillRule_t @else an int@endif@~ value.
    */
   int getFillRule() const;
 
@@ -720,10 +720,10 @@ public:
    * Predicate returning @c true if this DefaultValues object's "fill-rule"
    * attribute is set.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @return @c true if this DefaultValues object's "fill-rule" attribute has
    * been set, otherwise @c false is returned.
-   *
-   * @copydetails doc_render_fill_rule
    */
   bool isSetFillRule() const;
 
@@ -894,7 +894,7 @@ public:
   /**
   * Sets the value of the "spreadMethod" attribute of this DefaultValues.
   *
-  * @param spreadMethod @if clike @ref GradientSpreadMethod_t@else int@endif@~ value
+  * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif@~ value
   * of the "spreadMethod" attribute to be set.
   *
   * @copydetails doc_returns_success_code
@@ -955,8 +955,8 @@ public:
    * @param linearGradient_z1 RelAbsVector& value of the "linearGradient_z1"
    * attribute to be set.
    *
-   * @copydetails doc_returns_one_success_code @li
-   * @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setLinearGradient_z1(const RelAbsVector& linearGradient_z1);
 
@@ -1125,10 +1125,10 @@ public:
   /**
   * Sets the value of the "fill-rule" attribute of this DefaultValues object.
   *
+  * @copydetails doc_render_fill_rule
+  *
   * @param fillRule @if clike GraphicalPrimitive2D::FILL_RULE@else
   * int@endif@~ value of the "fill-rule" attribute to be set.
-  *
-  * @copydetails doc_render_fill_rule
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1142,9 +1142,9 @@ public:
    * Sets the value of the "fill-rule" attribute of this DefaultValues
    * object.
    *
-   * @param fillRule std::string& of the "fill-rule" attribute to be set.
-   *
    * @copydetails doc_render_fill_rule
+   *
+   * @param fillRule std::string& of the "fill-rule" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1229,10 +1229,10 @@ public:
    * Sets the value of the "font-weight" attribute of this DefaultValues
    * object.
    *
+   * @copydetails doc_render_font_weight
+   *
    * @param fontWeight @if clike Text::FONT_WEIGHT@else int@endif@~ value of
    * the "font-weight" attribute to be set.
-   *
-   * @copydetails doc_render_font_weight
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1245,10 +1245,10 @@ public:
   /**
   * Sets the value of the "font-weight" attribute of this DefaultValues.
   *
-  * @param fontWeight @if clike @ref FontWeight_t@else int@endif@~ value of the
-  * "font-weight" attribute to be set.
-  *
   * @copydetails doc_render_font_weight
+  *
+  * @param fontWeight the @if clike FontWeight_t@else int@endif@~ value of the
+  * "font-weight" attribute to be set.
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1261,9 +1261,9 @@ public:
   /**
    * Sets the value of the "font-weight" attribute of this DefaultValues.
    *
-   * @param fontWeight std::string& of the "font-weight" attribute to be set.
-   *
    * @copydetails doc_render_font_weight
+   *
+   * @param fontWeight std::string& of the "font-weight" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1277,10 +1277,10 @@ public:
    * Sets the value of the "font-style" attribute of this DefaultValues
    * object.
    *
+   * @copydetails doc_render_font_style
+   *
    * @param fontStyle @if clike Text::FONT_STYLE@else int@endif@~ value of the
    * "font-style" attribute to be set.
-   *
-   * @copydetails doc_render_font_style
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1293,10 +1293,10 @@ public:
   /**
   * Sets the value of the "font-style" attribute of this DefaultValues.
   *
-  * @param fontStyle @if clike @ref FontWeight_t@else int@endif@~ value of the
-  * "font-style" attribute to be set.
-  *
   * @copydetails doc_render_font_style
+  *
+  * @param fontStyle the @if clike FontWeight_t@else int@endif@~ value of the
+  * "font-style" attribute to be set.
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1309,9 +1309,9 @@ public:
   /**
    * Sets the value of the "font-style" attribute of this DefaultValues.
    *
-   * @param fontStyle std::string& of the "font-style" attribute to be set.
-   *
    * @copydetails doc_render_font_style
+   *
+   * @param fontStyle std::string& of the "font-style" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1325,10 +1325,10 @@ public:
    * Sets the value of the "text-anchor" attribute of this DefaultValues
    * object.
    *
+   * @copydetails doc_render_text_anchor
+   *
    * @param textAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "text-anchor" attribute to be set.
-   *
-   * @copydetails doc_render_text_anchor
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1341,10 +1341,10 @@ public:
   /**
   * Sets the value of the "text-anchor" attribute of this DefaultValues.
   *
-  * @param textAnchor @if clike  @ref HTextAnchor_t@else int@endif@~ value of the
-  * "text-anchor" attribute to be set.
-  *
   * @copydetails doc_render_text_anchor
+  *
+  * @param textAnchor the @if clike  HTextAnchor_t@else int@endif@~ value of the
+  * "text-anchor" attribute to be set.
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1357,9 +1357,9 @@ public:
   /**
    * Sets the value of the "text-anchor" attribute of this DefaultValues.
    *
-   * @param textAnchor std::string& of the "text-anchor" attribute to be set.
-   *
    * @copydetails doc_render_text_anchor
+   *
+   * @param textAnchor std::string& of the "text-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1373,10 +1373,10 @@ public:
    * Sets the value of the "vtext-anchor" attribute of this DefaultValues
    * object.
    *
+   * @copydetails doc_render_vtext_anchor
+   *
    * @param vtextAnchor @if clike Text::TEXT_ANCHOR@else int@endif@~ value of the
    * "vtext-anchor" attribute to be set.
-   *
-   * @copydetails doc_render_vtext_anchor
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1389,10 +1389,10 @@ public:
   /**
   * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
   *
-  * @param vtextAnchor @if clike @ref VTextAnchor_t@else int@endif@~ value of the
-  * "vtext-anchor" attribute to be set.
-  *
   * @copydetails doc_render_vtext_anchor
+  *
+  * @param vtextAnchor the @if clike VTextAnchor_t@else int@endif@~ value of the
+  * "vtext-anchor" attribute to be set.
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1405,9 +1405,9 @@ public:
   /**
    * Sets the value of the "vtext-anchor" attribute of this DefaultValues.
    *
-   * @param vtextAnchor std::string& of the "vtext-anchor" attribute to be set.
-   *
    * @copydetails doc_render_vtext_anchor
+   *
+   * @param vtextAnchor std::string& of the "vtext-anchor" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -2187,7 +2187,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof DefaultValues_t
  */
@@ -2205,7 +2205,7 @@ DefaultValues_create(unsigned int level,
  *
  * @return a (deep) copy of this DefaultValues_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof DefaultValues_t
  */
@@ -2235,7 +2235,7 @@ DefaultValues_free(DefaultValues_t* dv);
  * @return the value of the "backgroundColor" attribute of this DefaultValues_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2247,20 +2247,17 @@ DefaultValues_getBackgroundColor(const DefaultValues_t * dv);
 /**
  * Returns the value of the "spreadMethod" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure whose spreadMethod is sought.
  *
  * @return the value of the "spreadMethod" attribute of this DefaultValues_t as
- * a GradientSpreadMethod_t.
- *
- * @copydetails doc_defaultvalues_spreadMethod
- * @if clike The value is drawn from the enumeration @ref
- * GradientSpreadMethod_t @endif
+ * a #GradientSpreadMethod_t.
  * The possible values returned by this method are:
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REPEAT, GradientSpreadMethod_t}
- * @li @sbmlconstant{DEFAULT_VALUES_SPREAD_METHOD_INVALID,
- * GradientSpreadMethod_t}
+ * @li @sbmlconstant{GRADIENT_SPREAD_METHOD_INVALID, GradientSpreadMethod_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2272,19 +2269,19 @@ DefaultValues_getSpreadMethod(const DefaultValues_t * dv);
 /**
  * Returns the value of the "spreadMethod" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure whose spreadMethod is sought.
  *
  * @return the value of the "spreadMethod" attribute of this DefaultValues_t as
- * a const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_spreadMethod
+ * a <code>const char *</code>*.
  * The possible values returned by this method are:
  * @li @c "pad"
  * @li @c "reflect"
  * @li @c "repeat"
  * @li @c "invalid DefaultValuesSpreadMethod"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2301,7 +2298,7 @@ DefaultValues_getSpreadMethodAsString(const DefaultValues_t * dv);
  * @return the value of the "fill" attribute of this DefaultValues_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2313,19 +2310,17 @@ DefaultValues_getFill(const DefaultValues_t * dv);
 /**
  * Returns the value of the "fill-rule" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure whose fill-rule is sought.
  *
  * @return the value of the "fill-rule" attribute of this DefaultValues_t as a
- * FillRule_t.
- *
- * @copydetails doc_defaultvalues_fill-rule
- * @if clike The value is drawn from the enumeration @ref FillRule_t @endif
- * The possible values returned by this method are:
+ * #FillRule_t. The possible values returned by this method are:
  * @li @sbmlconstant{FILL_RULE_UNSET, FillRule_t}
  * @li @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}
  * @li @sbmlconstant{FILL_RULE_EVENODD, FillRule_t}
  * @li @sbmlconstant{FILL_RULE_INHERIT, FillRule_t}
- * @li @sbmlconstant{DEFAULT_VALUES_FILL-RULE_INVALID, FillRule_t}
+ * @li @sbmlconstant{FILL_RULE_INVALID, FillRule_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2337,20 +2332,19 @@ DefaultValues_getFillRule(const DefaultValues_t * dv);
 /**
  * Returns the value of the "fill-rule" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure whose fill-rule is sought.
  *
  * @return the value of the "fill-rule" attribute of this DefaultValues_t as a
- * const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_fill-rule
- * The possible values returned by this method are:
+ * <code>const char *</code>. The possible values returned by this method are:
  * @li @c "unset"
  * @li @c "nonzero"
  * @li @c "evenodd"
  * @li @c "inherit"
  * @li @c "invalid DefaultValuesFill-rule"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2367,7 +2361,7 @@ DefaultValues_getFillRuleAsString(const DefaultValues_t * dv);
  * @return the value of the "stroke" attribute of this DefaultValues_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2399,7 +2393,7 @@ DefaultValues_getStrokeWidth(const DefaultValues_t * dv);
  * @return the value of the "font-family" attribute of this DefaultValues_t as
  * a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2411,17 +2405,16 @@ DefaultValues_getFontFamily(const DefaultValues_t * dv);
 /**
  * Returns the value of the "font-weight" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure whose font-weight is sought.
  *
  * @return the value of the "font-weight" attribute of this DefaultValues_t as
- * a FontWeight_t.
- *
- * @copydetails doc_defaultvalues_font-weight
- * @if clike The value is drawn from the enumeration @ref FontWeight_t @endif
- * The possible values returned by this method are:
+ * a #FontWeight_t. The possible values returned by this method are:
+ * @li @sbmlconstant{FONT_WEIGHT_UNSET, FontWeight_t}
  * @li @sbmlconstant{FONT_WEIGHT_BOLD, FontWeight_t}
  * @li @sbmlconstant{FONT_WEIGHT_NORMAL, FontWeight_t}
- * @li @sbmlconstant{DEFAULT_VALUES_FONT-WEIGHT_INVALID, FontWeight_t}
+ * @li @sbmlconstant{FONT_WEIGHT_INVALID, FontWeight_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2433,18 +2426,17 @@ DefaultValues_getFontWeight(const DefaultValues_t * dv);
 /**
  * Returns the value of the "font-weight" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure whose font-weight is sought.
  *
  * @return the value of the "font-weight" attribute of this DefaultValues_t as
- * a const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_font-weight
- * The possible values returned by this method are:
+ * a <code>const char *</code>. The possible values returned by this method are:
  * @li @c "bold"
  * @li @c "normal"
  * @li @c "invalid DefaultValuesFont-weight"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2456,17 +2448,16 @@ DefaultValues_getFontWeightAsString(const DefaultValues_t * dv);
 /**
  * Returns the value of the "font-style" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure whose font-style is sought.
  *
  * @return the value of the "font-style" attribute of this DefaultValues_t as a
- * FontStyle_t.
- *
- * @copydetails doc_defaultvalues_font-style
- * @if clike The value is drawn from the enumeration @ref FontStyle_t @endif
- * The possible values returned by this method are:
+ * #FontStyle_t. The possible values returned by this method are:
+ * @li @sbmlconstant{FONT_STYLE_UNSET, FontStyle_t}
  * @li @sbmlconstant{FONT_STYLE_ITALIC, FontStyle_t}
  * @li @sbmlconstant{FONT_STYLE_NORMAL, FontStyle_t}
- * @li @sbmlconstant{DEFAULT_VALUES_FONT-STYLE_INVALID, FontStyle_t}
+ * @li @sbmlconstant{FONT_STYLE_INVALID, FontStyle_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2478,18 +2469,17 @@ DefaultValues_getFontStyle(const DefaultValues_t * dv);
 /**
  * Returns the value of the "font-style" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure whose font-style is sought.
  *
  * @return the value of the "font-style" attribute of this DefaultValues_t as a
- * const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_font-style
- * The possible values returned by this method are:
+ * <code>const char *</code>. The possible values returned by this method are:
  * @li @c "italic"
  * @li @c "normal"
  * @li @c "invalid DefaultValuesFont-style"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2501,18 +2491,17 @@ DefaultValues_getFontStyleAsString(const DefaultValues_t * dv);
 /**
  * Returns the value of the "text-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure whose text-anchor is sought.
  *
  * @return the value of the "text-anchor" attribute of this DefaultValues_t as
- * a HTextAnchor_t.
- *
- * @copydetails doc_defaultvalues_text-anchor
- * @if clike The value is drawn from the enumeration @ref HTextAnchor_t @endif
- * The possible values returned by this method are:
+ * a #HTextAnchor_t. The possible values returned by this method are:
+ * @li @sbmlconstant{H_TEXTANCHOR_UNSET, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_START, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_MIDDLE, HTextAnchor_t}
  * @li @sbmlconstant{H_TEXTANCHOR_END, HTextAnchor_t}
- * @li @sbmlconstant{DEFAULT_VALUES_TEXT-ANCHOR_INVALID, HTextAnchor_t}
+ * @li @sbmlconstant{H_TEXTANCHOR_INVALID, HTextAnchor_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2524,19 +2513,18 @@ DefaultValues_getTextAnchor(const DefaultValues_t * dv);
 /**
  * Returns the value of the "text-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure whose text-anchor is sought.
  *
  * @return the value of the "text-anchor" attribute of this DefaultValues_t as
- * a const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_text-anchor
- * The possible values returned by this method are:
+ * a <code>const char *</code>. The possible values returned by this method are:
  * @li @c "start"
  * @li @c "middle"
  * @li @c "end"
  * @li @c "invalid DefaultValuesText-anchor"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2548,19 +2536,18 @@ DefaultValues_getTextAnchorAsString(const DefaultValues_t * dv);
 /**
  * Returns the value of the "vtext-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure whose vtext-anchor is sought.
  *
  * @return the value of the "vtext-anchor" attribute of this DefaultValues_t as
- * a VTextAnchor_t.
- *
- * @copydetails doc_defaultvalues_vtext-anchor
- * @if clike The value is drawn from the enumeration @ref VTextAnchor_t @endif
- * The possible values returned by this method are:
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_TOP, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_MIDDLE, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BOTTOM, VTextAnchor_t}
- * @li @sbmlconstant{V_TEXTANCHOR_ANCHOR_BASELINE, VTextAnchor_t}
- * @li @sbmlconstant{DEFAULT_VALUES_VTEXT-ANCHOR_INVALID, VTextAnchor_t}
+ * a #VTextAnchor_t. The possible values returned by this method are:
+ * @li @sbmlconstant{V_TEXTANCHOR_UNSET, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_TOP, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_MIDDLE, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_BOTTOM, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_BASELINE, VTextAnchor_t}
+ * @li @sbmlconstant{V_TEXTANCHOR_INVALID, VTextAnchor_t}
  *
  * @memberof DefaultValues_t
  */
@@ -2572,20 +2559,19 @@ DefaultValues_getVtextAnchor(const DefaultValues_t * dv);
 /**
  * Returns the value of the "vtext-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure whose vtext-anchor is sought.
  *
  * @return the value of the "vtext-anchor" attribute of this DefaultValues_t as
- * a const char *.
- *
- * @copydetails doc_returned_unowned_char
- *
- * @copydetails doc_defaultvalues_vtext-anchor
- * The possible values returned by this method are:
+ * a <code>const char *</code>. The possible values returned by this method are:
  * @li @c "top"
  * @li @c "middle"
  * @li @c "bottom"
  * @li @c "baseline"
  * @li @c "invalid DefaultValuesVtext-anchor"
+ *
+ * @copydetails doc_returned_unowned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2602,7 +2588,7 @@ DefaultValues_getVtextAnchorAsString(const DefaultValues_t * dv);
  * @return the value of the "startHead" attribute of this DefaultValues_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2619,7 +2605,7 @@ DefaultValues_getStartHead(const DefaultValues_t * dv);
  * @return the value of the "endHead" attribute of this DefaultValues_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof DefaultValues_t
  */
@@ -2665,12 +2651,12 @@ DefaultValues_isSetBackgroundColor(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "spreadMethod"
  * attribute is set.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "spreadMethod" attribute has
  * been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_spreadMethod
  *
  * @memberof DefaultValues_t
  */
@@ -2699,12 +2685,12 @@ DefaultValues_isSetFill(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "fill-rule"
  * attribute is set.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "fill-rule" attribute has been
  * set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_fill-rule
  *
  * @memberof DefaultValues_t
  */
@@ -2765,12 +2751,12 @@ DefaultValues_isSetFontFamily(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "font-weight"
  * attribute is set.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "font-weight" attribute has
  * been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_font-weight
  *
  * @memberof DefaultValues_t
  */
@@ -2783,12 +2769,12 @@ DefaultValues_isSetFontWeight(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "font-style"
  * attribute is set.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "font-style" attribute has
  * been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_font-style
  *
  * @memberof DefaultValues_t
  */
@@ -2801,12 +2787,12 @@ DefaultValues_isSetFontStyle(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "text-anchor"
  * attribute is set.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "text-anchor" attribute has
  * been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_text-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -2819,12 +2805,12 @@ DefaultValues_isSetTextAnchor(const DefaultValues_t * dv);
  * Predicate returning @c 1 (true) if this DefaultValues_t's "vtext-anchor"
  * attribute is set.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @return @c 1 (true) if this DefaultValues_t's "vtext-anchor" attribute has
  * been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_defaultvalues_vtext-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -2886,15 +2872,14 @@ DefaultValues_isSetEnableRotationalMapping(const DefaultValues_t * dv);
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param backgroundColor const char * value of the "backgroundColor" attribute
- * to be set.
+ * @param backgroundColor <code>const char *</code>* value of the "backgroundColor"
+ * attribute to be set. Calling this function with @p backgroundColor = @c
+ * NULL or an empty string is equivalent to calling
+ * DefaultValues_unsetBackgroundColor().
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p backgroundColor = @c NULL or an empty string
- * is equivalent to calling DefaultValues_unsetBackgroundColor().
  *
  * @memberof DefaultValues_t
  */
@@ -2907,17 +2892,17 @@ DefaultValues_setBackgroundColor(DefaultValues_t * dv,
 /**
  * Sets the value of the "spreadMethod" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param spreadMethod GradientSpreadMethod_t value of the "spreadMethod"
+ * @param spreadMethod #GradientSpreadMethod_t value of the "spreadMethod"
  * attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_spreadMethod
  *
  * @memberof DefaultValues_t
  */
@@ -2930,16 +2915,16 @@ DefaultValues_setSpreadMethod(DefaultValues_t * dv,
 /**
  * Sets the value of the "spreadMethod" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param spreadMethod const char * of the "spreadMethod" attribute to be set.
+ * @param spreadMethod <code>const char *</code>* of the "spreadMethod" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_spreadMethod
  *
  * @memberof DefaultValues_t
  */
@@ -2954,14 +2939,13 @@ DefaultValues_setSpreadMethodAsString(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param fill const char * value of the "fill" attribute to be set.
+ * @param fill <code>const char *</code>* value of the "fill" attribute to be set.
+ * Calling this function with @p fill = @c NULL or an empty string is
+ * equivalent to calling DefaultValues_unsetFill().
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p fill = @c NULL or an empty string is
- * equivalent to calling DefaultValues_unsetFill().
  *
  * @memberof DefaultValues_t
  */
@@ -2973,16 +2957,16 @@ DefaultValues_setFill(DefaultValues_t * dv, const char * fill);
 /**
  * Sets the value of the "fill-rule" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param fillRule FillRule_t value of the "fill-rule" attribute to be set.
+ * @param fillRule #FillRule_t value of the "fill-rule" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_fill-rule
  *
  * @memberof DefaultValues_t
  */
@@ -2994,16 +2978,16 @@ DefaultValues_setFillRule(DefaultValues_t * dv, FillRule_t fillRule);
 /**
  * Sets the value of the "fill-rule" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param fill-rule const char * of the "fill-rule" attribute to be set.
+ * @param fillRule <code>const char *</code>* of the "fill-rule" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_fill-rule
  *
  * @memberof DefaultValues_t
  */
@@ -3018,14 +3002,13 @@ DefaultValues_setFillRuleAsString(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param stroke const char * value of the "stroke" attribute to be set.
+ * @param stroke <code>const char *</code>* value of the "stroke" attribute to be set.
+ * Calling this function with @p stroke = @c NULL or an empty string is
+ * equivalent to calling DefaultValues_unsetStroke().
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p stroke = @c NULL or an empty string is
- * equivalent to calling DefaultValues_unsetStroke().
  *
  * @memberof DefaultValues_t
  */
@@ -3058,15 +3041,14 @@ DefaultValues_setStrokeWidth(DefaultValues_t * dv, double strokeWidth);
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param fontFamily const char * value of the "font-family" attribute to be
+ * @param fontFamily <code>const char *</code>* value of the "font-family" attribute to be
  * set.
+ * Calling this function with @p fontFamily = @c NULL or an empty string is
+ * equivalent to calling DefaultValues_unsetFontFamily().
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p fontFamily = @c NULL or an empty string is
- * equivalent to calling DefaultValues_unsetFontFamily().
  *
  * @memberof DefaultValues_t
  */
@@ -3078,17 +3060,17 @@ DefaultValues_setFontFamily(DefaultValues_t * dv, const char * fontFamily);
 /**
  * Sets the value of the "font-weight" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param fontWeight FontWeight_t value of the "font-weight" attribute to be
+ * @param fontWeight #FontWeight_t value of the "font-weight" attribute to be
  * set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-weight
  *
  * @memberof DefaultValues_t
  */
@@ -3100,16 +3082,16 @@ DefaultValues_setFontWeight(DefaultValues_t * dv, FontWeight_t fontWeight);
 /**
  * Sets the value of the "font-weight" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param font-weight const char * of the "font-weight" attribute to be set.
+ * @param fontWeight <code>const char *</code>* of the "font-weight" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-weight
  *
  * @memberof DefaultValues_t
  */
@@ -3122,16 +3104,16 @@ DefaultValues_setFontWeightAsString(DefaultValues_t * dv,
 /**
  * Sets the value of the "font-style" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param fontStyle FontStyle_t value of the "font-style" attribute to be set.
+ * @param fontStyle #FontStyle_t value of the "font-style" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-style
  *
  * @memberof DefaultValues_t
  */
@@ -3143,16 +3125,16 @@ DefaultValues_setFontStyle(DefaultValues_t * dv, FontStyle_t fontStyle);
 /**
  * Sets the value of the "font-style" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param font-style const char * of the "font-style" attribute to be set.
+ * @param fontStyle <code>const char *</code>* of the "font-style" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-style
  *
  * @memberof DefaultValues_t
  */
@@ -3165,17 +3147,17 @@ DefaultValues_setFontStyleAsString(DefaultValues_t * dv,
 /**
  * Sets the value of the "text-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param textAnchor HTextAnchor_t value of the "text-anchor" attribute to be
+ * @param textAnchor #HTextAnchor_t value of the "text-anchor" attribute to be
  * set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_text-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -3187,16 +3169,16 @@ DefaultValues_setTextAnchor(DefaultValues_t * dv, HTextAnchor_t textAnchor);
 /**
  * Sets the value of the "text-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param text-anchor const char * of the "text-anchor" attribute to be set.
+ * @param textAnchor <code>const char *</code>* of the "text-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_text-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -3209,17 +3191,17 @@ DefaultValues_setTextAnchorAsString(DefaultValues_t * dv,
 /**
  * Sets the value of the "vtext-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param vtextAnchor VTextAnchor_t value of the "vtext-anchor" attribute to be
+ * @param vtextAnchor #VTextAnchor_t value of the "vtext-anchor" attribute to be
  * set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_vtext-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -3231,16 +3213,16 @@ DefaultValues_setVtextAnchor(DefaultValues_t * dv, VTextAnchor_t vtextAnchor);
 /**
  * Sets the value of the "vtext-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
- * @param vtext-anchor const char * of the "vtext-anchor" attribute to be set.
+ * @param vtextAnchor <code>const char *</code>* of the "vtext-anchor" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_vtext-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -3255,7 +3237,7 @@ DefaultValues_setVtextAnchorAsString(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param startHead const char * value of the "startHead" attribute to be set.
+ * @param startHead <code>const char *</code>* value of the "startHead" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -3274,7 +3256,7 @@ DefaultValues_setStartHead(DefaultValues_t * dv, const char * startHead);
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param endHead const char * value of the "endHead" attribute to be set.
+ * @param endHead <code>const char *</code>* value of the "endHead" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -3330,13 +3312,13 @@ DefaultValues_unsetBackgroundColor(DefaultValues_t * dv);
 /**
  * Unsets the value of the "spreadMethod" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_spreadMethod
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_spreadMethod
  *
  * @memberof DefaultValues_t
  */
@@ -3365,13 +3347,13 @@ DefaultValues_unsetFill(DefaultValues_t * dv);
 /**
  * Unsets the value of the "fill-rule" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_fill-rule
  *
  * @memberof DefaultValues_t
  */
@@ -3434,13 +3416,13 @@ DefaultValues_unsetFontFamily(DefaultValues_t * dv);
 /**
  * Unsets the value of the "font-weight" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_weight
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-weight
  *
  * @memberof DefaultValues_t
  */
@@ -3452,13 +3434,13 @@ DefaultValues_unsetFontWeight(DefaultValues_t * dv);
 /**
  * Unsets the value of the "font-style" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_font_style
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_font-style
  *
  * @memberof DefaultValues_t
  */
@@ -3470,13 +3452,13 @@ DefaultValues_unsetFontStyle(DefaultValues_t * dv);
 /**
  * Unsets the value of the "text-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_text_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_text-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -3488,13 +3470,13 @@ DefaultValues_unsetTextAnchor(DefaultValues_t * dv);
 /**
  * Unsets the value of the "vtext-anchor" attribute of this DefaultValues_t.
  *
+ * @copydetails doc_render_vtext_anchor
+ *
  * @param dv the DefaultValues_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_defaultvalues_vtext-anchor
  *
  * @memberof DefaultValues_t
  */
@@ -4037,7 +4019,7 @@ DefaultValues_isSetFontSize(const DefaultValues_t * dv);
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_x1 RelAbsVector_t* value of the "linearGradient_x1"
+ * @param linearGradient_x1 RelAbsVector_t value of the "linearGradient_x1"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4058,7 +4040,7 @@ DefaultValues_setLinearGradient_x1(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_y1 RelAbsVector_t* value of the "linearGradient_y1"
+ * @param linearGradient_y1 RelAbsVector_t value of the "linearGradient_y1"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4079,7 +4061,7 @@ DefaultValues_setLinearGradient_y1(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_z1 RelAbsVector_t* value of the "linearGradient_z1"
+ * @param linearGradient_z1 RelAbsVector_t value of the "linearGradient_z1"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4100,7 +4082,7 @@ DefaultValues_setLinearGradient_z1(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_x2 RelAbsVector_t* value of the "linearGradient_x2"
+ * @param linearGradient_x2 RelAbsVector_t value of the "linearGradient_x2"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4121,7 +4103,7 @@ DefaultValues_setLinearGradient_x2(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_y2 RelAbsVector_t* value of the "linearGradient_y2"
+ * @param linearGradient_y2 RelAbsVector_t value of the "linearGradient_y2"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4142,7 +4124,7 @@ DefaultValues_setLinearGradient_y2(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param linearGradient_z2 RelAbsVector_t* value of the "linearGradient_z2"
+ * @param linearGradient_z2 RelAbsVector_t value of the "linearGradient_z2"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4163,7 +4145,7 @@ DefaultValues_setLinearGradient_z2(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_cx RelAbsVector_t* value of the "radialGradient_cx"
+ * @param radialGradient_cx RelAbsVector_t value of the "radialGradient_cx"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4184,7 +4166,7 @@ DefaultValues_setRadialGradient_cx(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_cy RelAbsVector_t* value of the "radialGradient_cy"
+ * @param radialGradient_cy RelAbsVector_t value of the "radialGradient_cy"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4205,7 +4187,7 @@ DefaultValues_setRadialGradient_cy(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_cz RelAbsVector_t* value of the "radialGradient_cz"
+ * @param radialGradient_cz RelAbsVector_t value of the "radialGradient_cz"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4226,7 +4208,7 @@ DefaultValues_setRadialGradient_cz(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_r RelAbsVector_t* value of the "radialGradient_r"
+ * @param radialGradient_r RelAbsVector_t value of the "radialGradient_r"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4247,7 +4229,7 @@ DefaultValues_setRadialGradient_r(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_fx RelAbsVector_t* value of the "radialGradient_fx"
+ * @param radialGradient_fx RelAbsVector_t value of the "radialGradient_fx"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4268,7 +4250,7 @@ DefaultValues_setRadialGradient_fx(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_fy RelAbsVector_t* value of the "radialGradient_fy"
+ * @param radialGradient_fy RelAbsVector_t value of the "radialGradient_fy"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4289,7 +4271,7 @@ DefaultValues_setRadialGradient_fy(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param radialGradient_fz RelAbsVector_t* value of the "radialGradient_fz"
+ * @param radialGradient_fz RelAbsVector_t value of the "radialGradient_fz"
  * element to be set.
  *
  * @copydetails doc_returns_success_code
@@ -4310,7 +4292,7 @@ DefaultValues_setRadialGradient_fz(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param default_z RelAbsVector_t* value of the "default_z" element to be set.
+ * @param default_z RelAbsVector_t value of the "default_z" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -4330,7 +4312,7 @@ DefaultValues_setDefault_z(DefaultValues_t * dv,
  *
  * @param dv the DefaultValues_t structure.
  *
- * @param fontSize RelAbsVector_t* value of the "font-size" element to be set.
+ * @param fontSize RelAbsVector_t value of the "font-size" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

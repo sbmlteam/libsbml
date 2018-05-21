@@ -253,7 +253,7 @@ GraphicalPrimitive2D::isSetFill() const
  * Returns true if the fill attribute is set or false otherwise.
  * The fill attribute is considered set if the string is not empty.
  *
- * @return true is the fill color is set.
+ * @return @c true if the fill color is set.
  */
 bool GraphicalPrimitive2D::isSetFillColor() const
 {
@@ -314,7 +314,7 @@ GraphicalPrimitive2D::setFillRule(const FillRule_t fillRule)
 }
 
 
-void GraphicalPrimitive2D::setFillRule(GraphicalPrimitive2D::FILL_RULE rule)
+void GraphicalPrimitive2D::setFillRule(FILL_RULE rule)
 {
   this->mFillRule = rule;
 }
@@ -368,7 +368,7 @@ GraphicalPrimitive2D::unsetFillRule()
 
 
 /*
- * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+ * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
  * type Ellipse
  */
 bool
@@ -379,7 +379,7 @@ GraphicalPrimitive2D::isEllipse() const
 
 
 /*
- * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+ * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
  * type Rectangle
  */
 bool
@@ -390,7 +390,7 @@ GraphicalPrimitive2D::isRectangle() const
 
 
 /*
- * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+ * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
  * type Polygon
  */
 bool
@@ -401,7 +401,7 @@ GraphicalPrimitive2D::isPolygon() const
 
 
 /*
- * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+ * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
  * type RenderGroup
  */
 bool
@@ -412,7 +412,7 @@ GraphicalPrimitive2D::isRenderGroup() const
 
 
 /*
- * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+ * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
  * type LineEnding
  */
 bool

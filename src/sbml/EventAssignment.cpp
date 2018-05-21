@@ -171,7 +171,7 @@ EventAssignment::getMath () const
 
 
 /*
- * @return true if the variable of this EventAssignment is set, false
+ * @return @c true if the variable of this EventAssignment is set, false
  * otherwise.
  */
 bool
@@ -182,7 +182,7 @@ EventAssignment::isSetVariable () const
 
 
 /*
- * @return true if the math of this EventAssignment is set, false
+ * @return @c true if the math of this EventAssignment is set, false
  * otherwise.
  */
 bool
@@ -859,7 +859,7 @@ EventAssignment::writeElements (XMLOutputStream& stream) const
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 EventAssignment::readOtherXML (XMLInputStream& stream)

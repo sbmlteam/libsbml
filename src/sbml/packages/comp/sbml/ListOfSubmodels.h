@@ -283,7 +283,7 @@ ListOfSubmodels_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Submodel_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfSubmodels_t
  */
@@ -303,7 +303,7 @@ ListOfSubmodels_remove(ListOf_t* lo, unsigned int n);
  * @return the Submodel_t in this ListOf_t based on the identifier or NULL if
  * no such Submodel_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfSubmodels_t
  */

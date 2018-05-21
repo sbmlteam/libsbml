@@ -183,7 +183,7 @@ XMLTriple::getPrefixedName () const
 
 
 /*
- * @return true if this XMLTriple set is empty, false otherwise.
+ * @return @c true if this XMLTriple set is empty, false otherwise.
  */
 bool
 XMLTriple::isEmpty () const

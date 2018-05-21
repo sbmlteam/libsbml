@@ -343,7 +343,7 @@ Compartment::getOutside () const
 
 
 /*
- * @return true if this Compartment is constant, false otherwise.
+ * @return @c true if this Compartment is constant, false otherwise.
  */
 bool
 Compartment::getConstant () const
@@ -353,7 +353,7 @@ Compartment::getConstant () const
 
 
 /*
- * @return true if the id of this SBML object is  set, false
+ * @return @c true if the id of this SBML object is  set, false
  * otherwise.
  */
 bool
@@ -364,7 +364,7 @@ Compartment::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is  set, false
+ * @return @c true if the name of this SBML object is  set, false
  * otherwise.
  */
 bool
@@ -376,7 +376,7 @@ Compartment::isSetName () const
 
 
 /*
- * @return true if the compartmentType of this Compartment is  set,
+ * @return @c true if the compartmentType of this Compartment is  set,
  * false otherwise. 
  */
 bool
@@ -387,7 +387,7 @@ Compartment::isSetCompartmentType () const
 
 
 /*
- * @return true if the size (volume in L1) of this Compartment is 
+ * @return @c true if the size (volume in L1) of this Compartment is 
  * set, false otherwise.
  */
 bool
@@ -398,7 +398,7 @@ Compartment::isSetSize () const
 
 
 /*
- * @return true if the volume (size in L2) of this Compartment is 
+ * @return @c true if the volume (size in L2) of this Compartment is 
  * set, false otherwise.
  *
  * In SBML L1, a Compartment volume has a default value (1.0) and therefore
@@ -413,7 +413,7 @@ Compartment::isSetVolume () const
 
 
 /*
- * @return true if the units of this Compartment is set, false
+ * @return @c true if the units of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -424,7 +424,7 @@ Compartment::isSetUnits () const
 
 
 /*
- * @return true if the outside of this Compartment is set, false
+ * @return @c true if the outside of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -435,7 +435,7 @@ Compartment::isSetOutside () const
 
 
 /*
- * @return true if the spatialDimenions of this Compartment is set, false
+ * @return @c true if the spatialDimenions of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -446,7 +446,7 @@ Compartment::isSetSpatialDimensions () const
 
 
 /*
- * @return true if the constant of this Compartment is set, false
+ * @return @c true if the constant of this Compartment is set, false
  * otherwise.
  */
 bool

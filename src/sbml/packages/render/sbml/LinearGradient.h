@@ -299,16 +299,16 @@ public:
 
 
   /**
-  * Returns the x coordinate for the start point as a const reference.
+  * Returns the x coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the x value of the start point.
+  * @return RelAbsVector that represents the x value of the end point.
   */
   const RelAbsVector& getXPoint2() const;
 
   /**
-  * Returns the x coordinate for the start point as a const reference.
+  * Returns the x coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the x value of the start point.
+  * @return RelAbsVector that represents the x value of the end point.
   */
   RelAbsVector& getXPoint2();
 
@@ -331,16 +331,16 @@ public:
 
 
   /**
-  * Returns the y coordinate for the start point as a const reference.
+  * Returns the y coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the y value of the start point.
+  * @return RelAbsVector that represents the y value of the end point.
   */
   const RelAbsVector& getYPoint2() const;
 
   /**
-  * Returns the y coordinate for the start point as a const reference.
+  * Returns the y coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the y value of the start point.
+  * @return RelAbsVector that represents the y value of the end point.
   */
   RelAbsVector& getYPoint2();
 
@@ -363,16 +363,16 @@ public:
 
 
   /**
-  * Returns the z coordinate for the start point as a const reference.
+  * Returns the z coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the z value of the start point.
+  * @return RelAbsVector that represents the z value of the end point.
   */
   const RelAbsVector& getZPoint2() const;
 
   /**
-  * Returns the z coordinate for the start point as a const reference.
+  * Returns the z coordinate for the end point as a const reference.
   *
-  * @return RelAbsVector that represents the z value of the start point.
+  * @return RelAbsVector that represents the z value of the end point.
   */
   RelAbsVector& getZPoint2();
 
@@ -742,7 +742,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LinearGradient_t
  */
@@ -760,7 +760,7 @@ LinearGradient_create(unsigned int level,
  *
  * @return a (deep) copy of this LinearGradient_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LinearGradient_t
  */
@@ -972,7 +972,7 @@ LinearGradient_isSetZ2(const LinearGradient_t * lg);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param x1 RelAbsVector_t* value of the "x1" element to be set.
+ * @param x1 RelAbsVector_t value of the "x1" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -991,7 +991,7 @@ LinearGradient_setX1(LinearGradient_t * lg, const RelAbsVector_t* x1);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param y1 RelAbsVector_t* value of the "y1" element to be set.
+ * @param y1 RelAbsVector_t value of the "y1" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1010,7 +1010,7 @@ LinearGradient_setY1(LinearGradient_t * lg, const RelAbsVector_t* y1);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param z1 RelAbsVector_t* value of the "z1" element to be set.
+ * @param z1 RelAbsVector_t value of the "z1" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1029,7 +1029,7 @@ LinearGradient_setZ1(LinearGradient_t * lg, const RelAbsVector_t* z1);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param x2 RelAbsVector_t* value of the "x2" element to be set.
+ * @param x2 RelAbsVector_t value of the "x2" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1048,7 +1048,7 @@ LinearGradient_setX2(LinearGradient_t * lg, const RelAbsVector_t* x2);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param y2 RelAbsVector_t* value of the "y2" element to be set.
+ * @param y2 RelAbsVector_t value of the "y2" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1067,7 +1067,7 @@ LinearGradient_setY2(LinearGradient_t * lg, const RelAbsVector_t* y2);
  *
  * @param lg the LinearGradient_t structure.
  *
- * @param z2 RelAbsVector_t* value of the "z2" element to be set.
+ * @param z2 RelAbsVector_t value of the "z2" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

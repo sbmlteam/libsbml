@@ -703,7 +703,7 @@ public:
    * @return a pointer to the nth ColorDefinition in this
    * RenderInformationBase.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addColorDefinition(const ColorDefinition* object)
    * @see createColorDefinition()
@@ -725,7 +725,7 @@ public:
    * @return the ColorDefinition in this RenderInformationBase based on the
    * identifier or NULL if no such ColorDefinition exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addColorDefinition(const ColorDefinition* object)
    * @see createColorDefinition()
@@ -954,7 +954,7 @@ public:
    *
    * @return a pointer to the nth GradientBase in this RenderInformationBase.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
    * @see createLinearGradientDefinition()
@@ -977,7 +977,7 @@ public:
    * @return the GradientBase in this RenderInformationBase based on the
    * identifier or NULL if no such GradientBase exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientDefinition(const GradientBase* object)
    * @see createLinearGradientDefinition()
@@ -1181,7 +1181,7 @@ public:
    *
    * @return a pointer to the nth LineEnding in this RenderInformationBase.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLineEnding(const LineEnding* object)
    * @see createLineEnding()
@@ -1203,7 +1203,7 @@ public:
    * @return the LineEnding in this RenderInformationBase based on the
    * identifier or NULL if no such LineEnding exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLineEnding(const LineEnding* object)
    * @see createLineEnding()
@@ -1216,20 +1216,20 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "RenderInformationBase" is of
+   * Predicate returning @c true if this abstract RenderInformationBase is of
    * type GlobalRenderInformation
    *
-   * @return @c true if this abstract "RenderInformationBase" is of type
+   * @return @c true if this abstract RenderInformationBase is of type
    * GlobalRenderInformation, @c false otherwise
    */
   virtual bool isGlobalRenderInformation() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "RenderInformationBase" is of
+   * Predicate returning @c true if this abstract RenderInformationBase is of
    * type LocalRenderInformation
    *
-   * @return @c true if this abstract "RenderInformationBase" is of type
+   * @return @c true if this abstract RenderInformationBase is of type
    * LocalRenderInformation, @c false otherwise
    */
   virtual bool isLocalRenderInformation() const;
@@ -1806,7 +1806,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -1832,7 +1832,7 @@ RenderInformationBase_createGlobalRenderInformation(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -1850,7 +1850,7 @@ RenderInformationBase_createLocalRenderInformation(unsigned int level,
  *
  * @return a (deep) copy of this RenderInformationBase_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -1879,7 +1879,7 @@ RenderInformationBase_free(RenderInformationBase_t* rib);
  * @return the value of the "id" attribute of this RenderInformationBase_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -1896,7 +1896,7 @@ RenderInformationBase_getId(const RenderInformationBase_t * rib);
  * @return the value of the "name" attribute of this RenderInformationBase_t as
  * a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -1915,7 +1915,7 @@ RenderInformationBase_getName(const RenderInformationBase_t * rib);
  * @return the value of the "programName" attribute of this
  * RenderInformationBase_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -1934,7 +1934,7 @@ RenderInformationBase_getProgramName(const RenderInformationBase_t * rib);
  * @return the value of the "programVersion" attribute of this
  * RenderInformationBase_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -1953,7 +1953,7 @@ RenderInformationBase_getProgramVersion(const RenderInformationBase_t * rib);
  * @return the value of the "referenceRenderInformation" attribute of this
  * RenderInformationBase_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -1973,7 +1973,7 @@ RenderInformationBase_getReferenceRenderInformation(const
  * @return the value of the "backgroundColor" attribute of this
  * RenderInformationBase_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderInformationBase_t
  */
@@ -2471,7 +2471,7 @@ RenderInformationBase_createColorDefinition(RenderInformationBase_t* rib);
  * @return a pointer to the nth ColorDefinition_t in this
  * RenderInformationBase_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -2493,7 +2493,7 @@ RenderInformationBase_removeColorDefinition(RenderInformationBase_t* rib,
  * @return the ColorDefinition_t in this RenderInformationBase_t based on the
  * identifier or NULL if no such ColorDefinition_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -2665,7 +2665,7 @@ RenderInformationBase_createRadialGradient(RenderInformationBase_t* rib);
  *
  * @return a pointer to the nth GradientBase_t in this RenderInformationBase_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -2687,7 +2687,7 @@ RenderInformationBase_removeGradientDefinition(RenderInformationBase_t* rib,
  * @return the GradientBase_t in this RenderInformationBase_t based on the
  * identifier or NULL if no such GradientBase_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -2835,7 +2835,7 @@ RenderInformationBase_createLineEnding(RenderInformationBase_t* rib);
  *
  * @return a pointer to the nth LineEnding_t in this RenderInformationBase_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */
@@ -2857,7 +2857,7 @@ RenderInformationBase_removeLineEnding(RenderInformationBase_t* rib,
  * @return the LineEnding_t in this RenderInformationBase_t based on the
  * identifier or NULL if no such LineEnding_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderInformationBase_t
  */

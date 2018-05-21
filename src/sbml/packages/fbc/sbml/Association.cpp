@@ -192,7 +192,7 @@ Association::~Association ()
 }
 
 /*
- * Predicate returning @c true if this abstract "Association" is of type FbcAnd
+ * Predicate returning @c true if this abstract Association is of type FbcAnd
  */
 bool
 Association::isFbcAnd() const
@@ -202,7 +202,7 @@ Association::isFbcAnd() const
 
 
 /*
- * Predicate returning @c true if this abstract "Association" is of type FbcOr
+ * Predicate returning @c true if this abstract Association is of type FbcOr
  */
 bool
 Association::isFbcOr() const
@@ -212,7 +212,7 @@ Association::isFbcOr() const
 
 
 /*
- * Predicate returning @c true if this abstract "Association" is of type
+ * Predicate returning @c true if this abstract Association is of type
  * GeneProductRef
  */
 bool

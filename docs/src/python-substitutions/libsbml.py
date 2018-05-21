@@ -3255,8 +3255,8 @@ InvalidSBMLLevelVersion = _libsbml.InvalidSBMLLevelVersion
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
-InvalidSBMLLevelVersion = _libsbml.InvalidSBMLLevelVersion
-    ## @var long InvalidSBMLLevelVersion
+InvalidPackageLevelVersion = _libsbml.InvalidPackageLevelVersion
+    ## @var long InvalidPackageLevelVersion
     ## 
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
@@ -12591,6 +12591,502 @@ SBML_MULTI_SUBLIST_OF_SPECIES_FEATURES = _libsbml.SBML_MULTI_SUBLIST_OF_SPECIES_
     ## enumeration defined by the libSBML &ldquo;multi&rdquo; extension to
     ## implement functionality for the SBML Level&nbsp;3 Multistate,
     ## Multicomponent and Multicompartment %Species package.
+
+
+FILL_RULE_EVENODD = _libsbml.FILL_RULE_EVENODD
+    ## @var long SBML_RENDER_SUBLIST_OF_SPECIES_FEATURES
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FILL_RULE_INHERIT = _libsbml.FILL_RULE_INHERIT
+    ## @var long FILL_RULE_INHERIT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FILL_RULE_INVALID = _libsbml.FILL_RULE_INVALID
+    ## @var long FILL_RULE_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FILL_RULE_NONZERO = _libsbml.FILL_RULE_NONZERO
+    ## @var long FILL_RULE_NONZERO
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FILL_RULE_UNSET = _libsbml.FILL_RULE_UNSET
+    ## @var long FILL_RULE_UNSET
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_FAMILY_INVALID = _libsbml.FONT_FAMILY_INVALID
+    ## @var long FONT_FAMILY_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_FAMILY_MONOSPACE = _libsbml.FONT_FAMILY_MONOSPACE
+    ## @var long FONT_FAMILY_MONOSPACE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_FAMILY_SANS_SERIF = _libsbml.FONT_FAMILY_SANS_SERIF
+    ## @var long FONT_FAMILY_SANS_SERIF
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_FAMILY_SERIF = _libsbml.FONT_FAMILY_SERIF
+    ## @var long FONT_FAMILY_SERIF
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_STYLE_INVALID = _libsbml.FONT_STYLE_INVALID
+    ## @var long FONT_STYLE_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_STYLE_ITALIC = _libsbml.FONT_STYLE_ITALIC
+    ## @var long FONT_STYLE_ITALIC
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_STYLE_NORMAL = _libsbml.FONT_STYLE_NORMAL
+    ## @var long FONT_STYLE_NORMAL
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_STYLE_UNSET = _libsbml.FONT_STYLE_UNSET
+    ## @var long FONT_STYLE_UNSET
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_WEIGHT_BOLD = _libsbml.FONT_WEIGHT_BOLD
+    ## @var long FONT_WEIGHT_BOLD
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_WEIGHT_INVALID = _libsbml.FONT_WEIGHT_INVALID
+    ## @var long FONT_WEIGHT_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_WEIGHT_NORMAL = _libsbml.FONT_WEIGHT_NORMAL
+    ## @var long FONT_WEIGHT_NORMAL
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+FONT_WEIGHT_UNSET = _libsbml.FONT_WEIGHT_UNSET
+    ## @var long FONT_WEIGHT_UNSET
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+GRADIENT_SPREADMETHOD_PAD = _libsbml.GRADIENT_SPREADMETHOD_PAD
+    ## @var long GRADIENT_SPREADMETHOD_PAD
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+GRADIENT_SPREADMETHOD_REFLECT = _libsbml.GRADIENT_SPREADMETHOD_REFLECT
+    ## @var long GRADIENT_SPREADMETHOD_REFLECT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+GRADIENT_SPREADMETHOD_REPEAT = _libsbml.GRADIENT_SPREADMETHOD_REPEAT
+    ## @var long GRADIENT_SPREADMETHOD_REPEAT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+GRADIENT_SPREAD_METHOD_INVALID = _libsbml.GRADIENT_SPREAD_METHOD_INVALID
+    ## @var long GRADIENT_SPREAD_METHOD_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+H_TEXTANCHOR_END = _libsbml.H_TEXTANCHOR_END
+    ## @var long H_TEXTANCHOR_END
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+H_TEXTANCHOR_INVALID = _libsbml.H_TEXTANCHOR_INVALID
+    ## @var long H_TEXTANCHOR_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+H_TEXTANCHOR_MIDDLE = _libsbml.H_TEXTANCHOR_MIDDLE
+    ## @var long H_TEXTANCHOR_MIDDLE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+H_TEXTANCHOR_START = _libsbml.H_TEXTANCHOR_START
+    ## @var long H_TEXTANCHOR_START
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+H_TEXTANCHOR_UNSET = _libsbml.H_TEXTANCHOR_UNSET
+    ## @var long H_TEXTANCHOR_UNSET
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_COLORDEFINITION = _libsbml.SBML_RENDER_COLORDEFINITION
+    ## @var long SBML_RENDER_COLORDEFINITION
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_CUBICBEZIER = _libsbml.SBML_RENDER_CUBICBEZIER
+    ## @var long SBML_RENDER_CUBICBEZIER
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_CURVE = _libsbml.SBML_RENDER_CURVE
+    ## @var long SBML_RENDER_CURVE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_DEFAULTS = _libsbml.SBML_RENDER_DEFAULTS
+    ## @var long SBML_RENDER_DEFAULTS
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_ELLIPSE = _libsbml.SBML_RENDER_ELLIPSE
+    ## @var long SBML_RENDER_ELLIPSE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GLOBALRENDERINFORMATION = _libsbml.SBML_RENDER_GLOBALRENDERINFORMATION
+    ## @var long SBML_RENDER_GLOBALRENDERINFORMATION
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GLOBALSTYLE = _libsbml.SBML_RENDER_GLOBALSTYLE
+    ## @var long SBML_RENDER_GLOBALSTYLE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GRADIENTDEFINITION = _libsbml.SBML_RENDER_GRADIENTDEFINITION
+    ## @var long SBML_RENDER_GRADIENTDEFINITION
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GRADIENT_STOP = _libsbml.SBML_RENDER_GRADIENT_STOP
+    ## @var long SBML_RENDER_GRADIENT_STOP
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GRAPHICALPRIMITIVE1D = _libsbml.SBML_RENDER_GRAPHICALPRIMITIVE1D
+    ## @var long SBML_RENDER_GRAPHICALPRIMITIVE1D
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GRAPHICALPRIMITIVE2D = _libsbml.SBML_RENDER_GRAPHICALPRIMITIVE2D
+    ## @var long SBML_RENDER_GRAPHICALPRIMITIVE2D
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_GROUP = _libsbml.SBML_RENDER_GROUP
+    ## @var long SBML_RENDER_GROUP
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_IMAGE = _libsbml.SBML_RENDER_IMAGE
+    ## @var long SBML_RENDER_IMAGE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LINEARGRADIENT = _libsbml.SBML_RENDER_LINEARGRADIENT
+    ## @var long SBML_RENDER_LINEARGRADIENT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LINEENDING = _libsbml.SBML_RENDER_LINEENDING
+    ## @var long SBML_RENDER_LINEENDING
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LINESEGMENT = _libsbml.SBML_RENDER_LINESEGMENT
+    ## @var long SBML_RENDER_LINESEGMENT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LISTOFGLOBALSTYLES = _libsbml.SBML_RENDER_LISTOFGLOBALSTYLES
+    ## @var long SBML_RENDER_LISTOFGLOBALSTYLES
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LISTOFLOCALSTYLES = _libsbml.SBML_RENDER_LISTOFLOCALSTYLES
+    ## @var long SBML_RENDER_LISTOFLOCALSTYLES
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LOCALRENDERINFORMATION = _libsbml.SBML_RENDER_LOCALRENDERINFORMATION
+    ## @var long SBML_RENDER_LOCALRENDERINFORMATION
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_LOCALSTYLE = _libsbml.SBML_RENDER_LOCALSTYLE
+    ## @var long SBML_RENDER_LOCALSTYLE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_POINT = _libsbml.SBML_RENDER_POINT
+    ## @var long SBML_RENDER_POINT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_POLYGON = _libsbml.SBML_RENDER_POLYGON
+    ## @var long SBML_RENDER_POLYGON
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_RADIALGRADIENT = _libsbml.SBML_RENDER_RADIALGRADIENT
+    ## @var long SBML_RENDER_RADIALGRADIENT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_RECTANGLE = _libsbml.SBML_RENDER_RECTANGLE
+    ## @var long SBML_RENDER_RECTANGLE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_RELABSVECTOR = _libsbml.SBML_RENDER_RELABSVECTOR
+    ## @var long SBML_RENDER_RELABSVECTOR
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_RENDERINFORMATION_BASE = _libsbml.SBML_RENDER_RENDERINFORMATION_BASE
+    ## @var long SBML_RENDER_RENDERINFORMATION_BASE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_STYLE_BASE = _libsbml.SBML_RENDER_STYLE_BASE
+    ## @var long SBML_RENDER_STYLE_BASE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_TEXT = _libsbml.SBML_RENDER_TEXT
+    ## @var long SBML_RENDER_TEXT
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_TRANSFORMATION = _libsbml.SBML_RENDER_TRANSFORMATION
+    ## @var long SBML_RENDER_TRANSFORMATION
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+SBML_RENDER_TRANSFORMATION2D = _libsbml.SBML_RENDER_TRANSFORMATION2D
+    ## @var long SBML_RENDER_TRANSFORMATION2D
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_BASELINE = _libsbml.V_TEXTANCHOR_BASELINE
+    ## @var long V_TEXTANCHOR_BASELINE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_BOTTOM = _libsbml.V_TEXTANCHOR_BOTTOM
+    ## @var long V_TEXTANCHOR_BOTTOM
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_INVALID = _libsbml.V_TEXTANCHOR_INVALID
+    ## @var long V_TEXTANCHOR_INVALID
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_MIDDLE = _libsbml.V_TEXTANCHOR_MIDDLE
+    ## @var long V_TEXTANCHOR_MIDDLE
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_TOP = _libsbml.V_TEXTANCHOR_TOP
+    ## @var long V_TEXTANCHOR_TOP
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
+
+
+V_TEXTANCHOR_UNSET = _libsbml.V_TEXTANCHOR_UNSET
+    ## @var long V_TEXTANCHOR_UNSET
+    ##
+    ## <span class="pkg-marker pkg-color-render">render</span> A value in an
+    ## enumeration defined by the libSBML &ldquo;render&rdquo; extension to
+    ## implement functionality for the SBML Level&nbsp;3 Render package.
 
 
 LIBSBML_OVERRIDE_DISABLED = _libsbml.LIBSBML_OVERRIDE_DISABLED    

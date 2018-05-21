@@ -258,7 +258,7 @@ public:
    *
    * @return a pointer to the nth GradientStop in this ListOfGradientStops.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientStop(const GradientStop* object)
    * @see createGradientStop()
@@ -280,7 +280,7 @@ public:
    * @return the GradientStop in this ListOfGradientStops based on the
    * identifier or NULL if no such GradientStop exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientStop(const GradientStop* object)
    * @see createGradientStop()
@@ -515,7 +515,7 @@ ListOfGradientStops_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth GradientStop_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGradientStops_t
  */
@@ -536,7 +536,7 @@ ListOfGradientStops_remove(ListOf_t* lo, unsigned int n);
  * @return the GradientStop_t in this ListOf_t based on the identifier or NULL
  * if no such GradientStop_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfGradientStops_t
  */

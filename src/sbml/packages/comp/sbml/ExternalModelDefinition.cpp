@@ -237,7 +237,7 @@ ExternalModelDefinition::getModelRef () const
 
 
 /*
- * @return true if the modelRef of this SBML object has been set, false
+ * @return @c true if the modelRef of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -289,7 +289,7 @@ ExternalModelDefinition::getMd5 () const
 
 
 /*
- * @return true if the md5 of this SBML object has been set, false
+ * @return @c true if the md5 of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -339,7 +339,7 @@ ExternalModelDefinition::getSource () const
 
 
 /*
- * @return true if the source of this SBML object has been set, false
+ * @return @c true if the source of this SBML object has been set, false
  * otherwise.
  */
 bool

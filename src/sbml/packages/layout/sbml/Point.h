@@ -198,13 +198,13 @@ public:
   /**
    * Returns the value of the "id" attribute of this Point.
    *
-   * @note Because of the inconsistent behavior of this function with 
-   * respect to assignments and rules, it is now recommended to
-   * use the getIdAttribute() function instead.
-   *
    * @copydetails doc_id_attribute
    *
    * @return the id of this Point.
+   *
+   * @note Because of the inconsistent behavior of this function with 
+   * respect to assignments and rules, it is now recommended to
+   * use the getIdAttribute() function instead.
    *
    * @see getIdAttribute()
    * @see setIdAttribute(const std::string& sid)

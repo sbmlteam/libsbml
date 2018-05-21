@@ -5641,7 +5641,7 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
-    public final static int InvalidSBMLLevelVersion = 99102;
+    public final static int InvalidPackageLevelVersion = 99102;
 
 
     /**

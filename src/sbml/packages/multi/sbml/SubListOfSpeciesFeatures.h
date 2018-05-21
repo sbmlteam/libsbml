@@ -609,9 +609,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Returns the string version of the provided #Relation_t enumeration.
+ * Returns the string version of the provided Relation_t enumeration.
  *
- * @param r the #Relation_t enumeration value to convert.
+ * @param r the Relation_t enumeration value to convert.
  *
  * @return A string corresponding to the given type:
  * "and",
@@ -631,12 +631,12 @@ const char*
 Relation_toString(Relation_t r);
 
 /**
- * Returns the #Relation_t enumeration corresponding to the given string or
+ * Returns the Relation_t enumeration corresponding to the given string or
  * @sbmlconstant{MULTI_RELATION_UNKNOWN, Relation_t} if there is no such match.
  *
- * @param code the string to convert to a #Relation_t.
+ * @param code the string to convert to a Relation_t.
  *
- * @return the corresponding #Relation_t or @sbmlconstant{MULTI_RELATION_UNKNOWN,
+ * @return the corresponding Relation_t or @sbmlconstant{MULTI_RELATION_UNKNOWN,
  * Relation_t} if no match is found.
  *
  * @note The matching is case-sensitive: "and" will return
@@ -663,11 +663,11 @@ BEGIN_C_DECLS
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given #Relation_t is valid.
+ * given Relation_t is valid.
  *
- * @param relation the #Relation_t enumeration to query.
+ * @param relation the Relation_t enumeration to query.
  *
- * @return @c 1 (true) if the #Relation_t is
+ * @return @c 1 (true) if the Relation_t is
  * @sbmlconstant{MULTI_RELATION_AND, Relation_t},
  * @sbmlconstant{MULTI_RELATION_OR, Relation_t}, or
  * @sbmlconstant{MULTI_RELATION_NOT, Relation_t};
@@ -685,7 +685,7 @@ SubListOfSpeciesFeatures_isValidRelation(Relation_t relation);
 
 /**
  * Predicate returning @c 1 (true) or @c 0 (false) depending on whether the
- * given string is a valid #Relation_t.
+ * given string is a valid Relation_t.
  *
  * @param code the string to query.
  *
@@ -721,7 +721,7 @@ SubListOfSpeciesFeatures_isValidRelationString(const char* code);
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SubListOfSpeciesFeatures_t
  */
@@ -739,7 +739,7 @@ SubListOfSpeciesFeatures_create(unsigned int level,
  *
  * @return a (deep) copy of this SubListOfSpeciesFeatures_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SubListOfSpeciesFeatures_t
  */
@@ -768,7 +768,7 @@ SubListOfSpeciesFeatures_free(SubListOfSpeciesFeatures_t* slosf);
  * @return the value of the "id" attribute of this SubListOfSpeciesFeatures_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SubListOfSpeciesFeatures_t
  */
@@ -786,7 +786,7 @@ SubListOfSpeciesFeatures_getId(const SubListOfSpeciesFeatures_t * slosf);
  * @return the value of the "name" attribute of this SubListOfSpeciesFeatures_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SubListOfSpeciesFeatures_t
  */
@@ -857,7 +857,7 @@ SubListOfSpeciesFeatures_getRelationAsString(const SubListOfSpeciesFeatures_t *
  * @return the value of the "component" attribute of this
  * SubListOfSpeciesFeatures_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SubListOfSpeciesFeatures_t
  */

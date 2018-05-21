@@ -128,7 +128,7 @@ struct CycleContains : public unary_function<IdList, bool>
 
 
 /*
- * @return true if Compartment c is contained in one of the already found
+ * @return @c true if Compartment c is contained in one of the already found
  * cycles, false otherwise.
  */
 bool

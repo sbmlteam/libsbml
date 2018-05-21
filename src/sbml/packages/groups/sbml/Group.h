@@ -262,7 +262,7 @@ public:
    * @return the value of the "kind" attribute of this Group as a GroupKind_t.
    *
    * @if clike The value is drawn from the enumeration
-   * @ref GroupKind_t@endif.
+   * GroupKind_t.@endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
    * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
@@ -637,7 +637,7 @@ public:
    *
    * @return a pointer to the nth Member in this Group.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addMember(const Member* object)
    * @see createMember()
@@ -658,7 +658,7 @@ public:
    * @return the Member in this Group based on the identifier or NULL if no
    * such Member exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addMember(const Member* object)
    * @see createMember()
@@ -1219,7 +1219,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Group_t
  */
@@ -1237,7 +1237,7 @@ Group_create(unsigned int level,
  *
  * @return a (deep) copy of this Group_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Group_t
  */
@@ -1266,7 +1266,7 @@ Group_free(Group_t* g);
  * @return the value of the "id" attribute of this Group_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Group_t
  */
@@ -1283,7 +1283,7 @@ Group_getId(const Group_t * g);
  * @return the value of the "name" attribute of this Group_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof Group_t
  */
@@ -1656,7 +1656,7 @@ Group_createMember(Group_t* g);
  *
  * @return a pointer to the nth Member_t in this Group_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Group_t
  */
@@ -1676,7 +1676,7 @@ Group_removeMember(Group_t* g, unsigned int n);
  * @return the Member_t in this Group_t based on the identifier or NULL if no
  * such Member_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof Group_t
  */

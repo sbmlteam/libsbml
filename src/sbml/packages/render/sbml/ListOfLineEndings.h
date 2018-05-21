@@ -246,7 +246,7 @@ public:
    *
    * @return a pointer to the nth LineEnding in this ListOfLineEndings.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLineEnding(const LineEnding* object)
    * @see createLineEnding()
@@ -268,7 +268,7 @@ public:
    * @return the LineEnding in this ListOfLineEndings based on the identifier
    * or NULL if no such LineEnding exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addLineEnding(const LineEnding* object)
    * @see createLineEnding()
@@ -500,7 +500,7 @@ ListOfLineEndings_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth LineEnding_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfLineEndings_t
  */
@@ -521,7 +521,7 @@ ListOfLineEndings_remove(ListOf_t* lo, unsigned int n);
  * @return the LineEnding_t in this ListOf_t based on the identifier or NULL if
  * no such LineEnding_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfLineEndings_t
  */

@@ -1118,7 +1118,7 @@ RenderInformationBase::removeLineEnding(const std::string& sid)
 
 
 /*
- * Predicate returning @c true if this abstract "RenderInformationBase" is of
+ * Predicate returning @c true if this abstract RenderInformationBase is of
  * type GlobalRenderInformation
  */
 bool
@@ -1129,7 +1129,7 @@ RenderInformationBase::isGlobalRenderInformation() const
 
 
 /*
- * Predicate returning @c true if this abstract "RenderInformationBase" is of
+ * Predicate returning @c true if this abstract RenderInformationBase is of
  * type LocalRenderInformation
  */
 bool

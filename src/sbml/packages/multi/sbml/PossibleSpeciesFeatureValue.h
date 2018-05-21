@@ -608,7 +608,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof PossibleSpeciesFeatureValue_t
  */
@@ -638,7 +638,7 @@ PossibleSpeciesFeatureValue_free(PossibleSpeciesFeatureValue_t * psfv);
  *
  * @return a (deep) copy of this PossibleSpeciesFeatureValue_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof PossibleSpeciesFeatureValue_t
  */
@@ -656,7 +656,7 @@ PossibleSpeciesFeatureValue_clone(PossibleSpeciesFeatureValue_t * psfv);
  * @return the value of the "id" attribute of this
  * PossibleSpeciesFeatureValue_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof PossibleSpeciesFeatureValue_t
  */
@@ -675,7 +675,7 @@ PossibleSpeciesFeatureValue_getId(const PossibleSpeciesFeatureValue_t * psfv);
  * @return the value of the "name" attribute of this
  * PossibleSpeciesFeatureValue_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof PossibleSpeciesFeatureValue_t
  */
@@ -694,7 +694,7 @@ PossibleSpeciesFeatureValue_getName(const PossibleSpeciesFeatureValue_t * psfv);
  * @return the value of the "numericValue" attribute of this
  * PossibleSpeciesFeatureValue_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof PossibleSpeciesFeatureValue_t
  */

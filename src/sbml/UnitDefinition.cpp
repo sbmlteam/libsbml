@@ -197,7 +197,7 @@ UnitDefinition::getName () const
 
 
 /*
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -208,7 +208,7 @@ UnitDefinition::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -306,7 +306,7 @@ UnitDefinition::unsetName ()
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * area. i.e. square metres with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -343,7 +343,7 @@ UnitDefinition::isVariantOfArea (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * length. i.e. metres with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -380,7 +380,7 @@ UnitDefinition::isVariantOfLength (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * substance. i.e. moles or items with only arbitrary variations in
  * scale or multiplier values, false otherwise.
  */
@@ -445,7 +445,7 @@ UnitDefinition::isVariantOfSubstance (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * time. i.e. seconds with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -482,7 +482,7 @@ UnitDefinition::isVariantOfTime (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * volume. i.e. litre or cubic metre with only arbitrary variations in
  * scale or multiplier values, false otherwise.
  */
@@ -524,7 +524,7 @@ UnitDefinition::isVariantOfVolume (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of dimensionless.
+ * @return @c true if this UnitDefinition is a variant of dimensionless.
  * i.e. dimensionless with only arbitrary variations in scale,
  * or multiplier values, false otherwise.
  */
@@ -559,7 +559,7 @@ UnitDefinition::isVariantOfDimensionless (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of mass. ie gram or
+ * @return @c true if this UnitDefinition is a variant of mass. ie gram or
  * kilogram with only arbitrary variations in scale or multiplier
  * values, false otherwise.
  */
@@ -601,7 +601,7 @@ UnitDefinition::isVariantOfMass (bool relaxed) const
 
 
 /*
- * @return true if this UnitDefinition is a variant of the built-in type
+ * @return @c true if this UnitDefinition is a variant of the built-in type
  * substance per time, false otherwise.
  */
 bool

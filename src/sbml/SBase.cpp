@@ -1121,7 +1121,7 @@ SBase::getModelHistory()
 
 
 /*
- * @return true if the metaid of this SBML object is set, false
+ * @return @c true if the metaid of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -1134,7 +1134,7 @@ SBase::isSetMetaId () const
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
- * @return true if the id of this SBML object is set, false
+ * @return @c true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -1147,7 +1147,7 @@ SBase::isSetId () const
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -1165,7 +1165,7 @@ SBase::isSetIdAttribute () const
 
 
 /*
- * @return true if the notes of this SBML object is set, false
+ * @return @c true if the notes of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -1176,7 +1176,7 @@ SBase::isSetNotes () const
 
 
 /*
- * @return true if the annotation of this SBML object is set,
+ * @return @c true if the annotation of this SBML object is set,
  * false otherwise.
  */
 bool
@@ -1188,7 +1188,7 @@ SBase::isSetAnnotation () const
 
 
 /*
- * @return true if the sboTerm is set, false
+ * @return @c true if the sboTerm is set, false
  * otherwise.
  */
 bool
@@ -4758,7 +4758,7 @@ SBase::createExtensionObject (XMLInputStream& stream)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 SBase::readOtherXML (XMLInputStream& stream)
@@ -4785,7 +4785,7 @@ SBase::readOtherXML (XMLInputStream& stream)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true if read an <annotation> element from the stream
+ * @return @c true if read an <annotation> element from the stream
  */
 bool
 SBase::readAnnotation (XMLInputStream& stream)
@@ -4917,7 +4917,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true if read a <notes> element from the stream
+ * @return @c true if read a <notes> element from the stream
  */
 bool
 SBase::readNotes (XMLInputStream& stream)

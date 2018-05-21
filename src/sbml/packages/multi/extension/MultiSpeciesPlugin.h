@@ -742,7 +742,7 @@ MultiSpeciesPlugin_createSpeciesFeature(MultiSpeciesPlugin_t* msp);
  *
  * @return a pointer to the nth SpeciesFeature_t in this MultiSpeciesPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesPlugin_t
  */
@@ -764,7 +764,7 @@ MultiSpeciesPlugin_removeSpeciesFeature(MultiSpeciesPlugin_t* msp,
  * @return the SpeciesFeature_t in this MultiSpeciesPlugin_t based on the
  * identifier or NULL if no such SpeciesFeature_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesPlugin_t
  */
@@ -917,7 +917,7 @@ MultiSpeciesPlugin_createOutwardBindingSite(MultiSpeciesPlugin_t* msp);
  * @return a pointer to the nth OutwardBindingSite_t in this
  * MultiSpeciesPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesPlugin_t
  */
@@ -939,7 +939,7 @@ MultiSpeciesPlugin_removeOutwardBindingSite(MultiSpeciesPlugin_t* msp,
  * @return the OutwardBindingSite_t in this MultiSpeciesPlugin_t based on the
  * identifier or NULL if no such OutwardBindingSite_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesPlugin_t
  */
@@ -958,7 +958,7 @@ MultiSpeciesPlugin_removeOutwardBindingSiteById(MultiSpeciesPlugin_t* msp,
  * @return the value of the "speciesType" attribute of this
  * MultiSpeciesPlugin_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiSpeciesPlugin_t
  */

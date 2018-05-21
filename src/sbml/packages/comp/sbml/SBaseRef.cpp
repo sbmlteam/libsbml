@@ -264,7 +264,7 @@ SBaseRef::getPortRef () const
 
 
 /*
- * @return true if the portRef of this SBML object has been set, false
+ * @return @c true if the portRef of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -327,7 +327,7 @@ SBaseRef::getIdRef () const
 
 
 /*
- * @return true if the idRef of this SBML object has been set, false
+ * @return @c true if the idRef of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -388,7 +388,7 @@ SBaseRef::getUnitRef () const
 
 
 /*
- * @return true if the unitRef of this SBML object has been set, false
+ * @return @c true if the unitRef of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -436,7 +436,7 @@ SBaseRef::getSBaseRef ()
 }
 
 /*
- * @return true if the child SBaseRef of this SBaseRef is set, false otherwise.
+ * @return @c true if the child SBaseRef of this SBaseRef is set, false otherwise.
  */
 bool
 SBaseRef::isSetSBaseRef () const

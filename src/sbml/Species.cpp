@@ -366,7 +366,7 @@ Species::getUnits () const
 
 
 /*
- * @return true if this Species hasOnlySubstanceUnits, false otherwise.
+ * @return @c true if this Species hasOnlySubstanceUnits, false otherwise.
  */
 bool
 Species::getHasOnlySubstanceUnits () const
@@ -376,7 +376,7 @@ Species::getHasOnlySubstanceUnits () const
 
 
 /*
- * @return true if this Species has boundaryCondition
+ * @return @c true if this Species has boundaryCondition
  * true, false otherwise.
  */
 bool
@@ -397,7 +397,7 @@ Species::getCharge () const
 
 
 /*
- * @return true if this Species is constant, false otherwise.
+ * @return @c true if this Species is constant, false otherwise.
  */
 bool
 Species::getConstant () const
@@ -417,7 +417,7 @@ Species::getConversionFactor () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return @c true if the id of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -428,7 +428,7 @@ Species::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object is set, false
+ * @return @c true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -440,7 +440,7 @@ Species::isSetName () const
 
 
 /*
- * @return true if the speciesType of this Species is set, false
+ * @return @c true if the speciesType of this Species is set, false
  * otherwise.
  */
 bool
@@ -451,7 +451,7 @@ Species::isSetSpeciesType () const
 
 
 /*
- * @return true if the compartment of this Species is set, false
+ * @return @c true if the compartment of this Species is set, false
  * otherwise.
  */
 bool
@@ -462,7 +462,7 @@ Species::isSetCompartment () const
 
 
 /*
- * @return true if the initialAmount of this Species is set, false
+ * @return @c true if the initialAmount of this Species is set, false
  * otherwise.
  *
  * In SBML L1, a Species initialAmount is required and therefore <b>should
@@ -477,7 +477,7 @@ Species::isSetInitialAmount () const
 
 
 /*
- * @return true if the initialConcentration of this Species is set,
+ * @return @c true if the initialConcentration of this Species is set,
  * false otherwise.
  */
 bool
@@ -488,7 +488,7 @@ Species::isSetInitialConcentration () const
 
 
 /*
- * @return true if the substanceUnits of this Species is set, false
+ * @return @c true if the substanceUnits of this Species is set, false
  * otherwise.
  */
 bool
@@ -499,7 +499,7 @@ Species::isSetSubstanceUnits () const
 
 
 /*
- * @return true if the spatialSizeUnits of this Species is set, false
+ * @return @c true if the spatialSizeUnits of this Species is set, false
  * otherwise.
  */
 bool
@@ -510,7 +510,7 @@ Species::isSetSpatialSizeUnits () const
 
 
 /*
- * @return true if the units of this Species is set, false otherwise
+ * @return @c true if the units of this Species is set, false otherwise
  * (L1 only).
  */
 bool
@@ -521,7 +521,7 @@ Species::isSetUnits () const
 
 
 /*
- * @return true if the charge of this Species is set, false
+ * @return @c true if the charge of this Species is set, false
  * otherwise.
  */
 bool
@@ -532,7 +532,7 @@ Species::isSetCharge () const
 
 
 /*
- * @return true if the conversionFactor of this Species is set, false
+ * @return @c true if the conversionFactor of this Species is set, false
  * otherwise.
  */
 bool

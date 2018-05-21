@@ -594,7 +594,7 @@ GradientBase::removeGradientStop(const std::string& sid)
 
 
 /*
- * Predicate returning @c true if this abstract "GradientBase" is of type
+ * Predicate returning @c true if this abstract GradientBase is of type
  * LinearGradient
  */
 bool
@@ -605,7 +605,7 @@ GradientBase::isLinearGradient() const
 
 
 /*
- * Predicate returning @c true if this abstract "GradientBase" is of type
+ * Predicate returning @c true if this abstract GradientBase is of type
  * RadialGradient
  */
 bool

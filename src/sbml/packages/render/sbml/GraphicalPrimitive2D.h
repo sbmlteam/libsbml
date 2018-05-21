@@ -74,16 +74,6 @@ class LineEnding;
 
 class LIBSBML_EXTERN GraphicalPrimitive2D : public GraphicalPrimitive1D
 {
-public:
-  enum FILL_RULE
-  {
-    UNSET,
-    NONZERO,
-    EVENODD,
-    INHERIT,
-    INVALID
-  };
-
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -94,6 +84,18 @@ protected:
   /** @endcond */
 
 public:
+
+  /** @cond doxygenLibsbmlInternal */
+  enum FILL_RULE
+  {
+    UNSET,
+    NONZERO,
+    EVENODD,
+    INHERIT,
+    INVALID
+  };
+  /** @endcond */
+
 
   /**
    * Creates a new GraphicalPrimitive2D using the given SBML Level, Version and
@@ -145,15 +147,16 @@ public:
   GraphicalPrimitive2D(const XMLNode& node, unsigned int l2Version=4);
 
 
-
-
 #ifndef OMIT_DEPRECATED
   /**
    * Constructor which creates a GraphicalPrimitive2D.
    * The attributes inherited from GraphicalPrimitive1D are set as described
-   * in the corresponding constructor for GraphicalPrimitive1D (@see GraphicalPrimitive1D).
+   * in the corresponding constructor for GraphicalPrimitive1D.
    *
    * The fill and the fill rule are unset.
+   *
+   * @param renderns the SBMLNamespaces object for the SBML "render" package
+   * @param id The id for the GraphicalPrimitive1D object
    *
    * @copydetails doc_warning_deprecated_constructor
    */
@@ -202,9 +205,10 @@ public:
 
 
   /**
-   * Returns the fill color.
-   *
-   * @return this id of the fill color or the fill gradient or the fill color value string.
+  * Returns the value of the "fill" attribute of this GraphicalPrimitive2D.
+  *
+   * @return the value of the "fill" attribute of this GraphicalPrimitive2D as
+   * a string.
    */
   const std::string& getFillColor() const;
 
@@ -213,14 +217,16 @@ public:
    * Returns the value of the "fill-rule" attribute of this
    * GraphicalPrimitive2D.
    *
-   * @return the value of the "fill-rule" attribute of this
-   * GraphicalPrimitive2D as a FillRule_t.
-   *
    * @copydetails doc_render_fill_rule
-   * @if clike The value is drawn from the enumeration @ref FillRule_t @endif
+   *
+   * @return the value of the "fill-rule" attribute of this
+   * GraphicalPrimitive2D as @if clike a FillRule_t @else an int@endif@~ value.
    * The possible values returned by this method are:
+   * @li @sbmlconstant{FILL_RULE_UNSET, FillRule_t}
    * @li @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}
    * @li @sbmlconstant{FILL_RULE_EVENODD, FillRule_t}
+   * @li @sbmlconstant{FILL_RULE_INHERIT, FillRule_t}
+   * @li @sbmlconstant{FILL_RULE_INVALID, FillRule_t}
    */
   int getFillRule() const;
 
@@ -229,13 +235,15 @@ public:
    * Returns the value of the "fill-rule" attribute of this
    * GraphicalPrimitive2D.
    *
-   * @return the value of the "fill-rule" attribute of this
-   * GraphicalPrimitive2D as a string.
-   *
    * @copydetails doc_render_fill_rule
-   * The possible values returned by this method are:
+   *
+   * @return the value of the "fill-rule" attribute of this
+   * GraphicalPrimitive2D as a string. The possible values returned by this
+   * method are:
+   * @li @c "unset"
    * @li @c "nonzero"
    * @li @c "evenodd"
+   * @li @c "inherit"
    * @li @c "(Unknown FillRule value)"
    */
   std::string getFillRuleAsString() const;
@@ -252,10 +260,10 @@ public:
 
 
   /**
-   * Returns true if the fill attribute is set or false otherwise.
+   * Returns @c true if the fill attribute is set or @c false otherwise.
    * The fill attribute is considered set if the string is not empty.
    *
-   * @return true is the fill color is set.
+   * @return @c true if the fill color is set.
    */
   bool isSetFillColor() const;
 
@@ -264,10 +272,10 @@ public:
    * Predicate returning @c true if this GraphicalPrimitive2D's "fill-rule"
    * attribute is set.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @return @c true if this GraphicalPrimitive2D's "fill-rule" attribute has
    * been set, otherwise @c false is returned.
-   *
-   * @copydetails doc_render_fill_rule
    */
   bool isSetFillRule() const;
 
@@ -298,31 +306,31 @@ public:
   /**
   * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
   *
-  * @param rule @if clike @ref FillRule_t@else int@endif@~ value of the
+  * @copydetails doc_render_fill_rule
+  *
+  * @param rule @if clike FillRule_t@else int@endif@~ value of the
   * "fill-rule" attribute to be set.
   *
   * @copydetails doc_returns_success_code
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
   * OperationReturnValues_t}
-  *
-  * @copydetails doc_render_fill_rule
   */
   void setFillRule(FILL_RULE rule);
-  
-  
+
+
   /**
    * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
    *
-   * @param fillRule @if clike @ref FillRule_t@else int@endif@~ value of the
+   * @copydetails doc_render_fill_rule
+   *
+   * @param fillRule @if clike FillRule_t@else int@endif@~ value of the
    * "fill-rule" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_render_fill_rule
    */
   int setFillRule(const FillRule_t fillRule);
 
@@ -330,14 +338,14 @@ public:
   /**
    * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @param fillRule std::string& of the "fill-rule" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
-   *
-   * @copydetails doc_render_fill_rule
    */
   int setFillRule(const std::string& fillRule);
 
@@ -356,59 +364,59 @@ public:
    * Unsets the value of the "fill-rule" attribute of this
    * GraphicalPrimitive2D.
    *
+   * @copydetails doc_render_fill_rule
+   *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * @copydetails doc_render_fill_rule
    */
   int unsetFillRule();
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
    * type Ellipse
    *
-   * @return @c true if this abstract "GraphicalPrimitive2D" is of type
+   * @return @c true if this abstract GraphicalPrimitive2D is of type
    * Ellipse, @c false otherwise
    */
   virtual bool isEllipse() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
    * type Rectangle
    *
-   * @return @c true if this abstract "GraphicalPrimitive2D" is of type
+   * @return @c true if this abstract GraphicalPrimitive2D is of type
    * Rectangle, @c false otherwise
    */
   virtual bool isRectangle() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
    * type Polygon
    *
-   * @return @c true if this abstract "GraphicalPrimitive2D" is of type
+   * @return @c true if this abstract GraphicalPrimitive2D is of type
    * Polygon, @c false otherwise
    */
   virtual bool isPolygon() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
    * type RenderGroup
    *
-   * @return @c true if this abstract "GraphicalPrimitive2D" is of type
+   * @return @c true if this abstract GraphicalPrimitive2D is of type
    * RenderGroup, @c false otherwise
    */
   virtual bool isRenderGroup() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GraphicalPrimitive2D" is of
+   * Predicate returning @c true if this abstract GraphicalPrimitive2D is of
    * type LineEnding
    *
-   * @return @c true if this abstract "GraphicalPrimitive2D" is of type
+   * @return @c true if this abstract GraphicalPrimitive2D is of type
    * LineEnding, @c false otherwise
    */
   virtual bool isLineEnding() const;
@@ -841,7 +849,7 @@ BEGIN_C_DECLS
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive2D_t
 */
@@ -867,7 +875,7 @@ GraphicalPrimitive2D_createEllipse(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive2D_t
 */
@@ -893,7 +901,7 @@ GraphicalPrimitive2D_createRectangle(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive2D_t
 */
@@ -919,7 +927,7 @@ GraphicalPrimitive2D_createPolygon(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive2D_t
 */
@@ -945,7 +953,7 @@ GraphicalPrimitive2D_createRenderGroup(unsigned int level,
 *
 * @copydetails doc_note_setting_lv_pkg
 *
-* @copydetails doc_returned_owned_pointer
+* @copydetails doc_warning_returns_owned_pointer
 *
 * @memberof GraphicalPrimitive2D_t
 */
@@ -963,7 +971,7 @@ GraphicalPrimitive2D_createLineEnding(unsigned int level,
  *
  * @return a (deep) copy of this GraphicalPrimitive2D_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -992,7 +1000,7 @@ GraphicalPrimitive2D_free(GraphicalPrimitive2D_t* gpd);
  * @return the value of the "fill" attribute of this GraphicalPrimitive2D_t as
  * a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1005,17 +1013,18 @@ GraphicalPrimitive2D_getFill(const GraphicalPrimitive2D_t * gpd);
  * Returns the value of the "fill-rule" attribute of this
  * GraphicalPrimitive2D_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param gpd the GraphicalPrimitive2D_t structure whose fill-rule is sought.
  *
  * @return the value of the "fill-rule" attribute of this
- * GraphicalPrimitive2D_t as a FillRule_t.
- *
- * @copydetails doc_render_fill_rule
- * @if clike The value is drawn from the enumeration @ref FillRule_t @endif
+ * GraphicalPrimitive2D_t as @if clike a FillRule_t @else an int@endif@~ value.
  * The possible values returned by this method are:
+ * @li @sbmlconstant{FILL_RULE_UNSET, FillRule_t}
  * @li @sbmlconstant{FILL_RULE_NONZERO, FillRule_t}
  * @li @sbmlconstant{FILL_RULE_EVENODD, FillRule_t}
- * @li @sbmlconstant{GRAPHICAL_PRIMITIVE2_D_FILL-RULE_INVALID, FillRule_t}
+ * @li @sbmlconstant{FILL_RULE_INHERIT, FillRule_t}
+ * @li @sbmlconstant{FILL_RULE_INVALID, FillRule_t}
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1068,12 +1077,12 @@ GraphicalPrimitive2D_isSetFill(const GraphicalPrimitive2D_t * gpd);
  * Predicate returning @c 1 (true) if this GraphicalPrimitive2D_t's "fill-rule"
  * attribute is set.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param gpd the GraphicalPrimitive2D_t structure.
  *
  * @return @c 1 (true) if this GraphicalPrimitive2D_t's "fill-rule" attribute
  * has been set, otherwise @c 0 (false) is returned.
- *
- * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1106,16 +1115,17 @@ GraphicalPrimitive2D_setFill(GraphicalPrimitive2D_t * gpd, const char * fill);
 /**
  * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param gpd the GraphicalPrimitive2D_t structure.
  *
- * @param fillRule FillRule_t value of the "fill-rule" attribute to be set.
+ * @param fillRule @if clike FillRule_t @else int@endif@~ value of the
+ * "fill-rule" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1128,6 +1138,8 @@ GraphicalPrimitive2D_setFillRule(GraphicalPrimitive2D_t * gpd,
 /**
  * Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param gpd the GraphicalPrimitive2D_t structure.
  *
  * @param fillRule const char * of the "fill-rule" attribute to be set.
@@ -1136,8 +1148,6 @@ GraphicalPrimitive2D_setFillRule(GraphicalPrimitive2D_t * gpd,
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */
@@ -1168,13 +1178,13 @@ GraphicalPrimitive2D_unsetFill(GraphicalPrimitive2D_t * gpd);
  * Unsets the value of the "fill-rule" attribute of this
  * GraphicalPrimitive2D_t.
  *
+ * @copydetails doc_render_fill_rule
+ *
  * @param gpd the GraphicalPrimitive2D_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @copydetails doc_render_fill_rule
  *
  * @memberof GraphicalPrimitive2D_t
  */

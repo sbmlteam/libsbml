@@ -349,7 +349,7 @@ public:
    *
    * @return a pointer to the nth Member in this ListOfMembers.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addMember(const Member* object)
    * @see createMember()
@@ -370,7 +370,7 @@ public:
    * @return the Member in this ListOfMembers based on the identifier or NULL
    * if no such Member exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addMember(const Member* object)
    * @see createMember()
@@ -625,7 +625,7 @@ BEGIN_C_DECLS
  * @return the value of the "id" attribute of this ListOf_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof ListOfMembers_t
  */
@@ -642,7 +642,7 @@ ListOfMembers_getId(const ListOf_t * lo);
  * @return the value of the "name" attribute of this ListOf_t as a pointer to a
  * string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof ListOfMembers_t
  */
@@ -805,7 +805,7 @@ ListOfMembers_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth Member_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfMembers_t
  */
@@ -825,7 +825,7 @@ ListOfMembers_remove(ListOf_t* lo, unsigned int n);
  * @return the Member_t in this ListOf_t based on the identifier or NULL if no
  * such Member_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfMembers_t
  */

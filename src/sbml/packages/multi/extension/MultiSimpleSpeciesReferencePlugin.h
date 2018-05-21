@@ -316,7 +316,7 @@ BEGIN_C_DECLS
  * @return the value of the "compartmentReference" attribute of this
  * MultiSimpleSpeciesReferencePlugin_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof MultiSimpleSpeciesReferencePlugin_t
  */

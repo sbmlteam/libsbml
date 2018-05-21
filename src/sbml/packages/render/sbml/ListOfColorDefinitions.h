@@ -245,7 +245,7 @@ public:
    * @return a pointer to the nth ColorDefinition in this
    * ListOfColorDefinitions.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addColorDefinition(const ColorDefinition* object)
    * @see createColorDefinition()
@@ -267,7 +267,7 @@ public:
    * @return the ColorDefinition in this ListOfColorDefinitions based on the
    * identifier or NULL if no such ColorDefinition exists.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addColorDefinition(const ColorDefinition* object)
    * @see createColorDefinition()
@@ -503,7 +503,7 @@ ListOfColorDefinitions_getById(ListOf_t* lo, const char *sid);
  *
  * @return a pointer to the nth ColorDefinition_t in this ListOf_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfColorDefinitions_t
  */
@@ -524,7 +524,7 @@ ListOfColorDefinitions_remove(ListOf_t* lo, unsigned int n);
  * @return the ColorDefinition_t in this ListOf_t based on the identifier or
  * NULL if no such ColorDefinition_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof ListOfColorDefinitions_t
  */

@@ -39,8 +39,8 @@
  * within other render extension constructs. The id of a gradient can be used
  * to define the fill style of 2D objects like e.g. rectangles.
  *
- * Further both gradient classes have a ListOfGradientStop objects which holds
- * the GradientStop objects that define the gradient and bothe classes have an 
+ * Further, both gradient classes have a ListOfGradientStops objects which holds
+ * the GradientStop objects that define the gradient and both classes have an 
  * attribute called spreadMethod which defines how a gradient is applied to an
  * object.
  */
@@ -104,14 +104,15 @@ class RadialGradient;
 class LIBSBML_EXTERN GradientBase : public SBase
 {
 public:
+  /** @cond doxygenLibsbmlInternal */
   enum SPREADMETHOD
   {
     PAD,
     REFLECT,
-    REPEAT, 
+    REPEAT,
     INVALID
   };
-
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -239,11 +240,11 @@ public:
    * Returns the value of the "spreadMethod" attribute of this GradientBase.
    *
    * @return the value of the "spreadMethod" attribute of this GradientBase as
-   * a @ref GradientSpreadMethod_t.
+   * a @if clike GradientSpreadMethod_t@else int@endif@~.
    *
    * @copydetails doc_gradientbase_spreadMethod
-   * @if clike The value is drawn from the enumeration @ref
-   * GradientSpreadMethod_t @endif
+   * @if clike The value is drawn from the enumeration
+   * GradientSpreadMethod_t.@endif@~
    * The possible values returned by this method are:
    * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
    * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}
@@ -264,6 +265,7 @@ public:
    * @li @c "pad"
    * @li @c "reflect"
    * @li @c "repeat"
+   * @li @c "invalid"
    * @li @c "(Unknown GradientSpreadMethod value)"
    */
   std::string getSpreadMethodAsString() const;
@@ -319,7 +321,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this GradientBase.
    *
-   * @param id std::string& value of the "id" attribute to be set.
+   * @param id the string value of the "id" attribute to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -335,7 +337,7 @@ public:
   /**
    * Sets the value of the "name" attribute of this GradientBase.
    *
-   * @param name std::string& value of the "name" attribute to be set.
+   * @param name the string value of the "name" attribute to be set.
    *
    * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -349,7 +351,7 @@ public:
   /**
    * Sets the value of the "spreadMethod" attribute of this GradientBase.
    *
-   * @param spreadMethod @if clike @ref GradientSpreadMethod_t@else int@endif@~ value
+   * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif@~ value
    * of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -365,7 +367,7 @@ public:
   /**
    * Sets the value of the "spreadMethod" attribute of this GradientBase.
    *
-   * @param spreadMethod @if clike @ref GradientSpreadMethod_t@else int@endif@~ value
+   * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif@~ value
    * of the "spreadMethod" attribute to be set.
    *
    * @copydetails doc_returns_success_code
@@ -595,7 +597,7 @@ public:
    *
    * @return a pointer to the nth GradientStop in this GradientBase.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addGradientStop(const GradientStop* object)
    * @see createGradientStop()
@@ -615,7 +617,7 @@ public:
   *
   * @return a pointer to the nth GradientStop in this GradientBase.
   *
-  * @copydetails doc_returned_owned_pointer
+  * @copydetails doc_warning_returns_owned_pointer
   *
   * @see addGradientStop(const GradientStop* object)
   * @see createGradientStop()
@@ -628,20 +630,20 @@ public:
 
 
   /**
-   * Predicate returning @c true if this abstract "GradientBase" is of type
+   * Predicate returning @c true if this abstract GradientBase is of type
    * LinearGradient
    *
-   * @return @c true if this abstract "GradientBase" is of type LinearGradient,
+   * @return @c true if this abstract GradientBase is of type LinearGradient,
    * @c false otherwise
    */
   virtual bool isLinearGradient() const;
 
 
   /**
-   * Predicate returning @c true if this abstract "GradientBase" is of type
+   * Predicate returning @c true if this abstract GradientBase is of type
    * RadialGradient
    *
-   * @return @c true if this abstract "GradientBase" is of type RadialGradient,
+   * @return @c true if this abstract GradientBase is of type RadialGradient,
    * @c false otherwise
    */
   virtual bool isRadialGradient() const;
@@ -1226,7 +1228,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientBase_t
  */
@@ -1252,7 +1254,7 @@ GradientBase_createLinearGradient(unsigned int level,
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientBase_t
  */
@@ -1270,7 +1272,7 @@ GradientBase_createRadialGradient(unsigned int level,
  *
  * @return a (deep) copy of this GradientBase_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientBase_t
  */
@@ -1299,7 +1301,7 @@ GradientBase_free(GradientBase_t* gb);
  * @return the value of the "id" attribute of this GradientBase_t as a pointer
  * to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GradientBase_t
  */
@@ -1316,7 +1318,7 @@ GradientBase_getId(const GradientBase_t * gb);
  * @return the value of the "name" attribute of this GradientBase_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof GradientBase_t
  */
@@ -1331,11 +1333,11 @@ GradientBase_getName(const GradientBase_t * gb);
  * @param gb the GradientBase_t structure whose spreadMethod is sought.
  *
  * @return the value of the "spreadMethod" attribute of this GradientBase_t as
- * a @ref GradientSpreadMethod_t.
+ * a @if clike GradientSpreadMethod_t@else int@endif@~.
  *
  * @copydetails doc_gradientbase_spreadMethod
- * @if clike The value is drawn from the enumeration @ref
- * GradientSpreadMethod_t @endif
+ * @if clike The value is drawn from the enumeration
+ * GradientSpreadMethod_t.@~
  * The possible values returned by this method are:
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_PAD, GradientSpreadMethod_t}
  * @li @sbmlconstant{GRADIENT_SPREADMETHOD_REFLECT, GradientSpreadMethod_t}
@@ -1350,7 +1352,7 @@ GradientBase_getSpreadMethod(const GradientBase_t * gb);
 
 
 /**
- * Returns the value of the "spreadMethod" attribute of this @ref GradientBase_t.
+ * Returns the value of the "spreadMethod" attribute of this GradientBase_t.
  *
  * @param gb the GradientBase_t structure whose spreadMethod is sought.
  *
@@ -1471,8 +1473,8 @@ GradientBase_setName(GradientBase_t * gb, const char * name);
  *
  * @param gb the GradientBase_t structure.
  *
- * @param spreadMethod GradientSpreadMethod_t value of the "spreadMethod"
- * attribute to be set.
+ * @param spreadMethod @if clike GradientSpreadMethod_t@else int@endif@~
+ * value of the "spreadMethod" attribute to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1676,7 +1678,7 @@ GradientBase_createGradientStop(GradientBase_t* gb);
  *
  * @return a pointer to the nth GradientStop_t in this GradientBase_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof GradientBase_t
  */

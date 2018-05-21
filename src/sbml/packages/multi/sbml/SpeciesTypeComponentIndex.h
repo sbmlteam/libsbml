@@ -672,7 +672,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeComponentIndex_t
  */
@@ -701,7 +701,7 @@ SpeciesTypeComponentIndex_free(SpeciesTypeComponentIndex_t * stci);
  *
  * @return a (deep) copy of this SpeciesTypeComponentIndex_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesTypeComponentIndex_t
  */
@@ -718,7 +718,7 @@ SpeciesTypeComponentIndex_clone(SpeciesTypeComponentIndex_t * stci);
  * @return the value of the "id" attribute of this SpeciesTypeComponentIndex_t
  * as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentIndex_t
  */
@@ -736,7 +736,7 @@ SpeciesTypeComponentIndex_getId(SpeciesTypeComponentIndex_t * stci);
  * @return the value of the "name" attribute of this
  * SpeciesTypeComponentIndex_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentIndex_t
  */
@@ -755,7 +755,7 @@ SpeciesTypeComponentIndex_getName(SpeciesTypeComponentIndex_t * stci);
  * @return the value of the "component" attribute of this
  * SpeciesTypeComponentIndex_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentIndex_t
  */
@@ -774,7 +774,7 @@ SpeciesTypeComponentIndex_getComponent(SpeciesTypeComponentIndex_t * stci);
  * @return the value of the "identifyingParent" attribute of this
  * SpeciesTypeComponentIndex_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesTypeComponentIndex_t
  */

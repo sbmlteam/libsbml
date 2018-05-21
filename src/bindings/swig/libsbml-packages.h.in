@@ -19,3 +19,6 @@
 #ifdef USE_MULTI
 #include "multi-package.h"
 #endif
+#ifdef USE_RENDER
+#include "render-package.h"
+#endif

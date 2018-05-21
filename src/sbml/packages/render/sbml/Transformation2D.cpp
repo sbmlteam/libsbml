@@ -200,7 +200,7 @@ Transformation2D::Transformation2D(RenderPkgNamespaces* renderns, const double m
 #endif // OMIT_DEPRECATED
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * Image
  */
 bool
@@ -211,7 +211,7 @@ Transformation2D::isImage() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * Ellipse
  */
 bool
@@ -222,7 +222,7 @@ Transformation2D::isEllipse() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * Rectangle
  */
 bool
@@ -233,7 +233,7 @@ Transformation2D::isRectangle() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * Polygon
  */
 bool
@@ -244,7 +244,7 @@ Transformation2D::isPolygon() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * RenderGroup
  */
 bool
@@ -255,7 +255,7 @@ Transformation2D::isRenderGroup() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * LineEnding
  */
 bool
@@ -266,7 +266,7 @@ Transformation2D::isLineEnding() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * Text
  */
 bool
@@ -277,7 +277,7 @@ Transformation2D::isText() const
 
 
 /*
- * Predicate returning @c true if this abstract "Transformation2D" is of type
+ * Predicate returning @c true if this abstract Transformation2D is of type
  * RenderCurve
  */
 bool
@@ -810,7 +810,7 @@ Transformation2D::writeAttributes(XMLOutputStream& stream) const
  */
 void Transformation2D::parseTransformation(const std::string& transformationString)
 {
-    // the string should contain a list of 6 komma seperated numbers
+    // the string should contain a list of 6 comma seperated numbers
     // if it doesn't, we set the matrix to the identity matrix
     bool result=true;
     std::string delimiter=",";

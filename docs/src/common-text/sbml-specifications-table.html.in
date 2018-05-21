@@ -14,8 +14,8 @@ these documents.</caption>
 
 <tr class="align-text-bottom">
     <td style="white-space: nowrap">
-      <a class="spec-link" target="_blank" href="http://sbml.org/Special/specifications/sbml-level-3/version-2/core/release-1-rc2/sbml-level-3-version-2-core.pdf">
-        <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;2 Core (<em>RC&nbsp;2 &ndash; <strong>not final</strong></em>)</a>
+      <a class="spec-link" target="_blank" href="http://co.mbine.org/specifications/sbml.level-3.version-2">
+        <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">SBML Level&nbsp;3 Version&nbsp;2 Core (Release&nbsp;1)</a>
     </td>
     <td>
       <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Version_2/Core/Confirmed_issues_in_the_Level_3_Version_2_Core_Specification">

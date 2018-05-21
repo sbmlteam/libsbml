@@ -345,7 +345,7 @@ ModelHistory::getCreator(unsigned int n)
 
 
 /*
- * @return true if the created Date has been set, false
+ * @return @c true if the created Date has been set, false
  * otherwise.
  */
 bool 
@@ -356,7 +356,7 @@ ModelHistory::isSetCreatedDate()
 
 
 /*
- * @return true if the modified Date has been set, false
+ * @return @c true if the modified Date has been set, false
  * otherwise.
  */
 bool 

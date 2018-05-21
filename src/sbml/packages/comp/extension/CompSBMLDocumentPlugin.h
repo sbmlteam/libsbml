@@ -877,7 +877,7 @@ CompSBMLDocumentPlugin_createExternalModelDefinition(CompSBMLDocumentPlugin_t*
  * @return a pointer to the nth ExternalModelDefinition_t in this
  * CompSBMLDocumentPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompSBMLDocumentPlugin_t
  */
@@ -901,7 +901,7 @@ CompSBMLDocumentPlugin_removeExternalModelDefinition(
  * @return the ExternalModelDefinition_t in this CompSBMLDocumentPlugin_t based
  * on the identifier or NULL if no such ExternalModelDefinition_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompSBMLDocumentPlugin_t
  */
@@ -1037,7 +1037,7 @@ CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t*
  * @return a pointer to the nth ModelDefinition_t in this
  * CompSBMLDocumentPlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompSBMLDocumentPlugin_t
  */

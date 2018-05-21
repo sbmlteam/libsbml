@@ -595,7 +595,7 @@ XMLError::getErrorIdOffset () const
 
 
 /*
- * @return true if this XMLError is for informational purposes only,
+ * @return @c true if this XMLError is for informational purposes only,
  * false otherwise.
  */
 bool
@@ -606,7 +606,7 @@ XMLError::isInfo () const
 
 
 /*
- * @return true if this XMLError is a warning, false otherwise.
+ * @return @c true if this XMLError is a warning, false otherwise.
  */
 bool
 XMLError::isWarning () const
@@ -616,7 +616,7 @@ XMLError::isWarning () const
 
 
 /*
- * @return true if this XMLError is an error, false otherwise.
+ * @return @c true if this XMLError is an error, false otherwise.
  */
 bool
 XMLError::isError () const
@@ -626,7 +626,7 @@ XMLError::isError () const
 
 
 /*
- * @return true if this XMLError is a fatal error, false otherwise.
+ * @return @c true if this XMLError is a fatal error, false otherwise.
  */
 bool
 XMLError::isFatal () const

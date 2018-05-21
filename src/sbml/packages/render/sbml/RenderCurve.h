@@ -437,7 +437,7 @@ public:
    *
    * @return a pointer to the nth RenderPoint in this RenderCurve.
    *
-   * @copydetails doc_returned_owned_pointer
+   * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addElement(const RenderPoint* object)
    * @see getElement(unsigned int n)
@@ -1033,7 +1033,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderCurve_t
  */
@@ -1051,7 +1051,7 @@ RenderCurve_create(unsigned int level,
  *
  * @return a (deep) copy of this RenderCurve_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderCurve_t
  */
@@ -1080,7 +1080,7 @@ RenderCurve_free(RenderCurve_t* rc);
  * @return the value of the "startHead" attribute of this RenderCurve_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderCurve_t
  */
@@ -1097,7 +1097,7 @@ RenderCurve_getStartHead(const RenderCurve_t * rc);
  * @return the value of the "endHead" attribute of this RenderCurve_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof RenderCurve_t
  */
@@ -1337,7 +1337,7 @@ RenderCurve_createCubicBezier(RenderCurve_t* rc);
  *
  * @return a pointer to the nth RenderPoint_t in this RenderCurve_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof RenderCurve_t
  */

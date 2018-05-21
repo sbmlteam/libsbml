@@ -115,7 +115,7 @@ ReplacedElement::getConversionFactor () const
 
 
 /*
- * @return true if the conversionFactor of this SBML object has been set, false
+ * @return @c true if the conversionFactor of this SBML object has been set, false
  * otherwise.
  */
 bool
@@ -177,7 +177,7 @@ ReplacedElement::getDeletion () const
 
 
 /*
- * @return true if the deletion of this SBML object has been set, false
+ * @return @c true if the deletion of this SBML object has been set, false
  * otherwise.
  */
 bool

@@ -110,7 +110,7 @@ Replacing::getSubmodelRef () const
 
 
 /*
- * @return true if the submodelRef of this SBML object has been set, false
+ * @return @c true if the submodelRef of this SBML object has been set, false
  * otherwise.
  */
 bool

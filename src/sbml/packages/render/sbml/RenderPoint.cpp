@@ -493,7 +493,7 @@ RenderPoint::unsetZ()
 
 
 /*
- * Predicate returning @c true if this abstract "RenderPoint" is of type
+ * Predicate returning @c true if this abstract RenderPoint is of type
  * RenderPoint
  */
 bool
@@ -504,7 +504,7 @@ RenderPoint::isRenderPoint() const
 
 
 /*
- * Predicate returning @c true if this abstract "RenderPoint" is of type
+ * Predicate returning @c true if this abstract RenderPoint is of type
  * RenderCubicBezier
  */
 bool

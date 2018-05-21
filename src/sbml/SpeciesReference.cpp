@@ -264,7 +264,7 @@ SpeciesReference::getConstant () const
 
 
 /*
- * @return true if the stoichiometryMath of this SpeciesReference is 
+ * @return @c true if the stoichiometryMath of this SpeciesReference is 
  * set, false otherwise.
  */
 bool
@@ -275,7 +275,7 @@ SpeciesReference::isSetStoichiometryMath () const
 
 
 /*
- * @return true if the constant of this SpeciesReference is 
+ * @return @c true if the constant of this SpeciesReference is 
  * set, false otherwise.
  */
 bool
@@ -286,7 +286,7 @@ SpeciesReference::isSetConstant () const
 
 
 /*
- * @return true if the stoichiometry of this SpeciesReference is 
+ * @return @c true if the stoichiometry of this SpeciesReference is 
  * set, false otherwise.
  */
 bool
@@ -1211,7 +1211,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 SpeciesReference::readOtherXML (XMLInputStream& stream)

@@ -1076,7 +1076,7 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_note_setting_lv_pkg
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeature_t
  */
@@ -1105,7 +1105,7 @@ SpeciesFeature_free(SpeciesFeature_t* sf);
  *
  * @return a (deep) copy of this SpeciesFeature_t object.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeature_t
  */
@@ -1122,7 +1122,7 @@ SpeciesFeature_clone(const SpeciesFeature_t* sf);
  * @return the value of the "id" attribute of this SpeciesFeature_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeature_t
  */
@@ -1139,7 +1139,7 @@ SpeciesFeature_getId(const SpeciesFeature_t * sf);
  * @return the value of the "name" attribute of this SpeciesFeature_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeature_t
  */
@@ -1157,7 +1157,7 @@ SpeciesFeature_getName(const SpeciesFeature_t * sf);
  * @return the value of the "speciesFeatureType" attribute of this
  * SpeciesFeature_t as a pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeature_t
  */
@@ -1189,7 +1189,7 @@ SpeciesFeature_getOccur(const SpeciesFeature_t * sf);
  * @return the value of the "component" attribute of this SpeciesFeature_t as a
  * pointer to a string.
  *
- * @copydetails doc_returned_owned_char
+ * @copydetails doc_warning_returns_owned_char
  *
  * @memberof SpeciesFeature_t
  */
@@ -1602,7 +1602,7 @@ SpeciesFeature_getNumSpeciesFeatureValues(SpeciesFeature_t* sf);
  *
  * @return a pointer to the nth SpeciesFeatureValue_t in this SpeciesFeature_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeature_t
  */
@@ -1622,7 +1622,7 @@ SpeciesFeature_removeSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n);
  *
  * @return a pointer to the SpeciesFeatureValue_t with the given identifier in this SpeciesFeature_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof SpeciesFeature_t
  */

@@ -583,7 +583,7 @@ SyntaxChecker::isCorrectHTMLNode(const XMLNode& node)
 
 /*
  * Checks if a character is part of the Unicode Letter set.
- * @return true if the character is a part of the set, false otherwise.
+ * @return @c true if the character is a part of the set, false otherwise.
  */
 bool 
 SyntaxChecker::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
@@ -1320,7 +1320,7 @@ case 3:
 /** @cond doxygenLibsbmlInternal */
 /*
   * Checks if a character is part of the Unicode Digit set.
-  * @return true if the character is a part of the set, false otherwise.
+  * @return @c true if the character is a part of the set, false otherwise.
   */
 bool 
 SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
@@ -1462,7 +1462,7 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
 /** @cond doxygenLibsbmlInternal */
 /**
   * Checks if a character is part of the Unicode CombiningChar set.
-  * @return true if the character is a part of the set, false otherwise.
+  * @return @c true if the character is a part of the set, false otherwise.
   */
 bool 
 SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
@@ -1950,7 +1950,7 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
 /** @cond doxygenLibsbmlInternal */
 /**
   * Checks if a character is part of the Unicode Extender set.
-  * @return true if the character is a part of the set, false otherwise.
+  * @return @c true if the character is a part of the set, false otherwise.
   */
 bool 
 SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)

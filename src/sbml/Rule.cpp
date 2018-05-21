@@ -231,7 +231,7 @@ Rule::getUnits () const
 
 
 /*
- * @return true if the formula (or equivalently the math) for this Rule is
+ * @return @c true if the formula (or equivalently the math) for this Rule is
  * set, false otherwise.
  */
 bool
@@ -242,7 +242,7 @@ Rule::isSetFormula () const
 
 
 /*
- * @return true if the math (or equivalently the formula) for this Rule is
+ * @return @c true if the math (or equivalently the formula) for this Rule is
  * set, false otherwise.
  */
 bool
@@ -268,7 +268,7 @@ Rule::isSetMath () const
 
 
 /*
- * @return true if the variable of this Rule is set, false
+ * @return @c true if the variable of this Rule is set, false
  * otherwise.
  */
 bool
@@ -279,7 +279,7 @@ Rule::isSetVariable () const
 
 
 /*
- * @return true if the units for this Rule is set, false otherwise
+ * @return @c true if the units for this Rule is set, false otherwise
  * (L1 ParameterRules only).
  */
 bool
@@ -642,7 +642,7 @@ Rule::getType () const
 
 
 /*
- * @return true if this Rule is an AlgebraicRule, false otherwise.
+ * @return @c true if this Rule is an AlgebraicRule, false otherwise.
  */
 bool
 Rule::isAlgebraic () const
@@ -652,7 +652,7 @@ Rule::isAlgebraic () const
 
 
 /*
- * @return true if this Rule is an AssignmentRule, false otherwise.
+ * @return @c true if this Rule is an AssignmentRule, false otherwise.
  */
 bool
 Rule::isAssignment () const
@@ -662,7 +662,7 @@ Rule::isAssignment () const
 
 
 /*
- * @return true if this Rule is a CompartmentVolumeRule, false otherwise.
+ * @return @c true if this Rule is a CompartmentVolumeRule, false otherwise.
  */
 bool
 Rule::isCompartmentVolume () const
@@ -680,7 +680,7 @@ Rule::isCompartmentVolume () const
 
 
 /*
- * @return true if this Rule is a ParameterRule, false otherwise.
+ * @return @c true if this Rule is a ParameterRule, false otherwise.
  */
 bool
 Rule::isParameter () const
@@ -698,7 +698,7 @@ Rule::isParameter () const
 
 
 /*
- * @return true if this Rule is a RateRule (L2) or has type="rate" (L1),
+ * @return @c true if this Rule is a RateRule (L2) or has type="rate" (L1),
  * false otherwise.
  */
 bool
@@ -709,7 +709,7 @@ Rule::isRate () const
 
 
 /*
- * @return true if this Rule is an AssignmentRule (L2) has type="scalar"
+ * @return @c true if this Rule is an AssignmentRule (L2) has type="scalar"
  * (L1), false otherwise.
  */
 bool
@@ -720,7 +720,7 @@ Rule::isScalar () const
 
 
 /*
- * @return true if this Rule is a SpeciesConcentrationRule, false
+ * @return @c true if this Rule is a SpeciesConcentrationRule, false
  * otherwise.
  */
 bool
@@ -1187,7 +1187,7 @@ Rule::writeElements (XMLOutputStream& stream) const
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
- * @return true if the subclass read from the stream, false otherwise.
+ * @return @c true if the subclass read from the stream, false otherwise.
  */
 bool
 Rule::readOtherXML (XMLInputStream& stream)

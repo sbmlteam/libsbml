@@ -164,7 +164,7 @@ l3_packages = { 'annot'   : 'Annotations',
                 'layout'  : 'Layout',
                 'multi'   : 'Multistate and Multicomponent Species',
                 'qual'    : 'Qualitative Models',
-                'render'  : 'Rendering',
+                'render'  : 'Render',
                 'req'     : 'Required Elements',
                 'spatial' : 'Spatial Processes'
               }
@@ -284,7 +284,7 @@ class CHeader:
       self.classes.append( CClass(self.classname) )
       return
 
-    if stripped == '};':
+    if stripped == '};' and not self.isInternal:
       self.inClass = False
       self.inPrivate = False
       return
@@ -336,8 +336,9 @@ class CHeader:
 
         # It might be an enum.  Skip it.
         # If it's not an enum at this point, parse it.
-        if stripped.endswith('}'):
-          self.lines = self.lines[:self.lines.rfind('{')]
+        if stripped.endswith('}') or stripped.endswith('};'):
+          if self.lines.rfind('enum') > 0:
+            self.lines = self.lines[:self.lines.rfind('enum')]
         if not stripped.startswith('enum'):
 
           # If this segment begins with a comment, we need to skip over it.

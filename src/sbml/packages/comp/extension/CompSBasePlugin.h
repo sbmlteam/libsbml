@@ -609,7 +609,7 @@ CompSBasePlugin_createReplacedElement(CompSBasePlugin_t* csbp);
  *
  * @return a pointer to the nth ReplacedElement_t in this CompSBasePlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof CompSBasePlugin_t
  */
@@ -625,7 +625,7 @@ CompSBasePlugin_removeReplacedElement(CompSBasePlugin_t* csbp,
  * @param csbp the CompSBasePlugin_t structure whose replacedBy is sought.
  *
  * @return the value of the "replacedBy" element of this CompSBasePlugin_t as a
- * ReplacedBy*.
+ * ReplacedBy.
  *
  * @memberof CompSBasePlugin_t
  */
@@ -655,7 +655,7 @@ CompSBasePlugin_isSetReplacedBy(const CompSBasePlugin_t * csbp);
  *
  * @param csbp the CompSBasePlugin_t structure.
  *
- * @param replacedBy ReplacedBy_t* value of the "replacedBy" element to be set.
+ * @param replacedBy ReplacedBy_t value of the "replacedBy" element to be set.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

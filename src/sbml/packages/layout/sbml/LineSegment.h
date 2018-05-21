@@ -385,7 +385,7 @@ BEGIN_C_DECLS
  *
  * @return A pointer to the created LineSegment_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -402,7 +402,7 @@ LineSegment_create (void);
  *
  * @return the created copy of the LineSegment_t
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  * 
  * @memberof LineSegment_t
  */
@@ -417,7 +417,7 @@ LineSegment_createFrom (const LineSegment_t *temp);
  * @param start the Point_t at which the line segment starts.
  * @param end   the Point_t at which the line segment ends.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -436,7 +436,7 @@ LineSegment_createWithPoints (const Point_t *start, const Point_t *end);
  * @param y2 the value of the y coordinate of the end Point_t.
  * @param z2 the value of the z coordinate of the end Point_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LineSegment_t
  */
@@ -525,7 +525,7 @@ LineSegment_initDefaults (LineSegment_t *ls);
  *
  * @param ls the LineSegment_t structure.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof LineSegment_t
  */

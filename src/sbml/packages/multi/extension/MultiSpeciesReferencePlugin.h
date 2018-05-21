@@ -503,7 +503,7 @@ MultiSpeciesReferencePlugin_createSpeciesTypeComponentMapInProduct(MultiSpeciesR
  * @return a pointer to the nth SpeciesTypeComponentMapInProduct_t in this
  * MultiSpeciesReferencePlugin_t.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesReferencePlugin_t
  */
@@ -527,7 +527,7 @@ MultiSpeciesReferencePlugin_removeSpeciesTypeComponentMapInProduct(
  * MultiSpeciesReferencePlugin_t based on the identifier or NULL if no such
  * SpeciesTypeComponentMapInProduct_t exists.
  *
- * @copydetails doc_returned_owned_pointer
+ * @copydetails doc_warning_returns_owned_pointer
  *
  * @memberof MultiSpeciesReferencePlugin_t
  */
