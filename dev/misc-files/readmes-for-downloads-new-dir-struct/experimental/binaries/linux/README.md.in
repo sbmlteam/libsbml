@@ -10,7 +10,15 @@ The R Source package for experimental code is available [here](../../source/R%20
 
 #### Python installers
 
-Python installers for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental "Open Build Service").
+If you are primarily interested in Python, we provide three options for installing libSBML for Python:
+
+* **_Using PiPI_**: You can use the following command to install libSBML for Python: `sudo pip install python-libsbml-experimental`
+
+* **_Using conda_**: You can install libSBML from the Anaconda Cloud: `conda install -c SBMLTeam python-libsbml-experimental`
+
+* **_Using `apt-get` or `yum`_**: Python installers for use with `apt-get` or `yum` for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental "Open Build Service").
+
+After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/@PACKAGE_VERSION@/docs/python-api/libsbml-accessing.html).
 
 Please note: the code in these directories reflects the current state of development of SBML Level 3 packages and the libSBML plug-ins for the packages. Many of the corresponding SBML Level 3 package specifications have not yet been finalized, and the package implementations are themselves in a state of development.  The binaries available here may be untested.  They are supplied as-is for experimental and advanced development only.
 
