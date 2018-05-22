@@ -397,9 +397,9 @@ public:
 
 
   /**
-   * Returns the value of the "strokeWidth" attribute of this DefaultValues object.
+   * Returns the value of the "stroke-width" attribute of this DefaultValues object.
    *
-   * @return the value of the "strokeWidth" attribute of this DefaultValues
+   * @return the value of the "stroke-width" attribute of this DefaultValues
    * object as a string.
    */
   double getStrokeWidth() const;
@@ -506,7 +506,7 @@ public:
    * @copydetails doc_render_vtext_anchor
    *
    * @return the value of the "vtext-anchor" attribute of this DefaultValues
-   * object as a Text::TEXT_ANCHOR.
+   * object as a VTextAnchor_t.
    *
    */
   VTextAnchor_t getVTextAnchor() const;
@@ -749,10 +749,10 @@ public:
 
 
   /**
-   * Predicate returning @c true if this DefaultValues object's "strokeWidth"
+   * Predicate returning @c true if this DefaultValues object's "stroke-width"
    * attribute is set.
    *
-   * @return @c true if this DefaultValues object's "strokeWidth" attribute
+   * @return @c true if this DefaultValues object's "stroke-width" attribute
    * has been set, otherwise @c false is returned.
    */
   bool isSetStrokeWidth() const;
@@ -907,7 +907,6 @@ public:
 
 
   /**
-   * Sets the value of the "spreadMethod" attribute of this DefaultValues.
    * Sets the value of the "spreadMethod" attribute of this DefaultValues object.
    *
    * @param spreadMethod std::string& of the "spreadMethod" attribute to be
@@ -1182,10 +1181,10 @@ public:
 
 
   /**
-   * Sets the value of the "strokeWidth" attribute of this DefaultValues
+   * Sets the value of the "stroke-width" attribute of this DefaultValues
    * object.
    *
-   * @param strokeWidth std::string& value of the "strokeWidth" attribute to
+   * @param strokeWidth std::string& value of the "stroke-width" attribute to
    * be set.
    *
    * Calling this function with @p strokeWidth = @c NULL or an empty string is
@@ -1668,7 +1667,7 @@ public:
 
 
   /**
-   * Unsets the value of the "strokeWidth" attribute of this DefaultValues
+   * Unsets the value of the "stroke-width" attribute of this DefaultValues
    * object.
    *
    * @copydetails doc_returns_success_code

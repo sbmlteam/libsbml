@@ -178,7 +178,7 @@ public:
    * converter upon a successful conversion.  This function is here
    * solely to preserve backwards compatibility.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setDocument(const SBMLDocument* doc);
@@ -189,7 +189,7 @@ public:
    *
    * @param doc the document to use for this conversion.
    *
-   * @copydetails doc_returns_success_code
+   * @copydetails doc_returns_one_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setDocument(SBMLDocument* doc);

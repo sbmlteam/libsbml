@@ -47,8 +47,8 @@
  * character followed by 8 digit hexadecimal string.  Optionally the alpha
  * part can be omitted, in which case it defaults to @c FF.
  *
- * Examples of valid values strings are @c "@#000000" and @c "@#000000FF" for
- * fully opaque black, and @c "@#FF000010" for an almost completely
+ * Examples of valid values strings are @c "#000000" and @c "#000000FF" for
+ * fully opaque black, and @c "#FF000010" for an almost completely
  * transparent red.
  *
  * Internally, the RGBA components are stored as integer values in the range
@@ -204,7 +204,7 @@ public:
   ColorDefinition(RenderPkgNamespaces* renderns, const std::string& id,unsigned char r,unsigned char g,unsigned char b,unsigned char a=255);
 #endif // OMIT_DEPRECATED
 
-  /*
+  /**
    * Copy constructor for ColorDefinition.
    *
    * @param orig the ColorDefinition instance to copy.
@@ -420,7 +420,7 @@ public:
    * black and @c false is returned.
    *
    * @param valueString A const reference to a string that represents a valid
-   * color value, e.g. @c "@#FFFFFFFF" for fully opaque white.
+   * color value, e.g. @c "#FFFFFFFF" for fully opaque white.
    *
    * @return @c true or @c false depending on whether setting the color value
    * from the string was successfull.

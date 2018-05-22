@@ -367,6 +367,7 @@ ListOfCurveElements::getItemTypeCode() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool ListOfCurveElements::isValidTypeForList(SBase * item)
 {
   if (item == NULL) return false;
@@ -377,6 +378,7 @@ bool ListOfCurveElements::isValidTypeForList(SBase * item)
       return true;
   return false;
 }
+/** @endcond */
 
 
 

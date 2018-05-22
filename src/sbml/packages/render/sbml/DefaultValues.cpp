@@ -463,7 +463,7 @@ DefaultValues::getStroke() const
 
 
 /*
- * Returns the value of the "strokeWidth" attribute of this DefaultValues.
+ * Returns the value of the "stroke-width" attribute of this DefaultValues.
  */
 double
 DefaultValues::getStrokeWidth() const
@@ -816,7 +816,7 @@ DefaultValues::isSetStroke() const
 
 
 /*
- * Predicate returning @c true if this DefaultValues's "strokeWidth" attribute
+ * Predicate returning @c true if this DefaultValues's "stroke-width" attribute
  * is set.
  */
 bool
@@ -1200,7 +1200,7 @@ DefaultValues::setStroke(const std::string& stroke)
 
 
 /*
- * Sets the value of the "strokeWidth" attribute of this DefaultValues.
+ * Sets the value of the "stroke-width" attribute of this DefaultValues.
  */
 int
 DefaultValues::setStrokeWidth(double strokeWidth)
@@ -1807,7 +1807,7 @@ DefaultValues::unsetStroke()
 
 
 /*
- * Unsets the value of the "strokeWidth" attribute of this DefaultValues.
+ * Unsets the value of the "stroke-width" attribute of this DefaultValues.
  */
 int
 DefaultValues::unsetStrokeWidth()
@@ -2144,7 +2144,7 @@ DefaultValues::getAttribute(const std::string& attributeName,
 {
   int return_value = SBase::getAttribute(attributeName, value);
 
-  if (attributeName == "strokeWidth")
+  if (attributeName == "stroke-width")
   {
     value = getStrokeWidth();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -2421,7 +2421,7 @@ DefaultValues::isSetAttribute(const std::string& attributeName) const
   {
     value = isSetStroke();
   }
-  else if (attributeName == "strokeWidth")
+  else if (attributeName == "stroke-width")
   {
     value = isSetStrokeWidth();
   }
@@ -2518,7 +2518,7 @@ DefaultValues::setAttribute(const std::string& attributeName, double value)
 {
   int return_value = SBase::setAttribute(attributeName, value);
   
-  if (attributeName == "strokeWidth")
+  if (attributeName == "stroke-width")
   {
     return_value = setStrokeWidth(value);
   }
@@ -2764,7 +2764,7 @@ DefaultValues::unsetAttribute(const std::string& attributeName)
   {
     value = unsetStroke();
   }
-  else if (attributeName == "strokeWidth")
+  else if (attributeName == "stroke-width")
   {
     value = unsetStrokeWidth();
   }

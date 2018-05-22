@@ -176,7 +176,7 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see getNumRenderPoints()
    * @see remove(const std::string& sid)
@@ -197,7 +197,7 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see getNumRenderPoints()
    * @see remove(const std::string& sid)
@@ -218,7 +218,7 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(unsigned int n)
    * @see getNumRenderPoints()
    * @see remove(const std::string& sid)
@@ -239,7 +239,7 @@ public:
    * @copydetails doc_returned_unowned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(unsigned int n)
    * @see getNumRenderPoints()
    * @see remove(const std::string& sid)
@@ -260,7 +260,7 @@ public:
    * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumRenderPoints()
@@ -282,7 +282,7 @@ public:
    * @copydetails doc_warning_returns_owned_pointer
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumRenderPoints()
@@ -307,7 +307,7 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see getNumRenderPoints()
@@ -324,7 +324,7 @@ public:
    *
    *
    * @see addRenderPoint(const RenderPoint* object)
-   * @see createRenderPoint()
+   * @see createCubicBezier()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see remove(const std::string& sid)
@@ -394,10 +394,12 @@ public:
   virtual int getItemTypeCode() const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * checks concrete types
    */
   virtual bool isValidTypeForList(SBase* item);
+  /** @endcond */
 
 
   /**
