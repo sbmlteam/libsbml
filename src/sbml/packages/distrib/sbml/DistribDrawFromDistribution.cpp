@@ -1023,6 +1023,26 @@ DistribDrawFromDistribution::getDistribInput(const std::string& sid) const
 
 
 /*
+ * Get a DistribInput from the DistribDrawFromDistribution.
+ */
+const DistribInput*
+DistribDrawFromDistribution::getDistribInputByIndex(unsigned int n) const
+{
+  return mDistribInputs.getByIndex(n);
+}
+
+
+/*
+ * Get a DistribInput from the DistribDrawFromDistribution.
+ */
+DistribInput*
+DistribDrawFromDistribution::getDistribInputByIndex(unsigned int n)
+{
+  return mDistribInputs.getByIndex(n);
+}
+
+
+/*
  * Adds a copy of the given DistribInput to this DistribDrawFromDistribution.
  */
 int

@@ -124,6 +124,42 @@ ListOfDistribInputs::get(unsigned int n)
 
 
 /*
+ * Get a DistribInput from the ListOfDistribInputs by id.
+ */
+DistribInput*
+ListOfDistribInputs::getByIndex(unsigned int n)
+{
+  return const_cast<DistribInput*>(
+    static_cast<const ListOfDistribInputs&>(*this).getByIndex(n));
+}
+
+
+#ifndef SWIG
+template<class CNAME>
+struct IndexEq : public std::unary_function<SBase*, bool>
+{
+  unsigned int n;
+
+  IndexEq (unsigned int n) : n(n) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <CNAME*> (sb)->getIndex() == n; }
+};
+#endif /* SWIG */
+
+/*
+ * Get a DistribInput from the ListOfDistribInputs by id.
+ */
+const DistribInput*
+ListOfDistribInputs::getByIndex(unsigned int n) const
+{
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IndexEq<DistribInput>(n) );
+  return (result == mItems.end()) ? 0 : static_cast <DistribInput*> (*result);
+}
+
+
+/*
  * Get a DistribInput from the ListOfDistribInputs.
  */
 const DistribInput*

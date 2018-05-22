@@ -554,6 +554,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -572,6 +573,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -593,6 +595,7 @@ public:
    * @see addDistribInput(const DistribInput* object)
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -614,6 +617,7 @@ public:
    * @see addDistribInput(const DistribInput* object)
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -637,6 +641,7 @@ public:
    * @see addDistribInput(const DistribInput* object)
    * @see createDistribInput()
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -660,11 +665,54 @@ public:
    * @see addDistribInput(const DistribInput* object)
    * @see createDistribInput()
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
    */
   const DistribInput* getDistribInput(const std::string& sid) const;
+
+
+  /**
+   * Get a DistribInput from the DistribDrawFromDistribution.
+   *
+   * @param n an unsigned int representing the "index" attribute
+   * value of the DistribInput to retrieve.
+   *
+   * @return the DistribInput in the ListOfDistribInputs with the
+   * given "index" value.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDistribInput(const DistribInput* object)
+   * @see createDistribInput()
+   * @see getDistribInput(const std::string& sid)
+   * @see getNumDistribInputs()
+   * @see removeDistribInput(const std::string& sid)
+   * @see removeDistribInput(unsigned int n)
+   */
+  DistribInput* getDistribInputByIndex(unsigned int n);
+
+
+  /**
+   * Get a DistribInput from the DistribDrawFromDistribution.
+   *
+   * @param n an unsigned int representing the "index" attribute
+   * value of the DistribInput to retrieve.
+   *
+   * @return the DistribInput in the ListOfDistribInputs with the
+   * given "index" value.
+   *
+   * @copydetails doc_returned_unowned_pointer
+   *
+   * @see addDistribInput(const DistribInput* object)
+   * @see createDistribInput()
+   * @see getDistribInput(const std::string& sid)
+   * @see getNumDistribInputs()
+   * @see removeDistribInput(const std::string& sid)
+   * @see removeDistribInput(unsigned int n)
+   */
+  const DistribInput* getDistribInputByIndex(unsigned int n) const;
 
 
   /**
@@ -686,6 +734,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -705,6 +754,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
    */
@@ -723,6 +773,7 @@ public:
    * @see addDistribInput(const DistribInput* object)
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    * @see removeDistribInput(unsigned int n)
@@ -746,6 +797,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(const std::string& sid)
    */
@@ -768,6 +820,7 @@ public:
    * @see createDistribInput()
    * @see getDistribInput(const std::string& sid)
    * @see getDistribInput(unsigned int n)
+   * @see getDistribInputByIndex(unsigned int n)
    * @see getNumDistribInputs()
    * @see removeDistribInput(unsigned int n)
    */
