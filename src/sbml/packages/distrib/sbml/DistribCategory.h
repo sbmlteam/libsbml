@@ -289,7 +289,7 @@ public:
    * Returns the value of the "value" element of this DistribCategory.
    *
    * @return the value of the "value" element of this DistribCategory as a
-   * DistribUncertValue*.
+   * DistribUncertValue.
    */
   const DistribUncertValue* getValue() const;
 
@@ -298,7 +298,7 @@ public:
    * Returns the value of the "value" element of this DistribCategory.
    *
    * @return the value of the "value" element of this DistribCategory as a
-   * DistribUncertValue*.
+   * DistribUncertValue.
    */
   DistribUncertValue* getValue();
 
@@ -1276,7 +1276,7 @@ DistribCategory_getProbability(const DistribCategory_t * dc);
  * @param dc the DistribCategory_t structure whose value is sought.
  *
  * @return the value of the "value" element of this DistribCategory_t as a
- * DistribUncertValue*.
+ * DistribUncertValue.
  *
  * @memberof DistribCategory_t
  */
