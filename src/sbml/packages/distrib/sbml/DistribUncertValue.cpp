@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertValue::DistribUncertValue(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : SBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mVar ("")
@@ -73,7 +73,7 @@ DistribUncertValue::DistribUncertValue(unsigned int level,
  * object.
  */
 DistribUncertValue::DistribUncertValue(DistribPkgNamespaces *distribns)
-  : SBase(distribns)
+  : DistribBase(distribns)
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mVar ("")
@@ -89,7 +89,7 @@ DistribUncertValue::DistribUncertValue(DistribPkgNamespaces *distribns)
  * Copy constructor for DistribUncertValue.
  */
 DistribUncertValue::DistribUncertValue(const DistribUncertValue& orig)
-  : SBase( orig )
+  : DistribBase( orig )
   , mValue ( orig.mValue )
   , mIsSetValue ( orig.mIsSetValue )
   , mVar ( orig.mVar )
@@ -107,7 +107,7 @@ DistribUncertValue::operator=(const DistribUncertValue& rhs)
 {
   if (&rhs != this)
   {
-    SBase::operator=(rhs);
+    DistribBase::operator=(rhs);
     mValue = rhs.mValue;
     mIsSetValue = rhs.mIsSetValue;
     mVar = rhs.mVar;
@@ -515,9 +515,9 @@ DistribUncertValue::hasRequiredAttributes() const
 void
 DistribUncertValue::writeElements(XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  DistribBase::writeElements(stream);
 
-  SBase::writeExtensionElements(stream);
+  DistribBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -547,7 +547,7 @@ DistribUncertValue::accept(SBMLVisitor& v) const
 void
 DistribUncertValue::setSBMLDocument(SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  DistribBase::setSBMLDocument(d);
 }
 
 /** @endcond */
@@ -564,7 +564,7 @@ DistribUncertValue::enablePackageInternal(const std::string& pkgURI,
                                           const std::string& pkgPrefix,
                                           bool flag)
 {
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  DistribBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 /** @endcond */
@@ -580,7 +580,7 @@ int
 DistribUncertValue::getAttribute(const std::string& attributeName,
                                  bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -598,7 +598,7 @@ int
 DistribUncertValue::getAttribute(const std::string& attributeName,
                                  int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -616,7 +616,7 @@ int
 DistribUncertValue::getAttribute(const std::string& attributeName,
                                  double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -645,7 +645,7 @@ int
 DistribUncertValue::getAttribute(const std::string& attributeName,
                                  unsigned int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -663,7 +663,7 @@ int
 DistribUncertValue::getAttribute(const std::string& attributeName,
                                  std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -707,7 +707,7 @@ DistribUncertValue::getAttribute(const std::string& attributeName,
 bool
 DistribUncertValue::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBase::isSetAttribute(attributeName);
+  bool value = DistribBase::isSetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -745,7 +745,7 @@ DistribUncertValue::isSetAttribute(const std::string& attributeName) const
 int
 DistribUncertValue::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -762,7 +762,7 @@ DistribUncertValue::setAttribute(const std::string& attributeName, bool value)
 int
 DistribUncertValue::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -780,7 +780,7 @@ int
 DistribUncertValue::setAttribute(const std::string& attributeName,
                                  double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "value")
   {
@@ -803,7 +803,7 @@ int
 DistribUncertValue::setAttribute(const std::string& attributeName,
                                  unsigned int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -821,7 +821,7 @@ int
 DistribUncertValue::setAttribute(const std::string& attributeName,
                                  const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "id")
   {
@@ -856,7 +856,7 @@ DistribUncertValue::setAttribute(const std::string& attributeName,
 int
 DistribUncertValue::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBase::unsetAttribute(attributeName);
+  int value = DistribBase::unsetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -894,7 +894,7 @@ DistribUncertValue::unsetAttribute(const std::string& attributeName)
 void
 DistribUncertValue::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  SBase::addExpectedAttributes(attributes);
+  DistribBase::addExpectedAttributes(attributes);
 
   unsigned int level = getLevel();
   unsigned int coreVersion = getVersion();
@@ -938,7 +938,7 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  SBase::readAttributes(attributes, expectedAttributes);
+  DistribBase::readAttributes(attributes, expectedAttributes);
 
   if (log)
   {
@@ -961,45 +961,6 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
         log->logPackageError("distrib",
           DistribDistribUncertValueAllowedCoreAttributes, pkgVersion, level,
             version, details);
-      }
-    }
-  }
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    // 
-    // id SId (use = "optional" )
-    // 
-
-    XMLTriple tripleID("id", mURI, getPrefix());
-    assigned = attributes.readInto(tripleID, mId);
-
-    if (assigned == true)
-    {
-      if (mId.empty() == true)
-      {
-        logEmptyString(mId, level, version, "<DistribUncertValue>");
-      }
-      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-      {
-        log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-          version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-      }
-    }
-
-    // 
-    // name string (use = "optional" )
-    // 
-
-    XMLTriple tripleNAME("name", mURI, getPrefix());
-    assigned = attributes.readInto(tripleNAME, mName);
-
-    if (assigned == true)
-    {
-      if (mName.empty() == true)
-      {
-        logEmptyString(mName, level, version, "<DistribUncertValue>");
       }
     }
   }
@@ -1092,24 +1053,12 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
 void
 DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
 {
-  SBase::writeAttributes(stream);
+  DistribBase::writeAttributes(stream);
 
   unsigned int level = getLevel();
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    if (isSetId() == true)
-    {
-      stream.writeAttribute("id", getPrefix(), mId);
-    }
-
-    if (isSetName() == true)
-    {
-      stream.writeAttribute("name", getPrefix(), mName);
-    }
-  }
   if (isSetValue() == true)
   {
     stream.writeAttribute("value", getPrefix(), mValue);
@@ -1126,7 +1075,7 @@ DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
   }
 
 
-  SBase::writeExtensionAttributes(stream);
+  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */

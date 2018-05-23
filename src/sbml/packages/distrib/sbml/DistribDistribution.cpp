@@ -79,7 +79,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribDistribution::DistribDistribution(unsigned int level,
                                          unsigned int version,
                                          unsigned int pkgVersion)
-  : SBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mElementName("distribution")
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
@@ -92,7 +92,7 @@ DistribDistribution::DistribDistribution(unsigned int level,
  * object.
  */
 DistribDistribution::DistribDistribution(DistribPkgNamespaces *distribns)
-  : SBase(distribns)
+  : DistribBase(distribns)
   , mElementName("distribution")
 {
   setElementNamespace(distribns->getURI());
@@ -104,7 +104,7 @@ DistribDistribution::DistribDistribution(DistribPkgNamespaces *distribns)
  * Copy constructor for DistribDistribution.
  */
 DistribDistribution::DistribDistribution(const DistribDistribution& orig)
-  : SBase( orig )
+  : DistribBase( orig )
   , mElementName ( orig.mElementName )
 {
 }
@@ -118,7 +118,7 @@ DistribDistribution::operator=(const DistribDistribution& rhs)
 {
   if (&rhs != this)
   {
-    SBase::operator=(rhs);
+    DistribBase::operator=(rhs);
     mElementName = rhs.mElementName;
   }
 
@@ -464,9 +464,9 @@ DistribDistribution::getTypeCode() const
 void
 DistribDistribution::writeElements(XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  DistribBase::writeElements(stream);
 
-  SBase::writeExtensionElements(stream);
+  DistribBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -496,7 +496,7 @@ DistribDistribution::accept(SBMLVisitor& v) const
 void
 DistribDistribution::setSBMLDocument(SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  DistribBase::setSBMLDocument(d);
 }
 
 /** @endcond */
@@ -513,7 +513,7 @@ DistribDistribution::enablePackageInternal(const std::string& pkgURI,
                                            const std::string& pkgPrefix,
                                            bool flag)
 {
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  DistribBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 /** @endcond */
@@ -529,7 +529,7 @@ int
 DistribDistribution::getAttribute(const std::string& attributeName,
                                   bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -547,7 +547,7 @@ int
 DistribDistribution::getAttribute(const std::string& attributeName,
                                   int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -565,7 +565,7 @@ int
 DistribDistribution::getAttribute(const std::string& attributeName,
                                   double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -583,7 +583,7 @@ int
 DistribDistribution::getAttribute(const std::string& attributeName,
                                   unsigned int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -601,7 +601,7 @@ int
 DistribDistribution::getAttribute(const std::string& attributeName,
                                   std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -619,7 +619,7 @@ DistribDistribution::getAttribute(const std::string& attributeName,
 bool
 DistribDistribution::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBase::isSetAttribute(attributeName);
+  bool value = DistribBase::isSetAttribute(attributeName);
 
   return value;
 }
@@ -637,7 +637,7 @@ int
 DistribDistribution::setAttribute(const std::string& attributeName,
                                   bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -654,7 +654,7 @@ DistribDistribution::setAttribute(const std::string& attributeName,
 int
 DistribDistribution::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -672,7 +672,7 @@ int
 DistribDistribution::setAttribute(const std::string& attributeName,
                                   double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -690,7 +690,7 @@ int
 DistribDistribution::setAttribute(const std::string& attributeName,
                                   unsigned int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -708,7 +708,7 @@ int
 DistribDistribution::setAttribute(const std::string& attributeName,
                                   const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -726,7 +726,7 @@ DistribDistribution::setAttribute(const std::string& attributeName,
 int
 DistribDistribution::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBase::unsetAttribute(attributeName);
+  int value = DistribBase::unsetAttribute(attributeName);
 
   return value;
 }

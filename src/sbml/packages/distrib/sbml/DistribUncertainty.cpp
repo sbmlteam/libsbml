@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertainty::DistribUncertainty(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : SBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mUncertStatistics (NULL)
   , mDistribution (NULL)
 {
@@ -95,7 +95,7 @@ DistribUncertainty::DistribUncertainty(unsigned int level,
  * object.
  */
 DistribUncertainty::DistribUncertainty(DistribPkgNamespaces *distribns)
-  : SBase(distribns)
+  : DistribBase(distribns)
   , mUncertStatistics (NULL)
   , mDistribution (NULL)
 {
@@ -109,7 +109,7 @@ DistribUncertainty::DistribUncertainty(DistribPkgNamespaces *distribns)
  * Copy constructor for DistribUncertainty.
  */
 DistribUncertainty::DistribUncertainty(const DistribUncertainty& orig)
-  : SBase( orig )
+  : DistribBase( orig )
   , mUncertStatistics ( NULL )
   , mDistribution ( NULL )
 {
@@ -135,7 +135,7 @@ DistribUncertainty::operator=(const DistribUncertainty& rhs)
 {
   if (&rhs != this)
   {
-    SBase::operator=(rhs);
+    DistribBase::operator=(rhs);
     delete mUncertStatistics;
     if (rhs.mUncertStatistics != NULL)
     {
@@ -1119,7 +1119,7 @@ DistribUncertainty::hasRequiredAttributes() const
 void
 DistribUncertainty::writeElements(XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  DistribBase::writeElements(stream);
 
   if (isSetUncertStatistics() == true)
   {
@@ -1131,7 +1131,7 @@ DistribUncertainty::writeElements(XMLOutputStream& stream) const
     mDistribution->write(stream);
   }
 
-  SBase::writeExtensionElements(stream);
+  DistribBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -1174,7 +1174,7 @@ DistribUncertainty::accept(SBMLVisitor& v) const
 void
 DistribUncertainty::setSBMLDocument(SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  DistribBase::setSBMLDocument(d);
 
   if (mUncertStatistics != NULL)
   {
@@ -1199,7 +1199,7 @@ DistribUncertainty::setSBMLDocument(SBMLDocument* d)
 void
 DistribUncertainty::connectToChild()
 {
-  SBase::connectToChild();
+  DistribBase::connectToChild();
 
   if (mUncertStatistics != NULL)
   {
@@ -1226,7 +1226,7 @@ DistribUncertainty::enablePackageInternal(const std::string& pkgURI,
                                           const std::string& pkgPrefix,
                                           bool flag)
 {
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  DistribBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
   if (isSetUncertStatistics())
   {
@@ -1253,7 +1253,7 @@ DistribUncertainty::updateSBMLNamespace(const std::string& package,
                                         unsigned int level,
                                         unsigned int version)
 {
-  SBase::updateSBMLNamespace(package, level, version);
+  DistribBase::updateSBMLNamespace(package, level, version);
 
   if (mUncertStatistics != NULL)
   {
@@ -1279,7 +1279,7 @@ int
 DistribUncertainty::getAttribute(const std::string& attributeName,
                                  bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1297,7 +1297,7 @@ int
 DistribUncertainty::getAttribute(const std::string& attributeName,
                                  int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1315,7 +1315,7 @@ int
 DistribUncertainty::getAttribute(const std::string& attributeName,
                                  double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1333,7 +1333,7 @@ int
 DistribUncertainty::getAttribute(const std::string& attributeName,
                                  unsigned int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1351,7 +1351,7 @@ int
 DistribUncertainty::getAttribute(const std::string& attributeName,
                                  std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -1385,7 +1385,7 @@ DistribUncertainty::getAttribute(const std::string& attributeName,
 bool
 DistribUncertainty::isSetAttribute(const std::string& attributeName) const
 {
-  bool value = SBase::isSetAttribute(attributeName);
+  bool value = DistribBase::isSetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -1411,7 +1411,7 @@ DistribUncertainty::isSetAttribute(const std::string& attributeName) const
 int
 DistribUncertainty::setAttribute(const std::string& attributeName, bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1428,7 +1428,7 @@ DistribUncertainty::setAttribute(const std::string& attributeName, bool value)
 int
 DistribUncertainty::setAttribute(const std::string& attributeName, int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1446,7 +1446,7 @@ int
 DistribUncertainty::setAttribute(const std::string& attributeName,
                                  double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1464,7 +1464,7 @@ int
 DistribUncertainty::setAttribute(const std::string& attributeName,
                                  unsigned int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1482,7 +1482,7 @@ int
 DistribUncertainty::setAttribute(const std::string& attributeName,
                                  const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "id")
   {
@@ -1509,7 +1509,7 @@ DistribUncertainty::setAttribute(const std::string& attributeName,
 int
 DistribUncertainty::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBase::unsetAttribute(attributeName);
+  int value = DistribBase::unsetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -2103,7 +2103,7 @@ DistribUncertainty::createObject(XMLInputStream& stream)
 void
 DistribUncertainty::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  SBase::addExpectedAttributes(attributes);
+  DistribBase::addExpectedAttributes(attributes);
 
   unsigned int level = getLevel();
   unsigned int coreVersion = getVersion();
@@ -2141,7 +2141,7 @@ DistribUncertainty::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  SBase::readAttributes(attributes, expectedAttributes);
+  DistribBase::readAttributes(attributes, expectedAttributes);
 
   if (log)
   {
@@ -2167,116 +2167,6 @@ DistribUncertainty::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    readL3V1V1Attributes(attributes);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertainty::readL3V1V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertainty>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  XMLTriple tripleNAME("name", mURI, getPrefix());
-  assigned = attributes.readInto(tripleNAME, mName);
-
-  if (assigned == true)
-  {
-    if (mName.empty() == true)
-    {
-      logEmptyString(mName, level, version, "<DistribUncertainty>");
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertainty::readL3V2V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertainty>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  // read by SBase;
 }
 
 /** @endcond */
@@ -2291,64 +2181,11 @@ DistribUncertainty::readL3V2V1Attributes(const XMLAttributes& attributes)
 void
 DistribUncertainty::writeAttributes(XMLOutputStream& stream) const
 {
-  SBase::writeAttributes(stream);
-
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    writeL3V1V1Attributes(stream);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    writeL3V2V1Attributes(stream);
-  }
-
-  SBase::writeExtensionAttributes(stream);
+  DistribBase::writeAttributes(stream);
+  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertainty::writeL3V1V1Attributes(XMLOutputStream& stream) const
-{
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
-
-  if (isSetName() == true)
-  {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertainty::writeL3V2V1Attributes(XMLOutputStream& stream) const
-{
-}
-
-/** @endcond */
-
 
 
 

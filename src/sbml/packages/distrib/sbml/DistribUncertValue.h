@@ -52,6 +52,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -60,7 +61,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class DistribUncertBound;
 class DistribExternalParameter;
 
-class LIBSBML_EXTERN DistribUncertValue : public SBase
+class LIBSBML_EXTERN DistribUncertValue : public DistribBase
 {
 protected:
 

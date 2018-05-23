@@ -81,7 +81,7 @@ DistribDrawFromDistribution::DistribDrawFromDistribution(unsigned int level,
                                                          unsigned int version,
                                                          unsigned int
                                                            pkgVersion)
-  : SBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mDistribInputs (level, version, pkgVersion)
   , mDistribution (NULL)
 {
@@ -97,7 +97,7 @@ DistribDrawFromDistribution::DistribDrawFromDistribution(unsigned int level,
  */
 DistribDrawFromDistribution::DistribDrawFromDistribution(DistribPkgNamespaces
   *distribns)
-  : SBase(distribns)
+  : DistribBase(distribns)
   , mDistribInputs (distribns)
   , mDistribution (NULL)
 {
@@ -112,7 +112,7 @@ DistribDrawFromDistribution::DistribDrawFromDistribution(DistribPkgNamespaces
  */
 DistribDrawFromDistribution::DistribDrawFromDistribution(const
   DistribDrawFromDistribution& orig)
-  : SBase( orig )
+  : DistribBase( orig )
   , mDistribInputs ( orig.mDistribInputs )
   , mDistribution ( NULL )
 {
@@ -133,7 +133,7 @@ DistribDrawFromDistribution::operator=(const DistribDrawFromDistribution& rhs)
 {
   if (&rhs != this)
   {
-    SBase::operator=(rhs);
+    DistribBase::operator=(rhs);
     mDistribInputs = rhs.mDistribInputs;
     delete mDistribution;
     if (rhs.mDistribution != NULL)
@@ -1185,7 +1185,7 @@ DistribDrawFromDistribution::hasRequiredAttributes() const
 void
 DistribDrawFromDistribution::writeElements(XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  DistribBase::writeElements(stream);
 
   if (isSetDistribution() == true)
   {
@@ -1197,7 +1197,7 @@ DistribDrawFromDistribution::writeElements(XMLOutputStream& stream) const
     mDistribInputs.write(stream);
   }
 
-  SBase::writeExtensionElements(stream);
+  DistribBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -1237,7 +1237,7 @@ DistribDrawFromDistribution::accept(SBMLVisitor& v) const
 void
 DistribDrawFromDistribution::setSBMLDocument(SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  DistribBase::setSBMLDocument(d);
 
   if (mDistribution != NULL)
   {
@@ -1259,7 +1259,7 @@ DistribDrawFromDistribution::setSBMLDocument(SBMLDocument* d)
 void
 DistribDrawFromDistribution::connectToChild()
 {
-  SBase::connectToChild();
+  DistribBase::connectToChild();
 
   if (mDistribution != NULL)
   {
@@ -1284,7 +1284,7 @@ DistribDrawFromDistribution::enablePackageInternal(const std::string& pkgURI,
                                                      pkgPrefix,
                                                    bool flag)
 {
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  DistribBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
   if (isSetDistribution())
   {
@@ -1308,7 +1308,7 @@ DistribDrawFromDistribution::updateSBMLNamespace(const std::string& package,
                                                  unsigned int level,
                                                  unsigned int version)
 {
-  SBase::updateSBMLNamespace(package, level, version);
+  DistribBase::updateSBMLNamespace(package, level, version);
 
   if (mDistribution != NULL)
   {
@@ -1332,7 +1332,7 @@ int
 DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
                                           bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1351,7 +1351,7 @@ int
 DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
                                           int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1370,7 +1370,7 @@ int
 DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
                                           double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1389,7 +1389,7 @@ int
 DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
                                           unsigned int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1408,7 +1408,7 @@ int
 DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
                                           std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -1443,7 +1443,7 @@ bool
 DistribDrawFromDistribution::isSetAttribute(const std::string& attributeName)
   const
 {
-  bool value = SBase::isSetAttribute(attributeName);
+  bool value = DistribBase::isSetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -1471,7 +1471,7 @@ int
 DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
                                           bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1490,7 +1490,7 @@ int
 DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
                                           int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1509,7 +1509,7 @@ int
 DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
                                           double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1528,7 +1528,7 @@ int
 DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
                                           unsigned int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -1547,7 +1547,7 @@ int
 DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
                                           const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "id")
   {
@@ -1574,7 +1574,7 @@ DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
 int
 DistribDrawFromDistribution::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBase::unsetAttribute(attributeName);
+  int value = DistribBase::unsetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -2159,7 +2159,7 @@ void
 DistribDrawFromDistribution::addExpectedAttributes(ExpectedAttributes&
   attributes)
 {
-  SBase::addExpectedAttributes(attributes);
+  DistribBase::addExpectedAttributes(attributes);
 
   unsigned int level = getLevel();
   unsigned int coreVersion = getVersion();
@@ -2197,7 +2197,7 @@ DistribDrawFromDistribution::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  SBase::readAttributes(attributes, expectedAttributes);
+  DistribBase::readAttributes(attributes, expectedAttributes);
 
   if (log)
   {
@@ -2223,118 +2223,6 @@ DistribDrawFromDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    readL3V1V1Attributes(attributes);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribDrawFromDistribution::readL3V1V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribDrawFromDistribution>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  XMLTriple tripleNAME("name", mURI, getPrefix());
-  assigned = attributes.readInto(tripleNAME, mName);
-
-  if (assigned == true)
-  {
-    if (mName.empty() == true)
-    {
-      logEmptyString(mName, level, version, "<DistribDrawFromDistribution>");
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribDrawFromDistribution::readL3V2V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribDrawFromDistribution>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  // read by SBase;
 }
 
 /** @endcond */
@@ -2349,66 +2237,11 @@ DistribDrawFromDistribution::readL3V2V1Attributes(const XMLAttributes&
 void
 DistribDrawFromDistribution::writeAttributes(XMLOutputStream& stream) const
 {
-  SBase::writeAttributes(stream);
-
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    writeL3V1V1Attributes(stream);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    writeL3V2V1Attributes(stream);
-  }
-
-  SBase::writeExtensionAttributes(stream);
+  DistribBase::writeAttributes(stream);
+  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribDrawFromDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
-  const
-{
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
-
-  if (isSetName() == true)
-  {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribDrawFromDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
-  const
-{
-}
-
-/** @endcond */
-
 
 
 

@@ -438,6 +438,7 @@ typedef enum
 , SBML_DISTRIB_UNCERTAINTY                           =  1536  /*!<DistribUncertainty */
 , SBML_DISTRIB_UNCERTSTATISTICS                      =  1537  /*!<DistribUncertStatistics */
 , SBML_DISTRIB_UNCERTSTATISTICSPAN                   =  1538  /*!<DistribUncertStatisticSpan */
+, SBML_DISTRIB_BASE                                  =  1539  /*!<DistribUncertStatisticSpan */
 } SBMLDistribTypeCode_t;
 
 

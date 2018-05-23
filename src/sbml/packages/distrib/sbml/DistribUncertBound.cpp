@@ -748,6 +748,7 @@ DistribUncertBound::readAttributes(const XMLAttributes& attributes,
 
   DistribUncertValue::readAttributes(attributes, expectedAttributes);
 
+  numErrs = log->getNumErrors();
   mIsSetInclusive = attributes.readInto("inclusive", mInclusive);
 
   if (mIsSetInclusive == false)

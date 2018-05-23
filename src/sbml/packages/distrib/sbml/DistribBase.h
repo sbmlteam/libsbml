@@ -1,6 +1,6 @@
 /**
- * @file DistribInput.h
- * @brief Definition of the DistribInput class.
+ * @file DistribBase.h
+ * @brief Definition of the DistribBase class.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -30,13 +30,13 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class DistribInput
- * @sbmlbrief{distrib} TODO:Definition of the DistribInput class.
+ * @class DistribBase
+ * @sbmlbrief{distrib} TODO:Definition of the DistribBase class.
  */
 
 
-#ifndef DistribInput_H__
-#define DistribInput_H__
+#ifndef DistribBase_H__
+#define DistribBase_H__
 
 
 #include <sbml/common/extern.h>
@@ -52,48 +52,39 @@
 
 #include <sbml/SBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
-#include <sbml/packages/distrib/sbml/DistribBase.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN DistribInput : public DistribBase
+class LIBSBML_EXTERN DistribBase : public SBase
 {
 protected:
-
-  /** @cond doxygenLibsbmlInternal */
-
-  unsigned int mIndex;
-  bool mIsSetIndex;
-
-  /** @endcond */
 
 public:
 
   /**
-   * Creates a new DistribInput using the given SBML Level, Version and
+   * Creates a new DistribBase using the given SBML Level, Version and
    * &ldquo;distrib&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * DistribInput.
+   * DistribBase.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * DistribInput.
+   * DistribBase.
    *
    * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
-   * this DistribInput.
+   * this DistribBase.
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  DistribInput(unsigned int level = DistribExtension::getDefaultLevel(),
-               unsigned int version = DistribExtension::getDefaultVersion(),
-               unsigned int pkgVersion =
-                 DistribExtension::getDefaultPackageVersion());
+  DistribBase(unsigned int level = DistribExtension::getDefaultLevel(),
+    unsigned int version = DistribExtension::getDefaultVersion(),
+    unsigned int pkgVersion = DistribExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new DistribInput using the given DistribPkgNamespaces object.
+   * Creates a new DistribBase using the given DistribPkgNamespaces object.
    *
    * @copydetails doc_what_are_sbml_package_namespaces
    *
@@ -101,97 +92,80 @@ public:
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  DistribInput(DistribPkgNamespaces *distribns);
+  DistribBase(DistribPkgNamespaces *distribns);
 
 
   /**
-   * Copy constructor for DistribInput.
+   * Copy constructor for DistribBase.
    *
-   * @param orig the DistribInput instance to copy.
+   * @param orig the DistribBase instance to copy.
    */
-  DistribInput(const DistribInput& orig);
+  DistribBase(const DistribBase& orig);
 
 
   /**
-   * Assignment operator for DistribInput.
+   * Assignment operator for DistribBase.
    *
-   * @param rhs the DistribInput object whose values are to be used as the
+   * @param rhs the DistribBase object whose values are to be used as the
    * basis of the assignment.
    */
-  DistribInput& operator=(const DistribInput& rhs);
+  DistribBase& operator=(const DistribBase& rhs);
 
 
   /**
-   * Creates and returns a deep copy of this DistribInput object.
+   * Creates and returns a deep copy of this DistribBase object.
    *
-   * @return a (deep) copy of this DistribInput object.
+   * @return a (deep) copy of this DistribBase object.
    */
-  virtual DistribInput* clone() const;
+  virtual DistribBase* clone() const;
 
 
   /**
-   * Destructor for DistribInput.
+   * Destructor for DistribBase.
    */
-  virtual ~DistribInput();
+  virtual ~DistribBase();
 
 
   /**
-   * Returns the value of the "id" attribute of this DistribInput.
+   * Returns the value of the "id" attribute of this DistribBase.
    *
-   * @return the value of the "id" attribute of this DistribInput as a string.
+   * @return the value of the "id" attribute of this DistribBase as a
+   * string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Returns the value of the "name" attribute of this DistribInput.
+   * Returns the value of the "name" attribute of this DistribBase.
    *
-   * @return the value of the "name" attribute of this DistribInput as a
+   * @return the value of the "name" attribute of this DistribBase as a
    * string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Returns the value of the "index" attribute of this DistribInput.
+   * Predicate returning @c true if this DistribBase's "id" attribute is
+   * set.
    *
-   * @return the value of the "index" attribute of this DistribInput as a
-   * unsigned integer.
-   */
-  unsigned int getIndex() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribInput's "id" attribute is set.
-   *
-   * @return @c true if this DistribInput's "id" attribute has been set,
+   * @return @c true if this DistribBase's "id" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetId() const;
 
 
   /**
-   * Predicate returning @c true if this DistribInput's "name" attribute is
+   * Predicate returning @c true if this DistribBase's "name" attribute is
    * set.
    *
-   * @return @c true if this DistribInput's "name" attribute has been set,
+   * @return @c true if this DistribBase's "name" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetName() const;
 
 
   /**
-   * Predicate returning @c true if this DistribInput's "index" attribute is
-   * set.
-   *
-   * @return @c true if this DistribInput's "index" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  bool isSetIndex() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribInput.
+   * Sets the value of the "id" attribute of this DistribBase.
    *
    * @param id std::string& value of the "id" attribute to be set.
    *
@@ -207,7 +181,7 @@ public:
 
 
   /**
-   * Sets the value of the "name" attribute of this DistribInput.
+   * Sets the value of the "name" attribute of this DistribBase.
    *
    * @param name std::string& value of the "name" attribute to be set.
    *
@@ -221,20 +195,7 @@ public:
 
 
   /**
-   * Sets the value of the "index" attribute of this DistribInput.
-   *
-   * @param index unsigned int value of the "index" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   */
-  int setIndex(unsigned int index);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribInput.
+   * Unsets the value of the "id" attribute of this DistribBase.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -244,7 +205,7 @@ public:
 
 
   /**
-   * Unsets the value of the "name" attribute of this DistribInput.
+   * Unsets the value of the "name" attribute of this DistribBase.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -254,32 +215,22 @@ public:
 
 
   /**
-   * Unsets the value of the "index" attribute of this DistribInput.
+   * Returns the XML element name of this DistribBase object.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetIndex();
-
-
-  /**
-   * Returns the XML element name of this DistribInput object.
+   * For DistribBase, the XML element name is always @c "Base".
    *
-   * For DistribInput, the XML element name is always @c "distribInput".
-   *
-   * @return the name of this element, i.e. @c "distribInput".
+   * @return the name of this element, i.e. @c "Base".
    */
   virtual const std::string& getElementName() const;
 
 
   /**
-   * Returns the libSBML type code for this DistribInput object.
+   * Returns the libSBML type code for this DistribBase object.
    *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_DISTRIB_DISTRIBINPUT, SBMLDistribTypeCode_t}.
+   * @sbmlconstant{SBML_DISTRIB_Base, SBMLDistribTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -291,23 +242,26 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes for this
-   * DistribInput object have been set.
+   * DistribBase object have been set.
    *
    * @return @c true to indicate that all the required attributes of this
-   * DistribInput have been set, otherwise @c false is returned.
+   * DistribBase have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
 
 
-
-  /** @cond doxygenLibsbmlInternal */
-
   /**
-   * Write any contained elements
+   * Predicate returning @c true if all the required elements for this
+   * DistribBase object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * DistribBase have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the DistribBase object are:
+   * @li "value"
    */
-  virtual void writeElements(XMLOutputStream& stream) const;
-
-  /** @endcond */
+  virtual bool hasRequiredElements() const;
 
 
 
@@ -322,30 +276,6 @@ public:
 
 
 
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Sets the parent SBMLDocument
-   */
-  virtual void setSBMLDocument(SBMLDocument* d);
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * Enables/disables the given package with this element
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix,
-                                     bool flag);
-
-  /** @endcond */
-
-
-
 
   #ifndef SWIG
 
@@ -354,7 +284,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribInput.
+   * Gets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -374,7 +304,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribInput.
+   * Gets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -393,7 +323,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribInput.
+   * Gets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -413,7 +343,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribInput.
+   * Gets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -433,7 +363,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Gets the value of the "attributeName" attribute of this DistribInput.
+   * Gets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to retrieve.
    *
@@ -453,13 +383,13 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Predicate returning @c true if this DistribInput's attribute
+   * Predicate returning @c true if this DistribBase's attribute
    * "attributeName" is set.
    *
    * @param attributeName, the name of the attribute to query.
    *
-   * @return @c true if this DistribInput's attribute "attributeName" has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this DistribBase's attribute "attributeName" has
+   * been set, otherwise @c false is returned.
    */
   virtual bool isSetAttribute(const std::string& attributeName) const;
 
@@ -470,7 +400,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribInput.
+   * Sets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -489,7 +419,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribInput.
+   * Sets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -508,7 +438,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribInput.
+   * Sets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -527,7 +457,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribInput.
+   * Sets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -547,7 +477,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the value of the "attributeName" attribute of this DistribInput.
+   * Sets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to set.
    *
@@ -567,7 +497,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Unsets the value of the "attributeName" attribute of this DistribInput.
+   * Unsets the value of the "attributeName" attribute of this DistribBase.
    *
    * @param attributeName, the name of the attribute to query.
    *
@@ -576,6 +506,38 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetAttribute(const std::string& attributeName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of "elementName" in this DistribBase.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @return unsigned int number of elements.
+   */
+  virtual unsigned int getNumObjects(const std::string& elementName);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth object of "objectName" in this DistribBase.
+   *
+   * @param elementName, the name of the element to get number of.
+   *
+   * @param index, unsigned int the index of the object to retrieve.
+   *
+   * @return pointer to the object.
+   */
+  virtual SBase* getObject(const std::string& elementName, unsigned int index);
 
   /** @endcond */
 
@@ -620,7 +582,6 @@ protected:
 
   /** @endcond */
 
-
 };
 
 
@@ -649,160 +610,129 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new DistribInput_t using the given SBML Level, Version and
+ * Creates a new DistribBase_t using the given SBML Level, Version and
  * &ldquo;distrib&rdquo; package version.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * DistribInput_t.
+ * DistribBase_t.
  *
  * @param version an unsigned int, the SBML Version to assign to this
- * DistribInput_t.
+ * DistribBase_t.
  *
  * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
- * this DistribInput_t.
+ * this DistribBase_t.
  *
  * @copydetails doc_note_setting_lv_pkg
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribInput_t *
-DistribInput_create(unsigned int level,
-                    unsigned int version,
-                    unsigned int pkgVersion);
+DistribBase_t *
+DistribBase_create(unsigned int level,
+                       unsigned int version,
+                       unsigned int pkgVersion);
 
 
 /**
- * Creates and returns a deep copy of this DistribInput_t object.
+ * Creates and returns a deep copy of this DistribBase_t object.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
- * @return a (deep) copy of this DistribInput_t object.
+ * @return a (deep) copy of this DistribBase_t object.
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-DistribInput_t*
-DistribInput_clone(const DistribInput_t* di);
+DistribBase_t*
+DistribBase_clone(const DistribBase_t* dc);
 
 
 /**
- * Frees this DistribInput_t object.
+ * Frees this DistribBase_t object.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 void
-DistribInput_free(DistribInput_t* di);
+DistribBase_free(DistribBase_t* dc);
 
 
 /**
- * Returns the value of the "id" attribute of this DistribInput_t.
+ * Returns the value of the "id" attribute of this DistribBase_t.
  *
- * @param di the DistribInput_t structure whose id is sought.
+ * @param dc the DistribBase_t structure whose id is sought.
  *
- * @return the value of the "id" attribute of this DistribInput_t as a pointer
- * to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-char *
-DistribInput_getId(const DistribInput_t * di);
-
-
-/**
- * Returns the value of the "name" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribInput_t as a
+ * @return the value of the "id" attribute of this DistribBase_t as a
  * pointer to a string.
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 char *
-DistribInput_getName(const DistribInput_t * di);
+DistribBase_getId(const DistribBase_t * dc);
 
 
 /**
- * Returns the value of the "index" attribute of this DistribInput_t.
+ * Returns the value of the "name" attribute of this DistribBase_t.
  *
- * @param di the DistribInput_t structure whose index is sought.
+ * @param dc the DistribBase_t structure whose name is sought.
  *
- * @return the value of the "index" attribute of this DistribInput_t as a
- * unsigned integer.
+ * @return the value of the "name" attribute of this DistribBase_t as a
+ * pointer to a string.
  *
- * @memberof DistribInput_t
+ * @copydetails doc_returned_owned_char
+ *
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
-unsigned int
-DistribInput_getIndex(const DistribInput_t * di);
+char *
+DistribBase_getName(const DistribBase_t * dc);
 
 
 /**
- * Predicate returning @c 1 (true) if this DistribInput_t's "id" attribute is
- * set.
- *
- * @param di the DistribInput_t structure.
- *
- * @return @c 1 (true) if this DistribInput_t's "id" attribute has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_isSetId(const DistribInput_t * di);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribInput_t's "name" attribute is
- * set.
- *
- * @param di the DistribInput_t structure.
- *
- * @return @c 1 (true) if this DistribInput_t's "name" attribute has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_isSetName(const DistribInput_t * di);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribInput_t's "index" attribute
+ * Predicate returning @c 1 (true) if this DistribBase_t's "id" attribute
  * is set.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
- * @return @c 1 (true) if this DistribInput_t's "index" attribute has been set,
+ * @return @c 1 (true) if this DistribBase_t's "id" attribute has been set,
  * otherwise @c 0 (false) is returned.
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_isSetIndex(const DistribInput_t * di);
+DistribBase_isSetId(const DistribBase_t * dc);
 
 
 /**
- * Sets the value of the "id" attribute of this DistribInput_t.
+ * Predicate returning @c 1 (true) if this DistribBase_t's "name" attribute
+ * is set.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
+ *
+ * @return @c 1 (true) if this DistribBase_t's "name" attribute has been
+ * set, otherwise @c 0 (false) is returned.
+ *
+ * @memberof DistribBase_t
+ */
+LIBSBML_EXTERN
+int
+DistribBase_isSetName(const DistribBase_t * dc);
+
+
+/**
+ * Sets the value of the "id" attribute of this DistribBase_t.
+ *
+ * @param dc the DistribBase_t structure.
  *
  * @param id const char * value of the "id" attribute to be set.
  *
@@ -812,19 +742,19 @@ DistribInput_isSetIndex(const DistribInput_t * di);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribInput_unsetId().
+ * to calling DistribBase_unsetId().
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_setId(DistribInput_t * di, const char * id);
+DistribBase_setId(DistribBase_t * dc, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this DistribInput_t.
+ * Sets the value of the "name" attribute of this DistribBase_t.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
  * @param name const char * value of the "name" attribute to be set.
  *
@@ -833,99 +763,83 @@ DistribInput_setId(DistribInput_t * di, const char * id);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribInput_unsetName().
+ * equivalent to calling DistribBase_unsetName().
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_setName(DistribInput_t * di, const char * name);
+DistribBase_setName(DistribBase_t * dc, const char * name);
 
 
 /**
- * Sets the value of the "index" attribute of this DistribInput_t.
+ * Unsets the value of the "id" attribute of this DistribBase_t.
  *
- * @param di the DistribInput_t structure.
- *
- * @param index unsigned int value of the "index" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_setIndex(DistribInput_t * di, unsigned int index);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_unsetId(DistribInput_t * di);
+DistribBase_unsetId(DistribBase_t * dc);
 
 
 /**
- * Unsets the value of the "name" attribute of this DistribInput_t.
+ * Unsets the value of the "name" attribute of this DistribBase_t.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_unsetName(DistribInput_t * di);
-
-
-/**
- * Unsets the value of the "index" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_unsetIndex(DistribInput_t * di);
+DistribBase_unsetName(DistribBase_t * dc);
 
 
 /**
  * Predicate returning @c 1 (true) if all the required attributes for this
- * DistribInput_t object have been set.
+ * DistribBase_t object have been set.
  *
- * @param di the DistribInput_t structure.
+ * @param dc the DistribBase_t structure.
  *
  * @return @c 1 (true) to indicate that all the required attributes of this
- * DistribInput_t have been set, otherwise @c 0 (false) is returned.
+ * DistribBase_t have been set, otherwise @c 0 (false) is returned.
  *
- * @memberof DistribInput_t
+ * @memberof DistribBase_t
  */
 LIBSBML_EXTERN
 int
-DistribInput_hasRequiredAttributes(const DistribInput_t * di);
+DistribBase_hasRequiredAttributes(const DistribBase_t * dc);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribBase_t object have been set.
+ *
+ * @param dc the DistribBase_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * DistribBase_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the DistribBase_t object are:
+ * @li "value"
+ *
+ * @memberof DistribBase_t
+ */
+LIBSBML_EXTERN
+int
+DistribBase_hasRequiredElements(const DistribBase_t * dc);
 
 
 
@@ -945,6 +859,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif /* !DistribInput_H__ */
+#endif /* !DistribBase_H__ */
 
 

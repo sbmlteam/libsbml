@@ -42,6 +42,7 @@
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/distrib/common/distribfwd.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 
 
 #ifdef __cplusplus
@@ -83,7 +84,7 @@ class DistribCategoricalDistribution;
 class DistribMultivariateDistribution;
 class DistribExternalDistribution;
 
-class LIBSBML_EXTERN DistribDistribution : public SBase
+class LIBSBML_EXTERN DistribDistribution : public DistribBase
 {
 protected:
 

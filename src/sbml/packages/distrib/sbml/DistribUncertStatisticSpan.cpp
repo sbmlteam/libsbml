@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertStatisticSpan::DistribUncertStatisticSpan(unsigned int level,
                                                        unsigned int version,
                                                        unsigned int pkgVersion)
-  : SBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mVarLower ("")
   , mValueLower (util_NaN())
   , mIsSetValueLower (false)
@@ -73,7 +73,7 @@ DistribUncertStatisticSpan::DistribUncertStatisticSpan(unsigned int level,
  */
 DistribUncertStatisticSpan::DistribUncertStatisticSpan(DistribPkgNamespaces
   *distribns)
-  : SBase(distribns)
+  : DistribBase(distribns)
   , mVarLower ("")
   , mValueLower (util_NaN())
   , mIsSetValueLower (false)
@@ -92,7 +92,7 @@ DistribUncertStatisticSpan::DistribUncertStatisticSpan(DistribPkgNamespaces
  */
 DistribUncertStatisticSpan::DistribUncertStatisticSpan(const
   DistribUncertStatisticSpan& orig)
-  : SBase( orig )
+  : DistribBase( orig )
   , mVarLower ( orig.mVarLower )
   , mValueLower ( orig.mValueLower )
   , mIsSetValueLower ( orig.mIsSetValueLower )
@@ -112,7 +112,7 @@ DistribUncertStatisticSpan::operator=(const DistribUncertStatisticSpan& rhs)
 {
   if (&rhs != this)
   {
-    SBase::operator=(rhs);
+    DistribBase::operator=(rhs);
     mVarLower = rhs.mVarLower;
     mValueLower = rhs.mValueLower;
     mIsSetValueLower = rhs.mIsSetValueLower;
@@ -566,9 +566,9 @@ DistribUncertStatisticSpan::hasRequiredAttributes() const
 void
 DistribUncertStatisticSpan::writeElements(XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+  DistribBase::writeElements(stream);
 
-  SBase::writeExtensionElements(stream);
+  DistribBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -598,7 +598,7 @@ DistribUncertStatisticSpan::accept(SBMLVisitor& v) const
 void
 DistribUncertStatisticSpan::setSBMLDocument(SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  DistribBase::setSBMLDocument(d);
 }
 
 /** @endcond */
@@ -615,7 +615,7 @@ DistribUncertStatisticSpan::enablePackageInternal(const std::string& pkgURI,
                                                   const std::string& pkgPrefix,
                                                   bool flag)
 {
-  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  DistribBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 /** @endcond */
@@ -632,7 +632,7 @@ int
 DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
                                          bool& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -651,7 +651,7 @@ int
 DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
                                          int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -670,7 +670,7 @@ int
 DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
                                          double& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -705,7 +705,7 @@ int
 DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
                                          unsigned int& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   return return_value;
 }
@@ -724,7 +724,7 @@ int
 DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
                                          std::string& value) const
 {
-  int return_value = SBase::getAttribute(attributeName, value);
+  int return_value = DistribBase::getAttribute(attributeName, value);
 
   if (return_value == LIBSBML_OPERATION_SUCCESS)
   {
@@ -769,7 +769,7 @@ bool
 DistribUncertStatisticSpan::isSetAttribute(const std::string& attributeName)
   const
 {
-  bool value = SBase::isSetAttribute(attributeName);
+  bool value = DistribBase::isSetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -813,7 +813,7 @@ int
 DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
                                          bool value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -832,7 +832,7 @@ int
 DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
                                          int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -851,7 +851,7 @@ int
 DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
                                          double value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "valueLower")
   {
@@ -879,7 +879,7 @@ int
 DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
                                          unsigned int value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   return return_value;
 }
@@ -898,7 +898,7 @@ int
 DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
                                          const std::string& value)
 {
-  int return_value = SBase::setAttribute(attributeName, value);
+  int return_value = DistribBase::setAttribute(attributeName, value);
 
   if (attributeName == "id")
   {
@@ -933,7 +933,7 @@ DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
 int
 DistribUncertStatisticSpan::unsetAttribute(const std::string& attributeName)
 {
-  int value = SBase::unsetAttribute(attributeName);
+  int value = DistribBase::unsetAttribute(attributeName);
 
   if (attributeName == "id")
   {
@@ -976,7 +976,7 @@ void
 DistribUncertStatisticSpan::addExpectedAttributes(ExpectedAttributes&
   attributes)
 {
-  SBase::addExpectedAttributes(attributes);
+  DistribBase::addExpectedAttributes(attributes);
 
   unsigned int level = getLevel();
   unsigned int coreVersion = getVersion();
@@ -1022,7 +1022,7 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  SBase::readAttributes(attributes, expectedAttributes);
+  DistribBase::readAttributes(attributes, expectedAttributes);
 
   if (log)
   {
@@ -1049,73 +1049,6 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
     }
   }
 
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    readL3V1V1Attributes(attributes);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertStatisticSpan>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  XMLTriple tripleNAME("name", mURI, getPrefix());
-  assigned = attributes.readInto(tripleNAME, mName);
-
-  if (assigned == true)
-  {
-    if (mName.empty() == true)
-    {
-      logEmptyString(mName, level, version, "<DistribUncertStatisticSpan>");
-    }
-  }
-
   // 
   // varLower SIdRef (use = "optional" )
   // 
@@ -1141,7 +1074,7 @@ DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
       msg += " is '" + mVarLower + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanVarLowerMustBeSBase, pkgVersion, level,
-          version, msg, getLine(), getColumn());
+        version, msg, getLine(), getColumn());
     }
   }
 
@@ -1162,7 +1095,7 @@ DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
         "<DistribUncertStatisticSpan> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanValueLowerMustBeDouble, pkgVersion,
-          level, version, message);
+        level, version, message);
     }
   }
 
@@ -1191,7 +1124,7 @@ DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
       msg += " is '" + mVarUpper + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanVarUpperMustBeSBase, pkgVersion, level,
-          version, msg, getLine(), getColumn());
+        version, msg, getLine(), getColumn());
     }
   }
 
@@ -1212,154 +1145,7 @@ DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
         "<DistribUncertStatisticSpan> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanValueUpperMustBeDouble, pkgVersion,
-          level, version, message);
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertStatisticSpan::readL3V2V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertStatisticSpan>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  // read by SBase;
-
-  // 
-  // varLower SIdRef (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("varLower", mVarLower);
-
-  if (assigned == true)
-  {
-    if (mVarLower.empty() == true)
-    {
-      logEmptyString(mVarLower, level, version,
-        "<DistribUncertStatisticSpan>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mVarLower) == false)
-    {
-      std::string msg = "The varLower attribute on the <" + getElementName() +
-        ">";
-      if (isSetId())
-      {
-        msg += " with id '" + getId() + "'";
-      }
-
-      msg += " is '" + mVarLower + "', which does not conform to the syntax.";
-      log->logPackageError("distrib",
-        DistribDistribUncertStatisticSpanVarLowerMustBeSBase, pkgVersion, level,
-          version, msg, getLine(), getColumn());
-    }
-  }
-
-  // 
-  // valueLower double (use = "optional" )
-  // 
-
-  numErrs = log->getNumErrors();
-  mIsSetValueLower = attributes.readInto("valueLower", mValueLower);
-
-  if ( mIsSetValueLower == false)
-  {
-    if (log->getNumErrors() == numErrs + 1 &&
-      log->contains(XMLAttributeTypeMismatch))
-    {
-      log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Distrib attribute 'valueLower' from the "
-        "<DistribUncertStatisticSpan> element must be an integer.";
-      log->logPackageError("distrib",
-        DistribDistribUncertStatisticSpanValueLowerMustBeDouble, pkgVersion,
-          level, version, message);
-    }
-  }
-
-  // 
-  // varUpper SIdRef (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("varUpper", mVarUpper);
-
-  if (assigned == true)
-  {
-    if (mVarUpper.empty() == true)
-    {
-      logEmptyString(mVarUpper, level, version,
-        "<DistribUncertStatisticSpan>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mVarUpper) == false)
-    {
-      std::string msg = "The varUpper attribute on the <" + getElementName() +
-        ">";
-      if (isSetId())
-      {
-        msg += " with id '" + getId() + "'";
-      }
-
-      msg += " is '" + mVarUpper + "', which does not conform to the syntax.";
-      log->logPackageError("distrib",
-        DistribDistribUncertStatisticSpanVarUpperMustBeSBase, pkgVersion, level,
-          version, msg, getLine(), getColumn());
-    }
-  }
-
-  // 
-  // valueUpper double (use = "optional" )
-  // 
-
-  numErrs = log->getNumErrors();
-  mIsSetValueUpper = attributes.readInto("valueUpper", mValueUpper);
-
-  if ( mIsSetValueUpper == false)
-  {
-    if (log->getNumErrors() == numErrs + 1 &&
-      log->contains(XMLAttributeTypeMismatch))
-    {
-      log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Distrib attribute 'valueUpper' from the "
-        "<DistribUncertStatisticSpan> element must be an integer.";
-      log->logPackageError("distrib",
-        DistribDistribUncertStatisticSpanValueUpperMustBeDouble, pkgVersion,
-          level, version, message);
+        level, version, message);
     }
   }
 }
@@ -1376,48 +1162,7 @@ DistribUncertStatisticSpan::readL3V2V1Attributes(const XMLAttributes&
 void
 DistribUncertStatisticSpan::writeAttributes(XMLOutputStream& stream) const
 {
-  SBase::writeAttributes(stream);
-
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    writeL3V1V1Attributes(stream);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    writeL3V2V1Attributes(stream);
-  }
-
-  SBase::writeExtensionAttributes(stream);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertStatisticSpan::writeL3V1V1Attributes(XMLOutputStream& stream)
-  const
-{
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
-
-  if (isSetName() == true)
-  {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-
+  DistribBase::writeAttributes(stream);
   if (isSetVarLower() == true)
   {
     stream.writeAttribute("varLower", getPrefix(), mVarLower);
@@ -1437,44 +1182,10 @@ DistribUncertStatisticSpan::writeL3V1V1Attributes(XMLOutputStream& stream)
   {
     stream.writeAttribute("valueUpper", getPrefix(), mValueUpper);
   }
+  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertStatisticSpan::writeL3V2V1Attributes(XMLOutputStream& stream)
-  const
-{
-  if (isSetVarLower() == true)
-  {
-    stream.writeAttribute("varLower", getPrefix(), mVarLower);
-  }
-
-  if (isSetValueLower() == true)
-  {
-    stream.writeAttribute("valueLower", getPrefix(), mValueLower);
-  }
-
-  if (isSetVarUpper() == true)
-  {
-    stream.writeAttribute("varUpper", getPrefix(), mVarUpper);
-  }
-
-  if (isSetValueUpper() == true)
-  {
-    stream.writeAttribute("valueUpper", getPrefix(), mValueUpper);
-  }
-}
-
-/** @endcond */
-
 
 
 
