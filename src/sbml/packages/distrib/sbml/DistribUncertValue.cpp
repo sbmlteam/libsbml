@@ -967,67 +967,40 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
 
   if (level == 3 && version == 1 && pkgVersion == 1)
   {
-    readL3V1V1Attributes(attributes);
-  }
+    // 
+    // id SId (use = "optional" )
+    // 
 
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
+    XMLTriple tripleID("id", mURI, getPrefix());
+    assigned = attributes.readInto(tripleID, mId);
 
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertValue::readL3V1V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
+    if (assigned == true)
     {
-      logEmptyString(mId, level, version, "<DistribUncertValue>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+      if (mId.empty() == true)
+      {
+        logEmptyString(mId, level, version, "<DistribUncertValue>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      {
+        log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
+          version, "The id on the <" + getElementName() + "> is '" + mId + "', "
           "which does not conform to the syntax.", getLine(), getColumn());
+      }
     }
-  }
 
-  // 
-  // name string (use = "optional" )
-  // 
+    // 
+    // name string (use = "optional" )
+    // 
 
-  XMLTriple tripleNAME("name", mURI, getPrefix());
-  assigned = attributes.readInto(tripleNAME, mName);
+    XMLTriple tripleNAME("name", mURI, getPrefix());
+    assigned = attributes.readInto(tripleNAME, mName);
 
-  if (assigned == true)
-  {
-    if (mName.empty() == true)
+    if (assigned == true)
     {
-      logEmptyString(mName, level, version, "<DistribUncertValue>");
+      if (mName.empty() == true)
+      {
+        logEmptyString(mName, level, version, "<DistribUncertValue>");
+      }
     }
   }
 
@@ -1048,7 +1021,7 @@ DistribUncertValue::readL3V1V1Attributes(const XMLAttributes& attributes)
         "<DistribUncertValue> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertValueValueMustBeDouble, pkgVersion, level, version,
-          message);
+        message);
     }
   }
 
@@ -1102,128 +1075,7 @@ DistribUncertValue::readL3V1V1Attributes(const XMLAttributes& attributes)
       msg += " is '" + mUnits + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertValueUnitsMustBeUnitSId, pkgVersion, level, version,
-          msg, getLine(), getColumn());
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertValue::readL3V2V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertValue>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  // read by SBase;
-
-  // 
-  // value double (use = "optional" )
-  // 
-
-  numErrs = log->getNumErrors();
-  mIsSetValue = attributes.readInto("value", mValue);
-
-  if ( mIsSetValue == false)
-  {
-    if (log->getNumErrors() == numErrs + 1 &&
-      log->contains(XMLAttributeTypeMismatch))
-    {
-      log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Distrib attribute 'value' from the "
-        "<DistribUncertValue> element must be an integer.";
-      log->logPackageError("distrib",
-        DistribDistribUncertValueValueMustBeDouble, pkgVersion, level, version,
-          message);
-    }
-  }
-
-  // 
-  // var SIdRef (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("var", mVar);
-
-  if (assigned == true)
-  {
-    if (mVar.empty() == true)
-    {
-      logEmptyString(mVar, level, version, "<DistribUncertValue>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mVar) == false)
-    {
-      std::string msg = "The var attribute on the <" + getElementName() + ">";
-      if (isSetId())
-      {
-        msg += " with id '" + getId() + "'";
-      }
-
-      msg += " is '" + mVar + "', which does not conform to the syntax.";
-      log->logPackageError("distrib", DistribDistribUncertValueVarMustBeSBase,
-        pkgVersion, level, version, msg, getLine(), getColumn());
-    }
-  }
-
-  // 
-  // units UnitSIdRef (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("units", mUnits);
-
-  if (assigned == true)
-  {
-    if (mUnits.empty() == true)
-    {
-      logEmptyString(mUnits, level, version, "<DistribUncertValue>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mUnits) == false)
-    {
-      std::string msg = "The units attribute on the <" + getElementName() +
-        ">";
-      if (isSetId())
-      {
-        msg += " with id '" + getId() + "'";
-      }
-
-      msg += " is '" + mUnits + "', which does not conform to the syntax.";
-      log->logPackageError("distrib",
-        DistribDistribUncertValueUnitsMustBeUnitSId, pkgVersion, level, version,
-          msg, getLine(), getColumn());
+        msg, getLine(), getColumn());
     }
   }
 }
@@ -1248,81 +1100,33 @@ DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
 
   if (level == 3 && version == 1 && pkgVersion == 1)
   {
-    writeL3V1V1Attributes(stream);
+    if (isSetId() == true)
+    {
+      stream.writeAttribute("id", getPrefix(), mId);
+    }
+
+    if (isSetName() == true)
+    {
+      stream.writeAttribute("name", getPrefix(), mName);
+    }
+  }
+  if (isSetValue() == true)
+  {
+    stream.writeAttribute("value", getPrefix(), mValue);
   }
 
-  if (level == 3 && version == 2 && pkgVersion == 1)
+  if (isSetVar() == true)
   {
-    writeL3V2V1Attributes(stream);
+    stream.writeAttribute("var", getPrefix(), mVar);
   }
+
+  if (isSetUnits() == true)
+  {
+    stream.writeAttribute("units", getPrefix(), mUnits);
+  }
+
 
   SBase::writeExtensionAttributes(stream);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertValue::writeL3V1V1Attributes(XMLOutputStream& stream) const
-{
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
-
-  if (isSetName() == true)
-  {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-
-  if (isSetValue() == true)
-  {
-    stream.writeAttribute("value", getPrefix(), mValue);
-  }
-
-  if (isSetVar() == true)
-  {
-    stream.writeAttribute("var", getPrefix(), mVar);
-  }
-
-  if (isSetUnits() == true)
-  {
-    stream.writeAttribute("units", getPrefix(), mUnits);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertValue::writeL3V2V1Attributes(XMLOutputStream& stream) const
-{
-  if (isSetValue() == true)
-  {
-    stream.writeAttribute("value", getPrefix(), mValue);
-  }
-
-  if (isSetVar() == true)
-  {
-    stream.writeAttribute("var", getPrefix(), mVar);
-  }
-
-  if (isSetUnits() == true)
-  {
-    stream.writeAttribute("units", getPrefix(), mUnits);
-  }
 }
 
 /** @endcond */

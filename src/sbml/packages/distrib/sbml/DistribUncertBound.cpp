@@ -748,102 +748,6 @@ DistribUncertBound::readAttributes(const XMLAttributes& attributes,
 
   DistribUncertValue::readAttributes(attributes, expectedAttributes);
 
-  if (log)
-  {
-    numErrs = log->getNumErrors();
-
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
-            details);
-      }
-      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownCoreAttribute);
-        log->logPackageError("distrib",
-          DistribDistribUncertBoundAllowedCoreAttributes, pkgVersion, level,
-            version, details);
-      }
-    }
-  }
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    readL3V1V1Attributes(attributes);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertBound::readL3V1V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertBound>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  XMLTriple tripleNAME("name", mURI, getPrefix());
-  assigned = attributes.readInto(tripleNAME, mName);
-
-  if (assigned == true)
-  {
-    if (mName.empty() == true)
-    {
-      logEmptyString(mName, level, version, "<DistribUncertBound>");
-    }
-  }
-
-  // 
-  // inclusive bool (use = "required" )
-  // 
-
-  numErrs = log->getNumErrors();
   mIsSetInclusive = attributes.readInto("inclusive", mInclusive);
 
   if (mIsSetInclusive == false)
@@ -854,7 +758,7 @@ DistribUncertBound::readL3V1V1Attributes(const XMLAttributes& attributes)
       log->remove(XMLAttributeTypeMismatch);
       log->logPackageError("distrib",
         DistribDistribUncertBoundInclusiveMustBeBoolean, pkgVersion, level,
-          version);
+        version);
     }
     else
     {
@@ -862,80 +766,7 @@ DistribUncertBound::readL3V1V1Attributes(const XMLAttributes& attributes)
         "<DistribUncertBound> element.";
       log->logPackageError("distrib",
         DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
-          message);
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribUncertBound::readL3V2V1Attributes(const XMLAttributes& attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-  unsigned int numErrs;
-
-  // 
-  // id SId (use = "optional" )
-  // 
-
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
-  {
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, level, version, "<DistribUncertBound>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-    {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
-    }
-  }
-
-  // 
-  // name string (use = "optional" )
-  // 
-
-  // read by SBase;
-
-  // 
-  // inclusive bool (use = "required" )
-  // 
-
-  numErrs = log->getNumErrors();
-  mIsSetInclusive = attributes.readInto("inclusive", mInclusive);
-
-  if (mIsSetInclusive == false)
-  {
-    if (log->getNumErrors() == numErrs + 1 &&
-      log->contains(XMLAttributeTypeMismatch))
-    {
-      log->remove(XMLAttributeTypeMismatch);
-      log->logPackageError("distrib",
-        DistribDistribUncertBoundInclusiveMustBeBoolean, pkgVersion, level,
-          version);
-    }
-    else
-    {
-      std::string message = "Distrib attribute 'inclusive' is missing from the "
-        "<DistribUncertBound> element.";
-      log->logPackageError("distrib",
-        DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
-          message);
+        message);
     }
   }
 }
@@ -953,72 +784,15 @@ void
 DistribUncertBound::writeAttributes(XMLOutputStream& stream) const
 {
   DistribUncertValue::writeAttributes(stream);
-
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
+  if (isSetInclusive() == true)
   {
-    writeL3V1V1Attributes(stream);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    writeL3V2V1Attributes(stream);
+    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
   }
 
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertBound::writeL3V1V1Attributes(XMLOutputStream& stream) const
-{
-  if (isSetId() == true)
-  {
-    stream.writeAttribute("id", getPrefix(), mId);
-  }
-
-  if (isSetName() == true)
-  {
-    stream.writeAttribute("name", getPrefix(), mName);
-  }
-
-  if (isSetInclusive() == true)
-  {
-    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribUncertBound::writeL3V2V1Attributes(XMLOutputStream& stream) const
-{
-  if (isSetInclusive() == true)
-  {
-    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
-  }
-}
-
-/** @endcond */
-
 
 
 
