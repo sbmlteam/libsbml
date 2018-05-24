@@ -620,7 +620,7 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
 
   SBase::readAttributes(attributes, expectedAttributes);
 
-  if (level == 3 && version == 1 && pkgVersion == 1)
+  if (level == 3 && version == 1)
   {
     // 
     // id SId (use = "optional" )
@@ -676,9 +676,9 @@ DistribBase::writeAttributes(XMLOutputStream& stream) const
 
   unsigned int level = getLevel();
   unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
+  //unsigned int pkgVersion = getPackageVersion();
 
-  if (level == 3 && version == 1 && pkgVersion == 1)
+  if (level == 3 && version == 1)
   {
     if (isSetId() == true)
     {
