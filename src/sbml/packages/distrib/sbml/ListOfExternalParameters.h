@@ -50,7 +50,8 @@
 #include <string>
 
 
-#include <sbml/ListOf.h>
+#include <sbml/packages/distrib/sbml/DistribListOfBase.h>
+#include <sbml/packages/distrib/sbml/DistribListOfBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribExternalParameter.h>
 
@@ -58,7 +59,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN ListOfExternalParameters : public ListOf
+class LIBSBML_EXTERN ListOfExternalParameters : public DistribListOfBase
 {
 
 public:

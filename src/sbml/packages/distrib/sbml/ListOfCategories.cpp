@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ListOfCategories::ListOfCategories(unsigned int level,
                                    unsigned int version,
                                    unsigned int pkgVersion)
-  : ListOf(level, version)
+  : DistribListOfBase(level, version)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
     pkgVersion));
@@ -64,7 +64,7 @@ ListOfCategories::ListOfCategories(unsigned int level,
  * Creates a new ListOfCategories using the given DistribPkgNamespaces object.
  */
 ListOfCategories::ListOfCategories(DistribPkgNamespaces *distribns)
-  : ListOf(distribns)
+  : DistribListOfBase(distribns)
 {
   setElementNamespace(distribns->getURI());
 }
@@ -74,7 +74,7 @@ ListOfCategories::ListOfCategories(DistribPkgNamespaces *distribns)
  * Copy constructor for ListOfCategories.
  */
 ListOfCategories::ListOfCategories(const ListOfCategories& orig)
-  : ListOf( orig )
+  : DistribListOfBase( orig )
 {
 }
 

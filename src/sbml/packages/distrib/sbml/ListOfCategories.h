@@ -50,7 +50,7 @@
 #include <string>
 
 
-#include <sbml/ListOf.h>
+#include <sbml/packages/distrib/sbml/DistribListOfBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribCategory.h>
 
@@ -58,7 +58,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN ListOfCategories : public ListOf
+class LIBSBML_EXTERN ListOfCategories : public DistribListOfBase
 {
 
 public:

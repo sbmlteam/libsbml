@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ListOfExternalParameters::ListOfExternalParameters(unsigned int level,
                                                    unsigned int version,
                                                    unsigned int pkgVersion)
-  : ListOf(level, version)
+  : DistribListOfBase(level, version)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
     pkgVersion));
@@ -66,7 +66,7 @@ ListOfExternalParameters::ListOfExternalParameters(unsigned int level,
  */
 ListOfExternalParameters::ListOfExternalParameters(DistribPkgNamespaces
   *distribns)
-  : ListOf(distribns)
+  : DistribListOfBase(distribns)
 {
   setElementNamespace(distribns->getURI());
 }
@@ -77,7 +77,7 @@ ListOfExternalParameters::ListOfExternalParameters(DistribPkgNamespaces
  */
 ListOfExternalParameters::ListOfExternalParameters(const
   ListOfExternalParameters& orig)
-  : ListOf( orig )
+  : DistribListOfBase( orig )
 {
 }
 

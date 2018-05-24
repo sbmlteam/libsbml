@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ListOfDistribInputs::ListOfDistribInputs(unsigned int level,
                                          unsigned int version,
                                          unsigned int pkgVersion)
-  : ListOf(level, version)
+  : DistribListOfBase(level, version)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
     pkgVersion));
@@ -65,7 +65,7 @@ ListOfDistribInputs::ListOfDistribInputs(unsigned int level,
  * object.
  */
 ListOfDistribInputs::ListOfDistribInputs(DistribPkgNamespaces *distribns)
-  : ListOf(distribns)
+  : DistribListOfBase(distribns)
 {
   setElementNamespace(distribns->getURI());
 }
@@ -75,7 +75,7 @@ ListOfDistribInputs::ListOfDistribInputs(DistribPkgNamespaces *distribns)
  * Copy constructor for ListOfDistribInputs.
  */
 ListOfDistribInputs::ListOfDistribInputs(const ListOfDistribInputs& orig)
-  : ListOf( orig )
+  : DistribListOfBase( orig )
 {
 }
 
