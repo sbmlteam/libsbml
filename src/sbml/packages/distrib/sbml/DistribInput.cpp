@@ -774,7 +774,7 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
     if (!assigned)
     {
       log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-        pkgVersion, level, version, "The required attribute 'id' is missing.");
+        pkgVersion, level, version, "The required attribute 'distrib:id' is missing.");
     }
     if (assigned && mId.size() == 0)
     {
