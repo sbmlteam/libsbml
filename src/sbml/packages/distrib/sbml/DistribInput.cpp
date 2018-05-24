@@ -767,6 +767,33 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
         version, message);
     }
   }
+
+  if (version == 1)
+  {
+    assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
+    if (!assigned)
+    {
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, "The required attribute 'id' is missing.");
+    }
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<distrib:distribInput>");
+    }
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
+
+  }
+  else
+  {
+    // need to check that id was present
+    // it has already been read and checked for syntax/emptyness
+    if (attributes.hasAttribute("id") == false)
+    {
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, "The required attribute 'id' is missing.");
+    }
+  }
 }
 
 /** @endcond */

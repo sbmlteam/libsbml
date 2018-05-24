@@ -280,8 +280,9 @@ static const packageErrorTableEntry distribErrorTable[] =
     "Attributes allowed on <distribInput>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <distribInput> object may have the optional attributes "
-    "'distrib:id', 'distrib:name' and "
+    "A <distribInput> object must have the attribute 'distrib:id' (in level 3 "
+    "version 1) or 'id' (in level 3 version 2+), and may have the optional "
+    "attributes 'distrib:name' and "
     "'distrib:index'. No other attributes from the SBML Level 3 Distributions "
     "namespaces are permitted on a <distribInput> object. ",
     { "L3V1 Distrib V1 Section"
