@@ -622,6 +622,21 @@ DistribListOfBase::readAttributes(const XMLAttributes& attributes,
 
   if (level == 3 && version == 1)
   {
+    if (attributes.getIndex("id", "") >= 0) {
+      string details = "The <distrib:";
+      details += getElementName() + "> element with the 'id' with value '"
+        + attributes.getValue("id", "") + "' must use 'distrib:id' instead.";
+      log->logPackageError("distrib", DistribIdL3v1NamespaceRule,
+        pkgVersion, level, version, details);
+    }
+    if (attributes.getIndex("name", "") >= 0) {
+      string details = "The <distrib:";
+      details += getElementName() + "> element with the 'name' with value '"
+        + attributes.getValue("name", "") + "' must use 'distrib:name' instead.";
+      log->logPackageError("distrib", DistribNameL3v1NamespaceRule,
+        pkgVersion, level, version, "");
+    }
+
     // 
     // id SId (use = "optional" )
     // 
@@ -655,6 +670,36 @@ DistribListOfBase::readAttributes(const XMLAttributes& attributes,
       if (mName.empty() == true)
       {
         logEmptyString(mName, level, version, "<DistribListOfBase>");
+      }
+    }
+  }
+  else {
+    if (attributes.getIndex("id", mURI) >= 0) {
+      string details = "The <distrib:";
+      details += getElementName() + "> element with the 'distrib:id' with value '"
+        + attributes.getValue("id", mURI) 
+        + "' must use the 'id' attribute instead.";
+      log->logPackageError("distrib", DistribIdL3v2NamespaceRule,
+        pkgVersion, level, version, details);
+      //Remove the original error:
+      for (int n = log->getNumErrors()-1; n >= 0; n--) {
+        if (log->getError(n)->getErrorId() == UnknownPackageAttribute) {
+          log->remove(UnknownPackageAttribute);
+        }
+      }
+    }
+    if (attributes.getIndex("name", mURI) >= 0) {
+      string details = "The <distrib:";
+      details += getElementName() + "> element with the 'distrib:name' with value '"
+        + attributes.getValue("name", mURI) 
+        + "' must use the 'name' attribute instead.";
+      log->logPackageError("distrib", DistribNameL3v2NamespaceRule,
+        pkgVersion, level, version, details);
+      //Remove the original error:
+      for (int n = log->getNumErrors() - 1; n >= 0; n--) {
+        if (log->getError(n)->getErrorId() == UnknownPackageAttribute) {
+          log->remove(UnknownPackageAttribute);
+        }
       }
     }
   }

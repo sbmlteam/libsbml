@@ -105,6 +105,54 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
+  // 1510303
+  { DistribIdL3v1NamespaceRule,
+    "No 'id' attributes allowed in 'distrib' objects in SBML L3v1.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'id' on any distrib object in an SBML Level 3 Version 1 "
+    "document may not be used: one must use the DistribBase attribute "
+    "'distrib:id' instead.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1510304
+  { DistribNameL3v1NamespaceRule,
+    "No 'name' attributes allowed in 'distrib' objects in SBML L3v1.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'name' on any distrib object in an SBML Level 3 Version 1 "
+    "document may not be used: one must use the DistribBase attribute "
+    "'distrib:name' instead.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1510305
+  { DistribIdL3v2NamespaceRule,
+    "No 'distrib:id' attributes allowed in 'distrib' objects in SBML L3v2.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'distrib:id' on any distrib object in an SBML Level 3 Version 2 "
+    "document may not be used: one must use the core SBase attribute "
+    "'id' instead.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1510306
+  { DistribNameL3v2NamespaceRule,
+    "No 'distrib:name' attributes allowed in 'distrib' objects in SBML L3v2.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'distrib:name' on any distrib object in an SBML Level 3 Version 2 "
+    "document may not be used: one must use the core SBase attribute "
+    "'name' instead.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
   // 1520101
   { DistribAttributeRequiredMissing,
     "Required distrib:required attribute on <sbml>",

@@ -696,12 +696,13 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
   unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
+  int origErrs = log->getNumErrors();
 
   if (log && getParentSBMLObject() &&
     static_cast<ListOfDistribInputs*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = numErrs-1; n >= origErrs; n--)
     {
       if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
@@ -727,7 +728,7 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
   {
     numErrs = log->getNumErrors();
 
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = numErrs-1; n >= origErrs; n--)
     {
       if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {

@@ -62,6 +62,10 @@ typedef enum
 , DistribElementNotInNs                                       = 1510102
 , DistribDuplicateComponentId                                 = 1510301
 , DistribIdSyntaxRule                                         = 1510302
+, DistribIdL3v1NamespaceRule                                  = 1510303
+, DistribNameL3v1NamespaceRule                                = 1510304
+, DistribIdL3v2NamespaceRule                                  = 1510305
+, DistribNameL3v2NamespaceRule                                = 1510306
 , DistribAttributeRequiredMissing                             = 1520101
 , DistribAttributeRequiredMustBeBoolean                       = 1520102
 , DistribAttributeRequiredMustHaveValue                       = 1520103
