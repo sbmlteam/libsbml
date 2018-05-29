@@ -23,7 +23,7 @@ cmake -DSRC_DIR=%LIBSBML_SRC% -DBUILD_DIR=%BUILD_DIR% -DOUT_DIR=%THIS_DIR%\out -
 :: in parallel, as well the 3.1, 3.2 and 3.3 build and the 
 :: 3.4 and 3.5 build. 
 ::
-start buildV.bat 2 5 BUILD EXIT_WHEN_DONE
+::start buildV.bat 2 5 BUILD EXIT_WHEN_DONE
 start buildV.bat 2 6 BUILD EXIT_WHEN_DONE
 call buildV.bat 2 7 BUILD 
 ::start buildV.bat 3 1 BUILD EXIT_WHEN_DONE
@@ -44,7 +44,7 @@ call buildV.bat 3 6 WHEEL
 move dist\*.whl %THIS_DIR%\dist
 
 :: create installers and wheels
-call buildV.bat 2 5 INSTALLER
+::call buildV.bat 2 5 INSTALLER
 call buildV.bat 2 6 INSTALLER
 call buildV.bat 2 7 INSTALLER
 ::call buildV.bat 3 1 INSTALLER
