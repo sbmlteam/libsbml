@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="1" distrib:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true" units="litre"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="5.2" hasOnlySubstanceUnits="false" 
+        boundaryCondition="false" constant="false" substanceUnits="mole">
+        <distrib:uncertainty>
+          <distrib:uncertStatistics>
+            <distrib:standardDeviation distrib:value="0.3"/>
+          </distrib:uncertStatistics>
+        </distrib:uncertainty>
+      </species>
+      
+      
+      
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="P1" value="5.13" constant="true" units="dimensionless">
+        <distrib:uncertainty>
+          <distrib:uncertStatistics>
+            <distrib:confidenceInterval distrib:valueLower="5" distrib:valueUpper="5.32"/>
+          </distrib:uncertStatistics>
+        </distrib:uncertainty>
+      </parameter>
+      
+      
+      
+      
+      
+    </listOfParameters>
+  </model>
+</sbml>
