@@ -1,5 +1,5 @@
 /**
-* @file    TestDistribUncertBound.cpp
+* @file    TestDistribExternalParameters.cpp
 * @brief   Unit tests of writing DistribExtension
  * @author  Sarah Keating
  *
@@ -69,41 +69,41 @@ equals(std::string& expected, std::string& actual)
 
 
 
-START_TEST(test_UncertBound_write_attributes)
+START_TEST(test_ExternalParameters_write_attributes)
 {
-  std::string expected = "<uncertBound id=\"ub\" value=\"2.3\" inclusive=\"true\"/>";
+  std::string expected = "<externalParameter id=\"ub\" name=\"name1\" value=\"2.3\"/>";
   
-  DistribUncertBound *UB = new DistribUncertBound(new DistribPkgNamespaces());
-  fail_unless(UB->isSetId() == false);
-  fail_unless(UB->isSetValue() == false);
-  fail_unless(UB->isSetVar() == false);
-  fail_unless(UB->isSetInclusive() == false);
-  fail_unless(UB->isSetUnits() == false);
+  DistribExternalParameter *EP = new DistribExternalParameter(new DistribPkgNamespaces());
+  fail_unless(EP->isSetId() == false);
+  fail_unless(EP->isSetName() == false);
+  fail_unless(EP->isSetValue() == false);
+  fail_unless(EP->isSetVar() == false);
+  fail_unless(EP->isSetUnits() == false);
   
-  UB->setValue(2.3);
-  fail_unless(UB->isSetValue() == true);
-  fail_unless(util_isEqual(UB->getValue(), 2.3));
+  EP->setValue(2.3);
+  fail_unless(EP->isSetValue() == true);
+  fail_unless(util_isEqual(EP->getValue(), 2.3));
 
 
-  UB->setInclusive(true);
-  fail_unless(UB->isSetInclusive() == true);
-  fail_unless(UB->getInclusive() == true);
+  EP->setId("ub");
+  fail_unless(EP->isSetId() == true);
+  fail_unless(EP->getId() == "ub");
 
-  UB->setId("ub");
-  fail_unless(UB->isSetId() == true);
-  fail_unless(UB->getId() == "ub");
+  EP->setName("name1");
+  fail_unless(EP->isSetName() == true);
+  fail_unless(EP->getName() == "name1");
 
   ostringstream oss;
-  oss << UB->toSBML();
+  oss << EP->toSBML();
 
   fail_unless(equals(expected, oss.str()));
 
-  delete UB;
+  delete EP;
 }
 END_TEST
 
 
-START_TEST(test_UncertBound_createFD_l3v1v1)
+START_TEST(test_ExternalParameters_createFD_l3v1v1)
 {
   DistribPkgNamespaces *sbmlns = new DistribPkgNamespaces(3, 1, 1);
 
@@ -122,7 +122,7 @@ START_TEST(test_UncertBound_createFD_l3v1v1)
   // create FunctionDefinition
 
   FunctionDefinition* fd = model->createFunctionDefinition();
-  fd->setId("distribution");
+  fd->setId("Exponential2");
 
   ASTNode* math = SBML_parseL3Formula("lambda(x,y,nan)");
   fd->setMath(math);
@@ -134,29 +134,19 @@ START_TEST(test_UncertBound_createFD_l3v1v1)
   DistribDrawFromDistribution *draw = fdplugin->createDistribDrawFromDistribution();
 
   DistribInput *input = draw->createDistribInput();
-  input->setId("mean");
+  input->setId("beta");
   input->setIndex(0);
 
-  input = draw->createDistribInput();
-  input->setId("stddev");
-  input->setIndex(1);
+  DistribExternalDistribution * dist = draw->createDistribExternalDistribution();
+  dist->setName("Exponential 2");
+  dist->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000353");
 
-  DistribNormalDistribution *norm = draw->createDistribNormalDistribution();
-  DistribUncertValue *uv = norm->createMean();
-  uv->setVar("mean");
+  DistribExternalParameter * ep = dist->createDistribExternalParameter();
+  ep->setName("Beta");
+  ep->setVar("beta");
+  ep->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000362");
 
-  uv = norm->createStddev();
-  uv->setVar("stddev");
-
-  DistribUncertBound *ub = norm->createTruncationLowerBound();
-  ub->setValue(2.3);
-  ub->setInclusive(true);
-
-  ub = norm->createTruncationUpperBound();
-  ub->setValue(7.3);
-  ub->setInclusive(true);
-
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound.xml");
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters.xml");
   SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
   std::string expected = writeSBMLToStdString(doc);
   delete doc;
@@ -170,7 +160,7 @@ START_TEST(test_UncertBound_createFD_l3v1v1)
 END_TEST
 
 
-START_TEST(test_UncertBound_createFD_l3v2v1)
+START_TEST(test_ExternalParameters_createFD_l3v2v1)
 {
   DistribPkgNamespaces *sbmlns = new DistribPkgNamespaces(3, 2, 1);
 
@@ -189,7 +179,7 @@ START_TEST(test_UncertBound_createFD_l3v2v1)
   // create FunctionDefinition
 
   FunctionDefinition* fd = model->createFunctionDefinition();
-  fd->setId("distribution");
+  fd->setId("Exponential2");
 
   ASTNode* math = SBML_parseL3Formula("lambda(x,y,nan)");
   fd->setMath(math);
@@ -201,29 +191,19 @@ START_TEST(test_UncertBound_createFD_l3v2v1)
   DistribDrawFromDistribution *draw = fdplugin->createDistribDrawFromDistribution();
 
   DistribInput *input = draw->createDistribInput();
-  input->setId("mean");
+  input->setId("beta");
   input->setIndex(0);
 
-  input = draw->createDistribInput();
-  input->setId("stddev");
-  input->setIndex(1);
+  DistribExternalDistribution * dist = draw->createDistribExternalDistribution();
+  dist->setName("Exponential 2");
+  dist->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000353");
 
-  DistribNormalDistribution *norm = draw->createDistribNormalDistribution();
-  DistribUncertValue *uv = norm->createMean();
-  uv->setVar("mean");
+  DistribExternalParameter * ep = dist->createDistribExternalParameter();
+  ep->setName("Beta");
+  ep->setVar("beta");
+  ep->setDefinitionURL("http://www.probonto.org/ontology#PROB_k0000362");
 
-  uv = norm->createStddev();
-  uv->setVar("stddev");
-
-  DistribUncertBound *ub = norm->createTruncationLowerBound();
-  ub->setValue(2.3);
-  ub->setInclusive(true);
-
-  ub = norm->createTruncationUpperBound();
-  ub->setValue(7.3);
-  ub->setInclusive(true);
-
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound_l3v2.xml");
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters_l3v2.xml");
   SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
   std::string expected = writeSBMLToStdString(doc);
   delete doc;
@@ -236,14 +216,14 @@ START_TEST(test_UncertBound_createFD_l3v2v1)
 }
 END_TEST
 
-START_TEST(test_UncertBound_testSetLevelVersion)
+START_TEST(test_ExternalParameters_testSetLevelVersion)
 {
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound_l3v2.xml");
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters_l3v2.xml");
   SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
   std::string expected = writeSBMLToStdString(doc);
   delete doc;
 
-  fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound.xml");
+  fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters.xml");
   SBMLDocument *document = readSBMLFromFile(fileName.c_str());
 
   fail_unless(document->setLevelAndVersion(3, 2));
@@ -257,14 +237,14 @@ START_TEST(test_UncertBound_testSetLevelVersion)
 END_TEST
 
 
-START_TEST(test_UncertBound_testSetLevelVersion_2to1)
+START_TEST(test_ExternalParameters_testSetLevelVersion_2to1)
 {
-  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound.xml");
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters.xml");
   SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
   std::string expected = writeSBMLToStdString(doc);
   delete doc;
 
-  fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound_l3v2.xml");
+  fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_externalParameters_l3v2.xml");
   SBMLDocument *document = readSBMLFromFile(fileName.c_str());
 
   fail_unless(document->setLevelAndVersion(3, 1));
@@ -278,16 +258,16 @@ START_TEST(test_UncertBound_testSetLevelVersion_2to1)
 END_TEST
 
 Suite *
-create_suite_test_UncertBound(void)
+create_suite_test_ExternalParameters(void)
 {
-  Suite *suite = suite_create("TestUncertBound");
-  TCase *tcase = tcase_create("TestUncertBound");
+  Suite *suite = suite_create("TestExternalParameters");
+  TCase *tcase = tcase_create("TestExternalParameters");
 
-  tcase_add_test(tcase, test_UncertBound_write_attributes);
-  tcase_add_test(tcase, test_UncertBound_createFD_l3v1v1);
-  tcase_add_test(tcase, test_UncertBound_createFD_l3v2v1);
-  tcase_add_test(tcase, test_UncertBound_testSetLevelVersion);
-  tcase_add_test(tcase, test_UncertBound_testSetLevelVersion_2to1);
+  tcase_add_test(tcase, test_ExternalParameters_write_attributes);
+  tcase_add_test(tcase, test_ExternalParameters_createFD_l3v1v1);
+  tcase_add_test(tcase, test_ExternalParameters_createFD_l3v2v1);
+  tcase_add_test(tcase, test_ExternalParameters_testSetLevelVersion);
+  tcase_add_test(tcase, test_ExternalParameters_testSetLevelVersion_2to1);
 
   suite_add_tcase(suite, tcase);
 

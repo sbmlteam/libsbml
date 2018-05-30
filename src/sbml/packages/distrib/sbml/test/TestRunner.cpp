@@ -49,6 +49,7 @@ CK_CPPSTART
 #endif
 
 Suite *create_suite_test_UncertBound (void);
+Suite *create_suite_test_ExternalParameters(void);
 
 
 /**
@@ -92,7 +93,8 @@ main (int argc, char* argv[])
   setTestDataDirectory();
 
   SRunner *runner = srunner_create(create_suite_test_UncertBound());
-  
+  srunner_add_suite(runner, create_suite_test_ExternalParameters());
+
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
     srunner_set_fork_status( runner, CK_NOFORK );
