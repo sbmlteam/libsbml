@@ -50,7 +50,8 @@ CK_CPPSTART
 
 Suite *create_suite_test_UncertBound (void);
 Suite *create_suite_test_ExternalParameters(void);
-
+Suite *create_suite_test_UncertStats(void);
+Suite *create_suite_test_IdName(void);
 
 /**
  * Global.
@@ -94,6 +95,10 @@ main (int argc, char* argv[])
 
   SRunner *runner = srunner_create(create_suite_test_UncertBound());
   srunner_add_suite(runner, create_suite_test_ExternalParameters());
+  srunner_add_suite(runner, create_suite_test_UncertStats());
+  srunner_add_suite(runner, create_suite_test_IdName());
+
+
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
