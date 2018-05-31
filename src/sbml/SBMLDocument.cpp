@@ -1732,17 +1732,20 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
           std::string dummyURI;
           dummyURI.assign(uri);
           size_t pos = dummyURI.find("level3");
-          dummyURI.replace(pos, 15, "level3/version2");
-          if (sbmlext->getVersion(dummyURI) == 2)
+          if (pos != std::string::npos)
           {
-            ostringstream msg;
+            dummyURI.replace(pos, 15, "level3/version2");
+            if (sbmlext->getVersion(dummyURI) == 2)
+            {
+              ostringstream msg;
 
-            msg << "Package '" << xmlns->getPrefix(i) <<
+              msg << "Package '" << xmlns->getPrefix(i) <<
                 "' has a L3V2V1 specification which must be used in an L3V2 document.";
-            logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
-            return;
+              logError(InvalidPackageLevelVersion, mLevel, mVersion, msg.str());
+              return;
 
 
+            }
           }
         }
 
