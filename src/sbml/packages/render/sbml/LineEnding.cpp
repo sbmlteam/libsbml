@@ -109,8 +109,8 @@ LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
   , mBoundingBox(NULL)
   , mGroup(NULL)
 {
-  //mBoundingBox = new BoundingBox(2, l2version);
-  //mGroup = new RenderGroup(2, l2version);
+  mBoundingBox = new BoundingBox(2, l2version);
+  mGroup = new RenderGroup(2, l2version);
     const XMLNode* child;
     const XMLAttributes& attributes=node.getAttributes();
      ExpectedAttributes ea;
@@ -165,6 +165,8 @@ LineEnding::LineEnding(RenderPkgNamespaces* renderns, const std::string& id) :
 //    ,mGroup(renderns)    
 {
   mGroup = new RenderGroup(renderns);
+  mBoundingBox = new BoundingBox(renderns->getLevel(), renderns->getVersion());
+
     //this->mBoundingBox.setParentSBMLObject(this);
     //this->mBoundingBox.setIsInRenderContext(true);
 #ifdef DEPRECATION_WARNINGS
