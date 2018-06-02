@@ -145,110 +145,6 @@ DistribBernoulliDistribution::~DistribBernoulliDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribBernoulliDistribution.
- */
-const std::string&
-DistribBernoulliDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribBernoulliDistribution.
- */
-const std::string&
-DistribBernoulliDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribBernoulliDistribution's "id"
- * attribute is set.
- */
-bool
-DistribBernoulliDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribBernoulliDistribution's "name"
- * attribute is set.
- */
-bool
-DistribBernoulliDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribBernoulliDistribution.
- */
-int
-DistribBernoulliDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribBernoulliDistribution.
- */
-int
-DistribBernoulliDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribBernoulliDistribution.
- */
-int
-DistribBernoulliDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribBernoulliDistribution.
- */
-int
-DistribBernoulliDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "prob" element of this
  * DistribBernoulliDistribution.
  */
@@ -636,22 +532,6 @@ DistribBernoulliDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribCategoricalUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -671,15 +551,6 @@ DistribBernoulliDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribCategoricalUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -781,15 +652,6 @@ DistribBernoulliDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribCategoricalUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -808,15 +670,6 @@ DistribBernoulliDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribCategoricalUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1081,8 +934,6 @@ DistribBernoulliDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1124,9 +975,8 @@ DistribBernoulliDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribBernoulliDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1138,6 +988,56 @@ DistribBernoulliDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribBernoulliDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribBernoulliDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1153,10 +1053,57 @@ void
 DistribBernoulliDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribCategoricalUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribBernoulliDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribBernoulliDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1206,116 +1153,6 @@ DistribBernoulliDistribution_free(DistribBernoulliDistribution_t* dbd)
   {
     delete dbd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribBernoulliDistribution_getId(const DistribBernoulliDistribution_t * dbd)
-{
-  if (dbd == NULL)
-  {
-    return NULL;
-  }
-
-  return dbd->getId().empty() ? NULL : safe_strdup(dbd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribBernoulliDistribution_getName(const DistribBernoulliDistribution_t *
-  dbd)
-{
-  if (dbd == NULL)
-  {
-    return NULL;
-  }
-
-  return dbd->getName().empty() ? NULL : safe_strdup(dbd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribBernoulliDistribution_t's
- * "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_isSetId(const DistribBernoulliDistribution_t *
-  dbd)
-{
-  return (dbd != NULL) ? static_cast<int>(dbd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribBernoulliDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_isSetName(const DistribBernoulliDistribution_t *
-  dbd)
-{
-  return (dbd != NULL) ? static_cast<int>(dbd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_setId(DistribBernoulliDistribution_t * dbd,
-                                   const char * id)
-{
-  return (dbd != NULL) ? dbd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_setName(DistribBernoulliDistribution_t * dbd,
-                                     const char * name)
-{
-  return (dbd != NULL) ? dbd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_unsetId(DistribBernoulliDistribution_t * dbd)
-{
-  return (dbd != NULL) ? dbd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribBernoulliDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribBernoulliDistribution_unsetName(DistribBernoulliDistribution_t * dbd)
-{
-  return (dbd != NULL) ? dbd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

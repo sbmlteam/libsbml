@@ -50,12 +50,11 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribUncertValue.h>
 #include <sbml/packages/distrib/sbml/DistribUncertStatisticSpan.h>
-#include <sbml/packages/distrib/sbml/ListOfExternalParameters.h>
-#include <sbml/packages/distrib/sbml/DistribBase.h>
+#include <sbml/packages/distrib/sbml/ListOfDistribExternalParameters.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -79,7 +78,7 @@ protected:
   DistribUncertStatisticSpan* mCredibleInterval;
   DistribUncertStatisticSpan* mInterquartileRange;
   DistribUncertStatisticSpan* mRange;
-  ListOfExternalParameters mDistribExternalParameters;
+  ListOfDistribExternalParameters mDistribExternalParameters;
   std::string mElementName;
 
   /** @endcond */
@@ -152,94 +151,6 @@ public:
    * Destructor for DistribUncertStatistics.
    */
   virtual ~DistribUncertStatistics();
-
-
-  /**
-   * Returns the value of the "id" attribute of this DistribUncertStatistics.
-   *
-   * @return the value of the "id" attribute of this DistribUncertStatistics as
-   * a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this DistribUncertStatistics.
-   *
-   * @return the value of the "name" attribute of this DistribUncertStatistics
-   * as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertStatistics's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribUncertStatistics's "id" attribute has been
-   * set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertStatistics's "name"
-   * attribute is set.
-   *
-   * @return @c true if this DistribUncertStatistics's "name" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribUncertStatistics.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this DistribUncertStatistics.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribUncertStatistics.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribUncertStatistics.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
 
 
   /**
@@ -1016,9 +927,11 @@ public:
 
 
   /**
-   * Returns the ListOfExternalParameters from this DistribUncertStatistics.
+   * Returns the ListOfDistribExternalParameters from this
+   * DistribUncertStatistics.
    *
-   * @return the ListOfExternalParameters from this DistribUncertStatistics.
+   * @return the ListOfDistribExternalParameters from this
+   * DistribUncertStatistics.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1030,13 +943,16 @@ public:
    * @see removeDistribExternalParameter(const std::string& sid)
    * @see removeDistribExternalParameter(unsigned int n)
    */
-  const ListOfExternalParameters* getListOfDistribExternalParameters() const;
+  const ListOfDistribExternalParameters* getListOfDistribExternalParameters()
+    const;
 
 
   /**
-   * Returns the ListOfExternalParameters from this DistribUncertStatistics.
+   * Returns the ListOfDistribExternalParameters from this
+   * DistribUncertStatistics.
    *
-   * @return the ListOfExternalParameters from this DistribUncertStatistics.
+   * @return the ListOfDistribExternalParameters from this
+   * DistribUncertStatistics.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1048,7 +964,7 @@ public:
    * @see removeDistribExternalParameter(const std::string& sid)
    * @see removeDistribExternalParameter(unsigned int n)
    */
-  ListOfExternalParameters* getListOfDistribExternalParameters();
+  ListOfDistribExternalParameters* getListOfDistribExternalParameters();
 
 
   /**
@@ -1057,8 +973,8 @@ public:
    * @param n an unsigned int representing the index of the
    * DistribExternalParameter to retrieve.
    *
-   * @return the nth DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribUncertStatistics.
+   * @return the nth DistribExternalParameter in the
+   * ListOfDistribExternalParameters within this DistribUncertStatistics.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1078,8 +994,8 @@ public:
    * @param n an unsigned int representing the index of the
    * DistribExternalParameter to retrieve.
    *
-   * @return the nth DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribUncertStatistics.
+   * @return the nth DistribExternalParameter in the
+   * ListOfDistribExternalParameters within this DistribUncertStatistics.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -1092,54 +1008,6 @@ public:
    */
   const DistribExternalParameter* getDistribExternalParameter(unsigned int n)
     const;
-
-
-  /**
-   * Get a DistribExternalParameter from the DistribUncertStatistics based on
-   * its identifier.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to retrieve.
-   *
-   * @return the DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribUncertStatistics with the given @p sid or @c NULL if no
-   * such DistribExternalParameter exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(const std::string& sid)
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  DistribExternalParameter* getDistribExternalParameter(const std::string&
-    sid);
-
-
-  /**
-   * Get a DistribExternalParameter from the DistribUncertStatistics based on
-   * its identifier.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to retrieve.
-   *
-   * @return the DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribUncertStatistics with the given @p sid or @c NULL if no
-   * such DistribExternalParameter exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(const std::string& sid)
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  const DistribExternalParameter* getDistribExternalParameter(const
-    std::string& sid) const;
 
 
   /**
@@ -1229,29 +1097,6 @@ public:
 
 
   /**
-   * Removes the DistribExternalParameter from this DistribUncertStatistics
-   * based on its identifier and returns a pointer to it.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to remove.
-   *
-   * @return the DistribExternalParameter in this DistribUncertStatistics based
-   * on the identifier or NULL if no such DistribExternalParameter exists.
-   *
-   * @copydetails doc_returned_owned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(const std::string& sid)
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  DistribExternalParameter* removeDistribExternalParameter(const std::string&
-    sid);
-
-
-  /**
    * Returns the XML element name of this DistribUncertStatistics object.
    *
    * For DistribUncertStatistics, the XML element name is always
@@ -1297,6 +1142,19 @@ public:
    * DistribUncertStatistics have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * DistribUncertStatistics object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * DistribUncertStatistics have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the DistribUncertStatistics object are:
+   */
+  virtual bool hasRequiredElements() const;
 
 
 
@@ -1786,9 +1644,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1872,151 +1774,6 @@ DistribUncertStatistics_clone(const DistribUncertStatistics_t* dus);
 LIBSBML_EXTERN
 void
 DistribUncertStatistics_free(DistribUncertStatistics_t* dus);
-
-
-/**
- * Returns the value of the "id" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this DistribUncertStatistics_t as
- * a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatistics_getId(const DistribUncertStatistics_t * dus);
-
-
-/**
- * Returns the value of the "name" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribUncertStatistics_t
- * as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatistics_getName(const DistribUncertStatistics_t * dus);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertStatistics_t's "id"
- * attribute is set.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @return @c 1 (true) if this DistribUncertStatistics_t's "id" attribute has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_isSetId(const DistribUncertStatistics_t * dus);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertStatistics_t's "name"
- * attribute is set.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @return @c 1 (true) if this DistribUncertStatistics_t's "name" attribute has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_isSetName(const DistribUncertStatistics_t * dus);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribUncertStatistics_unsetId().
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_setId(DistribUncertStatistics_t * dus,
-                              const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribUncertStatistics_unsetName().
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_setName(DistribUncertStatistics_t * dus,
-                                const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_unsetId(DistribUncertStatistics_t * dus);
-
-
-/**
- * Unsets the value of the "name" attribute of this DistribUncertStatistics_t.
- *
- * @param dus the DistribUncertStatistics_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_unsetName(DistribUncertStatistics_t * dus);
 
 
 /**
@@ -3107,10 +2864,10 @@ DistribUncertStatistics_unsetRange(DistribUncertStatistics_t * dus);
  * DistribUncertStatistics_t.
  *
  * @param dus the DistribUncertStatistics_t structure whose
- * ListOfExternalParameters is sought.
+ * ListOfDistribExternalParameters is sought.
  *
- * @return the ListOfExternalParameters from this DistribUncertStatistics_t as
- * a ListOf_t *.
+ * @return the ListOfDistribExternalParameters from this
+ * DistribUncertStatistics_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -3138,8 +2895,8 @@ DistribUncertStatistics_getListOfDistribExternalParameters(DistribUncertStatisti
  * @param n an unsigned int representing the index of the
  * DistribExternalParameter_t to retrieve.
  *
- * @return the nth DistribExternalParameter_t in the ListOfExternalParameters
- * within this DistribUncertStatistics.
+ * @return the nth DistribExternalParameter_t in the
+ * ListOfDistribExternalParameters within this DistribUncertStatistics.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -3151,31 +2908,6 @@ DistribUncertStatistics_getDistribExternalParameter(
                                                     DistribUncertStatistics_t*
                                                       dus,
                                                     unsigned int n);
-
-
-/**
- * Get a DistribExternalParameter_t from the DistribUncertStatistics_t based on
- * its identifier.
- *
- * @param dus the DistribUncertStatistics_t structure to search.
- *
- * @param sid a string representing the identifier of the
- * DistribExternalParameter_t to retrieve.
- *
- * @return the DistribExternalParameter_t in the ListOfExternalParameters
- * within this DistribUncertStatistics with the given @p sid or @c NULL if no
- * such DistribExternalParameter_t exists.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribUncertStatistics_getDistribExternalParameterById(
-                                                        DistribUncertStatistics_t*
-                                                          dus,
-                                                        const char *sid);
 
 
 /**
@@ -3270,31 +3002,6 @@ DistribUncertStatistics_removeDistribExternalParameter(
 
 
 /**
- * Removes the DistribExternalParameter_t from this DistribUncertStatistics_t
- * based on its identifier and returns a pointer to it.
- *
- * @param dus the DistribUncertStatistics_t structure to search.
- *
- * @param sid a string representing the identifier of the
- * DistribExternalParameter_t to remove.
- *
- * @return the DistribExternalParameter_t in this DistribUncertStatistics_t
- * based on the identifier or NULL if no such DistribExternalParameter_t
- * exists.
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribUncertStatistics_t
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribUncertStatistics_removeDistribExternalParameterById(
-                                                           DistribUncertStatistics_t*
-                                                             dus,
-                                                           const char* sid);
-
-
-/**
  * Predicate returning @c 1 (true) if all the required attributes for this
  * DistribUncertStatistics_t object have been set.
  *
@@ -3308,6 +3015,26 @@ DistribUncertStatistics_removeDistribExternalParameterById(
 LIBSBML_EXTERN
 int
 DistribUncertStatistics_hasRequiredAttributes(const DistribUncertStatistics_t *
+  dus);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribUncertStatistics_t object have been set.
+ *
+ * @param dus the DistribUncertStatistics_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * DistribUncertStatistics_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the DistribUncertStatistics_t object are:
+ *
+ * @memberof DistribUncertStatistics_t
+ */
+LIBSBML_EXTERN
+int
+DistribUncertStatistics_hasRequiredElements(const DistribUncertStatistics_t *
   dus);
 
 

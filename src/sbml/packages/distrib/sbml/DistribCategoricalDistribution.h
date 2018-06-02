@@ -53,7 +53,7 @@
 
 #include <sbml/packages/distrib/sbml/DistribCategoricalUnivariateDistribution.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
-#include <sbml/packages/distrib/sbml/ListOfCategories.h>
+#include <sbml/packages/distrib/sbml/ListOfDistribCategories.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -66,7 +66,7 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  ListOfCategories mDistribCategories;
+  ListOfDistribCategories mDistribCategories;
 
   /** @endcond */
 
@@ -143,103 +143,11 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
+   * Returns the ListOfDistribCategories from this
    * DistribCategoricalDistribution.
    *
-   * @return the value of the "id" attribute of this
-   * DistribCategoricalDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
+   * @return the ListOfDistribCategories from this
    * DistribCategoricalDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribCategoricalDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribCategoricalDistribution's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribCategoricalDistribution's "id" attribute
-   * has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribCategoricalDistribution's
-   * "name" attribute is set.
-   *
-   * @return @c true if this DistribCategoricalDistribution's "name" attribute
-   * has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this
-   * DistribCategoricalDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribCategoricalDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribCategoricalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribCategoricalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
-   * Returns the ListOfCategories from this DistribCategoricalDistribution.
-   *
-   * @return the ListOfCategories from this DistribCategoricalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -251,13 +159,15 @@ public:
    * @see removeDistribCategory(const std::string& sid)
    * @see removeDistribCategory(unsigned int n)
    */
-  const ListOfCategories* getListOfDistribCategories() const;
+  const ListOfDistribCategories* getListOfDistribCategories() const;
 
 
   /**
-   * Returns the ListOfCategories from this DistribCategoricalDistribution.
+   * Returns the ListOfDistribCategories from this
+   * DistribCategoricalDistribution.
    *
-   * @return the ListOfCategories from this DistribCategoricalDistribution.
+   * @return the ListOfDistribCategories from this
+   * DistribCategoricalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -269,7 +179,7 @@ public:
    * @see removeDistribCategory(const std::string& sid)
    * @see removeDistribCategory(unsigned int n)
    */
-  ListOfCategories* getListOfDistribCategories();
+  ListOfDistribCategories* getListOfDistribCategories();
 
 
   /**
@@ -278,7 +188,7 @@ public:
    * @param n an unsigned int representing the index of the DistribCategory to
    * retrieve.
    *
-   * @return the nth DistribCategory in the ListOfCategories within this
+   * @return the nth DistribCategory in the ListOfDistribCategories within this
    * DistribCategoricalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
@@ -299,7 +209,7 @@ public:
    * @param n an unsigned int representing the index of the DistribCategory to
    * retrieve.
    *
-   * @return the nth DistribCategory in the ListOfCategories within this
+   * @return the nth DistribCategory in the ListOfDistribCategories within this
    * DistribCategoricalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
@@ -312,52 +222,6 @@ public:
    * @see removeDistribCategory(unsigned int n)
    */
   const DistribCategory* getDistribCategory(unsigned int n) const;
-
-
-  /**
-   * Get a DistribCategory from the DistribCategoricalDistribution based on its
-   * identifier.
-   *
-   * @param sid a string representing the identifier of the DistribCategory to
-   * retrieve.
-   *
-   * @return the DistribCategory in the ListOfCategories within this
-   * DistribCategoricalDistribution with the given @p sid or @c NULL if no such
-   * DistribCategory exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribCategory(const DistribCategory* object)
-   * @see createDistribCategory()
-   * @see getDistribCategory(unsigned int n)
-   * @see getNumDistribCategories()
-   * @see removeDistribCategory(const std::string& sid)
-   * @see removeDistribCategory(unsigned int n)
-   */
-  DistribCategory* getDistribCategory(const std::string& sid);
-
-
-  /**
-   * Get a DistribCategory from the DistribCategoricalDistribution based on its
-   * identifier.
-   *
-   * @param sid a string representing the identifier of the DistribCategory to
-   * retrieve.
-   *
-   * @return the DistribCategory in the ListOfCategories within this
-   * DistribCategoricalDistribution with the given @p sid or @c NULL if no such
-   * DistribCategory exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribCategory(const DistribCategory* object)
-   * @see createDistribCategory()
-   * @see getDistribCategory(unsigned int n)
-   * @see getNumDistribCategories()
-   * @see removeDistribCategory(const std::string& sid)
-   * @see removeDistribCategory(unsigned int n)
-   */
-  const DistribCategory* getDistribCategory(const std::string& sid) const;
 
 
   /**
@@ -444,28 +308,6 @@ public:
    * @see removeDistribCategory(const std::string& sid)
    */
   DistribCategory* removeDistribCategory(unsigned int n);
-
-
-  /**
-   * Removes the DistribCategory from this DistribCategoricalDistribution based
-   * on its identifier and returns a pointer to it.
-   *
-   * @param sid a string representing the identifier of the DistribCategory to
-   * remove.
-   *
-   * @return the DistribCategory in this DistribCategoricalDistribution based
-   * on the identifier or NULL if no such DistribCategory exists.
-   *
-   * @copydetails doc_returned_owned_pointer
-   *
-   * @see addDistribCategory(const DistribCategory* object)
-   * @see createDistribCategory()
-   * @see getDistribCategory(const std::string& sid)
-   * @see getDistribCategory(unsigned int n)
-   * @see getNumDistribCategories()
-   * @see removeDistribCategory(unsigned int n)
-   */
-  DistribCategory* removeDistribCategory(const std::string& sid);
 
 
   /**
@@ -1014,9 +856,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1105,172 +991,14 @@ DistribCategoricalDistribution_free(DistribCategoricalDistribution_t* dcd);
 
 
 /**
- * Returns the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure whose id is
- * sought.
- *
- * @return the value of the "id" attribute of this
- * DistribCategoricalDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribCategoricalDistribution_getId(const DistribCategoricalDistribution_t *
-  dcd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure whose name is
- * sought.
- *
- * @return the value of the "name" attribute of this
- * DistribCategoricalDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribCategoricalDistribution_getName(const DistribCategoricalDistribution_t *
-  dcd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribCategoricalDistribution_t's
- * "id" attribute is set.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribCategoricalDistribution_t's "id"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_isSetId(const DistribCategoricalDistribution_t *
-  dcd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribCategoricalDistribution_t's
- * "name" attribute is set.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribCategoricalDistribution_t's "name"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_isSetName(const DistribCategoricalDistribution_t
-  * dcd);
-
-
-/**
- * Sets the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribCategoricalDistribution_unsetId().
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_setId(DistribCategoricalDistribution_t * dcd,
-                                     const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribCategoricalDistribution_unsetName().
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_setName(DistribCategoricalDistribution_t * dcd,
-                                       const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_unsetId(DistribCategoricalDistribution_t * dcd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- *
- * @param dcd the DistribCategoricalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_unsetName(DistribCategoricalDistribution_t *
-  dcd);
-
-
-/**
  * Returns a ListOf_t * containing DistribCategory_t objects from this
  * DistribCategoricalDistribution_t.
  *
  * @param dcd the DistribCategoricalDistribution_t structure whose
- * ListOfCategories is sought.
+ * ListOfDistribCategories is sought.
  *
- * @return the ListOfCategories from this DistribCategoricalDistribution_t as a
- * ListOf_t *.
+ * @return the ListOfDistribCategories from this
+ * DistribCategoricalDistribution_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1298,7 +1026,7 @@ DistribCategoricalDistribution_getListOfDistribCategories(DistribCategoricalDist
  * @param n an unsigned int representing the index of the DistribCategory_t to
  * retrieve.
  *
- * @return the nth DistribCategory_t in the ListOfCategories within this
+ * @return the nth DistribCategory_t in the ListOfDistribCategories within this
  * DistribCategoricalDistribution.
  *
  * @copydetails doc_returned_unowned_pointer
@@ -1311,31 +1039,6 @@ DistribCategoricalDistribution_getDistribCategory(
                                                   DistribCategoricalDistribution_t*
                                                     dcd,
                                                   unsigned int n);
-
-
-/**
- * Get a DistribCategory_t from the DistribCategoricalDistribution_t based on
- * its identifier.
- *
- * @param dcd the DistribCategoricalDistribution_t structure to search.
- *
- * @param sid a string representing the identifier of the DistribCategory_t to
- * retrieve.
- *
- * @return the DistribCategory_t in the ListOfCategories within this
- * DistribCategoricalDistribution with the given @p sid or @c NULL if no such
- * DistribCategory_t exists.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-DistribCategory_t*
-DistribCategoricalDistribution_getDistribCategoryById(
-                                                      DistribCategoricalDistribution_t*
-                                                        dcd,
-                                                      const char *sid);
 
 
 /**
@@ -1425,30 +1128,6 @@ DistribCategoricalDistribution_removeDistribCategory(
                                                      DistribCategoricalDistribution_t*
                                                        dcd,
                                                      unsigned int n);
-
-
-/**
- * Removes the DistribCategory_t from this DistribCategoricalDistribution_t
- * based on its identifier and returns a pointer to it.
- *
- * @param dcd the DistribCategoricalDistribution_t structure to search.
- *
- * @param sid a string representing the identifier of the DistribCategory_t to
- * remove.
- *
- * @return the DistribCategory_t in this DistribCategoricalDistribution_t based
- * on the identifier or NULL if no such DistribCategory_t exists.
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribCategoricalDistribution_t
- */
-LIBSBML_EXTERN
-DistribCategory_t*
-DistribCategoricalDistribution_removeDistribCategoryById(
-                                                         DistribCategoricalDistribution_t*
-                                                           dcd,
-                                                         const char* sid);
 
 
 /**

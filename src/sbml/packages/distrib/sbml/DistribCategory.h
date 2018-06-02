@@ -50,10 +50,9 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribUncertValue.h>
-#include <sbml/packages/distrib/sbml/DistribBase.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -139,50 +138,12 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this DistribCategory.
-   *
-   * @return the value of the "id" attribute of this DistribCategory as a
-   * string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this DistribCategory.
-   *
-   * @return the value of the "name" attribute of this DistribCategory as a
-   * string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
    * Returns the value of the "rank" attribute of this DistribCategory.
    *
    * @return the value of the "rank" attribute of this DistribCategory as a
    * unsigned integer.
    */
   unsigned int getRank() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribCategory's "id" attribute is
-   * set.
-   *
-   * @return @c true if this DistribCategory's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribCategory's "name" attribute is
-   * set.
-   *
-   * @return @c true if this DistribCategory's "name" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
 
 
   /**
@@ -196,36 +157,6 @@ public:
 
 
   /**
-   * Sets the value of the "id" attribute of this DistribCategory.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this DistribCategory.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
    * Sets the value of the "rank" attribute of this DistribCategory.
    *
    * @param rank unsigned int value of the "rank" attribute to be set.
@@ -236,26 +167,6 @@ public:
    * OperationReturnValues_t}
    */
   int setRank(unsigned int rank);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribCategory.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribCategory.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
 
 
   /**
@@ -290,7 +201,7 @@ public:
    * Returns the value of the "value" element of this DistribCategory.
    *
    * @return the value of the "value" element of this DistribCategory as a
-   * DistribUncertValue.
+   * DistribUncertValue*.
    */
   const DistribUncertValue* getValue() const;
 
@@ -299,7 +210,7 @@ public:
    * Returns the value of the "value" element of this DistribCategory.
    *
    * @return the value of the "value" element of this DistribCategory as a
-   * DistribUncertValue.
+   * DistribUncertValue*.
    */
   DistribUncertValue* getValue();
 
@@ -914,9 +825,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1003,40 +958,6 @@ DistribCategory_free(DistribCategory_t* dc);
 
 
 /**
- * Returns the value of the "id" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this DistribCategory_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-char *
-DistribCategory_getId(const DistribCategory_t * dc);
-
-
-/**
- * Returns the value of the "name" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribCategory_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-char *
-DistribCategory_getName(const DistribCategory_t * dc);
-
-
-/**
  * Returns the value of the "rank" attribute of this DistribCategory_t.
  *
  * @param dc the DistribCategory_t structure whose rank is sought.
@@ -1049,38 +970,6 @@ DistribCategory_getName(const DistribCategory_t * dc);
 LIBSBML_EXTERN
 unsigned int
 DistribCategory_getRank(const DistribCategory_t * dc);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribCategory_t's "id" attribute
- * is set.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @return @c 1 (true) if this DistribCategory_t's "id" attribute has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_isSetId(const DistribCategory_t * dc);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribCategory_t's "name" attribute
- * is set.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @return @c 1 (true) if this DistribCategory_t's "name" attribute has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_isSetName(const DistribCategory_t * dc);
 
 
 /**
@@ -1100,49 +989,6 @@ DistribCategory_isSetRank(const DistribCategory_t * dc);
 
 
 /**
- * Sets the value of the "id" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribCategory_unsetId().
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_setId(DistribCategory_t * dc, const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribCategory_unsetName().
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_setName(DistribCategory_t * dc, const char * name);
-
-
-/**
  * Sets the value of the "rank" attribute of this DistribCategory_t.
  *
  * @param dc the DistribCategory_t structure.
@@ -1159,40 +1005,6 @@ DistribCategory_setName(DistribCategory_t * dc, const char * name);
 LIBSBML_EXTERN
 int
 DistribCategory_setRank(DistribCategory_t * dc, unsigned int rank);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_unsetId(DistribCategory_t * dc);
-
-
-/**
- * Unsets the value of the "name" attribute of this DistribCategory_t.
- *
- * @param dc the DistribCategory_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribCategory_t
- */
-LIBSBML_EXTERN
-int
-DistribCategory_unsetName(DistribCategory_t * dc);
 
 
 /**
@@ -1233,7 +1045,7 @@ DistribCategory_getProbability(const DistribCategory_t * dc);
  * @param dc the DistribCategory_t structure whose value is sought.
  *
  * @return the value of the "value" element of this DistribCategory_t as a
- * DistribUncertValue.
+ * DistribUncertValue*.
  *
  * @memberof DistribCategory_t
  */

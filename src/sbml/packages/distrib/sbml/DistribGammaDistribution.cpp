@@ -162,107 +162,6 @@ DistribGammaDistribution::~DistribGammaDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribGammaDistribution.
- */
-const std::string&
-DistribGammaDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribGammaDistribution.
- */
-const std::string&
-DistribGammaDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribGammaDistribution's "id"
- * attribute is set.
- */
-bool
-DistribGammaDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribGammaDistribution's "name"
- * attribute is set.
- */
-bool
-DistribGammaDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribGammaDistribution.
- */
-int
-DistribGammaDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribGammaDistribution.
- */
-int
-DistribGammaDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribGammaDistribution.
- */
-int
-DistribGammaDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribGammaDistribution.
- */
-int
-DistribGammaDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "shape" element of this DistribGammaDistribution.
  */
 const DistribUncertValue*
@@ -788,22 +687,6 @@ DistribGammaDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -823,15 +706,6 @@ DistribGammaDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -933,15 +807,6 @@ DistribGammaDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -960,15 +825,6 @@ DistribGammaDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1300,8 +1156,6 @@ DistribGammaDistribution::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1343,9 +1197,8 @@ DistribGammaDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribGammaDistributionAllowedAttributes, pkgVersion, level,
-            version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1357,6 +1210,54 @@ DistribGammaDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribGammaDistribution::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribGammaDistribution::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1372,10 +1273,55 @@ void
 DistribGammaDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribGammaDistribution::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribGammaDistribution::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1424,109 +1370,6 @@ DistribGammaDistribution_free(DistribGammaDistribution_t* dgd)
   {
     delete dgd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribGammaDistribution_getId(const DistribGammaDistribution_t * dgd)
-{
-  if (dgd == NULL)
-  {
-    return NULL;
-  }
-
-  return dgd->getId().empty() ? NULL : safe_strdup(dgd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribGammaDistribution_getName(const DistribGammaDistribution_t * dgd)
-{
-  if (dgd == NULL)
-  {
-    return NULL;
-  }
-
-  return dgd->getName().empty() ? NULL : safe_strdup(dgd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribGammaDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_isSetId(const DistribGammaDistribution_t * dgd)
-{
-  return (dgd != NULL) ? static_cast<int>(dgd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribGammaDistribution_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_isSetName(const DistribGammaDistribution_t * dgd)
-{
-  return (dgd != NULL) ? static_cast<int>(dgd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_setId(DistribGammaDistribution_t * dgd,
-                               const char * id)
-{
-  return (dgd != NULL) ? dgd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_setName(DistribGammaDistribution_t * dgd,
-                                 const char * name)
-{
-  return (dgd != NULL) ? dgd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_unsetId(DistribGammaDistribution_t * dgd)
-{
-  return (dgd != NULL) ? dgd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGammaDistribution_unsetName(DistribGammaDistribution_t * dgd)
-{
-  return (dgd != NULL) ? dgd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

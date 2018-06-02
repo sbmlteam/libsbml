@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertainty::DistribUncertainty(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mUncertStatistics (NULL)
   , mDistribution (NULL)
 {
@@ -182,107 +182,6 @@ DistribUncertainty::~DistribUncertainty()
   mUncertStatistics = NULL;
   delete mDistribution;
   mDistribution = NULL;
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribUncertainty.
- */
-const std::string&
-DistribUncertainty::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertainty.
- */
-const std::string&
-DistribUncertainty::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertainty's "id" attribute is
- * set.
- */
-bool
-DistribUncertainty::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertainty's "name" attribute is
- * set.
- */
-bool
-DistribUncertainty::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertainty.
- */
-int
-DistribUncertainty::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertainty.
- */
-int
-DistribUncertainty::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertainty.
- */
-int
-DistribUncertainty::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertainty.
- */
-int
-DistribUncertainty::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -1104,7 +1003,20 @@ DistribUncertainty::getTypeCode() const
 bool
 DistribUncertainty::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this
+ * DistribUncertainty object have been set.
+ */
+bool
+DistribUncertainty::hasRequiredElements() const
+{
+  bool allPresent = DistribBase::hasRequiredElements();
 
   return allPresent;
 }
@@ -1131,7 +1043,7 @@ DistribUncertainty::writeElements(XMLOutputStream& stream) const
     mDistribution->write(stream);
   }
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -1353,22 +1265,6 @@ DistribUncertainty::getAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -1386,15 +1282,6 @@ bool
 DistribUncertainty::isSetAttribute(const std::string& attributeName) const
 {
   bool value = DistribBase::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1484,15 +1371,6 @@ DistribUncertainty::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1511,15 +1389,6 @@ DistribUncertainty::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-
   return value;
 }
 
@@ -1535,9 +1404,112 @@ DistribUncertainty::unsetAttribute(const std::string& attributeName)
 SBase*
 DistribUncertainty::createChildObject(const std::string& elementName)
 {
-  SBase* obj = NULL;
+  DistribBase* obj = NULL;
 
-  // TO DO
+  if (elementName == "uncertStatistics")
+  {
+    return createUncertStatistics();
+  }
+  else if (elementName == "betaDistribution")
+  {
+    return createDistribBetaDistribution();
+  }
+  else if (elementName == "cauchyDistribution")
+  {
+    return createDistribCauchyDistribution();
+  }
+  else if (elementName == "chiSquareDistribution")
+  {
+    return createDistribChiSquareDistribution();
+  }
+  else if (elementName == "exponentialDistribution")
+  {
+    return createDistribExponentialDistribution();
+  }
+  else if (elementName == "fDistribution")
+  {
+    return createDistribFDistribution();
+  }
+  else if (elementName == "gammaDistribution")
+  {
+    return createDistribGammaDistribution();
+  }
+  else if (elementName == "inverseGammaDistribution")
+  {
+    return createDistribInverseGammaDistribution();
+  }
+  else if (elementName == "laPlaceDistribution")
+  {
+    return createDistribLaPlaceDistribution();
+  }
+  else if (elementName == "logNormalDistribution")
+  {
+    return createDistribLogNormalDistribution();
+  }
+  else if (elementName == "logisticDistribution")
+  {
+    return createDistribLogisticDistribution();
+  }
+  else if (elementName == "normalDistribution")
+  {
+    return createDistribNormalDistribution();
+  }
+  else if (elementName == "paretoDistribution")
+  {
+    return createDistribParetoDistribution();
+  }
+  else if (elementName == "rayleighDistribution")
+  {
+    return createDistribRayleighDistribution();
+  }
+  else if (elementName == "studentTDistribution")
+  {
+    return createDistribStudentTDistribution();
+  }
+  else if (elementName == "uniformDistribution")
+  {
+    return createDistribUniformDistribution();
+  }
+  else if (elementName == "weibullDistribution")
+  {
+    return createDistribWeibullDistribution();
+  }
+  else if (elementName == "binomialDistribution")
+  {
+    return createDistribBinomialDistribution();
+  }
+  else if (elementName == "geometricDistribution")
+  {
+    return createDistribGeometricDistribution();
+  }
+  else if (elementName == "hypergeometricDistribution")
+  {
+    return createDistribHypergeometricDistribution();
+  }
+  else if (elementName == "negativeBinomialDistribution")
+  {
+    return createDistribNegativeBinomialDistribution();
+  }
+  else if (elementName == "poissonDistribution")
+  {
+    return createDistribPoissonDistribution();
+  }
+  else if (elementName == "bernoulliDistribution")
+  {
+    return createDistribBernoulliDistribution();
+  }
+  else if (elementName == "categoricalDistribution")
+  {
+    return createDistribCategoricalDistribution();
+  }
+  else if (elementName == "multivariateDistribution")
+  {
+    return createDistribMultivariateDistribution();
+  }
+  else if (elementName == "externalDistribution")
+  {
+    return createDistribExternalDistribution();
+  }
 
   return obj;
 }
@@ -1555,9 +1527,138 @@ int
 DistribUncertainty::addChildObject(const std::string& elementName,
                                    const SBase* element)
 {
-  // TO DO
+  if (elementName == "uncertStatistics" && element->getTypeCode() ==
+    SBML_DISTRIB_UNCERTSTATISTICS)
+  {
+    return setUncertStatistics((const DistribUncertStatistics*)(element));
+  }
+  else if (elementName == "betaDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BETADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "cauchyDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_CAUCHYDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "chiSquareDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_CHISQUAREDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "exponentialDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_EXPONENTIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "fDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_FDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "gammaDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_GAMMADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "inverseGammaDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_INVERSEGAMMADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "laPlaceDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LAPLACEDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "logNormalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LOGNORMALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "logisticDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LOGISTICDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "normalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_NORMALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "paretoDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_PARETODISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "rayleighDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_RAYLEIGHDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "studentTDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_STUDENTTDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "uniformDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_UNIFORMDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "weibullDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_WEIBULLDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "binomialDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BINOMIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "geometricDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_GEOMETRICLDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "hypergeometricDistribution" &&
+    element->getTypeCode() == SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "negativeBinomialDistribution" &&
+    element->getTypeCode() == SBML_DISTRIB_NEGATIVEBINOMIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "poissonDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_POISSONDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "bernoulliDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BERNOULLIDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "categoricalDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_CATEGORICALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "multivariateDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_MULTIVARIATEDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "externalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_EXTERNALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
 
-  return -1;
+  return LIBSBML_OPERATION_FAILED;
 }
 
 /** @endcond */
@@ -1574,7 +1675,136 @@ SBase*
 DistribUncertainty::removeChildObject(const std::string& elementName,
                                       const std::string& id)
 {
-  // TO DO
+  if (elementName == "uncertStatistics")
+  {
+    DistribUncertStatistics * obj = getUncertStatistics();
+    if (unsetUncertStatistics() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "betaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "cauchyDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "chiSquareDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "exponentialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "fDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "gammaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "inverseGammaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "laPlaceDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "logNormalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "logisticDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "normalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "paretoDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "rayleighDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "studentTDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "uniformDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "weibullDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "binomialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "geometricDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "hypergeometricDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "negativeBinomialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "poissonDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "bernoulliDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "categoricalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "multivariateDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "externalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
 
   return NULL;
 }
@@ -1591,9 +1821,24 @@ DistribUncertainty::removeChildObject(const std::string& elementName,
 unsigned int
 DistribUncertainty::getNumObjects(const std::string& elementName)
 {
-  // TO DO
+  unsigned int n = 0;
 
-  return 0;
+  if (elementName == "uncertStatistics")
+  {
+    if (isSetUncertStatistics())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "distribution")
+  {
+    if (isSetDistribution())
+    {
+      return 1;
+    }
+  }
+
+  return n;
 }
 
 /** @endcond */
@@ -1609,9 +1854,18 @@ SBase*
 DistribUncertainty::getObject(const std::string& elementName,
                               unsigned int index)
 {
-  // TO DO
+  SBase* obj = NULL;
 
-  return NULL;
+  if (elementName == "uncertStatistics")
+  {
+    return getUncertStatistics();
+  }
+  else if (elementName == "distribution")
+  {
+    return getDistribution();
+  }
+
+  return obj;
 }
 
 /** @endcond */
@@ -1738,7 +1992,7 @@ DistribUncertainty::getAllElements(ElementFilter* filter)
 SBase*
 DistribUncertainty::createObject(XMLInputStream& stream)
 {
-  SBase* obj = NULL;
+  SBase* obj = DistribBase::createObject(stream);
 
   const std::string& name = stream.peek().getName();
 
@@ -2111,8 +2365,6 @@ DistribUncertainty::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -2153,9 +2405,8 @@ DistribUncertainty::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribUncertaintyAllowedAttributes, pkgVersion, level, version,
-            details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -2167,6 +2418,54 @@ DistribUncertainty::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertainty::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertainty::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -2182,10 +2481,54 @@ void
 DistribUncertainty::writeAttributes(XMLOutputStream& stream) const
 {
   DistribBase::writeAttributes(stream);
-  DistribBase::writeExtensionAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertainty::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertainty::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
 
 
 
@@ -2235,106 +2578,6 @@ DistribUncertainty_free(DistribUncertainty_t* du)
   {
     delete du;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertainty_getId(const DistribUncertainty_t * du)
-{
-  if (du == NULL)
-  {
-    return NULL;
-  }
-
-  return du->getId().empty() ? NULL : safe_strdup(du->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertainty_getName(const DistribUncertainty_t * du)
-{
-  if (du == NULL)
-  {
-    return NULL;
-  }
-
-  return du->getName().empty() ? NULL : safe_strdup(du->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertainty_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_isSetId(const DistribUncertainty_t * du)
-{
-  return (du != NULL) ? static_cast<int>(du->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertainty_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_isSetName(const DistribUncertainty_t * du)
-{
-  return (du != NULL) ? static_cast<int>(du->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_setId(DistribUncertainty_t * du, const char * id)
-{
-  return (du != NULL) ? du->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_setName(DistribUncertainty_t * du, const char * name)
-{
-  return (du != NULL) ? du->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_unsetId(DistribUncertainty_t * du)
-{
-  return (du != NULL) ? du->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertainty_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_unsetName(DistribUncertainty_t * du)
-{
-  return (du != NULL) ? du->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2805,6 +3048,18 @@ int
 DistribUncertainty_hasRequiredAttributes(const DistribUncertainty_t * du)
 {
   return (du != NULL) ? static_cast<int>(du->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribUncertainty_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+DistribUncertainty_hasRequiredElements(const DistribUncertainty_t * du)
+{
+  return (du != NULL) ? static_cast<int>(du->hasRequiredElements()) : 0;
 }
 
 

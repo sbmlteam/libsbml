@@ -50,9 +50,8 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
-#include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribBase.h>
+#include <sbml/packages/distrib/extension/DistribExtension.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -144,15 +143,6 @@ public:
 
 
   /**
-   * Returns the value of the "name" attribute of this DistribInput.
-   *
-   * @return the value of the "name" attribute of this DistribInput as a
-   * string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
    * Returns the value of the "index" attribute of this DistribInput.
    *
    * @return the value of the "index" attribute of this DistribInput as a
@@ -168,16 +158,6 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribInput's "name" attribute is
-   * set.
-   *
-   * @return @c true if this DistribInput's "name" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
 
 
   /**
@@ -207,20 +187,6 @@ public:
 
 
   /**
-   * Sets the value of the "name" attribute of this DistribInput.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
    * Sets the value of the "index" attribute of this DistribInput.
    *
    * @param index unsigned int value of the "index" attribute to be set.
@@ -241,16 +207,6 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribInput.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
 
 
   /**
@@ -295,6 +251,10 @@ public:
    *
    * @return @c true to indicate that all the required attributes of this
    * DistribInput have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required attributes for the DistribInput object are:
+   * @li "id"
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -591,6 +551,17 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Creates a new object from the next XMLToken on the XMLInputStream
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Adds the expected attributes for this element
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
@@ -614,9 +585,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -720,23 +735,6 @@ DistribInput_getId(const DistribInput_t * di);
 
 
 /**
- * Returns the value of the "name" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribInput_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-char *
-DistribInput_getName(const DistribInput_t * di);
-
-
-/**
  * Returns the value of the "index" attribute of this DistribInput_t.
  *
  * @param di the DistribInput_t structure whose index is sought.
@@ -765,22 +763,6 @@ DistribInput_getIndex(const DistribInput_t * di);
 LIBSBML_EXTERN
 int
 DistribInput_isSetId(const DistribInput_t * di);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribInput_t's "name" attribute is
- * set.
- *
- * @param di the DistribInput_t structure.
- *
- * @return @c 1 (true) if this DistribInput_t's "name" attribute has been set,
- * otherwise @c 0 (false) is returned.
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_isSetName(const DistribInput_t * di);
 
 
 /**
@@ -822,27 +804,6 @@ DistribInput_setId(DistribInput_t * di, const char * id);
 
 
 /**
- * Sets the value of the "name" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribInput_unsetName().
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_setName(DistribInput_t * di, const char * name);
-
-
-/**
  * Sets the value of the "index" attribute of this DistribInput_t.
  *
  * @param di the DistribInput_t structure.
@@ -879,23 +840,6 @@ DistribInput_unsetId(DistribInput_t * di);
 
 
 /**
- * Unsets the value of the "name" attribute of this DistribInput_t.
- *
- * @param di the DistribInput_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribInput_t
- */
-LIBSBML_EXTERN
-int
-DistribInput_unsetName(DistribInput_t * di);
-
-
-/**
  * Unsets the value of the "index" attribute of this DistribInput_t.
  *
  * @param di the DistribInput_t structure.
@@ -920,6 +864,10 @@ DistribInput_unsetIndex(DistribInput_t * di);
  *
  * @return @c 1 (true) to indicate that all the required attributes of this
  * DistribInput_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required attributes for the DistribInput_t object are:
+ * @li "id"
  *
  * @memberof DistribInput_t
  */

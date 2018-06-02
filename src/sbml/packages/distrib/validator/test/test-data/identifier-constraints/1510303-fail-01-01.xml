@@ -14,7 +14,7 @@
             <notanumber/>
           </lambda>
         </math>
-        <distrib:drawFromDistribution>
+        <distrib:drawFromDistribution id="dd">
           <distrib:normalDistribution>
             <distrib:truncationLowerBound distrib:value="2.3" distrib:inclusive="true"/>
             <distrib:truncationUpperBound distrib:value="7.3" distrib:inclusive="true"/>

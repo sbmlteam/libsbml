@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertStatisticSpan::DistribUncertStatisticSpan(unsigned int level,
                                                        unsigned int version,
                                                        unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mVarLower ("")
   , mValueLower (util_NaN())
   , mIsSetValueLower (false)
@@ -145,27 +145,6 @@ DistribUncertStatisticSpan::~DistribUncertStatisticSpan()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribUncertStatisticSpan.
- */
-const std::string&
-DistribUncertStatisticSpan::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribUncertStatisticSpan.
- */
-const std::string&
-DistribUncertStatisticSpan::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "varLower" attribute of this
  * DistribUncertStatisticSpan.
  */
@@ -210,28 +189,6 @@ DistribUncertStatisticSpan::getValueUpper() const
 
 
 /*
- * Predicate returning @c true if this DistribUncertStatisticSpan's "id"
- * attribute is set.
- */
-bool
-DistribUncertStatisticSpan::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertStatisticSpan's "name"
- * attribute is set.
- */
-bool
-DistribUncertStatisticSpan::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
  * Predicate returning @c true if this DistribUncertStatisticSpan's "varLower"
  * attribute is set.
  */
@@ -272,27 +229,6 @@ bool
 DistribUncertStatisticSpan::isSetValueUpper() const
 {
   return mIsSetValueUpper;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertStatisticSpan.
- */
-int
-DistribUncertStatisticSpan::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertStatisticSpan.
- */
-int
-DistribUncertStatisticSpan::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -357,44 +293,6 @@ DistribUncertStatisticSpan::setValueUpper(double valueUpper)
   mValueUpper = valueUpper;
   mIsSetValueUpper = true;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertStatisticSpan.
- */
-int
-DistribUncertStatisticSpan::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertStatisticSpan.
- */
-int
-DistribUncertStatisticSpan::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -551,7 +449,7 @@ DistribUncertStatisticSpan::getTypeCode() const
 bool
 DistribUncertStatisticSpan::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -568,7 +466,7 @@ DistribUncertStatisticSpan::writeElements(XMLOutputStream& stream) const
 {
   DistribBase::writeElements(stream);
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -731,17 +629,7 @@ DistribUncertStatisticSpan::getAttribute(const std::string& attributeName,
     return return_value;
   }
 
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "varLower")
+  if (attributeName == "varLower")
   {
     value = getVarLower();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -771,15 +659,7 @@ DistribUncertStatisticSpan::isSetAttribute(const std::string& attributeName)
 {
   bool value = DistribBase::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
-  else if (attributeName == "varLower")
+  if (attributeName == "varLower")
   {
     value = isSetVarLower();
   }
@@ -900,15 +780,7 @@ DistribUncertStatisticSpan::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "varLower")
+  if (attributeName == "varLower")
   {
     return_value = setVarLower(value);
   }
@@ -935,15 +807,7 @@ DistribUncertStatisticSpan::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-  else if (attributeName == "varLower")
+  if (attributeName == "varLower")
   {
     value = unsetVarLower();
   }
@@ -970,6 +834,25 @@ DistribUncertStatisticSpan::unsetAttribute(const std::string& attributeName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+DistribUncertStatisticSpan::createObject(XMLInputStream& stream)
+{
+  SBase* obj = DistribBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Adds the expected attributes for this element
  */
 void
@@ -984,8 +867,6 @@ DistribUncertStatisticSpan::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
     attributes.add("varLower");
     attributes.add("valueLower");
     attributes.add("varUpper");
@@ -1049,6 +930,37 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
     }
   }
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertStatisticSpan::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
   // 
   // varLower SIdRef (use = "optional" )
   // 
@@ -1074,7 +986,7 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mVarLower + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanVarLowerMustBeSBase, pkgVersion, level,
-        version, msg, getLine(), getColumn());
+          version, msg, getLine(), getColumn());
     }
   }
 
@@ -1095,7 +1007,7 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
         "<DistribUncertStatisticSpan> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanValueLowerMustBeDouble, pkgVersion,
-        level, version, message);
+          level, version, message);
     }
   }
 
@@ -1124,7 +1036,7 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mVarUpper + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanVarUpperMustBeSBase, pkgVersion, level,
-        version, msg, getLine(), getColumn());
+          version, msg, getLine(), getColumn());
     }
   }
 
@@ -1145,7 +1057,128 @@ DistribUncertStatisticSpan::readAttributes(const XMLAttributes& attributes,
         "<DistribUncertStatisticSpan> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertStatisticSpanValueUpperMustBeDouble, pkgVersion,
-        level, version, message);
+          level, version, message);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertStatisticSpan::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // varLower SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("varLower", mVarLower);
+
+  if (assigned == true)
+  {
+    if (mVarLower.empty() == true)
+    {
+      logEmptyString(mVarLower, level, version,
+        "<DistribUncertStatisticSpan>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mVarLower) == false)
+    {
+      std::string msg = "The varLower attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVarLower + "', which does not conform to the syntax.";
+      log->logPackageError("distrib",
+        DistribDistribUncertStatisticSpanVarLowerMustBeSBase, pkgVersion, level,
+          version, msg, getLine(), getColumn());
+    }
+  }
+
+  // 
+  // valueLower double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetValueLower = attributes.readInto("valueLower", mValueLower);
+
+  if ( mIsSetValueLower == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Distrib attribute 'valueLower' from the "
+        "<DistribUncertStatisticSpan> element must be an integer.";
+      log->logPackageError("distrib",
+        DistribDistribUncertStatisticSpanValueLowerMustBeDouble, pkgVersion,
+          level, version, message);
+    }
+  }
+
+  // 
+  // varUpper SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("varUpper", mVarUpper);
+
+  if (assigned == true)
+  {
+    if (mVarUpper.empty() == true)
+    {
+      logEmptyString(mVarUpper, level, version,
+        "<DistribUncertStatisticSpan>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mVarUpper) == false)
+    {
+      std::string msg = "The varUpper attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVarUpper + "', which does not conform to the syntax.";
+      log->logPackageError("distrib",
+        DistribDistribUncertStatisticSpanVarUpperMustBeSBase, pkgVersion, level,
+          version, msg, getLine(), getColumn());
+    }
+  }
+
+  // 
+  // valueUpper double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetValueUpper = attributes.readInto("valueUpper", mValueUpper);
+
+  if ( mIsSetValueUpper == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Distrib attribute 'valueUpper' from the "
+        "<DistribUncertStatisticSpan> element must be an integer.";
+      log->logPackageError("distrib",
+        DistribDistribUncertStatisticSpanValueUpperMustBeDouble, pkgVersion,
+          level, version, message);
     }
   }
 }
@@ -1163,6 +1196,37 @@ void
 DistribUncertStatisticSpan::writeAttributes(XMLOutputStream& stream) const
 {
   DistribBase::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertStatisticSpan::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
   if (isSetVarLower() == true)
   {
     stream.writeAttribute("varLower", getPrefix(), mVarLower);
@@ -1182,10 +1246,44 @@ DistribUncertStatisticSpan::writeAttributes(XMLOutputStream& stream) const
   {
     stream.writeAttribute("valueUpper", getPrefix(), mValueUpper);
   }
-  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertStatisticSpan::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+  if (isSetVarLower() == true)
+  {
+    stream.writeAttribute("varLower", getPrefix(), mVarLower);
+  }
+
+  if (isSetValueLower() == true)
+  {
+    stream.writeAttribute("valueLower", getPrefix(), mValueLower);
+  }
+
+  if (isSetVarUpper() == true)
+  {
+    stream.writeAttribute("varUpper", getPrefix(), mVarUpper);
+  }
+
+  if (isSetValueUpper() == true)
+  {
+    stream.writeAttribute("valueUpper", getPrefix(), mValueUpper);
+  }
+}
+
+/** @endcond */
+
 
 
 
@@ -1235,40 +1333,6 @@ DistribUncertStatisticSpan_free(DistribUncertStatisticSpan_t* duss)
   {
     delete duss;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatisticSpan_getId(const DistribUncertStatisticSpan_t * duss)
-{
-  if (duss == NULL)
-  {
-    return NULL;
-  }
-
-  return duss->getId().empty() ? NULL : safe_strdup(duss->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatisticSpan_getName(const DistribUncertStatisticSpan_t * duss)
-{
-  if (duss == NULL)
-  {
-    return NULL;
-  }
-
-  return duss->getName().empty() ? NULL : safe_strdup(duss->getName().c_str());
 }
 
 
@@ -1337,30 +1401,6 @@ DistribUncertStatisticSpan_getValueUpper(const DistribUncertStatisticSpan_t *
 
 
 /*
- * Predicate returning @c 1 (true) if this DistribUncertStatisticSpan_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_isSetId(const DistribUncertStatisticSpan_t * duss)
-{
-  return (duss != NULL) ? static_cast<int>(duss->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertStatisticSpan_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_isSetName(const DistribUncertStatisticSpan_t * duss)
-{
-  return (duss != NULL) ? static_cast<int>(duss->isSetName()) : 0;
-}
-
-
-/*
  * Predicate returning @c 1 (true) if this DistribUncertStatisticSpan_t's
  * "varLower" attribute is set.
  */
@@ -1409,30 +1449,6 @@ DistribUncertStatisticSpan_isSetValueUpper(const DistribUncertStatisticSpan_t *
   duss)
 {
   return (duss != NULL) ? static_cast<int>(duss->isSetValueUpper()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_setId(DistribUncertStatisticSpan_t * duss,
-                                 const char * id)
-{
-  return (duss != NULL) ? duss->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_setName(DistribUncertStatisticSpan_t * duss,
-                                   const char * name)
-{
-  return (duss != NULL) ? duss->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1487,29 +1503,6 @@ DistribUncertStatisticSpan_setValueUpper(DistribUncertStatisticSpan_t * duss,
 {
   return (duss != NULL) ? duss->setValueUpper(valueUpper) :
     LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_unsetId(DistribUncertStatisticSpan_t * duss)
-{
-  return (duss != NULL) ? duss->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribUncertStatisticSpan_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatisticSpan_unsetName(DistribUncertStatisticSpan_t * duss)
-{
-  return (duss != NULL) ? duss->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

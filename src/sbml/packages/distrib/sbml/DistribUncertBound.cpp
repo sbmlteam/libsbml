@@ -127,54 +127,12 @@ DistribUncertBound::~DistribUncertBound()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribUncertBound.
- */
-const std::string&
-DistribUncertBound::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertBound.
- */
-const std::string&
-DistribUncertBound::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "inclusive" attribute of this DistribUncertBound.
  */
 bool
 DistribUncertBound::getInclusive() const
 {
   return mInclusive;
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertBound's "id" attribute is
- * set.
- */
-bool
-DistribUncertBound::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertBound's "name" attribute is
- * set.
- */
-bool
-DistribUncertBound::isSetName() const
-{
-  return (mName.empty() == false);
 }
 
 
@@ -190,27 +148,6 @@ DistribUncertBound::isSetInclusive() const
 
 
 /*
- * Sets the value of the "id" attribute of this DistribUncertBound.
- */
-int
-DistribUncertBound::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertBound.
- */
-int
-DistribUncertBound::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
  * Sets the value of the "inclusive" attribute of this DistribUncertBound.
  */
 int
@@ -219,44 +156,6 @@ DistribUncertBound::setInclusive(bool inclusive)
   mInclusive = inclusive;
   mIsSetInclusive = true;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertBound.
- */
-int
-DistribUncertBound::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertBound.
- */
-int
-DistribUncertBound::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -492,22 +391,6 @@ DistribUncertBound::getAttribute(const std::string& attributeName,
 {
   int return_value = DistribUncertValue::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -526,15 +409,7 @@ DistribUncertBound::isSetAttribute(const std::string& attributeName) const
 {
   bool value = DistribUncertValue::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
-  else if (attributeName == "inclusive")
+  if (attributeName == "inclusive")
   {
     value = isSetInclusive();
   }
@@ -632,15 +507,6 @@ DistribUncertBound::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribUncertValue::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -659,15 +525,7 @@ DistribUncertBound::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribUncertValue::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-  else if (attributeName == "inclusive")
+  if (attributeName == "inclusive")
   {
     value = unsetInclusive();
   }
@@ -714,8 +572,6 @@ DistribUncertBound::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
     attributes.add("inclusive");
   }
 
@@ -748,6 +604,65 @@ DistribUncertBound::readAttributes(const XMLAttributes& attributes,
 
   DistribUncertValue::readAttributes(attributes, expectedAttributes);
 
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("distrib",
+          DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
+            details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("distrib",
+          DistribDistribUncertBoundAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
+    }
+  }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertBound::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // inclusive bool (use = "required" )
+  // 
+
   numErrs = log->getNumErrors();
   mIsSetInclusive = attributes.readInto("inclusive", mInclusive);
 
@@ -759,7 +674,7 @@ DistribUncertBound::readAttributes(const XMLAttributes& attributes,
       log->remove(XMLAttributeTypeMismatch);
       log->logPackageError("distrib",
         DistribDistribUncertBoundInclusiveMustBeBoolean, pkgVersion, level,
-        version);
+          version);
     }
     else
     {
@@ -767,7 +682,54 @@ DistribUncertBound::readAttributes(const XMLAttributes& attributes,
         "<DistribUncertBound> element.";
       log->logPackageError("distrib",
         DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
-        message);
+          message);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertBound::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // inclusive bool (use = "required" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetInclusive = attributes.readInto("inclusive", mInclusive);
+
+  if (mIsSetInclusive == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      log->logPackageError("distrib",
+        DistribDistribUncertBoundInclusiveMustBeBoolean, pkgVersion, level,
+          version);
+    }
+    else
+    {
+      std::string message = "Distrib attribute 'inclusive' is missing from the "
+        "<DistribUncertBound> element.";
+      log->logPackageError("distrib",
+        DistribDistribUncertBoundAllowedAttributes, pkgVersion, level, version,
+          message);
     }
   }
 }
@@ -785,15 +747,62 @@ void
 DistribUncertBound::writeAttributes(XMLOutputStream& stream) const
 {
   DistribUncertValue::writeAttributes(stream);
-  if (isSetInclusive() == true)
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
   {
-    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
   }
 
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertBound::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+  if (isSetInclusive() == true)
+  {
+    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertBound::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+  if (isSetInclusive() == true)
+  {
+    stream.writeAttribute("inclusive", getPrefix(), mInclusive);
+  }
+}
+
+/** @endcond */
+
 
 
 
@@ -847,38 +856,6 @@ DistribUncertBound_free(DistribUncertBound_t* dub)
 
 
 /*
- * Returns the value of the "id" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertBound_getId(const DistribUncertBound_t * dub)
-{
-  if (dub == NULL)
-  {
-    return NULL;
-  }
-
-  return dub->getId().empty() ? NULL : safe_strdup(dub->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertBound_getName(const DistribUncertBound_t * dub)
-{
-  if (dub == NULL)
-  {
-    return NULL;
-  }
-
-  return dub->getName().empty() ? NULL : safe_strdup(dub->getName().c_str());
-}
-
-
-/*
  * Returns the value of the "inclusive" attribute of this DistribUncertBound_t.
  */
 LIBSBML_EXTERN
@@ -886,30 +863,6 @@ int
 DistribUncertBound_getInclusive(const DistribUncertBound_t * dub)
 {
   return (dub != NULL) ? static_cast<int>(dub->getInclusive()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertBound_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_isSetId(const DistribUncertBound_t * dub)
-{
-  return (dub != NULL) ? static_cast<int>(dub->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertBound_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_isSetName(const DistribUncertBound_t * dub)
-{
-  return (dub != NULL) ? static_cast<int>(dub->isSetName()) : 0;
 }
 
 
@@ -926,28 +879,6 @@ DistribUncertBound_isSetInclusive(const DistribUncertBound_t * dub)
 
 
 /*
- * Sets the value of the "id" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_setId(DistribUncertBound_t * dub, const char * id)
-{
-  return (dub != NULL) ? dub->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_setName(DistribUncertBound_t * dub, const char * name)
-{
-  return (dub != NULL) ? dub->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Sets the value of the "inclusive" attribute of this DistribUncertBound_t.
  */
 LIBSBML_EXTERN
@@ -955,28 +886,6 @@ int
 DistribUncertBound_setInclusive(DistribUncertBound_t * dub, int inclusive)
 {
   return (dub != NULL) ? dub->setInclusive(inclusive) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_unsetId(DistribUncertBound_t * dub)
-{
-  return (dub != NULL) ? dub->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertBound_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_unsetName(DistribUncertBound_t * dub)
-{
-  return (dub != NULL) ? dub->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

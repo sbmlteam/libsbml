@@ -131,27 +131,6 @@ DistribExternalDistribution::~DistribExternalDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribExternalDistribution.
- */
-const std::string&
-DistribExternalDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribExternalDistribution.
- */
-const std::string&
-DistribExternalDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "definitionURL" attribute of this
  * DistribExternalDistribution.
  */
@@ -159,28 +138,6 @@ const std::string&
 DistribExternalDistribution::getDefinitionURL() const
 {
   return mDefinitionURL;
-}
-
-
-/*
- * Predicate returning @c true if this DistribExternalDistribution's "id"
- * attribute is set.
- */
-bool
-DistribExternalDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribExternalDistribution's "name"
- * attribute is set.
- */
-bool
-DistribExternalDistribution::isSetName() const
-{
-  return (mName.empty() == false);
 }
 
 
@@ -196,27 +153,6 @@ DistribExternalDistribution::isSetDefinitionURL() const
 
 
 /*
- * Sets the value of the "id" attribute of this DistribExternalDistribution.
- */
-int
-DistribExternalDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribExternalDistribution.
- */
-int
-DistribExternalDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
  * Sets the value of the "definitionURL" attribute of this
  * DistribExternalDistribution.
  */
@@ -225,45 +161,6 @@ DistribExternalDistribution::setDefinitionURL(const std::string& definitionURL)
 {
   mDefinitionURL = definitionURL;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribExternalDistribution.
- */
-int
-DistribExternalDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribExternalDistribution.
- */
-int
-DistribExternalDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -288,9 +185,10 @@ DistribExternalDistribution::unsetDefinitionURL()
 
 
 /*
- * Returns the ListOfExternalParameters from this DistribExternalDistribution.
+ * Returns the ListOfDistribExternalParameters from this
+ * DistribExternalDistribution.
  */
-const ListOfExternalParameters*
+const ListOfDistribExternalParameters*
 DistribExternalDistribution::getListOfDistribExternalParameters() const
 {
   return &mDistribExternalParameters;
@@ -298,9 +196,10 @@ DistribExternalDistribution::getListOfDistribExternalParameters() const
 
 
 /*
- * Returns the ListOfExternalParameters from this DistribExternalDistribution.
+ * Returns the ListOfDistribExternalParameters from this
+ * DistribExternalDistribution.
  */
-ListOfExternalParameters*
+ListOfDistribExternalParameters*
 DistribExternalDistribution::getListOfDistribExternalParameters()
 {
   return &mDistribExternalParameters;
@@ -324,30 +223,6 @@ const DistribExternalParameter*
 DistribExternalDistribution::getDistribExternalParameter(unsigned int n) const
 {
   return mDistribExternalParameters.get(n);
-}
-
-
-/*
- * Get a DistribExternalParameter from the DistribExternalDistribution based on
- * its identifier.
- */
-DistribExternalParameter*
-DistribExternalDistribution::getDistribExternalParameter(const std::string&
-  sid)
-{
-  return mDistribExternalParameters.get(sid);
-}
-
-
-/*
- * Get a DistribExternalParameter from the DistribExternalDistribution based on
- * its identifier.
- */
-const DistribExternalParameter*
-DistribExternalDistribution::getDistribExternalParameter(const std::string&
-  sid) const
-{
-  return mDistribExternalParameters.get(sid);
 }
 
 
@@ -379,11 +254,6 @@ DistribExternalDistribution::addDistribExternalParameter(const
     SBase*>(dep)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else if (dep->isSetId() && (mDistribExternalParameters.get(dep->getId())) !=
-    NULL)
-  {
-    return LIBSBML_DUPLICATE_OBJECT_ID;
   }
   else
   {
@@ -441,18 +311,6 @@ DistribExternalParameter*
 DistribExternalDistribution::removeDistribExternalParameter(unsigned int n)
 {
   return mDistribExternalParameters.remove(n);
-}
-
-
-/*
- * Removes the DistribExternalParameter from this DistribExternalDistribution
- * based on its identifier and returns a pointer to it.
- */
-DistribExternalParameter*
-DistribExternalDistribution::removeDistribExternalParameter(const std::string&
-  sid)
-{
-  return mDistribExternalParameters.remove(sid);
 }
 
 
@@ -717,17 +575,7 @@ DistribExternalDistribution::getAttribute(const std::string& attributeName,
     return return_value;
   }
 
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "definitionURL")
+  if (attributeName == "definitionURL")
   {
     value = getDefinitionURL();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -752,15 +600,7 @@ DistribExternalDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value = DistribDistribution::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
-  else if (attributeName == "definitionURL")
+  if (attributeName == "definitionURL")
   {
     value = isSetDefinitionURL();
   }
@@ -860,15 +700,7 @@ DistribExternalDistribution::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "definitionURL")
+  if (attributeName == "definitionURL")
   {
     return_value = setDefinitionURL(value);
   }
@@ -891,15 +723,7 @@ DistribExternalDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribDistribution::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-  else if (attributeName == "definitionURL")
+  if (attributeName == "definitionURL")
   {
     value = unsetDefinitionURL();
   }
@@ -922,7 +746,7 @@ DistribExternalDistribution::createChildObject(const std::string& elementName)
 {
   DistribDistribution* obj = NULL;
 
-  if (elementName == "distribExternalParameter")
+  if (elementName == "externalParameter")
   {
     return createDistribExternalParameter();
   }
@@ -943,7 +767,7 @@ int
 DistribExternalDistribution::addChildObject(const std::string& elementName,
                                             const SBase* element)
 {
-  if (elementName == "distribExternalParameter" && element->getTypeCode() ==
+  if (elementName == "externalParameter" && element->getTypeCode() ==
     SBML_DISTRIB_EXTERNALPARAMETER)
   {
     return addDistribExternalParameter((const
@@ -967,9 +791,15 @@ SBase*
 DistribExternalDistribution::removeChildObject(const std::string& elementName,
                                                const std::string& id)
 {
-  if (elementName == "distribExternalParameter")
+  if (elementName == "externalParameter")
   {
-    return removeDistribExternalParameter(id);
+    for (unsigned int i = 0; i < getNumDistribExternalParameters(); i++)
+    {
+      if (getDistribExternalParameter(i)->getId() == id)
+      {
+        return removeDistribExternalParameter(i);
+      }
+    }
   }
 
   return NULL;
@@ -989,7 +819,7 @@ DistribExternalDistribution::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "distribExternalParameter")
+  if (elementName == "externalParameter")
   {
     return getNumDistribExternalParameters();
   }
@@ -1012,7 +842,7 @@ DistribExternalDistribution::getObject(const std::string& elementName,
 {
   SBase* obj = NULL;
 
-  if (elementName == "distribExternalParameter")
+  if (elementName == "externalParameter")
   {
     return getDistribExternalParameter(index);
   }
@@ -1036,6 +866,11 @@ DistribExternalDistribution::getElementBySId(const std::string& id)
   }
 
   SBase* obj = NULL;
+
+  if (mDistribExternalParameters.getId() == id)
+  {
+    return &mDistribExternalParameters;
+  }
 
   obj = mDistribExternalParameters.getElementBySId(id);
 
@@ -1148,8 +983,6 @@ DistribExternalDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
     attributes.add("definitionURL");
   }
 
@@ -1207,6 +1040,40 @@ DistribExternalDistribution::readAttributes(const XMLAttributes& attributes,
     }
   }
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribExternalDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+
+  // 
+  // definitionURL string (use = "required" )
+  // 
+
   assigned = attributes.readInto("definitionURL", mDefinitionURL);
 
   if (assigned == true)
@@ -1223,7 +1090,50 @@ DistribExternalDistribution::readAttributes(const XMLAttributes& attributes,
       "the <DistribExternalDistribution> element.";
     log->logPackageError("distrib",
       DistribDistribExternalDistributionAllowedAttributes, pkgVersion, level,
-      version, message);
+        version, message);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribExternalDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+
+  // 
+  // definitionURL string (use = "required" )
+  // 
+
+  assigned = attributes.readInto("definitionURL", mDefinitionURL);
+
+  if (assigned == true)
+  {
+    if (mDefinitionURL.empty() == true)
+    {
+      logEmptyString(mDefinitionURL, level, version,
+        "<DistribExternalDistribution>");
+    }
+  }
+  else
+  {
+    std::string message = "Distrib attribute 'definitionURL' is missing from "
+      "the <DistribExternalDistribution> element.";
+    log->logPackageError("distrib",
+      DistribDistribExternalDistributionAllowedAttributes, pkgVersion, level,
+        version, message);
   }
 }
 
@@ -1241,15 +1151,64 @@ DistribExternalDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribDistribution::writeAttributes(stream);
 
-  if (isSetDefinitionURL() == true)
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
   {
-    stream.writeAttribute("definitionURL", getPrefix(), mDefinitionURL);
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
   }
 
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribExternalDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+  if (isSetDefinitionURL() == true)
+  {
+    stream.writeAttribute("definitionURL", getPrefix(), mDefinitionURL);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribExternalDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+  if (isSetDefinitionURL() == true)
+  {
+    stream.writeAttribute("definitionURL", getPrefix(), mDefinitionURL);
+  }
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1303,40 +1262,6 @@ DistribExternalDistribution_free(DistribExternalDistribution_t* ded)
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribExternalDistribution_getId(const DistribExternalDistribution_t * ded)
-{
-  if (ded == NULL)
-  {
-    return NULL;
-  }
-
-  return ded->getId().empty() ? NULL : safe_strdup(ded->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribExternalDistribution_getName(const DistribExternalDistribution_t * ded)
-{
-  if (ded == NULL)
-  {
-    return NULL;
-  }
-
-  return ded->getName().empty() ? NULL : safe_strdup(ded->getName().c_str());
-}
-
-
-/*
  * Returns the value of the "definitionURL" attribute of this
  * DistribExternalDistribution_t.
  */
@@ -1356,31 +1281,6 @@ DistribExternalDistribution_getDefinitionURL(const
 
 
 /*
- * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_isSetId(const DistribExternalDistribution_t * ded)
-{
-  return (ded != NULL) ? static_cast<int>(ded->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_isSetName(const DistribExternalDistribution_t *
-  ded)
-{
-  return (ded != NULL) ? static_cast<int>(ded->isSetName()) : 0;
-}
-
-
-/*
  * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's
  * "definitionURL" attribute is set.
  */
@@ -1390,31 +1290,6 @@ DistribExternalDistribution_isSetDefinitionURL(const
   DistribExternalDistribution_t * ded)
 {
   return (ded != NULL) ? static_cast<int>(ded->isSetDefinitionURL()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_setId(DistribExternalDistribution_t * ded,
-                                  const char * id)
-{
-  return (ded != NULL) ? ded->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_setName(DistribExternalDistribution_t * ded,
-                                    const char * name)
-{
-  return (ded != NULL) ? ded->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1431,30 +1306,6 @@ DistribExternalDistribution_setDefinitionURL(
 {
   return (ded != NULL) ? ded->setDefinitionURL(definitionURL) :
     LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_unsetId(DistribExternalDistribution_t * ded)
-{
-  return (ded != NULL) ? ded->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_unsetName(DistribExternalDistribution_t * ded)
-{
-  return (ded != NULL) ? ded->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1495,22 +1346,6 @@ DistribExternalDistribution_getDistribExternalParameter(
                                                         unsigned int n)
 {
   return (ded != NULL) ? ded->getDistribExternalParameter(n) : NULL;
-}
-
-
-/*
- * Get a DistribExternalParameter_t from the DistribExternalDistribution_t
- * based on its identifier.
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribExternalDistribution_getDistribExternalParameterById(
-                                                            DistribExternalDistribution_t*
-                                                              ded,
-                                                            const char *sid)
-{
-  return (ded != NULL && sid != NULL) ? ded->getDistribExternalParameter(sid) :
-    NULL;
 }
 
 
@@ -1571,23 +1406,6 @@ DistribExternalDistribution_removeDistribExternalParameter(
                                                            unsigned int n)
 {
   return (ded != NULL) ? ded->removeDistribExternalParameter(n) : NULL;
-}
-
-
-/*
- * Removes the DistribExternalParameter_t from this
- * DistribExternalDistribution_t based on its identifier and returns a pointer
- * to it.
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribExternalDistribution_removeDistribExternalParameterById(
-                                                               DistribExternalDistribution_t*
-                                                                 ded,
-                                                               const char* sid)
-{
-  return (ded != NULL && sid != NULL) ?
-    ded->removeDistribExternalParameter(sid) : NULL;
 }
 
 

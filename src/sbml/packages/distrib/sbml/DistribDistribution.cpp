@@ -79,7 +79,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribDistribution::DistribDistribution(unsigned int level,
                                          unsigned int version,
                                          unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mElementName("distribution")
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
@@ -455,6 +455,19 @@ DistribDistribution::getTypeCode() const
 }
 
 
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * DistribDistribution object have been set.
+ */
+bool
+DistribDistribution::hasRequiredAttributes() const
+{
+  bool allPresent = DistribBase::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -466,7 +479,7 @@ DistribDistribution::writeElements(XMLOutputStream& stream) const
 {
   DistribBase::writeElements(stream);
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -735,369 +748,222 @@ DistribDistribution::unsetAttribute(const std::string& attributeName)
 
 
 
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+DistribDistribution::createObject(XMLInputStream& stream)
+{
+  SBase* obj = DistribBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+void
+DistribDistribution::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  DistribBase::addExpectedAttributes(attributes);
+
+  unsigned int level = getLevel();
+  unsigned int coreVersion = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && coreVersion == 1 && pkgVersion == 1)
+  {
+  }
+
+  if (level == 3 && coreVersion == 2 && pkgVersion == 1)
+  {
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDistribution::readAttributes(const XMLAttributes& attributes,
+                                    const ExpectedAttributes&
+                                      expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  DistribBase::readAttributes(attributes, expectedAttributes);
+
+  if (log)
+  {
+    numErrs = log->getNumErrors();
+
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("distrib",
+          DistribDistribDistributionAllowedCoreAttributes, pkgVersion, level,
+            version, details);
+      }
+    }
+  }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDistribution::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDistribution::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDistribution::writeAttributes(XMLOutputStream& stream) const
+{
+  DistribBase::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDistribution::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDistribution::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
 
 #endif /* __cplusplus */
 
 
 /*
- * Creates a new DistribBetaDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new DistribDistribution_t using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  */
 LIBSBML_EXTERN
 DistribDistribution_t *
-DistribDistribution_createDistribBetaDistribution(unsigned int level,
-                                                  unsigned int version,
-                                                  unsigned int pkgVersion)
+DistribDistribution_create(unsigned int level,
+                           unsigned int version,
+                           unsigned int pkgVersion)
 {
-  return new DistribBetaDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribCauchyDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribCauchyDistribution(unsigned int level,
-                                                    unsigned int version,
-                                                    unsigned int pkgVersion)
-{
-  return new DistribCauchyDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribChiSquareDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribChiSquareDistribution(unsigned int level,
-                                                       unsigned int version,
-                                                       unsigned int pkgVersion)
-{
-  return new DistribChiSquareDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribExponentialDistribution (DistribDistribution_t) using
- * the given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribExponentialDistribution(unsigned int level,
-                                                         unsigned int version,
-                                                         unsigned int
-                                                           pkgVersion)
-{
-  return new DistribExponentialDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribFDistribution (DistribDistribution_t) using the given
- * SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribFDistribution(unsigned int level,
-                                               unsigned int version,
-                                               unsigned int pkgVersion)
-{
-  return new DistribFDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribGammaDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribGammaDistribution(unsigned int level,
-                                                   unsigned int version,
-                                                   unsigned int pkgVersion)
-{
-  return new DistribGammaDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribInverseGammaDistribution (DistribDistribution_t) using
- * the given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribInverseGammaDistribution(unsigned int level,
-                                                          unsigned int version,
-                                                          unsigned int
-                                                            pkgVersion)
-{
-  return new DistribInverseGammaDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribLaPlaceDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribLaPlaceDistribution(unsigned int level,
-                                                     unsigned int version,
-                                                     unsigned int pkgVersion)
-{
-  return new DistribLaPlaceDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribLogNormalDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribLogNormalDistribution(unsigned int level,
-                                                       unsigned int version,
-                                                       unsigned int pkgVersion)
-{
-  return new DistribLogNormalDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribLogisticDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribLogisticDistribution(unsigned int level,
-                                                      unsigned int version,
-                                                      unsigned int pkgVersion)
-{
-  return new DistribLogisticDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribNormalDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribNormalDistribution(unsigned int level,
-                                                    unsigned int version,
-                                                    unsigned int pkgVersion)
-{
-  return new DistribNormalDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribParetoDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribParetoDistribution(unsigned int level,
-                                                    unsigned int version,
-                                                    unsigned int pkgVersion)
-{
-  return new DistribParetoDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribRayleighDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribRayleighDistribution(unsigned int level,
-                                                      unsigned int version,
-                                                      unsigned int pkgVersion)
-{
-  return new DistribRayleighDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribStudentTDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribStudentTDistribution(unsigned int level,
-                                                      unsigned int version,
-                                                      unsigned int pkgVersion)
-{
-  return new DistribStudentTDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribUniformDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribUniformDistribution(unsigned int level,
-                                                     unsigned int version,
-                                                     unsigned int pkgVersion)
-{
-  return new DistribUniformDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribWeibullDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribWeibullDistribution(unsigned int level,
-                                                     unsigned int version,
-                                                     unsigned int pkgVersion)
-{
-  return new DistribWeibullDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribBinomialDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribBinomialDistribution(unsigned int level,
-                                                      unsigned int version,
-                                                      unsigned int pkgVersion)
-{
-  return new DistribBinomialDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribGeometricDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribGeometricDistribution(unsigned int level,
-                                                       unsigned int version,
-                                                       unsigned int pkgVersion)
-{
-  return new DistribGeometricDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribHypergeometricDistribution (DistribDistribution_t)
- * using the given SBML Level, Version and &ldquo;distrib&rdquo; package
- * version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribHypergeometricDistribution(unsigned int level,
-                                                            unsigned int
-                                                              version,
-                                                            unsigned int
-                                                              pkgVersion)
-{
-  return new DistribHypergeometricDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribNegativeBinomialDistribution (DistribDistribution_t)
- * using the given SBML Level, Version and &ldquo;distrib&rdquo; package
- * version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribNegativeBinomialDistribution(
-                                                              unsigned int
-                                                                level,
-                                                              unsigned int
-                                                                version,
-                                                              unsigned int
-                                                                pkgVersion)
-{
-  return new DistribNegativeBinomialDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribPoissonDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribPoissonDistribution(unsigned int level,
-                                                     unsigned int version,
-                                                     unsigned int pkgVersion)
-{
-  return new DistribPoissonDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribBernoulliDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribBernoulliDistribution(unsigned int level,
-                                                       unsigned int version,
-                                                       unsigned int pkgVersion)
-{
-  return new DistribBernoulliDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribCategoricalDistribution (DistribDistribution_t) using
- * the given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribCategoricalDistribution(unsigned int level,
-                                                         unsigned int version,
-                                                         unsigned int
-                                                           pkgVersion)
-{
-  return new DistribCategoricalDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribMultivariateDistribution (DistribDistribution_t) using
- * the given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribMultivariateDistribution(unsigned int level,
-                                                          unsigned int version,
-                                                          unsigned int
-                                                            pkgVersion)
-{
-  return new DistribMultivariateDistribution(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribExternalDistribution (DistribDistribution_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribDistribution_t *
-DistribDistribution_createDistribExternalDistribution(unsigned int level,
-                                                      unsigned int version,
-                                                      unsigned int pkgVersion)
-{
-  return new DistribExternalDistribution(level, version, pkgVersion);
+  return new DistribDistribution(level, version, pkgVersion);
 }
 
 
@@ -1475,6 +1341,18 @@ DistribDistribution_isDistribExternalDistribution(const DistribDistribution_t *
 {
   return (dd != NULL) ? static_cast<int>(dd->isDistribExternalDistribution()) :
     0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required attributes for this
+ * DistribDistribution_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+DistribDistribution_hasRequiredAttributes(const DistribDistribution_t * dd)
+{
+  return (dd != NULL) ? static_cast<int>(dd->hasRequiredAttributes()) : 0;
 }
 
 

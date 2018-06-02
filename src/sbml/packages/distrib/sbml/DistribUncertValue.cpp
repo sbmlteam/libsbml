@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertValue::DistribUncertValue(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mVar ("")
@@ -138,26 +138,6 @@ DistribUncertValue::~DistribUncertValue()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribUncertValue.
- */
-const std::string&
-DistribUncertValue::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertValue.
- */
-const std::string&
-DistribUncertValue::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "value" attribute of this DistribUncertValue.
  */
 double
@@ -184,28 +164,6 @@ const std::string&
 DistribUncertValue::getUnits() const
 {
   return mUnits;
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertValue's "id" attribute is
- * set.
- */
-bool
-DistribUncertValue::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertValue's "name" attribute is
- * set.
- */
-bool
-DistribUncertValue::isSetName() const
-{
-  return (mName.empty() == false);
 }
 
 
@@ -239,27 +197,6 @@ bool
 DistribUncertValue::isSetUnits() const
 {
   return (mUnits.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertValue.
- */
-int
-DistribUncertValue::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertValue.
- */
-int
-DistribUncertValue::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -307,44 +244,6 @@ DistribUncertValue::setUnits(const std::string& units)
   {
     mUnits = units;
     return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertValue.
- */
-int
-DistribUncertValue::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertValue.
- */
-int
-DistribUncertValue::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
   }
 }
 
@@ -500,7 +399,7 @@ DistribUncertValue::getTypeCode() const
 bool
 DistribUncertValue::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -517,7 +416,7 @@ DistribUncertValue::writeElements(XMLOutputStream& stream) const
 {
   DistribBase::writeElements(stream);
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -670,17 +569,7 @@ DistribUncertValue::getAttribute(const std::string& attributeName,
     return return_value;
   }
 
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "var")
+  if (attributeName == "var")
   {
     value = getVar();
     return_value = LIBSBML_OPERATION_SUCCESS;
@@ -709,15 +598,7 @@ DistribUncertValue::isSetAttribute(const std::string& attributeName) const
 {
   bool value = DistribBase::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
-  else if (attributeName == "value")
+  if (attributeName == "value")
   {
     value = isSetValue();
   }
@@ -823,15 +704,7 @@ DistribUncertValue::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-  else if (attributeName == "var")
+  if (attributeName == "var")
   {
     return_value = setVar(value);
   }
@@ -858,15 +731,7 @@ DistribUncertValue::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-  else if (attributeName == "value")
+  if (attributeName == "value")
   {
     value = unsetValue();
   }
@@ -889,6 +754,25 @@ DistribUncertValue::unsetAttribute(const std::string& attributeName)
 /** @cond doxygenLibsbmlInternal */
 
 /*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+DistribUncertValue::createObject(XMLInputStream& stream)
+{
+  SBase* obj = DistribBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
  * Adds the expected attributes for this element
  */
 void
@@ -902,8 +786,6 @@ DistribUncertValue::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
     attributes.add("value");
     attributes.add("var");
     attributes.add("units");
@@ -965,6 +847,36 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
     }
   }
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertValue::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
   // 
   // value double (use = "optional" )
   // 
@@ -982,7 +894,7 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
         "<DistribUncertValue> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribUncertValueValueMustBeDouble, pkgVersion, level, version,
-        message);
+          message);
     }
   }
 
@@ -1036,7 +948,102 @@ DistribUncertValue::readAttributes(const XMLAttributes& attributes,
       msg += " is '" + mUnits + "', which does not conform to the syntax.";
       log->logPackageError("distrib",
         DistribDistribUncertValueUnitsMustBeUnitSId, pkgVersion, level, version,
-        msg, getLine(), getColumn());
+          msg, getLine(), getColumn());
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertValue::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // value double (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetValue = attributes.readInto("value", mValue);
+
+  if ( mIsSetValue == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Distrib attribute 'value' from the "
+        "<DistribUncertValue> element must be an integer.";
+      log->logPackageError("distrib",
+        DistribDistribUncertValueValueMustBeDouble, pkgVersion, level, version,
+          message);
+    }
+  }
+
+  // 
+  // var SIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("var", mVar);
+
+  if (assigned == true)
+  {
+    if (mVar.empty() == true)
+    {
+      logEmptyString(mVar, level, version, "<DistribUncertValue>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mVar) == false)
+    {
+      std::string msg = "The var attribute on the <" + getElementName() + ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mVar + "', which does not conform to the syntax.";
+      log->logPackageError("distrib", DistribDistribUncertValueVarMustBeSBase,
+        pkgVersion, level, version, msg, getLine(), getColumn());
+    }
+  }
+
+  // 
+  // units UnitSIdRef (use = "optional" )
+  // 
+
+  assigned = attributes.readInto("units", mUnits);
+
+  if (assigned == true)
+  {
+    if (mUnits.empty() == true)
+    {
+      logEmptyString(mUnits, level, version, "<DistribUncertValue>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mUnits) == false)
+    {
+      std::string msg = "The units attribute on the <" + getElementName() +
+        ">";
+      if (isSetId())
+      {
+        msg += " with id '" + getId() + "'";
+      }
+
+      msg += " is '" + mUnits + "', which does not conform to the syntax.";
+      log->logPackageError("distrib",
+        DistribDistribUncertValueUnitsMustBeUnitSId, pkgVersion, level, version,
+          msg, getLine(), getColumn());
     }
   }
 }
@@ -1059,6 +1066,31 @@ DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertValue::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
   if (isSetValue() == true)
   {
     stream.writeAttribute("value", getPrefix(), mValue);
@@ -1073,9 +1105,34 @@ DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
   {
     stream.writeAttribute("units", getPrefix(), mUnits);
   }
+}
+
+/** @endcond */
 
 
-  DistribBase::writeExtensionAttributes(stream);
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertValue::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+  if (isSetValue() == true)
+  {
+    stream.writeAttribute("value", getPrefix(), mValue);
+  }
+
+  if (isSetVar() == true)
+  {
+    stream.writeAttribute("var", getPrefix(), mVar);
+  }
+
+  if (isSetUnits() == true)
+  {
+    stream.writeAttribute("units", getPrefix(), mUnits);
+  }
 }
 
 /** @endcond */
@@ -1087,30 +1144,16 @@ DistribUncertValue::writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new DistribUncertBound (DistribUncertValue_t) using the given SBML
- * Level, Version and &ldquo;distrib&rdquo; package version.
+ * Creates a new DistribUncertValue_t using the given SBML Level, Version and
+ * &ldquo;distrib&rdquo; package version.
  */
 LIBSBML_EXTERN
 DistribUncertValue_t *
-DistribUncertValue_createDistribUncertBound(unsigned int level,
-                                            unsigned int version,
-                                            unsigned int pkgVersion)
+DistribUncertValue_create(unsigned int level,
+                          unsigned int version,
+                          unsigned int pkgVersion)
 {
-  return new DistribUncertBound(level, version, pkgVersion);
-}
-
-
-/*
- * Creates a new DistribExternalParameter (DistribUncertValue_t) using the
- * given SBML Level, Version and &ldquo;distrib&rdquo; package version.
- */
-LIBSBML_EXTERN
-DistribUncertValue_t *
-DistribUncertValue_createDistribExternalParameter(unsigned int level,
-                                                  unsigned int version,
-                                                  unsigned int pkgVersion)
-{
-  return new DistribExternalParameter(level, version, pkgVersion);
+  return new DistribUncertValue(level, version, pkgVersion);
 }
 
 
@@ -1143,38 +1186,6 @@ DistribUncertValue_free(DistribUncertValue_t* duv)
   {
     delete duv;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertValue_getId(const DistribUncertValue_t * duv)
-{
-  if (duv == NULL)
-  {
-    return NULL;
-  }
-
-  return duv->getId().empty() ? NULL : safe_strdup(duv->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertValue_getName(const DistribUncertValue_t * duv)
-{
-  if (duv == NULL)
-  {
-    return NULL;
-  }
-
-  return duv->getName().empty() ? NULL : safe_strdup(duv->getName().c_str());
 }
 
 
@@ -1222,30 +1233,6 @@ DistribUncertValue_getUnits(const DistribUncertValue_t * duv)
 
 
 /*
- * Predicate returning @c 1 (true) if this DistribUncertValue_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_isSetId(const DistribUncertValue_t * duv)
-{
-  return (duv != NULL) ? static_cast<int>(duv->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertValue_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_isSetName(const DistribUncertValue_t * duv)
-{
-  return (duv != NULL) ? static_cast<int>(duv->isSetName()) : 0;
-}
-
-
-/*
  * Predicate returning @c 1 (true) if this DistribUncertValue_t's "value"
  * attribute is set.
  */
@@ -1282,28 +1269,6 @@ DistribUncertValue_isSetUnits(const DistribUncertValue_t * duv)
 
 
 /*
- * Sets the value of the "id" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_setId(DistribUncertValue_t * duv, const char * id)
-{
-  return (duv != NULL) ? duv->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_setName(DistribUncertValue_t * duv, const char * name)
-{
-  return (duv != NULL) ? duv->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Sets the value of the "value" attribute of this DistribUncertValue_t.
  */
 LIBSBML_EXTERN
@@ -1333,28 +1298,6 @@ int
 DistribUncertValue_setUnits(DistribUncertValue_t * duv, const char * units)
 {
   return (duv != NULL) ? duv->setUnits(units) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_unsetId(DistribUncertValue_t * duv)
-{
-  return (duv != NULL) ? duv->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertValue_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertValue_unsetName(DistribUncertValue_t * duv)
-{
-  return (duv != NULL) ? duv->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

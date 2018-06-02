@@ -277,6 +277,31 @@ START_TEST(test_UncertBound_testSetLevelVersion_2to1)
 }
 END_TEST
 
+START_TEST(test_UncertBound_testGetInputByIndex)
+{
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_uncertBound.xml");
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+
+  FunctionDefinition* fd = doc->getModel()->getFunctionDefinition(0);
+  DistribFunctionDefinitionPlugin* fdplugin =
+    static_cast<DistribFunctionDefinitionPlugin*>(fd->getPlugin("distrib"));
+
+  DistribDrawFromDistribution *draw = fdplugin->getDistribDrawFromDistribution();
+
+  DistribInput *i = draw->getDistribInputByIndex(1);
+  fail_unless(i != NULL);
+  fail_unless(i->getId() == "stddev");
+  fail_unless(i->getIndex() == 1);
+
+  i = draw->getDistribInputByIndex(0);
+  fail_unless(i != NULL);
+  fail_unless(i->getId() == "mean");
+  fail_unless(i->getIndex() == 0);
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_test_UncertBound(void)
 {
@@ -288,6 +313,7 @@ create_suite_test_UncertBound(void)
   tcase_add_test(tcase, test_UncertBound_createFD_l3v2v1);
   tcase_add_test(tcase, test_UncertBound_testSetLevelVersion);
   tcase_add_test(tcase, test_UncertBound_testSetLevelVersion_2to1);
+  tcase_add_test(tcase, test_UncertBound_testGetInputByIndex);
 
   suite_add_tcase(suite, tcase);
 

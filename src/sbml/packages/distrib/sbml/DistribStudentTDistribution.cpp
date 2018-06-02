@@ -183,109 +183,6 @@ DistribStudentTDistribution::~DistribStudentTDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribStudentTDistribution.
- */
-const std::string&
-DistribStudentTDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribStudentTDistribution.
- */
-const std::string&
-DistribStudentTDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribStudentTDistribution's "id"
- * attribute is set.
- */
-bool
-DistribStudentTDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribStudentTDistribution's "name"
- * attribute is set.
- */
-bool
-DistribStudentTDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribStudentTDistribution.
- */
-int
-DistribStudentTDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribStudentTDistribution.
- */
-int
-DistribStudentTDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribStudentTDistribution.
- */
-int
-DistribStudentTDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribStudentTDistribution.
- */
-int
-DistribStudentTDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "location" element of this
  * DistribStudentTDistribution.
  */
@@ -964,22 +861,6 @@ DistribStudentTDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -999,15 +880,6 @@ DistribStudentTDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1109,15 +981,6 @@ DistribStudentTDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1136,15 +999,6 @@ DistribStudentTDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1545,8 +1399,6 @@ DistribStudentTDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1588,9 +1440,8 @@ DistribStudentTDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribStudentTDistributionAllowedAttributes, pkgVersion, level,
-            version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1602,6 +1453,56 @@ DistribStudentTDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribStudentTDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribStudentTDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1617,10 +1518,57 @@ void
 DistribStudentTDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribStudentTDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribStudentTDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1670,114 +1618,6 @@ DistribStudentTDistribution_free(DistribStudentTDistribution_t* dstd)
   {
     delete dstd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribStudentTDistribution_getId(const DistribStudentTDistribution_t * dstd)
-{
-  if (dstd == NULL)
-  {
-    return NULL;
-  }
-
-  return dstd->getId().empty() ? NULL : safe_strdup(dstd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribStudentTDistribution_getName(const DistribStudentTDistribution_t * dstd)
-{
-  if (dstd == NULL)
-  {
-    return NULL;
-  }
-
-  return dstd->getName().empty() ? NULL : safe_strdup(dstd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribStudentTDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_isSetId(const DistribStudentTDistribution_t * dstd)
-{
-  return (dstd != NULL) ? static_cast<int>(dstd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribStudentTDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_isSetName(const DistribStudentTDistribution_t *
-  dstd)
-{
-  return (dstd != NULL) ? static_cast<int>(dstd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_setId(DistribStudentTDistribution_t * dstd,
-                                  const char * id)
-{
-  return (dstd != NULL) ? dstd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_setName(DistribStudentTDistribution_t * dstd,
-                                    const char * name)
-{
-  return (dstd != NULL) ? dstd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_unsetId(DistribStudentTDistribution_t * dstd)
-{
-  return (dstd != NULL) ? dstd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribStudentTDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribStudentTDistribution_unsetName(DistribStudentTDistribution_t * dstd)
-{
-  return (dstd != NULL) ? dstd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -148,112 +148,6 @@ DistribExponentialDistribution::~DistribExponentialDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribExponentialDistribution.
- */
-const std::string&
-DistribExponentialDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribExponentialDistribution.
- */
-const std::string&
-DistribExponentialDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribExponentialDistribution's "id"
- * attribute is set.
- */
-bool
-DistribExponentialDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribExponentialDistribution's "name"
- * attribute is set.
- */
-bool
-DistribExponentialDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribExponentialDistribution.
- */
-int
-DistribExponentialDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribExponentialDistribution.
- */
-int
-DistribExponentialDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribExponentialDistribution.
- */
-int
-DistribExponentialDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribExponentialDistribution.
- */
-int
-DistribExponentialDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "rate" element of this
  * DistribExponentialDistribution.
  */
@@ -645,22 +539,6 @@ DistribExponentialDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -680,15 +558,6 @@ DistribExponentialDistribution::isSetAttribute(const std::string&
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -790,15 +659,6 @@ DistribExponentialDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -818,15 +678,6 @@ DistribExponentialDistribution::unsetAttribute(const std::string&
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1095,8 +946,6 @@ DistribExponentialDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1138,9 +987,8 @@ DistribExponentialDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribExponentialDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1152,6 +1000,56 @@ DistribExponentialDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribExponentialDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribExponentialDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1167,10 +1065,57 @@ void
 DistribExponentialDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribExponentialDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribExponentialDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1221,119 +1166,6 @@ DistribExponentialDistribution_free(DistribExponentialDistribution_t* ded)
   {
     delete ded;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribExponentialDistribution_getId(const DistribExponentialDistribution_t *
-  ded)
-{
-  if (ded == NULL)
-  {
-    return NULL;
-  }
-
-  return ded->getId().empty() ? NULL : safe_strdup(ded->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribExponentialDistribution_getName(const DistribExponentialDistribution_t *
-  ded)
-{
-  if (ded == NULL)
-  {
-    return NULL;
-  }
-
-  return ded->getName().empty() ? NULL : safe_strdup(ded->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribExponentialDistribution_t's
- * "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_isSetId(const DistribExponentialDistribution_t *
-  ded)
-{
-  return (ded != NULL) ? static_cast<int>(ded->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribExponentialDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_isSetName(const DistribExponentialDistribution_t
-  * ded)
-{
-  return (ded != NULL) ? static_cast<int>(ded->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_setId(DistribExponentialDistribution_t * ded,
-                                     const char * id)
-{
-  return (ded != NULL) ? ded->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_setName(DistribExponentialDistribution_t * ded,
-                                       const char * name)
-{
-  return (ded != NULL) ? ded->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_unsetId(DistribExponentialDistribution_t * ded)
-{
-  return (ded != NULL) ? ded->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribExponentialDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribExponentialDistribution_unsetName(DistribExponentialDistribution_t *
-  ded)
-{
-  return (ded != NULL) ? ded->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

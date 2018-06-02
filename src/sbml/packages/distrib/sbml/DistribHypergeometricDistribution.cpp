@@ -190,113 +190,6 @@ DistribHypergeometricDistribution::~DistribHypergeometricDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribHypergeometricDistribution.
- */
-const std::string&
-DistribHypergeometricDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribHypergeometricDistribution.
- */
-const std::string&
-DistribHypergeometricDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribHypergeometricDistribution's "id"
- * attribute is set.
- */
-bool
-DistribHypergeometricDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribHypergeometricDistribution's
- * "name" attribute is set.
- */
-bool
-DistribHypergeometricDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribHypergeometricDistribution.
- */
-int
-DistribHypergeometricDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribHypergeometricDistribution.
- */
-int
-DistribHypergeometricDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribHypergeometricDistribution.
- */
-int
-DistribHypergeometricDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribHypergeometricDistribution.
- */
-int
-DistribHypergeometricDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "numberOfSuccesses" element of this
  * DistribHypergeometricDistribution.
  */
@@ -995,22 +888,6 @@ DistribHypergeometricDistribution::getAttribute(
   int return_value =
     DistribDiscreteUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -1030,15 +907,6 @@ DistribHypergeometricDistribution::isSetAttribute(const std::string&
 {
   bool value =
     DistribDiscreteUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1150,15 +1018,6 @@ DistribHypergeometricDistribution::setAttribute(
   int return_value =
     DistribDiscreteUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1178,15 +1037,6 @@ DistribHypergeometricDistribution::unsetAttribute(const std::string&
 {
   int value =
     DistribDiscreteUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1596,8 +1446,6 @@ DistribHypergeometricDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1641,9 +1489,8 @@ DistribHypergeometricDistribution::readAttributes(
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribHypergeometricDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1655,6 +1502,56 @@ DistribHypergeometricDistribution::readAttributes(
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribHypergeometricDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribHypergeometricDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1671,10 +1568,57 @@ DistribHypergeometricDistribution::writeAttributes(XMLOutputStream& stream)
   const
 {
   DistribDiscreteUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribHypergeometricDistribution::writeL3V1V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribHypergeometricDistribution::writeL3V2V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1726,124 +1670,6 @@ DistribHypergeometricDistribution_free(DistribHypergeometricDistribution_t*
   {
     delete dhd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribHypergeometricDistribution_getId(const
-  DistribHypergeometricDistribution_t * dhd)
-{
-  if (dhd == NULL)
-  {
-    return NULL;
-  }
-
-  return dhd->getId().empty() ? NULL : safe_strdup(dhd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribHypergeometricDistribution_getName(const
-  DistribHypergeometricDistribution_t * dhd)
-{
-  if (dhd == NULL)
-  {
-    return NULL;
-  }
-
-  return dhd->getName().empty() ? NULL : safe_strdup(dhd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribHypergeometricDistribution_t's "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_isSetId(const
-  DistribHypergeometricDistribution_t * dhd)
-{
-  return (dhd != NULL) ? static_cast<int>(dhd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribHypergeometricDistribution_t's "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_isSetName(const
-  DistribHypergeometricDistribution_t * dhd)
-{
-  return (dhd != NULL) ? static_cast<int>(dhd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_setId(
-                                        DistribHypergeometricDistribution_t *
-                                          dhd,
-                                        const char * id)
-{
-  return (dhd != NULL) ? dhd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_setName(
-                                          DistribHypergeometricDistribution_t *
-                                            dhd,
-                                          const char * name)
-{
-  return (dhd != NULL) ? dhd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_unsetId(DistribHypergeometricDistribution_t *
-  dhd)
-{
-  return (dhd != NULL) ? dhd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_unsetName(DistribHypergeometricDistribution_t
-  * dhd)
-{
-  return (dhd != NULL) ? dhd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

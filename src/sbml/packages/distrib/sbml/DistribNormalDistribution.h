@@ -142,96 +142,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this DistribNormalDistribution.
-   *
-   * @return the value of the "id" attribute of this DistribNormalDistribution
-   * as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribNormalDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribNormalDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribNormalDistribution's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribNormalDistribution's "id" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribNormalDistribution's "name"
-   * attribute is set.
-   *
-   * @return @c true if this DistribNormalDistribution's "name" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribNormalDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this DistribNormalDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribNormalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribNormalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "mean" element of this DistribNormalDistribution.
    *
    * @return the value of the "mean" element of this DistribNormalDistribution
@@ -960,9 +870,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1046,153 +1000,6 @@ DistribNormalDistribution_clone(const DistribNormalDistribution_t* dnd);
 LIBSBML_EXTERN
 void
 DistribNormalDistribution_free(DistribNormalDistribution_t* dnd);
-
-
-/**
- * Returns the value of the "id" attribute of this DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this DistribNormalDistribution_t
- * as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribNormalDistribution_getId(const DistribNormalDistribution_t * dnd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this
- * DistribNormalDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribNormalDistribution_getName(const DistribNormalDistribution_t * dnd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribNormalDistribution_t's "id"
- * attribute is set.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribNormalDistribution_t's "id" attribute has
- * been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_isSetId(const DistribNormalDistribution_t * dnd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribNormalDistribution_t's "name"
- * attribute is set.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribNormalDistribution_t's "name" attribute
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_isSetName(const DistribNormalDistribution_t * dnd);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribNormalDistribution_unsetId().
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_setId(DistribNormalDistribution_t * dnd,
-                                const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribNormalDistribution_unsetName().
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_setName(DistribNormalDistribution_t * dnd,
-                                  const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_unsetId(DistribNormalDistribution_t * dnd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribNormalDistribution_t.
- *
- * @param dnd the DistribNormalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribNormalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_unsetName(DistribNormalDistribution_t * dnd);
 
 
 /**

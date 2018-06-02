@@ -1,6 +1,6 @@
 /**
- * @file ListOfDistribInputs.h
- * @brief Definition of the ListOfDistribInputs class.
+ * @file ListOfDistribCategories.h
+ * @brief Definition of the ListOfDistribCategories class.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -30,13 +30,13 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class ListOfDistribInputs
- * @sbmlbrief{distrib} TODO:Definition of the ListOfDistribInputs class.
+ * @class ListOfDistribCategories
+ * @sbmlbrief{distrib} TODO:Definition of the ListOfDistribCategories class.
  */
 
 
-#ifndef ListOfDistribInputs_H__
-#define ListOfDistribInputs_H__
+#ifndef ListOfDistribCategories_H__
+#define ListOfDistribCategories_H__
 
 
 #include <sbml/common/extern.h>
@@ -52,13 +52,13 @@
 
 #include <sbml/ListOf.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
-#include <sbml/packages/distrib/sbml/DistribInput.h>
+#include <sbml/packages/distrib/sbml/DistribCategory.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN ListOfDistribInputs : public ListOf
+class LIBSBML_EXTERN ListOfDistribCategories : public ListOf
 {
 protected:
 
@@ -70,29 +70,31 @@ protected:
 public:
 
   /**
-   * Creates a new ListOfDistribInputs using the given SBML Level, Version and
-   * &ldquo;distrib&rdquo; package version.
+   * Creates a new ListOfDistribCategories using the given SBML Level, Version
+   * and &ldquo;distrib&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ListOfDistribInputs.
+   * ListOfDistribCategories.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ListOfDistribInputs.
+   * ListOfDistribCategories.
    *
    * @param pkgVersion an unsigned int, the SBML Distrib Version to assign to
-   * this ListOfDistribInputs.
+   * this ListOfDistribCategories.
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  ListOfDistribInputs(unsigned int level = DistribExtension::getDefaultLevel(),
-                      unsigned int version =
-                        DistribExtension::getDefaultVersion(),
-                      unsigned int pkgVersion =
-                        DistribExtension::getDefaultPackageVersion());
+  ListOfDistribCategories(
+                          unsigned int level =
+                            DistribExtension::getDefaultLevel(),
+                          unsigned int version =
+                            DistribExtension::getDefaultVersion(),
+                          unsigned int pkgVersion =
+                            DistribExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new ListOfDistribInputs using the given DistribPkgNamespaces
+   * Creates a new ListOfDistribCategories using the given DistribPkgNamespaces
    * object.
    *
    * @copydetails doc_what_are_sbml_package_namespaces
@@ -101,80 +103,80 @@ public:
    *
    * @copydetails doc_note_setting_lv_pkg
    */
-  ListOfDistribInputs(DistribPkgNamespaces *distribns);
+  ListOfDistribCategories(DistribPkgNamespaces *distribns);
 
 
   /**
-   * Copy constructor for ListOfDistribInputs.
+   * Copy constructor for ListOfDistribCategories.
    *
-   * @param orig the ListOfDistribInputs instance to copy.
+   * @param orig the ListOfDistribCategories instance to copy.
    */
-  ListOfDistribInputs(const ListOfDistribInputs& orig);
+  ListOfDistribCategories(const ListOfDistribCategories& orig);
 
 
   /**
-   * Assignment operator for ListOfDistribInputs.
+   * Assignment operator for ListOfDistribCategories.
    *
-   * @param rhs the ListOfDistribInputs object whose values are to be used as
-   * the basis of the assignment.
+   * @param rhs the ListOfDistribCategories object whose values are to be used
+   * as the basis of the assignment.
    */
-  ListOfDistribInputs& operator=(const ListOfDistribInputs& rhs);
+  ListOfDistribCategories& operator=(const ListOfDistribCategories& rhs);
 
 
   /**
-   * Creates and returns a deep copy of this ListOfDistribInputs object.
+   * Creates and returns a deep copy of this ListOfDistribCategories object.
    *
-   * @return a (deep) copy of this ListOfDistribInputs object.
+   * @return a (deep) copy of this ListOfDistribCategories object.
    */
-  virtual ListOfDistribInputs* clone() const;
+  virtual ListOfDistribCategories* clone() const;
 
 
   /**
-   * Destructor for ListOfDistribInputs.
+   * Destructor for ListOfDistribCategories.
    */
-  virtual ~ListOfDistribInputs();
+  virtual ~ListOfDistribCategories();
 
 
   /**
-   * Returns the value of the "id" attribute of this ListOfDistribInputs.
+   * Returns the value of the "id" attribute of this ListOfDistribCategories.
    *
-   * @return the value of the "id" attribute of this ListOfDistribInputs as a
-   * string.
+   * @return the value of the "id" attribute of this ListOfDistribCategories as
+   * a string.
    */
   virtual const std::string& getId() const;
 
 
   /**
-   * Returns the value of the "name" attribute of this ListOfDistribInputs.
+   * Returns the value of the "name" attribute of this ListOfDistribCategories.
    *
-   * @return the value of the "name" attribute of this ListOfDistribInputs as a
-   * string.
+   * @return the value of the "name" attribute of this ListOfDistribCategories
+   * as a string.
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Predicate returning @c true if this ListOfDistribInputs's "id" attribute
-   * is set.
+   * Predicate returning @c true if this ListOfDistribCategories's "id"
+   * attribute is set.
    *
-   * @return @c true if this ListOfDistribInputs's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this ListOfDistribCategories's "id" attribute has been
+   * set, otherwise @c false is returned.
    */
   virtual bool isSetId() const;
 
 
   /**
-   * Predicate returning @c true if this ListOfDistribInputs's "name" attribute
-   * is set.
+   * Predicate returning @c true if this ListOfDistribCategories's "name"
+   * attribute is set.
    *
-   * @return @c true if this ListOfDistribInputs's "name" attribute has been
-   * set, otherwise @c false is returned.
+   * @return @c true if this ListOfDistribCategories's "name" attribute has
+   * been set, otherwise @c false is returned.
    */
   virtual bool isSetName() const;
 
 
   /**
-   * Sets the value of the "id" attribute of this ListOfDistribInputs.
+   * Sets the value of the "id" attribute of this ListOfDistribCategories.
    *
    * @param id std::string& value of the "id" attribute to be set.
    *
@@ -190,7 +192,7 @@ public:
 
 
   /**
-   * Sets the value of the "name" attribute of this ListOfDistribInputs.
+   * Sets the value of the "name" attribute of this ListOfDistribCategories.
    *
    * @param name std::string& value of the "name" attribute to be set.
    *
@@ -204,7 +206,7 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this ListOfDistribInputs.
+   * Unsets the value of the "id" attribute of this ListOfDistribCategories.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -214,7 +216,7 @@ public:
 
 
   /**
-   * Unsets the value of the "name" attribute of this ListOfDistribInputs.
+   * Unsets the value of the "name" attribute of this ListOfDistribCategories.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -224,160 +226,137 @@ public:
 
 
   /**
-   * Get a DistribInput from the ListOfDistribInputs.
+   * Get a DistribCategory from the ListOfDistribCategories.
    *
-   * @param n an unsigned int representing the index of the DistribInput to
+   * @param n an unsigned int representing the index of the DistribCategory to
    * retrieve.
    *
-   * @return the nth DistribInput in this ListOfDistribInputs.
+   * @return the nth DistribCategory in this ListOfDistribCategories.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  virtual DistribInput* get(unsigned int n);
+  virtual DistribCategory* get(unsigned int n);
 
 
   /**
-   * Get a DistribInput from the ListOfDistribInputs.
+   * Get a DistribCategory from the ListOfDistribCategories.
    *
-   * @param n an unsigned int representing the index of the DistribInput to
+   * @param n an unsigned int representing the index of the DistribCategory to
    * retrieve.
    *
-   * @return the nth DistribInput in this ListOfDistribInputs.
+   * @return the nth DistribCategory in this ListOfDistribCategories.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  virtual const DistribInput* get(unsigned int n) const;
+  virtual const DistribCategory* get(unsigned int n) const;
 
 
   /**
-   * Get a DistribInput from the ListOfDistribInputs based on its identifier.
+   * Get a DistribCategory from the ListOfDistribCategories based on its
+   * identifier.
    *
-   * @param sid a string representing the identifier of the DistribInput to
+   * @param sid a string representing the identifier of the DistribCategory to
    * retrieve.
    *
-   * @return the DistribInput in this ListOfDistribInputs with the given @p sid
-   * or @c NULL if no such DistribInput exists.
+   * @return the DistribCategory in this ListOfDistribCategories with the given
+   * @p sid or @c NULL if no such DistribCategory exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  virtual DistribInput* get(const std::string& sid);
+  virtual DistribCategory* get(const std::string& sid);
 
 
   /**
-   * Get a DistribInput from the ListOfDistribInputs based on its identifier.
+   * Get a DistribCategory from the ListOfDistribCategories based on its
+   * identifier.
    *
-   * @param sid a string representing the identifier of the DistribInput to
+   * @param sid a string representing the identifier of the DistribCategory to
    * retrieve.
    *
-   * @return the DistribInput in this ListOfDistribInputs with the given @p sid
-   * or @c NULL if no such DistribInput exists.
+   * @return the DistribCategory in this ListOfDistribCategories with the given
+   * @p sid or @c NULL if no such DistribCategory exists.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  virtual const DistribInput* get(const std::string& sid) const;
+  virtual const DistribCategory* get(const std::string& sid) const;
 
 
   /**
-   * Get a DistribInput from the ListOfDistribInputs based on its 'index' attribute.
+   * Removes the nth DistribCategory from this ListOfDistribCategories and
+   * returns a pointer to it.
    *
-   * @param n the value of the index attribute of the DistribInput to get.
-   *
-   * @return the DistribInput in this ListOfDistribInputs with the given index attribute, or NULL if no such element exists.
-   *
-   * @see get(unsigned int n)   *
-   * @see get(const std::string& sid)   *
-   */
-  virtual DistribInput* getByIndex(unsigned int n);
-
-
-  /**
-   * Get a DistribInput from the ListOfDistribInputs based on its 'index' attribute.
-   *
-   * @param n the value of the index attribute of the DistribInput to get.
-   *
-   * @return the DistribInput in this ListOfDistribInputs with the given index attribute, or NULL if no such element exists.
-   *
-   * @see get(unsigned int n)   *
-   * @see get(const std::string& sid)   *
-   */
-  virtual const DistribInput* getByIndex(unsigned int n) const;
-
-
-  /**
-   * Removes the nth DistribInput from this ListOfDistribInputs and returns a
-   * pointer to it.
-   *
-   * @param n an unsigned int representing the index of the DistribInput to
+   * @param n an unsigned int representing the index of the DistribCategory to
    * remove.
    *
-   * @return a pointer to the nth DistribInput in this ListOfDistribInputs.
+   * @return a pointer to the nth DistribCategory in this
+   * ListOfDistribCategories.
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    */
-  virtual DistribInput* remove(unsigned int n);
+  virtual DistribCategory* remove(unsigned int n);
 
 
   /**
-   * Removes the DistribInput from this ListOfDistribInputs based on its
+   * Removes the DistribCategory from this ListOfDistribCategories based on its
    * identifier and returns a pointer to it.
    *
-   * @param sid a string representing the identifier of the DistribInput to
+   * @param sid a string representing the identifier of the DistribCategory to
    * remove.
    *
-   * @return the DistribInput in this ListOfDistribInputs based on the
-   * identifier or NULL if no such DistribInput exists.
+   * @return the DistribCategory in this ListOfDistribCategories based on the
+   * identifier or NULL if no such DistribCategory exists.
    *
    * @copydetails doc_returned_owned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(unsigned int n)
    */
-  virtual DistribInput* remove(const std::string& sid);
+  virtual DistribCategory* remove(const std::string& sid);
 
 
   /**
-   * Adds a copy of the given DistribInput to this ListOfDistribInputs.
+   * Adds a copy of the given DistribCategory to this ListOfDistribCategories.
    *
-   * @param di the DistribInput object to add.
+   * @param dc the DistribCategory object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -390,63 +369,65 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createDistribInput()
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  int addDistribInput(const DistribInput* di);
+  int addDistribCategory(const DistribCategory* dc);
 
 
   /**
-   * Get the number of DistribInput objects in this ListOfDistribInputs.
+   * Get the number of DistribCategory objects in this ListOfDistribCategories.
    *
-   * @return the number of DistribInput objects in this ListOfDistribInputs.
+   * @return the number of DistribCategory objects in this
+   * ListOfDistribCategories.
    *
    *
-   * @see addDistribInput(const DistribInput* object)
-   * @see createDistribInput()
+   * @see addDistribCategory(const DistribCategory* object)
+   * @see createDistribCategory()
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  unsigned int getNumDistribInputs() const;
+  unsigned int getNumDistribCategories() const;
 
 
   /**
-   * Creates a new DistribInput object, adds it to this ListOfDistribInputs
-   * object and returns the DistribInput object created.
+   * Creates a new DistribCategory object, adds it to this
+   * ListOfDistribCategories object and returns the DistribCategory object
+   * created.
    *
-   * @return a new DistribInput object instance.
+   * @return a new DistribCategory object instance.
    *
    * @copydetails doc_returned_unowned_pointer
    *
-   * @see addDistribInput(const DistribInput* object)
+   * @see addDistribCategory(const DistribCategory* object)
    * @see get(const std::string& sid)
    * @see get(unsigned int n)
-   * @see getNumDistribInputs()
+   * @see getNumDistribCategories()
    * @see remove(const std::string& sid)
    * @see remove(unsigned int n)
    */
-  DistribInput* createDistribInput();
+  DistribCategory* createDistribCategory();
 
 
   /**
-   * Returns the XML element name of this ListOfDistribInputs object.
+   * Returns the XML element name of this ListOfDistribCategories object.
    *
-   * For ListOfDistribInputs, the XML element name is always
-   * @c "listOfDistribInputs".
+   * For ListOfDistribCategories, the XML element name is always
+   * @c "listOfDistribCategories".
    *
-   * @return the name of this element, i.e. @c "listOfDistribInputs".
+   * @return the name of this element, i.e. @c "listOfDistribCategories".
    */
   virtual const std::string& getElementName() const;
 
 
   /**
-   * Returns the libSBML type code for this ListOfDistribInputs object.
+   * Returns the libSBML type code for this ListOfDistribCategories object.
    *
    * @copydetails doc_what_are_typecodes
    *
@@ -460,13 +441,13 @@ public:
 
   /**
    * Returns the libSBML type code for the SBML objects contained in this
-   * ListOfDistribInputs object.
+   * ListOfDistribCategories object.
    *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML typecode for the objects contained in this
-   * ListOfDistribInputs:
-   * @sbmlconstant{SBML_DISTRIB_DISTRIBINPUT, SBMLDistribTypeCode_t}.
+   * ListOfDistribCategories:
+   * @sbmlconstant{SBML_DISTRIB_CATEGORY, SBMLDistribTypeCode_t}.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -478,10 +459,10 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes for this
-   * ListOfDistribInputs object have been set.
+   * ListOfDistribCategories object have been set.
    *
    * @return @c true to indicate that all the required attributes of this
-   * ListOfDistribInputs have been set, otherwise @c false is returned.
+   * ListOfDistribCategories have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -502,7 +483,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new DistribInput in this ListOfDistribInputs
+   * Creates a new DistribCategory in this ListOfDistribCategories
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
@@ -635,11 +616,11 @@ BEGIN_C_DECLS
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 char *
-ListOfDistribInputs_getId(const ListOf_t * lo);
+ListOfDistribCategories_getId(const ListOf_t * lo);
 
 
 /**
@@ -652,11 +633,11 @@ ListOfDistribInputs_getId(const ListOf_t * lo);
  *
  * @copydetails doc_returned_owned_char
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 char *
-ListOfDistribInputs_getName(const ListOf_t * lo);
+ListOfDistribCategories_getName(const ListOf_t * lo);
 
 
 /**
@@ -667,11 +648,11 @@ ListOfDistribInputs_getName(const ListOf_t * lo);
  * @return @c 1 (true) if this ListOf_t's "id" attribute has been set,
  * otherwise @c 0 (false) is returned.
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_isSetId(const ListOf_t * lo);
+ListOfDistribCategories_isSetId(const ListOf_t * lo);
 
 
 /**
@@ -682,11 +663,11 @@ ListOfDistribInputs_isSetId(const ListOf_t * lo);
  * @return @c 1 (true) if this ListOf_t's "name" attribute has been set,
  * otherwise @c 0 (false) is returned.
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_isSetName(const ListOf_t * lo);
+ListOfDistribCategories_isSetName(const ListOf_t * lo);
 
 
 /**
@@ -702,13 +683,13 @@ ListOfDistribInputs_isSetName(const ListOf_t * lo);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling ListOfDistribInputs_unsetId().
+ * to calling ListOfDistribCategories_unsetId().
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_setId(ListOf_t * lo, const char * id);
+ListOfDistribCategories_setId(ListOf_t * lo, const char * id);
 
 
 /**
@@ -723,13 +704,13 @@ ListOfDistribInputs_setId(ListOf_t * lo, const char * id);
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling ListOfDistribInputs_unsetName().
+ * equivalent to calling ListOfDistribCategories_unsetName().
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_setName(ListOf_t * lo, const char * name);
+ListOfDistribCategories_setName(ListOf_t * lo, const char * name);
 
 
 /**
@@ -742,11 +723,11 @@ ListOfDistribInputs_setName(ListOf_t * lo, const char * name);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_unsetId(ListOf_t * lo);
+ListOfDistribCategories_unsetId(ListOf_t * lo);
 
 
 /**
@@ -759,91 +740,91 @@ ListOfDistribInputs_unsetId(ListOf_t * lo);
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_unsetName(ListOf_t * lo);
+ListOfDistribCategories_unsetName(ListOf_t * lo);
 
 
 /**
- * Get a DistribInput_t from the ListOf_t.
+ * Get a DistribCategory_t from the ListOf_t.
  *
  * @param lo the ListOf_t structure to search.
  *
- * @param n an unsigned int representing the index of the DistribInput_t to
+ * @param n an unsigned int representing the index of the DistribCategory_t to
  * retrieve.
  *
- * @return the nth DistribInput_t in this ListOf_t.
+ * @return the nth DistribCategory_t in this ListOf_t.
  *
  * @copydetails doc_returned_unowned_pointer
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_getDistribInput(ListOf_t* lo, unsigned int n);
+DistribCategory_t*
+ListOfDistribCategories_getDistribCategory(ListOf_t* lo, unsigned int n);
 
 
 /**
- * Get a DistribInput_t from the ListOf_t based on its identifier.
+ * Get a DistribCategory_t from the ListOf_t based on its identifier.
  *
  * @param lo the ListOf_t structure to search.
  *
- * @param sid a string representing the identifier of the DistribInput_t to
+ * @param sid a string representing the identifier of the DistribCategory_t to
  * retrieve.
  *
- * @return the DistribInput_t in this ListOf_t with the given @p sid or @c NULL
- * if no such DistribInput_t exists.
+ * @return the DistribCategory_t in this ListOf_t with the given @p sid or
+ * @c NULL if no such DistribCategory_t exists.
  *
  * @copydetails doc_returned_unowned_pointer
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_getById(ListOf_t* lo, const char *sid);
+DistribCategory_t*
+ListOfDistribCategories_getById(ListOf_t* lo, const char *sid);
 
 
 /**
- * Removes the nth DistribInput_t from this ListOf_t and returns a pointer to
- * it.
+ * Removes the nth DistribCategory_t from this ListOf_t and returns a pointer
+ * to it.
  *
  * @param lo the ListOf_t structure to search.
  *
- * @param n an unsigned int representing the index of the DistribInput_t to
+ * @param n an unsigned int representing the index of the DistribCategory_t to
  * remove.
  *
- * @return a pointer to the nth DistribInput_t in this ListOf_t.
+ * @return a pointer to the nth DistribCategory_t in this ListOf_t.
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_remove(ListOf_t* lo, unsigned int n);
+DistribCategory_t*
+ListOfDistribCategories_remove(ListOf_t* lo, unsigned int n);
 
 
 /**
- * Removes the DistribInput_t from this ListOf_t based on its identifier and
+ * Removes the DistribCategory_t from this ListOf_t based on its identifier and
  * returns a pointer to it.
  *
  * @param lo the ListOf_t structure to search.
  *
- * @param sid a string representing the identifier of the DistribInput_t to
+ * @param sid a string representing the identifier of the DistribCategory_t to
  * remove.
  *
- * @return the DistribInput_t in this ListOf_t based on the identifier or NULL
- * if no such DistribInput_t exists.
+ * @return the DistribCategory_t in this ListOf_t based on the identifier or
+ * NULL if no such DistribCategory_t exists.
  *
  * @copydetails doc_returned_owned_pointer
  *
- * @memberof ListOfDistribInputs_t
+ * @memberof ListOfDistribCategories_t
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_removeById(ListOf_t* lo, const char* sid);
+DistribCategory_t*
+ListOfDistribCategories_removeById(ListOf_t* lo, const char* sid);
 
 
 
@@ -863,6 +844,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 
-#endif /* !ListOfDistribInputs_H__ */
+#endif /* !ListOfDistribCategories_H__ */
 
 

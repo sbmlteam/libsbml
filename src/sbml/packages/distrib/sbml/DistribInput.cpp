@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribInput::DistribInput(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mIndex (SBML_INT_MAX)
   , mIsSetIndex (false)
 {
@@ -133,16 +133,6 @@ DistribInput::getId() const
 
 
 /*
- * Returns the value of the "name" attribute of this DistribInput.
- */
-const std::string&
-DistribInput::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "index" attribute of this DistribInput.
  */
 unsigned int
@@ -159,16 +149,6 @@ bool
 DistribInput::isSetId() const
 {
   return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribInput's "name" attribute is set.
- */
-bool
-DistribInput::isSetName() const
-{
-  return (mName.empty() == false);
 }
 
 
@@ -193,17 +173,6 @@ DistribInput::setId(const std::string& id)
 
 
 /*
- * Sets the value of the "name" attribute of this DistribInput.
- */
-int
-DistribInput::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
  * Sets the value of the "index" attribute of this DistribInput.
  */
 int
@@ -224,25 +193,6 @@ DistribInput::unsetId()
   mId.erase();
 
   if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribInput.
- */
-int
-DistribInput::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -279,7 +229,7 @@ DistribInput::unsetIndex()
 const std::string&
 DistribInput::getElementName() const
 {
-  static const string name = "input";
+  static const string name = "distribInput";
   return name;
 }
 
@@ -301,7 +251,12 @@ DistribInput::getTypeCode() const
 bool
 DistribInput::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
+
+  if (isSetId() == false)
+  {
+    allPresent = false;
+  }
 
   return allPresent;
 }
@@ -318,7 +273,7 @@ DistribInput::writeElements(XMLOutputStream& stream) const
 {
   DistribBase::writeElements(stream);
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -475,11 +430,6 @@ DistribInput::getAttribute(const std::string& attributeName,
     value = getId();
     return_value = LIBSBML_OPERATION_SUCCESS;
   }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
 
   return return_value;
 }
@@ -502,10 +452,6 @@ DistribInput::isSetAttribute(const std::string& attributeName) const
   if (attributeName == "id")
   {
     value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
   }
   else if (attributeName == "index")
   {
@@ -608,10 +554,6 @@ DistribInput::setAttribute(const std::string& attributeName,
   {
     return_value = setId(value);
   }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
 
   return return_value;
 }
@@ -634,16 +576,31 @@ DistribInput::unsetAttribute(const std::string& attributeName)
   {
     value = unsetId();
   }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
   else if (attributeName == "index")
   {
     value = unsetIndex();
   }
 
   return value;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+SBase*
+DistribInput::createObject(XMLInputStream& stream)
+{
+  SBase* obj = DistribBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
 }
 
 /** @endcond */
@@ -667,7 +624,6 @@ DistribInput::addExpectedAttributes(ExpectedAttributes& attributes)
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
     attributes.add("id");
-    attributes.add("name");
     attributes.add("index");
   }
 
@@ -696,20 +652,20 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
   unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
-  int origErrs = log->getNumErrors();
 
   if (log && getParentSBMLObject() &&
     static_cast<ListOfDistribInputs*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
-    for (int n = numErrs-1; n >= origErrs; n--)
+    for (int n = numErrs-1; n >= 0; n--)
     {
       if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-          pkgVersion, level, version, details);
+        log->logPackageError("distrib",
+          DistribDistribDrawFromDistributionLODistribInputsAllowedAttributes,
+            pkgVersion, level, version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -728,7 +684,7 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
   {
     numErrs = log->getNumErrors();
 
-    for (int n = numErrs-1; n >= origErrs; n--)
+    for (int n = numErrs-1; n >= 0; n--)
     {
       if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
@@ -748,6 +704,64 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
     }
   }
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribInput::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // id SId (use = "required" )
+  // 
+
+  XMLTriple tripleID("id", mURI, getPrefix());
+  assigned = attributes.readInto(tripleID, mId);
+
+  if (assigned == true)
+  {
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, level, version, "<DistribInput>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
+    }
+  }
+  else
+  {
+    std::string message = "Distrib attribute 'id' is missing from the "
+      "<DistribInput> element.";
+    log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+
   // 
   // index uint (use = "optional" )
   // 
@@ -765,34 +779,75 @@ DistribInput::readAttributes(const XMLAttributes& attributes,
         "element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribInputIndexMustBeNonNegativeInteger, pkgVersion, level,
-        version, message);
+          version, message);
     }
   }
+}
 
-  if (version == 1)
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribInput::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // id SId (use = "required" )
+  // 
+
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true)
   {
-    assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
-    if (!assigned)
+    if (mId.empty() == true)
     {
-      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-        pkgVersion, level, version, "The required attribute 'distrib:id' is missing.");
+      logEmptyString(mId, level, version, "<DistribInput>");
     }
-    if (assigned && mId.size() == 0)
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logEmptyString("id", level, version, "<distrib:distribInput>");
+      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
+        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
+          "which does not conform to the syntax.", getLine(), getColumn());
     }
-    if (!SyntaxChecker::isValidInternalSId(mId)) 
-      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
-
   }
   else
   {
-    // need to check that id was present
-    // it has already been read and checked for syntax/emptyness
-    if (attributes.hasAttribute("id") == false)
+    std::string message = "Distrib attribute 'id' is missing from the "
+      "<DistribInput> element.";
+    log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+      pkgVersion, level, version, message);
+  }
+
+  // 
+  // index uint (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetIndex = attributes.readInto("index", mIndex);
+
+  if ( mIsSetIndex == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
     {
-      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-        pkgVersion, level, version, "The required attribute 'id' is missing.");
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Distrib attribute 'index' from the <DistribInput> "
+        "element must be an integer.";
+      log->logPackageError("distrib",
+        DistribDistribInputIndexMustBeNonNegativeInteger, pkgVersion, level,
+          version, message);
     }
   }
 }
@@ -815,15 +870,62 @@ DistribInput::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribInput::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+  //if (isSetId() == true)
+  //{
+  //  stream.writeAttribute("id", getPrefix(), mId);
+  //}
+
   if (isSetIndex() == true)
   {
     stream.writeAttribute("index", getPrefix(), mIndex);
   }
-
-  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribInput::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+  if (isSetIndex() == true)
+  {
+    stream.writeAttribute("index", getPrefix(), mIndex);
+  }
+}
+
+/** @endcond */
+
 
 
 
@@ -893,22 +995,6 @@ DistribInput_getId(const DistribInput_t * di)
 
 
 /*
- * Returns the value of the "name" attribute of this DistribInput_t.
- */
-LIBSBML_EXTERN
-char *
-DistribInput_getName(const DistribInput_t * di)
-{
-  if (di == NULL)
-  {
-    return NULL;
-  }
-
-  return di->getName().empty() ? NULL : safe_strdup(di->getName().c_str());
-}
-
-
-/*
  * Returns the value of the "index" attribute of this DistribInput_t.
  */
 LIBSBML_EXTERN
@@ -928,18 +1014,6 @@ int
 DistribInput_isSetId(const DistribInput_t * di)
 {
   return (di != NULL) ? static_cast<int>(di->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribInput_t's "name" attribute is
- * set.
- */
-LIBSBML_EXTERN
-int
-DistribInput_isSetName(const DistribInput_t * di)
-{
-  return (di != NULL) ? static_cast<int>(di->isSetName()) : 0;
 }
 
 
@@ -967,17 +1041,6 @@ DistribInput_setId(DistribInput_t * di, const char * id)
 
 
 /*
- * Sets the value of the "name" attribute of this DistribInput_t.
- */
-LIBSBML_EXTERN
-int
-DistribInput_setName(DistribInput_t * di, const char * name)
-{
-  return (di != NULL) ? di->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Sets the value of the "index" attribute of this DistribInput_t.
  */
 LIBSBML_EXTERN
@@ -996,17 +1059,6 @@ int
 DistribInput_unsetId(DistribInput_t * di)
 {
   return (di != NULL) ? di->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribInput_t.
- */
-LIBSBML_EXTERN
-int
-DistribInput_unsetName(DistribInput_t * di)
-{
-  return (di != NULL) ? di->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

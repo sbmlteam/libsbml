@@ -32,13 +32,13 @@
  */
 #include <sbml/packages/distrib/sbml/DistribDiscreteUnivariateDistribution.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/distrib/sbml/DistribBinomialDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribGeometricDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribHypergeometricDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribNegativeBinomialDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribPoissonDistribution.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -173,113 +173,6 @@ DistribDiscreteUnivariateDistribution::~DistribDiscreteUnivariateDistribution()
   mTruncationLowerBound = NULL;
   delete mTruncationUpperBound;
   mTruncationUpperBound = NULL;
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-const std::string&
-DistribDiscreteUnivariateDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-const std::string&
-DistribDiscreteUnivariateDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribDiscreteUnivariateDistribution's
- * "id" attribute is set.
- */
-bool
-DistribDiscreteUnivariateDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribDiscreteUnivariateDistribution's
- * "name" attribute is set.
- */
-bool
-DistribDiscreteUnivariateDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-int
-DistribDiscreteUnivariateDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-int
-DistribDiscreteUnivariateDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-int
-DistribDiscreteUnivariateDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution.
- */
-int
-DistribDiscreteUnivariateDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -890,22 +783,6 @@ DistribDiscreteUnivariateDistribution::getAttribute(
   int return_value = DistribUnivariateDistribution::getAttribute(attributeName,
     value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -924,15 +801,6 @@ DistribDiscreteUnivariateDistribution::isSetAttribute(const std::string&
   attributeName) const
 {
   bool value = DistribUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1044,15 +912,6 @@ DistribDiscreteUnivariateDistribution::setAttribute(
   int return_value = DistribUnivariateDistribution::setAttribute(attributeName,
     value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1071,15 +930,6 @@ DistribDiscreteUnivariateDistribution::unsetAttribute(const std::string&
   attributeName)
 {
   int value = DistribUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1424,8 +1274,6 @@ DistribDiscreteUnivariateDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1469,9 +1317,8 @@ DistribDiscreteUnivariateDistribution::readAttributes(
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribDiscreteUnivariateDistributionAllowedAttributes,
-            pkgVersion, level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1483,6 +1330,56 @@ DistribDiscreteUnivariateDistribution::readAttributes(
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDiscreteUnivariateDistribution::readL3V1V1Attributes(const
+  XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDiscreteUnivariateDistribution::readL3V2V1Attributes(const
+  XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1499,10 +1396,57 @@ DistribDiscreteUnivariateDistribution::writeAttributes(XMLOutputStream& stream)
   const
 {
   DistribUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDiscreteUnivariateDistribution::writeL3V1V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDiscreteUnivariateDistribution::writeL3V2V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1555,124 +1499,6 @@ DistribDiscreteUnivariateDistribution_free(DistribDiscreteUnivariateDistribution
   {
     delete ddud;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribDiscreteUnivariateDistribution_getId(const
-  DistribDiscreteUnivariateDistribution_t * ddud)
-{
-  if (ddud == NULL)
-  {
-    return NULL;
-  }
-
-  return ddud->getId().empty() ? NULL : safe_strdup(ddud->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribDiscreteUnivariateDistribution_getName(const
-  DistribDiscreteUnivariateDistribution_t * ddud)
-{
-  if (ddud == NULL)
-  {
-    return NULL;
-  }
-
-  return ddud->getName().empty() ? NULL : safe_strdup(ddud->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribDiscreteUnivariateDistribution_t's "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_isSetId(const
-  DistribDiscreteUnivariateDistribution_t * ddud)
-{
-  return (ddud != NULL) ? static_cast<int>(ddud->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribDiscreteUnivariateDistribution_t's "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_isSetName(const
-  DistribDiscreteUnivariateDistribution_t * ddud)
-{
-  return (ddud != NULL) ? static_cast<int>(ddud->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_setId(
-                                            DistribDiscreteUnivariateDistribution_t
-                                              * ddud,
-                                            const char * id)
-{
-  return (ddud != NULL) ? ddud->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_setName(
-                                              DistribDiscreteUnivariateDistribution_t
-                                                * ddud,
-                                              const char * name)
-{
-  return (ddud != NULL) ? ddud->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_unsetId(DistribDiscreteUnivariateDistribution_t
-  * ddud)
-{
-  return (ddud != NULL) ? ddud->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribDiscreteUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDiscreteUnivariateDistribution_unsetName(DistribDiscreteUnivariateDistribution_t
-  * ddud)
-{
-  return (ddud != NULL) ? ddud->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

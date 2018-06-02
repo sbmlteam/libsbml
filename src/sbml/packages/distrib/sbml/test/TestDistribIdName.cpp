@@ -85,7 +85,7 @@ START_TEST(test_IdName_prefix_read_write_l3v1)
   DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
   DistribUncertainty * uncert = plug->getDistribUncertainty();
   DistribUncertStatistics * stats = uncert->getUncertStatistics();
-  ListOfExternalParameters * loep = stats->getListOfDistribExternalParameters();
+  ListOfDistribExternalParameters * loep = stats->getListOfDistribExternalParameters();
 
   fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(stats->setName("us") == LIBSBML_OPERATION_SUCCESS);
@@ -119,7 +119,7 @@ START_TEST(test_IdName_prefix_read_write_l3v2)
   DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
   DistribUncertainty * uncert = plug->getDistribUncertainty();
   DistribUncertStatistics * stats = uncert->getUncertStatistics();
-  ListOfExternalParameters * loep = stats->getListOfDistribExternalParameters();
+  ListOfDistribExternalParameters * loep = stats->getListOfDistribExternalParameters();
 
   fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(stats->setName("us") == LIBSBML_OPERATION_SUCCESS);

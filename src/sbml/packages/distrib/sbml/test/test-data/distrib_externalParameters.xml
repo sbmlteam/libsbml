@@ -20,9 +20,9 @@
               <distrib:externalParameter distrib:name="Beta" distrib:var="beta" distrib:definitionURL="http://www.probonto.org/ontology#PROB_k0000362"/>
             </distrib:listOfExternalParameters>
           </distrib:externalDistribution>
-          <distrib:listOfInputs>
-            <distrib:input distrib:id="beta" distrib:index="0"/>
-          </distrib:listOfInputs>
+          <distrib:listOfDistribInputs>
+            <distrib:distribInput distrib:id="beta" distrib:index="0"/>
+          </distrib:listOfDistribInputs>
         </distrib:drawFromDistribution>
       </functionDefinition>
     </listOfFunctionDefinitions>

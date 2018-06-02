@@ -21,10 +21,10 @@
             <distrib:mean distrib:var="mean"/>
             <distrib:stddev distrib:var="stddev"/>
           </distrib:normalDistribution>
-          <distrib:listOfInputs>
-            <distrib:input id="mean" distrib:index="0"/>
-            <distrib:input id="stddev" distrib:index="1"/>
-          </distrib:listOfInputs>
+          <distrib:listOfDistribInputs>
+            <distrib:distribInput id="mean" distrib:index="0"/>
+            <distrib:distribInput id="stddev" distrib:index="1"/>
+          </distrib:listOfDistribInputs>
         </distrib:drawFromDistribution>
       </functionDefinition>
     </listOfFunctionDefinitions>

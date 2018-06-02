@@ -287,7 +287,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1520409
+  // 1520408
   { DistribDistribDrawFromDistributionLODistribInputsAllowedCoreAttributes,
     "Core attributes allowed on <listOfDistribInputs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
@@ -295,6 +295,19 @@ static const packageErrorTableEntry distribErrorTable[] =
     "A <listOfDistribInputs> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
     "3 Core namespaces are permitted on a <listOfDistribInputs> object.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1520409
+  { DistribDistribDrawFromDistributionLODistribInputsAllowedAttributes,
+    "Attributes allowed on <listOfDistribInputs>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfDistribInputs> object may have the optional attributes "
+    "'distrib:id' and 'distrib:name'. No other "
+    "attributes from the SBML Level 3 Distributions namespaces are permitted on "
+    "a <listOfDistribInputs> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
@@ -823,7 +836,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1521411
+  // 1521410
   {
     DistribDistribExternalDistributionLODistribExternalParametersAllowedCoreAttributes,
     "Core attributes allowed on <listOfDistribExternalParameters>.",
@@ -833,6 +846,20 @@ static const packageErrorTableEntry distribErrorTable[] =
     "Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from "
     "the SBML Level 3 Core namespaces are permitted on a "
     "<listOfDistribExternalParameters> object.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1521411
+  {
+    DistribDistribExternalDistributionLODistribExternalParametersAllowedAttributes,
+    "Attributes allowed on <listOfDistribExternalParameters>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfDistribExternalParameters> object may have the optional "
+    "attributes 'distrib:id', 'distrib:name', 'distrib:id' and 'distrib:name'. "
+    "No other attributes from the SBML Level 3 Distributions namespaces are "
+    "permitted on a <listOfDistribExternalParameters> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
@@ -924,7 +951,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     }
   },
 
-  // 1521511
+  // 1521510
   {
     DistribDistribExternalParameterLODistribExternalParametersAllowedCoreAttributes,
     "Core attributes allowed on <listOfDistribExternalParameters>.",
@@ -934,6 +961,20 @@ static const packageErrorTableEntry distribErrorTable[] =
     "Level 3 Core attributes 'metaid' and 'sboTerm'. No other attributes from "
     "the SBML Level 3 Core namespaces are permitted on a "
     "<listOfDistribExternalParameters> object.",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
+  // 1521511
+  {
+    DistribDistribExternalParameterLODistribExternalParametersAllowedAttributes,
+    "Attributes allowed on <listOfDistribExternalParameters>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfDistribExternalParameters> object may have the optional "
+    "attributes 'distrib:id', 'distrib:name''. "
+    "No other attributes from the SBML Level 3 Distributions namespaces are "
+    "permitted on a <listOfDistribExternalParameters> object. ",
     { "L3V1 Distrib V1 Section"
     }
   },
@@ -1153,6 +1194,20 @@ static const packageErrorTableEntry distribErrorTable[] =
     { "L3V1 Distrib V1 Section"
     }
   },
+
+  // 1521809
+  { DistribDistribCategoricalDistributionLODistribCategoriesAllowedAttributes,
+    "Attributes allowed on <listOfDistribCategories>.",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_ERROR,
+    "A <listOfDistribCategories> object may have the optional attributes "
+    "'distrib:id', 'distrib:name'. No other "
+    "attributes from the SBML Level 3 Distributions namespaces are permitted on "
+    "a <listOfDistribCategories> object. ",
+    { "L3V1 Distrib V1 Section"
+    }
+  },
+
 
   // 1521810
   {

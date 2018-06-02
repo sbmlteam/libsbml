@@ -77,7 +77,8 @@ typedef enum
 , DistribDistribDrawFromDistributionAllowedElements           = 1520404
 , DistribDistribDrawFromDistributionNameMustBeString          = 1520405
 , DistribDistribDrawFromDistributionLODistribInputsAllowedCoreElements= 1520407
-, DistribDistribDrawFromDistributionLODistribInputsAllowedCoreAttributes= 1520409
+, DistribDistribDrawFromDistributionLODistribInputsAllowedCoreAttributes= 1520408
+, DistribDistribDrawFromDistributionLODistribInputsAllowedAttributes= 1520409
 , DistribDistribInputAllowedCoreAttributes                    = 1520501
 , DistribDistribInputAllowedCoreElements                      = 1520502
 , DistribDistribInputAllowedAttributes                        = 1520503
@@ -120,7 +121,8 @@ typedef enum
 , DistribDistribExternalDistributionDefinitionURLMustBeString = 1521405
 , DistribDistribExternalDistributionNameMustBeString          = 1521407
 , DistribDistribExternalDistributionLODistribExternalParametersAllowedCoreElements= 1521409
-, DistribDistribExternalDistributionLODistribExternalParametersAllowedCoreAttributes= 1521411
+, DistribDistribExternalDistributionLODistribExternalParametersAllowedCoreAttributes= 1521410
+, DistribDistribExternalDistributionLODistribExternalParametersAllowedAttributes= 1521411
 , DistribDistribExternalParameterAllowedCoreAttributes        = 1521501
 , DistribDistribExternalParameterAllowedCoreElements          = 1521502
 , DistribDistribExternalParameterAllowedAttributes            = 1521503
@@ -128,7 +130,8 @@ typedef enum
 , DistribDistribExternalParameterDefinitionURLMustBeString    = 1521505
 , DistribDistribExternalParameterNameMustBeString             = 1521507
 , DistribDistribExternalParameterLODistribExternalParametersAllowedCoreElements= 1521509
-, DistribDistribExternalParameterLODistribExternalParametersAllowedCoreAttributes= 1521511
+, DistribDistribExternalParameterLODistribExternalParametersAllowedCoreAttributes= 1521510
+, DistribDistribExternalParameterLODistribExternalParametersAllowedAttributes= 1521511
 , DistribDistribNormalDistributionAllowedCoreAttributes       = 1521601
 , DistribDistribNormalDistributionAllowedCoreElements         = 1521602
 , DistribDistribNormalDistributionAllowedAttributes           = 1521603
@@ -147,6 +150,7 @@ typedef enum
 , DistribDistribCategoricalDistributionEmptyReqdLOElements    = 1521807
 , DistribDistribCategoricalDistributionLODistribCategoriesAllowedCoreElements= 1521808
 , DistribDistribCategoricalDistributionLODistribCategoriesAllowedCoreAttributes= 1521810
+, DistribDistribCategoricalDistributionLODistribCategoriesAllowedAttributes= 1521809
 , DistribDistribCategoryAllowedCoreAttributes                 = 1521901
 , DistribDistribCategoryAllowedCoreElements                   = 1521902
 , DistribDistribCategoryAllowedAttributes                     = 1521903

@@ -33,7 +33,6 @@
 #include <sbml/packages/distrib/sbml/DistribCategoricalDistribution.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 #include <sbml/util/ElementFilter.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -133,115 +132,10 @@ DistribCategoricalDistribution::~DistribCategoricalDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
+ * Returns the ListOfDistribCategories from this
  * DistribCategoricalDistribution.
  */
-const std::string&
-DistribCategoricalDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribCategoricalDistribution.
- */
-const std::string&
-DistribCategoricalDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribCategoricalDistribution's "id"
- * attribute is set.
- */
-bool
-DistribCategoricalDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribCategoricalDistribution's "name"
- * attribute is set.
- */
-bool
-DistribCategoricalDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribCategoricalDistribution.
- */
-int
-DistribCategoricalDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribCategoricalDistribution.
- */
-int
-DistribCategoricalDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribCategoricalDistribution.
- */
-int
-DistribCategoricalDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribCategoricalDistribution.
- */
-int
-DistribCategoricalDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Returns the ListOfCategories from this DistribCategoricalDistribution.
- */
-const ListOfCategories*
+const ListOfDistribCategories*
 DistribCategoricalDistribution::getListOfDistribCategories() const
 {
   return &mDistribCategories;
@@ -249,9 +143,10 @@ DistribCategoricalDistribution::getListOfDistribCategories() const
 
 
 /*
- * Returns the ListOfCategories from this DistribCategoricalDistribution.
+ * Returns the ListOfDistribCategories from this
+ * DistribCategoricalDistribution.
  */
-ListOfCategories*
+ListOfDistribCategories*
 DistribCategoricalDistribution::getListOfDistribCategories()
 {
   return &mDistribCategories;
@@ -275,29 +170,6 @@ const DistribCategory*
 DistribCategoricalDistribution::getDistribCategory(unsigned int n) const
 {
   return mDistribCategories.get(n);
-}
-
-
-/*
- * Get a DistribCategory from the DistribCategoricalDistribution based on its
- * identifier.
- */
-DistribCategory*
-DistribCategoricalDistribution::getDistribCategory(const std::string& sid)
-{
-  return mDistribCategories.get(sid);
-}
-
-
-/*
- * Get a DistribCategory from the DistribCategoricalDistribution based on its
- * identifier.
- */
-const DistribCategory*
-DistribCategoricalDistribution::getDistribCategory(const std::string& sid)
-  const
-{
-  return mDistribCategories.get(sid);
 }
 
 
@@ -328,10 +200,6 @@ DistribCategoricalDistribution::addDistribCategory(const DistribCategory* dc)
     SBase*>(dc)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else if (dc->isSetId() && (mDistribCategories.get(dc->getId())) != NULL)
-  {
-    return LIBSBML_DUPLICATE_OBJECT_ID;
   }
   else
   {
@@ -389,17 +257,6 @@ DistribCategory*
 DistribCategoricalDistribution::removeDistribCategory(unsigned int n)
 {
   return mDistribCategories.remove(n);
-}
-
-
-/*
- * Removes the DistribCategory from this DistribCategoricalDistribution based
- * on its identifier and returns a pointer to it.
- */
-DistribCategory*
-DistribCategoricalDistribution::removeDistribCategory(const std::string& sid)
-{
-  return mDistribCategories.remove(sid);
 }
 
 
@@ -671,22 +528,6 @@ DistribCategoricalDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribCategoricalUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -706,15 +547,6 @@ DistribCategoricalDistribution::isSetAttribute(const std::string&
 {
   bool value =
     DistribCategoricalUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -816,15 +648,6 @@ DistribCategoricalDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribCategoricalUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -845,15 +668,6 @@ DistribCategoricalDistribution::unsetAttribute(const std::string&
   int value =
     DistribCategoricalUnivariateDistribution::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-
   return value;
 }
 
@@ -873,7 +687,7 @@ DistribCategoricalDistribution::createChildObject(const std::string&
 {
   DistribCategoricalUnivariateDistribution* obj = NULL;
 
-  if (elementName == "distribCategory")
+  if (elementName == "category")
   {
     return createDistribCategory();
   }
@@ -894,7 +708,7 @@ int
 DistribCategoricalDistribution::addChildObject(const std::string& elementName,
                                                const SBase* element)
 {
-  if (elementName == "distribCategory" && element->getTypeCode() ==
+  if (elementName == "category" && element->getTypeCode() ==
     SBML_DISTRIB_CATEGORY)
   {
     return addDistribCategory((const DistribCategory*)(element));
@@ -919,9 +733,15 @@ DistribCategoricalDistribution::removeChildObject(
                                                     elementName,
                                                   const std::string& id)
 {
-  if (elementName == "distribCategory")
+  if (elementName == "category")
   {
-    return removeDistribCategory(id);
+    for (unsigned int i = 0; i < getNumDistribCategories(); i++)
+    {
+      if (getDistribCategory(i)->getId() == id)
+      {
+        return removeDistribCategory(i);
+      }
+    }
   }
 
   return NULL;
@@ -941,7 +761,7 @@ DistribCategoricalDistribution::getNumObjects(const std::string& elementName)
 {
   unsigned int n = 0;
 
-  if (elementName == "distribCategory")
+  if (elementName == "category")
   {
     return getNumDistribCategories();
   }
@@ -965,7 +785,7 @@ DistribCategoricalDistribution::getObject(const std::string& elementName,
 {
   SBase* obj = NULL;
 
-  if (elementName == "distribCategory")
+  if (elementName == "category")
   {
     return getDistribCategory(index);
   }
@@ -989,6 +809,11 @@ DistribCategoricalDistribution::getElementBySId(const std::string& id)
   }
 
   SBase* obj = NULL;
+
+  if (mDistribCategories.getId() == id)
+  {
+    return &mDistribCategories;
+  }
 
   obj = mDistribCategories.getElementBySId(id);
 
@@ -1101,8 +926,6 @@ DistribCategoricalDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1144,9 +967,8 @@ DistribCategoricalDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribCategoricalDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1158,6 +980,56 @@ DistribCategoricalDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribCategoricalDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribCategoricalDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1173,10 +1045,57 @@ void
 DistribCategoricalDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribCategoricalUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribCategoricalDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribCategoricalDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1231,119 +1150,6 @@ DistribCategoricalDistribution_free(DistribCategoricalDistribution_t* dcd)
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribCategoricalDistribution_getId(const DistribCategoricalDistribution_t *
-  dcd)
-{
-  if (dcd == NULL)
-  {
-    return NULL;
-  }
-
-  return dcd->getId().empty() ? NULL : safe_strdup(dcd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribCategoricalDistribution_getName(const DistribCategoricalDistribution_t *
-  dcd)
-{
-  if (dcd == NULL)
-  {
-    return NULL;
-  }
-
-  return dcd->getName().empty() ? NULL : safe_strdup(dcd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribCategoricalDistribution_t's
- * "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_isSetId(const DistribCategoricalDistribution_t *
-  dcd)
-{
-  return (dcd != NULL) ? static_cast<int>(dcd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribCategoricalDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_isSetName(const DistribCategoricalDistribution_t
-  * dcd)
-{
-  return (dcd != NULL) ? static_cast<int>(dcd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_setId(DistribCategoricalDistribution_t * dcd,
-                                     const char * id)
-{
-  return (dcd != NULL) ? dcd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_setName(DistribCategoricalDistribution_t * dcd,
-                                       const char * name)
-{
-  return (dcd != NULL) ? dcd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_unsetId(DistribCategoricalDistribution_t * dcd)
-{
-  return (dcd != NULL) ? dcd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribCategoricalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategoricalDistribution_unsetName(DistribCategoricalDistribution_t *
-  dcd)
-{
-  return (dcd != NULL) ? dcd->unsetName() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Returns a ListOf_t * containing DistribCategory_t objects from this
  * DistribCategoricalDistribution_t.
  */
@@ -1367,21 +1173,6 @@ DistribCategoricalDistribution_getDistribCategory(
                                                   unsigned int n)
 {
   return (dcd != NULL) ? dcd->getDistribCategory(n) : NULL;
-}
-
-
-/*
- * Get a DistribCategory_t from the DistribCategoricalDistribution_t based on
- * its identifier.
- */
-LIBSBML_EXTERN
-DistribCategory_t*
-DistribCategoricalDistribution_getDistribCategoryById(
-                                                      DistribCategoricalDistribution_t*
-                                                        dcd,
-                                                      const char *sid)
-{
-  return (dcd != NULL && sid != NULL) ? dcd->getDistribCategory(sid) : NULL;
 }
 
 
@@ -1439,21 +1230,6 @@ DistribCategoricalDistribution_removeDistribCategory(
                                                      unsigned int n)
 {
   return (dcd != NULL) ? dcd->removeDistribCategory(n) : NULL;
-}
-
-
-/*
- * Removes the DistribCategory_t from this DistribCategoricalDistribution_t
- * based on its identifier and returns a pointer to it.
- */
-LIBSBML_EXTERN
-DistribCategory_t*
-DistribCategoricalDistribution_removeDistribCategoryById(
-                                                         DistribCategoricalDistribution_t*
-                                                           dcd,
-                                                         const char* sid)
-{
-  return (dcd != NULL && sid != NULL) ? dcd->removeDistribCategory(sid) : NULL;
 }
 
 

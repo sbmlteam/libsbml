@@ -145,100 +145,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribNegativeBinomialDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribNegativeBinomialDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribNegativeBinomialDistribution's
-   * "id" attribute is set.
-   *
-   * @return @c true if this DistribNegativeBinomialDistribution's "id"
-   * attribute has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribNegativeBinomialDistribution's
-   * "name" attribute is set.
-   *
-   * @return @c true if this DistribNegativeBinomialDistribution's "name"
-   * attribute has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribNegativeBinomialDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "numberOfFailures" element of this
    * DistribNegativeBinomialDistribution.
    *
@@ -375,9 +281,9 @@ public:
    * object.
    *
    * For DistribNegativeBinomialDistribution, the XML element name is always
-   * @c "hypergeometricDistribution".
+   * @c "negativeBinomialDistribution".
    *
-   * @return the name of this element, i.e. @c "hypergeometricDistribution".
+   * @return the name of this element, i.e. @c "negativeBinomialDistribution".
    */
   virtual const std::string& getElementName() const;
 
@@ -918,9 +824,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1007,169 +957,6 @@ LIBSBML_EXTERN
 void
 DistribNegativeBinomialDistribution_free(DistribNegativeBinomialDistribution_t*
   dnbd);
-
-
-/**
- * Returns the value of the "id" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure whose id is
- * sought.
- *
- * @return the value of the "id" attribute of this
- * DistribNegativeBinomialDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribNegativeBinomialDistribution_getId(const
-  DistribNegativeBinomialDistribution_t * dnbd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure whose name
- * is sought.
- *
- * @return the value of the "name" attribute of this
- * DistribNegativeBinomialDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribNegativeBinomialDistribution_getName(const
-  DistribNegativeBinomialDistribution_t * dnbd);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribNegativeBinomialDistribution_t's "id" attribute is set.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribNegativeBinomialDistribution_t's "id"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_isSetId(const
-  DistribNegativeBinomialDistribution_t * dnbd);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribNegativeBinomialDistribution_t's "name" attribute is set.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribNegativeBinomialDistribution_t's "name"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_isSetName(const
-  DistribNegativeBinomialDistribution_t * dnbd);
-
-
-/**
- * Sets the value of the "id" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribNegativeBinomialDistribution_unsetId().
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_setId(
-                                          DistribNegativeBinomialDistribution_t
-                                            * dnbd,
-                                          const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribNegativeBinomialDistribution_unsetName().
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_setName(
-                                            DistribNegativeBinomialDistribution_t
-                                              * dnbd,
-                                            const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_unsetId(DistribNegativeBinomialDistribution_t
-  * dnbd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribNegativeBinomialDistribution_t.
- *
- * @param dnbd the DistribNegativeBinomialDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribNegativeBinomialDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribNegativeBinomialDistribution_unsetName(DistribNegativeBinomialDistribution_t
-  * dnbd);
 
 
 /**

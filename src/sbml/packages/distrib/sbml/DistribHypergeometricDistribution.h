@@ -146,100 +146,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribHypergeometricDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribHypergeometricDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribHypergeometricDistribution's
-   * "id" attribute is set.
-   *
-   * @return @c true if this DistribHypergeometricDistribution's "id" attribute
-   * has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribHypergeometricDistribution's
-   * "name" attribute is set.
-   *
-   * @return @c true if this DistribHypergeometricDistribution's "name"
-   * attribute has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribHypergeometricDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "numberOfSuccesses" element of this
    * DistribHypergeometricDistribution.
    *
@@ -985,9 +891,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1074,169 +1024,6 @@ LIBSBML_EXTERN
 void
 DistribHypergeometricDistribution_free(DistribHypergeometricDistribution_t*
   dhd);
-
-
-/**
- * Returns the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure whose id is
- * sought.
- *
- * @return the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribHypergeometricDistribution_getId(const
-  DistribHypergeometricDistribution_t * dhd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure whose name is
- * sought.
- *
- * @return the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribHypergeometricDistribution_getName(const
-  DistribHypergeometricDistribution_t * dhd);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribHypergeometricDistribution_t's "id" attribute is set.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribHypergeometricDistribution_t's "id"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_isSetId(const
-  DistribHypergeometricDistribution_t * dhd);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribHypergeometricDistribution_t's "name" attribute is set.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribHypergeometricDistribution_t's "name"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_isSetName(const
-  DistribHypergeometricDistribution_t * dhd);
-
-
-/**
- * Sets the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribHypergeometricDistribution_unsetId().
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_setId(
-                                        DistribHypergeometricDistribution_t *
-                                          dhd,
-                                        const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribHypergeometricDistribution_unsetName().
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_setName(
-                                          DistribHypergeometricDistribution_t *
-                                            dhd,
-                                          const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_unsetId(DistribHypergeometricDistribution_t *
-  dhd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribHypergeometricDistribution_t.
- *
- * @param dhd the DistribHypergeometricDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribHypergeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribHypergeometricDistribution_unsetName(DistribHypergeometricDistribution_t
-  * dhd);
 
 
 /**

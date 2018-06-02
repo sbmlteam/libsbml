@@ -182,107 +182,6 @@ DistribNormalDistribution::~DistribNormalDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribNormalDistribution.
- */
-const std::string&
-DistribNormalDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribNormalDistribution.
- */
-const std::string&
-DistribNormalDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribNormalDistribution's "id"
- * attribute is set.
- */
-bool
-DistribNormalDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribNormalDistribution's "name"
- * attribute is set.
- */
-bool
-DistribNormalDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribNormalDistribution.
- */
-int
-DistribNormalDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribNormalDistribution.
- */
-int
-DistribNormalDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribNormalDistribution.
- */
-int
-DistribNormalDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribNormalDistribution.
- */
-int
-DistribNormalDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "mean" element of this DistribNormalDistribution.
  */
 const DistribUncertValue*
@@ -942,22 +841,6 @@ DistribNormalDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -977,15 +860,6 @@ DistribNormalDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1087,15 +961,6 @@ DistribNormalDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1114,15 +979,6 @@ DistribNormalDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1523,8 +1379,6 @@ DistribNormalDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1566,9 +1420,8 @@ DistribNormalDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribNormalDistributionAllowedAttributes, pkgVersion, level,
-            version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1580,6 +1433,56 @@ DistribNormalDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribNormalDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribNormalDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1595,10 +1498,55 @@ void
 DistribNormalDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribNormalDistribution::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribNormalDistribution::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1647,110 +1595,6 @@ DistribNormalDistribution_free(DistribNormalDistribution_t* dnd)
   {
     delete dnd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribNormalDistribution_getId(const DistribNormalDistribution_t * dnd)
-{
-  if (dnd == NULL)
-  {
-    return NULL;
-  }
-
-  return dnd->getId().empty() ? NULL : safe_strdup(dnd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribNormalDistribution_getName(const DistribNormalDistribution_t * dnd)
-{
-  if (dnd == NULL)
-  {
-    return NULL;
-  }
-
-  return dnd->getName().empty() ? NULL : safe_strdup(dnd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribNormalDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_isSetId(const DistribNormalDistribution_t * dnd)
-{
-  return (dnd != NULL) ? static_cast<int>(dnd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribNormalDistribution_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_isSetName(const DistribNormalDistribution_t * dnd)
-{
-  return (dnd != NULL) ? static_cast<int>(dnd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_setId(DistribNormalDistribution_t * dnd,
-                                const char * id)
-{
-  return (dnd != NULL) ? dnd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_setName(DistribNormalDistribution_t * dnd,
-                                  const char * name)
-{
-  return (dnd != NULL) ? dnd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_unsetId(DistribNormalDistribution_t * dnd)
-{
-  return (dnd != NULL) ? dnd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribNormalDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribNormalDistribution_unsetName(DistribNormalDistribution_t * dnd)
-{
-  return (dnd != NULL) ? dnd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

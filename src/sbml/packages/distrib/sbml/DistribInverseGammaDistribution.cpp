@@ -168,113 +168,6 @@ DistribInverseGammaDistribution::~DistribInverseGammaDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribInverseGammaDistribution.
- */
-const std::string&
-DistribInverseGammaDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribInverseGammaDistribution.
- */
-const std::string&
-DistribInverseGammaDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribInverseGammaDistribution's "id"
- * attribute is set.
- */
-bool
-DistribInverseGammaDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribInverseGammaDistribution's "name"
- * attribute is set.
- */
-bool
-DistribInverseGammaDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribInverseGammaDistribution.
- */
-int
-DistribInverseGammaDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribInverseGammaDistribution.
- */
-int
-DistribInverseGammaDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribInverseGammaDistribution.
- */
-int
-DistribInverseGammaDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribInverseGammaDistribution.
- */
-int
-DistribInverseGammaDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "shape" element of this
  * DistribInverseGammaDistribution.
  */
@@ -814,22 +707,6 @@ DistribInverseGammaDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -849,15 +726,6 @@ DistribInverseGammaDistribution::isSetAttribute(const std::string&
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -959,15 +827,6 @@ DistribInverseGammaDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -987,15 +846,6 @@ DistribInverseGammaDistribution::unsetAttribute(const std::string&
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1332,8 +1182,6 @@ DistribInverseGammaDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1377,9 +1225,8 @@ DistribInverseGammaDistribution::readAttributes(
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribInverseGammaDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1391,6 +1238,56 @@ DistribInverseGammaDistribution::readAttributes(
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribInverseGammaDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribInverseGammaDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1406,10 +1303,57 @@ void
 DistribInverseGammaDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribInverseGammaDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribInverseGammaDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1460,122 +1404,6 @@ DistribInverseGammaDistribution_free(DistribInverseGammaDistribution_t* digd)
   {
     delete digd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribInverseGammaDistribution_getId(const DistribInverseGammaDistribution_t *
-  digd)
-{
-  if (digd == NULL)
-  {
-    return NULL;
-  }
-
-  return digd->getId().empty() ? NULL : safe_strdup(digd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribInverseGammaDistribution_getName(const DistribInverseGammaDistribution_t
-  * digd)
-{
-  if (digd == NULL)
-  {
-    return NULL;
-  }
-
-  return digd->getName().empty() ? NULL : safe_strdup(digd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribInverseGammaDistribution_t's
- * "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_isSetId(const DistribInverseGammaDistribution_t
-  * digd)
-{
-  return (digd != NULL) ? static_cast<int>(digd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribInverseGammaDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_isSetName(const
-  DistribInverseGammaDistribution_t * digd)
-{
-  return (digd != NULL) ? static_cast<int>(digd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_setId(DistribInverseGammaDistribution_t * digd,
-                                      const char * id)
-{
-  return (digd != NULL) ? digd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_setName(
-                                        DistribInverseGammaDistribution_t *
-                                          digd,
-                                        const char * name)
-{
-  return (digd != NULL) ? digd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_unsetId(DistribInverseGammaDistribution_t *
-  digd)
-{
-  return (digd != NULL) ? digd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribInverseGammaDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribInverseGammaDistribution_unsetName(DistribInverseGammaDistribution_t *
-  digd)
-{
-  return (digd != NULL) ? digd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

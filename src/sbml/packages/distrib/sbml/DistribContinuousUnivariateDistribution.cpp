@@ -32,6 +32,7 @@
  */
 #include <sbml/packages/distrib/sbml/DistribContinuousUnivariateDistribution.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/distrib/sbml/DistribBetaDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribCauchyDistribution.h>
@@ -49,7 +50,6 @@
 #include <sbml/packages/distrib/sbml/DistribStudentTDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribUniformDistribution.h>
 #include <sbml/packages/distrib/sbml/DistribWeibullDistribution.h>
-#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -178,113 +178,6 @@ DistribContinuousUnivariateDistribution::~DistribContinuousUnivariateDistributio
   mTruncationLowerBound = NULL;
   delete mTruncationUpperBound;
   mTruncationUpperBound = NULL;
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-const std::string&
-DistribContinuousUnivariateDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-const std::string&
-DistribContinuousUnivariateDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this
- * DistribContinuousUnivariateDistribution's "id" attribute is set.
- */
-bool
-DistribContinuousUnivariateDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this
- * DistribContinuousUnivariateDistribution's "name" attribute is set.
- */
-bool
-DistribContinuousUnivariateDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-int
-DistribContinuousUnivariateDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-int
-DistribContinuousUnivariateDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-int
-DistribContinuousUnivariateDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution.
- */
-int
-DistribContinuousUnivariateDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -1030,22 +923,6 @@ DistribContinuousUnivariateDistribution::getAttribute(
   int return_value = DistribUnivariateDistribution::getAttribute(attributeName,
     value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -1064,15 +941,6 @@ DistribContinuousUnivariateDistribution::isSetAttribute(const std::string&
   attributeName) const
 {
   bool value = DistribUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1184,15 +1052,6 @@ DistribContinuousUnivariateDistribution::setAttribute(
   int return_value = DistribUnivariateDistribution::setAttribute(attributeName,
     value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1211,15 +1070,6 @@ DistribContinuousUnivariateDistribution::unsetAttribute(const std::string&
   attributeName)
 {
   int value = DistribUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1565,8 +1415,6 @@ DistribContinuousUnivariateDistribution::addExpectedAttributes(ExpectedAttribute
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1611,9 +1459,8 @@ DistribContinuousUnivariateDistribution::readAttributes(
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribContinuousUnivariateDistributionAllowedAttributes,
-            pkgVersion, level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1625,6 +1472,56 @@ DistribContinuousUnivariateDistribution::readAttributes(
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribContinuousUnivariateDistribution::readL3V1V1Attributes(const
+  XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribContinuousUnivariateDistribution::readL3V2V1Attributes(const
+  XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1641,10 +1538,56 @@ DistribContinuousUnivariateDistribution::writeAttributes(XMLOutputStream&
   stream) const
 {
   DistribUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribContinuousUnivariateDistribution::writeL3V1V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribContinuousUnivariateDistribution::writeL3V2V1Attributes(XMLOutputStream&
+  stream) const
+{
+}
+
+/** @endcond */
+
 
 
 
@@ -1699,124 +1642,6 @@ DistribContinuousUnivariateDistribution_free(DistribContinuousUnivariateDistribu
   {
     delete dcud;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribContinuousUnivariateDistribution_getId(const
-  DistribContinuousUnivariateDistribution_t * dcud)
-{
-  if (dcud == NULL)
-  {
-    return NULL;
-  }
-
-  return dcud->getId().empty() ? NULL : safe_strdup(dcud->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribContinuousUnivariateDistribution_getName(const
-  DistribContinuousUnivariateDistribution_t * dcud)
-{
-  if (dcud == NULL)
-  {
-    return NULL;
-  }
-
-  return dcud->getName().empty() ? NULL : safe_strdup(dcud->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribContinuousUnivariateDistribution_t's "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_isSetId(const
-  DistribContinuousUnivariateDistribution_t * dcud)
-{
-  return (dcud != NULL) ? static_cast<int>(dcud->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this
- * DistribContinuousUnivariateDistribution_t's "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_isSetName(const
-  DistribContinuousUnivariateDistribution_t * dcud)
-{
-  return (dcud != NULL) ? static_cast<int>(dcud->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_setId(
-                                              DistribContinuousUnivariateDistribution_t
-                                                * dcud,
-                                              const char * id)
-{
-  return (dcud != NULL) ? dcud->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_setName(
-                                                DistribContinuousUnivariateDistribution_t
-                                                  * dcud,
-                                                const char * name)
-{
-  return (dcud != NULL) ? dcud->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_unsetId(DistribContinuousUnivariateDistribution_t
-  * dcud)
-{
-  return (dcud != NULL) ? dcud->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_unsetName(DistribContinuousUnivariateDistribution_t
-  * dcud)
-{
-  return (dcud != NULL) ? dcud->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

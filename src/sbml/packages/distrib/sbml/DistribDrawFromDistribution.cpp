@@ -173,109 +173,6 @@ DistribDrawFromDistribution::~DistribDrawFromDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribDrawFromDistribution.
- */
-const std::string&
-DistribDrawFromDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribDrawFromDistribution.
- */
-const std::string&
-DistribDrawFromDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribDrawFromDistribution's "id"
- * attribute is set.
- */
-bool
-DistribDrawFromDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribDrawFromDistribution's "name"
- * attribute is set.
- */
-bool
-DistribDrawFromDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribDrawFromDistribution.
- */
-int
-DistribDrawFromDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribDrawFromDistribution.
- */
-int
-DistribDrawFromDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribDrawFromDistribution.
- */
-int
-DistribDrawFromDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribDrawFromDistribution.
- */
-int
-DistribDrawFromDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "distribution" element of this
  * DistribDrawFromDistribution.
  */
@@ -1170,7 +1067,20 @@ DistribDrawFromDistribution::getTypeCode() const
 bool
 DistribDrawFromDistribution::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this
+ * DistribDrawFromDistribution object have been set.
+ */
+bool
+DistribDrawFromDistribution::hasRequiredElements() const
+{
+  bool allPresent = DistribBase::hasRequiredElements();
 
   return allPresent;
 }
@@ -1197,7 +1107,7 @@ DistribDrawFromDistribution::writeElements(XMLOutputStream& stream) const
     mDistribInputs.write(stream);
   }
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -1410,22 +1320,6 @@ DistribDrawFromDistribution::getAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -1444,15 +1338,6 @@ DistribDrawFromDistribution::isSetAttribute(const std::string& attributeName)
   const
 {
   bool value = DistribBase::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -1549,15 +1434,6 @@ DistribDrawFromDistribution::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1576,15 +1452,6 @@ DistribDrawFromDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-
   return value;
 }
 
@@ -1601,9 +1468,112 @@ DistribDrawFromDistribution::unsetAttribute(const std::string& attributeName)
 SBase*
 DistribDrawFromDistribution::createChildObject(const std::string& elementName)
 {
-  SBase* obj = NULL;
+  DistribBase* obj = NULL;
 
-  // TO DO
+  if (elementName == "betaDistribution")
+  {
+    return createDistribBetaDistribution();
+  }
+  else if (elementName == "cauchyDistribution")
+  {
+    return createDistribCauchyDistribution();
+  }
+  else if (elementName == "chiSquareDistribution")
+  {
+    return createDistribChiSquareDistribution();
+  }
+  else if (elementName == "exponentialDistribution")
+  {
+    return createDistribExponentialDistribution();
+  }
+  else if (elementName == "fDistribution")
+  {
+    return createDistribFDistribution();
+  }
+  else if (elementName == "gammaDistribution")
+  {
+    return createDistribGammaDistribution();
+  }
+  else if (elementName == "inverseGammaDistribution")
+  {
+    return createDistribInverseGammaDistribution();
+  }
+  else if (elementName == "laPlaceDistribution")
+  {
+    return createDistribLaPlaceDistribution();
+  }
+  else if (elementName == "logNormalDistribution")
+  {
+    return createDistribLogNormalDistribution();
+  }
+  else if (elementName == "logisticDistribution")
+  {
+    return createDistribLogisticDistribution();
+  }
+  else if (elementName == "normalDistribution")
+  {
+    return createDistribNormalDistribution();
+  }
+  else if (elementName == "paretoDistribution")
+  {
+    return createDistribParetoDistribution();
+  }
+  else if (elementName == "rayleighDistribution")
+  {
+    return createDistribRayleighDistribution();
+  }
+  else if (elementName == "studentTDistribution")
+  {
+    return createDistribStudentTDistribution();
+  }
+  else if (elementName == "uniformDistribution")
+  {
+    return createDistribUniformDistribution();
+  }
+  else if (elementName == "weibullDistribution")
+  {
+    return createDistribWeibullDistribution();
+  }
+  else if (elementName == "binomialDistribution")
+  {
+    return createDistribBinomialDistribution();
+  }
+  else if (elementName == "geometricDistribution")
+  {
+    return createDistribGeometricDistribution();
+  }
+  else if (elementName == "hypergeometricDistribution")
+  {
+    return createDistribHypergeometricDistribution();
+  }
+  else if (elementName == "negativeBinomialDistribution")
+  {
+    return createDistribNegativeBinomialDistribution();
+  }
+  else if (elementName == "poissonDistribution")
+  {
+    return createDistribPoissonDistribution();
+  }
+  else if (elementName == "bernoulliDistribution")
+  {
+    return createDistribBernoulliDistribution();
+  }
+  else if (elementName == "categoricalDistribution")
+  {
+    return createDistribCategoricalDistribution();
+  }
+  else if (elementName == "multivariateDistribution")
+  {
+    return createDistribMultivariateDistribution();
+  }
+  else if (elementName == "externalDistribution")
+  {
+    return createDistribExternalDistribution();
+  }
+  else if (elementName == "distribInput")
+  {
+    return createDistribInput();
+  }
 
   return obj;
 }
@@ -1621,9 +1591,138 @@ int
 DistribDrawFromDistribution::addChildObject(const std::string& elementName,
                                             const SBase* element)
 {
-  // TO DO
+  if (elementName == "betaDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BETADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "cauchyDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_CAUCHYDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "chiSquareDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_CHISQUAREDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "exponentialDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_EXPONENTIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "fDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_FDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "gammaDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_GAMMADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "inverseGammaDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_INVERSEGAMMADISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "laPlaceDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LAPLACEDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "logNormalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LOGNORMALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "logisticDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_LOGISTICDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "normalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_NORMALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "paretoDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_PARETODISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "rayleighDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_RAYLEIGHDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "studentTDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_STUDENTTDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "uniformDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_UNIFORMDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "weibullDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_WEIBULLDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "binomialDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BINOMIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "geometricDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_GEOMETRICLDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "hypergeometricDistribution" &&
+    element->getTypeCode() == SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "negativeBinomialDistribution" &&
+    element->getTypeCode() == SBML_DISTRIB_NEGATIVEBINOMIALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "poissonDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_POISSONDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "bernoulliDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_BERNOULLIDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "categoricalDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_CATEGORICALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "multivariateDistribution" && element->getTypeCode()
+    == SBML_DISTRIB_MULTIVARIATEDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "externalDistribution" && element->getTypeCode() ==
+    SBML_DISTRIB_EXTERNALDISTRIBUTION)
+  {
+    return setDistribution((const DistribDistribution*)(element));
+  }
+  else if (elementName == "distribInput" && element->getTypeCode() ==
+    SBML_DISTRIB_DISTRIBINPUT)
+  {
+    return addDistribInput((const DistribInput*)(element));
+  }
 
-  return -1;
+  return LIBSBML_OPERATION_FAILED;
 }
 
 /** @endcond */
@@ -1640,7 +1739,135 @@ SBase*
 DistribDrawFromDistribution::removeChildObject(const std::string& elementName,
                                                const std::string& id)
 {
-  // TO DO
+  if (elementName == "betaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "cauchyDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "chiSquareDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "exponentialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "fDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "gammaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "inverseGammaDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "laPlaceDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "logNormalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "logisticDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "normalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "paretoDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "rayleighDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "studentTDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "uniformDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "weibullDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "binomialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "geometricDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "hypergeometricDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "negativeBinomialDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "poissonDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "bernoulliDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "categoricalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "multivariateDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "externalDistribution")
+  {
+    DistribDistribution * obj = getDistribution();
+    if (unsetDistribution() == LIBSBML_OPERATION_SUCCESS) return obj;
+  }
+  else if (elementName == "distribInput")
+  {
+    return removeDistribInput(id);
+  }
 
   return NULL;
 }
@@ -1657,9 +1884,21 @@ DistribDrawFromDistribution::removeChildObject(const std::string& elementName,
 unsigned int
 DistribDrawFromDistribution::getNumObjects(const std::string& elementName)
 {
-  // TO DO
+  unsigned int n = 0;
 
-  return 0;
+  if (elementName == "distribution")
+  {
+    if (isSetDistribution())
+    {
+      return 1;
+    }
+  }
+  else if (elementName == "distribInput")
+  {
+    return getNumDistribInputs();
+  }
+
+  return n;
 }
 
 /** @endcond */
@@ -1675,9 +1914,18 @@ SBase*
 DistribDrawFromDistribution::getObject(const std::string& elementName,
                                        unsigned int index)
 {
-  // TO DO
+  SBase* obj = NULL;
 
-  return NULL;
+  if (elementName == "distribution")
+  {
+    return getDistribution();
+  }
+  else if (elementName == "distribInput")
+  {
+    return getDistribInput(index);
+  }
+
+  return obj;
 }
 
 /** @endcond */
@@ -1709,6 +1957,11 @@ DistribDrawFromDistribution::getElementBySId(const std::string& id)
     {
       return obj;
     }
+  }
+
+  if (mDistribInputs.getId() == id)
+  {
+    return &mDistribInputs;
   }
 
   obj = mDistribInputs.getElementBySId(id);
@@ -1795,7 +2048,7 @@ DistribDrawFromDistribution::getAllElements(ElementFilter* filter)
 SBase*
 DistribDrawFromDistribution::createObject(XMLInputStream& stream)
 {
-  SBase* obj = NULL;
+  SBase* obj = DistribBase::createObject(stream);
 
   const std::string& name = stream.peek().getName();
 
@@ -2127,7 +2380,7 @@ DistribDrawFromDistribution::createObject(XMLInputStream& stream)
     obj = mDistribution;
   }
 
-  if (name == "listOfInputs")
+  if (name == "listOfDistribInputs")
   {
     if (mDistribInputs.size() != 0)
     {
@@ -2167,8 +2420,6 @@ DistribDrawFromDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -2223,6 +2474,56 @@ DistribDrawFromDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDrawFromDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribDrawFromDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -2238,10 +2539,56 @@ void
 DistribDrawFromDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribBase::writeAttributes(stream);
-  DistribBase::writeExtensionAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDrawFromDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribDrawFromDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
 
 
 
@@ -2292,114 +2639,6 @@ DistribDrawFromDistribution_free(DistribDrawFromDistribution_t* ddfd)
   {
     delete ddfd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribDrawFromDistribution_getId(const DistribDrawFromDistribution_t * ddfd)
-{
-  if (ddfd == NULL)
-  {
-    return NULL;
-  }
-
-  return ddfd->getId().empty() ? NULL : safe_strdup(ddfd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribDrawFromDistribution_getName(const DistribDrawFromDistribution_t * ddfd)
-{
-  if (ddfd == NULL)
-  {
-    return NULL;
-  }
-
-  return ddfd->getName().empty() ? NULL : safe_strdup(ddfd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribDrawFromDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_isSetId(const DistribDrawFromDistribution_t * ddfd)
-{
-  return (ddfd != NULL) ? static_cast<int>(ddfd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribDrawFromDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_isSetName(const DistribDrawFromDistribution_t *
-  ddfd)
-{
-  return (ddfd != NULL) ? static_cast<int>(ddfd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_setId(DistribDrawFromDistribution_t * ddfd,
-                                  const char * id)
-{
-  return (ddfd != NULL) ? ddfd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_setName(DistribDrawFromDistribution_t * ddfd,
-                                    const char * name)
-{
-  return (ddfd != NULL) ? ddfd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_unsetId(DistribDrawFromDistribution_t * ddfd)
-{
-  return (ddfd != NULL) ? ddfd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribDrawFromDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribDrawFromDistribution_unsetName(DistribDrawFromDistribution_t * ddfd)
-{
-  return (ddfd != NULL) ? ddfd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2940,6 +3179,19 @@ DistribDrawFromDistribution_hasRequiredAttributes(const
   DistribDrawFromDistribution_t * ddfd)
 {
   return (ddfd != NULL) ? static_cast<int>(ddfd->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribDrawFromDistribution_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+DistribDrawFromDistribution_hasRequiredElements(const
+  DistribDrawFromDistribution_t * ddfd)
+{
+  return (ddfd != NULL) ? static_cast<int>(ddfd->hasRequiredElements()) : 0;
 }
 
 

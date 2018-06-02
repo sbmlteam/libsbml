@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertStatistics::DistribUncertStatistics(unsigned int level,
                                                  unsigned int version,
                                                  unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mCoefficientOfVariation (NULL)
   , mKurtosis (NULL)
   , mMean (NULL)
@@ -366,107 +366,6 @@ DistribUncertStatistics::~DistribUncertStatistics()
   mInterquartileRange = NULL;
   delete mRange;
   mRange = NULL;
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribUncertStatistics.
- */
-const std::string&
-DistribUncertStatistics::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertStatistics.
- */
-const std::string&
-DistribUncertStatistics::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertStatistics's "id" attribute
- * is set.
- */
-bool
-DistribUncertStatistics::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribUncertStatistics's "name"
- * attribute is set.
- */
-bool
-DistribUncertStatistics::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertStatistics.
- */
-int
-DistribUncertStatistics::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertStatistics.
- */
-int
-DistribUncertStatistics::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertStatistics.
- */
-int
-DistribUncertStatistics::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertStatistics.
- */
-int
-DistribUncertStatistics::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -886,10 +785,7 @@ DistribUncertStatistics::setCoefficientOfVariation(const DistribUncertValue*
     mCoefficientOfVariation = (coefficientOfVariation != NULL) ?
       static_cast<DistribUncertValue*>(coefficientOfVariation->clone()) : NULL;
     if (mCoefficientOfVariation != NULL)
-    {
-      mCoefficientOfVariation->setElementName("coefficientOfVariation");
       mCoefficientOfVariation->connectToParent(this);
-    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -926,11 +822,7 @@ DistribUncertStatistics::setKurtosis(const DistribUncertValue* kurtosis)
     delete mKurtosis;
     mKurtosis = (kurtosis != NULL) ?
       static_cast<DistribUncertValue*>(kurtosis->clone()) : NULL;
-    if (mKurtosis != NULL)
-    {
-      mKurtosis->setElementName("kurtosis");
-      mKurtosis->connectToParent(this);
-    }
+    if (mKurtosis != NULL) mKurtosis->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -967,11 +859,7 @@ DistribUncertStatistics::setMean(const DistribUncertValue* mean)
     delete mMean;
     mMean = (mean != NULL) ? static_cast<DistribUncertValue*>(mean->clone()) :
       NULL;
-    if (mMean != NULL)
-    {
-      mMean->setElementName("mean");
-      mMean->connectToParent(this);
-    }
+    if (mMean != NULL) mMean->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1008,11 +896,7 @@ DistribUncertStatistics::setMedian(const DistribUncertValue* median)
     delete mMedian;
     mMedian = (median != NULL) ?
       static_cast<DistribUncertValue*>(median->clone()) : NULL;
-    if (mMedian != NULL)
-    {
-      mMedian->setElementName("median");
-      mMedian->connectToParent(this);
-    }
+    if (mMedian != NULL) mMedian->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1049,11 +933,7 @@ DistribUncertStatistics::setMode(const DistribUncertValue* mode)
     delete mMode;
     mMode = (mode != NULL) ? static_cast<DistribUncertValue*>(mode->clone()) :
       NULL;
-    if (mMode != NULL)
-    {
-      mMode->setElementName("mode");
-      mMode->connectToParent(this);
-    }
+    if (mMode != NULL) mMode->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1090,11 +970,7 @@ DistribUncertStatistics::setSkewness(const DistribUncertValue* skewness)
     delete mSkewness;
     mSkewness = (skewness != NULL) ?
       static_cast<DistribUncertValue*>(skewness->clone()) : NULL;
-    if (mSkewness != NULL)
-    {
-      mSkewness->setElementName("skewness");
-      mSkewness->connectToParent(this);
-    }
+    if (mSkewness != NULL) mSkewness->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1133,12 +1009,7 @@ DistribUncertStatistics::setStandardDeviation(const DistribUncertValue*
     delete mStandardDeviation;
     mStandardDeviation = (standardDeviation != NULL) ?
       static_cast<DistribUncertValue*>(standardDeviation->clone()) : NULL;
-    if (mStandardDeviation != NULL)
-    {
-      mStandardDeviation->setElementName("standardDeviation");
-
-      mStandardDeviation->connectToParent(this);
-    }
+    if (mStandardDeviation != NULL) mStandardDeviation->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1175,11 +1046,7 @@ DistribUncertStatistics::setVariance(const DistribUncertValue* variance)
     delete mVariance;
     mVariance = (variance != NULL) ?
       static_cast<DistribUncertValue*>(variance->clone()) : NULL;
-    if (mVariance != NULL)
-    {
-      mVariance->setElementName("variance");
-      mVariance->connectToParent(this);
-    }
+    if (mVariance != NULL) mVariance->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1220,11 +1087,7 @@ DistribUncertStatistics::setConfidenceInterval(const
       static_cast<DistribUncertStatisticSpan*>(confidenceInterval->clone()) :
         NULL;
     if (mConfidenceInterval != NULL)
-    {
-      mConfidenceInterval->setElementName("confidenceInterval");
-
       mConfidenceInterval->connectToParent(this);
-    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1263,11 +1126,7 @@ DistribUncertStatistics::setCredibleInterval(const DistribUncertStatisticSpan*
     delete mCredibleInterval;
     mCredibleInterval = (credibleInterval != NULL) ?
       static_cast<DistribUncertStatisticSpan*>(credibleInterval->clone()) : NULL;
-    if (mCredibleInterval != NULL)
-    {
-      mCredibleInterval->setElementName("credibleInterval");
-      mCredibleInterval->connectToParent(this);
-    }
+    if (mCredibleInterval != NULL) mCredibleInterval->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1308,11 +1167,7 @@ DistribUncertStatistics::setInterquartileRange(const
       static_cast<DistribUncertStatisticSpan*>(interquartileRange->clone()) :
         NULL;
     if (mInterquartileRange != NULL)
-    {
-      mInterquartileRange->setElementName("interquartileRange");
-
       mInterquartileRange->connectToParent(this);
-    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1349,11 +1204,7 @@ DistribUncertStatistics::setRange(const DistribUncertStatisticSpan* range)
     delete mRange;
     mRange = (range != NULL) ?
       static_cast<DistribUncertStatisticSpan*>(range->clone()) : NULL;
-    if (mRange != NULL)
-    {
-      mRange->setElementName("range");
-      mRange->connectToParent(this);
-    }
+    if (mRange != NULL) mRange->connectToParent(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1821,9 +1672,10 @@ DistribUncertStatistics::unsetRange()
 
 
 /*
- * Returns the ListOfExternalParameters from this DistribUncertStatistics.
+ * Returns the ListOfDistribExternalParameters from this
+ * DistribUncertStatistics.
  */
-const ListOfExternalParameters*
+const ListOfDistribExternalParameters*
 DistribUncertStatistics::getListOfDistribExternalParameters() const
 {
   return &mDistribExternalParameters;
@@ -1831,9 +1683,10 @@ DistribUncertStatistics::getListOfDistribExternalParameters() const
 
 
 /*
- * Returns the ListOfExternalParameters from this DistribUncertStatistics.
+ * Returns the ListOfDistribExternalParameters from this
+ * DistribUncertStatistics.
  */
-ListOfExternalParameters*
+ListOfDistribExternalParameters*
 DistribUncertStatistics::getListOfDistribExternalParameters()
 {
   return &mDistribExternalParameters;
@@ -1857,29 +1710,6 @@ const DistribExternalParameter*
 DistribUncertStatistics::getDistribExternalParameter(unsigned int n) const
 {
   return mDistribExternalParameters.get(n);
-}
-
-
-/*
- * Get a DistribExternalParameter from the DistribUncertStatistics based on its
- * identifier.
- */
-DistribExternalParameter*
-DistribUncertStatistics::getDistribExternalParameter(const std::string& sid)
-{
-  return mDistribExternalParameters.get(sid);
-}
-
-
-/*
- * Get a DistribExternalParameter from the DistribUncertStatistics based on its
- * identifier.
- */
-const DistribExternalParameter*
-DistribUncertStatistics::getDistribExternalParameter(const std::string& sid)
-  const
-{
-  return mDistribExternalParameters.get(sid);
 }
 
 
@@ -1911,11 +1741,6 @@ DistribUncertStatistics::addDistribExternalParameter(const
     SBase*>(dep)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else if (dep->isSetId() && (mDistribExternalParameters.get(dep->getId())) !=
-    NULL)
-  {
-    return LIBSBML_DUPLICATE_OBJECT_ID;
   }
   else
   {
@@ -1977,17 +1802,6 @@ DistribUncertStatistics::removeDistribExternalParameter(unsigned int n)
 
 
 /*
- * Removes the DistribExternalParameter from this DistribUncertStatistics based
- * on its identifier and returns a pointer to it.
- */
-DistribExternalParameter*
-DistribUncertStatistics::removeDistribExternalParameter(const std::string& sid)
-{
-  return mDistribExternalParameters.remove(sid);
-}
-
-
-/*
  * Returns the XML element name of this DistribUncertStatistics object.
  */
 const std::string&
@@ -2029,7 +1843,20 @@ DistribUncertStatistics::getTypeCode() const
 bool
 DistribUncertStatistics::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
+
+  return allPresent;
+}
+
+
+/*
+ * Predicate returning @c true if all the required elements for this
+ * DistribUncertStatistics object have been set.
+ */
+bool
+DistribUncertStatistics::hasRequiredElements() const
+{
+  bool allPresent = DistribBase::hasRequiredElements();
 
   return allPresent;
 }
@@ -2111,7 +1938,7 @@ DistribUncertStatistics::writeElements(XMLOutputStream& stream) const
     mDistribExternalParameters.write(stream);
   }
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -2598,22 +2425,6 @@ DistribUncertStatistics::getAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -2631,15 +2442,6 @@ bool
 DistribUncertStatistics::isSetAttribute(const std::string& attributeName) const
 {
   bool value = DistribBase::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -2736,15 +2538,6 @@ DistribUncertStatistics::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -2763,15 +2556,6 @@ DistribUncertStatistics::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-
   return value;
 }
 
@@ -2788,7 +2572,7 @@ DistribUncertStatistics::unsetAttribute(const std::string& attributeName)
 SBase*
 DistribUncertStatistics::createChildObject(const std::string& elementName)
 {
-  SBase* obj = NULL;
+  DistribBase* obj = NULL;
 
   if (elementName == "coefficientOfVariation")
   {
@@ -2838,7 +2622,7 @@ DistribUncertStatistics::createChildObject(const std::string& elementName)
   {
     return createRange();
   }
-  else if (elementName == "distribExternalParameter")
+  else if (elementName == "externalParameter")
   {
     return createDistribExternalParameter();
   }
@@ -2919,7 +2703,7 @@ DistribUncertStatistics::addChildObject(const std::string& elementName,
   {
     return setRange((const DistribUncertStatisticSpan*)(element));
   }
-  else if (elementName == "distribExternalParameter" && element->getTypeCode()
+  else if (elementName == "externalParameter" && element->getTypeCode()
     == SBML_DISTRIB_EXTERNALPARAMETER)
   {
     return addDistribExternalParameter((const
@@ -3003,9 +2787,15 @@ DistribUncertStatistics::removeChildObject(const std::string& elementName,
     DistribUncertStatisticSpan * obj = getRange();
     if (unsetRange() == LIBSBML_OPERATION_SUCCESS) return obj;
   }
-  else if (elementName == "distribExternalParameter")
+  else if (elementName == "externalParameter")
   {
-    return removeDistribExternalParameter(id);
+    for (unsigned int i = 0; i < getNumDistribExternalParameters(); i++)
+    {
+      if (getDistribExternalParameter(i)->getId() == id)
+      {
+        return removeDistribExternalParameter(i);
+      }
+    }
   }
 
   return NULL;
@@ -3109,7 +2899,7 @@ DistribUncertStatistics::getNumObjects(const std::string& elementName)
       return 1;
     }
   }
-  else if (elementName == "distribExternalParameter")
+  else if (elementName == "externalParameter")
   {
     return getNumDistribExternalParameters();
   }
@@ -3180,7 +2970,7 @@ DistribUncertStatistics::getObject(const std::string& elementName,
   {
     return getRange();
   }
-  else if (elementName == "distribExternalParameter")
+  else if (elementName == "externalParameter")
   {
     return getDistribExternalParameter(index);
   }
@@ -3371,6 +3161,11 @@ DistribUncertStatistics::getElementBySId(const std::string& id)
     {
       return obj;
     }
+  }
+
+  if (mDistribExternalParameters.getId() == id)
+  {
+    return &mDistribExternalParameters;
   }
 
   obj = mDistribExternalParameters.getElementBySId(id);
@@ -3622,7 +3417,7 @@ DistribUncertStatistics::getAllElements(ElementFilter* filter)
 SBase*
 DistribUncertStatistics::createObject(XMLInputStream& stream)
 {
-  SBase* obj = NULL;
+  SBase* obj = DistribBase::createObject(stream);
 
   const std::string& name = stream.peek().getName();
 
@@ -3835,8 +3630,6 @@ DistribUncertStatistics::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -3877,9 +3670,8 @@ DistribUncertStatistics::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribUncertStatisticsAllowedAttributes, pkgVersion, level,
-            version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -3891,9 +3683,60 @@ DistribUncertStatistics::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertStatistics::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribUncertStatistics::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
 /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -3903,10 +3746,54 @@ void
 DistribUncertStatistics::writeAttributes(XMLOutputStream& stream) const
 {
   DistribBase::writeAttributes(stream);
-  DistribBase::writeExtensionAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertStatistics::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribUncertStatistics::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
 
 
 
@@ -3956,108 +3843,6 @@ DistribUncertStatistics_free(DistribUncertStatistics_t* dus)
   {
     delete dus;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatistics_getId(const DistribUncertStatistics_t * dus)
-{
-  if (dus == NULL)
-  {
-    return NULL;
-  }
-
-  return dus->getId().empty() ? NULL : safe_strdup(dus->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-char *
-DistribUncertStatistics_getName(const DistribUncertStatistics_t * dus)
-{
-  if (dus == NULL)
-  {
-    return NULL;
-  }
-
-  return dus->getName().empty() ? NULL : safe_strdup(dus->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertStatistics_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_isSetId(const DistribUncertStatistics_t * dus)
-{
-  return (dus != NULL) ? static_cast<int>(dus->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribUncertStatistics_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_isSetName(const DistribUncertStatistics_t * dus)
-{
-  return (dus != NULL) ? static_cast<int>(dus->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_setId(DistribUncertStatistics_t * dus,
-                              const char * id)
-{
-  return (dus != NULL) ? dus->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_setName(DistribUncertStatistics_t * dus,
-                                const char * name)
-{
-  return (dus != NULL) ? dus->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_unsetId(DistribUncertStatistics_t * dus)
-{
-  return (dus != NULL) ? dus->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribUncertStatistics_t.
- */
-LIBSBML_EXTERN
-int
-DistribUncertStatistics_unsetName(DistribUncertStatistics_t * dus)
-{
-  return (dus != NULL) ? dus->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4973,22 +4758,6 @@ DistribUncertStatistics_getDistribExternalParameter(
 
 
 /*
- * Get a DistribExternalParameter_t from the DistribUncertStatistics_t based on
- * its identifier.
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribUncertStatistics_getDistribExternalParameterById(
-                                                        DistribUncertStatistics_t*
-                                                          dus,
-                                                        const char *sid)
-{
-  return (dus != NULL && sid != NULL) ? dus->getDistribExternalParameter(sid) :
-    NULL;
-}
-
-
-/*
  * Adds a copy of the given DistribExternalParameter_t to this
  * DistribUncertStatistics_t.
  */
@@ -5049,22 +4818,6 @@ DistribUncertStatistics_removeDistribExternalParameter(
 
 
 /*
- * Removes the DistribExternalParameter_t from this DistribUncertStatistics_t
- * based on its identifier and returns a pointer to it.
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribUncertStatistics_removeDistribExternalParameterById(
-                                                           DistribUncertStatistics_t*
-                                                             dus,
-                                                           const char* sid)
-{
-  return (dus != NULL && sid != NULL) ?
-    dus->removeDistribExternalParameter(sid) : NULL;
-}
-
-
-/*
  * Predicate returning @c 1 (true) if all the required attributes for this
  * DistribUncertStatistics_t object have been set.
  */
@@ -5074,6 +4827,19 @@ DistribUncertStatistics_hasRequiredAttributes(const DistribUncertStatistics_t *
   dus)
 {
   return (dus != NULL) ? static_cast<int>(dus->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribUncertStatistics_t object have been set.
+ */
+LIBSBML_EXTERN
+int
+DistribUncertStatistics_hasRequiredElements(const DistribUncertStatistics_t *
+  dus)
+{
+  return (dus != NULL) ? static_cast<int>(dus->hasRequiredElements()) : 0;
 }
 
 

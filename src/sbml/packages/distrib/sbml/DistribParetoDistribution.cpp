@@ -162,107 +162,6 @@ DistribParetoDistribution::~DistribParetoDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribParetoDistribution.
- */
-const std::string&
-DistribParetoDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribParetoDistribution.
- */
-const std::string&
-DistribParetoDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribParetoDistribution's "id"
- * attribute is set.
- */
-bool
-DistribParetoDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribParetoDistribution's "name"
- * attribute is set.
- */
-bool
-DistribParetoDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribParetoDistribution.
- */
-int
-DistribParetoDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribParetoDistribution.
- */
-int
-DistribParetoDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribParetoDistribution.
- */
-int
-DistribParetoDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribParetoDistribution.
- */
-int
-DistribParetoDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "scale" element of this DistribParetoDistribution.
  */
 const DistribUncertValue*
@@ -480,7 +379,7 @@ DistribParetoDistribution::unsetShape()
 const std::string&
 DistribParetoDistribution::getElementName() const
 {
-  static const string name = "logisticDistribution";
+  static const string name = "paretoDistribution";
   return name;
 }
 
@@ -788,22 +687,6 @@ DistribParetoDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -823,15 +706,6 @@ DistribParetoDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribContinuousUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -933,15 +807,6 @@ DistribParetoDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribContinuousUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -960,15 +825,6 @@ DistribParetoDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribContinuousUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1301,8 +1157,6 @@ DistribParetoDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1344,9 +1198,8 @@ DistribParetoDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribParetoDistributionAllowedAttributes, pkgVersion, level,
-            version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1358,6 +1211,56 @@ DistribParetoDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribParetoDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribParetoDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1373,10 +1276,55 @@ void
 DistribParetoDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribParetoDistribution::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribParetoDistribution::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1425,110 +1373,6 @@ DistribParetoDistribution_free(DistribParetoDistribution_t* dpd)
   {
     delete dpd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribParetoDistribution_getId(const DistribParetoDistribution_t * dpd)
-{
-  if (dpd == NULL)
-  {
-    return NULL;
-  }
-
-  return dpd->getId().empty() ? NULL : safe_strdup(dpd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribParetoDistribution_getName(const DistribParetoDistribution_t * dpd)
-{
-  if (dpd == NULL)
-  {
-    return NULL;
-  }
-
-  return dpd->getName().empty() ? NULL : safe_strdup(dpd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribParetoDistribution_t's "id"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_isSetId(const DistribParetoDistribution_t * dpd)
-{
-  return (dpd != NULL) ? static_cast<int>(dpd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribParetoDistribution_t's "name"
- * attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_isSetName(const DistribParetoDistribution_t * dpd)
-{
-  return (dpd != NULL) ? static_cast<int>(dpd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_setId(DistribParetoDistribution_t * dpd,
-                                const char * id)
-{
-  return (dpd != NULL) ? dpd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_setName(DistribParetoDistribution_t * dpd,
-                                  const char * name)
-{
-  return (dpd != NULL) ? dpd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_unsetId(DistribParetoDistribution_t * dpd)
-{
-  return (dpd != NULL) ? dpd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribParetoDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribParetoDistribution_unsetName(DistribParetoDistribution_t * dpd)
-{
-  return (dpd != NULL) ? dpd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

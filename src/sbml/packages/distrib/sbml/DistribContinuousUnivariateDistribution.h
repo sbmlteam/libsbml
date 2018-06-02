@@ -163,100 +163,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribContinuousUnivariateDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribContinuousUnivariateDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this
-   * DistribContinuousUnivariateDistribution's "id" attribute is set.
-   *
-   * @return @c true if this DistribContinuousUnivariateDistribution's "id"
-   * attribute has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this
-   * DistribContinuousUnivariateDistribution's "name" attribute is set.
-   *
-   * @return @c true if this DistribContinuousUnivariateDistribution's "name"
-   * attribute has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribContinuousUnivariateDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "truncationLowerBound" element of this
    * DistribContinuousUnivariateDistribution.
    *
@@ -1115,9 +1021,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1205,169 +1155,6 @@ LIBSBML_EXTERN
 void
 DistribContinuousUnivariateDistribution_free(DistribContinuousUnivariateDistribution_t*
   dcud);
-
-
-/**
- * Returns the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure whose id
- * is sought.
- *
- * @return the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribContinuousUnivariateDistribution_getId(const
-  DistribContinuousUnivariateDistribution_t * dcud);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure whose
- * name is sought.
- *
- * @return the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribContinuousUnivariateDistribution_getName(const
-  DistribContinuousUnivariateDistribution_t * dcud);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribContinuousUnivariateDistribution_t's "id" attribute is set.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribContinuousUnivariateDistribution_t's "id"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_isSetId(const
-  DistribContinuousUnivariateDistribution_t * dcud);
-
-
-/**
- * Predicate returning @c 1 (true) if this
- * DistribContinuousUnivariateDistribution_t's "name" attribute is set.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribContinuousUnivariateDistribution_t's
- * "name" attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_isSetName(const
-  DistribContinuousUnivariateDistribution_t * dcud);
-
-
-/**
- * Sets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribContinuousUnivariateDistribution_unsetId().
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_setId(
-                                              DistribContinuousUnivariateDistribution_t
-                                                * dcud,
-                                              const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribContinuousUnivariateDistribution_unsetName().
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_setName(
-                                                DistribContinuousUnivariateDistribution_t
-                                                  * dcud,
-                                                const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_unsetId(DistribContinuousUnivariateDistribution_t
-  * dcud);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribContinuousUnivariateDistribution_t.
- *
- * @param dcud the DistribContinuousUnivariateDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribContinuousUnivariateDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribContinuousUnivariateDistribution_unsetName(DistribContinuousUnivariateDistribution_t
-  * dcud);
 
 
 /**

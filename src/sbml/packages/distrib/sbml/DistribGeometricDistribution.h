@@ -143,99 +143,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribGeometricDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribGeometricDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribGeometricDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribGeometricDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribGeometricDistribution's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribGeometricDistribution's "id" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribGeometricDistribution's "name"
-   * attribute is set.
-   *
-   * @return @c true if this DistribGeometricDistribution's "name" attribute
-   * has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribGeometricDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribGeometricDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribGeometricDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribGeometricDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "probability" element of this
    * DistribGeometricDistribution.
    *
@@ -844,9 +751,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -931,160 +882,6 @@ DistribGeometricDistribution_clone(const DistribGeometricDistribution_t* dgd);
 LIBSBML_EXTERN
 void
 DistribGeometricDistribution_free(DistribGeometricDistribution_t* dgd);
-
-
-/**
- * Returns the value of the "id" attribute of this
- * DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this
- * DistribGeometricDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribGeometricDistribution_getId(const DistribGeometricDistribution_t * dgd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure whose name is
- * sought.
- *
- * @return the value of the "name" attribute of this
- * DistribGeometricDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribGeometricDistribution_getName(const DistribGeometricDistribution_t *
-  dgd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribGeometricDistribution_t's
- * "id" attribute is set.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribGeometricDistribution_t's "id" attribute
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_isSetId(const DistribGeometricDistribution_t *
-  dgd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribGeometricDistribution_t's
- * "name" attribute is set.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribGeometricDistribution_t's "name"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_isSetName(const DistribGeometricDistribution_t *
-  dgd);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribGeometricDistribution_unsetId().
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_setId(DistribGeometricDistribution_t * dgd,
-                                   const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribGeometricDistribution_unsetName().
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_setName(DistribGeometricDistribution_t * dgd,
-                                     const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_unsetId(DistribGeometricDistribution_t * dgd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- *
- * @param dgd the DistribGeometricDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribGeometricDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_unsetName(DistribGeometricDistribution_t * dgd);
 
 
 /**

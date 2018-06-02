@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  */
 #include <sbml/packages/distrib/sbml/DistribCategory.h>
-#include <sbml/packages/distrib/sbml/ListOfCategories.h>
+#include <sbml/packages/distrib/sbml/ListOfDistribCategories.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
@@ -55,7 +55,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribCategory::DistribCategory(unsigned int level,
                                  unsigned int version,
                                  unsigned int pkgVersion)
-  : DistribBase(level, version, pkgVersion)
+  : DistribBase(level, version)
   , mRank (SBML_INT_MAX)
   , mIsSetRank (false)
   , mProbability (NULL)
@@ -168,53 +168,12 @@ DistribCategory::~DistribCategory()
 
 
 /*
- * Returns the value of the "id" attribute of this DistribCategory.
- */
-const std::string&
-DistribCategory::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribCategory.
- */
-const std::string&
-DistribCategory::getName() const
-{
-  return mName;
-}
-
-
-/*
  * Returns the value of the "rank" attribute of this DistribCategory.
  */
 unsigned int
 DistribCategory::getRank() const
 {
   return mRank;
-}
-
-
-/*
- * Predicate returning @c true if this DistribCategory's "id" attribute is set.
- */
-bool
-DistribCategory::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribCategory's "name" attribute is
- * set.
- */
-bool
-DistribCategory::isSetName() const
-{
-  return (mName.empty() == false);
 }
 
 
@@ -230,27 +189,6 @@ DistribCategory::isSetRank() const
 
 
 /*
- * Sets the value of the "id" attribute of this DistribCategory.
- */
-int
-DistribCategory::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribCategory.
- */
-int
-DistribCategory::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
  * Sets the value of the "rank" attribute of this DistribCategory.
  */
 int
@@ -259,44 +197,6 @@ DistribCategory::setRank(unsigned int rank)
   mRank = rank;
   mIsSetRank = true;
   return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribCategory.
- */
-int
-DistribCategory::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribCategory.
- */
-int
-DistribCategory::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 }
 
 
@@ -558,7 +458,7 @@ DistribCategory::getTypeCode() const
 bool
 DistribCategory::hasRequiredAttributes() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -571,7 +471,7 @@ DistribCategory::hasRequiredAttributes() const
 bool
 DistribCategory::hasRequiredElements() const
 {
-  bool allPresent = true;
+  bool allPresent = DistribBase::hasRequiredElements();
 
   if (isSetValue() == false)
   {
@@ -603,7 +503,7 @@ DistribCategory::writeElements(XMLOutputStream& stream) const
     mValue->write(stream);
   }
 
-  DistribBase::writeExtensionElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
 /** @endcond */
@@ -836,22 +736,6 @@ DistribCategory::getAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -870,15 +754,7 @@ DistribCategory::isSetAttribute(const std::string& attributeName) const
 {
   bool value = DistribBase::isSetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
-  else if (attributeName == "rank")
+  if (attributeName == "rank")
   {
     value = isSetRank();
   }
@@ -975,15 +851,6 @@ DistribCategory::setAttribute(const std::string& attributeName,
 {
   int return_value = DistribBase::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -1001,15 +868,7 @@ DistribCategory::unsetAttribute(const std::string& attributeName)
 {
   int value = DistribBase::unsetAttribute(attributeName);
 
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
-  else if (attributeName == "rank")
+  if (attributeName == "rank")
   {
     value = unsetRank();
   }
@@ -1029,7 +888,7 @@ DistribCategory::unsetAttribute(const std::string& attributeName)
 SBase*
 DistribCategory::createChildObject(const std::string& elementName)
 {
-  SBase* obj = NULL;
+  DistribBase* obj = NULL;
 
   if (elementName == "probability")
   {
@@ -1280,7 +1139,7 @@ DistribCategory::getAllElements(ElementFilter* filter)
 SBase*
 DistribCategory::createObject(XMLInputStream& stream)
 {
-  SBase* obj = NULL;
+  SBase* obj = DistribBase::createObject(stream);
 
   const std::string& name = stream.peek().getName();
 
@@ -1342,8 +1201,6 @@ DistribCategory::addExpectedAttributes(ExpectedAttributes& attributes)
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
     attributes.add("rank");
   }
 
@@ -1374,7 +1231,7 @@ DistribCategory::readAttributes(const XMLAttributes& attributes,
   SBMLErrorLog* log = getErrorLog();
 
   if (log && getParentSBMLObject() &&
-    static_cast<ListOfCategories*>(getParentSBMLObject())->size() < 2)
+    static_cast<ListOfDistribCategories*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1384,15 +1241,16 @@ DistribCategory::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("distrib",
-          DistribDistribCategoryAllowedAttributes, pkgVersion, level, version,
-            details);
+          DistribDistribCategoricalDistributionLODistribCategoriesAllowedAttributes,
+            pkgVersion, level, version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
-        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
-          version, details);
+        log->logPackageError("distrib",
+          DistribDistribCategoricalDistributionLODistribCategoriesAllowedCoreAttributes,
+            pkgVersion, level, version, details);
       }
     }
   }
@@ -1424,6 +1282,36 @@ DistribCategory::readAttributes(const XMLAttributes& attributes,
     }
   }
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribCategory::readL3V1V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
   // 
   // rank uint (use = "optional" )
   // 
@@ -1441,7 +1329,48 @@ DistribCategory::readAttributes(const XMLAttributes& attributes,
         "<DistribCategory> element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribCategoryRankMustBeNonNegativeInteger, pkgVersion, level,
-        version, message);
+          version, message);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribCategory::readL3V2V1Attributes(const XMLAttributes& attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+  unsigned int numErrs;
+
+  // 
+  // rank uint (use = "optional" )
+  // 
+
+  numErrs = log->getNumErrors();
+  mIsSetRank = attributes.readInto("rank", mRank);
+
+  if ( mIsSetRank == false)
+  {
+    if (log->getNumErrors() == numErrs + 1 &&
+      log->contains(XMLAttributeTypeMismatch))
+    {
+      log->remove(XMLAttributeTypeMismatch);
+      std::string message = "Distrib attribute 'rank' from the "
+        "<DistribCategory> element must be an integer.";
+      log->logPackageError("distrib",
+        DistribDistribCategoryRankMustBeNonNegativeInteger, pkgVersion, level,
+          version, message);
     }
   }
 }
@@ -1464,15 +1393,57 @@ DistribCategory::writeAttributes(XMLOutputStream& stream) const
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
 
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribCategory::writeL3V1V1Attributes(XMLOutputStream& stream) const
+{
   if (isSetRank() == true)
   {
     stream.writeAttribute("rank", getPrefix(), mRank);
   }
-
-  DistribBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribCategory::writeL3V2V1Attributes(XMLOutputStream& stream) const
+{
+  if (isSetRank() == true)
+  {
+    stream.writeAttribute("rank", getPrefix(), mRank);
+  }
+}
+
+/** @endcond */
+
 
 
 
@@ -1526,38 +1497,6 @@ DistribCategory_free(DistribCategory_t* dc)
 
 
 /*
- * Returns the value of the "id" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-char *
-DistribCategory_getId(const DistribCategory_t * dc)
-{
-  if (dc == NULL)
-  {
-    return NULL;
-  }
-
-  return dc->getId().empty() ? NULL : safe_strdup(dc->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-char *
-DistribCategory_getName(const DistribCategory_t * dc)
-{
-  if (dc == NULL)
-  {
-    return NULL;
-  }
-
-  return dc->getName().empty() ? NULL : safe_strdup(dc->getName().c_str());
-}
-
-
-/*
  * Returns the value of the "rank" attribute of this DistribCategory_t.
  */
 LIBSBML_EXTERN
@@ -1565,30 +1504,6 @@ unsigned int
 DistribCategory_getRank(const DistribCategory_t * dc)
 {
   return (dc != NULL) ? dc->getRank() : SBML_INT_MAX;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribCategory_t's "id" attribute
- * is set.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_isSetId(const DistribCategory_t * dc)
-{
-  return (dc != NULL) ? static_cast<int>(dc->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribCategory_t's "name" attribute
- * is set.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_isSetName(const DistribCategory_t * dc)
-{
-  return (dc != NULL) ? static_cast<int>(dc->isSetName()) : 0;
 }
 
 
@@ -1605,28 +1520,6 @@ DistribCategory_isSetRank(const DistribCategory_t * dc)
 
 
 /*
- * Sets the value of the "id" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_setId(DistribCategory_t * dc, const char * id)
-{
-  return (dc != NULL) ? dc->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_setName(DistribCategory_t * dc, const char * name)
-{
-  return (dc != NULL) ? dc->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
  * Sets the value of the "rank" attribute of this DistribCategory_t.
  */
 LIBSBML_EXTERN
@@ -1634,28 +1527,6 @@ int
 DistribCategory_setRank(DistribCategory_t * dc, unsigned int rank)
 {
   return (dc != NULL) ? dc->setRank(rank) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_unsetId(DistribCategory_t * dc)
-{
-  return (dc != NULL) ? dc->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this DistribCategory_t.
- */
-LIBSBML_EXTERN
-int
-DistribCategory_unsetName(DistribCategory_t * dc)
-{
-  return (dc != NULL) ? dc->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

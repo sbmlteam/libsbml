@@ -10,10 +10,10 @@
             <distrib:shape distrib:var="shape"/>
             <distrib:logScale distrib:var="scale"/>
           </distrib:logNormalDistribution>
-          <distrib:listOfInputs>
-            <distrib:input id="scale" distrib:index="0"/>
-            <distrib:input id="shape" distrib:index="1"/>
-          </distrib:listOfInputs>
+          <distrib:listOfDistribInputs>
+            <distrib:distribInput id="scale" distrib:index="0"/>
+            <distrib:distribInput id="shape" distrib:index="1"/>
+          </distrib:listOfDistribInputs>
         </distrib:drawFromDistribution>
       </functionDefinition>
     </listOfFunctionDefinitions>

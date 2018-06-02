@@ -94,10 +94,9 @@ typedef CLASS_OR_STRUCT DistribWeibullDistribution               DistribWeibullD
 typedef CLASS_OR_STRUCT DistribUncertainty                       DistribUncertainty_t;
 typedef CLASS_OR_STRUCT DistribUncertStatistics                  DistribUncertStatistics_t;
 typedef CLASS_OR_STRUCT DistribUncertStatisticSpan               DistribUncertStatisticSpan_t;
+typedef CLASS_OR_STRUCT DistribBase                              DistribBase_t;
 typedef CLASS_OR_STRUCT DistribFunctionDefinitionPlugin          DistribFunctionDefinitionPlugin_t;
 typedef CLASS_OR_STRUCT DistribSBasePlugin                       DistribSBasePlugin_t;
-typedef CLASS_OR_STRUCT DistribBase                              DistribBase_t;
-typedef CLASS_OR_STRUCT DistribListOfBase                        DistribListOfBase_t;
 
 
 LIBSBML_CPP_NAMESPACE_END

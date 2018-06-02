@@ -1,6 +1,6 @@
 /**
- * @file ListOfDistribInputs.cpp
- * @brief Implementation of the ListOfDistribInputs class.
+ * @file ListOfDistribCategories.cpp
+ * @brief Implementation of the ListOfDistribCategories class.
  * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -30,7 +30,7 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/distrib/sbml/ListOfDistribInputs.h>
+#include <sbml/packages/distrib/sbml/ListOfDistribCategories.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
 
 
@@ -47,12 +47,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new ListOfDistribInputs using the given SBML Level, Version and
- * &ldquo;distrib&rdquo; package version.
+ * Creates a new ListOfDistribCategories using the given SBML Level, Version
+ * and &ldquo;distrib&rdquo; package version.
  */
-ListOfDistribInputs::ListOfDistribInputs(unsigned int level,
-                                         unsigned int version,
-                                         unsigned int pkgVersion)
+ListOfDistribCategories::ListOfDistribCategories(unsigned int level,
+                                                 unsigned int version,
+                                                 unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
@@ -61,10 +61,11 @@ ListOfDistribInputs::ListOfDistribInputs(unsigned int level,
 
 
 /*
- * Creates a new ListOfDistribInputs using the given DistribPkgNamespaces
+ * Creates a new ListOfDistribCategories using the given DistribPkgNamespaces
  * object.
  */
-ListOfDistribInputs::ListOfDistribInputs(DistribPkgNamespaces *distribns)
+ListOfDistribCategories::ListOfDistribCategories(DistribPkgNamespaces
+  *distribns)
   : ListOf(distribns)
 {
   setElementNamespace(distribns->getURI());
@@ -72,19 +73,20 @@ ListOfDistribInputs::ListOfDistribInputs(DistribPkgNamespaces *distribns)
 
 
 /*
- * Copy constructor for ListOfDistribInputs.
+ * Copy constructor for ListOfDistribCategories.
  */
-ListOfDistribInputs::ListOfDistribInputs(const ListOfDistribInputs& orig)
+ListOfDistribCategories::ListOfDistribCategories(const ListOfDistribCategories&
+  orig)
   : ListOf( orig )
 {
 }
 
 
 /*
- * Assignment operator for ListOfDistribInputs.
+ * Assignment operator for ListOfDistribCategories.
  */
-ListOfDistribInputs&
-ListOfDistribInputs::operator=(const ListOfDistribInputs& rhs)
+ListOfDistribCategories&
+ListOfDistribCategories::operator=(const ListOfDistribCategories& rhs)
 {
   if (&rhs != this)
   {
@@ -96,80 +98,80 @@ ListOfDistribInputs::operator=(const ListOfDistribInputs& rhs)
 
 
 /*
- * Creates and returns a deep copy of this ListOfDistribInputs object.
+ * Creates and returns a deep copy of this ListOfDistribCategories object.
  */
-ListOfDistribInputs*
-ListOfDistribInputs::clone() const
+ListOfDistribCategories*
+ListOfDistribCategories::clone() const
 {
-  return new ListOfDistribInputs(*this);
+  return new ListOfDistribCategories(*this);
 }
 
 
 /*
- * Destructor for ListOfDistribInputs.
+ * Destructor for ListOfDistribCategories.
  */
-ListOfDistribInputs::~ListOfDistribInputs()
+ListOfDistribCategories::~ListOfDistribCategories()
 {
 }
 
 
 /*
- * Returns the value of the "id" attribute of this ListOfDistribInputs.
+ * Returns the value of the "id" attribute of this ListOfDistribCategories.
  */
 const std::string&
-ListOfDistribInputs::getId() const
+ListOfDistribCategories::getId() const
 {
   return mId;
 }
 
 
 /*
- * Returns the value of the "name" attribute of this ListOfDistribInputs.
+ * Returns the value of the "name" attribute of this ListOfDistribCategories.
  */
 const std::string&
-ListOfDistribInputs::getName() const
+ListOfDistribCategories::getName() const
 {
   return mName;
 }
 
 
 /*
- * Predicate returning @c true if this ListOfDistribInputs's "id" attribute is
- * set.
+ * Predicate returning @c true if this ListOfDistribCategories's "id" attribute
+ * is set.
  */
 bool
-ListOfDistribInputs::isSetId() const
+ListOfDistribCategories::isSetId() const
 {
   return (mId.empty() == false);
 }
 
 
 /*
- * Predicate returning @c true if this ListOfDistribInputs's "name" attribute
- * is set.
+ * Predicate returning @c true if this ListOfDistribCategories's "name"
+ * attribute is set.
  */
 bool
-ListOfDistribInputs::isSetName() const
+ListOfDistribCategories::isSetName() const
 {
   return (mName.empty() == false);
 }
 
 
 /*
- * Sets the value of the "id" attribute of this ListOfDistribInputs.
+ * Sets the value of the "id" attribute of this ListOfDistribCategories.
  */
 int
-ListOfDistribInputs::setId(const std::string& id)
+ListOfDistribCategories::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
 /*
- * Sets the value of the "name" attribute of this ListOfDistribInputs.
+ * Sets the value of the "name" attribute of this ListOfDistribCategories.
  */
 int
-ListOfDistribInputs::setName(const std::string& name)
+ListOfDistribCategories::setName(const std::string& name)
 {
   mName = name;
   return LIBSBML_OPERATION_SUCCESS;
@@ -177,10 +179,10 @@ ListOfDistribInputs::setName(const std::string& name)
 
 
 /*
- * Unsets the value of the "id" attribute of this ListOfDistribInputs.
+ * Unsets the value of the "id" attribute of this ListOfDistribCategories.
  */
 int
-ListOfDistribInputs::unsetId()
+ListOfDistribCategories::unsetId()
 {
   mId.erase();
 
@@ -196,10 +198,10 @@ ListOfDistribInputs::unsetId()
 
 
 /*
- * Unsets the value of the "name" attribute of this ListOfDistribInputs.
+ * Unsets the value of the "name" attribute of this ListOfDistribCategories.
  */
 int
-ListOfDistribInputs::unsetName()
+ListOfDistribCategories::unsetName()
 {
   mName.erase();
 
@@ -215,107 +217,73 @@ ListOfDistribInputs::unsetName()
 
 
 /*
- * Get a DistribInput from the ListOfDistribInputs.
+ * Get a DistribCategory from the ListOfDistribCategories.
  */
-DistribInput*
-ListOfDistribInputs::get(unsigned int n)
+DistribCategory*
+ListOfDistribCategories::get(unsigned int n)
 {
-  return static_cast<DistribInput*>(ListOf::get(n));
+  return static_cast<DistribCategory*>(ListOf::get(n));
 }
 
 
 /*
- * Get a DistribInput from the ListOfDistribInputs by id.
+ * Get a DistribCategory from the ListOfDistribCategories.
  */
-DistribInput*
-ListOfDistribInputs::getByIndex(unsigned int n)
+const DistribCategory*
+ListOfDistribCategories::get(unsigned int n) const
 {
-  return const_cast<DistribInput*>(
-    static_cast<const ListOfDistribInputs&>(*this).getByIndex(n));
+  return static_cast<const DistribCategory*>(ListOf::get(n));
 }
 
 
-#ifndef SWIG
-template<class CNAME>
-struct IndexEq : public std::unary_function<SBase*, bool>
+/*
+ * Get a DistribCategory from the ListOfDistribCategories based on its
+ * identifier.
+ */
+DistribCategory*
+ListOfDistribCategories::get(const std::string& sid)
 {
-  unsigned int n;
+  return const_cast<DistribCategory*>(static_cast<const
+    ListOfDistribCategories&>(*this).get(sid));
+}
 
-  IndexEq (unsigned int n) : n(n) { }
-  bool operator() (SBase* sb) 
-       { return static_cast <CNAME*> (sb)->getIndex() == n; }
-};
-#endif /* SWIG */
 
 /*
- * Get a DistribInput from the ListOfDistribInputs by id.
+ * Get a DistribCategory from the ListOfDistribCategories based on its
+ * identifier.
  */
-const DistribInput*
-ListOfDistribInputs::getByIndex(unsigned int n) const
+const DistribCategory*
+ListOfDistribCategories::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IndexEq<DistribInput>(n) );
-  return (result == mItems.end()) ? 0 : static_cast <DistribInput*> (*result);
-}
-
-
-/*
- * Get a DistribInput from the ListOfDistribInputs.
- */
-const DistribInput*
-ListOfDistribInputs::get(unsigned int n) const
-{
-  return static_cast<const DistribInput*>(ListOf::get(n));
-}
-
-
-/*
- * Get a DistribInput from the ListOfDistribInputs based on its identifier.
- */
-DistribInput*
-ListOfDistribInputs::get(const std::string& sid)
-{
-  return const_cast<DistribInput*>(static_cast<const
-    ListOfDistribInputs&>(*this).get(sid));
-}
-
-
-/*
- * Get a DistribInput from the ListOfDistribInputs based on its identifier.
- */
-const DistribInput*
-ListOfDistribInputs::get(const std::string& sid) const
-{
-  vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEq<DistribInput>(sid));
-  return (result == mItems.end()) ? 0 : static_cast <const DistribInput*>
+  result = find_if(mItems.begin(), mItems.end(), IdEq<DistribCategory>(sid));
+  return (result == mItems.end()) ? 0 : static_cast <const DistribCategory*>
     (*result);
 }
 
 
 /*
- * Removes the nth DistribInput from this ListOfDistribInputs and returns a
- * pointer to it.
+ * Removes the nth DistribCategory from this ListOfDistribCategories and
+ * returns a pointer to it.
  */
-DistribInput*
-ListOfDistribInputs::remove(unsigned int n)
+DistribCategory*
+ListOfDistribCategories::remove(unsigned int n)
 {
-  return static_cast<DistribInput*>(ListOf::remove(n));
+  return static_cast<DistribCategory*>(ListOf::remove(n));
 }
 
 
 /*
- * Removes the DistribInput from this ListOfDistribInputs based on its
+ * Removes the DistribCategory from this ListOfDistribCategories based on its
  * identifier and returns a pointer to it.
  */
-DistribInput*
-ListOfDistribInputs::remove(const std::string& sid)
+DistribCategory*
+ListOfDistribCategories::remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if(mItems.begin(), mItems.end(), IdEq<DistribInput>(sid));
+  result = find_if(mItems.begin(), mItems.end(), IdEq<DistribCategory>(sid));
 
   if (result != mItems.end())
   {
@@ -323,99 +291,100 @@ ListOfDistribInputs::remove(const std::string& sid)
     mItems.erase(result);
   }
 
-  return static_cast <DistribInput*> (item);
+  return static_cast <DistribCategory*> (item);
 }
 
 
 /*
- * Adds a copy of the given DistribInput to this ListOfDistribInputs.
+ * Adds a copy of the given DistribCategory to this ListOfDistribCategories.
  */
 int
-ListOfDistribInputs::addDistribInput(const DistribInput* di)
+ListOfDistribCategories::addDistribCategory(const DistribCategory* dc)
 {
-  if (di == NULL)
+  if (dc == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (di->hasRequiredAttributes() == false)
+  else if (dc->hasRequiredAttributes() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getLevel() != di->getLevel())
+  else if (getLevel() != dc->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != di->getVersion())
+  else if (getVersion() != dc->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
-    SBase*>(di)) == false)
+    SBase*>(dc)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-    return append(di);
+    return append(dc);
   }
 }
 
 
 /*
- * Get the number of DistribInput objects in this ListOfDistribInputs.
+ * Get the number of DistribCategory objects in this ListOfDistribCategories.
  */
 unsigned int
-ListOfDistribInputs::getNumDistribInputs() const
+ListOfDistribCategories::getNumDistribCategories() const
 {
   return size();
 }
 
 
 /*
- * Creates a new DistribInput object, adds it to this ListOfDistribInputs
- * object and returns the DistribInput object created.
+ * Creates a new DistribCategory object, adds it to this
+ * ListOfDistribCategories object and returns the DistribCategory object
+ * created.
  */
-DistribInput*
-ListOfDistribInputs::createDistribInput()
+DistribCategory*
+ListOfDistribCategories::createDistribCategory()
 {
-  DistribInput* di = NULL;
+  DistribCategory* dc = NULL;
 
   try
   {
     DISTRIB_CREATE_NS_WITH_VERSION(distribns, getSBMLNamespaces(),
       getPackageVersion());
-    di = new DistribInput(distribns);
+    dc = new DistribCategory(distribns);
     delete distribns;
   }
   catch (...)
   {
   }
 
-  if (di != NULL)
+  if (dc != NULL)
   {
-    appendAndOwn(di);
+    appendAndOwn(dc);
   }
 
-  return di;
+  return dc;
 }
 
 
 /*
- * Returns the XML element name of this ListOfDistribInputs object.
+ * Returns the XML element name of this ListOfDistribCategories object.
  */
 const std::string&
-ListOfDistribInputs::getElementName() const
+ListOfDistribCategories::getElementName() const
 {
-  static const string name = "listOfDistribInputs";
+  static const string name = "listOfCategories";
   return name;
 }
 
 
 /*
- * Returns the libSBML type code for this ListOfDistribInputs object.
+ * Returns the libSBML type code for this ListOfDistribCategories object.
  */
 int
-ListOfDistribInputs::getTypeCode() const
+ListOfDistribCategories::getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -423,21 +392,21 @@ ListOfDistribInputs::getTypeCode() const
 
 /*
  * Returns the libSBML type code for the SBML objects contained in this
- * ListOfDistribInputs object.
+ * ListOfDistribCategories object.
  */
 int
-ListOfDistribInputs::getItemTypeCode() const
+ListOfDistribCategories::getItemTypeCode() const
 {
-  return SBML_DISTRIB_DISTRIBINPUT;
+  return SBML_DISTRIB_CATEGORY;
 }
 
 
 /*
  * Predicate returning @c true if all the required attributes for this
- * ListOfDistribInputs object have been set.
+ * ListOfDistribCategories object have been set.
  */
 bool
-ListOfDistribInputs::hasRequiredAttributes() const
+ListOfDistribCategories::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
@@ -449,18 +418,18 @@ ListOfDistribInputs::hasRequiredAttributes() const
 /** @cond doxygenLibsbmlInternal */
 
 /*
- * Creates a new DistribInput in this ListOfDistribInputs
+ * Creates a new DistribCategory in this ListOfDistribCategories
  */
 SBase*
-ListOfDistribInputs::createObject(XMLInputStream& stream)
+ListOfDistribCategories::createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
 
-  if (name == "distribInput")
+  if (name == "category")
   {
-    object = new DistribInput(distribns);
+    object = new DistribCategory(distribns);
     appendAndOwn(object);
   }
 
@@ -478,7 +447,7 @@ ListOfDistribInputs::createObject(XMLInputStream& stream)
  * Adds the expected attributes for this element
  */
 void
-ListOfDistribInputs::addExpectedAttributes(ExpectedAttributes& attributes)
+ListOfDistribCategories::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   ListOf::addExpectedAttributes(attributes);
 
@@ -507,9 +476,9 @@ ListOfDistribInputs::addExpectedAttributes(ExpectedAttributes& attributes)
  * Reads the expected attributes into the member data variables
  */
 void
-ListOfDistribInputs::readAttributes(const XMLAttributes& attributes,
-                                    const ExpectedAttributes&
-                                      expectedAttributes)
+ListOfDistribCategories::readAttributes(const XMLAttributes& attributes,
+                                        const ExpectedAttributes&
+                                          expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -531,7 +500,7 @@ ListOfDistribInputs::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
         log->logPackageError("distrib",
-          DistribDistribDrawFromDistributionLODistribInputsAllowedAttributes,
+          DistribDistribCategoricalDistributionLODistribCategoriesAllowedAttributes,
             pkgVersion, level, version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -539,7 +508,7 @@ ListOfDistribInputs::readAttributes(const XMLAttributes& attributes,
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownCoreAttribute);
         log->logPackageError("distrib",
-          DistribDistribDrawFromDistributionLODistribInputsAllowedCoreAttributes,
+          DistribDistribCategoricalDistributionLODistribCategoriesAllowedCoreAttributes,
             pkgVersion, level, version, details);
       }
     }
@@ -566,7 +535,7 @@ ListOfDistribInputs::readAttributes(const XMLAttributes& attributes,
  * Reads the expected attributes into the member data variables
  */
 void
-ListOfDistribInputs::readL3V1V1Attributes(const XMLAttributes& attributes)
+ListOfDistribCategories::readL3V1V1Attributes(const XMLAttributes& attributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -585,7 +554,7 @@ ListOfDistribInputs::readL3V1V1Attributes(const XMLAttributes& attributes)
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<ListOfDistribInputs>");
+      logEmptyString(mId, level, version, "<ListOfDistribCategories>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -606,7 +575,7 @@ ListOfDistribInputs::readL3V1V1Attributes(const XMLAttributes& attributes)
   {
     if (mName.empty() == true)
     {
-      logEmptyString(mName, level, version, "<ListOfDistribInputs>");
+      logEmptyString(mName, level, version, "<ListOfDistribCategories>");
     }
   }
 }
@@ -621,7 +590,7 @@ ListOfDistribInputs::readL3V1V1Attributes(const XMLAttributes& attributes)
  * Reads the expected attributes into the member data variables
  */
 void
-ListOfDistribInputs::readL3V2V1Attributes(const XMLAttributes& attributes)
+ListOfDistribCategories::readL3V2V1Attributes(const XMLAttributes& attributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -639,7 +608,7 @@ ListOfDistribInputs::readL3V2V1Attributes(const XMLAttributes& attributes)
   {
     if (mId.empty() == true)
     {
-      logEmptyString(mId, level, version, "<ListOfDistribInputs>");
+      logEmptyString(mId, level, version, "<ListOfDistribCategories>");
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
@@ -666,7 +635,7 @@ ListOfDistribInputs::readL3V2V1Attributes(const XMLAttributes& attributes)
  * Writes the attributes to the stream
  */
 void
-ListOfDistribInputs::writeAttributes(XMLOutputStream& stream) const
+ListOfDistribCategories::writeAttributes(XMLOutputStream& stream) const
 {
   ListOf::writeAttributes(stream);
 
@@ -697,7 +666,7 @@ ListOfDistribInputs::writeAttributes(XMLOutputStream& stream) const
  * Writes the attributes to the stream
  */
 void
-ListOfDistribInputs::writeL3V1V1Attributes(XMLOutputStream& stream) const
+ListOfDistribCategories::writeL3V1V1Attributes(XMLOutputStream& stream) const
 {
   if (isSetId() == true)
   {
@@ -720,7 +689,7 @@ ListOfDistribInputs::writeL3V1V1Attributes(XMLOutputStream& stream) const
  * Writes the attributes to the stream
  */
 void
-ListOfDistribInputs::writeL3V2V1Attributes(XMLOutputStream& stream) const
+ListOfDistribCategories::writeL3V2V1Attributes(XMLOutputStream& stream) const
 {
 }
 
@@ -734,7 +703,7 @@ ListOfDistribInputs::writeL3V2V1Attributes(XMLOutputStream& stream) const
  * Writes the namespace for the Distrib package
  */
 void
-ListOfDistribInputs::writeXMLNS(XMLOutputStream& stream) const
+ListOfDistribCategories::writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();
@@ -764,15 +733,16 @@ ListOfDistribInputs::writeXMLNS(XMLOutputStream& stream) const
  */
 LIBSBML_EXTERN
 char *
-ListOfDistribInputs_getId(const ListOf_t * lo)
+ListOfDistribCategories_getId(const ListOf_t * lo)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return static_cast<const ListOfDistribInputs*>(lo)->getId().empty() ? NULL :
-    safe_strdup(static_cast<const ListOfDistribInputs*>(lo)->getId().c_str());
+  return static_cast<const ListOfDistribCategories*>(lo)->getId().empty() ?
+    NULL : safe_strdup(static_cast<const
+      ListOfDistribCategories*>(lo)->getId().c_str());
 }
 
 
@@ -781,16 +751,16 @@ ListOfDistribInputs_getId(const ListOf_t * lo)
  */
 LIBSBML_EXTERN
 char *
-ListOfDistribInputs_getName(const ListOf_t * lo)
+ListOfDistribCategories_getName(const ListOf_t * lo)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return static_cast<const ListOfDistribInputs*>(lo)->getName().empty() ? NULL
-    : safe_strdup(static_cast<const
-      ListOfDistribInputs*>(lo)->getName().c_str());
+  return static_cast<const ListOfDistribCategories*>(lo)->getName().empty() ?
+    NULL : safe_strdup(static_cast<const
+      ListOfDistribCategories*>(lo)->getName().c_str());
 }
 
 
@@ -799,10 +769,11 @@ ListOfDistribInputs_getName(const ListOf_t * lo)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_isSetId(const ListOf_t * lo)
+ListOfDistribCategories_isSetId(const ListOf_t * lo)
 {
-  return (static_cast<const ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<int>(static_cast<const ListOfDistribInputs*>(lo)->isSetId()) : 0;
+  return (static_cast<const ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<int>(static_cast<const ListOfDistribCategories*>(lo)->isSetId())
+      : 0;
 }
 
 
@@ -811,11 +782,11 @@ ListOfDistribInputs_isSetId(const ListOf_t * lo)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_isSetName(const ListOf_t * lo)
+ListOfDistribCategories_isSetName(const ListOf_t * lo)
 {
-  return (static_cast<const ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<int>(static_cast<const ListOfDistribInputs*>(lo)->isSetName()) :
-      0;
+  return (static_cast<const ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<int>(static_cast<const
+      ListOfDistribCategories*>(lo)->isSetName()) : 0;
 }
 
 
@@ -824,10 +795,11 @@ ListOfDistribInputs_isSetName(const ListOf_t * lo)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_setId(ListOf_t * lo, const char * id)
+ListOfDistribCategories_setId(ListOf_t * lo, const char * id)
 {
-  return (static_cast<ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<ListOfDistribInputs*>(lo)->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (static_cast<ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<ListOfDistribCategories*>(lo)->setId(id) :
+      LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -836,10 +808,10 @@ ListOfDistribInputs_setId(ListOf_t * lo, const char * id)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_setName(ListOf_t * lo, const char * name)
+ListOfDistribCategories_setName(ListOf_t * lo, const char * name)
 {
-  return (static_cast<ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<ListOfDistribInputs*>(lo)->setName(name) :
+  return (static_cast<ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<ListOfDistribCategories*>(lo)->setName(name) :
       LIBSBML_INVALID_OBJECT;
 }
 
@@ -849,10 +821,11 @@ ListOfDistribInputs_setName(ListOf_t * lo, const char * name)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_unsetId(ListOf_t * lo)
+ListOfDistribCategories_unsetId(ListOf_t * lo)
 {
-  return (static_cast<ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<ListOfDistribInputs*>(lo)->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (static_cast<ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<ListOfDistribCategories*>(lo)->unsetId() :
+      LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -861,78 +834,79 @@ ListOfDistribInputs_unsetId(ListOf_t * lo)
  */
 LIBSBML_EXTERN
 int
-ListOfDistribInputs_unsetName(ListOf_t * lo)
+ListOfDistribCategories_unsetName(ListOf_t * lo)
 {
-  return (static_cast<ListOfDistribInputs*>(lo) != NULL) ?
-    static_cast<ListOfDistribInputs*>(lo)->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (static_cast<ListOfDistribCategories*>(lo) != NULL) ?
+    static_cast<ListOfDistribCategories*>(lo)->unsetName() :
+      LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Get a DistribInput_t from the ListOf_t.
+ * Get a DistribCategory_t from the ListOf_t.
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_getDistribInput(ListOf_t* lo, unsigned int n)
+DistribCategory_t*
+ListOfDistribCategories_getDistribCategory(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return static_cast <ListOfDistribInputs*>(lo)->get(n);
+  return static_cast <ListOfDistribCategories*>(lo)->get(n);
 }
 
 
 /*
- * Get a DistribInput_t from the ListOf_t based on its identifier.
+ * Get a DistribCategory_t from the ListOf_t based on its identifier.
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_getById(ListOf_t* lo, const char *sid)
+DistribCategory_t*
+ListOfDistribCategories_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return (sid != NULL) ? static_cast <ListOfDistribInputs*>(lo)->get(sid) :
+  return (sid != NULL) ? static_cast <ListOfDistribCategories*>(lo)->get(sid) :
     NULL;
 }
 
 
 /*
- * Removes the nth DistribInput_t from this ListOf_t and returns a pointer to
- * it.
+ * Removes the nth DistribCategory_t from this ListOf_t and returns a pointer
+ * to it.
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_remove(ListOf_t* lo, unsigned int n)
+DistribCategory_t*
+ListOfDistribCategories_remove(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return static_cast <ListOfDistribInputs*>(lo)->remove(n);
+  return static_cast <ListOfDistribCategories*>(lo)->remove(n);
 }
 
 
 /*
- * Removes the DistribInput_t from this ListOf_t based on its identifier and
+ * Removes the DistribCategory_t from this ListOf_t based on its identifier and
  * returns a pointer to it.
  */
 LIBSBML_EXTERN
-DistribInput_t*
-ListOfDistribInputs_removeById(ListOf_t* lo, const char* sid)
+DistribCategory_t*
+ListOfDistribCategories_removeById(ListOf_t* lo, const char* sid)
 {
   if (lo == NULL)
   {
     return NULL;
   }
 
-  return (sid != NULL) ? static_cast <ListOfDistribInputs*>(lo)->remove(sid) :
-    NULL;
+  return (sid != NULL) ? static_cast
+    <ListOfDistribCategories*>(lo)->remove(sid) : NULL;
 }
 
 

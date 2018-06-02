@@ -53,7 +53,7 @@
 
 #include <sbml/packages/distrib/sbml/DistribDistribution.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
-#include <sbml/packages/distrib/sbml/ListOfExternalParameters.h>
+#include <sbml/packages/distrib/sbml/ListOfDistribExternalParameters.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -66,7 +66,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   std::string mDefinitionURL;
-  ListOfExternalParameters mDistribExternalParameters;
+  ListOfDistribExternalParameters mDistribExternalParameters;
 
   /** @endcond */
 
@@ -143,26 +143,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribExternalDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribExternalDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribExternalDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribExternalDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
    * Returns the value of the "definitionURL" attribute of this
    * DistribExternalDistribution.
    *
@@ -173,26 +153,6 @@ public:
 
 
   /**
-   * Predicate returning @c true if this DistribExternalDistribution's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribExternalDistribution's "id" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribExternalDistribution's "name"
-   * attribute is set.
-   *
-   * @return @c true if this DistribExternalDistribution's "name" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
    * Predicate returning @c true if this DistribExternalDistribution's
    * "definitionURL" attribute is set.
    *
@@ -200,37 +160,6 @@ public:
    * attribute has been set, otherwise @c false is returned.
    */
   bool isSetDefinitionURL() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribExternalDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribExternalDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
 
 
   /**
@@ -250,28 +179,6 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this
-   * DistribExternalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribExternalDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Unsets the value of the "definitionURL" attribute of this
    * DistribExternalDistribution.
    *
@@ -283,10 +190,10 @@ public:
 
 
   /**
-   * Returns the ListOfExternalParameters from this
+   * Returns the ListOfDistribExternalParameters from this
    * DistribExternalDistribution.
    *
-   * @return the ListOfExternalParameters from this
+   * @return the ListOfDistribExternalParameters from this
    * DistribExternalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
@@ -299,14 +206,15 @@ public:
    * @see removeDistribExternalParameter(const std::string& sid)
    * @see removeDistribExternalParameter(unsigned int n)
    */
-  const ListOfExternalParameters* getListOfDistribExternalParameters() const;
+  const ListOfDistribExternalParameters* getListOfDistribExternalParameters()
+    const;
 
 
   /**
-   * Returns the ListOfExternalParameters from this
+   * Returns the ListOfDistribExternalParameters from this
    * DistribExternalDistribution.
    *
-   * @return the ListOfExternalParameters from this
+   * @return the ListOfDistribExternalParameters from this
    * DistribExternalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
@@ -319,7 +227,7 @@ public:
    * @see removeDistribExternalParameter(const std::string& sid)
    * @see removeDistribExternalParameter(unsigned int n)
    */
-  ListOfExternalParameters* getListOfDistribExternalParameters();
+  ListOfDistribExternalParameters* getListOfDistribExternalParameters();
 
 
   /**
@@ -328,8 +236,8 @@ public:
    * @param n an unsigned int representing the index of the
    * DistribExternalParameter to retrieve.
    *
-   * @return the nth DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribExternalDistribution.
+   * @return the nth DistribExternalParameter in the
+   * ListOfDistribExternalParameters within this DistribExternalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -349,8 +257,8 @@ public:
    * @param n an unsigned int representing the index of the
    * DistribExternalParameter to retrieve.
    *
-   * @return the nth DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribExternalDistribution.
+   * @return the nth DistribExternalParameter in the
+   * ListOfDistribExternalParameters within this DistribExternalDistribution.
    *
    * @copydetails doc_returned_unowned_pointer
    *
@@ -363,54 +271,6 @@ public:
    */
   const DistribExternalParameter* getDistribExternalParameter(unsigned int n)
     const;
-
-
-  /**
-   * Get a DistribExternalParameter from the DistribExternalDistribution based
-   * on its identifier.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to retrieve.
-   *
-   * @return the DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribExternalDistribution with the given @p sid or @c NULL
-   * if no such DistribExternalParameter exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(const std::string& sid)
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  DistribExternalParameter* getDistribExternalParameter(const std::string&
-    sid);
-
-
-  /**
-   * Get a DistribExternalParameter from the DistribExternalDistribution based
-   * on its identifier.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to retrieve.
-   *
-   * @return the DistribExternalParameter in the ListOfExternalParameters
-   * within this DistribExternalDistribution with the given @p sid or @c NULL
-   * if no such DistribExternalParameter exists.
-   *
-   * @copydetails doc_returned_unowned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(const std::string& sid)
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  const DistribExternalParameter* getDistribExternalParameter(const
-    std::string& sid) const;
 
 
   /**
@@ -497,30 +357,6 @@ public:
    * @see removeDistribExternalParameter(const std::string& sid)
    */
   DistribExternalParameter* removeDistribExternalParameter(unsigned int n);
-
-
-  /**
-   * Removes the DistribExternalParameter from this DistribExternalDistribution
-   * based on its identifier and returns a pointer to it.
-   *
-   * @param sid a string representing the identifier of the
-   * DistribExternalParameter to remove.
-   *
-   * @return the DistribExternalParameter in this DistribExternalDistribution
-   * based on the identifier or NULL if no such DistribExternalParameter
-   * exists.
-   *
-   * @copydetails doc_returned_owned_pointer
-   *
-   * @see addDistribExternalParameter(const DistribExternalParameter* object)
-   * @see createDistribExternalParameter()
-   * @see getDistribExternalParameter(const std::string& sid)
-   * @see getDistribExternalParameter(unsigned int n)
-   * @see getNumDistribExternalParameters()
-   * @see removeDistribExternalParameter(unsigned int n)
-   */
-  DistribExternalParameter* removeDistribExternalParameter(const std::string&
-    sid);
 
 
   /**
@@ -1067,9 +903,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1157,42 +1037,6 @@ DistribExternalDistribution_free(DistribExternalDistribution_t* ded);
 
 
 /**
- * Returns the value of the "id" attribute of this
- * DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this
- * DistribExternalDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribExternalDistribution_getId(const DistribExternalDistribution_t * ded);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this
- * DistribExternalDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribExternalDistribution_getName(const DistribExternalDistribution_t * ded);
-
-
-/**
  * Returns the value of the "definitionURL" attribute of this
  * DistribExternalDistribution_t.
  *
@@ -1213,39 +1057,6 @@ DistribExternalDistribution_getDefinitionURL(const
 
 
 /**
- * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's "id"
- * attribute is set.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribExternalDistribution_t's "id" attribute
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_isSetId(const DistribExternalDistribution_t * ded);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's
- * "name" attribute is set.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribExternalDistribution_t's "name" attribute
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_isSetName(const DistribExternalDistribution_t *
-  ded);
-
-
-/**
  * Predicate returning @c 1 (true) if this DistribExternalDistribution_t's
  * "definitionURL" attribute is set.
  *
@@ -1260,52 +1071,6 @@ LIBSBML_EXTERN
 int
 DistribExternalDistribution_isSetDefinitionURL(const
   DistribExternalDistribution_t * ded);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribExternalDistribution_unsetId().
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_setId(DistribExternalDistribution_t * ded,
-                                  const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribExternalDistribution_unsetName().
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_setName(DistribExternalDistribution_t * ded,
-                                    const char * name);
 
 
 /**
@@ -1335,42 +1100,6 @@ DistribExternalDistribution_setDefinitionURL(
 
 
 /**
- * Unsets the value of the "id" attribute of this
- * DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_unsetId(DistribExternalDistribution_t * ded);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribExternalDistribution_t.
- *
- * @param ded the DistribExternalDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribExternalDistribution_unsetName(DistribExternalDistribution_t * ded);
-
-
-/**
  * Unsets the value of the "definitionURL" attribute of this
  * DistribExternalDistribution_t.
  *
@@ -1394,10 +1123,10 @@ DistribExternalDistribution_unsetDefinitionURL(DistribExternalDistribution_t *
  * DistribExternalDistribution_t.
  *
  * @param ded the DistribExternalDistribution_t structure whose
- * ListOfExternalParameters is sought.
+ * ListOfDistribExternalParameters is sought.
  *
- * @return the ListOfExternalParameters from this DistribExternalDistribution_t
- * as a ListOf_t *.
+ * @return the ListOfDistribExternalParameters from this
+ * DistribExternalDistribution_t as a ListOf_t *.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1425,8 +1154,8 @@ DistribExternalDistribution_getListOfDistribExternalParameters(DistribExternalDi
  * @param n an unsigned int representing the index of the
  * DistribExternalParameter_t to retrieve.
  *
- * @return the nth DistribExternalParameter_t in the ListOfExternalParameters
- * within this DistribExternalDistribution.
+ * @return the nth DistribExternalParameter_t in the
+ * ListOfDistribExternalParameters within this DistribExternalDistribution.
  *
  * @copydetails doc_returned_unowned_pointer
  *
@@ -1438,31 +1167,6 @@ DistribExternalDistribution_getDistribExternalParameter(
                                                         DistribExternalDistribution_t*
                                                           ded,
                                                         unsigned int n);
-
-
-/**
- * Get a DistribExternalParameter_t from the DistribExternalDistribution_t
- * based on its identifier.
- *
- * @param ded the DistribExternalDistribution_t structure to search.
- *
- * @param sid a string representing the identifier of the
- * DistribExternalParameter_t to retrieve.
- *
- * @return the DistribExternalParameter_t in the ListOfExternalParameters
- * within this DistribExternalDistribution with the given @p sid or @c NULL if
- * no such DistribExternalParameter_t exists.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribExternalDistribution_getDistribExternalParameterById(
-                                                            DistribExternalDistribution_t*
-                                                              ded,
-                                                            const char *sid);
 
 
 /**
@@ -1554,33 +1258,6 @@ DistribExternalDistribution_removeDistribExternalParameter(
                                                            DistribExternalDistribution_t*
                                                              ded,
                                                            unsigned int n);
-
-
-/**
- * Removes the DistribExternalParameter_t from this
- * DistribExternalDistribution_t based on its identifier and returns a pointer
- * to it.
- *
- * @param ded the DistribExternalDistribution_t structure to search.
- *
- * @param sid a string representing the identifier of the
- * DistribExternalParameter_t to remove.
- *
- * @return the DistribExternalParameter_t in this DistribExternalDistribution_t
- * based on the identifier or NULL if no such DistribExternalParameter_t
- * exists.
- *
- * @copydetails doc_returned_owned_pointer
- *
- * @memberof DistribExternalDistribution_t
- */
-LIBSBML_EXTERN
-DistribExternalParameter_t*
-DistribExternalDistribution_removeDistribExternalParameterById(
-                                                               DistribExternalDistribution_t*
-                                                                 ded,
-                                                               const char*
-                                                                 sid);
 
 
 /**

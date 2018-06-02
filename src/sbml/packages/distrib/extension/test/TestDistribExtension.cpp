@@ -293,8 +293,8 @@ START_TEST(test_DistribExtension_typecode)
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_EXTERNALPARAMETER), "DistribExternalParameter") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION), "DistribHypergeometricDistribution") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_UNCERTSTATISTICSPAN), "DistribUncertStatisticSpan") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_BASE), "(Unknown SBML Distrib Type)") == 0); //39  /*!<DistribUncertStatisticSpan */
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_BASE +1), "(Unknown SBML Distrib Type)") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE), "DistribBase") == 0); //39  /*!<DistribUncertStatisticSpan */
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DISTRIB_DISTRIBBASE +1), "(Unknown SBML Distrib Type)") == 0);
 
   delete sbext;
 }
@@ -309,8 +309,8 @@ START_TEST(test_DistribExtension_SBMLtypecode)
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_EXTERNALPARAMETER, "distrib"), "DistribExternalParameter") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_HYPERGEOMETRICDISTRIBUTION, "distrib"), "DistribHypergeometricDistribution") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_UNCERTSTATISTICSPAN, "distrib"), "DistribUncertStatisticSpan") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_BASE, "distrib"), "(Unknown SBML Distrib Type)") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_BASE + 1, "distrib"), "(Unknown SBML Distrib Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE, "distrib"), "DistribBase") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_DISTRIB_DISTRIBBASE + 1, "distrib"), "(Unknown SBML Distrib Type)") == 0);
 }
 END_TEST
 

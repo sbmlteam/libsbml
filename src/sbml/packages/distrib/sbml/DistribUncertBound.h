@@ -138,50 +138,12 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this DistribUncertBound.
-   *
-   * @return the value of the "id" attribute of this DistribUncertBound as a
-   * string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this DistribUncertBound.
-   *
-   * @return the value of the "name" attribute of this DistribUncertBound as a
-   * string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
    * Returns the value of the "inclusive" attribute of this DistribUncertBound.
    *
    * @return the value of the "inclusive" attribute of this DistribUncertBound
    * as a boolean.
    */
   bool getInclusive() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertBound's "id" attribute is
-   * set.
-   *
-   * @return @c true if this DistribUncertBound's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertBound's "name" attribute
-   * is set.
-   *
-   * @return @c true if this DistribUncertBound's "name" attribute has been
-   * set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
 
 
   /**
@@ -195,36 +157,6 @@ public:
 
 
   /**
-   * Sets the value of the "id" attribute of this DistribUncertBound.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this DistribUncertBound.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
    * Sets the value of the "inclusive" attribute of this DistribUncertBound.
    *
    * @param inclusive bool value of the "inclusive" attribute to be set.
@@ -235,26 +167,6 @@ public:
    * OperationReturnValues_t}
    */
   int setInclusive(bool inclusive);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribUncertBound.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribUncertBound.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
 
 
   /**
@@ -655,11 +567,56 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
 
   /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
 
 };
 
@@ -743,40 +700,6 @@ DistribUncertBound_free(DistribUncertBound_t* dub);
 
 
 /**
- * Returns the value of the "id" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this DistribUncertBound_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertBound_getId(const DistribUncertBound_t * dub);
-
-
-/**
- * Returns the value of the "name" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribUncertBound_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertBound_getName(const DistribUncertBound_t * dub);
-
-
-/**
  * Returns the value of the "inclusive" attribute of this DistribUncertBound_t.
  *
  * @param dub the DistribUncertBound_t structure whose inclusive is sought.
@@ -789,38 +712,6 @@ DistribUncertBound_getName(const DistribUncertBound_t * dub);
 LIBSBML_EXTERN
 int
 DistribUncertBound_getInclusive(const DistribUncertBound_t * dub);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertBound_t's "id"
- * attribute is set.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @return @c 1 (true) if this DistribUncertBound_t's "id" attribute has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_isSetId(const DistribUncertBound_t * dub);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertBound_t's "name"
- * attribute is set.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @return @c 1 (true) if this DistribUncertBound_t's "name" attribute has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_isSetName(const DistribUncertBound_t * dub);
 
 
 /**
@@ -840,49 +731,6 @@ DistribUncertBound_isSetInclusive(const DistribUncertBound_t * dub);
 
 
 /**
- * Sets the value of the "id" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribUncertBound_unsetId().
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_setId(DistribUncertBound_t * dub, const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribUncertBound_unsetName().
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_setName(DistribUncertBound_t * dub, const char * name);
-
-
-/**
  * Sets the value of the "inclusive" attribute of this DistribUncertBound_t.
  *
  * @param dub the DistribUncertBound_t structure.
@@ -899,40 +747,6 @@ DistribUncertBound_setName(DistribUncertBound_t * dub, const char * name);
 LIBSBML_EXTERN
 int
 DistribUncertBound_setInclusive(DistribUncertBound_t * dub, int inclusive);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_unsetId(DistribUncertBound_t * dub);
-
-
-/**
- * Unsets the value of the "name" attribute of this DistribUncertBound_t.
- *
- * @param dub the DistribUncertBound_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertBound_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertBound_unsetName(DistribUncertBound_t * dub);
 
 
 /**

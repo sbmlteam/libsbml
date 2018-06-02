@@ -145,110 +145,6 @@ DistribGeometricDistribution::~DistribGeometricDistribution()
 
 
 /*
- * Returns the value of the "id" attribute of this
- * DistribGeometricDistribution.
- */
-const std::string&
-DistribGeometricDistribution::getId() const
-{
-  return mId;
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribGeometricDistribution.
- */
-const std::string&
-DistribGeometricDistribution::getName() const
-{
-  return mName;
-}
-
-
-/*
- * Predicate returning @c true if this DistribGeometricDistribution's "id"
- * attribute is set.
- */
-bool
-DistribGeometricDistribution::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * Predicate returning @c true if this DistribGeometricDistribution's "name"
- * attribute is set.
- */
-bool
-DistribGeometricDistribution::isSetName() const
-{
-  return (mName.empty() == false);
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribGeometricDistribution.
- */
-int
-DistribGeometricDistribution::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
-}
-
-
-/*
- * Sets the value of the "name" attribute of this DistribGeometricDistribution.
- */
-int
-DistribGeometricDistribution::setName(const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this DistribGeometricDistribution.
- */
-int
-DistribGeometricDistribution::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribGeometricDistribution.
- */
-int
-DistribGeometricDistribution::unsetName()
-{
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Returns the value of the "probability" element of this
  * DistribGeometricDistribution.
  */
@@ -639,22 +535,6 @@ DistribGeometricDistribution::getAttribute(const std::string& attributeName,
   int return_value =
     DistribDiscreteUnivariateDistribution::getAttribute(attributeName, value);
 
-  if (return_value == LIBSBML_OPERATION_SUCCESS)
-  {
-    return return_value;
-  }
-
-  if (attributeName == "id")
-  {
-    value = getId();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (attributeName == "name")
-  {
-    value = getName();
-    return_value = LIBSBML_OPERATION_SUCCESS;
-  }
-
   return return_value;
 }
 
@@ -674,15 +554,6 @@ DistribGeometricDistribution::isSetAttribute(const std::string& attributeName)
 {
   bool value =
     DistribDiscreteUnivariateDistribution::isSetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = isSetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = isSetName();
-  }
 
   return value;
 }
@@ -784,15 +655,6 @@ DistribGeometricDistribution::setAttribute(const std::string& attributeName,
   int return_value =
     DistribDiscreteUnivariateDistribution::setAttribute(attributeName, value);
 
-  if (attributeName == "id")
-  {
-    return_value = setId(value);
-  }
-  else if (attributeName == "name")
-  {
-    return_value = setName(value);
-  }
-
   return return_value;
 }
 
@@ -811,15 +673,6 @@ DistribGeometricDistribution::unsetAttribute(const std::string& attributeName)
 {
   int value =
     DistribDiscreteUnivariateDistribution::unsetAttribute(attributeName);
-
-  if (attributeName == "id")
-  {
-    value = unsetId();
-  }
-  else if (attributeName == "name")
-  {
-    value = unsetName();
-  }
 
   return value;
 }
@@ -1084,8 +937,6 @@ DistribGeometricDistribution::addExpectedAttributes(ExpectedAttributes&
 
   if (level == 3 && coreVersion == 1 && pkgVersion == 1)
   {
-    attributes.add("id");
-    attributes.add("name");
   }
 
   if (level == 3 && coreVersion == 2 && pkgVersion == 1)
@@ -1127,9 +978,8 @@ DistribGeometricDistribution::readAttributes(const XMLAttributes& attributes,
       {
         const std::string details = log->getError(n)->getMessage();
         log->remove(UnknownPackageAttribute);
-        log->logPackageError("distrib",
-          DistribDistribGeometricDistributionAllowedAttributes, pkgVersion,
-            level, version, details);
+        log->logPackageError("distrib", DistribUnknown, pkgVersion, level,
+          version, details);
       }
       else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1141,6 +991,56 @@ DistribGeometricDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    readL3V1V1Attributes(attributes);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    readL3V2V1Attributes(attributes);
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribGeometricDistribution::readL3V1V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+void
+DistribGeometricDistribution::readL3V2V1Attributes(const XMLAttributes&
+  attributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  bool assigned = false;
+  unsigned int pkgVersion = getPackageVersion();
+  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1156,10 +1056,57 @@ void
 DistribGeometricDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribDiscreteUnivariateDistribution::writeAttributes(stream);
+
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+
+  if (level == 3 && version == 1 && pkgVersion == 1)
+  {
+    writeL3V1V1Attributes(stream);
+  }
+
+  if (level == 3 && version == 2 && pkgVersion == 1)
+  {
+    writeL3V2V1Attributes(stream);
+  }
+
   SBase::writeExtensionAttributes(stream);
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribGeometricDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+void
+DistribGeometricDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
+  const
+{
+}
+
+/** @endcond */
+
+
 
 
 #endif /* __cplusplus */
@@ -1209,116 +1156,6 @@ DistribGeometricDistribution_free(DistribGeometricDistribution_t* dgd)
   {
     delete dgd;
   }
-}
-
-
-/*
- * Returns the value of the "id" attribute of this
- * DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribGeometricDistribution_getId(const DistribGeometricDistribution_t * dgd)
-{
-  if (dgd == NULL)
-  {
-    return NULL;
-  }
-
-  return dgd->getId().empty() ? NULL : safe_strdup(dgd->getId().c_str());
-}
-
-
-/*
- * Returns the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-char *
-DistribGeometricDistribution_getName(const DistribGeometricDistribution_t *
-  dgd)
-{
-  if (dgd == NULL)
-  {
-    return NULL;
-  }
-
-  return dgd->getName().empty() ? NULL : safe_strdup(dgd->getName().c_str());
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribGeometricDistribution_t's
- * "id" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_isSetId(const DistribGeometricDistribution_t *
-  dgd)
-{
-  return (dgd != NULL) ? static_cast<int>(dgd->isSetId()) : 0;
-}
-
-
-/*
- * Predicate returning @c 1 (true) if this DistribGeometricDistribution_t's
- * "name" attribute is set.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_isSetName(const DistribGeometricDistribution_t *
-  dgd)
-{
-  return (dgd != NULL) ? static_cast<int>(dgd->isSetName()) : 0;
-}
-
-
-/*
- * Sets the value of the "id" attribute of this DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_setId(DistribGeometricDistribution_t * dgd,
-                                   const char * id)
-{
-  return (dgd != NULL) ? dgd->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Sets the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_setName(DistribGeometricDistribution_t * dgd,
-                                     const char * name)
-{
-  return (dgd != NULL) ? dgd->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "id" attribute of this
- * DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_unsetId(DistribGeometricDistribution_t * dgd)
-{
-  return (dgd != NULL) ? dgd->unsetId() : LIBSBML_INVALID_OBJECT;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this
- * DistribGeometricDistribution_t.
- */
-LIBSBML_EXTERN
-int
-DistribGeometricDistribution_unsetName(DistribGeometricDistribution_t * dgd)
-{
-  return (dgd != NULL) ? dgd->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 

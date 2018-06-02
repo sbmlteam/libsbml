@@ -15,7 +15,7 @@
           </lambda>
         </math>
         <distrib:drawFromDistribution>
-          <distrib:normalDistribution>
+          <distrib:normalDistribution name="normal">
             <distrib:truncationLowerBound distrib:value="2.3" distrib:inclusive="true"/>
             <distrib:truncationUpperBound distrib:value="7.3" distrib:inclusive="true"/>
             <distrib:mean distrib:var="mean"/>

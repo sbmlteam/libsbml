@@ -172,6 +172,7 @@ const char* SBML_DISTRIB_TYPECODE_STRINGS[] =
   , "DistribUncertainty"
   , "DistribUncertStatistics"
   , "DistribUncertStatisticSpan"
+  , "DistribBase"
 };
 
 
@@ -369,7 +370,7 @@ const char*
 DistribExtension::getStringFromTypeCode(int typeCode) const
 {
   int min = SBML_DISTRIB_DRAWFROMDISTRIBUTION;
-  int max = SBML_DISTRIB_UNCERTSTATISTICSPAN;
+  int max = SBML_DISTRIB_DISTRIBBASE;
 
   if (typeCode < min || typeCode > max)
   {

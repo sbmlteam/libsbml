@@ -50,11 +50,10 @@
 #include <string>
 
 
-#include <sbml/SBase.h>
+#include <sbml/packages/distrib/sbml/DistribBase.h>
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribUncertStatistics.h>
 #include <sbml/packages/distrib/sbml/DistribDistribution.h>
-#include <sbml/packages/distrib/sbml/DistribBase.h>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -137,94 +136,6 @@ public:
    * Destructor for DistribUncertainty.
    */
   virtual ~DistribUncertainty();
-
-
-  /**
-   * Returns the value of the "id" attribute of this DistribUncertainty.
-   *
-   * @return the value of the "id" attribute of this DistribUncertainty as a
-   * string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this DistribUncertainty.
-   *
-   * @return the value of the "name" attribute of this DistribUncertainty as a
-   * string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertainty's "id" attribute is
-   * set.
-   *
-   * @return @c true if this DistribUncertainty's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribUncertainty's "name" attribute
-   * is set.
-   *
-   * @return @c true if this DistribUncertainty's "name" attribute has been
-   * set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribUncertainty.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this DistribUncertainty.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this DistribUncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribUncertainty.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
 
 
   /**
@@ -632,6 +543,19 @@ public:
    * DistribUncertainty have been set, otherwise @c false is returned.
    */
   virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * DistribUncertainty object have been set.
+   *
+   * @return @c true to indicate that all the required elements of this
+   * DistribUncertainty have been set, otherwise @c false is returned.
+   *
+   *
+   * @note The required elements for the DistribUncertainty object are:
+   */
+  virtual bool hasRequiredElements() const;
 
 
 
@@ -1121,9 +1045,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -1207,149 +1175,6 @@ DistribUncertainty_clone(const DistribUncertainty_t* du);
 LIBSBML_EXTERN
 void
 DistribUncertainty_free(DistribUncertainty_t* du);
-
-
-/**
- * Returns the value of the "id" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this DistribUncertainty_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertainty_getId(const DistribUncertainty_t * du);
-
-
-/**
- * Returns the value of the "name" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure whose name is sought.
- *
- * @return the value of the "name" attribute of this DistribUncertainty_t as a
- * pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-char *
-DistribUncertainty_getName(const DistribUncertainty_t * du);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertainty_t's "id"
- * attribute is set.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @return @c 1 (true) if this DistribUncertainty_t's "id" attribute has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_isSetId(const DistribUncertainty_t * du);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribUncertainty_t's "name"
- * attribute is set.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @return @c 1 (true) if this DistribUncertainty_t's "name" attribute has been
- * set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_isSetName(const DistribUncertainty_t * du);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribUncertainty_unsetId().
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_setId(DistribUncertainty_t * du, const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribUncertainty_unsetName().
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_setName(DistribUncertainty_t * du, const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_unsetId(DistribUncertainty_t * du);
-
-
-/**
- * Unsets the value of the "name" attribute of this DistribUncertainty_t.
- *
- * @param du the DistribUncertainty_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribUncertainty_t
- */
-LIBSBML_EXTERN
-int
-DistribUncertainty_unsetName(DistribUncertainty_t * du);
 
 
 /**
@@ -1962,6 +1787,25 @@ DistribUncertainty_unsetDistribution(DistribUncertainty_t * du);
 LIBSBML_EXTERN
 int
 DistribUncertainty_hasRequiredAttributes(const DistribUncertainty_t * du);
+
+
+/**
+ * Predicate returning @c 1 (true) if all the required elements for this
+ * DistribUncertainty_t object have been set.
+ *
+ * @param du the DistribUncertainty_t structure.
+ *
+ * @return @c 1 (true) to indicate that all the required elements of this
+ * DistribUncertainty_t have been set, otherwise @c 0 (false) is returned.
+ *
+ *
+ * @note The required elements for the DistribUncertainty_t object are:
+ *
+ * @memberof DistribUncertainty_t
+ */
+LIBSBML_EXTERN
+int
+DistribUncertainty_hasRequiredElements(const DistribUncertainty_t * du);
 
 
 

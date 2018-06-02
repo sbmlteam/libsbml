@@ -143,99 +143,6 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this
-   * DistribChiSquareDistribution.
-   *
-   * @return the value of the "id" attribute of this
-   * DistribChiSquareDistribution as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this
-   * DistribChiSquareDistribution.
-   *
-   * @return the value of the "name" attribute of this
-   * DistribChiSquareDistribution as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribChiSquareDistribution's "id"
-   * attribute is set.
-   *
-   * @return @c true if this DistribChiSquareDistribution's "id" attribute has
-   * been set, otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
-
-
-  /**
-   * Predicate returning @c true if this DistribChiSquareDistribution's "name"
-   * attribute is set.
-   *
-   * @return @c true if this DistribChiSquareDistribution's "name" attribute
-   * has been set, otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this DistribChiSquareDistribution.
-   *
-   * @param id std::string& value of the "id" attribute to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
-   *
-   * Calling this function with @p id = @c NULL or an empty string is
-   * equivalent to calling unsetId().
-   */
-  virtual int setId(const std::string& id);
-
-
-  /**
-   * Sets the value of the "name" attribute of this
-   * DistribChiSquareDistribution.
-   *
-   * @param name std::string& value of the "name" attribute to be set.
-   *
-   * @copydetails doc_returns_one_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   *
-   * Calling this function with @p name = @c NULL or an empty string is
-   * equivalent to calling unsetName().
-   */
-  virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this
-   * DistribChiSquareDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this
-   * DistribChiSquareDistribution.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName();
-
-
-  /**
    * Returns the value of the "degreesOfFreedom" element of this
    * DistribChiSquareDistribution.
    *
@@ -844,9 +751,53 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V1V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  void readL3V2V1Attributes(const XMLAttributes& attributes);
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
    * Writes the attributes to the stream
    */
   virtual void writeAttributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V1V1Attributes(XMLOutputStream& stream) const;
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  void writeL3V2V1Attributes(XMLOutputStream& stream) const;
 
   /** @endcond */
 
@@ -931,161 +882,6 @@ DistribChiSquareDistribution_clone(const DistribChiSquareDistribution_t* dcsd);
 LIBSBML_EXTERN
 void
 DistribChiSquareDistribution_free(DistribChiSquareDistribution_t* dcsd);
-
-
-/**
- * Returns the value of the "id" attribute of this
- * DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure whose id is sought.
- *
- * @return the value of the "id" attribute of this
- * DistribChiSquareDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribChiSquareDistribution_getId(const DistribChiSquareDistribution_t *
-  dcsd);
-
-
-/**
- * Returns the value of the "name" attribute of this
- * DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure whose name is
- * sought.
- *
- * @return the value of the "name" attribute of this
- * DistribChiSquareDistribution_t as a pointer to a string.
- *
- * @copydetails doc_returned_owned_char
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-char *
-DistribChiSquareDistribution_getName(const DistribChiSquareDistribution_t *
-  dcsd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribChiSquareDistribution_t's
- * "id" attribute is set.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribChiSquareDistribution_t's "id" attribute
- * has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_isSetId(const DistribChiSquareDistribution_t *
-  dcsd);
-
-
-/**
- * Predicate returning @c 1 (true) if this DistribChiSquareDistribution_t's
- * "name" attribute is set.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @return @c 1 (true) if this DistribChiSquareDistribution_t's "name"
- * attribute has been set, otherwise @c 0 (false) is returned.
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_isSetName(const DistribChiSquareDistribution_t *
-  dcsd);
-
-
-/**
- * Sets the value of the "id" attribute of this DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @param id const char * value of the "id" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p id = @c NULL or an empty string is equivalent
- * to calling DistribChiSquareDistribution_unsetId().
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_setId(DistribChiSquareDistribution_t * dcsd,
-                                   const char * id);
-
-
-/**
- * Sets the value of the "name" attribute of this
- * DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @param name const char * value of the "name" attribute to be set.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * Calling this function with @p name = @c NULL or an empty string is
- * equivalent to calling DistribChiSquareDistribution_unsetName().
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_setName(DistribChiSquareDistribution_t * dcsd,
-                                     const char * name);
-
-
-/**
- * Unsets the value of the "id" attribute of this
- * DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_unsetId(DistribChiSquareDistribution_t * dcsd);
-
-
-/**
- * Unsets the value of the "name" attribute of this
- * DistribChiSquareDistribution_t.
- *
- * @param dcsd the DistribChiSquareDistribution_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof DistribChiSquareDistribution_t
- */
-LIBSBML_EXTERN
-int
-DistribChiSquareDistribution_unsetName(DistribChiSquareDistribution_t * dcsd);
 
 
 /**
