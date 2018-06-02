@@ -95,8 +95,9 @@ START_TEST(test_ExternalParameters_write_attributes)
 
   ostringstream oss;
   oss << EP->toSBML();
+  std::string actual = oss.str();
 
-  fail_unless(equals(expected, oss.str()));
+  fail_unless(equals(expected, actual));
 
   delete EP;
 }
