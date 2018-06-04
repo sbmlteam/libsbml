@@ -55,7 +55,7 @@ DistribBinomialDistribution::DistribBinomialDistribution(unsigned int level,
                                                          unsigned int version,
                                                          unsigned int
                                                            pkgVersion)
-  : DistribDiscreteUnivariateDistribution(level, version)
+  : DistribDiscreteUnivariateDistribution(level, version, pkgVersion)
   , mNumberOfTrials (NULL)
   , mProbabilityOfSuccess (NULL)
 {

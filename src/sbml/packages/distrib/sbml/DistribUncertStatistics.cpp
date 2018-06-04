@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertStatistics::DistribUncertStatistics(unsigned int level,
                                                  unsigned int version,
                                                  unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mCoefficientOfVariation (NULL)
   , mKurtosis (NULL)
   , mMean (NULL)

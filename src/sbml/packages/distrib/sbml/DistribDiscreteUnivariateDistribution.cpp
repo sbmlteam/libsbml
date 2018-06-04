@@ -67,7 +67,7 @@ DistribDiscreteUnivariateDistribution::DistribDiscreteUnivariateDistribution(
                                                                              unsigned
                                                                                int
                                                                                  pkgVersion)
-  : DistribUnivariateDistribution(level, version)
+  : DistribUnivariateDistribution(level, version, pkgVersion)
   , mTruncationLowerBound (NULL)
   , mTruncationUpperBound (NULL)
 {

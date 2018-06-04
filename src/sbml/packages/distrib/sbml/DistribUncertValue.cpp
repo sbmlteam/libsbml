@@ -56,7 +56,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertValue::DistribUncertValue(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mValue (util_NaN())
   , mIsSetValue (false)
   , mVar ("")

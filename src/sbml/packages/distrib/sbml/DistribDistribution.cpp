@@ -79,7 +79,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribDistribution::DistribDistribution(unsigned int level,
                                          unsigned int version,
                                          unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mElementName("distribution")
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

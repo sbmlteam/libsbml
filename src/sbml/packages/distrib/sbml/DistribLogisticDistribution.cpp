@@ -55,7 +55,7 @@ DistribLogisticDistribution::DistribLogisticDistribution(unsigned int level,
                                                          unsigned int version,
                                                          unsigned int
                                                            pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mLocation (NULL)
   , mScale (NULL)
 {

@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribGammaDistribution::DistribGammaDistribution(unsigned int level,
                                                    unsigned int version,
                                                    unsigned int pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mShape (NULL)
   , mScale (NULL)
 {

@@ -55,7 +55,7 @@ DistribExternalDistribution::DistribExternalDistribution(unsigned int level,
                                                          unsigned int version,
                                                          unsigned int
                                                            pkgVersion)
-  : DistribDistribution(level, version)
+  : DistribDistribution(level, version, pkgVersion)
   , mDefinitionURL ("")
   , mDistribExternalParameters (level, version, pkgVersion)
 {

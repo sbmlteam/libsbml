@@ -55,7 +55,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribCategory::DistribCategory(unsigned int level,
                                  unsigned int version,
                                  unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mRank (SBML_INT_MAX)
   , mIsSetRank (false)
   , mProbability (NULL)

@@ -58,7 +58,7 @@ DistribCategoricalDistribution::DistribCategoricalDistribution(
                                                                  version,
                                                                unsigned int
                                                                  pkgVersion)
-  : DistribCategoricalUnivariateDistribution(level, version)
+  : DistribCategoricalUnivariateDistribution(level, version, pkgVersion)
   , mDistribCategories (level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

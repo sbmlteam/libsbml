@@ -56,7 +56,7 @@ DistribBernoulliDistribution::DistribBernoulliDistribution(unsigned int level,
                                                              version,
                                                            unsigned int
                                                              pkgVersion)
-  : DistribCategoricalUnivariateDistribution(level, version)
+  : DistribCategoricalUnivariateDistribution(level, version, pkgVersion)
   , mProb (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

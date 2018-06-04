@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribPoissonDistribution::DistribPoissonDistribution(unsigned int level,
                                                        unsigned int version,
                                                        unsigned int pkgVersion)
-  : DistribDiscreteUnivariateDistribution(level, version)
+  : DistribDiscreteUnivariateDistribution(level, version, pkgVersion)
   , mRate (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

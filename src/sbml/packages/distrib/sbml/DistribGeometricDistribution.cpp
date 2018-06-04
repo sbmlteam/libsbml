@@ -56,7 +56,7 @@ DistribGeometricDistribution::DistribGeometricDistribution(unsigned int level,
                                                              version,
                                                            unsigned int
                                                              pkgVersion)
-  : DistribDiscreteUnivariateDistribution(level, version)
+  : DistribDiscreteUnivariateDistribution(level, version, pkgVersion)
   , mProbability (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

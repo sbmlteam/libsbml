@@ -80,7 +80,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertainty::DistribUncertainty(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mUncertStatistics (NULL)
   , mDistribution (NULL)
 {

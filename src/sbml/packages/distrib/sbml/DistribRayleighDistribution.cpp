@@ -55,7 +55,7 @@ DistribRayleighDistribution::DistribRayleighDistribution(unsigned int level,
                                                          unsigned int version,
                                                          unsigned int
                                                            pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mScale (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

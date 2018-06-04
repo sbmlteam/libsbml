@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribParetoDistribution::DistribParetoDistribution(unsigned int level,
                                                      unsigned int version,
                                                      unsigned int pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mScale (NULL)
   , mShape (NULL)
 {

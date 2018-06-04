@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUniformDistribution::DistribUniformDistribution(unsigned int level,
                                                        unsigned int version,
                                                        unsigned int pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mMinimum (NULL)
   , mMaximum (NULL)
   , mNumberOfClasses (NULL)

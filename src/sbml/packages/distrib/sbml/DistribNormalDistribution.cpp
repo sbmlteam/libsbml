@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribNormalDistribution::DistribNormalDistribution(unsigned int level,
                                                      unsigned int version,
                                                      unsigned int pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mMean (NULL)
   , mStddev (NULL)
   , mVariance (NULL)

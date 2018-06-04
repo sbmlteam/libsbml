@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertStatisticSpan::DistribUncertStatisticSpan(unsigned int level,
                                                        unsigned int version,
                                                        unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mVarLower ("")
   , mValueLower (util_NaN())
   , mIsSetValueLower (false)

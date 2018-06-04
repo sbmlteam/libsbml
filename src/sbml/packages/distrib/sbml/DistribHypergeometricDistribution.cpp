@@ -60,7 +60,7 @@ DistribHypergeometricDistribution::DistribHypergeometricDistribution(
                                                                      unsigned
                                                                        int
                                                                          pkgVersion)
-  : DistribDiscreteUnivariateDistribution(level, version)
+  : DistribDiscreteUnivariateDistribution(level, version, pkgVersion)
   , mNumberOfSuccesses (NULL)
   , mNumberOfTrials (NULL)
   , mPopulationSize (NULL)

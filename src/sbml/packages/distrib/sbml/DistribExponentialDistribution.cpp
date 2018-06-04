@@ -58,7 +58,7 @@ DistribExponentialDistribution::DistribExponentialDistribution(
                                                                  version,
                                                                unsigned int
                                                                  pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mRate (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

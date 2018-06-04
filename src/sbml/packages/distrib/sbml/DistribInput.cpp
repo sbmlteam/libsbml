@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribInput::DistribInput(unsigned int level,
                            unsigned int version,
                            unsigned int pkgVersion)
-  : DistribBase(level, version)
+  : DistribBase(level, version, pkgVersion)
   , mIndex (SBML_INT_MAX)
   , mIsSetIndex (false)
 {

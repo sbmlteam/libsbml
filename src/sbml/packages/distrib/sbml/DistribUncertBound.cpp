@@ -53,7 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 DistribUncertBound::DistribUncertBound(unsigned int level,
                                        unsigned int version,
                                        unsigned int pkgVersion)
-  : DistribUncertValue(level, version)
+  : DistribUncertValue(level, version, pkgVersion)
   , mInclusive (false)
   , mIsSetInclusive (false)
   , mElementName("uncertBound")

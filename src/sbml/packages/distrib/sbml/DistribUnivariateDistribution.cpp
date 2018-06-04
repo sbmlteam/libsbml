@@ -81,7 +81,7 @@ DistribUnivariateDistribution::DistribUnivariateDistribution(
                                                                version,
                                                              unsigned int
                                                                pkgVersion)
-  : DistribDistribution(level, version)
+  : DistribDistribution(level, version, pkgVersion)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,
     pkgVersion));

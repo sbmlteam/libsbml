@@ -56,7 +56,7 @@ DistribChiSquareDistribution::DistribChiSquareDistribution(unsigned int level,
                                                              version,
                                                            unsigned int
                                                              pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mDegreesOfFreedom (NULL)
 {
   setSBMLNamespacesAndOwn(new DistribPkgNamespaces(level, version,

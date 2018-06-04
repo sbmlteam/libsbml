@@ -58,7 +58,7 @@ DistribInverseGammaDistribution::DistribInverseGammaDistribution(
                                                                    version,
                                                                  unsigned int
                                                                    pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mShape (NULL)
   , mScale (NULL)
 {

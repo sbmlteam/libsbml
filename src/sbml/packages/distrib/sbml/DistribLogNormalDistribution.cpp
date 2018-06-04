@@ -56,7 +56,7 @@ DistribLogNormalDistribution::DistribLogNormalDistribution(unsigned int level,
                                                              version,
                                                            unsigned int
                                                              pkgVersion)
-  : DistribContinuousUnivariateDistribution(level, version)
+  : DistribContinuousUnivariateDistribution(level, version, pkgVersion)
   , mShape (NULL)
   , mLogScale (NULL)
 {

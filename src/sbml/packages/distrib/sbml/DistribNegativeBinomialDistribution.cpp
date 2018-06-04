@@ -61,7 +61,7 @@ DistribNegativeBinomialDistribution::DistribNegativeBinomialDistribution(
                                                                          unsigned
                                                                            int
                                                                              pkgVersion)
-  : DistribDiscreteUnivariateDistribution(level, version)
+  : DistribDiscreteUnivariateDistribution(level, version, pkgVersion)
   , mNumberOfFailures (NULL)
   , mProbability (NULL)
 {

@@ -72,7 +72,7 @@ DistribContinuousUnivariateDistribution::DistribContinuousUnivariateDistribution
                                                                                  unsigned int level,
                                                                                  unsigned int version,
                                                                                  unsigned int pkgVersion)
-  : DistribUnivariateDistribution(level, version)
+  : DistribUnivariateDistribution(level, version, pkgVersion)
   , mTruncationLowerBound (NULL)
   , mTruncationUpperBound (NULL)
 {
