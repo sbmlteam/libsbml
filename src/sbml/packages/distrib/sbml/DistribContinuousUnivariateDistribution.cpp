@@ -1478,7 +1478,7 @@ DistribContinuousUnivariateDistribution::readAttributes(
     readL3V1V1Attributes(attributes);
   }
 
-  else
+  if (level == 3 && version == 2 && pkgVersion == 1)
   {
     readL3V2V1Attributes(attributes);
   }
@@ -1548,7 +1548,7 @@ DistribContinuousUnivariateDistribution::writeAttributes(XMLOutputStream&
     writeL3V1V1Attributes(stream);
   }
 
-  else
+  if (level == 3 && version == 2 && pkgVersion == 1)
   {
     writeL3V2V1Attributes(stream);
   }
