@@ -1005,6 +1005,7 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
   unsigned int pkgVersion = getPackageVersion();
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
+  int origNumErrs = log->getNumErrors();
 
   SBase::readAttributes(attributes, expectedAttributes);
 
@@ -1015,7 +1016,7 @@ DistribBase::readAttributes(const XMLAttributes& attributes,
 
   if (level == 3 && version == 2 && pkgVersion == 1)
   {
-    readL3V2V1Attributes(attributes);
+    readL3V2V1Attributes(attributes, origNumErrs);
   }
 }
 
@@ -1100,7 +1101,7 @@ DistribBase::readL3V1V1Attributes(const XMLAttributes& attributes)
  * Reads the expected attributes into the member data variables
  */
 void
-DistribBase::readL3V2V1Attributes(const XMLAttributes& attributes)
+DistribBase::readL3V2V1Attributes(const XMLAttributes& attributes, int origNumErrs)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -1116,14 +1117,14 @@ DistribBase::readL3V2V1Attributes(const XMLAttributes& attributes)
       + "' must use the 'id' attribute instead.";
     log->logPackageError("distrib", DistribIdL3v2NamespaceRule,
       pkgVersion, level, version, details);
-    ////Remove the original error:
-    //for (int n = log->getNumErrors(); n > origNumErrs; n--)
-    //{
-    //  if (log->getError(n - 1)->getErrorId() == UnknownPackageAttribute)
-    //  {
-    //    log->remove(UnknownPackageAttribute);
-    //  }
-    //}
+    //Remove the original error:
+    for (int n = log->getNumErrors(); n > origNumErrs; n--)
+    {
+      if (log->getError(n - 1)->getErrorId() == UnknownPackageAttribute)
+      {
+        log->remove(UnknownPackageAttribute);
+      }
+    }
   }
   if (attributes.getIndex("name", mURI) >= 0)
   {
@@ -1134,13 +1135,13 @@ DistribBase::readL3V2V1Attributes(const XMLAttributes& attributes)
     log->logPackageError("distrib", DistribNameL3v2NamespaceRule,
       pkgVersion, level, version, details);
     //Remove the original error:
-    //for (int n = log->getNumErrors(); n > origNumErrs; n--)
-    //{
-    //  if (log->getError(n - 1)->getErrorId() == UnknownPackageAttribute)
-    //  {
-    //    log->remove(UnknownPackageAttribute);
-    //  }
-    //}
+    for (int n = log->getNumErrors(); n > origNumErrs; n--)
+    {
+      if (log->getError(n - 1)->getErrorId() == UnknownPackageAttribute)
+      {
+        log->remove(UnknownPackageAttribute);
+      }
+    }
   }
   // 
   // id SId (use = "optional" )

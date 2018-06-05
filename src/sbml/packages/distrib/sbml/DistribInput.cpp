@@ -738,28 +738,23 @@ DistribInput::readL3V1V1Attributes(const XMLAttributes& attributes)
   // id SId (use = "required" )
   // 
 
-  XMLTriple tripleID("id", mURI, getPrefix());
-  assigned = attributes.readInto(tripleID, mId);
-
-  if (assigned == true)
+  if (!isSetId())
   {
-    if (mId.empty() == true)
+    if (attributes.getIndex("id") >= 0)
     {
-      logEmptyString(mId, level, version, "<DistribInput>");
+      //'getIndex' checks all namespaces, and DistribBase ensures that the correct namespace was used.
+      // If mId is not set, but there's an 'id' attribute, that means the user put it in the wrong namespace.
+      const std::string details = "The 'id' attribute on this <distribInput> is in the wrong namespace.";
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, details);
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    else
     {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
+      std::string message = "The 'distrib:id' attribute is missing from the "
+        "<DistribInput> element.";
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, message);
     }
-  }
-  else
-  {
-    std::string message = "Distrib attribute 'id' is missing from the "
-      "<DistribInput> element.";
-    log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-      pkgVersion, level, version, message);
   }
 
   // 
@@ -775,7 +770,7 @@ DistribInput::readL3V1V1Attributes(const XMLAttributes& attributes)
       log->contains(XMLAttributeTypeMismatch))
     {
       log->remove(XMLAttributeTypeMismatch);
-      std::string message = "Distrib attribute 'index' from the <DistribInput> "
+      std::string message = "The 'distrib:index' attribute from the <DistribInput> "
         "element must be an integer.";
       log->logPackageError("distrib",
         DistribDistribInputIndexMustBeNonNegativeInteger, pkgVersion, level,
@@ -807,29 +802,24 @@ DistribInput::readL3V2V1Attributes(const XMLAttributes& attributes)
   // id SId (use = "required" )
   // 
 
-  assigned = attributes.readInto("id", mId);
-
-  if (assigned == true)
+  if (!isSetId())
   {
-    if (mId.empty() == true)
+    if (attributes.getIndex("id") >= 0)
     {
-      logEmptyString(mId, level, version, "<DistribInput>");
+      //'getIndex' checks all namespaces, and DistribBase ensures that the correct namespace was used.
+      // If mId is not set, but there's an 'id' attribute, that means the user put it in the wrong namespace.
+      const std::string details = "The 'id' attribute on this <distribInput> is in the wrong namespace.";
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, details);
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    else
     {
-      log->logPackageError("distrib", DistribIdSyntaxRule, pkgVersion, level,
-        version, "The id on the <" + getElementName() + "> is '" + mId + "', "
-          "which does not conform to the syntax.", getLine(), getColumn());
+      std::string message = "Distrib attribute 'id' is missing from the "
+        "<DistribInput> element.";
+      log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
+        pkgVersion, level, version, message);
     }
   }
-  else
-  {
-    std::string message = "Distrib attribute 'id' is missing from the "
-      "<DistribInput> element.";
-    log->logPackageError("distrib", DistribDistribInputAllowedAttributes,
-      pkgVersion, level, version, message);
-  }
-
   // 
   // index uint (use = "optional" )
   // 

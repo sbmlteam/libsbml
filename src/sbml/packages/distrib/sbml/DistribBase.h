@@ -944,7 +944,7 @@ protected:
   /**
    * Reads the expected attributes into the member data variables
    */
-  void readL3V2V1Attributes(const XMLAttributes& attributes);
+  void readL3V2V1Attributes(const XMLAttributes& attributes, int origNumErrs);
 
   /** @endcond */
 
