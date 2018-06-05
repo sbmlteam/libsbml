@@ -1452,7 +1452,7 @@ DistribUniformDistribution::readAttributes(const XMLAttributes& attributes,
     readL3V1V1Attributes(attributes);
   }
 
-  if (level == 3 && version == 2 && pkgVersion == 1)
+  else
   {
     readL3V2V1Attributes(attributes);
   }
@@ -1521,7 +1521,7 @@ DistribUniformDistribution::writeAttributes(XMLOutputStream& stream) const
     writeL3V1V1Attributes(stream);
   }
 
-  if (level == 3 && version == 2 && pkgVersion == 1)
+  else
   {
     writeL3V2V1Attributes(stream);
   }
