@@ -96,7 +96,9 @@ START_TEST(test_UncertBound_write_attributes)
   ostringstream oss;
   oss << UB->toSBML();
 
-  fail_unless(equals(expected, oss.str()));
+  std::string actual = oss.str();
+
+  fail_unless(equals(expected, actual));
 
   delete UB;
 }

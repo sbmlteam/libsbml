@@ -94,7 +94,9 @@ START_TEST(test_IdName_prefix_read_write_l3v1)
   ostringstream oss;
   oss << uncert->toSBML();
 
-  fail_unless(equals(expected, oss.str()));
+  std::string actual = oss.str();
+
+  fail_unless(equals(expected, actual));
 
   delete doc;
 }
@@ -128,7 +130,9 @@ START_TEST(test_IdName_prefix_read_write_l3v2)
   ostringstream oss;
   oss << uncert->toSBML();
 
-  fail_unless(equals(expected, oss.str()));
+  std::string actual = oss.str();
+
+  fail_unless(equals(expected, actual));
 
   delete doc;
 }
