@@ -925,18 +925,6 @@ DistribRayleighDistribution::addExpectedAttributes(ExpectedAttributes&
   attributes)
 {
   DistribContinuousUnivariateDistribution::addExpectedAttributes(attributes);
-
-  unsigned int level = getLevel();
-  unsigned int coreVersion = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && coreVersion == 1 && pkgVersion == 1)
-  {
-  }
-
-  if (level == 3 && coreVersion == 2 && pkgVersion == 1)
-  {
-  }
 }
 
 /** @endcond */
@@ -986,56 +974,6 @@ DistribRayleighDistribution::readAttributes(const XMLAttributes& attributes,
       }
     }
   }
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    readL3V1V1Attributes(attributes);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    readL3V2V1Attributes(attributes);
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribRayleighDistribution::readL3V1V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-void
-DistribRayleighDistribution::readL3V2V1Attributes(const XMLAttributes&
-  attributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  bool assigned = false;
-  unsigned int pkgVersion = getPackageVersion();
-  SBMLErrorLog* log = getErrorLog();
 }
 
 /** @endcond */
@@ -1052,51 +990,7 @@ DistribRayleighDistribution::writeAttributes(XMLOutputStream& stream) const
 {
   DistribContinuousUnivariateDistribution::writeAttributes(stream);
 
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-
-  if (level == 3 && version == 1 && pkgVersion == 1)
-  {
-    writeL3V1V1Attributes(stream);
-  }
-
-  if (level == 3 && version == 2 && pkgVersion == 1)
-  {
-    writeL3V2V1Attributes(stream);
-  }
-
   SBase::writeExtensionAttributes(stream);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribRayleighDistribution::writeL3V1V1Attributes(XMLOutputStream& stream)
-  const
-{
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
-/*
- * Writes the attributes to the stream
- */
-void
-DistribRayleighDistribution::writeL3V2V1Attributes(XMLOutputStream& stream)
-  const
-{
 }
 
 /** @endcond */
