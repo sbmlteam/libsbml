@@ -1048,6 +1048,10 @@ else(UNIX)
                 endif(${flag_var} MATCHES "/Zi")
 
             endforeach(flag_var)
+        # add /bigobj to allow debug builds to work with swig and packages
+        ADD_DEFINITIONS(/bigobj)
+        SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /bigobj")
+        SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /bigobj")
     endif()
 
         file(GLOB WIN32_BINARIES ${LIBSBML_DEPENDENCY_DIR}/bin/*.dll)
