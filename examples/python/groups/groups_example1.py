@@ -53,6 +53,7 @@ sbmlns = SBMLNamespaces(3,1,"groups",1)
 #  create the document
 
 document = SBMLDocument(sbmlns)
+document.setPkgRequired('groups', False)
 
 #  create the Model
 
