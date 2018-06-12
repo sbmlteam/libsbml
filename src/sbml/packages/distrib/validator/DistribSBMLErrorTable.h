@@ -86,7 +86,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510301
   { DistribDuplicateComponentId,
     "Duplicate 'id' attribute value",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Core specification. TO "
     "DO list scope of ids)",
@@ -97,7 +97,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510302
   { DistribIdSyntaxRule,
     "Invalid SId syntax",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The value of a 'distrib:id' must conform to the syntax of the <sbml> data "
     "type 'SId'",
@@ -108,7 +108,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510303
   { DistribIdL3v1NamespaceRule,
     "No 'id' attributes allowed in 'distrib' objects in SBML L3v1.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'id' on any distrib object in an SBML Level 3 Version 1 "
     "document may not be used: one must use the DistribBase attribute "
@@ -120,7 +120,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510304
   { DistribNameL3v1NamespaceRule,
     "No 'name' attributes allowed in 'distrib' objects in SBML L3v1.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'name' on any distrib object in an SBML Level 3 Version 1 "
     "document may not be used: one must use the DistribBase attribute "
@@ -132,7 +132,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510305
   { DistribIdL3v2NamespaceRule,
     "No 'distrib:id' attributes allowed in 'distrib' objects in SBML L3v2.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'distrib:id' on any distrib object in an SBML Level 3 Version 2 "
     "document may not be used: one must use the core SBase attribute "
@@ -144,7 +144,7 @@ static const packageErrorTableEntry distribErrorTable[] =
   // 1510306
   { DistribNameL3v2NamespaceRule,
     "No 'distrib:name' attributes allowed in 'distrib' objects in SBML L3v2.",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     "The attribute 'distrib:name' on any distrib object in an SBML Level 3 Version 2 "
     "document may not be used: one must use the core SBase attribute "
