@@ -2127,8 +2127,8 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
   * is we were for some obscure reason writing out the SBMLDocument that
   * was created - we dont want to use l0v0
   */
-  unsigned int level;
-  unsigned int version;
+  unsigned int level = mLevel;
+  unsigned int version = mVersion;
   if (mLevel == 0 && mVersion == 0)
   {
     level = getDefaultLevel();
