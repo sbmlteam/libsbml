@@ -2045,14 +2045,39 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  stream.writeAttribute("level", mLevel);
+
+  /* when a non xml model is read in level and version are set to 0
+   * is we were for some obscure reason writing out the SBMLDocument that 
+   * was created - we dont want to use l0v0
+   */
+  if (mLevel > 0)
+  {
+    stream.writeAttribute("level", mLevel);
+  }
+  else
+  {
+    stream.writeAttribute("level", getDefaultLevel());
+  }
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
-  stream.writeAttribute("version", mVersion);
+
+  /* when a non xml model is read in level and version are set to 0
+  * is we were for some obscure reason writing out the SBMLDocument that
+  * was created - we dont want to use l0v0
+  */
+  if (mVersion > 0)
+  {
+    stream.writeAttribute("version", mVersion);
+  }
+  else
+  {
+    stream.writeAttribute("version", getDefaultVersion());
+  }
+
 
 
   //
@@ -2098,6 +2123,17 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 void
 SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
 {
+  /* when a non xml model is read in level and version are set to 0
+  * is we were for some obscure reason writing out the SBMLDocument that
+  * was created - we dont want to use l0v0
+  */
+  unsigned int level;
+  unsigned int version;
+  if (mLevel == 0 && mVersion == 0)
+  {
+    level = getDefaultLevel();
+    version = getDefaultVersion();
+  }
   // need to check that we have indeed a namespace set!
   XMLNamespaces * thisNs = this->getNamespaces();
 
@@ -2105,19 +2141,19 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
   if (thisNs == NULL)
   {
     XMLNamespaces xmlns;
-    xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+    xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(level, version));
 
     mSBMLNamespaces->setNamespaces(&xmlns);
     thisNs = getNamespaces();
   }
   else if (thisNs->getLength() == 0)
   {
-     thisNs->add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+     thisNs->add(SBMLNamespaces::getSBMLNamespaceURI(level, version));
   }
   else
   {
     // check that there is an sbml namespace
-    std::string sbmlURI = SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion);
+    std::string sbmlURI = SBMLNamespaces::getSBMLNamespaceURI(level, version);
     std::string sbmlPrefix = thisNs->getPrefix(sbmlURI);
     if (thisNs->hasNS(sbmlURI, sbmlPrefix) == false)
     {
