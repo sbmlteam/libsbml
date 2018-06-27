@@ -7,6 +7,7 @@
 # @author Akiya Jouraku
 # @author Michael Hucka
 # @author Frank Bergmann
+# @author Brett Olivier
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -57,7 +58,7 @@ ignored_ifiles   = ['std_string.i', 'javadoc.i', 'spatial-package.i']
 # small C# program to gather this info prior to running swigdoc.py.
 
 overriders = \
-{ 
+{
 'AlgebraicRule'             : [ 'clone', 'hasRequiredAttributes' ],
 'AssignmentRule'            : [ 'clone', 'hasRequiredAttributes' ],
 'Compartment'               : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
@@ -458,7 +459,7 @@ class Method:
     # that we put into %javamethodmodifiers.  The result is that the java
     # documentation for the methods are empty.  I can't figure out why, but
     # have figured out that if we omit the argument list in the doc string
-    # that is put on %javamethodmodifiers for such case, swig does generate 
+    # that is put on %javamethodmodifiers for such case, swig does generate
     # the comments for those methods.  This approach is potentially dangerous
     # because swig might attach the doc string to the wrong method if a
     # methods has multiple versions with varying argument types, but the
@@ -814,7 +815,14 @@ def translatePythonSeeRef (match):
 
 def translateAllowingBreaks (translations, docstring):
   for pair in translations:
-    new_pattern = re.sub(' ', r'\s+\*?\s*', pair[0])
+    # Unknown escapes consisting of '\' and an ASCII letter in
+    # replacement templates for re.sub() were deprecated in
+    # Python 3.5, and will now cause an error in Python 3.7
+    # simple fallback implemented for now.
+    try:
+      new_pattern = re.sub(' ', r'\s+\*?\s*', pair[0])
+    except re.error:
+      new_pattern = re.sub(' ', r'\\s+\*?\\s*', pair[0])
     replacement = pair[1]
     docstring   = re.sub(new_pattern, replacement, docstring)
   return docstring
@@ -948,7 +956,7 @@ def rewriteConstantLink (match):
   symbol    = split[0].strip()
   type_name = split[1].strip()
   return '@link ' + type_name + '#' + symbol + ' ' + symbol + '@endlink'
- 
+
 
 
 def rewriteEnumLink (match):
@@ -1569,7 +1577,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
   elif language == 'csharp':
     pre  = '%csmethodmodifiers'
     if f != None and f.isVirtual:
-      # this time we note right from the start, whether a function is virtual or not	  
+      # this time we note right from the start, whether a function is virtual or not
       if classname in virtual_functions and methodname in virtual_functions[classname]:
         post = ' public virtual'
       else:
@@ -1840,9 +1848,9 @@ def main (args):
   # file, post-process it, and write the final output to the real destination.
 
   tmpfilename = output_swig_file + ".tmp"
-  
-  # in case we have parallel processes writing to the file, we ensure, that 
-  # each process writes its own file. 
+
+  # in case we have parallel processes writing to the file, we ensure, that
+  # each process writes its own file.
   count = 1
   while os.path.isfile(tmpfilename):
     print ("warning: detected multiple run of swigdoc.py, this should not be happening!")
@@ -1901,21 +1909,21 @@ def main (args):
   try:
     finalstream = open(output_swig_file, 'w')
     postProcessOutput(tmpstream, finalstream)
-    
+
     try:
       tmpstream.flush()
       tmpstream.close()
     except (Exception,):
       e = sys.exc_info()[1]
       #FB: not printing the warning below, as after all the documentation file
-      #    has been correctly created. 
+      #    has been correctly created.
       pass
       # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a
       # serious error, but an issue with the python interpreter known to occur
       # in python 2.7." % e
     finalstream.flush()
     finalstream.close()
-  except: 
+  except:
     print ("error: could not write: " + output_swig_file)
 
   os.remove(tmpfilename)
@@ -1923,10 +1931,10 @@ def main (args):
 
 if __name__ == '__main__':
   main(sys.argv)
- 
+
 
 
 ## The following is for Emacs users.  Please leave in place.
-## Local Variables: 
+## Local Variables:
 ## python-indent-offset: 2
-## End: 
+## End:
