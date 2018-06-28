@@ -283,7 +283,14 @@ Compartment::getSpatialDimensions () const
     }
     else
     {
-      return static_cast<unsigned int>(mSpatialDimensionsDouble);
+      if (util_isNaN(mSpatialDimensionsDouble))
+      {
+        return 0;
+      }
+      else
+      {
+        return static_cast<unsigned int>(mSpatialDimensionsDouble);
+      }
     }
   }
 }
