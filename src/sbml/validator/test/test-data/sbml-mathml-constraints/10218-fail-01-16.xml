@@ -15,8 +15,6 @@
           <apply>
             <implies/>
             <cn type="integer"> 5 </cn>
-            <cn type="integer"> 5 </cn>
-            <cn type="integer"> 5 </cn>
           </apply>
         </math>
       </constraint>
