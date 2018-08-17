@@ -1,7 +1,7 @@
 /**
  * @file    ASTNode.cpp
- * @brief   Base Abstract Syntax Tree (AST) class.
- * @author  Sarah Keating
+ * @brief   Abstract Syntax Tree (AST) for representing formula trees.
+ * @author  Ben Bornstein
  * 
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -28,45 +28,136 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
- */
+ * ---------------------------------------------------------------------- -->*/
 
-#include <sbml/math/ASTNode.h>
-#include <sbml/math/ASTCnIntegerNode.h>
-#include <sbml/math/ASTPiecewiseFunctionNode.h>
-#include <sbml/util/List.h>
-#include <sbml/util/IdList.h>
-#include <sbml/math/ASTTypes.h>
-#include <sbml/SBase.h>
-#include <sbml/Model.h>
-#include <sbml/extension/ASTBasePlugin.h>
-
+#include <new>
+#include <cmath>
+#include <stdlib.h>
 #include <limits.h>
 
+#include <sbml/common/common.h>
+#include <sbml/util/List.h>
+
+#include <sbml/math/ASTNode.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLNode.h>
+#include <sbml/Model.h>
+#include <sbml/util/IdList.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
+
 /** @cond doxygenIgnored */
+
 using namespace std;
+
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isAvogadro(t) \
+  (t == AST_NAME_AVOGADRO)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isConstant(t) \
+  (((t >= AST_CONSTANT_E) && (t <= AST_CONSTANT_TRUE)) || t == AST_NAME_AVOGADRO)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isFunction(t) \
+  (((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH)) || (t <= AST_FUNCTION_REM && t >= AST_FUNCTION_MAX))
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isLambda(t) \
+  (t == AST_LAMBDA)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isLogical(t) \
+  (((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR)) || t == AST_LOGICAL_IMPLIES)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isName(t) \
+  ((t >= AST_NAME) && (t <= AST_NAME_TIME))
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isRelational(t) \
+  ((t >= AST_RELATIONAL_EQ) && (t <= AST_RELATIONAL_NEQ))
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isInteger(t) \
+  (t == AST_INTEGER)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isRational(t) \
+  (t == AST_RATIONAL)
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isReal(t) \
+  ((t >= AST_REAL) && (t <= AST_RATIONAL))
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isNumber(t) \
+  (ASTNodeType_isInteger(t) || ASTNodeType_isReal(t))
+
+ /**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isConstantNumber(t) \
+  (t == AST_CONSTANT_E || t == AST_CONSTANT_PI || t == AST_NAME_AVOGADRO)
+ /**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isOperator(t) \
+  ( ( t == AST_PLUS   ) || \
+    ( t == AST_MINUS  ) || \
+    ( t == AST_TIMES  ) || \
+    ( t == AST_DIVIDE ) || \
+    ( t == AST_POWER  ) )
+
+/**
+ * ASTNodeType predicate
+ */
+#define ASTNodeType_isUnknown(t) \
+  (t == AST_UNKNOWN)
 
 
-/*
+/**
  * String Constants
  */
 static const char *AST_LAMBDA_STRING = "lambda";
 
 static const char *AST_CONSTANT_STRINGS[] =
 {
-  "exponentiale"
+    "exponentiale"
   , "false"
   , "pi"
   , "true"
+  , "avogadro"
 };
 
 static const char *AST_FUNCTION_STRINGS[] =
 {
-  "abs"
+    "abs"
   , "arccos"
   , "arccosh"
   , "arccot"
@@ -103,19 +194,34 @@ static const char *AST_FUNCTION_STRINGS[] =
   , "tanh"
 };
 
+static const char *AST_NEW_FUNCTION_STRINGS[] =
+{
+    "max"
+  , "min"
+  , "quotient"
+  , "rateOf"
+  , "rem"
+};
+
 
 static const char *AST_LOGICAL_STRINGS[] =
 {
-  "and"
+    "and"
   , "not"
   , "or"
   , "xor"
 };
 
 
+static const char *AST_NEW_LOGICAL_STRINGS[] =
+{
+    "implies"
+};
+
+
 static const char *AST_RELATIONAL_STRINGS[] =
 {
-  "eq"
+    "eq"
   , "geq"
   , "gt"
   , "leq"
@@ -126,665 +232,1027 @@ static const char *AST_RELATIONAL_STRINGS[] =
 
 static const char *AST_OPERATOR_STRINGS[] =
 {
-  "divide"
+    "divide"
   , "minus"
   , "plus"
   , "times"
   , "power"
 };
 
+
 #ifdef __cplusplus
 
-ASTNode::ASTNode (ASTNodeType_t type) :
-        ASTBase ((int)(type))
-      , mNumber  ( NULL )
-      , mFunction ( NULL )
-      , mChar (0)
-      , mHistoricalName ("")
+/*
+ * Creates a new ASTNode.
+ *
+ * By default, node will have a type of AST_UNKNOWN and should be set to
+ * something else as soon as possible.
+ */
+LIBSBML_EXTERN
+ASTNode::ASTNode (ASTNodeType_t type)
 {
-  if (type == AST_UNKNOWN)
-  {
-    // user has not told us; need to assume something so lets go with 
-    // a function
-    mFunction = new ASTFunction ((int)(type));
-    this->ASTBase::syncMembersFrom(mFunction);
-  }
-  else if (representsNumber((int)(type)) == true)
-  {
-    mNumber = new ASTNumber ((int)(type));
-    this->ASTBase::syncPluginsFrom(mNumber);
-  }
-  else if (representsFunction((int)(type)) == true
-    || representsQualifier((int)(type)) == true
-    || type == AST_FUNCTION
-    || type == AST_FUNCTION_PIECEWISE
-    || type == AST_LAMBDA
-    || type == AST_SEMANTICS)
-  {
-    mFunction = new ASTFunction ((int)(type));
-    this->ASTBase::syncPluginsFrom(mFunction);
-  }
-  else
-  {
-    bool found = false;
-    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
-    {
-      if (found == false 
-        && (representsFunction((int)(type), ASTBase::getPlugin(i)) == true
-        || isTopLevelMathMLFunctionNodeTag(getNameFromType((int)(type))) == true))
-      {
-        mFunction = new ASTFunction ((int)(type));
-        this->ASTBase::syncPluginsFrom(mFunction);
-        found = true;
-      }
+  unsetSemanticsFlag();
+  mDefinitionURL = new XMLAttributes();
+  mReal          = 0;
+  mExponent      = 0;
+  mType          = AST_UNKNOWN;
+  mChar          = 0;
+  mName          = NULL;
+  mInteger       = 0;
+  mDenominator   = 1;
+  mParentSBMLObject = NULL;
+  mUnits         = "";
+  mId			 = "";
+  mClass		 = "";
+  mStyle		 = "";
+  mIsBvar = false;
+  mUserData      = NULL;
 
-    }
-  }
+  setType(type);
 
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
+  mChildren             = new List;
+  mSemanticsAnnotations = new List;
+  //loadASTPlugins(NULL);
+  //for (unsigned int i = 0; i < getNumPlugins(); i++)
+  //{
+  //  getPlugin(i)->connectToParent(this);
+  //}
+
 }
-  
 
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (SBMLNamespaces* sbmlns, ASTNodeType_t type) :
-        ASTBase (sbmlns, (int)(type))
-      , mNumber  ( NULL )
-      , mFunction ( NULL )
-      , mChar (0)
-      , mHistoricalName ("")
+
+/*
+ * Creates a new ASTNode from the given Token_t structure.                   
+ *                                                                           
+ * The resulting ASTNode will contain the same data as the Token_t           
+ * object.  Please refer to the documentation for Token_t to learn           
+ * about the possible contents.                                              
+ */
+LIBSBML_EXTERN
+ASTNode::ASTNode (Token_t* token)
 {
-  if (type == AST_UNKNOWN)
-  {
-    // user has not told us; need to assume something so lets go with 
-    // a function
-    mFunction = new ASTFunction ((int)(type));
-  }
-  else if (representsNumber((int)(type)) == true)
-  {
-    mNumber = new ASTNumber ((int)(type));
-  }
-  else if (representsFunction((int)(type)) == true
-    || representsQualifier((int)(type)) == true
-    || type == AST_FUNCTION
-    || type == AST_FUNCTION_PIECEWISE
-    || type == AST_LAMBDA
-    || type == AST_SEMANTICS)
-  {
-    mFunction = new ASTFunction ((int)(type));
-  }
-  else
-  {
-    bool found = false;
-    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
-    {
-      if (found == false 
-        && representsFunction((int)(type), ASTBase::getPlugin(i)) == true)
-      {
-        mFunction = new ASTFunction ((int)(type));
-        found = true;
-      }
+  unsetSemanticsFlag();
+  mDefinitionURL = new XMLAttributes();
+  mReal          = 0;
+  mExponent      = 0;
+  mType          = AST_UNKNOWN;
+  mChar          = 0;
+  mName          = NULL;
+  mInteger       = 0;
+  mDenominator   = 1;
+  mParentSBMLObject = NULL;
+  mUnits         = "";
+  mId			 = "";
+  mClass		 = "";
+  mStyle		 = "";
+  mIsBvar = false;
+  mUserData      = NULL;
 
-    }
-  }
-}
-/** @endcond */
-  
-
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (int type) :
-        ASTBase (type)
-      , mNumber  ( NULL )
-      , mFunction ( NULL )
-      , mChar (0)
-      , mHistoricalName ("")
-{
-  if (type == AST_UNKNOWN)
-  {
-    // user has not told us; need to assume something so lets go with 
-    // a function
-    mFunction = new ASTFunction (type);
-    this->ASTBase::syncMembersFrom(mFunction);
-  }
-  else if (representsNumber(type) == true)
-  {
-    mNumber = new ASTNumber (type);
-    this->ASTBase::syncPluginsFrom(mNumber);
-  }
-  else if (representsFunction(type) == true
-    || representsQualifier(type) == true
-    || type == AST_FUNCTION
-    || type == AST_FUNCTION_PIECEWISE
-    || type == AST_LAMBDA
-    || type == AST_SEMANTICS)
-  {
-    mFunction = new ASTFunction (type);
-    this->ASTBase::syncPluginsFrom(mFunction);
-  }
-  else
-  {
-    bool found = false;
-    if (getNumPlugins() == 0) loadASTPlugins(NULL);
-    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
-    {
-      if (found == false 
-        && (representsFunction(type, ASTBase::getPlugin(i)) == true
-        || representsQualifier(type, ASTBase::getPlugin(i)) == true
-        || isTopLevelMathMLFunctionNodeTag(getNameFromType(type)) == true))
-      {
-        mFunction = new ASTFunction (type);
-        this->ASTBase::syncPluginsFrom(mFunction);
-        found = true;
-      }
-
-    }
-  }
-
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-}
-/** @endcond */  
-
-
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (SBMLNamespaces* sbmlns, int type) :
-        ASTBase (sbmlns, type)
-      , mNumber  ( NULL )
-      , mFunction ( NULL )
-      , mChar (0)
-      , mHistoricalName ("")
-{
-  if (type == AST_UNKNOWN)
-  {
-    // user has not told us; need to assume something so lets go with 
-    // a function
-    mFunction = new ASTFunction (type);
-  }
-  else if (representsNumber(type) == true)
-  {
-    mNumber = new ASTNumber (type);
-  }
-  else if (representsFunction(type) == true
-    || representsQualifier(type) == true
-    || type == AST_FUNCTION
-    || type == AST_FUNCTION_PIECEWISE
-    || type == AST_LAMBDA
-    || type == AST_SEMANTICS)
-  {
-    mFunction = new ASTFunction (type);
-  }
-  else
-  {
-    bool found = false;
-    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
-    {
-      if (found == false 
-        && representsFunction(type, ASTBase::getPlugin(i)) == true)
-      {
-        mFunction = new ASTFunction (type);
-        found = true;
-      }
-
-    }
-  }
-}
-/** @endcond */
-  
-
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (ASTNumber* number) :
-ASTBase (number->getType())
-      , mNumber  ( number )
-      , mFunction ( NULL )
-      , mChar (0)
-      , mHistoricalName ("")
-{
-  this->syncMembersFrom(number);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (ASTFunction* function) :
-ASTBase (function->getType())
-      , mNumber  ( NULL )
-      , mFunction ( function )
-      , mChar (0)
-      , mHistoricalName ("")
-{
-  this->syncMembersFrom(function);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-ASTNode::ASTNode (Token_t* token):
-ASTBase()
-{
-  mNumber = NULL;
-  mFunction = NULL;
-  mChar = 0;
-  mHistoricalName = "";
+  mChildren             = new List;
+  mSemanticsAnnotations = new List;
 
   if (token != NULL)
   {
     if (token->type == TT_NAME)
     {
-      mFunction = new ASTFunction(AST_UNKNOWN);
-      this->ASTBase::syncMembersFrom(mFunction);
       setName(token->value.name);
     }
     else if (token->type == TT_INTEGER)
     {
-      mNumber = new ASTNumber(AST_INTEGER);
-      this->ASTBase::syncMembersFrom(mNumber);
       setValue(token->value.integer);
     }
     else if (token->type == TT_REAL)
     {
-      mNumber = new ASTNumber(AST_REAL);
-      this->ASTBase::syncMembersFrom(mNumber);
       setValue(token->value.real);
     }
     else if (token->type == TT_REAL_E)
     {
-      mNumber = new ASTNumber(AST_REAL_E);
-      this->ASTBase::syncMembersFrom(mNumber);
       setValue(token->value.real, token->exponent);
     }
     else
     {
-      mFunction = new ASTFunction();
-      this->ASTBase::syncMembersFrom(mFunction);
       setCharacter(token->value.ch);
     }
   }
-
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
+  //loadASTPlugins(NULL);
+  //for (unsigned int i = 0; i < getNumPlugins(); i++)
+  //{
+  //  getPlugin(i)->connectToParent(this);
+  //}
 }
-/** @endcond */
 
-
-ASTNode::ASTNode (const ASTNode& orig) :
-        ASTBase(orig)
-      , mNumber  ( NULL )
-      , mFunction ( NULL )
-      , mChar (orig.mChar)
-      , mHistoricalName (orig.mHistoricalName)
+/*
+* Used by the Copy Constructor to clone each item in mPlugins.
+*/
+struct CloneASTPluginEntity : public unary_function<ASTBasePlugin*, ASTBasePlugin*>
 {
-  if (orig.mNumber != NULL)
-  {
-    mNumber = new ASTNumber(orig.getExtendedType());
-    mNumber->syncMembersAndTypeFrom(orig.mNumber, orig.getExtendedType());
-    this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
+  ASTBasePlugin* operator() (ASTBasePlugin* ast) {
+    if (!ast) return 0;
+    return ast->clone();
   }
-  else if (orig.mFunction != NULL)
-  {
-    mFunction = new ASTFunction(orig.getExtendedType());
-    mFunction->syncMembersAndTypeFrom(orig.mFunction, orig.getExtendedType());
-    this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-  }
-  //if (orig.mNumber != NULL)
-  //{
-  //  mNumber = static_cast<ASTNumber*>( orig.mNumber->deepCopy() );
-  //}
+};
 
-  //if (orig.mFunction != NULL)
-  //{
-  //  mFunction = static_cast<ASTFunction*>( orig.mFunction->deepCopy() );
-  //}
+
+/*
+ * 
+ * Copy constructor; Creates a deep copy of the given ASTNode
+ *
+ */
+LIBSBML_EXTERN
+ASTNode::ASTNode (const ASTNode& orig) :
+  mType                 ( orig.mType )
+ ,mChar                 ( orig.mChar )
+ ,mName                 ( NULL )
+ ,mInteger              ( orig.mInteger )
+ ,mReal                 ( orig.mReal )
+ ,mDenominator          ( orig.mDenominator )
+ ,mExponent             ( orig.mExponent )
+ ,mDefinitionURL        ( orig.mDefinitionURL->clone() )	
+ ,hasSemantics          ( orig.hasSemantics )
+ ,mChildren             ( new List() )
+ ,mSemanticsAnnotations ( new List() )
+ ,mParentSBMLObject     ( orig.mParentSBMLObject )
+ ,mUnits                ( orig.mUnits)
+ ,mId                   ( orig.mId)
+ ,mClass                ( orig.mClass)
+ ,mStyle                ( orig.mStyle)
+ ,mIsBvar               ( orig.mIsBvar)
+ ,mUserData             ( orig.mUserData )
+{
+  if (orig.mName)
+  {
+    mName = safe_strdup(orig.mName);
+  }
+
+  for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
+  {
+    addChild( orig.getChild(c)->deepCopy() );
+  }
+
+  for (unsigned int c = 0; c < orig.getNumSemanticsAnnotations(); ++c)
+  {
+    addSemanticsAnnotation( orig.getSemanticsAnnotation(c)->clone() );
+  }
+  mPlugins.resize(orig.mPlugins.size());
+  transform(orig.mPlugins.begin(), orig.mPlugins.end(),
+    mPlugins.begin(), CloneASTPluginEntity());
+  for (size_t i = 0; i < mPlugins.size(); i++)
+  {
+    getPlugin((unsigned int)i)->connectToParent(this);
+  }
 }
 
-
-ASTNode&
-ASTNode::operator=(const ASTNode& rhs)
+/*
+ * 
+ * assignment operator
+ *
+ */
+LIBSBML_EXTERN
+ASTNode& ASTNode::operator=(const ASTNode& rhs)
 {
   if(&rhs!=this)
   {
-    reset();
-    mChar = rhs.mChar;
-    mHistoricalName = rhs.mHistoricalName;
+    mType                 = rhs.mType;
+    mChar                 = rhs.mChar;
+    mInteger              = rhs.mInteger;
+    mReal                 = rhs.mReal;
+    mDenominator          = rhs.mDenominator;
+    mExponent             = rhs.mExponent;
+    hasSemantics          = rhs.hasSemantics;
+    mParentSBMLObject     = rhs.mParentSBMLObject;
+    mUnits                = rhs.mUnits;
+    mId                   = rhs.mId;
+    mClass                = rhs.mClass;
+    mStyle                = rhs.mStyle;
+    mIsBvar               = rhs.mIsBvar;
+    mUserData             = rhs.mUserData;
+    freeName();
+    if (rhs.mName)
+    {
+      mName = safe_strdup(rhs.mName);
+    }
+    else
+    {
+      mName = NULL;
+    }
 
-    if (rhs.mNumber != NULL)
+    unsigned int size = mChildren->getSize();
+    while (size--) delete static_cast<ASTNode*>( mChildren->remove(0) );
+    delete mChildren;
+    mChildren = new List();
+
+    for (unsigned int c = 0; c < rhs.getNumChildren(); ++c)
     {
-      mNumber = new ASTNumber(rhs.getExtendedType());
-      mNumber->syncMembersAndTypeFrom(rhs.mNumber, rhs.getExtendedType());
-      this->ASTBase::syncMembersAndResetParentsFrom(mNumber);     
+      addChild( rhs.getChild(c)->deepCopy() );
     }
-    else if (rhs.mFunction != NULL)
+
+    size = mSemanticsAnnotations->getSize();
+    while (size--)  delete static_cast<XMLNode*>(mSemanticsAnnotations->remove(0) );
+    delete mSemanticsAnnotations;
+    mSemanticsAnnotations = new List();
+
+    for (unsigned int c = 0; c < rhs.getNumSemanticsAnnotations(); ++c)
     {
-      mFunction = new ASTFunction(rhs.getExtendedType());
-      mFunction->syncMembersAndTypeFrom(rhs.mFunction, rhs.getExtendedType());
-      this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+      addSemanticsAnnotation( rhs.getSemanticsAnnotation(c)->clone() );
     }
+    
+    delete mDefinitionURL;
+    mDefinitionURL        = rhs.mDefinitionURL->clone();	
+    clearPlugins();
+    mPlugins.resize(rhs.mPlugins.size());
+    transform(rhs.mPlugins.begin(), rhs.mPlugins.end(),
+      mPlugins.begin(), CloneASTPluginEntity());
   }
   return *this;
 }
 
-
 /*
-   * Destroys this ASTNode, including any child nodes.
-   */
+ * Destroys this ASTNode including any child nodes.
+ */
+LIBSBML_EXTERN
 ASTNode::~ASTNode ()
 {
-  if (mFunction != NULL) delete mFunction;
-  if (mNumber != NULL) delete mNumber;
-  //for_each( mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity() );
+  unsigned int size = getNumChildren();
 
+
+  while (size--) delete static_cast<ASTNode*>( mChildren->remove(0) );
+  delete mChildren;
+
+  size = mSemanticsAnnotations->getSize();
+  while (size--)  delete static_cast<XMLNode*>(mSemanticsAnnotations->remove(0) );
+  delete mSemanticsAnnotations;
+
+  delete mDefinitionURL;
+  
+  freeName();
+  clearPlugins();
 }
 
 
-/** @cond doxygenLibsbmlInternal */
+/*
+ * Frees the name of this ASTNode and sets it to NULL.
+ * 
+ * This operation is only applicable to ASTNodes corresponding to
+ * operators, numbers, or AST_UNKNOWN.  This method will have no
+ * effect on other types of nodes.
+ */
 int
-ASTNode::getTypeCode () const
+ASTNode::freeName ()
 {
-  return AST_TYPECODE_ASTNODE;
+  if (mName != NULL)
+  {
+    safe_free(mName);
+    mName = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+}
+
+
+/*
+ * Attempts to convert this ASTNode to a canonical form and returns true if
+ * the conversion succeeded, false otherwise.
+ *
+ * The rules determining the canonical form conversion are as follows:
+ *
+ *   1. If the node type is AST_NAME and the node name matches
+ *   "ExponentialE", "Pi", "True" or "False" the node type is converted to
+ *   the corresponding AST_CONSTANT type.
+ *
+ *   2. If the node type is an AST_FUNCTION and the node name matches an L1
+ *   or L2 (MathML) function name, logical operator name, or relational
+ *   operator name, the node is converted to the correspnding AST_FUNCTION,
+ *   AST_LOGICAL or AST_CONSTANT type.
+ *
+ * L1 function names are searched first, so canonicalizing "log" will
+ * result in a node type of AST_FUNCTION_LN (see L1 Specification,
+ * Appendix C).
+ *
+ * Some canonicalizations result in a structural converion of the nodes (by
+ * adding a child).  For example, a node with L1 function name "sqr" and a
+ * single child node (the argument) will be transformed to a node of type
+ * AST_FUNCTION_POWER with two children.  The first child will remain
+ * unchanged, but the second child will be an ASTNode of type AST_INTEGER
+ * and a value of 2.  The function names that result in structural changes
+ * are: log10, sqr and sqrt.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::canonicalize ()
+{
+  bool found = false;
+
+
+  if (mType == AST_NAME)
+  {
+    found = canonicalizeConstant();
+  }
+
+  if (!found && mType == AST_FUNCTION)
+  {
+    found = canonicalizeFunction();
+
+    if (!found)
+    {
+      found = canonicalizeLogical();
+    }
+
+    if (!found)
+    {
+      found = canonicalizeRelational();
+    }
+  }
+
+  return found;
+}
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Internal helper function for canonicalize().
+ */
+bool
+ASTNode::canonicalizeConstant ()
+{
+  const int first = AST_CONSTANT_E;
+  const int last  = AST_CONSTANT_TRUE;
+  const int size  = last - first + 1;
+
+  int  index;
+  bool found;
+
+
+  index = util_bsearchStringsI(AST_CONSTANT_STRINGS, mName, 0, size - 1);
+  found = (index < size);
+
+  if (found)
+  {
+    setType( static_cast<ASTNodeType_t>(first + index) );
+  }
+
+  return found;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Internal helper function for canonicalize().
+ */
+bool
+ASTNode::canonicalizeFunction ()
+{
+  const int first = AST_FUNCTION_ABS;
+  const int last  = AST_FUNCTION_TANH;
+  const int size  = last - first + 1;
+
+  const int new_first = AST_FUNCTION_MAX;
+  const int new_last  = AST_FUNCTION_REM;
+  const int new_size  = new_last - new_first + 1;
+
+  int  index;
+  bool found;
+
+
+  /*
+   * Search for SBML Level 1 function names first.
+   */
+  found = canonicalizeFunctionL1();
+
+  /*
+   * Now Lambda...
+   */
+  if (!found)
+  {
+    if ( (found = !strcmp_insensitive(mName, AST_LAMBDA_STRING)) )
+    {
+      setType(AST_LAMBDA);
+    }
+  }
+
+  /*
+   * ... and finally the L2 (MathML) function names.
+   */
+  if (!found)
+  {
+    index = util_bsearchStringsI(AST_FUNCTION_STRINGS, mName, 0, size - 1);
+    found = (index < size);
+
+    if (found)
+    {
+      setType( static_cast<ASTNodeType_t>(first + index) );
+    }
+  }
+
+  // and then the new ones
+  if (!found)
+  {
+    index = util_bsearchStringsI(AST_NEW_FUNCTION_STRINGS, mName, 0, new_size - 1);
+    found = (index < new_size);
+
+    if (found)
+    {
+      setType( static_cast<ASTNodeType_t>(new_first + index) );
+    }
+  }
+
+
+  return found;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Internal helper function for canonicalize().
+ */
+bool
+ASTNode::canonicalizeFunctionL1 ()
+{
+  ASTNode* child;
+
+
+  if ( !strcmp_insensitive(mName, "acos") )
+  {
+    setType(AST_FUNCTION_ARCCOS);
+  }
+  else if ( !strcmp_insensitive(mName, "asin") )
+  {
+    setType(AST_FUNCTION_ARCSIN);
+  }
+  else if ( !strcmp_insensitive(mName, "atan") )
+  {
+    setType(AST_FUNCTION_ARCTAN);
+  }
+  else if ( !strcmp_insensitive(mName, "ceil") )
+  {
+    setType(AST_FUNCTION_CEILING);
+  }
+
+  /*
+   * "log(x)" in L1 is represented as "ln(x)" in L2.
+   *
+   * Notice, however, that the conversion is performed only if the number of
+   * arguments is 1.  Thus "log(5, x)" will still be "log(5, x) when passed
+   * through this filter.
+   */
+  else if ( !strcmp_insensitive(mName, "log") && (getNumChildren() == 1) )
+  {
+    setType(AST_FUNCTION_LN);
+  }
+
+  /*
+   * "log10(x)" in L1 is represented as "log(10, x)" in L2.
+   */
+  else if ( !strcmp_insensitive(mName, "log10") && (getNumChildren() == 1) )
+  {
+    setType(AST_FUNCTION_LOG);
+
+    child = new ASTNode;
+    child->setValue(10);
+
+    prependChild(child);
+  }
+
+  /*
+   * Here we set the type to AST_FUNCTION_POWER.  We could set it to
+   * AST_POWER, but then we would loose the idea that it was a function
+   * before it was canonicalized.
+   */
+  else if ( !strcmp_insensitive(mName, "pow") )
+  {
+    setType(AST_FUNCTION_POWER);
+  }
+
+  /*
+   * "sqr(x)" in L1 is represented as "power(x, 2)" in L2.
+   */
+  else if ( !strcmp_insensitive(mName, "sqr") && (getNumChildren() == 1) )
+  {
+    setType(AST_FUNCTION_POWER);
+
+    child = new ASTNode;
+    child->setValue(2);
+
+    addChild(child);
+  }
+
+  /*
+   * "sqrt(x) in L1 is represented as "root(2, x)" in L1.
+   */
+  else if ( !strcmp_insensitive(mName, "sqrt") && (getNumChildren() == 1) )
+  {
+    setType(AST_FUNCTION_ROOT);
+
+    child = new ASTNode;
+    child->setValue(2);
+
+    prependChild(child);
+  }
+
+  /*
+   * Was a conversion performed?
+   */
+  return (mType != AST_FUNCTION);
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Internal helper function for canonicalize().
+ */
+bool
+ASTNode::canonicalizeLogical ()
+{
+  const int first = AST_LOGICAL_AND;
+  const int last  = AST_LOGICAL_XOR;
+  const int size  = last - first + 1;
+
+  const int new_first = AST_LOGICAL_IMPLIES;
+  const int new_last  = AST_LOGICAL_IMPLIES;
+  const int new_size  = new_last - new_first + 1;
+
+  int  index;
+  bool found;
+
+
+  index = util_bsearchStringsI(AST_LOGICAL_STRINGS, mName, 0, size - 1);
+  found = (index < size);
+
+  if (found)
+  {
+    setType( static_cast<ASTNodeType_t>(first + index) );
+  }
+
+  if (!found)
+  {
+    index = util_bsearchStringsI(AST_NEW_LOGICAL_STRINGS, mName, 0, new_size - 1);
+    found = (index < new_size);
+
+    if (found)
+    {
+      setType( static_cast<ASTNodeType_t>(new_first + index) );
+    }
+  }
+
+  return found;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Internal helper function for canonicalize().
+ */
+bool
+ASTNode::canonicalizeRelational ()
+{
+  const int first = AST_RELATIONAL_EQ;
+  const int last  = AST_RELATIONAL_NEQ;
+  const int size  = last - first + 1;
+
+  int  index;
+  bool found;
+
+
+  index = util_bsearchStringsI(AST_RELATIONAL_STRINGS, mName, 0, size - 1);
+  found = (index < size);
+
+  if (found)
+  {
+    setType( static_cast<ASTNodeType_t>(first + index) );
+  }
+
+  return found;
 }
 /** @endcond */
 
 
 /*
-   * Creates a copy (clone).
-   */
+ * Adds the given node as a child of this ASTNode.  Child nodes are added
+ * in-order from "left-to-right".
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+ASTNode::addChild (ASTNode* child, bool inRead)
+{
+
+  unsigned int numBefore = getNumChildren();
+  mChildren->add(child);
+
+  /* HACK to allow representsBVar function to be correct */
+  if (inRead == false && this->getType() == AST_LAMBDA
+    && numBefore > 0)
+  {
+    getChild(numBefore-1)->setBvar();
+  }
+
+  if (getNumChildren() == numBefore + 1)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+/*
+ * Adds the given node as a child of this ASTNode.  This method adds child
+ * nodes from "right-to-left".
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
+ */
+LIBSBML_EXTERN
+int
+ASTNode::prependChild (ASTNode* child)
+{
+  if (child == NULL) return LIBSBML_INVALID_OBJECT;
+
+  unsigned int numBefore = getNumChildren();
+  mChildren->prepend(child);
+
+  if (getNumChildren() == numBefore + 1)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+LIBSBML_EXTERN
+int  
+ASTNode::removeChild(unsigned int n)
+{
+  int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
+  unsigned int size = getNumChildren();
+  if (n < size)
+  {
+    mChildren->remove(n);
+    if (getNumChildren() == size-1)
+    {
+      removed = LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  return removed;
+}
+
+LIBSBML_EXTERN
+int 
+ASTNode::replaceChild(unsigned int n, ASTNode *newChild, bool delreplaced)
+{
+  if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
+
+  int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
+
+  unsigned int size = getNumChildren();
+  if (n < size)
+  {
+    ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(n));
+    if (delreplaced) 
+    {
+      delete rep;
+    }
+    if (insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
+      replaced = LIBSBML_OPERATION_SUCCESS;    
+  }
+    
+  return replaced;
+}
+
+LIBSBML_EXTERN
+int 
+ASTNode::insertChild(unsigned int n, ASTNode *newChild)
+{
+  if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
+
+  int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
+
+  unsigned int i, size = getNumChildren();
+  if (n == 0)
+  {
+    prependChild(newChild);
+    inserted = LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (n <= size) 
+  {
+    /* starting at the end take each child in the list and prepend it
+    * then remove it from the end
+    * at the insertion point prepend the newChild
+    * eg list: a, b, c 
+    * inserting d at position 2
+    * list goes: c, a, b :  d, c, a, b : b, d, c, a : a, b, d, c
+    */
+    for (i = size-1; i >= n; i--)
+    {
+      prependChild(getChild(size-1));
+      mChildren->remove(size);
+    }
+
+    prependChild(newChild);
+
+    for (i = 0; i < n; i++)
+    {
+      prependChild(getChild(size));
+      mChildren->remove(size+1);
+    }
+
+    if (getNumChildren() == size + 1)
+      inserted = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  /* HACK TO Make representBvar work */
+  // mark all but last child as bvar
+  // unless we have only inserted one
+  if (size > 1)
+  {
+    for (unsigned int c = 0; c < getNumChildren() - 1; c++)
+    {
+      getChild(c)->setBvar();
+    }
+  }
+
+  return inserted;
+}
+
+/*
+ * @return a copy of this ASTNode and all its children.  The caller owns
+ * the returned ASTNode and is reponsible for deleting it.
+ */
+LIBSBML_EXTERN
 ASTNode*
 ASTNode::deepCopy () const
 {
   return new ASTNode(*this);
 }
 
-/*-------------------------------------
- * 
- * getter functions from old ASTNode API
- *
- *---------------------------------------
+
+/*
+ * @return the nth child of this ASTNode or NULL if this node has no nth
+ * child (n > getNumChildren() - 1).
  */
-  
-char 
-ASTNode::getCharacter() const
+LIBSBML_EXTERN
+ASTNode*
+ASTNode::getChild (unsigned int n) const
 {
-  if (mFunction != NULL)
-  {
-    int type = mFunction->getType();
-    char c = mChar;
-    switch (type)
-    {
-    case AST_PLUS:
-       c = '+';
-       break;
-    case AST_MINUS:
-       c = '-';
-       break;
-    case AST_TIMES:
-       c = '*';
-       break;
-    case AST_DIVIDE:
-       c = '/';
-       break;
-    case AST_POWER:
-       c = '^';
-       break;
-    default:
-      break;
-    }
-
-    return c;
-  }
-  else
-  {
-    return mChar;
-  }
-}
-  
-
-std::string 
-ASTNode::getClass() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getClass();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getClass();
-  }
-  else
-  {
-    return ASTBase::getClass();
-  }
-}
-  
-
-XMLAttributes* 
-ASTNode::getDefinitionURL() const
-{
-  XMLAttributes *att = NULL;
-
-  std::string url;
-  
-  if (mNumber != NULL)
-  {
-    url = mNumber->getDefinitionURL();
-  }
-  else if (mFunction != NULL)
-  {
-    url = mFunction->getDefinitionURL();
-  }
-  
-  if (url.empty() == false)
-  {
-    att = new XMLAttributes();
-    att->add("definitionURL", url);
-  }
-
-  return att;
+  return static_cast<ASTNode*>( mChildren->get(n) );
 }
 
 
-std::string 
-ASTNode::getDefinitionURLString() const
+/*
+ * @return the left child of this ASTNode.  This is equivalent to
+ * getChild(0);
+ */
+LIBSBML_EXTERN
+ASTNode*
+ASTNode::getLeftChild () const
 {
-  if (mNumber != NULL)
+  return static_cast<ASTNode*>( mChildren->get(0) );
+}
+
+
+/*
+ * @return the right child of this ASTNode or NULL if this node has no
+ * right child.  If getNumChildren() > 1, then this is equivalent to:
+ *
+ *   getChild( getNumChildren() - 1);
+ */
+LIBSBML_EXTERN
+ASTNode*
+ASTNode::getRightChild () const
+{
+  unsigned int nc = getNumChildren();
+
+
+  return (nc > 1) ? static_cast<ASTNode*>( mChildren->get(nc - 1) ): NULL;
+}
+
+
+/*
+ * @return the number of children of this ASTNode or 0 is this node has no
+ * children.
+ */
+LIBSBML_EXTERN
+unsigned int
+ASTNode::getNumChildren () const
+{
+  return mChildren->getSize();
+}
+
+
+/*
+ * Adds the given xmlnode as an annotation of this ASTNode.  
+ */
+LIBSBML_EXTERN
+int 
+ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation)
+{
+  if (sAnnotation == NULL)
   {
-    return mNumber->getDefinitionURL();
+    return LIBSBML_OPERATION_FAILED;
   }
-  else if (mFunction != NULL)
+  mSemanticsAnnotations->add(sAnnotation);
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * @return the number of annotations of this ASTNode.  
+ */
+LIBSBML_EXTERN
+unsigned int 
+ASTNode::getNumSemanticsAnnotations () const
+{
+  return mSemanticsAnnotations->getSize();
+}
+
+
+/*
+ * @return the nth annotation of this ASTNode or NULL if this node has no nth
+ * annotation.
+ */
+LIBSBML_EXTERN
+XMLNode* 
+ASTNode::getSemanticsAnnotation (unsigned int n) const
+{
+  return static_cast<XMLNode*>( mSemanticsAnnotations->get(n) );
+}
+
+/*
+ * Performs a depth-first search (DFS) of the tree rooted at node and
+ * returns the List of nodes where predicate(node) returns true.
+ *
+ * The typedef for ASTNodePredicate is:
+ *
+ *   int (*ASTNodePredicate) (const ASTNode_t *node);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
+ *
+ * The List returned is owned by the caller and should be deleted.  The
+ * ASTNodes in the list, however, are not owned by the caller (as they
+ * still belong to the tree itself) and therefore should not be deleted.
+ */
+LIBSBML_EXTERN
+List*
+ASTNode::getListOfNodes (ASTNodePredicate predicate) const
+{
+  if (predicate == NULL) return NULL;
+
+  List* lst = new List;
+
+
+  fillListOfNodes(predicate, lst);
+
+  return lst;
+}
+
+
+/*
+ * This method is identical in functionality to getListOfNodes(), except
+ * the List is passed-in by the caller.
+ */
+LIBSBML_EXTERN
+void
+ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
+{
+  if (lst == NULL || predicate == NULL) return;
+
+  ASTNode*     child;
+  unsigned int c;
+  unsigned int numChildren = getNumChildren();
+
+
+
+  if (predicate(this) != 0)
   {
-    return mFunction->getDefinitionURL();
+    lst->add( const_cast<ASTNode*>(this) );
   }
-  else
+
+  for (c = 0; c < numChildren; c++)
   {
-    return "";
+    child = getChild(c);
+    child->fillListOfNodes(predicate, lst);
   }
 }
 
 
-long 
-ASTNode::getDenominator () const
+/*
+ * @return the value of this ASTNode as a single character.  This function
+ * should be called only when getType() is one of AST_PLUS, AST_MINUS,
+ * AST_TIMES, AST_DIVIDE or AST_POWER.
+ */
+LIBSBML_EXTERN
+char
+ASTNode::getCharacter () const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getDenominator();
-  }
-  else
-  {
-    return 1;
-  }
+  return mChar;
 }
 
 
-long 
-ASTNode::getExponent () const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getExponent();
-  }
-  else
-  {
-    return 0; 
-  }
-}
-
-
-std::string 
-ASTNode::getId() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getId();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getId();
-  }
-  else
-  {
-    return ASTBase::getId();
-  }
-}
-
-
-long 
+/*
+ * @return the value of this ASTNode as a (long) integer.  This function
+ * should be called only when getType() == AST_INTEGER.
+ */
+LIBSBML_EXTERN
+long
 ASTNode::getInteger () const
 {
-  if (mNumber != NULL && mNumber->getType() == AST_INTEGER )
-  {
-    return mNumber->getInteger();
-  }
-  else if (mNumber != NULL && mNumber->getType() == AST_RATIONAL )
-  {
-    return mNumber->getNumerator();
-  }
-  else
-  {
-    return 0;
-  }
+  return mInteger;
 }
 
 
-double 
-ASTNode::getMantissa () const
-{
-  if (mNumber != NULL && mNumber->getType() == AST_REAL_E)
-  {
-    return mNumber->getMantissa();
-  }
-  else if (mNumber != NULL && mNumber->getType() == AST_REAL)
-  {
-    return mNumber->getValue();
-  }
-  else if (mNumber != NULL && mNumber->getType() == AST_NAME_AVOGADRO)
-  {
-    return mNumber->getValue();
-  }
-  else
-  {
-    return 0;
-  }
-}
-
-
+/*
+ * @return the value of this ASTNode as a string.  This function may be
+ * called on nodes that are not operators (isOperator() == false)
+ * or numbers (isNumber() == false).
+ */
+LIBSBML_EXTERN
 const char*
 ASTNode::getName () const
 {
-  const char* result = "";
+  const char* result = mName;
 
-  if (mNumber != NULL)
-  {
-    result = mNumber->getName().c_str();
-  }
-  else if (mFunction != NULL)
-  {
-    result = mFunction->getName().c_str();
-  }
+
   /*
    * If the node does not have a name and is not a user-defined function
    * (type == AST_FUNCTION), use the default name for the builtin node
    * types.
    */
-  if (!strcmp(result, ""))
+  if (mName == NULL && mType != AST_FUNCTION)
   {
-    // we might have the case were people were allowed to store names
-    // for builtin functions which would override the default name
-    if (mHistoricalName.empty() == false)
+    if ( isConstant() )
     {
-      result = mHistoricalName.c_str();
-    }
-    else
-    {
-      /* HACK TO REPLICATE OLD AST */
-      /* did not expect some things like AST_PLUS etc to have a name
-       * my code uses the getNameFromType to write the MathmL so these
-       * do have names
-       */
-      if (getType() >= AST_NAME_TIME)
+      if (mType == AST_NAME_AVOGADRO)
       {
-        result = getNameFromType(getExtendedType());
+        result = AST_CONSTANT_STRINGS[4];
       }
-      else if (getType() == AST_NAME_AVOGADRO)
+      else
       {
-        result = "avogadro";
+        result = AST_CONSTANT_STRINGS[ mType - AST_CONSTANT_E ];
       }
     }
+    else if ( isLambda() )
+    {
+      result = AST_LAMBDA_STRING;
+    }
+    else if ( isFunction() )
+    {
+      if (mType < AST_LOGICAL_IMPLIES && mType >= AST_FUNCTION_MAX)
+      {
+        result = AST_NEW_FUNCTION_STRINGS[mType - AST_FUNCTION_MAX];
+      }
+      else if (mType <= AST_FUNCTION_TANH && mType >= AST_FUNCTION_ABS)
+      {
+        result = AST_FUNCTION_STRINGS[ mType - AST_FUNCTION_ABS ];
+      }
+    }
+    else if ( isLogical() )
+    {
+      if (mType == AST_LOGICAL_IMPLIES)
+      {
+        result = AST_NEW_LOGICAL_STRINGS[0];
+      }
+      else
+      {
+        result = AST_LOGICAL_STRINGS[ mType - AST_LOGICAL_AND ];
+      }
+    }
+    else if ( isRelational() )
+    {
+      result = AST_RELATIONAL_STRINGS[ mType - AST_RELATIONAL_EQ ];
+    }
   }
 
-  if (!strcmp(result, ""))
-    return NULL;
-  else
-    return result;
+  return result;
 }
 
 
-/** @cond doxygenLibsbmlInternal */
-unsigned int 
-ASTNode::getNumBvars() const
-{
-  if (mNumber != NULL)
-  {
-    return 0;
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getNumBvars();
-  }
-  else
-  {
-    return 0;
-  }
-}
-/** @endcond */
-
-
-long 
-ASTNode::getNumerator () const
-{
-  if (mNumber != NULL && mNumber->getType() == AST_RATIONAL)
-  {
-    return mNumber->getNumerator();
-  }
-  else if (mNumber != NULL && mNumber->getType() == AST_INTEGER)
-  {
-    return mNumber->getInteger();
-  }
-  else
-  {
-    return 0;
-  }
-}
-
-  
-const char* 
+LIBSBML_EXTERN
+const char*
 ASTNode::getOperatorName () const
 {
-  switch(mType) 
-  {
+  switch(mType) {
   case AST_DIVIDE:
     return AST_OPERATOR_STRINGS[0];
   case AST_MINUS:
@@ -801,28 +1269,130 @@ ASTNode::getOperatorName () const
 }
 
 
-SBase *
-ASTNode::getParentSBMLObject() const
+/*
+ * @return the value of the numerator of this ASTNode.  This function
+ * should be called only when getType() == AST_RATIONAL.
+ */
+LIBSBML_EXTERN
+long
+ASTNode::getNumerator () const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getParentSBMLObject();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getParentSBMLObject();
-  }
-  else
-  {
-    return ASTBase::getParentSBMLObject();
-  }
+  return mInteger;
 }
 
 
+/*
+ * @return the value of the denominator of this ASTNode.  This function
+ * should be called only when getType() == AST_RATIONAL.
+ */
+LIBSBML_EXTERN
+long
+ASTNode::getDenominator () const
+{
+  return mDenominator;
+}
+
+
+/*
+ * @return the value of this ASTNode as a real (double).  This function
+ * should be called only when isReal() == true.
+ *
+ * This function performs the necessary arithmetic if the node type is
+ * AST_REAL_E (mantissa * $10^exponent$) or AST_RATIONAL (numerator /
+ * denominator).
+ */
+LIBSBML_EXTERN
+double
+ASTNode::getReal () const
+{
+  double result = mReal;
+  
+
+  if (mType == AST_REAL_E)
+  {
+    result *= pow(10.0,  static_cast<double>(mExponent) );
+  }
+  else if (mType == AST_RATIONAL)
+  {
+    result = static_cast<double>(mInteger) / mDenominator;
+  }
+
+  return result;
+}
+
+
+/*
+ * @return the value of the mantissa of this ASTNode.  This function should
+ * be called only when getType() is AST_REAL_E or AST_REAL.  If AST_REAL,
+ * this method is identical to getReal().
+ */
+LIBSBML_EXTERN
+double
+ASTNode::getMantissa () const
+{
+  return mReal;
+}
+
+
+/*
+ * @return the value of the exponent of this ASTNode.  This function should
+ * be called only when getType() is AST_REAL_E or AST_REAL.
+ */
+LIBSBML_EXTERN
+long
+ASTNode::getExponent () const
+{
+  return mExponent;
+}
+
+
+LIBSBML_EXTERN
+double
+ASTNode::getValue () const
+{
+  double value = util_NaN();
+
+  switch(mType)
+  {
+  case AST_CONSTANT_E:
+    value = 2.71828182;
+    break;
+  case AST_CONSTANT_FALSE:
+    value = 0;
+    break;
+  case AST_CONSTANT_PI:
+    value = 3.14159292;
+    break;
+  case AST_CONSTANT_TRUE:
+    value = 1;
+    break;
+  case AST_INTEGER:
+    value = (double)(getInteger());
+    break;
+  case AST_NAME_AVOGADRO:
+  case AST_RATIONAL:
+  case AST_REAL:
+  case AST_REAL_E:
+    value = getReal();
+    break;
+  default:
+    break;
+  }
+
+  return value;
+
+}
+
+/*
+ * @return the precedence of this ASTNode (as defined in the SBML L1
+ * specification).
+ */
+LIBSBML_EXTERN
 int
-ASTNode::getPrecedence() const
+ASTNode::getPrecedence () const
 {
   int precedence;
+
 
   if ( isUMinus() )
   {
@@ -856,1027 +1426,46 @@ ASTNode::getPrecedence() const
 }
 
 
-double 
-ASTNode::getReal () const
-{
-  /* HACK TO REPLICATE OLD AST */
-  // hack since old ASTNode would reset the "real" value of an integer to 0
-  if (mNumber != NULL)
-  {
-    switch (mNumber->getType())
-    {
-    case AST_INTEGER:
-    case AST_NAME:
-    case AST_NAME_TIME:
-    case AST_CONSTANT_E:
-    case AST_CONSTANT_PI:
-    case AST_CONSTANT_TRUE:
-    case AST_CONSTANT_FALSE:
-      return 0;
-    default:
-      return mNumber->getValue();
-    }
-  }
-  else
-  {
-    return 0;
-  }
-}
-
-
-std::string 
-ASTNode::getStyle() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getStyle();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getStyle();
-  }
-  else
-  {
-    return ASTBase::getStyle();
-  }
-}
-
-
-ASTNodeType_t 
+/*
+ * @return the type of this ASTNode.
+ */
+LIBSBML_EXTERN
+ASTNodeType_t
 ASTNode::getType () const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getType();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getType();
-  }
-  else
-  {
-    return ASTBase::getType();
-  }
+  return mType;
 }
 
-
-int 
-ASTNode::getExtendedType () const
+LIBSBML_EXTERN
+std::string
+ASTNode::getId() const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getExtendedType();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getExtendedType();
-  }
-  else
-  {
-    return ASTBase::getExtendedType();
-  }
+  return mId;
 }
 
-double
-ASTNode::getValue() const
+LIBSBML_EXTERN
+std::string
+ASTNode::getClass() const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getValue();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getValue();
-  }
-  else
-  {
-    return ASTBase::getValue();
-  }
+  return mClass;
 }
 
-
-/** @cond doxygenLibsbmlInternal */
-const std::string&
-ASTNode::getPackageName () const
+LIBSBML_EXTERN
+std::string
+ASTNode::getStyle() const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getPackageName();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getPackageName();
-  }
-  else
-  {
-    return ASTBase::getPackageName();
-  }
+  return mStyle;
 }
-/** @endcond */
 
-
-std::string 
+LIBSBML_EXTERN
+std::string
 ASTNode::getUnits() const
 {
-  static std::string emptyString= "";
-  if (mNumber != NULL)
-  {
-    return mNumber->getUnits();
-  }
-  else
-  {
-    return emptyString;
-  }
+  return mUnits;
 }
-
-
-/*-------------------------------------
- * 
- * setter functions from old ASTNode API
- *
- *---------------------------------------
- */
-  
-
-int 
-ASTNode::setCharacter(char value)
-{
-  if (value == '+')
-  {
-    setType(AST_PLUS);
-    mFunction->ASTBase::setType(AST_PLUS);
-  }
-  else if (value == '-')
-  {
-    setType(AST_MINUS);
-    mFunction->ASTBase::setType(AST_MINUS);
-  }
-  else if (value == '*')
-  {
-    setType(AST_TIMES);
-    mFunction->ASTBase::setType(AST_TIMES);
-  }
-  else if (value == '/')
-  {
-    setType(AST_DIVIDE);
-    mFunction->ASTBase::setType(AST_DIVIDE);
-  }
-  else if (value == '^')
-  {
-    setType(AST_POWER);
-    mFunction->ASTBase::setType(AST_POWER);
-  }
-  else
-  {
-    setType(AST_UNKNOWN);
-  }
-
-  mChar = value;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-  
-
-int 
-ASTNode::setClass(const std::string& className)
-{
-  int success = ASTBase::setClass(className);
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->setClass(className);
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->setClass(className);
-    }
-  }
-
-  return success;
-}
-
-
-int
-ASTNode::setDefinitionURL(XMLAttributes url)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-
-  if (mNumber != NULL)
-  {
-    success = mNumber->setDefinitionURL(url.getValue(0));
-  }
-  else if (mFunction != NULL)
-  {
-    success = mFunction->setDefinitionURL(url.getValue(0));
-  }
-
-  return success;
-}
-
-
-int
-ASTNode::setDefinitionURL(const std::string& url)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-
-  if (mNumber != NULL)
-  {
-    success = mNumber->setDefinitionURL(url);
-  }
-  else if (mFunction != NULL)
-  {
-    success = mFunction->setDefinitionURL(url);
-  }
-
-  return success;
-}
-
-
-int 
-ASTNode::setId(const std::string& id)
-{
-  int success = ASTBase::setId(id);
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->setId(id);
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->setId(id);
-    }
-  }
-
-  return success;
-}
-
-
-int 
-ASTNode::setName(const char * name)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  std::string strName = "";
-  if (name != NULL)
-  {
-    strName = string(name);
-  }
-
-
-  if (mNumber != NULL)
-  {
-    success = mNumber->setNameAndChangeType(strName);
-    this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-  }
-  else if (mFunction != NULL && getType() == AST_UNKNOWN) 
-  {
-    mNumber = new ASTNumber(AST_NAME);
-    mNumber->syncMembersAndTypeFrom(mFunction, AST_NAME);
-    
-    delete mFunction;
-    mFunction = NULL;
-    
-    success = mNumber->setName(strName);
-    this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-  }
-  else if (mFunction != NULL)
-  {
-    success = mFunction->setNameAndChangeType(strName);
-    if (success == LIBSBML_INVALID_OBJECT)
-    {
-      // we have a situation were a function that does not expect to have 
-      // a name (because it has one by default) wants one - 
-      // so we store that on ASTNode
-      // since it is not really part of the new ast class structure
-      mHistoricalName = strName;
-      success = LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      mHistoricalName.clear();
-    }
-    this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-  }
-
-  return success;
-}  
-
-
-int
-ASTNode::setParentSBMLObject(SBase* sb)
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->setParentSBMLObject(sb);
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->setParentSBMLObject(sb);
-  }
-  else
-  {
-    return ASTBase::setParentSBMLObject(sb);
-  }
-}
-
-
-int 
-ASTNode::setStyle(const std::string& style)
-{
-  int success = ASTBase::setStyle(style);
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->setStyle(style);
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->setStyle(style);
-    }
-  }
-
-  return success;
-}
-
-
-int 
-ASTNode::setType (int type) 
-{
-  if (getExtendedType() == type)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-  std::string name = "";
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-    name = mNumber->getName();
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-    name = mFunction->getName();
-  }
-  
-  reset(); 
-
-  if (representsNumber(type))
-  {
-    mNumber = new ASTNumber(type);
-    if (copyNumber != NULL)
-    {
-      mNumber->syncMembersAndTypeFrom(copyNumber, type);
-      this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-    }
-    else if (copyFunction != NULL)
-    {
-      mNumber->syncMembersAndTypeFrom(copyFunction, type);
-      this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-    }
-  }
-  else if (representsFunction(type) 
-    || representsQualifier(type) 
-    || type == AST_FUNCTION
-    || type == AST_LAMBDA
-    || type == AST_FUNCTION_DELAY
-    || type == AST_FUNCTION_PIECEWISE
-    || type == AST_SEMANTICS
-    || type == AST_UNKNOWN)
-  {
-    mFunction = new ASTFunction(type);
-    if (copyNumber != NULL)
-    {
-      mFunction->syncMembersAndTypeFrom(copyNumber, type);
-      this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-    }
-    else if (copyFunction != NULL)
-    {
-      mFunction->syncMembersAndTypeFrom(copyFunction, type);
-      this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-    }
-
-    // keep the name as it was possible to rename functions
-
-    if (name.empty() == false)
-    {
-      mHistoricalName = name;
-    }
-    
-    // keep a record of the character if the type is an operator
-    switch (type)
-    {
-    case AST_PLUS:
-      mChar = '+';
-      mHistoricalName.clear();
-      break;
-    case AST_MINUS:
-      mChar = '-';
-      mHistoricalName.clear();
-      break;
-    case AST_TIMES:
-      mChar = '*';
-      mHistoricalName.clear();
-      break;
-    case AST_DIVIDE:
-      mChar = '/';
-      mHistoricalName.clear();
-      break;
-    case AST_POWER:
-      mChar = '^';
-      mHistoricalName.clear();
-      break;
-    default:
-      break;
-    }
-  }
-  else
-  {
-    bool found = false;
-    if (getNumPlugins() == 0) loadASTPlugins(NULL);
-    for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
-    {
-      if (found == false)
-      {
-        const char * name1 = ASTBase::getPlugin(i)->getNameFromType(type);
-        if (representsFunction(type, ASTBase::getPlugin(i)) == true)
-        {
-          mFunction = new ASTFunction (type);
-          if (copyNumber != NULL)
-          {
-            mFunction->syncMembersAndTypeFrom(copyNumber, type);
-            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-          }
-          else if (copyFunction != NULL)
-          {
-            mFunction->syncMembersAndTypeFrom(copyFunction, type);
-            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-          }
-          found = true;
-        }
-        else if (ASTBase::getPlugin(i)
-                          ->isTopLevelMathMLFunctionNodeTag(name1) == true)
-        {
-          mFunction = new ASTFunction (type);
-          if (copyNumber != NULL)
-          {
-            mFunction->syncMembersAndTypeFrom(copyNumber, type);
-            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-          }
-          else if (copyFunction != NULL)
-          {
-            mFunction->syncPackageMembersAndTypeFrom(copyFunction, type);
-            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-          }
-          found = true;
-        }
-      }
-
-    }
-  }
-
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return ASTBase::setType(type);
-}
-
-
-int 
-ASTNode::setType (ASTNodeType_t type) 
-{
-  return this->setType((int)(type));
-}
-
-  
-int 
-ASTNode::setUnits(const std::string& units)
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->setUnits(units);
-  }
-  else
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-}
-
-
-int 
-ASTNode::setValue(int value)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-  }
-
-  int type = AST_INTEGER;
-
-  if (getType() != type)
-  {
-    reset();
-    mNumber = new ASTNumber(type);
-  }
-
-  if (copyNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyNumber, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-  else if (copyFunction != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyFunction, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-
-  success = mNumber->setValue(value);
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return success;
-}
-
-
-int
-ASTNode::setValue(long value)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-  }
-
-  int type = AST_INTEGER;
-
-  if (getType() != type)
-  {
-    reset();
-    mNumber = new ASTNumber(type);
-  }
-
-  if (copyNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyNumber, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-  else if (copyFunction != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyFunction, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-
-  success = mNumber->setValue(value);
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return success;
-}
-
-int
-ASTNode::setValue(long numerator, long denominator)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-  }
-
-  int type = AST_RATIONAL;
-
-  if (getType() != type)
-  {
-    reset();
-    mNumber = new ASTNumber(type);
-  }
-
-  if (copyNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyNumber, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-  else if (copyFunction != NULL && mNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyFunction, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-
-  if (mNumber != NULL)
-  success = mNumber->setValue(numerator, denominator);
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return success;
-}
-
-int
-ASTNode::setValue(double value)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-  }
-
-  int type = AST_REAL;
-  if (getType() == AST_REAL_E)
-  {
-    type = AST_REAL_E;
-  }
-
-  if (getType() != AST_REAL || getType() != AST_REAL_E)
-  {
-    reset();
-    mNumber = new ASTNumber(type);
-  }
-
-  if (copyNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyNumber, type);
-    this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-  }
-  else if (copyFunction != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyFunction, AST_REAL);
-    this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-  }
-
-  success = mNumber->setValue(value);
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return success;
-}
-
-int
-ASTNode::setValue(double mantissa, long exponent)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  ASTNumber * copyNumber = NULL;
-  ASTFunction * copyFunction = NULL;
-
-  if (mNumber != NULL)
-  {
-    copyNumber = new ASTNumber(*(getNumber()));
-  }
-  else if (mFunction != NULL)
-  {
-    copyFunction = new ASTFunction(*(getFunction()));
-  }
-  
-  int type = AST_REAL_E;
-
-  if (getType() != type)
-  {
-    reset();
-    mNumber = new ASTNumber(type);
-  }
-
-  if (copyNumber != NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyNumber, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-  else if (copyFunction != NULL && mNumber!= NULL)
-  {
-    mNumber->syncMembersAndTypeFrom(copyFunction, type);
-    this->ASTBase::syncMembersFrom(mNumber);
-  }
-
-  if (mNumber != NULL)
-  success = mNumber->setValue(mantissa, exponent);
-
-  if (copyNumber != NULL)
-  {
-    delete copyNumber;
-  }
-
-  if (copyFunction != NULL)
-  {
-    delete copyFunction;
-  }
-
-  return success;
-}
-
 
 /** @cond doxygenLibsbmlInternal */
-void 
-ASTNode::setIsChildFlag(bool flag)
-{
-  ASTBase::setIsChildFlag(flag);
-
-  if (mNumber != NULL)
-  {
-    mNumber->setIsChildFlag(flag);
-  }
-  else if (mFunction != NULL)
-  {
-    mFunction->setIsChildFlag(flag);
-  }
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::representsBvar() const
-{
-  return ASTBase::representsBvar();
-}
-
-  /* isSet functions */
-  
-bool 
-ASTNode::isSetClass() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->isSetClass();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->isSetClass();
-  }
-  else
-  {
-    return ASTBase::isSetClass();
-  }
-}
-  
-
-bool 
-ASTNode::isSetId() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->isSetId();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->isSetId();
-  }
-  else
-  {
-    return ASTBase::isSetId();
-  }
-}
-  
-
-bool 
-ASTNode::isSetParentSBMLObject() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->isSetParentSBMLObject();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->isSetParentSBMLObject();
-  }
-  else
-  {
-    return ASTBase::isSetParentSBMLObject();
-  }
-}
-  
-
-bool 
-ASTNode::isSetStyle() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->isSetStyle();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->isSetStyle();
-  }
-  else
-  {
-    return ASTBase::isSetStyle();
-  }
-}
-  
-
-bool 
-ASTNode::isSetUnits() const
-{
-  bool success = false;
-
-  if (mNumber != NULL)
-  {
-    success = mNumber->isSetUnits();
-  }
-
-  return success;
-}
-  
-
-  /* unset functions */
-int 
-ASTNode::unsetClass()
-{
-  int success = ASTBase::unsetClass();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->unsetClass();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->unsetClass();
-    }
-  }
-
-  return success;
-}
-  
-
-int 
-ASTNode::unsetId()
-{
-  int success = ASTBase::unsetId();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->unsetId();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->unsetId();
-    }
-  }
-
-  return success;
-}
-  
-
-int 
-ASTNode::unsetParentSBMLObject()
-{
-  int success = ASTBase::unsetParentSBMLObject();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->unsetParentSBMLObject();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->unsetParentSBMLObject();
-    }
-  }
-
-  return success;
-}
-  
-
-int 
-ASTNode::unsetStyle()
-{
-  int success = ASTBase::unsetStyle();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->unsetStyle();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->unsetStyle();
-    }
-  }
-
-  return success;
-}
-  
-
-int 
-ASTNode::unsetUnits()
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->unsetUnits();
-  }
-  else
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-}
-
-
-int
-ASTNode::freeName()
-{
-  int success = LIBSBML_UNEXPECTED_ATTRIBUTE;
-  
-  if (mNumber != NULL)
-  {
-    if (mNumber->getName().empty() != true)
-    {
-      success = mNumber->setName("");
-    }
-  }
-  else if (mFunction != NULL)
-  {
-    if (mFunction->getName().empty() != true)
-    {
-      success = mFunction->setName("");
-    }
-  }
-
-  return success;
-}
-
-
-/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
 bool
 ASTNode::usesL3V2MathConstructs() const
 {
@@ -1903,6 +1492,7 @@ ASTNode::usesL3V2MathConstructs() const
 
 
 /** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
 bool
 ASTNode::usesRateOf() const
 {
@@ -1921,556 +1511,35 @@ ASTNode::usesRateOf() const
 }
 /** @endcond */
 
-
-/** @cond doxygenLibsbmlInternal */
+/*
+ * @return true if this ASTNode is a boolean (a logical operator, a
+ * relational operator, or the constants true or false), false otherwise.
+ */
+LIBSBML_EXTERN
 bool
-ASTNode::hasCnUnits() const
+ASTNode::isAvogadro () const
 {
-  bool hasCnUnits = false;
-
-  if (mNumber != NULL)
-  {
-    hasCnUnits = mNumber->hasCnUnits();
-  }
-  else if (mFunction != NULL)
-  {
-    hasCnUnits = mFunction->hasCnUnits();
-  }
-
-  return hasCnUnits;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-const std::string&
-ASTNode::getUnitsPrefix() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getUnitsPrefix();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getUnitsPrefix();
-  }
-  else
-  {
-    return ASTBase::getUnitsPrefix();
-  }
-}
-/** @endcond */
-
-
-// functions for semantics
-
-int 
-ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation)
-{
-  int success = LIBSBML_OPERATION_FAILED;
-  if (mFunction != NULL)
-  {
-    success = mFunction->addSemanticsAnnotation(sAnnotation);
-    if (success == LIBSBML_OPERATION_SUCCESS)
-    {
-      this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-    }
-  }
-  else if (mNumber != NULL)
-  {
-    ASTNode * copyThis = new ASTNode(*this);
-    reset();
-    mFunction = new ASTFunction(AST_SEMANTICS);
-    mFunction->ASTBase::syncMembersFrom(copyThis);
-    mFunction->setType(AST_SEMANTICS);
-    this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-    mFunction->addChild(copyThis);
-    success = mFunction->addSemanticsAnnotation(sAnnotation);
-  }
-  return success;
-}
-
-unsigned int 
-ASTNode::getNumSemanticsAnnotations () const
-{
-  if (mFunction != NULL)
-  {
-    return mFunction->getNumSemanticsAnnotations();
-  }
-  else
-  {
-    return 0;
-  }
+  return ASTNodeType_isAvogadro(mType);
 }
 
 
-XMLNode* 
-ASTNode::getSemanticsAnnotation (unsigned int n) const
+/*
+ * @return true if this ASTNode is a boolean (a logical operator, a
+ * relational operator, or the constants true or false), false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isBoolean () const
 {
-  if (mFunction != NULL)
-  {
-    return mFunction->getSemanticsAnnotation(n);
-  }
-  else
-  {
-    return NULL;
-  }
+  return
+    isLogical   () ||
+    isRelational() ||
+    mType == AST_CONSTANT_TRUE ||
+    mType == AST_CONSTANT_FALSE;
 }
 
 
-/* convenience functions */
-bool 
-ASTNode::isAvogadro() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isAvogadro();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isAvogadro();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isBoolean() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isBoolean();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isBoolean();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isConstant() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isConstant();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isConstant();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isConstantNumber() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isConstantNumber();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = false;
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isFunction() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isFunction();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isFunction();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isInfinity() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isInfinity();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isInfinity();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isInteger() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isInteger();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isInteger();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isLambda() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isLambda();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isLambda();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isLog10() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isLog10();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isLog10();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isLogical() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isLogical();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isLogical();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isName() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isName();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isName();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isNaN() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isNaN();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isNaN();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isNegInfinity() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isNegInfinity();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isNegInfinity();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isNumber() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isNumber();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isNumber();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isOperator() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isOperator();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isOperator();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isPiecewise() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isPiecewise();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isPiecewise();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isQualifier() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isQualifier();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isQualifier();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isRational() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isRational();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isRational();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isReal() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    // replicate old behaviour
-    valid = (mNumber->isReal() ||
-      mNumber->isRational() ||
-      mNumber->isExponential());
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isReal();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isRelational() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isRelational();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isRelational();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isSemantics() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isSemantics();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isSemantics();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isSqrt() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isSqrt();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isSqrt();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isUMinus() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isUMinus();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isUMinus();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isUnknown() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isUnknown();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isUnknown();
-  }
-
-  return valid;
-}
-
-
-bool 
-ASTNode::isUPlus() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isUPlus();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isUPlus();
-  }
-
-  return valid;
-}
-
+LIBSBML_EXTERN
 bool
 ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
 {   
@@ -2498,9 +1567,7 @@ ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
 
       if (fd != NULL && fd->isSetMath())
       {
-        // when getting the function from a FD need to use getBody();
-//        return fd->getMath()->getRightChild()->returnsBoolean();
-        return (fd->getBody() != NULL ?
+        return (fd->getBody() != NULL ? 
           fd->getBody()->returnsBoolean() : false);
       }
       else
@@ -2528,446 +1595,1105 @@ ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
 
 
 
-int
-ASTNode::addChild(ASTNode* child)
-{
-  if (child == NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  // since  ASTNode is not quite a proper node 
-  // this function can work differently than expected
-
-  if (mFunction != NULL)
-  {
-    // we know we are a function so add a child
-    return mFunction->addChild((child));
-  }
-  else if (mNumber != NULL)
-  {
-    //we know we are a number so should not really add a child
-    return LIBSBML_INVALID_OBJECT;  
-  }
-  else
-  {
-    // should not get here but just in case
-    return LIBSBML_INVALID_OBJECT;
-  }
-}
-
-unsigned int 
-ASTNode::getNumChildren() const
-{
-  if (mFunction != NULL)
-  {
-    return mFunction->getNumChildren();
-  }
-  else
-    return 0;
-}
-
-ASTNode *
-ASTNode::getChild(unsigned int n) const
-{
-  ASTNode* child = NULL;
-
-  if (mFunction != NULL && mFunction->getNumChildren() > 0)
-  {
-    if (n >= mFunction->getNumChildren())
-    {
-      return child;
-    }
-
-    ASTBase * c1 = mFunction->getChild(n);
-
-    if (c1 == NULL)
-    {
-      return child;
-    }
-
-    if (c1->isNumberNode() == true )
-    {
-      ASTNumber * num = dynamic_cast<ASTNumber*>(c1);
-      if (static_cast<ASTNode*>(c1)->mNumber != NULL)
-      {
-        if (num != NULL)
-        {
-          child = new ASTNode(num);
-          child->syncMembersAndResetParentsFrom(num);
-      }
-        else
-        {
-          child = static_cast<ASTNode*>(c1);
-        }
-      }
-      else
-      {
-        child = new ASTNode(static_cast<ASTNumber*>(c1));
-        child->syncMembersAndResetParentsFrom(c1);
-      }
-    }
-    else 
-    {
-      ASTFunction * fun = dynamic_cast<ASTFunction*>(c1);
-      if (static_cast<ASTNode*>(c1)->mFunction != NULL)
-      {
-        if (fun != NULL)
-        {
-          child = new ASTNode(fun);
-          child->syncMembersAndResetParentsFrom(fun);
-        }
-        else
-        {
-          child = static_cast<ASTNode*>(c1);
-        }
-      }
-      else
-      {
-        child = new ASTNode(static_cast<ASTFunction*>(c1));
-        child->syncMembersAndResetParentsFrom(c1);
-      }
-    }
-  
-  }
-  
-  return child;
-}
-
-
-ASTNode*
-ASTNode::getLeftChild() const
-{
-  return getChild(0);
-}
-
-
-
-ASTNode*
-ASTNode::getRightChild() const
-{
-  unsigned int nc = getNumChildren();
-
-  return (nc > 1) ? getChild(nc - 1) : NULL;
-}
-
-
-int
-ASTNode::removeChild(unsigned int n)
-{
-  int removed = LIBSBML_INDEX_EXCEEDS_SIZE;
-  
-  if (mNumber != NULL)
-  {
-    removed = LIBSBML_INVALID_OBJECT;
-  }
-  else if (mFunction != NULL)
-  {
-    unsigned int size = mFunction->getNumChildren();
-    if (n < size)
-    {
-      removed = mFunction->removeChild(n);
-    }
-  }
-
-  return removed;
-}
-
-
-int
-ASTNode::prependChild(ASTNode* child)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  
-  if (mNumber == NULL && mFunction != NULL)
-  {
-    success = mFunction->prependChild(child);
-  }
-
-  return success;
-}
-
-
-int
-ASTNode::replaceChild(unsigned int n, ASTNode* newChild, bool delreplaced)
-{
-  int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
-  
-  if (mNumber != NULL)
-  {
-    replaced = LIBSBML_INVALID_OBJECT;
-  }
-  else if (mFunction != NULL)
-  {
-    unsigned int size = mFunction->getNumChildren();
-    if (n < size)
-    {
-      replaced = mFunction->replaceChild(n, newChild, delreplaced);
-    }
-  }
-
-  return replaced;
-}
-
-
-int
-ASTNode::insertChild(unsigned int n, ASTNode* newChild)
-{
-  int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
-  
-  if (mNumber != NULL)
-  {
-    inserted = LIBSBML_INVALID_OBJECT;
-  }
-  else if (mFunction != NULL)
-  {
-    unsigned int size = mFunction->getNumChildren();
-    if (n <= size)
-    {
-      inserted = mFunction->insertChild(n, newChild);
-    }
-  }
-
-  return inserted;
-}
-
-
-int
-ASTNode::swapChildren(ASTNode* that)
-{
-  int success = LIBSBML_INVALID_OBJECT;
-  
-  if (mNumber == NULL && mFunction != NULL)
-  {
-    if (that->mFunction != NULL)
-    {
-      success = mFunction->swapChildren(that->mFunction);
-    }
-  }
-
-  return success;
-}
-
-
-/** @cond doxygenLibsbmlInternal */
-void 
-ASTNode::write(XMLOutputStream& stream) const
-{
-  /* writing the opening math and ns has moved to the MathML writing code
-   * as trying to keep track of a child node could cause issues
-   * when manipulating or using child ASTs
-   */
-#if (0)
-  if (ASTBase::isChild() == false)
-  {
-    static const string uri = "http://www.w3.org/1998/Math/MathML";
-
-    stream.startElement("math");
-    stream.writeAttribute("xmlns", uri);
-
-    // need to know if we have units
-    if (hasCnUnits() == true && stream.getSBMLNamespaces() != NULL
-      && stream.getSBMLNamespaces()->getLevel() > 2)
-    {
-      string prefix = getUnitsPrefix();
-      if (prefix.empty() == true)
-      {
-        prefix = "sbml";
-      }
-      stream.writeAttribute(prefix, "xmlns", stream.getSBMLNamespaces()->getURI());
-    }
-
-    for (unsigned int i = 0; i < getNumPlugins(); i++)
-    {
-      ASTBase::getPlugin(i)->writeXMLNS(stream);
-    }
-  }
-#endif
-
-  if (mNumber != NULL)
-  {
-    mNumber->write(stream);
-  }
-
-  if (mFunction != NULL)
-  {
-    mFunction->write(stream);
-  }
-
-  /* writing the closing math has moved to the MathML writing code
-   * as trying to keep track of a child node could cause issues
-   * when manipulating or using child ASTs
-   */
-#if (0)
-  if (ASTBase::isChild() == false)
-  {
-    stream.endElement("math");
-  }
-#endif
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-void 
-ASTNode::writeNodeOfType(XMLOutputStream& stream, int type, 
-    bool inChildNode) const
-{
-if (mFunction != NULL)
-  {
-    mFunction->writeNodeOfType(stream, type, inChildNode);
-  }
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
+/*
+ * @return true if this ASTNode is a MathML constant (true,
+ * false, pi, exponentiale), false otherwise.
+ */
+LIBSBML_EXTERN
 bool
-ASTNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
+ASTNode::isConstant () const
 {
-  bool read = false;
-  const XMLToken element = stream.peek();
-  const string&  name = element.getName();
-  if (name == "math")
+  return ASTNodeType_isConstant(mType);
+}
+
+/*
+* @return true if this ASTNode is a MathML constant number
+*(pi, exponentiale), false otherwise.
+*/
+LIBSBML_EXTERN
+bool
+ASTNode::isCiNumber() const
+{
+  return (mType == AST_NAME);
+}
+
+
+
+
+/*
+ * @return true if this ASTNode is a MathML constant number 
+ *(pi, exponentiale), false otherwise.
+ */
+LIBSBML_EXTERN
+bool 
+ASTNode::isConstantNumber() const
+{
+  return ASTNodeType_isConstantNumber(mType);
+}
+
+
+/*
+* @return true if this ASTNode is a MathML constant number
+*(pi, exponentiale), false otherwise.
+*/
+LIBSBML_EXTERN
+bool
+ASTNode::isCSymbolFunction() const
+{
+  return (mType == AST_FUNCTION_DELAY || mType == AST_FUNCTION_RATE_OF);
+}
+
+
+
+bool
+ASTNode::isFunction () const
+{
+  return ASTNodeType_isFunction(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is the special IEEE 754 value infinity,
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isInfinity () const
+{
+  return isReal() ? util_isInf( getReal() ) > 0 : false;
+}
+
+
+/*
+ * @return true if this ASTNode is of type AST_INTEGER, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isInteger () const
+{
+  return ASTNodeType_isInteger(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is of type AST_LAMBDA, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isLambda () const
+{
+  return ASTNodeType_isLambda(mType);
+}
+
+/*
+ * @return true if the given ASTNode represents a log10() function, false
+ * otherwise.
+ *
+ * More precisley, the node type is AST_FUNCTION_LOG with two children the
+ * first of which is an AST_INTEGER equal to 10.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isLog10 () const
+{
+  bool     result = false;
+  ASTNode* c;
+
+
+  if (mType == AST_FUNCTION_LOG)
   {
-    // for attributes we should have the namespace here 
-    
-    ASTBase::checkPrefix(stream, reqd_prefix, element);
-
-    const XMLToken elem = stream.next();
-      
-    if (elem.isStart() && elem.isEnd()) 
+    if (getNumChildren() == 2)
     {
-      read = true;
-      return read;
-    }
+      c = getLeftChild();
 
-    // for attributes we should have the namespace here 
-    stream.skipText();
- //   ASTBase::loadASTPlugins(NULL);
-    read = ASTNode::read(stream, reqd_prefix);
-    // we may have a legitimate read but the next token is not the end of math
-    // we want to tell the user but allow the astnode as-is
-    if (read && !(stream.getErrorLog()->contains(BadMathML)))
-    {
-      stream.skipText();
-      const XMLToken element1 = stream.peek();
-      const string&  newname = element1.getName();
-      if (element1.isEndFor(element) == false)
+      if ((c->mType == AST_INTEGER) && (c->mInteger == 10))
       {
-        std::string message = "Unexpected element encountered. The element <" +
-          newname + "> should not be encountered here.";
-        logError(stream, element, InvalidMathElement, message);
-        stream.skipPastEnd(element);
+        result = true;
       }
-
     }
   }
-  else if (isTopLevelMathMLNumberNodeTag(name) == true)
-  {
-    mNumber = new ASTNumber();
-    read = mNumber->read(stream, reqd_prefix);
-    if (read == true && mNumber != NULL)
-    {
-      if (mFunction != NULL)
-      {
-        delete mFunction;
-        mFunction = NULL;
-      }
-      this->ASTBase::syncMembersAndResetParentsFrom(mNumber);
-    }
-  }
-  else if (isTopLevelMathMLFunctionNodeTag(name) == true)
-  {
-    if (mFunction != NULL)
-    {
-      delete mFunction;
-      mFunction = NULL;
-    }
-    mFunction = new ASTFunction();
-    read = mFunction->read(stream, reqd_prefix);
-    if (read == true && mFunction != NULL)
-    {
-      if (mNumber != NULL)
-      {
-        delete mNumber;
-        mNumber = NULL;
-      }
-      this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
-    }
-    else if (read == false)
-    {
-      delete mFunction;
-      mFunction = new ASTFunction();
-      stream.skipPastEnd(element);
-      read = true;
-    }
 
-  }
-  else if (representsFunction(getTypeFromName(name)) == true)
+  return result;
+}
+
+
+/*
+ * @return true if this ASTNode is a MathML logical operator (and, or, not,
+ * xor), false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isLogical () const
+{
+  return ASTNodeType_isLogical(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is a user-defined variable name in SBML L1,
+ * L2 (MathML) or the special symbols delay or time, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isName () const
+{
+  return ASTNodeType_isName(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is the special IEEE 754 value not a
+ * number, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isNaN () const
+{
+  if ( isReal() )
   {
-    std::string message = "Missing <apply> tag.";
-    logError(stream, element, BadMathMLNodeType, message);   
+    double value = getReal();
+    return (value != value);
+  }
+
+  return false;
+}
+
+
+/*
+ * @return true if this ASTNode is the special IEEE 754 value negative
+ * infinity, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isNegInfinity () const
+{
+  return isReal() ? util_isInf( getReal() ) < 0 : false;
+}
+
+
+/*
+ * @return true if this ASTNode is a number, false otherwise.
+ *
+ * This is functionally equivalent to:
+ *
+ *   isInteger() || isReal().
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isNumber () const
+{
+  return ASTNodeType_isNumber(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is an operator, false otherwise.  Operators
+ * are: +, -, *, / and \^ (power).
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isOperator () const
+{
+  return ASTNodeType_isOperator(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is a piecewise function, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isPiecewise () const
+{
+  return (mType == AST_FUNCTION_PIECEWISE);
+}
+
+
+/*
+ * @return true if this ASTNode is of type AST_RATIONAL, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isRational () const
+{
+  return ASTNodeType_isRational(mType);
+}
+
+
+/*
+ * @return true if the value of this ASTNode can represented as a real
+ * number, false otherwise.
+ *
+ * To be a represented as a real number, this node must be of one of the
+ * following types: AST_REAL, AST_REAL_E or AST_RATIONAL.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isReal () const
+{
+  return ASTNodeType_isReal(mType);
+}
+
+
+/*
+ * @return true if this ASTNode is a MathML relational operator (==, >=, >,
+ * <=, < !=), false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isRelational () const
+{
+  return ASTNodeType_isRelational(mType);
+}
+
+
+/*
+ * @return true if the given ASTNode represents a sqrt() function, false
+ * otherwise.
+ *
+ * More precisley, the node type is AST_FUNCTION_ROOT with two children the
+ * first of which is an AST_INTEGER equal to 2.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isSqrt () const
+{
+  int      result = false;
+  ASTNode* c;
+
+
+  if (mType == AST_FUNCTION_ROOT)
+  {
+    if (getNumChildren() == 2)
+    {
+      c = getLeftChild();
+
+      if ((c->mType == AST_INTEGER) && (c->mInteger == 2))
+      {
+        result = true;
+      }
+    }
+  }
+
+  return result;
+}
+
+
+/*
+ * @return true if this ASTNode is a unary minus, false otherwise.
+ *
+ * For numbers, unary minus nodes can be "collapsed" by negating the
+ * number.  In fact, SBML_parseFormula() does this during its parse.
+ * However, unary minus nodes for symbols (AST_NAMES) cannot be
+ * "collapsed", so this predicate function is necessary.
+ *
+ * A node is defined as a unary minus node if it is of type AST_MINUS and
+ * has exactly one child.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isUMinus () const
+{
+  bool uminus = false;
+
+
+  if (mType == AST_MINUS)
+  {
+    if (getNumChildren() == 1)
+    {
+      uminus = true;
+    }
+  }
+
+  return uminus;
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isUPlus () const
+{
+  bool uplus = false;
+
+
+  if (mType == AST_PLUS)
+  {
+    if (getNumChildren() == 1)
+    {
+      uplus = true;
+    }
+  }
+
+  return uplus;
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isUserFunction() const
+{
+  return (mType == AST_FUNCTION);
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::hasTypeAndNumChildren(ASTNodeType_t type, unsigned int numchildren) const
+{
+  return (mType == type && getNumChildren() == numchildren);
+}
+
+/*
+ * @return true if this ASTNode is of type AST_UNKNOWN, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isUnknown () const
+{
+  return ASTNodeType_isUnknown(mType);
+}
+
+
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetId() const
+{
+  return (mId.empty() == false);
+}
+  
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetClass() const
+{
+  return (mClass.empty() == false);
+}
+  
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetStyle() const
+{
+  return (mStyle.empty() == false);
+}
+  
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetUnits() const
+{
+  return (mUnits.empty() == false);
+}
+  
+
+LIBSBML_EXTERN
+bool 
+ASTNode::hasUnits() const
+{
+  bool hasUnits = isSetUnits();
+
+  unsigned int n = 0;
+  while(!hasUnits && n < getNumChildren())
+  {
+    hasUnits = getChild(n)->hasUnits();
+    n++;
+  }
+
+  return hasUnits;
+}
+
+  
+/*
+ * Sets the value of this ASTNode to the given character.  If character is
+ * one of '+', '-', '*', '/' or '\^', the node type will be set
+ * accordingly.  For all other characters, the node type will be set to
+ * AST_UNKNOWN.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setCharacter (char value)
+{
+  setType( static_cast<ASTNodeType_t>(value) );
+  mChar = value;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given name.
+ *
+ * The node type will be set (to AST_NAME) ONLY IF the ASTNode was
+ * previously an operator (isOperator(node) == true) or number
+ * (isNumber(node) == true).  This allows names to be set for AST_FUNCTIONs
+ * and the like.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setName (const char *name)
+{
+  if (getName() == name) 
+    return LIBSBML_OPERATION_SUCCESS;
+
+  unsetUnits();
+
+  if ( isOperator() || isNumber() || isUnknown() )
+  {
+    mType = AST_NAME;
+  }
+
+  freeName();
+  mName = (name == NULL) ? NULL : safe_strdup(name);
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given integer and sets the node
+ * type to AST_INTEGER.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setValue (int value)
+{
+  setType(AST_INTEGER);
+  mInteger = value;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given (long) integer and sets the
+ * node type to AST_INTEGER.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setValue (long value)
+{
+  setType(AST_INTEGER);
+  mInteger = value;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given rational in two parts:
+ * the numerator and denominator.  The node type is set to AST_RATIONAL.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setValue (long numerator, long denominator)
+{
+  setType(AST_RATIONAL);
+
+  mInteger     = numerator;
+  mDenominator = denominator;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given real (double) and sets the
+ * node type to AST_REAL.
+ *
+ * This is functionally equivalent to:
+ *
+ *   setValue(value, 0);
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setValue (double value)
+{
+  setType(AST_REAL);
+
+  mReal     = value;
+  mExponent = 0;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the value of this ASTNode to the given real (double) in two parts:
+ * the mantissa and the exponent.  The node type is set to AST_REAL_E.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setValue (double mantissa, long exponent)
+{
+  setType(AST_REAL_E);
+
+  mReal     = mantissa;
+  mExponent = exponent;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the type of this ASTNode to the given ASTNodeType.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::setType (ASTNodeType_t type)
+{
+  if (mType == type) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  if (isOperator() || isNumber())
+  {
+    mReal     = 0;
+    mExponent = 0;
+    mDenominator = 1;
+    mInteger = 0;
+  }
+
+  /* if avogadro set value */
+  if (type == AST_NAME_AVOGADRO)
+  {
+    /* this will free the name - which people may not want */
+    /* this solution does not in fact work for all language bindings */
+
+    //if (mName != NULL)
+    //{
+    //  char * name = mName;
+    //  setValue(6.02214179e23);
+    //  setName(name);
+    //}
+    //else
+    //{
+      mReal = 6.02214179e23;
+    //}
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/avogadro");
+  }
+  else if (type == AST_NAME_TIME)
+  {
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/time");
+  }
+  else if (type == AST_FUNCTION_DELAY)
+  {
+    mDefinitionURL->clear();
+    mDefinitionURL->add("definitionURL", 
+                        "http://www.sbml.org/sbml/symbols/delay");
+  }
+
+  /*
+   * Free name only if the ASTNodeType is being set to something that
+   * cannot contain a string.
+   *
+   * Note: freeName() will only free value.name if there is something to be
+   * freed.
+   */
+  if ( ASTNodeType_isOperator(type) || ASTNodeType_isNumber(type) )
+  {
+    freeName();
+  }
+
+  // if the new type is not a number unset the units
+  if (ASTNodeType_isNumber(type) == 0)
+  {
+    unsetUnits();
+  }
+
+  bool clearDefinitionURL = true;
+  if ( ASTNodeType_isOperator(type) )
+  {
+    mType = type;
+    mChar = (char) type;
+  }
+  else if ((type >= AST_INTEGER) && (type < AST_UNKNOWN))
+  {
+    mType = type;
+    mChar = 0;
+
+    // clear teh definitionURL unless new type is csymbol
+    // or a number or is a semantics
+    switch(type)
+    {
+      case AST_NAME:
+      case AST_NAME_TIME:
+      case AST_NAME_AVOGADRO:
+      case AST_FUNCTION_DELAY:
+      case AST_FUNCTION:
+        clearDefinitionURL = false;
+        break;
+      default:
+        break;
+    }
   }
   else
   {
-    std::string message = "The element <" + name + "> is not a " +
-      "permitted MathML element.";
-    logError(stream, element, DisallowedMathMLSymbol, message);   
+    mType = AST_UNKNOWN;
+    mChar = 0;
+    mDefinitionURL->clear();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-  if (read == false)
+  if (clearDefinitionURL == true && getSemanticsFlag() == false)
   {
-    stream.skipPastEnd(element);
+    mDefinitionURL->clear();
   }
 
-  return read;
+    
+  return LIBSBML_OPERATION_SUCCESS;
+
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::setId (std::string id)
+{
+  mId     = id;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::setClass (std::string className)
+{
+  mClass   = className;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::setStyle (std::string style)
+{
+  mStyle     = style;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+
+LIBSBML_EXTERN
+int
+ASTNode::setUnits (std::string units)
+{
+  if (!isNumber())
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+
+  if (!SyntaxChecker::isValidInternalUnitSId(units))
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  mUnits     = units;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Swap the children of this ASTNode with the children of that ASTNode.
+ */
+LIBSBML_EXTERN
+int
+ASTNode::swapChildren (ASTNode *that)
+{
+  if (that == NULL)
+    return LIBSBML_OPERATION_FAILED;
+
+  List *temp      = this->mChildren;
+  this->mChildren = that->mChildren;
+  that->mChildren = temp;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+LIBSBML_EXTERN
+void 
+ASTNode::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (getType() == AST_NAME ||
+      getType() == AST_FUNCTION ||
+      getType() == AST_UNKNOWN) {
+    if (getName() == oldid) {
+      setName(newid.c_str());
+    }
+  }
+  for (unsigned int child=0; child<getNumChildren(); child++) {
+    getChild(child)->renameSIdRefs(oldid, newid);
+  }
+}
+
+LIBSBML_EXTERN
+void 
+ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetUnits()) {
+    if (getUnits() == oldid) {
+      setUnits(newid);
+    }
+  }
+  for (unsigned int child=0; child<getNumChildren(); child++) {
+    getChild(child)->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+void 
+ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  for (unsigned int i=0; i<getNumChildren(); i++) {
+    ASTNode* child = getChild(i);
+    if (child->getType() == AST_NAME &&
+        child->getName() == id) {
+      replaceChild(i, function->deepCopy(), true);
+    }
+    else {
+      child->replaceIDWithFunction(id, function);
+    }
+  }
 }
 /** @endcond */
 
 
-List* 
-ASTNode::getListOfNodes (ASTNodePredicate predicate) const
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+void ASTNode::multiplyTimeBy(const ASTNode* function)
 {
-  if (predicate == NULL) return NULL;
+  for (unsigned int i=0; i<getNumChildren(); i++) {
+    getChild(i)->multiplyTimeBy(function);
+  }
+  if (getType() == AST_NAME_TIME) {
+    setType(AST_TIMES);
+    addChild(function->deepCopy());
+    ASTNode* time = new ASTNode(AST_NAME_TIME);
+    addChild(time);
+  }
+}
+/** @endcond */
 
-  List* lst = new List;
+LIBSBML_EXTERN
+int
+ASTNode::unsetId ()
+{
+  mId.erase();
 
-  fillListOfNodes(predicate, lst);
-
-  return lst;
+  if (mId.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
-void
-ASTNode::fillListOfNodes(ASTNodePredicate predicate, List* lst) const
+LIBSBML_EXTERN
+int
+ASTNode::unsetClass ()
 {
-  if (lst == NULL || predicate == NULL) return;
+  mClass.erase();
 
-  ASTNode*     child;
-  unsigned int c;
+  if (mClass.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::unsetStyle ()
+{
+  mStyle.erase();
+
+  if (mStyle.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+LIBSBML_EXTERN
+int
+ASTNode::unsetUnits ()
+{
+  if (!isNumber())
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+
+  mUnits.erase();
+
+  if (mUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Sets the flag indicating that this ASTNode has semantics attached
+ */
+int 
+ASTNode::setSemanticsFlag() 
+{ 
+  hasSemantics = true; 
+  return LIBSBML_OPERATION_SUCCESS;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+  * Unsets the flag indicating that this ASTNode has semantics attached
+  */
+int 
+ASTNode::unsetSemanticsFlag()
+{ 
+  hasSemantics = false; 
+
+  if (hasSemantics)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+  * gets the flag indicating that this ASTNode has semantics attached
+  */
+bool 
+ASTNode::getSemanticsFlag() const
+{
+  return hasSemantics;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
+  * sets the definitionURL attributes
+  */
+int 
+ASTNode::setDefinitionURL(XMLAttributes url)
+{
+  delete mDefinitionURL;
+  mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+  * sets the definitionURL attributes
+  */
+int 
+ASTNode::setDefinitionURL(const std::string& url)
+{
+  mDefinitionURL->clear();
+  mDefinitionURL->add("definitionURL", url);
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+LIBSBML_EXTERN
+bool 
+ASTNode::isBvar() const 
+{ 
+  return mIsBvar; 
+}
+
+
+LIBSBML_EXTERN
+bool 
+ASTNode::representsBvar() const 
+{ 
+  return mIsBvar; 
+}
+
+
+LIBSBML_EXTERN
+void 
+ASTNode::setBvar() 
+{ 
+  mIsBvar = true; 
+}
+
+
+LIBSBML_EXTERN
+bool 
+ASTNode::isQualifier() const
+{
+  return false;
+}
+
+LIBSBML_EXTERN
+bool
+ASTNode::isSemantics() const
+{
+  return getSemanticsFlag();
+}
+
+LIBSBML_EXTERN
+unsigned int 
+ASTNode::getNumBvars() const
+{
+  unsigned int num = getNumChildren();
+  if (getChild(num - 1)->isBvar())
+    return num;
+  else
+    return num - 1;
+}
+
+
+bool
+ASTNode::hasCorrectNumberArguments() const
+{
+  bool correctNum = true;
+  ASTNodeType_t type = getType();
   unsigned int numChildren = getNumChildren();
 
-  if (predicate(this) != 0)
+  switch (type) 
   {
-    lst->add( const_cast<ASTNode*>(this) );
+  case AST_INTEGER:
+  case AST_REAL:
+  case AST_REAL_E:
+  case AST_RATIONAL:
+  case AST_NAME:
+  case AST_NAME_AVOGADRO:
+  case AST_NAME_TIME:
+  case AST_CONSTANT_E:
+  case AST_CONSTANT_FALSE:
+  case AST_CONSTANT_PI:
+  case AST_CONSTANT_TRUE:
+
+    if (numChildren != 0) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_FUNCTION_ABS:
+  case AST_FUNCTION_ARCCOS:
+  case AST_FUNCTION_ARCCOSH:
+  case AST_FUNCTION_ARCCOT:
+  case AST_FUNCTION_ARCCOTH:
+  case AST_FUNCTION_ARCCSC:
+  case AST_FUNCTION_ARCCSCH:
+  case AST_FUNCTION_ARCSEC:
+  case AST_FUNCTION_ARCSECH:
+  case AST_FUNCTION_ARCSIN:
+  case AST_FUNCTION_ARCSINH:
+  case AST_FUNCTION_ARCTAN:
+  case AST_FUNCTION_ARCTANH:
+  case AST_FUNCTION_CEILING:
+  case AST_FUNCTION_COS:
+  case AST_FUNCTION_COSH:
+  case AST_FUNCTION_COT:
+  case AST_FUNCTION_COTH:
+  case AST_FUNCTION_CSC:
+  case AST_FUNCTION_CSCH:
+  case AST_FUNCTION_EXP:
+  case AST_FUNCTION_FACTORIAL:
+  case AST_FUNCTION_FLOOR:
+  case AST_FUNCTION_LN:
+  case AST_FUNCTION_SEC:
+  case AST_FUNCTION_SECH:
+  case AST_FUNCTION_SIN:
+  case AST_FUNCTION_SINH:
+  case AST_FUNCTION_TAN:
+  case AST_FUNCTION_TANH:
+  case AST_LOGICAL_NOT:
+
+    if (numChildren != 1) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_DIVIDE:
+  case AST_POWER:
+  case AST_RELATIONAL_NEQ:
+  case AST_FUNCTION_DELAY:
+  case AST_FUNCTION_POWER:
+  case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
+
+    if (numChildren != 2) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_TIMES:
+  case AST_PLUS:
+  case AST_LOGICAL_AND:
+  case AST_LOGICAL_OR:
+  case AST_LOGICAL_XOR:
+    correctNum = true;
+    break;
+
+  case AST_RELATIONAL_EQ:
+  case AST_RELATIONAL_GEQ:
+  case AST_RELATIONAL_GT:
+  case AST_RELATIONAL_LEQ:
+  case AST_RELATIONAL_LT:
+
+    if (numChildren < 2) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_FUNCTION_ROOT:
+  case AST_MINUS:
+
+    if (numChildren < 1 || numChildren > 2) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_FUNCTION_PIECEWISE:
+  case AST_LAMBDA:
+
+    if (numChildren < 1) {
+      correctNum = false;
+    }
+    break;
+
+  case AST_FUNCTION:
+    break;
+
+  default:
+    break;
+
   }
 
-  for (c = 0; c < numChildren; c++)
+  return correctNum;
+}
+bool 
+ASTNode::isWellFormedASTNode() const
+{
+  bool valid = hasCorrectNumberArguments();
+  unsigned int numChildren = getNumChildren();
+  unsigned int i = 0;
+
+  // check number of arguments
+  while (valid && i < numChildren)
   {
-    child = getChild(c);
-    if (child == NULL) continue;
-    child->fillListOfNodes(predicate, lst);
+    valid = getChild(i)->isWellFormedASTNode();
+    i++;
   }
+  return valid;
 }
 
 
-void 
-ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
+/** @endcond */
+
+
+LIBSBML_EXTERN
+void
+ASTNode::replaceArgument(const std::string bvar, ASTNode * arg)
 {
   if (arg == NULL)
-  {
     return;
-  }
   else if (getNumChildren() == 0)
   {
     if (this->isName() && this->getName() == bvar)
@@ -3010,154 +2736,54 @@ ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
   }
   for (unsigned int i = 0; i < getNumChildren(); i++)
   {
-
-    ASTNode * child = getChild(i);
-    if (child->isName())
+    if (getChild(i)->isName())
     {
-      if (child->getName() == bvar)
+      if (getChild(i)->getName() == bvar)
       {
         if (arg->isName())
         {
-          child->setType(arg->getType());
-          child->setName(arg->getName());
+          getChild(i)->setType(arg->getType());
+          getChild(i)->setName(arg->getName());
         }
         else if (arg->isReal())
         {
-          child->setValue(arg->getReal());
+          getChild(i)->setValue(arg->getReal());
           if (arg->isSetUnits())
           {
-            child->setUnits(arg->getUnits());
+            getChild(i)->setUnits(arg->getUnits());
           }
         }
         else if (arg->isInteger())
         {
-          child->setValue(arg->getInteger());
+          getChild(i)->setValue(arg->getInteger());
           if (arg->isSetUnits())
           {
-            child->setUnits(arg->getUnits());
+            getChild(i)->setUnits(arg->getUnits());
           }
         }
         else if (arg->isConstant())
         {
-          child->setType(arg->getType());
+          getChild(i)->setType(arg->getType());
         }
         else
         {
-          ASTNode * newChild = new ASTNode(arg->getType());
-          if (newChild->getFunction() != NULL)
+          getChild(i)->setType(arg->getType());
+          getChild(i)->setName(arg->getName());
+          for (unsigned int c = 0; c < arg->getNumChildren(); c++)
           {
-            newChild->getFunction()->
-              syncMembersAndTypeFrom(arg->getFunction(), arg->getType());
+            getChild(i)->addChild(arg->getChild(c)->deepCopy());
           }
-
-          this->replaceChild(i, newChild->deepCopy(), true);
-
-          delete newChild;
         }
       }
     }
     else
     {
-      child->replaceArgument(bvar, arg);
+      getChild(i)->replaceArgument(bvar, arg);
     }
   }
 }
 
-
-bool 
-ASTNode::hasUnits() const
-{
-  bool hasUnits = isSetUnits();
-
-  unsigned int n = 0;
-  while(!hasUnits && n < getNumChildren())
-  {
-    hasUnits = getChild(n)->hasUnits();
-    n++;
-  }
-
-  return hasUnits;
-}
-
-
-int
-ASTNode::hasTypeAndNumChildren(int type, unsigned int numchildren) const
-{
-  return (getType() == type && getNumChildren() == numchildren);
-}
-
-
-void 
-ASTNode::renameSIdRefs(const std::string& oldid, const std::string& newid)
-{
-  if (getType() == AST_NAME ||
-      getType() == AST_FUNCTION ||
-      getType() == AST_UNKNOWN) 
-  {
-    if (getName() == oldid) 
-    {
-      setName(newid.c_str());
-    }
-  }
-
-  for (unsigned int child=0; child<getNumChildren(); child++) 
-  {
-    getChild(child)->renameSIdRefs(oldid, newid);
-  }
-
-  for (unsigned int p=0; p<getNumPlugins(); p++) {
-    getPlugin(p)->renameSIdRefs(oldid, newid);
-  }
-}
-
-
-void 
-ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
-{
-  if (isSetUnits()) 
-  {
-    if (getUnits() == oldid) 
-    {
-      setUnits(newid);
-    }
-  }
-  
-  for (unsigned int child=0; child<getNumChildren(); child++) 
-  {
-    getChild(child)->renameUnitSIdRefs(oldid, newid);
-  }
-
-  for (unsigned int p=0; p<getNumPlugins(); p++) {
-    getPlugin(p)->renameUnitSIdRefs(oldid, newid);
-  }
-}
-
-
-/** @cond doxygenLibsbmlInternal */
-void 
-ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
-{
-  for (unsigned int i=0; i<getNumChildren(); i++) 
-  {
-    ASTNode* child = getChild(i);
-    if (child->getType() == AST_NAME &&
-        child->getName() == id) 
-    {
-      replaceChild(i, function->deepCopy(), true);
-    }
-    else 
-    {
-      child->replaceIDWithFunction(id, function);
-    }
-  }
-
-  for (unsigned int p=0; p<getNumPlugins(); p++) {
-    getPlugin(p)->replaceIDWithFunction(id, function);
-  }
-}
-/** @endcond */
-
-
+LIBSBML_EXTERN
 void
 ASTNode::reduceToBinary()
 {
@@ -3166,70 +2792,162 @@ ASTNode::reduceToBinary()
   if (numChildren < 3)
     return;
 
-  ASTNode* op = new ASTNode( getExtendedType() );
-  ASTNode* op2 = new ASTNode( getExtendedType() );
+  ASTNode* op = new ASTNode( getType() );
+  ASTNode* op2 = new ASTNode( getType() );
 
   // add the first two children to the first node
   op->addChild(getChild(0));
   op->addChild(getChild(1));
 
   op2->addChild(op);
-
   for (unsigned int n = 2; n < numChildren; n++)
-  {
     op2->addChild(getChild(n));
-  }
 
   swapChildren(op2);
 
-  reduceToBinary();
-  //op2 is unneeded at this point, but we need to make sure we don't delete our own children:
-  while (op2->getNumChildren() > 0) {
+  // need to clean up memory but the children of op2
+  // are now the children of this ASTNode
+  // so remove them from op2 before deleting it
+  // this is why removeChild does not delete the child
+  unsigned int num = op2->getNumChildren();
+  unsigned int i = 0;
+  while(i < num)
+  {
     op2->removeChild(0);
+    i++;
   }
   delete op2;
-}
 
-
-bool 
-ASTNode::isWellFormedASTNode() const
-{
-  bool valid = false;
-  
-  if (mNumber != NULL)
-  {
-    valid = mNumber->isWellFormedNode();
-  }
-  else if (mFunction != NULL)
-  {
-    valid = mFunction->isWellFormedNode();
-  }
-
-  return valid;
-}
-
-
-bool
-ASTNode::hasCorrectNumberArguments() const
-{
-  bool correctNumArgs = false;
-  
-  if (mNumber != NULL)
-  {
-    correctNumArgs = mNumber->hasCorrectNumberArguments();
-  }
-  else if (mFunction != NULL)
-  {
-    correctNumArgs = mFunction->hasCorrectNumberArguments();
-  }
-
-  return correctNumArgs;
+  reduceToBinary();
 }
 
 
 /** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+void 
+ASTNode::setParentSBMLObject(SBase * sb)
+{
+  mParentSBMLObject = sb;
+}
+
+LIBSBML_EXTERN
+int 
+ASTNode::unsetParentSBMLObject()
+{
+  mParentSBMLObject = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+LIBSBML_EXTERN
 bool 
-ASTNode::containsVariable(const std::string id) const
+ASTNode::isSetParentSBMLObject() const
+{
+  return (mParentSBMLObject != NULL);
+}
+/** @endcond */
+
+
+LIBSBML_EXTERN
+SBase * 
+ASTNode::getParentSBMLObject() const
+{
+  return mParentSBMLObject;
+}
+
+
+/*
+  * gets the definitionURL attributes
+  */
+LIBSBML_EXTERN
+XMLAttributes*
+ASTNode::getDefinitionURL() const
+{
+  return mDefinitionURL;
+}
+
+
+
+LIBSBML_EXTERN
+std::string
+ASTNode::getDefinitionURLString() const
+{
+  if (mDefinitionURL == NULL)
+  {
+    return "";
+  }
+  else
+  {
+    return mDefinitionURL->getValue("definitionURL");
+  }
+}
+
+LIBSBML_EXTERN
+void *
+ASTNode::getUserData() const
+{
+  return this->mUserData;
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode::setUserData(void *userData)
+{
+  this->mUserData = userData;
+ 
+  // allow userData to be set to NULL
+  if (userData == NULL)
+  {
+    if (mUserData != NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  if (mUserData != NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode::unsetUserData()
+{
+  mUserData = NULL;
+ 
+  if (mUserData == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+LIBSBML_EXTERN
+bool
+ASTNode::isSetUserData() const
+{
+  return (mUserData != NULL);
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+bool ASTNode::containsVariable(const std::string id) const
 {
   bool found = false;
 
@@ -3254,10 +2972,9 @@ ASTNode::containsVariable(const std::string id) const
 }
 /** @endcond */
 
-
 /** @cond doxygenLibsbmlInternal */
-unsigned int 
-ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
+LIBSBML_EXTERN
+unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 {
   unsigned int number = 0;
 
@@ -3317,15 +3034,15 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       allowReactionId = false;
     }
 
-    /*if (m->getLevel() > 2)
-    {
-      allowSpeciesRef = true;
-    }*/
+    //if (m->getLevel() > 2)
+    //{
+    //  allowSpeciesRef = true;
+    //}
 
-    // loop thru the list and check the unit status of each variable
+    // loop through the list and check the unit status of each variable
     for (unsigned int v = 0; v < variables->size(); v++)
     {
-      string id = variables->at((int)v);
+      string id = variables->at(v);
       
 
       if (m->getParameter(id) != NULL)
@@ -3337,42 +3054,36 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       }
       else if (m->getSpecies(id) != NULL)
       {
-        UnitDefinition *ud = m->getSpecies(id)->getDerivedUnitDefinition();
-        if (ud == NULL || ud->getNumUnits() == 0)
+        if (m->getSpecies(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
         {
           number++;
         }
-        //delete ud;
       }
       else if (m->getCompartment(id) != NULL)
       {
-        UnitDefinition *ud = m->getCompartment(id)->getDerivedUnitDefinition();
-        if (ud == NULL || ud->getNumUnits() == 0)
+         if (m->getCompartment(id)->getDerivedUnitDefinition()
+                                                         ->getNumUnits() == 0)
         {
           number++;
         }
-        //delete ud;
       }
       else if (kl != NULL && kl->getParameter(id) != NULL)
       {
-        UnitDefinition *ud = kl->getParameter(id)->getDerivedUnitDefinition();
-        if (ud == NULL || ud->getNumUnits() == 0)
+        if (kl->getParameter(id)->getDerivedUnitDefinition() == NULL ||
+          kl->getParameter(id)->getDerivedUnitDefinition()->getNumUnits() == 0)
         {
           number++;
         }
-        //delete ud;
       }
       else if (allowReactionId == true 
          && m->getReaction(id) != NULL 
          && m->getReaction(id)->getKineticLaw() != NULL)
       {
-        UnitDefinition *ud = m->getReaction(id)->getKineticLaw()
-                                               ->getDerivedUnitDefinition();
-        if (ud == NULL || ud->getNumUnits() == 0)
+         if (m->getReaction(id)->getKineticLaw()->getDerivedUnitDefinition()
+                                                         ->getNumUnits() == 0)
         {
           number++;
         }
-        //delete ud;
       }
       /* actually these always are considered to be dimensionless */
       //else if (allowSpeciesRef == true && m->getSpeciesReference(id) != NULL)
@@ -3389,471 +3100,177 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 }
 /** @endcond */
 
-
-int
-ASTNode::setUserData(void *userData)
-{
-  int success = ASTBase::setUserData(userData);
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->setUserData(userData);
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->setUserData(userData);
-    }
-  }
-
-  return success;
-}
-
-
-void *
-ASTNode::getUserData() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->getUserData();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getUserData();
-  }
-  else
-  {
-    return ASTBase::getUserData();
-  }
-}
-
-
-bool 
-ASTNode::isSetUserData() const
-{
-  if (mNumber != NULL)
-  {
-    return mNumber->isSetUserData();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->isSetUserData();
-  }
-  else
-  {
-    return ASTBase::isSetUserData();
-  }
-}
-  
-
-int 
-ASTNode::unsetUserData()
-{
-  int success = ASTBase::unsetUserData();
-
-  if (success == LIBSBML_OPERATION_SUCCESS)
-  {
-    if (mNumber != NULL)
-    {
-      success = mNumber->unsetUserData();
-    }
-    else if (mFunction != NULL)
-    {
-      success = mFunction->unsetUserData();
-    }
-  }
-
-  return success;
-}
-  
 /** @cond doxygenLibsbmlInternal */
-ASTBasePlugin* 
+
+LIBSBML_EXTERN
+void
+ASTNode::loadASTPlugins(const SBMLNamespaces * sbmlns)
+{
+  if (sbmlns == NULL)
+  {
+    const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+    unsigned int numPkgs = (unsigned int)names.size();
+
+    for (unsigned int i = 0; i < numPkgs; i++)
+    {
+      const std::string& uri = names[i];
+      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+      if (sbmlext && sbmlext->isEnabled())
+      {
+
+        //const std::string &prefix = xmlns->getPrefix(i);
+        const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+        if (astPlugin != NULL)
+        {
+          ASTBasePlugin* myastPlugin = astPlugin->clone();
+          myastPlugin->setSBMLExtension(sbmlext);
+          //            myastPlugin->setPrefix(xmlns->getPrefix(i));
+          myastPlugin->connectToParent(this);
+          mPlugins.push_back(myastPlugin);
+        }
+
+      }
+    }
+  }
+  else
+  {
+    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+
+    if (xmlns)
+    {
+      int numxmlns = xmlns->getLength();
+      for (int i = 0; i < numxmlns; i++)
+      {
+        const std::string &uri = xmlns->getURI(i);
+        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+        if (sbmlext && sbmlext->isEnabled())
+        {
+          const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+          if (astPlugin != NULL)
+          {
+            ASTBasePlugin* myastPlugin = astPlugin->clone();
+            myastPlugin->setSBMLExtension(sbmlext);
+            myastPlugin->setPrefix(xmlns->getPrefix(i));
+            myastPlugin->connectToParent(this);
+            mPlugins.push_back(myastPlugin);
+          }
+        }
+      }
+    }
+  }
+}
+
+LIBSBML_EXTERN
+void 
+ASTNode::addPlugin(ASTBasePlugin* plugin)
+{
+  mPlugins.push_back(plugin);
+}
+
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
+ASTBasePlugin*
 ASTNode::getPlugin(const std::string& package)
 {
+  ASTBasePlugin* astPlugin = 0;
 
-  if (mNumber != NULL)
+  // here we need to load a plugin if there are none
+  if (mPlugins.size() == 0)
   {
-    return mNumber->getPlugin(package);
+    loadASTPlugins(NULL);
   }
-  else if (mFunction != NULL)
+  for (size_t i = 0; i < mPlugins.size(); i++)
   {
-    return mFunction->getPlugin(package);
+    std::string uri = mPlugins[i]->getURI();
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+    if (uri == package)
+    {
+      astPlugin = mPlugins[i];
+      break;
+    }
+    else if (sbmlext && (sbmlext->getName() == package))
+    {
+      astPlugin = mPlugins[i];
+      break;
+    }
   }
-  else
-  {
-    return ASTBase::getPlugin(package);
-  }
+
+  return astPlugin;
 }
 
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
 const ASTBasePlugin*
 ASTNode::getPlugin(const std::string& package) const
 {
   return const_cast<ASTNode*>(this)->getPlugin(package);
 }
 
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
 ASTBasePlugin*
 ASTNode::getPlugin(unsigned int n)
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getPlugin(n);
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getPlugin(n);
-  }
-  else
-  {
-    return ASTBase::getPlugin(n);
-  }
+  if (n >= getNumPlugins())
+    return NULL;
+  return mPlugins[n];
 }
 
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
 const ASTBasePlugin*
-  ASTNode::getPlugin(unsigned int n) const
+ASTNode::getPlugin(unsigned int n) const
 {
   return const_cast<ASTNode*>(this)->getPlugin(n);
 }
 
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+LIBSBML_EXTERN
 unsigned int
 ASTNode::getNumPlugins() const
 {
-  if (mNumber != NULL)
-  {
-    return mNumber->getNumPlugins();
-  }
-  else if (mFunction != NULL)
-  {
-    return mFunction->getNumPlugins();
-  }
-  else
-  {
-    return ASTBase::getNumPlugins();
-  }
+  return (unsigned int)mPlugins.size();
 }
 
-
-unsigned int
-ASTNode::getNumPiece() const
-{
-  if (getType() == AST_FUNCTION_PIECEWISE)
-  {
-    return static_cast<ASTPiecewiseFunctionNode*>
-      (getFunction()->getPiecewise())->getNumPiece();
-  }
-  else
-  {
-    return 0;
-  }
-}
 
 /** @endcond */
 
-bool
-ASTNode::canonicalize ()
+struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
 {
-  bool found = false;
+  void operator() (ASTBasePlugin* ast) { delete ast; }
+};
 
-
-  if (mType == AST_NAME)
-  {
-    found = canonicalizeConstant();
-  }
-
-  if (!found && mType == AST_FUNCTION)
-  {
-    found = canonicalizeFunction();
-
-    if (!found)
-    {
-      found = canonicalizeLogical();
-    }
-
-    if (!found)
-    {
-      found = canonicalizeRelational();
-    }
-  }
-
-  return found;
-}
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::canonicalizeConstant ()
+void ASTNode::clearPlugins()
 {
-  const int first = AST_CONSTANT_E;
-  const int last  = AST_CONSTANT_TRUE;
-  const int size  = last - first + 1;
-
-  int  index;
-  bool found;
-
-
-
-  index = util_bsearchStringsI(AST_CONSTANT_STRINGS, getName(), 0, size - 1);
-  found = (index < size);
-
-  if (found)
-  {
-    setType( static_cast<ASTNodeType_t>(first + index) );
-  }
-
-  return found;
+  for_each(mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity());
+  mPlugins.clear();
 }
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::canonicalizeFunction ()
-{
-  const int first = AST_FUNCTION_ABS;
-  const int last  = AST_FUNCTION_TANH;
-  const int size  = last - first + 1;
-
-  int  index;
-  bool found;
-
-
-  /*
-   * Search for SBML Level 1 function names first.
-   */
-  found = canonicalizeFunctionL1();
-
-  /*
-   * Now Lambda...
-   */
-  if (!found)
-  {
-    if ( (found = !strcmp_insensitive(getName(), AST_LAMBDA_STRING)) )
-    {
-      setType(AST_LAMBDA);
-    }
-  }
-
-  /*
-   * ... and finally the L2 (MathML) function names.
-   */
-  if (!found)
-  {
-    index = util_bsearchStringsI(AST_FUNCTION_STRINGS, getName(), 0, size - 1);
-    found = (index < size);
-
-    if (found)
-    {
-      setType( static_cast<ASTNodeType_t>(first + index) );
-    }
-  }
-
-  return found;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::canonicalizeFunctionL1 ()
-{
-  ASTNode* child;
-
-
-  if ( !strcmp_insensitive(getName(), "acos") )
-  {
-    setType(AST_FUNCTION_ARCCOS);
-  }
-  else if ( !strcmp_insensitive(getName(), "asin") )
-  {
-    setType(AST_FUNCTION_ARCSIN);
-  }
-  else if ( !strcmp_insensitive(getName(), "atan") )
-  {
-    setType(AST_FUNCTION_ARCTAN);
-  }
-  else if ( !strcmp_insensitive(getName(), "ceil") )
-  {
-    setType(AST_FUNCTION_CEILING);
-  }
-
-  /*
-   * "log(x)" in L1 is represented as "ln(x)" in L2.
-   *
-   * Notice, however, that the conversion is performed only if the number of
-   * arguments is 1.  Thus "log(5, x)" will still be "log(5, x) when passed
-   * through this filter.
-   */
-  else if ( !strcmp_insensitive(getName(), "log") && (getNumChildren() == 1) )
-  {
-    setType(AST_FUNCTION_LN);
-  }
-
-  /*
-   * "log10(x)" in L1 is represented as "log(10, x)" in L2.
-   */
-  else if ( !strcmp_insensitive(getName(), "log10") && (getNumChildren() == 1) )
-  {
-    setType(AST_FUNCTION_LOG);
-
-    child = new ASTNode(AST_INTEGER);
-    child->setValue(10);
-
-    prependChild(child);
-  }
-
-  /*
-   * Here we set the type to AST_FUNCTION_POWER.  We could set it to
-   * AST_POWER, but then we would loose the idea that it was a function
-   * before it was canonicalized.
-   */
-  else if ( !strcmp_insensitive(getName(), "pow") )
-  {
-    setType(AST_FUNCTION_POWER);
-  }
-
-  /*
-   * "sqr(x)" in L1 is represented as "power(x, 2)" in L2.
-   */
-  else if ( !strcmp_insensitive(getName(), "sqr") && (getNumChildren() == 1) )
-  {
-    setType(AST_FUNCTION_POWER);
-
-    child = new ASTNode(AST_INTEGER);
-    child->setValue(2);
-
-    addChild(child);
-  }
-
-  /*
-   * "sqrt(x) in L1 is represented as "root(2, x)" in L1.
-   */
-  else if ( !strcmp_insensitive(getName(), "sqrt") && (getNumChildren() == 1) )
-  {
-    setType(AST_FUNCTION_ROOT);
-
-    child = new ASTNode(AST_INTEGER);
-    child->setValue(2);
-
-    prependChild(child);
-  }
-
-  /*
-   * Was a conversion performed?
-   */
-  return (mType != AST_FUNCTION);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::canonicalizeLogical ()
-{
-  const int first = AST_LOGICAL_AND;
-  const int last  = AST_LOGICAL_XOR;
-  const int size  = last - first + 1;
-
-  int  index;
-  bool found;
-
-
-  index = util_bsearchStringsI(AST_LOGICAL_STRINGS, getName(), 0, size - 1);
-  found = (index < size);
-
-  if (found)
-  {
-    setType( static_cast<ASTNodeType_t>(first + index) );
-  }
-
-  return found;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-ASTNode::canonicalizeRelational ()
-{
-  const int first = AST_RELATIONAL_EQ;
-  const int last  = AST_RELATIONAL_NEQ;
-  const int size  = last - first + 1;
-
-  int  index;
-  bool found;
-
-
-  index = util_bsearchStringsI(AST_RELATIONAL_STRINGS, getName(), 0, size - 1);
-  found = (index < size);
-
-  if (found)
-  {
-    setType( static_cast<ASTNodeType_t>(first + index) );
-  }
-
-  return found;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-void
-ASTNode::reset()
-{
-  if (mNumber != NULL)
-  {
-    this->syncMembersOnlyFrom(mNumber);
-    delete mNumber;
-    mNumber = NULL;
-  }
-
-  if (mFunction != NULL)
-  {
-    this->syncMembersOnlyFrom(mFunction);
-    delete mFunction;
-    mFunction = NULL;
-  }
-
-  //mChar = 0;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-ASTNumber *
-ASTNode::getNumber() const
-{
-  return mNumber;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-ASTFunction *
-ASTNode::getFunction() const
-{
-  return mFunction;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-void
-ASTNode::connectPlugins()
-{
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-}
-/** @endcond */
 
 
 #endif /* __cplusplus */
 
 
 /** @cond doxygenIgnored */
+
 LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_create (void)
@@ -3866,7 +3283,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createWithType (ASTNodeType_t type)
 {
-  return new(nothrow) ASTNode((int)(type));
+  return new(nothrow) ASTNode(type);
 }
 
 
@@ -4298,15 +3715,6 @@ ASTNode_isPiecewise (const ASTNode_t *node)
 
 LIBSBML_EXTERN
 int
-ASTNode_isQualifier (const ASTNode_t *node)
-{
-  if (node == NULL) return (int) false;
-  return static_cast<int>( node->isQualifier() );
-}
-
-
-LIBSBML_EXTERN
-int
 ASTNode_isRational (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
@@ -4329,15 +3737,6 @@ ASTNode_isRelational (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isRelational();
-}
-
-
-LIBSBML_EXTERN
-int
-ASTNode_isSemantics (const ASTNode_t *node)
-{
-  if (node == NULL) return (int) false;
-  return static_cast<int>( node->isSemantics() );
 }
 
 
@@ -4371,7 +3770,7 @@ int
 ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigned int numchildren)
 {
   if (node==NULL) return (int) false;
-  return node->hasTypeAndNumChildren((int)(type), numchildren);
+  return node->hasTypeAndNumChildren(type, numchildren);
 }
 
 
@@ -4595,11 +3994,11 @@ ASTNode_getParentSBMLObject(ASTNode_t* node)
 
 
 LIBSBML_EXTERN
-int
+void
 ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
 {
-  if (node == NULL) return LIBSBML_INVALID_OBJECT;
-  return node->setParentSBMLObject(sb);
+  if (node == NULL) return;
+  node->setParentSBMLObject(sb);
 }
 
 
@@ -4612,14 +4011,14 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node)
 }
 
 
-
 LIBSBML_EXTERN
-int
+int 
 ASTNode_isSetParentSBMLObject(ASTNode_t* node)
 {
   if (node == NULL) return (int) false;
   return static_cast<int>(node->isSetParentSBMLObject());
 }
+
 
 
 LIBSBML_EXTERN
@@ -4720,6 +4119,7 @@ ASTNode_isSetUserData(const ASTNode_t* node)
   return static_cast<int>(node->isSetUserData());
 }
 
+
 LIBSBML_EXTERN
 int
 ASTNode_hasCorrectNumberArguments(ASTNode_t* node)
@@ -4784,55 +4184,13 @@ ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL)
  */
 LIBSBML_EXTERN
 int
-ASTNode_true(const ASTNode *)
+ASTNode_true(const ASTNode *node)
 {
   return 1;
 }
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-LIBSBML_EXTERN
-int
-ASTNode_isPackageInfixFunction(const ASTNode *node)
-{
-  if(node==NULL) return 0;
-  return node->isPackageInfixFunction();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-LIBSBML_EXTERN
-int
-ASTNode_hasPackageOnlyInfixSyntax(const ASTNode *node)
-{
-  if(node==NULL) return 0;
-  return node->hasPackageOnlyInfixSyntax();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-LIBSBML_EXTERN
-int
-ASTNode_getL3PackageInfixPrecedence(const ASTNode *node)
-{
-  if(node==NULL) return 8;
-  return node->getL3PackageInfixPrecedence();
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-LIBSBML_EXTERN
-int
-ASTNode_hasUnambiguousPackageInfixGrammar(const ASTNode *node, const ASTNode *child)
-{
-  if(node==NULL) return 0;
-  return (int)node->hasUnambiguousPackageInfixGrammar(child);
-}
-/** @endcond */
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

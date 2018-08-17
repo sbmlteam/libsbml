@@ -196,7 +196,6 @@ TestFile::getFilesIn ( const string& directory,
         || id == 20518)
         continue;
       //}
-#ifdef LIBSBML_USE_LEGACY_MATH
 
       /* some files got renumbered with the change in ast code
        * only because they logged only one error instead
@@ -233,15 +232,6 @@ TestFile::getFilesIn ( const string& directory,
         if (num == 29)
           continue;
       }
-#else
-      unsigned int num = file.getSequenceId();
-      if (id == 99219)
-      {
-        if (num == 33 || num == 34)
-          continue;
-      }
-
-#endif
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {

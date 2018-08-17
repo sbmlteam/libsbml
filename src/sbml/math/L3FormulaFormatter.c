@@ -291,9 +291,6 @@ int getL3Precedence(const ASTNode_t* node)
         }
         break;
 
-      case AST_ORIGINATES_IN_PACKAGE:
-        precedence = ASTNode_getL3PackageInfixPrecedence(node);
-        break;
       default:
         precedence = 8;
         break;
@@ -305,8 +302,8 @@ int getL3Precedence(const ASTNode_t* node)
 
 
 /**
- * @return @c 1 (true) if the given child ASTNode should be grouped
- * (with parenthesis), @c 0 (false) otherwise.
+ * @return true (non-zero) if the given child ASTNode should be grouped
+ * (with parenthesis), false (0) otherwise.
  *
  * A node should be group if it is not an argument to a function and
  * either:
@@ -683,22 +680,6 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     L3FormulaFormatter_visitUNot(parent, node, sb, settings);
   }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_LOGBASE, 1))
-  {
-    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
-  }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_DEGREE, 1))
-  {
-    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
-  }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_SEMANTICS, 1))
-  {
-    L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
-  }
-  else if (ASTNode_hasPackageOnlyInfixSyntax(node))
-  {
-    L3ParserSettings_visitPackageInfixSyntax(parent, node, sb, settings);
-  }
   else
   {
     L3FormulaFormatter_visitOther(parent, node, sb, settings);
@@ -932,15 +913,9 @@ L3FormulaFormatter_hasUnambiguousGrammar(const ASTNode_t *node,
   //Functions delimit their children with commas:
   if (L3FormulaFormatter_isFunction(node, settings)) return 1;
 
-  //Packages have their own rules:
-  if (ASTNode_hasUnambiguousPackageInfixGrammar(node, child)) return 1;
-
   //'8', the highest precedence, is only ever given to functions and other top-level 
   // unambiguous objects.
   if (getL3Precedence(child) == 8) return 1;
-
-  //If the parent node is 'semantics' this never gets printed at all.
-  if (ASTNode_getType(node) == AST_SEMANTICS) return 1;
 
   return 0;
 }
@@ -1006,13 +981,6 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_CONSTANT_FALSE:
   case AST_CONSTANT_PI:
   case AST_CONSTANT_TRUE:
-  /* new elements to the enum that should not get hit */
-  case AST_QUALIFIER_BVAR:
-  case AST_QUALIFIER_LOGBASE:
-  case AST_QUALIFIER_DEGREE:
-  case AST_SEMANTICS:
-  case AST_CONSTRUCTOR_PIECE:
-  case AST_CONSTRUCTOR_OTHERWISE:
     return 0;
 
   case AST_LOGICAL_XOR:
@@ -1058,13 +1026,8 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_FUNCTION_RATE_OF:
   case AST_FUNCTION_REM:
   case AST_LOGICAL_IMPLIES:
-      case AST_CSYMBOL_FUNCTION:
   case AST_UNKNOWN:
     return 1;
-
-    /* this one will need work */
-  case AST_ORIGINATES_IN_PACKAGE:
-    return ASTNode_isPackageInfixFunction(node);
   }
   //Shouldn't ever get here
   assert(0);

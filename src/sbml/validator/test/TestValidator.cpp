@@ -233,7 +233,6 @@ TestValidator::test (const TestFile& file)
  * I went with leaving the result of the read unchanged 
  * but actually logging the errors
  */
-#ifdef LIBSBML_USE_LEGACY_MATH
   if (id == 99219 && num == 32)
   {
     expected = 2;
@@ -247,23 +246,6 @@ TestValidator::test (const TestFile& file)
   {
     expected = 1;
   }
-#else
-  if (id == 99219 && num == 32)
-  {
-    expected = 2;
-    others = 10102;
-  }
-  if (id == 10218 && num == 10 && expected == 2)
-  {
-    expected = 3;
-    others = 10212;
-  }
-  if (id == 10218 && num == 11 && expected == 2)
-  {
-    expected = 1;
-    others = 0;
-  }
-#endif
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
   list<SBMLError>::const_iterator begin = mValidator.getFailures().begin();

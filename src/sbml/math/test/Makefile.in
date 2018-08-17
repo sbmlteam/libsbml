@@ -1,7 +1,7 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/math/test 
+## Description : Makefile template for libsbml src/math/test
 ## Author(s)   : Michael Hucka <mhucka@caltech.edu>
 ## Organization: California Institute of Technology
 ## Created     : 2005-03-02
@@ -69,10 +69,7 @@ test_sources =           \
   TestReadFromFile1.cpp  \
   TestReadFromFile2.cpp  \
   TestValidASTNode.cpp   \
-  TestNewASTNode.cpp     \
-  TestNewReadMathML.cpp  \
-  TestNewWriteMathMLFromAST.cpp \
-  TestChildFunctions.cpp \
+  TestChildFunctions.cpp  \
   TestGetValue.cpp \
   TestRunner.c
 
@@ -140,46 +137,46 @@ all: Makefile
 # dependencies on other subdirectoris of the source tree, we do some rummaging
 # around in .. and ../../subdirs.
 
-tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
-localobjfiles = $(filter %.lo,$(tmp))
-otherdirs     = .. ../.. ../../util ../../xml ../../annotation \
-	 ../../validator ../../validator/constraints ../../units ../../compress \
-	 ../../common ../../extension ../../conversion
+#tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
+#localobjfiles = $(filter %.lo,$(tmp))
+#otherdirs     = .. ../.. ../../util ../../xml ../../annotation \
+#	 ../../validator ../../validator/constraints ../../units ../../compress \
+#	 ../../common ../../extension ../../conversion
+#
+#ifdef USE_LAYOUT
+#  otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
+#				../../packages/layout/common  ../../packages/layout/util \
+#				../../packages/layout/validator ../../packages/layout/validator/constraints
+#endif
+#
+#ifdef USE_FBC
+#  otherdirs +=	../../packages/fbc/extension ../../packages/fbc/sbml \
+#				../../packages/fbc/common  ../../packages/fbc/util \
+#				../../packages/fbc/validator ../../packages/fbc/validator/constraints
+#endif
+#
+#ifdef USE_QUAL
+#  otherdirs +=	../../packages/qual/extension ../../packages/qual/sbml \
+#				../../packages/qual/common\
+#				../../packages/qual/validator ../../packages/qual/validator/constraints
+#endif
 
-ifdef USE_LAYOUT
-  otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
-				../../packages/layout/common  ../../packages/layout/util \
-				../../packages/layout/validator ../../packages/layout/validator/constraints
-endif
+#ifdef USE_COMP
+#  otherdirs +=	../../packages/comp/extension ../../packages/comp/sbml \
+#				../../packages/comp/common  ../../packages/comp/util \
+#				../../packages/comp/validator ../../packages/comp/validator/constraints
+#endif
 
-ifdef USE_FBC
-  otherdirs +=	../../packages/fbc/extension ../../packages/fbc/sbml \
-				../../packages/fbc/common  ../../packages/fbc/util \
-				../../packages/fbc/validator ../../packages/fbc/validator/constraints
-endif
-
-ifdef USE_QUAL
-  otherdirs +=	../../packages/qual/extension ../../packages/qual/sbml \
-				../../packages/qual/common\
-				../../packages/qual/validator ../../packages/qual/validator/constraints
-endif
-
-ifdef USE_COMP
-  otherdirs +=	../../packages/comp/extension ../../packages/comp/sbml \
-				../../packages/comp/common  ../../packages/comp/util \
-				../../packages/comp/validator ../../packages/comp/validator/constraints
-endif
-
-otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+#otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 
-test_objfiles = $(localobjfiles) $(otherobjfiles)
+#test_objfiles = $(localobjfiles) $(otherobjfiles)
 
-ifdef USE_LIBCHECK
-  check: all run-checks
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
+#ifdef USE_LIBCHECK
+#  check: all run-checks
+#else
+#  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+#endif
 
 
 # -----------------------------------------------------------------------------

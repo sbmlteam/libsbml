@@ -46,14 +46,12 @@
   argvi++;
 }
 
-#ifndef LIBSBML_USE_LEGACY_MATH
 %typemap(out) ASTBasePlugin*
 {
   ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1),
                                  $owner | %newpointer_flags);
   argvi++;
 }
-#endif
 
 
 

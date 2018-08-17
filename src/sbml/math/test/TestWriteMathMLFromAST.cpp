@@ -181,17 +181,10 @@ END_TEST
 
 START_TEST (test_MathMLFromAST_cn_e_notation_2)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  const char* expected = wrapMathML
-  (
-    "  <cn type=\"e-notation\"> 2000 <sep/> 0 </cn>\n"
-  );
-#else
   const char* expected = wrapMathML
   (
     "  <cn> 2000 </cn>\n"
   );
-#endif
 
   // N = SBML_parseFormula("2e3");
   N = new ASTNode(AST_REAL_E);
@@ -465,20 +458,10 @@ END_TEST
 
 START_TEST (test_MathMLFromAST_constant_infinity_neg)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  const char* expected = wrapMathML
-  (
-    "  <apply>\n"
-    "    <minus/>\n"
-    "    <infinity/>\n"
-    "  </apply>\n"
-  );
-#else  
   const char* expected = wrapMathML
   (
     "  <apply> <minus/> <infinity/> </apply>\n"
   );
-#endif
 
   N = new ASTNode;
   N->setValue( - numeric_limits<double>::infinity() );
@@ -492,20 +475,10 @@ END_TEST
 
 START_TEST (test_MathMLFromAST_constant_infinity_neg1)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  const char* expected = wrapMathML
-  (
-    "  <apply>\n"
-    "    <minus/>\n"
-    "    <infinity/>\n"
-    "  </apply>\n"
-  );
-#else
   const char* expected = wrapMathML
   (
     "  <apply> <minus/> <infinity/> </apply>\n"
   );
-#endif
 
   N = new ASTNode(AST_REAL);
   N->setValue( - numeric_limits<double>::infinity() );
@@ -1112,21 +1085,6 @@ START_TEST (test_MathMLFromAST_log)
   );
 
   N = new ASTNode(AST_FUNCTION_LOG);
-#ifndef LIBSBML_USE_LEGACY_MATH
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
-  
-  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
-  fail_unless( c1_1->setValue(2) == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
-
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#else
-
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(2) == LIBSBML_OPERATION_SUCCESS);
 
@@ -1136,7 +1094,6 @@ START_TEST (test_MathMLFromAST_log)
   fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#endif
 
   // valid ast
   S = writeMathMLToString(N);
@@ -1179,42 +1136,18 @@ END_TEST
 
 START_TEST (test_MathMLFromAST_log_3)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  const char* expected = wrapMathML
-  (
-    "  <apply>\n"
-    "    <log/>\n"
-    "    <logbase>\n"
-    "      <cn type=\"integer\"> 10 </cn>\n"
-    "    </logbase>\n"
-    "    <ci> N </ci>\n"
-    "  </apply>\n"
-  );
-#else
   const char* expected = wrapMathML
   (
     "  <apply>\n"
     "    <log/>\n"
     "  </apply>\n"
   );
-#endif
   N = new ASTNode(AST_FUNCTION_LOG);
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
-  
-
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#else
   ASTNode* c2 = new ASTNode(AST_NAME);
   fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#endif
 
   // logbase with no args
   S = writeMathMLToString(N);
@@ -1238,26 +1171,6 @@ START_TEST (test_MathMLFromAST_log_4)
   );
 
   N = new ASTNode(AST_FUNCTION_LOG);
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_LOGBASE);
-  
-  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
-  fail_unless( c1_1->setValue(10) == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
-
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("N") == LIBSBML_OPERATION_SUCCESS);
-
-  ASTNode* c3 = new ASTNode(AST_NAME);
-  fail_unless( c3->setName("x") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#else
-
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(10) == LIBSBML_OPERATION_SUCCESS);
 
@@ -1271,7 +1184,6 @@ START_TEST (test_MathMLFromAST_log_4)
 
   fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#endif
 
   // log with logbase and more than 1 child
   S = writeMathMLToString(N);
@@ -1296,21 +1208,6 @@ START_TEST (test_MathMLFromAST_root)
 
   // N = SBML_parseFormula("root(3, x)");
   N = new ASTNode(AST_FUNCTION_ROOT);
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
-  
-  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
-  fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
-
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#else
 
   ASTNode* c1_1 = new ASTNode(AST_INTEGER);
   fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
@@ -1321,7 +1218,6 @@ START_TEST (test_MathMLFromAST_root)
   fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-#endif
   
   // nicely formed ast
   S = writeMathMLToString(N);
@@ -1385,18 +1281,6 @@ END_TEST
 
 START_TEST (test_MathMLFromAST_root2)
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  const char* expected = wrapMathML
-  (
-    "  <apply>\n"
-    "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 2 </cn>\n"
-    "    </degree>\n"
-    "    <ci> x </ci>\n"
-    "  </apply>\n"
-  );
-#else
   const char* expected = wrapMathML
   (
     "  <apply>\n"
@@ -1404,92 +1288,20 @@ START_TEST (test_MathMLFromAST_root2)
     "    <ci> x </ci>\n"
     "  </apply>\n"
   );
-#endif
 
   N = new ASTNode(AST_FUNCTION_ROOT);
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
-  
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-  
-#else
   
   ASTNode* c2 = new ASTNode(AST_NAME);
   fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
   
-#endif
   // ast with empty degree child
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
 }
 END_TEST
-
-#ifndef LIBSBML_USE_LEGACY_MATH
-START_TEST (test_MathMLFromAST_root3)
-{
-  const char* expected = wrapMathML
-  (
-    "  <apply>\n"
-    "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 3 </cn>\n"
-    "    </degree>\n"
-    "    <ci> y </ci>\n"
-    "  </apply>\n"
-  );
-
-  N = new ASTNode(AST_FUNCTION_ROOT);
-
-  ASTNode* c1 = new ASTNode(AST_QUALIFIER_DEGREE);
-  
-  ASTNode* c1_1 = new ASTNode(AST_INTEGER);
-  fail_unless( c1_1->setValue(3) == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (c1->addChild(c1_1) == LIBSBML_OPERATION_SUCCESS);
-
-  ASTNode* c3 = new ASTNode(AST_NAME);
-  fail_unless( c3->setName("y") == LIBSBML_OPERATION_SUCCESS);
-  ASTNode* c2 = new ASTNode(AST_NAME);
-  fail_unless( c2->setName("x") == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
-  
-  // ast with degree and two other children
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-
-  ASTNode* c1_2 = new ASTNode(AST_INTEGER);
-  fail_unless( c1_2->setValue(4) == LIBSBML_OPERATION_SUCCESS);
-
-  fail_unless (c1->addChild(c1_2) == LIBSBML_OPERATION_SUCCESS);
-
-  c1 = c1->deepCopy();
-  c3 = c3->deepCopy();
-  delete N;
-  N = new ASTNode(AST_FUNCTION_ROOT);
-
-  fail_unless (N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (N->addChild(c3) == LIBSBML_OPERATION_SUCCESS);
-  
-  // ast with degree that has two children
-  safe_free(S);
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-#endif
 
 START_TEST (test_MathMLFromAST_lambda)
 {
@@ -1511,31 +1323,6 @@ START_TEST (test_MathMLFromAST_lambda)
   );
 
   N = new ASTNode(AST_LAMBDA);
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-  ASTNode *c1 = new ASTNode(AST_QUALIFIER_BVAR);
-  ASTNode *c1_1 = new ASTNode(AST_NAME);
-  c1_1->setName("x");
-  c1->addChild(c1_1);
-
-  ASTNode *c2 = new ASTNode(AST_QUALIFIER_BVAR);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("y");
-  c2->addChild(c2_1);
-
-  ASTNode *c3 = new ASTNode(AST_PLUS);
-  ASTNode *c3_1 = new ASTNode(AST_NAME);
-  c3_1->setName("x");
-  ASTNode *c3_2 = new ASTNode(AST_NAME);
-  c3_2->setName("y");
-  c3->addChild(c3_1);
-  c3->addChild(c3_2);
-  
-  N->addChild(c1);
-  N->addChild(c2);
-  N->addChild(c3);
-
-#else
 
   ASTNode *c1_1 = new ASTNode(AST_NAME);
   c1_1->setName("x");
@@ -1554,7 +1341,6 @@ START_TEST (test_MathMLFromAST_lambda)
   N->addChild(c1_1);
   N->addChild(c2_1);
   N->addChild(c3);
-#endif
 
 
   // N = SBML_parseFormula("lambda(x, y, root(2, x^2 + y^2))");
@@ -1646,74 +1432,6 @@ START_TEST (test_MathMLFromAST_lambda_no_bvars)
 }
 END_TEST
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-START_TEST (test_MathMLFromAST_piecewise)
-{
-  const char* expected = wrapMathML
-  (
-    "  <piecewise>\n"
-    "    <piece>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "      <apply>\n"
-    "        <lt/>\n"
-    "        <ci> x </ci>\n"
-    "        <cn type=\"integer\"> 0 </cn>\n"
-    "      </apply>\n"
-    "    </piece>\n"
-    "    <piece>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "      <apply>\n"
-    "        <eq/>\n"
-    "        <ci> x </ci>\n" 
-    "        <cn type=\"integer\"> 0 </cn>\n"
-    "      </apply>\n"
-    "    </piece>\n"
-    "  </piecewise>\n"
-  );
-
-  N = new ASTNode(AST_FUNCTION_PIECEWISE);
-
-  ASTNode *c1 = new ASTNode(AST_INTEGER);
-  c1->setValue(0);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-  
-  ASTNode *p1 = new ASTNode(AST_CONSTRUCTOR_PIECE);
-  p1->addChild(c1);
-  p1->addChild(c2);
-
-  ASTNode *c3 = new ASTNode(AST_INTEGER);
-  c3->setValue(0);
-
-  ASTNode *c4 = new ASTNode(AST_RELATIONAL_EQ);
-  ASTNode *c4_1 = new ASTNode(AST_NAME);
-  c4_1->setName("x");
-  ASTNode *c4_4 = new ASTNode(AST_INTEGER);
-  c4_4->setValue(0);
-  c4->addChild(c4_1);
-  c4->addChild(c4_4);
-
-  ASTNode *p2 = new ASTNode(AST_CONSTRUCTOR_PIECE);
-  p2->addChild(c3);
-  p2->addChild(c4);
-
-  N->addChild(p1);
-  N->addChild(p2);
-
-  // N = SBML_parseFormula(f);
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-#endif
-
 START_TEST (test_MathMLFromAST_piecewise1)
 {
   const char* expected = wrapMathML
@@ -1776,61 +1494,6 @@ START_TEST (test_MathMLFromAST_piecewise1)
 }
 END_TEST
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-START_TEST (test_MathMLFromAST_piecewise_otherwise)
-{
-  const char* expected = wrapMathML
-  (
-    "  <piecewise>\n"
-    "    <piece>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "      <apply>\n"
-    "        <lt/>\n"
-    "        <ci> x </ci>\n"
-    "        <cn type=\"integer\"> 0 </cn>\n"
-    "      </apply>\n"
-    "    </piece>\n"
-    "    <otherwise>\n"
-    "      <ci> x </ci>\n" 
-    "    </otherwise>\n"
-    "  </piecewise>\n"
-  );
-
-  N = new ASTNode(AST_FUNCTION_PIECEWISE);
-
-  ASTNode *c1 = new ASTNode(AST_INTEGER);
-  c1->setValue(0);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-  
-  ASTNode *p1 = new ASTNode(AST_CONSTRUCTOR_PIECE);
-  p1->addChild(c1);
-  p1->addChild(c2);
-  
-
-  ASTNode *c3 = new ASTNode(AST_NAME);
-  c3->setName("x");
-
-  ASTNode *p2 = new ASTNode(AST_CONSTRUCTOR_OTHERWISE);
-  p2->addChild(c3);
-
-  N->addChild(p1);
-  N->addChild(p2);
-
-  // N = SBML_parseFormula("piecewise(0, lt(x, 0), x)");
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-#endif
-
 START_TEST (test_MathMLFromAST_piecewise_otherwise1)
 {
   const char* expected = wrapMathML
@@ -1878,36 +1541,6 @@ START_TEST (test_MathMLFromAST_piecewise_otherwise1)
 }
 END_TEST
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-START_TEST (test_MathMLFromAST_piecewise_no_piece)
-{
-  const char* expected = wrapMathML
-  (
-    "  <piecewise>\n"
-    "    <otherwise>\n"
-    "      <ci> x </ci>\n" 
-    "    </otherwise>\n"
-    "  </piecewise>\n"
-  );
-
-  N = new ASTNode(AST_FUNCTION_PIECEWISE);
-
-  ASTNode *c3 = new ASTNode(AST_NAME);
-  c3->setName("x");
-
-  ASTNode *p2 = new ASTNode(AST_CONSTRUCTOR_OTHERWISE);
-  p2->addChild(c3);
-
-  N->addChild(p2);
-
-  // N = SBML_parseFormula("piecewise(0, lt(x, 0), x)");
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-#endif
-
 START_TEST (test_MathMLFromAST_piecewise_no_piece1)
 {
   const char* expected = wrapMathML
@@ -1933,191 +1566,6 @@ START_TEST (test_MathMLFromAST_piecewise_no_piece1)
 }
 END_TEST
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-START_TEST (test_MathMLFromAST_semantics)
-{
-  const char* expected = wrapMathML
-  (
-    "  <semantics>\n"
-    "    <apply>\n"
-    "      <lt/>\n"
-    "      <ci> x </ci>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "    </apply>\n"
-    "  </semantics>\n"
-  );
-
-  N = new ASTNode(AST_SEMANTICS);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-
-  N->addChild(c2);
-
-  // N = SBML_parseFormula("lt(x, 0)");
- //N->setSemanticsFlag();
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-
-
-START_TEST (test_MathMLFromAST_semantics_url)
-{
-  const char* expected = wrapMathML
-  (
-    "  <semantics definitionURL=\"foobar\">\n"
-    "    <apply>\n"
-    "      <lt/>\n"
-    "      <ci> x </ci>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "    </apply>\n"
-    "  </semantics>\n"
-  );
-
-  XMLAttributes *xa = new XMLAttributes();
-  xa->add("definitionURL", "foobar");
-  
-  N = new ASTNode(AST_SEMANTICS);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-
-  N->addChild(c2);
-
-  N->setDefinitionURL(*xa);
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-  delete xa;
-}
-END_TEST
-
-
-START_TEST (test_MathMLFromAST_semantics_ann)
-{
-  const char* expected = wrapMathML
-  (
-    "  <semantics>\n"
-    "    <apply>\n"
-    "      <lt/>\n"
-    "      <ci> x </ci>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "    </apply>\n"
-    "    <annotation encoding=\"bar\">foo</annotation>\n"
-    "  </semantics>\n"
-  );
-
-  XMLAttributes xa = XMLAttributes();
-  xa.add("encoding", "bar");
-  
-  XMLTriple triple = XMLTriple("annotation", "", "");
-  
-  XMLToken ann_token = XMLToken(triple, xa);
-  
-  XMLNode *ann = new XMLNode(ann_token);
-  XMLToken text = XMLToken("foo");
-  XMLNode textNode = XMLNode(text);
-  ann->addChild(textNode);
-  
-  N = new ASTNode(AST_SEMANTICS);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-
-  N->addChild(c2);
-
-  // N = SBML_parseFormula("lt(x, 0)");
-  // // N->setSemanticsFlag();
-  N->addSemanticsAnnotation(ann);
-
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-
-
-START_TEST (test_MathMLFromAST_semantics_annxml)
-{
-  const char* expected = wrapMathML
-  (
-    "  <semantics>\n"
-    "    <apply>\n"
-    "      <lt/>\n"
-    "      <ci> x </ci>\n"
-    "      <cn type=\"integer\"> 0 </cn>\n"
-    "    </apply>\n"
-    "    <annotation-xml encoding=\"bar\">\n"
-    "      <foobar>\n"
-    "        <bar id=\"c\"/>\n"
-    "      </foobar>\n"
-    "    </annotation-xml>\n"
-    "  </semantics>\n"
-  );
-
-  XMLAttributes xa = XMLAttributes();
-  xa.add("encoding", "bar");
-  
-  XMLAttributes xa1 = XMLAttributes();
-  xa1.add("id", "c");
-
-  XMLAttributes blank = XMLAttributes();
-
-  XMLTriple triple = XMLTriple("annotation-xml", "", "");
-  XMLTriple foo_triple = XMLTriple("foobar", "", "");
-  XMLTriple bar_triple = XMLTriple("bar", "", "");
-  
-  XMLToken ann_token = XMLToken(triple, xa);
-  XMLToken foo_token = XMLToken(foo_triple, blank);
-  XMLToken bar_token = XMLToken(bar_triple, xa1);
-  
-  XMLNode bar = XMLNode(bar_token);
-  XMLNode foo = XMLNode(foo_token);
-  XMLNode *ann = new XMLNode(ann_token);
-
-  foo.addChild(bar);
-  ann->addChild(foo);
-  
-  N = new ASTNode(AST_SEMANTICS);
-
-  ASTNode *c2 = new ASTNode(AST_RELATIONAL_LT);
-  ASTNode *c2_1 = new ASTNode(AST_NAME);
-  c2_1->setName("x");
-  ASTNode *c2_2 = new ASTNode(AST_INTEGER);
-  c2_2->setValue(0);
-  c2->addChild(c2_1);
-  c2->addChild(c2_2);
-
-  N->addChild(c2);
-
-  // N = SBML_parseFormula("lt(x, 0)");
-  // // N->setSemanticsFlag();
-  
-  N->addSemanticsAnnotation(ann);
-
-  S = writeMathMLToString(N);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-#endif
 
 START_TEST (test_MathMLFromAST_cn_units)
 {
@@ -2404,17 +1852,6 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_nested_funcs                 );
   tcase_add_test( tcase, test_MathMLFromAST_replaceIDWithFunction_2    );
   
-#ifndef LIBSBML_USE_LEGACY_MATH
-  tcase_add_test( tcase, test_MathMLFromAST_root3                  );
-  tcase_add_test( tcase, test_MathMLFromAST_piecewise             );
-  tcase_add_test( tcase, test_MathMLFromAST_piecewise_otherwise   );
-  tcase_add_test( tcase, test_MathMLFromAST_piecewise_no_piece    );
-  tcase_add_test( tcase, test_MathMLFromAST_semantics             );
-  tcase_add_test( tcase, test_MathMLFromAST_semantics_url         );
-  tcase_add_test( tcase, test_MathMLFromAST_semantics_ann         );
-  tcase_add_test( tcase, test_MathMLFromAST_semantics_annxml      );
-#endif
-
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -93,9 +93,6 @@ SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd, const Id
   
   recurseReplaceFD(node, fd, idsToExclude);
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-  node->setIsChildFlag(false);
-#endif
 }
 
 

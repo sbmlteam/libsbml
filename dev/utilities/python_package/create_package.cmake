@@ -78,6 +78,7 @@ set(DIRECTORIES
   sbml/compress
   sbml/conversion
   sbml/extension
+  sbml/math
   sbml/packages
   
   sbml/packages/comp/common
@@ -161,20 +162,7 @@ file (GLOB SOURCE_FILES
 )
 file(REMOVE ${SOURCE_FILES})
 
-# copy legacy
 
-file (MAKE_DIRECTORY ${OUT_DIR}/base/sbml/math)
-
-file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-${SRC_DIR}/sbml/math-legacy/*.cpp
-${SRC_DIR}/sbml/math-legacy/*.c
-${SRC_DIR}/sbml/math-legacy/*.h
-${SRC_DIR}/sbml/math-legacy/*.in)
-
-file(
-COPY ${SOURCE_FILES}
-DESTINATION ${OUT_DIR}/base/sbml/math
-)
 
 # copy swigable files
 file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}

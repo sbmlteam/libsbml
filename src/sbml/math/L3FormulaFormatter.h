@@ -49,27 +49,46 @@ BEGIN_C_DECLS
 
 
 /**
- * Converts an AST to a text string representation of a formula using an
- * extended syntax.
+ * Converts an AST to a string representation of a formula using a syntax
+ * derived from SBML Level&nbsp;1, but extended to include elements from
+ * SBML Level&nbsp;2 and SBML Level&nbsp;3.
  *
  * @copydetails doc_summary_of_string_math_l3
  *
  * @param tree the AST to be converted.
+ * 
+ * @return the formula from the given AST as an SBML Level 3 text-string
+ * mathematical formula.  The caller owns the returned string and is
+ * responsible for freeing it when it is no longer needed.
  *
- * @return the formula from the given AST as text string, with a syntax
- * oriented towards the capabilities defined in SBML Level&nbsp;3.  The
- * caller owns the returned string and is responsible for freeing it when it
- * is no longer needed.  If @p tree is a null pointer, then a null pointer is
- * returned.
- *
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
- * @see @sbmlfunction{formulaToString, ASTNode}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
- * @see @sbmlfunction{parseFormula, String}
- * @see L3ParserSettings
- * @see @sbmlfunction{getDefaultL3ParserSettings,}
- * @see @sbmlfunction{getLastParseL3Error,}
+ * @if clike @see SBML_formulaToL3String()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if csharp @see SBML_formulaToL3String()
+ * @see SBML_parseL3FormulaWithSettings()
+ * @see SBML_parseL3Formula()
+ * @see SBML_parseL3FormulaWithModel()
+ * @see SBML_getLastParseL3Error()
+ * @see SBML_getDefaultL3ParserSettings()
+ * @endif@~
+ * @if python @see libsbml.formulaToString()
+ * @see libsbml.parseL3FormulaWithSettings()
+ * @see libsbml.parseL3Formula()
+ * @see libsbml.parseL3FormulaWithModel()
+ * @see libsbml.getLastParseL3Error()
+ * @see libsbml.getDefaultL3ParserSettings()
+ * @endif@~
+ * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
+ * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
+ * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
+ * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
+ * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
+ * @endif@~
  *
  * @if conly
  * @memberof ASTNode_t
@@ -81,59 +100,41 @@ SBML_formulaToL3String (const ASTNode_t *tree);
 
 
 /**
- * Converts an AST to a text string representation of a formula, using
- * specific formatter settings.
+ * Converts an AST to a string representation of a formula using a syntax
+ * basically derived from SBML Level&nbsp;1, with behavior modifiable with
+ * custom settings.
  *
- * This function behaves identically to @sbmlfunction{formulaToL3String,
- * ASTNode} but its behavior is controlled by two fields in the @p
- * settings object, namely:
+ * This function behaves identically to SBML_formulaToL3String(), but 
+ * its behavior can be modified by two settings in the @param settings
+ * object, namely:
  *
- * @li <em>parseunits</em> ("parse units"): If this field in the @p settings
- *     object is set to <code>true</code> (the default), the function will
- *     write out the units of any numerical ASTNodes that have them,
- *     producing (for example) &quot;<code>3 mL</code>&quot;,
- *     &quot;<code>(3/4) m</code>&quot;, or &quot;<code>5.5e-10
- *     M</code>&quot;.  If this is set to <code>false</code>, this function
- *     will only write out the number itself (&quot;<code>3</code>&quot;,
- *     &quot;<code>(3/4)</code>&quot;, and &quot;<code>5.5e-10</code>&quot;,
- *     in the previous examples).
- * @li <em>collapseminus</em> ("collapse minus"): If this field in the @p
- *     settings object is set to <code>false</code> (the default), the
- *     function will write out explicitly any doubly-nested unary minus
- *     ASTNodes, producing (for example) &quot;<code>- -x</code>&quot; or
- *     even &quot;<code>- - - - -3.1</code>&quot;.  If this is set to
- *     <code>true</code>, the function will collapse the nodes before
- *     producing the infix form, producing &quot;<code>x</code>&quot; and
- *     &quot;<code>-3.1</code>&quot; in the previous examples.
+ * @li ParseUnits:  If this is set to 'true' (the default), the function will 
+ *     write out the units of any numerical ASTNodes that have them, producing
+ *     (for example) "3 mL", "(3/4) m", or "5.5e-10 M".  If this is set to
+ *     'false', this function will only write out the number itself ("3",
+ *     "(3/4)", and "5.5e-10", in the previous examples).
  *
- * All the other settings of the L3ParserSettings object passed in as @p
- * settings will be ignored for the purposes of this function: the
- * <em>parselog</em> ("parse log") setting is ignored so that
- * &quot;<code>log10(x)</code>&quot;, &quot;<code>ln(x)</code>&quot;, and
- * &quot;<code>log(x, y)</code>&quot; are always produced; the
- * <em>avocsymbol</em> ("Avogadro csymbol") is irrelevant to the behavior
- * of this function; and nothing in the Model object set via the
- * <em>model</em> setting is used.
+ * @li CollapseMinus: If this is set to 'false' (the default), the function
+ *     will write out explicitly any doubly-nested unary minus ASTNodes,
+ *     producing (for example) "--x" or even "-----3.1".  If this is set
+ *     to 'true', the function will collapse the nodes before producing the
+ *     infix, producing "x" and "-3.1" in the previous examples.
+ *
+ * All other settings will not affect the behavior of this function:  the
+ * 'parseLog' setting is ignored, and "log10(x)", "ln(x)", and "log(x, y)" 
+ * are always produced.  Nothing in the Model object is used, and whether
+ * Avogadro is a csymbol or not is immaterial to the produced infix.
  *
  * @param tree the AST to be converted.
-
- * @param settings the L3ParserSettings object used to modify the behavior of
- * this function.
+ * @param settings the L3ParserSettings object used to modify behavior.
+ * 
+ * @return the formula from the given AST as an SBML Level 3 text-string
+ * mathematical formula.  The caller owns the returned string and is
+ * responsible for freeing it when it is no longer needed.
  *
- * @return the formula from the given AST as text string, with a syntax
- * oriented towards the capabilities defined in SBML Level&nbsp;3.  The
- * caller owns the returned string and is responsible for freeing it when it
- * is no longer needed.  If @p tree is a null pointer, then a null pointer is
- * returned.
- *
- * @see @sbmlfunction{formulaToL3String, ASTNode}
- * @see @sbmlfunction{formulaToString, ASTNode}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
- * @see @sbmlfunction{parseFormula, String}
- * @see L3ParserSettings
- * @see @sbmlfunction{getDefaultL3ParserSettings,}
- * @see @sbmlfunction{getLastParseL3Error,}
+ * @see SBML_parseFormula()
+ * @see SBML_parseL3Formula()
+ * @see SBML_formulaToL3String()
  *
  * @if conly
  * @memberof ASTNode_t
@@ -145,11 +146,12 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
 
 
 /** @cond doxygenLibsbmlInternal */
+
 #ifndef SWIG
 
 
 /**
- * @return @c 1 (true) if the given ASTNode_t is to be 
+ * @return true (non-zero) if the given ASTNode is to be 
  * formatted as a function.
  */
 int
@@ -157,8 +159,8 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node, const L3ParserSettings_t *
 
 
 /**
- * @return @c 1 (true) if the given child ASTNode_t should be grouped
- * (with parenthesis), @c 0 (false) otherwise.
+ * @return true (non-zero) if the given child ASTNode should be grouped
+ * (with parenthesis), false (0) otherwise.
  *
  * A node should be group if it is not an argument to a function and
  * either:
@@ -174,35 +176,35 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
 
 /**
- * Formats the given ASTNode_t as an SBML L1 token and appends the result to
- * the given StringBuffer_t.
+ * Formats the given ASTNode as an SBML L1 token and appends the result to
+ * the given StringBuffer.
  */
 void
 L3FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings);
 
 
 /**
- * Formats the given ASTNode_t as an SBML L1 function name and appends the
- * result to the given StringBuffer_t.
+ * Formats the given ASTNode as an SBML L1 function name and appends the
+ * result to the given StringBuffer.
  */
 void
 L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings);
 
 
 /**
- * Formats the given ASTNode_t as an SBML L3 operator and appends the result
- * to the given StringBuffer_t.
+ * Formats the given ASTNode as an SBML L3 operator and appends the result
+ * to the given StringBuffer.
  */
 void
 L3FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
- * Formats the given ASTNode_t as a rational number and appends the result to
- * the given StringBuffer_t.  This amounts to:
+ * Formats the given ASTNode as a rational number and appends the result to
+ * the given StringBuffer.  This amounts to:
  *
  *   "(numerator/denominator)"
  *
- * If the ASTNode_t has defined units, and the settings object is set to parse units, this function will append
+ * If the ASTNode has defined units, and the settings object is set to parse units, this function will append
  * a string with that unit name.
  */
 void
@@ -210,10 +212,10 @@ L3FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node, co
 
 
 /**
- * Formats the given ASTNode_t as a real number and appends the result to
- * the given StringBuffer_t.
+ * Formats the given ASTNode as a real number and appends the result to
+ * the given StringBuffer.
  *
- * If the ASTNode_t has defined units, and the settings object is set to parse units, this function will append
+ * If the ASTNode has defined units, and the settings object is set to parse units, this function will append
  * a string with that unit name.
  */
 void
@@ -221,14 +223,14 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
 
 
 /**
- * Formats the given logical or relational ASTNode_t as an infix 
- * internal operator and appends the result to the given StringBuffer_t.
+ * Formats the given logical or relational ASTNode as an infix 
+ * internal operator and appends the result to the given StringBuffer.
  */
 void
 L3FormulaFormatter_formatLogicalRelational(StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
- * Visits the given ASTNode_t node.  This function is really just a
+ * Visits the given ASTNode node.  This function is really just a
  * dispatcher to either SBML_formulaToL3String_visitFunction() or
  * SBML_formulaToL3String_visitOther().
  */
@@ -240,7 +242,7 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode_t as a function.  For this node only the
+ * Visits the given ASTNode as a function.  For this node only the
  * traversal is preorder.
  */
 void
@@ -251,7 +253,7 @@ L3FormulaFormatter_visitFunction ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode_t as the function "log(10, x)" and in doing so,
+ * Visits the given ASTNode as the function "log(10, x)" and in doing so,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
@@ -262,7 +264,7 @@ L3FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode_t as the function "root(2, x)" and in doing so,
+ * Visits the given ASTNode as the function "root(2, x)" and in doing so,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
@@ -273,7 +275,7 @@ L3FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode_t as a unary minus.  For this node only the
+ * Visits the given ASTNode as a unary minus.  For this node only the
  * traversal is preorder.
  */
 void
@@ -284,7 +286,7 @@ L3FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
 
 
 /**
- * Visits the given ASTNode_t as a unary not.
+ * Visits the given ASTNode as a unary not.
  */
 void
 L3FormulaFormatter_visitUNot ( const ASTNode_t *parent,
@@ -292,7 +294,7 @@ L3FormulaFormatter_visitUNot ( const ASTNode_t *parent,
                                StringBuffer_t  *sb, 
                                const L3ParserSettings_t *settings );
 /**
- * Visits the given ASTNode_t, translating it from the complicated
+ * Visits the given ASTNode, translating it from the complicated
  * piecewise function to the much simpler 'x % y' form.
  */
 void
@@ -301,8 +303,8 @@ L3FormulaFormatter_visitModulo ( const ASTNode_t *parent,
                                  StringBuffer_t  *sb, 
                                  const L3ParserSettings_t *settings );
 
-/**
- * Visits the given ASTNode_t and continues the inorder traversal.
+  /**
+ * Visits the given ASTNode and continues the inorder traversal.
  */
 void
 L3FormulaFormatter_visitOther ( const ASTNode_t *parent,
@@ -315,6 +317,7 @@ L3FormulaFormatter_visitOther ( const ASTNode_t *parent,
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
+
 /** @endcond */
 
 #endif  /* L3FormulaFormatter_h */

@@ -49,38 +49,13 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = src/sbml/math
+thisdir   = src/sbml/math
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
 headers =            \
-  ASTBase.h                \
-  ASTBinaryFunctionNode.h  \
-  ASTCSymbol.h             \
-  ASTCSymbolAvogadroNode.h \
-  ASTCSymbolDelayNode.h    \
-  ASTCSymbolRateOfNode.h   \
-  ASTCSymbolTimeNode.h     \
-  ASTCiFunctionNode.h      \
-  ASTCiNumberNode.h        \
-  ASTCnBase.h              \
-  ASTCnExponentialNode.h   \
-  ASTCnIntegerNode.h       \
-  ASTCnRationalNode.h      \
-  ASTCnRealNode.h          \
-  ASTConstantNumberNode.h  \
-  ASTFunction.h            \
-  ASTFunctionBase.h        \
-  ASTLambdaFunctionNode.h  \
-  ASTNaryFunctionNode.h    \
-  ASTNumber.h              \
-  ASTPiecewiseFunctionNode.h \
-  ASTQualifierNode.h       \
-  ASTSemanticsNode.h       \
-  ASTTypes.h               \
-  ASTUnaryFunctionNode.h   \
   ASTNode.h          \
   FormulaFormatter.h \
   FormulaParser.h    \
@@ -93,31 +68,6 @@ headers =            \
 header_inst_prefix = math
 
 sources =            \
-  ASTBase.cpp                   \
-  ASTBinaryFunctionNode.cpp     \
-  ASTCSymbol.cpp                \
-  ASTCSymbolAvogadroNode.cpp    \
-  ASTCSymbolDelayNode.cpp       \
-  ASTCSymbolTimeNode.cpp        \
-  ASTCSymbolRateOfNode.cpp      \
-  ASTCiFunctionNode.cpp         \
-  ASTCiNumberNode.cpp           \
-  ASTCnBase.cpp                 \
-  ASTCnExponentialNode.cpp      \
-  ASTCnIntegerNode.cpp          \
-  ASTCnRationalNode.cpp         \
-  ASTCnRealNode.cpp             \
-  ASTConstantNumberNode.cpp     \
-  ASTFunction.cpp               \
-  ASTFunctionBase.cpp           \
-  ASTLambdaFunctionNode.cpp     \
-  ASTNaryFunctionNode.cpp       \
-  ASTNumber.cpp                 \
-  ASTPiecewiseFunctionNode.cpp  \
-  ASTQualifierNode.cpp          \
-  ASTSemanticsNode.cpp          \
-  ASTTypes.cpp                  \
-  ASTUnaryFunctionNode.cpp      \
   ASTNode.cpp        \
   FormulaFormatter.c \
   FormulaParser.c    \
@@ -158,14 +108,15 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile default
+all: Makefile 
+# default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-recursive
+#check: check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -184,24 +135,39 @@ tags: etags ctags
 # in 'all' as a default to make sure files get compiled if someone does
 # 'make install' from the top level without first doing a 'make'.
 
-install: all install-headers
+install:
 
-installcheck: all installcheck-headers
+uninstall:
 
-uninstall: uninstall-headers
+installcheck:
+
+#install: all install-headers
+
+#installcheck: all installcheck-headers
+
+#uninstall: uninstall-headers
 
 
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal clean-recursive
+clean: clean-normal
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal
 
-mostlyclean: mostlyclean-normal mostlyclean-recursive
+mostlyclean: mostlyclean-normal
 
-maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal
+
+
+#clean: clean-normal clean-recursive
+
+#distclean: distclean-normal distclean-recursive
+
+#mostlyclean: mostlyclean-normal mostlyclean-recursive
+
+#maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------

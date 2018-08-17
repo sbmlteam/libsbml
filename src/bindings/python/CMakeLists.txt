@@ -703,12 +703,10 @@ if(WITH_CHECK)
           )
           ADJUST_PYTHONPATH(test_python_multi_multi_example1)    
 
-	  if (NOT LIBSBML_USE_LEGACY_MATH)
-            add_test(NAME test_python_multi_multi_example2
-                COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/multi/multi_example2.py
-            )
-            ADJUST_PYTHONPATH(test_python_multi_multi_example2)    
-	  endif()
+          add_test(NAME test_python_multi_multi_example2
+              COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/multi/multi_example2.py
+          )
+          ADJUST_PYTHONPATH(test_python_multi_multi_example2)    
 
           add_test(NAME test_python_multi_multi_example3
               COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/multi/multi_example3.py

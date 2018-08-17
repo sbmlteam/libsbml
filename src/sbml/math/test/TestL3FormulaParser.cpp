@@ -1423,58 +1423,55 @@ START_TEST (test_SBML_parseL3Formula_arguments)
   fail_unless( !strcmp(error, "Error when parsing input 'power()' at position 7:  The function 'power' takes exactly two arguments, but 0 were found."), NULL );
   safe_free(error);
 
-  L3ParserSettings l3ps;
-  l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY);
-
-  r = SBML_parseL3FormulaWithSettings("max()", &l3ps);
+  r = SBML_parseL3Formula("max()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'max()' at position 5:  The function 'max' takes at least one argument, but none were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("min()", &l3ps);
+  r = SBML_parseL3Formula("min()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'min()' at position 5:  The function 'min' takes at least one argument, but none were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("rateOf()", &l3ps);
+  r = SBML_parseL3Formula("rateOf()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'rateOf()' at position 8:  The function 'rateOf' takes exactly one argument, but 0 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("rateOf(a, b)", &l3ps);
+  r = SBML_parseL3Formula("rateOf(a, b)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'rateOf(a, b)' at position 12:  The function 'rateOf' takes exactly one argument, but 2 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("rateOf(1.3)", &l3ps);
+  r = SBML_parseL3Formula("rateOf(1.3)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'rateOf(1.3)' at position 11:  The function 'rateOf' takes exactly one argument, which must be the identifier of an element in the model."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("rateOf(a+b)", &l3ps);
+  r = SBML_parseL3Formula("rateOf(a+b)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'rateOf(a+b)' at position 11:  The function 'rateOf' takes exactly one argument, which must be the identifier of an element in the model."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("quotient(1,2,3)", &l3ps);
+  r = SBML_parseL3Formula("quotient(1,2,3)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'quotient(1,2,3)' at position 15:  The function 'quotient' takes exactly two arguments, but 3 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("rem()", &l3ps);
+  r = SBML_parseL3Formula("rem()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'rem()' at position 5:  The function 'rem' takes exactly two arguments, but 0 were found."), NULL );
   safe_free(error);
 
-  r = SBML_parseL3FormulaWithSettings("implies(a)", &l3ps);
+  r = SBML_parseL3Formula("implies(a)");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'implies(a)' at position 10:  The function 'implies' takes exactly two arguments, but 1 were found."), NULL );
@@ -2814,397 +2811,6 @@ START_TEST (test_SBML_parseL3Formula_precedence2)
 END_TEST
 
 
-START_TEST (test_SBML_parseL3Formula_brackets_0args_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("a[]", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'a[]' at position 3:  No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_brackets_1args_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("a[x]", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'a[x]' at position 4:  No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_doublebrackets_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("a[x][y]", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'a[x][y]' at position 4:  No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_curlybraces_0args_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("{}", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input '{}' at position 2:  No package is enabled that can interpret empty curly braces, so formulas of the form '{}' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_curlybraces_1args_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("{x}", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input '{x}' at position 3:  No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_curlybraces_semicolons_short_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("{x; p}", l3ps);
-
-  fail_unless(r == NULL);
-  char* error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input '{x; p}' at position 6:  No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed."));
-
-  safe_free(error);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_selector_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("selector(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "selector")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_determinant_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("determinant(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "determinant")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_transpose_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("transpose(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "transpose")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_vectorproduct_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("vectorproduct(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "vectorproduct")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_scalarproduct_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("scalarproduct(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "scalarproduct")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_outerproduct_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("outerproduct(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "outerproduct")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_vector_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("vector(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "vector")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_matrix_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("matrix(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "matrix")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
-
-
-START_TEST (test_SBML_parseL3Formula_matrixrow_noarrays)
-{
-  L3ParserSettings *l3ps = SBML_getDefaultL3ParserSettings();
-  //Generic SBMLNamespaces with no packages turned on.
-  SBMLNamespaces sn(3, 1);
-  l3ps->setPlugins(&sn);
-  ASTNode_t *r = SBML_parseL3FormulaWithSettings("matrixrow(x, 3)", l3ps);
-
-  fail_unless( ASTNode_getType        (r) == AST_FUNCTION );
-  fail_unless( !strcmp(ASTNode_getName(r), "matrixrow")  );
-  fail_unless( ASTNode_getNumChildren (r) == 2   );
-
-  ASTNode_t *c = ASTNode_getLeftChild(r);
-
-  fail_unless( ASTNode_getType        (c) == AST_NAME);
-  fail_unless( !strcmp(ASTNode_getName(c), "x"));
-  fail_unless( ASTNode_getNumChildren (c) == 0);
-
-  c = ASTNode_getRightChild(r);
-
-  fail_unless( ASTNode_getType       (c) == AST_INTEGER );
-  fail_unless( ASTNode_getInteger    (c) == 3 );
-  fail_unless( ASTNode_getNumChildren(c) == 0 );
-
-  ASTNode_free(r);
-  delete l3ps;
-  // SBML_deleteL3Parser();
-}
-END_TEST
 
 
 START_TEST (test_SBML_parseL3Formula_combinedRelational_allLT)
@@ -4184,22 +3790,6 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_sqrterr);
   tcase_add_test( tcase, test_SBML_parseL3Formula_precedence1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_precedence2);
-
-  tcase_add_test( tcase, test_SBML_parseL3Formula_brackets_0args_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_brackets_1args_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_doublebrackets_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_curlybraces_0args_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_curlybraces_1args_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_curlybraces_semicolons_short_noarrays);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_selector_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_determinant_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_transpose_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_vectorproduct_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_scalarproduct_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_outerproduct_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_vector_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_matrix_noarrays );
-  tcase_add_test( tcase, test_SBML_parseL3Formula_matrixrow_noarrays );
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLT);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allGT);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLEQ);
@@ -4215,13 +3805,14 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many5);
   tcase_add_test( tcase, test_SBML_parseL3Formula_l3v2_functions);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments1);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments2);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments3);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments4);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments5);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments6);
-  tcase_add_test( tcase, test_SBML_parseL3Formula_named_lambda_arguments7);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments1);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments2);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments3);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments4);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments5);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments6);
+  tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments7);
+
 
   suite_add_tcase(suite, tcase);
 

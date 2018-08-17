@@ -36,7 +36,6 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
-#include <sbml/extension/ASTBasePlugin.h>
 
 
 #ifdef __cplusplus
@@ -51,62 +50,23 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
+
 class ASTNode;
-class ASTBasePlugin;
 class XMLInputStream;
 class XMLOutputStream;
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 
-class LIBSBML_EXTERN MathML
-{
-public:
-  MathML(SBMLNamespaces* sbmlns);
-
-  MathML();
-
-  virtual ~MathML();
-
-  void setPrefix(const std::string& prefix);
-
-  ASTNode* readMathML(XMLInputStream& stream);
-
-  void writeMathML(XMLOutputStream& stream, const ASTNode* node);
-
- 
-protected:
-
-  bool  hasSeriousErrors(XMLErrorLog* log, unsigned int index);
-
-  void writeOpenMathElement(XMLOutputStream& stream, const ASTNode* node);
-
-  void writeCloseMathElement(XMLOutputStream& stream);
-
-  std::string mPrefix;
-  SBMLNamespaces* mSBMLns;
-
-  friend class ASTNode;
-  friend class ASTBasePlugin;
-
-};
-
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
 /**
  * Reads the MathML from the given XMLInputStream, constructs a corresponding
  * abstract syntax tree and returns a pointer to the root of the tree.
  */
 LIBSBML_EXTERN
 ASTNode*
-readMathML (XMLInputStream& stream, const std::string& reqd_prefix="");
-/** @endcond */
+readMathML (XMLInputStream& stream, std::string reqd_prefix="", bool inRead = true);
 
 
-/** @cond doxygenLibsbmlInternal */
 /**
- * Writes the given ASTNode (and its children) to the XMLOutputStream_t as
+ * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
  */
 LIBSBML_EXTERN
@@ -126,22 +86,22 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
  * of the given AST on success or an empty string, 
  *         if one of the underlying parser
  *         components fail.
- * 
+ *
  */
 LIBSBML_EXTERN
 std::string 
 writeMathMLToStdString(const ASTNode* node);
 
 /**
- * Writes the given ASTNode to an in-memory string that is returned.
+* Writes the given ASTNode to an in-memory string that is returned.
  *
- * @param node the root of an AST to write out to the string.
- * @param ns the optional sbml namespace to be used when specifying units
+* @param node the root of an AST to write out to the string.
+* @param ns the optional sbml namespace to be used when specifying units
  *
- * @return the string containing the written-out MathML representation
- * of the given AST on success or an empty string,
- *         if one of the underlying parser
- *         components fail.
+* @return the string containing the written-out MathML representation
+* of the given AST on success or an empty string,
+*         if one of the underlying parser
+*         components fail.
  *
  */
 LIBSBML_EXTERN
@@ -163,7 +123,7 @@ BEGIN_C_DECLS
  * Reads the MathML from the given XML string, constructs a corresponding
  * abstract syntax tree, and returns a pointer to the root of the tree.
  *
- * @param xml a string containing a full MathML expression.
+ * @param xml a string containing a full MathML expression
  *
  * @return the root of an AST corresponding to the given mathematical
  * expression, otherwise @c NULL is returned if the given string is @c NULL
@@ -182,7 +142,7 @@ readMathMLFromString (const char *xml);
  * Reads the MathML from the given XML string, constructs a corresponding
  * abstract syntax tree, and returns a pointer to the root of the tree.
  *
- * @param xml a string containing a full MathML expression.
+ * @param xml a string containing a full MathML expression
  * @param xmlns an @if conly XMLNamespaces_t structure @else XMLNamespaces
  * object@endif@~ containing namespaces that are considered active during the
  * read. (For example, an SBML Level&nbsp;3 package namespace.)
@@ -201,7 +161,7 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns);
 
 
 /**
- * Writes the given AST node (and its children) to a string as MathML, and
+ * Writes the given ASTNode (and its children) to a string as MathML, and
  * returns the string.
  *
  * @param node the root of an AST to write out to the stream.
@@ -223,23 +183,23 @@ writeMathMLToString (const ASTNode_t* node);
 
 
 /**
- * Writes the given AST node (and its children) to a string as MathML, and
- * returns the string.
- *
- * @param node the root of an AST to write out to the stream.
- * @param sbmlns the SBML namespace to be used
- *
- * @return a string containing the written-out MathML representation
- * of the given AST.
- *
- * @note The string is owned by the caller and should be freed (with
- * free()) when no longer needed.  @c NULL is returned if the given
- * argument is @c NULL.
- *
- * @if conly
- * @memberof ASTNode_t
- * @endif
- */
+* Writes the given AST node (and its children) to a string as MathML, and
+* returns the string.
+*
+* @param node the root of an AST to write out to the stream.
+* @param sbmlns the SBML namespace to be used
+*
+* @return a string containing the written-out MathML representation
+* of the given AST.
+*
+* @note The string is owned by the caller and should be freed (with
+* free()) when no longer needed.  @c NULL is returned if the given
+* argument is @c NULL.
+*
+* @if conly
+* @memberof ASTNode_t
+* @endif
+*/
 LIBSBML_EXTERN
 char *
 writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns);

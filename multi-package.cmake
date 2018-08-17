@@ -43,16 +43,6 @@ if (ENABLE_MULTI)
   set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_MULTI")
   list(APPEND SWIG_EXTRA_ARGS -DUSE_MULTI)
   list(APPEND SWIG_SWIGDOCDEFINES --define USE_MULTI)
-  
-#  if (LIBSBML_USE_LEGACY_MATH)
-#  
-#    message(FATAL_ERROR 
-#	  "\nThe multi-package extends ASTNodes and thus cannot be used with the old "
-#	  "AST classes. Please set LIBSBML_USE_LEGACY_MATH to OFF or disable the multi "
-#	  "package.\n\n"
-#	)
-# 
-#  endif(LIBSBML_USE_LEGACY_MATH)
-  
+   
 endif(ENABLE_MULTI)
 

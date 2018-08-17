@@ -832,16 +832,6 @@ different command-line flag names, but still similar to the names below.
 <li><code>LIBSBML_SHARED_VERSION</code>: This flag controls whether the
 version number should be written into the libSBML shared library.
 
-<li><code>LIBSBML_USE_LEGACY_MATH</code>: Introduced in the 5.10 release of
-libSBML, this option controls whether libSBML should be compiled with the
-prior (legacy) version of the Abstract Syntax Tree (AST) code.  As of version
-5.10, libSBML uses a new plug-in <code>ASTNode</code> architecture that
-permits support for extensions to the MathML syntax; this is necessary to
-support some SBML Level&nbsp;3 packages.  The new AST version is the default.
-Normal user code should not experience issues with the new architecture, but
-if you have unexpected dependencies on features of the legacy code, then you
-may need to enable this option.
-
 <li><code>LIBSBML_USE_STRICT_INCLUDES</code>: This flag is intended for
 libSBML developers; it permits faster recompilation of libSBML by reducing
 the files that are <code>#include</code>'d in certain ways, such that

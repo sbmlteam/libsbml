@@ -788,6 +788,9 @@ START_TEST (test_ChildFunctions_getChildFromLog_2)
 END_TEST
 
 
+#if (0)
+
+// not applicable to math-legacy
 START_TEST (test_ChildFunctions_getChildFromLog_3)
 {
   N = new ASTNode(AST_FUNCTION_LOG);
@@ -820,6 +823,7 @@ START_TEST (test_ChildFunctions_getChildFromLog_3)
 }
 END_TEST
 
+#endif
 
 START_TEST (test_ChildFunctions_getChildFromRoot_1)
 {
@@ -877,6 +881,9 @@ START_TEST (test_ChildFunctions_getChildFromRoot_2)
 END_TEST
 
 
+#if (0)
+
+// not applicable to math-legacy
 START_TEST (test_ChildFunctions_getChildFromRoot_3)
 {
   N = new ASTNode(AST_FUNCTION_ROOT);
@@ -909,6 +916,7 @@ START_TEST (test_ChildFunctions_getChildFromRoot_3)
 }
 END_TEST
 
+#endif
 
 START_TEST (test_ChildFunctions_remove)
 {
@@ -2643,10 +2651,8 @@ create_suite_TestChildFunctions ()
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_2  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_1  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_2  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_3  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_1  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_2  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_3  );
   tcase_add_test( tcase, test_ChildFunctions_remove               );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_1  );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_2  );

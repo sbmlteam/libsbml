@@ -170,11 +170,7 @@ public:
    * @see setSBMLDocument
    * @see enablePackageInternal
    */
-#ifndef LIBSBML_USE_LEGACY_MATH
-  void connectToParent (ASTBase *astbase);
-#else
   void connectToParent(ASTNode *astbase);
-#endif
 
   /**
    * Enables/Disables the given package with child elements in this plugin

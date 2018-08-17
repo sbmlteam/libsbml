@@ -284,46 +284,12 @@ macro(ADD_FUNCTION directory)
 
 endmacro(ADD_FUNCTION)
 
-foreach (directory annotation common conversion extension sbml
+foreach (directory annotation common conversion extension sbml math
                    units util validator validator/constraints)
 
 	ADD_FUNCTION(${directory})
 				       
 endforeach()
-
-###############################################################################
-#
-# Switch math implementation 
-#
-
-if (LIBSBML_USE_LEGACY_MATH)
-    file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/math-legacy/*.h")
-    install(FILES ${header_files} DESTINATION include/sbml/math)
-	
-	file(MAKE_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/sbml)
-	file(MAKE_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/sbml/math)
-	file(COPY ${header_files} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/sbml/math/)
-	
-	list(REMOVE_ITEM LIBSBML_SOURCES "sbml/extension/ASTBasePlugin.cpp" )
-	
-	ADD_FUNCTION("math-legacy")
-	
-	set (SWIG_EXTRA_ARGS ${SWIG_EXTRA_ARGS} -DLIBSBML_USE_LEGACY_MATH)
-	
-else(LIBSBML_USE_LEGACY_MATH)
-    
-	#if we build with legacy math before, need to remove those headers
-	file(GLOB legacy_files "${CMAKE_CURRENT_BINARY_DIR}/sbml/math/*.h")
-	if (legacy_files)
-	  file(REMOVE ${legacy_files})
-	endif()
-	
-	file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/math/*.h")
-    install(FILES ${header_files} DESTINATION include/sbml/math)
-	ADD_FUNCTION("math")
-	
-endif(LIBSBML_USE_LEGACY_MATH)
-
 
 ###############################################################################
 #

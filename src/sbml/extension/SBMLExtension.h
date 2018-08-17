@@ -286,7 +286,6 @@ public:
   const SBasePluginCreatorBase*  getSBasePluginCreator(unsigned int n) const;
 
 
-//#ifndef LIBSBML_USE_LEGACY_MATH
   /**
    * Adds the given ASTBasePlugin object to this package
    * extension.
@@ -328,7 +327,6 @@ public:
   bool isSetASTBasePlugin() const;
 
 
-//#endif /* LIBSBML_USE_LEGACY_MATH */
 
 #endif // SWIG
 
@@ -647,9 +645,7 @@ protected:
   SupportedPackageURIList              mSupportedPackageURI;
   std::vector<SBasePluginCreatorBase*> mSBasePluginCreators;
 
-//#ifndef LIBSBML_USE_LEGACY_MATH
   ASTBasePlugin*                       mASTBasePlugin;
-//#endif /* LIBSBML_USE_LEGACY_MATH */
   /** @endcond */
 
 

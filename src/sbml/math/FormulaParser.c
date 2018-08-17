@@ -34,7 +34,6 @@
 
 #include <sbml/math/FormulaTokenizer.h>
 #include <sbml/math/FormulaParser.h>
-#include <sbml/math/ASTTypes.h>
 
 #ifdef _MSC_VER
 #pragma warning( disable: 4311)
@@ -85,31 +84,31 @@ State| Id  Num  (   )   ^   *   /   +   -   ,   $  | Expr  Stmt  Args  OptArgs
    26|              r15 s10 s12 s9  s8  s11 r15    |      
 -----+---------------------------------------------+--------------------------
 
- *
- * The Grammar rules are:
- *
- *   %Rule 1     Stmt    -> Expr
- *   %Rule 2     Expr    -> Expr PLUS   Expr
- *   %Rule 3     Expr    -> Expr MINUS  Expr
- *   %Rule 4     Expr    -> Expr TIMES  Expr
- *   %Rule 5     Expr    -> Expr DIVIDE Expr
- *   %Rule 6     Expr    -> Expr POWER  Expr
- *   %Rule 7     Expr    -> MINUS Expr
- *   %Rule 8     Expr    -> LPAREN Expr RPAREN
- *   %Rule 9     Expr    -> NUMBER
- *   %Rule 10    Expr    -> NAME
- *   %Rule 11    Expr    -> NAME LPAREN OptArgs RPAREN
- *   %Rule 12    OptArgs -> [empty]
- *   %Rule 13    OptArgs -> Args
- *   %Rule 14    Args    -> Expr
- *   %Rule 15    Args    -> Args COMMA Expr
- * </pre>
- *
- * Both are implemented in a reasonably compact form in the code below.
- *
- * For more information, see "Compilers: Principles, Techniques, and Tools",
- * by Aho, Sethi, and Ullman, Chapter 4, Section 4.7: LR Parsers (p. 216).
- */
+*
+* The Grammar rules are:
+*
+*   %Rule 1     Stmt    -> Expr
+*   %Rule 2     Expr    -> Expr PLUS   Expr
+*   %Rule 3     Expr    -> Expr MINUS  Expr
+*   %Rule 4     Expr    -> Expr TIMES  Expr
+*   %Rule 5     Expr    -> Expr DIVIDE Expr
+*   %Rule 6     Expr    -> Expr POWER  Expr
+*   %Rule 7     Expr    -> MINUS Expr
+*   %Rule 8     Expr    -> LPAREN Expr RPAREN
+*   %Rule 9     Expr    -> NUMBER
+*   %Rule 10    Expr    -> NAME
+*   %Rule 11    Expr    -> NAME LPAREN OptArgs RPAREN
+*   %Rule 12    OptArgs -> [empty]
+*   %Rule 13    OptArgs -> Args
+*   %Rule 14    Args    -> Expr
+*   %Rule 15    Args    -> Args COMMA Expr
+* </pre>
+*
+* Both are implemented in a reasonably compact form in the code below.
+*
+* For more information, see "Compilers: Principles, Techniques, and Tools",
+* by Aho, Sethi, and Ullman, Chapter 4, Section 4.7: LR Parsers (p. 216).
+*/
 
 
 #define START_STATE   0

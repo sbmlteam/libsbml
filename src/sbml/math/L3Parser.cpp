@@ -175,7 +175,7 @@ public:
    * user preference is taken into consideration, 'name' must once again
    * be checked.
    */
-  int getFunctionFor(std::string name) const;
+  ASTNodeType_t getFunctionFor(std::string name) const;
   /**
    * This function creates an ASTNode that is a 'piecewise' function that
    * mimics the 'modulo' function 'x % y'.  It was modified from the
@@ -219,7 +219,7 @@ public:
   bool l3StrCmp(const std::string& lhs, const std::string& rhs) const;
   /**
    * Sets the member variable 'modulol3v2' to the provided boolean value.  Used in parsing
-   * the @% symbol.
+   * the '%' symbol.
    */
   void setModuloL3v2(bool ml3v2);
   /**
@@ -1862,7 +1862,7 @@ yyreduce:
                    (yyval.astnode)->setName((yyvsp[-2].word)->c_str());
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     int type = l3p->getFunctionFor(name);
+                     ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type == AST_LAMBDA) l3p->fixLambdaArguments((yyval.astnode));
                      if (l3p->checkNumArguments((yyval.astnode))) YYABORT;
@@ -1878,7 +1878,7 @@ yyreduce:
                    string name(*(yyvsp[-3].word));
                    (yyval.astnode)->setName((yyvsp[-3].word)->c_str());
                    (yyval.astnode)->setType(AST_FUNCTION);
-                   int type = l3p->getFunctionFor(name);
+                   ASTNodeType_t type = l3p->getFunctionFor(name);
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
@@ -2553,7 +2553,7 @@ ASTNodeType_t L3Parser::getSymbolFor(string name) const
   return AST_UNKNOWN;
 }
 
-int L3Parser::getFunctionFor(string name) const
+ASTNodeType_t L3Parser::getFunctionFor(string name) const
 {
   if (l3StrCmp(name, "abs"))      return AST_FUNCTION_ABS;
   if (l3StrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;
@@ -2632,7 +2632,7 @@ int L3Parser::getFunctionFor(string name) const
     if (l3StrCmp(name, "quotient")) return AST_FUNCTION_QUOTIENT;
     if (l3StrCmp(name, "rem"))      return AST_FUNCTION_REM;
   }
-  return currentSettings->getPackageFunctionFor(name);
+  return AST_UNKNOWN;
 }
 
 ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
@@ -2930,8 +2930,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
       return true;
     }
     return false;
-  case AST_ORIGINATES_IN_PACKAGE:
-    return l3p->checkNumArgumentsForPackage(function);
+      
   case AST_TIMES:
   case AST_PLUS:
   case AST_LOGICAL_AND:
@@ -2943,7 +2942,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   }
 }
 
-void makeConstantIntoName(int type, ASTNode* function)
+void makeConstantIntoName(ASTNodeType_t type, ASTNode* function)
 {
   if (function->getType() == type) {
     function->setType(AST_NAME);
@@ -2976,10 +2975,10 @@ void L3Parser::fixLambdaArguments(const ASTNode* function)
   if (nchildren==0) {
     return;
   }
-  std::set<int> fixList;
+  std::set<ASTNodeType_t> fixList;
   for (unsigned int c=0; c<nchildren-1; c++) {
     ASTNode* child = function->getChild(c);
-    int ctype = child->getType(); 
+    ASTNodeType_t ctype = child->getType(); 
     switch(ctype) {
     case AST_CONSTANT_TRUE:
     case AST_CONSTANT_FALSE:
@@ -3008,7 +3007,7 @@ void L3Parser::fixLambdaArguments(const ASTNode* function)
       break;
     }
   }
-  for (set<int>::iterator ftype = fixList.begin(); ftype != fixList.end(); ftype++) {
+  for (set<ASTNodeType_t>::iterator ftype = fixList.begin(); ftype != fixList.end(); ftype++) {
     makeConstantIntoName(*ftype, function->getChild(nchildren-1));
   }
 }
@@ -3164,6 +3163,11 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
 }
 
 
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
 LIBSBML_EXTERN
 L3ParserSettings_t* 
 SBML_getDefaultL3ParserSettings ()

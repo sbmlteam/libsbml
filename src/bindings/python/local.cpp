@@ -300,8 +300,6 @@ GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName)
   return SWIGTYPE_p_SBase;
 }
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-
 /**
  * @return the most specific Swig type for the given ASTBasePlugin object.
  */
@@ -317,8 +315,6 @@ GetDowncastSwigType (ASTBasePlugin* sbp)
   return SWIGTYPE_p_ASTBasePlugin;
 }
 
-
-#endif // #ifndef LIBSBML_USE_LEGACY_MATH
 
 /* Compatibility bug fix for swig 2.0.7 and Python 3. 
  * See http://patch-tracker.debian.org/patch/series/view/swig2.0/2.0.7-3/pyint_fromsize_t.diff

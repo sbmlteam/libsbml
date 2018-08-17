@@ -69,7 +69,7 @@ SBML_formulaToString (const ASTNode_t *tree)
 
 
 /**
- * @return @c 1 (true) if the given ASTNode is to formatted as a
+ * @return true (non-zero) if the given ASTNode is to formatted as a
  * function.
  */
 int
@@ -79,14 +79,13 @@ FormulaFormatter_isFunction (const ASTNode_t *node)
     ASTNode_isFunction  (node) ||
     ASTNode_isLambda    (node) ||
     ASTNode_isLogical   (node) ||
-    ASTNode_isRelational(node) ||
-    ASTNode_getType(node) == AST_ORIGINATES_IN_PACKAGE;
+    ASTNode_isRelational(node);
 }
 
 
 /**
- * @return @c 1 (true) if the given child ASTNode should be grouped
- * (with parenthesis), @c 0 (false) otherwise.
+ * @return true (non-zero) if the given child ASTNode should be grouped
+ * (with parenthesis), false (0) otherwise.
  *
  * A node should be group if it is not an argument to a function and
  * either:
@@ -338,18 +337,6 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
   else if (ASTNode_hasTypeAndNumChildren(node, AST_TIMES, 0))
   {
     StringBuffer_appendInt(sb, 1);
-  }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_LOGBASE, 1))
-  {
-    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
-  }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_QUALIFIER_DEGREE, 1))
-  {
-    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
-  }
-  else if (ASTNode_hasTypeAndNumChildren(node, AST_SEMANTICS, 1))
-  {
-    FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
   }
   else
   {

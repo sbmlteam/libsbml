@@ -29,11 +29,7 @@
 
 #include <sbml/packages/multi/extension/MultiASTPlugin.h>
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-#else
 #include <sbml/math/ASTNode.h>
-#endif
 
 #include <iostream>
 using namespace std;
@@ -136,18 +132,6 @@ MultiASTPlugin::writeElements (XMLOutputStream& stream) const
  * this object and child elements (if any).
  * (Creates a child-parent relationship by this plugin object)
  */
-#ifndef LIBSBML_USE_LEGACY_MATH
-
-/** @cond doxygenLibsbmlInternal */
-void
-MultiASTPlugin::connectToParent (ASTBase* astbase)
-{
-  ASTBasePlugin::connectToParent(astbase);
-
-}
-/** @endcond */
-
-#else
 
 void
 MultiASTPlugin::connectToParent(ASTNode* astbase)
@@ -155,7 +139,6 @@ MultiASTPlugin::connectToParent(ASTNode* astbase)
   ASTBasePlugin::connectToParent(astbase);
 
 }
-#endif
 
 
 /** @cond doxygenLibsbmlInternal *//*
@@ -419,25 +402,6 @@ MultiASTPlugin::hasAttributesSet() const
     unsigned int i = 0;
 
     //ASTNode* node = dynamic_cast<ASTNode*>(mParentASTNode);
-#ifndef LIBSBML_USE_LEGACY_MATH
-    size_t numChildren;
-    GET_NUM_CHILDREN(numChildren,mParentASTNode);
-    while (hasAttributes == false && i < numChildren)
-    {
-      ASTBase* ast = NULL;
-      GET_NTH_CHILD(ast, i, mParentASTNode);
-      if (ast != NULL)
-      {
-        MultiASTPlugin* mp = 
-                        dynamic_cast<MultiASTPlugin*>(ast->getPlugin("multi"));
-        if (mp != NULL)
-        {
-          hasAttributes = mp->hasAttributesSet();
-        }
-      }
-      i++;
-    }
-#else
     size_t numChildren = mParentASTNode->getNumChildren();
     while (hasAttributes == false && i < numChildren)
     {
@@ -454,7 +418,6 @@ MultiASTPlugin::hasAttributesSet() const
       i++;
     }
 
-#endif
   }
 
   return hasAttributes;

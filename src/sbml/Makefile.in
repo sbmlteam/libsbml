@@ -153,7 +153,7 @@ sources =                      \
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = common util compress annotation math math-legacy units xml validator extension packages conversion
+subdirs = common util compress annotation math units xml validator extension packages conversion
 
 extra_CPPFLAGS = -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\"
 

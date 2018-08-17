@@ -172,12 +172,6 @@ include(CPack)
 # Here we have the main configuration options for libsbml.
 #
 
-option(LIBSBML_USE_LEGACY_MATH
-"Use libSBML's legacy math implementation of ASTs, instead of the one
-introduced in libSBML 5.10 for better support of SBML Level 3 packages." OFF)
-mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
-
-
 # Build static / shared library
 # option(BUILD_SHARED_LIBS  "Build shared library. (Set to OFF to build static libraries.)" OFF)
 
@@ -1376,11 +1370,6 @@ else()
 endif()
 
 message(STATUS "")
-if(LIBSBML_USE_LEGACY_MATH)
-  message(STATUS "     Use Legacy Math                 = yes")
-else()
-  message(STATUS "     Use Legacy Math                 = no")
-endif()
 
 if (LIBSBML_PACKAGE_SUMMARY)
   message(STATUS "")

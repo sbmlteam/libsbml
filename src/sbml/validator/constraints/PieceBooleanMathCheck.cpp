@@ -142,16 +142,7 @@ PieceBooleanMathCheck::checkPiece (const Model& m, const ASTNode& node,
   unsigned int numChildren = node.getNumChildren();
   unsigned int numPieces = numChildren;
 
-#ifdef LIBSBML_USE_LEGACY_MATH
   if ((numChildren % 2) != 0) numPieces--;
-#else
-  numPieces = 2 * node.getNumPiece();
-  if (numPieces > numChildren)
-  {
-    // the piecewise is not correct
-    return;
-  }
-#endif
 
   for (unsigned int n = 1; n < numPieces; n += 2)
   {
