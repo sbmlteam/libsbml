@@ -196,7 +196,7 @@ configure_file (
 # mark header files for installation
 #
 
-foreach(dir annotation common compress conversion extension units util validator xml  )
+foreach(dir annotation common compress conversion extension math units util validator xml  )
 
     file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/${dir}/*.h")
     install(FILES ${header_files} DESTINATION include/sbml/${dir})
