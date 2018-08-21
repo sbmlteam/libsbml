@@ -77,8 +77,13 @@ const char* SBML_TYPE_CODE_STRINGS[] =
 
 LIBSBML_EXTERN
 const char *
-SBMLTypeCode_toString (int tc, const char* pkgName)
+SBMLTypeCode_toString(int tc, const char* pkgName)
 {
+  //Treat SBML_LIST_OF specially:
+  if (tc == SBML_LIST_OF)
+  {
+    return SBML_TYPE_CODE_STRINGS[tc];
+  }
   if (!strcmp(pkgName, "core"))
   {
     int max = SBML_PRIORITY;
