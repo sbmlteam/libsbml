@@ -274,7 +274,12 @@ Replacing::readAttributes (const XMLAttributes& attributes,
      }
   }
   //We call the base class version here because of the error checking for having set exactly one of the mutually-exclusive attributes, and one of them (deletion) only exists for Replacings, not SBaseRef.
-  SBaseRef::readAttributes(attributes,expectedAttributes, false, false, CompReplacedByAllowedAttributes);
+  CompSBMLErrorCode_t error = CompReplacedElementAllowedAttributes;
+  if (getTypeCode() == SBML_COMP_REPLACEDBY)
+  {
+    error = CompReplacedByAllowedAttributes;
+  }
+  SBaseRef::readAttributes(attributes,expectedAttributes, false, false, error);
 }
 /** @endcond */
 

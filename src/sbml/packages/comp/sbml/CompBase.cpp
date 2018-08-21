@@ -179,18 +179,19 @@ CompBase::readAttributes (const XMLAttributes& attributes,
       logUnknownAttribute(name, element);
     }      
   }
+
+  SBMLErrorLog* log = getErrorLog();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+  const unsigned int pkgVersion  = getPackageVersion();
+
+  string compid = attributes.getValue("id", mURI);
+  string coreid = attributes.getValue("id", "");
+  string compname = attributes.getValue("name", mURI);
+  string corename = attributes.getValue("name", "");
+
   if (hasCompIdName)
   {
-    SBMLErrorLog* log = getErrorLog();
-    const unsigned int sbmlLevel   = getLevel  ();
-    const unsigned int sbmlVersion = getVersion();
-    const unsigned int pkgVersion  = getPackageVersion();
-
-    string compid = attributes.getValue("id", mURI);
-    string coreid = attributes.getValue("id", "");
-    string compname = attributes.getValue("name", mURI);
-    string corename = attributes.getValue("name", "");
-
     XMLTriple tripleId("id", mURI, getPrefix());
     bool assigned = attributes.readInto(tripleId, mId);
 
@@ -245,6 +246,33 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     }
     if (assigned && mName.empty()) {
       logInvalidId("comp:name", mName);
+    }
+  }
+  else
+  {
+    if (!compid.empty())
+    {
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'comp:id' with value '"
+        + compid;
+      if (!coreid.empty()) {
+        details += "' and the 'id' with value '" + coreid;
+      }
+      details += "' must not use the 'comp:id' attribute.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
+    }
+    if (!compname.empty())
+    {
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'comp:name' with value '"
+        + compname;
+      if (!corename.empty()) {
+        details += "' and the 'name' with value '" + corename;
+      }
+      details += "' must not use the 'comp:name' attribute.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
     }
   }
 }

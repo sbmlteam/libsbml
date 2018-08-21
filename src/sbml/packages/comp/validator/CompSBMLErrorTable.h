@@ -1185,7 +1185,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' "
     "or 'comp:metaIdRef'. No other attributes from "
     "the HierarchicalModel Composition namespace are permitted on a "
-    "<replacedElement> object.",
+    "<replacedBy> object.",
     { "L3V1 Comp V1 Section 3.6.4"
     }
   },

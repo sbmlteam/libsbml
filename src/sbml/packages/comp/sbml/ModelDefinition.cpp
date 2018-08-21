@@ -211,11 +211,18 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
     }
     details += "with the 'comp:id' with value '" + compid 
       + "' may not use a 'comp:id': the id attribute from core must be used instead.";
-    //log->logPackageError("comp", CompModdef,
-    //  pkgVersion, sbmlLevel, sbmlVersion, details);
-
+    log->logError(AllowedAttributesOnModel, sbmlLevel, sbmlVersion, details);
   }
-
+  if (!compname.empty())
+  {
+    string details = "The <comp:modelDefinition> element ";
+    if (!corename.empty()) {
+      details += "with the 'name' with the value '" + corename + "' and ";
+    }
+    details += "with the 'comp:name' with value '" + compname 
+      + "' may not use a 'comp:name': the name attribute from core must be used instead.";
+    log->logError(AllowedAttributesOnModel, sbmlLevel, sbmlVersion, details);
+  }
 }
 /** @endcond */
 
