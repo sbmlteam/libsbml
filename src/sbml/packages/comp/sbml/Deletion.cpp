@@ -211,34 +211,7 @@ Deletion::readAttributes (const XMLAttributes& attributes,
       } 
     }
   }
-  SBaseRef::readAttributes(attributes,expectedAttributes);
-
-  //const unsigned int sbmlLevel   = getLevel  ();
-  //const unsigned int sbmlVersion = getVersion();
-
-  XMLTriple tripleId("id", mURI, getPrefix());
-  if (attributes.readInto(tripleId, mId, getErrorLog(), 
-                          false, getLine(), getColumn()))
-  {
-    if (mId.size() == 0)
-    {
-      logEmptyString("id", "<Deletion>");
-    }
-    else 
-    {
-      if (!SyntaxChecker::isValidSBMLSId(mId)) 
-      {
-        logInvalidId("comp:id", mId);
-      }
-    }
-  }
-
-  XMLTriple tripleName("name", mURI, getPrefix());
-  if (attributes.readInto(tripleName, mName, getErrorLog(), false, getLine(), getColumn())) {
-    if (mName.empty()) {
-      logInvalidId("comp:name", mName);
-    }
-  }
+  SBaseRef::readAttributes(attributes,expectedAttributes, true, false, CompDeletionAllowedAttributes);
 }
 /** @endcond */
 

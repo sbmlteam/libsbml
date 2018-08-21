@@ -43,6 +43,7 @@
 #include <sbml/extension/SBMLExtension.h>
 #include <sbml/extension/SBMLExtensionNamespaces.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
+#include <sbml/packages/comp/validator/CompSBMLError.h>
 #include <sbml/SBase.h>
 
 #ifdef __cplusplus
@@ -143,7 +144,8 @@ protected:
    * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
+                               const ExpectedAttributes& expectedAttributes,
+                               bool hasCompIdName, bool idRequired, CompSBMLErrorCode_t errcode);
 
 
   /**

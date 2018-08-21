@@ -153,7 +153,8 @@ CompBase::getParentModel(SBase* child)
 
 void
 CompBase::readAttributes (const XMLAttributes& attributes,
-                          const ExpectedAttributes& expectedAttributes)
+                          const ExpectedAttributes& expectedAttributes,
+                          bool hasCompIdName, bool idRequired, CompSBMLErrorCode_t errcode)
 {
   SBase::readAttributes(attributes,expectedAttributes);
 
@@ -177,6 +178,74 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     {    
       logUnknownAttribute(name, element);
     }      
+  }
+  if (hasCompIdName)
+  {
+    SBMLErrorLog* log = getErrorLog();
+    const unsigned int sbmlLevel   = getLevel  ();
+    const unsigned int sbmlVersion = getVersion();
+    const unsigned int pkgVersion  = getPackageVersion();
+
+    string compid = attributes.getValue("id", mURI);
+    string coreid = attributes.getValue("id", "");
+    string compname = attributes.getValue("name", mURI);
+    string corename = attributes.getValue("name", "");
+
+    XMLTriple tripleId("id", mURI, getPrefix());
+    bool assigned = attributes.readInto(tripleId, mId);
+
+    if (!assigned && idRequired && coreid.empty())
+    {
+      string message = "Comp attribute 'comp:id' is missing.";
+      getErrorLog()->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, message);
+    }
+    else if (!assigned && !coreid.empty())
+    {
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'id' with value '"
+        + coreid + "' must use 'comp:id' instead.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
+    }
+    else if (!coreid.empty())
+    {
+      //Both core and comp id's
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'id' with value '"
+        + coreid + "' and the 'comp:id' with value '"
+        + compid + "' must only use the 'comp:id' attribute.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
+    }
+
+    if (assigned && !SyntaxChecker::isValidSBMLSId(mId)) {
+      logInvalidId("comp:id", mId);
+    }
+
+    XMLTriple tripleName("name", mURI, getPrefix());
+    assigned = attributes.readInto(tripleName, mName);
+    if (!assigned && !corename.empty())
+    {
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'name' with value '"
+        + corename + "' must use 'comp:name' instead.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
+    }
+    else if (!corename.empty())
+    {
+      //Both core and comp name's
+      string details = "The <comp:";
+      details += getElementName() + "> element with the 'name' with value '"
+        + corename + "' and the 'comp:name' with value '"
+        + compname + "' must only use the 'comp:name' attribute.";
+      log->logPackageError("comp", errcode,
+        pkgVersion, sbmlLevel, sbmlVersion, details);
+    }
+    if (assigned && mName.empty()) {
+      logInvalidId("comp:name", mName);
+    }
   }
 }
 

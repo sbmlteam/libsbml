@@ -568,59 +568,39 @@ Submodel::readAttributes (const XMLAttributes& attributes,
   }
 
 
-  CompBase::readAttributes(attributes,expectedAttributes);
+  CompBase::readAttributes(attributes,expectedAttributes, true, true, CompSubmodelAllowedAttributes);
 
   // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+  SBMLErrorLog* log = getErrorLog();
+  if (log != NULL)
   {
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    for (int n = (int)numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs - 1; n >= 0; n--)
     {
       if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
-        const std::string details = 
+        const std::string details =
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      } 
+      }
       else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
-        const std::string details = 
+        const std::string details =
           getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("comp", CompSubmodelAllowedCoreAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      } 
+      }
     }
   }
 
 
   if ( sbmlLevel > 2 )
   {
-    XMLTriple tripleId("id", mURI, getPrefix());
-    bool assigned = attributes.readInto(tripleId, mId);
-
-    if (assigned == false)
-    {
-      std::string message = "Comp attribute 'id' is missing.";
-      getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, message);
-    }
-    else
-    {
-      if (!SyntaxChecker::isValidSBMLSId(mId)) {
-        logInvalidId("comp:id", mId);
-      }
-    }
-    XMLTriple tripleName("name", mURI, getPrefix());
-    if (attributes.readInto(tripleName, mName, getErrorLog(), false, getLine(), getColumn())) {
-      if (mName.empty()) {
-        logInvalidId("comp:name", mName);
-      }
-    }
     XMLTriple tripleModelRef("modelRef", mURI, getPrefix());
-    assigned = attributes.readInto(tripleModelRef, mModelRef);
+    bool assigned = attributes.readInto(tripleModelRef, mModelRef);
     if (assigned == false)
     {
       std::string message = "Comp attribute 'modelRef' is missing.";

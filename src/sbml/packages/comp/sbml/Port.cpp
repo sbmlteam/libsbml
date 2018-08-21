@@ -234,41 +234,10 @@ Port::readAttributes (const XMLAttributes& attributes,
   }
 
 
-  SBaseRef::readAttributes(attributes,expectedAttributes);
+  SBaseRef::readAttributes(attributes,expectedAttributes, true, true, CompPortAllowedAttributes);
 
   if ( sbmlLevel > 2 )
   {
-    XMLTriple tripleId("id", mURI, getPrefix());
-    bool assigned = attributes.readInto(tripleId, mId, getErrorLog(), 
-                                        false, getLine(), getColumn());
-    if (assigned == false)
-    {
-      logMissingAttribute("id", "<Port>");
-    }
-    else if (assigned == true && mId.size() == 0)
-    {
-      logEmptyString("id", "<Port>");
-    }
-    else 
-    {
-      if (!SyntaxChecker::isValidSBMLSId(mId)) 
-      {
-        logInvalidId("comp:id", mId);
-      }
-    }
-
-    XMLTriple tripleName("name", mURI, getPrefix());
-    assigned = attributes.readInto(tripleName, mName, getErrorLog(), 
-                                   false, getLine(), getColumn());
-    
-    if (assigned == true)
-    {
-      if (mName.empty()) 
-      {
-        logEmptyString("name", "<Port>");
-      }
-    }
-
     if (isSetPortRef() == true)
     {
       getErrorLog()->logPackageError("comp", CompPortAllowedAttributes,

@@ -198,6 +198,24 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
   }
 
   Model::readAttributes(attributes, expectedAttributes);
+  SBMLErrorLog* log = getErrorLog();
+  string compid = attributes.getValue("id", mURI);
+  string coreid = attributes.getValue("id", "");
+  string compname = attributes.getValue("name", mURI);
+  string corename = attributes.getValue("name", "");
+  if (!compid.empty())
+  {
+    string details = "The <comp:modelDefinition> element ";
+    if (!coreid.empty()) {
+      details += "with the 'id' with the value '" + coreid + "' and ";
+    }
+    details += "with the 'comp:id' with value '" + compid 
+      + "' may not use a 'comp:id': the id attribute from core must be used instead.";
+    //log->logPackageError("comp", CompModdef,
+    //  pkgVersion, sbmlLevel, sbmlVersion, details);
+
+  }
+
 }
 /** @endcond */
 

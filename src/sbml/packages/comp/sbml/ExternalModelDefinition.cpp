@@ -433,7 +433,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
   }
 
 
-  CompBase::readAttributes(attributes,expectedAttributes);
+  CompBase::readAttributes(attributes,expectedAttributes, true, true, CompExtModDefAllowedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -463,40 +463,8 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
 
   if ( sbmlLevel > 2 )
   {
-    XMLTriple tripleId("id", mURI, getPrefix());
-    bool assigned = false;
-    assigned = attributes.readInto(tripleId, mId, getErrorLog(), 
-      false, getLine(), getColumn()); 
-    
-    if (assigned == false)
-    {
-      logMissingAttribute("id", "<ExternalModelDefinition>");
-    }
-    else if (assigned == true && mId.size() == 0)
-    {
-      logEmptyString("id", "<ExternalModelDefinition>");
-    }
-    else 
-    {
-      if (!SyntaxChecker::isValidSBMLSId(mId)) {
-        logInvalidId("comp:id", mId);
-      }
-    }
-
- 
-    XMLTriple tripleName("name", mURI, getPrefix());
-    assigned = attributes.readInto(tripleName, mName);
-    
-    if (assigned == true)
-    {
-      if (mName.empty()) 
-      {
-        logEmptyString("comp:name", mName);
-      }
-    }
-
     XMLTriple tripleSource("source", mURI, getPrefix());
-    assigned = attributes.readInto(tripleSource, mSource);
+    bool assigned = attributes.readInto(tripleSource, mSource);
 
     if (assigned == false)
     {

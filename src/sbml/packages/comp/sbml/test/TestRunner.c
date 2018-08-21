@@ -57,6 +57,7 @@ Suite *create_suite_TestComp_ReplacedBy (void);
 Suite *create_suite_TestComp_ReplacedElement (void);
 Suite *create_suite_TestComp_SBaseRef (void);
 Suite *create_suite_TestComp_Submodel (void);
+Suite *create_suite_TestComp_AttributeNamespaces (void);
 
 
 /**
@@ -103,6 +104,7 @@ main (void)
   setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_TestCompSBaseObjects() );
+  srunner_add_suite( runner, create_suite_TestComp_AttributeNamespaces() );
   srunner_add_suite( runner, create_suite_TestReadWriteSBaseObjects() );
   srunner_add_suite( runner, create_suite_TestComp_Deletion() );
   srunner_add_suite( runner, create_suite_TestComp_ExternalModelDefinition() );

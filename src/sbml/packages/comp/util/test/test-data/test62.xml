@@ -18,7 +18,7 @@
       </compartment>
     </listOfCompartments>
     <comp:listOfSubmodels>
-      <comp:submodel metaid="_m4" id="A" comp:id="A" comp:modelRef="enzyme"/>
+      <comp:submodel metaid="_m4" comp:id="A" comp:modelRef="enzyme"/>
     </comp:listOfSubmodels>
   </model>
   <comp:listOfModelDefinitions>

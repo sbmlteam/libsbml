@@ -646,6 +646,17 @@ protected:
    * parent's implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes, 
+                               const ExpectedAttributes& expectedAttributes,
+                               bool hasCompIdName, bool idRequired, CompSBMLErrorCode_t errcode);
+  /** @endcond */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parent's implementation of this method as well.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
   /** @endcond */
 

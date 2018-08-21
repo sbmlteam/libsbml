@@ -589,10 +589,19 @@ SBaseRef::addExpectedAttributes(ExpectedAttributes& attributes)
 
 /** @cond doxygenLibsbmlInternal */
 void
-SBaseRef::readAttributes (const XMLAttributes& attributes,
-                          const ExpectedAttributes& expectedAttributes)
+SBaseRef::readAttributes(const XMLAttributes& attributes,
+                         const ExpectedAttributes& expectedAttributes)
 {
-  CompBase::readAttributes(attributes,expectedAttributes);
+  readAttributes(attributes, expectedAttributes, false, false, CompUnknown);
+}
+
+/** @cond doxygenLibsbmlInternal */
+void
+SBaseRef::readAttributes (const XMLAttributes& attributes,
+                          const ExpectedAttributes& expectedAttributes,
+                          bool hasCompIdName, bool idRequired, CompSBMLErrorCode_t errcode)
+{
+  CompBase::readAttributes(attributes,expectedAttributes, hasCompIdName, idRequired, errcode);
 
   const unsigned int sbmlLevel   = getLevel  ();
   //const unsigned int sbmlVersion = getVersion();
