@@ -4553,7 +4553,15 @@ SBase::read (XMLInputStream& stream)
            << stream.peek().getURI() << endl;
 #endif
 
-      SBase * object = createObject(stream);
+      SBase * object = NULL;
+      try
+      {
+        object = createObject(stream);
+      }
+      catch (SBMLExtensionException e)
+      {
+		object = NULL;
+      }
 
       if (!object)
       {
@@ -4736,7 +4744,14 @@ SBase::createExtensionObject (XMLInputStream& stream)
     std::cout << "[DEBUG] SBase::createExtensionObject " << getElementName()
          << " " << uri << std::endl;
 #endif
-    object = sbext->createObject(stream);
+    try
+    {
+      object = sbext->createObject(stream);
+    }
+    catch (SBMLExtensionException e)
+    {
+      object = NULL;
+    }
   }
 #if 0
   else
@@ -5568,7 +5583,23 @@ SBase::readAttributes (const XMLAttributes& attributes,
     {
       if (!expectedAttributes.hasAttribute(name))
       {
-        logUnknownAttribute(name, level, version, getElementName());
+        if (name == "required")
+        {
+          //we have an l2 doc with a package declared
+          for (unsigned int i = 0; i < this->getNumPlugins(); ++i)
+          {
+            if (getPlugin(i)->getURI() == uri)
+            {
+              enablePackageInternal(uri, prefix, false);
+            }
+          }
+          logError(NotSchemaConformant, getLevel(), getVersion(), "The L3 package '" + prefix +
+            "' cannot be used in this document.");
+        }
+        else
+        {
+          logUnknownAttribute(name, level, version, getElementName());
+        }
       }
     }
     else if (!prefix.empty() && (prefix != getPrefix()) && (uri != mURI) )

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5" 
+	groups:required="false" xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1"
+	fbc:required="false" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1">
+	<model>
+		<listOfUnitDefinitions>
+			<unitDefinition id="time">
+				<listOfUnits>
+					<unit kind="second" exponent="1"/>
+				</listOfUnits>
+			</unitDefinition>
+		</listOfUnitDefinitions>
+	</model>
+</sbml>
