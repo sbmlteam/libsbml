@@ -195,7 +195,7 @@ START_TEST(test_L3_SpeciesReference_denominator)
   // check it cannot be set
   fail_unless(SpeciesReference_setDenominator(SR, 2) == LIBSBML_UNEXPECTED_ATTRIBUTE);
 
-  // but for backwards compatability allow teh value to be set
+  // but for backwards compatability allow the value to be set
   fail_unless(SpeciesReference_getDenominator(SR) == 2);
 }
 END_TEST

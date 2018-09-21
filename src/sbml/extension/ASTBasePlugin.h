@@ -5,6 +5,7 @@
  * @brief   Definition of ASTBasePlugin, the base class of extension entities
  *          plugged in AST derived classes in the SBML Core package.
  * @author  Sarah Keating
+ * @author  Lucian Smith
  *
  *
  * <!--------------------------------------------------------------------------
@@ -46,21 +47,73 @@
 #include <sbml/common/libsbml-config-common.h>
 
 #include <sbml/common/sbmlfwd.h>
-//#include <sbml/SBMLTypeCodes.h>
-//#include <sbml/SBMLErrorLog.h>
-//#include <sbml/SBMLDocument.h>
-//#include <sbml/util/StringBuffer.h>
-
-#include <sbml/math/L3ParserSettings.h>
 
 #ifdef __cplusplus
+#include <vector>
+#include <string>
+#include <map>
+#include <sbml/math/ASTNodeType.h>
+
+
+#include <sbml/math/L3ParserSettings.h>
+#include <sbml/SBMLTransforms.h>
+
+class UnitDefinition;
+class UnitFormulaFormatter;
+class ArgumentsUnitsCheck;
+
+
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+struct ASTNodeValues_t {
+  std::string name;
+  ASTNodeType_t type;
+  bool isFunction;
+  std::string csymbolURL;
+  AllowedChildrenType_t allowedChildrenType;
+  std::vector<unsigned int> numAllowedChildren;
+};
 
 
 class LIBSBML_EXTERN ASTBasePlugin
 {
 public:
+
+#ifndef SWIG
+  typedef std::pair<double, bool>   ValueSet;
+  typedef std::map<const std::string, ValueSet> IdValueMap;
+#endif
+  virtual const std::string& getStringFor(ASTNodeType_t type) const;
+  virtual const char* getConstCharFor(ASTNodeType_t type) const;
+  virtual const char* getConstCharCsymbolURLFor(ASTNodeType_t type) const;
+  virtual ASTNodeType_t getASTNodeTypeFor(const std::string& symbol) const;
+  virtual ASTNodeType_t getASTNodeTypeForCSymbolURL(const std::string& url) const;
+  virtual bool hasCorrectNamespace(SBMLNamespaces* namespaces) const;
+  virtual bool defines(ASTNodeType_t type) const;
+  virtual bool defines(const std::string& name) const;
+  virtual bool isFunction(ASTNodeType_t type) const;
+  virtual bool isLogical(ASTNodeType_t type) const;
+  virtual bool isMathMLNodeTag(const std::string& node) const;
+  virtual bool isMathMLNodeTag(ASTNodeType_t type) const;
+  virtual ExtendedMathType_t getExtendedMathType() const;
+  virtual double evaluateASTNode(const ASTNode * node, const Model * m = NULL) const;
+  virtual UnitDefinition * getUnitDefinitionFromPackage(UnitFormulaFormatter* uff, const ASTNode * node, bool inKL, int reactNo) const;
+
+  /**
+   * Check if the node type is known to be allowed inside function definitions.
+   *
+   * Function definitions must be able to be evaluated without resort to outside information.
+   * Therefore, some ASTNodes (like AST_TIME and AST_FUNCTION_RATE_OF) are disallowed
+   * from appearing there.  This function checks whether this is true for a given type:
+   * a return value of '-1' means the plugin has no knowledge of that type; a return
+   * value of '1' means the plugin knows that the type is indeed allowed, and a
+   * return value of '0' means that the plugin knows that the type is not allowed.
+   */
+  virtual int allowedInFunctionDefinition(ASTNodeType_t type) const;
+  //virtual void checkUnits(ArgumentsUnitsCheck* auc, const Model& m, const ASTNode& node, const SBase & sb, bool inKL, int reactNo) const;
+
 
   /**
   * Destroy this object.
@@ -266,71 +319,6 @@ public:
   virtual SBMLNamespaces * getSBMLNamespaces() const;
 
 
-  virtual bool isSetMath() const;
-
-  virtual const ASTNode * getMath() const;
-
-  virtual void createMath(int type);
-
-  virtual int addChild(ASTNode * child);
-
-  virtual ASTNode* getChild(unsigned int n) const;
-
-  virtual unsigned int getNumChildren() const;
-
-  virtual int insertChild(unsigned int n, ASTNode* newChild);
-
-  virtual int prependChild(ASTNode* newChild);
-
-  virtual int removeChild(unsigned int n);
-
-  virtual int replaceChild(unsigned int n, ASTNode* newChild, bool delreplaced);
-
-  //virtual int swapChildren(ASTFunction* that);
-
-
-  virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,
-    const XMLToken& currentElement);
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes,
-    XMLInputStream& stream, int type);
-
-  virtual bool readAttributes(const XMLAttributes& attributes,
-    const ExpectedAttributes& expectedAttributes,
-    XMLInputStream& stream, const XMLToken& element,
-    int type);
-
-  virtual void writeAttributes(XMLOutputStream& stream, int type) const;
-
-  virtual void writeXMLNS(XMLOutputStream& stream) const;
-
-  virtual bool isNumberNode(int type) const;
-  virtual bool isFunctionNode(int type) const;
-
-  virtual bool isLogical(int type) const;
-  virtual bool isConstantNumber(int type) const;
-  virtual bool isCSymbolFunction(int type) const;
-  virtual bool isCSymbolNumber(int type) const;
-  virtual bool isName(int type) const;
-  virtual bool isNumber(int type) const;
-  virtual bool isOperator(int type) const;
-  virtual bool isRelational(int type) const;
-  virtual bool representsQualifier(int type) const;
-
-  virtual bool isFunction(int type) const;
-  virtual bool representsUnaryFunction(int type) const;
-  virtual bool representsBinaryFunction(int type) const;
-  virtual bool representsNaryFunction(int type) const;
-
-  virtual bool hasCorrectNumberArguments(int type) const;
-  virtual bool isWellFormedNode(int type) const;
-
-  virtual bool isTopLevelMathMLFunctionNodeTag(const std::string& name) const;
-
-  virtual bool isTopLevelMathMLNumberNodeTag(const std::string& name) const;
-
-  virtual int getTypeFromName(const std::string& name) const;
-
-  virtual const char * getNameFromType(int type) const;
 
   /* end doxygen comment */
   friend class L3ParserSettings;
@@ -366,6 +354,38 @@ public:
   */
   virtual void replaceIDWithFunction(const std::string& id, const ASTNode* function);
 
+  /**
+  * This function checks the provided ASTNode function to see if it is a
+  * known function with the wrong number of arguments.  If so, 'error' is
+  * set and '-1' is returned.  If it has the correct number of arguments,
+  * '1' is returned.  If the plugin knows nothing about the function, '0'
+  * is returned.
+  */
+  virtual int checkNumArguments(const ASTNode* function, std::stringstream& error) const;
+  /**
+  * Get the precedence of this package function, or @c -1 if unknown
+  */
+  virtual int getL3PackageInfixPrecedence() const;
+
+  /**
+  * Returns @c true if this is a package function which should be written
+  * special syntax that the package knows about, @c false otherwise.
+  */
+  virtual bool hasPackageOnlyInfixSyntax() const;
+
+  /**
+  * Returns @c true if this is a package function which should be written
+  * special syntax that the package knows about, @c false otherwise.
+  */
+  virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
+
+  /**
+  * Returns @c true if this is a package function which should be written as
+  * "functionname(argumentlist)", @c false otherwise.
+  */
+  virtual bool isPackageInfixFunction() const;
+
+
 protected:
   /* open doxygen comment */
   /**
@@ -383,30 +403,6 @@ protected:
   */
   ASTBasePlugin(const ASTBasePlugin& orig);
 
-
-  /**
-  * Returns @c true if this is a package function which should be written as
-  * "functionname(argumentlist)", @c false otherwise.
-  */
-  virtual bool isPackageInfixFunction() const;
-
-  /**
-  * Returns @c true if this is a package function which should be written
-  * special syntax that the package knows about, @c false otherwise.
-  */
-  virtual bool hasPackageOnlyInfixSyntax() const;
-
-  /**
-  * Get the precedence of this package function, or @c -1 if unknown
-  */
-  virtual int getL3PackageInfixPrecedence() const;
-
-  /**
-  * Returns @c true if this is a package function which should be written
-  * special syntax that the package knows about, @c false otherwise.
-  */
-  virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
-
   /**
   * Visits the given ASTNode_t and continues the inorder traversal for nodes whose syntax are determined by packages.
   */
@@ -415,14 +411,6 @@ protected:
     StringBuffer_t  *sb,
     const L3ParserSettings* settings) const;
 
-  /**
-  * This function checks the provided ASTNode function to see if it is a
-  * known function with the wrong number of arguments.  If so, 'error' is
-  * set and '-1' is returned.  If it has the correct number of arguments,
-  * '1' is returned.  If the plugin knows nothing about the function, '0'
-  * is returned.
-  */
-  virtual int checkNumArguments(const ASTNode* function, std::stringstream& error) const;
 
   /**
   * The generic parsing function for grammar lines that packages recognize, but not core.
@@ -441,7 +429,7 @@ protected:
   * caseless string comparison.  Return the type of the function, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}
   * if nothing found.
   */
-  virtual int getPackageFunctionFor(const std::string& name) const;
+  virtual ASTNodeType_t getPackageFunctionFor(const std::string& name) const;
 
   /*-- data members --*/
 
@@ -472,6 +460,8 @@ protected:
   //
   std::string          mPrefix;
 
+    std::vector<ASTNodeValues_t> mPkgASTNodeValues;
+    ExtendedMathType_t mExtendedMathType;
   /* end doxygen comment */
 };
 

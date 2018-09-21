@@ -110,6 +110,11 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
       // we are dealing with the strict units validator
       mId = mId - offset;
     }
+    else if (offset == 1400000 && object.getLevel() == 3 && object.getVersion() == 2)
+    {
+      // we are using the l3v2extended math package but in l3v2 which means we want to report core
+      mId = mId - offset;
+    }
     else
     {
       // it is possible that the object does not have a direct plugin

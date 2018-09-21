@@ -5,3 +5,9 @@
 #ifdef USE_MULTI
 %include "local-downcast-astplugins-multi.i"
 #endif
+#ifdef USE_DISTRIB
+%include "local-downcast-astplugins-distrib.i"
+#endif 
+#ifdef USE_L3V2EXTENDEDMATH
+%include "local-downcast-astplugins-l3v2extendedmath.i"
+#endif 

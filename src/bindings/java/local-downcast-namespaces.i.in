@@ -12,3 +12,21 @@
 #ifdef USE_QUAL
 %include "local-downcast-namespaces-qual.i"
 #endif
+#ifdef USE_MULTI
+%include "local-downcast-namespaces-multi.i"
+#endif
+#ifdef USE_RENDER
+%include "local-downcast-namespaces-render.i"
+#endif
+#ifdef USE_GROUPS
+%include "local-downcast-namespaces-groups.i"
+#endif
+#ifdef USE_ARRAYS
+%include "local-downcast-namespaces-arrays.i"
+#endif 
+#ifdef USE_DISTRIB
+%include "local-downcast-namespaces-distrib.i"
+#endif 
+#ifdef USE_L3V2EXTENDEDMATH
+%include "local-downcast-namespaces-l3v2extendedmath.i"
+#endif

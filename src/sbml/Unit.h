@@ -1389,11 +1389,9 @@ public:
 
   #endif /* !SWIG */
 
-
-protected:
   /** @cond doxygenLibsbmlInternal */
-  void setExponentUnitChecking (double value); 
-                                           
+  void setExponentUnitChecking(double value);
+
   double getExponentUnitChecking();
 
   double getExponentUnitChecking() const;
@@ -1402,6 +1400,11 @@ protected:
 
   bool isUnitChecking() const;
 
+  /** @endcond */
+
+
+protected:
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to get the list of
    * expected attributes.
@@ -1526,6 +1529,7 @@ protected:
   friend class UnitConsistencyValidator;
   friend class UnitFormulaFormatter;
   friend class UnitDefinition;
+  friend class ASTBasePlugin;
 
 
   /** @endcond */

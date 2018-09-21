@@ -150,6 +150,12 @@ protected:
   void logMathConflict (const ASTNode& node, const SBase& object);
 
   /**
+  * Logs a message that the math (and its corresponding object) have
+  * failed to satisfy this constraint.
+  */
+  void logPackageMathConflict (const ASTNode& node, const SBase& object, const std::string& error);
+
+  /**
    * Checks that the math will return a numeric result
    * forces recursion thru the AST tree
    * 

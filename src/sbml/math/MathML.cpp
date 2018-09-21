@@ -66,7 +66,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
 static const char* URL_AVOGADRO = "http://www.sbml.org/sbml/symbols/avogadro";
-static const char* URL_RATE_OF = "http://www.sbml.org/sbml/symbols/rateOf";
 
 static const char* MATHML_ELEMENTS[] =
 {
@@ -108,7 +107,6 @@ static const char* MATHML_ELEMENTS[] =
   , "floor"
   , "geq"
   , "gt"
-  , "implies"
   , "infinity"
   , "lambda"
   , "leq"
@@ -117,8 +115,6 @@ static const char* MATHML_ELEMENTS[] =
   , "logbase"
   , "lt"
   , "math"
-  , "max"
-  , "min"
   , "minus"
   , "neq"
   , "not"
@@ -130,8 +126,6 @@ static const char* MATHML_ELEMENTS[] =
   , "piecewise"
   , "plus"
   , "power"
-  , "quotient"
-  , "rem"
   , "root"
   , "sec"
   , "sech"
@@ -194,11 +188,6 @@ static const char* MATHML_FUNCTIONS[] =
   , "leq"
   , "lt"
   , "neq"
-  , "max"
-  , "min"
-  , "quotient"
-  , "rem"
-  , "implies"
 };
 
 
@@ -242,7 +231,6 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_FUNCTION_FLOOR
   , AST_RELATIONAL_GEQ
   , AST_RELATIONAL_GT
-  , AST_LOGICAL_IMPLIES
   , AST_REAL
   , AST_LAMBDA
   , AST_RELATIONAL_LEQ
@@ -251,8 +239,6 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_UNKNOWN
   , AST_RELATIONAL_LT
   , AST_UNKNOWN
-  , AST_FUNCTION_MAX
-  , AST_FUNCTION_MIN
   , AST_MINUS
   , AST_RELATIONAL_NEQ
   , AST_LOGICAL_NOT
@@ -264,8 +250,6 @@ static const ASTNodeType_t MATHML_TYPES[] =
   , AST_FUNCTION_PIECEWISE
   , AST_PLUS
   , AST_FUNCTION_POWER
-  , AST_FUNCTION_QUOTIENT
-  , AST_FUNCTION_REM
   , AST_FUNCTION_ROOT
   , AST_FUNCTION_SEC
   , AST_FUNCTION_SECH
@@ -414,9 +398,23 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       if (url == URL_DELAY) node.setType(AST_FUNCTION_DELAY);
       else if (url == URL_TIME) node.setType(AST_NAME_TIME);
       else if (url == URL_AVOGADRO) node.setType(AST_NAME_AVOGADRO);
-      else if (url == URL_RATE_OF) node.setType(AST_FUNCTION_RATE_OF);
-      else node.setType(AST_CSYMBOL_FUNCTION);
-      node.setDefinitionURL(url);
+      else {
+        ASTNodeType_t type = AST_UNKNOWN;
+        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true);
+        if (baseplugin != NULL)
+        {
+          type = baseplugin->getASTNodeTypeForCSymbolURL(url);
+          if (type != AST_UNKNOWN)
+          {
+            node.setType(type);
+          }
+        }
+        if (type == AST_UNKNOWN)
+        {
+          node.setType(AST_CSYMBOL_FUNCTION);
+        }
+        node.setDefinitionURL(url);
+      }
 
     }
     else if (stream.getSBMLNamespaces()->getLevel() < 3)
@@ -431,26 +429,29 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     else
     {
       /* level 3 */
-      unsigned int version = stream.getSBMLNamespaces()->getVersion();
       if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
       else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
       else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
-      else if ( url == URL_RATE_OF)
+      else
       {
-        if (version > 1) 
+        ASTNodeType_t type = AST_UNKNOWN;
+        const ASTBasePlugin* baseplugin = node.getASTPlugin(url, true);
+        if (baseplugin != NULL)
         {
-          node.setType(AST_FUNCTION_RATE_OF);
+          if (baseplugin->hasCorrectNamespace(stream.getSBMLNamespaces()))
+          {
+            type = baseplugin->getASTNodeTypeForCSymbolURL(url);
+            if (type != AST_UNKNOWN)
+            {
+              node.setType(type);
+            }
+          }
         }
-        else
+        if (type == AST_UNKNOWN)
         {
           node.setType(AST_FUNCTION);
-          logError(stream, element, BadCsymbolDefinitionURLValue);      
+          logError(stream, element, BadCsymbolDefinitionURLValue);
         }
-
-      }
-      else 
-      {
-        logError(stream, element, BadCsymbolDefinitionURLValue);      
       }
     }
   }
@@ -466,7 +467,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       || element.getAttributes().hasAttribute("representationType",
         "http://www.sbml.org/sbml/level3/version1/multi/version1") == true)
     {
-      node.loadASTPlugins(stream.getSBMLNamespaces());
+      node.loadASTPlugin("multi");
       MultiASTPlugin * plug = static_cast<MultiASTPlugin*>(node.getPlugin("multi"));
       if (plug != NULL)
       {
@@ -638,7 +639,33 @@ setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   int  index = util_bsearchStringsI(MATHML_ELEMENTS, name, 0, size - 1);
   bool found = (index < size);
 
-  if (found) node.setType(MATHML_TYPES[index]);
+  if (found)
+  {
+    node.setType(MATHML_TYPES[index]);
+  }
+  else
+  {
+    ASTNodeType_t type = AST_UNKNOWN;
+    //if (node.getNumPlugins() == 0)
+    //{
+    //  node.loadASTPlugins(NULL);
+    //}
+    //unsigned int i = 0;
+    std::string    strName = element.getName();
+    //while (type == AST_UNKNOWN && i < node.getNumPlugins())
+    //{
+    const ASTBasePlugin* baseplugin = node.getASTPlugin(strName);
+    if (baseplugin != NULL)
+    {
+      type = baseplugin->getASTNodeTypeFor(strName);
+    }
+    //  i++;
+    //}
+    if (type != AST_UNKNOWN)
+    {
+      node.setType(type);
+    }
+  }
 
 }
 /** @endcond */
@@ -698,9 +725,24 @@ isMathMLNodeTag(const string& name)
     || name == "exponentiale"
     || name == "semantics"
     || name == "piecewise")
-      return true;
-    else
-      return false;
+  {
+    return true;
+  }
+  else
+  {
+    ASTNode astn;
+    //astn.loadASTPlugins(NULL);
+    //for (unsigned int p = 0; p < astn.getNumPlugins(); p++)
+    //{
+    //  const ASTBasePlugin* plugin = astn.getPlugin(p);
+      if (astn.getASTPlugin(name) != NULL && astn.getASTPlugin(name)->isMathMLNodeTag(name))
+      {
+        return true;
+      }
+    //}
+  }
+
+  return false;
 }
 /** @endcond */
 
@@ -755,25 +797,71 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
 
   int  index = util_bsearchStringsI(MATHML_ELEMENTS, name.c_str(), 0, size - 1);
   bool found = (index < size);
-  int l3v2index[] = {38, 47, 48, 60, 61};
-  std::vector<int> l3v2;
-  l3v2.assign(l3v2index, l3v2index+5);
-
+  const ASTBasePlugin* thisPlugin = NULL;
   if (!found)
   {
-    logError(stream, elem, DisallowedMathMLSymbol);    
-  }
-  else if (level != 3 ||(level == 3 && version != 2))
-  {
-    if (std::find(l3v2.begin(), l3v2.end(), index) != l3v2.end())
+    // are we using L3 - so we might have an extension
+    if (level > 2)
     {
-      stringstream message;
-      message << "<" << name << "> is not valid " 
-        << "in SBML Level " << level << " Version "  
-        << version << ".";
-      logError(stream, elem, DisallowedMathMLSymbol, message.str());    
+      thisPlugin = node.getASTPlugin(name);
+      if (thisPlugin != NULL)
+      {
+        SBMLNamespaces* ns = stream.getSBMLNamespaces();
+        if (ns == NULL || thisPlugin->hasCorrectNamespace(ns))
+        {
+          found = true;
+        }
+      }
     }
+    //  if (node.getNumPlugins() == 0)
+    //  {
+    //    node.loadASTPlugins(NULL);
+    //  }
+    //  
+    //  unsigned int i = 0;
+    //  while (!found && i < node.getNumPlugins())
+    //  {
+    //    const ASTBasePlugin* plugin = node.getPlugin(i);
+    //    SBMLNamespaces* ns = stream.getSBMLNamespaces();
+    //    if ((ns == NULL || plugin->hasCorrectNamespace(ns)) && plugin->defines(name))
+    //    {
+    //      found = true;
+    //      thisPlugin = const_cast<ASTBasePlugin*>(plugin);
+    //    }
+    //    i++;
+    //  }
+    //}
   }
+  if (!found)
+  {
+    stringstream message;
+    message << "<" << name << "> is not valid "
+      << "in SBML Level " << level << " Version "
+      << version << ".";
+    logError(stream, elem, DisallowedMathMLSymbol, message.str());
+  }
+ 
+
+
+  //int l3v2index[] = {38, 47, 48, 60, 61};
+  //std::vector<int> l3v2;
+  //l3v2.assign(l3v2index, l3v2index+5);
+
+  //if (!found)
+  //{
+  //  logError(stream, elem, DisallowedMathMLSymbol);    
+  //}
+  //else if (level != 3 ||(level == 3 && version != 2))
+  //{
+  //  if (std::find(l3v2.begin(), l3v2.end(), index) != l3v2.end())
+  //  {
+  //    stringstream message;
+  //    message << "<" << name << "> is not valid " 
+  //      << "in SBML Level " << level << " Version "  
+  //      << version << ".";
+  //    logError(stream, elem, DisallowedMathMLSymbol, message.str());    
+  //  }
+  //}
 
   // check any reqd prefix is correct
   if (prefix_reqd)
@@ -864,7 +952,8 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
     }
   }
 
-  if (name == "apply" || name == "lambda" || name == "piecewise")
+  if (name == "apply" || name == "lambda" || name == "piecewise"
+    || (thisPlugin != NULL && thisPlugin->isMathMLNodeTag(name)))
   {
     if (name == "apply")
     {
@@ -947,7 +1036,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
     {
       node.setType(AST_LAMBDA);
     }
-    else
+    else if (name == "piecewise")
     {
       /* catch case where there is no otherwise
        * BUT do not return if we are dealing with <piecewise/>
@@ -958,6 +1047,11 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
       //  return;
       //}
       node.setType(AST_FUNCTION_PIECEWISE);
+    }
+    else
+    {
+      // in plugin
+      setType(node, elem, stream);
     }
 
     while (stream.isGood() && stream.peek().isEndFor(elem) == false)
@@ -1177,7 +1271,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   ASTNodeType_t type = node.getType();
 
   if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME
-    || type == AST_NAME_AVOGADRO || type == AST_FUNCTION_RATE_OF)
+    || type == AST_NAME_AVOGADRO)
   {
     writeCSymbol(node, stream, sbmlns);
   }
@@ -1187,7 +1281,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
     stream.setAutoIndent(false);
     writeAttributes(node, stream);
 #ifdef USE_MULTI
-    const_cast<ASTNode&>(node).loadASTPlugins(stream.getSBMLNamespaces());
+//    const_cast<ASTNode&>(node).loadASTPlugins(stream.getSBMLNamespaces());
     MultiASTPlugin * plug = static_cast<MultiASTPlugin*>(const_cast<ASTNode&>(node).getPlugin("multi"));
     if (plug != NULL)
     {
@@ -1208,6 +1302,17 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 
     stream.endElement("ci");
     stream.setAutoIndent(true);
+  }
+  else
+  {
+    const ASTBasePlugin* baseplugin = node.getASTPlugin(type);
+    if (baseplugin != NULL)
+    {
+      if (baseplugin->getConstCharCsymbolURLFor(type) != NULL)
+      {
+        writeCSymbol(node, stream, sbmlns);
+      }
+    }
   }
 }
 /** @endcond */
@@ -1318,17 +1423,33 @@ writeConstant (const ASTNode& node, XMLOutputStream& stream)
  * appropriate.
  */
 static void
-writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
+writeCSymbol(const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
 
   ASTNodeType_t type = node.getType();
   string url;
 
-       if (type == AST_FUNCTION_DELAY) url = URL_DELAY;
+  if (type == AST_FUNCTION_DELAY) url = URL_DELAY;
   else if (type == AST_NAME_TIME)      url = URL_TIME;
   else if (type == AST_NAME_AVOGADRO)  url = URL_AVOGADRO;
-  else if (type == AST_FUNCTION_RATE_OF)  url = URL_RATE_OF;
-  else url = node.getDefinitionURLString();
+  else
+  {
+    const ASTBasePlugin* baseplugin = node.getASTPlugin(type);
+    const char* cc_url = NULL;
+    if (baseplugin != NULL)
+    {
+      cc_url = baseplugin->getConstCharCsymbolURLFor(type);
+    }
+
+    if (cc_url == NULL)
+    {
+      url = node.getDefinitionURLString();
+    }
+    else
+    {
+      url = cc_url;
+    }
+  }
 
   stream.startElement("csymbol");
   stream.setAutoIndent(false);
@@ -1517,23 +1638,40 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbm
     {
       writeCI(node, stream,sbmlns);
     }
-    else if (type == AST_FUNCTION_DELAY || type == AST_FUNCTION_RATE_OF 
-      || type == AST_CSYMBOL_FUNCTION)
+    else if (type == AST_FUNCTION_DELAY || type == AST_CSYMBOL_FUNCTION)
     {
       writeCSymbol(node, stream,sbmlns);
     }
     else
     {
-      unsigned int index = type - AST_FUNCTION_ABS;
-
-      if (type <= AST_FUNCTION_QUOTIENT && type > AST_RELATIONAL_NEQ)
-        index = type - AST_FUNCTION_ABS - 6;
-      else if (type > AST_FUNCTION_RATE_OF && type <= AST_LOGICAL_IMPLIES)
-        index = type - AST_FUNCTION_ABS - 7;
+      bool isCSymbol = false;
+      const char* name = NULL;
+      if (type <= AST_RELATIONAL_NEQ)
+      {
+        unsigned int index = type - AST_FUNCTION_ABS;
+        name = MATHML_FUNCTIONS[index];
+      }
+      else
+      {
+        const ASTBasePlugin* baseplugin = node.getASTPlugin(type);
+        if (baseplugin != NULL)
+        {
+          if (baseplugin->getConstCharCsymbolURLFor(type) != NULL)
+          {
+            isCSymbol = true;
+            writeCSymbol(node, stream, sbmlns);
+          }
+          name = baseplugin->getConstCharFor(type);
+        }
+      }
+      if (name == NULL)
+        name = "";
         
-      const char* name = MATHML_FUNCTIONS[index];
-      writeStartEndElement(name, node, stream);
-      //stream.startEndElement(name);
+      if (!isCSymbol)
+      {
+        writeStartEndElement(name, node, stream);
+        //stream.startEndElement(name);
+      }
     }
 
     //
@@ -1763,6 +1901,21 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics, 
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+static void
+writeTopLevelNode(const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns,
+  const char *name)
+{
+  stream.startElement(name);
+  for (unsigned int i = 0; i < node.getNumChildren(); ++i)
+  {
+    writeNode(*node.getChild(i), stream, sbmlns);
+  }
+  stream.endElement(name);
+
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
@@ -1771,6 +1924,26 @@ static void
 writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
 
+  const ASTBasePlugin* thisPlugin = node.getASTPlugin(node.getType());
+  //if (node.getNumPlugins() == 0)
+  //{
+  //  const_cast<ASTNode&>(node).loadASTPlugins(NULL);
+  //}
+
+  //unsigned int i = 0;
+  //bool found = false;
+  //while (!found && i < node.getNumPlugins())
+  //{
+  //  const ASTBasePlugin* plugin = node.getPlugin(i);
+  //  SBMLNamespaces* ns = stream.getSBMLNamespaces();
+  //  if ((ns == NULL || plugin->hasCorrectNamespace(ns)) && plugin->defines(node.getType()))
+  //  {
+  //    found = true;
+  //    thisPlugin = const_cast<ASTBasePlugin*>(plugin);
+  //  }
+  //  i++;
+
+  //}
   static bool inSemantics = false;
   
   if (node.getSemanticsFlag() && !inSemantics)
@@ -1782,6 +1955,10 @@ writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   else if (  node.isOperator () ) writeOperator (node, stream, sbmlns);
   else if (  node.isLambda   () ) writeLambda   (node, stream, sbmlns);
   else if (  node.isPiecewise() ) writePiecewise(node, stream, sbmlns);
+  else if (thisPlugin != NULL && thisPlugin->isMathMLNodeTag(node.getType()))
+  {
+    writeTopLevelNode(node, stream, sbmlns, thisPlugin->getConstCharFor(node.getType()));
+  }
   else if ( !node.isUnknown  () ) writeFunction (node, stream, sbmlns);
 }
 /** @endcond */
@@ -2081,6 +2258,7 @@ writeMathMLWithNamespaceToString(const ASTNode_t* node, SBMLNamespaces_t* sbmlns
 
   if (node != NULL && sbmlns != NULL)
   {
+
     writeMathML(node, stream, sbmlns);
     result = safe_strdup( os.str().c_str() );
   }

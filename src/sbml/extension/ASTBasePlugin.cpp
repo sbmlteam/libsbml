@@ -5,6 +5,7 @@
  * @brief   Implementation of ASTBasePlugin, the base class of extension 
  *          entities plugged in SBase derived classes in the SBML Core package.
  * @author  Sarah Keating
+ * @author  Lucian Smith
  *
  *
  * <!--------------------------------------------------------------------------
@@ -46,10 +47,201 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <map>
+
+
+#include <sbml/math/ASTNode.h>
 
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+// from extended math
+bool emStrCmp(const string& lhs, const string& rhs)
+{
+  //if (strCmpIsCaseSensitive) {
+  //  return lhs==rhs;
+  //}
+  if (lhs.size() != rhs.size()) return false;
+
+  for (size_t i = 0; i < lhs.size(); ++i)
+  {
+    if (toupper(lhs[i]) != toupper(rhs[i])) return false;
+  }
+  return true;
+
+}
+
+const std::string& 
+ASTBasePlugin::getStringFor(ASTNodeType_t type) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      return mPkgASTNodeValues[t].name;
+    }
+  }
+  static const std::string empty = "";
+  return empty;
+}
+
+const char* 
+ASTBasePlugin::getConstCharFor(ASTNodeType_t type) const
+{
+  const char * name = NULL;
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      name = mPkgASTNodeValues[t].name.c_str();
+    }
+  }
+  return name;
+}
+
+
+const char* 
+ASTBasePlugin::getConstCharCsymbolURLFor(ASTNodeType_t type) const
+{
+  const char * name = NULL;
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      if (!mPkgASTNodeValues[t].csymbolURL.empty())
+      {
+        name = mPkgASTNodeValues[t].csymbolURL.c_str();
+      }
+    }
+  }
+  return name;
+}
+
+ASTNodeType_t 
+ASTBasePlugin::getASTNodeTypeFor(const std::string& symbol) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (emStrCmp(mPkgASTNodeValues[t].name, symbol))
+    {
+      return mPkgASTNodeValues[t].type;
+    }
+  }
+  return AST_UNKNOWN;
+}
+ASTNodeType_t ASTBasePlugin::getASTNodeTypeForCSymbolURL(const std::string& url) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (emStrCmp(mPkgASTNodeValues[t].csymbolURL, url))
+    {
+      return  mPkgASTNodeValues[t].type;
+    }
+  }
+  return AST_UNKNOWN;
+}
+
+void addNumTo(int num, stringstream& error)
+{
+  switch (num)
+  {
+  case 1:
+    error << "one";
+    break;
+  case 2:
+    error << "two";
+    break;
+  case 3:
+    error << "three";
+    break;
+  case 4:
+    error << "four";
+    break;
+  default:
+    error << num;
+    break;
+  }
+}
+
+bool 
+ASTBasePlugin::hasCorrectNamespace(SBMLNamespaces* namespaces) const
+{
+  return false;
+}
+
+bool ASTBasePlugin::defines(ASTNodeType_t type) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool ASTBasePlugin::defines(const std::string& name) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].name == name)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool ASTBasePlugin::isFunction(ASTNodeType_t type) const
+{
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      return mPkgASTNodeValues[t].isFunction;
+    }
+  }
+  return false;
+}
+
+bool ASTBasePlugin::isLogical(ASTNodeType_t type) const
+{
+  return false;
+}
+
+bool ASTBasePlugin::isMathMLNodeTag(const string& name) const
+{
+  return false;
+}
+
+bool ASTBasePlugin::isMathMLNodeTag(ASTNodeType_t type) const
+{
+  return false;
+}
+
+ExtendedMathType_t ASTBasePlugin::getExtendedMathType() const
+{
+  return mExtendedMathType;
+}
+
+double ASTBasePlugin::evaluateASTNode(const ASTNode * node, const Model * m) const
+{
+  return numeric_limits<double>::quiet_NaN();
+}
+
+UnitDefinition * ASTBasePlugin::getUnitDefinitionFromPackage(UnitFormulaFormatter* uff, const ASTNode * node, bool inKL, int reactNo) const
+{
+  return NULL;
+}
+
+int ASTBasePlugin::allowedInFunctionDefinition(ASTNodeType_t type) const
+{
+  return -1;
+}
+
 
 
 /*
@@ -61,7 +253,9 @@ ASTBasePlugin::ASTBasePlugin(const std::string &uri)
   , mURI(uri)
   , mSBMLNS(NULL)
   , mPrefix("")
+  , mExtendedMathType(EM_UNKNOWN)
 {
+  mPkgASTNodeValues.clear();
 }
 
 /*
@@ -73,7 +267,9 @@ ASTBasePlugin::ASTBasePlugin()
   , mURI("")
   , mSBMLNS(NULL)
   , mPrefix("")
+  , mExtendedMathType(EM_UNKNOWN)
 {
+  mPkgASTNodeValues.clear();
 }
 
 
@@ -88,6 +284,8 @@ ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
   , mURI(orig.mURI)
   , mSBMLNS(NULL)
   , mPrefix(orig.mPrefix)
+  , mExtendedMathType(orig.mExtendedMathType)
+  , mPkgASTNodeValues(orig.mPkgASTNodeValues)
 {
   if (orig.mSBMLNS) {
     mSBMLNS = orig.mSBMLNS->clone();
@@ -103,6 +301,7 @@ ASTBasePlugin::~ASTBasePlugin()
 {
   if (mSBMLNS != NULL)
     delete mSBMLNS;
+  mPkgASTNodeValues.clear();
 }
 
 
@@ -116,12 +315,15 @@ ASTBasePlugin::operator=(const ASTBasePlugin& orig)
   mParentASTNode = orig.mParentASTNode;  // 0 should be set to mSBML and mParentASTNode?
   mURI = orig.mURI;
   mPrefix = orig.mPrefix;
+  mExtendedMathType = orig.mExtendedMathType;
 
   delete mSBMLNS;
   if (orig.mSBMLNS)
     mSBMLNS = orig.mSBMLNS->clone();
   else
     mSBMLNS = NULL;
+
+  mPkgASTNodeValues = orig.mPkgASTNodeValues;
 
   return *this;
 }
@@ -210,81 +412,6 @@ ASTBasePlugin::getParentASTObject() const
 
 
 
-bool
-ASTBasePlugin::isSetMath() const
-{
-  return false;
-}
-
-
-const ASTNode *
-ASTBasePlugin::getMath() const
-{
-  return NULL;
-}
-
-
-void
-ASTBasePlugin::createMath(int)
-{
-  // do nothing
-}
-
-
-int
-ASTBasePlugin::addChild(ASTNode *)
-{
-  return LIBSBML_INVALID_OBJECT;
-}
-
-
-ASTNode*
-ASTBasePlugin::getChild(unsigned int) const
-{
-  return NULL;
-}
-
-
-unsigned int
-ASTBasePlugin::getNumChildren() const
-{
-  return 0;
-}
-
-
-int
-ASTBasePlugin::insertChild(unsigned int, ASTNode*)
-{
-  return LIBSBML_INVALID_OBJECT;
-}
-
-
-int
-ASTBasePlugin::prependChild(ASTNode*)
-{
-  return LIBSBML_INVALID_OBJECT;
-}
-
-
-int
-ASTBasePlugin::removeChild(unsigned int)
-{
-  return LIBSBML_INVALID_OBJECT;
-}
-
-
-int
-ASTBasePlugin::replaceChild(unsigned int, ASTNode*, bool)
-{
-  return LIBSBML_INVALID_OBJECT;
-}
-
-//int
-//ASTBasePlugin::swapChildren(ASTFunction*)
-//{
-//  return LIBSBML_INVALID_OBJECT;
-//}
-//
 /*
  * Enables/Disables the given package with child elements in this plugin
  * object (if any).
@@ -408,190 +535,6 @@ ASTBasePlugin::getPackageName() const
   static string empty;
   return (mSBMLExt != NULL) ? mSBMLExt->getName() : empty;
 }
-
-
-
-
-
-bool
-ASTBasePlugin::read(XMLInputStream&, const std::string&,
-  const XMLToken&)
-{
-  return false;
-}
-
-void
-ASTBasePlugin::addExpectedAttributes(ExpectedAttributes&,
-  XMLInputStream&, int)
-{
-}
-
-bool
-ASTBasePlugin::readAttributes(const XMLAttributes&,
-  const ExpectedAttributes&,
-  XMLInputStream&, const XMLToken&,
-  int)
-{
-  return true;
-}
-
-
-void
-ASTBasePlugin::writeAttributes(XMLOutputStream&, int) const
-{
-}
-
-void
-ASTBasePlugin::writeXMLNS(XMLOutputStream&) const
-{
-}
-
-bool
-ASTBasePlugin::isNumberNode(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isFunctionNode(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::representsUnaryFunction(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::representsBinaryFunction(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::representsNaryFunction(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isLogical(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isConstantNumber(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isCSymbolFunction(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isCSymbolNumber(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isName(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isNumber(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isOperator(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isRelational(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::representsQualifier(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::hasCorrectNumberArguments(int) const
-{
-  return true;
-}
-
-
-bool
-ASTBasePlugin::isWellFormedNode(int) const
-{
-  return true;
-}
-
-
-bool
-ASTBasePlugin::isFunction(int) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isTopLevelMathMLFunctionNodeTag(const std::string&) const
-{
-  return false;
-}
-
-
-bool
-ASTBasePlugin::isTopLevelMathMLNumberNodeTag(const std::string&) const
-{
-  return false;
-}
-
-
-int
-ASTBasePlugin::getTypeFromName(const std::string&) const
-{
-  return AST_UNKNOWN;
-}
-
-
-const char *
-ASTBasePlugin::getNameFromType(int) const
-{
-  return "AST_unknown";
-}
-
 void
 ASTBasePlugin::renameSIdRefs(const std::string&, const std::string&)
 {
@@ -643,9 +586,78 @@ void ASTBasePlugin::visitPackageInfixSyntax(const ASTNode *,
   //Any plugin that has its own infix syntax for anything will need to override this.
 }
 
-int ASTBasePlugin::checkNumArguments(const ASTNode*, std::stringstream&) const
+int ASTBasePlugin::checkNumArguments(const ASTNode* node, std::stringstream& error) const
 {
-  //Default:  nothing is known about the function.  Return '1' for the correct number of arguments, '-1' for the incorrect number of arguments (and set 'error').
+  //Default:  0 nothing is known about the function.  
+  // Return '1' for the correct number of arguments, 
+  // '-1' for the incorrect number of arguments (and set 'error').
+
+  // if we are using the base function to report we have stripped the function name
+  // as more involved packages (arrays) has its own sentence
+  if (error.str().empty())
+  {
+    string name = node->getName();
+    error << "The function '" << name << "' takes ";
+
+  }
+  ASTNodeType_t type = node->getType();
+  AllowedChildrenType_t allowedType = ALLOWED_CHILDREN_UNKNOWN;
+  std::vector<unsigned int> allowedNumber;
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (mPkgASTNodeValues[t].type == type)
+    {
+      allowedType = mPkgASTNodeValues[t].allowedChildrenType;
+      allowedNumber = mPkgASTNodeValues[t].numAllowedChildren;
+      break;
+    }
+  }
+  if (allowedType == ALLOWED_CHILDREN_UNKNOWN)
+  {
+    return 0;
+  }
+
+  unsigned int numChildren = node->getNumChildren();
+  switch (allowedType)
+  {
+  case ALLOWED_CHILDREN_ANY:
+    return 1;
+  case ALLOWED_CHILDREN_ATLEAST:
+    if (numChildren >= allowedNumber.at(0))
+    {
+      return 1;
+    }
+    error << "at least ";
+    addNumTo(allowedNumber.at(0), error);
+    error << " argument";
+    if (allowedNumber.size() > 1 || allowedNumber.at(0) > 1)
+    {
+      error << "s";
+    }
+    error << ", but " << numChildren << " were found.";
+    return -1;
+  case ALLOWED_CHILDREN_EXACTLY:
+    error << "exactly ";
+    for (size_t n = 0; n < allowedNumber.size(); n++)
+    {
+      if (numChildren == allowedNumber.at(n))
+      {
+        return 1;
+      }
+      if (n > 0)
+      {
+        error << " or ";
+      }
+      addNumTo(allowedNumber.at(n), error);
+    }
+    error << " argument";
+    if (allowedNumber.size() > 1 || allowedNumber.at(0) > 1)
+    {
+      error << "s";
+    }
+    error << ", but " << numChildren << " were found.";
+    return -1;
+  }
   return 0;
 }
 
@@ -658,9 +670,21 @@ ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t,
 }
 
 
-int
-ASTBasePlugin::getPackageFunctionFor(const std::string&) const
+ASTNodeType_t
+ASTBasePlugin::getPackageFunctionFor(const std::string& function) const
 {
+  for (size_t t = 0; t < mPkgASTNodeValues.size(); t++)
+  {
+    if (emStrCmp(mPkgASTNodeValues[t].name, function))
+    {
+      ASTNodeType_t ret = mPkgASTNodeValues[t].type;
+      if (mPkgASTNodeValues[t].isFunction)
+      {
+        return ret;
+      }
+      return AST_UNKNOWN;
+    }
+  }
   return AST_UNKNOWN;
 }
 

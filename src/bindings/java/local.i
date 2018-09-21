@@ -739,7 +739,6 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   
 %}
 
-
 // convert astbaseplugins
 %pragma(java) modulecode =
 %{

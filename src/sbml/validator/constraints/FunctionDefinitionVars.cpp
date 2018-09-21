@@ -36,6 +36,7 @@
 #include <sbml/FunctionDefinition.h>
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include "FunctionDefinitionVars.h"
 
@@ -119,17 +120,20 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
       }
     }
   }
- 
-  if (m.getLevel() == 3 && m.getVersion() > 1)
-  { // check we dont use rateOf csymbol
-    delete variables;
-    variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
-    
-    for (unsigned int n = 0; n < variables->getSize(); ++n)
-    {
-      ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
 
-      if (node->getType() == AST_FUNCTION_RATE_OF)
+
+  //Check we don't use a function defined in a plugin (like rateOf)
+  delete variables;
+  variables = fd.getBody()->getListOfNodes(ASTNode_isFunction);
+
+  for (unsigned int n = 0; n < variables->getSize(); ++n)
+  {
+    ASTNode* node = static_cast<ASTNode*>(variables->get(n));
+
+    const ASTBasePlugin* plugin = node->getASTPlugin(node->getType());
+    if (plugin != NULL)
+    {
+      if (plugin->allowedInFunctionDefinition(node->getType()) == 0)
       {
         logUndefined(fd, node->getName());
       }

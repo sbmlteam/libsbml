@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:l3v2extendedmath="http://www.sbml.org/sbml/level3/version1/l3v2extendedmath/version1" level="3" version="1" l3v2extendedmath:required="true">
+  <model>
+    <listOfParameters>
+      <parameter id="p" value="1" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <quotient/>
+            <cn type="integer"> 5 </cn>
+            <cn type="integer"> 5 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

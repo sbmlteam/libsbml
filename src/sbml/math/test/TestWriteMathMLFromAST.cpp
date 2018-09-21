@@ -404,6 +404,39 @@ START_TEST (test_MathMLFromAST_csymbol_rateof)
 END_TEST
 
 
+START_TEST (test_MathMLFromAST_generic_csymbol)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/"
+    "symbols/some/unknown/URL\"> unknown_function </csymbol>\n"
+    "    <ci> x </ci>\n"
+    "    <cn> 0.1 </cn>\n"
+    "  </apply>\n"
+  );
+
+  N = new ASTNode(AST_CSYMBOL_FUNCTION);
+  fail_unless(N->setName("unknown_function") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->setDefinitionURL("http://www.sbml.org/sbml/symbols/some/unknown/URL") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * c1 = new ASTNode(AST_NAME);
+  fail_unless(c1->setName("x") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode *c2 = new ASTNode(AST_REAL);
+  fail_unless(c2->setValue(0.1) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(N->addChild(c1) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->addChild(c2) == LIBSBML_OPERATION_SUCCESS);
+
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 START_TEST (test_MathMLFromAST_constant_true)
 {
   const char* expected = wrapMathML("  <true/>\n");
@@ -1799,6 +1832,7 @@ create_suite_WriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_delay         );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_rateof        );
   tcase_add_test( tcase, test_MathMLFromAST_csymbol_time          );
+  tcase_add_test( tcase, test_MathMLFromAST_generic_csymbol       );
   tcase_add_test( tcase, test_MathMLFromAST_constant_true         );
   tcase_add_test( tcase, test_MathMLFromAST_constant_false        );
   tcase_add_test( tcase, test_MathMLFromAST_constant_notanumber   );

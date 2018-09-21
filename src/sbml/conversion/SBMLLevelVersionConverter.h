@@ -295,20 +295,6 @@ private:
   /** @endcond */
 };
 
-/** @cond doxygenLibsbmlInternal */
-class LIBSBML_EXTERN MathFilter : public ElementFilter
-{
-public:
-  MathFilter();
-
-  virtual ~MathFilter();
-
-  virtual bool filter(const SBase* element);
-};
-
-
-/** @endcond */
-
 
 LIBSBML_CPP_NAMESPACE_END
 

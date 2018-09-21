@@ -33,7 +33,7 @@
 #ifndef FormulaParser_h
 #define FormulaParser_h
 
-
+#include <sbml/math/ASTNodeType.h>
 #include <sbml/common/extern.h>
 #include <sbml/util/Stack.h>
 

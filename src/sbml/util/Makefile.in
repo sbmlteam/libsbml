@@ -60,6 +60,7 @@ headers   = \
 	List.h \
 	IdFilter.h \
 	MetaIdFilter.h \
+  MathFilter.h  \
 	memory.h \
 	Stack.h \
 	StringBuffer.h \
@@ -75,6 +76,7 @@ sources   = \
 	List.cpp \
 	IdFilter.cpp \
 	MetaIdFilter.cpp \
+  MathFilter.cpp  \
 	memory.c \
 	Stack.c \
 	StringBuffer.c \

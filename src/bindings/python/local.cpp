@@ -300,6 +300,7 @@ GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName)
   return SWIGTYPE_p_SBase;
 }
 
+
 /**
  * @return the most specific Swig type for the given ASTBasePlugin object.
  */
@@ -314,6 +315,7 @@ GetDowncastSwigType (ASTBasePlugin* sbp)
 
   return SWIGTYPE_p_ASTBasePlugin;
 }
+
 
 
 /* Compatibility bug fix for swig 2.0.7 and Python 3. 

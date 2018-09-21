@@ -66,6 +66,15 @@ public:
    */
   virtual ~ArgumentsUnitsCheck ();
 
+  /**
+   * Checks that the units of the function are consistent
+   * for a function returning value with same units as argument(s)
+   *
+   * If inconsistent units are found, an error message is logged.
+   */
+  void checkSameUnitsAsArgs (const Model& m, const ASTNode& node, 
+                              const SBase & sb, bool inKL, int reactNo);
+
 
 protected:
 
@@ -115,15 +124,6 @@ protected:
     */
   void checkUnitsFromPiecewise (const Model& m, const ASTNode& node, 
                                 const SBase & sb, bool inKL, int reactNo);
-
-  /**
-   * Checks that the units of the function are consistent
-   * for a function returning value with same units as argument(s)
-   *
-   * If inconsistent units are found, an error message is logged.
-   */
-  void checkSameUnitsAsArgs (const Model& m, const ASTNode& node, 
-                              const SBase & sb, bool inKL, int reactNo);
 
   /**
   * Logs a message about a function that should return same units

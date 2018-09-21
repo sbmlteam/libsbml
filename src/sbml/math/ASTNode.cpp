@@ -69,7 +69,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicate
  */
 #define ASTNodeType_isFunction(t) \
-  (((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH)) || (t <= AST_FUNCTION_REM && t >= AST_FUNCTION_MAX))
+  (((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH)) || t == AST_CSYMBOL_FUNCTION)
 
 /**
  * ASTNodeType predicate
@@ -81,7 +81,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicate
  */
 #define ASTNodeType_isLogical(t) \
-  (((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR)) || t == AST_LOGICAL_IMPLIES)
+  (((t >= AST_LOGICAL_AND) && (t <= AST_LOGICAL_XOR)))
 
 /**
  * ASTNodeType predicate
@@ -194,28 +194,12 @@ static const char *AST_FUNCTION_STRINGS[] =
   , "tanh"
 };
 
-static const char *AST_NEW_FUNCTION_STRINGS[] =
-{
-    "max"
-  , "min"
-  , "quotient"
-  , "rateOf"
-  , "rem"
-};
-
-
 static const char *AST_LOGICAL_STRINGS[] =
 {
     "and"
   , "not"
   , "or"
   , "xor"
-};
-
-
-static const char *AST_NEW_LOGICAL_STRINGS[] =
-{
-    "implies"
 };
 
 
@@ -268,16 +252,22 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mIsBvar = false;
   mUserData      = NULL;
 
-  setType(type);
+  // move to after we have loaded plugins
+  //setType(type);
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
-  //loadASTPlugins(NULL);
-  //for (unsigned int i = 0; i < getNumPlugins(); i++)
+  // only load plugins when we need to
+  //if (type > AST_END_OF_CORE && type < AST_UNKNOWN)
   //{
-  //  getPlugin(i)->connectToParent(this);
+  //  loadASTPlugins(NULL);
+  //  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  //  {
+  //    getPlugin(i)->connectToParent(this);
+  //  }
   //}
-
+  
+  setType(type);
 }
 
 
@@ -486,6 +476,7 @@ ASTNode::~ASTNode ()
   
   freeName();
   clearPlugins();
+
 }
 
 
@@ -608,10 +599,6 @@ ASTNode::canonicalizeFunction ()
   const int last  = AST_FUNCTION_TANH;
   const int size  = last - first + 1;
 
-  const int new_first = AST_FUNCTION_MAX;
-  const int new_last  = AST_FUNCTION_REM;
-  const int new_size  = new_last - new_first + 1;
-
   int  index;
   bool found;
 
@@ -633,7 +620,7 @@ ASTNode::canonicalizeFunction ()
   }
 
   /*
-   * ... and finally the L2 (MathML) function names.
+   * ... the L2 (MathML) function names.
    */
   if (!found)
   {
@@ -646,17 +633,15 @@ ASTNode::canonicalizeFunction ()
     }
   }
 
-  // and then the new ones
-  if (!found)
-  {
-    index = util_bsearchStringsI(AST_NEW_FUNCTION_STRINGS, mName, 0, new_size - 1);
-    found = (index < new_size);
-
-    if (found)
-    {
-      setType( static_cast<ASTNodeType_t>(new_first + index) );
-    }
-  }
+  // and then the ones defined in packages/l3v2.
+  //if (!found)
+  //{
+  //  ASTNodeType_t type = mExtendedMathList->getASTNodeTypeForFunction(mName);
+  //  if (type != AST_UNKNOWN) {
+  //    found = true;
+  //    setType(type);
+  //  }
+  //}
 
 
   return found;
@@ -771,32 +756,22 @@ ASTNode::canonicalizeLogical ()
   const int last  = AST_LOGICAL_XOR;
   const int size  = last - first + 1;
 
-  const int new_first = AST_LOGICAL_IMPLIES;
-  const int new_last  = AST_LOGICAL_IMPLIES;
-  const int new_size  = new_last - new_first + 1;
-
-  int  index;
-  bool found;
-
-
-  index = util_bsearchStringsI(AST_LOGICAL_STRINGS, mName, 0, size - 1);
-  found = (index < size);
+  int  index = util_bsearchStringsI(AST_LOGICAL_STRINGS, mName, 0, size - 1);
+  bool found = (index < size);
 
   if (found)
   {
     setType( static_cast<ASTNodeType_t>(first + index) );
   }
 
-  if (!found)
-  {
-    index = util_bsearchStringsI(AST_NEW_LOGICAL_STRINGS, mName, 0, new_size - 1);
-    found = (index < new_size);
-
-    if (found)
-    {
-      setType( static_cast<ASTNodeType_t>(new_first + index) );
-    }
-  }
+  //if (!found)
+  //{
+  //  ASTNodeType_t type = mExtendedMathList->getASTNodeTypeForFunction(mName);
+  //  if (type != AST_UNKNOWN) {
+  //    found = true;
+  //    setType( static_cast<ASTNodeType_t>(new_first + index) );
+  //  }
+  //}
 
   return found;
 }
@@ -1218,22 +1193,14 @@ ASTNode::getName () const
     }
     else if ( isFunction() )
     {
-      if (mType < AST_LOGICAL_IMPLIES && mType >= AST_FUNCTION_MAX)
-      {
-        result = AST_NEW_FUNCTION_STRINGS[mType - AST_FUNCTION_MAX];
-      }
-      else if (mType <= AST_FUNCTION_TANH && mType >= AST_FUNCTION_ABS)
+      if (mType <= AST_FUNCTION_TANH && mType >= AST_FUNCTION_ABS)
       {
         result = AST_FUNCTION_STRINGS[ mType - AST_FUNCTION_ABS ];
       }
     }
     else if ( isLogical() )
     {
-      if (mType == AST_LOGICAL_IMPLIES)
-      {
-        result = AST_NEW_LOGICAL_STRINGS[0];
-      }
-      else
+      if (mType <= AST_RELATIONAL_NEQ)
       {
         result = AST_LOGICAL_STRINGS[ mType - AST_LOGICAL_AND ];
       }
@@ -1243,6 +1210,29 @@ ASTNode::getName () const
       result = AST_RELATIONAL_STRINGS[ mType - AST_RELATIONAL_EQ ];
     }
   }
+  if (result == NULL && mType > AST_END_OF_CORE)
+  {
+    const ASTBasePlugin * baseplugin = getASTPlugin(mType);
+    if (baseplugin != NULL)
+    {
+      result = baseplugin->getConstCharFor(mType);
+    }
+    //if (getNumPlugins() == 0)
+    //{
+    //  const_cast<ASTNode*>(this)->loadASTPlugins(NULL);
+    //}
+
+    //unsigned int i = 0;
+    //while (result == NULL && i < getNumPlugins())
+    //{
+    //  result = getPlugin(i)->getConstCharFor(mType);
+    //  i++;
+    //}
+  }
+  //if (result == NULL && mExtendedMathList->defines(mType))
+  //{
+  //  result = mExtendedMathList->getConstCharFor(mType);
+  //}
 
   return result;
 }
@@ -1471,14 +1461,13 @@ ASTNode::usesL3V2MathConstructs() const
 {
   bool mathConstructs = false;
 
-  int type = getType();
-  if (type == AST_FUNCTION_RATE_OF ||
-      type == AST_FUNCTION_MIN ||
-      type == AST_FUNCTION_MAX ||
-      type == AST_FUNCTION_REM ||
-      type == AST_FUNCTION_QUOTIENT ||
-      type == AST_LOGICAL_IMPLIES)
+  ASTNodeType_t type = getType();
+
+  if (type > AST_END_OF_CORE)
+  {
+    if (getASTPlugin(type) != NULL)
       mathConstructs = true;
+  }
   unsigned int i = 0;
   while (!mathConstructs && i < getNumChildren())
   {
@@ -1640,7 +1629,17 @@ LIBSBML_EXTERN
 bool
 ASTNode::isCSymbolFunction() const
 {
-  return (mType == AST_FUNCTION_DELAY || mType == AST_FUNCTION_RATE_OF);
+  if (mType == AST_FUNCTION_DELAY)
+  {
+    return true;
+  }
+  const ASTBasePlugin* baseplugin = getASTPlugin(mType);
+  if (baseplugin != NULL)
+  {
+    const char* csymbol = baseplugin->getConstCharCsymbolURLFor(mType);
+    return (csymbol != NULL && !((string)csymbol).empty() && baseplugin->isFunction(mType));
+  }
+  return false;
 }
 
 
@@ -1648,7 +1647,19 @@ ASTNode::isCSymbolFunction() const
 bool
 ASTNode::isFunction () const
 {
-  return ASTNodeType_isFunction(mType);
+  if (ASTNodeType_isFunction(mType))
+  {
+    return true;
+  }
+  const ASTBasePlugin* baseplugin = getASTPlugin(mType);
+  if (baseplugin != NULL)
+  {
+    if (baseplugin->isFunction(mType))
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 
@@ -1725,7 +1736,19 @@ LIBSBML_EXTERN
 bool
 ASTNode::isLogical () const
 {
-  return ASTNodeType_isLogical(mType);
+  if (ASTNodeType_isLogical(mType))
+  {
+    return true;
+  }
+  const ASTBasePlugin* baseplugin = getASTPlugin(mType);
+  if (baseplugin != NULL)
+  {
+    if (baseplugin->isLogical(mType))
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 
@@ -2193,29 +2216,43 @@ ASTNode::setType (ASTNodeType_t type)
   }
 
   bool clearDefinitionURL = true;
-  if ( ASTNodeType_isOperator(type) )
+  if (ASTNodeType_isOperator(type))
   {
     mType = type;
-    mChar = (char) type;
+    mChar = (char)type;
   }
-  else if ((type >= AST_INTEGER) && (type < AST_UNKNOWN))
+  else if ((type >= AST_INTEGER) && (type < AST_END_OF_CORE))
   {
     mType = type;
     mChar = 0;
 
-    // clear teh definitionURL unless new type is csymbol
+    // clear the definitionURL unless new type is csymbol
     // or a number or is a semantics
-    switch(type)
+    switch (type)
     {
-      case AST_NAME:
-      case AST_NAME_TIME:
-      case AST_NAME_AVOGADRO:
-      case AST_FUNCTION_DELAY:
-      case AST_FUNCTION:
+    case AST_NAME:
+    case AST_NAME_TIME:
+    case AST_NAME_AVOGADRO:
+    case AST_FUNCTION_DELAY:
+    case AST_FUNCTION:
+      clearDefinitionURL = false;
+      break;
+    default:
+      break;
+    }
+  }
+  else if (type > AST_END_OF_CORE && type < AST_UNKNOWN)
+  {
+    mType = type;
+    mChar = 0;
+
+    const ASTBasePlugin* baseplugin = getASTPlugin(mType);
+    if (baseplugin != NULL)
+    {
+      if (baseplugin->getConstCharCsymbolURLFor(type) != NULL)
+      {
         clearDefinitionURL = false;
-        break;
-      default:
-        break;
+      }
     }
   }
   else
@@ -3102,6 +3139,438 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
 
 /** @cond doxygenLibsbmlInternal */
 
+//LIBSBML_EXTERN
+//const ASTBasePlugin *
+//ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns, const std::string& name)
+//{
+//  if (sbmlns == NULL)
+//  {
+//    const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+//    unsigned int numPkgs = (unsigned int)names.size();
+//
+//    for (unsigned int i = 0; i < numPkgs; i++)
+//    {
+//      const std::string& uri = names[i];
+//      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//      if (sbmlext && sbmlext->isEnabled())
+//      {
+//        if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(name))
+//        {
+//          return sbmlext->getASTBasePlugin();
+//        }
+//      }
+//    }
+//  }
+//  else
+//  {
+//    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+//
+//    if (xmlns)
+//    {
+//      int numxmlns = xmlns->getLength();
+//      for (int i = 0; i < numxmlns; i++)
+//      {
+//        const std::string &uri = xmlns->getURI(i);
+//        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//        if (sbmlext && sbmlext->isEnabled())
+//        {
+//          if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(name))
+//          {
+//            return sbmlext->getASTBasePlugin();
+//          }
+//        }
+//      }
+//    }
+//  }
+//  return NULL;
+//}
+
+//LIBSBML_EXTERN
+//const ASTBasePlugin *
+//ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns, ASTNodeType_t type, const std::string& name,
+//  const std::string& csymbolURL) const
+//{
+//  bool useType = true;
+//  bool useCSymbol = false;
+//  if (type == AST_UNKNOWN)
+//  {
+//    type = getType();
+//  }
+//  if (!name.empty())
+//  {
+//    useType = false;
+//  }
+//
+//  if (!csymbolURL.empty())
+//  {
+//    useCSymbol = true;
+//    useType = false;
+//  }
+//
+//
+//  if (sbmlns == NULL)
+//  {
+//    //const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+//    unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+//
+//    for (unsigned int i = 0; i < numPkgs; i++)
+//    {
+//      const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+//      //const std::string& uri = names[i];
+//      //const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//      //if (sbmlext && sbmlext->isEnabled())
+//      //{
+//        if (useType)
+//        {
+//          if (baseplugin->defines(type))
+//          {
+//            return baseplugin;
+//          }
+//        }
+//        else if (useCSymbol)
+//        {
+//          if (baseplugin->getASTNodeTypeForCSymbolURL(csymbolURL) != AST_UNKNOWN)
+//          {
+//            return baseplugin;
+//          }
+//        }
+//        else
+//        {
+//          if (baseplugin->defines(name))
+//          {
+//            return baseplugin;
+//          }
+//        }
+//      //}
+//    }
+//  }
+//  else
+//  {
+//    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+//
+//    if (xmlns)
+//    {
+//      int numxmlns = xmlns->getLength();
+//      for (int i = 0; i < numxmlns; i++)
+//      {
+//        const std::string &uri = xmlns->getURI(i);
+//        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//        if (sbmlext && sbmlext->isEnabled())
+//        {
+//          if (sbmlext->getName() == "multi" && sbmlext->getASTBasePlugin() != NULL)
+//          {
+//            return const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+//          }
+//          if (useType)
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(type))
+//            {
+//              return sbmlext->getASTBasePlugin();
+//            }
+//          }
+//          else if (useCSymbol)
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL &&
+//              (sbmlext->getASTBasePlugin()->getASTNodeTypeForCSymbolURL(csymbolURL) != AST_UNKNOWN))
+//            {
+//              return sbmlext->getASTBasePlugin();
+//            }
+//          }
+//          else
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(name))
+//            {
+//              return sbmlext->getASTBasePlugin();
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//  return NULL;
+//}
+
+//LIBSBML_EXTERN
+//ASTBasePlugin *
+//ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns, ASTNodeType_t type, const std::string& name,
+//  const std::string& csymbolURL)
+//{
+//  bool useType = true;
+//  bool useCSymbol = false;
+//  if (type == AST_UNKNOWN)
+//  {
+//    type = getType();
+//  }
+//  if (!name.empty())
+//  {
+//    useType = false;
+//  }
+//
+//  if (!csymbolURL.empty())
+//  {
+//    useCSymbol = true;
+//    useType = false;
+//  }
+//
+//  if (sbmlns == NULL)
+//  {
+//    //const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+//    unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+//
+//    for (unsigned int i = 0; i < numPkgs; i++)
+//    {
+//      const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+//      //const std::string& uri = names[i];
+//      //const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//      //if (sbmlext && sbmlext->isEnabled())
+//      //{
+//      if (useType)
+//      {
+//        if (baseplugin->defines(type))
+//        {
+//          return const_cast<ASTBasePlugin*>(baseplugin);
+//        }
+//      }
+//      else if (useCSymbol)
+//      {
+//        if (baseplugin->getASTNodeTypeForCSymbolURL(csymbolURL) != AST_UNKNOWN)
+//        {
+//          return const_cast<ASTBasePlugin*>(baseplugin);
+//        }
+//      }
+//      else
+//      {
+//        if (baseplugin->defines(name))
+//        {
+//          return const_cast<ASTBasePlugin*>(baseplugin);
+//        }
+//      }
+//      //}
+//    }
+//  }
+//  else
+//  {
+//    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+//
+//    if (xmlns)
+//    {
+//      int numxmlns = xmlns->getLength();
+//      for (int i = 0; i < numxmlns; i++)
+//      {
+//        const std::string &uri = xmlns->getURI(i);
+//        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+//
+//        if (sbmlext && sbmlext->isEnabled())
+//        {
+//          if (sbmlext->getName() == "multi" && sbmlext->getASTBasePlugin() != NULL)
+//          {
+//            return const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+//          }
+//          if (useType)
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(type))
+//            {
+//              return const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+//            }
+//          }
+//          else if (useCSymbol)
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL &&
+//              (sbmlext->getASTBasePlugin()->getASTNodeTypeForCSymbolURL(csymbolURL) != AST_UNKNOWN))
+//            {
+//              return const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+//            }
+//          }
+//          else
+//          {
+//            if (sbmlext->getASTBasePlugin() != NULL && sbmlext->getASTBasePlugin()->defines(name))
+//            {
+//              return const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//  return NULL;
+//}
+
+LIBSBML_EXTERN
+ASTBasePlugin * 
+ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns)
+{
+  if (sbmlns)
+  {
+    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+
+    if (xmlns)
+    {
+      int numxmlns = xmlns->getLength();
+      for (int i = 0; i < numxmlns; i++)
+      {
+        const std::string &uri = xmlns->getURI(i);
+        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+        if (sbmlext && sbmlext->isEnabled())
+        {
+          const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+          if (astPlugin != NULL)
+          {
+            return const_cast<ASTBasePlugin*>(astPlugin);
+          }
+        }
+      }
+    }
+  }
+  return NULL;
+}
+
+LIBSBML_EXTERN
+ASTBasePlugin * 
+ASTNode::getASTPlugin(ASTNodeType_t type)
+{
+  unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+    if (baseplugin->defines(type))
+    {
+      return const_cast<ASTBasePlugin*>(baseplugin);
+    }
+  }
+  return NULL;
+}
+
+LIBSBML_EXTERN
+ASTBasePlugin * 
+ASTNode::getASTPlugin(const std::string& name, bool isCsymbol)
+{
+  unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+    if (isCsymbol)
+    {
+      if (baseplugin->getASTNodeTypeForCSymbolURL(name) != AST_UNKNOWN)
+      {
+        return const_cast<ASTBasePlugin*>(baseplugin);
+      }
+    }
+    else
+    {
+      if (baseplugin->defines(name))
+      {
+        return const_cast<ASTBasePlugin*>(baseplugin);
+      }
+    }
+  }
+  return NULL;
+}
+
+
+LIBSBML_EXTERN
+const ASTBasePlugin * 
+ASTNode::getASTPlugin(const SBMLNamespaces * sbmlns) const
+{
+  if (sbmlns)
+  {
+    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
+
+    if (xmlns)
+    {
+      int numxmlns = xmlns->getLength();
+      for (int i = 0; i < numxmlns; i++)
+      {
+        const std::string &uri = xmlns->getURI(i);
+        const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
+        if (sbmlext && sbmlext->isEnabled())
+        {
+          const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
+          if (astPlugin != NULL)
+          {
+            return astPlugin;
+          }
+        }
+      }
+    }
+  }
+  return NULL;
+}
+
+LIBSBML_EXTERN
+const ASTBasePlugin * 
+ASTNode::getASTPlugin(ASTNodeType_t type) const
+{
+  unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+    if (baseplugin->defines(type))
+    {
+      return baseplugin;
+    }
+  }
+  return NULL;
+}
+
+LIBSBML_EXTERN
+const ASTBasePlugin * 
+ASTNode::getASTPlugin(const std::string& name, bool isCsymbol) const
+{
+  unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+    if (isCsymbol)
+    {
+      if (baseplugin->getASTNodeTypeForCSymbolURL(name) != AST_UNKNOWN)
+      {
+        return baseplugin;
+      }
+    }
+    else
+    {
+      if (baseplugin->defines(name))
+      {
+        return const_cast<ASTBasePlugin*>(baseplugin);
+      }
+    }
+  }
+  return NULL;
+}
+
+
+
+LIBSBML_EXTERN
+void
+ASTNode::loadASTPlugin(const std::string& pkgName)
+{
+  unsigned int numPkgs = SBMLExtensionRegistry::getInstance().getNumASTPlugins();
+
+  for (unsigned int i = 0; i < numPkgs; i++)
+  {
+    const ASTBasePlugin* baseplugin = SBMLExtensionRegistry::getInstance().getASTPlugin(i);
+    if (baseplugin->getPackageName() == pkgName)
+    {
+      ASTBasePlugin* myastPlugin = baseplugin->clone();
+      myastPlugin->setPrefix(pkgName);
+      myastPlugin->connectToParent(this);
+      mPlugins.push_back(myastPlugin);
+    }
+  }
+}
+
+
 LIBSBML_EXTERN
 void
 ASTNode::loadASTPlugins(const SBMLNamespaces * sbmlns)
@@ -3125,7 +3594,7 @@ ASTNode::loadASTPlugins(const SBMLNamespaces * sbmlns)
         {
           ASTBasePlugin* myastPlugin = astPlugin->clone();
           myastPlugin->setSBMLExtension(sbmlext);
-          //            myastPlugin->setPrefix(xmlns->getPrefix(i));
+          myastPlugin->setPrefix(uri);
           myastPlugin->connectToParent(this);
           mPlugins.push_back(myastPlugin);
         }
@@ -3178,12 +3647,10 @@ LIBSBML_EXTERN
 ASTBasePlugin*
 ASTNode::getPlugin(const std::string& package)
 {
-  ASTBasePlugin* astPlugin = 0;
-
-  // here we need to load a plugin if there are none
-  if (mPlugins.size() == 0)
+  ASTBasePlugin * astPlugin = NULL;
+  if (getNumPlugins() == 0)
   {
-    loadASTPlugins(NULL);
+    loadASTPlugin(package);
   }
   for (size_t i = 0; i < mPlugins.size(); i++)
   {

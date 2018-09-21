@@ -39,6 +39,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/util/MathFilter.h>
 
 #ifdef USE_COMP
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
@@ -270,13 +271,30 @@ SBMLLevelVersionConverter::convert()
   {
     // disable all unused packages
     SBMLExtensionRegistry::getInstance().disableUnusedPackages(mDocument);
-    if (mDocument->getNumPlugins() > 0)
+    // if there are still plugins enabled fail
+    // unless it is the l3v2 plugin and we are an l3v2 document
+    if (currentLevel == 3 && currentVersion == 2)
     {
-      // if there are still plugins enabled fail
-      mDocument->getErrorLog()->logError(PackageConversionNotSupported, 
-                                         currentLevel, currentVersion);
-      return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+      if (mDocument->getNumPlugins() > 1 
+        || (mDocument->getNumPlugins() == 1 && 
+          mDocument->getPlugin(0)->getURI() != "http://www.sbml.org/sbml/level3/version2/core"))
+      {
+        mDocument->getErrorLog()->logError(PackageConversionNotSupported,
+          currentLevel, currentVersion);
+        return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
 
+      }
+
+    }
+    else
+    {
+      if (mDocument->getNumPlugins() > 0)
+      {
+        mDocument->getErrorLog()->logError(PackageConversionNotSupported,
+          currentLevel, currentVersion);
+        return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+
+      }
     }
   }
 
@@ -1427,32 +1445,6 @@ SBMLLevelVersionConverter::has_fatal_errors(unsigned int level, unsigned int ver
   }
 
 }
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-MathFilter::MathFilter() 
-{
-}
-
-
-MathFilter::~MathFilter() 
-{
-}
-
-
-bool 
-MathFilter::filter(const SBase* element)
-{
-  // get elements with math set
-  if (element == NULL || element->isSetMath() == false)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-
 /** @endcond */
 
 

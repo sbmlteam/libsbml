@@ -196,6 +196,15 @@ SBMLExtensionRegistry::addExtension (const SBMLExtension* sbmlExt)
     mSBasePluginMap.insert( SBasePluginPair(sbPluginCreator->getTargetExtensionPoint(), sbPluginCreator));
   }    
 
+  // Register ASTPlugins
+  if (sbmlExtClone->isSetASTBasePlugin())
+  {
+    ASTBasePlugin* astPlugin = sbmlExtClone->getASTBasePlugin();
+    astPlugin->setSBMLExtension(sbmlExtClone);
+
+    mASTPluginsVector.push_back(astPlugin);
+  }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -570,6 +579,24 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
   }
 }
 /** @endcond */
+
+std::vector<ASTBasePlugin*>
+SBMLExtensionRegistry::getASTPlugins()
+{
+  return mASTPluginsVector;
+}
+
+unsigned int 
+SBMLExtensionRegistry::getNumASTPlugins()
+{
+  return mASTPluginsVector.size();
+}
+
+const ASTBasePlugin * 
+SBMLExtensionRegistry::getASTPlugin(unsigned int i)
+{
+  return mASTPluginsVector.at(i);
+}
 
 
 

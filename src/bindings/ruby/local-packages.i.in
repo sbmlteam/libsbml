@@ -18,3 +18,15 @@
 #ifdef USE_MULTI
 %include "local-multi.i"
 #endif
+#ifdef USE_RENDER
+%include "local-render.i"
+#endif
+#ifdef USE_ARRAYS
+%include "local-arrays.i"
+#endif
+#ifdef USE_DISTRIB
+%include "local-distrib.i"
+#endif
+#ifdef USE_L3V2EXTENDEDMATH
+%include "local-l3v2extendedmath.i"
+#endif

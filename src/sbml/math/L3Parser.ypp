@@ -79,9 +79,10 @@
  */
 
 #include <sbml/common/libsbml-namespace.h>
-#include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
+#include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
+#include <sbml/extension/ASTBasePlugin.h>
 #include <sbml/util/util.h>
 
 #include <sstream>
@@ -133,7 +134,6 @@ public:
   const L3ParserSettings* currentSettings;
   bool strCmpIsCaseSensitive;
   bool modulol3v2;
-  bool l3v2functions;
 
   L3Parser();
   virtual ~L3Parser();
@@ -205,11 +205,6 @@ public:
   /**
    * Sets the member variable 'l3v2functions' to the provided boolean value.  Used in parsing
    * the functions added to the SBML spec in l3v2.
-   */
-  void setL3v2Functions(bool l3v2functions);
-  /**
-   * Sets the input string to be parsed, copied to the 'input' stringstream
-   * member variable.
    */
   void setInput(const char* c);
   /**
@@ -881,7 +876,6 @@ L3Parser::L3Parser()
   , avocsymbol(L3P_AVOGADRO_IS_CSYMBOL)
   , strCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_SENSITIVE)
   , modulol3v2(L3P_MODULO_IS_PIECEWISE)
-  , l3v2functions(L3P_PARSE_L3V2_FUNCTIONS_DIRECTLY)
 {
 }
 
@@ -904,7 +898,8 @@ ASTNodeType_t L3Parser::getSymbolFor(string name) const
   if (l3StrCmp(name, "infinity"))     return AST_REAL;
   if (l3StrCmp(name, "nan"))          return AST_REAL;
   if (l3StrCmp(name, "notanumber"))   return AST_REAL;
-  return AST_UNKNOWN;
+ 
+  return currentSettings->getPackageFunctionFor(name);
 }
 
 ASTNodeType_t L3Parser::getFunctionFor(string name) const
@@ -978,15 +973,7 @@ ASTNodeType_t L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "plus"))     return AST_PLUS;
   if (l3StrCmp(name, "times"))    return AST_TIMES;
 
-  if (l3p->l3v2functions) {
-    if (l3StrCmp(name, "rateOf"))   return AST_FUNCTION_RATE_OF;
-    if (l3StrCmp(name, "implies"))  return AST_LOGICAL_IMPLIES;
-    if (l3StrCmp(name, "max"))      return AST_FUNCTION_MAX;
-    if (l3StrCmp(name, "min"))      return AST_FUNCTION_MIN;
-    if (l3StrCmp(name, "quotient")) return AST_FUNCTION_QUOTIENT;
-    if (l3StrCmp(name, "rem"))      return AST_FUNCTION_REM;
-  }
-  return AST_UNKNOWN;
+  return currentSettings->getPackageFunctionFor(name);
 }
 
 ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
@@ -1146,7 +1133,6 @@ void L3Parser::clear()
   avocsymbol = defaultL3ParserSettings.getParseAvogadroCsymbol();
   strCmpIsCaseSensitive = defaultL3ParserSettings.getComparisonCaseSensitivity();
   modulol3v2 = defaultL3ParserSettings.getParseModuloL3v2();
-  l3v2functions = defaultL3ParserSettings.getParseL3v2Functions();
 }
 
 string L3Parser::getError()
@@ -1180,8 +1166,10 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     name = function->getName();
   }
   error << "The function '" << name << "' takes ";
+  string errmsg = "";
   ASTNodeType_t type = function->getType(); 
-  switch(type) {
+  switch(type) 
+  {
   case AST_FUNCTION_ABS:
   case AST_FUNCTION_ARCCOS:
   case AST_FUNCTION_ARCCOSH:
@@ -1206,7 +1194,6 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   case AST_FUNCTION_FACTORIAL:
   case AST_FUNCTION_FLOOR:
   case AST_FUNCTION_LN:
-  case AST_FUNCTION_RATE_OF:
   case AST_FUNCTION_SEC:
   case AST_FUNCTION_SECH:
   case AST_FUNCTION_SIN:
@@ -1221,24 +1208,11 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
       delete function;
       return true;
     }
-    if (type == AST_FUNCTION_RATE_OF) {
-      //Additional test that its child is of type 'ci'
-      ASTNode* child = function->getChild(0);
-      if (child->getType() != AST_NAME) {
-        error << "exactly one argument, which must be the identifier of an element in the model.";
-        l3p->setError(error.str());
-        delete function;
-        return true;
-      }
-    }
     return false;
   case AST_DIVIDE:
   case AST_FUNCTION_DELAY:
   case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
   case AST_FUNCTION_POWER:
-  case AST_FUNCTION_QUOTIENT:
-  case AST_FUNCTION_REM:
-  case AST_LOGICAL_IMPLIES:
   case AST_POWER:
   case AST_RELATIONAL_NEQ:
 
@@ -1265,8 +1239,6 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
 
   case AST_FUNCTION_PIECEWISE:
   case AST_LAMBDA:
-  case AST_FUNCTION_MAX:
-  case AST_FUNCTION_MIN:
     if (children == 0) {
       error << "at least one argument, but none were found.";
       l3p->setError(error.str());
@@ -1290,8 +1262,19 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   case AST_LOGICAL_AND:
   case AST_LOGICAL_OR:
   case AST_LOGICAL_XOR:
+    return false;
   default:
-    //n-ary 0 or more arguments
+    {
+      error.str("");
+      bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
+      if (ret)
+      {
+        l3p->setError(error.str());
+        delete function;
+      }
+      return ret;
+    }
+    //Otherwise, we'll assume that the function is n-ary and takes 0 or more arguments
     return false;
   }
 }
@@ -1511,7 +1494,6 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->currentSettings = settings;
   l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   l3p->modulol3v2 = settings->getParseModuloL3v2();
-  l3p->l3v2functions = settings->getParseL3v2Functions();
   sbml_yyparse();
   return l3p->outputNode;
 }

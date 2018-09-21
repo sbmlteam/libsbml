@@ -316,6 +316,7 @@ GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName)
   return SWIGTYPE_p_SBase;
 }
 
+
 /**
  * @return the most specific Swig type for the given ASTBasePlugin object.
  */
@@ -330,3 +331,5 @@ GetDowncastSwigType (ASTBasePlugin* sbp)
 
   return SWIGTYPE_p_ASTBasePlugin;
 }
+
+

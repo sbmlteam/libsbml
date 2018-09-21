@@ -144,7 +144,6 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_LOGICAL_XOR:
     case AST_CONSTANT_FALSE:
     case AST_CONSTANT_TRUE:
-    case AST_LOGICAL_IMPLIES:
 
     /* relational */
     case AST_RELATIONAL_EQ:
@@ -164,8 +163,6 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     case AST_FUNCTION_ABS:
     case AST_FUNCTION_CEILING:
     case AST_FUNCTION_FLOOR:
-    case AST_FUNCTION_MIN:
-    case AST_FUNCTION_MAX:
   
       ud = getUnitDefinitionFromArgUnitsReturnFunction(node, inKL, reactNo);
       break;
@@ -185,21 +182,8 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
 
   /* divide functions */
     case AST_DIVIDE:
-    case AST_FUNCTION_QUOTIENT:
   
       ud = getUnitDefinitionFromDivide(node, inKL, reactNo);
-      break;
-
-  /* rem functions */
-    case AST_FUNCTION_REM:
-  
-      ud = getUnitDefinitionFromRem(node, inKL, reactNo);
-      break;
-
-  /* rateOf function */
-    case AST_FUNCTION_RATE_OF:
-  
-      ud = getUnitDefinitionFromRateOf(node, inKL, reactNo);
       break;
 
   /* piecewise functions */
@@ -257,22 +241,38 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
 
     case AST_UNKNOWN:
     default:
-    
-      if (node->isQualifier() == true)
+      bool found = false;
+      if (node->getNumPlugins() == 0)
       {
-        /* code so that old and new ast classes will do the right thing */
-        ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
+        ((ASTNode*)(node))->loadASTPlugins(NULL);
       }
-      else
+      for (unsigned int p = 0; p < node->getNumPlugins(); p++)
       {
-        try
+        const ASTBasePlugin* baseplugin = node->getPlugin(p);
+        if (baseplugin->defines(node->getType()))
         {
-          ud = new UnitDefinition(model->getSBMLNamespaces());
+          found = true;
+          ud = baseplugin->getUnitDefinitionFromPackage(this, node, inKL, reactNo);
         }
-        catch ( ... )
+      }
+      if (!found)
+      {
+        if (node->isQualifier() == true)
         {
-          ud = new UnitDefinition(SBMLDocument::getDefaultLevel(),
-            SBMLDocument::getDefaultVersion());
+          /* code so that old and new ast classes will do the right thing */
+          ud = getUnitDefinition(node->getChild(0), inKL, reactNo);
+        }
+        else
+        {
+          try
+          {
+            ud = new UnitDefinition(model->getSBMLNamespaces());
+          }
+          catch (...)
+          {
+            ud = new UnitDefinition(SBMLDocument::getDefaultLevel(),
+              SBMLDocument::getDefaultVersion());
+          }
         }
       }
       break;
@@ -524,55 +524,6 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
     unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
     ud->addUnit(unit);
   }
-  delete tempUD;
-
-  return ud;
-}
-/* @endcond */
-
-
-/* @cond doxygenLibsbmlInternal */
-/** 
-  * returns the unitDefinition for the ASTNode from a rem function
-  */
-UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromRem(const ASTNode * node, 
-                                        bool inKL, int reactNo)
-{ 
-  UnitDefinition * ud;
-
-  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
-
-  return ud;
-}
-/* @endcond */
-
-
-/* @cond doxygenLibsbmlInternal */
-/** 
-  * returns the unitDefinition for the ASTNode from a rateOf function
-  */
-UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromRateOf(const ASTNode * node, 
-                                        bool inKL, int reactNo)
-{ 
-  UnitDefinition * ud;
-  UnitDefinition * tempUD;
-  unsigned int i;
-  Unit * unit;
-
-  ud = getUnitDefinition(node->getLeftChild(), inKL, reactNo);
-
-  tempUD = getTimeUnitDefinition();
-  
-  for (i = 0; i < tempUD->getNumUnits(); i++)
-  {
-    unit = tempUD->getUnit(i)->clone();
-    unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
-    ud->addUnit(unit);
-    delete unit;
-  }
-
   delete tempUD;
 
   return ud;

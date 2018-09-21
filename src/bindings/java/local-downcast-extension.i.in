@@ -18,3 +18,12 @@
 #ifdef USE_MULTI
 %include "local-downcast-extension-multi.i"
 #endif
+#ifdef USE_ARRAYS
+%include "local-downcast-extension-arrays.i"
+#endif 
+#ifdef USE_DISTRIB
+%include "local-downcast-extension-distrib.i"
+#endif 
+#ifdef USE_L3V2EXTENDEDMATH
+%include "local-downcast-extension-l3v2extendedmath.i"
+#endif

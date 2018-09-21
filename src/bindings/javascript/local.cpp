@@ -324,3 +324,5 @@ GetDowncastSwigType (ASTBasePlugin* sbp)
 
   return SWIGTYPE_p_ASTBasePlugin;
 }
+
+

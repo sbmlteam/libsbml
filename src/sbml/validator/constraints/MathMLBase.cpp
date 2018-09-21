@@ -352,6 +352,16 @@ MathMLBase::logMathConflict (const ASTNode& node, const SBase& object)
   logFailure(object, getMessage(node, object));
 }
 
+ void MathMLBase::logPackageMathConflict(const ASTNode & node, const SBase & object, const string& error)
+ {
+   string errbegin = getMessage(node, object);
+   if (!errbegin.empty())
+   {
+     errbegin += "  ";
+   }
+   logFailure(object, errbegin + error);
+ }
+
 
 /*
  * Checks that the math will return a numeric result

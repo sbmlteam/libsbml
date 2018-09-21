@@ -49,7 +49,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir   = src/sbml/math
+thisdir = src/sbml/math
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
@@ -57,6 +57,7 @@ thisdir   = src/sbml/math
 
 headers =            \
   ASTNode.h          \
+  ASTNodeType.h      \
   FormulaFormatter.h \
   FormulaParser.h    \
   FormulaTokenizer.h \
@@ -69,10 +70,10 @@ header_inst_prefix = math
 
 sources =            \
   ASTNode.cpp        \
-  FormulaFormatter.c \
-  FormulaParser.c    \
-  FormulaTokenizer.c \
-  L3FormulaFormatter.c \
+  FormulaFormatter.cpp \
+  FormulaParser.cpp    \
+  FormulaTokenizer.cpp \
+  L3FormulaFormatter.cpp \
   L3Parser.cpp   \
   L3ParserSettings.cpp \
   MathML.cpp

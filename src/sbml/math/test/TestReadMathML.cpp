@@ -2301,6 +2301,81 @@ START_TEST(test_element_csymbol_other_withNS)
   N = readMathMLFromStringWithNamespaces(s, xmlns);
 
   fail_unless(N == NULL);
+
+  delete xmlns;
+}
+END_TEST
+
+
+START_TEST (test_element_generic_csymbol_1)
+{
+  const char* s = wrapMathML
+  (
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/unknown/URL'> unknown_function </csymbol>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  fail_unless( N->getType() == AST_CSYMBOL_FUNCTION );
+  fail_unless( !strcmp(N->getName(), "unknown_function"));
+  fail_unless( !strcmp(N->getDefinitionURLString().c_str(), "http://www.sbml.org/sbml/symbols/unknown/URL"));
+  fail_unless( N->getNumChildren() == 0      );
+}
+END_TEST
+
+
+START_TEST (test_element_generic_csymbol_2)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/unknown/URL'> unknown_function </csymbol>"
+    "  <ci> x </ci>"
+    "  <ci> y </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "unknown_function(x, y)") );
+}
+END_TEST
+
+
+START_TEST (test_element_generic_csymbol_3)
+{
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <power/>"
+    "  <apply>"
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/unknown/URL'> unknown_function </csymbol>"
+    "    <ci> P </ci>"
+    "    <ci> Q </ci>"
+    "  </apply>\n"
+    "  <ci> q </ci>"
+    "</apply>\n"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "pow(unknown_function(P, Q), q)") );
 }
 END_TEST
 
@@ -2436,6 +2511,9 @@ create_suite_ReadMathML ()
 
   tcase_add_test(tcase, test_element_csymbol_other);
   tcase_add_test(tcase, test_element_csymbol_other_withNS);
+  tcase_add_test(tcase, test_element_generic_csymbol_1);
+  tcase_add_test(tcase, test_element_generic_csymbol_2);
+  tcase_add_test(tcase, test_element_generic_csymbol_3);
 
   suite_add_tcase(suite, tcase);
 

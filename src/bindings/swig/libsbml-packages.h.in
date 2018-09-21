@@ -22,3 +22,13 @@
 #ifdef USE_RENDER
 #include "render-package.h"
 #endif
+#ifdef USE_ARRAYS
+#include "arrays-package.h"
+#endif
+#ifdef USE_DISTRIB
+#include "distrib-package.h"
+#endif
+#ifdef USE_L3V2EXTENDEDMATH
+#include "l3v2extendedmath-package.h"
+#endif
+

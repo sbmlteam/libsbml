@@ -288,18 +288,6 @@ public:
     bool inKL, int reactNo);
 
   /** 
-   * returns the unitDefinition for the ASTNode from a rem function
-   */
-  UnitDefinition * getUnitDefinitionFromRem(const ASTNode *node, 
-    bool inKL, int reactNo);
-
-  /** 
-   * returns the unitDefinition for the ASTNode from a rateOf function
-   */
-  UnitDefinition * getUnitDefinitionFromRateOf(const ASTNode *node, 
-    bool inKL, int reactNo);
-
-  /** 
    * returns the unitDefinition for the ASTNode from a power function
    */
   UnitDefinition * getUnitDefinitionFromPower(const ASTNode *node, 

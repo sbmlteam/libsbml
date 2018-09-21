@@ -170,6 +170,7 @@ foreach(conflict
  ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-namespaces.i
  ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-converters.i
  ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-extension.i
+ ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-astplugins.i
 )
   if (EXISTS ${conflict})
     file(REMOVE ${conflict})

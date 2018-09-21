@@ -93,9 +93,6 @@ START_TEST (test_read_MathML_L3V2)
   InitialAssignment *ia = m->getInitialAssignment(0);
   const ASTNode * math = ia->getMath();
 
-  fail_unless(math->getNumPlugins() > 0);
-  fail_unless(math->getPlugin("l3v2extendedmath") != NULL);
-
   std::string out = writeMathMLToStdString(math);
 
   fail_unless(equals(expected, out.c_str()));

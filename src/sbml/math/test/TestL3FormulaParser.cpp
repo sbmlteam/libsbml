@@ -1426,13 +1426,13 @@ START_TEST (test_SBML_parseL3Formula_arguments)
   r = SBML_parseL3Formula("max()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'max()' at position 5:  The function 'max' takes at least one argument, but none were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'max()' at position 5:  The function 'max' takes at least one argument, but 0 were found."), NULL );
   safe_free(error);
 
   r = SBML_parseL3Formula("min()");
   fail_unless(r == NULL, NULL);
   error = SBML_getLastParseL3Error();
-  fail_unless( !strcmp(error, "Error when parsing input 'min()' at position 5:  The function 'min' takes at least one argument, but none were found."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input 'min()' at position 5:  The function 'min' takes at least one argument, but 0 were found."), NULL );
   safe_free(error);
 
   r = SBML_parseL3Formula("rateOf()");
@@ -1477,7 +1477,6 @@ START_TEST (test_SBML_parseL3Formula_arguments)
   fail_unless( !strcmp(error, "Error when parsing input 'implies(a)' at position 10:  The function 'implies' takes exactly two arguments, but 1 were found."), NULL );
   safe_free(error);
 
-  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -3462,6 +3461,44 @@ START_TEST (test_SBML_parseL3Formula_l3v2_functions)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_l3v2_functions_generic)
+{
+	L3ParserSettings l3ps;
+	l3ps.setParseL3v2Functions(L3P_PARSE_L3V2_FUNCTIONS_AS_GENERIC);
+
+	ASTNode_t *r = SBML_parseL3FormulaWithSettings("rateOf(x)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+	ASTNode_free(r);
+
+	r = SBML_parseL3FormulaWithSettings("max(x,y,z)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 3  , NULL );
+	ASTNode_free(r);
+
+	r = SBML_parseL3FormulaWithSettings("min(x)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 1  , NULL );
+	ASTNode_free(r);
+
+	r = SBML_parseL3FormulaWithSettings("implies(x,y)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+	ASTNode_free(r);
+
+	r = SBML_parseL3FormulaWithSettings("rem(a,b)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+	ASTNode_free(r);
+
+	r = SBML_parseL3FormulaWithSettings("quotient(x,y)", &l3ps);
+	fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
+	fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+	ASTNode_free(r);
+}
+END_TEST
+
+
 START_TEST(test_SBML_parseL3Formula_named_lambda_arguments1)
 {
   ASTNode_t *r = SBML_parseL3Formula("lambda(time, time+2)");
@@ -3805,6 +3842,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many5);
   tcase_add_test( tcase, test_SBML_parseL3Formula_l3v2_functions);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_l3v2_functions_generic);
   tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments1);
   tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments2);
   tcase_add_test(tcase, test_SBML_parseL3Formula_named_lambda_arguments3);

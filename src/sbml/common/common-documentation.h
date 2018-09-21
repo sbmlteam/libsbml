@@ -759,9 +759,12 @@
  * @sbmlconstant{AST_FUNCTION_RATE_OF, ASTNodeType_t}.
  *
  * @li (Level&nbsp;3 Version&nbsp;2+ only) If the node is a MathML 
- * operator that originates in a package, and is not defined in SBML 
- * Leve&nbsp;3 core, the value of the node will be
- * @sbmlconstant{AST_ORIGINATES_IN_PACKAGE, ASTNodeType_t}.
+ * operator that originates in a package, it is included in the
+ * ASTNodeType_t list, but may not be legally used in an SBML document
+ * that does not include that package.  This includes the node types from
+ * the 'Distributions' package (@sbmlconstant{AST_DISTRIB_FUNCTION_NORMAL,
+ * ASTNodeType_t}, @sbmlconstant{AST_DISTRIB_FUNCTION_UNIFORM, ASTNodeType_t},
+ * etc.), and elements from MathML that were not included in core.
  *
  * @li If the node contains a numerical value, its type will be
  * @sbmlconstant{AST_INTEGER, ASTNodeType_t},
