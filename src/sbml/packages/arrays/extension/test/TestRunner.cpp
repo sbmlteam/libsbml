@@ -27,6 +27,11 @@ CK_CPPSTART
 Suite *create_suite_ArraysExtension (void);
 Suite *create_suite_WriteArraysExtension (void);
 Suite *create_suite_ReadArraysExtension (void);
+Suite *create_suite_ReadMathML(void);
+Suite *create_suite_WriteMathMLFromAST(void);
+Suite *create_suite_ArrayInfixParsing(void);
+Suite *create_suite_ArrayInfixWriting(void);
+Suite *create_suite_ArrayInfixToMathML(void);
 
 
 /**
@@ -69,10 +74,18 @@ main (int argc, char* argv[])
   int num_failed = 0;
   setTestDataDirectory();
 
+  //SRunner *runner = srunner_create(create_suite_WriteMathMLFromAST());
+
   SRunner *runner = srunner_create(create_suite_ArraysExtension());
   srunner_add_suite(runner, create_suite_WriteArraysExtension());
   srunner_add_suite(runner, create_suite_ReadArraysExtension());
-  
+  srunner_add_suite(runner, create_suite_ReadMathML());
+  srunner_add_suite(runner, create_suite_WriteMathMLFromAST());
+  srunner_add_suite(runner, create_suite_ArrayInfixParsing());
+  srunner_add_suite(runner, create_suite_ArrayInfixWriting());
+  srunner_add_suite(runner, create_suite_ArrayInfixToMathML());
+
+
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
     srunner_set_fork_status( runner, CK_NOFORK );

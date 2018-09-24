@@ -38,8 +38,8 @@ include_directories(BEFORE  ${LIBSBML_ROOT_SOURCE_DIR}/src)
 include_directories(BEFORE ${LIBSBML_ROOT_BINARY_DIR}/src)
 
 
-add_executable(test_sbml_package_arrays ${TEST_FILES})
-target_link_libraries(test_sbml_package_arrays ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
-add_test(test_sbml_package_arrays_run ${CMAKE_CURRENT_BINARY_DIR}/test_sbml_package_arrays )
-set_tests_properties(test_sbml_package_arrays_run PROPERTIES ENVIRONMENT 
+add_executable(test_extension_package_arrays ${TEST_FILES})
+target_link_libraries(test_extension_package_arrays ${LIBSBML_LIBRARY}-static ${LIBCHECK_LIBRARY})
+add_test(test_extension_package_arrays_run ${CMAKE_CURRENT_BINARY_DIR}/test_extension_package_arrays )
+set_tests_properties(test_extension_package_arrays_run PROPERTIES ENVIRONMENT 
 	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")

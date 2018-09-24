@@ -43,11 +43,6 @@
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
 #include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
 
-#if (0)
-#include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
-#endif
-#include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
-
 #include <sbml/packages/arrays/sbml/Index.h>
 #include <sbml/packages/arrays/sbml/Dimension.h>
 #include <sbml/packages/arrays/sbml/ListOfDimensions.h>

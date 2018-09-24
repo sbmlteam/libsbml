@@ -288,8 +288,8 @@ ArraysFlatteningConverter::updateArrayEntry(unsigned int index)
 
   if (current < columnSize)
   {
-    unsigned int final = mArraySize.size() - 1;
-    unsigned int i = 0;
+    size_t final = mArraySize.size() - 1;
+    size_t i = 0;
     for (i = 0; i < index - 1; i++)
     {
       returnArray.push_back(mArrayEntry.at(i));
@@ -337,7 +337,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
   addDimensionToModelValues();
 
   unsigned int count = mArrayEntry.at(0); 
-  // SK this is used to index a vector but may not be teh correct value
+  // SK this is used to index a vector but may not be the correct value
 
   // if the dimension is used in the math of the element we just want to replace it
   // but if the math of the element is a vector we need to work it out
@@ -349,18 +349,17 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
 
   // my replaceSelector function doesnt work if selector is the top level apply
   if (math != NULL && 
-      math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR && 
+      math->getType() == AST_LINEAR_ALGEBRA_SELECTOR && 
       math->getNumChildren() == 2)
   {
     // SK TODO check that the second child is the dimension id
     ASTNode* child = math->getChild(0);
-    if (child->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+    if (child->getType() == AST_LINEAR_ALGEBRA_VECTOR)
     {
-      const ASTArraysVectorFunctionNode *vector = dynamic_cast<const ASTArraysVectorFunctionNode *>(child->getPlugin("arrays")->getMath());
-      unsigned int n = vector->getNumChildren();
+      unsigned int n = child->getNumChildren();
       if (count < n)
       {
-        ASTNode* value = (ASTNode*)(vector->getChild(count));
+        ASTNode* value = (ASTNode*)(child->getChild(count));
         double calc = SBMLTransforms::evaluateASTNode(value, mValues);
         ASTNode* newAST = new ASTNode(AST_REAL);
         newAST->setValue(calc);
@@ -382,7 +381,7 @@ ArraysFlatteningConverter::adjustMath(SBase* newElement, const Index* index)
     }
   }
 
-  if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex))
+  if (!adjusted && SBMLTransforms::nodeContainsId(math, mDimensionIndex) && index != NULL)
   {
     // SK TO DO expand for all dimensions
     // what if index is null
@@ -804,7 +803,7 @@ ArraysFlatteningConverter::replaceSelector(ASTNode* math, bool &adjusted, const 
 {
   bool success = true;
 
-  if (math->getType() == AST_ORIGINATES_IN_PACKAGE && math->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+  if (math->getType() == AST_LINEAR_ALGEBRA_SELECTOR)
   {
     // sort this case
   }
@@ -813,7 +812,7 @@ ArraysFlatteningConverter::replaceSelector(ASTNode* math, bool &adjusted, const 
   {
     ASTNode *child = math->getChild(i);
     ASTNode * newAST = NULL;
-    if (child->getType() == AST_ORIGINATES_IN_PACKAGE && child->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+    if (child->getType() == AST_LINEAR_ALGEBRA_SELECTOR)
     {
       if (child->getNumChildren() != 2)
       {
@@ -831,13 +830,12 @@ ArraysFlatteningConverter::replaceSelector(ASTNode* math, bool &adjusted, const 
         calc = (unsigned int)(SBMLTransforms::evaluateASTNode(child->getChild(1), mValues));
       }
 
-      if (child0->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+      if (child0->getType() == AST_LINEAR_ALGEBRA_VECTOR)
       {
-        const ASTArraysVectorFunctionNode *vector = dynamic_cast<const ASTArraysVectorFunctionNode *>(child0->getPlugin("arrays")->getMath());
-        unsigned int n = vector->getNumChildren();
+        unsigned int n = child0->getNumChildren();
         if (calc < n)
         {
-          ASTNode* value = (ASTNode*)(vector->getChild(calc));
+          ASTNode* value = (ASTNode*)(child0->getChild(calc));
           double calc = SBMLTransforms::evaluateASTNode(value, mValues);
           newAST = new ASTNode(AST_REAL);
           newAST->setValue(calc);
