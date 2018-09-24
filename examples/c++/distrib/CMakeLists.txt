@@ -43,6 +43,7 @@ endif (EXTRA_INCLUDE_DIRS)
 foreach (example
 
   distrib_example1
+  createTestSuiteModels
 
 )
   add_executable(example_distrib_cpp_${example} ${example}.cpp ../util.c)
