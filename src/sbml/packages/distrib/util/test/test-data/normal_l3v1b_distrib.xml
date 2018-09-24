@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:distrib="http://www.sbml.org/sbml/level3/version1/distrib/version1" level="3" version="1" distrib:required="true">
+  <model id="__main" name="__main">
+    <listOfParameters>
+      <parameter id="a" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn type="integer"> 1 </cn>
+            <apply>
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/normal"> normal </csymbol>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

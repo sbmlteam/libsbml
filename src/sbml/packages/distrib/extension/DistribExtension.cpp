@@ -40,7 +40,10 @@
 #include <sbml/packages/distrib/validator/DistribSBMLErrorTable.h>
 #include <sbml/packages/distrib/extension/DistribFunctionDefinitionPlugin.h>
 #include <sbml/packages/distrib/extension/DistribSBasePlugin.h>
+#include <sbml/packages/distrib/extension/DistribASTPlugin.h>
 
+#include <sbml/packages/distrib/util/DistribAnnotationConverter.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
 
 using namespace std;
 
@@ -495,7 +498,13 @@ DistribExtension::init()
   distribExtension.addSBasePluginCreator(&functiondefinitionPluginCreator);
   distribExtension.addSBasePluginCreator(&sbasePluginCreator);
 
+  DistribASTPlugin math(getXmlnsL3V1V1());
+  distribExtension.setASTBasePlugin(&math);
+
   SBMLExtensionRegistry::getInstance().addExtension(&distribExtension);
+
+  DistribAnnotationConverter c1;
+  SBMLConverterRegistry::getInstance().addConverter(&c1);
 }
 
 /** @endcond */

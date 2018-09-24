@@ -32,8 +32,8 @@
  */
 #include <sbml/packages/distrib/extension/DistribSBMLDocumentPlugin.h>
 #include <sbml/packages/distrib/validator/DistribSBMLError.h>
-#include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
-#include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
+//#include <sbml/packages/distrib/validator/DistribConsistencyValidator.h>
+//#include <sbml/packages/distrib/validator/DistribIdentifierConsistencyValidator.h>
 
 
 using namespace std;
@@ -159,38 +159,38 @@ DistribSBMLDocumentPlugin::checkConsistency()
   bool id = ((applicableValidators & 0x01) ==0x01);
   bool core = ((applicableValidators & 0x02) ==0x02);
 
-  DistribIdentifierConsistencyValidator id_validator;
-  DistribConsistencyValidator core_validator;
+  //DistribIdentifierConsistencyValidator id_validator;
+  //DistribConsistencyValidator core_validator;
 
-  if (id)
-  {
-    id_validator.init();
-    nerrors = id_validator.validate(*doc);
-    total_errors += nerrors;
-    if (nerrors > 0)
-    {
-      log->add(id_validator.getFailures());
-      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
-      {
-        return total_errors;
-      }
-    }
-  }
+  //if (id)
+  //{
+  //  id_validator.init();
+  //  nerrors = id_validator.validate(*doc);
+  //  total_errors += nerrors;
+  //  if (nerrors > 0)
+  //  {
+  //    log->add(id_validator.getFailures());
+  //    if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+  //    {
+  //      return total_errors;
+  //    }
+  //  }
+  //}
 
-  if (core)
-  {
-    core_validator.init();
-    nerrors = core_validator.validate(*doc);
-    total_errors += nerrors;
-    if (nerrors > 0)
-    {
-      log->add(core_validator.getFailures());
-      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
-      {
-        return total_errors;
-      }
-    }
-  }
+  //if (core)
+  //{
+  //  core_validator.init();
+  //  nerrors = core_validator.validate(*doc);
+  //  total_errors += nerrors;
+  //  if (nerrors > 0)
+  //  {
+  //    log->add(core_validator.getFailures());
+  //    if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+  //    {
+  //      return total_errors;
+  //    }
+  //  }
+  //}
 
   return total_errors;
 }
