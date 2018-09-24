@@ -64,6 +64,7 @@ add_definitions(-DUSE_COMP
 				-DUSE_MULTI
 				-DUSE_GROUPS
 				-DUSE_RENDER
+				-DUSE_L3V2EXTENDEDMATH
 )
 
 
