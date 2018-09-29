@@ -84,7 +84,7 @@ main (int argc, char* argv[])
   InitialAssignment *ia = model->createInitialAssignment();
   ia->setSymbol("x");
 
-  ASTNode * math = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
+  ASTNode * math = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR);
   
   ASTNode * ci1 = new ASTNode(AST_NAME);
   ci1->setName("y");
