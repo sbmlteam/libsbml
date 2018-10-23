@@ -139,7 +139,7 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
       m.getParameter(name)   == NULL &&
       m.getReaction(name)    == NULL)
   {
-    if (m.getLevel() >= 3)
+    if (m.getLevel() >= 3 || (m.getLevel() == 2 && m.getVersion() == 5))
     {
       for (unsigned int rxn = 0; rxn < m.getNumReactions(); rxn++)
       {
