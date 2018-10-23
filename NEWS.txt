@@ -7,6 +7,18 @@
 STABLE RELEASE
 
 * New features
+
+  - The math code has been refactored to use the more efficient 
+    math-legacy code in combination with a math plugin system. 
+    This code has been optimized and we welcome feedback on any 
+    performance issues.  This means there is no longer a math-legacy 
+    build option.
+
+  - The new math constructs introduced in SBML L3V2 have been refactored 
+    as a math extension; which facilitates the use of these math functions
+    in an SBML L3V1 document.
+
+
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
@@ -18,6 +30,23 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - Using an SBML L3 package in an L2 document could cause a crash.
+    This has been fixed. Thanks to Thomas Hamm for reporting it.
+
+  - The code that checked for use of an L3V2 package with an L3V1
+    document could cause a crash. This has been fixed. 
+
+  - The matlab binding was failing to distinguish between a
+    functionDefinition where the id ended with a logical operator,
+    e.g. 'myor' and the actual logical function. This has been corrected.
+
+  - Writing out a document without a model and no level and version
+    was using level = version = 0; which is not valid. This has been
+    changed to write a L3V2 document with no model.
+
+  - There was an issue with newer architectures when casting a
+    NaN to an integer - this has been now been avoided.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
@@ -26,7 +55,12 @@ STABLE RELEASE
   - 'qual' package-specific bug fixes:
   - 'render' package-specific bug fixes:
 
+    - Historical render code did not create a NULL BoundingBox. 
+      Current code has been brought in line with this.
+
 * Configuration/build system changes
+
+  - Python 2.7 is now supported and included in the builds.
 
 
 * Miscellaneous
@@ -38,6 +72,11 @@ EXPERIMENTAL RELEASE
 
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
+
+    - The distrib package code has been updated to include the use
+      of csymbols to reference distributions. This is in line with 
+      the latest distrib specification.
+
   - 'dyn' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
