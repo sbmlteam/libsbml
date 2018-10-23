@@ -2942,6 +2942,8 @@ void makeConstantIntoName(ASTNodeType_t type, ASTNode* function)
     case AST_CONSTANT_E:
       function->setName("exponentiale");
       break;
+    default:
+      break;
     }
   }
   for (unsigned int c=0; c<function->getNumChildren(); c++) {
@@ -2982,6 +2984,8 @@ void L3Parser::fixLambdaArguments(const ASTNode* function)
         break;
       case AST_CONSTANT_E:
         child->setName("exponentiale");
+        break;
+      default:
         break;
       }
       fixList.insert(ctype);
