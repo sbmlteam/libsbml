@@ -1381,7 +1381,7 @@ LIBSBML_EXTERN
 int
 ASTNode::getPrecedence () const
 {
-  int precedence;
+  int precedence = 6;
 
 
   if ( isUMinus() )
@@ -1407,7 +1407,18 @@ ASTNode::getPrecedence () const
         break;
 
       default:
-        precedence = 6;
+        if (mType > AST_END_OF_CORE)
+        {
+          const ASTBasePlugin * baseplugin = getASTPlugin(mType);
+          if (baseplugin != NULL)
+          {
+            precedence = baseplugin->getL3PackageInfixPrecedence();
+          }
+        }
+        else
+        {
+          precedence = 6;
+        }
         break;
     }
   }
@@ -2699,6 +2710,14 @@ ASTNode::hasCorrectNumberArguments() const
     break;
 
   default:
+    if (mType > AST_END_OF_CORE)
+    {
+      const ASTBasePlugin * baseplugin = getASTPlugin(mType);
+      if (baseplugin != NULL)
+      {
+        correctNum = baseplugin->hasCorrectNumArguments(this);
+      }
+    }
     break;
 
   }

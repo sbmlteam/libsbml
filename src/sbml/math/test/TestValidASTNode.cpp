@@ -418,6 +418,55 @@ START_TEST (test_ValidASTNode_returnsBoolean)
 }
 END_TEST
 
+#ifdef USE_L3V2EXTENDEDMATH
+START_TEST(test_ValidASTNode_L3V2)
+{
+  ASTNode node(AST_LOGICAL_IMPLIES);
+  fail_unless(node.returnsBoolean());
+  fail_unless(node.isWellFormedASTNode() == false);
+  fail_unless(node.hasCorrectNumberArguments() == false);
+
+  ASTNode c1(AST_NAME);
+  node.addChild(c1.deepCopy());
+  node.addChild(c1.deepCopy());
+  fail_unless(node.isWellFormedASTNode() == true);
+  fail_unless(node.hasCorrectNumberArguments() == true);
+
+
+  ASTNode *n = new ASTNode(AST_FUNCTION_REM);
+  fail_unless(!(n->isWellFormedASTNode()));
+
+  ASTNode *c = SBML_parseFormula("c");
+
+  n->addChild(c->deepCopy());
+  fail_unless(!(n->isWellFormedASTNode()));
+
+  n->addChild(c->deepCopy());
+  fail_unless((n->isWellFormedASTNode()));
+
+  n->addChild(c->deepCopy());
+  fail_unless(!(n->isWellFormedASTNode()));
+
+  delete n;
+
+  n = new ASTNode(AST_FUNCTION_MIN);
+  fail_unless(!(n->isWellFormedASTNode()));
+
+  n->addChild(c->deepCopy());
+  fail_unless((n->isWellFormedASTNode()));
+
+  n->addChild(c->deepCopy());
+  fail_unless((n->isWellFormedASTNode()));
+
+  n->addChild(c->deepCopy());
+  fail_unless((n->isWellFormedASTNode()));
+
+  delete n;
+  delete c;
+
+}
+END_TEST
+#endif
 
 Suite *
 create_suite_TestValidASTNode ()
@@ -439,6 +488,11 @@ create_suite_TestValidASTNode ()
   tcase_add_test( tcase, test_ValidASTNode_log              );
   tcase_add_test( tcase, test_ValidASTNode_lambda            );
   tcase_add_test( tcase, test_ValidASTNode_setType           );
+
+#ifdef USE_L3V2EXTENDEDMATH
+  tcase_add_test(tcase, test_ValidASTNode_L3V2);
+
+#endif
 
   suite_add_tcase(suite, tcase);
 

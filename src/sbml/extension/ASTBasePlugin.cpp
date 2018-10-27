@@ -661,6 +661,22 @@ int ASTBasePlugin::checkNumArguments(const ASTNode* node, std::stringstream& err
   return 0;
 }
 
+bool 
+ASTBasePlugin::hasCorrectNumArguments(const ASTNode* function) const
+{
+  bool correctNum = false;
+
+  stringstream error;
+  int i = checkNumArguments(function, error);
+  if (i > -1)
+  {
+    correctNum = true;
+  }
+
+  return correctNum;
+}
+
+
 ASTNode*
 ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t,
   vector<ASTNode*> *, vector<std::string*> *,

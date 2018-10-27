@@ -1118,30 +1118,36 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setName(n, NULL);
   fail_unless( ASTNode_getName(n) == NULL );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == true);
 
 
   /** AST_CONSTANTs **/
   ASTNode_setType(n, AST_CONSTANT_E);
   fail_unless( !strcmp(ASTNode_getName(n), "exponentiale") );
   fail_unless( util_isEqual(ASTNode_getValue(n), 2.71828182));
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_setType(n, AST_CONSTANT_FALSE);
   fail_unless( !strcmp(ASTNode_getName(n), "false") );
   fail_unless( util_isEqual(ASTNode_getValue(n), 0));
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_setType(n, AST_CONSTANT_PI);
   fail_unless( !strcmp(ASTNode_getName(n), "pi") );
   fail_unless( util_isEqual(ASTNode_getValue(n), 3.14159292));
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_setType(n, AST_CONSTANT_TRUE);
   fail_unless( !strcmp(ASTNode_getName(n), "true") );
   fail_unless( util_isEqual(ASTNode_getValue(n), 1));
+  fail_unless(n->isWellFormedASTNode() == true);
 
 
   /** AST_LAMBDA **/
   ASTNode_setType(n, AST_LAMBDA);
   fail_unless( !strcmp(ASTNode_getName(n), "lambda") );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == false);
 
 
   /** AST_FUNCTION (user-defined) **/
@@ -1149,10 +1155,12 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setName(n, "f");
   fail_unless( !strcmp(ASTNode_getName(n), "f") );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_setType(n, AST_FUNCTION_DELAY);
   fail_unless( !strcmp(ASTNode_getName(n), "f") );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == false);
 
   ASTNode_setName(n, NULL);
   fail_unless( !strcmp(ASTNode_getName(n), "delay") );
@@ -1161,6 +1169,7 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setType(n, AST_FUNCTION);
   fail_unless( ASTNode_getName(n) == NULL );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == true);
 
 
   /** AST_FUNCTIONs (builtin)  **/
@@ -1197,6 +1206,7 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setType(n, AST_LOGICAL_XOR);
   fail_unless( !strcmp(ASTNode_getName(n), "xor") );
   fail_unless( util_isNaN(ASTNode_getValue(n)));
+  fail_unless(n->isWellFormedASTNode() == true);
 
 
   /** AST_RELATIONALs **/
@@ -1281,7 +1291,11 @@ START_TEST (test_ASTNode_getPrecedence)
 
   ASTNode_setType(n, AST_FUNCTION);
   fail_unless( ASTNode_getPrecedence(n) == 6 );
+#ifdef USE_L3V2EXTENDEDMATH
+  ASTNode_setType(n, AST_FUNCTION_QUOTIENT);
+  fail_unless(ASTNode_getPrecedence(n) == -1);
 
+#endif
   ASTNode_free(n);
 }
 END_TEST
@@ -1299,6 +1313,7 @@ START_TEST (test_ASTNode_isLog10)
   /** log() **/
   ASTNode_setType(n, AST_FUNCTION_LOG);
   fail_unless( ASTNode_isLog10(n) == 0 );
+  fail_unless(n->isWellFormedASTNode() == false);
 
   /** log(10) **/
   c = ASTNode_create();
@@ -1310,10 +1325,12 @@ START_TEST (test_ASTNode_isLog10)
   /** log(10, x) -> ASTNode_isLog10() == 1 **/
   ASTNode_addChild(n, ASTNode_create());
   fail_unless( ASTNode_isLog10(n) == 1 );
+  fail_unless(n->isWellFormedASTNode() == true);
 
   /** log(2, x) **/
   ASTNode_setInteger(c, 2);
   fail_unless( ASTNode_isLog10(n) == 0 );
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_free(n);
 }
@@ -1343,6 +1360,7 @@ START_TEST (test_ASTNode_isSqrt)
   /** root(2, x) -> ASTNode_isSqrt() == 1 **/
   ASTNode_addChild(n, ASTNode_create());
   fail_unless( ASTNode_isSqrt(n) == 1 );
+  fail_unless(n->isWellFormedASTNode() == true);
 
   /** root(3, x) **/
   ASTNode_setInteger(c, 3);
@@ -1363,6 +1381,7 @@ START_TEST (test_ASTNode_isUMinus)
 
   ASTNode_addChild(n, ASTNode_createWithType(AST_NAME));
   fail_unless( ASTNode_isUMinus(n) == 1 );
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_free(n);
 }
@@ -1380,6 +1399,7 @@ START_TEST (test_ASTNode_isUPlus)
 
   ASTNode_addChild(n, ASTNode_createWithType(AST_NAME));
   fail_unless( ASTNode_isUPlus(n) == 1 );
+  fail_unless(n->isWellFormedASTNode() == true);
 
   ASTNode_free(n);
 }

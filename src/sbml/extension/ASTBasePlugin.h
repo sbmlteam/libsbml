@@ -368,6 +368,11 @@ public:
   virtual int getL3PackageInfixPrecedence() const;
 
   /**
+  * This function checks the provided ASTNode function to see if it is a
+  * known function with the wrong number of arguments
+  */
+  virtual bool hasCorrectNumArguments(const ASTNode* function) const;
+  /**
   * Returns @c true if this is a package function which should be written
   * special syntax that the package knows about, @c false otherwise.
   */
