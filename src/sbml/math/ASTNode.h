@@ -1259,7 +1259,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
-  int setId (std::string id);
+  int setId (const std::string& id);
 
 
   /**
@@ -1271,7 +1271,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
-  int setClass (std::string className);
+  int setClass (const std::string& className);
 
 
   /**
@@ -1283,7 +1283,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
-  int setStyle (std::string style);
+  int setStyle (const std::string& style);
 
 
   /**
@@ -1420,7 +1420,7 @@ setValue(value, 0);
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
    */
   LIBSBML_EXTERN
-  int setUnits (std::string units);
+  int setUnits (const std::string& units);
 
 
   /**

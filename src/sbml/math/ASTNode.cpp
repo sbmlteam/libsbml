@@ -2275,7 +2275,7 @@ ASTNode::setType (ASTNodeType_t type)
 
 LIBSBML_EXTERN
 int
-ASTNode::setId (std::string id)
+ASTNode::setId (const std::string& id)
 {
   mId     = id;
   return LIBSBML_OPERATION_SUCCESS;
@@ -2283,7 +2283,7 @@ ASTNode::setId (std::string id)
 
 LIBSBML_EXTERN
 int
-ASTNode::setClass (std::string className)
+ASTNode::setClass (const std::string& className)
 {
   mClass   = className;
   return LIBSBML_OPERATION_SUCCESS;
@@ -2291,7 +2291,7 @@ ASTNode::setClass (std::string className)
 
 LIBSBML_EXTERN
 int
-ASTNode::setStyle (std::string style)
+ASTNode::setStyle (const std::string& style)
 {
   mStyle     = style;
   return LIBSBML_OPERATION_SUCCESS;
@@ -2301,7 +2301,7 @@ ASTNode::setStyle (std::string style)
 
 LIBSBML_EXTERN
 int
-ASTNode::setUnits (std::string units)
+ASTNode::setUnits (const std::string& units)
 {
   if (!isNumber())
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
