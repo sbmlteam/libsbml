@@ -480,8 +480,8 @@ AC_CONFIG_FILES([src/sbml/annotation/test/Makefile])
 AC_CONFIG_FILES([src/sbml/math/Makefile])
 AC_CONFIG_FILES([src/sbml/math/test/Makefile])
 
-AC_CONFIG_FILES([src/sbml/math-legacy/Makefile])
-AC_CONFIG_FILES([src/sbml/math-legacy/test/Makefile])
+#AC_CONFIG_FILES([src/sbml/math-legacy/Makefile])
+#AC_CONFIG_FILES([src/sbml/math-legacy/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/units/Makefile])
 AC_CONFIG_FILES([src/sbml/units/test/Makefile])
