@@ -3743,6 +3743,80 @@ START_TEST(test_comp_flatten_port_and_direct_ref)
 END_TEST
 
 
+START_TEST(test_comp_flatten_mismatch_versions_1)
+{
+  ConversionProperties props;
+
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
+
+  SBMLConverter* converter =
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "eg-import-external_v1v2.xml";
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+  string origdoc = writeSBMLToStdString(doc);
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+  string newdoc = writeSBMLToStdString(doc);
+
+  fail_unless(result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->contains(CompReferenceMustBeL3) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
+START_TEST(test_comp_flatten_mismatch_versions_2)
+{
+  ConversionProperties props;
+
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
+
+  SBMLConverter* converter =
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "eg-import-external_v2v1.xml";
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+  string origdoc = writeSBMLToStdString(doc);
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+  string newdoc = writeSBMLToStdString(doc);
+
+  fail_unless(result == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->contains(CompReferenceMustBeL3) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
 { 
@@ -3833,6 +3907,9 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_read_only);
+
+  tcase_add_test(tcase, test_comp_flatten_mismatch_versions_1);
+  tcase_add_test(tcase, test_comp_flatten_mismatch_versions_2);
 
   suite_add_tcase(suite, tcase);
 

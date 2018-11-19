@@ -607,13 +607,35 @@ ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<str
     return NULL;
   }
 
-  if (!(doc->getLevel() == 3  && doc->getVersion() == 1))
+  // We want an L3V2 document to allow L3V2 external models
+  // but L3V1 to only allow L3V1 external models
+  bool matchDocs = true;
+  if (doc->getLevel() != 3)
+  {
+    matchDocs = false;
+  }
+  else if (errordoc->getLevel() != 3)
+  {
+    matchDocs = false;
+  }
+  else if (doc->getVersion() != errordoc->getVersion())
+  {
+    matchDocs = false;
+  }
+
+  if (!matchDocs)
   {
     // comp v1 ONLY allows L3v1 models. All other levels and versions are not supported. 
     // 
     if (errordoc) {
-      string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' was not SBML Level 3 Version 1.";
-      errordoc->getErrorLog()->logPackageError("comp", CompReferenceMustBeL3, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
+      stringstream errout;
+
+      errout << "In ExternalModelDefinition::getReferencedModel, "
+        "unable to resolve the external model definition '" << getId()
+        << "': the SBML document found at source '" << getSource() 
+        << "' was not SBML Level 3 Version " << doc->getVersion() << ".";
+      errordoc->getErrorLog()->logPackageError("comp", CompReferenceMustBeL3, 
+        getPackageVersion(), getLevel(), getVersion(), errout.str(), getLine(), getColumn());
     }
     return NULL;
   }
