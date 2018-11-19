@@ -1921,9 +1921,9 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Port, p)
   
   List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mIds.append(static_cast<SBase*>(*iter)->getMetaId());
   }
   delete allElements;
 
@@ -1994,9 +1994,9 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Deletion, d)
   List* allElements = const_cast<Model*>
                                 (referencedModel)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mIds.append(static_cast<SBase*>(*iter)->getMetaId());
   }
 
   delete allElements;
@@ -2065,9 +2065,9 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedElement, repE)
   List* allElements = const_cast<Model*>
                                (referencedModel)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mIds.append(static_cast<SBase*>(*iter)->getMetaId());
   }
 
   delete allElements;
@@ -2125,9 +2125,9 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
   List* allElements = const_cast<Model*>
                                 (referencedModel)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mIds.append(static_cast<SBase*>(*iter)->getMetaId());
   }
 
   delete allElements;
@@ -2232,9 +2232,9 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
   List* allElements = const_cast<Model*>
                                 (referencedModel)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    mIds.append(static_cast<SBase*>(*iter)->getMetaId());
   }
 
   delete allElements;

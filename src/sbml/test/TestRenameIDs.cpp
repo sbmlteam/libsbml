@@ -66,9 +66,10 @@ START_TEST (test_RenameIDs)
   SBase* obj;
 
   //Loop through every element in the model and rename everything.
-  List* allelements = d->getAllElements();
-  for (unsigned int el=0; el<allelements->getSize(); el++) {
-    SBase* obj = static_cast<SBase*>(allelements->get(el));
+  List* allElements = d->getAllElements();
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* obj = static_cast<SBase*>(*iter);
     fail_unless(obj != NULL);
     obj->renameSIdRefs("comp", "comp_new");
     obj->renameSIdRefs("C", "C_new");
@@ -234,7 +235,7 @@ START_TEST (test_RenameIDs)
   fail_unless(mod->getExtentUnits() == "coulomb_new");
 
   delete d;
-  delete allelements;
+  delete allElements;
 }
 END_TEST
 

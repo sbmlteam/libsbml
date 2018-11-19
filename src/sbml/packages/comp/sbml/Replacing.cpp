@@ -402,8 +402,12 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
     switch(oldnames->getTypeCode()) {
     case SBML_UNIT_DEFINITION:
       replacedmod->renameUnitSIdRefs(oldid, newid);
-      for (unsigned int e=0; e<allElements->getSize(); e++) {
-        SBase* element = static_cast<SBase*>(allElements->get(e));
+      //for (unsigned int e=0; e<allElements->getSize(); e++) {
+      //  SBase* element = static_cast<SBase*>(allElements->get(e));
+      // Using ListIterator is faster
+      for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+      {
+        SBase* element = static_cast<SBase*>(*iter);
         element->renameUnitSIdRefs(oldid, newid);
       }
       break;
@@ -420,8 +424,12 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
       //LS DEBUG And here is where we would need some sort of way to check if the id wasn't an SId for some objects.
     default:
       replacedmod->renameSIdRefs(oldnames->getId(), newnames->getId());
-      for (unsigned int e=0; e<allElements->getSize(); e++) {
-        SBase* element = static_cast<SBase*>(allElements->get(e));
+      //for (unsigned int e=0; e<allElements->getSize(); e++) {
+      //  SBase* element = static_cast<SBase*>(allElements->get(e));
+      // Using ListIterator is faster
+      for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+      {
+        SBase* element = static_cast<SBase*>(*iter);
         element->renameSIdRefs(oldid, newid);
       }
     }
@@ -430,8 +438,12 @@ Replacing::updateIDs(SBase* oldnames, SBase* newnames)
   string newmetaid = newnames->getMetaId();
   if (oldnames->isSetMetaId()) {
     replacedmod->renameMetaIdRefs(oldmetaid, newmetaid);
-    for (unsigned int e=0; e<allElements->getSize(); e++) {
-      SBase* element = static_cast<SBase*>(allElements->get(e));
+    //for (unsigned int e=0; e<allElements->getSize(); e++) {
+    //  SBase* element = static_cast<SBase*>(allElements->get(e));
+    // Using ListIterator is faster
+    for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+    {
+      SBase* element = static_cast<SBase*>(*iter);
       element->renameMetaIdRefs(oldmetaid, newmetaid);
     }
   }
@@ -490,8 +502,12 @@ int Replacing::performConversions(SBase* replacement, ASTNode** conversionFactor
   divide.addChild(replacementAST.deepCopy());
   divide.addChild((*conversionFactor)->deepCopy());
   List* allElements = replacedmod->getAllElements();
-  for (unsigned int e=0; e<allElements->getSize(); e++) {
-    SBase* element = static_cast<SBase*>(allElements->get(e));
+  //for (unsigned int e=0; e<allElements->getSize(); e++) {
+  //  SBase* element = static_cast<SBase*>(allElements->get(e));
+  // Using ListIterator is faster
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
     element->replaceSIDWithFunction(id, &divide);
     element->multiplyAssignmentsToSIdByFunction(id, *conversionFactor);
   }

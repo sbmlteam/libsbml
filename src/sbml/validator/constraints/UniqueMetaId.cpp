@@ -213,9 +213,9 @@ UniqueMetaId::doCheck (const Model& m)
   SBMLDocument * d = const_cast <SBMLDocument*>(&(*m.getSBMLDocument()));
   List * allElements = d->getAllElements(midFilter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    doCheckMetaId(*(static_cast<SBase*>(allElements->get(i))));
+    doCheckMetaId(*(static_cast<SBase*>(*iter)));
   }
 
   reset();

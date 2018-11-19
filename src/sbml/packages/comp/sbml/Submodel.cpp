@@ -986,9 +986,10 @@ Submodel::replaceElement(SBase* toReplace, SBase* replacement)
   string oldSId = toReplace->getId();
   string oldMetaId = toReplace->getMetaId();
 
-  List* allelements = mInstantiatedModel->getAllElements();
-  for (unsigned int el=0; el<allelements->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(allelements->get(el));
+  List* allElements = mInstantiatedModel->getAllElements();
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
     assert(element != NULL);
     if (element == NULL) continue;
     if (toReplace->isSetId()) {
@@ -1004,7 +1005,7 @@ Submodel::replaceElement(SBase* toReplace, SBase* replacement)
     }
   }
 
-  delete allelements;
+  delete allElements;
   return LIBSBML_OPERATION_FAILED;
 }
 
@@ -1112,9 +1113,10 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
     rxndivide.addChild(rxnref.deepCopy());
     rxndivide.addChild(klmod->deepCopy());
   }
-  List* allelements = model->getAllElements();
-  for (unsigned int el=0; el<allelements->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(allelements->get(el));
+  List* allElements = model->getAllElements();
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
     assert(element != NULL);
     ASTNode* ast1 = NULL;
     ASTNode* ast2 = NULL;
@@ -1132,8 +1134,9 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
     //Reaction math will be converted below, in the bits with the kinetic law.  But because of that, we need to handle references *to* the reaction:  even if it has no kinetic law, the units have changed, and this needs to be reflected by the flattening routine.
     if (rxndivide.getNumChildren() != 0 && element->getTypeCode()==SBML_REACTION && element->isSetId()) {
       rxndivide.getChild(0)->setName(element->getId().c_str());
-      for (unsigned int sube=0; sube<allelements->getSize(); sube++) {
-        SBase* subelement = static_cast<SBase*>(allelements->get(sube));
+      for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+      {
+        SBase* subelement = static_cast<SBase*>(*iter);
         subelement->replaceSIDWithFunction(element->getId(), &rxndivide);
       }
     }
@@ -1289,7 +1292,7 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
     }
   }
 
-  delete allelements;
+  delete allElements;
 
   return LIBSBML_OPERATION_SUCCESS;
 }

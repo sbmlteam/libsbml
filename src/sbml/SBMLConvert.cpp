@@ -1476,8 +1476,6 @@ Model::dealWithModelUnits(bool strict)
 {
   UnitRefsFilter filter;
   List * elements = getAllElements(&filter);
-  unsigned int n = 0;
-  unsigned int num = elements->getSize();
   
   if (isSetVolumeUnits() && isValidUnit(this, getVolumeUnits()))
   {
@@ -1494,10 +1492,9 @@ Model::dealWithModelUnits(bool strict)
       {
         std::string newSubsName = "volumeFromOriginal";
         existingUD->setId(newSubsName);
-        SBase* obj;
-        for (n = 0; n < num; n++)
+        for (ListIterator iter = elements->begin(); iter != elements->end(); ++iter)
         {
-          obj = (SBase*)(elements->get(n));
+          SBase* obj = static_cast<SBase*>(*iter);
           obj->renameUnitSIdRefs("volume", newSubsName);
         }
         addUnitDefinition(existingUD);
@@ -1537,10 +1534,9 @@ Model::dealWithModelUnits(bool strict)
       {
         std::string newSubsName = "areaFromOriginal";
         existingUD->setId(newSubsName);
-        SBase* obj;
-        for (n = 0; n < num; n++)
+        for (ListIterator iter = elements->begin(); iter != elements->end(); ++iter)
         {
-          obj = (SBase*)(elements->get(n));
+          SBase* obj = static_cast<SBase*>(*iter);
           obj->renameUnitSIdRefs("area", newSubsName);
         }
         addUnitDefinition(existingUD);
@@ -1580,10 +1576,9 @@ Model::dealWithModelUnits(bool strict)
       {
         std::string newSubsName = "lengthFromOriginal";
         existingUD->setId(newSubsName);
-        SBase* obj;
-        for (n = 0; n < num; n++)
+        for (ListIterator iter = elements->begin(); iter != elements->end(); ++iter)
         {
-          obj = (SBase*)(elements->get(n));
+          SBase* obj = static_cast<SBase*>(*iter);
           obj->renameUnitSIdRefs("length", newSubsName);
         }
         addUnitDefinition(existingUD);
@@ -1623,10 +1618,9 @@ Model::dealWithModelUnits(bool strict)
       {
         std::string newSubsName = "substanceFromOriginal";
         existingUD->setId(newSubsName);
-        SBase* obj;
-        for (n = 0; n < num; n++)
+        for (ListIterator iter = elements->begin(); iter != elements->end(); ++iter)
         {
-          obj = (SBase*)(elements->get(n));
+          SBase* obj = static_cast<SBase*>(*iter);
           obj->renameUnitSIdRefs("substance", newSubsName);
         }
         addUnitDefinition(existingUD);
@@ -1666,10 +1660,9 @@ Model::dealWithModelUnits(bool strict)
       {
         std::string newSubsName = "timeFromOriginal";
         existingUD->setId(newSubsName);
-        SBase* obj;
-        for (n = 0; n < num; n++)
+        for (ListIterator iter = elements->begin(); iter != elements->end(); ++iter)
         {
-          obj = (SBase*)(elements->get(n));
+          SBase* obj = static_cast<SBase*>(*iter);
           obj->renameUnitSIdRefs("time", newSubsName);
         }
         addUnitDefinition(existingUD);

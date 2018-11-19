@@ -95,7 +95,6 @@ UniqueReplacedReferences::~UniqueReplacedReferences ()
 void
 UniqueReplacedReferences::check_ (const Model& m, const Model&)
 {
-  unsigned int n, size;
   const CompSBasePlugin * plug;
   ReplacedFilter filter;
 
@@ -104,12 +103,9 @@ UniqueReplacedReferences::check_ (const Model& m, const Model&)
   /* get all elements that have replaced elements */
   List* allElements = const_cast<Model *>(&m)->getAllElements(&filter);
 
-  size = allElements->getSize();
-
-
-  for (n = 0; n < size; ++n) 
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    SBase *sb = static_cast<SBase*>(allElements->get(n));
+    SBase* sb = static_cast<SBase*>(*iter);
     plug = static_cast<const CompSBasePlugin*>(sb->getPlugin("comp"));
 
     for (unsigned int i = 0; i < plug->getNumReplacedElements(); i++)

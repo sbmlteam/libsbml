@@ -271,10 +271,9 @@ LayoutSBMLDocumentPlugin::populateValidationLists()
     allElementsWithMetaid = doc->getModel()->getAllElements(&metaidFilter);
   }  
 
-  for (unsigned int i = 0; i < allElementsWithMetaid->getSize(); i++)
+  for (ListIterator iter = allElementsWithMetaid->begin(); iter != allElementsWithMetaid->end(); ++iter)
   {
-    mMetaIdList.append(static_cast<SBase*>
-                      (allElementsWithMetaid->get(i))->getMetaId());
+    mMetaIdList.append(static_cast<SBase*>(*iter)->getMetaId());
   }
   
   delete allElementsWithMetaid;
@@ -288,9 +287,9 @@ LayoutSBMLDocumentPlugin::populateValidationLists()
     mElementsWithId = doc->getModel()->getAllElements(&idFilter);
   }  
   
-  for (unsigned int i = 0; i < mElementsWithId->getSize(); i++)
+  for (ListIterator iter = mElementsWithId->begin(); iter != mElementsWithId->end(); ++iter)
   {
-    mIdList.append(static_cast<SBase*>(mElementsWithId->get(i))->getId());
+    mIdList.append(static_cast<SBase*>(*iter)->getId());
   }
 
   mValidationListsPopulated = true;

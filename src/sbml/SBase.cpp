@@ -3558,8 +3558,10 @@ SBase::deleteDisabledPlugins(bool recursive /*= true*/)
   if (recursive)
   {
     List* list = getAllElements();
-    for (unsigned int i = 0; i < list->getSize(); ++i)
-      ((SBase*)list->get(i))->deleteDisabledPlugins();
+    for (ListIterator iter = list->begin(); iter != list->end(); ++iter)
+    {
+      (static_cast<SBase*>(*iter))->deleteDisabledPlugins();
+    }
     delete list;
   }
 

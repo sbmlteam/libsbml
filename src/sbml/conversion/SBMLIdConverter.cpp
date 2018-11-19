@@ -141,9 +141,9 @@ SBMLIdConverter::convert()
   std::map<std::string, std::string> renamed;
   
   // rename ids 
-  for (unsigned int i = 0; i < allElements->getSize(); ++i)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    SBase* current = static_cast<SBase*>(allElements->get(i));
+    SBase* current = static_cast<SBase*>(*iter);
     if (current == NULL || !current->isSetId() 
       || current->getTypeCode() == SBML_LOCAL_PARAMETER)
       continue;	 
@@ -168,9 +168,9 @@ SBMLIdConverter::convert()
 
   // update all references that we changed
   std::map<std::string, std::string>::const_iterator it;
-  for (unsigned int i = 0; i < allElements->getSize(); ++i)
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-	  SBase* current = static_cast<SBase*>(allElements->get(i));
+    SBase* current = static_cast<SBase*>(*iter);
 	  for (it = renamed.begin(); it != renamed.end(); ++it)
 	  {
 	    current->renameSIdRefs(it->first, it->second);

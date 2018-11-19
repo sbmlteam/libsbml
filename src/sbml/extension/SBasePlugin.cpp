@@ -156,9 +156,9 @@ SBasePlugin::getElementBySId(const std::string& id)
   IdFilter filter;
   List* allElementsWithIds = this->getAllElements(&filter);
   if (allElementsWithIds == NULL) return NULL;
-  for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
+  for (ListIterator iter = allElementsWithIds->begin(); iter != allElementsWithIds->end(); ++iter)
   {
-    SBase* obj = (SBase*)(allElementsWithIds->get(i));
+    SBase* obj = static_cast<SBase*>(*iter);
     if (obj->getId() == id)
     {
       delete allElementsWithIds;
@@ -177,9 +177,9 @@ SBasePlugin::getElementByMetaId(const std::string& metaid)
   MetaIdFilter filter;
   List* allElementsWithIds = this->getAllElements(&filter);
   if (allElementsWithIds == NULL) return NULL;
-  for (unsigned int i = 0; i < allElementsWithIds->getSize(); i++)
+  for (ListIterator iter = allElementsWithIds->begin(); iter != allElementsWithIds->end(); ++iter)
   {
-    SBase* obj = (SBase*)(allElementsWithIds->get(i));
+    SBase* obj = static_cast<SBase*>(*iter);
     if (obj->getMetaId() == metaid)
     {
       delete allElementsWithIds;

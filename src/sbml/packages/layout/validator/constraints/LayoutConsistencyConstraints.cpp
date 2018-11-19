@@ -678,17 +678,17 @@ START_CONSTRAINT (LayoutTGGraphicalObjectMustRefObject, TextGlyph, glyph)
 
   List * allGO = const_cast<Layout *>(layout)->getAllElements(&filter);
 
-  unsigned int i = 0;
+  ListIterator iter = allGO->begin();
   bool match = false;
   
-  while(match == false && i < allGO->getSize())
+  while(match == false && iter != allGO->end())
   {
-    if (static_cast<SBase*>(allGO->get(i))->getId() == goRef)
+    if ((static_cast<SBase*>(*iter))->getId() == goRef)
     {
       match = true;
     }
 
-    i++;
+     ++iter;
   }
   
   delete allGO;
@@ -991,17 +991,17 @@ START_CONSTRAINT (LayoutREFGGlyphMustRefObject, ReferenceGlyph, glyph)
 
   List * allGO = const_cast<Layout *>(layout)->getAllElements(&filter);
 
-  unsigned int i = 0;
+  ListIterator iter = allGO->begin();
   bool match = false;
   
-  while(match == false && i < allGO->getSize())
+  while(match == false && iter != allGO->end())
   {
-    if (static_cast<SBase*>(allGO->get(i))->getId() == goRef)
+    if ((static_cast<SBase*>(*iter))->getId() == goRef)
     {
       match = true;
     }
 
-    i++;
+    ++iter;
   }
 
   delete allGO;

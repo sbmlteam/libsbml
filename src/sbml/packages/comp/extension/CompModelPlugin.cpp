@@ -595,13 +595,13 @@ Model* CompModelPlugin::flattenModel() const
   flatplug->clearReplacedElements();
   flatplug->unsetReplacedBy();
   
-  List* allelements = flat->getAllElements();
+  List* allElements = flat->getAllElements();
   
   vector<SBase*> nonReplacedElements;
   
-  for (unsigned int el=0; el<allelements->getSize(); el++) 
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    SBase* element = static_cast<SBase*>(allelements->get(el));
+    SBase* element = static_cast<SBase*>(*iter);
     int type = element->getTypeCode();
     if (!(type==SBML_COMP_REPLACEDBY ||
           type==SBML_COMP_REPLACEDELEMENT ||
@@ -612,7 +612,7 @@ Model* CompModelPlugin::flattenModel() const
   }
 
   // delete the list
-  delete allelements;
+  delete allElements;
 
   for (unsigned int el=0; el<nonReplacedElements.size(); el++) 
   {
@@ -821,8 +821,12 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
     modname = "the model '" + model->getId() + "'";
   }
   set<SBase*> todelete;
-  for (unsigned int el=0; el<allElements->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(allElements->get(el));
+  //for (unsigned int el=0; el<allElements->getSize(); el++) {
+  //  SBase* element = static_cast<SBase*>(allElements->get(el));
+  // Using ListIterator is faster
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
     int type = element->getTypeCode();
     if (type==SBML_COMP_DELETION ||
         type==SBML_COMP_REPLACEDBY ||
@@ -1061,8 +1065,14 @@ void CompModelPlugin::findUniqueSubmodPrefixes(vector<string>& submodids, List* 
         fullprefix << suffixes[str];
       }
       fullprefix << getDivider();
-      for (unsigned long el=0; el<allElements->getSize(); ++el) {
-        SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
+      //for (unsigned long el=0; el<allElements->getSize(); ++el) {
+      //  SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
+      // Using ListIterator is faster
+      for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+      {
+        SBase* element = static_cast<SBase*>(*iter);
+      //for (unsigned long el=0; el<allElements->getSize(); ++el) {
+      //  SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
         if (element==NULL) {
           assert(false);
           continue;
@@ -1120,9 +1130,9 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   if (isSetTransformer())
     mTransformer->setPrefix(prefix);
   
-  for (unsigned long el=0; el < allElements->getSize(); ++el) 
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
+    SBase* element = static_cast<SBase*>(*iter);
     string id = element->getIdAttribute();
     string metaid = element->getMetaId();
     
@@ -1158,9 +1168,13 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
     }
   }
 
-  for (unsigned long el=0; el<allElements->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
-    for (size_t id=0; id<renamedSIds.size(); id++) 
+  //for (unsigned long el=0; el<allElements->getSize(); el++) {
+  //  SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
+  // Using ListIterator is faster
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
+    for (size_t id=0; id<renamedSIds.size(); id++)
     {
       element->renameSIdRefs(renamedSIds[id].first, renamedSIds[id].second);
     }
@@ -1269,8 +1283,12 @@ int CompModelPlugin::collectRenameAndConvertReplacements(set<SBase*>* removed, s
   vector<ReplacedElement*> res;
   vector<ReplacedBy*> rbs;
   //Collect replaced elements and replaced by's.
-  for (unsigned int e=0; e<allElements->getSize(); e++) {
-    SBase* element = static_cast<SBase*>(allElements->get(e));
+  //for (unsigned int e=0; e<allElements->getSize(); e++) {
+  //  SBase* element = static_cast<SBase*>(allElements->get(e));
+  // Using ListIterator is faster
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    SBase* element = static_cast<SBase*>(*iter);
     int type = element->getTypeCode();
     if (type==SBML_COMP_REPLACEDELEMENT) {
       ReplacedElement* reference = static_cast<ReplacedElement*>(element);
@@ -1343,8 +1361,9 @@ int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* 
     if (removed->insert(removeme).second == true) {
       //Need to remove the element.
       List* children = removeme->getAllElements();
-      for (unsigned int el=0; el<children->getSize(); el++) {
-        SBase* element = static_cast<SBase*>(children->get(el));
+      for (ListIterator iter = children->begin(); iter != children->end(); ++iter)
+      {
+        SBase* element = static_cast<SBase*>(*iter);
         removed->insert(element);
       }
       delete children;
