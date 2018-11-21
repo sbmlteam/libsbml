@@ -875,13 +875,16 @@ UnitDefinition::simplify(UnitDefinition * ud)
   unsigned int n, i;
   ListOfUnits *  units = ud->getListOfUnits();
   Unit * unit;
-  UnitKindList kindsList;
   const char * unitKind;
   int cancelFlag = 0;
+  bool dimensionlessPresent = false;
 
   for (n = 0; n < ud->getNumUnits(); n++)
   {
-    kindsList.append(UnitKind_toString(ud->getUnit(n)->getKind()));
+    if (ud->getUnit(n)->getKind() == UNIT_KIND_DIMENSIONLESS)
+    {
+      dimensionlessPresent = true;
+    }
   }
   
   double dimMultfactor = 1.0;
@@ -890,7 +893,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   /* if only one unit cannot be simplified any further */
   if (units->size() > 1)
   {
-    if (kindsList.contains("dimensionless"))
+    if (dimensionlessPresent)
     {
       /* if contains a dimensionless unit and any others then 
         dimensionless is unecessary 
@@ -911,7 +914,6 @@ UnitDefinition::simplify(UnitDefinition * ud)
             dimMultfactorSaved = dimMultfactorSaved * dimMultfactor;
           }
           delete units->remove(n-1);
-          kindsList.removeUnitKind("dimensionless");
         }
       }
     }
@@ -919,23 +921,21 @@ UnitDefinition::simplify(UnitDefinition * ud)
     /* if it contains two units with same kind these must be combined */
     for (n = 0; n < units->size(); n++)
     {
-      unit = (Unit *) units->get(n);
+      unit = (Unit *)units->get(n);
       unitKind = UnitKind_toString(unit->getKind());
 
-      /* check that there is only one occurence */
-      kindsList.removeUnitKind(unitKind);
-      while (kindsList.contains(unitKind)) 
+      /* find other occurences and merge */
+      for (i = n+1; i < units->size();)
       {
-        /* find next occurence and merge */
-        for (i = n + 1; i < units->size(); i++)
+        if (!strcmp(UnitKind_toString(((Unit *)units->get(i))->getKind()),
+          unitKind))
         {
-          if (!strcmp(UnitKind_toString(((Unit *) units->get(i))->getKind()), 
-                                                                   unitKind))
-          {
-            Unit::merge(unit, (Unit *) units->get(i));
-            delete units->remove(i);
-            kindsList.removeUnitKind(unitKind);
-          }
+          Unit::merge(unit, (Unit *)units->get(i));
+          delete units->remove(i);
+        }
+        else
+        {
+          i++;
         }
       }
     }
@@ -968,7 +968,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   /* if all units have been cancelled need to add dimensionless */
   /* or indeed if one or more have been cancelled need to
    * propagate any remaining multiplier */
-  if (cancelFlag == 1 || units->size() == 0)
+  if (cancelFlag == 1 || (dimensionlessPresent && units->size() == 0))
   {
     if (units->size() == 0)
     {

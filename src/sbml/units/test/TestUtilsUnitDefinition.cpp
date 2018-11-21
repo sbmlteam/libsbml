@@ -1213,6 +1213,47 @@ START_TEST(test_unitdefinition_simplify3)
 END_TEST
 
 
+START_TEST(test_unitdefinition_simplify3b)
+{
+  UnitDefinition ud(3, 1);
+  Unit* u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(-1);
+  u->setScale(-3);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  // (1*l)^1 * (1*l)^1 * (10^-3 * l)^-1 - multiplier and scale are 'inside' exponent
+  //l^1 * l^1 * 10^3 * l^-1
+  // 1000 * l^1
+  ud.simplify(&ud);
+
+
+  fail_unless(ud.getNumUnits() == 1);
+  u = ud.getUnit(0);
+
+  fail_unless(u->getExponent() == 1);
+  //fail_unless(u->getScale() == -3);
+
+  fail_unless(u->getMultiplier() == 1000);
+  fail_unless(u->getScale() == 0);
+  fail_unless(u->getKind() == UNIT_KIND_LITRE);
+
+}
+END_TEST
+
+
 START_TEST(test_unitdefinition_simplify4)
 {
   UnitDefinition ud(3, 1);
@@ -1305,6 +1346,7 @@ create_suite_UtilsUnitDefinition (void)
   TCase *tcase = tcase_create("UtilsUnitDefinition");
  
   tcase_add_test( tcase, test_unitdefinition_simplify3     );
+  tcase_add_test( tcase, test_unitdefinition_simplify3b    );
   tcase_add_test( tcase, test_unitdefinition_simplify4     );
   tcase_add_test( tcase, test_unitdefinition_simplify5     );
 
