@@ -267,6 +267,8 @@ SBML file.
 
 @example validateSBML.py Validates one or more SBML files.
 
+@example groups_example1.py Using the 'groups' package example.
+
 @example flattenModel.py Model flattening example.
 
 @example fbc_example1.py

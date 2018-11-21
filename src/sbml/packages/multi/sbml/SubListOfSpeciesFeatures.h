@@ -1120,32 +1120,32 @@ int
 SubListOfSpeciesFeatures_unsetComponent(SubListOfSpeciesFeatures_t * slosf);
 
 
-/**
- * Returns a ListOf_t * containing SpeciesFeature_t objects from this
- * SubListOfSpeciesFeatures_t.
- *
- * @param slosf the SubListOfSpeciesFeatures_t structure whose
- * ListOfSpeciesFeatures is sought.
- *
- * @return the ListOfSpeciesFeatures from this SubListOfSpeciesFeatures_t as a
- * ListOf_t *.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @see SubListOfSpeciesFeatures_addSpeciesFeature()
- * @see SubListOfSpeciesFeatures_createSpeciesFeature()
- * @see SubListOfSpeciesFeatures_getSpeciesFeatureById()
- * @see SubListOfSpeciesFeatures_getSpeciesFeature()
- * @see SubListOfSpeciesFeatures_getNumSpeciesFeatures()
- * @see SubListOfSpeciesFeatures_removeSpeciesFeatureById()
- * @see SubListOfSpeciesFeatures_removeSpeciesFeature()
- *
- * @memberof SubListOfSpeciesFeatures_t
- */
-LIBSBML_EXTERN
-ListOf_t*
-SubListOfSpeciesFeatures_getListOfSpeciesFeatures(SubListOfSpeciesFeatures_t*
-  slosf);
+///*
+// * Returns a ListOf_t * containing SpeciesFeature_t objects from this
+// * SubListOfSpeciesFeatures_t.
+// *
+// * @param slosf the SubListOfSpeciesFeatures_t structure whose
+// * ListOfSpeciesFeatures is sought.
+// *
+// * @return the ListOfSpeciesFeatures from this SubListOfSpeciesFeatures_t as a
+// * ListOf_t *.
+// *
+// * @copydetails doc_returned_unowned_pointer
+// *
+// * @see SubListOfSpeciesFeatures_addSpeciesFeature()
+// * @see SubListOfSpeciesFeatures_createSpeciesFeature()
+// * @see SubListOfSpeciesFeatures_getSpeciesFeatureById()
+// * @see SubListOfSpeciesFeatures_getSpeciesFeature()
+// * @see SubListOfSpeciesFeatures_getNumSpeciesFeatures()
+// * @see SubListOfSpeciesFeatures_removeSpeciesFeatureById()
+// * @see SubListOfSpeciesFeatures_removeSpeciesFeature()
+// *
+// * @memberof SubListOfSpeciesFeatures_t
+// */
+//LIBSBML_EXTERN
+//ListOf_t*
+//SubListOfSpeciesFeatures_getListOfSpeciesFeatures(SubListOfSpeciesFeatures_t*
+//  slosf);
 
 
 /**

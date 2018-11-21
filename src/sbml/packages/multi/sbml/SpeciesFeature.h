@@ -1522,10 +1522,8 @@ SpeciesFeature_createSpeciesFeatureValue(SpeciesFeature_t* sf);
  *
  * @see SpeciesFeature_addSpeciesFeatureValue()
  * @see SpeciesFeature_createSpeciesFeatureValue()
- * @see SpeciesFeature_getSpeciesFeatureValueById()
  * @see SpeciesFeature_getSpeciesFeatureValue()
  * @see SpeciesFeature_getNumSpeciesFeatureValues()
- * @see SpeciesFeature_removeSpeciesFeatureValueById()
  * @see SpeciesFeature_removeSpeciesFeatureValue()
  *
  * @memberof SpeciesFeature_t
@@ -1554,26 +1552,6 @@ SpeciesFeature_getListOfSpeciesFeatureValues(SpeciesFeature_t* sf);
 LIBSBML_EXTERN
 SpeciesFeatureValue_t*
 SpeciesFeature_getSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n);
-
-
-/**
- * Get a SpeciesFeatureValue_t from the SpeciesFeature_t.
- *
- * @param sf the SpeciesFeature_t structure to search.
- *
- * @param sid the identifier of the SpeciesFeatureValue_t
- * to retrieve.
- *
- * @return the SpeciesFeatureValue_t with the given identifier in the ListOfSpeciesFeatureValues
- * within this SpeciesFeature.
- *
- * @copydetails doc_returned_unowned_pointer
- *
- * @memberof SpeciesFeature_t
- */
-LIBSBML_EXTERN
-SpeciesFeatureValue_t *
-SpeciesFeature_getSpeciesFeatureValueById(SpeciesFeature_t * sf, const char * sid);
 
 
 /**
@@ -1609,26 +1587,6 @@ SpeciesFeature_getNumSpeciesFeatureValues(SpeciesFeature_t* sf);
 LIBSBML_EXTERN
 SpeciesFeatureValue_t*
 SpeciesFeature_removeSpeciesFeatureValue(SpeciesFeature_t* sf, unsigned int n);
-
-
-/**
- * Removes the SpeciesFeatureValue_t with the given identifier from this SpeciesFeature_t and returns
- * a pointer to it.
- *
- * @param sf the SpeciesFeature_t structure to search.
- *
- * @param sid the identifier of the SpeciesFeatureValue_t
- * to remove.
- *
- * @return a pointer to the SpeciesFeatureValue_t with the given identifier in this SpeciesFeature_t.
- *
- * @copydetails doc_warning_returns_owned_pointer
- *
- * @memberof SpeciesFeature_t
- */
-LIBSBML_EXTERN
-SpeciesFeatureValue_t *
-SpeciesFeature_removeSpeciesFeatureValueById(SpeciesFeature_t * sf, const char * sid);
 
 
 /**
