@@ -109,6 +109,7 @@ MultiASTPlugin::createObject(XMLInputStream& stream)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 MultiASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
                                             const XMLToken& currentElement)
@@ -117,6 +118,7 @@ MultiASTPlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
     
   return read;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

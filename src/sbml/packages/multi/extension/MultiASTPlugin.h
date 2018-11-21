@@ -188,45 +188,122 @@ public:
                                      const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
+  /**
+   * Returns the value of the "speciesReference" attribute of this MultiASTPlugin.
+   *
+   * @return the value of the "speciesReference" attribute of this MultiASTPlugin as a string.
+   */
   const std::string& getSpeciesReference() const;
 
+  /**
+   * Predicate returning @c true if this MultiASTPlugin's "speciesReference" attribute is set.
+   *
+   * @return @c true if this MultiASTPlugin's "speciesReference" attribute has been set, otherwise
+   * @c false is returned.
+   */
   bool isSetSpeciesReference() const;
 
+  /**
+   * Sets the value of the "speciesReference" attribute of this MultiASTPlugin.
+   *
+   * @param id std::string& value of the "speciesReference" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p speciesReference = @c NULL or an empty string is
+   * equivalent to calling unsetSpeciesReference().
+   */
   int setSpeciesReference(const std::string& speciesReference);
 
+  /**
+   * Unsets the value of the "speciesReference" attribute of this MultiASTPlugin.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   */
   int unsetSpeciesReference();
 
+  /**
+  * Returns the value of the "representationType" attribute of this MultiASTPlugin.
+  *
+  * @return the value of the "representationType" attribute of this MultiASTPlugin as a string.
+  */
   const std::string& getRepresentationType() const;
 
+  /**
+   * Predicate returning @c true if this MultiASTPlugin's "representationType" attribute is set.
+   *
+   * @return @c true if this MultiASTPlugin's "representationType" attribute has been set, otherwise
+   * @c false is returned.
+   */
   bool isSetRepresentationType() const;
 
+  /**
+   * Sets the value of the "representationType" attribute of this MultiASTPlugin.
+   *
+   * @param id std::string& value of the "representationType" attribute to be set.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   *
+   * Calling this function with @p representationType = @c NULL or an empty string is
+   * equivalent to calling unsetRepresentationType().
+   */
   int setRepresentationType(const std::string& representationType);
 
+  /**
+   * Unsets the value of the "representationType" attribute of this MultiASTPlugin.
+   *
+   * @copydetails doc_returns_one_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   */
   int unsetRepresentationType();
 
-  //virtual void write(XMLOutputStream& stream) const;
-
-//  using ASTBasePlugin::read;
-
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Does nothing!  readAttributes, below, does everything necessary.
+   */
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix,
                                             const XMLToken& currentElement);
+  /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Adds the expected attributes for this element
+   */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes, 
                                      XMLInputStream& stream, int type);
+  /** @endcond */
 
 
-//  using ASTBasePlugin::readAttributes;
+  /** @cond doxygenLibsbmlInternal */
 
+  /**
+   * Reads the expected attributes into the member data variables
+   */
   virtual bool readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes,
                                XMLInputStream& stream, const XMLToken& element,
                                int type);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Writes the attributes to the stream
+   */
   virtual void writeAttributes(XMLOutputStream& stream, int type) const;
+  /** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Writes the xml namespace attribute to the stream
+   */
   virtual void writeXMLNS(XMLOutputStream& stream) const;
-  //  virtual int getTypeFromName(const std::string& name) const;
-  //virtual const char * getNameFromType(int type) const;
+  /** @endcond */
 
   /**
    * Renames the speciesReference SIdRef attribute on this node.
