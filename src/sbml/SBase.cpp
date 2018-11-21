@@ -4560,7 +4560,7 @@ SBase::read (XMLInputStream& stream)
       {
         object = createObject(stream);
       }
-      catch (const SBMLExtensionException& e)
+      catch (const SBMLExtensionException&)
       {
         object = NULL;
       }
@@ -4750,7 +4750,7 @@ SBase::createExtensionObject (XMLInputStream& stream)
     {
       object = sbext->createObject(stream);
     }
-    catch (const SBMLExtensionException& e)
+    catch (const SBMLExtensionException&)
     {
       object = NULL;
     }
