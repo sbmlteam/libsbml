@@ -1192,13 +1192,22 @@ START_TEST(test_unitdefinition_simplify3)
   u->setExponent(-1);
   u->setScale(-3);
   u->setMultiplier(1);
-
+  
+  // (1*l)^1 * (1*l)^1 * (10^-3 * l)^-1 - multiplier and scale are 'inside' exponent
+  //l^1 * l^1 * 10^3 * l^-1
+  // 1000 * l^1
   ud.simplify(&ud);
+
 
   fail_unless(ud.getNumUnits() == 1);
   u = ud.getUnit(0);
+
   fail_unless(u->getExponent() == 1);
   //fail_unless(u->getScale() == -3);
+
+  fail_unless(u->getMultiplier() == 1000);
+  fail_unless(u->getScale() == 0);
+  fail_unless(u->getKind() == UNIT_KIND_LITRE);
 
 }
 END_TEST
@@ -1227,10 +1236,17 @@ START_TEST(test_unitdefinition_simplify4)
 
   ud.simplify(&ud);
 
-  //fail_unless(ud.getNumUnits() == 1);
+
+  // (1 * dim)^1 *  (1 * dim)^2 * (1 * 10^-3 * dim)^-2
+  //dim^1 * dim^2 * 10^6 * dim^-2
+  // 1000000 * dim^1
+  fail_unless(ud.getNumUnits() == 1);
   u = ud.getUnit(0);
-  //fail_unless(u->getExponent() == 1);
+  fail_unless(u->getKind() == UNIT_KIND_DIMENSIONLESS);
+  fail_unless(u->getExponent() == 1);
   //fail_unless(u->getScale() == -3);
+  fail_unless(u->getMultiplier() == 1000000);
+  fail_unless(u->getScale() == 0);
 
 }
 END_TEST
@@ -1265,10 +1281,18 @@ START_TEST(test_unitdefinition_simplify5)
 
   ud.simplify(&ud);
 
-  //fail_unless(ud.getNumUnits() == 1);
+  // (1 * dim)^1 *  (1 * dim)^2 * (1 * l)^1 * (1 * 10^-3 * dim)^-2
+  // dim^1 * dim^2 *  l^1 * 10^6 * dim^-2
+  // 1000000 * l^1
+
+  fail_unless(ud.getNumUnits() == 1);
   u = ud.getUnit(0);
   //fail_unless(u->getExponent() == 1);
   //fail_unless(u->getScale() == -3);
+  fail_unless(u->getKind() == UNIT_KIND_LITRE);
+  fail_unless(u->getExponent() == 1);
+  fail_unless(u->getMultiplier() == 1000000);
+  fail_unless(u->getScale() == 0);
 
 }
 END_TEST

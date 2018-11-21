@@ -533,6 +533,12 @@ UnitDefinition::isVariantOfDimensionless (bool relaxed) const
 {
   bool result = false;
 
+  // careful here if we have no units simplify will add dimensionless
+  if (getNumUnits() == 0)
+  {
+    return result;
+  }
+
   UnitDefinition *ud = static_cast<UnitDefinition*>(this->clone());
   UnitDefinition::simplify(ud);
 
@@ -879,6 +885,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   }
   
   double dimMultfactor = 1.0;
+  double dimMultfactorSaved = 1.0;
   
   /* if only one unit cannot be simplified any further */
   if (units->size() > 1)
@@ -889,15 +896,21 @@ UnitDefinition::simplify(UnitDefinition * ud)
         dimensionless is unecessary 
         unless it has a multiplier attached
         */
-      for (n = 0; n < units->size(); n++)
+      unsigned int origNumUnits = units->size();
+      for (n = origNumUnits; n > 0; n--)
       {
-        unit = (Unit *) units->get(n);
+        unit = (Unit *) units->get(n-1);
+        Unit::removeScale(unit);
+
         if (!strcmp(UnitKind_toString(unit->getKind()), "dimensionless"))
         {
           dimMultfactor = pow(unit->getMultiplier(), unit->getExponent());
           if (util_isEqual(dimMultfactor, 1.0) == false)
+          {
             cancelFlag = 1;
-          delete units->remove(n);
+            dimMultfactorSaved = dimMultfactorSaved * dimMultfactor;
+          }
+          delete units->remove(n-1);
           kindsList.removeUnitKind("dimensionless");
         }
       }
@@ -930,7 +943,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
 
   /* may have cancelled units - in which case exponent will be 0 */
   // might need to propagate a multiplier though
-  double newMultiplier = dimMultfactor;
+  double newMultiplier = dimMultfactorSaved;
   unsigned int numUnits = units->size();
   for (n = numUnits; n > 0; n--)
   {
@@ -955,7 +968,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   /* if all units have been cancelled need to add dimensionless */
   /* or indeed if one or more have been cancelled need to
    * propagate any remaining multiplier */
-  if (cancelFlag == 1)
+  if (cancelFlag == 1 || units->size() == 0)
   {
     if (units->size() == 0)
     {
