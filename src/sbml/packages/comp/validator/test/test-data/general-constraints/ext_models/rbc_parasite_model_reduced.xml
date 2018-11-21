@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="rbc_parasite_model" name="dutoit3_mmol_compartments_v6">
+    <listOfUnitDefinitions>
+      <unitDefinition metaid="metaid_12" id="mL" name="mL">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="Vplasma" name="Vplasma" spatialDimensions="0" size="3120" units="mL" constant="false"/>
+      <compartment id="Vplasma2" name="Vplasma" spatialDimensions="0" size="3120" units="mL" constant="false"/>
+   </listOfCompartments>
+    <comp:listOfPorts>
+      <comp:port comp:idRef="Vplasma" comp:id="Vplasma_port" comp:name="Vplasma_port"/>
+      <comp:port comp:idRef="Vplasma2" comp:id="Vplasma2_port" comp:name="Vplasma2_port"/>
+   </comp:listOfPorts>
+  </model>
+</sbml>

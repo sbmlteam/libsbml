@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" fbc:required="false" comp:required="true">
+  <model metaid="meta_glucose_pkpd_v12_rbc" id="glucose_pkpd_v12_rbc" name="glucose_pkpd_v12_rbc" fbc:strict="true">
+    <listOfUnitDefinitions>
+      <unitDefinition id="ml_per_litre">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_ml">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="-3" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="conversion_l_per_ml" name="volume conversion factor" value="0.001" units="litre_per_ml" constant="true"/>
+    </listOfParameters>
+    <listOfCompartments>
+      <compartment id="Vve1" spatialDimensions="3" size="1" units="litre" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:portRef="Vplasma_port" comp:submodelRef="RBC1" comp:conversionFactor="conversion_ml_per_l"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+      <compartment id="Vve2" spatialDimensions="3" size="1" units="litre" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:portRef="Vplasma2_port" comp:submodelRef="RBC2" comp:conversionFactor="conversion_l_per_ml"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="RBC1" comp:modelRef="glucose_rbc"/>
+      <comp:submodel comp:id="RBC2" comp:modelRef="glucose_rbc"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="glucose_rbc" comp:source="ext_models/rbc_parasite_model_reduced.xml" comp:modelRef="rbc_parasite_model"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>
