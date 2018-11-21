@@ -39,13 +39,6 @@ if (EXTRA_INCLUDE_DIRS)
 include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)
 
-add_subdirectory(analyzeTags)
-add_subdirectory(createSyntacticTests)
-add_subdirectory(createMathMLTests)
-add_subdirectory(generateTestsFrom)
-add_subdirectory(checkTestCases)
-add_subdirectory(updateTestsWithL3v2)
-
 foreach(example
 
     addCVTerms
