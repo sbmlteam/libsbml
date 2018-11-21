@@ -1172,12 +1172,117 @@ START_TEST(test_unitdefinition_divide9)
 END_TEST
 
 
+START_TEST(test_unitdefinition_simplify3)
+{
+  UnitDefinition ud(3, 1);
+  Unit* u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(-1);
+  u->setScale(-3);
+  u->setMultiplier(1);
+
+  ud.simplify(&ud);
+
+  fail_unless(ud.getNumUnits() == 1);
+  u = ud.getUnit(0);
+  fail_unless(u->getExponent() == 1);
+  //fail_unless(u->getScale() == -3);
+
+}
+END_TEST
+
+
+START_TEST(test_unitdefinition_simplify4)
+{
+  UnitDefinition ud(3, 1);
+  Unit* u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(2);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(-2);
+  u->setScale(-3);
+  u->setMultiplier(1);
+
+  ud.simplify(&ud);
+
+  //fail_unless(ud.getNumUnits() == 1);
+  u = ud.getUnit(0);
+  //fail_unless(u->getExponent() == 1);
+  //fail_unless(u->getScale() == -3);
+
+}
+END_TEST
+
+
+START_TEST(test_unitdefinition_simplify5)
+{
+  UnitDefinition ud(3, 1);
+  Unit* u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(2);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(1);
+  u->setScale(0);
+  u->setMultiplier(1);
+
+  u = ud.createUnit();
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(-2);
+  u->setScale(-3);
+  u->setMultiplier(1);
+
+  ud.simplify(&ud);
+
+  //fail_unless(ud.getNumUnits() == 1);
+  u = ud.getUnit(0);
+  //fail_unless(u->getExponent() == 1);
+  //fail_unless(u->getScale() == -3);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_UtilsUnitDefinition (void) 
 { 
   Suite *suite = suite_create("UtilsUnitDefinition");
   TCase *tcase = tcase_create("UtilsUnitDefinition");
  
+  tcase_add_test( tcase, test_unitdefinition_simplify3     );
+  tcase_add_test( tcase, test_unitdefinition_simplify4     );
+  tcase_add_test( tcase, test_unitdefinition_simplify5     );
 
   tcase_add_test( tcase, test_unitdefinition_simplify      );
   tcase_add_test( tcase, test_unitdefinition_simplify1     );
