@@ -283,7 +283,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
   UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
-  bool delrefelem = false;
+  bool delparelem = false;
 
   bool cfPresent = false;
   /* adjust the refElement units for conversion factor */
@@ -291,18 +291,30 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   {
     Parameter * p = const_cast<Model *>(&m)
                                    ->getParameter(repE.getConversionFactor());
-    UnitDefinition *ud = p->getDerivedUnitDefinition();
-    UnitDefinition *newRefElemUnits = UnitDefinition::combine(refElemUnits, ud);
-    refElemUnits = newRefElemUnits;
-    delrefelem = true;
+    if (p == NULL)
+    {
+      //The 'conversionFactor' attribute doesn't reference an actual parameter.  This is
+      // a different problem, caught elsewhere, and doesn't involve units.
+      return;
+    }
+    UnitDefinition ud(*(p->getDerivedUnitDefinition()));
+    for (unsigned long u = 0; u < ud.getNumUnits(); u++)
+    {
+      Unit* unit = ud.getUnit(u);
+      unit->setExponent(-unit->getExponent());
+    }
+
+    UnitDefinition *newParentUnits = UnitDefinition::combine(parentUnits, &ud);
+    parentUnits = newParentUnits;
+    delparelem = true;
     cfPresent = true;
   }
 
   if (parentUnits == NULL)
   {
-    if (delrefelem)
+    if (delparelem)
     {
-      delete refElemUnits;
+      delete parentUnits;
     }
     return;
   }
@@ -316,9 +328,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   if (parent->containsUndeclaredUnits() == true ||
     refElem->containsUndeclaredUnits() == true)
   {
-    if (delrefelem)
+    if (delparelem)
     {
-      delete refElemUnits;
+      delete parentUnits;
     }
     return;
   }
@@ -349,9 +361,9 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
       }
     }
   }
-  if (delrefelem)
+  if (delparelem)
   {
-    delete refElemUnits;
+    delete parentUnits;
   }
 }
 
@@ -365,6 +377,10 @@ UnitReplacementCheck::logMismatchUnits (ReplacedBy& repBy,
   msg += SBMLTypeCode_toString(parent->getTypeCode(), 
                                parent->getPackageName().c_str());
   msg += " object with units ";
+  if (parent->isSetId())
+  {
+    msg += " and id '" + parent->getId() + "'";
+  }
   msg += UnitDefinition::printUnits(ud, true);
   msg += " is replaced by the ";
   msg += SBMLTypeCode_toString(refElem->getTypeCode(), 
@@ -374,6 +390,10 @@ UnitReplacementCheck::logMismatchUnits (ReplacedBy& repBy,
   ud = refElem->getDerivedUnitDefinition();
 
   msg += UnitDefinition::printUnits(ud, true);
+  if (refElem->isSetId())
+  {
+    msg += " and id '" + refElem->getId() + "'";
+  }
   msg += ".";
 
   logFailure(repBy);
@@ -391,11 +411,19 @@ UnitReplacementCheck::logMismatchUnits (ReplacedElement& repE,
                                parent->getPackageName().c_str());
   msg += " object with units ";
   msg += UnitDefinition::printUnits(parentud, true);
+  if (parent->isSetId())
+  {
+    msg += " and id '" + parent->getId() + "'";
+  }
   msg += " attempts to replace the ";
   msg += SBMLTypeCode_toString(refElem->getTypeCode(), 
                                refElem->getPackageName().c_str());
   msg += " object with units ";
   msg += UnitDefinition::printUnits(refElemud, true);
+  if (refElem->isSetId())
+  {
+    msg += " and id '" + refElem->getId() + "'";
+  }
   if (cfPresent == false)
   {
     msg += " with no appropriate conversionFactor declared.";
