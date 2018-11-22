@@ -881,14 +881,22 @@ UnitDefinition::simplify(UnitDefinition * ud)
 
   for (n = 0; n < ud->getNumUnits(); n++)
   {
-    if (ud->getUnit(n)->getKind() == UNIT_KIND_DIMENSIONLESS)
+    Unit* unit = ud->getUnit(n);
+    if (unit->getKind() == UNIT_KIND_DIMENSIONLESS)
     {
       dimensionlessPresent = true;
+    }
+    /* Convert all units to use multiplier and not scale */
+    if (unit->getScale() != 0)
+    {
+      unit->setMultiplier(unit->getMultiplier() * pow(10, unit->getScale()));
+      unit->setScale(0);
     }
   }
   
   double dimMultfactor = 1.0;
   double dimMultfactorSaved = 1.0;
+
   
   /* if only one unit cannot be simplified any further */
   if (units->size() > 1)
