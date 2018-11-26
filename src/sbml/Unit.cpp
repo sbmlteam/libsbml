@@ -1581,20 +1581,35 @@ Unit::merge(Unit * unit1, Unit * unit2)
 
   newExponent = unit1->getExponentAsDouble() + unit2->getExponentAsDouble();
 
+  // if we are merging units where 1 exponent was zero 
+  // but we had a multiplier that was not 1
+  // need to preserve that multiplier
+  double unit1Multi = pow(unit1->getMultiplier(), unit1->getExponentAsDouble());
+  if (util_isEqual(unit1->getExponentAsDouble(), 0.0)
+    && (!util_isEqual(unit1->getMultiplier(), 1.0)))
+  {
+    unit1Multi = unit1->getMultiplier();
+  }
+
+  double unit2Multi = pow(unit2->getMultiplier(), unit2->getExponentAsDouble());
+  if (util_isEqual(unit2->getExponentAsDouble(), 0.0)
+    && (!util_isEqual(unit2->getMultiplier(), 1.0)))
+  {
+    unit2Multi = unit2->getMultiplier();
+  }
+
   if (newExponent == 0)
   {
     // actually we do not want the new multiplier to be 1
     // there may be a scaling factor in the now dimensionless unit that
     // needs to propogate thru a units calculation
     // newMultiplier = 1;
-    newMultiplier = pow(unit1->getMultiplier(), unit1->getExponentAsDouble())*
-      pow(unit2->getMultiplier(), unit2->getExponentAsDouble());
+
+    newMultiplier = unit1Multi * unit2Multi;
   }
   else
   {
-    newMultiplier = pow(pow(unit1->getMultiplier(), unit1->getExponentAsDouble())*
-      pow(unit2->getMultiplier(), unit2->getExponentAsDouble()), 
-                                                  1/(double)(newExponent));
+    newMultiplier = pow(unit1Multi * unit2Multi, 1/(double)(newExponent));
   }
     
   /* hack to force multiplier to be double precision */

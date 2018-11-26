@@ -90,6 +90,30 @@ START_TEST(test_unit_merge_units)
 }
 END_TEST
 
+START_TEST(test_unit_merge_units_1)
+{
+  Unit * u = new Unit(2, 4);
+  u->setKind(UNIT_KIND_LITRE);
+  u->setScale(-3);
+  u->setMultiplier(2);
+  Unit * u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setExponent(0);
+  u1->setMultiplier(2);
+
+  Unit::merge(u, u1);
+
+  fail_unless(u->getMultiplier() == 0.004);
+  fail_unless(u->getScale() == 0);
+  fail_unless(u->getExponent() == 1);
+  fail_unless(u->getOffset() == 0.0);
+  fail_unless(u->getKind() == UNIT_KIND_LITRE);
+
+  delete u;
+  delete u1;
+}
+END_TEST
+
 START_TEST(test_unit_convert_SI)
 {
     UnitDefinition * ud;
@@ -1031,6 +1055,7 @@ create_suite_UtilsUnit (void)
 
   tcase_add_test( tcase, test_unit_remove_scale     );
   tcase_add_test( tcase, test_unit_merge_units      );
+  tcase_add_test(tcase, test_unit_merge_units_1);
   tcase_add_test( tcase, test_unit_convert_SI       );
   tcase_add_test( tcase, test_unit_areIdentical     );
   tcase_add_test( tcase, test_unit_areEquivalent    );
