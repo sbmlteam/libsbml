@@ -217,6 +217,16 @@ UnitReplacementCheck::checkReferencedElement(ReplacedBy& repBy)
     return;
   }
 
+  //need to remove scale so that the muliplier accurately reflects the unit
+  for (unsigned int i = 0; i < parentUnits->getNumUnits(); ++i)
+  {
+    Unit::removeScale(parentUnits->getUnit(i));
+  }
+  for (unsigned int i = 0; i < refElemUnits->getNumUnits(); ++i)
+  {
+    Unit::removeScale(refElemUnits->getUnit(i));
+  }
+
   if (UnitDefinition::areIdentical(parentUnits, refElemUnits) == false)
   {
     logMismatchUnits(repBy, refElem, parent);
@@ -283,6 +293,23 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
   UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
+
+  //need to remove scale so that the muliplier accurately reflects the unit
+  if (parentUnits != NULL)
+  {
+    for (unsigned int i = 0; i < parentUnits->getNumUnits(); ++i)
+    {
+      Unit::removeScale(parentUnits->getUnit(i));
+    }
+  }
+  if (refElemUnits != NULL)
+  {
+    for (unsigned int i = 0; i < refElemUnits->getNumUnits(); ++i)
+    {
+      Unit::removeScale(refElemUnits->getUnit(i));
+    }
+  }
+
   bool delparelem = false;
 
   bool cfPresent = false;

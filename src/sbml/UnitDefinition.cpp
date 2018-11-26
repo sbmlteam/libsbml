@@ -879,18 +879,13 @@ UnitDefinition::simplify(UnitDefinition * ud)
   int cancelFlag = 0;
   bool dimensionlessPresent = false;
 
+  
   for (n = 0; n < ud->getNumUnits(); n++)
   {
     Unit* unit = ud->getUnit(n);
     if (unit->getKind() == UNIT_KIND_DIMENSIONLESS)
     {
       dimensionlessPresent = true;
-    }
-    /* Convert all units to use multiplier and not scale */
-    if (unit->getScale() != 0)
-    {
-      unit->setMultiplier(unit->getMultiplier() * pow(10, unit->getScale()));
-      unit->setScale(0);
     }
   }
   
