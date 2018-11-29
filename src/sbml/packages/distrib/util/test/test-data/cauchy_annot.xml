@@ -25,6 +25,7 @@
           <apply>
             <ci> cauchy </ci>
             <cn type="integer"> 4 </cn>
+            <cn type="integer"> 4 </cn>
           </apply>
         </math>
       </initialAssignment>

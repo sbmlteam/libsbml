@@ -10,6 +10,7 @@
           <apply>
             <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/distrib/laplace"> laplace </csymbol>
             <cn type="integer"> 4 </cn>
+            <cn type="integer"> 4 </cn>
           </apply>
         </math>
       </initialAssignment>
