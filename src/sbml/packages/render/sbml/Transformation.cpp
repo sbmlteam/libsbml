@@ -496,7 +496,7 @@ Transformation::accept(SBMLVisitor& v) const
 
 /** @cond doxygenLibsbmlInternal */
 
-/*
+
 /*
  * used to write arrays
  */
@@ -795,7 +795,7 @@ Transformation::readAttributes(const XMLAttributes& attributes,
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
+  //unsigned int pkgVersion = getPackageVersion();
 //  unsigned int numErrs;
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();

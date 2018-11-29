@@ -318,7 +318,6 @@ LocalStyle::readAttributes(const XMLAttributes& attributes,
   unsigned int version = getVersion();
   unsigned int pkgVersion = getPackageVersion();
   unsigned int numErrs;
-  bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
   if (log && getParentSBMLObject() &&

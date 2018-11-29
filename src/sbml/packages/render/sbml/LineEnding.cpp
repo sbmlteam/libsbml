@@ -106,8 +106,8 @@ LineEnding::LineEnding(RenderPkgNamespaces *renderns)
  */
 LineEnding::LineEnding(const XMLNode& node, unsigned int l2version)
   : GraphicalPrimitive2D(node, l2version)
-  , mBoundingBox(NULL)
   , mGroup(NULL)
+  , mBoundingBox(NULL)
 {
   mBoundingBox = new BoundingBox(2, l2version);
   mGroup = new RenderGroup(2, l2version);

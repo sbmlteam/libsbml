@@ -155,10 +155,11 @@ ColorDefinition::ColorDefinition(const XMLNode& node, unsigned int l2version)
 ColorDefinition::ColorDefinition(RenderPkgNamespaces* renderns, const std::string& id)
    :SBase(renderns)
 //    ,mId(id)
-    ,mRed(0)
-    ,mGreen(0)
-    ,mBlue(0)
-    ,mAlpha(255)
+  , mRed(0)
+  , mGreen(0)
+  , mBlue(0)
+  , mAlpha(255)
+  , mValue("")
 {
   mValue = createValueString();
   setId(id);
@@ -204,6 +205,7 @@ ColorDefinition::ColorDefinition(RenderPkgNamespaces* renderns, const std::strin
     ,mGreen(g)
     ,mBlue(b)
     ,mAlpha(a)
+  , mValue("")
 {
   mValue = createValueString();
   setId(id);
@@ -247,6 +249,7 @@ ColorDefinition::ColorDefinition(RenderPkgNamespaces* renderns, unsigned char r,
     ,mGreen(g)
     ,mBlue(b)
     ,mAlpha(a)
+  , mValue("")
 {
   mValue = createValueString();
 
@@ -271,11 +274,11 @@ ColorDefinition::ColorDefinition(RenderPkgNamespaces* renderns, unsigned char r,
  */
 ColorDefinition::ColorDefinition(const ColorDefinition& orig)
   : SBase( orig )
-  , mValue ( orig.mValue )
   , mRed(orig.mRed)
   , mGreen(orig.mGreen)
   , mBlue(orig.mBlue)
   , mAlpha(orig.mAlpha)
+  , mValue(orig.mValue)
 {
 }
 

@@ -229,15 +229,15 @@ RenderGroup::RenderGroup(const XMLNode& node, unsigned int l2version)
 */
 RenderGroup::RenderGroup(RenderPkgNamespaces* renderns, const std::string& id) :
   GraphicalPrimitive2D(renderns, id),
+  mStartHead(""),
+  mEndHead(""),
   mFontFamily(""),
-  mFontSize(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN())),
   mFontWeight(Text::WEIGHT_UNSET),
   mFontStyle(Text::STYLE_UNSET),
   mTextAnchor(Text::ANCHOR_UNSET),
   mVTextAnchor(Text::ANCHOR_UNSET),
-  mStartHead(""),
-  mEndHead("")
-  , mElements(renderns)
+  mFontSize(RelAbsVector(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::quiet_NaN())),
+  mElements(renderns)
 {
 #ifdef DEPRECATION_WARNINGS
   std::cerr << "Warning. RenderGroup::RenderGroup(const std::string& id) is deprecated." << std::endl;

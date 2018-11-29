@@ -78,14 +78,14 @@ class LIBSBML_EXTERN RenderGroup : public GraphicalPrimitive2D
 protected:
   /** @cond doxygenLibsbmlInternal */
 
+  std::string mStartHead;
+  std::string mEndHead;
   std::string mFontFamily;
-  RelAbsVector mFontSize;
   int mFontWeight;
   int mFontStyle;
   int mTextAnchor;
   int mVTextAnchor;
-  std::string mStartHead;
-  std::string mEndHead;
+  RelAbsVector mFontSize;
   ListOfDrawables mElements;
 
   std::string mElementName;

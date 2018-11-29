@@ -201,11 +201,11 @@ Text::Text(const Text& orig)
   , mY ( orig.mY )
   , mZ ( orig.mZ )
   , mFontFamily ( orig.mFontFamily )
+  , mFontSize(orig.mFontSize)
   , mFontWeight ( orig.mFontWeight )
   , mFontStyle ( orig.mFontStyle )
   , mTextAnchor ( orig.mTextAnchor )
   , mVTextAnchor ( orig.mVTextAnchor )
-  , mFontSize ( orig.mFontSize )
 {
   connectToChild();
 }

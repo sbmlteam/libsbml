@@ -133,7 +133,9 @@ GraphicalPrimitive2D::GraphicalPrimitive2D(const XMLNode& node, unsigned int l2v
  * an SBMLNamespaces object.
  */
 GraphicalPrimitive2D::GraphicalPrimitive2D(RenderPkgNamespaces* renderns, const std::string& id)
-    :GraphicalPrimitive1D(renderns, id),mFillRule(GraphicalPrimitive2D::UNSET),mFill("")
+    :GraphicalPrimitive1D(renderns, id)
+  , mFill("")
+  ,mFillRule(GraphicalPrimitive2D::UNSET)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. GraphicalPrimitive2D::GraphicalPrimitive2D(const std::string& id) is deprecated." << std::endl;

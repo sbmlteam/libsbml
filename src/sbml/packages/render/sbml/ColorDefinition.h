@@ -91,8 +91,10 @@ protected:
   unsigned char mGreen;
   unsigned char mBlue;
   unsigned char mAlpha;
-  static const std::string ELEMENT_NAME;
   std::string mValue;
+
+  static const std::string ELEMENT_NAME;
+
 
   /** @endcond */
 

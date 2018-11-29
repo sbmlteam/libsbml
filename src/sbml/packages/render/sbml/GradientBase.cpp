@@ -1248,7 +1248,7 @@ GradientBase::createObject(XMLInputStream& stream)
 {
   SBase* obj = NULL;
 
-  const std::string& name = stream.peek().getName();
+  //const std::string& name = stream.peek().getName();
 
   obj = mGradientStops.createObject(stream);
 
