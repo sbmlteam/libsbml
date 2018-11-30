@@ -68,6 +68,7 @@ packages = [
   ('USE_LAYOUT', None),
   ('USE_RENDER', None),
   ('USE_MULTI', None)
+  ('USE_L3V2EXTENDEDMATH', None)
 ]
 if platform.system() == 'Darwin': 
   current_os = 'DARWIN'

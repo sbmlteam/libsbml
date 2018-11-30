@@ -128,6 +128,10 @@ set(DIRECTORIES
   sbml/packages/multi/validator
   sbml/packages/multi/validator/constraints
   
+  sbml/packages/l3v2extendedmath/common
+  sbml/packages/l3v2extendedmath/extension
+  sbml/packages/l3v2extendedmath/validator
+
   sbml/units
   sbml/util
   sbml/validator
