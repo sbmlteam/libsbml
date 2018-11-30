@@ -1,8 +1,21 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.17.1 (Current SVN)
+5.17.2-experimental (2018-12-06)
 ====================================================================
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
 
 STABLE RELEASE
 
@@ -18,27 +31,50 @@ STABLE RELEASE
     as a math extension; which facilitates the use of these math functions
     in an SBML L3V1 document.
 
-
-	
+  
   - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'groups' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'qual' package-specific updates:
-  - 'render' package-specific updates:
+
+    - The 'comp' specification states that an external model must be
+      an L3V1 document. Since this specification predates SBML L3V2
+      we have relaxed the restriction to allow an L3V2 model using 
+      Model Composition to use an L3V2 external model.
+
+    - The converter that 'flattens' a comp model has been optimized
+      for speed with significant improvement for larger models.
+
+  - Python interface specific updates:
+
+    - In libSBML the set/add/unset methods return a code to indicate
+      success or failure of the operation. The Python interface has
+      been improved to produce a warning when a function fails.
+
+    - Sourceforge Tracker item #456: The Python interface has
+      been changed to return an empty List of CVTerms rather
+      than a None object.
+
+    - Users have raised issued about Model objects retrieved from within an
+      SBMLDocument object going out of scope when the document object
+      is removed from scope. We have adjusted the code to allow a Model
+      to remain in scope without it's parent document. Feedback would
+      be apprceiated about whether this is sufficient or whether all child
+      objects should be available regardless of whether their parent is
+      still available. 
+
+    - Sourceforge Tracker item #468:  Functions deprecated in Python 3.6
+      have been replaced to avoid deprecation warning messages. 
+    
 
 * Bug fixes
+
+  - The function SBMLTypeCode_toString was not retuning the correct 
+    string for a ListOf element originating in a package. This
+    has been corrected.
 
   - Using an SBML L3 package in an L2 document could cause a crash.
     This has been fixed. Thanks to Thomas Hamm for reporting it.
 
   - The code that checked for use of an L3V2 package with an L3V1
     document could cause a crash. This has been fixed. 
-
-  - The matlab binding was failing to distinguish between a
-    functionDefinition where the id ended with a logical operator,
-    e.g. 'myor' and the actual logical function. This has been corrected.
 
   - Writing out a document without a model and no level and version
     was using level = version = 0; which is not valid. This has been
@@ -47,12 +83,19 @@ STABLE RELEASE
   - There was an issue with newer architectures when casting a
     NaN to an integer - this has been now been avoided.
 
+  - MATLAB interface specific bug fixes:
+
+    - The matlab binding was failing to distinguish between a
+      functionDefinition where the id ended with a logical operator,
+      e.g. 'myor' and the actual logical function. This has been corrected.
+
+
   - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
+
+    - There was an issue with flattening 'comp' models using conversion 
+      factors. This has been tracked down and fixed. Thanks to Matthias 
+      Konig for reporting it and providing examples.
+
   - 'render' package-specific bug fixes:
 
     - Historical render code did not create a NULL BoundingBox. 
@@ -60,34 +103,24 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
-  - Python 2.7 is now supported and included in the builds.
+  - Python 3.7 is now supported and included in the builds.
 
+  - Python install options have been improved to detect Python 2 
+    or Python 3 and provide appropriate installation files. 
 
-* Miscellaneous
+  - The USE_LEGACY_MATH option has been removed as code has been
+    reverted to use this math implementation (see above).
 
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
 
     - The distrib package code has been updated to include the use
       of csymbols to reference distributions. This is in line with 
       the latest distrib specification.
-
-  - 'dyn' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
-
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
 
 
 ====================================================================
