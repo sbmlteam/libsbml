@@ -988,7 +988,12 @@ SBase::getCVTerms
 
 
     """
-    return _libsbml.SBase_getCVTerms(self)
+    
+    cvlist = _libsbml.SBase_getCVTerms(self)
+    if cvlist is None:
+      return []
+    else:
+      return cvlist
 %}
 
 %typemap(out) List* SBase::getCVTerms
@@ -1088,6 +1093,38 @@ SBasePlugin::getListOfAllElements
 #endif
                                SWIG_POINTER_OWN |  0 );
 }
+
+/***
+ * Add a document reference to the returned model to keep it alive
+*/
+%feature("shadow")
+SBMLDocument::getModel
+%{
+  def getModel(self, *args):
+    """
+    getModel(SBMLDocument self) -> Model
+    getModel(SBMLDocument self) -> Model
+
+
+    Returns the Model object stored in this SBMLDocument.
+
+    It is important to note that this method does not create a Model
+    instance.  The model in the SBMLDocument must have been created at
+    some prior time, for example using SBMLDocument.createModel()  or
+    SBMLDocument.setModel(). This method returns 'None' if a model does
+    not yet exist.
+
+    Returns the Model contained in this SBMLDocument, or 'None' if no such
+    model exists.
+
+    See also createModel().
+
+    """
+    model = _libsbml.SBMLDocument_getModel(self, *args)
+    if model is not None:
+      model.__parent_ref__ = self
+    return model
+%}
 
 
 #endif

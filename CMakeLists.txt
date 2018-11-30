@@ -325,6 +325,10 @@ if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
 (Particularly important on Windows.)" FORCE)
 endif()
 
+if (WITH_PYTHON)
+    # add option to enable Python API2 (with warnings)
+    option(PYTHON_USE_API2_WARNINGS   "Enable the new Python API2 with warnings."    OFF)
+endif (WITH_PYTHON)
 
 ###############################################################################
 #
@@ -1370,6 +1374,11 @@ else()
 endif()
 
 message(STATUS "")
+
+if(PYTHON_USE_API2_WARNINGS)
+  message(STATUS "")
+  message(STATUS "     Using Python API2 warnings      = yes")
+endif(PYTHON_USE_API2_WARNINGS)
 
 if (LIBSBML_PACKAGE_SUMMARY)
   message(STATUS "")

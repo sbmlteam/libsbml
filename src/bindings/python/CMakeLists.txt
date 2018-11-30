@@ -252,6 +252,7 @@ add_custom_command(
     COMMAND "${CMAKE_COMMAND}"
     ARGS -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
          -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+         -DPYTHON_USE_API2_WARNINGS=\"${PYTHON_USE_API2_WARNINGS}\"
          -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-python.cmake"
 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
@@ -338,12 +339,57 @@ endif()
 
 option (PYTHON_INSTALL_IN_PREFIX
     "Install python binaries using the specified install prefix." ON)
+
+# create the libsbml python interface files for Python 2 and 3
+# this allows automatic selection with the setup.py file when
+# PYTHON_INSTALL_WITH_SETUP is enabled
+if (PYTHON_INSTALL_IN_PREFIX OR PYTHON_INSTALL_WITH_SETUP)
+#    # copy new python script
+#    file (MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/script)
+#    file(
+#        COPY 
+#        ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py	  
+#        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/script
+#    )
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/script RENAME libsbml2.py)  
+
+#    # rename python script
+#    file(
+#        RENAME  
+#        ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml.py
+#        ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml2.py
+#    )
+
+#    # generate a version compatible with python 3.x
+#    file(READ ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml2.py init_script)
+#    string(REPLACE 
+#    "class SBase(_object):"
+#    "class SBase(_object, metaclass=AutoProperty):"
+#    init3_script ${init_script}
+#    )
+#    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml3.py ${init3_script})
+    install(CODE "file(READ ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml2.py init_script)
+     string(REPLACE
+     \"class SBase(_object):\" 
+     \"class SBase(_object, metaclass=AutoProperty):\" 
+     init3_script \${init_script} 
+     ) 
+     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml3.py \${init3_script})" 
+    )
+
+    endif (PYTHON_INSTALL_IN_PREFIX OR PYTHON_INSTALL_WITH_SETUP)
+
 if (PYTHON_INSTALL_IN_PREFIX)
     install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
 
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth" "libsbml\n")
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
+    # fix libsbml.py if we are using Python 3
+    if (PYTHON_VERSION_STRING VERSION_GREATER 3.0)
+     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/script/libsbml3.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml RENAME "libsbml.py")
+    endif (PYTHON_VERSION_STRING VERSION_GREATER 3.0)
+    
 endif(PYTHON_INSTALL_IN_PREFIX)
 
 ####################################################################

@@ -40,7 +40,7 @@
 ## to be run first. 'make install' or 'make create-build-dir' prepares the 
 ## package directory. (and copies libsbml.py into build/libsbml/__init__.py)
 
-import os.path, sys
+import os, sys, shutil
 if not os.path.isfile('libsbml.py'):
       print("Please run the build first before calling this script.")
       sys.exit(1)
@@ -50,6 +50,18 @@ try:
 except ImportError:
   from distutils.core import setup, Extension
 
+# we need to switch the __init__.py file based on the python version
+# as python 3 uses a different syntax for metaclasses
+if sys.version_info >= (3,0):
+  # this is python 3.x
+  if (os.path.exists('./libsbml/__init__.py')):
+    os.remove('./libsbml/__init__.py')
+  shutil.copyfile('./script/libsbml3.py', './libsbml/__init__.py')
+else:
+  # this is an older python
+  if (os.path.exists('./libsbml/__init__.py')):
+    os.remove('./libsbml/__init__.py')
+  shutil.copyfile('./script/libsbml2.py', './libsbml/__init__.py')
 
 setup(name             = "libsbml", 
       version          = "${LIBSBML_DOTTED_VERSION}",

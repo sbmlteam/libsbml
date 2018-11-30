@@ -27,4 +27,16 @@ import sys
 import os.path
 sys.path.append(os.path.dirname(__file__))
 ")
+
+if (PYTHON_USE_API2_WARNINGS)
+  file(APPEND "${WRAPPER_FILE}" "
+USE_LIBSBML_PYTHON_API2_WARNINGS = True
+")
+else()
+  file(APPEND "${WRAPPER_FILE}" "
+USE_LIBSBML_PYTHON_API2_WARNINGS = False
+")
+endif()
+
 file(APPEND  "${WRAPPER_FILE}" "${SOURCECODE}")
+
