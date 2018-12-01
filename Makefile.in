@@ -441,7 +441,6 @@ jsbindings =                                                   \
   src/bindings/javascript/local-downcast-namespaces.cpp.in     \
   src/bindings/javascript/local-downcast-namespaces-layout.cpp \
   src/bindings/javascript/local-downcast-namespaces-l3v2extendedmath.cpp \
-  src/bindings/javascript/local-downcast-packages.cpp.in     \
   src/bindings/javascript/local-downcast-packages-layout.cpp   \
   src/bindings/javascript/local-downcast-packages-l3v2extendedmath.cpp   \
   src/bindings/javascript/local-downcast-plugins.cpp.in        \
