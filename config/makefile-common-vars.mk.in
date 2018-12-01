@@ -176,6 +176,7 @@ USE_QUAL          = @USE_QUAL@
 USE_GROUPS        = @USE_GROUPS@
 USE_MULTI         = @USE_MULTI@
 USE_RENDER        = @USE_RENDER@
+USE_L3V2EXTENDEDMATH        = @USE_L3V2EXTENDEDMATH@
 
 USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
