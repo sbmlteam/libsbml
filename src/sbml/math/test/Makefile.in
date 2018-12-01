@@ -68,7 +68,7 @@ test_sources =           \
   TestWriteMathMLFromAST.cpp    \
   TestReadFromFile1.cpp  \
   TestReadFromFile2.cpp  \
-  TestReadFromFromFileL3V2.cpp  \
+  TestReadFromFileL3V2.cpp  \
   TestValidASTNode.cpp   \
   TestChildFunctions.cpp  \
   TestGetValue.cpp \
