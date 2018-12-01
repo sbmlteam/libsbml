@@ -56,9 +56,8 @@ headers =               \
 sources =                                              \
   L3v2extendedmathMathMLConsistencyConstraints.cpp     \
   L3v2extendedmathUnitConsistencyConstraints.cpp       \
-  L3v2EMArgumentsUnitsCheck.cpp                        \  
-  L3v2EMNumberArgsMathCheck.cpp                   
-
+  L3v2EMArgumentsUnitsCheck.cpp                        \
+  L3v2EMNumberArgsMathCheck.cpp
 
 constraints_files = $(wildcard ./*.cxx) 
 
