@@ -49,7 +49,7 @@ thisdir   = src/sbml/packages/l3v2extendedmath
 # libsbml-l3v2extendedmath.  Anything that goes into libsbml-l3v2extendedmath needs to appear 
 # on the `subdirs' list before "sbml".
 #
-subdirs = common extension util sbml validator
+subdirs = common extension validator
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
