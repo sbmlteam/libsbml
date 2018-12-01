@@ -47,17 +47,17 @@ thisdir   = src/sbml/packages/l3v2extendedmath/validator/constraints
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-sources =                                     \
-  L3v2extendedmathMathMLConsistencyConstraints.cpp                     \
-  L3v2extendedmathUnitConsistencyConstraints.cpp             \
-  L3v2EMArgumentsUnitsCheck.cpp      \  
-  L3v2EMNumberArgsMathCheck.cpp                   
-
 header_inst_prefix = packages/l3v2extendedmath/validator/constraints
 
 headers =               \
   L3v2EMArgumentsUnitsCheck.h \
   L3v2EMNumberArgsMathCheck.h    
+
+sources =                                              \
+  L3v2extendedmathMathMLConsistencyConstraints.cpp     \
+  L3v2extendedmathUnitConsistencyConstraints.cpp       \
+  L3v2EMArgumentsUnitsCheck.cpp                        \  
+  L3v2EMNumberArgsMathCheck.cpp                   
 
 
 constraints_files = $(wildcard ./*.cxx) 
