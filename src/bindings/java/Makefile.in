@@ -73,7 +73,7 @@ extra_sources     = libsbml.i                          \
                     local-packages-layout.i            \
                     local-packages.i.in
 					 local-downcast-extension-l3v2extendedmath.i \
-					 local-downcast-converters-l3v2extendedmath.i \
+					 local-downcast-astplugins-l3v2extendedmath.i \
 					 local-downcast-namespaces-l3v2extendedmath.i \
 					 local-packages-l3v2extendedmath.i \
 
