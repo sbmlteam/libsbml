@@ -1,11 +1,10 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/sbml/packages/multi/validator/test
-## Author(s)   : SBML Team <sbml-team@googlegroups.com>
-## Organization: California Institute of Technology
-## Created     : 2005-03-15
-## 
+## Description : Makefile template for libsbml l3v2extendedmath extension
+## Author(s)   : Sarah Keating 
+## Created     : 2018-12-01
+##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -18,13 +17,13 @@
 ## Copyright (C) 2009-2013 jointly by the following organizations: 
 ##     1. California Institute of Technology, Pasadena, CA, USA
 ##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-## 
+##  
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation.  A copy of the license agreement is provided
 ## in the file named "LICENSE.txt" included with this software distribution
 ## and also available online as http://sbml.org/software/libsbml/license.html
-## ------------------------------------------------------------------------ -->
+## ---------------------------------------------------------------------- -->
 
 
 # -----------------------------------------------------------------------------
@@ -42,7 +41,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/packages/multi/validator/test
+thisdir   = src/sbml/packages/l3v2extendedmath/validator/test
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
@@ -50,7 +49,7 @@ thisdir   = src/sbml/packages/multi/validator/test
 
 test_sources = \
 	TestFile.cpp \
-	TestMultiConsistencyValidator.cpp \
+	TestL3v2MathConsistencyValidator.cpp \
 	TestValidator.cpp
 
 test_headers = \
@@ -103,7 +102,7 @@ extra_LDFLAGS  += ../../../../../libsbml.la
 distfiles = $(test_sources) $(test_headers) \
 	    Makefile.in CMakeLists.txt
 
-subdirs =
+subdirs = test-data
 
 
 # -----------------------------------------------------------------------------

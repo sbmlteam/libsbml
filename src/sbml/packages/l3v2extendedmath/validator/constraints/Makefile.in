@@ -25,6 +25,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ## ---------------------------------------------------------------------- -->
 
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -40,122 +41,63 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/packages/l3v2extendedmath/extension/test
+thisdir   = src/sbml/packages/l3v2extendedmath/validator/constraints
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =		    \
-  TestL3v2EMExtension.cpp	    \
-  TestReadL3v2EMExtension.cpp \
-  TestRunner.c		    \
-  TestWriteL3v2EMExtension.cpp
+sources =                                     \
+  L3v2extendedmathMathMLConsistencyConstraints.cpp                     \
+  L3v2extendedmathUnitConsistencyConstraints.cpp             \
+  L3v2EMArgumentsUnitsCheck.cpp      \  
+  L3v2EMNumberArgsMathCheck.cpp                   
 
-test_headers =
+header_inst_prefix = packages/l3v2extendedmath/validator/constraints
+
+headers =               \
+  L3v2EMArgumentsUnitsCheck.h \
+  L3v2EMNumberArgsMathCheck.h    
 
 
-extra_CPPFLAGS = -I.. -I../extension
-
-ifdef USE_LIBCHECK
-  check_driver      = TestRunner
-  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
-    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
-    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
-    extra_LIBS      += $(LIBCHECK_LIBS)
-  endif
-  extra_clean       += $(check_driver)
-endif
-
-ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-endif
-
-ifdef USE_XERCES
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
-endif
-
-ifdef USE_LIBXML
-  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
-  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
-  extra_LIBS     += $(LIBXML_LIBS)
-endif
-
-extra_LDFLAGS  += ../../../../../libsbml.la
-
-# Remove duplicates, just to shorten the command line.
-
-extra_CPPFLAGS := $(sort $(extra_CPPFLAGS))
-extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
+constraints_files = $(wildcard ./*.cxx) 
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-test_data_files = $(wildcard test-data/*.xml) $(wildcard test-data/*.xsd)
+distfiles = $(sources) $(headers) $(other_headers) $(constraints_files) Makefile.in
 
-distfiles = $(test_sources) $(test_headers) $(test_data_files) Makefile.in \
-	        CMakeLists.txt
+ifeq "$(HOST_TYPE)" "cygwin"
 
+# Under cygwin, at least in gcc 3.4.4, the standard gcc STL class files
+# generate compiler warnings about use of uninitialized variables.  To
+# avoid confusing libSBML users, ignore this particular warning.  This is
+# not very safe because it can mask a real problem in OUR code, but it's
+# not easy to figure out what else to do, and anyway, if there are problems
+# we will probably catch them when testing on other platforms.
 
+problemversions = $(shell expr match `gcc -dumpversion` "3.4.4")
+
+CXXFLAGS += $(shell if (($(problemversions))); then echo -Wno-uninitialized; fi)
+
+endif
+
+
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to do nothing except maybe remake the Makefile.  The
-# real actions are triggered by 'make check'.
+# The default action is to remake everything.
 
-all: Makefile
+all: Makefile default
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-# Variables $(test_objfiles), $(check_driver), and the rest of the code
-# for running check are abstracted out into makefile-common-actions.mk,
-# which is included at the bottom of this file.  Here we just need to construct
-# the appropriate list of object files to link together.  Because there are
-# dependencies on other subdirectoris of the source tree, we do some rummaging
-# around in .. and ../../subdirs.
-
-tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
-localobjfiles = $(filter %.lo,$(tmp))
-
-otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
-ifdef USE_FBC
-  otherdirs  += ../../../fbc/common ../../../fbc/sbml \
-		../../../fbc/extension ../../../fbc/util \
-		../../../fbc/validator
-endif
-ifdef USE_LAYOUT
-  otherdirs  += ../../../layout/common ../../../layout/sbml \
-		../../../layout/extension ../../../layout/util \
-		../../../layout/validator
-endif
-ifdef USE_COMP
-  otherdirs  += ../../../comp/common ../../../comp/sbml \
-		../../../comp/extension ../../../comp/util \
-		../../../comp/validator
-endif
-
-otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
-
-test_objfiles = $(localobjfiles) $(otherobjfiles)
-
-ifdef USE_LIBCHECK
-  check: all run-checks
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
+check:
 
 
 # -----------------------------------------------------------------------------
@@ -172,6 +114,7 @@ info:
 
 html:
 
+
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
@@ -179,24 +122,26 @@ html:
 # This library doesn't actually get installed.  The main libsbml library
 # (in ../src) slurps in the contents when it's built.
 
-install:
+install: all install-headers
 
-uninstall:
+installcheck: all installcheck-headers
 
-installcheck:
+uninstall: uninstall-headers
 
+
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal clean-recursive
+clean: clean-normal
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal
 
-mostlyclean: mostlyclean-normal mostlyclean-recursive
+mostlyclean: mostlyclean-normal
 
-maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal
 
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -205,12 +150,14 @@ dist: all dist-normal
 
 distcheck: all distcheck-normal
 
+
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
