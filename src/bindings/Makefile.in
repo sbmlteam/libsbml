@@ -84,6 +84,8 @@ endif
 swig_extras =                \
   swig/layout-package.h      \
   swig/layout-package.i      \
+  swig/l3v2extendedmath-package.h      \
+  swig/l3v2extendedmath-package.i      \
   swig/libsbml.h             \
   swig/libsbml.i             \
   swig/libsbml-packages.h.in \

@@ -63,15 +63,20 @@ extra_sources = libsbml.i                            \
                 local.cpp                            \
                 local.i                              \
                 local-downcast-extension-layout.cpp  \
+                local-downcast-extension-l3v2extendedmath.cpp  \
                 local-downcast-extension.cpp.in      \
                 local-downcast-namespaces.cpp.in     \
                 local-downcast-astplugins.cpp.in     \
+                local-downcast-astplugins-l3v2extendedmath.cpp     \
                 local-downcast-namespaces-layout.cpp \
+                local-downcast-namespaces-l3v2extendedmath.cpp \
                 local-downcast-converters.cpp.in     \
                 local-downcast-converters-layout.cpp \
                 local-downcast-plugins-layout.cpp    \
+                local-downcast-plugins-l3v2extendedmath.cpp    \
                 local-downcast-plugins.cpp.in        \
                 local-downcast-packages-layout.cpp   \
+                local-downcast-packages-l3v2extendedmath.cpp   \
                 local-downcast.cpp.in                \
                 local-contrib.i                      \
                 pydoc-normal.i                       \
@@ -155,6 +160,11 @@ ifdef USE_RENDER
   SWIGDOCDEFINES += --define USE_RENDER
 endif # USE_RENDER
 
+ifdef USE_L3V2EXTENDEDMATH
+  SWIGFLAGS      += -DUSE_L3V2EXTENDEDMATH
+  SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
+endif # USE_L3V2EXTENDEDMATH  
+
 
 # On MacOS X, compilation generates a warning about `long double'.
 
@@ -210,6 +220,7 @@ distfiles =							  \
             local-doc-extras.i					  \
             local-packages.i.in					  \
             local-layout.i					  \
+            local-l3v2extendedmath.i					  \
             setup.cfg						  \
             setup.py.in						  \
             doc-converter/argparse.py				  \
@@ -313,6 +324,12 @@ ifdef USE_RENDER
                ../../sbml/packages/render/sbml \
                ../../sbml/packages/render/validator \
                ../../sbml/packages/render/validator/constraints 
+endif
+ifdef USE_L3V2EXTENDEDMATH
+  otherdirs += ../../sbml/packages/l3v2extendedmath/common \
+               ../../sbml/packages/l3v2extendedmath/extension \
+               ../../sbml/packages/l3v2extendedmath/validator \
+               ../../sbml/packages/l3v2extendedmath/validator/constraints 
 endif
 
 objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -480,6 +497,15 @@ else
     if test -n "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
   endef
 endif
+ifdef USE_L3V2EXTENDEDMATH
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+else
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+endif
 
 libsbml.py: libsbml_wrap.cpp
 
@@ -506,7 +532,7 @@ libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) \
   $(main_sources) $(shell $(call check_layout)) $(shell $(call check_comp)) \
   $(shell $(call check_fbc)) $(shell $(call check_qual)) \
   $(shell $(call check_groups)) $(shell $(call check_multi)) \
-  $(shell $(call check_render))
+  $(shell $(call check_render)) $(shell $(call check_l3v2extendedmath)) 
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	mv pydoc-doxygen.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
@@ -537,7 +563,8 @@ test_subdir_path = test/sbml:test/xml:test/annotation:test/math:test/layout
 check: $(libraries) $(shell $(call check_layout)) \
   $(shell $(call check_fbc)) $(shell $(call check_comp)) \
   $(shell $(call check_qual)) $(shell $(call check_groups)) \
-  $(shell $(call check_multi)) $(shell $(call check_render))
+  $(shell $(call check_multi)) $(shell $(call check_render)) \
+  $(shell $(call check_l3v2extendedmath))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)

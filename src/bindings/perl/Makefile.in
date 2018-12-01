@@ -85,18 +85,23 @@ distfiles =                            \
   local.cpp                            \
   local.i                              \
   local-layout.i                       \
+  local-l3v2extendedmath.i                       \
   local-packages.i.in                  \
   local-downcast-astplugins.cpp.in     \
+  local-downcast-astplugins-l3v2extendedmath.cpp     \
   local-downcast-extension-layout.cpp  \
-  local-downcast-extension-layout.cpp  \
+  local-downcast-extension-l3v2extendedmath.cpp  \
   local-downcast-extension.cpp.in      \
   local-downcast-namespaces.cpp.in     \
   local-downcast-namespaces-layout.cpp \
+  local-downcast-namespaces-l3v2extendedmath.cpp \
   local-downcast-converters.cpp.in     \
   local-downcast-converters-layout.cpp \
   local-downcast-plugins-layout.cpp    \
+  local-downcast-plugins-l3v2extendedmath.cpp    \
   local-downcast-plugins.cpp.in        \
   local-downcast-packages-layout.cpp   \
+  local-downcast-packages-l3v2extendedmath.cpp   \
   local-downcast.cpp.in                \
   Makefile.in                          \
   Makefile.PL.in                       \
@@ -199,6 +204,16 @@ else
   endef
 endif
 
+ifdef USE_L3V2EXTENDEDMATH
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+else
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+endif
+
 .PHONY: do_reswig
 
 do_reswig:
@@ -213,7 +228,7 @@ endif
 # Currently, libtool doesn't work for building Perl bindings on Cygwin.
 # So, for the time being, libtool is not used on Cygwin.
 #
-Makefile-perl: Makefile.PL $(shell $(call check_layout))
+Makefile-perl: Makefile.PL $(shell $(call check_layout)) $(shell $(call check_l3v2extendedmath))
 ifndef USE_PERL
 	@ echo "Reconfigure --with-perl in order to build the perl-bindings"
 	exit 1

@@ -98,6 +98,9 @@ extra_sources     = \
 					 local-downcast-namespaces.i.in \
 					 local-packages-layout.i \
 					 local-packages.i.in
+					 local-downcast-extension-l3v2extendedmath.i \
+					 local-downcast-namespaces-l3v2extendedmath.i \
+					 local-packages-l3v2extendedmath.i \
 
 test_dir          = test
 test_source_path  = $(test_dir)
@@ -195,6 +198,12 @@ ifdef USE_RENDER
                ../../sbml/packages/render/validator \
                ../../sbml/packages/render/validator/constraints 
 endif
+ifdef USE_L3V2EXTENDEDMATH
+  otherdirs += ../../sbml/packages/l3v2extendedmath/common \
+               ../../sbml/packages/l3v2extendedmath/extension \
+               ../../sbml/packages/l3v2extendedmath/validator \
+               ../../sbml/packages/l3v2extendedmath/validator/constraints 
+endif
 
 objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
@@ -267,6 +276,11 @@ ifdef USE_RENDER
   SWIGFLAGS      += -DUSE_RENDER
   SWIGDOCDEFINES += --define USE_RENDER
 endif # USE_RENDER
+
+ifdef USE_L3V2EXTENDEDMATH
+  SWIGFLAGS      += -DUSE_L3V2EXTENDEDMATH
+  SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
+endif # USE_L3V2EXTENDEDMATH  
 
 
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.
@@ -542,6 +556,16 @@ else
     if test -n "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
   endef
 endif
+ifdef USE_L3V2EXTENDEDMATH
+  define check_l3v2extendedmath
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+  endef
+else
+  define check_l3v2extendedmath
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+  endef
+endif
+
 
 # generate C# documentation
 csdoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
@@ -612,7 +636,8 @@ testsbml_files = $(wildcard $(testsbml_dir)/*.xml)
 check: $(check_runner_exe) $(shell $(call check_layout)) \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
   $(shell $(call check_qual)) $(shell $(call check_groups)) \
-  $(shell $(call check_multi)) $(shell $(call check_render))
+  $(shell $(call check_multi)) $(shell $(call check_render)) \
+  $(shell $(call check_l3v2extendedmath))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -646,7 +671,8 @@ install_prefix=$(DESTDIR)$(LIBDIR)/mono/$(assembly_name)
 
 install: $(libraries) $(shell $(call check_layout)) \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
-  $(shell $(call check_qual)) $(shell $(call check_groups))
+  $(shell $(call check_qual)) $(shell $(call check_groups)) \
+  $(shell $(call check_l3v2extendedmath))
 	-$(GACUTIL) -i $(csproxy_lib) -root $(DESTDIR)$(LIBDIR)
 	$(INSTALL_SH) $(csproxy_lib) $(install_prefix)/$(csproxy_lib)
 	$(INSTALL_SH) $(dllimport_lib) $(install_prefix)/$(dllimport_lib)

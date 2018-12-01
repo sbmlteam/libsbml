@@ -41,7 +41,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcd/Users/skeating/libsbml/src/sbml/packages/fbc/common/Makefile.inir  = @srcdir@
+srcdir    = @srcdir@
 thisdir = src/sbml/packages/fbc/extension
 
 subdirs = test

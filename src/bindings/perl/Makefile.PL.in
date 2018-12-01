@@ -126,6 +126,11 @@ ifeq ("@USE_RENDER@", "1")
   SWIGDOCDEFINES += --define USE_RENDER
 endif # USE_RENDER
 
+ifeq ("@USE_L3V2EXTENDEDMATH@", "1")
+	PACKAGE_ARGS += -DUSE_L3V2EXTENDEDMATH
+	SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
+endif
+
 
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' \

@@ -228,6 +228,11 @@ ifdef USE_RENDER
                 packages/render/common packages/render/util \
                 packages/render/validator packages/render/validator/constraints
 endif
+ifdef USE_L3V2EXTENDEDMATH
+  otherdirs +=  packages/l3v2extendedmath/extension \
+                packages/l3v2extendedmath/common     \
+                packages/l3v2extendedmath/validator packages/l3v2extendedmath/validator/constraints
+endif
 
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 

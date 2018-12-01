@@ -396,20 +396,26 @@ rbindings =                                           \
   src/bindings/r/NAMESPACE                            \
   src/bindings/r/libsbml.i                            \
   src/bindings/r/local-downcast-extension-layout.cpp  \
+  src/bindings/r/local-downcast-extension-l3v2extendedmath.cpp  \
+  src/bindings/r/local-downcast-astplugins-l3v2extendedmath.cpp     \
   src/bindings/r/local-downcast-astplugins.cpp.in     \
   src/bindings/r/local-downcast-extension.cpp.in      \
   src/bindings/r/local-downcast-namespaces-layout.cpp \
+  src/bindings/r/local-downcast-namespaces-l3v2extendedmath.cpp \
   src/bindings/r/local-downcast-namespaces.cpp.in     \
   src/bindings/r/local-downcast-packages-layout.cpp   \
+  src/bindings/r/local-downcast-packages-l3v2extendedmath.cpp   \
   src/bindings/r/local-downcast-converters.cpp.in     \
   src/bindings/r/local-downcast-converters-layout.cpp \
   src/bindings/r/local-downcast-plugins-layout.cpp    \
+  src/bindings/r/local-downcast-plugins-l3v2extendedmath.cpp    \
   src/bindings/r/local-downcast-plugins.cpp.in        \
   src/bindings/r/local-downcast.cpp.in                \
   src/bindings/r/create-r-package.cmake               \
   src/bindings/r/cmake-r-install.cmake.in             \
   src/bindings/r/libsbml_rtype.swg                    \
   src/bindings/r/local-layout.i                       \
+  src/bindings/r/local-l3v2extendedmath.i                       \
   src/bindings/r/local-packages.i.in                  \
   src/bindings/r/local.cpp                            \
   src/bindings/r/local.i                              \
@@ -424,19 +430,26 @@ jsbindings =                                                   \
   src/bindings/javascript/compile-native-files.cmake           \
   src/bindings/javascript/libsbml.i                            \
   src/bindings/javascript/local.cpp                            \
+  src/bindings/javascript/local-downcast-astplugins-l3v2extendedmath.cpp     \
   src/bindings/javascript/local-downcast-astplugins.cpp.in     \
   src/bindings/javascript/local-downcast-converters.cpp.in     \
   src/bindings/javascript/local-downcast-converters-layout.cpp \
   src/bindings/javascript/local-downcast.cpp.in                \
   src/bindings/javascript/local-downcast-extension.cpp.in      \
   src/bindings/javascript/local-downcast-extension-layout.cpp  \
+  src/bindings/javascript/local-downcast-extension-l3v2extendedmath.cpp  \
   src/bindings/javascript/local-downcast-namespaces.cpp.in     \
   src/bindings/javascript/local-downcast-namespaces-layout.cpp \
+  src/bindings/javascript/local-downcast-namespaces-l3v2extendedmath.cpp \
+  src/bindings/javascript/local-downcast-packages.cpp.in     \
   src/bindings/javascript/local-downcast-packages-layout.cpp   \
+  src/bindings/javascript/local-downcast-packages-l3v2extendedmath.cpp   \
   src/bindings/javascript/local-downcast-plugins.cpp.in        \
   src/bindings/javascript/local-downcast-plugins-layout.cpp    \
+  src/bindings/javascript/local-downcast-plugins-l3v2extendedmath.cpp    \
   src/bindings/javascript/local.i                              \
   src/bindings/javascript/local-layout.i                       \
+  src/bindings/javascript/local-l3v2extendedmath.i                       \
   src/bindings/javascript/local-packages.i.in                  \
 
 
@@ -448,16 +461,22 @@ phpbindings =                                                  \
   src/bindings/php/libsbml.i                                   \
   src/bindings/php/local-downcast-converters-layout.cpp        \
   src/bindings/php/local-downcast-astplugins.cpp.in            \
+  src/bindings/php/local-downcast-astplugins-l3v2extendedmath.cpp            \
   src/bindings/php/local-downcast-converters.cpp.in            \
   src/bindings/php/local-downcast-extension-layout.cpp         \
+  src/bindings/php/local-downcast-extension-l3v2extendedmath.cpp         \
   src/bindings/php/local-downcast-extension.cpp.in             \
   src/bindings/php/local-downcast-namespaces-layout.cpp        \
+  src/bindings/php/local-downcast-namespaces-l3v2extendedmath.cpp        \
   src/bindings/php/local-downcast-namespaces.cpp.in            \
   src/bindings/php/local-downcast-packages-layout.cpp          \
+  src/bindings/php/local-downcast-packages-l3v2extendedmath.cpp          \
   src/bindings/php/local-downcast-plugins-layout.cpp           \
+  src/bindings/php/local-downcast-plugins-l3v2extendedmath.cpp           \
   src/bindings/php/local-downcast-plugins.cpp.in               \
   src/bindings/php/local-downcast.cpp.in                       \
   src/bindings/php/local-layout.i                              \
+  src/bindings/php/local-l3v2extendedmath.i                              \
   src/bindings/php/local-packages.i.in                         \
   src/bindings/php/local.cpp                                   \
   src/bindings/php/local.i                                     \
@@ -547,6 +566,7 @@ distfiles =                         \
   CMakeLists.txt                    \
   common.cmake                      \
   layout-package.cmake              \
+  l3v2extendedmath-package.cmake    \
   $(examples)                       \
   $(jsbindings)                     \
   $(rbindings)                      \

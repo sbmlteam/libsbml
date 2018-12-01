@@ -72,6 +72,10 @@ extra_sources     = libsbml.i                          \
                     local-downcast-namespaces.i.in     \
                     local-packages-layout.i            \
                     local-packages.i.in
+					 local-downcast-extension-l3v2extendedmath.i \
+					 local-downcast-converters-l3v2extendedmath.i \
+					 local-downcast-namespaces-l3v2extendedmath.i \
+					 local-packages-l3v2extendedmath.i \
 
 # The SWIG interface files should not need to be regenerated for recipients
 # of the libSBML distributions; only developers should need to regenerate
@@ -144,6 +148,12 @@ ifdef USE_RENDER
   SWIGFLAGS      += -DUSE_RENDER
   SWIGDOCDEFINES += --define USE_RENDER
 endif # USE_RENDER
+
+ifdef USE_L3V2EXTENDEDMATH
+  SWIGFLAGS      += -DUSE_L3V2EXTENDEDMATH
+  SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
+endif # USE_L3V2EXTENDEDMATH  
+
 
 # -fno-strict-aliasing option is added to CXXFLAGS when using GCC.  As
 # written in the SWIG Manual (section 20.2.4), SWIG generated code could
@@ -234,6 +244,12 @@ ifdef USE_MULTI
                ../../sbml/packages/multi/sbml \
                ../../sbml/packages/multi/validator \
                ../../sbml/packages/multi/validator/constraints 
+endif
+ifdef USE_L3V2EXTENDEDMATH
+  otherdirs += ../../sbml/packages/l3v2extendedmath/common \
+               ../../sbml/packages/l3v2extendedmath/extension \
+               ../../sbml/packages/l3v2extendedmath/validator \
+               ../../sbml/packages/l3v2extendedmath/validator/constraints 
 endif
 
 objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -410,6 +426,38 @@ else
     if test -n "`grep ListOfQualitativeSpecies libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
   endef
 endif
+ifdef USE_MULTI
+  define check_multi
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfSpeciesFeatures libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_multi
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfSpeciesFeatures libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+ifdef USE_RENDER
+  define check_render
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_render
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+ifdef USE_L3V2EXTENDEDMATH
+  define check_l3v2extendedmath
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+  endef
+else
+  define check_l3v2extendedmath
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+  endef
+endif
+
 
 # Generate the documentation files.
 #
@@ -503,7 +551,8 @@ endif
 check: $(check_classes) $(shell $(call check_layout)) \
   $(shell $(call check_comp))  $(shell $(call check_fbc)) \
   $(shell $(call check_qual)) $(shell $(call check_groups)) \
-   $(shell $(call check_multi))
+  $(shell $(call check_multi)) $(shell $(call check_render)) \
+  $(shell $(call check_l3v2extendedmath))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)

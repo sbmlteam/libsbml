@@ -88,8 +88,9 @@ endif
 # they appear in `distfiles', they will not be copied in the distribution.
 
 distfiles = Makefile.in               \
-		layout-package.cmake          \
-		CMakeLists.txt                \
+		layout-package.cmake           \
+    l3v2extendedmath-package.cmake \
+		CMakeLists.txt                 \
 
 
 # -----------------------------------------------------------------------------

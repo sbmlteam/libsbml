@@ -201,6 +201,19 @@ if test "$enable_multi" != no; then
   AC_SUBST(LIBSBML_HAS_PACKAGE_MULTI, 1)
 fi
 
+AC_ARG_ENABLE([l3v2extendedmath],
+  AS_HELP_STRING([--enable-l3v2extendedmath@<:@=ARG@:>@],
+                 [build support for SBML 'l3v2extendedmath' @<:@default=no@:>@]),
+  [enable_l3v2extendedmath=$enableval],
+  [enable_l3v2extendedmath=no])
+
+if test "$enable_l3v2extendedmath" != no; then
+  AC_DEFINE([USE_L3V2EXTENDEDMATH], 1, [Define to 1 to build support for SBML 'l3v2extendedmath'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_L3V2EXTENDEDMATH], 1, [Define to 1 to build support for SBML 'l3v2extendedmath'.])
+  AC_SUBST(USE_L3V2EXTENDEDMATH, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_L3V2EXTENDEDMATH, 1)
+fi
+
 dnl -------------------------------------------------------
 dnl Other SBML L3 package variables
 dnl -------------------------------------------------------
@@ -559,6 +572,14 @@ AC_CONFIG_FILES([src/sbml/packages/layout/validator/constraints/Makefile])
 AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/Makefile])
 AC_CONFIG_FILES([src/sbml/packages/layout/validator/test/test-data/Makefile])
 
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/common/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/extension/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/validator/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/validator/constraints/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/validator/test/Makefile])
+AC_CONFIG_FILES([src/sbml/packages/l3v2extendedmath/validator/test/test-data/Makefile])
+
 if test -d src/sbml/packages/qual; then
 if test "$enable_qual" != "no" ; then
   AC_CONFIG_FILES([src/sbml/packages/qual/Makefile])
@@ -895,6 +916,10 @@ fi
 if test "$enable_qual" != "no" ; then
   echo "  SBML 'qual'                   = $enable_qual"
 fi
+if test "$enable_l3v2extendedmath" != "no" ; then
+  echo "  SBML 'l3v2extendedmath'                 = $enable_l3v2extendedmath"
+fi
+
 
 echo ""
 echo "Other potentially important settings:"

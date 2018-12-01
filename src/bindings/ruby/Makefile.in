@@ -58,18 +58,24 @@ sources       =  libsbml_wrap.cpp libsbml_wrap.h
 extra_sources =  libsbml.i \
                  local-packages.i.in \
 				 local-layout.i \
+				 local-l3v2extendedmath.i \
                  local.cpp \
 				 local.i \
+         local-downcast-astplugins-l3v2extendedmath.cpp     \
          local-downcast-astplugins.cpp.in     \
 				 local-downcast-extension-layout.cpp \
+				 local-downcast-extension-l3v2extendedmath.cpp \
 				 local-downcast-extension.cpp.in \
 				 local-downcast-namespaces.cpp.in \
 				 local-downcast-namespaces-layout.cpp \
+				 local-downcast-namespaces-l3v2extendedmath.cpp \
 				 local-downcast-converters.cpp.in \
 				 local-downcast-converters-layout.cpp \
 				 local-downcast-plugins-layout.cpp \
+				 local-downcast-plugins-l3v2extendedmath.cpp \
 				 local-downcast-plugins.cpp.in \
 				 local-downcast-packages-layout.cpp \
+				 local-downcast-packages-l3v2extendedmath.cpp \
 				 local-downcast.cpp.in
 
 # The SWIG interface files should not need to be regenerated for recipients
@@ -162,6 +168,11 @@ ifdef USE_RENDER
   SWIGFLAGS      += -DUSE_RENDER
   SWIGDOCDEFINES += --define USE_RENDER
 endif # USE_RENDER
+
+ifdef USE_L3V2EXTENDEDMATH
+  SWIGFLAGS      += -DUSE_L3V2EXTENDEDMATH
+  SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
+endif # USE_L3V2EXTENDEDMATH  
 
 
 # On MacOS X, compilation generates a warning about `long double'.
@@ -261,6 +272,19 @@ ifdef USE_MULTI
                ../../sbml/packages/multi/sbml \
                ../../sbml/packages/multi/validator \
                ../../sbml/packages/multi/validator/constraints 
+endif
+ifdef USE_RENDER
+  otherdirs += ../../sbml/packages/render/common \
+               ../../sbml/packages/render/extension \
+               ../../sbml/packages/render/sbml \
+               ../../sbml/packages/render/validator \
+               ../../sbml/packages/render/validator/constraints 
+endif
+ifdef USE_L3V2EXTENDEDMATH
+  otherdirs += ../../sbml/packages/l3v2extendedmath/common \
+               ../../sbml/packages/l3v2extendedmath/extension \
+               ../../sbml/packages/l3v2extendedmath/validator \
+               ../../sbml/packages/l3v2extendedmath/validator/constraints 
 endif
 
 objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
@@ -421,11 +445,32 @@ else
     if test -n "`grep ListOfSpeciesFeatures libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
   endef
 endif
+ifdef USE_RENDER
+  define check_render
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_render
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfGlobalRenderInformation libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+ifdef USE_L3V2EXTENDEDMATH
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+else
+  define check_l3v2extendedmath
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+  endef
+endif
 
 libsbml_wrap.cpp: $(swig_sources) $(main_sources) \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
   $(shell $(call check_layout)) $(shell $(call check_qual)) \
-  $(shell $(call check_groups)) $(shell $(call check_multi))
+  $(shell $(call check_groups)) $(shell $(call check_multi)) \
+  $(shell $(call check_render)) $(shell $(call check_l3v2extendedmath)) 
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -ruby -o libsbml_wrap.cpp libsbml.i
@@ -438,7 +483,8 @@ libsbml_wrap.cpp: $(swig_sources) $(main_sources) \
 check: $(libraries) $(shell $(call check_layout)) \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
   $(shell $(call check_qual)) $(shell $(call check_groups)) \
-  $(shell $(call check_multi))
+  $(shell $(call check_multi)) $(shell $(call check_render)) \
+  $(shell $(call check_l3v2extendedmath))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)

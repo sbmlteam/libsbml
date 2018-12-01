@@ -129,6 +129,12 @@
 /* Define to 1 to build the SBML groups extension. */
 #undef USE_GROUPS
 
+/* Define to 1 to build the SBML l3v2extendedmath extension. */
+#undef USE_L3V2EXTENDEDMATH
+
+/* Define to 1 to build the SBML l3v2extendedmath extension. */
+#undef LIBSBML_HAS_PACKAGE_L3V2EXTENDEDMATH
+
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
