@@ -450,11 +450,11 @@ else
 endif
 ifdef USE_L3V2EXTENDEDMATH
   define check_l3v2extendedmath
-    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; 
   endef
 else
   define check_l3v2extendedmath
-    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; 
   endef
 endif
 

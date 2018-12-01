@@ -165,7 +165,6 @@ ifdef USE_L3V2EXTENDEDMATH
   SWIGDOCDEFINES += --define USE_L3V2EXTENDEDMATH
 endif # USE_L3V2EXTENDEDMATH  
 
-
 # On MacOS X, compilation generates a warning about `long double'.
 
 ifeq "$(HOST_TYPE)" "darwin"
@@ -499,11 +498,11 @@ else
 endif
 ifdef USE_L3V2EXTENDEDMATH
   define check_l3v2extendedmath
-    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; 
   endef
 else
   define check_l3v2extendedmath
-    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; \
+    if test ! -f LibSBML_wrap.cxx; then echo "do_reswig"; exit; fi; 
   endef
 endif
 
