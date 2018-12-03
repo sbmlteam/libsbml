@@ -46,7 +46,9 @@ STABLE RELEASE
 
     - In libSBML the set/add/unset methods return a code to indicate
       success or failure of the operation. The Python interface has
-      been improved to produce a warning when a function fails.
+      been improved to produce a warning when a function fails. This 
+      behaviour can be enabled by setting a CMAKE configure option
+      or an environment variable.
 
     - Sourceforge Tracker item #456: The Python interface has
       been changed to return an empty List of CVTerms rather
