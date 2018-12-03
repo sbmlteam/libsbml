@@ -26895,6 +26895,8 @@ ac_config_files="$ac_config_files src/sbml/packages/l3v2extendedmath/common/Make
 
 ac_config_files="$ac_config_files src/sbml/packages/l3v2extendedmath/extension/Makefile"
 
+ac_config_files="$ac_config_files src/sbml/packages/l3v2extendedmath/extension/test/Makefile"
+
 ac_config_files="$ac_config_files src/sbml/packages/l3v2extendedmath/validator/Makefile"
 
 ac_config_files="$ac_config_files src/sbml/packages/l3v2extendedmath/validator/constraints/Makefile"
@@ -28013,6 +28015,7 @@ do
     "src/sbml/packages/l3v2extendedmath/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/Makefile" ;;
     "src/sbml/packages/l3v2extendedmath/common/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/common/Makefile" ;;
     "src/sbml/packages/l3v2extendedmath/extension/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/extension/Makefile" ;;
+    "src/sbml/packages/l3v2extendedmath/extension/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/extension/test/Makefile" ;;
     "src/sbml/packages/l3v2extendedmath/validator/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/validator/Makefile" ;;
     "src/sbml/packages/l3v2extendedmath/validator/constraints/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/validator/constraints/Makefile" ;;
     "src/sbml/packages/l3v2extendedmath/validator/test/Makefile") CONFIG_FILES="$CONFIG_FILES src/sbml/packages/l3v2extendedmath/validator/test/Makefile" ;;

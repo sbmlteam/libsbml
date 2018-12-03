@@ -59,7 +59,7 @@ test_headers = \
 extra_CPPFLAGS = -I.. -I../.. -I../../../../
 
 ifdef USE_LIBCHECK
-  check_driver      = TestLayoutConsistencyValidator
+  check_driver      = TestL3v2MathConsistencyValidator
   ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
     extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
   endif
@@ -129,7 +129,7 @@ all: Makefile all-recursive
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+otherdirs     = ../common ../../extension ../../validator
 ifdef USE_COMP
   otherdirs  += ../../../comp/common ../../../comp/sbml \
 		../../../comp/extension ../../../comp/util \

@@ -130,7 +130,7 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 
-otherdirs     = ../common ../../extension ../../util ../../sbml ../../validator
+otherdirs     = ../common ../../extension ../../validator
 ifdef USE_FBC
   otherdirs  += ../../../fbc/common ../../../fbc/sbml \
 		../../../fbc/extension ../../../fbc/util \
