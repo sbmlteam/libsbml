@@ -251,21 +251,6 @@ if test "$enable_shared_version" != no; then
 fi
 
 dnl ---------------------------------------------------------------------------
-dnl LIBSBML_USE_LEGACY_MATH
-dnl ---------------------------------------------------------------------------
-
-AC_ARG_ENABLE([legacy-math],
-  AS_HELP_STRING([--enable-legacy-math@<:@=ARG@:>@],
-                 [use legacy AST math implementation @<:@default=no@:>@]),
-  [enable_use_legacy_math=$enableval],
-  [enable_use_legacy_math=no])
-
-if test "$enable_use_legacy_math" != no; then
-  AC_DEFINE([LIBSBML_USE_LEGACY_MATH], 1, [Define to 1 to use the legacy math AST implementation.])
-  AC_SUBST(LIBSBML_USE_LEGACY_MATH, 1)
-fi
-
-dnl ---------------------------------------------------------------------------
 dnl LIBSBML_USE_STRICT_INCLUDES
 dnl ---------------------------------------------------------------------------
 
@@ -492,9 +477,6 @@ AC_CONFIG_FILES([src/sbml/annotation/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/math/Makefile])
 AC_CONFIG_FILES([src/sbml/math/test/Makefile])
-
-#AC_CONFIG_FILES([src/sbml/math-legacy/Makefile])
-#AC_CONFIG_FILES([src/sbml/math-legacy/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/units/Makefile])
 AC_CONFIG_FILES([src/sbml/units/test/Makefile])
