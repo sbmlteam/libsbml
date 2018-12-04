@@ -116,6 +116,8 @@ State| Id  Num  (   )   ^   *   /   +   -   ,   $  | Expr  Stmt  Args  OptArgs
 #define ACCEPT_STATE  0
 #define ERROR_STATE  27
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 typedef struct
 {
@@ -738,3 +740,5 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
 
 
 /** @endcond */
+
+LIBSBML_CPP_NAMESPACE_END

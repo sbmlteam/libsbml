@@ -46,6 +46,8 @@
 
 #include <sbml/util/util.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 int
 isUnaryMinus (const ASTNode_t *node)
 {
@@ -1125,4 +1127,6 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
 
 
 /** @endcond */
+
+LIBSBML_CPP_NAMESPACE_END
 

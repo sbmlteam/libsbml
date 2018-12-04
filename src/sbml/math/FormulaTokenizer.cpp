@@ -45,6 +45,8 @@
 
 #include <sbml/math/FormulaTokenizer.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /* Forward references */
 
@@ -405,3 +407,5 @@ Token_negateValue (Token_t *t)
   }
 }
 /** @endcond */
+
+LIBSBML_CPP_NAMESPACE_END

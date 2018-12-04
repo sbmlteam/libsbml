@@ -35,6 +35,7 @@
 #include <sbml/math/ASTNodeType.h>
 
 #include <sbml/util/util.h>
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @if conly
@@ -471,4 +472,6 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
   }
 }
 /** @endcond */
+
+LIBSBML_CPP_NAMESPACE_END
 
