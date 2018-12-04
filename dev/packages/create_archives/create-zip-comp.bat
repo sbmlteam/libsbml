@@ -111,7 +111,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\ext_models\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\ext_models
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
-copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\ext_models\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\ext_models\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\ext_models
 
 
 mkdir src\bindings
