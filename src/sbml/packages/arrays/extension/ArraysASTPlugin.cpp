@@ -37,6 +37,7 @@
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/packages/arrays/extension/ArraysExtension.h>
 #include <sbml/math/MathML.h>
+#include <sbml/math/L3FormulaFormatter.h>
 
 /** @cond doxygenIgnored */
 
