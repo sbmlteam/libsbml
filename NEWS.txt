@@ -107,9 +107,6 @@ STABLE RELEASE
 
   - Python 3.7 is now supported and included in the builds.
 
-  - Python install options have been improved to detect Python 2 
-    or Python 3 and provide appropriate installation files. 
-
   - The USE_LEGACY_MATH option has been removed as code has been
     reverted to use this math implementation (see above).
 
