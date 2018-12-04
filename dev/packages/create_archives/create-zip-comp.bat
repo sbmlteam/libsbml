@@ -46,8 +46,10 @@ mkdir src\sbml\packages\%PACKAGE_NAME%\validator\constraints
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\ext_models
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\ext_models
 
 
 copy /y %PACKAGE_DIR%\%PACKAGE_NAME%-package.cmake .
@@ -106,8 +108,10 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.cpp     
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\validator\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\*.in src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\ext_models\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\ext_models
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints\ext_models\*.xml src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\units-constraints
 
 
 mkdir src\bindings

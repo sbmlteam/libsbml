@@ -59,6 +59,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.h   src\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.cpp src\sbml\packages\%PACKAGE_NAME%\extension\test
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.c src\sbml\packages\%PACKAGE_NAME%\extension\test
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.txt src\sbml\packages\%PACKAGE_NAME%\extension\test
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.in src\sbml\packages\%PACKAGE_NAME%\extension\test
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data\*.xml src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data
 
