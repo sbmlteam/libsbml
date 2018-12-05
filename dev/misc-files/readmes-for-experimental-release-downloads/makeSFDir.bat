@@ -4,7 +4,7 @@ REM This script creates the directory structure for SF
 REM 
 
 SET THIS_DIR=%~dp0
-set VERSION=5.11.6-experimental
+set VERSION=5.17.2-experimental
 SET DIST_DIR=%~dp0\%VERSION%
 SET TEST_DIR=%~dp0\source
 

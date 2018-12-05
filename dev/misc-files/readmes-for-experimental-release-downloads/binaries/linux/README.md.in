@@ -51,9 +51,9 @@ If you are primarily interested in Python, we provide two better options for ins
 After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
 
 
-### **_MATLAB and Octave_**
+### **_MATLAB interface_**
 
-If you need the MATLAB/Octave language interfaces, or need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
+[The main directory named "MATLAB interface"](../../MATLAB%20interface) contains the standalone binaries for the MATLAB libSBML interface **only**.  This is **not** included in the main installers.
 
 ---
 Please note: the code in these directories reflects the current state of
