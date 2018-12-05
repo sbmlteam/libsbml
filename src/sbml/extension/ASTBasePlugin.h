@@ -58,14 +58,12 @@
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/SBMLTransforms.h>
 
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class UnitDefinition;
 class UnitFormulaFormatter;
 class ArgumentsUnitsCheck;
 
-
-
-
-LIBSBML_CPP_NAMESPACE_BEGIN
 
 struct ASTNodeValues_t {
   std::string name;
