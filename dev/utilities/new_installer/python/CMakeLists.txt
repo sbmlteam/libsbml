@@ -50,7 +50,10 @@ add_definitions(-DUSE_COMP
 				-DUSE_FBC 
 				-DUSE_QUAL 
 				-DUSE_LAYOUT 
-        -DUSE_GROUPS
+				-DUSE_MULTI
+				-DUSE_GROUPS
+				-DUSE_RENDER
+				-DUSE_L3V2EXTENDEDMATH
 )
 
 
@@ -163,11 +166,26 @@ find_library(ZLIB_LIBRARY
 	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 
+if (MSVC)
+add_definitions(/bigobj)
+endif()
+
 set(LIBS 
 	${LIBS} ${SBML_LIBRARY} 
 	${XML_LIBRARY} ${ICONV_LIBRARY}
 	${BZ2_LIBRARY} ${ZLIB_LIBRARY}
+	${PYTHON_LIBRARIES}
 )
+
+
+# remove additional list for python3
+foreach(lib ${LIBS})
+  get_filename_component(name "${lib}" NAME)
+  string(TOLOWER "${name}" lower)
+  if ("${lower}" STREQUAL "python3.lib" OR "${lower}" MATCHES "_d.lib$" )
+    list(REMOVE_ITEM LIBS "${lib}")
+  endif()
+endforeach()
 
 add_library(binding_python_lib SHARED libsbml_wrap.cpp)
 
@@ -185,5 +203,5 @@ else()
 	endif()
 endif()
 
-target_link_libraries(binding_python_lib ${LIBS} ${PYTHON_LIBRARIES})
+target_link_libraries(binding_python_lib ${LIBS} ws2_32.lib)
 
