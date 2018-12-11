@@ -35,6 +35,7 @@ if exist python-src\b32_33 rd /s /q python-src\b32_33
 if exist python-src\b32_34 rd /s /q python-src\b32_34
 if exist python-src\b32_35 rd /s /q python-src\b32_35
 if exist python-src\b32_36 rd /s /q python-src\b32_36
+if exist python-src\b32_37 rd /s /q python-src\b32_37
 if exist python-src\b64_25 rd /s /q python-src\b64_25
 if exist python-src\b64_26 rd /s /q python-src\b64_26
 if exist python-src\b64_27 rd /s /q python-src\b64_27
@@ -44,6 +45,7 @@ if exist python-src\b64_33 rd /s /q python-src\b64_33
 if exist python-src\b64_34 rd /s /q python-src\b64_34
 if exist python-src\b64_35 rd /s /q python-src\b64_35
 if exist python-src\b64_36 rd /s /q python-src\b64_36
+if exist python-src\b64_37 rd /s /q python-src\b64_37
 if exist python-src\build rd /s /q python-src\build
 if exist python-src\libsbml rd /s /q python-src\libsbml
 if exist python-src\libsbml.egg-info rd /s /q python-src\libsbml.egg-info

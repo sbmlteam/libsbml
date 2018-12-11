@@ -18,8 +18,10 @@ SET GENERATOR=Ninja -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl
 
 
 :: libsbml depenendency dir (has to match architecture and vs version)
-SET DEPENDENCY_DIR_32=\Development\libSBML-dependencies\install_vs%VS_VERSION%_release_x86_static
-SET DEPENDENCY_DIR_64=\Development\libSBML-dependencies\install_vs%VS_VERSION%_release_x64_static
+REM SET DEPENDENCY_DIR_32=\Development\libSBML-dependencies\install_vs%VS_VERSION%_release_x86_static
+SET DEPENDENCY_DIR_32=\Development\dependencies\x86\release-static
+REM SET DEPENDENCY_DIR_64=\Development\libSBML-dependencies\install_vs%VS_VERSION%_release_x64_static
+SET DEPENDENCY_DIR_64=\Development\dependencies\x64\release-static
 ::SET DEPENDENCY_DIR=\Development\libSBML-dependencies\install_vs12_release_x64
 
 :: be sure to update to the correct python path
@@ -31,7 +33,9 @@ SET PYTHON_64=c:\python64\python27\python.exe
 :: set up the packages to be used 
 SET CMAKE_OPTIONS=%CMAKE_OPTIONS% -DENABLE_COMP=ON -DENABLE_RENDER=ON -DENABLE_FBC=ON -DENABLE_LAYOUT=ON -DENABLE_QUAL=ON -DENABLE_GROUPS=ON -DENABLE_MULTI=ON 
 :: outcomment the next line if you want to use the new math layer
-SET CMAKE_OPTIONS=%CMAKE_OPTIONS% -DLIBSBML_USE_LEGACY_MATH=ON
+SET CMAKE_OPTIONS=%CMAKE_OPTIONS% -DENABLE_L3V2EXTENDEDMATH=ON
+REM -DLIBSBML_USE_LEGACY_MATH=ON 
+
 
 :: shouldn't need to touch those
 SET CMAKE_OPTIONS=%CMAKE_OPTIONS% -DWITH_STATIC_RUNTIME=ON
