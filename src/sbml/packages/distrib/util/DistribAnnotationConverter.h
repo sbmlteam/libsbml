@@ -39,6 +39,8 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 
+#include <set>
+
 #ifdef __cplusplus
 
 
@@ -164,6 +166,7 @@ private:
   void adjustMath(SBase* element, const std::string& function, ASTNodeType_t type);
   bool replaceAnnotatedFunctionWith(ASTNode * astn, const std::string & function, ASTNodeType_t type);
 
+  std::set<std::string> mKeepFunctions;
 
 };
 

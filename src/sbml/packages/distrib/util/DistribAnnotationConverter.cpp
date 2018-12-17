@@ -58,6 +58,7 @@ void DistribAnnotationConverter::init()
 
 DistribAnnotationConverter::DistribAnnotationConverter() 
   : SBMLConverter("SBML Distributions Annotations Converter")
+  , mKeepFunctions()
 {
 }
 
@@ -65,6 +66,7 @@ DistribAnnotationConverter::DistribAnnotationConverter()
 DistribAnnotationConverter::DistribAnnotationConverter
                          (const DistribAnnotationConverter& orig) :
 SBMLConverter(orig)
+, mKeepFunctions()
 {
 }
 
@@ -164,6 +166,7 @@ DistribAnnotationConverter::convertModel(Model* model)
     return false;
   }
   map<string, ASTNodeType_t> replacements;
+  mKeepFunctions.clear();
   for (unsigned int fd = 0; fd < model->getNumFunctionDefinitions(); fd++)
   {
     FunctionDefinition* funcdef = model->getFunctionDefinition(fd);
@@ -263,7 +266,10 @@ DistribAnnotationConverter::convertModel(Model* model)
 
   for (map<string, ASTNodeType_t>::iterator rep = replacements.begin(); rep != replacements.end(); rep++)
   {
-    model->removeFunctionDefinition(rep->first);
+    if (mKeepFunctions.find(rep->first) == mKeepFunctions.end())
+    {
+      model->removeFunctionDefinition(rep->first);
+    }
   }
 
   if (model->getNumFunctionDefinitions() == 0)
@@ -294,8 +300,15 @@ DistribAnnotationConverter::replaceAnnotatedFunctionWith(ASTNode * astn, const s
   bool replaced = false;
   if (astn->getType() == AST_FUNCTION && function == astn->getName())
   {
-    astn->setType(type);
-    replaced = true;
+    if (astn->setType(type) != LIBSBML_OPERATION_SUCCESS || !astn->hasCorrectNumberArguments())
+    {
+      astn->setType(AST_FUNCTION);
+      mKeepFunctions.insert(astn->getName());
+    }
+    else
+    {
+      replaced = true;
+    }
   }
   for (unsigned int c = 0; c < astn->getNumChildren(); c++)
   {
