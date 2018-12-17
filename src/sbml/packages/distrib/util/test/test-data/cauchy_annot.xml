@@ -11,6 +11,9 @@
             <bvar>
               <ci> a </ci>
             </bvar>
+            <bvar>
+              <ci> b </ci>
+            </bvar>
             <notanumber/>
           </lambda>
         </math>
