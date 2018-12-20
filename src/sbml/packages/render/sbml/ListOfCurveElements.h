@@ -356,9 +356,9 @@ public:
    * Returns the XML element name of this ListOfCurveElements object.
    *
    * For ListOfCurveElements, the XML element name is always
-   * @c "listOfCurveElements".
+   * @c "listOfElements".
    *
-   * @return the name of this element, i.e. @c "listOfCurveElements".
+   * @return the name of this element, i.e. @c "listOfElements".
    */
   virtual const std::string& getElementName() const;
 
