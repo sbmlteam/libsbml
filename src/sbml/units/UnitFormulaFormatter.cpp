@@ -845,7 +845,16 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
     tempUd = getUnitDefinition(node->getChild(i), inKL, reactNo);
     if (getContainsUndeclaredUnits() == true)
     {
-      noUndeclared++;
+      // if we have used logbase we dont want to 
+      // record that the unit is not declared
+      if (node->getType() == AST_FUNCTION_LOG && i == 0)
+      {
+        // do nothing
+      }
+      else
+      {
+        noUndeclared++;
+      }
     }
     delete tempUd;
   }
@@ -1014,6 +1023,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
         unit = ud->createUnit();
         unit->setKind(UnitKind_forName(units.c_str()));
         unit->initDefaults();
+        mContainsUndeclaredUnits = false;
+        mCanIgnoreUndeclaredUnits = 0;
       }
       else
       {
@@ -1024,6 +1035,8 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
           {
             ud->addUnit(tempUd->getUnit(n));
           }
+          mContainsUndeclaredUnits = false;
+          mCanIgnoreUndeclaredUnits = 0;
         }
 
       }

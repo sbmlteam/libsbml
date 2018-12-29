@@ -344,6 +344,7 @@ checkFunctionArgs (ASTNode& node)
     {
       ASTNode* child = new ASTNode;
       child->setValue(10);
+      child->setUnits("dimensionless");
 
       node.prependChild(child);
     }
@@ -351,6 +352,7 @@ checkFunctionArgs (ASTNode& node)
     {
       ASTNode* child = new ASTNode;
       child->setValue(2);
+      child->setUnits("dimensionless");
 
       node.prependChild(child);
     }
