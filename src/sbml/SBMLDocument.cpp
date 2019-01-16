@@ -299,6 +299,10 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
     mVersion                           = rhs.mVersion;
     mLocationURI                       = rhs.mLocationURI;
 
+    if (mInternalValidator != NULL)
+    {
+      delete mInternalValidator;
+    }
     mInternalValidator = (SBMLInternalValidator*)rhs.mInternalValidator->clone();
     mInternalValidator->setDocument(this);
     mRequiredAttrOfUnknownPkg = rhs.mRequiredAttrOfUnknownPkg;
