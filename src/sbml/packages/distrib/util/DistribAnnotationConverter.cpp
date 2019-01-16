@@ -171,7 +171,7 @@ DistribAnnotationConverter::convertModel(Model* model)
   {
     FunctionDefinition* funcdef = model->getFunctionDefinition(fd);
     XMLNode* annot = funcdef->getAnnotation();
-    if (annot->getNumChildren() == 0)
+    if (annot==NULL || annot->getNumChildren() == 0)
     {
       continue;
     }
@@ -263,6 +263,7 @@ DistribAnnotationConverter::convertModel(Model* model)
     }
   }
   delete mfilter;
+  delete allelements;
 
   for (map<string, ASTNodeType_t>::iterator rep = replacements.begin(); rep != replacements.end(); rep++)
   {
