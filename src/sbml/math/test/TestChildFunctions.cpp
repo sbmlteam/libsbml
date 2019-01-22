@@ -59,12 +59,11 @@ LIBSBML_CPP_NAMESPACE_USE
 #define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
 #define MATHML_HEADER_UNITS  "<math xmlns=\"http://www.w3.org/1998/Math/MathML\""
-#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version2/core\">\n"
 #define MATHML_FOOTER "</math>"
 
 #define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
 #define wrapMathMLUnits(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS2 s MATHML_FOOTER
-
 
 static ASTNode* N;
 static char*    S;
@@ -342,12 +341,12 @@ END_TEST
 
 START_TEST (test_ChildFunctions_addToLog_2)
 {
-  const char* expected = wrapMathML
+  const char* expected = wrapMathMLUnits
   (
     "  <apply>\n"
     "    <log/>\n"
     "    <logbase>\n"
-    "      <cn type=\"integer\"> 10 </cn>\n"
+    "      <cn sbml:units=\"dimensionless\" type=\"integer\"> 10 </cn>\n"
     "    </logbase>\n"
     "    <ci> newChild </ci>\n"
     "  </apply>\n"
@@ -454,12 +453,12 @@ END_TEST
 
 START_TEST (test_ChildFunctions_addToRoot_2)
 {
-  const char* expected = wrapMathML
+  const char* expected = wrapMathMLUnits
   (
     "  <apply>\n"
     "    <root/>\n"
     "    <degree>\n"
-    "      <cn type=\"integer\"> 2 </cn>\n"
+    "      <cn sbml:units=\"dimensionless\" type=\"integer\"> 2 </cn>\n"
     "    </degree>\n"
     "    <ci> newChild </ci>\n"
     "  </apply>\n"
@@ -1339,7 +1338,7 @@ END_TEST
 
 START_TEST (test_ChildFunctions_removeFromLog_2)
 {
-  const char* expected = wrapMathML
+  const char* expected = wrapMathMLUnits
   (
     "  <apply>\n"
     "    <log/>\n"
@@ -1502,11 +1501,11 @@ END_TEST
 
 START_TEST (test_ChildFunctions_removeFromRoot_2)
 {
-  const char* expected = wrapMathML
+  const char* expected = wrapMathMLUnits
   (
     "  <apply>\n"
     "    <root/>\n"
-    "    <cn type=\"integer\"> 2 </cn>\n"
+    "    <cn sbml:units=\"dimensionless\" type=\"integer\"> 2 </cn>\n"
     "  </apply>\n"
   );
 
