@@ -7319,7 +7319,7 @@ SBase::updateSBMLNamespace(const std::string& package, unsigned int level,
   else
   {
     std::string uri = this->getSBMLNamespaces()->getNamespaces()->getURI(package);
-    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtension(uri);
+    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
     // so we have a plugin for this package already enabled
     // if there are two version 1 of this package
     // we want is to change the uri being used
