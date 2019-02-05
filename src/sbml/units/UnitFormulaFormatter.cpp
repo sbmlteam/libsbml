@@ -609,7 +609,8 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   {
     for (unsigned int n = variableUD->getNumUnits(); n > 0; --n)
     {
-      variableUD->removeUnit(n-1);
+      Unit * unit = variableUD->removeUnit(n-1);
+      delete unit;
     }
     mContainsInconsistentUnits = true;
   }
