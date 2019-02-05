@@ -217,7 +217,8 @@ UniqueMetaId::doCheck (const Model& m)
   {
     doCheckMetaId(*(static_cast<SBase*>(*iter)));
   }
-
+  delete midFilter;
+  delete allElements;
   reset();
 }
 
