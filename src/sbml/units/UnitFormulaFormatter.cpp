@@ -969,7 +969,8 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
     mContainsInconsistentUnits = true;
     for (unsigned int j = ud->getNumUnits(); j > 0; --j)
     {
-      ud->removeUnit(j - 1);
+      Unit * unit = ud->removeUnit(j - 1);
+      delete unit;
     }
     
   }
