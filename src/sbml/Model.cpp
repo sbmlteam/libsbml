@@ -190,23 +190,21 @@ Model::Model(const Model& orig)
   , mUnitsDataMap        ()
 {
 
-  if(orig.mFormulaUnitsData != NULL)
+  if (orig.mFormulaUnitsData != NULL)
   {
-    this->mFormulaUnitsData  = new List();
-    unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
-    for(i = 0; i < iMax; ++i)
+    this->mFormulaUnitsData = new List();
+    unsigned int i, iMax = orig.mFormulaUnitsData->getSize();
+    for (i = 0; i < iMax; ++i)
     {
-      this->mFormulaUnitsData
-        ->add(static_cast<FormulaUnitsData*>
-                                (orig.mFormulaUnitsData->get(i))->clone());
-    }
-  }
+      FormulaUnitsData *newFud = static_cast<FormulaUnitsData*>
+        (orig.mFormulaUnitsData->get(i))->clone();
+      this->mFormulaUnitsData->add((void *)newFud);
+      std::string id = newFud->getUnitReferenceId();
+      int typecode = newFud->getComponentTypecode();
 
-  UnitsValueIter it = orig.mUnitsDataMap.begin();
-  while (it != orig.mUnitsDataMap.end())
-  { 
-    mUnitsDataMap[it->first] = new FormulaUnitsData(*(it->second));
-    ++it;
+      KeyValue key(id, typecode);
+      mUnitsDataMap.insert(make_pair(key, newFud));
+    }
   }
   connectToChild();
   
@@ -240,7 +238,6 @@ Model& Model::operator=(const Model& rhs)
     mConstraints          = rhs.mConstraints;
     mReactions            = rhs.mReactions;
     mEvents               = rhs.mEvents;
-    mUnitsDataMap = rhs.mUnitsDataMap;
 
 
     if (this->mFormulaUnitsData  != NULL)
@@ -250,6 +247,7 @@ Model& Model::operator=(const Model& rhs)
         delete static_cast<FormulaUnitsData*>( 
                           this->mFormulaUnitsData->remove(0) );
       delete this->mFormulaUnitsData;
+      mUnitsDataMap.clear();
     }
 
     if(rhs.mFormulaUnitsData != NULL)
@@ -258,14 +256,20 @@ Model& Model::operator=(const Model& rhs)
       unsigned int i,iMax = rhs.mFormulaUnitsData->getSize();
       for(i = 0; i < iMax; ++i)
       {
-        this->mFormulaUnitsData
-          ->add(static_cast<FormulaUnitsData*>
-                                   (rhs.mFormulaUnitsData->get(i))->clone());
+        FormulaUnitsData *newFud = static_cast<FormulaUnitsData*>
+          (rhs.mFormulaUnitsData->get(i))->clone();
+        this->mFormulaUnitsData->add((void *)newFud);
+        std::string id = newFud->getUnitReferenceId();
+        int typecode = newFud->getComponentTypecode();
+
+        KeyValue key(id, typecode);
+        mUnitsDataMap.insert(make_pair(key, newFud));
       }
     }
     else
     {
       this->mFormulaUnitsData = NULL;
+      mUnitsDataMap.clear();
     }
   }
 
