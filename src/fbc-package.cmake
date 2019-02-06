@@ -41,33 +41,33 @@ set(FBC_SOURCES)
 # go through all directtories: common, extension and sbml
 foreach(dir common extension sbml util validator validator/constraints)
 
-	# add to include directory
-	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir})
-	
-	# file sources
-	file(GLOB current ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.cpp
-			${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.h)
-	
-        # set the *Constraints.cpp files to be 'header' files so they won't be compiled--
-        #  they are #included directly, instead.
-        if ("${dir}" STREQUAL "validator/constraints")
-            foreach(tempFile ${current})
-                if ("${tempFile}" MATCHES ".*Constraints.cpp")
-                    set_source_files_properties(
-                        ${tempFile}
-                        PROPERTIES HEADER_FILE_ONLY true
-                        )
-                endif()
-            endforeach()
-        endif()
+  # add to include directory
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir})
+  
+  # file sources
+  file(GLOB current ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.h)
+  
+  # set the *Constraints.cpp files to be 'header' files so they won't be compiled--
+  #  they are #included directly, instead.
+  if ("${dir}" STREQUAL "validator/constraints")
+      foreach(tempFile ${current})
+          if ("${tempFile}" MATCHES ".*Constraints.cpp")
+              set_source_files_properties(
+                  ${tempFile}
+                  PROPERTIES HEADER_FILE_ONLY true
+                  )
+          endif()
+      endforeach()
+  endif()
 
-	# add sources 
-	set(FBC_SOURCES ${FBC_SOURCES} ${current})
-	
-	# mark header files for installation 
-	file(GLOB fbc_headers ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.h)
+  # add sources 
+  set(FBC_SOURCES ${FBC_SOURCES} ${current})
+  
+  # mark header files for installation 
+  file(GLOB fbc_headers ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/fbc/${dir}/*.h)
     install(FILES ${fbc_headers} DESTINATION include/sbml/packages/fbc/${dir})	
-	
+  
 endforeach()
 
 # create source group for IDEs
@@ -82,8 +82,8 @@ SET(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${FBC_SOURCES})
 #
 if(WITH_CHECK)
 
-		add_subdirectory(sbml/packages/fbc/extension/test)
-		add_subdirectory(sbml/packages/fbc/validator/test)
+    add_subdirectory(sbml/packages/fbc/extension/test)
+    add_subdirectory(sbml/packages/fbc/validator/test)
 
 endif()
 
