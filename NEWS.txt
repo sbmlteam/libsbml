@@ -18,6 +18,13 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - The MathML parser adds logbase and degree to log and root elements 
+    respectively. These are dimensionless integers and but unit
+    validation was failing.  This has been corrected.  Note this means
+    that for L3 models libSBML will write out the dimensionless units 
+    on the relevant <cn> element explicitly.  This may cause an 
+    apparent difference in models if reading and then writing. 
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
