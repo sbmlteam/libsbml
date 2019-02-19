@@ -375,7 +375,7 @@ SBMLLevelVersionConverter::convert()
   {
     unsigned int origLevel = 0;
     unsigned int origVersion = 0;
-    Model *origModel = NULL;
+    Model origModel(3,2);
     if (strict)
     {
       /* here we are strict and only want to do
@@ -385,7 +385,7 @@ SBMLLevelVersionConverter::convert()
        */
       origLevel = currentLevel;
       origVersion = currentVersion;
-      origModel = currentModel->clone();
+      origModel = *currentModel;
     }
 
     conversion = performConversion(strict, strictUnits, duplicateAnn);
@@ -396,7 +396,6 @@ SBMLLevelVersionConverter::convert()
 
       if (strict)
       {
-        if (origModel != NULL) delete origModel;
         mDocument->setApplicableValidators(origValidators);
         mDocument->updateSBMLNamespace("core", origLevel, origVersion);
       }
@@ -415,10 +414,10 @@ SBMLLevelVersionConverter::convert()
            */
           conversion = false;
           /* undo any changes */
-          *currentModel = *(origModel->clone());
+          delete currentModel;
+          currentModel = origModel.clone();
           mDocument->updateSBMLNamespace("core", origLevel, origVersion);
           mDocument->setApplicableValidators(origValidators);
-          delete origModel;
         }
         else
         {
@@ -433,7 +432,6 @@ SBMLLevelVersionConverter::convert()
               delete history;
             }
           }
-          delete origModel;
         }
       }
       else

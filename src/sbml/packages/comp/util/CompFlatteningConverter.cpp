@@ -420,6 +420,7 @@ CompFlatteningConverter::performConversion()
   // now reconstruct the document to be returned 
   // taking user options into account
   result = reconstructDocument(flatmodel);
+  delete flatmodel;
 
 
   if (result != LIBSBML_OPERATION_SUCCESS) 
@@ -428,7 +429,6 @@ CompFlatteningConverter::performConversion()
     return result;
   }
 
-  delete flatmodel;
   return LIBSBML_OPERATION_SUCCESS;
 }
 /** @endcond */
